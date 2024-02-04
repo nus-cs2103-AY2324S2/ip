@@ -1,15 +1,14 @@
 package main;
 
-import objects.TaskList;
-import view.EncaseLines;
-
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.IOException;
 
+import objects.TaskList;
+import view.EncaseLines;
 /**
  * The Storage class is responsible for handling the saving and loading of the TaskList to and from a file.
  * It provides methods to check if the file exists, save the TaskList to the file, and load the TaskList from the file.

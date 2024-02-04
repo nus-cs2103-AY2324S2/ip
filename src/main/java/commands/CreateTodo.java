@@ -39,7 +39,6 @@ public class CreateTodo implements Command {
         Task t = new ToDos(input);
         tasks.addTask(t);
 
-        // Display the created task information
         CreatedTask.display(this.tasks, t);
     }
 }

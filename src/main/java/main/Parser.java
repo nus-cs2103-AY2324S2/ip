@@ -1,5 +1,19 @@
 package main;
 
+import static commands.Constants.DEADLINE;
+import static commands.Constants.DELETE;
+import static commands.Constants.EVENT;
+import static commands.Constants.HELP;
+import static commands.Constants.LIST;
+import static commands.Constants.MARK;
+import static commands.Constants.TODO;
+import static commands.Constants.UNMARK;
+import static utils.InputUtil.getCommandType;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import commands.Command;
 import commands.CreateDeadline;
 import commands.CreateEvent;
@@ -9,7 +23,6 @@ import commands.Help;
 import commands.ListTasks;
 import commands.MarkTask;
 import commands.UnmarkTask;
-
 import exception.DukeException;
 import exception.InvalidCommandException;
 import exception.InvalidDateException;
@@ -17,24 +30,8 @@ import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
 import exception.InvalidIndexException;
 import exception.InvalidTodoException;
-
 import objects.TaskList;
 import view.EncaseLines;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import static commands.Constants.DEADLINE;
-import static commands.Constants.DELETE;
-import static commands.Constants.EVENT;
-import static commands.Constants.HELP;
-import static commands.Constants.LIST;
-import static commands.Constants.MARK;
-import static commands.Constants.TODO;
-import static commands.Constants.UNMARK;
-
-import static utils.InputUtil.getCommandType;
 
 /**
  * The Parser class is responsible for interpreting user input and creating corresponding Command objects.
@@ -55,41 +52,41 @@ public class Parser {
             Command command;
 
             switch (commandType) {
-                case LIST:
-                    command = new ListTasks(tasks);
-                    break;
+            case LIST:
+                command = new ListTasks(tasks);
+                break;
 
-                case MARK:
-                    command = new MarkTask(tasks, parseIndex(input));
-                    break;
+            case MARK:
+                command = new MarkTask(tasks, parseIndex(input));
+                break;
 
-                case UNMARK:
-                    command = new UnmarkTask(tasks, parseIndex(input));
-                    break;
+            case UNMARK:
+                command = new UnmarkTask(tasks, parseIndex(input));
+                break;
 
-                case DELETE:
-                    command = new DeleteTask(tasks, parseIndex(input));
-                    break;
+            case DELETE:
+                command = new DeleteTask(tasks, parseIndex(input));
+                break;
 
 
-                case TODO:
-                    command = new CreateTodo(tasks, parseTodo(input));
-                    break;
+            case TODO:
+                command = new CreateTodo(tasks, parseTodo(input));
+                break;
 
-                case DEADLINE:
-                    command = new CreateDeadline(tasks, parseDeadline(input));
-                    break;
+            case DEADLINE:
+                command = new CreateDeadline(tasks, parseDeadline(input));
+                break;
 
-                case EVENT:
-                    command = new CreateEvent(tasks, parseEvent(input));
-                    break;
+            case EVENT:
+                command = new CreateEvent(tasks, parseEvent(input));
+                break;
 
-                case HELP:
-                    command = new Help();
-                    break;
+            case HELP:
+                command = new Help();
+                break;
 
-                default:
-                    throw new InvalidCommandException();
+            default:
+                throw new InvalidCommandException();
             }
 
             command.execute();

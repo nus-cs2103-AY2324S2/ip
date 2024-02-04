@@ -1,10 +1,11 @@
 package objects;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class CreateTasksTest {
 
@@ -14,7 +15,8 @@ public class CreateTasksTest {
         Deadlines deadlineTask = new Deadlines("Complete assignment", deadlineDateTime);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String expectedOutput = String.format("[D][ ] %s (by: %s)", "Complete assignment", deadlineDateTime.format(formatter));
+        String expectedOutput = String.format("[D][ ] %s (by: %s)", "Complete assignment",
+                deadlineDateTime.format(formatter));
 
         assertEquals(expectedOutput, deadlineTask.toString());
     }
@@ -26,7 +28,8 @@ public class CreateTasksTest {
         Events eventTask = new Events("Team meeting", fromDateTime, toDateTime);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String expectedOutput = String.format("[E][ ] %s (from: %s to: %s)", "Team meeting", fromDateTime.format(formatter), toDateTime.format(formatter));
+        String expectedOutput = String.format("[E][ ] %s (from: %s to: %s)", "Team meeting",
+                fromDateTime.format(formatter), toDateTime.format(formatter));
 
         assertEquals(expectedOutput, eventTask.toString());
     }

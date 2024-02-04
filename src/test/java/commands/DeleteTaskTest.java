@@ -1,12 +1,15 @@
 package commands;
 
-import exception.InvalidIndexException;
-import objects.Task;
-import objects.TaskList;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import exception.InvalidIndexException;
+import objects.Task;
+import objects.TaskList;
 
 class DeleteTaskTest {
     private TaskList taskList;

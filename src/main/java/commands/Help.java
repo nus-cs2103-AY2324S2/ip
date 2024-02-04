@@ -1,9 +1,9 @@
 package commands;
 
+import static utils.FileUtil.getFile;
+
 import utils.FilePath;
 import view.EncaseLines;
-
-import static utils.FileUtil.getFile;
 
 /**
  * The Help class represents a command to display help information.

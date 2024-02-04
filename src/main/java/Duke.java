@@ -1,11 +1,10 @@
+import java.util.Scanner;
+
 import main.Parser;
 import main.Storage;
 import objects.TaskList;
-
 import view.Exit;
 import view.Greeting;
-
-import java.util.Scanner;
 
 /**
  * The Duke class serves as the main entry point for the Duke application.

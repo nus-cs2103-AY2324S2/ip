@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * TaskList is a class representing a list of tasks.
- * It extends ArrayList<Task> and implements the Serializable interface for object serialization.
+ * It extends ArrayList and implements the Serializable interface for object serialization.
  */
 public class TaskList extends ArrayList<Task> implements Serializable {
 

@@ -33,6 +33,7 @@ public class Events extends Task implements Serializable {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from.format(formatter), this.to.format(formatter));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from.format(formatter),
+                this.to.format(formatter));
     }
 }

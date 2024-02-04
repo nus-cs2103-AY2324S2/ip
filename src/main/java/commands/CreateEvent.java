@@ -1,14 +1,15 @@
 package commands;
 
+import static utils.InputUtil.convertToDateTime;
+
+import java.time.LocalDateTime;
+
 import exception.InvalidEventException;
 import objects.Events;
 import objects.Task;
 import objects.TaskList;
-import view.EncaseLines;
+import view.CreatedTask;
 
-import java.time.LocalDateTime;
-
-import static utils.InputUtil.convertToDateTime;
 
 /**
  * The CreateEvent class represents a command to create and add an event task to the TaskList.
@@ -48,7 +49,6 @@ public class CreateEvent implements Command {
         Task t = new Events(name, from, to);
         tasks.add(t);
 
-        String o = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", t, tasks.size());
-        EncaseLines.display(o);
+        CreatedTask.display(this.tasks, t);
     }
 }

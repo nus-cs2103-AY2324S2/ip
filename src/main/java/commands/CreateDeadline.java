@@ -1,14 +1,14 @@
 package commands;
 
+import static utils.InputUtil.convertToDateTime;
+
+import java.time.LocalDateTime;
+
 import exception.InvalidDeadlineException;
 import objects.Deadlines;
 import objects.Task;
 import objects.TaskList;
-import view.EncaseLines;
-
-import java.time.LocalDateTime;
-
-import static utils.InputUtil.convertToDateTime;
+import view.CreatedTask;
 
 /**
  * The CreateDeadline class represents a command to create and add a deadline task to the TaskList.
@@ -45,7 +45,6 @@ public class CreateDeadline implements Command {
         Task t = new Deadlines(name, by);
         tasks.add(t);
 
-        String o = String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", t, tasks.size());
-        EncaseLines.display(o);
+        CreatedTask.display(this.tasks, t);
     }
 }

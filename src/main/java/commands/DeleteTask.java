@@ -40,10 +40,11 @@ public class DeleteTask implements Command {
             throw new InvalidIndexException();
         }
 
-        Task task = tasks.get(this.index);
+        Task t = tasks.get(this.index);
 
         tasks.remove(this.index);
-        String o = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.", task.toString(), tasks.size());
+        String o = String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
+                t.toString(), tasks.size());
         EncaseLines.display(o);
     }
 }
