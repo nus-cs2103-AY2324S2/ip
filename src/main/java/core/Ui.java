@@ -80,7 +80,7 @@ public class Ui {
                 + "DELETE [task number]: Remove a task from your list.\n"
                 + "[task type] [task description]: Add a new task. Task types include TODO, DEADLINE, EVENT.\n"
                 + "LIST_ON [yyyy-mm-dd]: List all tasks on a specific date in format yyyy-MM-dd.\n"
-                + "DATE / TIME: Show the current date and time."
+                + "DATE / TIME: Show the current date and time.\n"
                 + "BYE: Exit the chatbot.");
     }
 
