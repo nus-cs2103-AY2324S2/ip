@@ -39,31 +39,31 @@ public class Task {
 
 
         switch (type) {
-            case "T":
-                ToDo todo = new ToDo(description);
-                if (status.equals("X")) {
-                    todo.markAsDone();
-                }
-                return todo;
-            case "D":
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mma");
-                LocalDateTime d = LocalDateTime.parse(date, formatter);
-                DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma");
-                String formatted = customFormat.format(d);
-                Deadline dl = new Deadline(description, formatted);
-                if (status.equals("X")) {
-                    dl.markAsDone();
-                }
-                return dl;
-            case "E":
-                String[] time = date.split("-");
-                Event e = new Event(description, time[0], time[1]);
-                if (status.equals("X")) {
-                    e.markAsDone();
-                }
-                return e;
-            default:
-                return null;
+        case "T":
+            ToDo todo = new ToDo(description);
+            if (status.equals("X")) {
+                todo.markAsDone();
+            }
+            return todo;
+        case "D":
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mma");
+            LocalDateTime d = LocalDateTime.parse(date, formatter);
+            DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma");
+            String formatted = customFormat.format(d);
+            Deadline dl = new Deadline(description, formatted);
+            if (status.equals("X")) {
+                dl.markAsDone();
+            }
+            return dl;
+        case "E":
+            String[] time = date.split("-");
+            Event e = new Event(description, time[0], time[1]);
+            if (status.equals("X")) {
+                e.markAsDone();
+            }
+            return e;
+        default:
+            return null;
         }
 
     }

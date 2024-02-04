@@ -30,8 +30,8 @@ public class Deadline extends Task {
         if (now.plusDays(1).toLocalDate().equals(this.dueDate.toLocalDate())) {
             System.out.println("One day before " + description + "is due.");
         } else if (now.toLocalDate().equals(this.dueDate.toLocalDate())) {
-            System.out.println(description + "is due today at " + this.dueDate.getHour() +
-                    ":" + this.dueDate.getMinute());
+            System.out.println(description + "is due today at " + this.dueDate.getHour()
+                    + ":" + this.dueDate.getMinute());
         }
     }
 
