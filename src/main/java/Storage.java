@@ -5,28 +5,18 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Storage {
-    private ArrayList<Task> fileSave;
-    private static final String filePath = "./data/duke.txt";
+    private static TaskList tasks;
+    private static String filePath;
 
-    public Storage() {
-        this.fileSave = new ArrayList<>();
+    public Storage(String filePath, TaskList tasks) {
+        this.filePath = filePath;
+        this.tasks = tasks;
         loadFile();
     }
 
-    private static void createFolder() {
-        Path folder = Paths.get("./data/");
-        if (Files.notExists(folder)) {
-            try {
-                Files.createDirectories(folder);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void saveTasks() {
+    public static void saveTasks() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : storage) {
+            for (Task task : tasks.getTasks()) {
                 writer.write(task.toString());
                 writer.newLine();
             }
@@ -35,19 +25,33 @@ public class Storage {
         }
     }
 
-    private static void loadFile() {
+    public ArrayList<Task> loadFile() {
+        tasks = new TaskList();
         File file = new File(filePath);
         if (!file.exists()) {
-            return;
+            return tasks.getTasks();
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                storage.add(new Task(line));
+                tasks.add(new Task(line));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return tasks.getTasks();
     }
+
+    //    public static void createFolder() {
+//        Path folder = Paths.get("./data/");
+//        if (Files.notExists(folder)) {
+//            try {
+//                Files.createDirectories(folder);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }
