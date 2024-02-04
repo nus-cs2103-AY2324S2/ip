@@ -11,9 +11,9 @@ import someboty.Exceptions.InputException;
  * This class does not need to be initialized to use its methods and so
  * does not have a constructor.
  */
-public class dateManager {
+public class DateManager {
 
-    private static final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+    private static final DateTimeFormatter OUT_FORMATT = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     // accepted date formats
     private static final String[] DATE_FORMATS = {
@@ -58,14 +58,14 @@ public class dateManager {
      * @return String representation of the date and time.
      */
     public static String printDate(LocalDateTime date) {
-        return date.format(OUT_FORMATTER);
+        return date.format(OUT_FORMATT);
     }
 
     /**
      * Lists out all accepted date and time formats.
      * @return String representation of the list of accepted date and time formats.
      */
-    public static String validDateFormats() {
+    public static String PrintDateFormats() {
         String response = "Here's a list of all acceptable date formats:\n";
 
         for (String format: DATE_FORMATS) {

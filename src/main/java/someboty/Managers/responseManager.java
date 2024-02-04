@@ -9,7 +9,7 @@ import java.util.Scanner;
  * above and below the input response, while the commandManager deals with the response of 
  * each input.
  */
-public class responseManager {
+public class ResponseManager {
     
     private static final String GREET = "Wassup! I'm someBOTy.\n"
                                     + "What are you here for?";
@@ -18,13 +18,13 @@ public class responseManager {
         "================================================================";
 
     private Scanner scanner;
-    private commandManager commandCenter;
+    private CommandManager commandCenter;
 
     /**
      * Constructor for responseManager.
      * @param commandCenter commandCenter to forward inputs and receive response.
      */
-    public responseManager(commandManager commandCenter) {
+    public ResponseManager(CommandManager commandCenter) {
         scanner = new Scanner(System.in);
         this.commandCenter = commandCenter;
     }

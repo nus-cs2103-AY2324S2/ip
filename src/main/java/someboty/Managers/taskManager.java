@@ -15,13 +15,13 @@ import someboty.Tasks.Task;
 public class taskManager {
 
     private ArrayList<Task> taskList;
-    private fileManager files;
+    private FileManager files;
 
     /**
      * Constructor for taskManager.
      * @param files A fileManager object to fetch/save the task list.
      */
-    public taskManager(fileManager files) {
+    public taskManager(FileManager files) {
         this.files = files;
         taskList = this.files.fetchTasks();
     }

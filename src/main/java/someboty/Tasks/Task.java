@@ -49,7 +49,7 @@ abstract public class Task {
     }
 
     // Get task completion status.
-    public boolean getStatus() {
+    public boolean isCompleted() {
         return this.isDone;
     }
 
@@ -63,9 +63,9 @@ abstract public class Task {
 
     @Override
     public String toString() {
-        return this.getStatus()
-            ? "[X]" + " " + this.name
-            : "[ ]" + " " + this.name;
+        return this.isCompleted()
+            ? "[X] " + this.name
+            : "[ ] " + this.name;
     }
 
     /**

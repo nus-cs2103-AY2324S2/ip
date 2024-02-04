@@ -3,7 +3,7 @@ package someboty.Tasks;
 import java.time.LocalDateTime;
 
 import someboty.Exceptions.InputException;
-import someboty.Managers.dateManager;
+import someboty.Managers.DateManager;
 
 /**
  * Handles a task of type "Deadline".
@@ -14,23 +14,30 @@ public class Deadline extends Task {
     /* --- VARIABLES --- */
     private LocalDateTime deadline;
 
-    /* --- CONSTRUCTORS --- */
+    /**
+     * Constructor for Deadline.
+     * @param description Raw description of the deadline task.
+     */
     public Deadline(String description) {
         super("");
         this.formatInput(description);
     }
 
+    /**
+     * Constructor for Deadline.
+     * @param name Name of the deadline task.
+     * @param stringDeadline String representation of the task's deadline.
+     */
     public Deadline(String name, String stringDeadline) {
         super(name);
-        this.deadline = dateManager.parseDate(stringDeadline);
+        this.deadline = DateManager.parseDate(stringDeadline);
     }
 
-    /* --- METHODS --- */
     @Override
     protected void formatInput(String description) {
         try {
             String stringDeadline = description.split("/by ")[1].trim();
-            this.deadline = dateManager.parseDate(stringDeadline);
+            this.deadline = DateManager.parseDate(stringDeadline);
 
         } catch (ArrayIndexOutOfBoundsException e){
             // occurs when missing "/by " in command
@@ -45,14 +52,14 @@ public class Deadline extends Task {
 
     @Override
     public String toCSV() {
-        char status = this.isDone
+        char status = this.isCompleted()
                             ? '1'
                             : '0';
 
         return String.format("D,%c,%s,%s\n",
                     status,
                     this.name,
-                    dateManager.printDate(this.deadline)
+                    DateManager.printDate(this.deadline)
                     );
     }
 
@@ -60,7 +67,7 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: [%s])", 
                     super.toString(),
-                    dateManager.printDate(this.deadline)
+                    DateManager.printDate(this.deadline)
                     );
     }
 }

@@ -12,7 +12,7 @@ import someboty.Tasks.Task;
  * command inputs with other managers. It also formats the results of each action
  * into a string before forwarding it to the ResponseManager.
  */
-public class commandManager {
+public class CommandManager {
 
     private static final String[] COMMANDS = {
         "help",
@@ -34,7 +34,7 @@ public class commandManager {
      * Constructor for commandManager
      * @param taskList The taskManager to coordinate with.
      */
-    public commandManager(taskManager taskList) {
+    public CommandManager(taskManager taskList) {
         this.manager = taskList;
     }
 
@@ -61,7 +61,7 @@ public class commandManager {
                 return listCommands();
 
             case "dateFormats":
-                return dateManager.validDateFormats();
+                return DateManager.PrintDateFormats();
 
             case "find":
                 return findTasks(getDescription(input));
@@ -122,7 +122,7 @@ public class commandManager {
             throw new InputException("Task description is not recognized.");
         }
         
-        // join the split words together
+        // Join the split words together.
         for (int i = 1; i < listOfStrings.length; i++) {
             description += listOfStrings[i] + " ";
         }
@@ -133,11 +133,11 @@ public class commandManager {
     /**
      * Parses description into an integer and forwards it to taskManager to mark/unmark a task.
      * @param description Index of the task in the list to be marked/unmarked.
-     * @param status Completion status of the task (true if completed, false otherwise).
+     * @param isCompleted Completion status of the task (true if completed, false otherwise).
      * @return String response after marking/unmarking the task.
      * @throws InputException Given index is out of the list's range.
      */
-    private String setTaskStatus(String description, boolean status) throws InputException{
+    private String setTaskStatus(String description, boolean isCompleted) throws InputException{
         int index;
 
         try {
@@ -150,8 +150,8 @@ public class commandManager {
                 );
         }
 
-        Task task = this.manager.setTaskStatus(index, status);
-        return status
+        Task task = this.manager.setTaskStatus(index, isCompleted);
+        return isCompleted
                 ? "Uppzz lah so hardworking!\n " + task
                 : "O...k... as you wish I guess...!\n " + task;
     }

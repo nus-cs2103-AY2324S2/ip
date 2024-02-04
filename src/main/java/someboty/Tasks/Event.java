@@ -3,7 +3,7 @@ package someboty.Tasks;
 import java.time.LocalDateTime;
 
 import someboty.Exceptions.InputException;
-import someboty.Managers.dateManager;
+import someboty.Managers.DateManager;
 
 /**
 * Handles a task of type "Event".
@@ -24,8 +24,8 @@ public class Event extends Task {
 
     public Event(String name, String stringFrom, String stringTo) {
         super(name);
-        this.from = dateManager.parseDate(stringFrom);
-        this.to = dateManager.parseDate(stringTo);
+        this.from = DateManager.parseDate(stringFrom);
+        this.to = DateManager.parseDate(stringTo);
     }
 
     @Override
@@ -44,21 +44,21 @@ public class Event extends Task {
                 );
         }
 
-        this.from = dateManager.parseDate(stringFrom);
-        this.to = dateManager.parseDate(stringTo);
+        this.from = DateManager.parseDate(stringFrom);
+        this.to = DateManager.parseDate(stringTo);
     }
 
     @Override
     public String toCSV() {
-        char status = this.isDone
+        char status = this.isCompleted()
                             ? '1'
                             : '0';
 
         return String.format("E,%c,%s,%s,%s\n",
                     status,
                     this.name,
-                    dateManager.printDate(this.from),
-                    dateManager.printDate(this.to)
+                    DateManager.printDate(this.from),
+                    DateManager.printDate(this.to)
                     );
     }
     
@@ -66,8 +66,8 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: [%s], to: [%s])",
                     super.toString(),
-                    dateManager.printDate(this.from),
-                    dateManager.printDate(this.to)
+                    DateManager.printDate(this.from),
+                    DateManager.printDate(this.to)
                     );
     }
 }

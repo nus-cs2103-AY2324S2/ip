@@ -6,11 +6,11 @@ import someboty.Exceptions.InputException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class taskManagerTest {
+public class TaskManagerTest {
 
     private taskManager manager;
 
-    public taskManagerTest() {
+    public TaskManagerTest() {
     }
     
     @Test
@@ -21,7 +21,7 @@ public class taskManagerTest {
 
     @Test
     public void ToDoTest() {
-        manager = new taskManager(new fileManager("taskManagerTestDummy"));
+        manager = new taskManager(new FileManager("taskManagerTestDummy"));
 
         String actual1 = manager.addTask('T', "Lord of the Bing Chillings").toString();
         String expected1 = "[T][ ] Lord of the Bing Chillings";
@@ -34,7 +34,7 @@ public class taskManagerTest {
 
     @Test
     public void DeadlineTest() {
-        manager = new taskManager(new fileManager("taskManagerTestDummy"));
+        manager = new taskManager(new FileManager("taskManagerTestDummy"));
 
         String actual1;
         String expected1 = "[D][ ] 1st Test (by: [15 Mar 2024 06:10])";
@@ -67,7 +67,7 @@ public class taskManagerTest {
 
     @Test
     public void EventTest() {
-        manager = new taskManager(new fileManager("taskManagerTestDummy"));
+        manager = new taskManager(new FileManager("taskManagerTestDummy"));
 
         String actual1;
         String expected1 = "[E][ ] 1st Test (from: [15 Mar 2024 06:10], to: [16 Oct 2025 09:50])";
@@ -101,7 +101,7 @@ public class taskManagerTest {
 
     @Test
     public void ListTest() {
-        manager = new taskManager(new fileManager("taskManagerTestDummy"));
+        manager = new taskManager(new FileManager("taskManagerTestDummy"));
 
         assertEquals(0, manager.getListSize());
 

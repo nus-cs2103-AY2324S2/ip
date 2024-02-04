@@ -24,7 +24,7 @@ import someboty.Tasks.ToDo;
  * start date:                          [only for tasks of type E]
  * end date:                            [only for tasks of type E]
  */
-public class fileManager {
+public class FileManager {
 
     private String filePath;
 
@@ -32,7 +32,7 @@ public class fileManager {
      * Constructor for fileManager
      * @param filePath Path to find the "data/tasks.csv" file.
      */
-    public fileManager(String filePath) {
+    public FileManager(String filePath) {
         this.filePath = filePath;
     }
 
@@ -102,7 +102,7 @@ public class fileManager {
         try {
             outfile.flush();
             outfile.close();
-
+            
         } catch (IOException e) { // for devs debugging
             System.out.println("Error. Unable to close file.");
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class fileManager {
         String[] details = line.split(",");
 
         String taskType = details[0];
-        boolean status = details[1].equals("1");
+        boolean isCompleted = details[1].equals("1");
         String description = details[2];
         
         switch(taskType) {
@@ -142,7 +142,7 @@ public class fileManager {
             break;
         }
 
-        task.setStatus(status);
+        task.setStatus(isCompleted);
         return task;
     }
 }

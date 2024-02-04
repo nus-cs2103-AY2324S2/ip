@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import someboty.Exceptions.InputException;
 
-public class dateManagerTest {
+public class DateManagerTest {
     
-    public dateManagerTest() {
+    public DateManagerTest() {
     }
 
     @Test
@@ -32,7 +32,7 @@ public class dateManagerTest {
         String actual;
         for (int i = 0; i < expectedDates.length; i++) {
             try {
-                actual = dateManager.printDate(dateManager.parseDate(ValidDates[i]));
+                actual = DateManager.printDate(DateManager.parseDate(ValidDates[i]));
             } catch (InputException e) {
                 actual = e.getMessage();
             }
@@ -58,7 +58,7 @@ public class dateManagerTest {
 
         for (String date : invalidDates) {
             try {
-                actual = dateManager.printDate(dateManager.parseDate(date));
+                actual = DateManager.printDate(DateManager.parseDate(date));
             } catch (InputException e) {
                 actual = e.getMessage();
             }

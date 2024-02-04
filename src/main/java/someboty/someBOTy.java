@@ -1,9 +1,9 @@
 package someboty;
 
 import someboty.Exceptions.TerminateException;
-import someboty.Managers.commandManager;
-import someboty.Managers.fileManager;
-import someboty.Managers.responseManager;
+import someboty.Managers.CommandManager;
+import someboty.Managers.FileManager;
+import someboty.Managers.ResponseManager;
 import someboty.Managers.taskManager;
 
 // main class for the project
@@ -11,18 +11,21 @@ public class someBOTy {
 
     public someBOTy(String filePath) {
         // Initialize
-        fileManager files = new fileManager(filePath);
-        taskManager tasks = new taskManager(files);
-        commandManager commandCenter = new commandManager(tasks);
-        responseManager response = new responseManager(commandCenter);
+        FileManager fileManager = new FileManager(filePath);
+        taskManager taskManager = new taskManager(fileManager);
+        CommandManager commandCenter = new CommandManager(taskManager);
+        ResponseManager responseManager = new ResponseManager(commandCenter);
 
-        responseManager.printGreeting();
+        ResponseManager.printGreeting();
 
         while (true) {
             try {
-                response.parseInput(); // read input once
-            } catch (TerminateException e) { // only thrown if command is "bye"
-                responseManager.printExitMessage();
+                // read input once
+                responseManager.parseInput(); 
+
+            } catch (TerminateException e) {
+                // print farewell message and exit application.
+                ResponseManager.printExitMessage();
                 return;
             }
         }
