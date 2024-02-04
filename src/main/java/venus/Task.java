@@ -1,4 +1,4 @@
-package duke;
+package venus;
 public class Task {
     private String item;
     private boolean mark;

@@ -1,4 +1,4 @@
-package duke;
+package venus;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 

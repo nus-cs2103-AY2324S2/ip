@@ -1,4 +1,4 @@
-package duke;
+package venus;
 public class Parser {
     public static TaskList.TYPES findType(String input) {
         String[] listType = input.toUpperCase().split(" ");

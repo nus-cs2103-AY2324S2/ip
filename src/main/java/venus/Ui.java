@@ -1,4 +1,4 @@
-package duke;
+package venus;
 public class Ui {
     private static final String START =
             "    ____________________________________________________________\n"

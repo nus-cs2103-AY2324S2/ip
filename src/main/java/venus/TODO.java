@@ -1,4 +1,4 @@
-package duke;
+package venus;
 public class TODO extends Task{
     public TODO (String s) {
         super(s);
