@@ -5,8 +5,8 @@ import java.io.*;
 public class Storage {
     /**
      * Writes the list of tasks to a file in the hard disk
-     * @param taskList
-     * @param file
+     * @param taskList task list
+     * @param file file to write tasks to
      */
     public static void writeToHardDisk(TaskList taskList, File file) {
         int messageCount = taskList.size();
@@ -32,12 +32,12 @@ public class Storage {
 
     /**
      * Reads from a file in the hard disk and creates an ArrayList of tasks
-     * @param taskFile
-     * @return
+     * @param taskFile list of tasks
+     * @return task list
      */
     public static TaskList readFromHardDisk(File taskFile) {
         TaskList taskList = new TaskList();
-        BufferedReader taskReader = null;
+        BufferedReader taskReader;
         try {
             taskReader = new BufferedReader(new FileReader(taskFile));
             String taskString;

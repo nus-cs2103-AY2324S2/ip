@@ -1,8 +1,6 @@
 package Gops;
 
 public class gops {
-    private Storage storage;
-    private TaskList taskList;
     private Ui ui;
 
     /**
@@ -21,7 +19,7 @@ public class gops {
 
     /**
      * Start running gops chatbot
-     * @param args
+     * @param args args for main
      */
     public static void main(String[] args) {
         new gops().run();

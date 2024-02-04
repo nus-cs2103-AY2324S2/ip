@@ -11,8 +11,8 @@ public class Deadline extends Todo {
 
     /**
      * Constructs new deadline object
-     * @param todoDescription
-     * @param endDateString
+     * @param todoDescription deadline description
+     * @param endDateString deadline date
      */
     public Deadline(String todoDescription, String endDateString) {
         super(todoDescription);
@@ -32,7 +32,7 @@ public class Deadline extends Todo {
 
     /**
      * Returns string representation of deadline
-     * @return
+     * @return string version of deadline
      */
     @Override
     public String stringPrinter() {

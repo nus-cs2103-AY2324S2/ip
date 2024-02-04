@@ -1,16 +1,15 @@
 package Gops;
 
 public class Event extends Todo {
-    protected String todoDescription;
     protected boolean todoStatus = false;
     protected String startBy;
     protected String endBy;
 
     /**
      * Constructs new event object
-     * @param todoDescription
-     * @param startBy
-     * @param endBy
+     * @param todoDescription todo description
+     * @param startBy start date
+     * @param endBy end date
      */
     public Event(String todoDescription, String startBy, String endBy) {
         super(todoDescription.trim());
@@ -20,7 +19,7 @@ public class Event extends Todo {
 
     /**
      * Returns string representation of an event
-     * @return
+     * @return string rep of event
      */
     @Override
     public String stringPrinter() {

@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class Parser {
     /**
      * Parses the user input and does the appropriate operation on the taskList and updates the hard disk
-     * @param input
-     * @param taskList
-     * @param txtFile
-     * @param inputTaker
+     * @param input user input
+     * @param taskList list of tasks
+     * @param txtFile file containing tasks
+     * @param inputTaker scanner
      */
     public void parse(String input, TaskList taskList, File txtFile, Scanner inputTaker) {
         String userReply = input;
@@ -110,14 +110,13 @@ public class Parser {
             } else if (userReply.equals("list")) {
                 if (taskList.isEmpty()) {
                     System.out.println("No Tasks Left");
-                    userReply = inputTaker.nextLine();
                 } else {
                     System.out.println("Here are the tasks in your list:");
                     System.out.println("------------------------------------------------------------------");
                     taskList.listPrinter();
                     System.out.println("------------------------------------------------------------------");
-                    userReply = inputTaker.nextLine();
                 }
+                userReply = inputTaker.nextLine();
             } else if (userReply.contains("delete")) {
                 try {
                     if (userReply.length() == 6) {

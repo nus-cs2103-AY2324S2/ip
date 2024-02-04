@@ -13,7 +13,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list
-     * @return
+     * @return number of tasks
      */
     public int numberOfTasks() {
         return taskList.size();
@@ -21,8 +21,8 @@ public class TaskList {
 
     /**
      * Adds new todo to the task list and amends status
-     * @param todoDescription
-     * @param status
+     * @param todoDescription task description
+     * @param status task status
      */
     public void addNewTodo(String todoDescription, boolean status) {
         Todo todo = new Todo(todoDescription);
@@ -32,7 +32,7 @@ public class TaskList {
 
     /**
      * Adds new todo to task list
-     * @param todoDescription
+     * @param todoDescription task description
      */
     public void addNewTodo(String todoDescription) {
         Todo todo = new Todo(todoDescription);
@@ -41,9 +41,9 @@ public class TaskList {
 
     /**
      * Adds new deadline to task list and amends status
-     * @param deadlineDescription
-     * @param endDate
-     * @param status
+     * @param deadlineDescription task description
+     * @param endDate deadline date
+     * @param status task status
      */
     public void addNewDeadline(String deadlineDescription, String endDate, boolean status) {
         Deadline deadline = new Deadline(deadlineDescription, endDate);
@@ -53,8 +53,8 @@ public class TaskList {
 
     /**
      * Adds new deadline object to task list
-     * @param deadlineDescription
-     * @param endDate
+     * @param deadlineDescription task description
+     * @param endDate deadline date
      */
     public void addNewDeadline(String deadlineDescription, String endDate) {
         Deadline deadline = new Deadline(deadlineDescription, endDate);
@@ -63,10 +63,10 @@ public class TaskList {
 
     /**
      * Adds new event object to task list and amends status
-     * @param eventDescription
-     * @param startDate
-     * @param endDate
-     * @param status
+     * @param eventDescription task description
+     * @param startDate task start date
+     * @param endDate task end date
+     * @param status task status
      */
     public void addNewEvent(String eventDescription, String startDate, String endDate, boolean status) {
         Event event = new Event(eventDescription, startDate, endDate);
@@ -76,9 +76,9 @@ public class TaskList {
 
     /**
      * Adds new event object to task list
-     * @param eventDescription
-     * @param startDate
-     * @param endDate
+     * @param eventDescription task description
+     * @param startDate task start date
+     * @param endDate task end date
      */
     public void addNewEvent(String eventDescription, String startDate, String endDate) {
         Event event = new Event(eventDescription, startDate, endDate);
@@ -87,7 +87,7 @@ public class TaskList {
 
     /**
      * Removes specific task from list
-     * @param index
+     * @param index task index
      */
     public void removeTask(int index) {
         taskList.remove(index);
@@ -95,8 +95,8 @@ public class TaskList {
 
     /**
      * Gets specific task from list
-     * @param index
-     * @return
+     * @param index task index
+     * @return task
      */
     public Todo getTask(int index) {
         return taskList.get(index);
@@ -104,7 +104,7 @@ public class TaskList {
 
     /**
      * Returns size of task list
-     * @return
+     * @return task list size
      */
     public int size() {
         return taskList.size();
@@ -119,7 +119,7 @@ public class TaskList {
 
     /**
      * Prints task at specified index
-     * @param index
+     * @param index task index
      */
     public void printTask(int index) {
     taskList.get(index).Printer();
@@ -127,8 +127,8 @@ public class TaskList {
 
     /**
      * Returns string representation of specific task
-     * @param index
-     * @return
+     * @param index task index
+     * @return string rep of task
      */
     public String stringPrintTask(int index) {
         return taskList.get(index).stringPrinter();
@@ -136,8 +136,8 @@ public class TaskList {
 
     /**
      * Changes status of task at specified index
-     * @param index
-     * @param status
+     * @param index task index
+     * @param status task status
      */
     public void changeTaskStatus(int index, boolean status) {
         taskList.get(index).todoStatus = status;
@@ -145,7 +145,7 @@ public class TaskList {
 
     /**
      * Returns tasklist status
-     * @return
+     * @return task list status
      */
     public boolean isEmpty() {
         return taskList.isEmpty();
