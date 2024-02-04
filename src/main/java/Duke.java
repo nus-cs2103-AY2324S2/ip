@@ -1,4 +1,9 @@
-import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Duke {
 
     public static String horizontalLine = "_________________________________________________________________________\n";
@@ -95,22 +100,37 @@ public class Duke {
         added(temp);
     }
 
-    public static void deadline(String input) throws DukeException{
+    public static void deadline(String input) throws DukeException {
         String[] deadline = input.split("/by", 2);
         if (deadline.length < 2 || deadline[0].isBlank() || deadline[1].isBlank()) {
-            throw new DukeException("Please format deadline <task> /by <date/time>.\n");
+            throw new DukeException("Please format deadline <task> /by <dd-MM-yyyy HH:mm>.\n");
         }
-        Task temp = new Deadline(deadline[0], deadline[1]);
-        added(temp);
+        String dateTimeFormat = "dd-MM-yyyy HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+        try {
+            LocalDateTime parsedBy = LocalDateTime.parse(deadline[1].trim(), formatter);
+            Task temp = new Deadline(deadline[0], parsedBy);
+            added(temp);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please enter a valid date and time.\n");
+        }
     }
 
     public static void event(String input) throws DukeException {
         String[] event = input.split("/from|/to", 3);
         if (event.length < 3 || event[0].isBlank() || event[1].isBlank() || event[2].isBlank()) {
-            throw new DukeException("Please format event <task> /from <date/time> /to <date/time>.\n");
+            throw new DukeException("Please format event <task> /from dd-MM-yyyy HH:mm /to <dd-MM-yyyy HH:mm>.\n");
         }
-        Task temp = new Event(event[0], event[1], event[2]);
-        added(temp);
+        String dateTimeFormat = "dd-MM-yyyy HH:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+        try {
+            LocalDateTime parsedFrom = LocalDateTime.parse(event[1].trim(), formatter);
+            LocalDateTime parsedTo = LocalDateTime.parse(event[2].trim(), formatter);
+            Task temp = new Event(event[0], parsedFrom, parsedTo);
+            added(temp);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please enter a valid date and time.\n");
+        }
     }
 
     public static void added(Task task) {
