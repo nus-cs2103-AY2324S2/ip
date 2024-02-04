@@ -7,11 +7,12 @@ import java.util.List;
 
 public class Storage {
     private String filePath;
+    private Ui ui = new Ui();
 
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
         try {
-            System.out.println("Reading from " + filePath + "...\n");
+            ui.printMessage("Reading file from " + filePath + "...\n");
             createFolder();
             createFile();
         } catch (IOException e) {

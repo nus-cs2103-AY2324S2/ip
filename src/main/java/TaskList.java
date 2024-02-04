@@ -4,6 +4,8 @@ import java.util.List;
 public class TaskList {
     private List<Task> tasks;
     private Storage storage;
+    private Parser parser = new Parser();
+    private Ui ui = new Ui();
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -14,36 +16,48 @@ public class TaskList {
         this.storage = storage;
     }
 
+    public TaskList(Storage storage) throws DukeException {
+        this.tasks = new ArrayList<>();
+        this.storage = storage;
+        try {
+            this.tasks = storage.load();
+        } catch (Exception e) {
+            throw new DukeException("Error loading tasks");
+        }
+    }
+
     public void addTask(String task) throws DukeException {
+        String command = parser.parseCommand(task);
         Task newTask = null;
-        if (task.startsWith("todo")) {
-            if (task.split("todo ").length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty. \n");
+        if (command.equals("todo")) {
+            String description = parser.parseDescription(task);
+            if (description.equals("")) {
+                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
             } else {
-                newTask = new ToDo(task.split("todo ")[1]);
+                newTask = new ToDo(description);
             }
-        } else if (task.startsWith("deadline")) {
-            String[] deadline = task.split("deadline ")[1].split(" /by ");
+        } else if (command.equals("deadline")) {
+            String[] deadline = parser.parseDeadline(task);
             newTask = new Deadline(deadline[0], deadline[1]);
-        } else if (task.startsWith("event")) {
-            String[] event = task.split("event ")[1].split(" /");
+        } else if (command.equals("event")) {
+            String[] event = parser.parseEvent(task);
             newTask = new Event(event[0], event[1], event[2]);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( \n");
         }
 
         tasks.add(newTask);
-        System.out.println("Got it. I've added this task: \n" + newTask.toString() + "\nNow you have "
-                + tasks.size() + " tasks in the list.\n");
+        ui.printMessage("Got it. I've added this task: \n" + newTask.toString() + "\nNow you have " + tasks.size()
+                + " tasks in the list.\n");
 
         updateStorage();
     }
 
     public void displayTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            ui.printMessage((i + 1) + ". " + tasks.get(i).toString());
         }
-        System.out.println();
+        ui.printMessage("");
     }
 
     public void markTaskAsDone(int index) throws DukeException {
@@ -65,7 +79,7 @@ public class TaskList {
     }
 
     public void deleteTask(int index) throws DukeException {
-        System.out.println("Noted. I've removed this task: \n" + tasks.get(index - 1).toString() + "\nNow you have "
+        ui.printMessage("Noted. I've removed this task: \n" + tasks.get(index - 1).toString() + "\nNow you have "
                 + (tasks.size() - 1) + " tasks in the list.\n");
         tasks.remove(index - 1);
 
@@ -79,7 +93,7 @@ public class TaskList {
     public void updateStorage() throws DukeException {
         try {
             storage.save(tasks);
-            System.out.println("Storage updated\n");
+            ui.printMessage("Tasks updated in storage");
         } catch (Exception e) {
             throw new DukeException("Error updating storage");
         }

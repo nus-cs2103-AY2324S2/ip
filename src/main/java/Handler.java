@@ -1,18 +1,22 @@
 public class Handler {
     private TaskList taskList;
+    private Parser parser;
 
     public Handler(TaskList taskList) {
         this.taskList = taskList;
+        this.parser = new Parser();
     }
 
     public void handle(String input) throws DukeException {
-        if (input.equals("list")) {
+        String command = parser.parseCommand(input);
+        
+        if (command.equals("list")) {
             handleList();
-        } else if (input.startsWith("mark")) {
+        } else if (command.equals("mark")) {
             handleMark(input);
-        } else if (input.startsWith("unmark")) {
+        } else if (command.equals("unmark")) {
             handleUnmark(input);
-        } else if (input.startsWith("delete")) {
+        } else if (command.equals("delete")) {
             handleDelete(input);
         } else {
             handleAdd(input);
@@ -24,12 +28,12 @@ public class Handler {
     }
 
     private void handleMark(String input) throws DukeException {
-        int index = Integer.parseInt(input.split(" ")[1]);
+        int index = parser.parseIndex(input);
         taskList.markTaskAsDone(index);
     }
 
     private void handleUnmark(String input) throws DukeException {
-        int index = Integer.parseInt(input.split(" ")[1]);
+        int index = parser.parseIndex(input);
         taskList.unmarkTaskAsDone(index);
     }
 

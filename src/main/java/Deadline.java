@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
+    private static Ui ui = new Ui();
     protected LocalDateTime by;
 
     public Deadline(String description, String by) throws DukeException {
@@ -30,7 +31,7 @@ public class Deadline extends Task {
             }
             return deadline;
         } catch (DukeException e) {
-            System.out.println("Error creating deadline");
+            ui.printMessage("Error creating deadline");
             return null;
         }
     }
