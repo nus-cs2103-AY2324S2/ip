@@ -1,3 +1,7 @@
+package BadApple.task;
+
+import BadApple.main.BadAppleException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 

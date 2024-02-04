@@ -1,5 +1,7 @@
+package BadApple.main;
+
 public class BadAppleException extends IllegalArgumentException {
-    BadAppleException(String s) {
+    public BadAppleException(String s) {
         super(s);
     }
 

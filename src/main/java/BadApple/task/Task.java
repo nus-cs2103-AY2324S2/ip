@@ -1,3 +1,5 @@
+package BadApple.task;
+
 import static java.lang.Integer.parseInt;
 
 public class Task {

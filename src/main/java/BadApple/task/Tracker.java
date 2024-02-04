@@ -1,10 +1,6 @@
-import java.io.*;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
+package BadApple.task;
+
 import java.util.Random;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static java.lang.Integer.parseInt;
 
