@@ -40,6 +40,8 @@ public abstract class Handler {
             return new EventHandler(command);
         case "delete":
             return new DeleteHandler(command);
+        case "find":
+            return new FindHandler(command);
         default:
             return new UnknownHandler();
         }
