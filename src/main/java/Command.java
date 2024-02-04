@@ -16,5 +16,5 @@ public abstract class Command {
         return text;
     }
 
-    public abstract void execute(State state);
+    public abstract void execute(State state, Ui ui);
 }

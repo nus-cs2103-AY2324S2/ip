@@ -4,7 +4,7 @@ public class ListCommand extends Command{
     }
 
     @Override
-    public void execute(State state) {
+    public void execute(State state, Ui ui) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= state.getTasks().size();i++) {
             Task task = state.getTask(i - 1);
@@ -13,6 +13,6 @@ public class ListCommand extends Command{
         if (state.getTasks().isEmpty()) {
             sb.append("No Tasks! Oopsie!");
         }
-        System.out.println(sb);
+        ui.say(sb.toString());
     }
 }

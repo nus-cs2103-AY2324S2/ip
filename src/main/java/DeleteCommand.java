@@ -6,9 +6,9 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void execute(State state) {
+    public void execute(State state, Ui ui) {
         Task taskToRemove = state.getTask(index);
         state.getTasks().remove(index);
-        System.out.println("Mamma-mia!\n" + taskToRemove + "\nRemoved!");
+        ui.say("Mamma-mia!\n" + taskToRemove + "\nRemoved!");
     }
 }
