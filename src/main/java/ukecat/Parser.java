@@ -9,8 +9,12 @@ import java.util.regex.Pattern;
 // Analyses input using regex
 // Stores information on the input in the storage
 public class Parser {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Parse user input and stores the input and words array into the Storage class.
+     * Leading and trailing whitespaces are also trimmed from the words array.
+     */
     public static void parse() {
         // trim removes leading and trailing whitespaces
         Storage.input = sc.nextLine().trim();
@@ -19,6 +23,14 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the input string to extract the description for a todo using regex.
+     * If the input matches the pattern, the description is extracted and stored in the Storage class.
+     * If the input does not match the expected format, a UkeCatException is thrown.
+     *
+     * @param input The input string representing a todo.
+     * @throws UkeCatException If input does not match the expected format.
+     */
     public static void parseToDo(String input) throws UkeCatException {
         // Regex pattern: todo + whitespaces + any chars
         Pattern pattern = Pattern.compile("^todo\\s+(.+)");
@@ -31,6 +43,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string to extract the description for a deadline using regex.
+     * If the input matches the pattern, the description is extracted and stored in the Storage class.
+     * If the input does not match the expected format, a UkeCatException is thrown.
+     *
+     * @param input The input string representing a deadline.
+     * @throws UkeCatException If input does not match the expected format.
+     */
     public static void parseDeadline(String input) throws UkeCatException {
         // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
@@ -43,6 +63,14 @@ public class Parser {
             }
         }
 
+    /**
+     * Parses the input string to extract the description for an event using regex.
+     * If the input matches the pattern, the description is extracted and stored in the Storage class.
+     * If the input does not match the expected format, a UkeCatException is thrown.
+     *
+     * @param input The input string representing an event.
+     * @throws UkeCatException If input does not match the expected format.
+     */
     public static void parseEvent(String input) throws UkeCatException {
         // Regex pattern: event + spaces + chars + spaces +
         // /from + spaces + chars + spaces + /to + spaces + chars
@@ -58,6 +86,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the index of task to be deleted from input words array.
+     *
+     * @param words An array of words representing the user input.
+     * @return The task number (index) to be deleted.
+     * @throws UkeCatException If the input does not match the expected format or if the task number is not a valid integer.
+     */
     public static int parseDeleteTask(String[] words) throws UkeCatException {
         try{
             if (words.length == 2) {
@@ -70,6 +105,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the index of task to be marked from input words array.
+     *
+     * @param words An array of words representing the user input.
+     * @return The task number (index) to be deleted.
+     * @throws UkeCatException If the input does not match the expected format or if the task number is not a valid integer.
+     */
     public static int parseMarkTask(String[] words) throws UkeCatException {
         try {
             if (words.length == 2) {
@@ -82,9 +124,17 @@ public class Parser {
         }
     }
 
-    // ukecat.ToDo: T, 0/1, desc
-    // ukecat.Deadline: D, 0/1, desc, by
-    // ukecat.Event: E, 0/1, desc, from, to
+
+    /**
+     * Converts a Task object into a CSV (Comma-Separated Values) format string.
+     * The CSV format is as follows:
+     * - ToDo: T, 0/1, desc
+     * - Deadline: D, 0/1, desc, by
+     * - Event: E, 0/1, desc, from, to
+     *
+     * @param t The Task object to be converted to CSV.
+     * @return A CSV format string representing the given Task.
+     */
     public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
             return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
@@ -98,6 +148,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a CSV (Comma-Separated Values) format string and converts it into a format
+     * compatible with the UkeCat application. The CSV format is expected to represent tasks
+     * in the following way:
+     * - ToDo: T, 0/1, desc
+     * - Deadline: D, 0/1, desc, by
+     * - Event: E, 0/1, desc, from, to
+     * The method extracts information from the CSV string, modifies the content in the Storage
+     * class, and then calls the respective parsing methods for ToDo, Deadline, or Event tasks.
+     *
+     * @param csv The CSV format string to be parsed.
+     */
     public static void parseCsv(String csv) {
         String[] words = csv.split(",");
         Storage.words = words;
@@ -127,6 +189,9 @@ public class Parser {
         }
     }
 
+    /**
+     * Closes the Scanner used for reading user input.
+     */
     public static void closeScanner() {
         sc.close();
     }

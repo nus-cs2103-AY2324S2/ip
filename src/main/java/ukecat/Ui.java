@@ -1,11 +1,22 @@
 package ukecat;
 
-// Based on the parsed input, generate a response
+
+/**
+ * The Ui class handles user interface interactions for the UkeCat application.
+ * It provides methods for responding to user commands, displaying welcome and farewell messages,
+ * and interacting with the Storage class to manage tasks.
+ */
 public class Ui {
+    /**
+     * Responds to user commands based on the provided array of words.
+     * Asks Storage class to perform relevant actions in response to user commands.
+     *
+     * @param words The array of words representing the user input.
+     */
     public void respond(String[] words) {
-        switch(words[0]) {
+        switch (words[0]) {
         case "hi":
-            System.out.println(Ui.HI);
+            System.out.println(HI);
             break;
         case "list":
             Storage.printTasks();
@@ -29,12 +40,18 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the welcome message to the user.
+     */
     public void welcome() {
-        System.out.println(Ui.LINE + Ui.WELCOME + Ui.LINE);
+        System.out.println(LINE + WELCOME + LINE);
     }
 
+    /**
+     * Displays the farewell message to the user.
+     */
     public void bye() {
-        System.out.println(Ui.BYE);
+        System.out.println(BYE);
     }
 
     // Hardcoded messages

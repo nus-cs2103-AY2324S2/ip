@@ -6,40 +6,46 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Manages the loading and updating of tasks from/to a data file.
+ * Handles interactions between the application's Storage, Parser, and tasks file.
+ */
 public class FileManager {
-    // Load data on startup
-    // If data file not found, create one
-    // Reads data line by line
-    // For each line, ask ukecat.Storage to loadTask()
-    // ukecat.Storage asks ukecat.Parser to parse line
-    // Task can be created to be added (with mark info too)
+
+    /**
+     * Loads tasks from the data file during application startup.
+     * If the data file is not found, it creates a new file.
+     * Reads data line by line, and for each line, asks Storage to load the task.
+     * Storage, in turn, asks Parser to parse the line and creates a Task to be added.
+     */
     public static void loadTasks() {
-        File f = new File("data/taskData.txt");
-        try (Scanner s = new Scanner(f)) {
-            while (s.hasNext()) {
-                Storage.loadTask(s.nextLine());
+        File file = new File("data/taskData.txt");
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                Storage.loadTask(scanner.nextLine());
             }
-        } catch (FileNotFoundException eFNF) {
+        } catch (FileNotFoundException fileNotFoundException) {
             try {
-                boolean isCreated = f.createNewFile();
+                boolean isCreated = file.createNewFile();
                 if (isCreated) {
                     System.out.println("File not found, I created one for you!");
                 }
-            } catch (IOException eIO) {
-                System.out.println("IO error occurred when creating file.");
+            } catch (IOException ioException) {
+                System.out.println("IO error occurred when creating the file.");
             }
-
         }
     }
 
-    // Rewrite file using data in ukecat.Storage
+    /**
+     * Updates the tasks file by rewriting it with data from Storage.
+     * Each task is converted to CSV format using Parser's parseTaskToCsv method.
+     */
     public static void updateTasks() {
-        try (FileWriter fw = new FileWriter("data/taskData.txt")){
-            for (Task t : Storage.getTasks()) {
-                fw.write(Parser.parseTaskToCsv(t) + "\n");
+        try (FileWriter fileWriter = new FileWriter("data/taskData.txt")) {
+            for (Task task : Storage.getTasks()) {
+                fileWriter.write(Parser.parseTaskToCsv(task) + "\n");
             }
-//            System.out.println("Update success");
-        } catch (IOException eIO) {
+        } catch (IOException ioException) {
             System.out.println("IO error occurred while updating.");
         }
     }
