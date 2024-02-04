@@ -18,7 +18,7 @@ public class TaskList {
     }
 
     public static void saveTasks() {
-        Storage.WriteFile(list);
+        Storage.WriteFile();
     }
 
     public static void addTaskToList(Task t) {
@@ -30,22 +30,22 @@ public class TaskList {
             Task t = null;
             String typeOfTask = inputs.split(" ")[0];
             switch (typeOfTask.toLowerCase()) {
-                case "event":
-                    t = Event.EventFromCMD(inputs);
-                    break;
-                case "deadline":
-                    t = Deadline.DeadlineFromCMD(inputs);
-                    break;
-                case "todo":
-                    t = Todo.TodoFromCMD(inputs);
-                    break;
+            case "event":
+                t = Event.eventFromCMD(inputs);
+                break;
+            case "deadline":
+                t = Deadline.DeadlineFromCMD(inputs);
+                break;
+            case "todo":
+                t = Todo.todoFromCMD(inputs);
+                break;
             } // end switch for type of task
             if (t == null) {
                 throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
             }
             TaskList.list.add(t);
-            letoSpeak("Task added, [" + t.toString() +
-                    "]\n  > You have " + TaskList.list.size() + " tasks.");
+            letoSpeak("Task added, " + t +
+                    "\n  > You have " + TaskList.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
             e.printException();
         }

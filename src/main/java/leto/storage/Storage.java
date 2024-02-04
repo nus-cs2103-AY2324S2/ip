@@ -2,8 +2,15 @@ package leto.storage;
 
 import leto.tasklist.*;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.io.FileNotFoundException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,13 +43,12 @@ public class Storage {
         } catch (FileNotFoundException e) {
             letoSpeak("We did not find an existing file containing tasks"
              + "\n  We will carry on without a blank list");
-            return;
         } catch (UncheckedIOException e) {
             letoSpeak("Blast! Ran into error while reading the file.\n"
                     + "We will proceed with an empty list.\n");
         } catch (InvalidTaskException e) {
             letoSpeak("File might be corrupted\n"
-                    + "Full error report below: " + e.toString());
+                    + "Full error report below: " + e);
         }
     }
 
@@ -50,7 +56,7 @@ public class Storage {
         String[] parts = entry.split(",");
         switch (parts[0]) {
         case "T":
-            TaskList.addTaskToList(Todo.TodoFromCSV(entry));
+            TaskList.addTaskToList(Todo.todoFromCSV(entry));
             shortSay("Todo added");
             break;
         case "D":
@@ -58,13 +64,13 @@ public class Storage {
             shortSay("Deadline added");
             break;
         case "E":
-            TaskList.addTaskToList(Event.EventFromCSV(entry));
+            TaskList.addTaskToList(Event.eventFromCSV(entry));
             shortSay("Event added");
             break;
         }
     }
 
-    public static void WriteFile(ArrayList<Task> taskLists) {
+    public static void WriteFile() {
         int saved = 0;
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_TO_STORE));

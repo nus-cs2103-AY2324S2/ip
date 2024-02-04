@@ -13,7 +13,7 @@ public class Todo extends Task {
      * @return a new Todo object
      * @throws TodoInvalidCmdException when input command is invalid
      */
-    public static Todo TodoFromCMD(String input) throws TodoInvalidCmdException {
+    public static Todo todoFromCMD(String input) throws TodoInvalidCmdException {
         String regex = "(?i)todo ([^,]+)";
         Matcher matcher = Pattern.compile(regex).matcher(input);
         if (!matcher.matches()) {
@@ -28,7 +28,7 @@ public class Todo extends Task {
      * @param entry text string containing the row in the csv
      * @return an Event task
      */
-    public static Todo TodoFromCSV(String entry) throws InvalidTaskException {
+    public static Todo todoFromCSV(String entry) throws InvalidTaskException {
         String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
         Matcher matcher = Pattern.compile(regex).matcher(entry);
         if (!matcher.matches()) {

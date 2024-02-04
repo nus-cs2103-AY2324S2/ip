@@ -11,9 +11,9 @@ public class Parser {
     }
 
     public static void readCommandAndExecute() {
-        boolean bye = false;
+        boolean isBye = false;
 
-        while (!bye) {
+        while (!isBye) {
             String inputs = sc.nextLine();
             String[] commands = inputs.split(" ");
 
@@ -22,7 +22,7 @@ public class Parser {
                 cmd = Commands.valueOf(commands[0].toUpperCase());
                 Results r = cmd.run(inputs);
                 if (r.equals(Results.EXIT)) {
-                    bye = true;
+                    isBye = true;
                 } else if (r.equals(Results.ERROR)) {
                     shortSay("Error encountered!");
                 }
