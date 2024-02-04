@@ -63,7 +63,7 @@ public class Storage {
      */
     private Task parseTask(String[] taskArgs) throws Exception {
         String taskType = taskArgs[0];
-        Task task = null;
+        Task task;
         String description;
         boolean isDone;
 
@@ -108,9 +108,8 @@ public class Storage {
             for (String taskArgsStr : fileContentSplit) {
                 String[] taskArgs = taskArgsStr.split(this.argDelimiter);
                 Task task = parseTask(taskArgs);
-                if (task != null) {
-                    tasks.add(task);
-                }
+
+                tasks.add(task);
             }
             return tasks;
         } catch (Exception exception) {

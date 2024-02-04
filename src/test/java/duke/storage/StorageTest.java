@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import duke.exceptions.storage.CreateTasksFileFailedException;
 
 public class StorageTest {
-    private static Path INVALID_FILE_PATH = Paths.get("/ACCESS_DENIED");
+    private static final Path INVALID_FILE_PATH = Paths.get("/ACCESS_DENIED");
     private Storage storage;
 
     @BeforeEach
@@ -21,8 +21,6 @@ public class StorageTest {
 
     @Test
     public void readTasks_invalidFilePath_loadTasksFailedExceptionThrown() {
-        assertThrows(CreateTasksFileFailedException.class, () -> {
-            this.storage.loadTasks();
-        });
+        assertThrows(CreateTasksFileFailedException.class, () -> this.storage.loadTasks());
     }
 }

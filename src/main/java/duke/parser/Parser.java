@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import duke.commands.Command;
+import duke.commands.Command.CommandType;
 import duke.commands.CommandBye;
 import duke.commands.CommandDeadline;
 import duke.commands.CommandDelete;
@@ -278,35 +279,39 @@ public class Parser {
         fullCommand = fullCommand.strip();
 
         String[] args = fullCommand.split(" ");
-        String commandType = args[0];
+
+        String commandTypeStr = args[0];
+        commandTypeStr = commandTypeStr.toUpperCase();
+
+        CommandType commandType = CommandType.valueOf(commandTypeStr);
 
         Command command;
         switch (commandType) {
-        case "list":
+        case LIST:
             command = parseCommandList();
             break;
-        case "bye":
+        case BYE:
             command = parseCommandBye();
             break;
-        case "mark":
+        case MARK:
             command = parseCommandMark(args);
             break;
-        case "unmark":
+        case UNMARK:
             command = parseCommandUnmark(args);
             break;
-        case "todo":
+        case TODO:
             command = parseCommandTodo(args);
             break;
-        case "deadline":
+        case DEADLINE:
             command = parseCommandDeadline(args);
             break;
-        case "event":
+        case EVENT:
             command = parseCommandEvent(args);
             break;
-        case "delete":
+        case DELETE:
             command = parseCommandDelete(args);
             break;
-        case "find":
+        case FIND:
             command = parseCommandFind(args);
             break;
         default:

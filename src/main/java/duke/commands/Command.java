@@ -18,6 +18,58 @@ import duke.ui.Ui;
 public abstract class Command {
 
     /**
+     * Enumeration representing the different types of commands available in the Duke application.
+     * These commands are used to perform various actions and operations within the application.
+     */
+    public enum CommandType {
+        /**
+         * Command to list all tasks in the task list.
+         */
+        LIST,
+
+        /**
+         * Command to exit or quit the Duke application.
+         */
+        BYE,
+
+        /**
+         * Command to mark a task as completed.
+         */
+        MARK,
+
+        /**
+         * Command to unmark or mark a task as incomplete.
+         */
+        UNMARK,
+
+        /**
+         * Command to create and add a "To-Do" task to the task list.
+         */
+        TODO,
+
+        /**
+         * Command to create and add a "Deadline" task to the task list.
+         */
+        DEADLINE,
+
+        /**
+         * Command to create and add an "Event" task to the task list.
+         */
+        EVENT,
+
+        /**
+         * Command to delete a task from the task list.
+         */
+        DELETE,
+
+        /**
+         * Command to find and display tasks that match a specific keyword.
+         */
+        FIND
+    }
+
+
+    /**
      * Constructs a new Command object.
      * This constructor is empty and serves as a placeholder.
      */

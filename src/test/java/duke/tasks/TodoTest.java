@@ -9,8 +9,6 @@ import duke.exceptions.tasks.EmptyDescriptionException;
 public class TodoTest {
     @Test
     public void constructor_emptyDescription_emptyDescriptionExceptionThrown() {
-        assertThrows(EmptyDescriptionException.class, () -> {
-            new Todo("");
-        });
+        assertThrows(EmptyDescriptionException.class, () -> new Todo(""));
     }
 }
