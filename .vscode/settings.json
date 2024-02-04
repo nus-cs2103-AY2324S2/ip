@@ -1,5 +1,4 @@
 {
-    "cSpell.words": [
-        "ATSIS"
-    ]
+  "cSpell.words": ["ATSIS"],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
