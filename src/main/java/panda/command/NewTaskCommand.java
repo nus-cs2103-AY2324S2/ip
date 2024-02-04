@@ -32,7 +32,9 @@ public class NewTaskCommand extends Command {
     public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
         tlist.insert(task);
         cacheFile.save(tlist);
-        ui.showReply("Got it. I've added this task:\n " + tlist.taskString(tlist.size() - 1) + "\nNow you have " + tlist.size() + " tasks in the list.");
+        ui.showReply("Got it. I've added this task:" 
+            + "\n " + tlist.taskString(tlist.size() - 1) 
+            + "\nNow you have " + tlist.size() + " tasks in the list.");
     }
 
     /**
