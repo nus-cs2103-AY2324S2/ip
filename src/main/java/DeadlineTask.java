@@ -10,9 +10,9 @@ public class DeadlineTask extends Task {
     @Override
     public String getTask() {
         if (isDone) {
-            return "[D][X] " + this.description + "(by: " + endDate + ")";
+            return "[D][X] " + this.description + " (by: " + endDate + ")";
         } else {
-            return "[D][ ] " + this.description + "(by: " + endDate + ")";
+            return "[D][ ] " + this.description + " (by: " + endDate + ")";
         }
     }
 }

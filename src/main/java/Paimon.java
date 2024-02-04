@@ -8,6 +8,22 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Paimon {
+    /**
+     * Default function for sending messages, includes text formatting
+     */
+    private static void sendTaskMessage(String mainMessage, String subMessage, String closingMessage) {
+        System.out.println(mainMessage);
+        System.out.println("-------------------->");
+        System.out.println(subMessage);
+        System.out.println("-------------------->");
+        System.out.println(closingMessage);
+    }
+    private static void sendTaskMessage(String mainMessage, String subMessage) {
+        System.out.println(mainMessage);
+        System.out.println("-------------------->");
+        System.out.println(subMessage);
+        System.out.println("-------------------->");
+    }
 
 
     private static void greeting() {
@@ -55,7 +71,7 @@ public class Paimon {
                                 System.out.println("Traveller, this task is already marked as done!");
                             } else {
                                 markTask.setTaskState(true);
-                                System.out.println("Okay Traveller, I've marked this task as done! \n" + taskList.getTask(markIndex - 1).getTask());
+                                sendTaskMessage("Okay Traveller, I've marked this task as done!", taskList.getTask(markIndex - 1).getTask());
                             }
                         } else {
                             System.out.println("Sorry Traveller, that task does not exist");
@@ -79,7 +95,7 @@ public class Paimon {
                                 System.out.print("Traveller, this task is already unmarked!");
                             } else {
                                 unmarkTask.setTaskState(false);
-                                System.out.println("Okay Traveller, I've unmarked this task! \n" + taskList.getTask(unmarkIndex - 1).getTask());
+                                sendTaskMessage("Okay Traveller, I've unmarked this task!", taskList.getTask(unmarkIndex - 1).getTask());
                             }
                         } else {
                             System.out.println("Sorry Traveller, that task does not exist");
@@ -98,7 +114,7 @@ public class Paimon {
                         String todoDescription = parser.parseInput()[0];
                         Task todoTask = new TodoTask(todoDescription);
                         taskList.addTask(todoTask);
-                        System.out.println("Okay Traveller, I've added the following task! \n" + todoTask.getTask());
+                        sendTaskMessage("Okay Traveller, I've added the following task!", todoTask.getTask(), "You now have " + taskList.getSize() + " tasks.");
                     } catch (ChatException e) {
                         System.out.println(e.getMessage());
                     }
@@ -109,7 +125,7 @@ public class Paimon {
                         String deadlineEndDate = parser.parseInput()[1];
                         Task deadlineTask = new DeadlineTask(deadlineDescription, deadlineEndDate);
                         taskList.addTask(deadlineTask);
-                        System.out.println("Okay Traveller, I've added the following task! \n" + deadlineTask.getTask());
+                        sendTaskMessage("Okay Traveller, I've added the following task!", deadlineTask.getTask(), "You now have " + taskList.getSize() + " tasks.");
                     } catch (ChatException e) {
                         System.out.println(e.getMessage());
                     }
@@ -121,7 +137,7 @@ public class Paimon {
                         String eventEndDate = parser.parseInput()[2];
                         Task eventTask = new EventTask(eventDescription, eventStartDate, eventEndDate);
                         taskList.addTask(eventTask);
-                        System.out.println("Okay Traveller, I've added the following task! \n" + eventTask.getTask());
+                        sendTaskMessage("Okay Traveller, I've added the following task!", eventTask.getTask(), "You now have " + taskList.getSize() + " tasks.");
 
                     } catch (ChatException e) {
                         System.out.println(e.getMessage());

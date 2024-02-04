@@ -13,9 +13,9 @@ public class EventTask extends Task {
     @Override
     public String getTask() {
         if (isDone) {
-            return "[E][X] " + this.description + "(from: " + startDate + ", to: " + this.endDate + ")";
+            return "[E][X] " + this.description + " (from: " + startDate + ", to: " + this.endDate + ")";
         } else {
-            return "[E][ ] " + this.description + "(from: " + startDate + ", to: " + this.endDate + ")";
+            return "[E][ ] " + this.description + " (from: " + startDate + ", to: " + this.endDate + ")";
         }
     }
 }
