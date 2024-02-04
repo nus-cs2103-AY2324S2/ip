@@ -1,8 +1,8 @@
 package lrbg.codriver.command;
 
 import lrbg.codriver.data.TaskList;
-import lrbg.codriver.ui.Ui;
 import lrbg.codriver.storage.Storage;
+import lrbg.codriver.ui.Ui;
 
 public class ByeCommand extends Command {
     public ByeCommand() {
