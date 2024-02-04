@@ -1,9 +1,11 @@
+package tasks;
+
 import java.util.Objects;
 
 public class Todo extends Task {
 
     /**
-     * Constructor for Todo class.
+     * Constructor for tasks.Todo class.
      *
      * @param taskName Name of the task.
      */

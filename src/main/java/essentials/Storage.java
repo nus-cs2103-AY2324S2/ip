@@ -1,3 +1,11 @@
+package essentials;
+
+import exceptions.JimmyException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,7 +20,7 @@ public class Storage {
     private final String storagePath;
 
     /**
-     * Constructor for Storage class.
+     * Constructor for essentials.Storage class.
      *
      * @param filePath The file path of the storage file.
      */

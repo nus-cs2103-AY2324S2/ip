@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,7 +12,7 @@ public class Event extends Task {
     private final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
-     * Constructor for Event class.
+     * Constructor for tasks.Event class.
      *
      * @param taskName Name of the task.
      * @param start    Start time of the event.
