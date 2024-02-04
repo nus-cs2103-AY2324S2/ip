@@ -12,7 +12,13 @@ public class Event extends Task {
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.type = 'E';
+        this.type = "E";
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    public Event(String description, String startTime, String endTime, boolean isDone) { // Overloaded constructor: loading from file
+        super(description, isDone);
+        this.type = "E";
         this.startTime = startTime;
         this.endTime = endTime;
     }

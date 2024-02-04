@@ -4,7 +4,7 @@
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected char type;
+    protected String type;
     protected static int taskCount = 0;
 
     /**
@@ -14,6 +14,16 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Constructor for Task class.
+     * @param description Description of task.
+     * @param isDone Status of task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     /**
@@ -36,7 +46,7 @@ public abstract class Task {
      * Returns the type of the task.
      * @return Type of the task.
      */
-    public char getType() {
+    public String getType() {
         return type;
     }
 
@@ -81,8 +91,29 @@ public abstract class Task {
      * @return Task object.
      */
     public static Task parseTask(String taskString) {
-        //stuck here for now
-        return null;
+        String type = taskString.charAt(1) + ""; // get the type of the task
+        String status = taskString.charAt(4) + ""; // get the status of the task
+        boolean isDone = status.equals("X");
+        switch (type) {
+        case "T":
+            return new ToDo(taskString.substring(7), isDone);
+        case "D":
+            String theRestD = taskString.substring(7); // the rest of the String after type and status
+            String[] splitD = theRestD.split(" \\(by: ");
+            String descriptionD = splitD[0];
+            String by = splitD[1].substring(0, splitD[1].length() - 1);
+            return new Deadline(descriptionD, by , isDone);
+        case "E":
+            String theRestE = taskString.substring(7); // the rest of the String after type and status
+            String[] splitE = theRestE.split(" \\(from: ");
+            String descriptionE = splitE[0];
+            String[] splitE2 = splitE[1].split(", to: ");
+            String start = splitE2[0];
+            String end = splitE2[1].substring(0, splitE2[1].length() - 1);
+            return new Event(descriptionE, start, end, isDone);
+        default:
+            return null; // Does not match any task type
+        }
     }
 
     /**

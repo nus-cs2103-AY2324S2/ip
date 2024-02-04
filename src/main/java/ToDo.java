@@ -9,7 +9,12 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
-        this.type = 'T';
+        this.type = "T";
+    }
+
+    public ToDo(String description, boolean isDone) { // Overloaded constructor: loading from file
+        super(description, isDone);
+        this.type = "T";
     }
     public String toString() {
         return "[T]" + super.toString();

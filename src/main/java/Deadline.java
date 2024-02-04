@@ -11,7 +11,12 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.type = 'D';
+        this.type = "D";
+        this.by = by;
+    }
+    public Deadline(String description, String by, boolean isDone) { // Overloaded constructor: loading from file
+        super(description, isDone);
+        this.type = "D";
         this.by = by;
     }
     public String toString() {

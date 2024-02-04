@@ -4,11 +4,19 @@ public class ChatBro {
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.printWelcome();
-        //Database db = new Database();
-
+        Database db = new Database();
         ArrayList<Task> taskList = new ArrayList<>(101);
-        //taskList.add(null); // First element left empty for 1-based indexing
-        for (int i = 0; i < 102; i++) {
+        taskList.add(null); // First element left empty for 1-based indexing
+        String savedTasks = db.readFromFile();
+        String[] savedTasksSplit = savedTasks.split("\n"); // Split savedTasks by newline
+        for (int i = 0; i < savedTasksSplit.length; i++) {
+            String taskString = savedTasksSplit[i];
+            taskList.add(Task.parseTask(taskString));
+        }
+        for (int i = 0; i < savedTasksSplit.length; i++) {
+            Task.incrementTaskCount();
+        }
+        for (int i = 0; i < 100 - savedTasksSplit.length; i++) {
             taskList.add(null);
         }
 
@@ -45,7 +53,7 @@ public class ChatBro {
                                 taskList.add(i, new ToDo(todoName));
                                 Task.incrementTaskCount();
                                 System.out.println("_________________________\n" +
-                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\n into your list.\n" +
+                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\ninto your list.\n" +
                                         "You've got " + Task.getTaskCount() + " task(s) now.\n" +
                                         "_________________________\n");
                                 break;
@@ -81,7 +89,7 @@ public class ChatBro {
                                 taskList.add(i, new Deadline(deadlineName, deadlineSplit[1]));
                                 Task.incrementTaskCount();
                                 System.out.println("_________________________\n" +
-                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\n into your list.\n" +
+                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\ninto your list.\n" +
                                         "You've got " + Task.getTaskCount() + " task(s) now.\n" +
                                         "_________________________\n");
                                 break;
@@ -125,7 +133,7 @@ public class ChatBro {
                                 taskList.add(i, new Event(eventName, eventToSplit[0], eventToSplit[1]));
                                 Task.incrementTaskCount();
                                 System.out.println("_________________________\n" +
-                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\n into your list.\n" +
+                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\ninto your list.\n" +
                                         "You've got " + Task.getTaskCount() + " task(s) now.\n" +
                                         "_________________________\n");
                                 break;
@@ -190,6 +198,14 @@ public class ChatBro {
 
                 case "bye":
                     isRunning = false;
+                    String tasksToSave = "";
+                    for (int i = 1; i <= 100; i++) {
+                        if (taskList.get(i) == null) {
+                            break;
+                        }
+                        tasksToSave += taskList.get(i).toString() + "\n";
+                    }
+                    db.saveToFile(tasksToSave);
                     ui.printBye();
                     break;
 

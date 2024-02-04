@@ -4,7 +4,7 @@ import java.util.Scanner;
  * Represents the user interface of the ChatBro.
  */
 public class Ui {
-    private Scanner sc;
+    private final Scanner sc;
     public Ui() {
         this.sc = new Scanner(System.in);
     }
