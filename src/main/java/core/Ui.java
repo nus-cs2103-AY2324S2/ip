@@ -50,6 +50,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    public void showWarning() {
+        System.out.println("\n");
+        System.out.println("!!! ATTENTION !!!");
+    }
+
     public void showMessage(String message) {
         System.out.println(message);
     }
@@ -103,6 +108,8 @@ public class Ui {
     }
 
     public void showLoadingError(String reason) {
+        showWarning();
+
         if (reason == "corrupted") {
             System.out.println(user + ", I found a corrupted line in tasklist file! I'll skip it..!");
         } else if (reason == "file not found") {
@@ -110,6 +117,7 @@ public class Ui {
         } else {
             System.out.println(user + ", I could not read the tasklist file..!");
         }
+        showLine();
     }
 
     public void showErrorCreatingFile() {
