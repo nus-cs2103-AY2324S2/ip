@@ -4,8 +4,9 @@ package missminutes;
  * MissMinutes is a personal chatbot to track your tasks
  */
 public class MissMinutes {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
+
 
     /**
      * Creates a MissMinutes instance and tries to load previous state from filePath
@@ -17,86 +18,80 @@ public class MissMinutes {
         try {
             this.tasks = this.storage.loadTasks();
         } catch (MissMinutesException err) {
-            Ui.sendMsg(err.getMessage());
+            System.out.println(err.getMessage());
             this.tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the Miss Minutes chatbot while loop and handles the user input
+     * No argument constructor with a default file path for use by JavaFX
      */
-    public void run() {
-        Ui.sayHello();
-
-        while (true) {
-            String request = Ui.getInput();
-            Parser.CommandType cmdType = Parser.parseCommand(request);
-            boolean isChanged = false;
-
-            try {
-                switch (cmdType) {
-                case BYE:
-                    Ui.sayBye();
-                    return;
-                case LIST:
-                    Ui.sendMsg(tasks.toString());
-                    break;
-                case MARK:
-                    // Fallthrough
-                case UNMARK:
-                    isChanged = true;
-                    String[] split = request.split(" ");
-                    int idx;
-                    try {
-                        idx = Integer.parseInt(split[1]) - 1; // 0 indexed
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException err) {
-                        throw new MissMinutesException("Please enter a valid index. The correct usage is `mark <idx>`");
-                    }
-                    if (cmdType == Parser.CommandType.MARK) {
-                        tasks.markTask(idx);
-                    } else {
-                        tasks.unmarkTask(idx);
-                    }
-                    break;
-                case DELETE:
-                    isChanged = true;
-                    tasks.deleteTask(request);
-                    break;
-                case TODO:
-                    // Fallthrough
-                case DEADLINE:
-                    // Fallthrough
-                case EVENT:
-                    isChanged = true;
-                    Task task = tasks.createTask(request);
-                    tasks.addTask(task);
-                    break;
-                case FIND:
-                    tasks.findTask(request);
-                    break;
-                case UNKNOWN:
-                    // Fallthrough
-                default:
-                    throw new MissMinutesException(
-                            "Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU"
-                    );
-                }
-            } catch (MissMinutesException err) {
-                Ui.sendMsg(err.getMessage());
-            }
-
-            if (isChanged) {
-                try {
-                    storage.saveTasks(tasks);
-                } catch (MissMinutesException err) {
-                    Ui.sendMsg(err.getMessage());
-                }
-            }
-        }
+    public MissMinutes() {
+        this("tasks.bin");
     }
 
-    public static void main(String[] args) {
-        MissMinutes mm = new MissMinutes("tasks.bin");
-        mm.run();
+    public String getResponse(String request) {
+        Parser.CommandType cmdType = Parser.parseCommand(request);
+        boolean isChanged = false;
+        String reply;
+        try {
+            switch (cmdType) {
+            case BYE:
+                return Ui.sayBye();
+            case LIST:
+                return tasks.toString();
+            case MARK:
+                // Fallthrough
+            case UNMARK:
+                isChanged = true;
+                String[] split = request.split(" ");
+                int idx;
+                try {
+                    idx = Integer.parseInt(split[1]) - 1; // 0 indexed
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException err) {
+                    throw new MissMinutesException("Please enter a valid index. The correct usage is `mark <idx>`");
+                }
+                if (cmdType == Parser.CommandType.MARK) {
+                    reply = tasks.markTask(idx);
+                } else {
+                    reply = tasks.unmarkTask(idx);
+                }
+                break;
+            case DELETE:
+                isChanged = true;
+                reply = tasks.deleteTask(request);
+                break;
+            case TODO:
+                // Fallthrough
+            case DEADLINE:
+                // Fallthrough
+            case EVENT:
+                isChanged = true;
+                Task task = tasks.createTask(request);
+                reply = tasks.addTask(task);
+                break;
+            case FIND:
+                reply = tasks.findTask(request);
+                break;
+            case UNKNOWN:
+                // Fallthrough
+            default:
+                throw new MissMinutesException(
+                        "Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU"
+                );
+            }
+        } catch (MissMinutesException err) {
+            reply = err.getMessage();
+        }
+
+        if (isChanged) {
+            try {
+                storage.saveTasks(tasks);
+            } catch (MissMinutesException err) {
+                return err.getMessage();
+            }
+        }
+
+        return reply;
     }
 }

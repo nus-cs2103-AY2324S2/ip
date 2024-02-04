@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * Container class to store the tasks and provides helper methods.
  */
 public class TaskList implements Serializable {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Creates a new TaskList object with no tasks
@@ -47,21 +47,22 @@ public class TaskList implements Serializable {
      * Adds a task to the ArrayList container and notifies the Ui.
      *
      * @param task The task to be added
+     * @return The reply to be printed
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
-        String reply = "Got it. I've added this task: \n" + task + "\n"
+        return "Got it. I've added this task: \n" + task + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
-        Ui.sendMsg(reply);
     }
 
     /**
      * Deletes the respective task from the ArrayList container and notifies the Ui
      *
      * @param input The user input command. For e.g, `delete 1`
+     * @return The reply to be printed
      * @throws MissMinutesException If the user input is in invalid format or if the idx is out of bounds.
      */
-    public void deleteTask(String input) throws MissMinutesException {
+    public String deleteTask(String input) throws MissMinutesException {
         String[] split = input.split(" ");
         int idx;
         try {
@@ -72,10 +73,9 @@ public class TaskList implements Serializable {
         try {
             Task curr = this.tasks.get(idx);
             this.tasks.remove(idx);
-            String reply = "Noted. I've removed this task:\n"
+            return "Noted. I've removed this task:\n"
                     + curr + "\n"
                     + "Now you have " + this.tasks.size() + " tasks in the list.";
-            Ui.sendMsg(reply);
         } catch (IndexOutOfBoundsException err) {
             throw new MissMinutesException("This task doesn't exist!", err);
         }
@@ -85,14 +85,14 @@ public class TaskList implements Serializable {
      * Marks the Task object at idx as done.
      *
      * @param idx The index of the task to be marked in the ArrayList
+     * @return The reply to be printed
      * @throws MissMinutesException If the task doesn't exist or already marked as done
      */
-    public void markTask(int idx) throws MissMinutesException {
+    public String markTask(int idx) throws MissMinutesException {
         try {
             Task curr = this.tasks.get(idx);
             curr.markAsDone();
-            String reply = "Nice! I've marked this task as done: \n" + curr;
-            Ui.sendMsg(reply);
+            return "Nice! I've marked this task as done: \n" + curr;
         } catch (IndexOutOfBoundsException err) {
             throw new MissMinutesException("This task doesn't exist!", err);
         }
@@ -102,14 +102,14 @@ public class TaskList implements Serializable {
      * Unmarks the Task object at idx
      *
      * @param idx The index of the task to be unmarked in the ArrayList
+     * @return The reply to be printed
      * @throws MissMinutesException If the task doesn't exist or already marked as done
      */
-    public void unmarkTask(int idx) throws MissMinutesException {
+    public String unmarkTask(int idx) throws MissMinutesException {
         try {
             Task curr = this.tasks.get(idx);
             curr.unmark();
-            String reply = "OK, I've marked this task as not done yet: \n" + curr;
-            Ui.sendMsg(reply);
+            return "OK, I've marked this task as not done yet: \n" + curr;
         } catch (IndexOutOfBoundsException err) {
             throw new MissMinutesException("This task doesn't exist!", err);
         }
@@ -119,9 +119,10 @@ public class TaskList implements Serializable {
      * Given a keyword, finds the tasks that have this keyword and sends to Ui
      *
      * @param input The keyword to search for
+     * @return The reply to be printed
      * @throws MissMinutesException If keyword is empty or no tasks are found with keyword
      */
-    public void findTask(String input) throws MissMinutesException {
+    public String findTask(String input) throws MissMinutesException {
         String[] split = input.split(" ", 2);
         if (split.length <= 1) {
             throw new MissMinutesException("Invalid find command format. Please enter a keyword, like `find book`");
@@ -144,7 +145,7 @@ public class TaskList implements Serializable {
                     .append(". ")
                     .append(results.get(i));
         }
-        Ui.sendMsg(reply.toString());
+        return reply.toString();
     }
 
     /**
