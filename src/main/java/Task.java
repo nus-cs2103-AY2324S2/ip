@@ -1,9 +1,9 @@
 public class Task {
     private String name;
-    private boolean mark;
-    public Task(String name){
+    private boolean mark = false;
+    public Task(String name,boolean mark){
         this.name = name;
-        this.mark = false;
+        this.mark = mark;
     }
 
     public String getName() {
@@ -31,6 +31,14 @@ public class Task {
             return "[X] " + getName();
         }else{
             return "[ ] " + getName();
+        }
+    }
+
+    public String toStringFile(){
+        if  (getMark()){
+            return "1|" + getName();
+        }else{
+            return "0|" + getName();
         }
     }
 }
