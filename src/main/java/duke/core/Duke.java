@@ -7,16 +7,28 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * The Duke class represents the main application that manages tasks.
+ * It handles user interactions, parses commands, and performs operations on tasks.
+ */
 public class Duke {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Enumeration representing valid commands for Duke application.
+     */
     public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Constructs a Duke instance with the specified file path for storage.
+     *
+     * @param filePath The file path for storage.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -28,6 +40,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Main loop for processing user commands and executing corresponding actions.
+     */
     public void echo() {
 
         while (ui.next()) {
@@ -80,11 +95,19 @@ public class Duke {
 
     }
 
+    /**
+     * Initializes the Duke application, greets the user, and starts command processing.
+     */
     public void run() {
         ui.greetUser();
         this.echo();
     }
 
+    /**
+     * Main method to launch the Duke application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }
