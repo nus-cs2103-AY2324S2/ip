@@ -1,10 +1,12 @@
 package duke;
 
-import duke.others.DateFormatter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import duke.others.DateFormatter;
+
+
 
 public class DateFormatterTest {
 
@@ -12,17 +14,17 @@ public class DateFormatterTest {
     private DateFormatter incorrectForm = new DateFormatter("2019-10-1");
 
     @Test
-    public void isValidDate_forCorrectDate_Test(){
-        assertEquals(true,correctForm.isValidDate());
+    public void isValidCorrectDateTest() {
+        assertEquals(true, correctForm.isValidDate());
     }
 
     @Test
-    public void isValidDate_forIncorrectDate_Test(){
-        assertEquals(false,incorrectForm.isValidDate());
+    public void isValidIncorrectDateTest() {
+        assertEquals(false, incorrectForm.isValidDate());
     }
 
     @Test
-    public void convertDateTest(){
-        assertEquals("Oct 15 2019",correctForm.convertDate());
+    public void convertDateTest() {
+        assertEquals("Oct 15 2019", correctForm.convertDate());
     }
 }

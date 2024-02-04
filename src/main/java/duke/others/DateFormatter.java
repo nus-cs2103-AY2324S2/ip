@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Convert dates to more readable form.
  */
-public class DateFormatter{
+public class DateFormatter {
     private String date;
 
     /**
@@ -24,7 +24,7 @@ public class DateFormatter{
      * returns false.
      *
      * @return Boolean indicating if it is in a
-     * correct format
+     *     correct format.
      */
     public Boolean isValidDate() {
         try {

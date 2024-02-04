@@ -2,13 +2,12 @@ package duke.run;
 
 import duke.command.AddTaskCommand;
 import duke.command.ByeCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.command.ListCommand;
-import duke.command.Command;
-import duke.command.FindCommand;
-
 import duke.others.BelleException;
 
 /**

@@ -1,10 +1,9 @@
 package duke.command;
 
+import duke.others.BelleException;
 import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
-
-import duke.others.BelleException;
 
 /**
  * Performs different functions based on type of command.

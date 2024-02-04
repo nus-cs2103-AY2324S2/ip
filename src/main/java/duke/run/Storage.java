@@ -1,19 +1,17 @@
 package duke.run;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import duke.tasks.Task;
-import duke.tasks.EventTask;
-import duke.tasks.DeadlineTask;
-import duke.tasks.TodoTask;
-
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import duke.others.BelleException;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
+
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
@@ -90,7 +88,7 @@ public class Storage {
                             + d.getDeadline() + System.lineSeparator();
                 } else if (i.getType().equals("E")) {
                     EventTask e = (EventTask) i;
-                    currItem  = e.getType() + div + e.getDone() + div + e.getName()
+                    currItem = e.getType() + div + e.getDone() + div + e.getName()
                             + div + e.getStart() + div + e.getEnd() + System.lineSeparator();
                 } else {
                     throw new BelleException("There is an invalid Item when trying to save list");

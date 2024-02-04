@@ -1,90 +1,89 @@
 package duke;
 
-import duke.run.Parser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import duke.command.AddTaskCommand;
 import duke.command.ByeCommand;
 import duke.command.DeleteCommand;
+import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.command.ListCommand;
-
 import duke.others.BelleException;
+import duke.run.Parser;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
-
-    Parser parser = new Parser();
+    private Parser parser = new Parser();
 
     @Test
-    public void parseDeleteTest(){
+    public void parseDeleteTest() {
         try {
-            assertEquals(true, parser.parse("delete 2") instanceof DeleteCommand );
+            assertEquals(true, parser.parse("delete 2") instanceof DeleteCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseListTest(){
+    public void parseListTest() {
         try {
-            assertEquals(true, parser.parse("List") instanceof ListCommand );
+            assertEquals(true, parser.parse("List") instanceof ListCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseByeTest(){
+    public void parseByeTest() {
         try {
-            assertEquals(true, parser.parse("bye") instanceof ByeCommand );
+            assertEquals(true, parser.parse("bye") instanceof ByeCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseMarkTest(){
+    public void parseMarkTest() {
         try {
-            assertEquals(true, parser.parse("mark 2") instanceof MarkCommand );
+            assertEquals(true, parser.parse("mark 2") instanceof MarkCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseUnmarkTest(){
+    public void parseUnmarkTest() {
         try {
-            assertEquals(true, parser.parse("unmark 2") instanceof UnmarkCommand );
+            assertEquals(true, parser.parse("unmark 2") instanceof UnmarkCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseToDoTest(){
+    public void parseToDoTest() {
         try {
-            assertEquals(true, parser.parse("todo 2") instanceof AddTaskCommand );
+            assertEquals(true, parser.parse("todo 2") instanceof AddTaskCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseDeadlineTest(){
+    public void parseDeadlineTest() {
         try {
-            assertEquals(true, parser.parse("deadline return book /by Sunday\n") instanceof AddTaskCommand );
+            assertEquals(true, parser.parse("deadline return book /by Sunday\n") instanceof AddTaskCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
-    public void parseEventTest(){
+    public void parseEventTest() {
         try {
-            assertEquals(true, parser.parse("event project meeting /from Mon 2pm /to 4pm") instanceof AddTaskCommand );
+            assertEquals(true, parser.parse("event project meeting /from Mon 2pm /to 4pm") instanceof AddTaskCommand);
         } catch (BelleException e) {
             System.out.println(e.getMessage());
         }

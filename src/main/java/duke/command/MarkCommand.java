@@ -1,12 +1,11 @@
 package duke.command;
 
-import duke.tasks.Task;
-
+import duke.others.BelleException;
 import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
+import duke.tasks.Task;
 
-import duke.others.BelleException;
 
 /**
  * Marks items as done.
@@ -26,14 +25,14 @@ public class MarkCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
-            Task doingtask = t.getTask(Integer.valueOf(index)-1);
+            Task doingtask = t.getTask(Integer.valueOf(index) - 1);
             doingtask.setTaskDone();
             String printStatement = "--------------------------" + "\n"
-                    + "Nice! I have marked this task as done:" + "\n" +
-                    doingtask.toString() + "\n" + "--------------------------";
+                    + "Nice! I have marked this task as done:" + "\n"
+                    + doingtask.toString() + "\n" + "--------------------------";
             s.save(t.getList());
             return printStatement;
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new BelleException("This is not a valid number in my task list :(");
         }
     }

@@ -43,7 +43,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return " [" + setIsDone() + "] "+ this.name ;
+        return " [" + setIsDone() + "] " + this.name;
     }
 
     public String getType() {

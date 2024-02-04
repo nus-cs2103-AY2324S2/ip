@@ -28,9 +28,10 @@ public class Ui {
      * Prints welcome message.
      */
     public String greet() {
-        return "--------------------------" +"\n" + "Welcome!! I'm Belle <3."
-                + "\n" + "What can I do for you?" + "\n" +
-                "--------------------------";
+        return "--------------------------" + "\n"
+                + "Welcome!! I'm Belle <3."
+                + "\n" + "What can I do for you?"
+                + "\n" + "--------------------------";
     }
 
     /**
@@ -38,7 +39,8 @@ public class Ui {
      */
     public String bye() {
         this.sc.close();
-        return "--------------------------" +"\n" + "Till next time!! Goodbye.";
+        return "--------------------------"
+                + "\n" + "Till next time!! Goodbye.";
     }
 
     public void printError(String msg) {

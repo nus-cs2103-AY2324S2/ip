@@ -1,15 +1,13 @@
 package duke.command;
 
-import duke.tasks.Task;
-import duke.tasks.EventTask;
-import duke.tasks.DeadlineTask;
-import duke.tasks.TodoTask;
-
+import duke.others.BelleException;
 import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
-
-import duke.others.BelleException;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
 
 /**
  * Adds item to tasklist.
@@ -45,11 +43,11 @@ public class AddTaskCommand extends Command {
                 String[] deadlinelist = msg.substring(9).split(" /by ");
                 curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify " +
-                        "all the required information for deadline task.");
+                throw new BelleException("You did not specify "
+                        + "all the required information for deadline task.");
             } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify " +
-                        "all the required information for deadline task.");
+                throw new BelleException("You did not specify "
+                        + "all the required information for deadline task.");
             }
         } else {
             try {
@@ -57,18 +55,18 @@ public class AddTaskCommand extends Command {
                 String[] startend = eventlist[1].split(" /to ");
                 curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new BelleException("You did not " +
-                        "specify all the required information for deadline task.");
+                throw new BelleException("You did not "
+                        + "specify all the required information for deadline task.");
             } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not " +
-                        "specify all the required information for deadline task.");
+                throw new BelleException("You did not "
+                        + "specify all the required information for deadline task.");
             }
         }
         t.addTask(curr);
-        printStatement = "--------------------------" + "\n" +
-                "Got it. I've added this task:" + "\n" + curr.toString() +
-                "\n" + "Now you have " + t.getSize()+ " tasks in the list." +
-                "\n" + "--------------------------";
+        printStatement = "--------------------------" + "\n"
+                + "Got it. I've added this task:" + "\n" + curr.toString()
+                + "\n" + "Now you have " + t.getSize() + " tasks in the list."
+                + "\n" + "--------------------------";
         s.save(t.getList());
         return printStatement;
 

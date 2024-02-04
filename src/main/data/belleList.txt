@@ -1,4 +1,3 @@
-E , true , project meeting , Mon 2pm , 4pm
 T , false , abc
 T , false , abc
 E , false , project meeting , Mon 2pm , 4pm
@@ -14,3 +13,4 @@ T , false , abc
 T , false , fgh
 D , false , apple , 6pm
 T , false , abc
+D , false , corgi , 6pm

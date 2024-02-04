@@ -18,11 +18,11 @@ public class ListCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) {
         int index = 1;
-        String printStatement = "--------------------------" + "\n" +
-                "Here are the tasks in your list:" + "\n";
+        String printStatement = "--------------------------" + "\n"
+                + "Here are the tasks in your list:" + "\n";
         for (int i = 0; i < t.getSize(); i++) {
             printStatement += String.valueOf(index) + "." + t.getTask(i).toString() + "\n";
-            index +=1;
+            index += 1;
         }
         printStatement += "--------------------------";
         return printStatement;
