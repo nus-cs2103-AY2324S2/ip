@@ -161,6 +161,47 @@ public class Ui {
     }
 
     /**
+     * Generates a message for displaying tasks found by a keyword search.
+     *
+     * @param keyword    The keyword used in the search.
+     * @param foundTasks The list of tasks found by the search.
+     * @return A string message displaying the found tasks.
+     */
+    public String getFindTasksMessage(String keyword, List<Task> foundTasks) {
+        StringBuilder message = new StringBuilder("Tasks found with keyword '" + keyword + "':\n");
+
+        if (foundTasks.isEmpty()) {
+            message.append("No matching tasks found.\n");
+        } else {
+            for (int i = 0; i < foundTasks.size(); i++) {
+                message.append((i + 1) + ". " + foundTasks.get(i) + "\n");
+            }
+        }
+
+        return message.toString();
+    }
+
+    /**
+     * Generates a message for displaying the list of tasks.
+     *
+     * @param taskList The list of tasks to be displayed.
+     * @return A string message displaying the list of tasks.
+     */
+    public String getTaskListMessage(List<Task> taskList) {
+        StringBuilder message = new StringBuilder("Here are your tasks:\n");
+
+        if (taskList.isEmpty()) {
+            message.append("No tasks in the list.\n");
+        } else {
+            for (int i = 0; i < taskList.size(); i++) {
+                message.append((i + 1) + ". " + taskList.get(i) + "\n");
+            }
+        }
+
+        return message.toString();
+    }
+
+    /**
      * Displays a DukeException message.
      *
      * @param e The DukeException.

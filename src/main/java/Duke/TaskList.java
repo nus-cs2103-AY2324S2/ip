@@ -79,5 +79,44 @@ public class TaskList {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Finds tasks in the TaskList that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A string representation of tasks matching the keyword.
+     */
+    public String findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return getTasksMessage(matchingTasks, "Tasks found with keyword '" + keyword + "':\n");
+    }
+
+    /**
+     * Generates a message for displaying a list of tasks.
+     *
+     * @param taskList The list of tasks to be displayed.
+     * @param header   The header message to be included before the tasks.
+     * @return A string message displaying the list of tasks.
+     */
+    private String getTasksMessage(List<Task> taskList, String header) {
+        StringBuilder message = new StringBuilder(header);
+
+        if (taskList.isEmpty()) {
+            message.append("No matching tasks found.\n");
+        } else {
+            for (int i = 0; i < taskList.size(); i++) {
+                message.append((i + 1) + ". " + taskList.get(i) + "\n");
+            }
+        }
+
+        return message.toString();
+    }
 }
 

@@ -14,6 +14,6 @@ public interface Command {
      * @param storage The Storage object for saving and loading tasks to and from a file.
      * @throws DukeException If there is an issue executing the command.
      */
-    void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }
 

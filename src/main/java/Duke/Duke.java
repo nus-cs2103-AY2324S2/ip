@@ -93,8 +93,14 @@ public class Duke extends Application {
 
         try {
             Command command = Parser.parseCommand(userInput);
-            command.execute(tasks, new Ui(), storage);
+            String commandResult = command.execute(tasks, new Ui(), storage);
+
+            // Display the parsed command and its output
+            appendToOutputArea("Command: " + userInput + "\n");
+            appendToOutputArea("Result: " + commandResult + "\n");
+
             storage.saveTasksToFile(tasks);
+
         } catch (DukeException | IOException e) {
             appendToOutputArea(e.getMessage() + "\n");
         }
