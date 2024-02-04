@@ -2,7 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 
-public class ui {
+public class Ui {
     static String nameLogo =
             "__/\\\\\\________/\\\\\\_____/\\\\\\\\\\\\\\\\\\_____/\\\\\\____________________________/\\\\\\\\\\\\\\\\\\________/\\\\\\\\\\\\\\________/\\\\\\\\\\\\\\________/\\\\\\\\\\\\\\____        \n" +
             " _\\/\\\\\\_______\\/\\\\\\___/\\\\\\\\\\\\\\\\\\\\\\\\\\__\\/\\\\\\__________________________/\\\\\\///////\\\\\\____/\\\\\\/////\\\\\\____/\\\\\\/////\\\\\\____/\\\\\\/////\\\\\\__       \n" +
@@ -16,7 +16,7 @@ public class ui {
 
     static String divider = "______________________________________________________________________________";
 
-    public static void main(String[] args) {
+    public void start() {
         // greet user
         System.out.println(divider);
         System.out.println("Good afternoon, gentlemen. I am\n" + nameLogo);
@@ -24,7 +24,7 @@ public class ui {
         System.out.println(divider);
 
         // retrieves tasks from storage
-        Storage newTodoList = new Storage();
+        TaskList newTaskList = new TaskList();
 
         //take in input
         Scanner scanner = new Scanner(System.in);
@@ -38,35 +38,35 @@ public class ui {
                 break;
 
             } else if (userInput.equalsIgnoreCase("list")) {
-                newTodoList.listTasks();
+                newTaskList.listTasks();
 
             } else if (userInputArray[0].equalsIgnoreCase("mark")) {
-                String taskString = newTodoList.markAsDone(Integer.parseInt(userInputArray[1]) - 1);
+                String taskString = newTaskList.markAsDone(Integer.parseInt(userInputArray[1]) - 1);
                 System.out.println("Nice! I've marked this task as done:\n" + taskString);
 
             } else if (userInputArray[0].equalsIgnoreCase("unmark")) {
-                String taskString = newTodoList.markAsUndone(Integer.parseInt(userInputArray[1]) - 1);
+                String taskString = newTaskList.markAsUndone(Integer.parseInt(userInputArray[1]) - 1);
                 System.out.println("OK, I've marked this task as not done yet:\n" + taskString);
 
             } else if (userInputArray[0].equalsIgnoreCase("todo") ||
                        userInputArray[0].equalsIgnoreCase("deadline") ||
                        userInputArray[0].equalsIgnoreCase("event")) {
 
-                String taskString = newTodoList.addTask(userInput);
+                String taskString = newTaskList.addTask(userInput);
 
                 // If there is no error, display the messages that task has been added
                 if (!Objects.equals(taskString, "error")) {
                     System.out.println("Roger. I have added this task.");
                     System.out.println(taskString);
-                    System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
+                    System.out.printf("Now you have %d tasks in the list.", newTaskList.getNumberOfTasks());
                 }
 
             } else if (userInputArray[0].equalsIgnoreCase("delete")) {
-                String taskString = newTodoList.removeTask(Integer.parseInt(userInputArray[1]) - 1);
+                String taskString = newTaskList.removeTask(Integer.parseInt(userInputArray[1]) - 1);
 
                 System.out.println("Roger. I have removed this task.");
                 System.out.println(taskString);
-                System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
+                System.out.printf("Now you have %d tasks in the list.", newTaskList.getNumberOfTasks());
             } else {
                 // Unknown keyword error
                 try {
