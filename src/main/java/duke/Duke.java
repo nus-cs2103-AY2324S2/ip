@@ -33,7 +33,7 @@ public class Duke {
 
     /**
      * Runs the Chatbot and takes in input while it is active. Terminates when input
-     * command is "bye"
+     * command is BYE
      */
     public void run() {
         boolean isActive = true;

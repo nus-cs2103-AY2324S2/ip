@@ -12,16 +12,14 @@ import duke.exception.InvalidArgumentException;
  */
 public abstract class Command {
 
-    protected static boolean isActive = true;
-
     /**
-     * Returns the value of the isActive boolean, which represents the
-     * availability of the program to take in commands.
+     * Returns the availability of the program to take in commands afterwards,
+     * which is true for all commands except BYE.
      *
      * @returns Availability to take in input commands.
      */
     public boolean getActive() {
-        return this.isActive;
+        return true;
     }
 
     /**

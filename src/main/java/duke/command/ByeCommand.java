@@ -11,7 +11,17 @@ import duke.task.TaskList;
 public class ByeCommand extends Command {
     @Override
     public void execute(Storage storage, TaskList taskList, Ui ui) {
-        isActive = false;
         ui.farewell();
+    }
+
+    /**
+     * Returns the availability of the program to take in commands afterwards,
+     * which is false after the BYE command
+     *
+     * @returns False, as the program terminates.
+     */
+    @Override
+    public boolean getActive() {
+        return false;
     }
 }

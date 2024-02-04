@@ -15,8 +15,6 @@ public class DeleteCommand extends Command {
 
     private int positionToDelete;
 
-
-
     // TODO : consider catching exception for invalid string which isn't a number
     /**
      * Constructor for a delete task command,
