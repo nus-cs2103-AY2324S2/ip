@@ -84,35 +84,45 @@ public class TaskList implements Serializable {
     /**
      * Marks the Task object at idx as done.
      *
-     * @param idx The index of the task to be marked in the ArrayList
+     * @param indices The indices of the tasks to be marked in the ArrayList
      * @return The reply to be printed
      * @throws MissMinutesException If the task doesn't exist or already marked as done
      */
-    public String markTask(int idx) throws MissMinutesException {
-        try {
-            Task curr = this.tasks.get(idx);
-            curr.markAsDone();
-            return "Nice! I've marked this task as done: \n" + curr;
-        } catch (IndexOutOfBoundsException err) {
-            throw new MissMinutesException("This task doesn't exist!", err);
+    public String markTask(int... indices) throws MissMinutesException {
+        StringBuilder reply = new StringBuilder("Nice! I've marked these tasks as done: ");
+        for (int idx : indices) {
+            try {
+                Task curr = this.tasks.get(idx);
+                curr.markAsDone();
+                reply.append(", ")
+                        .append(curr);
+            } catch (IndexOutOfBoundsException err) {
+                throw new MissMinutesException("This task doesn't exist!", err);
+            }
         }
+        return reply.toString();
     }
 
     /**
      * Unmarks the Task object at idx
      *
-     * @param idx The index of the task to be unmarked in the ArrayList
+     * @param indices The index of the task to be unmarked in the ArrayList
      * @return The reply to be printed
      * @throws MissMinutesException If the task doesn't exist or already marked as done
      */
-    public String unmarkTask(int idx) throws MissMinutesException {
-        try {
-            Task curr = this.tasks.get(idx);
-            curr.unmark();
-            return "OK, I've marked this task as not done yet: \n" + curr;
-        } catch (IndexOutOfBoundsException err) {
-            throw new MissMinutesException("This task doesn't exist!", err);
+    public String unmarkTask(int... indices) throws MissMinutesException {
+        StringBuilder reply = new StringBuilder("OK, I've marked these tasks as not done yet: ");
+        for (int idx : indices) {
+            try {
+                Task curr = this.tasks.get(idx);
+                curr.unmark();
+                reply.append(", ")
+                        .append(curr);
+            } catch (IndexOutOfBoundsException err) {
+                throw new MissMinutesException("This task doesn't exist!", err);
+            }
         }
+        return reply.toString();
     }
 
     /**
