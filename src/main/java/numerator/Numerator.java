@@ -48,7 +48,11 @@ public class Numerator {
     }
 
     public String getResponse(String response) {
-        return "TODO to be implemented";
+        try {
+            return Parser.parseArguments(response, taskList, storage);
+        } catch (NumeratorException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -63,10 +67,10 @@ public class Numerator {
             try {
                 input = sc.nextLine();
                 Ui.printLine();
-                boolean isExiting = Parser.parseArguments(input, taskList, storage);
+                String response = Parser.parseArguments(input, taskList, storage);
                 storage.save(taskList);
 
-                if (isExiting) {
+                if (response.equals(Parser.BYE_STRING)) {
                     Ui.printExit();
                     break;
                 }

@@ -3,8 +3,6 @@ package numerator.task;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import numerator.Ui;
-
 /**
  * Represents a list of tasks.
  */
@@ -126,23 +124,33 @@ public class TaskList {
      *
      * @param idx the index of the task to be printed
      */
-    public void printTask(int idx) {
-        String s = this.taskList.get(idx).toString() + "\n";
-        Ui.printMessage(s);
+    public String getTaskAtIndex(int idx) {
+        return this.taskList.get(idx).toString() + "\n";
+    }
+
+
+    /**
+     * Returns a String representing the task that was added
+     *
+     * @param task the task that was added
+     * @return the string representation of the task that was added
+     */
+    public String getAddTaskString(Task task) {
+        return "Got it, I've added this task:\n"
+                + task.toString() + "\nNow you have "
+                + taskList.size() + " tasks in the list";
     }
 
     /**
-     * Prints the task that was added
+     * Returns a String indicating that a task was removed
      *
-     * @param task the task that was added
+     * @param task the task that was removed
+     * @return a string indicating that a task was removed
      */
-    public void printAddTask(Task task) {
-        Ui.printMessage("Got it, I've added this task:");
-        Ui.printMessage(task.toString() + "\n");
-        String s = String.format("Now you have %d tasks in the list\n", taskList.size());
-        Ui.printMessage(s);
-
-
+    public String getDeleteTaskString(Task task) {
+        return "Noted. I've removed this task:\n"
+                + task.toString() + "\nNow you have "
+                + taskList.size() + " tasks in the list";
     }
 
     /**
@@ -157,14 +165,6 @@ public class TaskList {
                 .toArray(String[]::new));
     }
 
-    /**
-     * Returns the size of the task list as a string
-     *
-     * @return the size of the task list as a string
-     */
-    public String getSizeAsString() {
-        return String.valueOf(this.taskList.size());
-    }
 
     @Override
     public String toString() {
