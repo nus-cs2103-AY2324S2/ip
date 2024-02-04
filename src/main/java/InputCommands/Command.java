@@ -1,7 +1,7 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 public abstract class Command {
 
@@ -10,6 +10,8 @@ public abstract class Command {
     public Command(String desc) {
         this.desc = desc;
     }
+
+    public abstract CmdType getType();
 
 //    /**
 //     * Checks against the Storage.TaskList.TaskList to ensure that task is valid.
@@ -58,13 +60,13 @@ public abstract class Command {
             cmd = new DeleteTaskCommand(description);
             break;
         case "todo":
-            cmd = null;
+            cmd = new AddTodoCommand(description);
             break;
         case "deadline":
-            cmd = null;
+            cmd = new AddDeadlineCommand(description);
             break;
         case "event":
-            cmd = null;
+            cmd = new AddEventCommand(description);
             break;
         default:
             throw new InvalidCommandException();

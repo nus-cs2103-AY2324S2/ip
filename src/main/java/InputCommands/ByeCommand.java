@@ -1,7 +1,7 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 
 public class ByeCommand extends Command {
@@ -12,6 +12,11 @@ public class ByeCommand extends Command {
 
     protected ByeCommand() {
         super(" ");
+    }
+
+    @Override
+    public CmdType getType() {
+        return CmdType.BYE;
     }
 
     @Override

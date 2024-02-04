@@ -3,12 +3,17 @@ package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
 import SnomExceptions.InvalidCommandIndexException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 class DeleteTaskCommand extends Command{
 
     protected DeleteTaskCommand(String desc) {
         super(desc);
+    }
+
+    @Override
+    public CmdType getType() {
+        return CmdType.DELETE;
     }
 
     @Override

@@ -3,12 +3,17 @@ package InputCommands;
 import SnomExceptions.InvalidCommandDateFormatException;
 import SnomExceptions.InvalidCommandException;
 import SnomExceptions.InvalidCommandTaskDescException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 class AddDeadlineCommand extends Command {
+
+    @Override
+    public CmdType getType() {
+        return CmdType.DEADLINE;
+    }
 
     protected AddDeadlineCommand(String desc) {
         super(desc);
@@ -45,7 +50,7 @@ class AddDeadlineCommand extends Command {
     public static void main(String[] args) {
         try {
 
-            System.out.println(new AddDeadlineCommand("deadline /efg").execute(null));
+            System.out.println(new AddDeadlineCommand("deadline /2000-01-01").execute(null));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

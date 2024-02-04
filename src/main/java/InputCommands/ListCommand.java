@@ -1,9 +1,14 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 public class ListCommand extends Command {
+
+    @Override
+    public CmdType getType() {
+        return CmdType.LIST;
+    }
 
 
     private ListCommand(String desc) {
@@ -13,6 +18,8 @@ public class ListCommand extends Command {
     protected ListCommand() {
         super (" ");
     }
+
+
 
 
     @Override

@@ -1,12 +1,17 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandTaskDescException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 class AddTodoCommand extends Command{
 
     protected AddTodoCommand(String desc) {
         super(desc);
+    }
+
+    @Override
+    public CmdType getType() {
+        return CmdType.TODO;
     }
 
     @Override
@@ -16,7 +21,7 @@ class AddTodoCommand extends Command{
             if (detail.isEmpty()) {
                 throw new InvalidCommandTaskDescException();
             }
-            return "todo " + detail;
+            return detail;
         } catch (ArrayIndexOutOfBoundsException e) {
 
             throw new InvalidCommandTaskDescException();
@@ -27,6 +32,7 @@ class AddTodoCommand extends Command{
     public static void main(String[] args) {
         try {
             System.out.println(new AddTodoCommand("todo abc todo").execute(null));
+            System.out.println(new AddTodoCommand("todo abc todo").getType());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -2,7 +2,7 @@ package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
 import SnomExceptions.InvalidCommandIndexException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 class MarkTaskCommand extends Command{
 
@@ -11,11 +11,16 @@ class MarkTaskCommand extends Command{
     }
 
     @Override
+    public CmdType getType() {
+        return CmdType.MARK;
+    }
+
+    @Override
     public String execute(TaskList lst) throws InvalidCommandIndexException {
         try {
             int pos = Integer.parseInt(this.desc.split(" ")[1]);
             lst.getTask(pos);
-            return "unmark " + pos;
+            return Integer.toString(pos);
         } catch (InvalidCommandIndexException e) {
             throw new InvalidCommandIndexException();
         } catch (ArrayIndexOutOfBoundsException e) {

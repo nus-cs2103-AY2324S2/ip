@@ -1,4 +1,4 @@
-package TaskList;
+package SnomTaskList;
 
 import SnomExceptions.InvalidCommandIndexException;
 import SnomTask.Task;
@@ -21,7 +21,7 @@ public class TaskList {
 
     public Task getTask(int pos) throws InvalidCommandIndexException {
 
-        if (counter <= pos) {
+        if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
@@ -32,7 +32,7 @@ public class TaskList {
 
     public void markTask(int pos) throws InvalidCommandIndexException {
 
-        if (counter <= pos) {
+        if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
@@ -43,7 +43,7 @@ public class TaskList {
 
     public void unmarkTask(int pos) throws InvalidCommandIndexException {
 
-        if (counter <= pos) {
+        if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
@@ -55,7 +55,7 @@ public class TaskList {
 
     public void deleteTask(int pos) throws InvalidCommandIndexException {
 
-        if (counter <= pos) {
+        if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
@@ -72,5 +72,11 @@ public class TaskList {
 
     public int getCounter() {
         return this.counter;
+    }
+
+    public void displayTaskList() {
+        for (int i = 0; i<counter; i++) {
+            System.out.println(this.task_lst.get(i));
+        }
     }
 }

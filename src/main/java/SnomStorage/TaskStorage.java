@@ -1,7 +1,7 @@
-package Storage;
+package SnomStorage;
 
 import SnomExceptions.InvalidCommandIndexException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ public class TaskStorage {
     /**
      * Saves the tasks to a .txt file
      */
-    private void saveTask(TaskList lst) {
+    public void saveTask(TaskList lst) {
         File f = new File("data/tasks.txt");
         try {
             f.createNewFile();
@@ -21,6 +21,7 @@ public class TaskStorage {
             saveTask(lst);
 
         }
+        //System.out.println(f.getAbsolutePath());
         updateFile("data/tasks.txt", lst);
     }
 
@@ -31,15 +32,17 @@ public class TaskStorage {
         fw.close();
     }
 
-    public void updateFile (String filename, TaskList lst){
+    private void updateFile (String filename, TaskList lst){
         try {
-            for (int i = 0; i < lst.getCounter(); i++) {
+            for (int i = 1; i <= lst.getCounter(); i++) {
                 writeToFile(filename, lst.getTask(i) + System.lineSeparator());
+                //System.out.println(lst.getTask(i));
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         } catch (InvalidCommandIndexException e) {
-            System.out.println("this should not happen");
+            System.out.println("this should not happen4");
+            System.out.println(e.getMessage());
         }
     }
 }

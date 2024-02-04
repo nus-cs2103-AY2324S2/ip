@@ -4,7 +4,7 @@ import SnomExceptions.InvalidCommandDateFormatException;
 import SnomExceptions.InvalidCommandDateValueException;
 import SnomExceptions.InvalidCommandException;
 import SnomExceptions.InvalidCommandTaskDescException;
-import TaskList.TaskList;
+import SnomTaskList.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -13,6 +13,11 @@ class AddEventCommand extends Command {
 
     protected AddEventCommand(String desc) {
         super(desc);
+    }
+
+    @Override
+    public CmdType getType() {
+        return CmdType.EVENT;
     }
 
     @Override
@@ -28,7 +33,7 @@ class AddEventCommand extends Command {
             if (end.isBefore(start)) {
                 throw new InvalidCommandDateValueException();
             }
-            String name = detail.split("/", 2)[0].trim();
+            String name = detail.split("/", 3)[0].trim();
 
             if (name.isEmpty()) {
 
@@ -51,7 +56,7 @@ class AddEventCommand extends Command {
     public static void main(String[] args) {
         try {
 
-            System.out.println(new AddEventCommand("event /2009-01-01/2000-01-01").execute(null));
+            System.out.println(new AddEventCommand("event AS/1999-01-01/2000-01-01").execute(null));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

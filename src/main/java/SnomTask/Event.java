@@ -2,16 +2,18 @@ package SnomTask;
 
 public class Event extends Task {
 
-    private String time;
+    private String start;
+    private String end;
 
-    public Event(String name, String time) {
+    public Event(String name, String start, String end) {
         super(name);
-        this.time = time;
+        this.start = start;
+        this.end = end;
     }
 
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + this.time;
+        return "[E]" + super.toString() + " from " + this.start + " to " + this.end;
     }
 }
