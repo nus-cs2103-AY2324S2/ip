@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("java.duke.Duke")
 }
 
 shadowJar {
@@ -40,3 +40,5 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+
