@@ -1,7 +1,7 @@
 package duke.task;
 
 /**
- * The Task class represents a generic task in Duke.
+ * The `Task` class represents a generic task in Duke.
  */
 public class Task {
 
@@ -16,7 +16,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task with the given description.
+     * Constructs a `Task` with the given description.
      *
      * @param description The description of the task.
      */
@@ -70,5 +70,4 @@ public class Task {
     public String toFileString() {
         return " | " + this.getStatusSymbol() + " | " + this.description;
     }
-
 }

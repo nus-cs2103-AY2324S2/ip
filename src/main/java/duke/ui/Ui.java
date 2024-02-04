@@ -3,7 +3,7 @@ package duke.ui;
 import java.util.Scanner;
 
 /**
- * The Ui class handles user interaction and provides formatted output to the console.
+ * The `Ui` class handles user interaction and provides formatted output to the console.
  * It includes methods for greeting the user, formatting replies, displaying errors,
  * and obtaining user input.
  */
@@ -20,7 +20,7 @@ public class Ui {
     private final String horizontalLine = "____________________________________________________________\n";
 
     /**
-     * Constructs a Ui object and initializes the Scanner for user input.
+     * Constructs an `Ui` object and initializes the Scanner for user input.
      */
     public Ui() {
         this.myScannerObj = new Scanner(System.in);
@@ -91,5 +91,4 @@ public class Ui {
     public void closeScanner() {
         myScannerObj.close();
     }
-
 }

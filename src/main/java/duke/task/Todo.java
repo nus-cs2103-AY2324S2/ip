@@ -3,12 +3,12 @@ package duke.task;
 import java.util.Objects;
 
 /**
- * The Todo class represents a basic task without a specific deadline or duration in Duke.
+ * The `Todo` class represents a basic task without a specific deadline or duration in Duke.
  */
 public class Todo extends Task {
 
     /**
-     * Constructs a Todo with the given description.
+     * Constructs a `Todo` with the given description.
      *
      * @param description The description of the todo.
      */

@@ -10,21 +10,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+/**
+ * Unit tests for the TaskList class.
+ */
 public class TaskListTest {
 
     @Test
-    public void addTask_validInput_correctlyAddsTask() {
+    public void addTask_validInput_addsTaskSuccessfully() {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Read Book");
         String result = taskList.addTask(task);
         assertEquals("Got it. I've added this task:\n   "
                 + task
-                + "\n Now you have 1 tasks in the list.", result);
+                + "\n Now you have 1 task(s) in the list.", result);
         assertEquals(1, taskList.getTasks().size());
     }
 
     @Test
-    public void deleteTask_validIndex_correctlyDeletesTask() throws DukeException {
+    public void deleteTask_validIndex_deletesTaskSuccessfully() throws DukeException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Read Book");
         taskList.addTask(task);
@@ -33,7 +36,7 @@ public class TaskListTest {
 
         assertEquals("Noted. I've removed this task:\n   "
                 + task
-                + "\n Now you have 0 tasks in the list.", result);
+                + "\n Now you have 0 task(s) in the list.", result);
         assertEquals(0, taskList.getTasks().size());
     }
 
@@ -50,7 +53,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void markTask_validIndex_correctlyMarksAsDone() throws DukeException {
+    public void markTask_validIndex_marksAsDoneSuccessfully() throws DukeException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Read Book");
         taskList.addTask(task);
@@ -68,7 +71,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void unmarkTask_validIndex_correctlyMarksAsNotDone() throws DukeException {
+    public void unmarkTask_validIndex_marksAsNotDoneSuccessfully() throws DukeException {
         TaskList taskList = new TaskList(new ArrayList<>());
         Task task = new Todo("Read Book");
         task.setDone(true);

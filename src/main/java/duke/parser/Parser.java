@@ -8,7 +8,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 /**
- * The Parser class handles the parsing of user commands in Duke.
+ * The `Parser` class handles the parsing of user commands in Duke.
  * It interprets commands and converts them into corresponding Duke actions.
  */
 public class Parser {
@@ -19,11 +19,11 @@ public class Parser {
     protected String command;
 
     /**
-     * Constructs a Parser with the given command.
+     * Constructs a `Parser` with the given command.
      *
      * @param command The command to be parsed.
      */
-    public Parser (String command) {
+    public Parser(String command) {
         this.command = command;
     }
 
@@ -35,11 +35,11 @@ public class Parser {
      */
     public Task parseAdd() throws DukeException {
         if (command.toUpperCase().startsWith(Duke.Command.TODO.name())) {
-            return this.parseTodo();
+            return parseTodo();
         } else if (command.toUpperCase().startsWith(Duke.Command.DEADLINE.name())) {
-            return this.parseDeadline();
+            return parseDeadline();
         } else if (command.toUpperCase().startsWith(Duke.Command.EVENT.name())) {
-            return this.parseEvent();
+            return parseEvent();
         } else {
             throw new DukeException("Invalid format. Please use 'todo', 'deadline', or 'event'.");
         }
@@ -51,7 +51,7 @@ public class Parser {
      * @return The index of the task to be deleted.
      * @throws DukeException If the command is in an invalid format.
      */
-    public int parseDelete() throws DukeException{
+    public int parseDelete() throws DukeException {
         String[] part = command.split(" ");
 
         if (part.length == 2) {
@@ -73,7 +73,7 @@ public class Parser {
      * @return The index of the task to be marked as done.
      * @throws DukeException If the command is in an invalid format.
      */
-    public int parseMark() throws DukeException{
+    public int parseMark() throws DukeException {
         String[] part = command.split(" ");
 
         if (part.length == 2) {
@@ -83,7 +83,6 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid format. Please use integers only.");
             }
-
         } else {
             throw new DukeException("Invalid format. Please use 'mark <index>'.");
         }
@@ -95,7 +94,7 @@ public class Parser {
      * @return The index of the task to be marked as not done.
      * @throws DukeException If the command is in an invalid format.
      */
-    public int parseUnMark() throws DukeException{
+    public int parseUnMark() throws DukeException {
         String[] part = command.split(" ");
 
         if (part.length == 2) {
@@ -105,7 +104,6 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid format. Please use integers only.");
             }
-
         } else {
             throw new DukeException("Invalid format. Please use 'unmark <index>'.");
         }
@@ -140,7 +138,7 @@ public class Parser {
      * @return The Todo created based on the todo command.
      * @throws DukeException If the command is in an invalid format.
      */
-    public Todo parseTodo() throws DukeException{
+    public Todo parseTodo() throws DukeException {
         String input = command.substring(Duke.Command.TODO.name().length()).trim();
         String description = input.trim();
 
@@ -157,10 +155,10 @@ public class Parser {
      * @return The Deadline created based on the deadline command.
      * @throws DukeException If the command is in an invalid format.
      */
-    public Deadline parseDeadline() throws DukeException{
+    public Deadline parseDeadline() throws DukeException {
         String input = command.substring(Duke.Command.DEADLINE.name().length()).trim();
         int byIndex = input.indexOf(" /by ");
-        if ( byIndex != 0 && byIndex != -1) {
+        if (byIndex != 0 && byIndex != -1) {
             String description = input.substring(0, byIndex).trim();
             String by = input.substring(byIndex + 4).trim();
             return new Deadline(description, by);

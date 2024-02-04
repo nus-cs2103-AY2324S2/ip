@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
- * The Deadline class represents a task with a specific deadline in Duke.
+ * The `Deadline` class represents a task with a specific deadline in Duke.
  */
 public class Deadline extends Task {
 
@@ -28,7 +28,7 @@ public class Deadline extends Task {
     protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
-     * Constructs a Deadline with the given description and deadline.
+     * Constructs a `Deadline` with the given description and deadline.
      *
      * @param description The description of the deadline.
      * @param by The deadline in yyyy-MM-dd HH:mm format.
