@@ -1,12 +1,12 @@
 package duke;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.TaskManager;
 import duke.ui.Ui;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Duke {
 
@@ -22,7 +22,7 @@ public class Duke {
         try {
             manager = storage.loadFile();
         } catch (DukeException e) {
-            //show loading error but i don't plan to show a loading error
+
             manager = new TaskManager();
         }
         TimerTask savingTask = new TimerTask() {
@@ -31,10 +31,11 @@ public class Duke {
                 storage.saveFile(manager);
             }
         };
-        saveTimer.schedule(savingTask, 0, 2000); //update at 2 seconds
+        saveTimer.schedule(savingTask, 0, 2000);
 
 
     }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -58,6 +59,7 @@ public class Duke {
         System.exit(0);
 
     }
+
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
 
