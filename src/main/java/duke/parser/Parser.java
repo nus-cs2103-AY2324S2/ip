@@ -1,5 +1,9 @@
+package duke.parser;
+
+import duke.DukeException;
+import duke.command.*;
+
 import java.time.LocalDate;
-import java.util.InputMismatchException;
 
 /*
  * The Parser class is responsible for making sense of the user command.
