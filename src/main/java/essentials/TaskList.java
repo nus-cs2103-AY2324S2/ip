@@ -24,6 +24,13 @@ public class TaskList {
     }
 
     /**
+     * Constructor for essentials.TaskList class. For testing purposes only.
+     */
+    public TaskList() {
+
+    }
+
+    /**
      * Creates a new task and adds it to the task list.
      *
      * @param instruction The type of task to be created.
