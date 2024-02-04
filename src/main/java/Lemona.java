@@ -1,24 +1,22 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
 
 public class Lemona {
+    private static final String path = "./data/lemona.txt";
+    private static final String line = "\t______________________________________________________";
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
-        String line = "\t______________________________________________________";
         String addMessage = "\t Got it. I've added this task:";
 
-        File f = new File("./data/lemona.txt");
         try {
-            if (f.createNewFile()) {
-                System.out.println("New file created");
-            } else {
-                System.out.println("File already exists");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+            list = load(list);
+        } catch (IOException e) {
+            System.out.println(line);
+            System.out.println("\t Sorry, I think I haven't had enough vitamin C."
+                    + "\n\t I am unable to load tasks from the file."
+                    + "\n\t I will need to go have some LEMONA");
         }
 
         //greeting
@@ -27,6 +25,7 @@ public class Lemona {
                 "\n\t Would you like some vitamins?" +
                 "\n" + line);
 
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             String[] untrimmedParts = input.split(" ", 2);
@@ -46,123 +45,136 @@ public class Lemona {
                 }
 
                 switch (parts[0]) {
-                    case ("bye"):
-                        System.out.println("\t Bye. Don't forget to take a LEMONA!");
+                case ("bye"):
+                    System.out.println("\t Bye. Don't forget to take a LEMONA!");
+                    System.out.println(line);
+                    scanner.close();
+                    return;
+                case ("list"):
+                    if (list.size() == 0) {
+                        System.out.println("\t I think you haven't had enough vitamin E."
+                                + "\n\t You do not have any tasks on the list yet!"
+                                + "\n\t I suggest you take some LEMONA.");
                         System.out.println(line);
-                        scanner.close();
-                        return;
-                    case ("list"):
+                    } else {
                         System.out.println("\t Here are the tasks in your list:");
                         for (int i = 0; i < list.size(); i++) {
                             System.out.println("\t " + (i + 1) + "." + list.get(i).print());
                         }
                         System.out.println(line);
-                        break;
-                    case ("mark"):
-                        int index = Integer.parseInt(parts[1]);
-                        if (list.size() < index) {
-                            throw new OutOfIndexException();
-                        } else if (list.get(index - 1).getStatusIcon().equals("X")) {
+                    }
+                    break;
+                case ("mark"):
+                    int index = Integer.parseInt(parts[1]);
+                    if (list.size() < index) {
+                        throw new OutOfIndexException();
+                    } else if (list.get(index - 1).getStatusIcon().equals("X")) {
+                        throw new DuplicateInstructionException();
+                    }
+
+                    list.get(index - 1).markAsDone();
+                    save(list);
+                    System.out.println("\t Nice! I've marked this task as done:" + "\n\t\t" +
+                            list.get(index - 1).print());
+                    System.out.println(line);
+                    break;
+                case ("unmark"):
+                    index = Integer.parseInt(parts[1]);
+                    if (list.size() < index) {
+                        throw new OutOfIndexException();
+                    } else if (list.get(index - 1).getStatusIcon().equals(" ")) {
+                        throw new DuplicateInstructionException();
+                    }
+
+                    list.get(index - 1).unmarkAsDone();
+                    save(list);
+                    System.out.println("\t OK, I've marked this task as not done yet:" + "\n\t\t" +
+                            list.get(index - 1).print());
+                    System.out.println(line);
+                    break;
+                case ("delete"):
+                    index = Integer.parseInt(parts[1]);
+                    if (list.size() < index || index < 1) {
+                        throw new OutOfIndexException();
+                    }
+
+                    System.out.println("\t OK, I've removed this task:" + "\n\t\t" +
+                            list.get(index - 1).print());
+                    list.remove(index - 1);
+                    save(list);
+                    System.out.println("\t Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(line);
+                    break;
+                case ("todo"):
+                    if (size == 1) {
+                        throw new MissingDescriptionException();
+                    }
+
+                    Task task = new Todo(parts[1]);
+                    for (Task value : list) {
+                        if (value.getDescription().equals(task.getDescription())) {
                             throw new DuplicateInstructionException();
                         }
+                    }
 
-                        list.get(index - 1).markAsDone();
-                        System.out.println("\t Nice! I've marked this task as done:" + "\n\t\t" +
-                                list.get(index - 1).print());
-                        System.out.println(line);
-                        break;
-                    case ("unmark"):
-                        index = Integer.parseInt(parts[1]);
-                        if (list.size() < index) {
-                            throw new OutOfIndexException();
-                        } else if (list.get(index - 1).getStatusIcon().equals(" ")) {
+                    list.add(task);
+                    save(list);
+                    System.out.println(addMessage);
+                    System.out.print("\t   " + task.print());
+                    System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(line);
+                    break;
+                case ("deadline"):
+                    if (size == 1 || parts[1].split("/by ").length == 1) {
+                        throw new MissingDescriptionException();
+                    }
+
+                    String[] content = parts[1].split("/by ");
+                    task = new Deadline(content[0], content[1]);
+                    for (Task value : list) {
+                        if (value.getDescription().equals(task.getDescription())) {
                             throw new DuplicateInstructionException();
                         }
+                    }
 
-                        list.get(index - 1).unmarkAsDone();
-                        System.out.println("\t OK, I've marked this task as not done yet:" + "\n\t\t" +
-                                list.get(index - 1).print());
-                        System.out.println(line);
-                        break;
-                    case ("delete"):
-                        index = Integer.parseInt(parts[1]);
-                        if (list.size() < index || index < 1) {
-                            throw new OutOfIndexException();
+                    list.add(task);
+                    save(list);
+                    System.out.println(addMessage);
+                    System.out.print("\t   " + task.print());
+                    System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(line);
+                    break;
+                case ("event"):
+                    if (size == 1 || parts[1].split("/from ").length == 1) {
+                        throw new MissingDescriptionException();
+                    }
+
+                    content = parts[1].split("/from ");
+
+                    if (size == 1 || content[1].split("/to ").length == 1) {
+                        throw new MissingDescriptionException();
+                    }
+
+                    String[] dates = content[1].split("/to ");
+                    task = new Event(content[0], dates[0], dates[1]);
+                    for (Task value : list) {
+                        if (value.getDescription().equals(task.getDescription())) {
+                            throw new DuplicateInstructionException();
                         }
+                    }
 
-                        System.out.println("\t OK, I've removed this task:" + "\n\t\t" +
-                                list.get(index - 1).print());
-                        list.remove(index - 1);
-                        System.out.println("\t Now you have " + list.size() + " tasks in the list.");
-                        System.out.println(line);
-                        break;
-                    case ("todo"):
-                        if (size == 1) {
-                            throw new MissingDescriptionException();
-                        }
-
-                        Task task = new Todo(parts[1]);
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getDescription().equals(task.getDescription())) {
-                                throw new DuplicateInstructionException();
-                            }
-                        }
-
-                        list.add(task);
-                        System.out.println(addMessage);
-                        System.out.print("\t   " + task.print());
-                        System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
-                        System.out.println(line);
-                        break;
-                    case ("deadline"):
-                        if (size == 1 || parts[1].split("/by ").length == 1) {
-                            throw new MissingDescriptionException();
-                        }
-
-                        String[] content = parts[1].split("/by ");
-                        task = new Deadline(content[0], content[1]);
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getDescription().equals(task.getDescription())) {
-                                throw new DuplicateInstructionException();
-                            }
-                        }
-
-                        list.add(task);
-                        System.out.println(addMessage);
-                        System.out.print("\t   " + task.print());
-                        System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
-                        System.out.println(line);
-                        break;
-                    case ("event"):
-                        if (size == 1 || parts[1].split("/from ").length == 1) {
-                            throw new MissingDescriptionException();
-                        }
-
-                        content = parts[1].split("/from ");
-
-                        if (size == 1 || content[1].split("/to ").length == 1) {
-                            throw new MissingDescriptionException();
-                        }
-
-                        String[] dates = content[1].split("/to ");
-                        task = new Event(content[0], dates[0], dates[1]);
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getDescription().equals(task.getDescription())) {
-                                throw new DuplicateInstructionException();
-                            }
-                        }
-
-                        list.add(task);
-                        System.out.println(addMessage);
-                        System.out.print("\t  " + task.print());
-                        System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
-                        System.out.println(line);
-                        break;
-                    default:
-                        System.out.println("\t I think you haven't had enough vitamin C." +
-                                "\n\t I can't understand what you want me to do!" +
-                                "\n\t I suggest you take some LEMONA.");
-                        System.out.println(line);
+                    list.add(task);
+                    save(list);
+                    System.out.println(addMessage);
+                    System.out.print("\t  " + task.print());
+                    System.out.println("\n\t Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(line);
+                    break;
+                default:
+                    System.out.println("\t I think you haven't had enough vitamin C." +
+                            "\n\t I can't understand what you want me to do!" +
+                            "\n\t I suggest you take some LEMONA.");
+                    System.out.println(line);
                 }
             } catch (OutOfIndexException e) {
                 System.out.println(e.toString(list.size()));
@@ -176,7 +188,81 @@ public class Lemona {
             } catch (DuplicateInstructionException e) {
                 System.out.println(e.toString(parts[0]));
                 System.out.println(line);
+            } catch (IOException e) {
+                System.out.println("\t Sorry, I think I haven't had enough vitamin C."
+                        + "\n\t I am unable to save tasks into the file."
+                        + "\n\t I will need to go have some LEMONA");
             }
         }
+    }
+
+    public static String listToString(ArrayList<Task> list) {
+        String content = "";
+        for (int i = 0; i < list.size() - 1; i++) {
+            Task task = list.get(i);
+            content = content + task.getTaskInfo() + "\n";
+        }
+        Task task = list.get(list.size() - 1);
+        content = content + task.getTaskInfo();
+        return content;
+    }
+
+    public static ArrayList<Task> stringToList(ArrayList<Task> array, String text) {
+        String[] list = text.split("(new) ");
+        for (String s : list) {
+            String[] info = s.split("/ ");
+            switch (info[0]) {
+            case "[T] ":
+                Task task = new Todo(info[2]);
+                if (info[1].equals("[X]")) {
+                    task.markAsDone();
+                }
+                array.add(task);
+                break;
+            case "[D] ":
+                task = new Deadline(info[2], info[3]);
+                if (info[1].equals("[X]")) {
+                    task.markAsDone();
+                }
+                array.add(task);
+                break;
+            case "[E] ":
+                task = new Event(info[2], info[3], info[4]);
+                if (info[1].equals("[X]")) {
+                    task.markAsDone();
+                }
+                array.add(task);
+                break;
+            default:
+                System.out.println("File is corrupted!");
+            }
+        }
+        return array;
+    }
+
+    public static ArrayList<Task> load(ArrayList<Task> array) throws IOException{
+        File file = new File(path);
+        ArrayList<Task> tasks = new ArrayList<>();
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String task = scanner.nextLine();
+            tasks = stringToList(array, task);
+        }
+        return tasks;
+    }
+
+    public static void save(ArrayList<Task> tasks) throws IOException{
+        File file = new File(path);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        fw.write(listToString(tasks));
+        fw.close();
     }
 }
