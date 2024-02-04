@@ -1,6 +1,7 @@
 package haro;
 
 import haro.task.Task;
+
 import java.util.Scanner;
 
 /**
@@ -33,10 +34,8 @@ public class Ui {
      */
     public void greet() {
         System.out.println(
-                "Greetings from\n" + haroLogo + "\n" +
-                        openingMsg + "\n" +
-                        horizontalLine
-        );
+                "Greetings from\n" + haroLogo + "\n"
+                        + openingMsg + "\n" + horizontalLine);
     }
 
     /**
@@ -44,8 +43,8 @@ public class Ui {
      */
     public void bye() {
         System.out.println("List has been saved!");
-        System.out.println(closingMSg + "\n" +
-                horizontalLine);
+        System.out.println(closingMSg + "\n"
+                + horizontalLine);
     }
 
     /**
@@ -107,9 +106,9 @@ public class Ui {
      * @param taskListSize Current size of the task list after addition of task
      */
     public void printAddTask(Task task, int taskListSize) {
-        System.out.println("Got it I've added this task:\n" +
-                task.printTask() + "\n" +
-                "You now have " + taskListSize + " tasks in the list\n");
+        System.out.println("Got it I've added this task:\n"
+                + task.printTask() + "\n"
+                + "You now have " + taskListSize + " tasks in the list\n");
     }
 
     /**

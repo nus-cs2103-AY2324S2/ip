@@ -1,10 +1,8 @@
 package haro.task;
 
-import haro.task.Task;
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 /**
  * The Deadline class represents a task with a specific deadline in the application, extending the Task class.
@@ -36,10 +34,10 @@ public class Deadline extends Task {
      *
      * @param task     Task description
      * @param deadline Deadline of the task
-     * @param done     True if the task is marked as done, false otherwise
+     * @param isDone     True if the task is marked as done, false otherwise
      */
-    public Deadline(String task, String deadline, boolean done) {
-        super(task, done);
+    public Deadline(String task, String deadline, boolean isDone) {
+        super(task, isDone);
         this.deadline = deadline;
 
         try {
@@ -73,7 +71,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        int marked = this.done ? 1 : 0;
+        int marked = this.isDone ? 1 : 0;
         return "D | " + marked + " | " + this.task + " | " + this.deadline;
     }
 }

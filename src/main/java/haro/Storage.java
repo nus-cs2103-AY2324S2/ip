@@ -57,8 +57,8 @@ public class Storage {
             while (storageScanner.hasNext()) {
                 String storageLine = storageScanner.nextLine();
                 String actionType = "none";
-                String[] storageArr = storageLine.split("\\|");
-                String commandType = storageArr[0].toLowerCase().trim();
+                String[] storageArgs = storageLine.split("\\|");
+                String commandType = storageArgs[0].toLowerCase().trim();
 
                 switch (commandType) {
                     case "t":
@@ -79,12 +79,12 @@ public class Storage {
                     break;
                 } else if (actionType == "todo") {
                     try {
-                        if (storageArr.length < 3) {
+                        if (storageArgs.length < 3) {
                             throw new Exception("Invalid save list");
                         }
-                        int markedInt = Integer.valueOf(storageArr[1].trim());
+                        int markedInt = Integer.valueOf(storageArgs[1].trim());
                         boolean marked = markedInt == 0 ? false : true;
-                        ToDo newTodo = new ToDo(storageArr[2].trim(), marked);
+                        ToDo newTodo = new ToDo(storageArgs[2].trim(), marked);
                         resultTasks.add(newTodo);
                         continue;
                     } catch (Exception e) {
@@ -94,14 +94,14 @@ public class Storage {
                     }
                 } else if (actionType == "deadline") {
                     try {
-                        if (storageArr.length < 4) {
+                        if (storageArgs.length < 4) {
                             throw new Exception("Invalid save list");
                         }
 
-                        int markedInt = Integer.valueOf(storageArr[1].trim());
+                        int markedInt = Integer.valueOf(storageArgs[1].trim());
                         boolean marked = markedInt == 0 ? false : true;
-                        String task = storageArr[2].trim();
-                        String deadline = storageArr[3].trim();
+                        String task = storageArgs[2].trim();
+                        String deadline = storageArgs[3].trim();
                         Deadline newDeadline = new Deadline(task, deadline, marked);
                         resultTasks.add(newDeadline);
                         continue;
@@ -113,15 +113,15 @@ public class Storage {
                     }
                 } else if (actionType == "event") {
                     try {
-                        if (storageArr.length < 5) {
+                        if (storageArgs.length < 5) {
                             throw new Exception("Invalid save list");
                         }
 
-                        int markedInt = Integer.valueOf(storageArr[1].trim());
+                        int markedInt = Integer.valueOf(storageArgs[1].trim());
                         boolean marked = markedInt == 0 ? false : true;
-                        String task = storageArr[2].trim();
-                        String start = storageArr[3].trim();
-                        String end = storageArr[4].trim();
+                        String task = storageArgs[2].trim();
+                        String start = storageArgs[3].trim();
+                        String end = storageArgs[4].trim();
                         Event newEvent = new Event(task, start, end, marked);
                         resultTasks.add(newEvent);
                         continue;
@@ -135,7 +135,9 @@ public class Storage {
             }
 
         } catch (NoSuchElementException e) {
+
         } catch (Exception e) {
+
         } finally {
             return resultTasks;
         }
@@ -146,10 +148,10 @@ public class Storage {
      * @param sourceTaskList TaskList containing tasks to be saved
      */
     public void saveToDisk(TaskList sourceTaskList) {
-        ArrayList<Task> saveList = sourceTaskList.getArrayList();
+        ArrayList<Task> saveTasks = sourceTaskList.getArrayList();
         String content = "";
-        for (int i = 0; i < saveList.size(); i++) {
-            Task curr = saveList.get(i);
+        for (int i = 0; i < saveTasks.size(); i++) {
+            Task curr = saveTasks.get(i);
             String currTask = curr.toString();
             content += currTask + System.lineSeparator();
         }

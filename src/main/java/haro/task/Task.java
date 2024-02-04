@@ -6,16 +6,17 @@ package haro.task;
  */
 public abstract class Task {
     protected String task;
-    protected boolean done;
+    protected boolean isDone;
 
     /**
      * Constructs a Task instance with the specified task description.
      *
      * @param task Task description
      */
+
     public Task(String task) {
         this.task = task;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -23,23 +24,23 @@ public abstract class Task {
      *
      * @param task Task description
      */
-    public Task(String task, boolean done) {
+    public Task(String task, boolean isDone) {
         this.task = task;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
      * Marks the task as done.
      */
     public void markTask() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void unmarkTask() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -49,7 +50,7 @@ public abstract class Task {
      */
     public String printTask() {
         String taskString;
-        if (this.done) {
+        if (this.isDone) {
             taskString = "[X] " + this.task;
         } else {
             taskString = "[ ] " + this.task;
