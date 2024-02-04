@@ -90,6 +90,14 @@ public class Parser {
             }
             String s3 = split_command[1];
             return new Delete(Integer.parseInt(s3));
+
+        case "find":
+            if (split_command.length <= 1) {
+                throw new DukeException("Please include search details");
+            }
+            String search = split_command[1];
+            return new Find(search);
+
         default:
             return new InvalidAction();
         }
