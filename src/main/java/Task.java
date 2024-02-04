@@ -1,6 +1,6 @@
 import java.time.format.DateTimeFormatter;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -9,6 +9,11 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false; // Task is not done by default
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -33,5 +38,13 @@ public class Task {
     public String toString() {
         // Return task status icon and description
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    public abstract String toFileString();
+
+    public abstract String getType();
+
+    public boolean isDone() {
+        return this.isDone;
     }
 }
