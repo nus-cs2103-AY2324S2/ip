@@ -15,6 +15,7 @@ import duke.exception.DukeException;
  * Translate text to command.
  */
 class Parser {
+    private static final int TOKEN_NUM = 2;
     private TaskList tasks;
 
     /**
@@ -40,13 +41,13 @@ class Parser {
             return new List(tasks);
         } else if (input.equals("current") || input.equals("curr")) {
             return new CurrentTask(tasks);
-        } else if (inputs[0].equals("find") && inputs.length == 2) {
+        } else if (inputs[0].equals("find") && inputs.length == TOKEN_NUM) {
             return new Find(inputs[1], tasks);
-        } else if (inputs[0].equals("mark") && inputs.length == 2) {
+        } else if (inputs[0].equals("mark") && inputs.length == TOKEN_NUM) {
             return new Mark(Integer.parseInt(inputs[1]) - 1, tasks);
-        } else if (inputs[0].equals("unmark") && inputs.length == 2) {
+        } else if (inputs[0].equals("unmark") && inputs.length == TOKEN_NUM) {
             return new Unmark(Integer.parseInt(inputs[1]) - 1, tasks);
-        } else if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length == 2) {
+        } else if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length == TOKEN_NUM) {
             return new Delete(Integer.parseInt(inputs[1]) - 1, tasks);
         } else {
             return new Add(input, tasks);
