@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -41,4 +42,7 @@ run{
     standardInput = System.in
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
 
