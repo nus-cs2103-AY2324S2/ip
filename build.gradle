@@ -46,3 +46,9 @@ run{
 checkstyle {
     toolVersion = '10.2'
 }
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
