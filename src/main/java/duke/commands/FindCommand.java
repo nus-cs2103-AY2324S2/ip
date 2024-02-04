@@ -6,7 +6,9 @@ import duke.tasks.Task;
 
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
-    private String keyword;
+    public static final String MESSAGE = "found for u liao:\n%s";
+
+    private final String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -21,5 +23,6 @@ public class FindCommand extends Command {
                 filteredTasks.add(task);
             }
         }
+        ui.print(String.format(MESSAGE, filteredTasks.toString()));
     }
 }
