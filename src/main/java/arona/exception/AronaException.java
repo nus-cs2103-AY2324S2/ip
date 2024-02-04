@@ -1,4 +1,4 @@
-package exception;
+package arona.exception;
 
 /**
  * Represents an exception that might happen in the chatbot.

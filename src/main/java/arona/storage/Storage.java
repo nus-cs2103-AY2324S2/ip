@@ -1,4 +1,4 @@
-package storage;
+package arona.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import exception.AronaInvalidDateException;
+import arona.exception.AronaInvalidDateException;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
+import arona.task.Deadline;
+import arona.task.Event;
+import arona.task.Task;
+import arona.task.TaskList;
+import arona.task.ToDo;
 
-import ui.Ui;
+import arona.ui.Ui;
 
 /**
  * The Storage class can modify and store the task list.

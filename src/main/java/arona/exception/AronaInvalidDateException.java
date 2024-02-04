@@ -1,4 +1,4 @@
-package exception;
+package arona.exception;
 
 /**
  * Represents an exception when the date given in the command is invalid.

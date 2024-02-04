@@ -1,4 +1,4 @@
-package task;
+package arona.task;
 
 /**
  * Represents a task.

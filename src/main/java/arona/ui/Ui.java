@@ -1,4 +1,4 @@
-package ui;
+package arona.ui;
 
 /**
  * Class to deal with the user interface.

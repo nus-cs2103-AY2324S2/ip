@@ -1,24 +1,26 @@
-import command.CommandType;
+package arona;
 
-import exception.AronaIncompleteCommandException;
-import exception.AronaInvalidCommandException;
-import exception.AronaInvalidDateException;
-import exception.AronaInvalidIndexException;
+import arona.command.CommandType;
+
+import arona.exception.AronaIncompleteCommandException;
+import arona.exception.AronaInvalidCommandException;
+import arona.exception.AronaInvalidDateException;
+import arona.exception.AronaInvalidIndexException;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import parser.Parser;
+import arona.parser.Parser;
 
-import storage.Storage;
+import arona.storage.Storage;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
+import arona.task.Deadline;
+import arona.task.Event;
+import arona.task.Task;
+import arona.task.TaskList;
+import arona.task.ToDo;
 
-import ui.Ui;
+import arona.ui.Ui;
 
 public class Arona {
     private static final Storage storage = new Storage();

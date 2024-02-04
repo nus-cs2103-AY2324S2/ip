@@ -1,4 +1,4 @@
-package exception;
+package arona.exception;
 
 /**
  * Represents an exception when the command is invalid.

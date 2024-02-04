@@ -1,4 +1,4 @@
-package command;
+package arona.command;
 
 public enum CommandType {
     BYE,

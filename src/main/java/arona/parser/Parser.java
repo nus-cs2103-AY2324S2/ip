@@ -1,7 +1,7 @@
-package parser;
+package arona.parser;
 
-import command.CommandType;
-import exception.AronaInvalidCommandException;
+import arona.command.CommandType;
+import arona.exception.AronaInvalidCommandException;
 public class Parser {
     public CommandType parseInput(String input) throws AronaInvalidCommandException {
         String[] inputs = input.split(" ", 2);
