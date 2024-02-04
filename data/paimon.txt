@@ -1,3 +1,6 @@
-T | 1 | Buy Donuts
-D | 1 | Eat Peanuts | 1pm
-E | 1  Do projects | 1pm | Monday 4am
+T | 0 | 1
+T | 0 | 2
+D | 0 | buy donut | 2012-01-01 00:00
+T | 0 | 1
+E | 0 | do stuff | 2012-01-01 00:00 | 2015-02-04 00:00
+D | 0 | buy stuff  | 2012-12-21 00:00

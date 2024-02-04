@@ -4,6 +4,7 @@ import main.java.task.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
@@ -19,19 +20,29 @@ public class FileHandler {
             fields[i] = fields[i].trim();
         }
         Task returnTask;
+        // Might need to catch DateTimeParseException here
         switch (fields[0]) {
             case "T":
                 returnTask = new TodoTask(fields[2]);
                 break;
             case "D":
-                returnTask = new DeadlineTask(fields[2], fields[3]);
+                try {
+                    returnTask = new DeadlineTask(fields[2], DateParser.parseDate(fields[3]));
+                } catch (DateTimeParseException e) {
+                    throw new IOException("Unable to read date " + fields[3]);
+                }
                 break;
             case "E":
-                returnTask = new EventTask(fields[2], fields[3], fields[4]);
+                try {
+                    returnTask = new EventTask(fields[2], DateParser.parseDate(fields[3]), DateParser.parseDate(fields[4]));
+                } catch (DateTimeParseException e) {
+                    throw new IOException("Unable to read date " + fields[3] + " " + fields[4]);
+                }
                 break;
             default:
                 throw new IOException("Invalid task type: " + fields[0]);
         }
+
         returnTask.setTaskState(fields[1].equals("1"));
         return returnTask;
     }
