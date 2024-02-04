@@ -19,7 +19,7 @@ public class AddTodoCommand extends Command {
      * Constructor for an AddToDo command,
      * which initialises the command with its task description.
      *
-     * @param description description of the Todo task.
+     * @param description Description of the Todo task.
      */
     public AddTodoCommand(String description) {
         this.description = description;
