@@ -59,6 +59,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getNarutoDialog(response, narutoImage)
         );
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
         userInput.clear();
     }
 }
