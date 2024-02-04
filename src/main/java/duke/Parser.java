@@ -14,22 +14,22 @@ public class Parser {
         if (parts.isEmpty()) {
             throw new DukeException("Invalid Commands");
         }
-        String header = parts.getFirst();
+        String header = parts.get(0);
         Command command;
         switch(header) {
-            case "list" -> {
+            case "list":
                 command = new ListCommand();
-            }
-            case "mark" -> {
+                break;
+            case "mark":
                 command = new MarkCommand(Integer.parseInt(parts.get(1)));
-            }
-            case "todo" -> {
+                break;
+            case "todo":
                 if (parts.size() <= 1) {
                     throw new DukeException("Mamma-Mia where's ur description!");
                 }
                 command = new AddTodoCommand(String.join(" ", parts.subList(1,parts.size())));
-            }
-            case "deadline" -> {
+                break;
+            case "deadline":
                 int byIndex = parts.indexOf("/by");
                 if (byIndex == -1) {
                     throw new DukeException("No /by???");
@@ -42,8 +42,8 @@ public class Parser {
                 String description = String.join(" ", parts.subList(0, byIndex));
 
                 command = new AddDeadlineCommand(description, deadlineDate);
-            }
-            case "event" -> {
+                break;
+            case "event":
                 int fromIndex = parts.indexOf("/from");
                 int toIndex = parts.indexOf("/to");
                 if (fromIndex == -1) {
@@ -62,17 +62,17 @@ public class Parser {
                     throw new DukeException("Don't throw funny funny... Mamma-Mia!");
                 }
                 String start = String.join(" ", parts.subList(fromIndex + 1, toIndex));
-                String deadline = String.join(" ", parts.subList(toIndex + 1, parts.size()));
+                String end = String.join(" ", parts.subList(toIndex + 1, parts.size()));
 
-                String description = String.join(" ", parts.subList(0, fromIndex));
+                String desc = String.join(" ", parts.subList(0, fromIndex));
 
                 command = new AddEventCommand(
-                        description,
+                        desc,
                         LocalDate.parse(start),
-                        LocalDate.parse(deadline)
+                        LocalDate.parse(end)
                 );
-            }
-            case "delete" -> {
+                break;
+            case "delete":
                 if (parts.size() < 2) {
                     throw new DukeException("Mamma Mia! Where is-a the index?");
                 }
@@ -86,8 +86,9 @@ public class Parser {
                 }
 
                 command = new DeleteCommand(index);
-            }
-            default -> throw new DukeException("Mamma Mia! Me-no understand!");
+                break;
+            default:
+                throw new DukeException("Mamma Mia! Me-no understand!");
         }
         return command;
     }
