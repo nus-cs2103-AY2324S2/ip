@@ -1,3 +1,5 @@
+package duke;
+
 public class Util {
     /**
      * @param string Takes in a string

@@ -1,3 +1,5 @@
+package duke;
+
 public class AddTodoCommand extends Command {
     public AddTodoCommand(String description) {
         super(description, CommandType.ADD);
