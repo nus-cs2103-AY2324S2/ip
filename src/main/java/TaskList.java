@@ -6,7 +6,7 @@
 
 import java.util.ArrayList;
 
-class TaskList implements Savable {
+public class TaskList implements Savable {
 
     private final ArrayList<Task> arr;
 
