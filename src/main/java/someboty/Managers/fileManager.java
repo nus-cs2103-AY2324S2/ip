@@ -74,7 +74,9 @@ public class fileManager {
     public void storeTasks(ArrayList<Task> taskList) {
         FileWriter outfile;
         try {
-            outfile = new FileWriter(this.filePath);
+            outfile = new FileWriter(this.filePath
+                        + File.separator + "data"
+                        + File.separator + "tasks.csv");
 
         } catch (IOException e) { // honestly idk what to do about this exception
             System.out.println("Error. Unable to create fileWriter.");

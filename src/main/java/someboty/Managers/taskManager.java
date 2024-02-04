@@ -20,7 +20,7 @@ public class taskManager {
         return this.taskList.size();
     }
     
-    protected String listTasks() {
+    protected String printListTasks() {
         if (taskList.size() == 0) {    // special message for empty list
             return "Wow! You have no recorded task! Peek laziness here.";
         }
@@ -30,29 +30,29 @@ public class taskManager {
         int index = 0;
         for (Task task : taskList) {
             index++;
-            response = response + String.format("%d. %s\n",
-                                    index,
-                                    task
-                                    );
+            response += String.format("%d. %s\n",
+                            index,
+                            task
+                            );
         }
 
         return response;
     }
 
-    protected String setTaskStatus(int index, boolean status) {
+    protected Task setTaskStatus(int index, boolean status) {
         try {
             this.taskList.get(index).setStatus(status);
-            return this.taskList.get(index).toString();
+            return this.taskList.get(index);
 
          } catch (IndexOutOfBoundsException e) {
             throw new InputException(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
         }
     }
 
-    protected String deleteTask(int index) {
+    protected Task deleteTask(int index) {
         try {
             Task removedTask = taskList.remove(index);
-            return removedTask.toString();
+            return removedTask;
 
         } catch (IndexOutOfBoundsException e) {
             throw new InputException(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
@@ -63,10 +63,26 @@ public class taskManager {
         this.taskList.clear();
     }
 
-    protected String addTask(char type, String description) {
+    protected Task addTask(char type, String description) {
         Task newTask = Task.createTask(type, description);
         this.taskList.add(newTask);
-        return newTask.toString();
+        return newTask;
+    }
+
+    protected ArrayList<Task> findTasks(String phrase) {
+        ArrayList<Task> matchList = new ArrayList<>();
+        String taskName;
+
+        phrase = phrase.toLowerCase();
+        for (Task task : this.taskList) {
+            taskName = task.toString().toLowerCase();
+
+            if (taskName.contains(phrase)) {
+                matchList.add(task);
+            }
+        }
+
+        return matchList;
     }
 
     protected void close() {
