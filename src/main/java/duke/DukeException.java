@@ -1,3 +1,4 @@
+package duke;
 public class DukeException extends Exception {
     //nothing here at the moment
     public DukeException() {

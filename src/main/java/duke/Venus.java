@@ -1,8 +1,5 @@
-import java.io.File;
+package duke;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Venus {
