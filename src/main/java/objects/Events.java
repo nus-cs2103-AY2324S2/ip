@@ -4,16 +4,32 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Events is a class representing tasks with a specific start and end date and time.
+ * It extends the Task class and implements the Serializable interface for object serialization.
+ */
 public class Events extends Task implements Serializable {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Constructs an Events object with a name, start date and time, and end date and time.
+     *
+     * @param name The name of the event task.
+     * @param from The start date and time of the event.
+     * @param to   The end date and time of the event.
+     */
     public Events(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns a formatted string representation of the Events object.
+     *
+     * @return A string containing the task type, name, and event duration information.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

@@ -7,7 +7,18 @@ import view.Greeting;
 
 import java.util.Scanner;
 
+/**
+ * The Duke class serves as the main entry point for the Duke application.
+ * It initializes the necessary components, interacts with the user through the command-line interface,
+ * and manages the parsing and storage of tasks.
+ */
 public class Duke {
+    /**
+     * The main method of the Duke application.
+     * It initializes the task list, scanner, and displays a greeting to the user.
+     * The user can input commands through the command line until they type "bye" to exit.
+     * All tasks are saved to storage after each command.
+     */
     public static void main(String[] args) {
         TaskList tasks = Storage.load();
         Scanner scanner = new Scanner(System.in);

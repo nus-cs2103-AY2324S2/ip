@@ -36,7 +36,18 @@ import static commands.Constants.UNMARK;
 
 import static utils.InputUtil.getCommandType;
 
+/**
+ * The Parser class is responsible for interpreting user input and creating corresponding Command objects.
+ * It parses user commands and executes the appropriate actions, interacting with the TaskList and displaying
+ * messages through the EncaseLines view.
+ */
 public class Parser {
+    /**
+     * Parses the user input and executes the corresponding command.
+     *
+     * @param input The user input to be parsed.
+     * @param tasks The TaskList to perform operations on.
+     */
     public static void parse(String input, TaskList tasks) {
         try {
             input = input.trim().toLowerCase();
@@ -89,6 +100,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the index from the user input to be used in commands requiring an index.
+     *
+     * @param input The user input containing the command and index.
+     * @return The parsed index.
+     * @throws InvalidIndexException If the index is invalid or missing.
+     */
     public static int parseIndex(String input) throws InvalidIndexException {
         String[] parts = input.split("\\s+");
 
@@ -101,6 +119,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the description from the user input for creating a new Todo task.
+     *
+     * @param input The user input containing the command and description.
+     * @return The parsed description.
+     * @throws InvalidTodoException   If the description is missing.
+     * @throws InvalidCommandException If the command is invalid.
+     */
     public static String parseTodo(String input) throws InvalidTodoException, InvalidCommandException {
         String[] details = input.split(" ", 2);
 
@@ -111,6 +137,14 @@ public class Parser {
         return details[1].trim();
     }
 
+    /**
+     * Parses the name and date from the user input for creating a new Deadline task.
+     *
+     * @param input The user input containing the command, name, and date.
+     * @return An array containing the parsed name and date.
+     * @throws InvalidDeadlineException If the name or date is missing or if the format is incorrect.
+     * @throws InvalidDateException     If the date is invalid.
+     */
     public static String[] parseDeadline(String input) throws InvalidDeadlineException, InvalidDateException {
         String[] parts = input.trim().split("\\s+");
 
@@ -125,6 +159,14 @@ public class Parser {
         return new String[]{name, date};
     }
 
+    /**
+     * Parses the name, start date, and end date from the user input for creating a new Event task.
+     *
+     * @param input The user input containing the command, name, start date, and end date.
+     * @return An array containing the parsed name, start date, and end date.
+     * @throws InvalidEventException If the name or dates are missing or if the format is incorrect.
+     * @throws InvalidDateException  If the dates are invalid.
+     */
     public static String[] parseEvent(String input) throws InvalidEventException, InvalidDateException {
         String[] parts = input.trim().split("\\s+");
 
@@ -142,6 +184,13 @@ public class Parser {
         return new String[]{name, fromDate, toDate};
     }
 
+    /**
+     * Parses the date from the user input for tasks that require a date.
+     *
+     * @param inputDate The date string to be parsed.
+     * @return The parsed date.
+     * @throws InvalidDateException If the date format is incorrect or the date is invalid.
+     */
     public static String parseDate(String inputDate) throws InvalidDateException {
         DateFormat sdf = new SimpleDateFormat("d/M/yyyy HHmm");
         sdf.setLenient(false);
