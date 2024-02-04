@@ -19,4 +19,8 @@ public class Task {
     public void markAsNotDone() {
         isDone = false;
     }
+
+    public String getData() {
+        return (isDone ? "1 | " + description : "0 | " + description);
+    }
 }
