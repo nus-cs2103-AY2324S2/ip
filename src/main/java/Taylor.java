@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import exceptions.TaylorException;
 import filestorage.Storage;
@@ -23,6 +22,7 @@ import ui.Ui;
  * Main class to execute Taylor ChatBot
  */
 public class Taylor extends Application {
+    private List<Task> tasksList = new ArrayList<>();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -34,42 +34,44 @@ public class Taylor extends Application {
         //...
     }
     public static void main(String[] args) {
-        List<Task> tasksList = new ArrayList<>();
-        // Load pre-existing task from Hard Disk
-        try {
-            tasksList = Storage.inputFromFile(tasksList);
-        } catch (Exception e) {
-            Ui.printError(e);
-        }
-        Ui.welcomeText();
-        Scanner type = new Scanner(System.in);
-
-        while (true) {
-            try {
-                String input = type.nextLine();
-
-                if (input.isBlank()) {
-                    Ui.blankCommand();
-
-                } else {
-                    Parser.executeCommand(input, tasksList);
-                }
-            } catch (TaylorException err) {
-                break;
-            }
-        }
-        // Save Task into File in Hard Disk
-        try {
-            Storage.outputToFile(tasksList);
-        } catch (Exception e) {
-            Ui.printError(e);
-        }
-        type.close();
-        Ui.goodbyeText();
+        launch(args);
+//        List<Task> tasksList = new ArrayList<>();
+//        // Load pre-existing task from Hard Disk
+//        try {
+//            tasksList = Storage.inputFromFile(tasksList);
+//        } catch (Exception e) {
+//            Ui.printError(e);
+//        }
+//        Ui.welcomeText();
+//        Scanner type = new Scanner(System.in);
+//
+//        while (true) {
+//            try {
+//                String input = type.nextLine();
+//
+//                if (input.isBlank()) {
+//                    Ui.blankCommand();
+//
+//                } else {
+//                    Parser.executeCommand(input, tasksList);
+//                }
+//            } catch (TaylorException err) {
+//                break;
+//            }
+//        }
+//        // Save Task into File in Hard Disk
+//        try {
+//            Storage.outputToFile(tasksList);
+//        } catch (Exception e) {
+//            Ui.printError(e);
+//        }
+//        type.close();
+//        Ui.goodbyeText();
     }
 
     @Override
     public void start(Stage stage) {
+        initialiseTasksList();
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -166,7 +168,15 @@ public class Taylor extends Application {
                 DialogBox.getUserDialog(userText, neu),
                 DialogBox.getDukeDialog(tayText, wrio)
         );
+
+        try {
+            Parser.executeCommand(userText, tasksList);
+        } catch (TaylorException e) {
+            saveTasksList();
+            System.exit(0);
+        }
         userInput.clear();
+        saveTasksList();
     }
 
     /**
@@ -174,6 +184,23 @@ public class Taylor extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "Taylor heard: " + input;
+    }
+
+    private void initialiseTasksList() {
+        // Load pre-existing task from Hard Disk
+        try {
+            tasksList = Storage.inputFromFile(tasksList);
+        } catch (Exception e) {
+            Ui.printError(e);
+        }
+    }
+
+    private void saveTasksList() {
+        try {
+            Storage.outputToFile(tasksList);
+        } catch (Exception e) {
+            Ui.printError(e);
+        }
     }
 }
