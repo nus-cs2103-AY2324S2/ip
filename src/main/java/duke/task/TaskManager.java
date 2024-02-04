@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.parser.DateHandler;
+import duke.DukeException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,7 +30,7 @@ public class TaskManager {
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
 
 
-    TaskManager() {
+    public TaskManager() {
         this.items = new ArrayList<>();
     }
 

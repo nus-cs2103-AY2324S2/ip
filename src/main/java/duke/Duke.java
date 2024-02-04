@@ -1,3 +1,10 @@
+package duke;
+
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskManager;
+import duke.ui.Ui;
+
 import java.util.Timer;
 import java.util.TimerTask;
 

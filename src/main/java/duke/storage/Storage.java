@@ -1,10 +1,15 @@
+package duke.storage;
+
+import duke.DukeException;
+import duke.task.TaskManager;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
     private String filePath;
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 

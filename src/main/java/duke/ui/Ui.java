@@ -1,3 +1,7 @@
+package duke.ui;
+
+import duke.DukeException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +19,7 @@ public class Ui {
     private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     ;
 
-    Ui() {
+    public Ui() {
 
     }
 
