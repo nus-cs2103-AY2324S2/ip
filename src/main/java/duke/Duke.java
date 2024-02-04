@@ -1,17 +1,58 @@
 package duke;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Scanner;  // Import the Scanner class
+import java.nio.file.Path;
 
 public class Duke {
+    public static String currentDir = System.getProperty("user.dir");
+    public static final Path filePath = Paths.get(currentDir, "src", "main", "java", "duke", "data", "data.txt");
     public static void main(String[] args){
+
+        ArrayList<Task> myList = new ArrayList<>(); // Create an ArrayList object
+
+        try {
+            File f = new File(String.valueOf(filePath));
+            if (f.createNewFile()) {
+                System.out.println("File created: " + f.getName());
+            } else {
+                System.out.println("File already exists.");
+                try {
+                    BufferedReader br
+                            = new BufferedReader(new FileReader(f));
+                    String task;
+                    while ((task = br.readLine()) != null) {
+                        myList.add(new Task(task));
+                        // Print the string
+                        System.out.println(task);
+                    }
+                }
+
+                catch (IOException e1) {
+                    System.out.println("error reading file");
+                    System.err.print(e1);
+                }
+
+            }
+
+        } catch (IOException e2) {
+            System.out.println("cannot create file");
+            e2.printStackTrace();
+        }
+
         String line = "____________________________________________________________";
         System.out.println(line + "\nHello! I'm Homie");
         System.out.println("What can I do for you?\n" + line);
 
         Scanner scanner = new Scanner(System.in); // Create scanner
         String command = scanner.nextLine();  // Read user command
-        ArrayList<Task> myList = new ArrayList<>(); // Create an ArrayList object
 
         int index = 1;
         String[] tempArr;
@@ -66,6 +107,16 @@ public class Duke {
                             System.out.println(currTodo);
                             System.out.println("Now you have " + myList.size() + " tasks in the list.");
                             System.out.println(line);
+                            try {
+                                BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(filePath)));
+                                writer.write(command.substring(5));
+                                writer.write("\n");
+                                writer.close();
+                            }
+                            catch (IOException e) {
+                                System.err.print(e);
+                            }
+
                         } catch (TodoException ex) {
                             System.err.println(ex);
                         }
@@ -80,6 +131,15 @@ public class Duke {
                         System.out.println(currDeadline);
                         System.out.println("Now you have " + myList.size() + " tasks in the list.");
                         System.out.println(line);
+                        try {
+                            BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(filePath)));
+                            writer.write(command.substring(9));
+                            writer.write("\n");
+                            writer.close();
+                        }
+                        catch (IOException e) {
+                            System.err.print(e);
+                        }
                         break;
 
                     case ("event"):
@@ -132,10 +192,12 @@ public class Duke {
         System.out.println(line + "\nBye. Hope to see you again soon!\n" + line);
 
     }
+
     public static void checkCommand (String command) throws DukeException {
         String line = "____________________________________________________________";
         if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event") || command.startsWith("list") || command.startsWith("bye") || command.startsWith("delete"))) {
             throw new DukeException("\n" + line + "\nOPPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
         }
     }
+
 }
