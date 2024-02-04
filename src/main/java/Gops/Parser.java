@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Parser {
     public void parse(String input, TaskList taskList, File txtFile, Scanner inputTaker) {
         String userReply = input;
-        while (userReply != null && !userReply.equals("bye")) {
+        while (userReply != null) {
             if (userReply.equals("clear")) {
                 taskList = new TaskList();
                 System.out.println("List Cleared");
@@ -136,7 +136,11 @@ public class Parser {
                     System.out.println("Please follow the format for deleting tasks\ndelete [task-number]");
                     userReply = inputTaker.nextLine();
                 }
-            } else {
+            } else if (userReply.equals("bye")){
+                    System.out.print("Bye. Hope to see you again soon!");
+                    break;
+            }
+            else {
                 System.out.println("Please choose from the available prompts\n[todo/deadline/event/mark/unmark/list/bye]");
                 userReply = inputTaker.nextLine();
             }
