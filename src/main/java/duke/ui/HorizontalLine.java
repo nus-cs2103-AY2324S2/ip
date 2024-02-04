@@ -1,8 +1,10 @@
 package duke.ui;
 
+/**
+ * Represents a horizontal line used to wrap around printed output.
+ */
 public class HorizontalLine {
     private static HorizontalLine instance = null;
-
     // default line length is set to 10
     private static int lineLength = 50;
 
@@ -23,7 +25,7 @@ public class HorizontalLine {
     }
 
     /**
-     *
+     * Prints a horizontal line of preset length.
      */
     public void printLine() {
         for (int i = 0; i < lineLength; i++) {

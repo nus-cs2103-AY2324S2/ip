@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 import duke.Duke;
 
+/**
+ * Represents ui component of Duke.
+ * Manages interaction with the user.
+ */
 public class Ui {
 
     private enum UiState {
@@ -47,7 +51,7 @@ public class Ui {
     }
 
     /**
-     *
+     * Initialises ui.
      */
     public void initUi() {
         taskList = TaskList.getInstance();
@@ -59,7 +63,9 @@ public class Ui {
     }
 
     /**
-     * @param output
+     * Prints output wrapped between two horizontal lines.
+     *
+     * @param output String intended to be printed.
      */
     public void speak(String output) {
         ToggleConversationState();
@@ -75,7 +81,7 @@ public class Ui {
     }
 
     /**
-     *
+     * Switch Ui state between ACTIVE_TALKING and ACTIVE_LISTENING.
      */
     public void ToggleConversationState() {
 
@@ -93,7 +99,9 @@ public class Ui {
     }
 
     /**
-     * @return
+     * Starts listening to user input.
+     *
+     * @return User input as a string.
      */
     public String StartListening() {
         // should be called from ACTIVE_TALKING STATE
@@ -102,14 +110,14 @@ public class Ui {
     }
 
     /**
-     *
+     * Stops listening to user input.
      */
     public void EndListening() {
         if (currentState == UiState.ACTIVE_TALKING) ToggleConversationState();
     }
 
     /**
-     *
+     * Ends Duke session.
      */
     public void EndSession() {
         // should be called from ACTIVE_LISTENING STATE, exception handling?
@@ -124,7 +132,7 @@ public class Ui {
     }
 
     /**
-     *
+     * Lists all existing tasks.
      */
     public void listTasks() {
         ToggleConversationState();

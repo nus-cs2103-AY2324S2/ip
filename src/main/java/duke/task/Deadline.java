@@ -7,6 +7,9 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Represents a deadline.
+ */
 public class Deadline extends Task {
 
     private LocalDateTime by = null;
@@ -28,7 +31,7 @@ public class Deadline extends Task {
         try {
             input = input.trim();
             if (!input.contains(command)) throw new RuntimeException("not deadline");
-            String[] inputArray = Task.NextWords(input.split(delimiter));
+            String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
             description = inputArray[0].trim();
             by = Parser.parseDateAndTime(inputArray[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {

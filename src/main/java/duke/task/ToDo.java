@@ -2,6 +2,9 @@ package duke.task;
 
 import duke.parser.MissingInputFieldException;
 
+/**
+ * Represents ToDos.
+ */
 public class ToDo extends Task {
     public ToDo(String input) throws MissingInputFieldException {
         super(TaskType.TODO);
@@ -20,7 +23,7 @@ public class ToDo extends Task {
         try {
             input = input.trim();
             if (!input.contains(command)) throw new RuntimeException("not todo");
-            String[] inputArray = Task.NextWords(input.split(delimiter));
+            String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
             description = inputArray[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new MissingInputFieldException(type);
