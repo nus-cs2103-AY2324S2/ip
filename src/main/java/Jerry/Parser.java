@@ -1,42 +1,66 @@
 package Jerry;
 
+import Jerry.command.*;
+
 public class Parser {
+    Ui ui;
+    TaskList taskList;
+
+    public Parser(Ui ui, TaskList taskList) {
+        this.ui = ui;
+        this.taskList = taskList;
+    }
+
     public Command parse(String input) {
         String[] parts = input.split(" ", 2);
-        String command = parts[0].toLowerCase();;
+        String command = parts[0].toLowerCase();
         int taskIndex;
 
         switch (command) {
             case "bye":
-                return new Command(Command.CommandType.BYE);
+                return new ByeCommand(ui);
 
             case "list":
-                return new Command(Command.CommandType.LIST);
+                return new ListCommand(ui, taskList);
 
             case "mark":
                 taskIndex = Integer.parseInt(parts[1]) - 1;
-                return new Command(Command.CommandType.MARK, taskIndex);
+                return new MarkCommand(ui, taskList, taskIndex);
 
             case "unmark":
                 taskIndex = Integer.parseInt(parts[1]) - 1;
-                return new Command(Command.CommandType.UNMARK, taskIndex);
+                return new UnmarkCommand(ui, taskList, taskIndex);
 
             case "delete":
                 taskIndex = Integer.parseInt(parts[1]) - 1;
-                return new Command(Command.CommandType.DELETE,taskIndex);
+                return new DeleteCommand(ui, taskList, taskIndex);
 
             case "todo":
-                return new Command(Command.CommandType.ADD_TODO, parts[1]);
+                if (parts.length < 2) {
+                    // Handle the case where the argument is missing
+                    return new AddTodoCommand(ui, taskList, "");
+                } else {
+                    return new AddTodoCommand(ui, taskList, parts[1]);
+                }
 
             case "deadline":
-
-                return new Command(Command.CommandType.ADD_DEADLINE, parts[1]);
+                if (parts.length < 2) {
+                    // Handle the case where the argument is missing
+                    return new AddDeadlineCommand(ui, taskList, "");
+                } else {
+                    return new AddDeadlineCommand(ui, taskList, parts[1]);
+                }
 
             case "event":
-                return new Command(Command.CommandType.ADD_EVENT, parts[1]);
+                if (parts.length < 2) {
+                    // Handle the case where the argument is missing
+                    return new AddEventCommand(ui, taskList, "");
+                } else {
+                    return new AddEventCommand(ui, taskList, parts[1]);
+                }
 
             default:
-                return new Command(Command.CommandType.INVALID);
+                return new InvalidCommand(ui);
         }
     }
 }

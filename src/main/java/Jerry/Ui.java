@@ -58,9 +58,8 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskIndex));
     }
 
-    public void showDelete(TaskList list, int taskIndex) {
+    public void showDelete(TaskList list, Task removedTask) {
         ArrayList<Task> tasks = list.getTasks();
-        Task removedTask = tasks.get(taskIndex);
         System.out.println("I've removed this task:\n  " + removedTask);
         System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
     }

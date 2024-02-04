@@ -1,51 +1,53 @@
 package Jerry;
+import Jerry.command.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
-    private final Parser parser = new Parser();
+    private final Parser parser = new Parser(new Ui(), new TaskList(new ArrayList<Task>()));
 
     @Test
-    void parse_ByeCommand_ReturnsByeCommand() {
-        Command command = parser.parse("bye");
-        assertEquals(Command.CommandType.BYE, command.getCommandType());
+    void parse_ReturnsToDoCommand_ForValidToDoInput() {
+        String input = "todo read book";
+        Command command = parser.parse(input);
+        assertTrue(command instanceof AddTodoCommand);
     }
 
     @Test
-    void parse_ListCommand_ReturnsListCommand() {
-        Command command = parser.parse("list");
-        assertEquals(Command.CommandType.LIST, command.getCommandType());
+    void parse_ReturnsMarkCommand_ForValidMarkInput() {
+        String input = "mark 1";
+        Command command = parser.parse(input);
+        assertTrue(command instanceof MarkCommand);
     }
 
     @Test
-    void parse_MarkCommandWithIndex_ReturnsMarkCommandAndIndex() {
-        Command command = parser.parse("mark 1");
-        assertEquals(Command.CommandType.MARK, command.getCommandType());
-        assertEquals(0, command.getTaskIndex()); // Assuming taskIndex is adjusted to 0-based index
+    void parse_ReturnsUnmarkCommand_ForValidUnmarkInput() {
+        String input = "unmark 2";
+        Command command = parser.parse(input);
+        assertTrue(command instanceof UnmarkCommand);
     }
 
     @Test
-    void parse_UnmarkCommandWithIndex_ReturnsUnmarkCommandAndIndex() {
-        Command command = parser.parse("unmark 2");
-        assertEquals(Command.CommandType.UNMARK, command.getCommandType());
-        assertEquals(1, command.getTaskIndex());
+    void parse_HandlesUnknownCommands_Gracefully() {
+        String input = "sing a song";
+        Command command = parser.parse(input);
+        assertTrue(command instanceof InvalidCommand);
     }
 
     @Test
-    void parse_DeleteCommandWithIndex_ReturnsDeleteCommandAndIndex() {
-        Command command = parser.parse("delete 3");
-        assertEquals(Command.CommandType.DELETE, command.getCommandType());
-        assertEquals(2, command.getTaskIndex());
+    void parse_AddDeadlineCommandWithDescriptionAndDate_ReturnsAddDeadlineCommand() {
+        Command command = parser.parse("deadline Submit assignment /by 2023-10-10");
+        assertEquals(AddDeadlineCommand.class, command.getClass());
+
     }
 
     @Test
-    void parse_TodoCommandWithDescription_ReturnsAddTodoCommandAndDescription() {
-        Command command = parser.parse("todo read book");
-        assertEquals(Command.CommandType.ADD_TODO, command.getCommandType());
-        assertEquals("read book", command.getParts());
+    void parse_AddEventCommandWithDescriptionAndDateTime_ReturnsAddEventCommand() {
+        Command command = parser.parse("event Project meeting /at 2023-10-10 14:00 to 16:00");
+        assertEquals(AddEventCommand.class, command.getClass());
     }
-
-    // Add tests for ADD_DEADLINE, ADD_EVENT, and INVALID command types similarly
-
 }
