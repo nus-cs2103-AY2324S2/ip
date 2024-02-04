@@ -16,6 +16,7 @@ public class Parser {
     private static final String UNMARK_COMMAND = "unmark";
     private static final String MARK_COMMAND = "mark";
     private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
 
     /**
@@ -44,6 +45,8 @@ public class Parser {
                 return parseDeleteCommand(commandParts);
             case BYE_COMMAND:
                 return new ByeCommand();
+            case FIND_COMMAND:
+                return new FindCommand(commandParts);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
