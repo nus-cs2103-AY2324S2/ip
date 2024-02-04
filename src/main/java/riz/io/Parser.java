@@ -1,3 +1,8 @@
+package riz.io;
+
+import riz.data.*;
+import riz.data.*;
+
 import java.util.Scanner;
 
 public class Parser {

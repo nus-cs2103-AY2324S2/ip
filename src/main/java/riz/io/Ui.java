@@ -1,3 +1,5 @@
+package riz.io;
+
 public class Ui {
 
     public Ui() {

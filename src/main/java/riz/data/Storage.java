@@ -1,3 +1,5 @@
+package riz.data;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -46,7 +48,7 @@ public class Storage {
                 }
             }
          } catch (FileNotFoundException e) {
-             File dir = new File("./data");
+             File dir = new File("riz/data");
              if(dir.mkdirs()) {
                  System.out.println("Directory 'data' created successfully!");
              }
