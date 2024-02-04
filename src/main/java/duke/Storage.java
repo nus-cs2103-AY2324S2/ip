@@ -8,6 +8,12 @@ import java.io.*;
  */
 public class Storage {
     protected static String dataPath = "./data/duke.txt";
+
+    /**
+     * Loads the serializable list of Tasks that have been previously stored.
+     * Returns empty List if no previous entries found.
+     * @return TaskList the list of tasks
+     */
     protected static TaskList loadTasks() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataPath))) {
             return (TaskList) ois.readObject();
@@ -17,6 +23,9 @@ public class Storage {
         return new TaskList();
     }
 
+    /**
+     * Save Tasks into Storage
+     */
     protected static void saveTasks() {
         try {
             // Ensure the parent directories exist

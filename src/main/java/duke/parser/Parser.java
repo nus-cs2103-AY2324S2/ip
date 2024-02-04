@@ -10,6 +10,11 @@ public class Parser {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
 
+    /**
+     * Parses Command from user string.
+     * @param input user input String
+     * @return Command
+     */
     public static Command parseCommand(String input) {
         String[] words = input.split(" ", 2);
         String firstWord = words.length > 0 ? words[0] : "";
@@ -21,6 +26,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user string to get Task Details.
+     * @param input user input
+     * @return String string containing task details
+     */
     public static String parseTaskDetail(String input) {
         String[] words = input.split(" ", 2);
         return words.length > 1 ? words[1] : "";

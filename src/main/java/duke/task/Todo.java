@@ -6,6 +6,9 @@ package duke.task;
  */
 public class Todo extends Task {
 
+    /**
+     * {@inheritDoc}
+     */
     public Todo(String description) {
         super(description);
     }

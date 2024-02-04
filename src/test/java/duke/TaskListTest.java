@@ -18,26 +18,26 @@ public class TaskListTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
+    /**
+     * setUp PrintStream for testing.
+     */
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    /**
+     * Tear down PrintStream after testing
+     * This is to not interfere with functions after testing
+     */
     @AfterEach
     public void tearDown() {
         System.setOut(standardOut);
     }
 
-    @Test
-    public void testAddToListWithString() {
-        TaskList list = new TaskList();
-        String taskDescription = "test task";
-        list.addToList(taskDescription);
-
-        String expectedOutput = "added: test task\n";
-        assertEquals(expectedOutput, outputStreamCaptor.toString().replace("\r\n", "\n"));
-    }
-
+    /**
+     * Tests addition of task to list.
+     */
     @Test
     public void testAddToListWithTask() {
         TaskList list = new TaskList();

@@ -1,12 +1,13 @@
 package duke;
+
+import duke.exception.AllyException;
 import duke.parser.Parser;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.ui.UI;
 
 import java.util.Scanner;
-import duke.ui.UI;
-import duke.exception.AllyException;
-import duke.task.Todo;
-import duke.task.Event;
-import duke.task.Deadline;
 
 /**
  * Chatbot to help users manage their tasks.
@@ -16,6 +17,10 @@ public class Duke {
 
     protected static TaskList lst = new TaskList();
     protected static Storage storage = new Storage();
+
+    /**
+     * Main Function that controls the ChatBot
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         UI ui = new UI(sc);

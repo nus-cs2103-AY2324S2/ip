@@ -19,6 +19,9 @@ class StorageTest {
     static Path tempDir;
     static File tempFile;
 
+    /**
+     * Set up before Testing
+     */
     @BeforeAll
     static void setup() {
         // Set a temporary file for testing
@@ -28,6 +31,13 @@ class StorageTest {
         Duke.lst = new TaskList();
     }
 
+    /**
+     * Tests Saving and Loading Tasks
+     * Creates Storage and check if tasks are loaded correctly
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @Test
     void testSaveAndLoadTasks() throws IOException, ClassNotFoundException {
         // Add a task to the list
@@ -47,6 +57,9 @@ class StorageTest {
         assertEquals("[T][ ] Test task", loadedList.get(0).toString(), "The description of the loaded task should match.");
     }
 
+    /**
+     * Removes Temporary Files after testing
+     */
     @AfterAll
     static void cleanup() {
         // Delete the temporary file if it exists
