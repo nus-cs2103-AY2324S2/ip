@@ -1,16 +1,10 @@
-package Duke;
+package Duke.main;
 
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.io.IOException;
 import Duke.util.TaskList;
 import Duke.util.UI;
 import Duke.util.Storage;
 import Duke.commands.*;
 import Duke.exceptions.*;
-
-
 
 public class Duke {
     private final Storage storage;
@@ -58,7 +52,7 @@ public class Duke {
         this.ui = new UI();
         this.tasks = new TaskList(storage.readFile());
     }
-    private void run() {
+    public void run() {
         ui.displayIntro();
         boolean isExit = false;
         while (!isExit) {
@@ -73,23 +67,6 @@ public class Duke {
             }
         }
     }
-    public static void main(String[] args) {
-        try {
-            Path path = Paths.get("./data");
-            if (!Files.exists(path)) {
-                Files.createDirectory(path);
-            }
-            Path filePath = Paths.get("./data/duke.txt");
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
-            }
-            Duke duke = new Duke(filePath.toString());
-            duke.run();
-        } catch (IOException e) {
-            System.out.println("An error occur while reading file");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
 }
+
 
