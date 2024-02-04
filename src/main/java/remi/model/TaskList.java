@@ -4,6 +4,9 @@ import remi.utils.RemiError;
 
 import java.util.ArrayList;
 
+/**
+ * Stores the list of Tasks, allows you to add, remove, and find tasks by index.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 

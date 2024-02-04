@@ -8,6 +8,10 @@ import remi.parsing.Parser;
 import remi.storage.Storage;
 import remi.utils.RemiError;
 
+/**
+ * Handles the input output loop, receiving commands and sending output to the console. Supposed to be the "main" class
+ * of the application.
+ */
 public class Ui {
 
     private boolean exitLoop;

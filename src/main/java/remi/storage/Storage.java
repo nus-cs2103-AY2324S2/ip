@@ -1,6 +1,9 @@
 package remi.storage;
 
-import remi.model.*;
+import remi.model.Deadline;
+import remi.model.Event;
+import remi.model.StoredTaskList;
+import remi.model.ToDo;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,6 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class for handling storing and getting saved data. This saved data is in the form of a StoredTaskList.
+ */
 public class Storage {
     private static final String FILE_PATH = "tasks.txt";
 

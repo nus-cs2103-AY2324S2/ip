@@ -1,5 +1,8 @@
 package remi.model;
 
+/**
+ * Represents a deadline task that ends by a certain time. Subclass of Task.
+ */
 public class Deadline extends Task{
     private String by;
 

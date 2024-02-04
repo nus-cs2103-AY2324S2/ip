@@ -1,5 +1,8 @@
 package remi.model;
 
+/**
+ * Represents a Todo task, subclass of Task object.
+ */
 public class ToDo extends Task{
 
     /**

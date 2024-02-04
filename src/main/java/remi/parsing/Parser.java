@@ -4,6 +4,9 @@ import remi.io.Message;
 import remi.model.commands.CommandList;
 import remi.utils.RemiError;
 
+/**
+ * Parses strings and feeds them to the command line. Also allows you to directly run the parsed string.
+ */
 public class Parser {
 
     CommandList commandList;

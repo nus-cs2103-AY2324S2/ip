@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * General task class. Has a label and a flag denoting whether the task is done or not.
+ */
+
 public class Task {
     private String label;
     private boolean isDone;

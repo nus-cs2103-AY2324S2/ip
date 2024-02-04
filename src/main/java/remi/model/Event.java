@@ -1,5 +1,8 @@
 package remi.model;
 
+/**
+ * Represents an event class that starts and ends at a certain date. Subclass of Task.
+ */
 public class Event extends Task{
     private String from;
     private String to;
