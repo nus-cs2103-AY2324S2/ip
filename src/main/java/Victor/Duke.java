@@ -1,4 +1,12 @@
 package Victor;
+import Victor.Storage.Storage;
+import Victor.TaskList.TaskList;
+import Victor.TaskType.Deadline;
+import Victor.TaskType.Event;
+import Victor.TaskType.Task;
+import Victor.TaskType.Todo;
+import Victor.Ui.Ui;
+
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.io.File;
@@ -9,10 +17,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import Storage.Storage;
-import TaskList.TaskList;
-import Ui.Ui;
-import Parser.Parser;
 class DukeException extends Exception {
 //    public DukeException (String s)
 //    {
@@ -23,6 +27,9 @@ class DukeException extends Exception {
 
 }
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     public static void updateFile(ArrayList<Task> updatedArray) throws IOException{
         int i = 0;
         try {

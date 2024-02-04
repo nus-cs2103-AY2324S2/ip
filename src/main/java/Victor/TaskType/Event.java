@@ -1,4 +1,4 @@
-package Victor;
+package Victor.TaskType;
 public class Event extends Task {
 
     protected String from;
