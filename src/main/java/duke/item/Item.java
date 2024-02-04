@@ -8,6 +8,8 @@ public interface Item extends Serializable {
 
     void markUndone();
 
+    String getName();
+
     String doneMessage();
 
     String undoneMessage();
