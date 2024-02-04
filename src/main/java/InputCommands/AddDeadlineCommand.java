@@ -25,14 +25,18 @@ class AddDeadlineCommand extends Command {
         try {
             //the format is as such: deadline name/end date
             String detail = this.desc.toLowerCase().split("deadline ", 2)[1];
-            String due_date = detail.split("/", 2)[1].trim(); //removes the whitspace from start and end of date
-            LocalDate date = LocalDate.parse(due_date);
             String name = detail.split("/", 2)[0].trim();
-
             if (name.isEmpty()) {
-
                 throw new InvalidCommandTaskDescException();
             }
+            String due_date = detail.split("/", 2)[1].trim(); //removes the whitspace from start and end of date
+            if (due_date.isEmpty()) {
+                throw new InvalidCommandTaskDescException();
+            }
+            LocalDate date = LocalDate.parse(due_date);
+
+
+
             return name + "/" + date.toString();
 
             //you can consider changing commands to return tasks instead;

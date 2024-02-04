@@ -1,6 +1,5 @@
 package InputCommands;
 
-import SnomExceptions.InvalidCommandException;
 import SnomExceptions.InvalidCommandIndexException;
 import SnomTaskList.TaskList;
 
@@ -29,12 +28,5 @@ class MarkTaskCommand extends Command{
 
     }
 
-    public static void main(String[] args) {
-        TaskList lst = TaskList.makeTaskList();
-        try {
-            Command.makeCommand("mark ").execute(lst);
-        } catch (InvalidCommandException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
 }

@@ -3,6 +3,6 @@ package SnomExceptions;
 
 public class InvalidCommandDateFormatException extends InvalidCommandException{
     public InvalidCommandDateFormatException() {
-        super("Please ensure that both your date is of the format yyyy-mm-dd");
+        super("Please ensure that your date(s) is of the format yyyy-mm-dd");
     }
 }
