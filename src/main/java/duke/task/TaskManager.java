@@ -26,6 +26,8 @@ public class TaskManager {
     //String and variables for task
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
 
+    private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
+
 
     /**
      * Creates a manager.
@@ -230,6 +232,24 @@ public class TaskManager {
 
     public boolean getUpdate() {
         return hasChanged;
+    }
+
+    public ArrayList<String> findTask(String search) {
+        ArrayList<String> foundTask = new ArrayList<>();
+        int count = 1;
+        for (Task item : items) {
+            if (item.toString().contains(search)) {
+                if (count == 1) {
+                    foundTask.add(RESPONSE_FIND);
+                }
+                foundTask.add(count + ". " + item);
+                count += 1;
+            }
+        }
+        if (foundTask.isEmpty()) {
+            foundTask.add("Sorry I couldn't find anything that fits that search :(");
+        }
+        return foundTask;
     }
 
 
