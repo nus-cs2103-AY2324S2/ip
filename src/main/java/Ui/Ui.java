@@ -78,9 +78,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void printSingleLine(String msg) {
+    public void printSingleLine(String... msg) {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(msg);
+        for(String s: msg) {
+            System.out.println(s);
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
