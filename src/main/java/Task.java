@@ -13,8 +13,11 @@ public class Task {
     }
 
     public String toTaskSaveString() {
-        int isDoneInt = this.isDone? 1 : 0;
-        return isDoneInt + "|" + this.description;
+        return this.getStatusInt() + "|" + this.description;
+    }
+
+    public int getStatusInt() {
+        return this.isDone? 1 : 0;
     }
 
     public String getStatusIcon() {
