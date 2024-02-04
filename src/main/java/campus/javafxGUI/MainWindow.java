@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Campus campus;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image campusImage = new Image(this.getClass().getResourceAsStream("/images/CampusBotlogo.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private Image campusImage = new Image(this.getClass().getResourceAsStream("/images/CampusBotlogo.jpg"));
 
     @FXML
     public void initialize() {
@@ -46,10 +46,12 @@ public class MainWindow extends AnchorPane {
         // Crash Occurs Here
         String input = userInput.getText();
         String response = campus.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getCampusDialog(response, campusImage)
         );
+
         userInput.clear();
     }
 }
