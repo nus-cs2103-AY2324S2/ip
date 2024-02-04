@@ -1,8 +1,14 @@
 package kervyn;
 
-import kervyn.Storage;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import kervyn.Tasks.TaskList;
-import kervyn.Ui;
 
 import java.io.IOException;
 
@@ -10,12 +16,20 @@ import java.io.IOException;
  * Main class for the Kervyn application.
  * This class initializes the application and starts the interaction with the user.
  */
-public class Kervyn {
+public class Kervyn extends Application {
 
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+
+    public Kervyn () {}
     /**
      * Constructs a new instance of the Kervyn application with the specified file path.
      *
@@ -48,7 +62,25 @@ public class Kervyn {
      * @param args Command-line arguments, not used in this application.
      * @throws IOException If an I/O error occurs when starting the application.
      */
-    public static void main(String[] args) throws IOException {
-        new Kervyn("data/tasks.txt").run();
+//    public static void main(String[] args) throws IOException {
+//        new Kervyn("data/tasks.txt").run();
+//    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }
