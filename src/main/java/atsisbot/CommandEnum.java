@@ -2,6 +2,11 @@ package atsisbot;
 
 public enum CommandEnum {
     LIST,
-    TODO, EVENT, DEADLINE,
-    MARK, UNMARK, DELETE, UNKNOWN
+    TODO,
+    EVENT,
+    DEADLINE,
+    MARK,
+    UNMARK,
+    DELETE,
+    UNKNOWN
 }

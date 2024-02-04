@@ -27,14 +27,23 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " (by: "
-                + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")\n";
+        return "[D]["
+                + this.getStatus().getStatusIcon()
+                + "] "
+                + this.getDescription()
+                + " (by: "
+                + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
+                + ")\n";
     }
 
     @Override
     public String encode() {
         String status = this.getStatus().isDone() ? "1" : "0";
-        return "D | " + status + " | " + this.description + " | "
+        return "D | "
+                + status
+                + " | "
+                + this.description
+                + " | "
                 + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 }

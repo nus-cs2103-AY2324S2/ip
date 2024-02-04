@@ -57,13 +57,14 @@ public class TaskList {
     public String getList() {
         StringBuilder sb = new StringBuilder();
         AtomicInteger index = new AtomicInteger(1);
-        this.list.forEach((Task element) -> sb.append(index.getAndIncrement() + ". " + element.toString()));
+        this.list.forEach(
+                (Task element) -> sb.append(index.getAndIncrement() + ". " + element.toString()));
         return sb.toString();
     }
 
     /**
      * Returns the number of tasks in the list.
-     * 
+     *
      * @return a string representation of the number of tasks in the list
      */
     public String getSize() {

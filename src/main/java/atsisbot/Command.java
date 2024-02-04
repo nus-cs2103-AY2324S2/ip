@@ -1,9 +1,9 @@
 package atsisbot;
 
+import atsisbot.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-
-import atsisbot.task.*;
 
 public class Command {
     public static void delete(String args, TaskList taskList) {
