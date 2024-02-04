@@ -16,8 +16,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from.trim();
-        this.to = to.trim();
+        this.from = DateFormatter.formatDate(from.trim());
+        this.to = DateFormatter.formatDate(to.trim());
     }
 
     @Override
