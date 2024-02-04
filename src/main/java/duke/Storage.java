@@ -17,25 +17,20 @@ public class Storage {
         for (Task t : state.getTasks()) {
             List<String> contents = new ArrayList<>();
             contents.add(t.isDone() ? "Y" : "N");
-            switch (t) {
-                case Todo todo -> {
-                    contents.add("TODO");
-                    contents.add(t.getDescription());
-                }
-                case Deadline deadline -> {
-                    contents.add("DEADLINE");
-                    contents.add(deadline.getDescription());
-                    contents.add(deadline.getByWhen().toString());
-                }
-                case Event event -> {
-                    contents.add("EVENT");
-                    contents.add(event.getDescription());
-                    contents.add(event.getStart().toString());
-                    contents.add(event.getDeadline().toString());
-                }
-                default -> {
-                    // TODO: add catch for default
-                }
+            if (t instanceof Todo) {
+                contents.add("TODO");
+                contents.add(t.getDescription());
+            } else if (t instanceof Deadline) {
+                Deadline deadline = (Deadline) t;
+                contents.add("DEADLINE");
+                contents.add(deadline.getDescription());
+                contents.add(deadline.getByWhen().toString());
+            } else if (t instanceof Event) {
+                Event event = (Event) t;
+                contents.add("EVENT");
+                contents.add(event.getDescription());
+                contents.add(event.getStart().toString());
+                contents.add(event.getDeadline().toString());
             }
             String result = String.join("|", contents);
             sb.append(result).append("\n");
