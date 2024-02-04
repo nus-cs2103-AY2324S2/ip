@@ -16,11 +16,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-/**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
- */
 public class DialogBox extends HBox {
     @FXML
     private TextFlow dialogTextFlow;
@@ -29,6 +24,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+
+    /**
+     * Constructs a DialogBox with the specified text and image.
+     *
+     * @param text The text content of the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -62,11 +64,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox for user messages.
+     *
+     * @param text The text content of the user's message.
+     * @param img  The image representing the user.
+     * @return A DialogBox instance for user messages.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Creates a DialogBox for Ezra's messages, flipping it to display the image on the left.
+     *
+     * @param text The text content of Ezra's message.
+     * @param img  The image representing Ezra.
+     * @return A DialogBox instance for Ezra's messages.
+     */
+    public static DialogBox getEzraDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

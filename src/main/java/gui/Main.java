@@ -10,12 +10,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * The main class for the GUI application of Ezra using FXML.
  */
 public class Main extends Application {
 
     private Ezra ezra = new Ezra("data/ezra.txt");
 
+    /**
+     * The main entry point for the application.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

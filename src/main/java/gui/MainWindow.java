@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for MainWindow, providing the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -23,15 +23,22 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Ezra ezra;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Scrolls down to the end every time dialogContainer's height changes.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Ezra instance for the controller.
+     *
+     * @param e The Ezra instance to set.
+     */
     public void setEzra(Ezra e) {
         ezra = e;
     }
@@ -46,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = ezra.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getEzraDialog(response, dukeImage)
         );
         userInput.clear();
     }
