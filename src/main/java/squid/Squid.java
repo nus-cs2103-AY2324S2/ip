@@ -350,7 +350,7 @@ public class Squid extends Application {
 
         //Step 3. Add functionality to handle user input.
 
-        dialogContainer.getChildren().addAll(new DialogBox(new Label(hello()), new ImageView(duke)));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(hello()), new ImageView(duke)));
 
         sendButton.setOnMouseClicked((event) -> {
             try {
@@ -399,8 +399,8 @@ public class Squid extends Application {
         Label userText = new Label(input);
         Label dukeText = new Label(response.getResponse());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         Tasks.save();
         userInput.clear();
