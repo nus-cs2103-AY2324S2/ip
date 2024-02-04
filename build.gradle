@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("venus.Venus")
 }
 
 shadowJar {
@@ -39,4 +39,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+run {
+    enableAssertions = true
 }
