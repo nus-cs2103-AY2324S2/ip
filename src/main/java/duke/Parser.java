@@ -57,6 +57,9 @@ class Parser {
         if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length == TOKEN_NUM) {
             return new Delete(Integer.parseInt(inputs[1]) - 1, tasks);
         }
+        if (inputs[0].equals("update") && inputs.length == 4) {
+            return new Update(Integer.parseInt(inputs[1]) - 1, inputs[2], inputs[3], tasks);
+        }
         return new Add(input, tasks);
     }
 }

@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.exception.WrongUsageException;
+
 import java.time.LocalDate;
 
 /**
@@ -58,5 +60,10 @@ public class Todo extends Task {
             return this.description.compareTo(otherTask.description);
         }
         return 1;
+    }
+
+    @Override
+    public void updateTask(String updateField, String updateValue) throws WrongUsageException {
+        throw new WrongUsageException("update only on Deadlines and Events's time related field.\n");
     }
 }

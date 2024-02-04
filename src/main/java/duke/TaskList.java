@@ -2,7 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.exception.DukeException;
 import duke.exception.DuplicateTaskException;
+import duke.exception.WrongUsageException;
 import duke.task.Task;
 
 /**
@@ -73,4 +75,9 @@ public class TaskList {
     public void sortTaskList() {
         taskArrayList.sort((x, y) -> x.compareTo(y));
     }
+
+    public void updateTask(int index, String updateField, String updateValue) throws DukeException {
+        taskArrayList.get(index).updateTask(updateField, updateValue);
+    }
+
 }

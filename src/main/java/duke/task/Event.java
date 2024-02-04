@@ -1,7 +1,13 @@
 package duke.task;
 
+import duke.exception.DukeException;
+import duke.exception.TimeFormatException;
+import duke.exception.TimeInconsistException;
+import duke.exception.WrongUsageException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Class for task start with event
@@ -111,5 +117,77 @@ public class Event extends Task {
         }
         Event temp = (Event) otherTask;
         return this.from.compareTo(temp.getFromTime());
+    }
+
+    @Override
+    public void updateTask(String updateField, String updateInfo) throws DukeException {
+        if (updateField.equals("/from")) {
+            String timeInfo = updateInfo;
+            timeInfo = changeWordToDate(timeInfo);
+            if (!checkTimeForm(timeInfo)) {
+                throw new TimeFormatException();
+            }
+            LocalDate newFrom = LocalDate.parse(timeInfo);
+            if (newFrom.isAfter(this.to)) {
+                throw new TimeInconsistException();
+            }
+            this.from = newFrom;
+        } else if (updateField.equals("/to")) {
+            String timeInfo = updateInfo;
+            timeInfo = changeWordToDate(timeInfo);
+            if (!checkTimeForm(timeInfo)) {
+                throw new TimeFormatException();
+            }
+            LocalDate newTo = LocalDate.parse(timeInfo);
+            if (newTo.isBefore(this.from)) {
+                throw new TimeInconsistException();
+            }
+            this.to = newTo;
+        } else {
+            throw new WrongUsageException("use /from or /to to identify update.");
+        }
+    }
+
+    private String changeWordToDate(String time) {
+        LocalDate currentTime = LocalDate.now();
+        int todayDay = currentTime.getDayOfWeek().getValue();
+        int timeDay = 0;
+        if (time.equals("Mon") || time.equals("Monday")) {
+            timeDay = 1;
+        } else if (time.equals("Tues") || time.equals("Tuesday")) {
+            timeDay = 2;
+        } else if (time.equals("Wed") || time.equals("Wednesday")) {
+            timeDay = 3;
+        } else if (time.equals("Thurs") || time.equals("Thursday")) {
+            timeDay = 4;
+        } else if (time.equals("Fri") || time.equals("Friday")) {
+            timeDay = 5;
+        } else if (time.equals("Sat") || time.equals("Saturday")) {
+            timeDay = 6;
+        } else if (time.equals("Sun") || time.equals("Sunday")) {
+            timeDay = 7;
+        } else if (time.equals("Today") || time.equals("today")) {
+            return currentTime.toString();
+        } else if (time.equals("Tomorrow") || time.equals("tomorrow")) {
+            return currentTime.plusDays(1).toString();
+        } else {
+            return time;
+        }
+        if (timeDay <= todayDay) {
+            int minusDay = todayDay - timeDay;
+            return currentTime.plusWeeks(1).minusDays(minusDay).toString();
+        } else {
+            int plusDay = timeDay - todayDay;
+            return currentTime.plusDays(plusDay).toString();
+        }
+    }
+
+    private boolean checkTimeForm(String time) {
+        try {
+            LocalDate.parse(time);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

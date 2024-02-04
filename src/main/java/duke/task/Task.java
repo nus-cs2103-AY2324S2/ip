@@ -1,5 +1,8 @@
 package duke.task;
 
+import duke.exception.DukeException;
+import duke.exception.WrongUsageException;
+
 import java.time.LocalDate;
 
 /**
@@ -90,4 +93,6 @@ public abstract class Task implements Comparable<Task> {
 
     @Override
     public abstract int compareTo(Task otherTask);
+
+    public abstract void updateTask(String updateField, String updateValue) throws DukeException;
 }
