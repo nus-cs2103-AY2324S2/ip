@@ -32,7 +32,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "bond"
+    archiveBaseName = "Bond"
+    archiveVersion = "v0.1"
+    archiveFileName = "Bond.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
