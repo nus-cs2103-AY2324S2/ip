@@ -4,14 +4,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.ArrayList;
-
 public class FileManager {
-    private static final String DIRECTORY = "./data/";
-    private static final String FILENAME = "tasks.txt";
-    private static File file;
+    private final String DIRECTORY = "./data/";
+    private final String FILENAME = "tasks.txt";
+    private File file;
 
-    public static void loadFile() {
+    public void loadFile() {
         File directory = new File(DIRECTORY);
         file = new File(DIRECTORY, FILENAME);
 
@@ -28,7 +26,7 @@ public class FileManager {
         }
     }
 
-    public static void readFile() {
+    public void readFile(TaskList taskList) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = br.readLine();
@@ -63,7 +61,7 @@ public class FileManager {
                     deadline = line.substring(by + 3).trim();
                 }
 
-                BadGPT.loadData(type, description, deadline, from, to, isComplete);
+                taskList.loadData(type, description, deadline, from, to, isComplete);
                 line = br.readLine();
             }
         } catch (IOException e) {
@@ -71,7 +69,7 @@ public class FileManager {
         }
     }
 
-    public static void writeToFile(String data) {
+    public void writeToFile(String data) {
         try {
             FileWriter fw = new FileWriter(file);
             fw.write(data);

@@ -1,4 +1,4 @@
-public class TaskNotFoundException extends Exception {
+public class TaskNotFoundException extends TaskException {
     private int numTasks;
 
     public TaskNotFoundException(String message, int numTasks) {
