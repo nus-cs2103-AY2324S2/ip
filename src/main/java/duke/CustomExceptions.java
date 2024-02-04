@@ -117,6 +117,10 @@ public class CustomExceptions extends Exception {
         }
     }
 
+    /**
+     * FindException is thrown when no search string is given after the find
+     * command is recognized.
+     */
     public static class FindException extends CustomExceptions {
         public FindException(String errorMessage) {
             super(errorMessage);

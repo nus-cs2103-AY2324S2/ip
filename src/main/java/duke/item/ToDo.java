@@ -1,7 +1,5 @@
 package duke.item;
 
-import duke.CustomExceptions;
-
 import java.io.Serializable;
 
 /**

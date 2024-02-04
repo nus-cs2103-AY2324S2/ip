@@ -76,7 +76,7 @@ public class ItemList implements Serializable {
      * @param index is an integer greater than 0 that refers
      *              to the Item object to be removed.
      * @return a String containing the string representation of
-     * the item that has been removed.
+     *     the item that has been removed.
      * @throws CustomExceptions.NoSuchIndexException when no such index
      *                                               exists in the ItemList
      */
@@ -94,6 +94,14 @@ public class ItemList implements Serializable {
         return s;
     }
 
+    /**
+     * Finds all Item objects in the ItemList instance that contain
+     * the search string in full.
+     *
+     * @param s is the search string used to search for relevant items.
+     * @return a string of items separated by newlines that contain
+     *     the given search string s.
+     */
     public String find(String s) {
         StringBuilder out = new StringBuilder();
         int index = 1;
