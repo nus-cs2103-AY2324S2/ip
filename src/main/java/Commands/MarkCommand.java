@@ -8,7 +8,7 @@ import Irwyn.Tasks.TaskList;
 public class MarkCommand extends Command {
     private final int mark;
 
-    MarkCommand (String input) {
+    public MarkCommand(String input) {
         super(false);
         mark = Integer.parseInt(input.split(" ")[1]) - 1;
     }
