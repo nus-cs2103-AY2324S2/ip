@@ -19,6 +19,9 @@ import java.nio.file.Files;
 import duke.exception.DukeException;
 import duke.exception.InvalidCommandException;
 
+/**
+ * Represents the database to store the past logs of taskList.
+ */
 public class Storage {
 
     // Default file path for storage
@@ -26,6 +29,14 @@ public class Storage {
     private static final Path DIRECTORY_PATH = Paths.get("./data");
     private static final Path FILE_PATH = Paths.get(filePath);
 
+    /**
+     * Constructor for the storage.
+     * <p>
+     * The constructor creates a new file and/or directory if the specified
+     * path does not exist.
+     *
+     * @param filePath String of the path of the file to retrieve the past log taskList from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -42,9 +53,13 @@ public class Storage {
         }
     }
 
-    public static void save(TaskList tasksList) {
-        ArrayList<Task> arrayListOfTasks = tasksList.getArrayList();
-
+    /**
+     * Saves the updated taskList to the storage by writing to the file.
+     *
+     * @param taskList Updated taskList to be written to the storage file.
+     */
+    public static void save(TaskList taskList) {
+        ArrayList<Task> arrayListOfTasks = taskList.getArrayList();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : arrayListOfTasks) {
                 writer.write(task.toString());
@@ -56,6 +71,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves the past log of taskList if found, else it will start with an empty taskList.
+     *
+     * @return Stored taskList from past log or new list if not found.
+     */
     public static ArrayList<Task> load() throws DukeException {
         ArrayList arrayTaskList = new ArrayList();
 

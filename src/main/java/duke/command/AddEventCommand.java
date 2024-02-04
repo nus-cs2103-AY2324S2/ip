@@ -10,10 +10,18 @@ import duke.task.Event;
 
 import duke.exception.InvalidArgumentException;
 
+/**
+ * Represents the command to add an Event task to the taskList.
+ */
 public class AddEventCommand extends Command {
-
     private String description;
 
+    /**
+     * Constructor for an AddEvent command,
+     * which initialises the command with its task description.
+     *
+     * @param description Description of the Event task.
+     */
     public AddEventCommand(String description) {
         this.description = description;
     }

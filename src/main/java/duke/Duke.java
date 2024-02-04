@@ -4,6 +4,9 @@ import duke.command.Command;
 import duke.task.TaskList;
 import duke.exception.DukeException;
 
+/**
+ * Represents the Chatbot.
+ */
 public class Duke {
 
     private Storage storage;
@@ -12,6 +15,11 @@ public class Duke {
     // deals with interactions with the user
     private Ui ui;
 
+    /**
+     * Constructor for the Chatbot and retrieve the past log from the storage.
+     *
+     * @param filePath String of the path of the file to retrieve the past log taskList from.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +31,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Chatbot and takes in input while it is active. Terminates when input
+     * command is "bye"
+     */
     public void run() {
         boolean isActive = true;
         ui.greet();
