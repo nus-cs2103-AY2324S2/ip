@@ -23,10 +23,16 @@ public class Task {
         return this.completed;
     }
 
+    /**
+     * Marks the task as completed
+     */
     public void mark() {
         this.completed = true;
     }
 
+    /**
+     * Marks the task as not completed
+     */
     public void unmark() {
         this.completed = false;
     }
