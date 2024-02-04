@@ -11,7 +11,7 @@ public class UnknownCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
-        throw new CoDriverException("I'm sorry, but I don't understand this lrbg.codriver.command: " + unknownCommand);
+        throw new CoDriverException("I'm sorry, but I don't understand this command: " + unknownCommand);
     }
 
     public boolean testEquals(Object obj) {
