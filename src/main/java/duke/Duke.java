@@ -1,11 +1,5 @@
 package duke;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Scanner;  // Import the Scanner class
@@ -14,37 +8,15 @@ import java.nio.file.Path;
 public class Duke {
     public static String currentDir = System.getProperty("user.dir");
     public static final Path filePath = Paths.get(currentDir, "src", "main", "java", "duke", "data", "data.txt");
-    public static void main(String[] args){
 
+    public static void main(String[] args){
+        Storage storageFile = new Storage(filePath);
         ArrayList<Task> myList = new ArrayList<>(); // Create an ArrayList object
 
-        try {
-            File f = new File(String.valueOf(filePath));
-            if (f.createNewFile()) {
-                System.out.println("File created: " + f.getName());
-            } else {
-                System.out.println("File already exists.");
-                try {
-                    BufferedReader br
-                            = new BufferedReader(new FileReader(f));
-                    String task;
-                    while ((task = br.readLine()) != null) {
-                        myList.add(new Task(task));
-                        // Print the string
-                        System.out.println(task);
-                    }
-                }
-
-                catch (IOException e1) {
-                    System.out.println("error reading file");
-                    System.err.print(e1);
-                }
-
-            }
-
-        } catch (IOException e2) {
-            System.out.println("cannot create file");
-            e2.printStackTrace();
+        if (storageFile.isFileCreated()) {
+            myList = storageFile.loadTasksFromFile();
+        } else {
+            storageFile.createStorageFile();
         }
 
         String line = "____________________________________________________________";
@@ -63,8 +35,8 @@ public class Duke {
             try {
                 Duke.checkCommand(command);
             }
-            catch (DukeException ex) {
-                System.err.println(ex);
+            catch (DukeException e) {
+                System.err.println(e.getMessage());
                 command = scanner.nextLine(); // Read next command
                 continue;
             }
@@ -91,6 +63,7 @@ public class Duke {
                 System.out.println(currTask);
                 System.out.println("Now you have " + myList.size() + " tasks in the list.");
                 System.out.println(line);
+                storageFile.updateStorageFile(myList);
                 command = scanner.nextLine(); // Read next command
                 continue;
             }
@@ -107,18 +80,9 @@ public class Duke {
                             System.out.println(currTodo);
                             System.out.println("Now you have " + myList.size() + " tasks in the list.");
                             System.out.println(line);
-                            try {
-                                BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(filePath)));
-                                writer.write(command.substring(5));
-                                writer.write("\n");
-                                writer.close();
-                            }
-                            catch (IOException e) {
-                                System.err.print(e);
-                            }
-
-                        } catch (TodoException ex) {
-                            System.err.println(ex);
+                            storageFile.updateStorageFile(myList);
+                        } catch (TodoException e) {
+                            System.err.println(e.getMessage());
                         }
                         break;
 
@@ -131,15 +95,7 @@ public class Duke {
                         System.out.println(currDeadline);
                         System.out.println("Now you have " + myList.size() + " tasks in the list.");
                         System.out.println(line);
-                        try {
-                            BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(filePath)));
-                            writer.write(command.substring(9));
-                            writer.write("\n");
-                            writer.close();
-                        }
-                        catch (IOException e) {
-                            System.err.print(e);
-                        }
+                        storageFile.updateStorageFile(myList);
                         break;
 
                     case ("event"):
@@ -151,6 +107,7 @@ public class Duke {
                         System.out.println(currEvent);
                         System.out.println("Now you have " + myList.size() + " tasks in the list.");
                         System.out.println(line);
+                        storageFile.updateStorageFile(myList);
                         break;
                 }
                 command = scanner.nextLine(); // Read next command
@@ -167,6 +124,7 @@ public class Duke {
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(currTask);
                         System.out.println(line);
+                        storageFile.updateStorageFile(myList);
                         break;
 
                     case ("unmark"):
@@ -175,6 +133,7 @@ public class Duke {
                         System.out.println("Ok, I've marked this task as not done yet:");
                         System.out.println(currTask);
                         System.out.println(line);
+                        storageFile.updateStorageFile(myList);
                         break;
 
                     default:
