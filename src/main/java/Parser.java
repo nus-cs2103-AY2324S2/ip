@@ -21,21 +21,21 @@ public class Parser {
                 throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
             }
             Task task = new ToDo(description);
-            System.out.print(Duke.addMessage(task));
+            ui.addMessage(task, list);
         } else if (inputParts[0].equals("deadline")) {
             //handle "deadline"
             String[] parts = original.replace("deadline", "").split(" /");
             Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
-            System.out.print(Duke.addMessage(task));
+            ui.addMessage(task, list);
         } else if (inputParts[0].equals("event")) {
             //handle event
             String[] parts = original.replace("event", "").split(" /");
             Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
-            System.out.print(Duke.addMessage(task));
+            ui.addMessage(task, list);
         } else if (inputParts[0].equals("delete")) {
             //handle delete
             int inputInt = Integer.parseInt(inputParts[1]);
-            System.out.println(Duke.deleteMessage(inputInt));
+            ui.deleteMessage(inputInt, list);
         } else {
             throw new DukeException("harh what u talking sia walao");
         }

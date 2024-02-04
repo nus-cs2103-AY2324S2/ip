@@ -16,7 +16,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         try {
-            Storage.loadFileContents();
+            Storage.loadFileContents(list, ui);
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
         }
@@ -46,39 +46,6 @@ public class Duke {
         ui.showOutro();
         sc.close();
     }
-
-    /**
-     * Returns message string for "delete" action.
-     *
-     * @param i index of task to delete.
-     * @return string to output for "delete" action.
-     */
-    public static String deleteMessage(int i) {
-        String output = "____________________________________________________________\n"
-                + " Noted. I've removed this task:\n"
-                + "   " + list.get(i - 1)
-                + "\n Now you have " + (list.size() - 1) + " tasks in the list.\n"
-                + "____________________________________________________________\n";
-        list.remove(i - 1);
-        return output;
-    }
-
-    /**
-     * Returns message string for "add" action.
-     *
-     * @param task new task to add to list.
-     * @return string to output for "add" action.
-     */
-    public static String addMessage(Task task) {
-        list.add(task);
-        return "____________________________________________________________\n"
-                + " Got it. I've added this task:\n"
-                + "   " + task
-                + "\n Now you have " + (list.size()) + " tasks in the list.\n"
-                + "____________________________________________________________\n";
-    }
-
-
 }
 
 

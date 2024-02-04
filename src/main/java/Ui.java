@@ -50,4 +50,29 @@ public class Ui {
         }
         showToUser(DIVIDER, message, tasks.toString(), DIVIDER);
     }
+
+    /**
+     * Returns message string for "delete" action.
+     *
+     * @param i index of task to delete.
+     */
+    public void deleteMessage(int i, ArrayList<Task> list) {
+        String m1 = "I remove this one alrdy: \n";
+        String m2 = "\n Now you have " + (list.size() - 1) + " tasks in the list.\n";
+        list.remove(i - 1);
+        showToUser(DIVIDER, m1, list.get(i - 1).toString(), m2, DIVIDER);
+    }
+
+    /**
+     * Returns message string for "add" action.
+     *
+     * @param task new task to add to list.
+     */
+    public void addMessage(Task task, ArrayList<Task> list) {
+        list.add(task);
+        String m1 = " Got it. I've added this task:\n";
+        String m2 = "\n Now you have " + (list.size()) + " tasks in the list.\n";
+        showToUser(DIVIDER, m1, task.toString(), m2, DIVIDER);
+    }
+
 }
