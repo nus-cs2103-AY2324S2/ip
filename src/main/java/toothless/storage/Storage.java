@@ -15,12 +15,21 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class to deal with loading data from and saving data to file in computer.
+ */
 public class Storage {
     private String filePath;
     private File f;
 
     private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    
+
+    /**
+     * A public constructor to initialize storage.
+     * 
+     * @param filePath A String indicating the filepath where data would be stored.
+     * @throws ToothlessException if file failed to be created.
+     */
     public Storage(String filePath) throws ToothlessException {
         this.filePath = filePath;
         this.f = new File(filePath);
@@ -35,11 +44,13 @@ public class Storage {
             throw new ToothlessException(e.getMessage());
         }
     }
-    
-    public String getFilePath() {
-        return this.filePath;
-    }
-    
+
+    /**
+     * Loads data from file into ArrayList of Task objects.
+     * 
+     * @return ArrayList of Task objects with data from file.
+     * @throws ToothlessException if file is corrupted.
+     */
     public ArrayList<Task> loadStorage() throws ToothlessException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
@@ -80,15 +91,20 @@ public class Storage {
         } 
         return taskArrayList;
     }
-    
+
+    /**
+     * Saves data from ArrayList of Tasks to data file.
+     * 
+     * @param taskArrayList ArrayList of Tasks to save into file.
+     * @throws ToothlessException if saving failed.
+     */
     public void saveToStorage(ArrayList<Task> taskArrayList) throws ToothlessException {
         try {
-            FileWriter fw = new FileWriter(this.getFilePath(), false);
+            FileWriter fw = new FileWriter(this.filePath, false);
             for (Task t : taskArrayList) {
                 fw.write(t.toStorageString() + System.lineSeparator());
             }
             fw.close();
-            System.out.println("\tSuccessfully saved task data to tasklist.txt.");
         } catch (IOException e) {
             throw new ToothlessException("Sorry, saving to tasklist.txt failed.");
         }
