@@ -1,6 +1,12 @@
+package duke.task;
+
+import duke.exceptions.DukeException;
+
+import duke.task.Task;
+
 public class TodoTask extends Task {
 
-    TodoTask(String name, String file_format) throws DukeException{
+    public TodoTask(String name, String file_format) throws DukeException {
 
         super(name, Type.T, file_format);
         if (this.name.isBlank()) {
