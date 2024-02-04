@@ -1,3 +1,10 @@
+package duke;
+
+import duke.item.Deadline;
+import duke.item.Event;
+import duke.item.ToDo;
+import duke.item.Item;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,25 +20,25 @@ public class ItemList implements Serializable {
         return this.listOfItems;
     }
 
-    String addToDo(String[] name) {
+    public String addToDo(String[] name) {
         listOfItems.add(itemCount, new ToDo(name));
         itemCount++;
         return listOfItems.get(itemCount-1).addMessage(itemCount);
     }
 
-    String addEvent(String[] info) throws CustomExceptions {
+    public String addEvent(String[] info) throws CustomExceptions {
         listOfItems.add(itemCount, new Event(info));
         itemCount++;
         return listOfItems.get(itemCount-1).addMessage(itemCount);
     }
 
-    String addDeadline(String[] info) throws CustomExceptions{
+    public String addDeadline(String[] info) throws CustomExceptions{
         listOfItems.add(itemCount, new Deadline(info));
         itemCount++;
         return listOfItems.get(itemCount-1).addMessage(itemCount);
     }
 
-    String removeItem(int index) throws CustomExceptions {
+    public String removeItem(int index) throws CustomExceptions {
         String s = "";
         try {
             itemCount--;

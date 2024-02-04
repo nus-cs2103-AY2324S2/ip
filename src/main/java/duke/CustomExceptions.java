@@ -1,3 +1,5 @@
+package duke;
+
 public class CustomExceptions extends Exception{
 
     public CustomExceptions(String errorMessage) {

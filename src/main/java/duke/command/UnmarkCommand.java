@@ -1,6 +1,12 @@
+package duke.command;
+
+import duke.ItemList;
+import duke.CustomExceptions;
+import duke.item.Item;
+
 public class UnmarkCommand implements Command {
     @Override
-    public String execute(String command, String[] info, ItemList itemList) throws CustomExceptions{
+    public String execute(String command, String[] info, ItemList itemList) throws CustomExceptions {
         if (info.length != 2) {
             throw new CustomExceptions.markException("Please enter unmark command in the following format: unmark <index>");
         } else {

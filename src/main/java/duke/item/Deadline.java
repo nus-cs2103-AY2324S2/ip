@@ -1,42 +1,47 @@
+package duke.item;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
+import duke.CustomExceptions;
+import duke.Parser;
 
-public class Event implements Item, Serializable {
+public class Deadline implements Item, Serializable {
+
     private boolean isDone = false;
     private String name = "";
-    private LocalDateTime start = LocalDateTime.now();
-    private LocalDateTime end = LocalDateTime.now();
-    public Event(String[] info) throws CustomExceptions {
+    private LocalDateTime doneBy;
+    public Deadline(String[] info) throws CustomExceptions {
         int index = 1;
         String s = "";
-        while ((index < info.length) && !info[index].equals("/from")) {
-            if (info[index].equals("/to")) {
-                throw new CustomExceptions.toBeforeFromException("Wrong input, /to should be after /from");
+        String doneByString = "";
+        while (!info[index].equals("/by")) {
+            if (index >= info.length - 1) {
+                throw new CustomExceptions.deadlineExceptionBy("Please use /by command after deadline name");
             }
             this.name += info[index] + " ";
             index++;
         }
-        if (index < info.length) {
-            for (int i = index; i < info.length; i++) {
-                s += info[i] + " ";
-            }
-            try {
-                this.start = Parser.parseDTString(s.split("/from|/to")[1].trim());
-                this.end = Parser.parseDTString(s.split("/from|/to")[2].trim());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new CustomExceptions.eventExceptionForFromTo("Unable to parse /from /to strings");
-            } catch (DateTimeParseException e) {
-                throw new CustomExceptions.unrecognizableDateException("Date format is unrecognizable, try dd/mm/yy hhmm");
-            }
+        for (int i = index + 1; i < info.length; i++) {
+            doneByString += info[i] + " ";
         }
-
         this.name = this.name.trim();
 
+        try {
+            if (doneByString.trim().equals("")) {
+                this.doneBy = LocalDateTime.now();
+            } else {
+                this.doneBy = Parser.parseDTString(doneByString.trim());
+            }
+
+        } catch (DateTimeParseException e) {
+            throw new CustomExceptions.unrecognizableDateException("Date format is unrecognizable, try dd/mm/yy hhmm");
+        }
+        this.isDone = false;
         if (this.name.equals("")) {
-            throw new CustomExceptions.namelessTaskException("Missing Event Name");
+            throw new CustomExceptions.namelessTaskException("Missing duke.item.Event Name");
         }
     }
 
@@ -83,9 +88,7 @@ public class Event implements Item, Serializable {
 
     @Override
     public String toString() {
-        return "[E]["
-                + printChecked(this.isDone) + "] " + this.name + " " + "(from: " +
-                this.start.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + " to: " +
-                this.end.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + ")";
+        return "[D][" + printChecked(this.isDone)+ "] " + this.name + " " + "(by: " +
+                this.doneBy.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) +")";
     }
 }

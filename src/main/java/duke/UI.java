@@ -1,3 +1,5 @@
+package duke;
+
 public class UI {
 
     String greet = "Hello! I'm ELIAS\n" +
