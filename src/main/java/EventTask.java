@@ -18,4 +18,12 @@ public class EventTask extends Task {
             return "[E][ ] " + this.description + " (from: " + startDate + ", to: " + this.endDate + ")";
         }
     }
+    @Override
+    public String toFileString() {
+        if (this.isDone) {
+            return "E | 1 | " + this.description + " | "  + this.startDate + " | " + this.endDate;
+        } else {
+            return "E | 0 | " + this.description + " | "  + this.startDate + " | " + this.endDate;
+        }
+    }
 }

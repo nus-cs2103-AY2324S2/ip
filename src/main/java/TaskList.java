@@ -19,12 +19,18 @@ public class TaskList {
 
     public void addTask(Task task) {
         this.list.add(task);
+        FileHandler.saveTaskList(this);
     }
 
     public void deleteTask(int index) {
         this.list.remove(index);
+        FileHandler.saveTaskList(this);
     }
 
+    public void markTask(int index, boolean isDone) {
+        this.list.get(index).setTaskState(isDone);
+        FileHandler.saveTaskList(this);
+    }
     public String toString() {
         int size = this.list.size();
         String returnString = "";
