@@ -32,6 +32,7 @@ application {
 }
 
 shadowJar {
+    mainClassName = "shon.Shon"
     archiveBaseName = "shon"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
