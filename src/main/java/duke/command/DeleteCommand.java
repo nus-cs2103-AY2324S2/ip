@@ -1,10 +1,9 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.storage.Storage;
-
 
 public class DeleteCommand extends Command {
 
@@ -20,8 +19,9 @@ public class DeleteCommand extends Command {
             tasks.delete(this.index);
             storage.save(tasks);
         } else {
-            throw new DukeException("Invalid index." +
-                    "Please provide a valid index within the range 1 to " + tasks.getTaskSize() + ".");
+            throw new DukeException("Invalid index."
+                    + "Please provide a valid index within the range 1 to "
+                    + tasks.getTaskSize() + ".");
         }
     }
 

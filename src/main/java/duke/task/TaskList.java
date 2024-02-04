@@ -45,4 +45,8 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    public String getTaskDescription(int index) {
+        return this.tasks.get(index).description;
+    }
 }

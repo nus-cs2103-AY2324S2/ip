@@ -21,8 +21,9 @@ public class MarkCommand extends Command {
             ui.showMarkMsg(tasks.getTasks().get(this.index - 1));
             storage.save(tasks);
         } else {
-            throw new DukeException("Invalid index." +
-                    "Please provide a valid index within the range 1 to " + tasks.getTaskSize() + ".");
+            throw new DukeException("Invalid index. "
+                    + "Please provide a valid index within the range 1 to "
+                    + tasks.getTaskSize() + ".");
         }
 
     }
