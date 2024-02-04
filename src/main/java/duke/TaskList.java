@@ -12,8 +12,7 @@ public class TaskList {
             int num = 1;
         };
         return this.list.stream()
-                .reduce
-                        (new StringBuilder(),
+                .reduce(new StringBuilder(),
                         (curr, acc) -> {
                             curr.append(numBox.num).append(".").append(acc.describe());
                             if (numBox.num < list.size()) {

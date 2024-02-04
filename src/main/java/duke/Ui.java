@@ -6,6 +6,7 @@ public class Ui {
 
     /** Scanner for user input. */
     private final Scanner input = new Scanner(System.in);
+    
     /**
      * Prints a message to the terminal, decorated with the Louie icon. 
      * Printing an empty string just outputs the icon
