@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
- * The Event class represents a task that spans a specific duration in Duke.
+ * The `Event` class represents a task that spans a specific duration in Duke.
  */
 public class Event extends Task {
 
@@ -33,7 +33,7 @@ public class Event extends Task {
     protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
-     * Constructs an Event with the given description, start time, and end time.
+     * Constructs an `Event` with the given description, start time, and end time.
      *
      * @param description The description of the event.
      * @param from The start time of the event in yyyy-MM-dd HH:mm format.
@@ -51,7 +51,6 @@ public class Event extends Task {
             if (!isBeforeDateTime(date1, end1)) {
                 throw new DukeException("Invalid date range. 'From' should be before 'To'.");
             }
-
         } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
             throw new DukeException("Invalid time format. Please use yyyy-MM-dd HH:mm.");
         }

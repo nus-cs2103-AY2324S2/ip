@@ -1,40 +1,40 @@
 package duke.task;
 
-import duke.storage.Storage;
 import duke.exception.DukeException;
+import duke.storage.Storage;
 
 import java.util.ArrayList;
 
 /**
- * The TaskList class represents a list of tasks in Duke.
+ * The `TaskList` class represents a list of tasks in Duke.
  */
 public class TaskList {
 
     /**
-     * The ArrayList that stores the tasks.
+     * The `ArrayList` that stores the tasks.
      */
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructs a TaskList with the given ArrayList of tasks.
+     * Constructs a `TaskList` with the given `ArrayList` of tasks.
      *
-     * @param tasks The ArrayList of tasks.
+     * @param tasks The `ArrayList` of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty `TaskList`.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Saves the tasks in the TaskList to the provided Storage.
+     * Saves the tasks in the `TaskList` to the provided `Storage`.
      *
-     * @param storage The Storage object to save tasks to.
+     * @param storage The `Storage` object to save tasks to.
      * @throws DukeException If there is an issue saving tasks to storage.
      */
     public void saveToStorage(Storage storage) throws DukeException {
@@ -42,28 +42,28 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the ArrayList of tasks from the TaskList.
+     * Retrieves the `ArrayList` of tasks from the `TaskList`.
      *
-     * @return The ArrayList of tasks.
+     * @return The `ArrayList` of tasks.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Adds a task to the TaskList and returns a formatted message.
+     * Adds a task to the `TaskList` and returns a formatted message.
      *
      * @param t The task to be added.
      * @return A message confirming the addition of the task.
      */
-    public String addTask(Task t){
+    public String addTask(Task t) {
         tasks.add(t);
         return "Got it. I've added this task:\n" + "   " + t + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.";
+                + " Now you have " + tasks.size() + " task(s) in the list.";
     }
 
     /**
-     * Deletes a task from the TaskList by index and returns a formatted message.
+     * Deletes a task from the `TaskList` by index and returns a formatted message.
      *
      * @param taskIndex The index of the task to be deleted.
      * @return A message confirming the deletion of the task.
@@ -75,9 +75,9 @@ public class TaskList {
             Task t = this.tasks.remove(taskIndex);
 
             return "Noted. I've removed this task:\n" + "   " + t + "\n"
-                    + " Now you have " + tasks.size() + " tasks in the list.";
+                    + " Now you have " + tasks.size() + " task(s) in the list.";
         } else {
-            throw new DukeException("duke.task.Task not found.");
+            throw new DukeException("Task not found.");
         }
     }
 
@@ -122,7 +122,7 @@ public class TaskList {
 
             return "Nice! I've marked this task as done:\n" + "   " + t;
         } else {
-            throw new DukeException("duke.task.Task not found.");
+            throw new DukeException("Task not found.");
         }
     }
 
@@ -141,8 +141,7 @@ public class TaskList {
             return "OK, I've marked this task as not done yet:\n" + "   " + t;
 
         } else {
-            throw new DukeException("duke.task.Task not found.");
+            throw new DukeException("Task not found.");
         }
     }
-
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The Storage class manages the loading and saving of tasks from/to a file in Duke.
+ * The `Storage` class manages the loading and saving of tasks from/to a file in Duke.
  * It interacts with the file system to store and retrieve tasks.
  */
 public class Storage {
@@ -31,12 +31,12 @@ public class Storage {
     private boolean warningPrinted = false;
 
     /**
-     * Constructs a Storage with the given file path.
+     * Constructs a `Storage` with the given file path.
      *
      * @param filePath The file path for storing tasks.
      */
     public Storage(String filePath) {
-       this.filePath = Paths.get(filePath);
+        this.filePath = Paths.get(filePath);
     }
 
     /**
@@ -148,10 +148,10 @@ public class Storage {
                 String[] time = parts[3].split(" - ");
                 if (!(time.length == 2)) {
                     throw new DukeException("Invalid time format. " +
-                            "Please use <datetime> - <datetime>" );
+                            "Please use <datetime> - <datetime>");
                 }
 
-                Task tE = new Event(description,time[0], time[1]);
+                Task tE = new Event(description, time[0], time[1]);
                 tE.setDone(isDone);
                 return tE;
             default:
