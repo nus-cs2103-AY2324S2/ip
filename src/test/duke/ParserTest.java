@@ -1,12 +1,11 @@
 package duke;
 
-import exceptions.DukeEmptyArgumentException;
-import exceptions.DukeErroneousArgumentException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import tasks.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -14,16 +13,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.duke.Parser;
+import com.duke.Storage;
+import com.exceptions.DukeEmptyArgumentException;
+import com.exceptions.DukeErroneousArgumentException;
+import com.tasks.Deadline;
+import com.tasks.Event;
+import com.tasks.Task;
+import com.tasks.TaskList;
+import com.tasks.Todo;
 
 @ExtendWith(MockitoExtension.class)
 class ParserTest {
-    Parser p = new Parser();
+    private Parser p = new Parser();
     @Test
     void byeShouldReturnNull() {
-        TaskList tl  = new TaskList();
+        TaskList tl = new TaskList();
         String in = "bye";
         Storage store = new Storage();
         assertNull(p.parse(in, tl, store));
@@ -31,7 +40,7 @@ class ParserTest {
 
     @Test
     void listShouldCallPrintList() {
-        TaskList tl  = mock(TaskList.class);
+        TaskList tl = mock(TaskList.class);
         String in = "list";
         Storage store = new Storage();
         p.parse(in, tl, store);
@@ -40,7 +49,7 @@ class ParserTest {
 
     @Test
     void saveShouldCallStorageSaveSuccess() {
-        TaskList tl  = new TaskList();
+        TaskList tl = new TaskList();
         String in = "save";
         Storage store = mock(Storage.class);
         boolean thrown = false;
@@ -56,7 +65,8 @@ class ParserTest {
     @Test
     void markShouldReturnMarkedTasks() {
         List<Task> lstBefore = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo("task2")));
-        List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo(true,"task2")));
+        List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1"),
+                new Todo(true, "task2")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
         String in = "mark 2";
@@ -67,7 +77,8 @@ class ParserTest {
 
     @Test
     void unmarkShouldReturnUnmarkedTasks() {
-        List<Task> lstBefore = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo(true,"task2")));
+        List<Task> lstBefore = new ArrayList<>(Arrays.asList(new Todo("task1"),
+                new Todo(true, "task2")));
         List<Task> lstAfter = new ArrayList<>(Arrays.asList(new Todo("task1"), new Todo("task2")));
         TaskList tl1 = new TaskList(lstBefore);
         TaskList tl2 = new TaskList(lstAfter);
@@ -128,9 +139,9 @@ class ParserTest {
     void emptyTodoShouldThrowEmptyArgumentException() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "todo ";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeEmptyArgumentException e) {
             thrown = true;
         }
@@ -141,9 +152,9 @@ class ParserTest {
     void emptyDeadlineShouldThrowEmptyArgumentException() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "deadline /by 2024-01-01";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeEmptyArgumentException e) {
             thrown = true;
         }
@@ -154,9 +165,9 @@ class ParserTest {
     void emptyDeadlineDateTimeShouldThrowEmptyArgumentException() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "deadline test /by ";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeEmptyArgumentException e) {
             thrown = true;
         }
@@ -167,9 +178,9 @@ class ParserTest {
     void erroneousDeadlineShouldThrowErroneousArgumentException() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "deadline test /by2024-01-01";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeErroneousArgumentException e) {
             thrown = true;
         }
@@ -180,9 +191,9 @@ class ParserTest {
     void erroneousDeadLineFormatShouldThrowDateTimeException() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "deadline test /by 2024-0-01";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DateTimeException e) {
             thrown = true;
         }
@@ -193,9 +204,9 @@ class ParserTest {
     void emptyEventShouldThrowEmptyArgumentException() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event /from 2024-01-01 /to 2024-01-02";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeEmptyArgumentException e) {
             thrown = true;
         }
@@ -206,9 +217,9 @@ class ParserTest {
     void emptyEventDateTimeShouldThrowEmptyArgumentException1() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event test /from  /to 2024-01-02";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeEmptyArgumentException e) {
             thrown = true;
         }
@@ -219,9 +230,9 @@ class ParserTest {
     void emptyEventDateTimeShouldThrowEmptyArgumentException2() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event test /from 2024-01-02 /to ";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeEmptyArgumentException e) {
             thrown = true;
         }
@@ -232,9 +243,9 @@ class ParserTest {
     void erroneousEventShouldThrowErroneousArgumentException1() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event test /from2024-01-01 /to 2024-01-02";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeErroneousArgumentException e) {
             thrown = true;
         }
@@ -245,9 +256,9 @@ class ParserTest {
     void erroneousEventShouldThrowErroneousArgumentException2() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event test /from 2024-01-01 /to2024-01-02";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DukeErroneousArgumentException e) {
             thrown = true;
         }
@@ -258,9 +269,9 @@ class ParserTest {
     void erroneousEventFormatShouldThrowDateTimeException1() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event test /from 2024-00-01 /to 2024-01-02";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DateTimeException e) {
             thrown = true;
         }
@@ -271,9 +282,9 @@ class ParserTest {
     void erroneousEventFormatShouldThrowDateTimeException2() {
         boolean thrown = false;
         try {
-            TaskList tl  = new TaskList();
+            TaskList tl = new TaskList();
             String in = "event test /from 2024-01-01 /to 2024-00-02";
-            tl = p.addTask(in, tl);
+            p.addTask(in, tl);
         } catch (DateTimeException e) {
             thrown = true;
         }

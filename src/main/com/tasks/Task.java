@@ -1,4 +1,4 @@
-package tasks;
+package com.tasks;
 
 /**
  * An encapsulation of a task.
@@ -11,11 +11,20 @@ public abstract class Task {
     /** Represents if a task is done */
     protected boolean done;
 
+    /**
+     * Constructor for Task.
+     * @param done True if the task is done.
+     * @param name Name of the Task.
+     */
     public Task(boolean done, String name) {
         this.done = done;
         this.name = name;
     }
 
+    /**
+     * Constructor for Task.
+     * @param name Name of the Task.
+     */
     public Task(String name) {
         this.name = name;
         this.done = false;

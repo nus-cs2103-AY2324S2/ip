@@ -1,11 +1,8 @@
-package duke;
+package com.duke;
 
-import tasks.Task;
-import tasks.TaskList;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+import com.tasks.TaskList;
 
 /**
  * The main class that prints outputs.
@@ -14,11 +11,11 @@ import java.util.Scanner;
  */
 public class Ui {
     /** Logo of Skibidi. */
-    public static String logo = " ____  _  _____ ____ ___ ____ ___ \n" +
-            "/ ___|| |/ /_ _| __ )_ _|  _ \\_ _|\n" +
-            "\\___ \\| ' / | ||  _ \\| || | | | | \n" +
-            " ___) | . \\ | || |_) | || |_| | | \n" +
-            "|____/|_|\\_\\___|____/___|____/___|";
+    private static String logo = " ____  _  _____ ____ ___ ____ ___ \n"
+            + "/ ___|| |/ /_ _| __ )_ _|  _ \\_ _|\n"
+            + "\\___ \\| ' / | ||  _ \\| || | | | | \n"
+            + " ___) | . \\ | || |_) | || |_| | | \n"
+            + "|____/|_|\\_\\___|____/___|____/___|";
 
     /**
      * Prints a solid line that separates each action.
@@ -63,5 +60,4 @@ public class Ui {
             printLine();
         }
     }
-
 }

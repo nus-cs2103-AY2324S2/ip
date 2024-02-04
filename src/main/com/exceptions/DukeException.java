@@ -1,4 +1,4 @@
-package exceptions;
+package com.exceptions;
 
 /**
  * Parent class for Duke exceptions.

@@ -1,23 +1,33 @@
-package tasks;
+package com.tasks;
 
 /**
  * An encapsulation of a todo type task.
  *
- * @author Lim Zi Jia 
+ * @author Lim Zi Jia
  */
-public class Todo extends Task{
-    public Todo(boolean done, String name){
+public class Todo extends Task {
+    /**
+     * Constructor for Todo.
+     * @param done True if the task is done.
+     * @param name Name of the Task.
+     */
+    public Todo(boolean done, String name) {
         super(done, name);
-    };
+    }
+
+    /**
+     * Constructor for Deadline.
+     * @param name Name of the Task.
+     */
     public Todo(String name) {
         super(name);
     }
 
     @Override
     public String toSavedString() {
-        return String.format("T,%s,%s"
-                , this.done ? '1' : '0'
-                , this.name);
+        return String.format("T,%s,%s",
+                this.done ? '1' : '0',
+                this.name);
     }
 
     @Override

@@ -1,6 +1,4 @@
-package duke;
-
-import tasks.*;
+package com.duke;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,6 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.tasks.Deadline;
+import com.tasks.Event;
+import com.tasks.Task;
+import com.tasks.TaskList;
+import com.tasks.Todo;
+
 /**
  * The storage class contains the file paths and methods to load and save task lists.
  *
@@ -17,16 +21,19 @@ import java.util.stream.Collectors;
  */
 public class Storage {
     /** The path to the saved file's directory. */
-    private static Path PATH_DIR;
+    private static Path pathDir;
     /** The path to the saved file. */
-    private static Path PATH_FILE;
+    private static Path pathFile;
 
     public Storage() {}
 
+    /**
+     * Constructor for the Storage class.
+     */
     public Storage(String dir, String name) {
         String userDir = System.getProperty("user.dir");
-        PATH_DIR = Paths.get(userDir + dir);
-        PATH_FILE = Paths.get(userDir + dir + name);
+        pathDir = Paths.get(userDir + dir);
+        pathFile = Paths.get(userDir + dir + name);
     }
 
     /**
@@ -36,7 +43,7 @@ public class Storage {
      */
     public TaskList load() {
         try {
-            List<String> read = Files.readAllLines(PATH_FILE);
+            List<String> read = Files.readAllLines(pathFile);
             List<Task> list = read.stream()
                     .map(this::stringToTask)
                     .collect(Collectors.toList());
@@ -62,15 +69,16 @@ public class Storage {
         List<String> taskLst = Arrays.asList(s.split(","));
         Task t = null;
         switch (taskLst.get(0)) {
-            case "T":
-                t = new Todo(taskLst.get(1).equals("1"), taskLst.get(2));
-                break;
-            case "D":
-                t = new Deadline(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3));
-                break;
-            case "E":
-                t = new Event(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3), taskLst.get(4));
-                break;
+        case "T":
+            t = new Todo(taskLst.get(1).equals("1"), taskLst.get(2));
+            break;
+        case "D":
+            t = new Deadline(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3));
+            break;
+        case "E":
+            t = new Event(taskLst.get(1).equals("1"), taskLst.get(2), taskLst.get(3), taskLst.get(4));
+            break;
+        default:
         }
 
         return t;
@@ -96,16 +104,16 @@ public class Storage {
      */
     public void save(TaskList tl) throws IOException {
         // Check if the directory exists
-        if (!Files.exists(PATH_DIR)) {
-            Files.createDirectories(PATH_DIR);
+        if (!Files.exists(pathDir)) {
+            Files.createDirectories(pathDir);
         }
         // Check if the save file exists
-        if (Files.exists(PATH_FILE)) {
-            Files.delete(PATH_FILE);
+        if (Files.exists(pathFile)) {
+            Files.delete(pathFile);
         }
-        Files.createFile(PATH_FILE);
+        Files.createFile(pathFile);
         // Writing to the file
-        writeToFile(PATH_FILE, tl);
-        System.out.println("Your list has been saved to " + PATH_FILE);
+        writeToFile(pathFile, tl);
+        System.out.println("Your list has been saved to " + pathFile);
     }
 }

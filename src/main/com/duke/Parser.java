@@ -1,16 +1,18 @@
-package duke;
-
-import exceptions.DukeEmptyArgumentException;
-import exceptions.DukeErroneousArgumentException;
-import exceptions.DukeInvalidInputException;
-import exceptions.DukeWrongDateOrderException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.TaskList;
-import tasks.Todo;
+package com.duke;
 
 import java.io.IOException;
 import java.time.DateTimeException;
+
+import com.exceptions.DukeEmptyArgumentException;
+import com.exceptions.DukeErroneousArgumentException;
+import com.exceptions.DukeInvalidInputException;
+import com.exceptions.DukeWrongDateOrderException;
+import com.tasks.Deadline;
+import com.tasks.Event;
+import com.tasks.TaskList;
+import com.tasks.Todo;
+
+
 
 /**
  * This class helps the chatbot to parse inputs in order to execute the reactions that the user wants.
@@ -29,37 +31,23 @@ public class Parser {
     public TaskList parse(String in, TaskList tasks, Storage storage) {
         if (in.equals("bye")) {
             return null;
-        }
-
-        else if (in.equals("list")) {
+        } else if (in.equals("list")) {
             tasks.printList();
-        }
-
-        else if (in.equals("save")) {
+        } else if (in.equals("save")) {
             try {
                 storage.save(tasks);
             } catch (IOException e) {
                 System.out.println("I/O Exception");
             }
-        }
-
-        else if (in.startsWith("mark ")) {
+        } else if (in.startsWith("mark ")) {
             tasks.mark(in);
-        }
-
-        else if (in.startsWith("unmark ")) {
+        } else if (in.startsWith("unmark ")) {
             tasks.unmark(in);
-        }
-
-        else if (in.startsWith("delete ")) {
+        } else if (in.startsWith("delete ")) {
             tasks.delete(in);
-        }
-
-        else if (in.startsWith("find ")) {
+        } else if (in.startsWith("find ")) {
             tasks.find(in);
-        }
-
-        else {
+        } else {
             try {
                 tasks = addTask(in, tasks);
             } catch (DukeInvalidInputException e) {
@@ -130,7 +118,7 @@ public class Parser {
             }
 
             String n = s.substring(6, Math.max(first - 1, 6));
-            String f = s.substring(first + 6,  Math.max(second - 1, first + 6));
+            String f = s.substring(first + 6, Math.max(second - 1, first + 6));
             String t = s.substring(second + 4);
             if (n.isEmpty() || f.isEmpty() || t.isEmpty()) {
                 throw new DukeEmptyArgumentException();

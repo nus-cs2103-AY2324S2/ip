@@ -1,4 +1,4 @@
-package exceptions;
+package com.exceptions;
 
 /**
  * An exception that is thrown when an argument is empty.

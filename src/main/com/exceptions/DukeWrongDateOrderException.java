@@ -1,4 +1,4 @@
-package exceptions;
+package com.exceptions;
 
 /**
  * An exception that is thrown when the order of dates are wrong.

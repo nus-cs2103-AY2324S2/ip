@@ -1,4 +1,4 @@
-package tasks;
+package com.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +54,11 @@ public class TaskList {
         int i;
         try {
             i = Integer.parseInt(in.substring(5));
-            Task t = this.list.get(i-1);
+            Task t = this.list.get(i - 1);
             t.markAsDone();
             System.out.print("Nice! I've marked this task as done:\n  ");
             System.out.print(t);
-            this.list.set(i-1, t);
+            this.list.set(i - 1, t);
 
         } catch (NumberFormatException e) {
             System.out.println("Not a valid number!");
@@ -75,11 +75,11 @@ public class TaskList {
     public void unmark(String in) {
         try {
             int i = Integer.parseInt(in.substring(7));
-            Task t = this.list.get(i-1);
+            Task t = this.list.get(i - 1);
             t.markAsNotDone();
             System.out.print("OK, I've marked this task as not done yet:\n  ");
             System.out.print(t);
-            this.list.set(i-1, t);
+            this.list.set(i - 1, t);
 
         } catch (NumberFormatException e) {
             System.out.println("Not a valid number!");
@@ -96,7 +96,7 @@ public class TaskList {
     public void delete(String in) {
         try {
             int i = Integer.parseInt(in.substring(7));
-            Task t = this.list.remove(i-1);
+            Task t = this.list.remove(i - 1);
             System.out.print("Noted. I've removed this task::\n  ");
             System.out.println(t);
             System.out.printf("Now you have %d tasks in the list.\n", this.list.size());

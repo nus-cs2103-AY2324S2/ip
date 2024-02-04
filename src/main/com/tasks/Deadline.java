@@ -1,4 +1,4 @@
-package tasks;
+package com.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,11 +12,22 @@ public class Deadline extends Task {
     /** The time of the deadline. */
     private LocalDate time;
 
+    /**
+     * Constructor for Deadline.
+     * @param done True if the task is done.
+     * @param name Name of the Task.
+     * @param time Time of the deadline.
+     */
     public Deadline(boolean done, String name, String time) {
         super(done, name);
         this.time = LocalDate.parse(time);
     }
 
+    /**
+     * Constructor for Deadline.
+     * @param name Name of the Task.
+     * @param time Time of the deadline.
+     */
     public Deadline(String name, String time) {
         super(name);
         this.time = LocalDate.parse(time);

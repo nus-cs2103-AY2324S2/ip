@@ -1,4 +1,4 @@
-package tasks;
+package com.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,11 +14,25 @@ public class Event extends Task {
     /** The time of the end of the event. */
     private final LocalDate to;
 
+    /**
+     * Constructor for Event.
+     * @param done True if the task is done.
+     * @param name Name of the Task.
+     * @param from Time of the start of event.
+     * @param to   Time of the end of event.
+     */
     public Event(boolean done, String name, String from, String to) {
         super(done, name);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
     }
+
+    /**
+     * Constructor for Event.
+     * @param name Name of the Task.
+     * @param from Time of the start of event.
+     * @param to   Time of the end of event.
+     */
     public Event(String name, String from, String to) {
         super(name);
         this.from = LocalDate.parse(from);
