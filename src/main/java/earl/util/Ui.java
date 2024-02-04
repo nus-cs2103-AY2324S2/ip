@@ -2,6 +2,9 @@ package earl.util;
 
 import java.util.Scanner;
 
+/**
+ * Class responsible for interactions with the user.
+ */
 public class Ui {
 
     private static final String PADDING = " ".repeat(4);
@@ -10,10 +13,20 @@ public class Ui {
     }
     private final Scanner SC;
 
+    /** Class constructor. */
     public Ui () {
         SC = new Scanner(System.in);
     }
 
+    /**
+     * Formats and prints the arguments for the user to read.
+     * <p>
+     * Each argument is automatically put on a new line. A padding
+     * of 4 spaces is also added automatically to give the user a
+     * better sense of which text is outputted by Earl.
+     *
+     * @param arr  a vararg of strings to print
+     */
     public void makeResponse(String... arr) {
         printDivider();
         for (String s : arr) {

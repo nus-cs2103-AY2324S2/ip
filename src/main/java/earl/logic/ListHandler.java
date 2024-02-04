@@ -3,6 +3,9 @@ package earl.logic;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the list command.
+ */
 public final class ListHandler extends Handler {
     public void handle(TaskList tasks, Ui ui) {
         if (!tasks.isEmpty()) {

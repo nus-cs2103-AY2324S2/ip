@@ -4,6 +4,11 @@ import earl.tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Class encapsulating the list of tasks.
+ * <p>
+ * Functionally a wrapper of the {@code ArrayList} class.
+ */
 public class TaskList {
 
     private final ArrayList<Task> tasks;
@@ -28,14 +33,17 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    /** Return list as an {@code ArrayList}. */
     public ArrayList<Task> getList() {
         return tasks;
     }
 
+    /** Marks the task at the given index as done. Returns success. */
     public boolean mark(int idx) {
         return tasks.get(idx).markAsDone();
     }
 
+    /** Marks the task at the given index as undone. Returns success.*/
     public boolean unmark(int idx) {
         return tasks.get(idx).markUndone();
     }
