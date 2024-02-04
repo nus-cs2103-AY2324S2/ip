@@ -2,7 +2,6 @@ package chatbot.cortana;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import chatbot.storage.Storage;
 import chatbot.task.Task;
@@ -34,88 +33,62 @@ public class Cortana {
         this.taskList = new TaskList();
     }
 
-    /**
-     * Runs the chatbot.
-     */
-    public void run() {
-        try {
-            this.taskList = this.storage.loadTaskList();
-        } catch (IOException e) {
-            Ui.output(e.getMessage());
-        }
-        Ui.greet(this.name);
-        echo();
-        Ui.bye();
-    }
-
-    /**
-     * Reads the user input and executes the command.
-     */
-    public void echo() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+    public String getResponse(String input) {
         Command command = Parser.parseCommand(input);
         ArrayList<Task> tasks;
         int numTasks;
         Task currTask;
         String response;
-        while (command != Command.BYE) {
-            try {
-                Parser.validateInput(command, input, this.taskList);
-                switch (command) {
-                case TODO:
-                    currTask = Parser.parseTodoTask(input);
-                    this.taskList.addTask(currTask);
-                    response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
-                    break;
-                case DEADLINE:
-                    currTask = Parser.parseDeadlineTask(input);
-                    this.taskList.addTask(currTask);
-                    response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
-                    break;
-                case EVENT:
-                    currTask = Parser.parseEventTask(input);
-                    this.taskList.addTask(currTask);
-                    response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
-                    break;
-                case MARK:
-                    currTask = this.taskList.markTask(Parser.parseIndex(command, input));
-                    response = Ui.markTask(currTask);
-                    break;
-                case UNMARK:
-                    currTask = this.taskList.unmarkTask(Parser.parseIndex(command, input));
-                    response = Ui.unmarkTask(currTask);
-                    break;
-                case DELETE:
-                    currTask = this.taskList.deleteTask(Parser.parseIndex(command, input));
-                    response = Ui.deleteTask(currTask, this.taskList.getNumTasks());
-                    break;
-                case LIST:
-                    tasks = this.taskList.getTasks();
-                    numTasks = this.taskList.getNumTasks();
-                    response = Ui.listTasks(tasks, numTasks);
-                    break;
-                case FIND:
-                    tasks = this.taskList.findTasks(Parser.parseFindString(input));
-                    numTasks = tasks.size();
-                    response = Ui.listFindTasks(tasks, numTasks);
-                    break;
-                default:
-                    response = "I'm sorry, but I don't know what that means :-(";
-                }
-                if (!(this.taskList.isSaved())) {
-                    this.storage.saveTaskList(this.taskList);
-                }
-            } catch (IOException e) {
-                response = e.getMessage();
+        try {
+            Parser.validateInput(command, input, this.taskList);
+            switch (command) {
+            case TODO:
+                currTask = Parser.parseTodoTask(input);
+                this.taskList.addTask(currTask);
+                response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
+                break;
+            case DEADLINE:
+                currTask = Parser.parseDeadlineTask(input);
+                this.taskList.addTask(currTask);
+                response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
+                break;
+            case EVENT:
+                currTask = Parser.parseEventTask(input);
+                this.taskList.addTask(currTask);
+                response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
+                break;
+            case MARK:
+                currTask = this.taskList.markTask(Parser.parseIndex(command, input));
+                response = Ui.markTask(currTask);
+                break;
+            case UNMARK:
+                currTask = this.taskList.unmarkTask(Parser.parseIndex(command, input));
+                response = Ui.unmarkTask(currTask);
+                break;
+            case DELETE:
+                currTask = this.taskList.deleteTask(Parser.parseIndex(command, input));
+                response = Ui.deleteTask(currTask, this.taskList.getNumTasks());
+                break;
+            case LIST:
+                tasks = this.taskList.getTasks();
+                numTasks = this.taskList.getNumTasks();
+                response = Ui.listTasks(tasks, numTasks);
+                break;
+            case FIND:
+                tasks = this.taskList.findTasks(Parser.parseFindString(input));
+                numTasks = tasks.size();
+                response = Ui.listFindTasks(tasks, numTasks);
+                break;
+            default:
+                response = "I'm sorry, but I don't know what that means :-(";
             }
-            Ui.output(response);
-            input = sc.nextLine();
-            command = Parser.parseCommand(input);
+            if (!(this.taskList.isSaved())) {
+                this.storage.saveTaskList(this.taskList);
+            }
+        } catch (IOException e) {
+            response = e.getMessage();
         }
-        sc.close();
+        return response;
     }
-
-
 
 }
