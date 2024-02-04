@@ -92,4 +92,14 @@ public class DeadlineTest {
                 ("Text '2024-06-06 0000 nonsense' could not be parsed, unparsed text found at index 15", 
                         thrown.getMessage());
     }
+    
+    @Test
+    public void Deadline_outOfBoundsDateString_exceptionThrown() {
+        var thrown = assertThrows
+                (DateTimeParseException.class, () -> new Deadline(NAME_1, "2024-06-06 2500"));
+        assertEquals
+                ("Text '2024-06-06 2500' could not be parsed: "
+                        + "Invalid value for HourOfDay (valid values 0 - 23): 25", 
+                        thrown.getMessage());
+    }
 }
