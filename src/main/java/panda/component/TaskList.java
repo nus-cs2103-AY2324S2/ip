@@ -100,6 +100,13 @@ public class TaskList {
         return tmp;
     }
 
+    /**
+     * Returns a string representation of the TaskList.
+     * If the TaskList is empty, returns a message indicating that the list is empty.
+     * Otherwise, returns a string listing all the tasks in the TaskList.
+     * 
+     * @return a string representation of the TaskList.
+     */
     public String toString() {
         if(tlist.size() == 0) {
             return "Your list is empty.";
