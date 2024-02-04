@@ -3,9 +3,9 @@ package cappy.command;
 /**
  * Enumeration representing different command types in the Cappy application.
  *
- * <p>The {@code CommandType} enum encapsulates various command types that can be performed
- * in the Cappy application. Each enum value associates a command string with its corresponding
- * concrete command implementation.
+ * <p>The {@code CommandType} enum encapsulates various command types that can be performed in the
+ * Cappy application. Each enum value associates a command string with its corresponding concrete
+ * command implementation.
  */
 public enum CommandType {
     LIST("list", new ListCommand()),
@@ -42,8 +42,8 @@ public enum CommandType {
     }
 
     /**
-     * Converts a string to a CommandType. INVALID will be the CommandType returned
-     * if there are no other matches.
+     * Converts a string to a CommandType. INVALID will be the CommandType returned if there are no
+     * other matches.
      *
      * @param commandString The string to be converted.
      * @return The CommandType of the given string.

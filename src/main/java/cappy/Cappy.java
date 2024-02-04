@@ -10,10 +10,16 @@ import cappy.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * The main class of the Cappy application.
+ *
+ * <p>The {@code Cappy} class is the entry point of the Cappy application. It initializes the
+ * application components and starts the main input loop to interact with the user.
+ */
 public class Cappy {
-    private static TaskList TASKS;
     private static final String STORAGE_PATH = "./cappy.csv";
     private static final Ui UI = new Ui();
+    private static TaskList taskList;
     private static Storage storage;
 
     public static void main(String[] args) {
@@ -21,7 +27,7 @@ public class Cappy {
         UI.showGreetings();
         try {
             storage = new Storage(STORAGE_PATH);
-            TASKS = TaskList.load(storage);
+            taskList = TaskList.load(storage);
             inputLoop();
             storage.close();
         } catch (IOException | CappyException e) {
@@ -37,7 +43,7 @@ public class Cappy {
             input = UI.getInput();
             try {
                 ParsedInput parsedInput = Parser.parse(input);
-                parsedInput.executeCommand(TASKS, UI, storage);
+                parsedInput.executeCommand(taskList, UI, storage);
                 if (parsedInput.getCommandType() == CommandType.BYE) {
                     break;
                 }

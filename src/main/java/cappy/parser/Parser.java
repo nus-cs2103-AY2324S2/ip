@@ -17,14 +17,11 @@ import java.util.StringTokenizer;
 /**
  * Handles parsing user input and converting data formats.
  *
- * <p>The {@code Parser} class provides static methods for parsing user input,
- * converting date-time strings to LocalDateTime objects, and parsing CSV lines
- * into corresponding task objects.
+ * <p>The {@code Parser} class provides static methods for parsing user input, converting date-time
+ * strings to LocalDateTime objects, and parsing CSV lines into corresponding task objects.
  */
 public class Parser {
-    /**
-     * The DateTimeFormatter for parsing and formatting date-time strings.
-     */
+    /** The DateTimeFormatter for parsing and formatting date-time strings. */
     public static final DateTimeFormatter DATE_TIME_FORMAT =
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
@@ -63,8 +60,8 @@ public class Parser {
     }
 
     /**
-     * Converts a String into a LocalDateTime object. The expected format is yyyy-MM-dd'T'HH:mm.
-     * For example, 2023-01-29T14:00.
+     * Converts a String into a LocalDateTime object. The expected format is yyyy-MM-dd'T'HH:mm. For
+     * example, 2023-01-29T14:00.
      *
      * @param input The string to be converted to a LocalDateTime object.
      * @return The resulting LocalDateTime object from the conversion.
@@ -75,10 +72,10 @@ public class Parser {
     }
 
     /**
-     * Converts a LocalDateTime object into a String. The String format is yyyy-MM-dd'T'HH:mm.
-     * For example, 2023-01-29T14:00.
+     * Converts a LocalDateTime object into a String. The String format is yyyy-MM-dd'T'HH:mm. For
+     * example, 2023-01-29T14:00.
      *
-     * @param input The LocalDateTime object to be converted to a String.
+     * @param dateTime The LocalDateTime object to be converted to a String.
      * @return The resulting String from the conversion.
      */
     public static String dateTimeToString(LocalDateTime dateTime) {
