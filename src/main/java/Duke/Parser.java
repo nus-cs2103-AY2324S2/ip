@@ -17,7 +17,8 @@ public class Parser {
         DELETE,
         LIST,
         MARK,
-        UNMARK
+        UNMARK,
+        FIND
     }
 
     /**
@@ -50,6 +51,8 @@ public class Parser {
                 return new CreateEventCommand(ui, taskList, storage, input);
             case DEADLINE:
                 return new CreateDeadlineCommand(ui, taskList, storage, input);
+            case FIND:
+                return new FindCommand(ui, taskList, storage, input);
             default:
                 return new ErrorCommand(ui, taskList, storage, "Please use the correct command Word!>.<");
             }
