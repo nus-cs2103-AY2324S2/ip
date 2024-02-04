@@ -3,14 +3,12 @@ package duke.task;
 import duke.parser.DateHandler;
 
 import java.time.LocalDateTime;
-public class Event extends Task {
 
+public class Event extends Task {
 
     //Legacy support
     protected String by = "";
     protected String from = "";
-
-
 
     protected LocalDateTime byDateTime = null;
     protected LocalDateTime fromDateTime = null;
@@ -41,7 +39,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        if(byDateTime == null) {
+        if (byDateTime == null) {
             return "[E]" + super.toString() + " (from: " + from + " to " + by + ")";
         } else {
             return "[E]" + super.toString() + " (from: " + DateHandler.formatDate(fromDateTime) + " to "

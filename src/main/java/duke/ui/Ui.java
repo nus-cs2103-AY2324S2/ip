@@ -1,11 +1,11 @@
 package duke.ui;
 
-import duke.DukeException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import duke.DukeException;
 
 public class Ui {
     public static final String INDENT = "   ";
