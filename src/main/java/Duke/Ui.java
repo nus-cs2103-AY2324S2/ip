@@ -101,5 +101,28 @@ public class Ui {
         System.out.println(errorMessage);
     }
 
+    /**
+     * Find tasks by a given string.
+     *
+     * @param taskList
+     * @param keyWord
+     */
+    public void printFoundTasks(TaskList taskList, String keyWord) {
+        System.out.println("____________________________________________________________\n" +
+                " Here are the matching tasks in your list:\n");
+        int count = 0;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (!taskList.getTask(i).getDescription().contains(keyWord)) {
+                continue;
+            }
+            String currentTask = String.format("%d.[%s][%s] %s",
+                    count + 1, taskList.getTask(i).getTaskType(),
+                    taskList.getTask(i).getStatusIcon(), taskList.getTask(i).toString());
+            System.out.println(currentTask);
+            count++;
+        }
+        System.out.println("____________________________________________________________\n");
+    }
+
 }
 

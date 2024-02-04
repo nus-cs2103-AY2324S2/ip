@@ -12,7 +12,8 @@ public class Parser {
         DELETE,
         LIST,
         MARK,
-        UNMARK
+        UNMARK,
+        FIND
     }
 
     public static Command parse(String input, Ui ui, TaskList taskList, Storage storage) throws DukeException {
@@ -36,6 +37,8 @@ public class Parser {
                     return new CreateEventCommand(ui, taskList, storage, input);
                 case DEADLINE:
                     return new CreateDeadlineCommand(ui, taskList, storage, input);
+                case FIND:
+                    return new FindCommand(ui, taskList, storage, input);
                 default:
                     return new ErrorCommand(ui, taskList, storage,
                             "Please use the correct command Word!>.<");
