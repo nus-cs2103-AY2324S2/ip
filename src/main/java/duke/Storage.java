@@ -1,24 +1,26 @@
 package duke;
 
-import duke.exception.InvalidCommandException;
+import java.util.ArrayList;
+
 import duke.task.Task;
+import duke.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
-import java.util.ArrayList;
-import duke.task.TaskList;
 import duke.exception.DukeException;
+import duke.exception.InvalidCommandException;
 
 public class Storage {
+
     // Default file path for storage
     private static String filePath = "./data/tasks.txt";
     private static final Path DIRECTORY_PATH = Paths.get("./data");
@@ -26,6 +28,7 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
+
         try {
             if (!Files.exists(DIRECTORY_PATH)) {
                 Files.createDirectories(DIRECTORY_PATH);
@@ -41,11 +44,13 @@ public class Storage {
 
     public static void save(TaskList tasksList) {
         ArrayList<Task> arrayListOfTasks = tasksList.getArrayList();
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : arrayListOfTasks) {
                 writer.write(task.toString());
                 writer.newLine();
             }
+
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -53,14 +58,17 @@ public class Storage {
 
     public static ArrayList<Task> load() throws DukeException {
         ArrayList arrayTaskList = new ArrayList();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String data;
+
             while ((data = reader.readLine()) != null) {
                 Task task = Task.parseFromFileString(data);
                 if (task != null) {
                     arrayTaskList.add(task);
                 }
             }
+
         } catch (FileNotFoundException e) {
             throw new InvalidCommandException("No existing file. Starting with an empty task list.");
         } catch (IOException e) {

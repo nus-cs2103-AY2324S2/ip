@@ -4,18 +4,18 @@ import duke.Ui;
 import duke.Parser;
 import duke.Storage;
 
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-
+import duke.task.Event;
 
 import duke.exception.InvalidArgumentException;
+
 public class AddEventCommand extends Command {
-    String description;
+
+    private String description;
 
     public AddEventCommand(String description) {
         this.description = description;
-
     }
 
     @Override

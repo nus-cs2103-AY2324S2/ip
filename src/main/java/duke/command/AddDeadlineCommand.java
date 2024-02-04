@@ -1,22 +1,24 @@
 package duke.command;
 
-import duke.Storage;
 import duke.Ui;
 import duke.Parser;
+import duke.Storage;
 
-import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.Deadline;
 
 import duke.exception.InvalidArgumentException;
 
 
 public class AddDeadlineCommand extends Command {
-    String description;
+
+    private String description;
 
     public AddDeadlineCommand(String description) {
         this.description = description;
     }
+
     @Override
     public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
@@ -26,6 +28,7 @@ public class AddDeadlineCommand extends Command {
 
             String formattedByDate = Parser.formatDate(byDate);
             String formattedDescription = deadlineDetails + " (by: " + formattedByDate + ")";
+
             Task deadline = new Deadline(formattedDescription);
 
             taskList.addTask(deadline);

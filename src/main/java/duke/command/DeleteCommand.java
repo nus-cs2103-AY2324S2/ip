@@ -9,10 +9,11 @@ import duke.task.TaskList;
 import duke.exception.InvalidArgumentException;
 
 public class DeleteCommand extends Command {
-    int positionToDelete;
 
-    public DeleteCommand(String description) {
-        this.positionToDelete = Integer.parseInt(description);
+    private int positionToDelete;
+
+    public DeleteCommand(String position) {
+        this.positionToDelete = Integer.parseInt(position);
     }
 
     @Override

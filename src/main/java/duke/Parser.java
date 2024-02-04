@@ -1,7 +1,7 @@
 package duke;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,8 +26,10 @@ public class Parser {
     }
 
     public static Command parseCommand(String userInput) throws InvalidCommandException, InvalidArgumentException {
-        Command command = null;
 
+        Command command;
+
+        // TODO: handle exception when there is blank space after command
         try {
             String[] components = userInput.split(" ", 2);
             String description;
@@ -75,11 +77,13 @@ public class Parser {
             default:
                 throw new InvalidCommandException("Invalid Command");
             }
+
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException("Invalid Command");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("Description Cannot be Empty");
         }
+
         return command;
     }
 
@@ -88,12 +92,14 @@ public class Parser {
         formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         formatters.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         LocalDate parsedDateTime = null;
 
         for (DateTimeFormatter formatter : formatters) {
             try {
                 parsedDateTime = LocalDate.parse(byDate, formatter);
                 break;
+
             } catch (DateTimeParseException e) {
             }
         }
@@ -102,5 +108,4 @@ public class Parser {
         }
         return parsedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
-
 }

@@ -1,16 +1,18 @@
 package duke.command;
 
-import duke.Storage;
-import duke.task.TaskList;
 import duke.Ui;
+import duke.Storage;
+
+import duke.task.TaskList;
 
 import duke.exception.InvalidArgumentException;
 
 public class MarkCommand extends Command {
-    int positionToMark;
 
-    public MarkCommand(String description) {
-        this.positionToMark = Integer.parseInt(description);
+    private int positionToMark;
+
+    public MarkCommand(String position) {
+        this.positionToMark = Integer.parseInt(position);
     }
 
     @Override

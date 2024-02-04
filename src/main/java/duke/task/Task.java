@@ -45,7 +45,7 @@ abstract public class Task {
         }
     }
 
-    public void setIsDone(boolean isDone) {
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 

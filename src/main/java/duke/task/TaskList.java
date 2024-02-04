@@ -31,12 +31,12 @@ public class TaskList {
 
     public void markTask(int position) {
             Task task = taskList.get(position - 1);
-            task.setIsDone(true);
+            task.setDone(true);
     }
 
     public void unmarkTask(int position) {
         Task task = taskList.get(position - 1);
-        task.setIsDone(false);
+        task.setDone(false);
     }
 
     public void deleteTaskAtPosition(int position) {
