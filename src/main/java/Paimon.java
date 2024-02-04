@@ -1,11 +1,8 @@
 package main.java;
 
-import jdk.jfr.Event;
+import main.java.task.*;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class Paimon {
     /**
@@ -79,11 +76,10 @@ public class Paimon {
                         int markIndex = Integer.parseInt(markIndexString);
                         if (markIndex >= 1 && markIndex <= taskList.getSize()) {
                             Task markTask = taskList.getTask(markIndex - 1);
-                            if (markTask.isDone) {
-                                System.out.println("Traveller, this task is already marked as done!");
-                            } else {
-                                taskList.markTask(markIndex - 1, true);
+                            if (taskList.markTask(markIndex - 1, true)) {
                                 sendTaskMessage("Okay Traveller, I've marked this task as done!", taskList.getTask(markIndex - 1).getTask());
+                            } else {
+                                System.out.println("Traveller, this task is already marked as done!");
                             }
                         } else {
                             System.out.println("Sorry Traveller, that task does not exist");
@@ -103,11 +99,10 @@ public class Paimon {
                         int unmarkIndex = Integer.parseInt(unmarkIndexString);
                         if (unmarkIndex >= 1 && unmarkIndex <= taskList.getSize()) {
                             Task unmarkTask = taskList.getTask(unmarkIndex - 1);
-                            if (!unmarkTask.isDone) {
-                                System.out.print("Traveller, this task is already unmarked!");
-                            } else {
-                                taskList.markTask(unmarkIndex - 1, false);
+                            if (taskList.markTask(unmarkIndex - 1, false)) {
                                 sendTaskMessage("Okay Traveller, I've unmarked this task!", taskList.getTask(unmarkIndex - 1).getTask());
+                            } else {
+                                System.out.print("Traveller, this task is already unmarked!");
                             }
                         } else {
                             System.out.println("Sorry Traveller, that task does not exist");

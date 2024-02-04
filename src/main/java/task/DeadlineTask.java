@@ -1,4 +1,4 @@
-package main.java;
+package main.java.task;
 
 public class DeadlineTask extends Task {
     private final String endDate;

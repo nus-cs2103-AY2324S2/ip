@@ -1,4 +1,4 @@
-package main.java;
+package main.java.task;
 
 public class EventTask extends Task {
     private String startDate;
