@@ -18,6 +18,11 @@ import java.util.ArrayList;
 public class Storage {
     private File cacheFile;
     
+    /**
+     * Constructs a new Storage.
+     * 
+     * @param filePath the path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         cacheFile = new File(filePath);
         if (!cacheFile.exists()) {
@@ -30,6 +35,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file.
+     * 
+     * @return a list of commands representing the tasks loaded from the file.
+     * @throws PandaException if an error occurs during loading.
+     */
     public ArrayList<Command> load() throws PandaException {
         ArrayList<Command> clist = new ArrayList<>();
         try {
@@ -57,6 +68,11 @@ public class Storage {
         return clist;
     }
 
+    /**
+     * Saves tasks to the file.
+     * 
+     * @param tlist the TaskList to save to the file.
+     */
     public void save(TaskList tlist) {
         try (FileWriter writer = new FileWriter("./src/main/list.txt", false)) {
             writer.write(tlist.saveString());

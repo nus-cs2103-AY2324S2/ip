@@ -16,6 +16,14 @@ import panda.task.Event;
 import panda.task.Todo;
 
 public class Parser {
+
+    /**
+     * Parses the user input into a Command.
+     * 
+     * @param userInput the user input to parse.
+     * @return the parsed Command.
+     * @throws PandaException if the user input does not correspond to a known command.
+     */
     public static Command parse(String userInput) throws PandaException {
         if(userInput.equals("bye")) {
             return new ExitCommand();
