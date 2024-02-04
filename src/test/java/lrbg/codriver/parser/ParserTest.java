@@ -9,6 +9,7 @@ import lrbg.codriver.command.MarkCommand;
 import lrbg.codriver.command.TodoCommand;
 import lrbg.codriver.command.UnknownCommand;
 import lrbg.codriver.command.UnmarkCommand;
+import lrbg.codriver.command.FindCommand;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,6 +36,7 @@ public class ParserTest {
             assertTrue((new DeleteCommand(1)).testEquals(Parser.parse("delete 1")));
             assertTrue((new MarkCommand(1)).testEquals(Parser.parse("mark 1")));
             assertTrue((new UnmarkCommand(1)).testEquals(Parser.parse("unmark 1")));
+            assertTrue((new FindCommand("1234")).testEquals(Parser.parse("find 1234")));
         } catch (Exception e) {
             fail();
         }

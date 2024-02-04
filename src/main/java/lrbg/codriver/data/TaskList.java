@@ -136,6 +136,21 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks in the task list that match a keyword.
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the keyword.
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(keyword)) {
+                matchingTasks.addTask(t);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
      * Gets the list of tasks as a string to be saved in a file.
      * @return The list of tasks as a string.
      */

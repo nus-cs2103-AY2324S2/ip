@@ -123,6 +123,21 @@ public class Ui {
     }
 
     /**
+     * Shows the tasks in the task list that match a keyword.
+     * 
+     * @param tasks The list of tasks that match the keyword.
+     */
+    public void showMatchingTasks(TaskList tasks) {
+        showLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            int listIndex = i + 1;
+            System.out.println(listIndex + ". " + tasks.get(i));
+        }
+        showLine();
+    }
+
+    /**
      * Shows the given error.
      *
      * @param e The error to be shown.
