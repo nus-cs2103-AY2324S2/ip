@@ -61,6 +61,13 @@ public class Task { // Adapted from partial solution provided on CS2103 website
     }
 
     /**
+     * Returns boolean value of isDone.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Overrides the toString method to provide a string representation of the Task object.
      *
      * @return A formatted string representing the Task object.
