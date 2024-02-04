@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CoDriverException {
         tasks.markTask(index);
-        ui.showMarkTask(tasks.get(index));
+        ui.showMarkTask(tasks.get(index - 1));
     }
 
     public boolean testEquals(Object obj) {
