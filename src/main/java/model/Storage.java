@@ -8,10 +8,23 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Main storage class for running the Zero bot.
+ * 
+ * <p>Handles saves and writes to the save file, as well as keeping track of all tasks in a {@code TaskList}.
+ */
 public class Storage {
     private File saveFile;
     private TaskList tasks;
 
+    /**
+     * Initializes the {@code Storage} instance with the {@code TaskList} in the save file.
+     * 
+     * <p>Creates a new empty {@code TaskList} if the save file is not found, or an error occurs while loading the save file.
+     * 
+     * @param filePath The {@code String} path of the save file.
+     * @throws IOException If an I/O error occurs.
+     */
     public Storage(String filePath) throws IOException {
         saveFile = new File(filePath);
 
@@ -40,6 +53,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current {@code TaskList} into the save file.
+     * 
+     * @throws IOException If an I/O error occurs.
+     */
     // Updates the save file with the task data
     // Reopen and close the ObjectOutputStream each time to override the file and update properly
     public void saveTaskList() throws IOException {

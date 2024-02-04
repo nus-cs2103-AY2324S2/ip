@@ -3,10 +3,19 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+/**
+ * The {@code TaskList} class represents a list of tasks.
+ * 
+ * <p> This class inherits {@code Serializable} for storage.
+ * 
+ * <p> Contains an {@code ArrayList<Task>}.
+ */
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructor to initialise a new empty {@code TaskList}.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -15,21 +24,39 @@ public class TaskList implements Serializable {
         return tasks.size();
     }
 
-    // Overloaded Method for ToDo task
+    /**
+     * Overloaded Method to add a {@code ToDo} task.
+     * 
+     * @param name Name of the "To Do" task.
+     * @return {@code ToDo} task added to this {@code TaskList}.
+     */
     public Task addTask(String name) {
         Task t = new ToDo(name);
         tasks.add(t);
         return t;
     }
 
-    // Overloaded Method for Deadline task
+    /**
+     * Overloaded Method to add a {@code Deadline} task.
+     * 
+     * @param name Name of the deadline task.
+     * @param deadline {@code LocalDateTime} object representing the deadline.
+     * @return {@code Deadline} task added to this {@code TaskList}.
+     */
     public Task addTask(String name, LocalDateTime deadline) {
         Task t = new Deadline(name, deadline);
         tasks.add(t);
         return t;
     }
 
-    // Overloaded Method for Event task
+    /**
+     * Overloaded Method to add an {@code Event} task.
+     * 
+     * @param name Name of the event task.
+     * @param start {@code LocalDateTime} object representing the start of the event.
+     * @param end {@code LocalDateTime} object representing the end of the event.
+     * @return {@code Event} task added to this {@code TaskList}.
+     */
     public Task addTask(String name, LocalDateTime start, LocalDateTime end) {
         Task t = new Event(name, start, end);
         tasks.add(t);

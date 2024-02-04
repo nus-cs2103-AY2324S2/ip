@@ -8,11 +8,25 @@ import java.io.Writer;
 import model.Task;
 import model.TaskList;
 
+/**
+ * Main User Interface class for the Zero bot.
+ * 
+ * <p> Handles display to the user, and reading inputs from the user.
+ */
 public class Ui {
     private BufferedReader br;
     private PrintWriter pw;
     private String divider;
 
+    /**
+     * Initialises the input reader and output writer.
+     * 
+     * <p> Wraps all output messages with the divider provided.
+     * 
+     * @param input User input reader.
+     * @param output User display output writer.
+     * @param d Divider used for wrapping all output messages.
+     */
     public Ui(Reader input, Writer output, String d) {
         br = new BufferedReader(input);
         pw = new PrintWriter(output) {
@@ -24,6 +38,11 @@ public class Ui {
         divider = d;
     }
 
+    /**
+     * Closes the input reader and output writer.
+     * 
+     * @throws IOException If an I/O error occurs.
+     */
     public void close() throws IOException {
         br.close();
         pw.close();

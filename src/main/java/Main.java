@@ -2,6 +2,9 @@ import java.io.IOException;
 
 import controller.Zero;
 
+/**
+ * Class containing the {@code main} method
+ */
 public class Main {
     public static void main(String[] args) {
         try {
