@@ -26,6 +26,10 @@ public class ToDo implements Item, Serializable {
         }
         this.name = this.name.trim();
     }
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public String doneMessage() {

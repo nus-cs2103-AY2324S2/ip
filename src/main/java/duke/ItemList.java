@@ -94,6 +94,22 @@ public class ItemList implements Serializable {
         return s;
     }
 
+    public String find(String s) {
+        StringBuilder out = new StringBuilder();
+        int index = 1;
+        for (Item i : listOfItems) {
+            if (i.getName().contains(s)) {
+                out.append(index).append(".").append(i.toString()).append("\n     ");
+                index++;
+            }
+        }
+        if (out.toString().equals("")) {
+            return "No tasks contain the search string: " + s;
+        } else {
+            return out.toString();
+        }
+    }
+
     @Override
     public String toString() {
         int c = 0;

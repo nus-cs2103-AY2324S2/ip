@@ -66,6 +66,10 @@ public class Event implements Item, Serializable {
             throw new CustomExceptions.NamelessTaskException("Missing duke.item.Event Name");
         }
     }
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public String doneMessage() {

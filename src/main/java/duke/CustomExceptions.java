@@ -116,4 +116,10 @@ public class CustomExceptions extends Exception {
             super(errorMessage);
         }
     }
+
+    public static class FindException extends CustomExceptions {
+        public FindException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
 }
