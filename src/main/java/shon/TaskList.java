@@ -20,7 +20,7 @@ public class TaskList {
         this.list = new ArrayList<>(100);
     }
 
-    public String[] add(Task task) {
+    private String[] add(Task task) {
         this.list.add(task);
         int size = this.list.size();
         return new String[]{"Got it. I've added this task:", "  " + task,
