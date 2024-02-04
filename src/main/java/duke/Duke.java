@@ -8,13 +8,24 @@ import duke.storage.Storage;
 import duke.task.TaskManager;
 import duke.ui.Ui;
 
+
+/**
+ * Duke Chatbot to prompt the user on what task would they like to keep track of
+ */
+
 public class Duke {
 
     private TaskManager manager;
     private Storage storage;
     private Ui ui;
 
-    public Duke(String filePath) {
+    /**
+     * Setups and initialises the chatbot, with an auto save feature every 2 seconds.
+     *
+     * @param filePath      string path from root where the user wants to store their task.
+     * @param saveFrequency input in milliseconds to indicate the frequency of autosave.
+     */
+    public Duke(String filePath, int saveFrequency) {
 
         ui = new Ui();
         Timer saveTimer = new Timer();
@@ -31,10 +42,15 @@ public class Duke {
                 storage.saveFile(manager);
             }
         };
-        saveTimer.schedule(savingTask, 0, 2000);
+
+        saveTimer.schedule(savingTask, 0, saveFrequency); //update at 2 seconds
 
 
     }
+
+    /**
+     * Executes and start running the Duke chatbot.
+     */
 
     public void run() {
         ui.showWelcome();
@@ -61,7 +77,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke("data/tasks.txt", 2000).run();
 
     }
 }

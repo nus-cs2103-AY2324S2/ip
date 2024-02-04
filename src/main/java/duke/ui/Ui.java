@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 import duke.DukeException;
 
+
+/**
+ * Commandline GUI class to handle all the printing in the application.
+ */
+
 public class Ui {
     public static final String INDENT = "   ";
     public static final String BAR = "____________________________________________________________";
@@ -19,30 +24,42 @@ public class Ui {
     private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
     ;
 
+    /**
+     * Creates the GUI handler.
+     */
     public Ui() {
 
     }
 
+    /**
+     * Displays a break line bar of dashes with indentation.
+     */
     public void showLine() {
         System.out.println(INDENT + BAR);
     }
 
+    /**
+     * Draws an empty line in output.
+     */
     public void spacer() {
         System.out.println();
     }
 
+    /**
+     * Displays the welcome greeting of the chatbot.
+     */
     public void showWelcome() {
         for (String l : GREET) {
             System.out.println(INDENT + l);
         }
     }
 
-    public void showGoodbye() {
-        for (String l : BYE) {
-            System.out.println(INDENT + l);
-        }
-    }
-
+    /**
+     * Scans the next line for instructions to the chatbot.
+     *
+     * @return String value of the user input.
+     * @throws DukeException
+     */
     public String readInstructions() throws DukeException {
         String test = "";
         try {
@@ -53,18 +70,33 @@ public class Ui {
         return test;
     }
 
+    /**
+     * Prints to the output console of all the items in the list object.
+     *
+     * @param data An ArrayList of string to print everything to the output with indentation.
+     */
     public void printOutput(ArrayList<String> data) {
         for (String item : data) {
             System.out.println(INDENT + item);
         }
     }
 
+    /**
+     * Prints to the output console of all the items in the array object.
+     *
+     * @param data A String array to print everything to the output with indentation.
+     */
     public void printOutput(String[] data) {
         for (String item : data) {
             System.out.println(item);
         }
     }
 
+    /**
+     * Decides what error message to show based on the DukeException error message
+     *
+     * @param error DukeException error message.
+     */
     public void showError(String error) {
         //Used when your user does not know how to use the application
         String errorMsg;

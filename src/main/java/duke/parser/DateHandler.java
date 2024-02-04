@@ -10,6 +10,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handles parsing and identifying DateTime in String Commands
+ */
 public class DateHandler {
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
     private static final Pattern PATTERN_DATE =
@@ -20,6 +23,13 @@ public class DateHandler {
     //For formatting of the date
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+    /**
+     * Checks the given string if it contains a valid date to convert into LocalDate.
+     *
+     * @param testDate String to test.
+     * @return An Optional that contains the LocalDate if it exists.
+     * @throws DukeException Invalid Date format .
+     */
     public static Optional<LocalDate> checkDate(String testDate) throws DukeException {
         Matcher match = PATTERN_DATE.matcher(testDate);
         if (match.find()) {
@@ -45,6 +55,12 @@ public class DateHandler {
         }
     }
 
+    /**
+     * Checks if the given String has a valid time to convert into LocalTime.
+     *
+     * @param testTime String to test.
+     * @return An Optional that contains LocalTime if it exists.
+     */
     public static Optional<LocalTime> checkTime(String testTime) {
 
         Matcher match = TIME_PATTERN.matcher(testTime);
@@ -70,6 +86,12 @@ public class DateHandler {
         return Optional.empty();
     }
 
+    /**
+     * Formats a LocalDateTime object into save format.
+     *
+     * @param date LocalDateTime objects to convert.
+     * @return A formatted string of the LocalDateTime object.
+     */
     public static String formatDate(LocalDateTime date) {
         return date.format(FORMAT_DATE);
     }

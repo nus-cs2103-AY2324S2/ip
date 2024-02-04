@@ -11,30 +11,46 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Manager class to manage and keep track of all the actions being performed on the task.
+ */
 public class TaskManager {
     private ArrayList<Task> items;
     private boolean hasChanged = false;
     private static final String listingResponse = "Here are the tasks in your list:";
-
     //Strings for marking and unmarking
-
     private static final String RESPONSE_MARK = "Nice! I've marked this task as done:";
     private static final String RESPONSE_UMARK = "OK, I've marked this task as not done yet:";
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
-
 
     //String and variables for task
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
 
 
+    /**
+     * Creates a manager.
+     */
     public TaskManager() {
         this.items = new ArrayList<>();
     }
 
+    /**
+     * Adds task to the current manager list.
+     *
+     * @param item A task to add.
+     */
     public void addItem(Task item) {
         items.add(item);
     }
 
+    /**
+     * Adds a Task based on the possible Actions and instruction to the current manage
+     *
+     * @param options     A valid Action to perform.
+     * @param instruction A string value of the commands.
+     * @return An ArrayList of string of the values to output to the Ui.
+     * @throws DukeException Invalid processing of the items.
+     */
     public ArrayList<String> addTask(Actions options, String instruction) throws DukeException {
         Task item;
         String description;
@@ -50,7 +66,6 @@ public class TaskManager {
             item = new Todo(instruction);
             break;
         case DEADLINE:
-            //add the deadline task
             Matcher deadlineMatch = deadlineFormat.matcher(instruction);
             if (!deadlineMatch.find()) {
                 throw new DukeException("GIGABOOOM");
@@ -113,6 +128,14 @@ public class TaskManager {
 
     }
 
+    /**
+     * Manages current task in TaskManager.
+     *
+     * @param act         A valid action.
+     * @param instruction A command to indicate what to do based on the action.
+     * @return An ArrayList of String of the outputs to be return to the Ui.
+     * @throws DukeException Invalid processing of the items.
+     */
     public ArrayList<String> manageTask(Manage act, String instruction) throws DukeException {
         if (items.isEmpty()) {
             throw new DukeException("empty");
@@ -157,10 +180,20 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns the number of task in the TaskManager.
+     *
+     * @return Nicely formatted String of the number task in the TaskManager.
+     */
     public String numOfTask() {
         return "Now you have " + items.size() + " tasks in the list.";
     }
 
+    /**
+     * Gets the current items in the TaskManager and produce them into a save format
+     *
+     * @return The tasks in a save format of String.
+     */
     public String getTasksSave() {
         StringBuilder returnBuilder = new StringBuilder();
         for (Task item : items) {
@@ -170,6 +203,11 @@ public class TaskManager {
         return returnBuilder.toString();
     }
 
+    /**
+     * Gets all the current items in TaskManager.
+     *
+     * @return An ArrayList of String of the all the items.
+     */
     public ArrayList<String> ListItems() {
 
         int i = 1;
