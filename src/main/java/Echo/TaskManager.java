@@ -48,6 +48,13 @@ public class TaskManager {
             case "delete":
                 deleteTask(tokens);
                 break;
+            case "find":
+                if (tokens.length == 2) {
+                    findTasks(tokens[1]);
+                } else {
+                    System.out.println("Invalid command. Usage: find <keyword>");
+                }
+                break;
             case "bye":
                 break;
             default:
@@ -218,4 +225,32 @@ public class TaskManager {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Finds tasks containing the specified keyword in their descriptions.
+     * Case-insensitive matching is performed.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        System.out.println("____________________________________________________________");
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
 }
