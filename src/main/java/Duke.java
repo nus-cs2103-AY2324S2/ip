@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -11,7 +13,21 @@ public class Duke {
                 "Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________"
                 ;
-        System.out.println(message);
+        FileManipulation dataFile = new FileManipulation();
+        if (dataFile.getDoesExist()) {
+            try {
+                dataFile.loadFile(list);
+                for (int i = 0; i < list.size();i++) {
+                    System.out.println(list.get(i));
+                }
+
+            } catch(FileNotFoundException e) {
+                System.out.println("File not found");
+            }
+        } else {
+            System.out.println(message);
+        }
+
         while(true) {
 
             try {
@@ -142,6 +158,8 @@ public class Duke {
                     }
 
                 }
+
+                FileManipulation.saveFile(list);
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             }
