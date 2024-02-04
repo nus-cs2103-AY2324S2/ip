@@ -26,6 +26,7 @@ public class Parser {
      */
     public static Task parseStorageEntry(String entry) throws EarlException {
         String[] task = entry.split(",");
+        // as each case returns, break would be unreachable
         switch (task[0]) {
         case "T":
             return new Todo(task[1], task[2]);

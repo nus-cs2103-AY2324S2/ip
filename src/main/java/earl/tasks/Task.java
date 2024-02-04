@@ -50,8 +50,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s",
-                this.getStatusIcon(), description);
+        return String.format("[%s] %s", this.getStatusIcon(), description);
     }
 
     /** Returns task in storage format. */
