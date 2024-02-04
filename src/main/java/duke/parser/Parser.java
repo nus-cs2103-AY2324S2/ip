@@ -48,14 +48,14 @@ public class Parser {
         }
     }
 
-    private static Command parseTodoCommand(String[] commandParts) throws DukeException {
+    static Command parseTodoCommand(String[] commandParts) throws DukeException {
         if (commandParts.length == 1) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
         return new TodoCommand(commandParts[1]);
     }
 
-    private static Command parseDeadlineCommand(String[] commandParts) throws DukeException {
+    static Command parseDeadlineCommand(String[] commandParts) throws DukeException {
         if (commandParts.length == 1) {
             throw new DukeException("The description of a deadline cannot be empty.");
         }
@@ -72,7 +72,7 @@ public class Parser {
         return new DeadlineCommand(deadlineParts[0], by);
     }
 
-    private static Command parseEventCommand(String[] commandParts) throws DukeException {
+    static Command parseEventCommand(String[] commandParts) throws DukeException {
         if (commandParts.length == 1) {
             throw new DukeException("The description of an event cannot be empty.");
         }
@@ -97,7 +97,7 @@ public class Parser {
         return new EventCommand(eventParts[0], from, to);
     }
 
-    private static Command parseMarkCommand(String[] commandParts) throws DukeException {
+    static Command parseMarkCommand(String[] commandParts) throws DukeException {
         if (commandParts.length == 1) {
             throw new DukeException("The index of a mark cannot be empty.");
         }
@@ -111,7 +111,7 @@ public class Parser {
         return new MarkCommand(indexToMark);
     }
 
-    private static Command parseUnmarkCommand(String[] commandParts) throws DukeException {
+    static Command parseUnmarkCommand(String[] commandParts) throws DukeException {
         if (commandParts.length == 1) {
             throw new DukeException("The index of an unmark cannot be empty.");
         }
@@ -124,7 +124,7 @@ public class Parser {
         return new UnmarkCommand(indexToUnmark);
     }
 
-    private static Command parseDeleteCommand(String[] commandParts) throws DukeException {
+    static Command parseDeleteCommand(String[] commandParts) throws DukeException {
         if (commandParts.length == 1) {
             throw new DukeException("The index of a delete cannot be empty.");
         }
