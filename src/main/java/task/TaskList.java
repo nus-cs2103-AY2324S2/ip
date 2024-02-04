@@ -1,8 +1,8 @@
-package Task;
+package task;
 
 import java.util.ArrayList;
 
-import Storage.Storage;
+import storage.Storage;
 
 public class TaskList {
     protected ArrayList<Task> todoList;

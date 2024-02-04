@@ -1,15 +1,15 @@
-package Parser;
+package parser;
 
-import Storage.Storage;
-import Task.Task;
-import Task.TaskList;
+import storage.Storage;
+import task.Task;
+import task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParserTest {
+class ParserTest {
     @Test
     public void isMarkTaskTest() {
         Storage storage = new Storage("./data/duke.txt");
@@ -19,4 +19,5 @@ public class ParserTest {
         Parser parser = new Parser(TodoList, storage);
         assertEquals(parser.isMarkTask("mark 1.2"), false);
     }
+
 }

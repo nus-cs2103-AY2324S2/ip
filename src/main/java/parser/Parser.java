@@ -1,13 +1,13 @@
-package Parser;
+package parser;
 
 import java.util.Scanner;
 
-import Storage.Storage;
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.Todo;
-import Task.TaskList;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+import task.TaskList;
 
 public class Parser {
     protected TaskList TodoList;

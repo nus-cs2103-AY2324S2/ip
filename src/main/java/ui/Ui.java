@@ -1,4 +1,4 @@
-package Ui;
+package ui;
 
 public class Ui {
     private String logo;

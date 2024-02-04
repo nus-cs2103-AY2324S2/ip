@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-import Task.Task;
-import Task.TaskList;
-import Ui.Ui;
-import Storage.Storage;
-import Parser.Parser;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+import storage.Storage;
+import parser.Parser;
 
 public class Duke {
 

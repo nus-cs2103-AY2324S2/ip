@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,10 +10,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.Todo;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 public class Storage {
     private String pathName;
