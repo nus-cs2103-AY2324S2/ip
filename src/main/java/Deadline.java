@@ -1,13 +1,16 @@
 public class Deadline extends Task{
-    public String dueDate;
+    private String dueDate;
+    private String type;
 
     public Deadline(String description) {
         super(description);
+        this.type = "D";
     }
 
     public Deadline(String description, String dueDate) {
         super(description);
         this.dueDate = dueDate;
+        this.type = "D";
     }
 
     @Override
@@ -18,7 +21,13 @@ public class Deadline extends Task{
     }
     @Override
     public String getDescription() {
-        String str = "[E] " + super.getDescription() + " " + this.dueDate;
+        String str = "[D] " + super.getDescription() + " " + this.dueDate;
         return str;
+    }
+
+    @Override
+    public String getTaskInfo() {
+        return "[D] " + "/ [" + super.getStatusIcon()
+                + "] / " + super.getTaskInfo() + " / " + this.dueDate;
     }
 }
