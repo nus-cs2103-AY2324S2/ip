@@ -1,3 +1,5 @@
+package duke;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeUnknownCommandException;
 import duke.parser.Parser;
