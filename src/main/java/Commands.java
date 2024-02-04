@@ -1,6 +1,17 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+class ClearCommand extends Command {
+    public ClearCommand() {}
+
+    public void execute(Storage storage, boolean silent) {
+        storage.clear();
+        if (!silent) {
+            System.out.println("Cleared all tasks!");
+        }
+    }
+}
+
 abstract class AddTaskCommand extends Command {
     private Task task;
 
@@ -160,6 +171,7 @@ class DeleteCommand extends CommandTakingTaskIndex {
 
 public class Commands {
     public static void registerCommands() {
+        Parser.registerCommand("clear", s -> new ClearCommand());
         Parser.registerCommand("todo", s -> new AddTodoCommand(s));
         Parser.registerCommand("deadline", s -> new AddDeadlineCommand(s));
         Parser.registerCommand("event", s -> new AddEventCommand(s));

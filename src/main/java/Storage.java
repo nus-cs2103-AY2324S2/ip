@@ -50,6 +50,11 @@ public class Storage {
         saveToFile();
     }
 
+    public void clear() {
+        tasks.clear();
+        saveToFile();
+    }
+
     public void loadFromFile(Parser parser) {
         tasks.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_TASKS_FILE))) {
