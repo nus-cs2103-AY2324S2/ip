@@ -77,6 +77,27 @@ public class TaskList {
         return currTask;
     }
 
+    public String findTask(String searchString) {
+        String resultString = "";
+        int index = 1;
+
+        if (tasks.isEmpty()) {
+            return resultString;
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            boolean isFound = currTask.isFound(searchString);
+
+            if (isFound) {
+                resultString += index + ". " + currTask.printTask() + "\n";
+                index++;
+            }
+        }
+
+        return resultString;
+    }
+
     public ArrayList<Task> getArrayList() {
         return tasks;
     }

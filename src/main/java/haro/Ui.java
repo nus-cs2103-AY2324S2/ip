@@ -72,4 +72,13 @@ public class Ui {
         System.out.println(task.printTask() + "\n");
         System.out.println("You now have " + taskListSize + " tasks in the list\n");
     }
+
+    public void printSearch(String taskString) {
+        if (taskString.equals("")) {
+            System.out.println("Sorry there are no current matches in your list! :(\n");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(taskString);
+        }
+    }
 }

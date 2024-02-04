@@ -32,4 +32,8 @@ public abstract class Task {
         return taskString;
     }
 
+    public boolean isFound(String searchString) {
+        return this.task.contains(searchString);
+    }
+
 }

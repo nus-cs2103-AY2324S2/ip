@@ -4,6 +4,7 @@ import haro.command.AddCommand;
 import haro.command.ByeCommand;
 import haro.command.Command;
 import haro.command.DeleteCommand;
+import haro.command.FindCommand;
 import haro.command.ListCommand;
 import haro.command.MarkCommand;
 import haro.command.UnmarkCommand;
@@ -30,6 +31,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
+        FIND,
 
     }
 
@@ -64,6 +66,9 @@ public class Parser {
             case "delete":
                 instruction = Instruction.DELETE;
                 break;
+            case "find":
+                instruction = Instruction.FIND;
+                break;
             default:
                 instruction = Instruction.NONE;
         }
@@ -90,7 +95,7 @@ public class Parser {
 
         // Commands with arguments
         if (inputArr.length < 2 || inputArr[1].equals("")) {
-            throw new EmptyTaskException("Please input a task name\n");
+            throw new EmptyTaskException("Please input an argument\n");
         }
 
         String commandArg = inputArr[1];
@@ -162,6 +167,17 @@ public class Parser {
             int taskNumber = Integer.parseInt(commandArg) - 1;
             DeleteCommand deleteCommand = new DeleteCommand(taskNumber);
             resultCommand = deleteCommand;
+        }
+
+        else if (instruction == Instruction.FIND){
+            commandArg = commandArg.trim();
+
+            if (commandArg.equals("")) {
+                throw new InvalidArgsException("Please input a valid search string\n");
+            }
+
+            FindCommand findCommand = new FindCommand(commandArg);
+            resultCommand = findCommand;
         }
 
         if (resultCommand == null) {
