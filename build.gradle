@@ -34,6 +34,8 @@ application {
 shadowJar {
     archiveBaseName = "arona"
     archiveClassifier = null
+    mainClassName = "arona.Arona"
+    archiveFileName = "arona.jar"
     dependsOn("distZip", "distTar")
 }
 
