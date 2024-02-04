@@ -80,4 +80,16 @@ public class Event extends Task {
         }
         return current.compareTo(to) <= 0 && current.compareTo(from) >= 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event temp = (Event) obj;
+            boolean equalDescribe = this.description.equals(temp.getDescription());
+            boolean equalFrom = this.from.isEqual(temp.from);
+            boolean equalTo = this.to.isEqual(temp.to);
+            return equalDescribe && equalFrom && equalTo;
+        }
+        return false;
+    }
 }

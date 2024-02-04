@@ -66,4 +66,15 @@ public class Deadline extends Task {
         }
         return current.compareTo(by) <= 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline temp = (Deadline) obj;
+            boolean equalDescribe = this.description.equals(temp.getDescription());
+            boolean equalBy = this.by.isEqual(temp.by);
+            return equalDescribe && equalBy;
+        }
+        return false;
+    }
 }

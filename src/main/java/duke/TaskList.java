@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.exception.DuplicateTaskException;
 import duke.task.Task;
 
 /**
@@ -30,7 +31,10 @@ public class TaskList {
      * Add task to task list.
      * @param task The task we want to add.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
+        if (taskArrayList.contains(task)) {
+            throw new DuplicateTaskException(task);
+        }
         taskArrayList.add(task);
     }
 

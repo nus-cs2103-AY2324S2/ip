@@ -42,4 +42,13 @@ public class Todo extends Task {
     public boolean isTimeForStart(LocalDate current) {
         return !isDone;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Todo) {
+            Todo temp = (Todo) obj;
+            return temp.getDescription().equals(this.description);
+        }
+        return false;
+    }
 }

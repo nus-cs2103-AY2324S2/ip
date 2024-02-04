@@ -87,5 +87,4 @@ public abstract class Task {
         String temp = String.format("[%s][%s] %s", this.getTaskTypeIcon(), this.getStatusIcon(), this.description);
         return temp;
     }
-
 }
