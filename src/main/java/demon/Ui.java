@@ -1,5 +1,8 @@
 package demon;
 
+/**
+ * This class constitutes all methods to print messages to the screen.
+ */
 public class Ui {
 
     public void welcomeMessage() {
@@ -37,7 +40,8 @@ public class Ui {
     public static void exitMessage() {
         System.out.println("Bye Master, hope you had a great time, see you!");
     }
-    public static void addedTasksMessage() {
+
+    public static void showTaskAdded() {
         System.out.println("Yes Master, I've added this task: ");
     }
 }
