@@ -41,7 +41,7 @@ public class Parser {
                     if (details.isEmpty()) {
                         throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     }
-                    Task todo = new Todo(details);
+                    Task todo = new Todo(details, false);
                     output = "added todo: " + todo;
                     todolist.addItem(todo);
                 }
@@ -60,7 +60,7 @@ public class Parser {
                     }
                     deadlineName = d[0].trim();
                     by = LocalDate.parse(d[1].trim());
-                    deadline = new Deadline(deadlineName, by);
+                    deadline = new Deadline(deadlineName, by, false);
                 } catch (DukeException e) {
                     output = e.toString();
                     break;
@@ -76,12 +76,9 @@ public class Parser {
                 LocalDate from = LocalDate.parse(details.split("/from ")[1].split(" /to")[0].trim());
                 LocalDate to = LocalDate.parse(details.split("/to ")[1].trim());
                 try {
-                    Task event = new Event(eventName, from, to);
+                    Task event = new Event(eventName, from, to, false);
                     todolist.addItem(event);
                     output = "added event: " + event.toString();
-                    break;
-                } catch (DukeException e) {
-                    output = e.toString();
                     break;
                 } catch (DateTimeParseException e) {
                     output = "Please specify the correct format date: yyyy-mm-dd";
