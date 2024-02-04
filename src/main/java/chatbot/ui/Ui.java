@@ -12,16 +12,20 @@ public class Ui {
     /**
      * Greets the user.
      * @param name The name of the user.
+     * @return The greeting message.
      */
-    public static void greet(String name) {
+    public static String greet(String name) {
         StringBuilder sb = new StringBuilder();
         sb.append("What's up chief? " + name + " here!\n");
         sb.append("What can I do for you?");
-        Ui.output(sb.toString());
+        return sb.toString();
     }
 
-    public static void bye() {
-        Ui.output("Bye. Hope to see you again soon!");
+    /**
+     * Returns string for saying goodbye.
+     */
+    public static String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -100,35 +104,6 @@ public class Ui {
         sb.append("  " + task.toString() + "\n");
         sb.append("Now you have " + numTasks + " tasks in the list.");
         return sb.toString();
-    }
-
-    /**
-     * Indents the output.
-     */
-    public static void indent() {
-        System.out.print("    ");
-    }
-
-    /**
-     * Draws a line.
-     */
-    public static void drawLine() {
-        indent();
-        System.out.println("____________________________________________________________________________");
-    }
-
-    /**
-     * Outputs the given sentences with a line above and below.
-     * @param sentences The sentences to be output.
-     */
-    public static void output(String sentences) {
-        drawLine();
-        String[] arr = sentences.split("\n");
-        for (String sentence : arr) {
-            indent();
-            System.out.println(sentence);
-        }
-        drawLine();
     }
 
 }
