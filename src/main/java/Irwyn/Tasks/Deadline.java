@@ -8,7 +8,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, TaskType.DEADLINE);
         this.by = stringToDateTime(by);
     }
 
