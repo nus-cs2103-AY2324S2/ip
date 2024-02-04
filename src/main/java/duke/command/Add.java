@@ -19,6 +19,14 @@ import duke.task.Todo;
  * Class for adding a task into task list
  */
 public class Add implements Command {
+    static final int TODO_LENGTH = 5;
+    static final int DEADLINE_LENGTH = 9;
+    static final int BY_LENGTH = 3;
+    static final int EVENT_LENGTH = 6;
+    static final int FROM_LENGTH = 5;
+    static final int TO_LENGTH = 3;
+    static final int DEADLINE_TOKEN_NUM = 2;
+    static final int EVENT_TOKEN_NUM = 3;
     private Task task;
     private TaskList tasks;
     /**
@@ -29,75 +37,83 @@ public class Add implements Command {
      * @throws DukeException wrong inputs might happens
      */
     public Add(String text, TaskList taskList) throws DukeException {
-
         if (text.startsWith("todo")) {
-            if (text.length() <= 5) {
-                throw new EmptyTextException("description", "todo");
-            }
-            String descrip = text.substring(5);
-            this.task = new Todo(descrip);
+            this.task = handleTodo(text);
             taskList.addTask(this.task);
         } else if (text.startsWith("deadline")) {
-            String[] token = text.split("/");
-            if (token.length != 2) {
-                throw new WrongUsageException("deadline xxx /by xxx");
-            }
-            String by = token[1];
-            if (token[0].length() <= 9) {
-                throw new EmptyTextException("description", "deadline");
-            }
-            String descrip = token[0].substring(9);
-            if (!by.startsWith("by ")) {
-                throw new WrongUsageException("deadline xxx /by xxx");
-            }
-            if (by.length() <= 3) {
-                throw new EmptyTextException("due", "deadline");
-            }
-            String byText = by.substring(3).trim();
-            if (!checkTimeForm(byText)) {
-                throw new TimeFormatException();
-            }
-            this.task = new Deadline(descrip, LocalDate.parse(byText));
+            this.task = handleDeadline(text);
             taskList.addTask(this.task);
         } else if (text.startsWith("event")) {
-            String[] token = text.split("/");
-            if (token.length != 3) {
-                throw new WrongUsageException("event xxx /from xxx /to xxx");
-            }
-            String from = token[1];
-            String to = token[2];
-            if (token[0].length() <= 6) {
-                throw new EmptyTextException("description", "event");
-            }
-            String descrip = token[0].substring(6);
-            if (!from.startsWith("from ")) {
-                throw new WrongUsageException("event xxx /from yyyy-mm-dd /to yyyy-mm-dd");
-            }
-            if (!to.startsWith("to ")) {
-                throw new WrongUsageException("event xxx /from yyyy-mm-dd /to yyyy-mm-dd");
-            }
-            if (from.length() <= 5) {
-                throw new EmptyTextException("start", "event");
-            }
-            if (to.length() <= 3) {
-                throw new EmptyTextException("end", "event");
-            }
-            String fromText = from.substring(5).trim();
-            String toText = to.substring(3).trim();
-            if (!checkTimeForm(fromText) || !checkTimeForm(toText)) {
-                throw new TimeFormatException();
-            }
-            LocalDate fromDay = LocalDate.parse(fromText);
-            LocalDate toDay = LocalDate.parse(toText);
-            if (fromDay.isAfter(toDay)) {
-                throw new TimeInconsistException();
-            }
-            this.task = new Event(descrip, fromDay, toDay);
+            this.task = handleEvent(text) ;
             taskList.addTask(this.task);
         } else {
             throw new CommandNotDefinedException();
         }
         this.tasks = taskList;
+    }
+
+    private Todo handleTodo(String text) throws DukeException {
+        if (text.length() <= TODO_LENGTH) {
+            throw new EmptyTextException("description", "todo");
+        }
+        String descrip = text.substring(TODO_LENGTH);
+        return new Todo(descrip);
+    }
+
+    private Deadline handleDeadline(String text) throws DukeException{
+        String[] token = text.split("/");
+        if (token.length != DEADLINE_TOKEN_NUM) {
+            throw new WrongUsageException("deadline xxx /by xxx");
+        }
+        String by = token[1];
+        if (token[0].length() <= DEADLINE_LENGTH) {
+            throw new EmptyTextException("description", "deadline");
+        }
+        String descrip = token[0].substring(DEADLINE_LENGTH);
+        if (!by.startsWith("by ")) {
+            throw new WrongUsageException("deadline xxx /by xxx");
+        }
+        if (by.length() <= BY_LENGTH) {
+            throw new EmptyTextException("due", "deadline");
+        }
+        String byText = by.substring(BY_LENGTH).trim();
+        if (!checkTimeForm(byText)) {
+            throw new TimeFormatException();
+        }
+        return new Deadline(descrip, LocalDate.parse(byText));
+    }
+
+    private Event handleEvent(String text) throws DukeException {
+        String[] token = text.split("/");
+        if (token.length != EVENT_TOKEN_NUM) {
+            throw new WrongUsageException("event xxx /from xxx /to xxx");
+        }
+        String from = token[1];
+        String to = token[2];
+        if (token[0].length() <= EVENT_LENGTH) {
+            throw new EmptyTextException("description", "event");
+        }
+        String descrip = token[0].substring(EVENT_LENGTH);
+        if (!from.startsWith("from ") || !to.startsWith("to ")) {
+            throw new WrongUsageException("event xxx /from yyyy-mm-dd /to yyyy-mm-dd");
+        }
+        if (from.length() <= FROM_LENGTH) {
+            throw new EmptyTextException("start", "event");
+        }
+        if (to.length() <= TO_LENGTH) {
+            throw new EmptyTextException("end", "event");
+        }
+        String fromText = from.substring(FROM_LENGTH).trim();
+        String toText = to.substring(TO_LENGTH).trim();
+        if (!checkTimeForm(fromText) || !checkTimeForm(toText)) {
+            throw new TimeFormatException();
+        }
+        LocalDate fromDay = LocalDate.parse(fromText);
+        LocalDate toDay = LocalDate.parse(toText);
+        if (fromDay.isAfter(toDay)) {
+            throw new TimeInconsistException();
+        }
+        return new Event(descrip, fromDay, toDay);
     }
 
     /**

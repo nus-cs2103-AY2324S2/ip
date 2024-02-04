@@ -27,6 +27,47 @@ class Storage {
         this.taskFile = new File(filePath);
     }
 
+    private Task readTask(String taskLine) {
+        String[] token = taskLine.split(",");
+        if (token[0].equals("T")) {
+            Todo temp = new Todo(token[2]);
+            if (token[1].equals("1")) {
+                temp.setDone();
+            }
+            return temp;
+        } else if (token[0].equals("D")) {
+            Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
+            if (token[1].equals("1")) {
+                temp.setDone();
+            }
+            return temp;
+        } else if (token[0].equals("E")) {
+            Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
+            if (token[1].equals("1")) {
+                temp.setDone();
+            }
+            return temp;
+        } else {
+            return null;
+        }
+    }
+
+    private String writeTask(Task t) {
+        String taskLine = "";
+        String icon = t.getTaskTypeIcon();
+        int status = t.getStatus() ? 1 : 0;
+        String description = t.getDescription();
+        if (icon.equals("T")) {
+            taskLine = String.format("%s,%s,%s\n", icon, status, description);
+        } else if (icon.equals("D")) {
+            taskLine = String.format("%s,%s,%s,%s\n", icon, status, description, ((Deadline) t).getBy());
+        } else if (icon.equals("E")) {
+            taskLine = String.format("%s,%s,%s,%s,%s\n",
+                    icon, status, description, ((Event) t).getFrom(), ((Event) t).getTo());
+        }
+        return taskLine;
+    }
+
     /**
      * Load the file into a list.
      * @return An ArrayList of Tasks
@@ -37,26 +78,7 @@ class Storage {
         Scanner sc = new Scanner(this.taskFile);
         while (sc.hasNext()) {
             String taskLine = sc.nextLine();
-            String[] token = taskLine.split(",");
-            if (token[0].equals("T")) {
-                Todo temp = new Todo(token[2]);
-                if (token[1].equals("1")) {
-                    temp.setDone();
-                }
-                tasks.add(temp);
-            } else if (token[0].equals("D")) {
-                Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
-                if (token[1].equals("1")) {
-                    temp.setDone();
-                }
-                tasks.add(temp);
-            } else if (token[0].equals("E")) {
-                Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
-                if (token[1].equals("1")) {
-                    temp.setDone();
-                }
-                tasks.add(temp);
-            }
+            tasks.add(readTask(taskLine));
         }
         return tasks;
     }
@@ -69,19 +91,7 @@ class Storage {
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.taskFile);
         for (Task t : tasks) {
-            String taskLine = "";
-            String icon = t.getTaskTypeIcon();
-            int status = t.getStatus() ? 1 : 0;
-            String description = t.getDescription();
-            if (icon.equals("T")) {
-                taskLine = String.format("%s,%s,%s\n", icon, status, description);
-            } else if (icon.equals("D")) {
-                taskLine = String.format("%s,%s,%s,%s\n", icon, status, description, ((Deadline) t).getBy());
-            } else if (icon.equals("E")) {
-                taskLine = String.format("%s,%s,%s,%s,%s\n",
-                        icon, status, description, ((Event) t).getFrom(), ((Event) t).getTo());
-            }
-            fw.write(taskLine);
+            fw.write(writeTask(t));
         }
         fw.close();
     }
