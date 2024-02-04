@@ -3,8 +3,8 @@ package Jerry;
 import Jerry.command.*;
 
 public class Parser {
-    Ui ui;
-    TaskList taskList;
+    private Ui ui;
+    private TaskList taskList;
 
     public Parser(Ui ui, TaskList taskList) {
         this.ui = ui;
