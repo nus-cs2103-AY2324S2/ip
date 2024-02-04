@@ -23,6 +23,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public String toFileFormat() {
         return (this.type == TaskType.TODO ? "T" : this.type == TaskType.DEADLINE ? "D" : "E")
                 + " | " + (isDone ? "1" : "0")

@@ -85,6 +85,8 @@ public class Storage {
                     case "E":
                         task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
                         break;
+                    default:
+                        ui.showLoadingError("corrupted");
                     }
                     if (task != null) {
                         if (parts[1].equals("1")) {
