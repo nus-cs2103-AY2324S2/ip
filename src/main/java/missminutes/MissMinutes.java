@@ -1,5 +1,7 @@
 package missminutes;
 
+import java.util.Arrays;
+
 /**
  * MissMinutes is a personal chatbot to track your tasks
  */
@@ -44,17 +46,21 @@ public class MissMinutes {
                 // Fallthrough
             case UNMARK:
                 isChanged = true;
-                String[] split = request.split(" ");
-                int idx;
+                // Split by space and parse into integers
+                int[] indices;
                 try {
-                    idx = Integer.parseInt(split[1]) - 1; // 0 indexed
+                    indices = Arrays.stream(request.split(" ", 2)[1].split(" "))
+                            .mapToInt(Integer::parseInt)
+                            .map(x -> x - 1) // zero indexed
+                            .toArray();
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException err) {
                     throw new MissMinutesException("Please enter a valid index. The correct usage is `mark <idx>`");
                 }
+
                 if (cmdType == Parser.CommandType.MARK) {
-                    reply = tasks.markTask(idx);
+                    reply = tasks.markTask(indices);
                 } else {
-                    reply = tasks.unmarkTask(idx);
+                    reply = tasks.unmarkTask(indices);
                 }
                 break;
             case DELETE:
