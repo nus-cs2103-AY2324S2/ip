@@ -8,7 +8,6 @@ package task;
  */
 public class Event extends Task {
     public static final String TYPE = "E";
-
     private final java.time.LocalDate startDate;
     private final java.time.LocalDate endDate;
 
