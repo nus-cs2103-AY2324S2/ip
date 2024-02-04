@@ -9,10 +9,11 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileHandler {
-    private final File FILE = new File("./data/duke.txt");
+public class Storage {
+    private final File FILE;
 
-    public FileHandler() {
+    public Storage(String filePath) {
+        this.FILE = new File("./data/duke.txt");
     }
 
 

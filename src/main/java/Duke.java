@@ -11,54 +11,73 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Duke {
 
-    static FileHandler fh = new FileHandler();
+    private Storage storage;
+    private TaskList todo;
+    private Ui ui;
 
-    public static void main(String[] args) throws IOException, DukeException {
-        Scanner scanner = new Scanner(System.in);
-        List<Task> todo = fh.readFile();
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            todo = new TaskList(storage.readFile());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            todo = new TaskList();
+        }
+    }
 
+
+    public void run() {
         String divider = "---------------------------------------------------------------";
-        String chat_name = "Dwight Schrute";
-        System.out.printf("%s\nHello! I'm %s\nWhat Can I do for you?\n%s\n"
-                , divider, chat_name, divider);
-        String input, task_name, start, end, first_string, second_string, third_string; // for easy processing
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        String command;
         Task task;
         int idx;
-        // User input for task handling
+        ui.welcome();
+        ui.showCommands();
+        ui.divider();
         while (scanner.hasNext()) {
             try {
                 input = scanner.nextLine();
                 System.out.printf("\t%s\n", divider);
-                switch (input.split(" ")[0]) {
+                command = Parser.parse(input);
+                switch (command) {
                     case ("bye"):
                         System.out.println("\tBye. Hope to see you again soon!");
                         scanner.close();
                         return;
                     case ("list"):
-                        for (int i = 0; i < todo.size(); i++) {
-                            System.out.printf("\t%d. %s\n", i + 1, todo.get(i));
+                        this.todo.list();
+                        break;
+                    case("mark"):
+                        try {
+                            idx = Parser.parse_mark(input);
+                            task = todo.mark(idx);
+                            System.out.println("\tNice! I've marked this task as done:");
+                            System.out.printf("\t\t%s\n", task);
+                            break;
+                        } catch (DukeException err) {
+                            System.out.println(err.getMessage());
+                            break;
                         }
-                        break;
-                    case ("mark"):
-                        idx = Integer.parseInt(input.split(" ")[1]);
-                        todo.get(idx - 1).mark();
-                        System.out.println("\tNice! I've marked this task as done:");
-                        System.out.printf("\t\t%s\n", todo.get(idx - 1));
-
-                        break;
-                    case ("unmark"):
-                        idx = Integer.parseInt(input.split(" ")[1]);
-                        todo.get(idx - 1).unmark();
-                        System.out.println("\tOK, I've marked this task as not done yet:");
-                        System.out.printf("\t\t%s\n", todo.get(idx - 1));
-
-                        break;
+                    case("unmark"):
+                        try {
+                            idx = Parser.parse_unmark(input);
+                            task = todo.unmark(idx);
+                            System.out.println("\tI've unmarked this task as done:");
+                            System.out.printf("\t\t%s\n", task);
+                            break;
+                        } catch (DukeException err) {
+                            System.out.println(err.getMessage());
+                            break;
+                        }
                     case ("todo"):
-                        task_name = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
+
                         try {
                             // calling the method
-                            task = new TodoTask(task_name, input);
-                            todo.add(task);
+                            task = Parser.parse_todo(input);
+                            todo.addTask(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
@@ -69,18 +88,11 @@ public class Duke {
                             break;
                         }
 
-
                     case ("deadline"):
-                        first_string = input.split(" /")[0];
-                        second_string = input.split(" /")[1];
-                        task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
 
                         try {
-                            LocalDateTime end_time = LocalDateTime.parse(end, formatter);
-                            task = new DeadlineTask(task_name, end_time, input);
-                            todo.add(task);
+                            task = Parser.parse_deadline(input);
+                            todo.addTask(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
@@ -90,19 +102,14 @@ public class Duke {
                             System.out.println(err.getMessage());
                             break;
                         } catch (DateTimeParseException err) {
-                            System.out.println("Please write your data in d/m/yyyy T format");
+                            System.out.println("\tPlease write your data in d/m/yyyy T format");
                             break;
                         }
                     case ("event"):
-                        first_string = input.split(" /")[0];
-                        second_string = input.split(" /")[1];
-                        third_string = input.split(" /")[2];
-                        task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
-                        start = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
-                        end = String.join(" ", Arrays.copyOfRange(third_string.split(" "), 1, third_string.split(" ").length));
+
                         try {
-                            task = new EventTask(task_name, start, end, input);
-                            todo.add(task);
+                            task = Parser.parse_event(input);
+                            todo.addTask(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
@@ -114,24 +121,34 @@ public class Duke {
                         }
 
                     case("delete"):
-                        idx = Integer.parseInt(input.split(" ")[1]);
-                        System.out.println("\tNoted. I've removed this task:");
-                        System.out.printf("\t\t%s\n", todo.remove(idx - 1));
-                        System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
-
-                        break;
+                        try {
+                            idx = Parser.parse_delete(input);
+                            System.out.println("\tNoted. I've removed this task:");
+                            System.out.printf("\t\t%s\n", todo.deleteTask(idx));
+                            System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
+                            break;
+                        } catch (DukeException err) {
+                            System.out.println(err.getMessage());
+                            break;
+                        }
 
                     default:
                         throw new DukeException("\tSorry, I did not understand the command!");
 
                 }
                 System.out.printf("\t%s\n", divider);
-                fh.writeFile(todo);
+                storage.writeFile(todo.getList());
             } catch (DukeException err) {
+                System.out.println(err.getMessage());
+                System.out.printf("\t%s\n", divider);
+            } catch (IOException err) {
                 System.out.println(err.getMessage());
                 System.out.printf("\t%s\n", divider);
             }
         }
+    }
 
+    public static void main(String[] args) throws IOException, DukeException {
+        new Duke("./data/duke.txt").run();
     }
 }
