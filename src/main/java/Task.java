@@ -1,4 +1,6 @@
+import java.time.format.DateTimeFormatter;
 public class Task {
+    public static DateTimeFormatter dateTimeString = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
     private String taskName;
     protected boolean status;
 
@@ -28,7 +30,7 @@ public class Task {
     }
 
     public String toStore() {
-        return "," + Boolean.toString(status) +  "," + taskName;
+        return "," + status +  "," + taskName;
     }
 }
 

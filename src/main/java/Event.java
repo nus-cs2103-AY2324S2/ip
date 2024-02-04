@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
     static protected String ALIAS = "E";
 
-    public Event(String taskName, boolean status, String from, String to) {
+    public Event(String taskName, boolean status, LocalDateTime from, LocalDateTime to) {
         super(taskName, status);
         this.from = from;
         this.to = to;
@@ -11,11 +13,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + ALIAS + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + ALIAS + "]" + super.toString() + " (from: " + from.format(dateTimeString) + " to: " + to.format(dateTimeString)  + ")";
     }
 
     @Override
     public String toStore() {
-        return ALIAS + super.toStore() + "," + from + "," + to;
+        return ALIAS + super.toStore() + "," + from.format(Duke.dateTimeFormatter)  + "," + to.format(Duke.dateTimeFormatter);
     }
 }
