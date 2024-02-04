@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
-public class FileManager {
+public class Storage {
 
     private File file;
     private enum Task {
         T, D, E
     }
 
-    public FileManager(String filepath) {
+    public Storage(String filepath) {
         try {
             this.file = new File(filepath);
             File dir = this.file.getParentFile();
@@ -23,10 +23,10 @@ public class FileManager {
         }
     }
 
-    public TodoList loadList() {
+    public TaskList loadList() {
         try {
             Scanner scanner = new Scanner(this.file);
-            TodoList list = new TodoList();
+            TaskList list = new TaskList();
             while (scanner.hasNext()) {
                 String data = scanner.nextLine();
                 Task task = Task.valueOf(String.valueOf(data.charAt(0)));
@@ -48,21 +48,21 @@ public class FileManager {
         }
     }
 
-    private void addTodo(String data, TodoList list) {
+    private void addTodo(String data, TaskList list) {
         String[] d = data.split(" \\| ", 3);
         String isDoneStatus = d[1], description = d[2];
         boolean isDone = isDoneStatus.equals("1");
         list.addTodo(description, isDone);
     }
 
-    private void addDeadline(String data, TodoList list) {
+    private void addDeadline(String data, TaskList list) {
         String[] d = data.split(" \\| ", 4);
         String isDoneStatus = d[1], description = d[2], by = d[3];
         boolean isDone = isDoneStatus.equals("1");
         list.addDeadline(description, by, isDone);
     }
 
-    private void addEvent(String data, TodoList list) {
+    private void addEvent(String data, TaskList list) {
         String[] d = data.split(" \\| ", 5);
         String isDoneStatus = d[1], description = d[2], from = d[3], to = d[4];
         boolean isDone = isDoneStatus.equals("1");

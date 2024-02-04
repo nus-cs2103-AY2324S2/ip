@@ -2,11 +2,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoList {
+public class TaskList {
 
     private List<Task> list;
 
-    public TodoList() {
+    public TaskList() {
         this.list = new ArrayList<>(100);
     }
 
