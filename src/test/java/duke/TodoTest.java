@@ -5,68 +5,68 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
-    
-    
     @Test
     public void describe_normalToDo_success() {
-        assertEquals(new duke.ToDo("this").describe(), "[T][ ] this");
+        Task t = new duke.ToDo("this");
+        assertEquals("[T][ ] this", t.describe());
     }
      
     @Test
     public void describe_markedToDo_success() {
         Task t = new duke.ToDo("this");
         t.mark();
-        assertEquals(t.describe(), "[T][X] this");
+        assertEquals("[T][X] this", t.describe());
     }
     
     @Test
     public void describe_unmarkedToDo_success() {
         Task t = new duke.ToDo("this");
         t.mark();
-        assertEquals(t.describe(), "[T][X] this");
+        assertEquals("[T][X] this", t.describe());
         t.unmark();
-        assertEquals(t.describe(), "[T][ ] this");
+        assertEquals("[T][ ] this", t.describe());
     }
 
     @Test
     public void describe_noNameToDo_success() {
         Task t = new duke.ToDo("");
-        assertEquals(t.describe(), "[T][ ] ");
+        assertEquals("[T][ ] ", t.describe());
     }
     
     @Test
     public void toStorageString_normalToDo_success() {
-        assertEquals(new duke.ToDo("this").toStorageString(), "T,this,F");
+        Task t = new duke.ToDo("");
+        assertEquals("T,,F", t.toStorageString());
     }
      
     @Test
     public void toStorageString_markedToDo_success() {
         Task t = new duke.ToDo("this");
         t.mark();
-        assertEquals(t.toStorageString(), "T,this,T");
+        assertEquals("T,this,T", t.toStorageString());
     }
     
     @Test
     public void toStorageString_unmarkedToDo_success() {
         Task t = new duke.ToDo("this");
         t.mark();
-        assertEquals(t.toStorageString(), "T,this,T");
+        assertEquals("T,this,T", t.toStorageString());
         t.unmark();
-        assertEquals(t.toStorageString(), "T,this,F");
+        assertEquals("T,this,F", t.toStorageString());
     }
 
     @Test
     public void toStorageString_noNameToDo_success() {
         Task t = new duke.ToDo("");
-        assertEquals(t.toStorageString(), "T,,F");
+        assertEquals("T,,F", t.toStorageString());
     }
     
     // by right this should fail as it will mess up parsing
-    // will fail when fixed in the future
+    // should fail when fixed in the future
     @Test
     public void toStorageString_commaInName_success() {
         Task t = new duke.ToDo("mwa, ha, ha");
-        assertEquals(t.toStorageString(), "T,mwa, ha, ha,F");
+        assertEquals("T,mwa, ha, ha,F", t.toStorageString());
     }
 
 }
