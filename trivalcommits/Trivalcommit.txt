@@ -1,1 +1,11 @@
 Add trivial commit to fulfill admin task
+Add trival commit for full commit message
+
+Find command is case-sensitive.
+
+A case-insensitive find is more user-friendly because users cannot be
+expected to remember the exact case of the keywords.
+
+Let's,
+* update the search algorithm to use case-insensitive matching
+* add a script to migrate stress tests to the new format
