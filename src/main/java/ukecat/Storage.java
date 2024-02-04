@@ -79,6 +79,42 @@ public class Storage {
         }
     }
 
+    public static void findTask() {
+        try {
+            String keyword = Parser.parseFindTask(words);
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+
+            if (numT == 0) {
+                System.out.println("  No tasks in the list yet!");
+                return;
+            }
+
+            int matchingTaskCount = 0;
+            for (int i = 0; i < numT; i++) {
+                Task task = tasks.get(i);
+
+                if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                    matchingTaskCount++;
+                    matchingTasks.add(task);
+                }
+            }
+
+            if (matchingTaskCount == 0) {
+                System.out.println("  No tasks match the keyword.");
+            } else {
+                System.out.println("  Here are the matching tasks in your list:");
+                for (int i = 0; i < matchingTaskCount; i++) {
+                    System.out.format("  %d. %s%n", i + 1, matchingTasks.get(i).toString());
+                }
+            }
+
+
+        } catch (UkeCatException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     public static void addCsvTask() {
         Task t;
         try{
@@ -113,6 +149,11 @@ public class Storage {
     }
 
     public static void printTasks() {
+        if (words.length != 1) {
+            System.out.println("  Unknown command! Use 'list' instead.");
+            return;
+        }
+
         if (numT == 0) {
             System.out.println("  No tasks in list yet!");
             return;

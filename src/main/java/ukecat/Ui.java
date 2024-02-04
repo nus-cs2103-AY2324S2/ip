@@ -24,6 +24,9 @@ public class Ui {
         case "event":
             Storage.addTask();
             break;
+        case "find":
+            Storage.findTask();
+            break;
         default:
             System.out.println("  I don't understand! Try adding a task!");
         }

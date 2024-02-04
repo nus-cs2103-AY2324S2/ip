@@ -80,6 +80,14 @@ public class Parser {
         }
     }
 
+    public static String parseFindTask(String[] words) throws UkeCatException {
+        if (words.length == 2) {
+            return words[1];
+        } else {
+            throw new UkeCatException("Wrong format, use: find <keyword>");
+        }
+    }
+
     public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
             return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());

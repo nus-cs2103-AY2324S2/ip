@@ -1,1 +1,5 @@
-T,0,buy bread
+T,1,buy bread
+T,0,eat bread
+T,0,buy egg
+T,0,cook egg
+T,0,eat egg
