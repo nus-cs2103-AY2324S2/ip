@@ -24,12 +24,14 @@ class StorageTest {
 
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("Test task 1"));
-        tasks.add(new Deadline("Test task 2", "2022-12-31 1500"));
+        tasks.add(new Deadline("Test task 2",
+                "2022-12-31 1500"));
 
         storage.save(tasks);
 
         // Read the content of the file and compare it with the expected content
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader =
+                     new BufferedReader(new FileReader(filePath))) {
             List<String> lines = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {

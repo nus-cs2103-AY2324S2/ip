@@ -20,7 +20,8 @@ public class Echo {
     private TaskManager taskManager;
     private Storage storage;
     private Ui ui;
-    private final String FILE_PATH = "." + File.separator + "data" + File.separator + "echo.txt";
+    private final String FILE_PATH = "." + File.separator
+            + "data" + File.separator + "echo.txt";
 
     /**
      * Constructor for the Echo class.

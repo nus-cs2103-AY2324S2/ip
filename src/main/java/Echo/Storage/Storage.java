@@ -90,6 +90,7 @@ public class Storage {
             for (Task task : tasks) {
                 writer.write(task.toFileString() + System.lineSeparator());
             }
+
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -111,6 +112,7 @@ public class Storage {
                 file.createNewFile(); // Create the file if it doesn't exist
 
                 System.out.println("No tasks file found. Created a new tasks file.");
+
             } else {
                 // Read each line from the file and attempt to add the corresponding task
                 BufferedReader reader = new BufferedReader(new FileReader(file));

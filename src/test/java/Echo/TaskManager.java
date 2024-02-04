@@ -22,8 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class TaskManagerTest {
 
     private TaskManager taskManager;
-    private final String FILE_PATH = "." + File.separator + "data" + File.separator + "testecho.txt";
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    private final String FILE_PATH = "." + File.separator
+            + "data" + File.separator + "testecho.txt";
+    private final ByteArrayOutputStream outputStreamCaptor =
+            new ByteArrayOutputStream();
 
     @BeforeEach
     void setUp() {
@@ -42,7 +44,8 @@ class TaskManagerTest {
         // Then
         List<Task> tasks = taskManager.getTasks();
         assertEquals(1, tasks.size());
-        assertEquals("Test Todo Task", tasks.get(0).getDescription());
+        assertEquals("Test Todo Task",
+                tasks.get(0).getDescription());
         System.setOut(new PrintStream(outputStreamCaptor));
         System.setErr(new PrintStream(outputStreamCaptor));
     }
@@ -77,8 +80,10 @@ class TaskManagerTest {
         try {
             File file = new File(FILE_PATH);
 
-            // Create a new file writer with append mode set to false (clears existing content)
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            // Create a new file writer with append mode set to false
+            // (clears existing content)
+            try (BufferedWriter writer =
+                         new BufferedWriter(new FileWriter(file, false))) {
                 // Clear the content of the test file
                 writer.write("");
                 System.out.println("Test file content cleared successfully.");
