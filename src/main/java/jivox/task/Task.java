@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 public abstract class Task {
     private boolean isDone;
-    private String content;
+    private final String content;
 
     /**
      * Creates a new Task with the given content/description.

@@ -37,6 +37,14 @@ application {
     mainClass.set("jivox.Main")
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'jivox.Main'
+        )
+    }
+}
+
 shadowJar {
     archiveFileName = 'jivox.jar'
 }
