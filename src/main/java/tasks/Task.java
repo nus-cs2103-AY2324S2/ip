@@ -1,3 +1,5 @@
+package tasks;
+
 import java.io.Serializable;
 
 abstract public class Task implements Serializable {
@@ -6,7 +8,7 @@ abstract public class Task implements Serializable {
     public abstract String toFileString();
 
     /**
-     * Constructor for Task class.
+     * Constructor for tasks.Task class.
      *
      * @param taskName Name of the task.
      */

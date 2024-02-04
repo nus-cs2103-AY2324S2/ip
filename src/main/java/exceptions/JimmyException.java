@@ -1,7 +1,9 @@
+package exceptions;
+
 public class JimmyException extends Exception {
 
     /**
-     * Constructor for JimmyException class.
+     * Constructor for exceptions.JimmyException class.
      *
      * @param error Error message.
      */

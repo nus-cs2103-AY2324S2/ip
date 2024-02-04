@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
@@ -9,10 +11,10 @@ public class Deadline extends Task {
     private final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for tasks.Deadline class.
      *
      * @param taskName Name of the task.
-     * @param deadline Deadline of the task.
+     * @param deadline tasks.Deadline of the task.
      */
     public Deadline(String taskName, String deadline, boolean isCompleted) throws DateTimeParseException, IllegalArgumentException {
         super(taskName, isCompleted);

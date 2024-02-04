@@ -1,3 +1,11 @@
+package essentials;
+
+import exceptions.JimmyException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -6,7 +14,7 @@ public class TaskList {
     private final Parser parser = new Parser();
 
     /**
-     * Constructor for TaskList class.
+     * Constructor for essentials.TaskList class.
      *
      * @param storage The storage object.
      * @throws JimmyException If the file cannot be loaded.

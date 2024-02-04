@@ -1,3 +1,7 @@
+package essentials;
+
+import exceptions.JimmyException;
+
 public class Parser {
     /**
      * Parses the user input into an array of strings.
