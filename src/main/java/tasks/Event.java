@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 public class Event extends Task {
 
-    public LocalDateTime fromDate;
-    public LocalDateTime toDate;
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
 
     public Event(String name, LocalDateTime fromDate, LocalDateTime toDate) {
         super(name);

@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
+    private static final DateTimeFormatter INPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
     private String name;
     private boolean isDone;
     private String type;
     private String[] times;
-    private static final DateTimeFormatter OUTPUT_FORMAT =
-            DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
-    private static final DateTimeFormatter INPUT_FORMAT =
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Task(String name) {
         this.name = name;
