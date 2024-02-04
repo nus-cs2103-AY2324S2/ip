@@ -3,12 +3,25 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileControl {
-    public static void saveToFile(String filePath, String textToAdd) throws FileNotFoundException {
+public class Storage {
+    private String filePath;
+    public Storage (String filePath) {
+        File folder = new File (filePath.split("/")[0]);
+        if (!folder.exists()) { //handling folder does not exist issues
+            folder.mkdir();
+            System.out.println("Folder does not exist, data folder is created");
+        }
+        if (!Files.exists(Path.of("data/venus.txt"))) { //handling file does not exist
+            File f = new File("data/venus.txt");
+        }
+        this.filePath = filePath;
+    }
+    public void saveToFile(String textToAdd) throws FileNotFoundException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
             String amendedText = textToAdd.replaceAll("\\[\\s\\]", "|0|")
@@ -27,8 +40,9 @@ public class FileControl {
         }
     }
 
-    public static void saveAllFile(String filePath, ArrayList<Task> data) throws FileNotFoundException {
+    public void saveAllFile(ArrayList<Task> data) throws FileNotFoundException {
         try {
+
             File f = new File(filePath);
             f.delete();
             f.createNewFile();
@@ -51,7 +65,8 @@ public class FileControl {
         }
     }
 
-    public static void loadFile(String filePath, ArrayList<Task> ls) throws FileNotFoundException {
+    public void loadFile(ArrayList<Task> ls) throws FileNotFoundException {
+
         try {
             File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -76,9 +91,11 @@ public class FileControl {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File is not found! " + e.getMessage());
+            Ui.formatResponse("File is not found! " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("Oops, something is wrong! " + e.getMessage());
+            Ui.formatResponse("Oops, something is wrong! " + e.getMessage());
+        } catch (DateTimeParseException e) {
+            Ui.formatResponse("Invalid date time input or format, please try again");
         }
     }
 
