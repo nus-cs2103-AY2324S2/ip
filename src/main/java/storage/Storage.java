@@ -20,12 +20,24 @@ import static parser.Parser.parseCommand;
  * It is responsible for writing tasks to a file when saving and reading tasks from a file when loading.
  */
 public class Storage {
-    private final static String FILE_NAME = "src/main/duke.txt";
+    private final static String FILE_NAME = "duke.txt";
 
     /**
      * Constructs a `Storage` object.
      */
     public Storage() {
+        File file = new File(Storage.FILE_NAME);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Save File created successfully.");
+                } else {
+                    System.out.println("Unable to create the Save file.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
