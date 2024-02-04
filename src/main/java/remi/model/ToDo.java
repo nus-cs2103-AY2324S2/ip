@@ -1,6 +1,15 @@
 package remi.model;
 
+/**
+ * Represents a Todo task, subclass of Task object.
+ */
 public class ToDo extends Task{
+
+    /**
+     * Simple constructor for a Todo task.
+     *
+     * @param label the name of the task
+     */
     public ToDo(String label) {
         super(label);
     }
@@ -11,7 +20,7 @@ public class ToDo extends Task{
     }
 
     /**
-     * Returns a parsable string of the todo task. Meant to be used for remi.storage purposes.
+     * Returns a parsable string of the Todo task. Meant to be used for remi.storage purposes.
      *
      * @return a parsable string representation of the task and all its details
      */

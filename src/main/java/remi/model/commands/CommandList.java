@@ -12,6 +12,10 @@ import remi.utils.RemiError;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A list of all the commands. This class's responsibility is to parse commands as strings and run them.
+ */
+
 public class CommandList {
     private HashMap<String, Command> commandLookup;
     private TaskList taskList;

@@ -5,6 +5,9 @@ import remi.utils.RemiError;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stores the list of Tasks, allows you to add, remove, and find tasks by index.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
@@ -21,14 +24,28 @@ public class TaskList {
         taskList.add(t);
     }
 
+    /**
+     * Mark a task, does nothing if task is already marked.
+     * @param idx the 1-indexed value of the task
+     */
     public void markTask(int idx) {
         getTask(idx).mark();
     }
 
+    /**
+     * Unmark a task, does nothing if task isn't marked yet.
+     * @param idx the 1-indexed value of the task
+     */
     public void unmarkTask(int idx) {
         getTask(idx).unmark();
     }
 
+    /**
+     * Gets the task based on its idx in the TaskList
+     *
+     * @param idx the 1-indexed value of the task to be removed
+     * @return the task object
+     */
     public Task getTask(int idx) {
         return taskList.get(idx - 1);
     }
@@ -49,6 +66,12 @@ public class TaskList {
         return res;
     }
 
+    /**
+     * Removes a task from the taskList based on idx.
+     *
+     * @param idx the 1-indexed value of the task to be removed
+     * @throws RemiError when invalid idx is given
+     */
     public void removeTask(int idx) throws RemiError{
         if (idx < 0 || taskList.size() <= idx) {
             throw new RemiError("Task is out of bounds and couldn't be removed.");

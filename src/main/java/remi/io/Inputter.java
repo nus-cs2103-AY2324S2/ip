@@ -2,6 +2,9 @@ package remi.io;
 
 import java.util.Scanner;
 
+/**
+ * This takes messages from standard input
+ */
 public class Inputter {
     private static final Scanner sc = new Scanner(System.in);
 

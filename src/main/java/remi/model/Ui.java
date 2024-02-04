@@ -8,6 +8,10 @@ import remi.parsing.Parser;
 import remi.storage.Storage;
 import remi.utils.RemiError;
 
+/**
+ * Handles the input output loop, receiving commands and sending output to the console. Supposed to be the "main" class
+ * of the application.
+ */
 public class Ui {
 
     private boolean exitLoop;
@@ -23,6 +27,9 @@ public class Ui {
     }
 
 
+    /**
+     * Initializes the io loop of the chatbot. This includes loading the storage and running the message event loop.
+     */
     public void doIoLoop() {
         Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
         Storage.get();
@@ -40,6 +47,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Utility function to exit the io loop.
+     * If called at least once, termination will occur after all pending commands are finished.
+     */
     public void exitIoLoop() {
         exitLoop = true;
     }

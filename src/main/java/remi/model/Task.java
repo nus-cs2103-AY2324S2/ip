@@ -4,12 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * General task class. Has a label and a flag denoting whether the task is done or not.
+ */
+
 public class Task {
     private String label;
     private boolean isDone;
 
     /**
      * Tries to parse a string as a date, if impossible returns the original string.
+     * Parses from "yyyy-MM-dd" and returns "dd MMM yyyy".
      *
      * @param input input string that may or may not be a date
      * @return the date as a string in "dd MMM yyyy" format
