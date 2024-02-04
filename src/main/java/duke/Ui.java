@@ -1,34 +1,57 @@
 package duke;
 
+import java.util.Scanner;
+
 /**
- * Deals with showing the correct messages to MainWindow controller.
+ * Deals with interactions with the user.
  */
 public class Ui {
+    private Scanner scanner;
+
     /**
-     * Initializes Ui object.
+     * Initializes a new scanner for user input.
      */
     public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    /**
+     * Reads the next line of user input.
+     *
+     * @return the next line of user input.
+     */
+    public String readCommand() {
+        System.out.println("User:");
+        return scanner.nextLine();
+    }
+
+    /**
+     * Closes the scanner.
+     */
+    public void closeScanner() {
+        scanner.close();
     }
 
     /**
      * Prints the welcome message.
      */
-    private String botHeader() {
-        return "DevGPT:\n\t";
+    private void botHeader() {
+        System.out.print("DevGPT:\n\t");
     }
 
     /**
      * Provides bot name for the given messages.
      */
-    private String botHeader(String message) {
-        return "DevGPT " + message + ":\n\t";
+    private void botHeader(String message) {
+        System.out.print("DevGPT " + message + ":\n\t");
     }
 
     /**
      * Prints the welcome message.
      */
-    public String showWelcome() {
-        return botHeader() + "Hello! I'm DevGPT\n\tWhat can I do for you?";
+    public void showWelcome() {
+        botHeader();
+        System.out.println("Hello! I'm DevGPT\n\tWhat can I do for you?");
     }
 
     /**
@@ -36,34 +59,37 @@ public class Ui {
      *
      * @param tasks the list of tasks to be printed.
      */
-    public String showTaskList(TaskList tasks) throws DukeException {
+    public void showTaskList(TaskList tasks) throws DukeException {
         if (tasks.getSize() == 0) {
             throw new DukeException("No tasks found.");
         }
-        String result = botHeader();
-        result += "Here are the tasks in your list:\n";
+        botHeader();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
-            result += doubleTab() + (i + 1) + "." + tasks.getTask(i) + "\n";
+            System.out.println(doubleTab() + (i + 1) + "." + tasks.getTask(i));
         }
-        return result;
     }
+
     /**
      * Shows the task marked as done.
      *
      * @param markTask the task to be marked as done.
      */
-    public String showDone(Task markTask) {
-        return botHeader() + "Nice! I've marked this task as done:"
-            + doubleTab() + markTask;
+    public void showDone(Task markTask) {
+        botHeader();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(doubleTab() + markTask);
     }
+
     /**
      * Shows the task marked as undone.
      *
      * @param unmarkTask the task to be marked as undone.
      */
-    public String showUnmark(Task unmarkTask) {
-        return botHeader() + "Got it! I've marked this task as not done yet:"
-            + doubleTab() + unmarkTask;
+    public void showUnmark(Task unmarkTask) {
+        botHeader();
+        System.out.println("Got it! I've marked this task as not done yet");
+        System.out.println(doubleTab() + unmarkTask);
     }
 
     /**
@@ -72,10 +98,11 @@ public class Ui {
      * @param deleteTask the task to be deleted.
      * @param size the number of tasks in the task list after deletion.
      */
-    public String showDelete(Task deleteTask, int size) {
-        return botHeader() + "Poof! I've removed this task:"
-            + doubleTab() + deleteTask
-            + "\n\t" + "Now you have " + size + " tasks in the list.";
+    public void showDelete(Task deleteTask, int size) {
+        botHeader();
+        System.out.println("Poof! I've removed this task:");
+        System.out.println(doubleTab() + deleteTask);
+        System.out.println(doubleTab() + "Now you have " + size + " tasks in the list.");
     }
 
     /**
@@ -84,44 +111,47 @@ public class Ui {
      * @param task the task to be added.
      * @param size the number of tasks in the task list after adding tasks.
      */
-    public String showAddTask(Task task, int size) {
-        return botHeader() + "Got it. I've added this task:"
-            + doubleTab() + task + "\n\t"
-            + "Now you have " + size + " tasks in the list.";
+    public void showAddTask(Task task, int size) {
+        botHeader();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(doubleTab() + task);
+        System.out.println(doubleTab() + "Now you have " + size + " tasks in the list.");
     }
 
     private String doubleTab() {
-        return "\n\t\t";
+        return "\t\t";
     }
 
     /**
      * Shows the error message with error header.
      *
-     * @param message the error message to be shown.
+     * @param s the error message to be shown.
      */
-    public String showError(String message) {
-        return botHeader("Error") + message;
+    public void showError(String message) {
+        botHeader("Error");
+        System.out.println(message);
     }
 
     /**
      * Shows error message for invalid command.
      */
-    public String commandNotUnderstood() {
-        return showError("Your message is not understood. Please use following:\n\t"
-            + "todo <description>\n\t"
-            + "deadline <description> /by <dd-mm-yyyy>\n\t"
-            + "event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>\n\t"
-            + "list\n\t"
-            + "done <index>\n\t"
-            + "delete <index>\n\t"
-            + "find <keyword>\n\t"
-            + "bye");
+    public void commandNotUnderstood() {
+        showError("Your message is not understood. Please use following:\n\t"
+                + "todo <description>\n\t"
+                + "deadline <description> /by <dd-mm-yyyy>\n\t"
+                + "event <description> /from <dd-mm-yyyy> /to <dd-mm-yyyy>\n\t"
+                + "list\n\t"
+                + "done <index>\n\t"
+                + "delete <index>\n\t"
+                + "find <keyword>\n\t"
+                + "bye");
     }
 
     /**
      * Shows bye message.
      */
-    public String showBye() {
-        return botHeader() + "Bye. Hope to see you again soon!";
+    public void showBye() {
+        botHeader();
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
