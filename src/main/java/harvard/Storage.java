@@ -1,6 +1,13 @@
 package harvard;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * The Storage class is responsible for handling the storage of tasks in the Harvard application.
@@ -10,13 +17,14 @@ public class Storage {
     /**
      * The file path for storing tasks.
      */
-    String filePath;
+    private String filePath;
 
     /**
      * Constructs a Storage instance with the specified file path.
      *
      * @param fP The file path for storing tasks.
      */
+    private String filePath;
     public Storage(String fP) {
         this.filePath = fP;
     }
