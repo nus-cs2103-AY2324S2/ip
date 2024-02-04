@@ -1,151 +1,153 @@
 import java.util.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.io.*;
 
 public class Riz {
-    private static final String FILE_PATH = "./data/riz.txt";
+    private TaskList taskList;
+    private Storage storage;
 
-    public static void main(String[] args) {
-        ArrayList<Task> tasks = FileManager.loadFromFile(FILE_PATH);
+    public Riz(String filePath) {
+        this.storage = new Storage(filePath);
+        this.taskList = new TaskList(this.storage.loadFromFile());
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         String dotted = "-----------------------------------";
         //greetings
-        String greetings = "Hello... I'm Riz...\n"
-                + "What can I help you with today?\n";
-        System.out.println(greetings);
+        Ui.printGreetings();
         boolean running = true;
 
         while (running) {
             String input = scanner.nextLine();
-            String[] token = input.split(" ", 2);
-            try {
-                if (token[0].equals("bye")) {
-                    running = false;
-                    System.out.println("Bye... Hope to see you again...\n");
-                } else if (token[0].equals("clear")) {
-                    System.out.println("Are you sure you want to delete all tasks? y/n");
-                    if (scanner.nextLine().equals("y")) {
-                        tasks.clear();
-                        FileManager.writeToFile(FILE_PATH, tasks);
-                    }
-                }
-                    else if (token[0].equals("mark")) {
-                    boolean isNumber = true;
-                    if (token.length != 2) {
-                        throw new RizException("Oh you sure you completed the task?...");
-                    }
-                    for (char c : token[1].toCharArray()) {
-                        if (!Character.isDigit(c)) {
-                            isNumber = false;
-                        }
-                    }
-                    if (!isNumber) {
-                        throw new RizException("Oh you sure you completed the task?...");
-                    }
-                    int curr = Integer.parseInt(token[1]) - 1;
-                    Task task = tasks.get(curr);
-                    task.mark();
-                    FileManager.writeToFile(FILE_PATH, tasks);
-                    System.out.println("Awesome..., I've marked this task as completed...");
-                    System.out.println(task);
-                    System.out.println("\n");
-                } else if (token[0].equals("unmark")) {
-                    boolean isNumber = true;
-                    if (token.length != 2) {
-                        throw new RizException("Seems like there's more to be done...");
-                    }
-                    for (char c : token[1].toCharArray()) {
-                        if (!Character.isDigit(c)) {
-                            isNumber = false;
-                        }
-                    }
-                    if (!isNumber) {
-                        throw new RizException("Seems like there's more to be done...");
-                    }
-                    int curr = Integer.parseInt(token[1]) - 1;
-                    Task task = tasks.get(curr);
-                    task.unmark();
-                    FileManager.writeToFile(FILE_PATH, tasks);
-                    System.out.println("Oops... Guess it's not done yet...");
-                    System.out.println(task);
-                    System.out.println("\n");
-                } else if (token[0].equals("list")) {
-                    int size = tasks.size();
-                    System.out.println("Here are the items in your To-Do List...");
-                    FileManager.printFromFile(FILE_PATH);
-                    /*for (int i = 0; i < size; i++) {
-                        int curr = i + 1;
-                        String result = curr + ". " + tasks.get(i).toString() + "...";
-                        System.out.println(result);
-                    } */
-                    System.out.println("\n");
-                } else if (token[0].equals("delete")) {
-                    boolean isNumber = true;
-                    if (token.length != 2) {
-                        throw new RizException("Oh you sure you wanna delete the task?...");
-                    }
-                    for (char c : token[1].toCharArray()) {
-                        if (!Character.isDigit(c)) {
-                            isNumber = false;
-                        }
-                    }
-                    if (!isNumber) {
-                        throw new RizException("Oh you sure you wanna delete the task?...");
-                    }
-                    int curr = Integer.parseInt(token[1]) - 1;
-                    Task task = tasks.get(curr);
-                    tasks.remove(curr);
-                    FileManager.writeToFile(FILE_PATH, tasks);
-                    System.out.println("Boo... planning to slack off?");
-                    System.out.println("Removed: " + task + "...");
-                    System.out.println("\n");
-                } else {
-                    if (token[0].equals("todo")) {
-                        if (token.length != 2) {
-                            throw new RizException("Indecisive aren't we...");
-                        } else {
-                            Task task = new ToDo(token[1]);
-                            tasks.add(task);
-                            FileManager.writeToFile(FILE_PATH, tasks);
-                            System.out.println("added: " + task + "...");
-                        }
-                    } else if (token[0].equals("deadline")) {
-                        if (token.length != 2) {
-                            throw new RizException("seems like the deadline isn't so soon after all...");
-                        }
-                        String[] details = token[1].split(" /by ");
-                        if (details.length < 2) {
-                            throw new RizException("seems like the deadline isn't so soon after all...");
-                        } else {
-                            Task task = new Deadline(details[0], details[1]);
-                            tasks.add(task);
-                            FileManager.writeToFile(FILE_PATH, tasks);
-                            System.out.println("added: " + task + "...");
-                        }
-                    } else if (token[0].equals("event")) {
-                        if (token.length != 2) {
-                            throw new RizException("What? Did the event get cancelled...");
-                        }
-                        String[] details = token[1].split(" /from |\\ /to ");
-                        if (details.length != 3) {
-                            throw new RizException("What? Did the event get cancelled...");
-                        } else {
-                            Task task = new Event(details[0], details[1], details[2]);
-                            tasks.add(task);
-                            FileManager.writeToFile(FILE_PATH, tasks);
-                            System.out.println("added: " + task + "...");
-                        }
-                    } else {
-                        throw new RizException("Are you speaking Yapanese?...");
-                    }
-                    int size = FileManager.countFromFile(FILE_PATH);
-                    System.out.println("You currently have " + size + " things to do...");
-                    System.out.println("\n");
-                }
-            } catch (RizException e) {
-                System.out.println(e.getMessage());
+            if (input.equals("bye")) {
+                running = false;
+                Ui.printGoodbye();
+            } else {
+                Parser.parse(scanner, this.taskList, this.storage, input);
             }
+            /*
+            String[] token = input.split(" ", 2);
+            if (token[0].equals("bye")) {
+                running = false;
+                Ui.printGoodbye();
+            } else if (token[0].equals("clear")) {
+                Ui.printClearConfirmation();
+                if (scanner.nextLine().equals("y")) {
+                    tasks.clear();
+                    this.storage.writeToFile(tasks);
+                    Ui.printAllCleared();
+                }
+            } else if (token[0].equals("mark")) {
+                boolean isNumber = true;
+                if (token.length != 2) {
+                    Ui.markError();
+                }
+                for (char c : token[1].toCharArray()) {
+                    if (!Character.isDigit(c)) {
+                        isNumber = false;
+                    }
+                }
+                if (!isNumber) {
+                    Ui.markError();
+                }
+                int curr = Integer.parseInt(token[1]) - 1;
+                Task task = tasks.get(curr);
+                task.mark();
+                this.storage.writeToFile(tasks);
+                System.out.println("Awesome..., I've marked this task as completed...");
+                System.out.println(task);
+                System.out.println("\n");
+            } else if (token[0].equals("unmark")) {
+                boolean isNumber = true;
+                if (token.length != 2) {
+                    Ui.unmarkError();
+                }
+                for (char c : token[1].toCharArray()) {
+                    if (!Character.isDigit(c)) {
+                        isNumber = false;
+                    }
+                }
+                if (!isNumber) {
+                    Ui.unmarkError();
+                }
+                int curr = Integer.parseInt(token[1]) - 1;
+                Task task = tasks.get(curr);
+                task.unmark();
+                this.storage.writeToFile(tasks);
+                System.out.println("Oops... Guess it's not done yet...");
+                System.out.println(task);
+                System.out.println("\n");
+            } else if (token[0].equals("list")) {
+                int size = tasks.size();
+                System.out.println("Here are the items in your To-Do List...");
+                this.storage.printFromFile();
+                System.out.println("\n");
+            } else if (token[0].equals("delete")) {
+                boolean isNumber = true;
+                if (token.length != 2) {
+                    Ui.deleteError();
+                }
+                for (char c : token[1].toCharArray()) {
+                    if (!Character.isDigit(c)) {
+                        isNumber = false;
+                    }
+                }
+                if (!isNumber) {
+                    Ui.deleteError();
+                }
+                int curr = Integer.parseInt(token[1]) - 1;
+                Task task = tasks.get(curr);
+                tasks.remove(curr);
+                this.storage.writeToFile(tasks);
+                System.out.println("Boo... planning to slack off?");
+                System.out.println("Removed: " + task + "...");
+                System.out.println("\n");
+            } else {
+                if (token[0].equals("todo")) {
+                    if (token.length != 2) {
+                        Ui.todoError();
+                    } else {
+                        Task task = new ToDo(token[1]);
+                        tasks.add(task);
+                        this.storage.writeToFile(tasks);
+                        System.out.println("added: " + task + "...");
+                    }
+                } else if (token[0].equals("deadline")) {
+                    if (token.length != 2) {
+                        Ui.deadlineError();
+                    }
+                    String[] details = token[1].split(" /by ");
+                    if (details.length < 2) {
+                        Ui.deadlineError();
+                    } else {
+                        Task task = new Deadline(details[0], details[1]);
+                        tasks.add(task);
+                        this.storage.writeToFile(tasks);
+                        System.out.println("added: " + task + "...");
+                    }
+                } else if (token[0].equals("event")) {
+                    if (token.length != 2) {
+                        Ui.eventError();
+                    }
+                    String[] details = token[1].split(" /from |\\ /to ");
+                    if (details.length != 3) {
+                        Ui.eventError();
+                    } else {
+                        Task task = new Event(details[0], details[1], details[2]);
+                        tasks.add(task);
+                        this.storage.writeToFile(tasks);
+                        System.out.println("added: " + task + "...");
+                    }
+                } else {
+                    Ui.yapError();
+                }
+                int size = this.storage.countFromFile();
+                System.out.println("You currently have " + size + " things to do...");
+                System.out.println("\n");
+            }*/
         }
+    }
+    public static void main(String[] args) {
+        Riz riz = new Riz("./data/riz.txt");
+        riz.run();
     }
 }
