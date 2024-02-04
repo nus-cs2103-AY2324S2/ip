@@ -2,8 +2,10 @@ package duke.task;
 
 import duke.parser.MissingInputFieldException;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
-
     private boolean isDone;
     protected TaskType type;
     public static String delimiter;
@@ -12,28 +14,43 @@ public abstract class Task {
     // temporary measure before storage related methods are migrated over to the storage class
     protected static String storageDataStringSplitter = " | ";
     protected String description;
+
+    /**
+     * Represents three task types: ToDO, Deadline and Event.
+     */
     public enum TaskType {
         TODO,
         DEADLINE,
         EVENT,
         UNRECOGNIZED
     }
-    // temporary solution
-    public static String[] NextWords(String[] words) {
 
+    /**
+     * Remove empty elements from the input String array.
+     *
+     * @param words String array with empty elements to be removed.
+     * @return A new copy of the input array, with empty elements removed.
+     */
+    public static String[] removeEmptyElements(String[] words) {
         String[] result = new String[words.length];
         int index = 0;
-
         for (String s : words) {
             if (!s.isEmpty()) {
                 result[index] = s;
                 index++;
             }
         }
-
         return result;
     }
 
+    /*
+     * Creates a task.
+     *
+     * @param type Type of the task to be created: "todo", "deadline" or "event".
+     * @param input String specifying properties of the task.
+     * @return Task created.
+     * @throws MissingInputFieldException If number of input field does not match with requirement.
+     */
     public static Task createTask(String type, String input) throws MissingInputFieldException {
         if (type.equals("todo")) {
             return new ToDo(input);
@@ -54,8 +71,7 @@ public abstract class Task {
         return description;
     }
 
-    public void setIsDone(String isDoneUpdateString, boolean isDone) {
-
+    public void setIsDone(boolean isDone) {
         // obsolete toggles
         this.isDone = isDone;
     }
@@ -64,30 +80,50 @@ public abstract class Task {
         return isDone ? 'X' : ' ';
     }
 
-    public String updateIsDoneMessage() {
-        if (isDone) return "Nice! I've marked this task as done:"
-                + '\n'
-                + "    "
-                + toString();
-
-        if (!isDone) return "OK, I've marked this task as not done yet:"
-                + '\n'
-                + "    "
-                + toString();
-
-        return null;
+    /**
+     * Gets a string describing update operation status.
+     */
+    public String getUpdateIsDoneMessage() {
+        if (isDone) {
+            return "Nice! I've marked this task as done:"
+                    + '\n'
+                    + "    "
+                    + toString();
+        } else {
+            return "OK, I've marked this task as not done yet:"
+                    + '\n'
+                    + "    "
+                    + toString();
+        }
     }
 
+    /**
+     * Parses input into a string array with preset delimiter.
+     *
+     * @param input String to be parsed.
+     */
     public String[] parseInput(String input) {
         return input.split(delimiter);
     }
 
+    /**
+     * Converts task to storage data format.
+     *
+     * @return String representing the data in storage format.
+     */
     public String convertToDataRow() {
         return printType() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter + description;
     }
 
+    /**
+     * Converts one row of data in storage format to a task.
+     *
+     * @param dataRow One row of data in storage format.
+     * @return Task converted from storage data.
+     */
     public static Task convertDataToTask(String dataRow) {
-        String[] inputArray = NextWords(Task.NextWords(dataRow.split(dataStringSplitter)));
+        String[] inputArray = removeEmptyElements(Task.removeEmptyElements(
+                dataRow.split(dataStringSplitter)));
         if (!isTaskStringArray(inputArray)) throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
         try {
             Task temp = null;
@@ -125,7 +161,18 @@ public abstract class Task {
         return b ? 1 : 0;
     }
 
+    /**
+     * Prints type of the task.
+     *
+     * @return String representing task type.
+     */
     public abstract String printType();
 
+    /**
+     * Sets up task with string input.
+     *
+     * @param input Input from user specifying task properties.
+     * @throws MissingInputFieldException If number of input fields does not match with requirements.
+     */
     public abstract void setUpTask(String input) throws MissingInputFieldException;
 }

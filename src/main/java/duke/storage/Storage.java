@@ -11,6 +11,9 @@ import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents storage component of Duke.
+ */
 public class Storage {
     private static final String DATA_FILE_PATH = "Data/savedTasks.txt";
     private static Storage instance = null;
@@ -27,10 +30,21 @@ public class Storage {
         taskList = TaskList.getInstance();
     }
 
+    /**
+     * Converts dateTime to storage format.
+     *
+     * @param localDateTime Input dataTime.
+     * @return String converted from input dataTime in storage format.
+     */
     public static String convertDateTimeForStorage(LocalDateTime localDateTime) {
         return Parser.convertDateTimeToCommandFormat(localDateTime);
     }
 
+    /**
+     * Loads taskList from memory.
+     *
+     * @throws FileNotFoundException If data file not found.
+     */
     public void loadFromMemory() throws FileNotFoundException {
         File file = new File(DATA_FILE_PATH);
         Scanner scanner = new Scanner(file);
@@ -39,6 +53,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves taskList to memory.
+     */
     public void saveToMemory() {
         try {
             String dataToWrite = "";
@@ -52,6 +69,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a file to store data.
+     */
     public void createDataFile() {
         // Specify the path for the new directory
         String directoryPath = "./Data";

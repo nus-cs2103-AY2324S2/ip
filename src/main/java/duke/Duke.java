@@ -8,13 +8,9 @@ import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
 
-/*
- things to do now
-    1. categorise the code into different segments for different functionalities
-    2. create a new class for each of the segment to achieve the goal of more oop
+/**
+ * Represents task tracking bot.
  */
-
-// name of the chat bot
 public class Duke {
     private Ui ui = null;
     private Parser parser = null;
@@ -32,6 +28,13 @@ public class Duke {
         currentState = LivState.INACTIVE;
     }
 
+    /**
+     * Starts Duke.
+     * Initialises ui, parser, taskList and storage.
+     * Loads taskList saved locally if any.
+     * Creates a Data directory to host the data file if local taskList not found.
+     * Starts listening to user input.
+     */
     private void Start() {
         // initialize duke.ui.Ui
         ui = Ui.getInstance();
@@ -52,7 +55,7 @@ public class Duke {
         try {
             storage.loadFromMemory();
         } catch (FileNotFoundException e) {
-            System.out.println("No previous task file found");//e.getMessage());
+            System.out.println("No previous task file found");
             storage.createDataFile();
         }
 
@@ -69,10 +72,16 @@ public class Duke {
         }
     }
 
-    boolean isActive() {
+    public boolean isActive() {
         return currentState == LivState.ACTIVE;
     }
+    public static void main(String[] args) {
+        getInstance().Start();
+    }
 
+    /**
+     * Toggles active state of Duke.
+     */
     public void ToggleActiveState() {
         if (currentState != LivState.INACTIVE) {
             currentState = LivState.INACTIVE;
@@ -90,8 +99,5 @@ public class Duke {
             instance = new Duke();
         }
         return instance;
-    }
-    public static void main(String[] args) {
-        getInstance().Start();
     }
 }

@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 import duke.Duke;
 
+/**
+ * Represents ui component of Duke.
+ * Manages interaction with the user.
+ */
 public class Ui {
 
     private enum UiState {
@@ -46,6 +50,9 @@ public class Ui {
         return instance;
     }
 
+    /**
+     * Initialises ui.
+     */
     public void initUi() {
         taskList = TaskList.getInstance();
         Greet();
@@ -55,14 +62,27 @@ public class Ui {
         return localDateTime.format(PRINT_DATE_TIME_FORMATTER);
     }
 
+    /**
+     * Prints output wrapped between two horizontal lines.
+     *
+     * @param output String intended to be printed.
+     */
     public void speak(String output) {
         ToggleConversationState();
         System.out.println(output);
         ToggleConversationState();
     }
+
+    /**
+     *
+     */
     private void Greet() {
         speak("Hello there, Liv here." + '\n' + "How may I help you?");
     }
+
+    /**
+     * Switch Ui state between ACTIVE_TALKING and ACTIVE_LISTENING.
+     */
     public void ToggleConversationState() {
 
         horizontalLine.printLine();
@@ -78,16 +98,27 @@ public class Ui {
         }
     }
 
+    /**
+     * Starts listening to user input.
+     *
+     * @return User input as a string.
+     */
     public String StartListening() {
         // should be called from ACTIVE_TALKING STATE
         if (currentState == UiState.ACTIVE_LISTENING) ToggleConversationState();
         return scanner.nextLine();
     }
 
+    /**
+     * Stops listening to user input.
+     */
     public void EndListening() {
         if (currentState == UiState.ACTIVE_TALKING) ToggleConversationState();
     }
 
+    /**
+     * Ends Duke session.
+     */
     public void EndSession() {
         // should be called from ACTIVE_LISTENING STATE, exception handling?
         ToggleConversationState();
@@ -100,6 +131,9 @@ public class Ui {
         horizontalLine.printLine();
     }
 
+    /**
+     * Lists all existing tasks.
+     */
     public void listTasks() {
         taskList.unfilterTasks();
         ToggleConversationState();

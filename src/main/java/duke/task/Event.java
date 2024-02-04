@@ -8,6 +8,9 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 
+/**
+ * Represents an event.
+ */
 public class Event extends Task {
 
     private LocalDateTime from = null;
@@ -30,7 +33,7 @@ public class Event extends Task {
         try {
             input = input.trim();
             if (!input.contains(command)) throw new RuntimeException("not todo");
-            String[] inputArray = Task.NextWords(input.split(delimiter));
+            String[] inputArray = Task.removeEmptyElements(input.split(delimiter));
             description = inputArray[0].trim();
             from = Parser.parseDateAndTime(inputArray[1].trim());
             to = Parser.parseDateAndTime(inputArray[2].trim());

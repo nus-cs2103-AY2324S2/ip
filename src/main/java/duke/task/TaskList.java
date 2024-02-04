@@ -6,18 +6,19 @@ import java.util.stream.Collectors;
 
 import duke.ui.Ui;
 
+/**
+ * Represents a taskList to store tasks.
+ */
 public class TaskList {
     private static LinkedList<Task> tasks = null;
     private static LinkedList<Task> lastFilteredTasks = null;
     private static TaskList instance = null;
     private Ui ui = null;
-
     private boolean isFiltered = false;
 
-    private TaskList() {
-        //this.livInstance = Liv.getInstance();
-    }
-
+    /**
+     * Returns number of tasks stored in taskList.
+     */
     public int getNumOfTasks() {
         return tasks.size();
     }
@@ -33,25 +34,48 @@ public class TaskList {
         return instance;
     }
 
+    /**
+     * Initialises taskList.
+     */
     public void initTaskList() {
         tasks = new LinkedList<>();
         ui = Ui.getInstance();
     }
 
+    /**
+     * Adds a task to the taskList.
+     *
+     * @param task Task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    public String setTaskDoneWithIndex(int index, String isDoneUpdateString, boolean isDone)
+    /**
+     * Marks specified task as done/not done.
+     *
+     * @param index Index of task to be marked.
+     * @param isDone New status of the task to be marked.
+     * @return The string describing marked/unmarked task.
+     * @throws TaskIndexOutOfBoundsException If index specified is out of bounds.
+     */
+    public String setTaskDoneWithIndex(int index, boolean isDone)
             throws TaskIndexOutOfBoundsException {
         try {
-            getTask(index).setIsDone(isDoneUpdateString, isDone);
-            return getTask(index).updateIsDoneMessage();
+            getTask(index).setIsDone(isDone);
+            return getTask(index).getUpdateIsDoneMessage();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException(index);
         }
     }
 
+    /**
+     * Deletes specified task from the taskList.
+     *
+     * @param index Index of the task to be deleted.
+     * @return Task deleted.
+     * @throws TaskIndexOutOfBoundsException If index specified is out of bounds.
+     */
     public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
         try {
             //duke.task.Task deletedTask =
