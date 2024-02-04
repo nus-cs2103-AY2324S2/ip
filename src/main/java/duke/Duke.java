@@ -298,6 +298,17 @@ public class Duke {
             }
         });
         
+        Duke.addCommand("find", (psr) -> {
+            try {
+                String toFind = psr.rest();
+                ui.print(String.format("I found the following tasks with names that match '%s':\n%s", 
+                        toFind, 
+                        tasks.filterSubString(toFind)));
+            } catch (DukeOptionParsingException e) {
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
+        });
+        
         try {
             tasks = Duke.st.loadTasks();
         } catch (DukeException e) {

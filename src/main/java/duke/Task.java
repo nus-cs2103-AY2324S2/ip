@@ -23,6 +23,10 @@ public abstract class Task {
     public void unmark() {
         this.done = false;
     }
+    
+    public final boolean nameContains(String str) {
+        return this.name.contains(str);
+    }
 
     public String describe() {
         return "[" + (this.done ? "X" : " ") + "] " + this.name;
