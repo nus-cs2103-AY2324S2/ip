@@ -3,10 +3,6 @@ package ukecat;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
-// Holds information to be used conveniently
-// Contains:
-// Parsed user input
-// Array to hold tasks
 public class Storage {
     // ukecat.Storage from input
     public static String input; // user input
@@ -16,7 +12,6 @@ public class Storage {
     public static LocalDate start; // for events
     public static LocalDate end; // for events
 
-    // Tasks
     private static final ArrayList<Task> tasks = new ArrayList<>();
     public static int numT = 0;
 
@@ -84,7 +79,6 @@ public class Storage {
         }
     }
 
-    // words[1] is "0"/"1"
     public static void addCsvTask() {
         Task t;
         try{

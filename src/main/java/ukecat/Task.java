@@ -16,7 +16,6 @@ public abstract class Task {
         this.description = description;
     }
 
-    // mark or unmark, can enum later
     public void setDone(MarkType markType) {
         switch (markType) {
         case MARK:

@@ -5,9 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// Takes in user input
-// Analyses input using regex
-// Stores information on the input in the storage
+
 public class Parser {
     private static Scanner sc = new Scanner(System.in);
 
@@ -82,9 +80,6 @@ public class Parser {
         }
     }
 
-    // ukecat.ToDo: T, 0/1, desc
-    // ukecat.Deadline: D, 0/1, desc, by
-    // ukecat.Event: E, 0/1, desc, from, to
     public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
             return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
@@ -103,17 +98,17 @@ public class Parser {
         Storage.words = words;
         try {
             switch (words[0]) {
-            case ("T"):
+            case "T":
                 Storage.words[0] = "todo";
                 Storage.input = String.format("todo %s", words[2]);
                 parseToDo(Storage.input);
                 break;
-            case ("D"):
+            case "D":
                 Storage.words[0] = "deadline";
                 Storage.input = String.format("deadline %s /by %s", words[2], words[3]);
                 parseDeadline(Storage.input);
                 break;
-            case ("E"):
+            case "E":
                 Storage.words[0] = "event";
                 Storage.input = String.format("event %s /from %s /to %s", words[2], words[3], words[4]);
                 parseEvent(Storage.input);
