@@ -1,11 +1,20 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Dav {
+    private static final String FILE_PATH = "./data/dav.txt";
     private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadTasks();
         greetUser();
         startChat();
         exit();
@@ -51,6 +60,9 @@ public class Dav {
                 addDeadlineTask(input.substring(8).trim());
             } else if (input.startsWith("event")) {
                 addEventTask(input.substring(5).trim());
+            } else if (input.startsWith("check ")) {
+                String dateString = input.substring(6).trim();
+                checkTasksOnDate(dateString);
             } else if (input.startsWith("delete")) {
                 int taskIndex = Integer.parseInt(input.substring(6).trim());
                 deleteTask(taskIndex);
@@ -58,12 +70,45 @@ public class Dav {
                 throw new IllegalArgumentException("Huh? what's that?");
             }
         } catch (NumberFormatException e) {
-            System.out.println("This is not valid task index.");
+            System.out.println("This is not a valid task index.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
         System.out.println("____________________________________________________________");
+    }
+
+    public static void checkTasksOnDate(String dateString) {
+        try {
+            LocalDateTime targetDate = LocalDateTime.parse(dateString + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            List<Task> tasksOnDate = new ArrayList<>();
+
+            for (Task task : tasks) {
+                if (task instanceof DeadlineTask) {
+                    DeadlineTask deadlineTask = (DeadlineTask) task;
+                    if (deadlineTask.byDateTime.toLocalDate().isEqual(targetDate.toLocalDate())) {
+                        tasksOnDate.add(deadlineTask);
+                    }
+                } else if (task instanceof EventTask) {
+                    EventTask eventTask = (EventTask) task;
+                    if (eventTask.fromDateTime.toLocalDate().isEqual(targetDate.toLocalDate()) ||
+                            eventTask.toDateTime.toLocalDate().isEqual(targetDate.toLocalDate())) {
+                        tasksOnDate.add(eventTask);
+                    }
+                }
+            }
+
+            if (tasksOnDate.isEmpty()) {
+                System.out.println("No tasks on " + targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            } else {
+                System.out.println("Tasks on " + targetDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ":");
+                for (int i = 0; i < tasksOnDate.size(); i++) {
+                    System.out.println(" " + (i + 1) + "." + tasksOnDate.get(i));
+                }
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+        }
     }
 
     public static void addTodoTask(String taskDescription) {
@@ -78,12 +123,20 @@ public class Dav {
         String[] details = taskDetails.split(" /by ");
         if (details.length == 2) {
             String description = details[0].trim();
-            String by = details[1].trim();
+            String dateTime = details[1].trim();
 
             if (description.isEmpty()) {
                 System.out.println("No deadline?");
             } else {
-                addTask(new DeadlineTask(description, by));
+                try {
+                    String[] dateTimeParts = dateTime.split(" ");
+                    String date = dateTimeParts[0];
+                    String time = dateTimeParts[1];
+
+                    addTask(new DeadlineTask(description, date, time));
+                } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
+                }
             }
         } else {
             System.out.println("Invalid deadline task format.");
@@ -99,7 +152,14 @@ public class Dav {
             if (description.isEmpty()) {
                 System.out.println("No event?");
             } else if (timeDetails.length == 2) {
-                addTask(new EventTask(description, timeDetails[0], timeDetails[1]));
+                try {
+                    LocalDateTime fromDateTime = LocalDateTime.parse(timeDetails[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    LocalDateTime toDateTime = LocalDateTime.parse(timeDetails[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+                    addTask(new EventTask(description, fromDateTime, toDateTime));
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date or time format. Please use yyyy-MM-dd HHmm.");
+                }
             } else {
                 System.out.println("Invalid event task format.");
             }
@@ -113,6 +173,7 @@ public class Dav {
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        saveTasks(); // Save tasks after adding
     }
 
     public static void listTasks() {
@@ -131,6 +192,7 @@ public class Dav {
             tasks.get(taskIndex - 1).markAsDone();
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + tasks.get(taskIndex - 1));
+            saveTasks();
         } else {
             System.out.println(" Invalid task index.");
         }
@@ -141,6 +203,7 @@ public class Dav {
             tasks.get(taskIndex - 1).unmarkAsDone();
             System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + tasks.get(taskIndex - 1));
+            saveTasks();
         } else {
             System.out.println(" Invalid task index.");
         }
@@ -152,6 +215,7 @@ public class Dav {
             System.out.println(" Task removed:");
             System.out.println("   " + removedTask);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            saveTasks();
         } else {
             System.out.println(" Invalid task index.");
         }
@@ -161,7 +225,43 @@ public class Dav {
         return index >= 1 && index <= tasks.size();
     }
 
+    public static void saveTasks() {
+        try {
+            Path filePath = Paths.get(FILE_PATH);
+            StringBuilder data = new StringBuilder();
+
+            for (Task task : tasks) {
+                data.append(task.toDataString()).append("\n");
+            }
+
+            Files.write(filePath, data.toString().getBytes());
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public static void loadTasks() {
+        try {
+            Path filePath = Paths.get(FILE_PATH);
+
+            if (Files.exists(filePath)) {
+                List<String> lines = Files.readAllLines(filePath);
+                tasks.clear();
+
+                for (String line : lines) {
+                    Task task = Task.parseTask(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
     public static void exit() {
+        saveTasks();
         System.out.println(" Goodbye. ");
         System.out.println("____________________________________________________________");
     }
@@ -177,7 +277,7 @@ class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with [X]
+        return (isDone ? "[X]" : "[ ]");
     }
 
     public void markAsDone() {
@@ -186,6 +286,23 @@ class Task {
 
     public void unmarkAsDone() {
         isDone = false;
+    }
+
+    public String toDataString() {
+        return "";
+    }
+
+    public static Task parseTask(String data) {
+        if (data.startsWith("T")) {
+            return TodoTask.parseTask(data);
+        } else if (data.startsWith("D")) {
+            return DeadlineTask.parseTask(data);
+        } else if (data.startsWith("E")) {
+            return EventTask.parseTask(data);
+        }
+
+        System.out.println("Error parsing task from data: " + data);
+        return null;
     }
 
     @Override
@@ -200,37 +317,109 @@ class TodoTask extends Task {
     }
 
     @Override
+    public String toDataString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
+    public static Task parseTask(String data) {
+        String[] parts = data.split(" \\| ");
+        if (parts.length == 3) {
+            TodoTask todoTask = new TodoTask(parts[2]);
+            todoTask.isDone = parts[1].equals("1");
+            return todoTask;
+        }
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 }
 
 class DeadlineTask extends Task {
-    protected String by;
+    protected LocalDateTime byDateTime;
 
-    public DeadlineTask(String description, String by) {
+    public DeadlineTask(String description, String date, String time) {
         super(description);
-        this.by = by;
+        this.byDateTime = parseDateTime(date, time);
+    }
+
+    private LocalDateTime parseDateTime(String date, String time) {
+        String dateTimeString = date + " " + time;
+        return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    @Override
+    public String toDataString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
+                byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    public static Task parseTask(String data) {
+        String[] parts = data.split(" \\| ");
+        if (parts.length == 4) {
+            String[] dateTimeParts = parts[3].split(" ");
+            if (dateTimeParts.length == 2) {
+                DeadlineTask deadlineTask = new DeadlineTask(parts[2], dateTimeParts[0], dateTimeParts[1]);
+                deadlineTask.isDone = parts[1].equals("1");
+                return deadlineTask;
+            }
+        }
+        return null;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 }
 
 class EventTask extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime fromDateTime;
+    protected LocalDateTime toDateTime;
+
+    public EventTask(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        super(description);
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
+    }
 
     public EventTask(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDateTime = parseDateTime(from);
+        this.toDateTime = parseDateTime(to);
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    @Override
+    public String toDataString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description +
+                " | " + fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) +
+                " | " + toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    public static Task parseTask(String data) {
+        String[] parts = data.split(" \\| ");
+        if (parts.length == 5) {
+            String[] dateTimeParts = parts[3].split(" ");
+            String[] dateTimePartsTo = parts[4].split(" ");
+            if (dateTimeParts.length == 2 && dateTimePartsTo.length == 2) {
+                EventTask eventTask = new EventTask(parts[2], dateTimeParts[0] + " " + dateTimeParts[1], dateTimePartsTo[0] + " " + dateTimePartsTo[1]);
+                eventTask.isDone = parts[1].equals("1");
+                return eventTask;
+            }
+        }
+        return null;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() +
+                " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) +
+                " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 }
