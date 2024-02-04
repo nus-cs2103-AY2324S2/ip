@@ -17,13 +17,14 @@ public class Duke {
 
     enum Instruction {
         List, Todo, Deadline, Event, Mark, Unmark, Delete
-        }
+    }
+
     private static Instruction toInstruction(String input) throws DukeException {
         try {
             return Instruction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Please enter instruction in the correct format" +
-                    "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
+            throw new DukeException("Please enter instruction in the correct format"
+                    + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
         }
     }
 
@@ -60,6 +61,7 @@ public class Duke {
         String[] parsedInput = input.split(" ", 2);
         Instruction ins = toInstruction(parsedInput[0]);
         String details = parsedInput.length > 1 ? parsedInput[1] : "";
+
         switch (ins) {
             case List:
                 listTasks();
@@ -101,7 +103,8 @@ public class Duke {
 
 
     private static void completeTask(String index) throws DukeException{
-        if (index.length() < 1) { throw new DukeException("Please enter the task number that you want to mark as incomplete: ex. unmark 2"); }
+        if (index.length() < 1) { throw new DukeException(
+            "Please enter the task number that you want to mark as incomplete: ex. unmark 2"); }
         try {
             int i = Integer.parseInt(index) - 1;
             tasksList.get(i).markAsDone();
@@ -113,7 +116,9 @@ public class Duke {
     }
 
     private static void uncompleteTask(String index) throws DukeException{
-        if(index.length() < 1) { throw new DukeException("Please enter the task number that you want to mark as incomplete: ex. mark 2"); }
+        if(index.length() < 1) { throw new DukeException(
+            "Please enter the task number that you want to mark as incomplete: ex. mark 2"); }
+        
         try {
             int i = Integer.parseInt(index) - 1;
             tasksList.get(i).markAsUndone();
@@ -128,36 +133,46 @@ public class Duke {
         if (details.isEmpty()) {
             throw new DukeException("Please enter task description");
         }
+
         tasksList.add(new Todo(details));
         System.out.println("Got it. I've added this task:");
-        System.out.println("added: " + tasksList.get(tasksList.size()-1).toString());
+        System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
         System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
     private static void addDeadline(String details) throws DukeException{
         String[] parsedInput = details.split("/", 2);
+        
         if (parsedInput.length != 2) {
-            throw new DukeException("Please enter task description and deadline \n correct format: deadline *task description* /by *deadline*");}
+            throw new DukeException("Please enter task description and deadline"
+                    + "\ncorrect format: deadline *task description* /by *deadline*"):
+        }
+
         tasksList.add(new Deadline(parsedInput[0], parsedInput[1].substring(3)));
         System.out.println("Got it. I've added this task:");
-        System.out.println("added: " + tasksList.get(tasksList.size()-1).toString());
+        System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
         System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
     private static void addEvent(String details) throws DukeException{
         try {
             String[] parsedInput = details.split("/", 3);
-            tasksList.add(new Event(parsedInput[0], parsedInput[1].substring(5), parsedInput[2].substring(3)));
+            tasksList.add(
+                new Event(parsedInput[0], parsedInput[1].substring(5), parsedInput[2].substring(3)));
             System.out.println("Got it. I've added this task:");
-            System.out.println("added: " + tasksList.get(tasksList.size()-1).toString());
+            System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
             System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
         } catch (Exception e){
-            throw new DukeException("Please enter event description and time in the correct format\ncorrect format: event *event name* /from *date-time* /to *date-time*");
+            throw new DukeException("Please enter event description and time in the correct format
+            \ncorrect format: event *event name* /from *date-time* /to *date-time*");
         }
     }
 
     private static void deleteTask(String index) throws DukeException{
-        if (index.length() < 1) { throw new DukeException("Please enter the task number that you want to delete: ex. delete 2"); }
+        if (index.length() < 1) {
+            throw new DukeException("Please enter the task number that you want to delete: ex. delete 2");
+        }
+
         try {
             int i = Integer.parseInt(index) - 1;
             String task = tasksList.get(i).toString();
@@ -179,7 +194,6 @@ public class Duke {
                 FileInputStream fileInputStream = new FileInputStream(TASKS_CACHE_PATH.toString());
                 ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
                 tasksList = (List<Task>) objInputStream.readObject();
-
                 objInputStream.close();
                 fileInputStream.close();
                 System.out.println(String.format("Tasks downloaded from %s", TASKS_CACHE_PATH));
@@ -199,7 +213,6 @@ public class Duke {
             FileOutputStream fileOutputStream = new FileOutputStream(TASKS_CACHE_PATH.toString());
             ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
             objOutputStream.writeObject(tasksList);
-            
             objOutputStream.close();
             fileOutputStream.close();
         } catch (IOException ignored) {
