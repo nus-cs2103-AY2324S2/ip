@@ -1,5 +1,10 @@
 package duke;
 
+/**
+ * The UI class contains formatting styles for outputs,
+ * as well as the logo and greeting text Strings. A UI object
+ * is instantiated within the main method of Duke.
+ */
 public class UI {
 
     private String greet = "Hello! I'm ELIAS\n"
@@ -26,6 +31,14 @@ public class UI {
         return bye;
     }
 
+    /**
+     * Takes in a string and returns a string that is
+     * formatted with horizontal rules above and below
+     * for aesthetic purposes.
+     *
+     * @param s string input for formatting.
+     * @return a string that is formatted.
+     */
     public String format(String s) {
         return "    ____________________________________________________________\n     "
                 + s
