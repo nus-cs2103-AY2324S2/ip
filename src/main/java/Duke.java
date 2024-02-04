@@ -223,7 +223,7 @@ public class Duke {
             }
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < tasks.size(); i++) {
-                fw.write(tasks.get(i).toString() + System.lineSeparator());
+                fw.write(tasks.get(i).toTaskSaveString() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {
