@@ -35,6 +35,7 @@ class Parser {
     public Command parse(String input) throws DukeException {
         String[] inputs = input.split(" ");
         assert inputs.length > 0 : "at least should have some commands";
+
         if (input.equals("bye") || input.equals("exit") || input.equals("quit")) {
             return new Bye();
         } else if (input.equals("list") || input.equals("ls")) {

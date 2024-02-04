@@ -15,7 +15,6 @@ public class Duke {
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructor for chatbot.
@@ -23,7 +22,6 @@ public class Duke {
      */
     public Duke(String filePath) {
         assert filePath.length() > 0 : "file path should not be null";
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -62,7 +60,7 @@ public class Duke {
             storage.writeToFile(tasks.getTaskList());
             return tmp;
         } catch (DukeException | IOException e) {
-            return String.format("    %s\n", e.getMessage());
+            return String.format("%s\n", e.getMessage());
         }
     }
 }
