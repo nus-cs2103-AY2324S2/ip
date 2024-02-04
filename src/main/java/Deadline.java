@@ -5,6 +5,10 @@ public class Deadline extends Task {
         this.byWhen = byWhen;
     }
 
+    public String getByWhen() {
+        return byWhen;
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), byWhen);
