@@ -23,6 +23,8 @@ public class DeleteCommand implements Command {
      *                                        after the command.
      * @throws CustomExceptions.UnrecognizedCommandException if a negative integer
      *                                                       index was passed.
+     * @throws CustomExceptions.NoSuchIndexException if an index out of bounds was
+     *                                               passed.
      */
     @Override
     public String execute(String command, String[] info, ItemList itemList) throws CustomExceptions {
@@ -35,6 +37,9 @@ public class DeleteCommand implements Command {
                 return itemList.removeItem(index);
             } catch (NumberFormatException e) {
                 throw new CustomExceptions.UnrecognizedCommandException("");
+            } catch (IndexOutOfBoundsException e) {
+                throw new CustomExceptions.NoSuchIndexException(
+                        "Index out of bounds, there is no event with such an index");
             }
         }
     }
