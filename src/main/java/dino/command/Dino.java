@@ -1,33 +1,20 @@
 package dino.command;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import dino.task.Task;
+import javafx.application.Platform;
 
 /** The main class for the Dino application. */
-public class Dino extends Application {
+public class Dino {
     private static final String FILE_PATH = "./data/dino.txt";
-    private Image user = new Image(getClass().getResourceAsStream("/images/user.jpg"));
-    private Image dino = new Image(getClass().getResourceAsStream("/images/dino.jpg"));
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
+    private TaskType taskType;
 
     /**
      * Enumeration representing the types of tasks in the Dino application.
@@ -46,101 +33,99 @@ public class Dino extends Application {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         tasks = storage.loadTasksFromFile();
-
-    }
-
-    @Override
-    public void start(Stage stage) {
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        ui.welcome(dialogContainer, dino);
-
-        //Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
-
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(processUserInput(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(dino))
-        );
-        userInput.clear();
-    }
-
-
-    private String processUserInput(String command) {
-        Scanner sc = new Scanner(System.in);
-        Parser parser = new Parser(tasks, ui, sc);
-
-        if (command.equals("bye")) {
-            storage.saveTasksToFile(tasks.getTaskList());
-            ui.goodbye(dialogContainer, user);
-            sc.close();
-            System.exit(0);
-        } else {
-            return parser.parseCommand(command);
-        }
-        return null;
     }
 
     /**
-     * The main entry point of the Dino application.
+     * Parses the given command and performs the corresponding action.
      *
-     * @param args arguments.
+     * @param input The user command to be parsed.
+     * @return String representation of command.
      */
-    public static void main(String[] args) {
-        launch(args);
+    public String parseCommand(String input) {
+        Scanner sc = new Scanner(System.in);
+        Parser parser = new Parser(tasks);
+        String[] parts = input.trim().split(" "); // Split into command and argument
+        String command = parts[0];
+        String argument = parts.length > 1
+                ? String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))
+                : "";
+
+        switch (command) {
+        case "list":
+            return tasks.listTask();
+
+        case "bye":
+            try {
+                storage.saveTasksToFile(tasks.getTaskList());
+                return ui.goodbye();
+            } catch (IOException e) {
+                return "Error: " + e.getMessage();
+            } finally {
+                Platform.exit();
+            }
+
+
+        case "delete":
+            try {
+                int taskNum = Integer.parseInt(argument);
+                return tasks.deleteTask(taskNum);
+            } catch (DinoException e) {
+                return "Error: " + e.getMessage();
+            }
+
+        case "todo":
+            taskType = Dino.TaskType.TODO;
+            return parser.handleTaskCreation(taskType, argument);
+
+        case "deadline":
+            taskType = Dino.TaskType.DEADLINE;
+            return parser.handleTaskCreation(taskType, argument);
+
+        case "event":
+            taskType = Dino.TaskType.EVENT;
+            return parser.handleTaskCreation(taskType, argument);
+
+        case "filter":
+            return parser.printTasksForDate(argument.trim());
+
+        case "mark":
+            int taskNum = Integer.parseInt(argument);
+            if (taskNum > tasks.size()) {
+                return ("Uh oh, we do not have a task assigned to that number.");
+            } else {
+                Task completed = tasks.get(taskNum - 1);
+                return completed.markAsDone();
+            }
+
+        case "unmark":
+            int taskNumber = Integer.parseInt(argument);
+            if (taskNumber > tasks.size()) {
+                return ("Uh oh, we do not have a task assigned to that number.");
+            } else {
+                Task missing = tasks.get(taskNumber - 1);
+                return missing.markAsUndone();
+            }
+
+        case "find":
+            String searchKeyword = argument.trim();
+            ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(searchKeyword);
+
+            if (matchingTasks.isEmpty()) {
+                return ("Aww, there are no tasks that contains that keyword.");
+            } else {
+                StringBuilder printTask = new StringBuilder("Matching tasks:\n");
+                for (Task task : matchingTasks) {
+                    printTask.append(task).append("\n");
+                }
+                return String.valueOf(printTask);
+            }
+
+        default:
+            try {
+                throw new DinoException("I don't understand ;;");
+            } catch (DinoException e) {
+                return ("Error: " + e.getMessage());
+            }
+        }
     }
 }
