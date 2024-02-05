@@ -7,7 +7,6 @@ import duke.task.Task;
 public class TodoTask extends Task {
 
     public TodoTask(String name, String file_format) throws DukeException {
-
         super(name, Type.T, file_format);
         if (this.name.isBlank()) {
             String error_message = "\tTodo description cannot be empty!\n\tEx: todo return book\n";
