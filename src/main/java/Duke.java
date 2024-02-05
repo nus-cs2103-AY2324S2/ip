@@ -246,7 +246,11 @@ public class Duke {
                         throw new UnknownCommandException();
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("\t" + new UnknownCommandException());
+                if (e.getMessage().contains("No enum constant Duke.Command.")) {
+                    System.out.println("\t " + new UnknownCommandException());
+                } else {
+                    System.out.println("\t" + e.getMessage());
+                }
             } catch (Exception e) {
                 System.out.println("\t" + e);
             }
