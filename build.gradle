@@ -29,12 +29,14 @@ test {
 
 application {
     mainClass.set("Duke")
+    mainClassName = 'Duke'
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'duke.jar'
 }
 
 run{
