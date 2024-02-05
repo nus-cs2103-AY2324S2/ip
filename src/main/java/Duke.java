@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static String printIntro() {
@@ -17,12 +18,12 @@ public class Duke {
                 "____________________________________________________________\n";
     }
 
-    public static String list(Task[] a, int counter) {
+    public static String list(ArrayList<Task> a, int counter) {
         String x = ("Here are the tasks in your list: " + "\n" +
                 "____________________________________________________________\n");
         String result = "";
         for (int i = 0; i < counter; i++) {
-            result += (i + 1) + ". " + a[i].toString() + "\n";
+            result += (i + 1) + ". " + a.get(i).toString() + "\n";
         }
         String y = ("____________________________________________________________\n");
         return x + result + y;
@@ -65,6 +66,18 @@ public class Duke {
         return time;
     }
 
+    public static String deleteMessage(Task task, int count) {
+        return "____________________________________________________________\n" +
+                "Noted. I've removed this task:" + "\n" + task.toString() + "\n" +
+                "Now you have " + count + " tasks in the list." + "\n" +
+                "____________________________________________________________\n";
+    }
+
+    public static ArrayList<Task> delete(ArrayList<Task> a, int count) {
+        a.remove(count);
+        return a;
+    }
+
     public static String replace(String message) {
         String newString = message.replaceAll("/(\\w+)", "$1:");
         return newString;
@@ -76,7 +89,7 @@ public class Duke {
         System.out.println("Enter Message");
 
         final int ArraySize = 100;
-        Task[] tasks = new Task[ArraySize];
+        ArrayList<Task> tasks = new ArrayList<>(ArraySize);
         int counter = 0;
 
         while (true) {
@@ -88,19 +101,22 @@ public class Duke {
                     break;
 
                 } else if (message.equals("list")) {
-                    System.out.println(list(tasks, counter));
+                    System.out.println(list(tasks, tasks.size()));
 
-                } else if (message.startsWith("mark") || message.startsWith("unmark")) {
+                } else if (message.startsWith("mark") || message.startsWith("unmark") || message.startsWith("delete")) {
                     String[] parts = message.split(" ");
                     int num = Integer.parseInt(parts[1]);
-                    Task current = tasks[num - 1];
+                    Task current = tasks.get(num - 1);
 
                     if (message.startsWith("mark")) {
                         current.markAsDone();
                         System.out.println(printMark(current));
-                    } else {
+                    } else if (message.startsWith("unmark")){
                         current.unmark();
                         System.out.println(printMark(current));
+                    }else{
+                        tasks.remove(num - 1);
+                        System.out.println(deleteMessage(current, tasks.size()));
                     }
                 } else if (message.equals("todo") || message.equals("deadline") || message.equals("event")){
                     throw new DukeExceptions("Don't forget the description !");
@@ -109,25 +125,28 @@ public class Duke {
                     if (message.startsWith("todo")) {
                         String[] parts = message.split(" ", 2);
                         String task = parts[1];
-                        tasks[counter] = new Todo(task);
+//                        tasks[counter] = new Todo(task);
+                        tasks.add(new Todo(task));
                         counter++;
-                        System.out.println(added(tasks[counter - 1], counter));
+                        System.out.println(added(tasks.get(counter - 1), counter));
                     } else if (message.startsWith("deadline")) {
                         String task = getTask(message);
                         String[] parts = time.split("by");
-                        tasks[counter] = new Deadline(task, parts[1]);
+//                        tasks[counter] = new Deadline(task, parts[1]);
+                        tasks.add(new Deadline(task, parts[1]) );
                         counter++;
-                        System.out.println(added(tasks[counter - 1], counter));
+                        System.out.println(added(tasks.get(counter - 1), counter));
                     } else {
                         String task = getTask(message);
                         String[] parts = time.split("from");
                         String[] dateParts = parts[1].split("/to");
-                        tasks[counter] = new Event(task, dateParts[0], dateParts[1]);
+//                        tasks[counter] = new Event(task, dateParts[0], dateParts[1]);
+                        tasks.add(new Event(task, dateParts[0], dateParts[1]));
                         counter++;
-                        System.out.println(added(tasks[counter - 1], counter));
+                        System.out.println(added(tasks.get(counter - 1), counter));
                     }
 
-                }else {
+                } else {
                     throw new DukeExceptions("Sorry, I'm not sure what you mean");
                 }
 
