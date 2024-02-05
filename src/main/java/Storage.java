@@ -26,7 +26,7 @@ public class Storage {
     // The below functions are adapted from CS2103T website Week 3
     public static void loadFileContents(ArrayList<Task> list) throws FileNotFoundException {
         try{
-            
+            File file = new File(filePath);
             if (file.exists()){
   
                 Scanner s = new Scanner(filePath); // create a Scanner using the File as the source
@@ -34,7 +34,7 @@ public class Storage {
                 
                 while (s.hasNext()) {
                     String temp = s.nextLine();
-                    String[] tempyArr = temp.split(" \\|");
+                    String[] tempyArr = temp.split("|");
                     Task tempTask = null;
 
                     if(tempyArr[0].equals("T")) {
@@ -47,7 +47,7 @@ public class Storage {
                         tempTask = new Event(tempyArr[2],tempyArr[3],tempyArr[4],tempyArr[1]);
                         list.add(tempTask);
                     } else {
-                        throw new EveExceptions("Invalid Formatting");
+                        //do nth
                     }
             
                 }
@@ -55,7 +55,6 @@ public class Storage {
             } else {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                throw new FileNotFoundException();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
