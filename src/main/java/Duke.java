@@ -8,14 +8,12 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
     private static final Path TASKS_CACHE_PATH = Path.of(".duke-cache");
-    public static List<Task> tasksList = new ArrayList<>();
+    public static TaskList tasks;
     private static final String horiLine = "---------------------------------\n";
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
@@ -100,8 +98,8 @@ public class Duke {
 
     private static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasksList.size(); i++) {
-            System.out.println("  " + (i + 1) + "." + tasksList.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("  " + (i + 1) + "." + tasks.get(i));
         }
     }
 
@@ -111,9 +109,9 @@ public class Duke {
             "Please enter the task number that you want to mark as incomplete: ex. unmark 2"); }
         try {
             int i = Integer.parseInt(index) - 1;
-            tasksList.get(i).markAsDone();
+            tasks.get(i).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasksList.get(i).toString());
+            System.out.println(tasks.get(i).toString());
         } catch (Exception e) {
             throw new DukeException("Please enter the valid task number");
         }
@@ -125,9 +123,9 @@ public class Duke {
         
         try {
             int i = Integer.parseInt(index) - 1;
-            tasksList.get(i).markAsUndone();
+            tasks.get(i).markAsUndone();
             System.out.println("OK, I've marked this task as not done yet");
-            System.out.println(tasksList.get(i).toString());
+            System.out.println(tasks.get(i).toString());
         } catch(Exception e) {
             throw new DukeException("Please enter the valid task number");
         }
@@ -138,10 +136,10 @@ public class Duke {
             throw new DukeException("Please enter task description");
         }
 
-        tasksList.add(new Todo(details));
+        tasks.add(new Todo(details));
         System.out.println("Got it. I've added this task:");
-        System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
-        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+        System.out.println("added: " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addDeadline(String details) throws DukeException {
@@ -152,15 +150,15 @@ public class Duke {
         }
 
         try {
-        tasksList.add(new Deadline(parsedInput[0], LocalDateTime.parse(parsedInput[1]
+        tasks.add(new Deadline(parsedInput[0], LocalDateTime.parse(parsedInput[1]
                 , dateTimeFormatter)));
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
                     + "\ncorrect format: dd/MM/yyyy HHmm");
         }
         System.out.println("Got it. I've added this task:");
-        System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
-        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+        System.out.println("added: " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addEvent(String details) throws DukeException{
@@ -183,12 +181,12 @@ public class Duke {
         System.out.println(parsedDates[1]);
         
         try {
-            tasksList.add(
+            tasks.add(
                 new Event(parsedInput[0], LocalDateTime.parse(parsedDates[0], dateTimeFormatter)
                         , LocalDateTime.parse(parsedDates[1], dateTimeFormatter)));
             System.out.println("Got it. I've added this task:");
-            System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
-            System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+            System.out.println("added: " + tasks.get(tasks.size() - 1).toString());
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (Exception e) {
             throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
                     + "\ncorrect format: dd/MM/yyyy HHmm");
@@ -202,11 +200,11 @@ public class Duke {
 
         try {
             int i = Integer.parseInt(index) - 1;
-            String task = tasksList.get(i).toString();
+            String task = tasks.get(i).toString();
             System.out.println("Noted. I've removed this task:");
             System.out.println(task);
-            tasksList.remove(i);
-            System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+            tasks.remove(i);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch(Exception e) {
             throw new DukeException("Please enter the valid task number");
         }
@@ -215,18 +213,18 @@ public class Duke {
     private static void load() {
         if (Files.notExists(TASKS_CACHE_PATH)) {
             System.out.println("No cache found");
-            tasksList = new ArrayList<>();
+            tasks = new TaskList();
         } else {
             try {
                 FileInputStream fileInputStream = new FileInputStream(TASKS_CACHE_PATH.toString());
                 ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
-                tasksList = (List<Task>) objInputStream.readObject();
+                TaskList tasks = (TaskList) objInputStream.readObject();
                 objInputStream.close();
                 fileInputStream.close();
                 System.out.println(String.format("Tasks downloaded from %s", TASKS_CACHE_PATH));
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Unable to download existing tasks");
-                tasksList = new ArrayList<>();
+                tasks = new TaskList();
                 try {
                     Files.delete(TASKS_CACHE_PATH);
                 } catch (IOException ignored) {
@@ -239,7 +237,7 @@ public class Duke {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(TASKS_CACHE_PATH.toString());
             ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
-            objOutputStream.writeObject(tasksList);
+            objOutputStream.writeObject(tasks);
             objOutputStream.close();
             fileOutputStream.close();
         } catch (IOException ignored) {
