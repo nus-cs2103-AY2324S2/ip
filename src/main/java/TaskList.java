@@ -12,9 +12,9 @@ public class TaskList {
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
-    public TaskList(ArrayList<Task> prevTaskList) {
-        this.taskList = prevTaskList;
-    }
+//    public TaskList(ArrayList<Task> prevTaskList) {
+//        this.taskList = prevTaskList;
+//    }
 
     public String addTask(String userInput) {
         String[] userInputArray = userInput.split(" ");
@@ -68,8 +68,8 @@ public class TaskList {
 
                 // [index - 1] so that we increment index, but still return string from previously added task
                 Task taskObject = taskList.get(taskList.size() - 1);
-                String fileString = taskObject.getFileString();
-                writeToFile(fileString, taskList);
+//                String fileString = taskObject.getFileString();
+//                writeToFile(fileString, taskList);
                 return taskObject.toString();
             }
 
@@ -112,6 +112,17 @@ public class TaskList {
 
     public int getNumberOfTasks() {
         return taskList.size();
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+
+    // add previous list form storage into newly initialised tasklist
+    public void initialisePrevTaskList(ArrayList<Task> prevTaskList) {
+        System.out.println(prevTaskList);
+        this.taskList = prevTaskList;
     }
 
 //    public void writeToFile(String fileString) {

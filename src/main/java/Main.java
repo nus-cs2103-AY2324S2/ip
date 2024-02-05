@@ -3,25 +3,35 @@ import java.io.FileNotFoundException;
 public class Main {
 
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
+    private String filePath;
     
     public Main(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        System.out.println("main run");
+        this.filePath = filePath;
+        taskList = new TaskList();
+        ui = new Ui(taskList);
+        storage = new Storage(filePath, taskList);
         try {
 //            tasks = new TaskList(storage.readFromFile());
-            tasks = new TaskList(storage.readFromFile());
+//            tasks = new TaskList(storage.readFromFile());
+            taskList.initialisePrevTaskList(storage.readFromFile());
 
         } catch (FileNotFoundException e) {
 //            ui.showLoadingError();
             System.out.println(e.getMessage());
-            tasks = new TaskList();
+//            tasks = new TaskList();
         }
     }
 
     public void run() {
         ui.start();
+        // tasks added to tasklist already from above
+
+        // then we store it
+        storage.writeToFile(filePath);
+
     }
 
     public static void main(String[] args) {

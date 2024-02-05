@@ -8,9 +8,11 @@ public class Storage {
 //    String FILE_PATH = "data/hal.txt";
     boolean isDoneDefault = false;
     File file;
-    public Storage(String filePath) {
+    private final TaskList taskList;
+    public Storage(String filePath, TaskList taskList) {
         this.file = new File(filePath);
         this.file.getParentFile().mkdirs();
+        this.taskList = taskList;
 
         try {
             // Ensure the file is created before attempting to read from it
@@ -20,17 +22,17 @@ public class Storage {
                 System.out.println("File already exists: " + filePath);
             }
 
-            readFromFile();
+//            readFromFile();
         } catch (IOException e) {
             System.out.println("Error creating or reading from file");
             e.printStackTrace();
         }
     }
-    public void writeToFile(String filePath, ArrayList<Task> newestTaskList) {
+    public void writeToFile(String filePath) {
         try {
             java.io.FileWriter fw = new java.io.FileWriter(filePath);
             // get tasklist
-            for (Task task : newestTaskList) {
+            for (Task task : taskList.getTaskList()) {
                 fw.write(task.getFileString() + "\n");
             }
             fw.close();
