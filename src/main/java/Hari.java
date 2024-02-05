@@ -330,7 +330,7 @@ class handlerbot {
         }
     }
 
-    // Function to mark task completed
+    // Function to mark task as completed
     public void completionmark(int taskrecorder) {
         if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
         {
@@ -349,7 +349,7 @@ class handlerbot {
             System.out.println("____________________________________________________________");
         }
 
-        // Save tasks to file whenever the task list changes
+        // Save tasks to file whenever task list changes
         saveTasksToFile();
     }
 
