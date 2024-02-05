@@ -15,33 +15,40 @@ public class Eve {
 
             String[] tempyArr = input.split(" ",2);
             String commandCheck = tempyArr[0];
-    
-            switch(commandCheck){
+            try {
+                switch(commandCheck){
 
-            case "bye":
-                commandBye();
-                break;
-            case "list":
-                commandList(list);
-                break;
-            case "mark":
-                commandMark(tempyArr, list);
-                break;
-            case "unmark":
-                commandUnMark(tempyArr, list);
-                break;
-            case "delete":
-                commandDelete(tempyArr, list);
-                break;
-            case "todo":        
-                commandTodo(tempyArr, list);
-                break;
-            case "deadline":    
-                commandDeadline(tempyArr, list);
-                break;
-            case "event":
-                commandEvent(tempyArr, list);
-                break;    
+                case "bye":
+                    commandBye();
+                    break;
+                case "list":
+                    commandList(list);
+                    break;
+                case "mark":
+                    commandMark(tempyArr, list);
+                    break;
+                case "unmark":
+                    commandUnMark(tempyArr, list);
+                    break;
+                case "delete":
+                    commandDelete(tempyArr, list);
+                    break;
+                case "todo":        
+                    commandTodo(tempyArr, list);
+                    break;
+                case "deadline":    
+                    commandDeadline(tempyArr, list);
+                    break;
+                case "event":
+                    commandEvent(tempyArr, list);
+                    break;    
+
+                default:
+                    throw new EveExceptions("OOPS!!! I'm sorry, but I don't know what that means, please try again");
+
+                }
+            } catch (EveExceptions e) {
+                System.out.println(e.getMessage());
             }
                 
         }
@@ -95,7 +102,11 @@ public class Eve {
         System.out.println("Now you have " + list.size() +" tasks in the list.");       
     }
 
-    public static void commandTodo(String[] tempyArr, ArrayList<Task> list){
+    public static void commandTodo (String[] tempyArr, ArrayList<Task> list) throws EveExceptions {
+        
+        if (tempyArr.length < 2) {
+            throw new EveExceptions("This todo can't be empty");
+        }
         String description = tempyArr[1];
         Task t = new Todo(description);
         list.add(t);
