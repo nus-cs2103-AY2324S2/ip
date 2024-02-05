@@ -1,13 +1,9 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
     private static String gap = "____________________________________________________________\n";
@@ -53,6 +49,13 @@ public class Duke {
                 "deadline",
                 "event",
                 "delete"));
+        try {
+            readTaskListData();
+        } catch (FileNotFoundException e) {
+            System.out.println("FNFE occurred.");
+        } catch (IOException e) {
+            System.out.println("IOE occurred.");
+        }
     }
 
     private static void executeCommand(String command) throws DukeException {
@@ -237,5 +240,50 @@ public class Duke {
             System.out.println("An error has occurred.");
             e.getStackTrace();
         }
+    }
+
+    private static void readTaskListData() throws FileNotFoundException, IOException {
+        String filePath = "./src/main/data/duke.txt";
+        File read = new File(filePath);
+        try {
+            if (!read.exists()) {
+                read.createNewFile();
+            }
+            Scanner sc = new Scanner(read);
+            while (sc.hasNextLine()) {
+                String data = sc.nextLine();
+                Task savedTask = reconstructTask(data);
+                tasks.add(savedTask);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error has occurred locating the file.");
+        } catch (IOException e) {
+            System.out.println("An error has occurred.");
+        }
+    }
+
+    private static Task reconstructTask(String saveString) {
+        String[] taskArgs = saveString.split("\\|");
+        String identifier = taskArgs[0];
+        Task reconstructedTask = null;
+        switch (identifier) {
+        case "T":
+            reconstructedTask = new ToDo(taskArgs[2]);
+            break;
+        case "D":
+            reconstructedTask = new Deadline(taskArgs[2], taskArgs[3]);
+            break;
+        case "E":
+            reconstructedTask = new Event(taskArgs[2], taskArgs[3], taskArgs[4]);
+            break;
+        default:
+            System.out.println("Unable to reconstruct task.");
+            break;
+        }
+        Boolean isDone = taskArgs[1].equals("1");
+        if (isDone) {
+            reconstructedTask.markDone();
+        }
+        return reconstructedTask;
     }
 }
