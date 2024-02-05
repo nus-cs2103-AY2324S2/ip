@@ -12,11 +12,22 @@ public class Storage {
 
     public String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The file path where the task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
 
+    /**
+     * Loads the ArrayList of tasks from the specified file path using object deserialization.
+     *
+     * @return The ArrayList of tasks loaded from the file.
+     * @throws RolandException If the file is empty or does not exist, indicating a fresh start.
+     */
     public ArrayList<Task> load() throws RolandException {
         if (new File(filePath).length()!=0) {
             return deserializeArrayList(filePath);
@@ -25,6 +36,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deserializes the ArrayList of tasks from the specified file path.
+     *
+     * @param filePath The file path from which to deserialize the tasks.
+     * @return The deserialized ArrayList of tasks.
+     */
     @SuppressWarnings("unchecked")
     private static ArrayList<Task> deserializeArrayList(String filePath) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {

@@ -9,10 +9,13 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public Parser() {
-
-    }
-
+    /**
+     * Parses the given full command string and returns the corresponding Command object.
+     *
+     * @param fullCommand The user input representing a command.
+     * @return A Command object corresponding to the parsed command.
+     * @throws RolandException If the input command is not recognized or lacks necessary details.
+     */
     public static Command parse(String fullCommand) throws RolandException {
         if (fullCommand.equals("bye")) {
             return new ExitCommand();
