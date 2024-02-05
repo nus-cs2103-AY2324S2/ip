@@ -23,7 +23,7 @@ public class TaskList {
         try {
             this.tasks = storage.load();
         } catch (Exception e) {
-            throw new DukeException("Error loading tasks");
+            throw new DukeException("Error loading tasks\n");
         }
     }
 
@@ -66,7 +66,7 @@ public class TaskList {
         try {
             updateStorage();
         } catch (DukeException e) {
-            throw new DukeException("Error updating storage");
+            throw new DukeException("Error updating storage\n");
         }
     }
 
@@ -75,7 +75,7 @@ public class TaskList {
         try {
             updateStorage();
         } catch (DukeException e) {
-            throw new DukeException("Error updating storage");
+            throw new DukeException("Error updating storage\n");
         }
     }
 
@@ -87,16 +87,16 @@ public class TaskList {
         try {
             updateStorage();
         } catch (DukeException e) {
-            throw new DukeException("Error updating storage");
+            throw new DukeException("Error updating storage\n");
         }
     }
 
     public void updateStorage() throws DukeException {
         try {
             storage.save(tasks);
-            ui.printMessage("Tasks updated in storage");
+            ui.printMessage("Tasks updated in storage\n");
         } catch (Exception e) {
-            throw new DukeException("Error updating storage");
+            throw new DukeException("Error updating storage\n");
         }
     }
 }
