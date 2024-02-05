@@ -10,6 +10,7 @@ import simpli.ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -22,8 +23,8 @@ public class Interpreter {
     /**
      * Initializes the interpreter with the specified ui object and taskList.
      *
-     * @param ui
-     * @param taskList
+     * @param ui Handles printing.
+     * @param taskList Manages tasks and their actions.
      */
     public Interpreter(Ui ui, TaskList taskList) {
         this.ui = ui;
@@ -79,6 +80,13 @@ public class Interpreter {
             ui.display("Noted. I've removed this task:\n" +
                     removedTask + "\n" +
                     "Now you have " + taskList.size() + " task(s) in the list.");
+            break;
+        }
+        case FIND: {  // find tasks with the given keyword
+            ArrayList<Task> tasks = taskList.findTasks(tokens[2]);
+            TaskList foundTasks = new TaskList(tasks);
+            ui.display("Here are the matching tasks in your list:\n" +
+                    foundTasks.toString());
             break;
         }
         case TODO: {  // creates todo task
