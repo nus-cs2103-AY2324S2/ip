@@ -3,7 +3,9 @@ package duke.graphics;
 import java.io.IOException;
 
 import duke.graphics.MyClass;
+import duke.ui.UserInterface;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Graphics extends Application {
 
-    private MyClass duke = new MyClass();
+    private UserInterface ui = new UserInterface();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +25,7 @@ public class Graphics extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setUserInterface(ui);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

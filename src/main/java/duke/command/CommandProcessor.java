@@ -30,46 +30,47 @@ public class CommandProcessor {
      * @throws InputException      If there is an issue with the input format or command.
      * @throws ProcessingException If there is an issue processing the command or storage.
      */
-    public void processData(Command command, String input) throws InputException, ProcessingException {
-
+    public String processData(Command command, String input) throws InputException, ProcessingException {
+        String result = "";
         switch (command) {
 
         case DELETE:
-            storage.delete(processDelete(input));
+            result = storage.delete(processDelete(input));
             break;
 
         case LIST:
-            storage.displayList();
+            result = storage.displayList();
             break;
 
         case MARK:
-            storage.mark(processMark(input, Command.MARK));
+            result = storage.mark(processMark(input, Command.MARK));
             break;
 
         case UNMARK:
-            storage.unmark(processMark(input, Command.UNMARK));
+            result = storage.unmark(processMark(input, Command.UNMARK));
             break;
 
         case DEADLINE:
-            storage.add(processDeadline(input));
+            result = storage.add(processDeadline(input));
             break;
 
         case EVENT:
-            storage.add(processEvent(input));
+            result = storage.add(processEvent(input));
             break;
 
         case TODO:
-            storage.add(processTodo(input));
+            result = storage.add(processTodo(input));
             break;
 
         case FIND:
-            storage.displaySearchList(processFind(input));
+            result = storage.displaySearchList(processFind(input));
             break;
 
         default:
             break;
         }
         storage.update();
+        return result;
     }
 
     /**

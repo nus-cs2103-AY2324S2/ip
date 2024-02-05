@@ -6,6 +6,7 @@ import duke.command.Command;
 import duke.command.CommandProcessor;
 import duke.exceptions.HalException;
 import duke.storage.Storage;
+import javafx.application.Platform;
 
 /**
  * The `UserInterface` class handles user interactions and serves as the main interface for the Duke application.
@@ -92,5 +93,19 @@ public class UserInterface {
         greet();
         poll();
         exit();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command command = Command.processCommand(input);
+            if (command.isExit()) {
+                Platform.exit();
+                return "";
+            } else {
+                return cmd.processData(command, input);
+            }
+        } catch (HalException e) {
+            return e.getMessage();
+        }
     }
 }
