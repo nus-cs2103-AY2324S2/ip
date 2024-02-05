@@ -37,6 +37,6 @@ public class Thames {
 
 
     public static void main(String[] args) {
-        new Thames("./data/tasks.txt").run();
+        new Thames("data/tasks.txt").run();
     }
 }
