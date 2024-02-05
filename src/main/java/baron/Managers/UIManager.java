@@ -5,24 +5,30 @@ import baron.Models.Task;
 import java.util.List;
 
 public class UIManager {
+
+    private static String SEPARATOR = "--------------------";
+
+    private static String formatOutput(String input) {
+        StringBuilder sb = new StringBuilder();
+//        sb.append(SEPARATOR);
+//        sb.append("\n");
+        sb.append(input);
+//        sb.append("\n");
+//        sb.append(SEPARATOR);
+        return sb.toString();
+    }
     /**
      * Informs user of added content but does not add anything itself
      *
      * @param task  Task added
      * @param count count of tasks currently in list after modification
      */
-    public static void add(Task task, int count) {
-        printSeparator();
-        System.out.println("Got it, I've added this task: \n  " + task);
-        System.out.println("Now you have " + count + " tasks in the list");
-        printSeparator();
-    }
-
-    /**
-     * Prints a simple separator for UI pruposes only
-     */
-    public static void printSeparator() {
-        System.out.println("--------------------");
+    public static String add(Task task, int count) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it, I've added this task: \n  " + task);
+        sb.append("\n");
+        sb.append("Now you have " + count + " tasks in the list");
+        return formatOutput(sb.toString());
     }
 
     /**
@@ -31,22 +37,22 @@ public class UIManager {
      * @param task  Task added
      * @param count count of tasks currently in list after modification
      */
-    public static void delete(Task task, int count) {
-        printSeparator();
-        System.out.println("Noted, I've removed this task: \n  " + task);
-        System.out.println("Now you have " + count + " tasks in the list");
-        printSeparator();
+    public static String delete(Task task, int count) {
+        String output = "Noted, I've removed this task: \n  " + task;
+        output += "\nNow you have " + count + " tasks in the list";
+        return formatOutput(output);
     }
 
     /**
      * Lists all tasks currently available in a pretty format
      */
-    public static void list(List<Task> tasks) {
-        printSeparator();
+    public static String list(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1) + ". " + tasks.get(i));
+            sb.append("\n");
         }
-        printSeparator();
+        return formatOutput(sb.toString());
     }
 
     /**
@@ -54,13 +60,15 @@ public class UIManager {
      *
      * @param tasks tasks to print out
      */
-    public static void find(List<Task> tasks) {
-        printSeparator();
-        System.out.println("Here are the matching tasks in your list:");
+    public static String find(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:");
+        sb.append("\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1) + ". " + tasks.get(i));
+            sb.append("\n");
         }
-        printSeparator();
+        return formatOutput(sb.toString());
     }
 
     /**
@@ -69,10 +77,9 @@ public class UIManager {
      * @param task   Task to mark
      * @param isDone mark whether task is done or not
      */
-    public static void mark(Task task, boolean isDone) {
-        printSeparator();
+    public static String mark(Task task, boolean isDone) {
         String doneStr = isDone ? "done" : "not done";
-        System.out.println("Okay, I've marked this task as " + doneStr + ": \n" + task);
-        printSeparator();
+        String output = "Okay, I've marked this task as " + doneStr + ": \n" + task;
+        return formatOutput(output);
     }
 }

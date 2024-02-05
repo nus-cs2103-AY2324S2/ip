@@ -32,7 +32,7 @@ public class MainWindow implements Initializable {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = input;
+        String response = baron.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBaronDialog(response, botImage));

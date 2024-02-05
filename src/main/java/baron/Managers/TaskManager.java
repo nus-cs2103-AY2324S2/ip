@@ -42,76 +42,77 @@ public class TaskManager {
      *
      * @param input Input given by user
      */
-    public void handleInput(String input) {
+    public String handleInput(String input) {
         try {
             input = input.trim();
             String command = getCommand(input);
             // Decided to pass the entire input instead because otherwise we would have to parse the input into command and value
             // which would not be appropriate here since it includes a list() function too
             if (command.equals(TodoDao.NAME)) {
-                addTodo(input);
+                return addTodo(input);
             } else if (command.equals(DeadlineDao.NAME)) {
-                addDeadline(input);
+                return addDeadline(input);
             } else if (command.equals(EventDao.NAME)) {
-                addEvent(input);
+                return addEvent(input);
             } else if (command.equals(Commands.LIST.getCommand())) {
-                UIManager.list(this.tasks);
+                return UIManager.list(this.tasks);
             } else if (command.equals(Commands.MARK.getCommand())) {
-                mark(input, true);
+                return mark(input, true);
             } else if (command.equals(Commands.UNMARK.getCommand())) {
-                mark(input, false);
+                return mark(input, false);
             } else if (command.equals(Commands.DELETE.getCommand())) {
-                delete(input);
+                return delete(input);
             } else if (command.equals(Commands.BYE.getCommand())) {
-            } else if (command.equals("text")) {
-                EventDao.getEvents();
+                // Exits application
+                System.exit(0);
             } else if (command.equals(Commands.FIND.getCommand())) {
-                this.find(input);
+                return this.find(input);
             } else {
-                throw new IllegalArgumentException("Command not recognized");
+                return "Command not recognized";
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            return ex.getMessage();
         }
-
+        return "Something went wrong, please check the logs for details";
     }
 
     protected static String getCommand(String input) {
         return input.split(" ")[0];
     }
 
-    private void addTodo(String input) {
+    private String addTodo(String input) {
         Todo todo = TodoDao.getFrom(input);
         TaskDao.add(TodoDao.NAME, todo);
-        this.add(todo);
+        return this.add(todo);
     }
 
-    private void addDeadline(String input) {
+    private String addDeadline(String input) {
         Deadline deadline = DeadlineDao.getFrom(input);
         DeadlineDao.add(DeadlineDao.NAME, deadline);
-        this.add(deadline);
+        return this.add(deadline);
     }
 
-    private void addEvent(String input) {
+    private String addEvent(String input) {
         Event event = EventDao.getFrom(input);
         EventDao.add(EventDao.NAME, event);
-        this.add(event);
+        return this.add(event);
     }
 
-    private void mark(String input, boolean isDone) {
+    private String mark(String input, boolean isDone) {
         int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
         Task task = this.get(taskIndex);
         TaskType type = getTaskType(task.toString());
         task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
-        UIManager.mark(task, isDone);
+        return UIManager.mark(task, isDone);
     }
 
-    protected void delete(String input) {
+    protected String delete(String input) {
         int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.DELETE.getCommand(), null)) - 1;
         Task task = this.tasks.remove(i);
         TaskType type = getTaskType(task.toString());
         TaskDao.delete(type.getCommand(), task.getId());
-        UIManager.delete(task, this.tasks.size());
+        return UIManager.delete(task, this.tasks.size());
     }
 
     /**
@@ -119,7 +120,7 @@ public class TaskManager {
      *
      * @param input user input
      */
-    private void find(String input) {
+    private String find(String input) {
         String term = StringUtils.getValueOfCommand(input, Commands.FIND.getCommand(), null);
         List<Task> filteredTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -128,12 +129,12 @@ public class TaskManager {
                 filteredTasks.add(task);
             }
         }
-        UIManager.find(filteredTasks);
+        return UIManager.find(filteredTasks);
     }
 
-    protected void add(Task task) {
+    protected String add(Task task) {
         tasks.add(task);
-        UIManager.add(task, tasks.size());
+        return UIManager.add(task, tasks.size());
     }
 
     private Task get(int i) {

@@ -26,6 +26,7 @@ public class DialogBox extends HBox {
             FXMLLoader loader = new FXMLLoader(Baron.class.getResource("/view/DialogBox.fxml"));
             loader.setController(this);
             loader.setRoot(this);
+            this.setSpacing(8);
             loader.load();
         } catch (IOException ex) {
             ex.printStackTrace();
