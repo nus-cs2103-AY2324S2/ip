@@ -1,13 +1,17 @@
 package duke;
 
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 
 /**
  * Duke is a task management application that allows users to manage their tasks.
  * It provides a command-line interface for users to interact with their task list.
  */
-public class Duke {
+public class Duke extends Application{
     private static final String FILE_PATH = "./data/duke.txt";
 
     private Ui ui;
@@ -67,6 +71,14 @@ public class Duke {
         ui.showGoodbyeMessage();
     }
 
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
     /**
      * The main entry point for the Duke application.
      *
