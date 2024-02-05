@@ -7,3 +7,4 @@ T|0|pray
 D|0|deadline dota |by 2 of February 2024, 12:00AM
 E|0|event project meeting |2-2-2024|4-2-2024
 T|1|study
+T|0|pray
