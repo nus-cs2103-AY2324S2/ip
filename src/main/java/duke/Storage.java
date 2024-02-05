@@ -79,10 +79,13 @@ public class Storage {
      * @throws DukeException If an error occurs while reading from the file.
      */
     public ArrayList<Task> load() throws DukeException {
+        assert scanner != null : "Scanner should not be null";
+        assert file != null : "File should not be null";
         ArrayList<Task> list = new ArrayList<>();
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String type = line.substring(0, 1);
+            assert type.equals("T") || type.equals("D") || type.equals("E") : "Invalid task type";
             switch (type) {
             case "T":
                 list.add(Task.fromFileString(line));
