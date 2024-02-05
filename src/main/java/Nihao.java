@@ -9,12 +9,6 @@ import java.util.Scanner;
 
 public final class Nihao {
     public static final Nihao instance = new Nihao();
-//    private static final String LOGO =
-//            " ____        _        \n"
-//            + "|  _ \\ _   _| | _____ \n"
-//            + "| | | | | | | |/ / _ \\\n"
-//            + "| |_| | |_| |   <  __/\n"
-//            + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String LOGO = "::::    ::: ::::::::::: :::    :::     :::      ::::::::  \n" +
         ":+:+:   :+:     :+:     :+:    :+:   :+: :+:   :+:    :+: \n" +
         ":+:+:+  +:+     +:+     +:+    +:+  +:+   +:+  +:+    +:+ \n" +
