@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -155,7 +158,7 @@ public class Lemona {
                         throw new MissingDescriptionException();
                     }
 
-                    String[] dates = content[1].split("/to ");
+                    String[] dates = content[1].split(" /to ");
                     task = new Event(content[0], dates[0], dates[1]);
                     for (Task value : list) {
                         if (value.getDescription().equals(task.getDescription())) {
@@ -191,7 +194,14 @@ public class Lemona {
             } catch (IOException e) {
                 System.out.println("\t Sorry, I think I haven't had enough vitamin C."
                         + "\n\t I am unable to save tasks into the file."
-                        + "\n\t I will need to go have some LEMONA");
+                        + "\n\t I will need to go have some LEMONA.");
+                System.out.println(line);
+            } catch (DateTimeParseException e) {
+                System.out.println("\t I think you haven't had enough vitamin C."
+                        + "\n\t Your time format should be :"
+                        + "\n\t\t { dd/MM/yyyy HHmm }"
+                        + "\n\t I suggest you take some LEMONA.");
+                System.out.println(line);
             }
         }
     }
@@ -220,14 +230,20 @@ public class Lemona {
                 array.add(task);
                 break;
             case "[D] ":
-                task = new Deadline(info[2], info[3]);
+                String dueDate = LocalDateTime.parse(info[3], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                task = new Deadline(info[2], dueDate);
                 if (info[1].equals("[X]")) {
                     task.markAsDone();
                 }
                 array.add(task);
                 break;
             case "[E] ":
-                task = new Event(info[2], info[3], info[4]);
+                String startTime = LocalDateTime.parse(info[3], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                String endTime = LocalDateTime.parse(info[4], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                task = new Event(info[2], startTime, endTime);
                 if (info[1].equals("[X]")) {
                     task.markAsDone();
                 }
@@ -256,13 +272,15 @@ public class Lemona {
     }
 
     public static void save(ArrayList<Task> tasks) throws IOException{
-        File file = new File(path);
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
+        if (tasks.size() != 0) {
+            File file = new File(path);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            fw.write(listToString(tasks));
+            fw.close();
         }
-        FileWriter fw = new FileWriter(file);
-        fw.write(listToString(tasks));
-        fw.close();
     }
 }
