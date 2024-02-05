@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,8 +20,9 @@ import javafx.scene.image.ImageView;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaBot.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Pikachu.png"));
+    private Image user = new Image(getClass().getResourceAsStream("/images/DaBot.jpeg"));
+    private Image duke = new Image(getClass().getResourceAsStream("/images/Pikachu.png"));
+
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -117,8 +119,8 @@ public class Main extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
