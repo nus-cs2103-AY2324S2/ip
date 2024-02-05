@@ -54,9 +54,7 @@ public class Parser {
      */
     public static Integer checkIndexGiven(String s, int bounds) throws HistoryIndexException {
         Integer parsed = Integer.parseInt(s);
-        if (parsed <= 0 || parsed > bounds) {
-            throw new HistoryIndexException();
-        }
+        assert (parsed <= 0 || parsed > bounds);
         return parsed - 1;
     }
     /**
@@ -69,6 +67,7 @@ public class Parser {
     public static String[] extractDescriptionData(String... descriptionArray) throws
             InvalidInputException {
         String[] returnArray = new String[3];
+        assert (descriptionArray.length > 0);
         String taskDesc;
         switch(descriptionArray[0]) {
         case "todo":
@@ -130,6 +129,7 @@ public class Parser {
 
     /**
      * Takes in a potential date and parses it into a LocalDateTime format.
+     * Date should be in YYYY-MM-DD HHMM format.
      *
      * @param potentialDate The String version of the input date.
      * @return A LocalDateTime version of the input.
@@ -142,7 +142,9 @@ public class Parser {
         Integer day;
         try {
             String[] dd = potentialDate.split(" ");
+            assert (dd.length == 4);
             String[] dateArr = dd[0].split("-");
+            assert (dateArr.length == 3);
             time = dd[1];
             year = Integer.parseInt(dateArr[0]);
             month = Integer.parseInt(dateArr[1]);
