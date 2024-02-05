@@ -18,6 +18,7 @@ public class TaskList {
         Task task;
         String status;
         String finalOutput = new String("");
+        
         for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
             status = task.checkStatus();
