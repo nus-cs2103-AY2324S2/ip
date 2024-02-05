@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,7 +21,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
+        return "D | " + super.toString() + " | "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 
     public static Deadline fromString(String input) {
@@ -38,6 +40,7 @@ public class Deadline extends Task {
     }
 
     public String toFileString() {
-        return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        return "D | " + super.toString() + " | "
+                + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }

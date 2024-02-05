@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,8 +12,10 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws DukeException {
         super(description);
         try {
-            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            this.from = LocalDateTime.parse(from,
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            this.to = LocalDateTime.parse(to,
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
         } catch (DateTimeParseException e) {
             throw new DukeException(
                     "Invalid date format. Please use dd/MM/yyyy HHmm format. Example: 02/12/2019 1800\n");
@@ -21,8 +24,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"))
-                + " | "
+        return "E | " + super.toString() + " | "
+                + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma")) + " | "
                 + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 
@@ -41,7 +44,8 @@ public class Event extends Task {
     }
 
     public String toFileString() {
-        return "E | " + super.toString() + " | " + from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + " | "
+        return "E | " + super.toString() + " | "
+                + from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + " | "
                 + to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }

@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +49,8 @@ public class TaskList {
         }
 
         tasks.add(newTask);
-        ui.printMessage("Got it. I've added this task: \n" + newTask.toString() + "\nNow you have " + tasks.size()
-                + " tasks in the list.\n");
+        ui.printMessage("Got it. I've added this task: \n" + newTask.toString()
+                + "\nNow you have " + tasks.size() + " tasks in the list.\n");
 
         updateStorage();
     }
@@ -80,10 +81,9 @@ public class TaskList {
     }
 
     public void deleteTask(int index) throws DukeException {
-        ui.printMessage("Noted. I've removed this task: \n" + tasks.get(index - 1).toString() + "\nNow you have "
-                + (tasks.size() - 1) + " tasks in the list.\n");
+        ui.printMessage("Noted. I've removed this task: \n" + tasks.get(index - 1).toString()
+                + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.\n");
         tasks.remove(index - 1);
-
         try {
             updateStorage();
         } catch (DukeException e) {
