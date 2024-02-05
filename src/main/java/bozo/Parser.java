@@ -1,7 +1,17 @@
 package bozo;
 
+/**
+ * Represents a parser that interprets user input and executes the corresponding commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and executes the corresponding commands.
+     *
+     * @param input The user input.
+     * @param list The list of tasks.
+     * @throws BozoException If the user input is invalid.
+     */
     public void parseCommand(String input, TaskList list) throws BozoException {
         if (input.equals("bye")) {
 
@@ -49,8 +59,7 @@ public class Parser {
                 System.out.println("No matching tasks! :O");
             }
             Ui.showLine();
-        }
-        else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark")) {
             // Mark a task as not done
             Ui.showLine();
             String taskStr = input.substring(input.indexOf(" ") + 1);

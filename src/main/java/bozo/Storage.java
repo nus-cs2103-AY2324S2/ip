@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of the tasks.
+ */
 public class Storage {
     private final String filePath;
 
@@ -14,6 +17,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> loadFile() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -62,6 +70,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param list The list of tasks to be saved.
+     */
     public void saveList(TaskList list) {
         try {
             File txtFile = new File(filePath);
