@@ -26,12 +26,12 @@ public class MainWindow extends AnchorPane {
 
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/AlPacinoUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/RyanGoslingBot.png"));
+    private Image ryanGoslingImage = new Image(this.getClass().getResourceAsStream("/images/RyanGoslingBot.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog("I'm literally Ryan Gosling.", dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("I'm literally Ryan Gosling.", ryanGoslingImage));
     }
 
     public void setRyanGosling(RyanGosling ryanGosling) {
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String response = ryanGosling.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, ryanGoslingImage)
                                             );
         userInput.clear();
     }
