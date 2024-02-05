@@ -7,6 +7,11 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class Parser {
+    /**
+     * Converts the input string to LocalDateTime
+     * @param inputStr the input date and time string
+     * @return the LocalDateTime
+     */
     public static String formatDateTime(String inputStr) {
         String[] dateAndTimeParts = inputStr.split("\\s+");
         // Split the input into parts
@@ -38,6 +43,13 @@ public class Parser {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, h:mma", Locale.ENGLISH);
         return localDateTime.format(outputFormatter);
     }
+
+    /**
+     * Parses the user input and calls the appropriate method
+     * @param userInput the user input
+     * @param task_arr the list of tasks
+     * @throws DukeException if the user input is invalid
+     */
     public static void parseUserInput(String userInput, ArrayList<Task> task_arr) throws DukeException {
         // Your existing parsing logic from the main method
         // ... (user input parsing logic)
@@ -130,8 +142,5 @@ public class Parser {
                 System.out.println("ERROR: " + d);
             }
         }
-        // Add other parsing methods as needed
     }
-
-    // Add other parsing methods as needed
 }
