@@ -8,9 +8,14 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
+    public Deadline(String taskString, String deadline, boolean isDone) {
+        super(taskString, isDone);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + deadline + ")";
+        return "[D]" + super.toString() + " | " + deadline;
     }
 
     @Override

@@ -10,6 +10,11 @@ public class Task {
         this.taskString = taskString;
     }
 
+    public Task(String taskString, boolean isDone) {
+        this.isDone = isDone;
+        this.taskString = taskString;
+    }
+
     /**
      * function that marks the task as done
      * @return boolean value representing whether the task was newly marked
@@ -39,7 +44,7 @@ public class Task {
     @Override
     public String toString() {
         char completeTick = isDone ? 'X' : ' ';
-        return "[" + completeTick + "] " + taskString;
+        return "[" + completeTick + "] | " + taskString;
     }
 
     @Override

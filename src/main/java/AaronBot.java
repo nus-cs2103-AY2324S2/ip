@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,8 +7,20 @@ import java.util.Scanner;
  * Represents the main AaronBot class, executes the user-bot interaction task adding/deleting/marking
  */
 public class AaronBot {
+    private static TaskListFile fileReader = new TaskListFile();
     private static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
+        try {
+            taskList = TaskListFile.loadFromFile("TaskList.txt");
+            if (taskList.size() > 0) {
+                System.out.println("Previous list found!");
+                for (int x = 0; x < taskList.size(); x++) {
+                    System.out.println((x + 1) + " " + taskList.get(x)); 
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
         boolean isBye = true;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("Hello, I am AaronBot, please talk to me I love my students very much :)");
@@ -127,6 +141,11 @@ public class AaronBot {
         return true;
         case "bye":
             System.out.println("Ok Student, HAND.");
+            try {
+                TaskListFile.writeToFile("TaskList.txt", taskList);
+            } catch (IOException e) {
+                System.out.println("Error saving file!\n" + e);
+            }
             return false;
         default:
             throw new NonsenseCommandException(userInput);
@@ -166,12 +185,12 @@ public class AaronBot {
             task = new Todo(newTask);
             break;
         case ("deadline"):
-            String[] tokenizedTask = newTask.split("/by", 2);
+            String[] tokenizedTask = newTask.split(" /by ", 2);
             task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
             break;
         case ("event"):
-            String[] taskTimingSplit = newTask.split("/from", 2);
-            String[] startEndSplit = taskTimingSplit[1].split("/to", 2);
+            String[] taskTimingSplit = newTask.split(" /from ", 2);
+            String[] startEndSplit = taskTimingSplit[1].split(" /to ", 2);
             task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
             break;
         default:
