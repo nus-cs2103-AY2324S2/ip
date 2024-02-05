@@ -1,10 +1,12 @@
+import java.awt.*;
+
 public class TaskList {
 
-    private String[] list;
+    private Task[] list;
     private int count;
 
     public TaskList(){
-        list = new String[100];
+        list = new Task[100];
         count = 0;
     }
 
@@ -16,7 +18,7 @@ public class TaskList {
                     "\t-----------------------------------";
         }
 
-        list[count] = msg;
+        list[count] = new Task(msg);
         count++;
 
         return "\t-----------------------------------\n" +
@@ -29,7 +31,7 @@ public class TaskList {
     public String toString() {
         String result = "\t-----------------------------------\n";
         for (int i = 0; i < count; i++) {
-            result += "\t" + (i + 1) + ". " + list[i] + "\n";
+            result += "\t" + (i + 1) + ". " + list[i].toString() + "\n";
         }
         result += "\t-----------------------------------";
         return result;

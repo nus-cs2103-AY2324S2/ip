@@ -47,7 +47,7 @@ public class  Dude {
         return "\t-----------------------------------\n" +
                 "\tHello! I'm Dude\n" +
                 "\tWhat can I do for you?\n" +
-                "\t-----------------------------------";
+                "\t-----------------------------------\n";
     }
 
     private static String add_task(String msg){
