@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Task - Represents a basic task with a description and completion status.
  */

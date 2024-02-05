@@ -1,3 +1,10 @@
+package duke.application;
+
+import duke.io.Ui;
+import duke.io.Storage;
+import duke.application.TaskList;
+import duke.application.Parser;
+
 
 /**
  * Duke - Main class that handles user interactions and task management.
