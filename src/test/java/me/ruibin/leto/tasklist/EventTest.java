@@ -30,7 +30,7 @@ public class EventTest {
     public void eventFromCommand_commandWithBadFormat_failure() {
         LocalDate startDate = LocalDate.now().plusDays(10);
         LocalDate endDate = LocalDate.now().plusDays(20);
-        String command = MessageFormat.format("event  H4(K1nG  cOnv@nt!0n   /from {0} \to {1}",
+        String command = MessageFormat.format("event  H4(K1nG  cOnv@nt!0n   /from {0} /to {1}",
                 startDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy")),
                 endDate);
         try {
@@ -41,8 +41,25 @@ public class EventTest {
     }
 
     @Test
+    public void eventFromCSV_validCsvEntry_success() {
+        LocalDate startDate = LocalDate.now().plusDays(10);
+        LocalDate endDate = LocalDate.now().plusDays(20);
+        String entry = MessageFormat.format("E,Y,  H4(K1nG  cOnv@nt!0n,,{0},{1}",
+                startDate,
+                endDate);
+        String pattern = "[E][X]   H4(K1nG  cOnv@nt!0n (from: {0} to: {1}) 10 days to the event";
+        String correctOutput = MessageFormat.format(pattern, startDate, endDate);
+        try {
+            Event produced = Event.eventFromCsv(entry);
+            assertEquals(produced.toString(), correctOutput);
+        } catch (Exception e) {
+            fail(e);
+        }
+    }
+
+    @Test
     public void eventFromCsv_badCsvEntry_failure() {
-        String entry = "D,N,SUBMIT.Paper #CS320,,,";
+        String entry = "E,N,event  H4(K1nG  cOnv@nt!0n,,,";
         try {
             Event produced = Event.eventFromCsv(entry);
         } catch (Exception e) {
