@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.TaylorException;
 import filestorage.Storage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,9 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import parser.Parser;
 import tasks.Task;
-import ui.Ui;
 
 /**
  * Main class to execute Taylor ChatBot
@@ -71,7 +72,6 @@ public class Taylor extends Application {
 
     @Override
     public void start(Stage stage) {
-        initialiseTasksList();
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -132,13 +132,20 @@ public class Taylor extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
+        try {
+            tasksList = Storage.inputFromFile(tasksList);
+            initialiseTasksList();
+        } catch (Exception e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(e.toString(), wrio)
+            );
+        }
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            handleUserInput(stage);
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            handleUserInput(stage);
         });
     }
 
@@ -161,22 +168,20 @@ public class Taylor extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
+    private void handleUserInput(Stage stage) {
         String userText = userInput.getText();
-        String tayText = getResponse(userInput.getText());
+        String tayText = getResponse(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, neu),
                 DialogBox.getDukeDialog(tayText, wrio)
         );
-
-        try {
-            Parser.executeCommand(userText, tasksList);
-        } catch (TaylorException e) {
-            saveTasksList();
-            System.exit(0);
-        }
         userInput.clear();
-        saveTasksList();
+
+        if ("Bye".equalsIgnoreCase(userText.trim())) {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> stage.close()));
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
     }
 
     /**
@@ -184,23 +189,13 @@ public class Taylor extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Taylor heard: " + input;
+        return Parser.executeCommand(input, tasksList);
     }
 
     private void initialiseTasksList() {
         // Load pre-existing task from Hard Disk
-        try {
-            tasksList = Storage.inputFromFile(tasksList);
-        } catch (Exception e) {
-            Ui.printError(e);
-        }
-    }
-
-    private void saveTasksList() {
-        try {
-            Storage.outputToFile(tasksList);
-        } catch (Exception e) {
-            Ui.printError(e);
-        }
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(getResponse("list"), wrio)
+        );
     }
 }

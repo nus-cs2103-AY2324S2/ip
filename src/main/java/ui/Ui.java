@@ -21,26 +21,18 @@ public class Ui {
     }
 
     /**
-     * Print out exiting speech
-     */
-    public static void goodbyeText() {
-        System.out.println("___________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
      * Print out the error message
      * @param err Error thrown from ChatBot
      */
-    public static void printError(Exception err) {
-        System.out.println("Error: " + err);
+    public static String printError(Exception err) {
+        return ("Error: " + err);
     }
 
     /**
      * Print warning for invalid commands from Users
      */
-    public static void invalidCommand() {
-        System.out.println("Invalid input. ChatBot can only handle "
+    public static String invalidCommand() {
+        return ("Invalid input. ChatBot can only handle "
                 + "'todo', 'deadline', 'event', 'bye', 'list' tasks");
     }
 

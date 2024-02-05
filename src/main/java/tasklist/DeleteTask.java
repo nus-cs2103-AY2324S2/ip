@@ -23,7 +23,8 @@ public class DeleteTask {
      * @param taskList
      * @throws TaylorException
      */
-    public static void execDeleteTask(String input, List<Task> taskList) throws TaylorException {
+    public static String execDeleteTask(String input, List<Task> taskList) throws TaylorException {
+        StringBuilder response = new StringBuilder();
         try {
             // Input will be 'delete x', where x is an int
             // Then split to get x
@@ -33,14 +34,14 @@ public class DeleteTask {
             if (pos > taskList.size() || pos <= 0) {
                 throw new TaylorException("Invalid task number");
             }
-
-            System.out.println("Noted. I've removed this tasks:");
-            System.out.println(taskList.get(pos - 1));
+            response.append("Noted. I've removed this tasks:\n");
+            response.append(taskList.get(pos - 1)).append("\n");
             taskList.remove(pos - 1);
-            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            response.append("Now you have ").append(taskList.size()).append(" tasks in the list.").append("\n");
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException err) {
             throw new TaylorException("Please include index of task to be removed");
         }
+        return response.toString();
     }
 }
