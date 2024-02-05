@@ -130,6 +130,29 @@ class HandlerBot {
         }
     }
 
+    // Task finder
+    public void findTask(String keyword) {
+        boolean found = false;
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the matching tasks in your list:");
+
+        for (int i = 0; i < counterTasks; i++) {
+            if (arrTasks[i].summaryStatus().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(" " + (i + 1) + "." + arrTasks[i].summaryStatus() + "  " +
+                        (arrTasks[i].taskStatus().equals("E") ?
+                                " (from: " + arrTasks[i].timerStartStatus() + " to: " + arrTasks[i].timerEndStatus() + ")" :
+                                (arrTasks[i].taskStatus().equals("D") ? " (by: " + arrTasks[i].deadlineStatus() + ")" : "")));
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println(" No matching tasks found.");
+        }
+
+        System.out.println("____________________________________________________________");
+    }
+
     // Function to save tasks to a file
     private void saveTasksToFile() {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
@@ -499,12 +522,14 @@ public class Hari {
                         System.out.println("____________________________________________________________");
                     }
                 }
+            } else if (readerInput.startsWith("find")) {
+                String keyword = readerInput.substring(4).trim();
+                hari.findTask(keyword);
             } else {
                 // If none of the above conditions are met, it is assumed to be an unstructured input and echoes it back
                 hari.userEchoedInput(readerInput);
             }
         }
-
         inputRead.close(); // Close the Scanner object to avoid resource leak
     }
 }
