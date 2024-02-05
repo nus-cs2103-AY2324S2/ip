@@ -1,6 +1,6 @@
 package headcube;
-import java.util.Scanner;
 
+import javafx.application.Application;
 /**
  * The main class for the HeadCube application. This class sets up the application
  * and starts the user interaction process.
@@ -10,39 +10,42 @@ public class HeadCube {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
-
     /**
-     * Constructs a HeadCube application instance. Initializes the UI, storage, and task list.
+     * Constructs a HeadCube application instance. Initializes the UI, storage, task list and parser.
      */
     public HeadCube() {
         ui = new Ui();
         storage = new Storage(ui);
         tasks = new TaskList();
+        storage.load(tasks);
+        parser = new Parser(ui, tasks, storage);
     }
 
     /**
-     * Starts the application. Loads tasks from storage, displays the greeting message,
-     * and enters the command processing loop.
+     * Retrieves the parser instance used for parsing user input or commands.
+     *
+     * @return The parser instance associated with this class.
      */
-    public void run() {
-        storage.load(tasks);
-        ui.greet();
-        this.parser = new Parser(ui, tasks, storage);
-        Scanner scanner = new Scanner(System.in);
-        String string = scanner.nextLine();
-        while (!string.equals("bye")) {
-            parser.parse(string);
-            string = scanner.nextLine();
-        }
-        ui.exit();
+    public Parser getParser() {
+        return this.parser;
+    }
+
+
+    /**
+     * Launches the application
+     *
+     * @param args Input arguments.
+     */
+    public void run(String[] args) {
+        Application.launch(Main.class, args);
     }
 
     /**
      * The main entry point for the HeadCube application.
      *
-     * @param args Command line arguments.
+     * @param args Input arguments.
      */
     public static void main(String[] args) {
-        new HeadCube().run();
+        new HeadCube().run(args);
     }
 }

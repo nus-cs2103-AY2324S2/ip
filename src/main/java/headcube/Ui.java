@@ -12,55 +12,74 @@ public class Ui {
 
     /**
      * Displays greeting message.
+     *
+     * @return The greeting string.
      */
-    public void greet() {
-        System.out.println("Hello! I'm HeadCube\n" + "What can I do for you?\n");
+    public String greet() {
+        return "Hello! I'm HeadCube\n" + "What can I do for you?\n";
     }
 
     /**
      * Displays exit message.
+     *
+     * @return The goodbye string.
      */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+    public static String exit() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
      * Displays error message.
      *
      * @param message The error message to be displayed.
+     * @return The error message.
      */
-    public void error(String message) {
-        System.out.println(message);
+    public String error(String message) {
+        return message;
     }
 
     /**
      * Displays saved message.
+     *
+     * @return The save message.
      */
-    public void saveMessage() {
-        System.out.println("Finished saving");
+    public String saveMessage() {
+        return "Finished saving";
     }
 
     /**
      * Displays the list of tasks to the user.
      *
      * @param taskList The list of tasks to be displayed.
+     * @return A string lists all the tasks.
      */
-    public void list(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public String list(TaskList taskList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
+            sb.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
-        System.out.println();
+        return sb.toString();
     }
-
-    public void showFoundTasks(TaskList tasks) {
+    /**
+     * Generates and returns a string representation of tasks found based on a find query.
+     * If no tasks match the query, a message indicating that no matching tasks were found is returned.
+     * Otherwise, a list of matching tasks is compiled into a string and returned.
+     *
+     * @param tasks The TaskList containing tasks that matched the search criteria.
+     * @return A string detailing the matching tasks. If no tasks match, a message indicating
+     *         that no matching tasks were found is included.
+     */
+    public String showFoundTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            sb.append("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
         }
+        return sb.toString();
     }
 }

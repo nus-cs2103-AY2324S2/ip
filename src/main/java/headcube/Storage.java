@@ -25,8 +25,9 @@ public class Storage {
      * Saves the current list of tasks to a file.
      *
      * @param taskList The list of tasks to be saved.
+     * @return The save message
      */
-    public void save(TaskList taskList) {
+    public String save(TaskList taskList) {
         try {
             String directoryPath = "./data";
             String filePath = directoryPath + "/HeadCube.txt";
@@ -41,9 +42,9 @@ public class Storage {
                 fw.write(task.toFileFormat() + System.lineSeparator());
             }
             fw.close();
-            ui.saveMessage();
+            return ui.saveMessage();
         } catch (IOException e) {
-            ui.error("An error occurred while saving tasks" + e.getMessage());
+            return ui.error("An error occurred while saving tasks" + e.getMessage());
         }
     }
 
@@ -64,7 +65,6 @@ public class Storage {
                 Task task = parse(line);
                 if (task != null) {
                     taskList.add(task);
-
                 }
             }
             scanner.close();
