@@ -1,10 +1,3 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,10 +5,10 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final Path TASKS_CACHE_PATH = Path.of(".duke-cache");
+    private static final String TASKS_CACHE_PATH = ".duke-cache";
     public static TaskList tasks;
     private static final String horiLine = "---------------------------------\n";
-    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     enum Instruction {
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
@@ -37,9 +30,10 @@ public class Duke {
         System.out.println(greet);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException{
+        Storage storage = new Storage(TASKS_CACHE_PATH);
+        tasks = storage.load();
 
-        load();
         greet();
 
         Scanner scanner = new Scanner(System.in);
@@ -52,6 +46,7 @@ public class Duke {
             } catch(DukeException e) {
                 System.out.println("Invalid Instruction: " + e.getMessage());
             }
+            storage.save(tasks);
             System.out.println(horiLine);
             input = scanner.nextLine();
         }
@@ -67,31 +62,24 @@ public class Duke {
         switch (ins) {
             case LIST:
                 listTasks();
-                save();
                 break;
             case MARK:
                 completeTask(details);
-                save();
                 break;
             case UNMARK:
                 uncompleteTask(details);
-                save();
                 break;
             case TODO:
                 addTodo(details);
-                save();
                 break;
             case DEADLINE:
                 addDeadline(details);
-                save();
                 break;
             case EVENT:
                 addEvent(details);
-                save();
                 break;
             case DELETE:
                 deleteTask(details);
-                save();
                 break;
         }
     }
@@ -210,38 +198,5 @@ public class Duke {
         }
     }
 
-    private static void load() {
-        if (Files.notExists(TASKS_CACHE_PATH)) {
-            System.out.println("No cache found");
-            tasks = new TaskList();
-        } else {
-            try {
-                FileInputStream fileInputStream = new FileInputStream(TASKS_CACHE_PATH.toString());
-                ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
-                TaskList tasks = (TaskList) objInputStream.readObject();
-                objInputStream.close();
-                fileInputStream.close();
-                System.out.println(String.format("Tasks downloaded from %s", TASKS_CACHE_PATH));
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Unable to download existing tasks");
-                tasks = new TaskList();
-                try {
-                    Files.delete(TASKS_CACHE_PATH);
-                } catch (IOException ignored) {
-                }
-            }
-        }
-    }
-
-    private static void save() {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(TASKS_CACHE_PATH.toString());
-            ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
-            objOutputStream.writeObject(tasks);
-            objOutputStream.close();
-            fileOutputStream.close();
-        } catch (IOException ignored) {
-        }
-    }
 
 }
