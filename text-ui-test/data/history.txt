@@ -1,0 +1,12 @@
+T|true|read book
+D|true|return book|6/Feb/2024
+E|false|project meeting|8/Feb/2024 02:00 PM|8/Feb/2024 04:00 PM
+T|true|join sports club
+E|false|lunch plans|6/Feb/2024 02:00 PM|6/Feb/2024 04:00 PM
+T|false|read book
+D|false|return book|6/Feb/2024
+E|false|project meeting|8/Feb/2024 02:00 PM|8/Feb/2024 04:00 PM
+T|false|join sports club
+T|false|borrow book
+D|false|finish this|6/Feb/2024
+E|false|lunch plans|6/Feb/2024 02:00 PM|6/Feb/2024 04:00 PM

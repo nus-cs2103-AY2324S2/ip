@@ -7,6 +7,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 
@@ -32,7 +33,7 @@ public class DateTime {
      * @param str <code>String</code> of date and/or time
      * @return <code>LocalDateTime</code> object
      */
-    public LocalDateTime parseDateTime(String str) {
+    public LocalDateTime parseDateTime(String str) throws DateTimeParseException {
         DateTimeFormatterBuilder dateTimeFormatterBuilder =
                 new DateTimeFormatterBuilder()
                         .appendPattern("[d/M/uuuu HHmm]")
@@ -127,7 +128,7 @@ public class DateTime {
      * @param format <code>DateTimeFormatter</code> object
      * @return <code>LocalDateTime</code> object
      */
-    private LocalDateTime getDate(String s, DateTimeFormatter format) {
+    private LocalDateTime getDate(String s, DateTimeFormatter format) throws DateTimeParseException {
         TemporalAccessor dt = format.parseBest(
                 s, LocalDateTime::from, LocalDate::from, LocalTime::from, YearMonth::from);
 
@@ -142,6 +143,7 @@ public class DateTime {
         } else {
             return LocalDateTime.from(dt);
         }
+
     }
     public Boolean isSameDay(DateTime dt) {
         return this.dateTime.toLocalDate().isEqual(dt.dateTime.toLocalDate());
@@ -158,9 +160,9 @@ public class DateTime {
     @Override
     public String toString() {
         if (dateOnly) {
-            return this.dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+            return this.dateTime.format(DateTimeFormatter.ofPattern("d/MMM/yyyy"));
         } else {
-            return this.dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a"));
+            return this.dateTime.format(DateTimeFormatter.ofPattern("d/MMM/yyyy hh:mm a"));
         }
     }
 }

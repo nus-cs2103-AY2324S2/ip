@@ -1,26 +1,58 @@
+/**
+ * Represents a task. A <code>Task</code> object contains its
+ * description or name, represented by a String, and a boolean
+ * indicating whether the task is marked.
+ */
 public class Task {
-    public String taskname;
-    public boolean marked;
+    public String taskName;
+    public boolean isMarked;
     public boolean hasDate;
 
-    // Basic Constructor
-    public Task(String taskname) {
-        this.taskname = taskname;
-        this.marked = false;
+    /**
+     * Basic constructor
+     * @param taskName name of task to be tracked
+     */
+    public Task(String taskName) {
+        this.taskName = taskName.trim();
+        this.isMarked = false;
         this.hasDate = false;
     }
-    public void mark() {
-        this.marked = true;
+    /**
+     * Overloaded constructor with marked status
+     * @param taskName name of task to be tracked
+     * @param isMarked status of task (marked or unmarked)
+     */
+    public Task(String taskName, Boolean isMarked) {
+        this.taskName = taskName;
+        this.isMarked = isMarked;
     }
+    /**
+     * Sets this task as marked, by setting the
+     * boolean flag to be true.
+     */
+    public void mark() {
+        this.isMarked = true;
+    }
+    /**
+     * Sets this task as unmarked, by setting the
+     * boolean flag to be false.
+     */
     public void unmark() {
-        this.marked = false;
+        this.isMarked = false;
+    }
+    /**
+     * Returns a formatted string meant for saving into the
+     * text file.
+     * @return formatted String, consisting of isMarked status and taskname
+     */
+    public String stringForSaving() {
+        return this.isMarked + "|" + this.taskName;
     }
     public Boolean isWithinDate(DateTime dt) {
         return false;
     }
-
     @Override
     public String toString() {
-        return (this.marked ? "[X] " : "[ ] ") + this.taskname;
+        return (this.isMarked ? "[X] " : "[ ] ") + this.taskName;
     }
 }
