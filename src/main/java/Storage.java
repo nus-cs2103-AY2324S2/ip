@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -91,8 +93,58 @@ public class Storage {
                 }
             }
         }
+        store.delete();
         return task;
 
+    }
+
+    public void save(TaskList tasks) {
+        try {
+            FileWriter data = new FileWriter("./data/list.txt");
+            String to_record = "";
+            for (int i = 0; i < tasks.getSize(); i++) {
+                Task temp = tasks.getTask(i);
+                if (temp instanceof ToDos) {
+                    System.out.println("EH");
+                    String isDone = "0";
+                    if (temp.isDone) {
+                        isDone = "1";
+                    }
+                    to_record += "T" +" | " + isDone
+                            + " | " + temp.description + "\n";
+
+                } else if (temp instanceof Events) {
+                    System.out.println("OH");
+                    Events t = (Events) temp;
+                    String isDone = "0";
+                    if (temp.isDone) {
+                        isDone = "1";
+                    }
+                    to_record += "E" + " | " + isDone
+                            + " | " + temp.description + "|"
+                            + t.from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+                            + "|" + t.to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+                            + "\n";
+
+                } else if (temp instanceof Deadline) {
+                    System.out.println("YOU");
+                    Deadline t = (Deadline) temp;
+                    String isDone = "0";
+                    if (temp.isDone) {
+                        isDone = "1";
+                    }
+                    to_record += "D" + " | " + isDone
+                            + " | " + temp.description + "|"
+                            + t.by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+                            + "\n";
+                }
+            }
+            data.write(to_record);
+            data.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

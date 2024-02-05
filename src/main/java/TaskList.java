@@ -13,4 +13,12 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
+    public Task getTask(int i) {
+        return tasks.get(i);
+    }
 }
