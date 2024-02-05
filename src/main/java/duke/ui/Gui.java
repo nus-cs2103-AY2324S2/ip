@@ -1,9 +1,14 @@
 package duke.ui;
 
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
 import duke.storage.TaskList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +23,11 @@ import javafx.stage.Stage;
  * @author Ryan NgWH
  */
 public class Gui extends Ui {
+    /**
+     * Tasklist for the application
+     */
+    private static TaskList taskList;
+
     /**
      * The DukeGui class handles displaying of UI elements in the Duke appliation
      * using a GUI implemented via JavaFX
@@ -79,7 +89,53 @@ public class Gui extends Ui {
 
             AnchorPane.setLeftAnchor(userInput, 1.0);
             AnchorPane.setBottomAnchor(userInput, 1.0);
+
+            // User input functionalities
+            sendButton.setOnMouseClicked((event) -> {
+                try {
+                    dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+                } catch (DukeException e) {
+                    dialogContainer.getChildren().add(new Label(String.format("ERROR: %s", e.getMessage())));
+                } finally {
+                    userInput.clear();
+                }
+            });
+
+            userInput.setOnAction((event) -> {
+                try {
+                    dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+                } catch (DukeException e) {
+                    dialogContainer.getChildren().add(new Label(String.format("ERROR: %s", e.getMessage())));
+                } finally {
+                    userInput.clear();
+                }
+            });
+
+            // Scroll to end every time dialogContainer's height changes
+            dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
             stage.show();
+        }
+
+        /**
+         * Create a label with the response from the application to the user input
+         *
+         * @param input User input to be parsed
+         *
+         * @return Label with the response from the application
+         */
+        private Label getDialogLabel(String input) throws DukeException {
+            // Parse user input
+            Command command = Parser.parse(input);
+
+            // Execute command
+            String response = command.execute(Gui.taskList);
+
+            // Format response
+            Label responseLabel = new Label(response);
+            responseLabel.setWrapText(true);
+
+            return responseLabel;
         }
     }
 
@@ -91,6 +147,7 @@ public class Gui extends Ui {
      */
     @Override
     public void startUI(TaskList taskList, String[] args) {
+        Gui.taskList = taskList;
         Application.launch(DukeGui.class, args);
     }
 }
