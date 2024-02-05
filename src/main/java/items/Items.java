@@ -74,6 +74,9 @@ public class Items {
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder("");
+        if (item_count == 0) {
+            return "Sorry Sir/Mdm, it looks as though you hav yet to add any tasks";
+        }
         for (int i = 0;i < item_count; i++) {
             text.append(String.format("%d. %s \n", i + 1, this.item_list.get(i)));
         }
