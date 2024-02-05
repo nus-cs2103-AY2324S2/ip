@@ -1,3 +1,12 @@
+package util;
+
+import commands.*;
+import exceptions.ChatBotException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +55,7 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
         }
         return new MarkCommand(index);
     }
@@ -58,7 +67,7 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
         }
         return new UnmarkCommand(index);
     }
@@ -70,7 +79,7 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
         }
         return new DeleteCommand(index);
     }
@@ -135,7 +144,7 @@ public class Parser {
     public static Task parseTasksFromFile(String tasksFromFile) throws ChatBotException {
         String[] sections = tasksFromFile.split("\\|");
         if (sections.length < 3 || sections.length > 4) {
-            throw new ChatBotException("Oops! Task format is invalid.");
+            throw new ChatBotException("Oops! tasks.Task format is invalid.");
         }
         String taskType = sections[0];
         boolean isDone = sections[1].trim().equals("1");
@@ -151,7 +160,7 @@ public class Parser {
             return todo;
         case "D":
             if (dateOrTime == null) {
-                throw new ChatBotException("Oops! Deadline format is invalid.");
+                throw new ChatBotException("Oops! tasks.Deadline format is invalid.");
             }
             LocalDateTime due = LocalDateTime.parse(dateOrTime);
             Deadline deadline = new Deadline(taskDescription, due);
@@ -162,7 +171,7 @@ public class Parser {
         case "E":
             String[] startAndEnd = dateOrTime.split("to");
             if (startAndEnd.length < 2) {
-                throw new ChatBotException("Oops! Event format is invalid.");
+                throw new ChatBotException("Oops! tasks.Event format is invalid.");
             }
             LocalDateTime eventStart = LocalDateTime.parse(startAndEnd[0].trim());
             LocalDateTime eventEnd = LocalDateTime.parse(startAndEnd[1].trim());

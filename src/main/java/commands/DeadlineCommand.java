@@ -1,3 +1,9 @@
+package commands;
+
+import util.Ui;
+import util.TaskList;
+import util.Storage;
+import tasks.Deadline;
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command {

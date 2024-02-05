@@ -1,4 +1,10 @@
+package commands;
+
+import util.Ui;
+import util.TaskList;
+import util.Storage;
 import java.time.LocalDateTime;
+import tasks.Event;
 
 public class EventCommand extends Command {
     private String event;

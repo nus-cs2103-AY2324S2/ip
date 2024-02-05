@@ -1,3 +1,10 @@
+package edgar;
+
+import commands.Command;
+import util.Parser;
+import util.Ui;
+import util.TaskList;
+import util.Storage;
 import java.io.IOException;
 
 public class EdgarChatBot {

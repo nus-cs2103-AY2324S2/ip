@@ -1,3 +1,8 @@
+package util;
+
+import exceptions.ChatBotException;
+import tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
@@ -70,7 +75,7 @@ public class TaskList {
 
     public void listTasks() {
         if (this.tasks.size() == 0) {
-            //throw new ChatBotException("Oops! The task list is currently empty.");
+            //throw new exceptions.ChatBotException("Oops! The task list is currently empty.");
             System.out.println("Oops! The task list is currently empty.");
         } else {
             System.out.println("Here are the tasks in your list: ");

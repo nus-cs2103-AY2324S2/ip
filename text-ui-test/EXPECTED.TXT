@@ -18,7 +18,7 @@ Here are the tasks in your list:
 2.[D][ ] eat dinner (by: 6pm)
 ____________________________________________________________
 ____________________________________________________________
-	Oops! Please enter task type of 'Todo/Event/Deadline
+	Oops! Please enter task type of 'Todo/tasks.Event/tasks.Deadline
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
