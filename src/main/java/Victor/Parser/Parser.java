@@ -1,15 +1,14 @@
 package Victor.Parser;
 
 import Victor.TaskList.TaskList;
-import Victor.TaskType.Deadline;
-import Victor.TaskType.Event;
-import Victor.TaskType.Task;
-import Victor.TaskType.Todo;
+import Victor.Deadline;
+import Victor.Event;
+import Victor.Task;
+import Victor.Todo;
 import Victor.Ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 public class Parser {
     enum taskName {

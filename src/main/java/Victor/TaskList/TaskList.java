@@ -1,7 +1,6 @@
 package Victor.TaskList;
 
-import Victor.TaskType.Task;
-import Victor.TaskType.Todo;
+import Victor.Task;
 import Victor.Ui.Ui;
 
 import java.util.ArrayList;

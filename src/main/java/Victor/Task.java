@@ -1,4 +1,4 @@
-package Victor.TaskType;
+package Victor;
 public class Task {
         protected String description;
         protected boolean isDone;
@@ -28,7 +28,7 @@ public class Task {
         }
 
     public String saveInput() {
-        return "T | " + isDone + " | " + description;
+        return "";
     }
 }
 

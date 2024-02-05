@@ -2,12 +2,8 @@ package Victor;
 import Victor.Parser.Parser;
 import Victor.Storage.Storage;
 import Victor.TaskList.TaskList;
-import Victor.TaskType.Task;
 import Victor.Ui.Ui;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
 import java.io.IOException;
 
 class DukeException extends Exception {
