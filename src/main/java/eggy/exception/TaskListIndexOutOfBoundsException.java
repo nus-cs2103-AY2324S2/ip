@@ -11,6 +11,7 @@ public class TaskListIndexOutOfBoundsException extends EggyException {
      * @param tasksSize The size of the list of tasks.
      */
     public TaskListIndexOutOfBoundsException(int taskNumber, int tasksSize) {
-        super(" Task number " + taskNumber + " is out of bounds for list of " + tasksSize + " task" + (tasksSize > 1 ? "s" : "") + ".");
+        super(" Task number " + taskNumber + " is out of bounds for list of " + tasksSize + " task"
+                + (tasksSize > 1 ? "s" : "") + ".");
     }
 }

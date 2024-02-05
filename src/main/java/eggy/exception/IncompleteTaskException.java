@@ -10,6 +10,7 @@ public class IncompleteTaskException extends EggyException {
      * @param taskType The type of the task.
      */
     public IncompleteTaskException(String taskType) {
-        super(" The description of " + (taskType.matches("^[aeiouAEIOU].*") ? "an " : "a ") + taskType +" cannot be empty.");
+        super(" The description of " + (taskType.matches("^[aeiouAEIOU].*") ? "an " : "a ") + taskType
+                + " cannot be empty.");
     }
 }

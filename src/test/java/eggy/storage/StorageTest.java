@@ -67,9 +67,11 @@ public class StorageTest {
 
     @Test
     public void save_tasks_success() throws IOException, SaveTasksException {
-        TaskList tasks = new TaskList(List.of(new Todo("read book", true), new Event("birthday party", LocalDateTime.parse("2023-05-14T17:00"), LocalDateTime.parse("2023-05-14T23:59"))));
+        TaskList tasks = new TaskList(List.of(new Todo("read book", true), new Event("birthday party",
+                LocalDateTime.parse("2023-05-14T17:00"), LocalDateTime.parse("2023-05-14T23:59"))));
         storage.save(tasks);
         assertTrue(tempFile.toFile().exists(), "File should exist.");
-        assertEquals(List.of("T | 1 | read book", "E | 0 | birthday party | 2023-05-14T17:00 | 2023-05-14T23:59"), Files.readAllLines(tempFile));
+        assertEquals(List.of("T | 1 | read book", "E | 0 | birthday party | 2023-05-14T17:00 | 2023-05-14T23:59"),
+                Files.readAllLines(tempFile));
     }
 }

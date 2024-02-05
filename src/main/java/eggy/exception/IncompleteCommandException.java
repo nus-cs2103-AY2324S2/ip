@@ -10,6 +10,7 @@ public class IncompleteCommandException extends EggyException {
      * @param commandType The type of command that the user did not specify the task number for.
      */
     public IncompleteCommandException(String commandType) {
-        super(" The task number to be " + commandType + (commandType.equals("delete") ? "d" : "ed") + " is not specified.");
+        super(" The task number to be " + commandType + (commandType.equals("delete") ? "d" : "ed")
+                + " is not specified.");
     }
 }
