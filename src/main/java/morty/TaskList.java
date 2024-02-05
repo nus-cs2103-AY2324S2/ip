@@ -2,6 +2,7 @@ package morty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import morty.task.Task;
 
@@ -84,6 +85,18 @@ public class TaskList {
    */
   public void markDone(int index) {
     tasks.get(index).markDone();
+  }
+
+  /**
+   * Returns a list of tasks that contain the given keyword.
+   *
+   * @param keyword The keyword to search for.
+   * @return The list of tasks that contain the given keyword.
+   */
+  public List<Task> find(String keyword) {
+    return tasks.stream()
+        .filter(task -> task.getTitle().contains(keyword))
+        .collect(Collectors.toList());
   }
 
 }
