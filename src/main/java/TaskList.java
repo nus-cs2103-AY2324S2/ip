@@ -31,7 +31,7 @@ public class TaskList {
         list[index - 1].markAsDone();
         return "\t-----------------------------------\n" +
                 "\tNice! I've marked this task as done:\n" +
-                "\t  " + list[index - 1].toString() + "\n" +
+                "\t  " + index + ". " + list[index - 1].toString() + "\n" +
                 "\t-----------------------------------";
     }
 
@@ -42,7 +42,7 @@ public class TaskList {
         list[index - 1].markAsUndone();
         return "\t-----------------------------------\n" +
                 "\tNice! I've marked this task as undone:\n" +
-                "\t  " + list[index - 1].toString() + "\n" +
+                "\t  " + index + ". " + list[index - 1].toString() + "\n" +
                 "\t-----------------------------------";
     }
 
