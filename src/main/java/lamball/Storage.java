@@ -26,12 +26,15 @@ public class Storage {
      * Obtains and initializes list from saved text file locally.
      *
      * @param lamb Initialized Lamball chatbot instance.
+     * @return Text for the GUI to display.
      */
 
-    public static void obtainSavedFile(Lamball lamb) {
+    public static String obtainSavedFile(Lamball lamb) {
+        String returnVal = "";
         File folder = new File("src/main/java/data");
         if (!folder.exists()) {
             System.out.println("Folder does not exist. Creating folder...");
+            returnVal += "Folder does not exist. Creating folder...\n";
             folder.mkdirs();
         }
         File savedList = new File("src/main/java/data/list.txt");
@@ -39,12 +42,17 @@ public class Storage {
             // Try to create file
             if (savedList.createNewFile()) {
                 System.out.println("List created successfully at: " + savedList.getAbsolutePath());
+                returnVal += "List created successfully at: " + savedList.getAbsolutePath() + "\n";
             } else {
                 System.out.println("Seems like I haave helped you before, so no new list is needed!");
+                returnVal += "Seems like I haave helped you before, so no new list is needed!\n";
             }
             initializeListFromText(savedList, lamb);
         } catch (IOException e) {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
+            returnVal += "An error occurred while creating the file: " + e.getMessage();
+        } finally {
+            return returnVal;
         }
     }
 

@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass = "lamball.Lamball"
+    mainClass = "lamball.Launcher"
 //    mainClass.set("lamball.Lamball")
 }
 
