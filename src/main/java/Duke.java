@@ -165,10 +165,14 @@ public class Duke {
                         break;
                 }
             }
-            sc.close();
+            sc.close();  
         } catch (Exception e) {
             System.out.println(e);
+            this.dataFile.delete();
+            this.list.clear();
+            System.out.println("\tData file is corrupted and has been deleted.");
         }
+      
     }
 
     private void saveData() {
