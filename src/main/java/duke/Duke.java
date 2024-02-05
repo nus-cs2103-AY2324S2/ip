@@ -24,8 +24,9 @@ public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         UI ui = new UI(sc);
+        Finder finder;
         ui.showWelcome();
-        lst = Storage.loadTasks();
+        lst = storage.loadTasks();
         while (ui.hasNextCommand()) {
             try {
                 String s = ui.readCommand();
@@ -56,6 +57,11 @@ public class Duke {
                         break;
                     case DELETE:
                         lst.deleteTask(Integer.parseInt(taskDetail.trim()));
+                        break;
+                    case FIND:
+                        ui.startFind();
+                        finder = new Finder(lst);
+                        finder.find(taskDetail);
                         break;
                     case UNKNOWN:
                         throw new AllyException();
