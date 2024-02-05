@@ -8,7 +8,7 @@ import jiayou.task.*;
  */
 public class Parser {
     private static enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH, FIND
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH_BY_DATE, SEARCH_BY_KEYWORD
     }
 
     /** Parses the input command and invokes the corresponding methods in the task list to process it.
@@ -77,11 +77,13 @@ public class Parser {
                 System.out.println("  " + newEvent);
                 System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
                 break;
-            case SEARCH:
+            case SEARCH_BY_DATE:
                 LocalDate date = LocalDate.parse(content);
                 tasks.searchByDate(date);
-            case FIND:
+                break;
+            case SEARCH_BY_KEYWORD:
                 tasks.searchByKeyword(content);
+                break;
             }
         } catch (IllegalArgumentException e) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
