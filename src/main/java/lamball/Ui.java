@@ -7,16 +7,12 @@ package lamball;
  */
 
 public class Ui {
-    private static final String WELCOME_MESSAGE = "    lamball\n" +
-            "    ____________________________________________________________\n" +
+    private static final String WELCOME_MESSAGE =
             "     Hello! I'm Lamball, your helpful sheep!\n" +
-            "     Whaaat can I do for you?\n" +
-            "    ____________________________________________________________\n";
-    private static final String GOODBYE_MESSAGE = "    ____________________________________________________________\n" +
-            "     See you again!\n" +
-            "    ____________________________________________________________\n";
+            "     Whaaat can I do for you?\n";
 
-    private static final String INDENT = "    ____________________________________________________________\n";
+    private static final String GOODBYE_MESSAGE =
+        "     See you again!\n";
 
     /**
      * Constructor for Ui class.
@@ -29,34 +25,44 @@ public class Ui {
     /**
      * Prints a greeting message.
      *
+     * @return Welcome message, for GUI processing.
      */
-    public void greetingMessage() {
+    public String greetingMessage() {
         System.out.println(WELCOME_MESSAGE);
+        return WELCOME_MESSAGE;
     }
 
     /**
      * Prints a goodbye message.
      *
+     * @return Goodbye message, for GUI processing.
      */
-    public void goodbyeMessage() {
+    public String goodbyeMessage() {
         System.out.println(GOODBYE_MESSAGE);
+        return GOODBYE_MESSAGE;
     }
 
     /**
      * Formats the error message, then prints it.
      *
      * @param e Exception that was given.
+     * @return Formatted error message for GUI processing.
      */
-    public void displayError(Exception e) {
-        System.out.println(INDENT + "    " + e.getMessage() + "\n" + INDENT);
+    public String displayError(Exception e) {
+        String returnVal = "    " + e.getMessage() + "\n";
+        System.out.println(returnVal);
+        return returnVal;
     }
 
     /**
      * Formats the action done, then prints it.
      *
      * @param msg Action that was performed.
+     * @return Formatted action for GUI processing.
      */
-    public void displayAction(String msg) {
-        System.out.println(INDENT + "    " + msg + "\n" + INDENT);
+    public String displayAction(String msg) {
+        String returnVal ="    " + msg + "\n";
+        System.out.println(returnVal);
+        return returnVal;
     }
 }

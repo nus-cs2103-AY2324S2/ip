@@ -15,10 +15,9 @@ import java.util.ArrayList;
  * @author ongzhili
  */
 public class TaskList {
-    private final String INDENT = "    ____________________________________________________________\n";
     protected ArrayList<Task> tasks;
 
-    String lastDoneTask;
+    private String lastDoneTask;
 
 
     /**
@@ -30,8 +29,17 @@ public class TaskList {
         this.lastDoneTask = "";
     }
 
+    /**
+     * Returns last done task.
+     *
+     * @return last done task in String format.
+     */
+    public String getLastDoneTask() {
+        return this.lastDoneTask;
+    }
+
     private void printList(ArrayList<Task> lst) {
-        String listStr = "    Here aaaaare the taaaasks in your list:";
+        String listStr = "Here aaaaare the taaaasks in your list:";
         for(int i = 0; i < lst.size(); i++) {
             listStr += "\n    " + (i + 1) + ". " + lst.get(i).toString() + "";
         }
