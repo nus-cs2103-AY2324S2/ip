@@ -124,7 +124,7 @@ public class ByteTalker {
             String[] splitMessage = userInputString.split(" ");
             System.out.println("    -----------------------------------");
             if (userInputString.equals("bye")) {
-                break
+                break;
             } else if (userInputString.equals("list")) {
                 chatbot.returnList();
             } else if (splitMessage[0].equals("mark")) {
