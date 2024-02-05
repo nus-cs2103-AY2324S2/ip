@@ -1,5 +1,8 @@
 package simpli.configs;
 
+/**
+ * Configurations for the chatbot.
+ */
 public final class SimpliConfiguration {
     // chatbot response placeholder
     public static final String PLACEHOLDER =
@@ -9,6 +12,9 @@ public final class SimpliConfiguration {
 
     public static final String DATAPATH = "./data/simpli.csv";
 
+    /**
+     * Class cannot be initialized.
+     */
     private SimpliConfiguration() {
     }
 }

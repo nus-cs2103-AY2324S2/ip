@@ -16,6 +16,10 @@ public class Deadline extends Task {
         return String.format("Deadline,%s,%s", super.toCsv(), this.by.format(FORMATTER));
     }
 
+    /**
+     * Returns the deadline task String representation.
+     * @return String representation of the deadline task.
+     */
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by.format(FORMATTER));

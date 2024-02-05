@@ -20,6 +20,10 @@ public class Event extends Task {
                 this.from.format(FORMATTER), this.to.format(FORMATTER));
     }
 
+    /**
+     * Returns the event task String representation.
+     * @return String representation of the event task.
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
