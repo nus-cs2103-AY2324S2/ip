@@ -47,8 +47,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        String X = this.getMark() ? "X" : " ";
-        return "[D]"+"[" + X + "] " + this.getItem()
+        String X = (this.getMark()) ? "X" : " ";
+        return "[D]" + "[" + X + "] " + this.getItem()
                 + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

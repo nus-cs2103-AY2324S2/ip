@@ -1,6 +1,7 @@
 package venus;
 
 import java.util.ArrayList;
+
 /**
  * This is a Ui class the create Ui for messages i/o of program.
  *

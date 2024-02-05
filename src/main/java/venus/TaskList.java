@@ -1,6 +1,7 @@
 package venus;
 
 import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,6 @@ import java.util.ArrayList;
  * @since 2024-02-05
  */
 public class TaskList {
-
     /**
      * Enums that are used to identify Tasks
      */
@@ -151,6 +151,5 @@ public class TaskList {
         default:
             Ui.formatResponse("Unknown command, please try again");
         }
-
     }
 }

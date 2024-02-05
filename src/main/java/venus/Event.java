@@ -34,7 +34,8 @@ public class Event extends Task{
      * @param end Ending date in "YYYY-MM-DD" format.
      * @param dummy Dummy boolean
      */
-    public Event (String s, boolean mark, String start, String end, boolean dummy){ //constructor used for loading
+    public Event (String s, boolean mark, String start, String end, boolean dummy) {
+    // constructor used for loading
         super(s);
         this.start = TimeFormatter.loadTimeFromString(start.trim());
         this.end = TimeFormatter.loadTimeFromString(end.trim());
@@ -53,8 +54,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        String X = this.getMark() ? "X" : " ";
-        return "[E]"+"[" + X + "] " + this.getItem()
+        String X = (this.getMark()) ? "X" : " ";
+        return "[E]" + "[" + X + "] " + this.getItem()
                 + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }

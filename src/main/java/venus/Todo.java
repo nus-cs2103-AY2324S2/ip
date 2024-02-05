@@ -33,7 +33,7 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
-        String X = this.getMark() ? "X" : " ";
+        String X = (this.getMark()) ? "X" : " ";
         return ("[T]"+"[" + X + "] " + this.getItem());
     }
 }

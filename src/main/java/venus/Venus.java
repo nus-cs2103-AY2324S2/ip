@@ -1,15 +1,16 @@
 package venus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import java.util.Scanner;
+
 /**
  * This is a deadline class that extends from the Task class.
  *
  * @author peterXGD
  * @since 2024-02-05
  */
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 public class Venus {
 
     Storage storage;
