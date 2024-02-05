@@ -24,8 +24,8 @@ public class  Dude {
         Scanner sc = new Scanner(System.in);
         while(true){
 
-            String s = sc.nextLine();
-            String first_arg = s.split(" ")[0];
+            String msg = sc.nextLine();
+            String first_arg = msg.split(" ")[0];
 
             switch (first_arg){
                 case "bye":
@@ -37,14 +37,11 @@ public class  Dude {
                 case "mark":
 
                 default:
-                    System.out.println(add_task(s));
+                    System.out.println(add_task(msg));
             }
         }
 
     }
-
-
-
 
     private static String greet(){
         return "\t-----------------------------------\n" +
