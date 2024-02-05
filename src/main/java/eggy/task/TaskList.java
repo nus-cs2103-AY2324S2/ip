@@ -2,6 +2,7 @@ package eggy.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -71,6 +72,16 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
+    }
+
+    /**
+     * Returns a list of tasks that match the keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return List of tasks that match the keyword.
+     */
+    public List<Task> findMatchingTasks(String keyword) {
+        return this.tasks.stream().filter(task -> task.getName().contains(keyword)).collect(Collectors.toList());
     }
 
     /**
