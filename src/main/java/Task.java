@@ -21,6 +21,30 @@ class Task {
         this.time1 = time1;
     }
 
+    // Constructor for creating TODO Task from file data
+    public Task(SecretaryW.TaskType type, String description, boolean isDone) {
+        this.type = type;
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    // Constructor for creating DEADLINE Task from file data
+    public Task(SecretaryW.TaskType type, String description, String time1, boolean isDone) {
+        this.type = type;
+        this.description = description;
+        this.time1 = time1;
+        this.isDone = isDone;
+    }
+
+    // Constructor for creating EVENT Task from file data
+    public Task(SecretaryW.TaskType type, String description, String time1, String time2, boolean isDone) {
+        this.type = type;
+        this.description = description;
+        this.time1 = time1;
+        this.time2 = time2;
+        this.isDone = isDone;
+    }
+
     //constructor for EVENT
     public Task(SecretaryW.TaskType type, String description, String time1, String time2) {
         this.type = type;
@@ -49,6 +73,19 @@ class Task {
         return (this.isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
+    // Method to convert a Task to a string for writing to the file
+    public String toFileString() {
+        switch (type) {
+            case TODO:
+                return "T | " + (isDone ? "1" : "0") + " | " + description;
+            case DEADLINE:
+                return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + time1;
+            case EVENT:
+                return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + time1 + " | " + time2;
+            default:
+                return "";
+        }
+    }
     @Override
     public String toString() {
         switch (type) {

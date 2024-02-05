@@ -1,8 +1,63 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class SecretaryW {
     public enum TaskType {
         TODO, DEADLINE, EVENT
+    }
+
+    private static final String FILE_PATH = "./java/data/SecretaryW.txt";
+
+    private static void loadTasksFromFile(ArrayList<Task> taskList) {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner fileScanner = new Scanner(file);
+                while (fileScanner.hasNext()) {
+                    String taskData = fileScanner.nextLine();
+                    Task task = createTaskFromData(taskData);
+                    taskList.add(task);
+                }
+                fileScanner.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    // Save tasks to the file whenever the task list changes
+    private static void saveTasksToFile(ArrayList<Task> taskList) {
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (Task task : taskList) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Create a Task object from data read from the file
+    private static Task createTaskFromData(String taskData) {
+        String[] parts = taskData.split("\\|");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        if (type.equals("T")) {
+            return new Task(TaskType.TODO, description, isDone);
+        } else if (type.equals("D")) {
+            String by = parts[3].trim();
+            return new Task(TaskType.DEADLINE, description, by, isDone);
+        } else if (type.equals("E")) {
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            return new Task(TaskType.EVENT, description, from, to, isDone);
+        } else {
+            // Handle other types if needed
+            return null;
+        }
     }
     public static void main(String[] args) {
         // Scanner object to read user input
@@ -10,6 +65,9 @@ public class SecretaryW {
 
         // ArrayList to store task items
         ArrayList<Task> taskList = new ArrayList<>();
+
+        // Load tasks from file
+        loadTasksFromFile(taskList);
 
         String greeting = "Hello! I'm SecretaryW\n" + "What can I do for you?\n";
         String farewell = "Bye. Hope to see you again soon!\n";
@@ -99,6 +157,9 @@ public class SecretaryW {
                 }
             } catch (WException e) {
                 System.out.println(line + "OOPS!!! " + e.getMessage() + "\n" + line);
+            } finally {
+                // Save tasks to file whenever tasklist changes
+                saveTasksToFile(taskList);
             }
         }
         // Farewell
