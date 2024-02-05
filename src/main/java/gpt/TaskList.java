@@ -2,6 +2,9 @@ package gpt;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -87,6 +90,12 @@ public class TaskList {
         return tasks.contains(task);
     }
 
+    /**
+     * Finds tasks that contain a specified keyword.
+     *
+     * @param keyword The keyword to be searched.
+     * @return A TaskList containing tasks that contain the keyword.
+     */
     public TaskList findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {

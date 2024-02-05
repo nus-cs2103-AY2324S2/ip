@@ -1,21 +1,21 @@
 package gpt;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 
-import static gpt.Storage.createFolderAndFile;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+
 
 public class StorageTest {
-    static String testFilePath = "./data/GPT.txt";
+    private static String testFilePath = "./data/GPT.txt";
     @Test
     public void testStorageSaveAndLoadTasks() {
 
-        try{
+        try {
             TaskList taskList = new TaskList(new ArrayList<Task>());
             Task task1 = new Task("Sample Task", TaskType.E, false, "01/01/2021 1800", "01/01/2021 2000");
             taskList.addTask(task1);
