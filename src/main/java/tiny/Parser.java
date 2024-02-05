@@ -155,7 +155,6 @@ public class Parser {
             } else {
                 name = st[0].substring(9);
                 taskList.add(new Deadline(name.trim(), st[1]));
-                // printAdd(tasks.get(tasks.size() - 1).toString(), tasks.size());
                 return "Got it. I've added this task:\n" + "      " + taskList.get(taskList.size() - 1)
                         + "\n   Now you have " + taskList.size() + " task(s) in the list.";
             }
@@ -178,7 +177,6 @@ public class Parser {
             String name = "";
             String[] s = input.split(" ");
             if (!s[0].equals("event")) {
-                System.out.println("YES");
                 return "OOPS! You need to type \"event <description> /from <start date> /to <end date>\" "
                         + "to create a new deadline!";
             } else {

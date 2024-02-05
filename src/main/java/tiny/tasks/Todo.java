@@ -6,7 +6,7 @@ package tiny.tasks;
 public class Todo extends Task {
 
     /**
-     * Initialize Todo.
+     * Initializes Todo.
      *
      * @param description Description of the task.
      */
@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Initialize Todo.
+     * Initializes Todo.
      *
      * @param description Description of the task.
      * @param isDone      Status of the task.

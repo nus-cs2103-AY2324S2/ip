@@ -36,13 +36,13 @@ public class Storage {
             }
             File file = new File(filePath);
             Scanner sc = new Scanner(file);
-            ArrayList<String> datas = new ArrayList<>();
+            ArrayList<String> data = new ArrayList<>();
             while (sc.hasNextLine()) {
-                String data = sc.nextLine();
-                datas.add(data);
+                String d = sc.nextLine();
+                data.add(d);
             }
             sc.close();
-            return datas;
+            return data;
         } catch (FileNotFoundException e) {
             throw new TinyException("File not found");
         }
