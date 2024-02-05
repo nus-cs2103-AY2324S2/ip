@@ -25,6 +25,10 @@ public class Task {
         return index + ". [" + getStatusIcon() + "] " + description;
     }
 
+    public void changeindex(int newIndex) {
+        this.index = newIndex;
+    }
+
     public String save() {
         return index + "|" + (isDone ? "1" : "0") + "|" + description;
     }
