@@ -7,6 +7,7 @@ import Victor.TaskType.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ import java.util.Scanner;
 public class Storage {
 
     File dataFile;
+    String filePath;
     public Storage(String filePath) {
         this.dataFile = new File(filePath);
+        this.filePath = filePath;
     }
 
     public ArrayList<Task> load() {
@@ -52,5 +55,23 @@ public class Storage {
             }
         }
         return currentList;
+    }
+
+    public void updateFile(ArrayList<Task> updatedArray) throws IOException{
+        int i = 0;
+        try {
+            FileWriter writeToFile = new FileWriter(this.filePath);
+            while (i < updatedArray.size()-1) {
+                Task nextTask = updatedArray.get(i);
+                writeToFile.write(nextTask.saveInput()
+                        + System.lineSeparator());
+                i++;
+            }
+            Task finalTask = updatedArray.getLast();
+            writeToFile.write(finalTask.saveInput());
+            writeToFile.close();
+        } catch (IOException e) {
+            System.out.println("Update File Error. Unable to save new data");
+        }
     }
 }

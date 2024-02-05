@@ -1,4 +1,7 @@
 package Victor.Ui;
+
+import java.util.Scanner;
+
 public class Ui {
     protected String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -18,13 +21,22 @@ public class Ui {
                 "____________________________________________________________";
     }
 
-    public String getIntro() {
+    public void showIntro() {
         System.out.println("Hello from\n" + logo);
-        return this.intro;
+        System.out.println(this.intro);
     }
 
-    public String getEnding() {
-        return this.ending;
+    public void showEnding() {
+        System.out.println(this.ending);
+    }
+
+    public String readCommand() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+    }
+
+    public void displayBarrier() {
+        System.out.println(this.barrier);
     }
 
 }
