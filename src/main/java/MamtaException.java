@@ -15,6 +15,9 @@ public class MamtaException {
     public static MamtaException invalidDates() {
         return new MamtaException("Oye, dates enter properly man!");
     }
+    public static MamtaException IOException() {
+        return new MamtaException("Guddhi laal kardunga, error with input files!");
+    }
 
     public String toString() {
         return String.format("You ran into this error: %s", this.exceptionMessage);
