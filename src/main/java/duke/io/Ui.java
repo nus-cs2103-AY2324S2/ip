@@ -3,7 +3,6 @@ import duke.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Ui {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
