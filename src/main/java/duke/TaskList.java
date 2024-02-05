@@ -3,15 +3,16 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
-/**
- * Abstraction of tasks lists.
- * Inherits from ArrayList<Tasks>.
- */
 public class TaskList extends ArrayList<Task> {
+    void addToList(String s) {
+        this.add(new Task(s));
+        System.out.println("added: " + s);
+    }
 
     /**
-     * Adds Task to List.
-     * @param t Task
+     * Adds a Task to the TaskList.
+     *
+     * @param t Task to be added.
      */
     void addToList(Task t) {
         this.add(t);
@@ -21,7 +22,8 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Displays list in chatbot friendly output format.
+     * Displays the tasks in the task list.
+     * Tasks are numbered and each begin on a new line
      */
     void displayList() {
         System.out.println("Here are the tasks in your list:");
@@ -31,8 +33,9 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Marks an item in the list as done.
-     * @param i task number to mark as done
+     * Marks a Task on the TaskList as complete.
+     *
+     * @param i index of the task to be marked as complete.
      */
     void markComplete(int i) {
         System.out.println("Nice! I've marked this duke.task as done:");
@@ -41,8 +44,9 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Marks an item in the list as incomplete.
-     * @param i task number to mark as incompletec
+     * Marks a Task on the TaskList as incomplete.
+     *
+     * @param i index of the task to be marked as incomplete.
      */
     void unmarkComplete(int i) {
         System.out.println("OK, I've marked this duke.task as not done yet:");
@@ -51,8 +55,9 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Deletes a task from the list.
-     * @param i task number to mark as incomplete
+     * Deletes a Task on the TaskList.
+     *
+     * @param i index of the task to be deleted.
      */
     void deleteTask(int i) {
         Task t = this.remove(i-1);
@@ -62,8 +67,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Counts the number of tasks.
-     * Outputs the number in the chatbot.
+     * Counts the number of Tasks on the TaskList.
      */
     void countTasks() {
         System.out.println("Now you have " + this.size() + " tasks in the list.");
