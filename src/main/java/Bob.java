@@ -24,6 +24,8 @@ public class Bob {
             if (input.equals("list")) {
                 int size = taskList.size();
 
+                System.out.println(" Here are the tasks in your list:");
+
                 for (int count = 0; count < size; count++) {
                     System.out.println(" " + (count + 1) + "." + taskList.get(count));
                 }
@@ -47,9 +49,47 @@ public class Bob {
                         + "  " + task);
             }
 
+            else if (input.startsWith("deadline ")) {
+                int byIndex = input.indexOf("/by ");
+                String taskDescription = input.substring(9, byIndex).trim();
+                String deadlineDate = input.substring(byIndex + 4).trim();
+
+                Task newTask = new Deadline(taskDescription, deadlineDate);
+                taskList.add(newTask);
+                System.out.println(" Got it. I've added this task:\n"
+                        + "  " + newTask + "\n"
+                        + " Now you have " + taskList.size() + " tasks in the list.");
+            }
+
+            else if (input.startsWith("todo ")) {
+                String taskDescription = input.substring(5);
+                Task newTask = new ToDo(taskDescription);
+                taskList.add(newTask);
+                System.out.println(" Got it. I've added this task:\n"
+                        + "  " + newTask + "\n"
+                        + " Now you have " + taskList.size() + " tasks in the list.");
+            }
+
+            else if (input.startsWith("event ")) {
+                int fromIndex = input.indexOf("/from ");
+                int toIndex = input.indexOf("/to ");
+                String taskDescription = input.substring(6, fromIndex).trim();
+                String fromDate = input.substring(fromIndex + 6, toIndex).trim();
+                String toDate = input.substring(toIndex + 4).trim();
+
+                Task newTask = new Event(taskDescription, fromDate, toDate);
+                taskList.add(newTask);
+                System.out.println(" Got it. I've added this task:\n"
+                        + "  " + newTask + "\n"
+                        + " Now you have " + taskList.size() + " tasks in the list.");
+            }
+
             else {
-                taskList.add(new Task(input));
-                System.out.println(" added: " + input);
+                Task newTask = new Task(input);
+                taskList.add(newTask);
+                System.out.println(" Got it. I've added this task:\n"
+                        + "  " + newTask + "\n"
+                        + " Now you have " + taskList.size() + " tasks in the list.");
             }
         }
 
@@ -93,5 +133,67 @@ class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    /*
+     * A constructor for creating a new task with a deadline.
+     */
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    /*
+     * A method that returns the task status as a string.
+     * @return A label [D] and a check-box followed by the description of the task.
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class ToDo extends Task {
+    /*
+     * A constructor for creating a new todo task.
+     */
+    public ToDo(String description) {
+        super(description);
+    }
+
+    /*
+     * A method that returns the task description.
+     * @return A label [T] and a check-box followed by the description of the task.
+     */
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    /*
+     * A constructor to create a new event task.
+     */
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    /*
+     * A method that returns the status of the task.
+     * @return A label [E] and a check-box followed by the description of the task.
+     */
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
