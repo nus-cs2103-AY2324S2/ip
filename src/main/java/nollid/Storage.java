@@ -1,13 +1,17 @@
 package nollid;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
@@ -19,12 +23,8 @@ import nollid.tasks.Todo;
  * Storage class handles loading and updating tasks from/to a file.
  */
 public class Storage {
-    public static final Path DEFAULT_FILEPATH = Paths.get(".", "data", "nollid.data");
-    public static final Path TEST_FILEPATH = Paths.get(".", "data", "test.data");
-    /**
-     * Unicode character U+2605 unlikely to be entered by user.
-     */
-    protected static final String DELIMITER = "\u2605";
+    public static final Path DEFAULT_FILEPATH = Paths.get(".", "data", "nollid.json");
+    public static final Path TEST_FILEPATH = Paths.get(".", "data", "tests", "test_valid.json");
     private final Path filePath;
 
     public Storage(Path filePath) {
@@ -36,68 +36,83 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
+        // If file doesn't exist, create file and return empty taskList.
         try {
             if (Files.notExists(this.filePath)) {
                 if (Files.notExists(this.filePath.getParent())) {
                     Files.createDirectories(this.filePath.getParent());
                 }
                 Files.createFile(this.filePath);
+
+                return taskList;
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return taskList;
+        }
 
-            for (String line : Files.readAllLines(this.filePath)) {
-                String[] lineArray = line.split(DELIMITER);
+        JSONTokener jsonTokener;
+        // If file unable to be read, return empty taskList.
+        try {
+            jsonTokener = new JSONTokener(Files.newInputStream(this.filePath));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return taskList;
+        }
 
-                Task taskToAdd;
-                String taskDescription;
-                try {
-                    taskDescription = lineArray[2];
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    // Line that doesn't follow the format
-                    continue;
-                }
+        JSONArray jsonArray;
+        // If file not in proper JSON format, return empty taskList.
+        try {
+            jsonArray = new JSONArray(jsonTokener);
+        } catch (JSONException e) {
+            System.out.println(e.getMessage());
+            return taskList;
+        }
 
-                switch (lineArray[0]) {
-                case "T":
-                    taskToAdd = new Todo(taskDescription);
+        Task taskToAdd;
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            // If for any reason, a JSON object is unable to be read in the file, just go to the next object.
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                String taskType = jsonObject.getString("type");
+                String description = jsonObject.getString("description");
+
+
+                switch (taskType) {
+                case "todo":
+                    taskToAdd = new Todo(description);
                     break;
-                case "D":
-                    String deadlineString = lineArray[3];
-                    try {
-                        LocalDateTime deadline = Parser.getLocalDateTimeFromString(deadlineString);
-                        taskToAdd = new Deadline(taskDescription, deadline);
-                    } catch (DateTimeParseException e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    }
+                case "deadline":
+                    LocalDateTime deadline = Parser.getLocalDateTimeFromString(jsonObject.getString("deadline"));
+                    taskToAdd = new Deadline(description, deadline);
                     break;
-                case "E":
-                    String from = lineArray[3];
-                    String to = lineArray[4];
-
+                case "event":
+                    LocalDateTime from = Parser.getLocalDateTimeFromString(jsonObject.getString("from"));
+                    LocalDateTime to = Parser.getLocalDateTimeFromString(jsonObject.getString("to"));
                     try {
-                        LocalDateTime fromDateTime = Parser.getLocalDateTimeFromString(from);
-                        LocalDateTime toDateTime = Parser.getLocalDateTimeFromString(to);
-                        taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
-                    } catch (DateTimeParseException | NollidException e) {
-                        System.out.println(e.getMessage());
+                        taskToAdd = new Event(description, from, to);
+                    } catch (NollidException e) {
+                        e.printStackTrace();
                         continue;
                     }
                     break;
                 default:
-                    // Unknown first character, go to next line
+                    // Invalid task, go to next object
                     continue;
                 }
-                String doneFlag = lineArray[1];
-                if (doneFlag.equals("1")) {
+
+                boolean isDone = jsonObject.getBoolean("isDone");
+
+                if (isDone) {
                     taskToAdd.setDone(true);
                 }
-
                 taskList.add(taskToAdd);
+            } catch (JSONException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
-
         return taskList;
     }
 
@@ -105,7 +120,8 @@ public class Storage {
      * Updates the storage on disk based on the current state of the given task list.
      */
     public void update(TaskList taskList) {
-        boolean isFirstLine = true;
+        JSONArray jsonArray = new JSONArray();
+
         if (taskList.isEmpty()) {
             try {
                 Files.write(this.filePath, "".getBytes());
@@ -113,33 +129,39 @@ public class Storage {
                 System.out.println(e.getMessage());
             }
         }
-        for (Task t : taskList) {
-            String lineToWrite = "";
-            try {
-                if (t instanceof Todo) {
-                    lineToWrite = "T" + DELIMITER + t.getStatusNumber() + DELIMITER + t.getDescription() + "\n";
-                } else if (t instanceof Deadline) {
-                    Deadline deadline = (Deadline) t;
-                    lineToWrite =
-                            "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
-                                    + DELIMITER + deadline.getDeadline().format(Parser.SAVE_FORMAT) + "\n";
-                } else if (t instanceof Event) {
-                    Event event = (Event) t;
-                    lineToWrite =
-                            "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
-                                    + DELIMITER + event.getFrom().format(Parser.SAVE_FORMAT)
-                                    + DELIMITER + event.getTo().format(Parser.SAVE_FORMAT) + "\n";
-                }
 
-                if (isFirstLine) {
-                    Files.write(this.filePath, lineToWrite.getBytes());
-                    isFirstLine = false;
-                } else {
-                    Files.write(this.filePath, lineToWrite.getBytes(), StandardOpenOption.APPEND);
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+        for (Task t : taskList) {
+            JSONObject jsonObject = new JSONObject();
+
+            if (t instanceof Todo) {
+                Todo todo = (Todo) t;
+                jsonObject.put("type", "todo");
+                jsonObject.put("isDone", todo.isDone());
+                jsonObject.put("description", todo.getDescription());
+            } else if (t instanceof Deadline) {
+                Deadline deadline = (Deadline) t;
+                jsonObject.put("type", "deadline");
+                jsonObject.put("isDone", deadline.isDone());
+                jsonObject.put("description", deadline.getDescription());
+                jsonObject.put("deadline", deadline.getDeadline().format(Parser.SAVE_FORMAT));
+            } else if (t instanceof Event) {
+                Event event = (Event) t;
+                jsonObject.put("type", "event");
+                jsonObject.put("isDone", event.isDone());
+                jsonObject.put("description", event.getDescription());
+                jsonObject.put("from", event.getFrom().format(Parser.SAVE_FORMAT));
+                jsonObject.put("to", event.getTo().format(Parser.SAVE_FORMAT));
             }
+
+            jsonArray.put(jsonObject);
+        }
+
+        try {
+            FileWriter writer = new FileWriter(filePath.toFile());
+            jsonArray.write(writer, 4, 0);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

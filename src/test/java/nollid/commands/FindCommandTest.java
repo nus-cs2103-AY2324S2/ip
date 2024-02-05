@@ -82,7 +82,7 @@ public class FindCommandTest {
         String actualMessage = c.execute(this.tasks, this.storage);
 
         String expectedMessage = "Here are the matching tasks in your list:\n"
-                + "1.[D][X] test deadline (by: 23 Jun 2022 23:33)";
+                + "1.[D][ ] test deadline (by: 22 Feb 2222 22:22)";
         assertEquals(expectedMessage, actualMessage);
     }
 }
