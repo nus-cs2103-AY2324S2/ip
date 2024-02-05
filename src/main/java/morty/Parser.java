@@ -6,10 +6,14 @@ import morty.command.DeleteCommand;
 import morty.command.DoneCommand;
 import morty.command.EventCommand;
 import morty.command.ExitCommand;
+import morty.command.FindCommand;
 import morty.command.InvalidCommand;
 import morty.command.ListCommand;
 import morty.command.TodoCommand;
 
+/**
+ * A class that deals with making sense of the user command.
+ */
 public class Parser {
 
   /**
@@ -34,6 +38,8 @@ public class Parser {
       return new DeadlineCommand(tokens);
     } else if (tokens[0].equals("event")) {
       return new EventCommand(tokens);
+    } else if (tokens[0].equals("find")) {
+      return new FindCommand(tokens);
     } else {
       return new InvalidCommand(tokens);
     }

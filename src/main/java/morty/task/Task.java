@@ -35,6 +35,15 @@ public abstract class Task {
   }
 
   /**
+   * Returns the completion status of the task.
+   *
+   * @return True if the task is done, false otherwise.
+   */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
    * Marks the task as done by setting its completion status to true.
    */
   public void markDone() {
@@ -53,6 +62,12 @@ public abstract class Task {
     return (isDone ? "[\u2713] " : "[\u2718] ") + title;
   }
 
+  /**
+   * Provides a string representation of the task for storage.
+   * Format: "0 | Title" for pending tasks, "1 | Title" for completed tasks.
+   *
+   * @return The formatted string representation of the task for storage.
+   */
   public String serialize() {
     return (this.isDone ? "1" : "0") + " | " + title;
   }
