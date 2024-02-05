@@ -1,20 +1,21 @@
 package ChatbotRan;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ran {
-    ArrayList<Task> tasks;
-
-    public static void main(String[] args) {
+    TaskList taskList;
 
 
-        Ran chatbot = new Ran();
-        chatbot.run();
+    public Ran(TaskIO taskIO) {
+        this.taskList = new TaskList(taskIO);
     }
 
-    public Ran() {
-        this.tasks = new ArrayList<>();
+    public static void main(String[] args) {
+        TaskIO ti = new TaskIO();
+
+
+        Ran chatbot = new Ran(ti);
+        chatbot.run();
     }
 
     public void run() {
@@ -35,69 +36,73 @@ public class Ran {
             String line = sc.nextLine();
             int space = line.indexOf(' ');
             String command = space == -1 ? line : line.substring(0, space);
+            Task task;
             switch (command) {
-                case "mark":
-                    Task task = this.handleTaskNo(line, space);
-                    if (task != null) {
-                        if (!task.isCompleted()) {
-                            task.setCompleted(true);
-                            System.out.println("Alright. I have marked this task as complete: ");
-                        } else {
-                            System.out.println("That task is already complete: ");
+            case "mark":
+                task = this.handleTaskNo(line, space);
+                if (task != null) {
+                    if (!task.isCompleted()) {
+                        task.setCompleted(true);
+                        taskList.updateTasks();
+                        System.out.println("Alright. I have marked this task as complete: ");
+                    } else {
+                        System.out.println("That task is already complete: ");
+                    }
+                    System.out.println(task);
+                }
+                break;
+            case "unmark":
+                task = this.handleTaskNo(line, space);
+                if (task != null) {
+                    if (task.isCompleted()) {
+                        task.setCompleted(false);
+                        taskList.updateTasks();
+                        System.out.println("If that's the case, I'll set that task as incomplete: ");
+                    } else {
+                        System.out.println("That task is already incomplete: ");
+                    }
+                    System.out.println(task);
+                }
+                break;
+            case "delete":
+                task = this.handleTaskNo(line, space);
+                if (task != null) {
+                    taskList.remove(task);
+                    System.out.println("I've deleted this task: ");
+                    System.out.println(task);
+                    this.printNumber();
+                }
+                break;
+            case "deadline":
+                Deadline deadline = Deadline.parse(line, space);
+                this.addTask(deadline);
+                break;
+            case "todo":
+                Todo todo = Todo.parse(line, space);
+                this.addTask(todo);
+                break;
+            case "event":
+                Event event = Event.parse(line, space);
+                this.addTask(event);
+                break;
+            default:
+                switch (line) {
+                case "bye":
+                    running = false;
+                    break;
+                case "list":
+                    int size = taskList.size();
+                    if (size == 0) {
+                        System.out.println("You haven't got any tasks.");
+                    } else {
+                        for (int i = 0; i < size; i++) {
+                            System.out.println("Task " + (i + 1) + ":" + taskList.get(i));
                         }
-                        System.out.println(task);
                     }
-                    break;
-                case "unmark":
-                    task = this.handleTaskNo(line, space);
-                    if (task != null) {
-                        if (task.isCompleted()) {
-                            task.setCompleted(false);
-                            System.out.println("If that's the case, I'll set that task as incomplete: ");
-                        } else {
-                            System.out.println("That task is already incomplete: ");
-                        }
-                        System.out.println(task);
-                    }
-                    break;
-                case "delete":
-                    task = this.handleTaskNo(line, space);
-                    if (task != null) {
-                        tasks.remove(task);
-                        System.out.println("I've deleted this task: ");
-                        System.out.println(task);
-                        this.printNumber();
-                    }
-                    break;
-                case "deadline":
-                    Deadline deadline = Deadline.parse(line, space);
-                    this.addTask(deadline);
-                    break;
-                case "todo":
-                    Todo todo = Todo.parse(line, space);
-                    this.addTask(todo);
-                    break;
-                case "event":
-                    Event event = Event.parse(line, space);
-                    this.addTask(event);
                     break;
                 default:
-                    switch (line) {
-                        case "bye":
-                            running = false;
-                            break;
-                        case "list":
-                            if (tasks.isEmpty()) {
-                                System.out.println("You haven't got any tasks.");
-                            } else {
-                                for (int i = 0; i < tasks.size(); i++) {
-                                    System.out.println("Task " + (i + 1) + ":" + tasks.get(i));
-                                }
-                            }
-                            break;
-                        default:
-                            System.out.println("I didn't understand that.");
-                    }
+                    System.out.println("I didn't understand that.");
+                }
 
 
             }
@@ -115,17 +120,17 @@ public class Ran {
         Integer taskNo = Util.parseNumber(line, space);
         if (taskNo == null || taskNo < 1) {
             System.out.println("Invalid task number.");
-        } else if (taskNo > tasks.size()) {
+        } else if (taskNo > taskList.size()) {
             System.out.println("No task by that number.");
         } else {
-            return tasks.get(taskNo - 1);
+            return taskList.get(taskNo - 1);
         }
         return null;
     }
 
     private void addTask(Task task) {
         if (task != null) {
-            tasks.add(task);
+            taskList.add(task);
             System.out.println("I've added this task to the list: ");
             System.out.println(task);
             this.printNumber();
@@ -133,9 +138,11 @@ public class Ran {
     }
 
     private void printNumber() {
-        if (tasks.size() == 1) {
+        if (taskList.size() == 1) {
             System.out.println("There is now 1 task in the list");
-        } else System.out.println("There are now " + tasks.size() + " tasks in the list");
+        } else {
+            System.out.println("There are now " + taskList.size() + " tasks in the list");
+        }
     }
 
 }

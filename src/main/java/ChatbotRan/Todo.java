@@ -17,4 +17,9 @@ public class Todo extends Task {
     String getType() {
         return "T";
     }
+
+    @Override
+    String writeTask() {
+        return String.format("T\\%b\\%s", completed, contents);
+    }
 }

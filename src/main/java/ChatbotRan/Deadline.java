@@ -33,4 +33,9 @@ public class Deadline extends Task {
     public String toString() {
         return super.toString() + " (by: " + this.deadline + ")";
     }
+
+    @Override
+    String writeTask() {
+        return String.format("D\\%b\\%s\\%s", completed, contents, deadline);
+    }
 }

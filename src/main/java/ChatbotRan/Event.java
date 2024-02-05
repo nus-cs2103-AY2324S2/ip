@@ -10,6 +10,14 @@ public class Event extends Task {
         this.setTo(to);
     }
 
+    public static Event parse(String line, int space) {
+        String[] texts = Util.parse(line, space, "/from", "/to");
+        if (texts != null) {
+            return new Event(texts[0], texts[1], texts[2]);
+        }
+        return null;
+    }
+
     @Override
     String getType() {
         return "E";
@@ -36,11 +44,8 @@ public class Event extends Task {
         return super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
-    public static Event parse(String line, int space) {
-        String[] texts = Util.parse(line, space, "/from", "/to");
-        if (texts != null) {
-            return new Event(texts[0], texts[1], texts[2]);
-        }
-        return null;
+    @Override
+    String writeTask() {
+        return String.format("E\\%b\\%s\\%s\\%s", completed, contents, from, to);
     }
 }
