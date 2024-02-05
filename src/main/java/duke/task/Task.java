@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * A task with description
+ */
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,7 +17,6 @@ public class Task {
      * Returns a string representation of a marked or unmarked task
      * @return a string
      */
-    //mark X on done tasks
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -25,7 +28,6 @@ public class Task {
         this.isDone = true;
     }
 
-
     /**
      * Updates the boolean value of isDone to false
      */
@@ -33,10 +35,6 @@ public class Task {
         this.isDone = false;
     }
 
-    /**
-     * Returns a string representation of the task
-     * @return
-     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "]";

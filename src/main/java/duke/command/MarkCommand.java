@@ -6,7 +6,11 @@ import duke.TaskList;
 import duke.TextUi;
 import duke.task.Task;
 
-public class MarkCommand extends Command{
+/**
+ * Marks the task as done upon execution
+ */
+
+public class MarkCommand extends Command {
     private final int TASK_NUM;
 
     /**
@@ -16,6 +20,7 @@ public class MarkCommand extends Command{
     public MarkCommand(String taskNum) {
         this.TASK_NUM = Integer.parseInt(taskNum);
     }
+
     /**
      * Marks the task based on given input and display marked message
      * @param tasksList A TaskList class that represents task list
@@ -23,16 +28,17 @@ public class MarkCommand extends Command{
      * @param storage A Storage class which represents the storage of file
      */
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage)
+    public String execute(TaskList tasksList, TextUi ui, Storage storage)
             throws DukeException {
         if (TASK_NUM <= 0 | TASK_NUM > tasksList.getList().size()) {
             throw new DukeException("Invalid task number -.-!");
         }
         tasksList.mark(TASK_NUM);
         Task markedTask = tasksList.get(TASK_NUM);
-        ui.showMarkTaskMessage(markedTask);
         storage.saveToFile(tasksList.getList());
+        return ui.showMarkTaskMessage(markedTask);
     }
+
     /**
      * Returns a boolean value to indicate whether to exit the program
      * @return a boolean value

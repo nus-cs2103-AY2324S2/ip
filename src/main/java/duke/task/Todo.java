@@ -1,5 +1,10 @@
 package duke.task;
-public class Todo  extends Task {
+
+/**
+ * A todo task that contains a description
+ */
+
+public class Todo extends Task {
 
     /**
      * Constructs a Todo class with given parameter

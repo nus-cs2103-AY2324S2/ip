@@ -4,7 +4,12 @@ import duke.Storage;
 import duke.TaskList;
 import duke.TextUi;
 
+/**
+ * List out all the tasks in the task list upon execution
+ */
+
 public class ListCommand extends Command {
+
     /**
      * List all the tasks in the task list
      * @param tasksList A TaskList class that represents task list
@@ -12,11 +17,11 @@ public class ListCommand extends Command {
      * @param storage A Storage class which represents the storage of file
      */
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) {
+    public String execute(TaskList tasksList, TextUi ui, Storage storage) {
         if (tasksList.getList().isEmpty()) {
-            System.out.println("Your task list empty, add something today!");
+            return "Your task list empty, add something today!";
         } else {
-            ui.showTaskList(tasksList);
+            return ui.showTaskList(tasksList);
         }
     }
 
