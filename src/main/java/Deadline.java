@@ -6,6 +6,16 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    Deadline(String desc, boolean isDone, String by) {
+        super(desc, isDone);
+        this.by = by;
+    }
+
+    public String toSave() {
+        // need to store status as well
+        return "D - " + super.toSave() + " - " + by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by:" + by + ")";

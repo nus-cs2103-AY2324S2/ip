@@ -8,8 +8,19 @@ public class Event extends Task {
         this.end = end;
     }
 
+    Event(String desc, boolean isDone, String start, String end) {
+        super(desc, isDone);
+        this.start = start;
+        this.end = end;
+    }
+
+    public String toSave() {
+        // need to store status as well
+        return "E - " + super.toSave() + " - " + start + " - " + end;
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + start + "to:" + end + ")";
+        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }
