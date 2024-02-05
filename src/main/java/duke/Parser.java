@@ -1,7 +1,7 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package duke;
+
+import duke.ExitCommand;
+import duke.IncorrectCommand;
 
 public class Parser {
 

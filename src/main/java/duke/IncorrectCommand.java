@@ -1,3 +1,5 @@
+package duke;
+
 public class IncorrectCommand extends Command {
 
     public IncorrectCommand() {

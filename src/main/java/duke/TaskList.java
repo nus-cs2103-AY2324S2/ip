@@ -1,3 +1,8 @@
+package duke;
+
+import duke.Event;
+import duke.Task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
