@@ -3,7 +3,6 @@ package henry.command;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
 import henry.task.Deadline;
 
 /**
@@ -15,6 +14,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a DeadlineCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */
@@ -34,8 +34,12 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
-        tasks.addTask(new Deadline(description, by));
+    public String execute(TaskList tasks, Storage storage) throws HenryException {
+        Deadline newDeadline = new Deadline(description, by);
+        tasks.addTask(newDeadline);
         storage.save(tasks);
+        return String.format("Added this task\n%s\nNow you have %d tasks in the list :(\n",
+                newDeadline,
+                tasks.getNumOfTasks());
     }
 }

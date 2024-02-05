@@ -3,7 +3,6 @@ package henry.command;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
 import henry.task.Event;
 
 /**
@@ -16,6 +15,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates a EventCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */
@@ -57,8 +57,12 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
-        tasks.addTask(new Event(this.description, this.from, this.to));
+    public String execute(TaskList tasks, Storage storage) throws HenryException {
+        Event newEvent = new Event(this.description, this.from, this.to);
+        tasks.addTask(newEvent);
         storage.save(tasks);
+        return String.format("Added this task\n%s\nNow you have %d tasks in the list :(\n",
+                newEvent,
+                tasks.getNumOfTasks());
     }
 }

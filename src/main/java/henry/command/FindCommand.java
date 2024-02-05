@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
 import henry.task.Task;
 
 /**
@@ -16,6 +15,7 @@ public class FindCommand extends Command {
 
     /**
      * Creates a FindCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */
@@ -27,13 +27,13 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
+    public String execute(TaskList tasks, Storage storage) throws HenryException {
         ArrayList<Task> list = tasks.findTasksByKeyword(this.keyword);
-        System.out.println("Here is a list of tasks:");
+        StringBuilder ret = new StringBuilder("Here is a list of tasks:\n");
         for (int i = 0; i < list.size(); i = i + 1) {
-            System.out.printf("%d. %s\n", i + 1, list.get(i));
+            ret.append(String.format("%d. %s\n", i + 1, list.get(i)));
         }
-        System.out.println();
+        return ret + "\n";
     }
 
 }

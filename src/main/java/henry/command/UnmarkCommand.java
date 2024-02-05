@@ -3,7 +3,7 @@ package henry.command;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
+import henry.task.Task;
 
 /**
  * Represents a command to unmark a task as done.
@@ -13,6 +13,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Creates a UnmarkCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */
@@ -28,8 +29,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
-        tasks.unmarkTask(index);
+    public String execute(TaskList tasks, Storage storage) throws HenryException {
+        Task task = tasks.unmarkTask(index);
         storage.save(tasks);
+        return String.format("This task has been marked as undone. :(\n%s\n", task);
     }
 }

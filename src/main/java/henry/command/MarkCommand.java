@@ -3,7 +3,7 @@ package henry.command;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
+import henry.task.Task;
 
 /**
  * Represents a command to mark a task as done.
@@ -13,6 +13,7 @@ public class MarkCommand extends Command {
 
     /**
      * Creates a MarkCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */
@@ -28,8 +29,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
-        tasks.markTask(index);
+    public String execute(TaskList tasks, Storage storage) throws HenryException {
+        Task task = tasks.markTask(index);
         storage.save(tasks);
+        return String.format("This task has been marked as done. XD\n%s\n", task);
     }
 }
