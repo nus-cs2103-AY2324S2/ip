@@ -9,15 +9,17 @@ import java.time.temporal.ChronoUnit;
 public class Parser {
     
     public static LocalDateTime stringToDateTime(String s) {
-        String[] temp = s.split("  ");
+        String[] temp = s.split(" ");
 
-        int hour = Integer.parseInt(temp[1].substring(0,1));
-        int min = Integer.parseInt(temp[1].substring(2,3));
+        int hour = Integer.parseInt(temp[1].substring(0,2));
+        int min = Integer.parseInt(temp[1].substring(2));
         String[] dateTemp = temp[0].split("/");
         int day = Integer.parseInt(dateTemp[0]);
-        int Month = Integer.parseInt(dateTemp[1]);
+        int month = Integer.parseInt(dateTemp[1]);
         int year = Integer.parseInt(dateTemp[2]);
 
-        LocalDateTime newDateTime = LocalDateTime.of(year, month, day, hour,min );
+        LocalDateTime newDateTime = LocalDateTime.of(year,month, day, hour,min);
+
+        return newDateTime;
     }
 }
