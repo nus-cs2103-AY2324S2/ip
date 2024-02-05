@@ -6,12 +6,17 @@ public class  Dude {
 
     public static void main(String[] args) {
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo =   "888888ba                 dP          \n" +
+                        "88    `8b                88          \n" +
+                        "88     88 dP    dP .d888b88 .d8888b. \n" +
+                        "88     88 88    88 88'  `88 88ooood8 \n" +
+                        "88    .8P 88.  .88 88.  .88 88.  ... \n" +
+                        "8888888P  `88888P' `88888P8 `88888P'";
+
+        System.out.println("--------------------------------------\n");
+        System.out.println(logo + "\n");
+        System.out.println("--------------------------------------");
+        System.out.println("Dude v1.0 by Tahsin Hasem.\n");
 
         System.out.println(greet());
 
