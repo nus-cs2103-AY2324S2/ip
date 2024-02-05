@@ -1,5 +1,16 @@
-import roland.*;
-import command.*;
+import command.Command;
+import roland.Parser;
+import roland.RolandException;
+import roland.Storage;
+import roland.TaskList;
+import roland.Ui;
+
+/**
+ * The Duke class is the main class for the Roland task management application.
+ * It initializes the UI, storage, and task list, and handles the main loop for user interactions.
+ *
+ * @author wolffe88
+ */
 
 public class Duke {
 
@@ -29,7 +40,7 @@ public class Duke {
      */
     public void run() {
         ui.boot();
-//        System.out.println(System.getProperty("user.dir"));
+        // System.out.println(System.getProperty("user.dir"));
         boolean isExit = false;
         while (!isExit) {
             try {

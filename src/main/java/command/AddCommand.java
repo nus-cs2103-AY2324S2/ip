@@ -1,14 +1,22 @@
 package command;
 
 import roland.Storage;
-import task.Task;
 import roland.TaskList;
 import roland.Ui;
-
+import task.Task;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+/**
+ * The AddCommand class represents a command to add a task to the TaskList.
+ * It extends the Command class and implements the execute method to perform the addition of the task.
+ * Upon execution, it adds the provided task to the TaskList, updates the user interface, and provides
+ * feedback about the addition, including the total number of tasks in the list.
+ *
+ * @author wolffe88
+ */
 
 public class AddCommand extends Command {
 
@@ -34,7 +42,8 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(this.task);
         serializeArrayList(tasks.getList(), storage.getFilePath());
-        System.out.println(ui.getBot() + "I have added " + task.toString() + " to your list of tasks. You have " + tasks.size() + " task(s) in list");
+        System.out.println(ui.getBot() + "I have added " + task.toString()
+                + " to your list of tasks. You have " + tasks.size() + " task(s) in list");
     }
 
     /**

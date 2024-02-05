@@ -1,9 +1,19 @@
 package command;
 
 import roland.Storage;
-import task.Task;
 import roland.TaskList;
 import roland.Ui;
+import task.Task;
+
+
+/**
+ * The MarkCommand class represents a command to mark a task as done or undone in the TaskList based on its index.
+ * It extends the Command class and implements the execute method to perform the marking operation.
+ * Upon execution, it marks the specified task as done or undone, updates the user interface, and provides feedback
+ * about the status change.
+ *
+ * @author wolffe88
+ */
 
 public class MarkCommand extends Command {
 
@@ -30,7 +40,7 @@ public class MarkCommand extends Command {
      * @param storage The storage path to store persistent data.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = tasks.get(this.index-1);
+        Task task = tasks.get(this.index - 1);
         if (markDone) {
             task.markDone();
             System.out.println(ui.getBot() + task.toString());

@@ -8,9 +8,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the loading of tasks from and saving of tasks to a specified file path.
+ * It is responsible for deserializing the task data from the file during application startup.
+ *
+ * @author wolffe88
+ */
+
 public class Storage {
 
-    public String filePath;
+    public final String filePath;
 
     /**
      * Constructs a new Storage object with the specified file path.
@@ -29,7 +36,7 @@ public class Storage {
      * @throws RolandException If the file is empty or does not exist, indicating a fresh start.
      */
     public ArrayList<Task> load() throws RolandException {
-        if (new File(filePath).length()!=0) {
+        if (new File(filePath).length() != 0) {
             return deserializeArrayList(filePath);
         } else {
             throw new RolandException("Let's get started shall we?");

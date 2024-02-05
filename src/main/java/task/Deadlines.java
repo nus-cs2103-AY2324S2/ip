@@ -2,6 +2,14 @@ package task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Deadlines class represents a task with a specific deadline in the Roland task management application.
+ * It extends the Task class and includes additional information about the deadline.
+ *
+ * @author wolffe88
+ */
+
 public class Deadlines extends Task {
 
     protected LocalDate by;

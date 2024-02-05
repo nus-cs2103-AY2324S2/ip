@@ -1,14 +1,24 @@
 package command;
 
 import roland.Storage;
-import task.Task;
 import roland.TaskList;
 import roland.Ui;
+import task.Task;
+
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+/**
+ * The ExitCommand class represents a command to exit the task management application.
+ * It extends the Command class and implements the execute method to perform the exit operation.
+ * Upon execution, it serializes the TaskList to the specified file path using object serialization,
+ * and prints a farewell message to the user interface.
+ *
+ * @author wolffe88
+ */
 
 public class ExitCommand extends Command {
 

@@ -4,6 +4,13 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents a collection of tasks in the Roland task management application.
+ * It provides methods for managing tasks, such as adding, removing, and retrieving tasks from the list.
+ *
+ * @author wolffe88
+ */
+
 public class TaskList {
 
     private ArrayList<Task> tasks;
