@@ -11,13 +11,14 @@ public class AddCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (taskType == "todo") {
+        if (taskType.equals("todo")) {
             try {
+                System.out.println(description);
                 processToDos(description, tasks.tasks);
             } catch (ToDosException e){
                 ui.showError(e.getMessage());
             }
-        } else if (taskType == "event") {
+        } else if (taskType.equals("event")) {
             try {
                 processEvents(description, tasks.tasks);
             } catch (EventException e){
@@ -37,7 +38,7 @@ public class AddCommand extends Command {
     }
 
     public static void processToDos(String description, ArrayList<Task> task) throws ToDosException{
-        if (description == "") {
+        if (description.isEmpty()) {
             throw new ToDosException("What todos do you need to record?");
         }
         Task new_task = new ToDos(description);
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
     }
 
     public static void processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException{
-        if (description == "") {
+        if (description.isEmpty()) {
             throw new DeadlineException("What deadline do you need to record?");
         }
         String [] divided = description.split("/by", 2);
@@ -71,7 +72,7 @@ public class AddCommand extends Command {
     }
 
     public static void processEvents(String description, ArrayList<Task> task) throws EventException, DateException{
-        if (description == "") {
+        if (description.isEmpty()) {
             throw new EventException("What event do you need to record?");
         }
         String [] divided = description.split("/from", 2);

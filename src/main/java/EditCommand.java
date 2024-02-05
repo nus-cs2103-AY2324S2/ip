@@ -11,7 +11,7 @@ public class EditCommand extends Command {
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTask(index);
-        if (editType == "mark") {
+        if (editType.equals("mark")) {
             task.markAsDone();
             ui.markedDone(task);
         } else {

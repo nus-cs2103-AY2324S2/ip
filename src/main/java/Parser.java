@@ -1,24 +1,30 @@
 public class Parser {
 
     public static Command parse(String fullCommand) throws NoCmdException {
-        if (fullCommand.equals("list")) {
-            return new ListCommand();
-        } else if (fullCommand.equals("bye")) {
-            return new ExitCommand();
-        }
-        String [] uCmd = fullCommand.split(" ");
-        String firstWord = uCmd[0];
-        String furtherDetails = uCmd[1];
-
-        if (firstWord == "mark" || firstWord == "unmark") {
-            return new EditCommand(firstWord, furtherDetails);
-        } else if (firstWord.equals("todo") || firstWord == "event" || firstWord == "deadline") {
-            return new AddCommand(firstWord, furtherDetails);
-        } else if (firstWord == "delete") {
-            return new DeleteCommand(furtherDetails);
+        String [] uCmd = fullCommand.split(" ", 2);
+        if (uCmd.length < 2) {
+            if (fullCommand.equals("list")) {
+                return new ListCommand();
+            } else if (fullCommand.equals("bye")) {
+                return new ExitCommand();
+            } else {
+                throw new NoCmdException("Please tell me what you want me to do.");
+            }
         } else {
-            throw new NoCmdException("Please tell me what you want me to do.");
+            String firstWord = uCmd[0].trim();
+            String furtherDetails = uCmd[1];
+            System.out.println(furtherDetails);
+            if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+                return new EditCommand(firstWord, furtherDetails);
+            } else if (firstWord.equals("todo") || firstWord.equals("event") || firstWord.equals("deadline")) {
+                return new AddCommand(firstWord, furtherDetails);
+            } else if (firstWord.equals("delete")) {
+                return new DeleteCommand(furtherDetails);
+            } else {
+                throw new NoCmdException("Please tell me what you want me to do.");
+            }
         }
+
 
     }
 }
