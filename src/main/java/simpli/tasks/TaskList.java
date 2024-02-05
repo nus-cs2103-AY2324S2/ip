@@ -51,7 +51,7 @@ public class TaskList {
             strItems.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
         if (!tasks.isEmpty()) {
-            strItems.append(String.format("%d. %s", tasks.size(), tasks.getLast()));
+            strItems.append(String.format("%d. %s", tasks.size(), tasks.get(tasks.size() - 1)));
         }
 
         return strItems.toString();
