@@ -1,6 +1,7 @@
 package simpli.parser;
 
 import simpli.actions.Action;
+import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public final class Parser {
      * 4 - toDate (Event task) */
     private static final int MAX_TOKENS = 5;
 
-    public String[] parseCommand(String content) throws TaskException{
+    public String[] parseCommand(String content) throws ActionException {
         String[] parsedTokens = new String[MAX_TOKENS];
         Arrays.fill(parsedTokens, "");
 
@@ -24,45 +25,32 @@ public final class Parser {
         parsedTokens[0] = taskInfo[0];
         parsedTokens[1] = "0";
 
-        Action actionType = Action.valueOf(taskInfo[0].toUpperCase());
-        switch (actionType) {
-        case Action.LIST:
-            break;
-        case Action.MARK: {
-            parsedTokens[2] = taskInfo[1];
-            break;
+        Action actionType;
+        try {
+            actionType = Action.valueOf(taskInfo[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ActionException("No such command!");
         }
-        case Action.UNMARK: {
-            parsedTokens[2] = taskInfo[1];
-            break;
+        parsedTokens[2] = !actionType.equals(Action.LIST) ? taskInfo[1] : "";
+
+        for (int i = 1; i < tokens.length; i++) {
+            parsedTokens[i + 2] = tokens[i];
         }
-        case Action.DELETE: {
-            parsedTokens[2] = taskInfo[1];
-            break;
-        }
-        case Action.TODO: {
-            parsedTokens[2] = taskInfo[1];
-            break;
-        }
-        case Action.DEADLINE: {
-            if (!content.contains("/by")) {
-                throw new TaskException();
-            }
-            parsedTokens[2] = taskInfo[1];
-            parsedTokens[3] = tokens[1];
-            parsedTokens[4] = tokens[2];
-        }
-        case Action.EVENT: {
-            if (!content.contains("/from") || !content.contains("/to")) {
-                throw new TaskException();
-            }
-            parsedTokens[2] = taskInfo[1];
-            parsedTokens[3] = tokens[1];
-            parsedTokens[4] = tokens[2];
-        }
+
+        if (!isValidCommand(parsedTokens)) {
+            throw new ActionException();
         }
 
         return parsedTokens;
+    }
+
+    public boolean isValidCommand(String[] tokens) {
+        try {
+            Action actionType = Action.valueOf(tokens[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
 
     public String[] parseCsv(String csv) {
@@ -70,24 +58,8 @@ public final class Parser {
         Arrays.fill(parsedTokens, "");
         String[] fields = csv.split(",");
 
-        parsedTokens[0] = fields[0];
-        parsedTokens[1] = fields[1];
-        parsedTokens[2] = fields[2];
-        Action actionType = Action.valueOf(fields[0].toUpperCase());
-        switch (actionType) {
-        case Action.TODO: {
-            break;
-        }
-        case Action.DEADLINE: {
-            parsedTokens[3] = fields[3];
-            break;
-        }
-        case Action.EVENT: {
-            parsedTokens[3] = fields[3];
-            parsedTokens[4] = fields[4];
-            break;
-        }
-        }
+        System.arraycopy(fields, 0, parsedTokens, 0, fields.length);
+
         return parsedTokens;
     }
 }

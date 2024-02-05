@@ -17,6 +17,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public String toCsv() {
         return String.format("%s,%s", isDone ? 1 : 0, name);
     }
