@@ -50,6 +50,13 @@ public class Parser {
         case "END":
             cmd = new ExitCommand();
             break;
+        case "FIND":
+            try {
+                cmd = new FindCommand(taskList, commandAndRemaining[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidCommandException(FindCommand.getUsage());
+            }
+            break;
         default:
             throw new InvalidCommandException();
         }
