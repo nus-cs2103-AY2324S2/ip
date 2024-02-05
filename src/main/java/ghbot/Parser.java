@@ -1,14 +1,23 @@
 package ghbot;
 
+import ghbot.executor.ByeExecutor;
+import ghbot.executor.DeadlineExecutor;
+import ghbot.executor.DeleteExecutor;
+import ghbot.executor.EventExecutor;
+import ghbot.executor.Executor;
+import ghbot.executor.FindExecutor;
+import ghbot.executor.ListExecutor;
+import ghbot.executor.MarkExecutor;
+import ghbot.executor.TodoExecutor;
+import ghbot.executor.UnmarkExecutor;
+
 import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Parser class.
+ * Parser Class.
  * It deals with making sense of the user command.
  */
 public class Parser {
@@ -18,56 +27,35 @@ public class Parser {
     /**
      * Prints corresponding string for different commands.
      * @param input User input.
-     * @param lst List of tasks.
-     * @param storage Tasks from saved file.
      * @throws IOException Throws an IOException when there is an issue updating the file.
      */
-    public static void parse(String[] input, TaskList lst, Storage storage) throws IOException {
+    public static Executor parse(String[] input) throws IOException {
         String instr = input[0];
 
         if (instr.equalsIgnoreCase(Instruction.BYE.toString())) {
-            System.out.println("Bye. Hope to see you again soon!");
-            System.exit(0);
+            return new ByeExecutor();
 
         } else if (instr.equalsIgnoreCase(Instruction.LIST.toString())) {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < lst.taskSize(); i++) {
-                System.out.println(i + 1 + "." + lst.getTask(i));
-            }
+            return new ListExecutor();
 
         } else if (instr.equalsIgnoreCase(Instruction.MARK.toString())) {
             int lstNo = Integer.parseInt(input[1]);
-            for (int i = 0; i < lst.taskSize(); i++) {
-                if (i + 1 == lstNo) {
-                    lst.getTask(i).isCompleted();
-                    System.out.println("Nice! I've marked this task as done:\n" + lst.getTask(i));
-                }
-            }
+            return new MarkExecutor(lstNo);
 
         } else if (instr.equalsIgnoreCase(Instruction.UNMARK.toString())) {
             int lstNo = Integer.parseInt(input[1]);
-            for (int i = 0; i < lst.taskSize(); i++) {
-                if (i + 1 == lstNo) {
-                    lst.getTask(i).isNotCompleted();
-                    System.out.println("OK, I've marked this task as not done yet:\n" + lst.getTask(i));
-                }
-            }
+
+            return new UnmarkExecutor(lstNo);
 
         } else if (instr.equalsIgnoreCase(Instruction.TODO.toString())) {
-            Todo todo = new Todo(input[1]);
-            lst.addTask(todo);
-            System.out.println("Got it. I've added this task:\n" + todo);
-            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
+            return new TodoExecutor(input[1]);
 
         } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.toString())) {
             String[] subStr = input[1].split("/by");
             LocalDateTime inputTime = LocalDateTime.parse(subStr[1].trim(), inTimeFormat);
             String formattedTime = inputTime.format(outTimeFormat);
 
-            Deadline deadline = new Deadline(subStr[0], formattedTime);
-            lst.addTask(deadline);
-            System.out.println("Got it. I've added this task:\n" + deadline);
-            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
+            return new DeadlineExecutor(subStr[0], formattedTime);
 
         } else if (instr.equalsIgnoreCase(Instruction.EVENT.toString())) {
             String[] subStr = input[1].split("/from");
@@ -77,36 +65,17 @@ public class Parser {
             LocalDateTime inputToTime = LocalDateTime.parse(subStr2[1].trim(), inTimeFormat);
             String formattedToTime = inputToTime.format(outTimeFormat);
 
-            Event event = new Event(subStr[0], formattedFromTime, formattedToTime);
-            lst.addTask(event);
-            System.out.println("Got it. I've added this task:\n" + event);
-            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
+            return new EventExecutor(subStr[0], formattedFromTime, formattedToTime);
 
         } else if (instr.equalsIgnoreCase(Instruction.DELETE.toString())) {
             int lstNo = Integer.parseInt(input[1]);
-            System.out.println("Noted. I've removed this task:\n" + lst.getTask(lstNo - 1));
-            lst.deleteTask(lstNo - 1);
-            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
+
+            return new DeleteExecutor(lstNo);
+
         } else if (instr.equalsIgnoreCase(Instruction.FIND.toString())) {
-            List<String> matchedLst = new ArrayList<>();
-            for (int i = 0; i < lst.taskSize(); i++) {
-                String[] words = lst.getTask(i).toString().split(" ");
-                for (int j = 0; j < words.length; j++) {
-                    if (input[1].equalsIgnoreCase(words[j])) {
-                        matchedLst.add(lst.getTask(i).toString());
-                        break;
-                    }
-                }
-            }
-            if (matchedLst.size() > 0) {
-                System.out.println("Here are the list of tasks that matches the keyword:");
-                for (int i = 0; i < matchedLst.size(); i++) {
-                    System.out.println(i + 1 + "." + matchedLst.get(i));
-                }
-            } else {
-                System.out.println("Sorry! No match found!");
-            }
+            return new FindExecutor(input[1]);
+
         }
-        storage.writeDataToFile(lst.toList());
+        return null;
     }
 }
