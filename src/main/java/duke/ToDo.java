@@ -1,5 +1,15 @@
 package duke;
+
+/**
+ * The ToDo class represents a to-do task.
+ */
 public class ToDo extends Task {
+
+    /**
+     * Constructs a new ToDo object.
+     *
+     * @param description The description of the to-do task.
+     */
     public ToDo(String description) {
         super(description);
     }
@@ -9,6 +19,12 @@ public class ToDo extends Task {
         return "T | " + super.toString();
     }
 
+    /**
+     * Creates a ToDo object from a string.
+     *
+     * @param input The string to parse.
+     * @return A new ToDo object.
+     */
     public static ToDo fromString(String input) {
         String[] split = input.split(" \\| ");
         ToDo todo = new ToDo(split[2]);
