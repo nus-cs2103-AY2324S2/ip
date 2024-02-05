@@ -1,4 +1,56 @@
 # DukePro
+## heading
+### why I cannot pass admin task??
+**bold**
+*italic*
+~~strikethrough~~
+bullet list
++ why I cannot pass admin task??
++ why I cannot pass admin task??
++ why I cannot pass admin task??
+
+a numbered list
+1. why I cannot pass admin task??
+2. why I cannot pass admin task??
+3. why I cannot pass admin task??
+4. why I cannot pass admin task??
+
+a fenced code block (with syntax highlighting)
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
+```
+a task list
+- [x] why I cannot pass admin task??
+- [ ] why I cannot pass admin task??
+- [ ] why I cannot pass admin task??
+
+a blockquote
+> why I cannot pass admin task??
+> why I cannot pass admin task??
+
+an emoji
+
+:innocent:
+
+a hyperlink
+[here](https://github.com/wallacexuhanxiao/ip/releases/tag/A-Jar/)
+
+a inline coade ```main``` in line
+
+
+
+
+
+
+
+
+
+
 
 > “Your mind is for having ideas, not holding them.” – David Allen[(source)](https://dansilvestre.com/productivity-quotes/)
 
