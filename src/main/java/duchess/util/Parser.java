@@ -1,9 +1,19 @@
 package duchess.util;
 
 public class Parser {
-    public Parser() {
-    }
+    /**
+     * Creates new Parser object
+     */
+    public Parser() {}
 
+    /**
+     * Returns action specified in input.
+     * If no valid action identified, error is thrown.
+     *
+     * @param input input by user.
+     * @return int action id.
+     * @throws DuchessException  If no valid action identified.
+     */
     public int getAction(String input) throws DuchessException {
         if (input.equalsIgnoreCase("list")) {
             return 1;
@@ -31,11 +41,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns String[].
+     * Retrieve details of ToDo task from user input.
+     *
+     * @param input input by user.
+     * @return String[] details.
+     */
     public String[] getToDoDetails(String input) {
         String[] details = input.split("todo ");
         return details;
     }
 
+    /**
+     * Returns String[].
+     * Retrieve details of Event task from user input.
+     *
+     * @param input input by user.
+     * @return String[] details.
+     */
     public String[] getEventDetails(String input) {
         String[] shortenedInput = input.split("event ");
         String[] shortenedInputNew = shortenedInput[1].split(" /from ");
@@ -47,6 +71,13 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Returns String[].
+     * Retrieve details of Deadline task from user input.
+     *
+     * @param input input by user.
+     * @return String[] details.
+     */
     public String[] getDeadlineDetails(String input) {
         String[] shortenedInput = input.split("deadline ");
         String[] details = shortenedInput[1].split(" /by ");

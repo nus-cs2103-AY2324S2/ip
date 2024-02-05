@@ -15,10 +15,23 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+
+    /**
+     * Create new Storage object.
+     *
+     * @param filePath file location for tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load tasks into ArrayList<Task>
+     * If no file identified, return an empty ArrayList<Task>.
+     *
+     * @return list Array of Task objects.
+     * @throws DuchessException if no file found and new file has to be created.
+     */
     public ArrayList<Task> load() throws DuchessException {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -80,6 +93,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Save updated list of Tasks to file.
+     *
+     * @param list Array of Task objects.
+     * @throws IOException if no file found.
+     */
     public void save(ArrayList<Task> list) throws IOException {
         FileWriter myWriter = new FileWriter(filePath);
         for (int i = 1; i <= list.size(); i++) {
