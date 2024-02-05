@@ -37,6 +37,7 @@ public class Chipchat {
                 String dataString = t.dataString();
 //                System.out.println("dataString: " + dataString);
                 writer.write(dataString, 0, dataString.length());
+                writer.newLine();
             }
         } catch (IOException x) {
             System.err.format("File write, IOException: %s%n", x);
@@ -70,7 +71,7 @@ public class Chipchat {
         String taskType = details[0];
         String isDone = details[1];
         String description = details[2];
-        System.out.println(taskType + isDone + description);
+//        System.out.println(taskType + isDone + description);
 
         Task task;
         switch (taskType) {

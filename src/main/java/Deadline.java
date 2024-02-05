@@ -1,9 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String due_by;
+    private LocalDate due_by;
 
     public Deadline(String description, String due_by) {
         super(description);
-        this.due_by = due_by;
+        this.due_by = parseDate(due_by);
+    }
+
+    private static LocalDate parseDate(String date) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        return LocalDate.parse(date, formatter);
     }
 
     @Override
