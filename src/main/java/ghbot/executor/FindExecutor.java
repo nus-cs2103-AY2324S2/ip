@@ -3,11 +3,24 @@ package ghbot.executor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FindExecutor Class.
+ * Executes "Find" command.
+ */
 public class FindExecutor extends Executor {
     private String description;
+
+    /**
+     * FindExecutor Constructor.
+     * @param description A description of the word the user is finding.
+     */
     public FindExecutor(String description) {
         this.description = description;
     }
+
+    /**
+     * Prints all the tasks that matches the description.
+     */
     @Override
     public void execute() {
         List<String> matchedLst = new ArrayList<>();
