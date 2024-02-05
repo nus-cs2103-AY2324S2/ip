@@ -6,6 +6,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Thrown to indicate that the description for a Todo task cannot be empty.
@@ -149,9 +166,21 @@ public class Duke {
   private Storage st;
   private Ui ui;
   private Parser p;
+  private ScrollPane scrollPane;
+  private VBox dialogContainer;
+  private TextField userInput;
+  private Button sendButton;
+  private Scene scene;
 
-  public Duke(String filePath) {
-    this.st = new Storage(filePath);
+  private Image user = new Image(
+    this.getClass().getResourceAsStream("/images/DaUser.png")
+  );
+  private Image duke = new Image(
+    this.getClass().getResourceAsStream("/images/DaDuke.png")
+  );
+
+  public Duke() {
+    this.st = new Storage("./data/tasks.txt");
     this.myList = new TaskList(new ArrayList<Task>());
     this.p = new Parser();
     this.ui = new Ui(this.myList);
@@ -170,7 +199,23 @@ public class Duke {
     }
   }
 
-  public static void main(String[] args) throws IOException {
-    new Duke("./data/tasks.txt").run();
+  /**
+   * Iteration 1:
+   * Creates a label with the specified text and adds it to the dialog container.
+   * @param text String containing text to add
+   * @return a label with the specified text that has word wrap enabled.
+   */
+  private Label getDialogLabel(String text) {
+    // You will need to import `javafx.scene.control.Label`.
+    Label textToAdd = new Label(text);
+    textToAdd.setWrapText(true);
+
+    return textToAdd;
+  }
+
+  public String getResponse(String input) {
+    String[] words = input.split("\\s+", 2);
+    String detail = words.length > 1 ? words[1] : "";
+    return this.p.parseThrough(input, words, detail, this.myList, this.st);
   }
 }
