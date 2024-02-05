@@ -62,6 +62,11 @@ public class Parser {
             return new ListCommand();
         case "bye":
             return new ExitCommand();
+        case "find":
+            if (split.length != 2) {
+                throw new ThamesException("Please input the keyword for me to find!");
+            }
+            return new FindCommand(split[1].trim());
 
         }
         throw new ThamesException("Sorry, I do not understand what that means.");
