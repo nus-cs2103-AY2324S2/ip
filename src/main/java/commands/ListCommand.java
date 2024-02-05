@@ -25,8 +25,7 @@ public class ListCommand extends Command {
         if (tasks.isEmpty()) {
             ui.showToUser(SUCCESS_MESSAGE);
         } else {
-            ui.showList(String.format(LIST_MESSAGE, tasks.numTasks()),tasks);
+            ui.showList(String.format(LIST_MESSAGE, tasks.numTasks()), tasks);
         }
-
     }
 }

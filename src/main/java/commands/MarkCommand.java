@@ -1,10 +1,10 @@
 package commands;
 
+import java.io.IOException;
+
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the command used to mark tasks in the task list as done.

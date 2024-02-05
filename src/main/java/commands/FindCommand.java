@@ -6,6 +6,9 @@ import task.Task;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * Command representing the 'find' operation in Duke.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     private static final String NO_TASK_FOUND_MESSAGE = "Sorry Uncle cannot find any matching tasks!";

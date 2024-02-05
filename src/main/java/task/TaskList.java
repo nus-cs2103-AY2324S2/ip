@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * * Represents a collection of tasks in the Duke application.
+ */
 public class TaskList implements Iterable<Task> {
 
     private List<Task> tasks = new ArrayList<>();

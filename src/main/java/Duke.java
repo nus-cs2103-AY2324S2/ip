@@ -1,17 +1,25 @@
+import java.io.FileNotFoundException;
+
 import commands.Command;
 import exception.UncleBobException;
-import task.*;
-import ui.Ui;
-import storage.Storage;
 import parser.Parser;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 
-import java.io.*;
-
+/**
+ * Main class representing the Duke application.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath the file path for loading and saving tasks
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -22,6 +30,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showGreetingMessage();
         boolean isExiting = false;

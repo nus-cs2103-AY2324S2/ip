@@ -1,13 +1,17 @@
 package storage;
 
-import task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
 /**
  *  The Storage class manages the reading and writing of tasks to a file.
@@ -39,11 +43,11 @@ public class Storage {
                 textToAppend = task.getSymbol() + "/" + task.getStatus() + "/"
                         + task.getDescription() + "\n";
             } else if (task instanceof Deadline) {
-                textToAppend = task.getSymbol() + "/" + task.getStatus() +
-                        "/" + task.getDescription() + "/" + task.getBy() + "\n";
+                textToAppend = task.getSymbol() + "/" + task.getStatus() + "/" + task.getDescription()
+                        + "/" + task.getBy() + "\n";
             } else if (task instanceof Event) {
-                textToAppend = task.getSymbol() + "/" + task.getStatus() +
-                        "/" + task.getDescription() + "/" + task.getStart() + "/" + task.getEnd() + "\n";
+                textToAppend = task.getSymbol() + "/" + task.getStatus()
+                        + "/" + task.getDescription() + "/" + task.getStart() + "/" + task.getEnd() + "\n";
             }
             fw.write(textToAppend);
         }

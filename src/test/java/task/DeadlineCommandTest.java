@@ -1,11 +1,17 @@
 package task;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import commands.DeadlineCommand;
 import exception.DeadlineFormatException;
-import org.junit.jupiter.api.Test;
 import storage.StorageStub;
 import ui.UiStub;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class DeadlineCommandTest {
 
@@ -19,8 +25,8 @@ public class DeadlineCommandTest {
 
         assertDoesNotThrow(() -> deadlineCommand.execute(taskList, storageStub, uiStub));
         assertEquals(1, taskList.numTasks());
-        assertTrue(storageStub.appendToFileCalled);
-        assertTrue(uiStub.showToUserCalled);
+        assertTrue(storageStub.wasAppendToFileCalled());
+        assertTrue(uiStub.wasShowToUserCalled());
     }
 
     @Test
@@ -36,8 +42,8 @@ public class DeadlineCommandTest {
             fail("Expected DeadlineFormatException, but it was not thrown.");
         } catch (DeadlineFormatException exception) {
             assertEquals("Correct Usage: deadline <message> /by <day/time>", exception.getMessage());
-            assertFalse(storageStub.appendToFileCalled);
-            assertFalse(uiStub.showToUserCalled);
+            assertFalse(storageStub.wasAppendToFileCalled());
+            assertFalse(uiStub.wasShowToUserCalled());
         }
     }
 
@@ -54,8 +60,8 @@ public class DeadlineCommandTest {
             fail("Expected DeadlineFormatException, but it was not thrown.");
         } catch (DeadlineFormatException exception) {
             assertEquals("Correct Usage: deadline <message> /by <day/time>", exception.getMessage());
-            assertFalse(storageStub.appendToFileCalled);
-            assertFalse(uiStub.showToUserCalled);
+            assertFalse(storageStub.wasAppendToFileCalled());
+            assertFalse(uiStub.wasShowToUserCalled());
         }
     }
 

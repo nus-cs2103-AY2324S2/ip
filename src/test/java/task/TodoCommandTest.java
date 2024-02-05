@@ -1,16 +1,22 @@
 package task;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import commands.TodoCommand;
 import exception.TodoFormatException;
-import org.junit.jupiter.api.Test;
 import storage.StorageStub;
 import ui.UiStub;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoCommandTest {
 
     @Test
-    void execute_validMessage_success () throws TodoFormatException {
+    void execute_validMessage_success() {
         String todoMessage = "Buy groceries";
         TodoCommand todoCommand = new TodoCommand(todoMessage);
         TaskList taskList = new TaskList();
@@ -19,8 +25,8 @@ public class TodoCommandTest {
 
         assertDoesNotThrow(() -> todoCommand.execute(taskList, storageStub, uiStub));
         assertEquals(1, taskList.numTasks());
-        assertTrue(storageStub.appendToFileCalled);
-        assertTrue(uiStub.showToUserCalled);
+        assertTrue(storageStub.wasAppendToFileCalled());
+        assertTrue(uiStub.wasShowToUserCalled());
     }
 
     @Test
@@ -35,9 +41,10 @@ public class TodoCommandTest {
             todoCommand.execute(taskList, storageStub, uiStub);
             fail("Expected TodoFormatException, but it was not thrown.");
         } catch (TodoFormatException exception) {
-            assertEquals("Uncle also need to know the message!\n\tCorrect Usage: todo <message>", exception.getMessage());
-            assertFalse(storageStub.appendToFileCalled);
-            assertFalse(uiStub.showToUserCalled);
+            assertEquals("Uncle also need to know the message!\n\tCorrect Usage: todo <message>",
+                    exception.getMessage());
+            assertFalse(storageStub.wasAppendToFileCalled());
+            assertFalse(uiStub.wasShowToUserCalled());
         }
     }
 }
