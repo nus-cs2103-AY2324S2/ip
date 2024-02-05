@@ -25,7 +25,8 @@ public class SearchTask {
      * @param input Date and Time to search
      * @param taskList ArrayList with Tasks
      */
-    public static void execSearchTask(String input, List<Task> taskList) {
+    public static String execSearchTask(String input, List<Task> taskList) {
+        StringBuilder response = new StringBuilder();
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length < 2 || parts[1].trim().isBlank()) {
@@ -52,14 +53,15 @@ public class SearchTask {
                 }
             }
             if (output.isEmpty()) {
-                System.out.println("No event on this date");
+                response.append("No event on this date").append("\n");
             } else {
                 for (Task act : output) {
-                    System.out.println(act);
+                    response.append(act).append("\n");
                 }
             }
         } catch (TaylorException err) {
             throw new TaylorException(err.getMessage());
         }
+        return response.toString();
     }
 }
