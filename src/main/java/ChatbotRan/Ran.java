@@ -1,21 +1,21 @@
 package ChatbotRan;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ran {
-    ArrayList<Task> tasks;
-
-    public static void main(String[] args) {
-        TaskIO tr = new TaskIO();
+    TaskList taskList;
 
 
-        Ran chatbot = new Ran();
-        chatbot.run();
+    public Ran(TaskIO taskIO) {
+        this.taskList = new TaskList(taskIO);
     }
 
-    public Ran() {
-        this.tasks = new ArrayList<>();
+    public static void main(String[] args) {
+        TaskIO ti = new TaskIO();
+
+
+        Ran chatbot = new Ran(ti);
+        chatbot.run();
     }
 
     public void run() {
@@ -43,6 +43,7 @@ public class Ran {
                 if (task != null) {
                     if (!task.isCompleted()) {
                         task.setCompleted(true);
+                        taskList.updateTasks();
                         System.out.println("Alright. I have marked this task as complete: ");
                     } else {
                         System.out.println("That task is already complete: ");
@@ -55,6 +56,7 @@ public class Ran {
                 if (task != null) {
                     if (task.isCompleted()) {
                         task.setCompleted(false);
+                        taskList.updateTasks();
                         System.out.println("If that's the case, I'll set that task as incomplete: ");
                     } else {
                         System.out.println("That task is already incomplete: ");
@@ -65,7 +67,7 @@ public class Ran {
             case "delete":
                 task = this.handleTaskNo(line, space);
                 if (task != null) {
-                    tasks.remove(task);
+                    taskList.remove(task);
                     System.out.println("I've deleted this task: ");
                     System.out.println(task);
                     this.printNumber();
@@ -89,11 +91,12 @@ public class Ran {
                     running = false;
                     break;
                 case "list":
-                    if (tasks.isEmpty()) {
+                    int size = taskList.size();
+                    if (size == 0) {
                         System.out.println("You haven't got any tasks.");
                     } else {
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println("Task " + (i + 1) + ":" + tasks.get(i));
+                        for (int i = 0; i < size; i++) {
+                            System.out.println("Task " + (i + 1) + ":" + taskList.get(i));
                         }
                     }
                     break;
@@ -117,17 +120,17 @@ public class Ran {
         Integer taskNo = Util.parseNumber(line, space);
         if (taskNo == null || taskNo < 1) {
             System.out.println("Invalid task number.");
-        } else if (taskNo > tasks.size()) {
+        } else if (taskNo > taskList.size()) {
             System.out.println("No task by that number.");
         } else {
-            return tasks.get(taskNo - 1);
+            return taskList.get(taskNo - 1);
         }
         return null;
     }
 
     private void addTask(Task task) {
         if (task != null) {
-            tasks.add(task);
+            taskList.add(task);
             System.out.println("I've added this task to the list: ");
             System.out.println(task);
             this.printNumber();
@@ -135,10 +138,10 @@ public class Ran {
     }
 
     private void printNumber() {
-        if (tasks.size() == 1) {
+        if (taskList.size() == 1) {
             System.out.println("There is now 1 task in the list");
         } else {
-            System.out.println("There are now " + tasks.size() + " tasks in the list");
+            System.out.println("There are now " + taskList.size() + " tasks in the list");
         }
     }
 

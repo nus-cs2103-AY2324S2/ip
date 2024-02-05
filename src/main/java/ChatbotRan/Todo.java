@@ -20,6 +20,6 @@ public class Todo extends Task {
 
     @Override
     String writeTask() {
-        return String.format("T\\%s",contents);
+        return String.format("T\\%b\\%s", completed, contents);
     }
 }

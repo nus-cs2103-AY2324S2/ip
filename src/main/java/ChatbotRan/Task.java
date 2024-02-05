@@ -1,6 +1,6 @@
 package ChatbotRan;
 
-abstract class Task {
+public abstract class Task {
     protected String contents;
     protected boolean completed;
 
@@ -26,6 +26,7 @@ abstract class Task {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
     abstract String writeTask();
 
     @Override

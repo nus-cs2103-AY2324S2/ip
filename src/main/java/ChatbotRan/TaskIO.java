@@ -2,7 +2,6 @@ package ChatbotRan;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskIO {
     public final String FILENAME = "ran.txt";
@@ -10,6 +9,7 @@ public class TaskIO {
     public ArrayList<Task> findTasks() {
         File dataFolder = new File("data");
         dataFolder.mkdir();
+        System.out.println(dataFolder.getAbsolutePath());
         File taskFile = new File(dataFolder, FILENAME);
         return readTasks(taskFile);
     }
@@ -20,17 +20,23 @@ public class TaskIO {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] contents = line.split("\\\\");
+                boolean completed = Boolean.parseBoolean(contents[1]);
+                Task t = null;
                 switch (contents[0]) {
                 case "D":
-                    tasks.add(new Deadline(contents[1],contents[2]));
+                    t = new Deadline(contents[2], contents[3]);
                     break;
                 case "E":
-                    tasks.add(new Event(contents[1],contents[2],contents[3]));
+                    t = new Event(contents[2], contents[3], contents[4]);
                     break;
                 case "T":
-                    tasks.add(new Todo(contents[1]));
+                    t = new Todo(contents[2]);
                     break;
+                default:
+                    throw new IOException("Data is corrupted");
                 }
+                t.setCompleted(completed);
+                tasks.add(t);
             }
         } catch (FileNotFoundException | IndexOutOfBoundsException e) {
             return tasks;
@@ -45,7 +51,7 @@ public class TaskIO {
         dataFolder.mkdir();
         File taskFile = new File(dataFolder, FILENAME);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(taskFile))) {
-            for (Task t: tasks) {
+            for (Task t : tasks) {
                 bw.write(t.writeTask());
                 bw.newLine();
             }
