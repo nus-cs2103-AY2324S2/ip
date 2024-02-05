@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    public enum TYPES { //Used for type of list encountered
+    public enum Types { //Used for type of list encountered
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL, INVALID;
     }
     private ArrayList<Task> tasks;
@@ -27,12 +27,12 @@ public class TaskList {
 
     public void setTasks(String word) {
         ArrayList<Task> data = this.tasks;
-        TaskList.TYPES type;
+        Types type;
         try {
             type = Parser.findType(word);
         } catch (IllegalArgumentException e) {
             Ui.formatResponse("Input task type invalid, please try again");
-            type = TYPES.INVALID;
+            type = Types.INVALID;
         }
 
         switch (type) {

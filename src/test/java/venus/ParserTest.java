@@ -49,11 +49,11 @@ public class ParserTest {
 
     @Test
     public void findfindType2(){
-        assertEquals(TaskList.TYPES.EVENT, Parser.findType("event deadline deadline"));
+        assertEquals(TaskList.Types.EVENT, Parser.findType("event deadline deadline"));
     }
 
     @Test
     public void findfindType3(){
-        assertEquals(TaskList.TYPES.EVENT, Parser.findType("event deadlinetodo"));
+        assertEquals(TaskList.Types.EVENT, Parser.findType("event deadlinetodo"));
     }
 }
