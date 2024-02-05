@@ -1,10 +1,20 @@
 package badgpt.exceptions;
 
+/**
+ * Signals that the command was entered using an invalid format.
+ */
 public class WrongFormatException extends CommandException {
     private String rightUsage = "Please type in the command as follows: ";
     private String example;
     private String brainrot;
 
+    /**
+     * Creates a new WrongFormatException with the specified message and command. The proper usage of the command along
+     * with an example will also be displayed.
+     *
+     * @param message The error message.
+     * @param cmd The command which caused the error.
+     */
     public WrongFormatException(String message, String cmd) {
         super(message);
 
@@ -41,6 +51,9 @@ public class WrongFormatException extends CommandException {
         }
     }
 
+    /**
+     * Returns a string representation of the exception.
+     */
     @Override
     public String toString() {
         return rightUsage + "Example: " + example + brainrot;

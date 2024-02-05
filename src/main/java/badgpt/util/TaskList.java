@@ -13,11 +13,20 @@ import badgpt.tasks.ToDo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a todo list.
+ */
 public class TaskList {
     private List<Task> tasks = new ArrayList<>(100);
     private TasksUi tasksUi = new TasksUi();
     private boolean hasChanges = false;
 
+    /**
+     * Stores a Task object in the list. The list has a max size of 100.
+     *
+     * @param task The Task object to be stored in the list.
+     * @throws ListFullException If the list already has 100 tasks.
+     */
     public void store(Task task) throws ListFullException {
         if (tasks.size() == 100) {
             throw new ListFullException("Your todo list is currently full.");
@@ -28,6 +37,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists out all the tasks currently in the list.
+     *
+     * @throws ListEmptyException If the list does not contain any tasks.
+     */
     public void listTasks() throws ListEmptyException {
         if (tasks.size() == 0) {
             throw new ListEmptyException("Your todo list is currently empty.");
@@ -38,10 +52,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the current number of tasks in the list.
+     */
     public int getListSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Marks the task in the specified position in the list as complete.
+     *
+     * @param taskNum The position of the task in the list.
+     * @throws TaskNotFoundException If the number entered does not exist in the list.
+     * @throws SameStatusException If the task is already complete.
+     */
     public void mark(int taskNum) throws TaskNotFoundException, SameStatusException {
         try {
             if (!tasks.get(taskNum).isComplete()) {
@@ -56,6 +80,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task in the specified position in the list as incomplete.
+     *
+     * @param taskNum The position of the task in the list.
+     * @throws TaskNotFoundException If the number entered does not exist in the list.
+     * @throws SameStatusException If the task is already incomplete.
+     */
     public void unmark(int taskNum) throws TaskNotFoundException, SameStatusException {
         try {
             if (tasks.get(taskNum).isComplete()) {
@@ -70,6 +101,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes the task in the specified position in the list from the list.
+     *
+     * @param taskNum The position of the task in the list.
+     * @throws TaskNotFoundException If the number entered does not exist in the list.
+     */
     public void delete(int taskNum) throws TaskNotFoundException {
         try {
             Task task = tasks.remove(taskNum);
@@ -80,6 +117,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Loads the data from the saved task list and adds it to the current run.
+     *
+     * @param type The type of the task.
+     * @param descr The description of the task.
+     * @param deadline The deadline for the task, only for tasks of type Deadline.
+     * @param from When the task starts, only for tasks of type Event.
+     * @param to When the task ends, only for tasks of type Event.
+     * @param isComplete Whether the task is complete.
+     */
     public void loadData(char type, String descr, String deadline, String from, String to, boolean isComplete) {
         Task task;
         if (type == 'T') {
@@ -97,6 +144,11 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Writes any changes to the task list to the save file.
+     *
+     * @param fileManager The FileManager instance handling the saving of data.
+     */
     public void writeChanges(FileManager fileManager) {
         if (hasChanges) {
             String data = "";

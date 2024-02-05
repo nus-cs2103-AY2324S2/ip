@@ -6,11 +6,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Handles the loading from and saving to the text file.
+ */
 public class FileManager {
     private final String DIRECTORY = "./data/";
     private final String FILENAME = "tasks.txt";
     private File file;
 
+    /**
+     * Loads the text file using the specified directory and filename. If the file does not exist, a new one is created.
+     */
     public void loadFile() {
         File directory = new File(DIRECTORY);
         file = new File(DIRECTORY, FILENAME);
@@ -28,6 +34,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Reads the file and sends the data to a TaskList instance to be stored.
+     *
+     * @param taskList The current TaskList instance.
+     */
     public void readFile(TaskList taskList) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -71,6 +82,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Writes to the file.
+     *
+     * @param data The data to be written.
+     */
     public void writeToFile(String data) {
         try {
             FileWriter fw = new FileWriter(file);
