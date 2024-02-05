@@ -1,6 +1,5 @@
 package morty.command;
 
-import morty.MortyException;
 import morty.Storage;
 import morty.TaskList;
 import morty.Ui;
@@ -31,8 +30,8 @@ public class FindCommand extends Command {
     try {
       TaskList matchingTasks = new TaskList(tasks.find(this.tokens[1]));
       ui.showTaskList(matchingTasks);
-    } catch (MortyException e) {
-      ui.showError("Error finding tasks: " + e.getMessage());
+    } catch (ArrayIndexOutOfBoundsException e) {
+      ui.showFindUsage();
     }
   }
 
