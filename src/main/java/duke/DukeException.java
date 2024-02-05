@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,11 +12,11 @@ public class DukeException extends Exception{
     }
     static void validateToDo(String str) throws DukeException {
         if (str.split(" ").length < 2) {
-            throw new DukeException("ToDo Task Missing!");
+            throw new DukeException("duke.ToDo duke.Task Missing!");
         }
     }
 
-    static void validateInstn(String str) throws DukeException {
+    public static void validateInstn(String str) throws DukeException {
         String[] instnArr = {"todo", "deadline", "event", "mark", "unmark", "list", "delete"};
         String instn = str.split(" ")[0].toLowerCase();
         if (!Arrays.asList(instnArr).contains(instn)) {
