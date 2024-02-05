@@ -32,6 +32,9 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Toothless d) {
         duke = d;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Hi! I'm toothless! What can I do for you?", dukeImage)
+        );
     }
 
     /**
@@ -39,7 +42,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private String handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -47,5 +50,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        return "";
     }
 }

@@ -7,6 +7,7 @@ import duke.Parsers.DateTimeParser;
 import duke.Tasks.*;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 /**
@@ -130,7 +131,14 @@ public class Parser {
             }
 
         } else {
-            output = "";
+            output = "Bye! Hope to see you again soon!";
+            Storage storage = new Storage(tasksList);
+            try {
+                storage.store();
+            } catch (IOException e) {
+                System.err.println("Error writing to the file: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
 
 

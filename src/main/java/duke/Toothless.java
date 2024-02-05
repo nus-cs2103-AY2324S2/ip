@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,19 +34,18 @@ public class Toothless {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+
+    private TaskList taskList;
+    private Ui ui;
+    private Parser parser;
+    private String currentCommand;
     //private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bunny.jpeg"));
     //private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/wisdom.jpeg"));
     public Toothless() {
-
-    }
-    public String getResponse(String input) {
-        return "Toothlesss heard: " + input;
-    }
-
-    public static void main(String[] args) {
+        this.ui = new Ui();
+        this.currentCommand = "";
         String filePath = "data/toothless.txt";
-        Ui ui = new Ui();
-        Parser parser = new Parser();
+        this.parser = new Parser();
         File f = new File(filePath);
         try {
             boolean fileCreated = f.createNewFile();
@@ -61,19 +61,33 @@ public class Toothless {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        TaskList currTaskList = fileParser.getTaskList();
-        currTaskList = ui.run(parser, currTaskList);
-        Storage storage = new Storage(currTaskList);
+        this.taskList = fileParser.getTaskList();
+
+    }
+    public String getResponse(String input) {
+        this.currentCommand = input;
+        Pair<TaskList, String> output = parser.parse(this.taskList, input);
+        this.taskList = output.getKey();
+        return output.getValue();
+    }
+
+    public static void main(String[] args) {
+        new Toothless().run();
+    }
+
+
+    public void run() {
+        ui.greet();
+        boolean isExit = false;
+        String message = "";
+        ui.bye();
+        Storage storage = new Storage(this.taskList);
         try {
             storage.store();
         } catch (IOException e) {
             System.err.println("Error writing to the file: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-
-    public void run() {
 
     }
 
