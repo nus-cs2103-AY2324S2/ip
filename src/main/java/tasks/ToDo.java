@@ -4,6 +4,9 @@ package tasks;
  * Represents a Todo, inherits from Task.
  */
 public class ToDo extends Task {
+    /**
+     * ToDo constructor
+     */
     public ToDo(String name) {
         super(name);
     }

@@ -10,12 +10,20 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
+    /**
+     * Event Constructor.
+     */
     public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Formats DateTime correctly.
+     *
+     * @return A string representing the date.
+     */
     public String formatDate(LocalDateTime startEnd) {
         return startEnd.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }

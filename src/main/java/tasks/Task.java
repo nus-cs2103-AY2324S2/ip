@@ -6,7 +6,9 @@ package tasks;
 public class Task {
     private boolean isDone;
     private String name;
-
+    /**
+     * Task constructor.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;

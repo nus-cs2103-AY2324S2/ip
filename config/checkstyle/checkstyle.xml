@@ -14,10 +14,10 @@
         <!-- Checks that there are no tab characters in the file. -->
     </module>
 
-<!--    <module name="NewlineAtEndOfFile">-->
-<!--        &lt;!&ndash; Accept LF, CR or CRLF to accomodate devs who prefer different line endings &ndash;&gt;-->
-<!--        <property name="lineSeparator" value="lf_cr_crlf"/>-->
-<!--    </module>-->
+    <module name="NewlineAtEndOfFile">
+        <!-- Accept LF, CR or CRLF to accomodate devs who prefer different line endings -->
+        <property name="lineSeparator" value="lf_cr_crlf"/>
+    </module>
 
     <module name="RegexpSingleline">
         <!-- Checks that FIXME is not used in comments.  TODO is preferred. -->
@@ -55,13 +55,13 @@
           3. SPECIAL_IMPORTS: defined as org imports
           4. THIRD_PARTY_PACKAGE: defined as com imports
         -->
-<!--        <module name="CustomImportOrder">-->
-<!--            <property name="customImportOrderRules"-->
-<!--                      value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>-->
-<!--            <property name="specialImportsRegExp" value="^org\."/>-->
-<!--            <property name="thirdPartyPackageRegExp" value="^com\."/>-->
-<!--            <property name="sortImportsInGroupAlphabetically" value="true"/>-->
-<!--        </module>-->
+        <module name="CustomImportOrder">
+            <property name="customImportOrderRules"
+                      value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
+            <property name="specialImportsRegExp" value="^org\."/>
+            <property name="thirdPartyPackageRegExp" value="^com\."/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+        </module>
 
         <!-- Checks for redundant import statements.
         An import statement is redundant if:
@@ -77,17 +77,17 @@
         -->
         <module name="UnusedImports"/>
 
- /
+        <module name="AvoidStarImport"/>
 
         <!--
         NAMING CHECKS
         -->
 
         <!-- Validate abbreviations (consecutive capital letters) length in identifier name -->
-<!--        <module name="AbbreviationAsWordInName">-->
-<!--            <property name="ignoreFinal" value="false"/>-->
-<!--            <property name="allowedAbbreviationLength" value="1"/>-->
-<!--        </module>-->
+        <module name="AbbreviationAsWordInName">
+            <property name="ignoreFinal" value="true"/>
+            <property name="allowedAbbreviationLength" value="1"/>
+        </module>
 
         <module name="PackageName">
             <!-- Validates identifiers for package names against the supplied expression. -->
@@ -117,12 +117,12 @@
             <property name="severity" value="warning"/>
         </module>
 
-<!--        <module name="MemberName">-->
-<!--            &lt;!&ndash; Validates non-static members against the supplied expression. &ndash;&gt;-->
-<!--            <metadata name="altname" value="MemberName"/>-->
-<!--            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>-->
-<!--            <property name="severity" value="warning"/>-->
-<!--        </module>-->
+        <module name="MemberName">
+            <!-- Validates non-static members against the supplied expression. -->
+            <metadata name="altname" value="MemberName"/>
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="severity" value="warning"/>
+        </module>
 
         <module name="MethodName">
             <!-- Validates identifiers for method names against the supplied expression. -->
@@ -421,11 +421,11 @@
         <module name="InvalidJavadocPosition"/>
 
         <!-- Checks that every public method (excluding getters, setters and constructors) has a header comment. -->
-<!--        <module name="MissingJavadocMethodCheck">-->
-<!--            <property name="minLineCount" value="1"/>-->
-<!--            <property name="allowMissingPropertyJavadoc" value="true"/>-->
-<!--            <property name="ignoreMethodNamesRegex" value="(set.*|get.*|main)"/>-->
-<!--        </module>-->
+        <module name="MissingJavadocMethodCheck">
+            <property name="minLineCount" value="1"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+            <property name="ignoreMethodNamesRegex" value="(set.*|get.*|main)"/>
+        </module>
 
         <!-- Checks that every public class, enumeration and interface has a header comment. -->
         <module name="MissingJavadocType"/>

@@ -1,11 +1,12 @@
 package commands;
 
+import java.time.LocalDateTime;
+
 import services.Storage;
 import services.TaskList;
 import services.UI;
 import tasks.Deadline;
 
-import java.time.LocalDateTime;
 
 /**
  * Add Deadline to task list command.
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 public class AddDeadlineCommand extends AbstractCommand {
     private String name;
     private LocalDateTime by;
+    /**
+     * AddDeadlineCommand constructor.
+     */
     public AddDeadlineCommand(String name, LocalDateTime by) {
         this.name = name;
         this.by = by;

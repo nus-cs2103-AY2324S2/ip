@@ -31,6 +31,9 @@ public class MainWindow extends AnchorPane {
     private final Image ROEBOT_IMAGE = new Image(this.getClass().getResourceAsStream("/images/roebot.png"));
     private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
+    /**
+     * Initializes dialogContainer and scrollPane
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

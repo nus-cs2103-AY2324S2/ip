@@ -12,7 +12,6 @@ public class ExitCommand extends AbstractCommand {
     @Override
     public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         ui.printExitMessage();
-        // monkey fix?
         return new ExitUserCommand();
     }
 }

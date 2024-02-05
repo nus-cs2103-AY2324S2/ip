@@ -10,6 +10,9 @@ import tasks.ToDo;
  */
 public class AddTodoCommand extends AbstractCommand {
     private String name;
+    /**
+     * AddTodoCommand constructor.
+     */
     public AddTodoCommand(String name) {
         this.name = name;
     }

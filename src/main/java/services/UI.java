@@ -17,24 +17,6 @@ public class UI {
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Reads the next command from the user input.
-     *
-     * @return A string representing the user input.
-     */
-    public String nextCommand() {
-        return this.scanner.nextLine();
-    }
-
-    /**
-     * Prints the introductory message to the user.
-     */
-    public void printIntroMessage() {
-        printHorizontalLine();
-        System.out.println("\tHello! I'm roebot.RoeBot!");
-        System.out.println("\tWhat can I do for you?");
-        printHorizontalLine();
-    }
 
     /**
      * Prints the exit message to the user and closes the scanner.
@@ -53,10 +35,4 @@ public class UI {
         System.out.println("\t" + message);
     }
 
-    /**
-     * Prints a horizontal line for UI separation.
-     */
-    public void printHorizontalLine() {
-        System.out.println("\t_________________________________________________");
-    }
 }

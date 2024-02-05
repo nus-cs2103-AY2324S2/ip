@@ -1,13 +1,14 @@
 package services;
 
-import exceptions.DukeException;
-import tasks.Task;
-import services.parser.Parser;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import exceptions.DukeException;
+import services.parser.Parser;
+import tasks.Task;
+
 /**
  * The Storage class is responsible for handling the loading and saving of tasks to a file.
  */
@@ -34,7 +35,6 @@ public class Storage {
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
                 Task task = Parser.parseTaskFromString(taskString);
-                // MONKEY FIX
                 taskList.getTasks().add(task);
             }
         } catch (IOException e) {

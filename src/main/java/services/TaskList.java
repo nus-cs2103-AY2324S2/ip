@@ -1,11 +1,12 @@
 package services;
 
-import exceptions.DukeException;
-import tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import exceptions.DukeException;
+import tasks.Task;
 
 /**
  * The TaskList class manages a list of tasks, allowing for adding, deleting, marking, and unmarking tasks.
@@ -13,7 +14,6 @@ import java.util.regex.Pattern;
 public class TaskList {
     private static final int MAX_ITEMS = 100;
     private List<Task> tasks;
-    private final String FILE_PATH = "./data/duke.txt";
 
     /**
      * Constructs a new TaskList.

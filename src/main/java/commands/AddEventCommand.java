@@ -1,11 +1,12 @@
 package commands;
 
+import java.time.LocalDateTime;
+
 import services.Storage;
 import services.TaskList;
 import services.UI;
 import tasks.Event;
 
-import java.time.LocalDateTime;
 
 /**
  * Add Event to task list command.
@@ -15,6 +16,9 @@ public class AddEventCommand extends AbstractCommand {
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * AddEventCommand constructor.
+     */
     public AddEventCommand(String name, LocalDateTime start, LocalDateTime end) {
         this.name = name;
         this.start = start;
