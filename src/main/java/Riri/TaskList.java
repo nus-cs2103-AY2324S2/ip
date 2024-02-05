@@ -15,7 +15,6 @@ public class TaskList {
         if (taskList.size() == 0) {
             System.out.println("You have no items in your list.");
         }
-        return;
     }
     public void addTask(Task item) {
         taskList.add(item);
@@ -32,9 +31,13 @@ public class TaskList {
         this.taskList.get(i-1).markUndone();
         this.returnList();
     }
-    public void delete(int i) {
-        this.taskList.remove(0);
-        System.out.println("Deleted task no. " + i);
+    /**
+     * This function removes a task from the task list.
+     * @param index remove index'th task
+     */
+    public void delete(int index) {
+        this.taskList.remove(index);
+        System.out.println("Deleted task no. " + index);
         System.out.println("You have " + this.len() + " tasks left");
     }
     public int len() {
