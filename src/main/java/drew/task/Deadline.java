@@ -5,6 +5,9 @@ import java.time.LocalDate;
  * This class represents the Deadline task.
  */
 public class Deadline extends Task {
+    /**
+     * Stores the date in "YYYY-MM-DD" format.
+     */
     private LocalDate date;
     public Deadline(String description, LocalDate date) {
         super(description);
@@ -12,7 +15,7 @@ public class Deadline extends Task {
     }
     /**
      * Returns the type, status and description of the Deadline task.
-     * @return String of format [D]['Task Status'] 'Task description'.
+     * @return String in task list format.
      */
     @Override
     public String toStatusString() {

@@ -14,12 +14,19 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * The first message to be printed after load is complete.
+     */
     public void greetUser() {
         System.out.println(DELIMITER);
         System.out.println("Hello! I'm Drew");
         System.out.println("What can I do for you?");
         System.out.println(DELIMITER);
     }
+
+    /**
+     * The last message to be printed before saving.
+     */
     public void bidFarewell() {
         System.out.println("Bye. Hope to see you again soon!");
     }

@@ -69,17 +69,13 @@ public class Storage {
     public ArrayList<Task> load() throws FileNotFoundException, IllegalArgumentException, DateTimeParseException {
         File savedTasks = new File(filePath);
         ArrayList<Task> ls = new ArrayList<>();
-        // Debug
-//        System.out.println(savedTasks.getAbsolutePath());
 
         Scanner fileReader = new Scanner(savedTasks);
         System.out.println("Load status: File found");
         int i = 0;
         while (fileReader.hasNext()) {
             String line = fileReader.nextLine();
-//                System.out.println(line);
             Task task = parseSave(line);
-//                System.out.println(task.toStatusString());
             ls.add(task);
             i++;
         }

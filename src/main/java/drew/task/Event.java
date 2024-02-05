@@ -5,7 +5,13 @@ import java.time.LocalDate;
  * This class represents the Event task.
  */
 public class Event extends Task{
+    /**
+     * Stores the event start date in "YYYY-MM-DD" format.
+     */
     private LocalDate startDate;
+    /**
+     * Stores the event end date in "YYYY-MM-DD" format.
+     */
     private LocalDate endDate;
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
@@ -14,7 +20,7 @@ public class Event extends Task{
     }
     /**
      * Returns the type, status and description of the Event task.
-     * @return String of format [E]['Task Status'] 'Task description'.
+     * @return string in task list format.
      */
     public String toStatusString() {
         return String.format("[E]%s (from: %s to: %s)", super.toStatusString(), this.startDate, this.endDate);
