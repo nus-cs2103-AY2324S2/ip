@@ -1,8 +1,8 @@
-package duke;
+package seedu.duke;
 
-import duke.task.Task;
-import duke.task.Events;
-import duke.task.Deadlines;
+import seedu.duke.task.Task;
+import seedu.duke.task.Events;
+import seedu.duke.task.Deadlines;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
