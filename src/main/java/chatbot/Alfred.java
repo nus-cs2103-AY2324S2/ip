@@ -1,14 +1,8 @@
 package chatbot;
 
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+
 
 public class Alfred {
     private Ui ui;
@@ -27,33 +21,40 @@ public class Alfred {
             ui.echo("Sorry Master Bruce. I cannot find the file.");
         }
     }
+
+    /**
+     * Runs the Alfred chatbot.
+     */
     public void run() {
         ui.greet();
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
             switch (input.trim()) {
-                case "bye":
-                    ui.bye();
-                    ui.echo(storage.updateData(tasks.getTaskList()));
-                    return;
-                case "list":
-                    ui.printList(tasks.getTaskList());
-                    break;
-                default:
-                    if (input.startsWith("unmark")) {
-                        ui.echo(tasks.unmarkList(parser.parseDescription(input)));
-                    } else if (input.startsWith("mark")) {
-                        ui.echo(tasks.markList(parser.parseDescription(input)));
-                    } else if (input.startsWith("delete")) {
-                        ui.echo(tasks.deleteList(parser.parseDescription(input)));
-                    } else if (input.startsWith("date")) {
-                        String date = parser.parseDescription(input).trim();
-                        ui.printList(tasks.findByDate(parser.parseDateTime(date)));
-                    } else {
-                        ui.echo(tasks.addList(input));
-                    }
-                    break;
+            case "bye":
+                ui.bye();
+                ui.echo(storage.updateData(tasks.getTaskList()));
+                return;
+            case "list":
+                ui.printList(tasks.getTaskList());
+                break;
+            default:
+                if (input.startsWith("unmark")) {
+                    ui.echo(tasks.unmarkList(parser.parseDescription(input)));
+                } else if (input.startsWith("mark")) {
+                    ui.echo(tasks.markList(parser.parseDescription(input)));
+                } else if (input.startsWith("delete")) {
+                    ui.echo(tasks.deleteList(parser.parseDescription(input)));
+                } else if (input.startsWith("find")) {
+                    String keyword = parser.parseDescription(input).trim();
+                    ui.printList(tasks.findByKeyword(keyword));
+                } else if (input.startsWith("date")) {
+                    String date = parser.parseDescription(input).trim();
+                    ui.printList(tasks.findByDate(parser.parseDateTime(date)));
+                } else {
+                    ui.echo(tasks.addList(input));
+                }
+                break;
             }
         }
     }

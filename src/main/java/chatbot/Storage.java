@@ -23,6 +23,12 @@ public class Storage {
     public File getFile() {
         return this.file;
     }
+
+    /**
+     * Adds data from TaskList to the file.
+     * @param task The task to be added.
+     * @return A message indicating the success of the operation.
+     */
     public String addData(Task task) {
         try {
             FileWriter fw = new FileWriter("data/alfred.txt", true);
@@ -81,7 +87,11 @@ public class Storage {
         return ("Data has been added successfully.");
     }
 
-
+    /**
+     * Updates the data in the file.
+     * @param taskList The list of tasks to be updated.
+     * @return A message indicating the success of the operation.
+     */
     public String updateData(ArrayList<Task> taskList) {
         try {
             java.io.FileWriter fw = new java.io.FileWriter("data/alfred.txt");

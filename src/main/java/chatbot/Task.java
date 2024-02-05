@@ -15,6 +15,11 @@ public class Task {
     public void toggleDone() {
         this.isDone = !this.isDone;
     }
+
+    /**
+     * Returns true if the task is done.
+     * @return true if the task is done.
+     */
     public boolean isDone() {
         return this.isDone;
     }

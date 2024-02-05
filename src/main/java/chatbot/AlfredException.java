@@ -4,6 +4,10 @@ public class AlfredException extends Exception{
     public AlfredException(String message) {
         super(message);
     }
+
+    /**
+     * Prints the error message in a formatted manner.
+     */
     public void printError() {
         System.out.println(line);
         System.out.println(this.getMessage());

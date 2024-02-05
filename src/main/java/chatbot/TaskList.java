@@ -20,6 +20,11 @@ public class TaskList {
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
+    /**
+     * Processes the data from the file and adds the tasks to the task list.
+     * @param file The file to be processed.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public void processData(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
@@ -85,6 +90,11 @@ public class TaskList {
             throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
         }
     }
+    /**
+     * Adds a task to the task list.
+     * @param input The input from the user.
+     * @return The response to the user.
+     */
     public String addList(String input) {
         try {
             TaskType taskType = determineTaskType(input);
@@ -176,6 +186,12 @@ public class TaskList {
             return e.toString();
         }
     }
+
+    /**
+     * Marks a task as done in the task list.
+     * @param index The index of the task to be marked as done.
+     * @return The response to the user.
+     */
     public String markList(String index) {
         int extractedIdx = validateAndExtractIndex(index);
         if (extractedIdx == -1) {
@@ -189,6 +205,11 @@ public class TaskList {
         return ("Nice! I've marked this task as done:\n  " + taskList.get(extractedIdx).toString());
     }
 
+    /**
+     * Marks a task as not done in the task list.
+     * @param index The index of the task to be marked as not done.
+     * @return The response to the user.
+     */
     public String unmarkList(String index) {
         int extractedIdx = validateAndExtractIndex(index);
         if (extractedIdx == -1) {
@@ -201,6 +222,11 @@ public class TaskList {
         return ("OK, I've marked this task as not done yet:\n  " + taskList.get(extractedIdx).toString());
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param index The index of the task to be deleted.
+     * @return The response to the user.
+     */
     public String deleteList(String index) {
         int extractedIdx = validateAndExtractIndex(index);
         if (extractedIdx == -1) {
@@ -211,6 +237,7 @@ public class TaskList {
         return ("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + taskList.size() + " tasks in " +
                 "the list.");
     }
+
     private int validateAndExtractIndex(String index) {
         try {
             if (index.isEmpty()) {
@@ -235,6 +262,12 @@ public class TaskList {
         }
         return -1;
     }
+
+    /**
+     * Finds tasks in the task list by date.
+     * @param dateTime The date and time to be searched for.
+     * @return The list of tasks found.
+     */
     public ArrayList<Task> findByDate(LocalDateTime dateTime) {
         ArrayList<Task> result = new ArrayList<Task>();
         for (Task task : taskList) {
@@ -248,6 +281,16 @@ public class TaskList {
                 if (event.getStartTime().equals(dateTime) || event.getEndTime().equals(dateTime)) {
                     result.add(event);
                 }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Task> findByKeyword(String keyword) {
+        ArrayList<Task> result = new ArrayList<Task>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                result.add(task);
             }
         }
         return result;
