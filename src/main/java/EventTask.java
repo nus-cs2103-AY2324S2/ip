@@ -31,9 +31,27 @@ public class EventTask extends Task {
         this.dateTimeFrom = dateTimeFrom;
         this.dateTimeTo = dateTimeTo;
     }
+    /**
+     * Overloaded Constructor with event start and end
+     * date and/or time specified, and marked status
+     * @param taskname name of task to be tracked
+     * @param date_time_from start date and/or time of the event
+     * @param date_time_to end date and/or time of the event
+     */
+    public EventTask(String taskname, Boolean marked, String date_time_from, String date_time_to) {
+        super(taskname,marked);
+        this.dateTimeFrom = date_time_from;
+        this.dateTimeTo = date_time_to;
+    }
+    @Override
+    public String stringForSaving() {
+        return "E|" + super.stringForSaving() + "|"
+                + this.dateTimeFrom + "|"
+                + this.dateTimeTo;
+    }
     @Override
     public String toString() {
-        return "[D]" + super.toString() +
-                String.format("(from: %sto: %s)", this.dateTimeFrom, this.dateTimeTo);
+        return "[D]" + super.toString()
+                + String.format("(from: %sto: %s)", this.dateTimeFrom, this.dateTimeTo);
     }
 }
