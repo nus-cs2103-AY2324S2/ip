@@ -1,7 +1,12 @@
 package venus;
 
 import java.util.ArrayList;
-
+/**
+ * This is a Ui class the create Ui for messages i/o of program.
+ *
+ * @author peterXGD
+ * @since 2024-02-05
+ */
 public class Ui {
     private static final String START =
             "    ____________________________________________________________\n"

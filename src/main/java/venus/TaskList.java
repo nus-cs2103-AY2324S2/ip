@@ -3,8 +3,17 @@ package venus;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * This is a TaskList class that is used to save tasks.
+ *
+ * @author peterXGD
+ * @since 2024-02-05
+ */
 public class TaskList {
 
+    /**
+     * Enums that are used to identify Tasks
+     */
     public enum Types { //Used for type of list encountered
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL, INVALID, FIND;
     }
@@ -13,17 +22,39 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Loads task into TaskList instance with a Storage with the right path.
+     *
+     * @param storage Storage with the correct relative data path.
+     * @throws FileNotFoundException Throws exception when the file cannot be found.
+     */
     public void loadTasks(Storage storage) throws FileNotFoundException {
         storage.loadFile(tasks);
     }
 
+    /**
+     * Save task into data file with a Storage with the right path.
+     *
+     * @param storage Storage with the correct relative data path.
+     * @throws FileNotFoundException Throws exception when the file cannot be found.
+     */
     public void saveTasks(Storage storage) throws FileNotFoundException {
         storage.saveAllFile(tasks);
     }
+
+    /**
+     * Returns tasks stored as ArrayList<Task> in TaskList.
+     * @return ArrayList of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Sets the tasks in TaskList according to input in form of string.
+     *
+     * @param word Input string to be used to set Tasks in TaskList.
+     */
     public void setTasks(String word) {
         ArrayList<Task> data = this.tasks;
         Types type;
