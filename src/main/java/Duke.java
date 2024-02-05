@@ -36,7 +36,7 @@ public class Duke {
         while (!Objects.equals(userInput.toLowerCase(), "bye")) {
             try {
                 DukeException.validateInstn(userInput);
-                Parser.parseUserInput(userInput, taskList.getTaskArr());
+                Parser.parseUserInput(userInput, taskList);
                 if (userInput.contains("delete")) {
                     taskList.reOrder();
                 }
@@ -44,7 +44,7 @@ public class Duke {
                 saveTasksToFile();
 
             } catch (DukeException d) {
-                System.out.println("ERROR: " + d);
+                System.out.println(d);
             }
 
             System.out.println("What else can I do for you? (try typing my name 3 times with no space in between)");

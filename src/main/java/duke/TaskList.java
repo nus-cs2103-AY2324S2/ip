@@ -23,5 +23,47 @@ public class TaskList {
         return taskArr;
     }
 
-    // Add other methods as needed
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : taskArr) {
+            if (task.getDescription().contains(keyword)) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
+
+    public void listAllTasks() {
+        for (Task task : taskArr) {
+            System.out.println(task.getTask());
+        }
+    }
+
+    public void unmarkTask(int index) {
+        taskArr.get(index - 1).unmark();
+    }
+
+    public void markTask(int index) {
+        taskArr.get(index - 1).mark();
+    }
+
+    public Task getTaskObject(int index) {
+        return taskArr.get(index - 1);
+    }
+
+    public String printSelectedTask(int index) {
+        return taskArr.get(index - 1).getTask();
+    }
+
+    public void deleteTask(int index) {
+        taskArr.remove(index - 1);
+    }
+
+    public int size() {
+        return taskArr.size();
+    }
+
+    public void addTask(Task task) {
+        taskArr.add(task);
+    }
 }

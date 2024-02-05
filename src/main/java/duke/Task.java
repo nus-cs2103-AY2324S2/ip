@@ -38,6 +38,9 @@ public class Task {
         return index + ". [" + getStatusIcon() + "] " + description;
     }
 
+    public String getDescription() {
+        return description;
+    }
     /**
      * change the index of the task
      * @param newIndex the new index of the task
