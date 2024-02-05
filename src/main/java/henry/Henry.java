@@ -46,7 +46,7 @@ public class Henry {
         }
     }
 
-    public static void main(String[] args) {
-        new Henry("data/tasks.txt").run();
+    public String getResponse(String input) {
+        return "Hello!";
     }
 }
