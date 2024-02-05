@@ -9,12 +9,12 @@ import java.io.FileReader;
 import java.util.Objects;
 import java.nio.file.Files;
 
-public class DataStore {
+public class Storage {
     private String filePath;
     private ArrayList<Task> taskArrayList = new ArrayList<>();
     private int lastIdx = 0;
 
-    public DataStore(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         Path path = Paths.get(filePath);
         try {
