@@ -14,7 +14,7 @@ public class Todo extends Task {
 
     /**
      * Creates Todo object.
-     * @param description Todo descriptin.
+     * @param description Todo description.
      * @param done  Whether todo is done.
      */
     public Todo(String description, boolean done) {
