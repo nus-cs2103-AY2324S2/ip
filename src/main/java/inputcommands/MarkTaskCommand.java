@@ -1,6 +1,6 @@
 package inputcommands;
 
-<<<<<<< HEAD:src/main/java/inputcommands/MarkTaskCommand.java
+import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandIndexException;
 import snomtasklist.TaskList;
 
