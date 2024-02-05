@@ -36,38 +36,6 @@ public class Taylor extends Application {
     }
     public static void main(String[] args) {
         launch(args);
-//        List<Task> tasksList = new ArrayList<>();
-//        // Load pre-existing task from Hard Disk
-//        try {
-//            tasksList = Storage.inputFromFile(tasksList);
-//        } catch (Exception e) {
-//            Ui.printError(e);
-//        }
-//        Ui.welcomeText();
-//        Scanner type = new Scanner(System.in);
-//
-//        while (true) {
-//            try {
-//                String input = type.nextLine();
-//
-//                if (input.isBlank()) {
-//                    Ui.blankCommand();
-//
-//                } else {
-//                    Parser.executeCommand(input, tasksList);
-//                }
-//            } catch (TaylorException err) {
-//                break;
-//            }
-//        }
-//        // Save Task into File in Hard Disk
-//        try {
-//            Storage.outputToFile(tasksList);
-//        } catch (Exception e) {
-//            Ui.printError(e);
-//        }
-//        type.close();
-//        Ui.goodbyeText();
     }
 
     @Override
