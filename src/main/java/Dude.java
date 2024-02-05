@@ -1,13 +1,17 @@
 import java.util.Scanner;
 
 public class  Dude {
+
+    static TaskList taskList = new TaskList();
+
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
 
         System.out.println(greet());
 
@@ -21,8 +25,11 @@ public class  Dude {
                 case "bye":
                     System.out.println(bye());
                     return;
+                case "list":
+                    System.out.println(list());
+                    break;
                 default:
-                    System.out.println(get_echo_msg(s));
+                    System.out.println(add_task(s));
             }
         }
 
@@ -36,6 +43,14 @@ public class  Dude {
                 "\tHello! I'm Dude\n" +
                 "\tWhat can I do for you?\n" +
                 "\t-----------------------------------";
+    }
+
+    private static String add_task(String msg){
+        return taskList.add_task(msg);
+    }
+
+    private static String list(){
+        return taskList.toString();
     }
 
 
