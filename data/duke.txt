@@ -1,4 +1,4 @@
 E | 0 | valentine's day | 14-02-2024 1930 | 14-02-2024 2200
 D | 1 | buy gift | 17-08-2024 1800
-1 | return money
-0 | go jog
+0 | return money
+1 | go jog
