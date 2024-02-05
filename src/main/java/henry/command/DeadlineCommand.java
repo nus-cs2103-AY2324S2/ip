@@ -14,6 +14,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a DeadlineCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */

@@ -10,6 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Represents the GUI for Henry using FXML.
+ */
 public class Main extends Application {
     private final Henry henry = new Henry(Paths.get("data", "tasks.txt").toAbsolutePath().toString());
 

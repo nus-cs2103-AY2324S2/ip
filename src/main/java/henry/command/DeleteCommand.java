@@ -12,6 +12,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Creates a DeleteCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */

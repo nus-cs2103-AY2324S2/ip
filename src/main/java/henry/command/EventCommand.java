@@ -15,6 +15,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates a EventCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */

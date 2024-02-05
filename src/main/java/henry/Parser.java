@@ -22,6 +22,7 @@ public class Parser {
 
     /**
      * Handles the command and returns the corresponding Command object.
+     *
      * @param commandType The type of command.
      * @param args The arguments for the command.
      * @return The corresponding Command object.

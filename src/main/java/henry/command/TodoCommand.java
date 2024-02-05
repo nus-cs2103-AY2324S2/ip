@@ -13,6 +13,7 @@ public class TodoCommand extends Command {
 
     /**
      * Creates a TodoCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */

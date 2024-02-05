@@ -13,6 +13,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Creates a UnmarkCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */

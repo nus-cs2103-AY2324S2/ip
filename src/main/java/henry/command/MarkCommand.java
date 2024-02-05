@@ -13,6 +13,7 @@ public class MarkCommand extends Command {
 
     /**
      * Creates a MarkCommand object.
+     *
      * @param args The arguments of the command.
      * @throws HenryException If the command is invalid.
      */
