@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+
 
 /**
  * The Parser class is responsible for parsing user input and converting it into executable commands.
@@ -62,7 +62,8 @@ public class Parser {
         case "event":
             String[] eventParts = details.split(" /from | /to "); // Split by both "/from" and "/to"
             if (eventParts.length != 3) {
-                throw new AtlasException("Invalid event format. Please use 'event [description] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.");
+                throw new AtlasException("Invalid event format."
+                        + " Please use 'event [description] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.");
             }
             String description = eventParts[0];
             LocalDateTime start;
@@ -106,13 +107,17 @@ public class Parser {
         switch (type) {
         case "T":
             ToDo todo = new ToDo(description);
-            if (isDone) todo.toggle();
+            if (isDone) {
+                todo.toggle();
+            }
             return todo;
         case "D":
             try {
                 LocalDateTime by = LocalDateTime.parse(parts[3].trim());
                 Deadline deadline = new Deadline(description, by);
-                if (isDone) deadline.toggle();
+                if (isDone) {
+                    deadline.toggle();
+                }
                 return deadline;
             } catch (DateTimeParseException e) {
                 System.err.println("Failed to parse deadline date: " + parts[3]);
@@ -123,7 +128,9 @@ public class Parser {
                 LocalDateTime start = LocalDateTime.parse(parts[3].trim());
                 LocalDateTime end = LocalDateTime.parse(parts[4].trim());
                 Event event = new Event(description, start, end);
-                if (isDone) event.toggle();
+                if (isDone) {
+                    event.toggle();
+                }
                 return event;
             } catch (DateTimeParseException e) {
                 System.err.println("Failed to parse event dates: " + parts[3] + " and " + parts[4]);
