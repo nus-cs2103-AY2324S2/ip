@@ -297,7 +297,7 @@ class handlerbot {
                     arrtaskings[countertaskings].summarystatus() +
                     " (from: " + arrtaskings[countertaskings].timerstartstatus() + " to: " + arrtaskings[countertaskings].timerendstatus() + ")");
         } else {
-            // Error handling for missing task types
+            // Error handlings for missing task types
             System.out.println("____________________________________________________________");
             System.out.println(" SAD! Please start your task with 'todo', 'deadline', or 'event'.");
             System.out.println("____________________________________________________________");
