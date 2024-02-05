@@ -14,30 +14,35 @@ import java.util.stream.Stream;
 public class TaskSerializer {
     private final static String DELIMITER = ";";
 
-    public static String serialize(List<shodan.tasks.Task> tasks) {
+    public static String serialize(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        for (shodan.tasks.Task t : tasks) {
+        for (Task t : tasks) {
             String[] taskFields = {"", "", "", "", ""};
             if (t instanceof Todo) {
                 Todo todo = (Todo) t;
-                taskFields[0] = shodan.tasks.TaskType.TODO.name();
+                taskFields[0] = TaskType.TODO.name();
                 taskFields[1] = String.valueOf(todo.isDone());
                 taskFields[2] = todo.getName();
             } else if (t instanceof Deadline) {
                 Deadline deadline = (Deadline) t;
-                taskFields[0] = shodan.tasks.TaskType.DEADLINE.name();
+                taskFields[0] = TaskType.DEADLINE.name();
                 taskFields[1] = String.valueOf(deadline.isDone());
                 taskFields[2] = deadline.getName();
                 taskFields[4] = deadline.getEndDate();
             } else if (t instanceof Event) {
                 Event event = (Event) t;
-                taskFields[0] = shodan.tasks.TaskType.EVENT.name();
+                taskFields[0] = TaskType.EVENT.name();
                 taskFields[1] = String.valueOf(event.isDone());
                 taskFields[2] = event.getName();
                 taskFields[3] = event.getStartDate();
                 taskFields[4] = event.getEndDate();
             } else {
                 throw new RuntimeException("Unable to cast Task class into any of its subclasses.");
+            }
+            for (String field : taskFields) {
+                if (field.contains(DELIMITER)) {
+                    throw new IllegalArgumentException(String.format("Unable to serialize task: %s because one of its fields contains the delimiter used for serializing.", t));
+                }
             }
             String serializedTask = String.join(DELIMITER, taskFields);
             sb.append(serializedTask);
@@ -46,26 +51,35 @@ public class TaskSerializer {
         return sb.toString();
     }
 
-    public static List<shodan.tasks.Task> parseText(Stream<String> text) {
+    public static List<Task> parseText(Stream<String> text) {
         return text.filter(Predicate.not(String::isBlank)).map((String t) -> {
             String[] fields = t.split(DELIMITER);
             try {
+                boolean isDone;
+                if (fields[1].equalsIgnoreCase("true")) {
+                    isDone = true;
+                } else if (fields[1].equalsIgnoreCase("false")) {
+                    isDone = false;
+                } else {
+                    throw new IllegalArgumentException();
+                }
+
                 switch (TaskType.valueOf(fields[0])) {
                 case TODO:
                     Todo todo = new Todo(fields[2]);
-                    if (Boolean.parseBoolean(fields[1])) {
+                    if (isDone) {
                         todo.done();
                     }
                     return todo;
                 case DEADLINE:
                     Deadline deadline = new Deadline(fields[2], LocalDateTime.parse(fields[4]));
-                    if (Boolean.parseBoolean(fields[1])) {
+                    if (isDone) {
                         deadline.done();
                     }
                     return deadline;
                 case EVENT:
                     Event event = new Event(fields[2], LocalDateTime.parse(fields[3]), LocalDateTime.parse(fields[4]));
-                    if (Boolean.parseBoolean(fields[1])) {
+                    if (isDone) {
                         event.done();
                     }
                     return event;
