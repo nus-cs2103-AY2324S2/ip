@@ -78,7 +78,7 @@ public class ListCommand extends Command {
      * @param input    The input.
      * @param taskList The task list.
      * @param ui       The user interface.
-     * @return response to the user.
+     * @return Response to the user.
      */
     public String listTasksOnDate(String input, TaskList taskList, Ui ui) {
         try {

@@ -8,14 +8,6 @@ import saopig.task.TaskList;
  * Abstract class for all commands.
  */
 public abstract class Command {
-    /**
-     * Executes the command.
-     *
-     * @param tasks   TaskList object.
-     * @param ui      Ui object.
-     * @param storage Storage object.
-     * @return
-     */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
