@@ -40,6 +40,11 @@ public class  Dude {
                 case "unmark":
                     System.out.println(mark_as_undone(msg));
                     break;
+                case "":
+                    System.out.println("\t-----------------------------------\n" +
+                            "\tTask description is empty. Not added.\n" +
+                            "\t-----------------------------------");
+                    break;
                 default:
                     System.out.println(add_task(msg));
             }
@@ -76,6 +81,7 @@ public class  Dude {
     }
 
     private static String mark_as_done(String msg){
+        //TODO: Write logic for commands with multiple parameters. Eg: mark 1 2 3
         //Try to retrieve the index
         int index = 0;
         try{
@@ -97,6 +103,7 @@ public class  Dude {
     }
 
     private static String mark_as_undone(String msg){
+        //TODO: Write logic for commands with multiple parameters. Eg: unmark 1 2 3
         //Try to retrieve the index
         int index = 0;
         try{
