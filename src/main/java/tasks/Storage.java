@@ -1,3 +1,7 @@
+package tasks;
+
+import DukeException.DukeException;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +17,7 @@ public class Storage {
         this.path = Path.of(path);
     }
 
-    public TaskList load() throws DukeException{
+    public TaskList load() throws DukeException {
         if (Files.notExists(path)) {
             System.out.println("No cache found");
             return new TaskList();
