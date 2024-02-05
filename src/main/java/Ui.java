@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ChatbotUser {
+public class Ui {
 
     Scanner scanObj = new Scanner(System.in);
     private String userInput = "";
