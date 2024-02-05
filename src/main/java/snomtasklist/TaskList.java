@@ -1,17 +1,17 @@
-package snomtasklist;
+package SnomTaskList;
 
-import snomexceptions.InvalidCommandIndexException;
-import snomtask.Task;
+import SnomExceptions.InvalidCommandIndexException;
+import SnomTask.Task;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasklst;
+    private ArrayList<Task> task_lst;
     private int counter;
 
 
     private TaskList() {
-        this.tasklst = new ArrayList<>();
+        this.task_lst = new ArrayList<>();
         this.counter = 0;
     }
 
@@ -25,7 +25,7 @@ public class TaskList {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
-            return this.tasklst.get(pos);
+            return this.task_lst.get(pos);
         }
 
     }
@@ -36,7 +36,7 @@ public class TaskList {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
-            this.tasklst.get(pos).doTask();
+            this.task_lst.get(pos).doTask();
         }
 
     }
@@ -47,7 +47,7 @@ public class TaskList {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
-            this.tasklst.get(pos).undoTask();
+            this.task_lst.get(pos).undoTask();
         }
     }
 
@@ -60,14 +60,14 @@ public class TaskList {
         } else {
             pos -= 1;
             this.counter -= 1;
-            this.tasklst.remove(pos);
+            this.task_lst.remove(pos);
         }
 
     }
 
-    public void addTask(Task t) {
+    public void AddTask(Task t) {
         this.counter += 1;
-        this.tasklst.add(t);
+        this.task_lst.add(t);
     }
 
     public int getCounter() {
@@ -75,8 +75,8 @@ public class TaskList {
     }
 
     public void displayTaskList() {
-        for (int i = 0; i < counter; i++) {
-            System.out.println(this.tasklst.get(i));
+        for (int i = 0; i<counter; i++) {
+            System.out.println(this.task_lst.get(i));
         }
     }
 

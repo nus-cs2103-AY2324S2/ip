@@ -1,12 +1,12 @@
-package snomparser;
+package SnomParser;
 
-import inputcommands.Command;
-import snomexceptions.InvalidCommandException;
+import InputCommands.Command;
+import SnomExceptions.InvalidCommandException;
 import SnomStorage.TaskStorage;
-import snomtask.Deadline;
-import snomtask.Event;
-import snomtask.Todo;
-import snomtasklist.TaskList;
+import SnomTask.Deadline;
+import SnomTask.Event;
+import SnomTask.Todo;
+import SnomTaskList.TaskList;
 
 public class Parser {
 
@@ -56,20 +56,20 @@ public class Parser {
     }
 
     private void addTodo(TaskList lst, TaskStorage storage, String cmd) {
-        lst.addTask(new Todo(cmd));
+        lst.AddTask(new Todo(cmd));
     }
 
     private void addDeadline(TaskList lst, TaskStorage storage, String cmd) {
         String name = cmd.split("/", 2)[0];
-        String deadline = cmd.split("/", 2)[1];
-        lst.addTask(new Deadline(name, deadline));
+        String due_date = cmd.split("/", 2)[1];
+        lst.AddTask(new Deadline(name, due_date));
     }
 
     private void addEvent(TaskList lst, TaskStorage storage, String cmd) {
         String name = cmd.split("/", 3)[0];
         String start = cmd.split("/", 3)[1];
         String end = cmd.split("/", 3)[2];
-        lst.addTask(new Event(name, start, end));
+        lst.AddTask(new Event(name, start, end));
     }
 
     private void doTask(TaskList lst, TaskStorage storage, int pos) {

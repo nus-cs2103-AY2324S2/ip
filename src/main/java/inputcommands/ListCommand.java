@@ -1,4 +1,3 @@
-package inputcommands;
 
 import snomexceptions.InvalidCommandException;
 import snomtasklist.TaskList;
