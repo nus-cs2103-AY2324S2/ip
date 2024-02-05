@@ -1,7 +1,6 @@
+import duke.*;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Iterator;
 
 public class Duke {
     private Storage storage;

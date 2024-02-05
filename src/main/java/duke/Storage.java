@@ -1,3 +1,7 @@
+package duke;
+
+import duke.Event;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
