@@ -1,5 +1,5 @@
 enum Command{
-    TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, INVALID;
+    TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, DELETE, INVALID;
 
     public static Command getCommand(String command) {
         try {

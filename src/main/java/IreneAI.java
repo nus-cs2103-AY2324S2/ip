@@ -28,6 +28,7 @@ public class IreneAI {
             String userInput = scanner.nextLine();
             String[] splitInputs = userInput.split(" ");
             Command command = Command.getCommand(splitInputs[0]);
+            String argument = splitInputs.length > 1 ? splitInputs[1] : "";
             dividingLine(LINE);
 
             try {
@@ -37,7 +38,6 @@ public class IreneAI {
                         dividingLine(LINE);
                         return;
                     case TODO:
-                        String argument = splitInputs.length > 1 ? splitInputs[1] : "";
                         if (argument.isEmpty()) {
                             throw new DukeException("The description of a todo cannot be empty.");
                         }
@@ -69,7 +69,6 @@ public class IreneAI {
                         listTasks();
                         break;
                     case UNMARK:
-                        argument = splitInputs.length > 1 ? splitInputs[1] : "";
                         if (argument.isEmpty()) {
                             throw new DukeException("You must specific which task to unmark (in number).");
                         }
@@ -77,11 +76,16 @@ public class IreneAI {
                         break;
                     case MARK:
                         // future works: index out of bound cases
-                        argument = splitInputs.length > 1 ? splitInputs[1] : "";
                         if (argument.isEmpty()) {
                             throw new DukeException("You must specific which task to mark (in number).");
                         }
                         handleMark(userInput);
+                        break;
+                    case DELETE:
+                        if (argument.isEmpty()) {
+                            throw new DukeException("You must specific which task to mark (in number).");
+                        }
+                        handleDelete(userInput);
                         break;
                     case INVALID:
                         //Default error handling
@@ -156,6 +160,17 @@ public class IreneAI {
         System.out.println("Brilliant! I've marked " + task.getDescription() + " as done : )");
         System.out.println("  " + task);
         dividingLine(LINE);
+    }
+
+    private static void handleDelete(String userInput) {
+        try {
+            int index = Integer.parseInt(userInput.substring((7))) - 1;
+            Task removedTask = tasks.remove(index);
+            System.out.println("Success! I have removed this task: " + removedTask + ".");
+            System.out.println("Now you still have " + tasks.size() + " tasks remaining.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!! I cannot delete the task! It does not exist.");
+        }
     }
 
     private static void dividingLine(String line){
