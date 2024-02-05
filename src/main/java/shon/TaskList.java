@@ -16,13 +16,13 @@ import shon.task.Todo;
  * Represents the todo list of the user.
  */
 public class TaskList {
-    private List<Task> list;
+    private List<Task> tasks;
 
     /**
      * Creates a new <code>TaskList</code> with a capacity of 100.
      */
     public TaskList() {
-        this.list = new ArrayList<>(100);
+        this.tasks = new ArrayList<>(100);
     }
 
     /**
@@ -32,8 +32,8 @@ public class TaskList {
      * @return An array of String showing the results of the command.
      */
     private String[] add(Task task) {
-        this.list.add(task);
-        int size = this.list.size();
+        this.tasks.add(task);
+        int size = this.tasks.size();
         return new String[]{"Got it. I've added this task:", "  " + task,
                 String.format("Now you have %s %s in the list.", size, size < 2 ? "task" : "tasks")};
     }
@@ -115,16 +115,16 @@ public class TaskList {
      *
      * @return An array of Strings representing the tasks in the list.
      */
-    public String[] getList() {
-        if (this.list.size() == 0) {
+    public String[] getTasks() {
+        if (this.tasks.size() == 0) {
             return new String[]{"Your list is currently empty."};
         }
-        String[] output = new String[this.list.size()+1];
-        output[0] = "Here are the tasks in your list:";
-        for (int i = 1; i < this.list.size()+1; i++) {
-            output[i] = i + "." + this.list.get(i-1);
+        String[] outputs = new String[this.tasks.size() + 1];
+        outputs[0] = "Here are the tasks in your list:";
+        for (int i = 1; i < this.tasks.size() + 1; i++) {
+            outputs[i] = i + "." + this.tasks.get(i - 1);
         }
-        return output;
+        return outputs;
     }
 
     /**
@@ -136,10 +136,10 @@ public class TaskList {
      * the index is a non-positive number.
      */
     public String[] mark(int idx) throws ParameterException {
-        if (idx > this.list.size() || idx < 1) {
+        if (idx > this.tasks.size() || idx < 1) {
             throw new ParameterException("Please select a valid task number from the list.");
         }
-        Task task = this.list.get(idx-1);
+        Task task = this.tasks.get(idx - 1);
         String description = task.markAsDone();
         return new String[]{"Nice! I've marked this task as done:", "  " + description};
     }
@@ -153,10 +153,10 @@ public class TaskList {
      * the index is a non-positive number.
      */
     public String[] unmark(int idx) throws ParameterException {
-        if (idx > this.list.size() || idx < 1) {
+        if (idx > this.tasks.size() || idx < 1) {
             throw new ParameterException("Please select a valid task number from the list.");
         }
-        Task task = this.list.get(idx-1);
+        Task task = this.tasks.get(idx - 1);
         String description = task.markAsNotDone();
         return new String[]{"OK, I've marked this task as not done yet:", "  " + description};
     }
@@ -170,15 +170,15 @@ public class TaskList {
      * list, or if the index is a non-positive number.
      */
     public String[] deleteTask(int idx) throws ParameterException {
-        if (this.list.size() == 0) {
+        if (this.tasks.size() == 0) {
             throw new ParameterException("Your list is empty. Nothing to delete.");
         }
-        if (idx > this.list.size() || idx < 1) {
+        if (idx > this.tasks.size() || idx < 1) {
             throw new ParameterException("Please select a valid task number to delete from the list.");
         }
-        Task task = this.list.get(idx-1);
-        this.list.remove(idx-1);
-        int size = this.list.size();
+        Task task = this.tasks.get(idx - 1);
+        this.tasks.remove(idx - 1);
+        int size = this.tasks.size();
         return new String[]{"Noted. I've removed this task:", "  " + task,
                 String.format("Now you have %s %s in the list.", size, size < 2 ? "task" : "tasks")};
     }
@@ -189,11 +189,11 @@ public class TaskList {
      * @return An array of String representing the tasks in the list, in a storage-appropriate format.
      */
     public String[] formatData() {
-        int size = this.list.size();
-        String[] output = new String[size];
+        int size = this.tasks.size();
+        String[] outputs = new String[size];
         for (int i = 0; i < size; i++) {
-            output[i] = this.list.get(i).formatData();
+            outputs[i] = this.tasks.get(i).formatData();
         }
-        return output;
+        return outputs;
     }
 }

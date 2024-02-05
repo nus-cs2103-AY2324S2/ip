@@ -48,8 +48,7 @@ public class Ui {
      * multiple Strings, or an array of Strings.
      */
     public void print(String... messages) {
-        String line = "    _______________" +
-                "_____________________________________________";
+        String line = "    ____________________________________________________________";
         System.out.println(line);
         for (String msg : messages) {
             System.out.println("     " + msg);
