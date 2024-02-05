@@ -1,6 +1,12 @@
 package Irwyn.Exceptions;
 
+/**
+ * This class represents a command exception for Irwyn chatbot.
+ */
 public class CommandException extends InputException {
+    /**
+     * Constructor for the CommandException class.
+     */
     public CommandException() {
         super(
                 "____________________________________________________________\n"

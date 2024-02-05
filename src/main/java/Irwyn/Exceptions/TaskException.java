@@ -1,6 +1,12 @@
 package Irwyn.Exceptions;
 
+/**
+ * This class represents a task exception for Irwyn chatbot.
+ */
 public class TaskException extends InputException {
+    /**
+     * Constructor for the TaskException class.
+     */
     public TaskException() {
         super(
                 "Invalid task type\n"
