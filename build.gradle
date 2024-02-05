@@ -30,11 +30,11 @@ test {
 
 application {
 //    The base path is already set to src.main.java
-    mainClass.set("Duke")
+    mainClass.set("Oak.Oak")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "oak"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
