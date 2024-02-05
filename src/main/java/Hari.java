@@ -247,7 +247,6 @@ class handlerbot {
         }
     }
 
-
     // Function that handles the exit message
     public void messagefarewell() {
         System.out.println("____________________________________________________________");
