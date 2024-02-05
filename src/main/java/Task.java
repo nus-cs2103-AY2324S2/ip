@@ -1,21 +1,35 @@
 public class Task {
     private String desc;
-    private String status;
+    private boolean isDone;
 
     Task(String desc) {
         this.desc = desc;
-        this.status = "[ ]";
+        this.isDone = false;
+    }
+
+    Task(String desc, boolean isDone) {
+        this.desc = desc;
+        this.isDone = isDone;
     }
 
     public void mark() {
-        this.status = "[X]";
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.status = "[ ]";
+        this.isDone = false;
+    }
+
+    public String toSave() {
+        // need to store status as well
+        return isDone + " - " + desc;
     }
 
     public String toString() {
-        return status + " " + desc;
+        String s = "[ ]";
+        if (isDone) {
+            s = "[X]";
+        }
+        return  s + " " + desc;
     }
 }
