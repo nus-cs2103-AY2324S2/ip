@@ -17,9 +17,9 @@ public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param tasks   The task list of the chat bot.
-     * @param ui      The user interface of the chat bot.
-     * @param storage The storage of the chat bot.
+     * @param tasks   The task list of the chatbot.
+     * @param ui      The user interface of the chatbot.
+     * @param storage The storage of the chatbot.
      * @throws EggyException If an error occurs while executing the command.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EggyException;

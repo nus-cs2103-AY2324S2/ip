@@ -11,9 +11,9 @@ public class ListCommand extends Command {
     /**
      * Prints all tasks in the task list.
      *
-     * @param tasks   The task list of the chat bot.
-     * @param ui      The user interface of the chat bot.
-     * @param storage The storage of the chat bot.
+     * @param tasks   The task list of the chatbot.
+     * @param ui      The user interface of the chatbot.
+     * @param storage The storage of the chatbot.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

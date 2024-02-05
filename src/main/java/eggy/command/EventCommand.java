@@ -45,9 +45,9 @@ public class EventCommand extends Command {
     /**
      * Adds an event to the task list and saves the task list to the storage.
      *
-     * @param tasks The task list of the chat bot.
-     * @param ui The user interface of the chat bot.
-     * @param storage The storage of the chat bot.
+     * @param tasks The task list of the chatbot.
+     * @param ui The user interface of the chatbot.
+     * @param storage The storage of the chatbot.
      * @throws SaveTasksException If there is an error saving the task list to the storage.
      */
     @Override

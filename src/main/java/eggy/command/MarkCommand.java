@@ -27,7 +27,8 @@ public class MarkCommand extends Command {
      * @throws TaskNumberFormatException If the task number is not a number.
      * @throws TaskListIndexOutOfBoundsException If the task number is out of bounds.
      */
-    public MarkCommand(String[] commands, int tasksSize) throws IncompleteCommandException, TaskNumberFormatException, TaskListIndexOutOfBoundsException {
+    public MarkCommand(String[] commands, int tasksSize)
+            throws IncompleteCommandException, TaskNumberFormatException, TaskListIndexOutOfBoundsException {
         if (commands.length < 2) {
             throw new IncompleteCommandException("mark");
         }

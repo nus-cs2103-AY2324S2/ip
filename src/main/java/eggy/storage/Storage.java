@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the storage of the chat bot.
+ * Represents the storage of the chatbot.
  */
 public class Storage {
     /** The file path of the storage. */
@@ -31,7 +31,7 @@ public class Storage {
     }
 
     /**
-     * Constructs the storage of the chat bot.
+     * Constructs the storage of the chatbot.
      *
      * @param filePath The file path of the storage.
      */

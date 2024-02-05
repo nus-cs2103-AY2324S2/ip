@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
     private int index;
 
     /**
-     * Constructs a UnmarkCommand.
+     * Constructs an UnmarkCommand.
      *
      * @param commands The array of commands.
      * @param tasksSize The size of the task list.
@@ -26,7 +26,8 @@ public class UnmarkCommand extends Command {
      * @throws TaskNumberFormatException If the task number is not a number.
      * @throws TaskListIndexOutOfBoundsException If the task number is out of bounds.
      */
-    public UnmarkCommand(String[] commands, int tasksSize) throws IncompleteCommandException, TaskNumberFormatException, TaskListIndexOutOfBoundsException {
+    public UnmarkCommand(String[] commands, int tasksSize)
+            throws IncompleteCommandException, TaskNumberFormatException, TaskListIndexOutOfBoundsException {
         if (commands.length < 2) {
             throw new IncompleteCommandException("unmark");
         }
@@ -44,9 +45,9 @@ public class UnmarkCommand extends Command {
     /**
      * Marks a task as not done from the task list and saves the task list to the storage.
      *
-     * @param tasks The task list of the chat bot.
-     * @param ui The user interface of the chat bot.
-     * @param storage The storage of the chat bot.
+     * @param tasks The task list of the chatbot.
+     * @param ui The user interface of the chatbot.
+     * @param storage The storage of the chatbot.
      * @throws SaveTasksException If there is an error saving the task list to the storage.
      */
     @Override
