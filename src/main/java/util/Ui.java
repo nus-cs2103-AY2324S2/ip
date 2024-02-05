@@ -84,7 +84,8 @@ public class Ui {
      */
     public void printEventError(Exception e) {
         if (e instanceof IndexOutOfBoundsException) {
-            System.out.println("OH NOES!! Do enter the event dates(YYYY-MM-DD) correctly with: /from [start] /to [end]. ");
+            System.out.println(
+                    "OH NOES!! Do enter the event dates(YYYY-MM-DD) correctly with: /from [start] /to [end]. ");
         } else if (e instanceof IllegalArgumentException) {
             System.out.println("Uh oh. Something went wrong with your input!");
         } else if (e instanceof DateTimeParseException) {
@@ -107,7 +108,7 @@ public class Ui {
     public void printOperationError(Exception e) {
         if (e instanceof NumberFormatException) {
             System.out.println("Oh dear! Please enter a number instead ^.^");
-        } else if (e instanceof NullPointerException | e instanceof  IndexOutOfBoundsException) {
+        } else if (e instanceof NullPointerException | e instanceof IndexOutOfBoundsException) {
             System.out.println("Oopsies! Please enter a valid task number ^.^");
         }
     }

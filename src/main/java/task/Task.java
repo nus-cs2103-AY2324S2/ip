@@ -19,7 +19,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public Task() {
@@ -38,14 +38,14 @@ public class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public boolean isDone() {
@@ -67,7 +67,7 @@ public class Task {
      * @return The description of the task.
      */
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**

@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 /**
  * Encapsulates TODO task. Inherits from task.Task.
  *

@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -66,7 +64,7 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedFrom = this.from.format(formatter);
         String formattedTo = this.to.format(formatter);
-        return "[E]" + super.toString() +
-                " (from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "[E]" + super.toString()
+                + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }
