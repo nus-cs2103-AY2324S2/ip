@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 public class ParserTest {
     @Test
-    public void parseUnknownInput_ExceptionTest() {
+    public void parse_UnknownInput_ExceptionThrown() {
         try {
             Command c = Parser.parse("hi");
             fail();
@@ -21,7 +21,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseWrongInput_ExceptionTest() {
+    public void parse_WrongInput_ExceptionThrown() {
         try {
             Command c = Parser.parse("Event read book /from /to 2024-01-01");
             fail();
@@ -48,7 +48,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseAddEventTest() throws ThamesException{
+    public void parse_AddEvent() throws ThamesException{
         Command c1 = Parser.parse("Event read book /from 2024-01-01 /to 2024-01-02");
         assertEquals(new AddCommand(new Event("read book", "2024-01-01", "2024-01-02")), c1 );
 
@@ -57,7 +57,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseAddDeadlineTest() throws ThamesException{
+    public void parse_AddDeadline() throws ThamesException{
         Command c1 = Parser.parse("Deadline read book /by 2022-01-01");
         assertEquals(new AddCommand(new Deadline("read book", "2022-01-01")), c1 );
     }

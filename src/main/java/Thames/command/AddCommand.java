@@ -1,11 +1,12 @@
 package Thames.command;
 
 import java.io.IOException;
+
+import Thames.task.Task;
+import Thames.Storage;
 import Thames.TaskList;
 import Thames.Ui;
-import Thames.Storage;
 import Thames.ThamesException;
-import Thames.task.Task;
 
 public class AddCommand extends Command {
     protected Task task;

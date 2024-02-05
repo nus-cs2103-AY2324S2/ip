@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class TaskListTest {
     @Test
-    public void taskListInitTest() {
+    public void initializeTest() {
         Task task1 = new ToDo("return book");
         Task task2 = new Deadline("finish homework", "2024-01-01");
         Task task3 = new Event("vacation", "2024-01-01", "2024-01-10");
@@ -30,7 +30,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void taskListAddTest() {
+    public void addTest() {
         TaskList result = new TaskList(new Scanner(""));
         assertEquals(0, result.size());
 
