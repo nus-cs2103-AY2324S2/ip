@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.task.Task;
+
 public class TaskList {
     private Task[] tasks;
     private int counter;
@@ -29,7 +33,7 @@ public class TaskList {
             throw new IllegalArgumentException("Invalid task number");
         }
 
-        tasks[taskNumber - 1].markAsDone( );
+        tasks[taskNumber].markAsDone( );
     }
 
     public Task[] getTasks() {

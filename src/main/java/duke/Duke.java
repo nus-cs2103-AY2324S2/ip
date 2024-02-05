@@ -1,3 +1,14 @@
+package duke;
+
+import duke.command.Parser;
+import duke.command.Storage;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.ui.Ui;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -49,8 +60,8 @@ public class Duke {
                     if (Objects.equals(type, "mark")) {
                         int taskNumber = (int) parseRes[1];
                         if (taskNumber >= 1 && taskNumber <= counter) {
-                            ui.showMarkTaskDoneMessage(taskArr[taskNumber]);
                             tasks.markTaskAsDone(taskNumber);
+                            ui.showMarkTaskDoneMessage(taskArr[taskNumber]);
                         } else {
                             ui.showMessage("UH OH! Invalid task number, please provide a valid task number!");
                         }
@@ -62,7 +73,6 @@ public class Duke {
                         if (taskNumber >= 1 && taskNumber <= counter) {
                             ui.showRemoveTaskMessage(taskArr[taskNumber - 1], counter);
                             tasks.deleteTask(counter - 1);
-
                         } else {
                             throw new DukeException("UH OH! Invalid task number, please provide a valid task number!");
                         }
@@ -73,16 +83,16 @@ public class Duke {
                         String taskDesc = (String) parseRes[1];
 
                         Task t = new Todo(taskDesc);
-                        ui.showAddTaskMessage(t, counter);
                         tasks.addTask(t);
+                        ui.showAddTaskMessage(t, counter);
 
                     } else if (Objects.equals(type, "deadline")) {
                         String taskDesc = (String) parseRes[1];
                         LocalDate by = (LocalDate) parseRes[2];
 
                         Task t = new Deadline(taskDesc, by);
-                        ui.showAddTaskMessage(t, counter);
                         tasks.addTask(t);
+                        ui.showAddTaskMessage(t, counter);
 
                     } else if (Objects.equals(type, "event")) {
                         String taskDesc = (String) parseRes[1];
@@ -92,8 +102,8 @@ public class Duke {
                         String toTime = (String) parseRes[5];
 
                         Task t = new Event(taskDesc, fromDate, fromTime, toDate, toTime);
-                        ui.showAddTaskMessage(t, counter);
                         tasks.addTask(t);
+                        ui.showAddTaskMessage(t, counter);
 
                     } else {
                         throw new DukeException("UH OH! I don't understand what you mean.. sorry D:");
@@ -115,8 +125,3 @@ public class Duke {
 
 }
 
-class DukeException extends Exception {
-    public DukeException(String message) {
-        super(message);
-    }
-}

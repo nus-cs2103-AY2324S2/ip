@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.DukeException;
+
 import java.time.LocalDate;
 
 public class Parser {
@@ -83,7 +87,7 @@ public class Parser {
     private static Object[] parseMarkCommand(String input) throws DukeException {
         String taskNum = input.substring(5);
         int taskNumber = Integer.parseInt(taskNum);
-        return new Object[] { "mark", taskNumber };
+        return new Object[] { "mark", taskNumber - 1};
     }
 
     private static Object[] parseDeleteCommand(String input) throws DukeException {
