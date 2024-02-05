@@ -18,6 +18,10 @@ public class Duchess {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Create new Duchess object.
+     * Create new Ui, Storage, Parser, and TaskList objects.
+     */
     public Duchess() {
         ui = new Ui();
         storage = new Storage("tasks.txt");
@@ -30,6 +34,9 @@ public class Duchess {
         }
     }
 
+    /**
+     * Run Duchess program.
+     */
     public void run() {
         String lineBreak = "\t\t------------------------------------------";
 
