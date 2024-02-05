@@ -8,12 +8,12 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) throws DukeException {
         super(description);
-        //try {
+        try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-//        } catch (DateTimeParseException e) {
-//            throw new DukeException(" Invalid date/time format! Please use yyyy-MM-dd HHmm. ");
-//        }
+        } catch (DateTimeParseException e) {
+            throw new DukeException(" Invalid date/time format! Please use yyyy-MM-dd HHmm. ");
+        }
 
     }
 

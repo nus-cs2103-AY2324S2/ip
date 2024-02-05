@@ -7,11 +7,11 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) throws DukeException {
         super(description);
-        //try {
+        try {
             this.by = LocalDate.parse(by);
-        //} catch (DateTimeParseException e) {
-        //    throw new DukeException(" Invalid date format! Please use yyyy-MM-dd.");
-        //}
+        } catch (DateTimeParseException e) {
+            throw new DukeException(" Invalid date format! Please use yyyy-MM-dd.");
+        }
     }
 
     @Override
