@@ -1,7 +1,7 @@
 package ghbot;
 
 /**
- * Event class.
+ * Event Class.
  * This class contains information about the event.
  */
 public class Event extends Task {

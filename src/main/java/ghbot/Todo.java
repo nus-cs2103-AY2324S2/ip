@@ -1,7 +1,7 @@
 package ghbot;
 
 /**
- * Todo class.
+ * Todo Class.
  * This class contains information about the todo task.
  */
 public class Todo extends Task {

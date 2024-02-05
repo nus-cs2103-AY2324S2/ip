@@ -1,7 +1,7 @@
 package ghbot;
 
 /**
- * Deadline class.
+ * Deadline Class.
  * This class contains information about the deadline.
  */
 public class Deadline extends Task {
