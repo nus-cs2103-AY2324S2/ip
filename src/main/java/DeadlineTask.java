@@ -5,19 +5,19 @@
  * a String representing the date and/or time of deadline.
  */
 public class DeadlineTask extends Task {
-    public String date_time;
+    public String dateTime;
 
     /**
      * Basic constructor
      * @param taskName name of task to be tracked
      */
-    public DeadlineTask(String taskName, String date_time) {
+    public DeadlineTask(String taskName, String dateTime) {
         super(taskName);
-        this.date_time = date_time;
+        this.dateTime = dateTime;
     }
     @Override
     public String toString() {
         return "[D]" + super.toString() +
-                String.format("(by: %s)", this.date_time);
+                String.format("(by: %s)", this.dateTime);
     }
 }

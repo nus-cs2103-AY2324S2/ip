@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Chaterpillar {
     public static boolean hasExited = false;
-    public static ArrayList<Task> listOfTasks = new ArrayList<Task>();
+    public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     /**
      * Prints the greeting message by the Chaterpillar chatbot.
@@ -54,7 +54,7 @@ public class Chaterpillar {
      * @throws IOException if there are any input/output errors
      * @see IOException
      */
-    public static void parse_input(BufferedReader reader) throws IOException {
+    public static void parseInput(BufferedReader reader) throws IOException {
         String input = reader.readLine();
         String[] input_sp = input.split(" ");
         print_horizontal_line();
@@ -67,34 +67,29 @@ public class Chaterpillar {
             case "list":
                 echo("Here are the tasks in your list: ");
                 int i = 1;
-                for (Task each_task : listOfTasks) {
+                for (Task each_task : tasks) {
                     echo(i++ + ". " + each_task);
                 }
                 break;
             case "mark":
                 echo("Nice! I've marked this task as done:");
                 num = Integer.parseInt(input_sp[1]);
-                curr_task = listOfTasks.get(num-1);
+                curr_task = tasks.get(num-1);
                 curr_task.mark();
                 echo(curr_task.toString());
                 break;
             case "unmark":
                 echo("Ok, I've marked this task as not done yet:");
                 num = Integer.parseInt(input_sp[1]);
-                curr_task = listOfTasks.get(num-1);
+                curr_task = tasks.get(num-1);
                 curr_task.unmark();
                 echo(curr_task.toString());
-                break;
-            case "bye":
-                // exits the program
-                hasExited = true;
-                exit();
                 break;
             case "todo":
                 try {
                     name = input.substring(5);
                     curr_task = new TodoTask(name);
-                    add_task(curr_task);
+                    addTask(curr_task);
                 } catch (StringIndexOutOfBoundsException e) {
                     echo("Sorry, the name of the task todo cannot be empty.\n" +
                             "The way to use the command is as such: todo taskname");
@@ -106,7 +101,7 @@ public class Chaterpillar {
                     name = temp[0].substring(9);
                     String date = temp[1].substring(3);
                     curr_task = new DeadlineTask(name, date);
-                    add_task(curr_task);
+                    addTask(curr_task);
                 } catch (IndexOutOfBoundsException e) {
                     echo("Sorry, this command is in the wrong format.\n" +
                             "The way to use the command is: deadline taskname /by date_and_time");
@@ -119,7 +114,7 @@ public class Chaterpillar {
                     String date1 = temp[1].substring(5);
                     String date2 = temp[2].substring(3);
                     curr_task = new EventTask(name, date1, date2);
-                    add_task(curr_task);
+                    addTask(curr_task);
                 } catch (IndexOutOfBoundsException e) {
                     echo("Sorry, this command is in the wrong format.\n" +
                             "The way to use the command is: event taskname /from date_and_time /to date_and_time");
@@ -129,7 +124,7 @@ public class Chaterpillar {
                 try {
                     temp = input.split(" ");
                     int index = Integer.parseInt(temp[1])-1;
-                    delete_task(index);
+                    deleteTask(index);
                 } catch (NumberFormatException e) {
                     echo("Sorry, there is no number detected.\n" +
                             "The correct way to use the command is: delete number");
@@ -137,6 +132,11 @@ public class Chaterpillar {
                     echo("Sorry, the format for this command is wrong.\n" +
                             "The correct way to use the command is: delete number");
                 }
+                break;
+            case "bye":
+                // exits the program
+                hasExited = true;
+                exit();
                 break;
             case "help":
                 String help_message = "Hi! Here are the list of commands I recognise: \n\n" +
@@ -164,11 +164,11 @@ public class Chaterpillar {
      * static ArrayList to be tracked by the chatbot.
      * @param task object containing the specified task
      */
-    public static void add_task(Task task) {
-        listOfTasks.add(task);
+    public static void addTask(Task task) {
+        tasks.add(task);
         echo("Got it. I've added this task:");
         echo(task.toString());
-        echo("Now you have " + listOfTasks.size() + " tasks in the list.");
+        echo("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -176,11 +176,11 @@ public class Chaterpillar {
      * then shifts all the tasks in the index behind it up by 1.
      * @param index integer specifying the number of the task to be deleted
      */
-    public static void delete_task(int index) {
-        Task task = listOfTasks.remove(index);
+    public static void deleteTask(int index) {
+        Task task = tasks.remove(index);
         echo("Got it. I've removed this task:");
         echo(task.toString());
-        echo("Now you have " + listOfTasks.size() + " tasks in the list.");
+        echo("Now you have " + tasks.size() + " tasks in the list.");
     }
     public static void main(String[] args) {
         greet();
@@ -189,7 +189,7 @@ public class Chaterpillar {
 
         while (!hasExited) {
             try {
-                parse_input(reader);
+                parseInput(reader);
             } catch (IOException e) {
                 System.out.println("IOException occurred.");
             }
