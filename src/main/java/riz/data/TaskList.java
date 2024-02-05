@@ -32,4 +32,17 @@ public class TaskList {
     public void clear() {
         this.taskList.clear();
     }
+
+    public void find(String word) {
+        System.out.println("Here are the tasks matching " + "\"" + word + "\"...");
+        int count = 1;
+        for (Task task : this.taskList) {
+            if (task.find(word)) {
+                System.out.print(count + ". ");
+                System.out.println(task);
+                count++;
+            }
+        }
+    }
+
 }

@@ -52,6 +52,11 @@ public class Ui {
         System.out.println(e.getMessage());
     }
 
+    public static void findError() {
+        RizException e = new RizException("What are you even looking for?...");
+        System.out.println(e.getMessage());
+    }
+
     public static void yapError() {
         RizException e = new RizException("Are you speaking Yapanese?...");
         System.out.println(e.getMessage());

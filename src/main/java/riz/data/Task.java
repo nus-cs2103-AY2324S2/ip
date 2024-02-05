@@ -22,6 +22,10 @@ public abstract class Task {
         this.completed = false;
     }
 
+    public boolean find(String word) {
+        return this.task.contains(word);
+    }
+
     @Override
     public String toString() {
         if (this.completed) {

@@ -16,6 +16,13 @@ public class Parser {
                 storage.writeToFile(taskList.getTaskList());
                 Ui.printAllCleared();
             }
+        } else if (token[0].equals("find")) {
+            if (token.length != 2) {
+                Ui.findError();
+            } else {
+                String word = token[1];
+                taskList.find(word);
+            }
         } else if (token[0].equals("mark")) {
             boolean isNumber = true;
             if (token.length != 2) {
