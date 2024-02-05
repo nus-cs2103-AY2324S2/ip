@@ -18,13 +18,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClassName = 'chatbot.Alfred'
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'alfred.jar'
 }
 
 run{
