@@ -10,7 +10,11 @@ import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
 import exception.InvalidTodoException;
 import exception.UnknownCommandException;
-
+/**
+ * The Parser class is responsible for parsing user input and converting it
+ * into meaningful objects or commands for the SlayBot application. It handles the
+ * parsing of commands related to tasks (ToDo, Deadline, Event) and other user interactions.
+ */
 public class Parser {
 
     enum Command {
@@ -25,6 +29,14 @@ public class Parser {
         FIND,
 
     }
+
+    /**
+     * Parses the user input for creating a {@code Deadline} task.
+     *
+     * @param arr The array containing user input words.
+     * @return The parsed {@code Deadline} task.
+     * @throws InvalidDeadlineException If there is an issue with the input or parsing.
+     */
     public Deadline parseDeadline(String[] arr) throws InvalidDeadlineException {
         String deadlineTitle = "";
         String dateTime = "";
@@ -54,6 +66,13 @@ public class Parser {
         return new Deadline(deadlineTitle, date);
     }
 
+    /**
+     * Parses the user input for creating a {@code ToDo} task.
+     *
+     * @param arr The array containing user input words.
+     * @return The parsed {@code ToDo} task.
+     * @throws InvalidTodoException If there is an issue with the input or parsing.
+     */
     public ToDo parseTodo(String[] arr) throws InvalidTodoException {
         String todoTitle = "";
 
@@ -70,6 +89,14 @@ public class Parser {
 
         return new ToDo(todoTitle);
     }
+
+    /**
+     * Parses the user input for creating an {@code Event} task.
+     *
+     * @param splitWords The array containing user input words.
+     * @return The parsed {@code Event} task.
+     * @throws InvalidEventException If there is an issue with the input or parsing.
+     */
 
     public Event parseEvent(String[] splitWords) throws InvalidEventException {
         String combinedWord = "";
@@ -94,6 +121,14 @@ public class Parser {
 
         return new Event(beforeFrom, startDate, endDate);
     }
+
+    /**
+     * Parses the user input to determine the command type.
+     *
+     * @param arr The array containing user input words.
+     * @return The parsed command type.
+     * @throws UnknownCommandException If the command is not recognized.
+     */
 
     public Command parseCommand(String[] arr) throws UnknownCommandException {
         switch (arr[0]) {
@@ -127,6 +162,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the date and time from the user input.
+     *
+     * @param dateTime The date and time string to be parsed.
+     * @return The {@code LocalDateTime} object representing the parsed date and time.
+     */
     public LocalDateTime parseDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
 

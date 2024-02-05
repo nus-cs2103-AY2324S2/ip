@@ -22,6 +22,10 @@ public class Ui {
     private Parser parser;
     private TaskList tasks;
 
+    /**
+     * Constructor for Ui class
+     * @param tasks
+     */
     public Ui(TaskList tasks) {
         this.parser = new Parser();
         this.tasks = tasks;

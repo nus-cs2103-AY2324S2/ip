@@ -8,6 +8,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDateTime dateTime;
+
+    /**
+     * Constructor for Deadline class
+     * @param title
+     * @param dateTime
+     */
     public Deadline(String title, LocalDateTime dateTime) {
         super(title);
         this.dateTime = dateTime;

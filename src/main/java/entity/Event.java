@@ -10,6 +10,13 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
+    /**
+     * Constructor for Event class
+     * @param title
+     * @param startTime
+     * @param endTime
+     */
     public Event(String title, LocalDateTime startTime, LocalDateTime endTime) {
         super(title);
         this.startTime = startTime;

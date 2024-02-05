@@ -33,11 +33,11 @@ test {
 }
 
 application {
-    mainClass.set("slaybot.SlayBot")
+    mainClass.set("slaybot.Slaybot")
 }
 
 shadowJar {
-    archiveFileName = 'SlayBot.jar'
+    archiveFileName = 'slaybot.jar'
 }
 run{
     standardInput = System.in

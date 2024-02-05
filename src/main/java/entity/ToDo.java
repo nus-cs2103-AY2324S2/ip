@@ -4,6 +4,11 @@ package entity;
  * The ToDo class which extends the Task class
  */
 public class ToDo extends Task {
+
+    /**
+     * Constructor for ToDo class
+     * @param title
+     */
     public ToDo(String title) {
         super(title);
     }
