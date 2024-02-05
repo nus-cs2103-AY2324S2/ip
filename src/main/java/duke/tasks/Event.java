@@ -1,14 +1,13 @@
 package duke.tasks;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.InvalidCommandException;
 
-import java.time.DateTimeException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-
 public class Event extends Task {
-    LocalDate from;
-    LocalDate to;
+    private LocalDate from;
+    private LocalDate to;
     public Event(String name, String from, String to) throws InvalidCommandException {
         super(name);
         try {

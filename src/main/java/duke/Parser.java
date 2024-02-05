@@ -1,4 +1,6 @@
 package duke;
+import java.util.ArrayList;
+import java.util.List;
 
 import duke.commands.Command;
 import duke.commands.CreateTaskCommand;
@@ -8,12 +10,9 @@ import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.exceptions.InvalidCommandException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Parser {
+    private static final List<String> VALID_TASKS = new ArrayList<>(List.of("todo", "deadline", "event"));
     private Ui ui;
-    private final List<String> VALID_TASKS = new ArrayList<>(List.of("todo", "deadline", "event"));
     public Parser() {
         this.ui = new Ui();
     }
@@ -27,19 +26,22 @@ public class Parser {
             return new ListCommand();
         } else if (commandName.equals("mark")) {
             if (split.length == 1) {
-                throw new InvalidCommandException("Wrong format! Please include the number that you want me to unmark >:(");
+                throw new InvalidCommandException(
+                        "Wrong format! Please include the number that you want me to unmark >:(");
             }
             int number = Integer.parseInt(split[1]);
             return new MarkCommand(false, number);
         } else if (commandName.equals("unmark")) {
             if (split.length == 1) {
-                throw new InvalidCommandException("Wrong format! Please include the number that you want me to unmark >:(");
+                throw new InvalidCommandException(
+                        "Wrong format! Please include the number that you want me to unmark >:(");
             }
             int number = Integer.parseInt(split[1]);
             return new MarkCommand(true, number);
         } else if (commandName.equals("delete")) {
             if (split.length == 1) {
-                throw new InvalidCommandException("Wrong format! Please include the number that you want me to unmark >:(");
+                throw new InvalidCommandException(
+                        "Wrong format! Please include the number that you want me to unmark >:(");
             }
             int number = Integer.parseInt(split[1]);
             return new DeleteCommand(number);
