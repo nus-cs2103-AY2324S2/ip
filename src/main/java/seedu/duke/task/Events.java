@@ -1,5 +1,17 @@
 package seedu.duke.task;
 
+/**
+ * <h1> Events </h1>
+ * This Events class is a subclass of the Task class, holding all the attributes and methods
+ * of its parent class. This program also has methods that overrides the methods from its parent class Task,
+ * to handle the cases differently when the task is an event and more specific than a normal todo task.
+ * Events class objects have an attribute from and to which represents the start and end timing of the event respectively.
+ * This class handles all the functionalities of an Events object, such as the printing of the task description
+ * and the function that returns the data to be stored.
+ *
+ * @author Yap Xuan Xuan
+ * @version 0.1
+ */
 public class Events extends Task{
     private String from;
     private String to;
@@ -14,6 +26,11 @@ public class Events extends Task{
         return "E";
     }
 
+    /**
+     * Returns a string that contains information of the event task to be stored in the hard disk.
+     * Used as an argument in Storage class to be written into the file.
+     * @return String that represents information of the Deadlines object.
+     */
     @Override
     public String toStore() {
         return " E | " + (this.isDone ? "1" : "0") +  " | "  + this.description + " | " + this.from
