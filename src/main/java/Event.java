@@ -3,13 +3,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     @Override
