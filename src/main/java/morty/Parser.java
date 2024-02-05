@@ -10,6 +10,9 @@ import morty.command.InvalidCommand;
 import morty.command.ListCommand;
 import morty.command.TodoCommand;
 
+/**
+ * A class that deals with making sense of the user command.
+ */
 public class Parser {
 
   /**
