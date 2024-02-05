@@ -5,6 +5,11 @@ import TaskList.Tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ * A <code>TaskList</code> object corresponds to a list of tasks
+ * e.g., <code>cachedTasks</code>
+ */
 public class TaskList {
     private List<Task> cachedTasks;
     public TaskList() {
@@ -13,7 +18,6 @@ public class TaskList {
     private List<Task> getTasks() {
         return this.cachedTasks;
     }
-
     public void clear() { this.cachedTasks.clear();}
     public int size() { return this.cachedTasks.size();}
     public void addTask(Task task) {

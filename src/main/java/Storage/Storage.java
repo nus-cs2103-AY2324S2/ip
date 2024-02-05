@@ -12,10 +12,22 @@ import java.util.List;
 import java.util.Scanner;
 import TaskList.TaskList;
 
+/**
+ * Represents a storage to store and load tasks from a file.
+ * A <code>Storage</code> object corresponds to a storage with a file path
+ * e.g., <code>"./cache.txt"</code>
+ */
 public class Storage {
     private final String filePath = "./cache.txt";
     public Storage() {
     }
+
+    /**
+     * Loads tasks from the file.
+     * @param cachedTasks the task list to be loaded with tasks from the file
+     * @return the task list loaded with tasks from the file
+     * @throws IOException if an I/O error occurs
+     */
     public TaskList load(TaskList cachedTasks) throws IOException {
         File f = new File(this.filePath); // create a File for the given file path
         if (f.exists() && !f.isDirectory()) {
@@ -39,6 +51,12 @@ public class Storage {
         }
         return cachedTasks;
     }
+
+    /**
+     * Saves tasks to the file.
+     * @param cachedTasks the task list to be saved to the file
+     * @throws IOException if an I/O error occurs
+     */
     public void save(TaskList cachedTasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < cachedTasks.size(); i++) {

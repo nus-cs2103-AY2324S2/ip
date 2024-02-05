@@ -1,5 +1,10 @@
 package TaskList.Tasks;
 
+/**
+ * Represents a task.
+ * A <code>Task</code> object corresponds to a task with a description and a completion status
+ * e.g., <code>"[X] return book"</code>
+ */
 public abstract class Task {
     protected String description;
     private boolean completed;
