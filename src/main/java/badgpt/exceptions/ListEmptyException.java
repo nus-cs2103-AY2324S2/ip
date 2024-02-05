@@ -7,6 +7,6 @@ public class ListEmptyException extends TaskException {
 
     @Override
     public String toString() {
-        return "freedom";
+        return "There are no tasks.";
     }
 }
