@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import javafx.application.Platform;
 
@@ -30,37 +29,6 @@ public class Duke {
             Ui.showLoadingError();
             tasks = new TaskList();
         }
-    }
-
-    /**
-     * The main method that serves as the entry point for the Duke application.
-     * Initializes the Duke instance and processes the user input until the "bye" command is given.
-     *
-     * @param args Command line arguments (not used).
-     * @throws IOException If an I/O error occurs.
-     * @throws DukeException If an error occurs while loading the task list.
-     */
-    public static void main(String[] args) throws IOException, DukeException {
-        try {
-            Duke duke = new Duke("./data/duke.txt");
-        } catch (DukeException e) {
-            Ui.showLoadingError();
-            tasks = new TaskList();
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        Ui.printWithLines("Hello! I'm Bob!", "What can I do for you?");
-
-        boolean isRunning = true;
-        while (isRunning) {
-            String message = scanner.nextLine();
-            Ui.parse(tasks, message);
-            isRunning = !message.equals("bye");
-        }
-
-        Storage.saveCurrentList(tasks);
-        Ui.printWithLines("Bye. Hope to see you again soon!");
-        System.out.println("------------------------------------------");
     }
 
     /**

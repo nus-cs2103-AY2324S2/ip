@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * provides methods to manipulate the list.
  */
 public class TaskList {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     /**
      * Constructs a TaskList with the specified list of tasks.

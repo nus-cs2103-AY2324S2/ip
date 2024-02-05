@@ -54,7 +54,7 @@ public class Event extends Task {
     public static Event fromFileString(String str) {
         String[] parts = str.split(" \\| ");
         if (!parts[0].equals("E")) {
-            return null; // or throw an exception
+            return null;
         }
         String description = parts[2].trim();
         String[] times = parts[3].split(" - ");

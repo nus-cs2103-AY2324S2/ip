@@ -37,10 +37,8 @@ public class Parser {
         String description = message.substring(5).trim();
         Task task = new Task(description);
         list.add(task);
-        // Construct the response message
-        String response = "Got it. I've added this task:\n" + task.toString()
+        return "Got it. I've added this task:\n" + task
                 + "\nNow you have " + list.size() + " tasks in the list.";
-        return response;
     }
 
     /**
@@ -76,7 +74,7 @@ public class Parser {
         }
 
         return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
-                task.toString(), list.size());
+                task, list.size());
     }
 
     /**
@@ -115,7 +113,7 @@ public class Parser {
                     + "Please use yyyy-MM-dd HH:mm format.");
         }
         return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
-                task.toString(), list.size());
+                task, list.size());
     }
 
     /**
@@ -153,7 +151,7 @@ public class Parser {
         Task task = list.get(index);
         task.markAsDone();
         Ui.printWithLines("Nice! I've marked this task as done:", task.toString());
-        return String.format("Nice! I've marked this task as done:\n%s", task.toString());
+        return String.format("Nice! I've marked this task as done:\n%s", task);
     }
 
     /**
@@ -176,7 +174,7 @@ public class Parser {
         Task task = list.get(index);
         task.unMarkAsDone();
         Ui.printWithLines("OK, I've marked this task as not done yet:", task.toString());
-        return String.format("OK, I've marked this task as not done yet:\n%s", task.toString());
+        return String.format("OK, I've marked this task as not done yet:\n%s", task);
     }
 
     /**
@@ -199,7 +197,7 @@ public class Parser {
         Task task = list.get(index);
         list.remove(index);
         Ui.printWithLines("OK, I've deleted this task:", task.toString());
-        return String.format("OK, I've deleted this task:\n%s", task.toString());
+        return String.format("OK, I've deleted this task:\n%s", task);
     }
 
     /**

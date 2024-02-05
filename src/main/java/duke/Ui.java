@@ -1,21 +1,10 @@
 package duke;
 
-import java.util.Scanner;
-
 /**
  * The Ui class is responsible for handling user interactions.
  * It provides methods to display messages to the user and parse user input.
  */
 public class Ui {
-    private Scanner scanner;
-
-    /**
-     * Constructs a Ui object, initializing a scanner to read user input.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
     /**
      * Prints one or more messages to the console, each separated by a line.
      *
