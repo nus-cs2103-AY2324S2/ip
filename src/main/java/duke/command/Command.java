@@ -29,6 +29,7 @@ public abstract class Command {
      * @param storage Database to save the updated task list into.
      * @param taskList Task list to alter and update if necessary.
      * @param ui User interface to call its methods to print the relevant information.
+     * @throws InvalidArgumentException If input argument does not satisfy the specified task's format.
      */
     public abstract void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException;
 }

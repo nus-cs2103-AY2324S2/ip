@@ -35,6 +35,9 @@ public class Parser {
      *
      * @param userInput String of user input to be deconstructed and processed.
      * @return Command to be executed.
+     *
+     * @throws InvalidCommandException If the input command is empty or does not match any of the above commands.
+     * @throws InvalidArgumentException If the input command has an empty description or invalid format.
      */
     public static Command parseCommand(String userInput) throws InvalidCommandException, InvalidArgumentException {
 

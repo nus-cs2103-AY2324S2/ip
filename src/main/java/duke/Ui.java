@@ -151,6 +151,8 @@ public class Ui {
                 System.out.println(counter + "." + task);
             }
         }
+
+        printDivider();
     }
 
     /**

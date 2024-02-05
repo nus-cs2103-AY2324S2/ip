@@ -16,8 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
-import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
+import duke.exception.InvalidFileException;
+
 
 /**
  * Represents the database to store the past logs of taskList.
@@ -75,8 +75,9 @@ public class Storage {
      * Retrieves the past log of taskList if found, else it will start with an empty taskList.
      *
      * @return Stored taskList from past log or new list if not found.
+     * @throws InvalidFileException
      */
-    public static ArrayList<Task> load() throws DukeException {
+    public static ArrayList<Task> load() throws InvalidFileException {
         ArrayList arrayTaskList = new ArrayList();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -90,9 +91,9 @@ public class Storage {
             }
 
         } catch (FileNotFoundException e) {
-            throw new InvalidCommandException("No existing file. Starting with an empty task list.");
+            throw new InvalidFileException("No existing file. Starting with an empty task list.");
         } catch (IOException e) {
-            throw new InvalidCommandException("No existing file. Starting with an empty task list.");
+            throw new InvalidFileException("No existing file. Starting with an empty task list.");
         }
         return arrayTaskList;
     }

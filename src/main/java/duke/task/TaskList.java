@@ -14,6 +14,16 @@ public class TaskList {
     public TaskList() {
         taskList = new ArrayList<>();
     }
+    
+    /**
+     * Constructor for an ArrayList filled with a list of tasks retrieved
+     * from storage.
+     *
+     * @param taskList An ArrayList of task retrieved from the storage
+     */
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
 
     /**
      * Adds the input task to the taskList.
