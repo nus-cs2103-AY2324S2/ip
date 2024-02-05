@@ -6,9 +6,14 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
+    public Deadline(String task, String deadline, boolean isDone) {
+        super(TaskType.DEADLINE, task, isDone);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
-        return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (by: " + getDeadline() + ")";
+        return "[" + getTaskType().getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (by: " + getDeadline() + ")";
     }
 
     public String getDeadline() {

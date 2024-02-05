@@ -2,10 +2,16 @@ public abstract class Task {
     private String task;
     private boolean isDone;
     private TaskType taskType;
-    Task(TaskType taskType, String task) {
+    public Task(TaskType taskType, String task) {
         this.taskType = taskType;
         this.isDone = false;
         this.task = task;
+    }
+
+    public Task(TaskType taskType, String task, boolean isDone) {
+        this.taskType = taskType;
+        this.task = task;
+        this.isDone = isDone;
     }
 
     public String getTask() {
@@ -22,7 +28,11 @@ public abstract class Task {
         this.isDone = status;
     }
 
-    public String getIcon() {
-        return this.taskType.getIcon();
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
+    public TaskType getTaskType() {
+        return this.taskType;
     }
 }
