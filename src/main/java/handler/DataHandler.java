@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /** This class represents the loading, adding and deleting of tasks Sir Duke manages*/
@@ -42,6 +44,7 @@ public class DataHandler {
             String[] inputsToCmd;
             TaskTag tag;
             Boolean isDone;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
             try {
                 tag = TaskTag.valueOf(String.valueOf(line.charAt(0)));
                 // a lot of exceptions can happen here
@@ -52,12 +55,15 @@ public class DataHandler {
                     case D:
                         inputsToCmd = line.split("\\s\\|\\s", 4);
                         isDone = (inputsToCmd[1] == "1");
-                        items.add(new Deadline(inputsToCmd[2], isDone, inputsToCmd[3]));
+                        LocalDateTime by = LocalDateTime.parse(inputsToCmd[3], formatter);
+                        items.add(new Deadline(inputsToCmd[2], isDone, by));
                         break;
                     case E:
                         inputsToCmd = line.split("\\s\\|\\s", 5);
                         isDone = (inputsToCmd[1] == "1");
-                        items.add(new Event(inputsToCmd[2], isDone, inputsToCmd[3], inputsToCmd[4]));
+                        LocalDateTime from = LocalDateTime.parse(inputsToCmd[3], formatter);
+                        LocalDateTime to = LocalDateTime.parse(inputsToCmd[4], formatter);;
+                        items.add(new Event(inputsToCmd[2], isDone, from, to));
                         break;
                     case T:
                         inputsToCmd = line.split("\\s\\|\\s", 3);

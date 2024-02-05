@@ -1,10 +1,14 @@
 package task;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /** This class represents an event which is a task that has start time and end time */
 public class Event extends Task{
     /** Field for what time the event starts */
-    private String from;
+    private LocalDateTime from;
     /** Field for what time the evnet ends */
-    private String to;
+    private LocalDateTime to;
 
     /**
      * Constructs an event object
@@ -13,7 +17,7 @@ public class Event extends Task{
      * @param from
      * @param to
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -26,7 +30,7 @@ public class Event extends Task{
      * @param from
      * @param to
      */
-    public Event(String description, Boolean isDone, String from, String to) {
+    public Event(String description, Boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -38,7 +42,14 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return
+                "[E]" +
+                super.toString() +
+                " (from: " +
+                from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) +
+                " to: " +
+                to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) +
+                ")";
     }
 
     /**
@@ -47,6 +58,13 @@ public class Event extends Task{
     @Override
     public String toDataFormat() {
         String isDone = this.isDone ? "1 | " : "0 | ";
-        return "E | " + isDone + this.description + " | " + this.from + " | " + this.to;
+        return
+                "E | " +
+                isDone +
+                description +
+                " | " +
+                from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) +
+                " | " +
+                to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 }
