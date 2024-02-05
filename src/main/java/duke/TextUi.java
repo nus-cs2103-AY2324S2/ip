@@ -4,46 +4,52 @@ import duke.task.Task;
 
 import java.util.Scanner;
 public class TextUi {
-    private final static String BORDER = "***************************";
-    private final static String DASH = "___________________________";
-    private final static String LOGO = "Current no available Logo";
-    private final static String USER_INSTRUCTION = "" +
-            "TODO  :  Adds a task to task list    [ Format :  TODO_<TASK_DESCRIPTION> ]" + '\n' +
-            "LIST  :  List ALL tasks from task list     [ Format : LIST ]" + '\n' +
-            "MARK/UNMARK  :  Mark/Unmark a task from the task list    " +
-            "[ Format : MARK/UNMARK_<Task Number> ]" + '\n' +
-            "EVENT :  Adds an event from and to with specific date and time" + '\n' +
-            "            [ Format : EVENT_<EVENT_DESCRIPTION>_/<DATE_TIME_FROM>_/<DATE_TIME_TO> ] " +
-            "( DATE_TIME = YYYY-MM-DD HHMM )" + '\n' +
-            "DEADLINE  :  Adds a task with a deadline at specific date and time" + '\n' +
-            "            [ Format : DEADLINE_<TASK_DESCRIPTION>_/<DATE_TIME_BY> " +
-            "( DATE_TIME = YYYY-MM-DD HHMM )" + '\n' +
-            "DELETE  :  Remove task from task list    " +
-            "[ Format :  DELETE_<TASK_NUMBER> ]" +'\n' +
-            "BYE  :  Exits the app" + '\n' +
-            DASH + '\n' ;
-
-    private final static String ADD_TASK_MESSAGE =
+    private static final String BORDER = "***************************";
+    private static final String DASH = "___________________________";
+    private static final String LOGO = "Current no available Logo";
+    private static final String USER_INSTRUCTION = ""
+            + "TODO  :  Adds a task to task list    [ Format :  TODO_<TASK_DESCRIPTION> ]"
+            + '\n'
+            + "LIST  :  List ALL tasks from task list     [ Format : LIST ]"
+            + '\n'
+            + "MARK/UNMARK  :  Mark/Unmark a task from the task list    "
+            + "[ Format : MARK/UNMARK_<Task Number> ]"
+            + '\n'
+            + "EVENT :  Adds an event from and to with specific date and time"
+            + '\n'
+            + "            [ Format : EVENT_<EVENT_DESCRIPTION>_/<DATE_TIME_FROM>_/<DATE_TIME_TO> ] "
+            + "( DATE_TIME = YYYY-MM-DD HHMM )"
+            + '\n'
+            + "DEADLINE  :  Adds a task with a deadline at specific date and time"
+            + '\n'
+            + "            [ Format : DEADLINE_<TASK_DESCRIPTION>_/<DATE_TIME_BY> "
+            + "( DATE_TIME = YYYY-MM-DD HHMM )"
+            + '\n'
+            + "DELETE  :  Remove task from task list    "
+            + "[ Format :  DELETE_<TASK_NUMBER> ]"
+            +'\n'
+            + "BYE  :  Exits the app" + '\n'
+            + DASH + '\n' ;
+    private static final String ADD_TASK_MESSAGE =
             "Nice! I've added this task to your task list :" ;
-    private final static String MARK_TASK_MESSAGE =
+    private static final String MARK_TASK_MESSAGE =
             "Well Done!!! I've marked this task as done :";
-    private final static String UNMARK_TASK_MESSAGE =
+    private static final String UNMARK_TASK_MESSAGE =
             "Alright. I've marked this task as undone :";
-    private final static String DELETE_TASK_MESSAGE =
+    private static final String DELETE_TASK_MESSAGE =
             "NOTED. I've removed this task from your task list :";
+    private static final String FIND_TASK_MESSAGE = "Here are some similar tasks I have found in your task list:";
 
-    private final static String FIND_TASK_MESSAGE = "Here are some similar tasks I have found in your task list:";
-
-    public void showBorder() {
-        System.out.println(BORDER);
+    public String showBorder() {
+        return BORDER;
     }
 
-    public void showGreetMessage() {
-        System.out.println( BORDER + '\n' +
+    public String showGreetMessage() {
+        return BORDER + '\n' +
                 LOGO + '\n' + '\n' +
                 "------WELCOME !!!------" + '\n' +
                 "I am Pororo, your personal task manager. How may I assist you today?" +
-                '\n' + '\n' + USER_INSTRUCTION);
+                '\n' + '\n' + USER_INSTRUCTION;
     }
 
     public String readUserCommand() {
@@ -55,63 +61,61 @@ public class TextUi {
         return userCommand;
     }
 
-    public void showTotalCountMessage(TaskList taskList) {
-        System.out.println("Now you have " + taskList.getList().size() +
-                " tasks in your task list.");
-    }
-    public void showAddTaskMessage(Task task) {
-        System.out.println(BORDER +  '\n' +
-                ADD_TASK_MESSAGE + '\n' +
-                task);
+    public String showTotalCountMessage(TaskList taskList) {
+        return "Now you have " + taskList.getList().size() +
+                " tasks in your task list.";
     }
 
-    public void showMarkTaskMessage(Task task) {
-        System.out.println(BORDER +  '\n' +
+    public String showAddTaskMessage(Task task) {
+        return BORDER +  '\n' +
+                ADD_TASK_MESSAGE + '\n' +
+                task;
+    }
+
+    public String showMarkTaskMessage(Task task) {
+        return BORDER +  '\n' +
                 MARK_TASK_MESSAGE + '\n' +
                 task + '\n' +
-                BORDER);
+                BORDER;
     }
 
-    public void showUnmarkTaskMessage(Task task) {
-        System.out.println(BORDER +  '\n' +
+    public String showUnmarkTaskMessage(Task task) {
+        return BORDER +  '\n' +
                 UNMARK_TASK_MESSAGE + '\n' +
                 task + '\n' +
-                BORDER);
+                BORDER;
     }
 
-    public void showDeleteTaskMessage(Task task) {
-        System.out.println(BORDER + '\n' +
+    public String showDeleteTaskMessage(Task task) {
+        return BORDER + '\n' +
                 DELETE_TASK_MESSAGE + '\n' +
-                task);
+                task;
     }
 
-    public void showTaskList(TaskList taskslist) {
-        System.out.println(BORDER);
+    public String showTaskList(TaskList taskslist) {
         taskslist.list();
-        System.out.println(BORDER);
+        return BORDER;
     }
 
-    public void showFindMessage() {
-        System.out.println(BORDER + '\n' +
-                FIND_TASK_MESSAGE);
+    public String showFindMessage() {
+        return BORDER + '\n' +
+                FIND_TASK_MESSAGE;
     }
 
-    public void showLoadingError() {
-        System.out.println(
-                "There is no existing file in your computer.");
+    public String showLoadingError() {
+        return "There is no existing file in your computer.";
     }
 
-    public void showErrorMessage(String m) {
-        System.out.println(m);
+    public String showErrorMessage(String m) {
+        return m;
     }
 
-    public void showExitMessage() {
-        System.out.println(BORDER);
-        System.out.println("It's great working with you! " +
-                "See you again soon. BYE!!!");
-        System.out.println(BORDER);
+    public String showExitMessage() {
+        return BORDER + '\n'
+                + "It's great working with you! "
+                + "See you again soon. BYE!!!"
+                + BORDER;
     }
 
 }
 
-//A-CodingStandard

@@ -1,11 +1,21 @@
 package duke;
 
-import duke.command.*;
-/**
- * The Parser class translate the user input to various commands
- */
+import duke.command.TodoCommand;
+import duke.command.Command;
+import duke.command.ByeCommand;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 
+/**
+ * The Parser class helps to translate the user input to various commands
+ */
 public class Parser {
+
     /**
      * Returns a Command class that represent the command to be executed
      * @param command A string representation of the command by user input

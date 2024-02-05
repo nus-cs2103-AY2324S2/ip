@@ -1,17 +1,23 @@
 package duke.command;
 
+import duke.DukeException;
+import duke.Storage;
 import duke.TaskList;
 import duke.TextUi;
-import duke.Storage;
-import duke.DukeException;
+
+/**
+ * An abstract class that execute specific action
+ */
 public abstract class Command {
+
     /**
      * An abstract method to execute the command given
-     * @param tasks A TaskList class that represents task list
+     * @param tasksList A TaskList class that represents task list
      * @param ui A TextUi class that represents the ui
      * @param storage A Storage class which represents the storage of file
      */
-    public abstract void execute(TaskList tasks, TextUi ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException;
+
     /**
      * An abstract method to indicate whether to exit the program
      */

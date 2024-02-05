@@ -1,18 +1,17 @@
 package duke.command;
 
+import duke.task.Deadline;
 import duke.Storage;
 import duke.TaskList;
 import duke.TextUi;
 import duke.task.Task;
-import duke.task.Deadline;
-
-import java.util.*;
 
 /**
  * Represents a DeadlineCommand class which adds a deadline task
  */
 public class DeadlineCommand extends Command {
     private final String DETAILS;
+
     /**
      * Constructs a DeadlineCommand class with given parameter
      * @param detail A string representation of type deadline task by user
@@ -29,16 +28,14 @@ public class DeadlineCommand extends Command {
      * @param storage A Storage class which represents the storage of file
      */
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) {
+    public String execute(TaskList tasksList, TextUi ui, Storage storage) {
         String[] detailArray = DETAILS.split("/");
-        System.out.println(DETAILS);
-        System.out.println(Arrays.toString(detailArray));
         String description = detailArray[0].strip();
         String by = detailArray[1].strip();
         Task deadline = new Deadline(description, by);
         tasksList.addToTaskList(deadline);
-        ui.showAddTaskMessage(deadline);
         storage.saveToFile(tasksList.getList());
+        return ui.showAddTaskMessage(deadline);
     }
 
     /**

@@ -1,15 +1,14 @@
 package duke.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task event
+ * A event task that includes a starting date and ending date
  */
 public class Event extends Task {
-    private final static String OUTPUT_DATE_FORMAT = "yyyy-MM-dd" ;
-    private final static String STORAGE_DATE_FORMAT = "MMM dd yyyy" ;
+    private static final String OUTPUT_DATE_FORMAT = "yyyy-MM-dd";
+    private static final String STORAGE_DATE_FORMAT = "MMM dd yyyy";
     protected String dateStart;
     protected String dateEnd;
 
@@ -19,7 +18,6 @@ public class Event extends Task {
      * @param dateStart A string representation of the start date in required format
      * @param dateEnd A string representation of the end date in required format
      */
-
     public Event(String description, String dateStart, String dateEnd) {
         super(description);
         this.dateStart = LocalDate.parse(dateStart, DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT))
@@ -28,14 +26,13 @@ public class Event extends Task {
                 .format(DateTimeFormatter.ofPattern(STORAGE_DATE_FORMAT));
     }
 
-
     /**
      * Returns a string representation of a event task
      * @return
      */
     @Override
     public String toString() {
-        return super.toString() + " Event : " + this.description + " [ " + this.dateStart +
-                " - " + this.dateEnd + " ]";
+        return super.toString() + " Event : " + this.description + " [ " + this.dateStart
+                + " - " + this.dateEnd + " ]";
     }
 }

@@ -4,20 +4,24 @@ import duke.Storage;
 import duke.TaskList;
 import duke.TextUi;
 
+/**
+ * Executes exit from the app action
+ */
 public class ByeCommand extends Command {
+
     /**
-     * Shows exit message and exit the program
+     * Displays exit message and exit the program
      * @param tasksList A TaskList class that represents task list
      * @param ui A TextUi class that represents the ui
      * @param storage A Storage class which represents the storage of file
      */
-
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) {
-        ui.showExitMessage();
+    public String execute(TaskList tasksList, TextUi ui, Storage storage) {
+        return ui.showExitMessage();
     }
+
     /**
-     * Returns boolean value indicating whether to exit the program or not
+     * Returns a boolean value to indicate whether to exit the program
      * @return a boolean value
      */
     @Override

@@ -2,10 +2,14 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
+import duke.task.Task;
 import duke.TaskList;
 import duke.TextUi;
 import duke.task.Todo;
-import duke.task.Task;
+
+/**
+ * Creates a Todo task and add it to the task list
+ */
 
 public class TodoCommand extends Command {
     private final String DETAIL;
@@ -18,19 +22,13 @@ public class TodoCommand extends Command {
         this.DETAIL = taskDetails;
     }
 
-    /**
-     * Marks the task based on given input and display marked message
-     * @param tasksList A TaskList class that represents task list
-     * @param ui A TextUi class that represents the ui
-     * @param storage A Storage class which represents the storage of file
-     */
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException {
         Task todo = new Todo(DETAIL);
         tasksList.addToTaskList(todo);
         storage.saveToFile(tasksList.getList());
-        ui.showAddTaskMessage(todo);
-        ui.showTotalCountMessage(tasksList);
+        return ui.showAddTaskMessage(todo) + '\n'
+                + ui.showTotalCountMessage(tasksList);
     }
 
     /**

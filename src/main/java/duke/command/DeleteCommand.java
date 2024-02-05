@@ -5,10 +5,15 @@ import duke.TaskList;
 import duke.TextUi;
 import duke.task.Task;
 
+/**
+ * Deletes a task from task list upon execution
+ */
+
 public class DeleteCommand extends Command {
     private final int TASK_NUM;
+
     /**
-     * Creates a DeleteCommand class with num parameter
+     * Constructs a DeleteCommand class with given parameter
      * @param num A string representation of integer
      */
     public DeleteCommand(String num) {
@@ -16,17 +21,17 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes tasks from task list, generates ui message and then save changes to file
+     * Deletes tasks from task list, generates ui message to user and save changes to file
      * @param tasksList A TaskList class that represents task list
      * @param ui A TextUi class that represents the ui
      * @param storage A Storage class which represents the storage of file
      */
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) {
+    public String execute(TaskList tasksList, TextUi ui, Storage storage) {
         Task deletedTask = tasksList.get(TASK_NUM);
         tasksList.deleteFromTaskList(TASK_NUM);
-        ui.showDeleteTaskMessage(deletedTask);
         storage.saveToFile(tasksList.getList());
+        return ui.showDeleteTaskMessage(deletedTask);
     }
 
     /**

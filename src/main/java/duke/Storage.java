@@ -1,9 +1,9 @@
 package duke;
 
-import duke.task.Task;
 import duke.task.Event;
-import duke.task.Todo;
 import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+
+/**
+ * Store the changes made to the task list to a file
+ */
 public class Storage {
     private final String STORAGE_PATH;
 
@@ -53,7 +57,7 @@ public class Storage {
 
     public ArrayList<Task> readFile(File file) throws FileNotFoundException {
         ArrayList<Task> tasksList = new ArrayList<>();
-        Scanner sc =new Scanner(file);
+        Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             String nextLine = sc.nextLine();
             String[] actionArray = nextLine.split("]");
