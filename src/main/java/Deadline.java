@@ -13,9 +13,10 @@ public class Deadline implements Item {
         this.name = name;
         this.ddl = ddl;
     }
-    public String print(){
-        return "[D]" + this.status + this.name + " (by: " + ddl + ")";
-    };
+    @Override
+    public String toString(){
+        return "[D]" + this.status + " " + this.name + " (by: " + ddl + ")";
+    }
     public void mark() {
         this.status = "[X]";
     }

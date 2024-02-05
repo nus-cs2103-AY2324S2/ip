@@ -8,8 +8,9 @@ public class ToDo implements Item {
         }
         this.name = name;
     }
-    public String print() {
-        return "[T]" + this.status + this.name;
+    @Override
+    public String toString(){
+        return "[T]" + this.status + " " + this.name;
     }
     public void mark() {
         this.status = "[X]";
