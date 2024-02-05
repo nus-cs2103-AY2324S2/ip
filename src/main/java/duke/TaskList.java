@@ -96,6 +96,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Matches the keyword to all descriptions in the list and prints a list of tasks that match.
+     *
+     * @param cmd an array of strings containing find and the keyword.
+     */
     public void findItem(String[] cmd) {
         String search = cmd[1];
         ArrayList<Task> task = new ArrayList<>();
