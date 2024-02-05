@@ -1,19 +1,19 @@
 package util;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
 import duke.TaskList;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 /**
  * Handles all loading and saving operations.
@@ -55,15 +55,18 @@ public class Storage {
                 }
                 case "event": {
                     Event currentEvent = (Event) currentTask;
-                    fw.write(type + "|" + isDone + "|" + currentEvent.getDescription() + "|" +
-                            currentEvent.getFrom() + "|" + currentEvent.getTo());
+                    fw.write(type + "|" + isDone + "|" + currentEvent.getDescription() + "|"
+                            + currentEvent.getFrom() + "|" + currentEvent.getTo());
                     break;
                 }
                 case "deadline": {
                     Deadline currentDeadline = (Deadline) currentTask;
-                    fw.write(type + "|" + isDone + "|" + currentDeadline.getDescription() + "|" +
-                            currentDeadline.getBy());
+                    fw.write(type + "|" + isDone + "|" + currentDeadline.getDescription() + "|"
+                            + currentDeadline.getBy());
                     break;
+                }
+                default: {
+                    throw new IOException();
                 }
                 }
                 fw.write(System.lineSeparator());
@@ -121,6 +124,9 @@ public class Storage {
 
                     newTask = new Event(description, fromDate, toDate);
                     break;
+                }
+                default: {
+                    throw new IOException();
                 }
                 }
 

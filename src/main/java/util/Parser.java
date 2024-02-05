@@ -26,7 +26,7 @@ public class Parser {
         deadlineCommand = deadlineCommand.replace("deadline", "")
                                          .replace("/by", "/");
         String[] splitCommand = deadlineCommand.split("/");
-        splitCommand =  Arrays.stream(splitCommand)
+        splitCommand = Arrays.stream(splitCommand)
                               .map(String::trim)
                               .toArray(String[]::new);
         return splitCommand;

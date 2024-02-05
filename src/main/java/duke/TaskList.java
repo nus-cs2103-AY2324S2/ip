@@ -1,8 +1,8 @@
 package duke;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 /**
  * Encapsulates a taskList. An array full of Tasks object.
@@ -23,15 +23,15 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
-        this.count = taskList.size();
+        count = taskList.size();
     }
 
     /**
      * Constructs an empty duke.TaskList.
      */
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
-        this.count = 0;
+        taskList = new ArrayList<Task>();
+        count = 0;
     }
 
     /**
@@ -41,14 +41,14 @@ public class TaskList {
      * @param loadTask Indicates whether task is being loaded by IO.
      */
     public void addTask(Task newTask, boolean loadTask) {
-        this.taskList.add(newTask);
+        taskList.add(newTask);
         count++;
 
         if (!loadTask) {
             System.out.println("Cool! Adding new task: ");
             System.out.println(newTask.toString());
-            System.out.println("Now you have " + this.count +
-                    " tasks in your list.");
+            System.out.println("Now you have " + this.count
+                    + " tasks in your list.");
         }
     }
 
@@ -58,13 +58,30 @@ public class TaskList {
      * @param index The specified index given by the user.
      */
     public void deleteTask(int index) {
-        Task removedTask = this.taskList.remove(index-1);
+        Task removedTask = taskList.remove(index - 1);
         count--;
 
         System.out.println("Okay. Deleting the task: ");
         System.out.println(removedTask.toString());
-        System.out.println("Now you have " + this.count +
-                " tasks in your list.");
+        System.out.println("Now you have " + count
+                + " tasks in your list.");
+    }
+
+    /**
+     * Prints tasks containing a given substring.
+     *
+     * @param keyWord The specified substring given by the user.
+     */
+    public void findTask(String keyWord) {
+        System.out.println("Here are the matching tasks in your list: ");
+        int matchCount = 1;
+        for (int i = 0; i < count; i++) {
+            Task currentTask = taskList.get(i);
+            if (currentTask.getDescription().contains(keyWord)) {
+                System.out.println(matchCount + ". " + currentTask);
+                matchCount++;
+            }
+        }
     }
 
     /**
@@ -75,7 +92,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int ind) {
-        return this.taskList.get(ind-1);
+        return taskList.get(ind - 1);
     }
 
     /**
@@ -86,11 +103,11 @@ public class TaskList {
      * @param ind  The index to set the task.
      */
     public void setTask(Task task, int ind) {
-        this.taskList.set(ind-1, task);
+        taskList.set(ind - 1, task);
     }
 
     public int getSize() {
-        return this.count;
+        return count;
     }
 
     /**
@@ -125,7 +142,7 @@ public class TaskList {
     public void printAllTasks() {
         System.out.println("Here are all your tasks so far! ^.^ : ");
         for (int i = 0; i < count; i++) {
-            Task currentTask = this.taskList.get(i);
+            Task currentTask = taskList.get(i);
             System.out.println((i + 1) + ". " + currentTask.toString());
         }
     }
