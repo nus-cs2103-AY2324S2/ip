@@ -29,7 +29,7 @@ public class Deadline extends Task {
                 throw new EmptyDateException();
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-            LocalDateTime deadlineDate = LocalDateTime.parse(byDateString, formatter);
+            LocalDateTime deadlineDate = LocalDateTime.parse(byDateString.trim(), formatter);
             this.deadlineDate = deadlineDate;
             this.byDateString = byDateString.trim();
         } catch (ArrayIndexOutOfBoundsException e) {

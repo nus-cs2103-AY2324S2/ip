@@ -34,6 +34,15 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    public String matchItem(String[] matches) {
+      for (String match: matches) {
+        if (item.contains(match)) {
+          return item;
+        }
+      } 
+      return null;
+    }
+
     public String toString() {
         return "[" + getStatusIcon() + "] " + item;
     }

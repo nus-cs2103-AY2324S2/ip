@@ -14,7 +14,7 @@ public class Parser {
         BYE,
         HELPG,
         ADD,
-        UNKNOWN
+        UNKNOWN, FIND
     }
 
     private static Commands getCommand(String commandString) {
@@ -29,6 +29,9 @@ public class Parser {
         String[] inputList = userInput.split(" ", 2);
         if (inputList.length != 1) { // indicates one of the other commands
             switch (getCommand(inputList[0])) {
+			case FIND: 
+				return new FindCommand(inputList[1]);
+				
             case MARK:
                 try {
                     return new MarkCommand(Integer.parseInt(inputList[1]), true);

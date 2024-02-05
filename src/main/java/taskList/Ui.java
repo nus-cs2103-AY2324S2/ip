@@ -65,7 +65,9 @@ public class Ui {
      * @param markedTask Task that is marked.
     */
 	public void showMarkMessage(Task markedTask) {
-		System.out.println("I've marked this task as done: \n" + markedTask);
+		if (markedTask != null) {
+			System.out.println("I've marked this task as done: \n" + markedTask);
+		}
 	}
 
     /**
@@ -74,8 +76,10 @@ public class Ui {
      * @param unmarkedTask Task that is marked.
      */
     public void showUnmarkMessage(Task unmarkedTask) {
-        System.out.println("I've marked this task as not done yet: \n" + unmarkedTask);
-    }
+		if (unmarkedTask != null) {
+            System.out.println("I've marked this task as not done yet: \n" + unmarkedTask);
+		}
+	}
 
     /**
      * Show error message if an error occurs.
