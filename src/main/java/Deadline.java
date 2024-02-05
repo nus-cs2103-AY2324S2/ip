@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
 
 public class Deadline extends Task implements Serializable {
-    private String deadline;
+    private LocalDateTime deadline;
     private static final long serialVersionUID = 3L;
 
-    Deadline(String description, String deadline) {
+    Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -12,6 +14,6 @@ public class Deadline extends Task implements Serializable {
     @Override
     public String toString() {
         return "[D]" + "[" + (isDone ? "X" : " ") + "] " + description + "(by: "
-                + deadline + ")";
+                + deadline.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY")) + ")";
     }
 }

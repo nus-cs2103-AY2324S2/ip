@@ -1,11 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
 
 public class Event extends Task implements Serializable {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private static final long serialVersionUID = 4L;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -13,7 +15,7 @@ public class Event extends Task implements Serializable {
 
     public String toString() {
         return "[E]" + "[" + (isDone ? "X" : " ") + "] " + description
-                + "(from: " + start
-                + "to: "+ end + ")";
+                + "(from: " + start.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY"))
+                + "to: "+ end.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY")) + ")";
     }
 }

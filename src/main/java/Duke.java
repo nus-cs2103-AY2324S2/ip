@@ -5,6 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,9 +17,10 @@ public class Duke {
     private static final Path TASKS_CACHE_PATH = Path.of(".duke-cache");
     public static List<Task> tasksList = new ArrayList<>();
     private static final String horiLine = "---------------------------------\n";
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     enum Instruction {
-        List, Todo, Deadline, Event, Mark, Unmark, Delete
+        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
     }
 
     private static Instruction toInstruction(String input) throws DukeException {
@@ -63,31 +67,31 @@ public class Duke {
         String details = parsedInput.length > 1 ? parsedInput[1] : "";
 
         switch (ins) {
-            case List:
+            case LIST:
                 listTasks();
                 save();
                 break;
-            case Mark:
+            case MARK:
                 completeTask(details);
                 save();
                 break;
-            case Unmark:
+            case UNMARK:
                 uncompleteTask(details);
                 save();
                 break;
-            case Todo:
+            case TODO:
                 addTodo(details);
                 save();
                 break;
-            case Deadline:
+            case DEADLINE:
                 addDeadline(details);
                 save();
                 break;
-            case Event:
+            case EVENT:
                 addEvent(details);
                 save();
                 break;
-            case Delete:
+            case DELETE:
                 deleteTask(details);
                 save();
                 break;
@@ -140,31 +144,54 @@ public class Duke {
         System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
-    private static void addDeadline(String details) throws DukeException{
-        String[] parsedInput = details.split("/", 2);
-        
+    private static void addDeadline(String details) throws DukeException {
+        String[] parsedInput = details.split("/by ", 2);
         if (parsedInput.length != 2) {
             throw new DukeException("Please enter task description and deadline"
-                    + "\ncorrect format: deadline *task description* /by *deadline*"):
+                    + "\ncorrect format: deadline *task description* /by *deadline*");
         }
 
-        tasksList.add(new Deadline(parsedInput[0], parsedInput[1].substring(3)));
+        try {
+        tasksList.add(new Deadline(parsedInput[0], LocalDateTime.parse(parsedInput[1]
+                , dateTimeFormatter)));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
+                    + "\ncorrect format: dd/MM/yyyy HHmm");
+        }
         System.out.println("Got it. I've added this task:");
         System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
         System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
     private static void addEvent(String details) throws DukeException{
+        String[] parsedInput = details.split("/from ", 2);
+
+        if (parsedInput.length != 2) {
+            throw new DukeException("Please enter event description and time in the correct format"
+                    + "\ncorrect format: event *event name* /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
+        }
+
+        String[] parsedDates= parsedInput[1].split(" /to ", 2);
+
+        if (parsedDates.length != 2) {
+            throw new DukeException("Please enter event description and time in the correct format"
+                    + "\ncorrect format: event *event name* /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
+        }
+
+        System.out.println(parsedInput[0]);
+        System.out.println(parsedDates[0]);
+        System.out.println(parsedDates[1]);
+        
         try {
-            String[] parsedInput = details.split("/", 3);
             tasksList.add(
-                new Event(parsedInput[0], parsedInput[1].substring(5), parsedInput[2].substring(3)));
+                new Event(parsedInput[0], LocalDateTime.parse(parsedDates[0], dateTimeFormatter)
+                        , LocalDateTime.parse(parsedDates[1], dateTimeFormatter)));
             System.out.println("Got it. I've added this task:");
             System.out.println("added: " + tasksList.get(tasksList.size() - 1).toString());
             System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
-        } catch (Exception e){
-            throw new DukeException("Please enter event description and time in the correct format
-            \ncorrect format: event *event name* /from *date-time* /to *date-time*");
+        } catch (Exception e) {
+            throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
+                    + "\ncorrect format: dd/MM/yyyy HHmm");
         }
     }
 
