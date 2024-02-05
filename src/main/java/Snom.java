@@ -1,9 +1,9 @@
-import InputCommands.Command;
-import SnomExceptions.InvalidCommandException;
-import SnomParser.Parser;
+import inputcommands.Command;
+import snomexceptions.InvalidCommandException;
+import snomparser.Parser;
 import SnomStorage.TaskStorage;
-import SnomTaskList.TaskList;
-import SnomUi.Ui;
+import snomtasklist.TaskList;
+import snomui.Ui;
 
 public class Snom {
     private Ui ui;
