@@ -33,14 +33,16 @@ public class Storage {
    * Loads the list of tasks from the file.
    *
    * @return The list of tasks.
+   * @throws MortyException If the file does not exist.
    */
-  public List<Task> load() {
+  public List<Task> load() throws MortyException {
     try {
       File file = new File(this.path);
       boolean fileExists = file.exists();
       if (!fileExists) {
         file.getParentFile().mkdirs();
         file.createNewFile();
+        throw new MortyException("File does not exist");
       }
       FileReader reader = new FileReader(this.path);
       BufferedReader bufferedReader = new BufferedReader(reader);
