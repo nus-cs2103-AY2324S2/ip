@@ -1,6 +1,6 @@
 package bartenderbob;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
     }
@@ -9,7 +9,7 @@ public class ToDo extends Task{
     }
     @Override
     public String show() {
-        super.status = isDone? "X": " ";
+        super.status = isDone ? "X" : " ";
         return "[T]" + "[" + status + "]" + " " + this.description;
     }
 }

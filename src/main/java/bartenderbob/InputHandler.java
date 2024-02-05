@@ -40,7 +40,7 @@ public class InputHandler {
                         taskList.delete(index);
                         break;
                     case "find":
-                        String substring = strArray[1];
+                        String substring = stringComponents[1];
                         taskList.find(substring);
                         break;
                     case "todo":

@@ -3,7 +3,7 @@ package bartenderbob;
 /**
  * Handles exceptions that is specific to BartenderBob chatbot.
  */
-public class BartenderBobException extends Exception{
+public class BartenderBobException extends Exception {
     /** First word of the user input */
     private String firstWord;
     /** Displays messages to the user */
@@ -58,6 +58,8 @@ public class BartenderBobException extends Exception{
             break;
         case "event":
             UI.showInvalidEventCommand();
+            break;
+        default:
             break;
         }
     }

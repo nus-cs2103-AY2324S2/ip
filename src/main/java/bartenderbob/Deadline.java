@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents the Deadline task that has a due date.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     /** The due date for the task */
     private LocalDate dueDate;
 
@@ -64,7 +64,7 @@ public class Deadline extends Task{
      */
     @Override
     public String show() {
-        super.status = isDone? "X": " ";
+        super.status = isDone ? "X" : " ";
         String dateFormat = this.dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String byFormat = "(by: " + dateFormat + ")";
         return "[D]" + "[" + status + "]" + " " + this.description + " " + byFormat;
