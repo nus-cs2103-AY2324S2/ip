@@ -7,12 +7,20 @@ import Thames.task.Deadline;
 import Thames.task.Event;
 import Thames.task.Task;
 
+/**
+ * Array list of tasks.
+ */
 public class TaskList {
     ArrayList<Task> taskList;
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Initializes the saved task list.
+     *
+     * @param sc Scanner file containing contents of saved task list.
+     */
     public TaskList(Scanner sc) {
         this.taskList = new ArrayList<>();
         while (sc.hasNextLine()) {
@@ -48,17 +56,39 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds task to task list.
+     *
+     * @param task Task to be added.
+     */
     public void add(Task task) {
         this.taskList.add(task);
     }
 
+    /**
+     * Remove task from task list.
+     *
+     * @param index Index of task in the task list.
+     * @return Task that was removed.
+     */
     public Task remove(int index) {
         return this.taskList.remove(index);
     }
+
+    /**
+     * Gets task in task list.
+     * @param index Index of task in the task list.
+     * @return Task at index.
+     */
     public Task get(int index) {
         return this.taskList.get(index);
     }
 
+    /**
+     * Returns size of task list.
+     *
+     * @return Task list size.
+     */
     public int size() {
         return this.taskList.size();
     }

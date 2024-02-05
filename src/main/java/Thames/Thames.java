@@ -3,11 +3,22 @@ package Thames;
 import java.io.FileNotFoundException;
 import Thames.command.Command;
 
+/**
+ * Driver class for chat bot.
+ */
 public class Thames {
+    /** Storage for saved task list */
     protected Storage storage;
+    /** List of tasks */
     protected TaskList tasks;
+    /** User interface that handles input from and output to user */
     protected Ui ui;
 
+    /**
+     * Creates Thames chat bot given the file path of task list.
+     *
+     * @param filePath File path of task list.
+     */
     public Thames(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -20,6 +31,9 @@ public class Thames {
         }
     }
 
+    /**
+     * Runs the chat bot.
+     */
     public void run() {
         boolean isExit = false;
         ui.greet();
@@ -35,7 +49,9 @@ public class Thames {
         }
     }
 
-
+    /**
+     * Runs the chat bot.
+     */
     public static void main(String[] args) {
         new Thames("data/tasks.txt").run();
     }

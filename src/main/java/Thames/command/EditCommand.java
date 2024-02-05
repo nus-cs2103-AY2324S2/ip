@@ -7,8 +7,13 @@ import Thames.Storage;
 import Thames.ThamesException;
 import Thames.task.Task;
 
+/**
+ * Subclass of command that deals with editing tasks in task list.
+ */
 public class EditCommand extends Command {
+    /** Whether command is to mark or unmark task */
     protected boolean isMark;
+    /** Index of task within task list to be marked/unmarked */
     protected int index;
 
     public EditCommand(Boolean isMark, int index) {
@@ -16,6 +21,15 @@ public class EditCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks or unmarks the task in the task list.
+     * Notifies user of completion before saving the new task list.
+     *
+     * @param tasks Task list to mark/unmark task from.
+     * @param ui User interface to notify user of completion.
+     * @param storage Storage object that saves new task list.
+     * @throws ThamesException If error occurs while saving new task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
@@ -34,9 +48,5 @@ public class EditCommand extends Command {
             throw new ThamesException("There was an error saving the file. Please try again.");
         }
 
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

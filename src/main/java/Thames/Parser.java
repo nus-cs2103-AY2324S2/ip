@@ -5,7 +5,17 @@ import Thames.task.ToDo;
 import Thames.task.Deadline;
 import Thames.task.Event;
 
+/**
+ * Class that makes sense of the user input.
+ */
 public class Parser {
+    /**
+     * Makes sense of the user input to return Command object.
+     *
+     * @param fullCommand User input.
+     * @return Command that contains the properties of user input.
+     * @throws ThamesException If user input is invalid.
+     */
     static Command parse(String fullCommand) throws ThamesException {
         String[] split = fullCommand.trim().split(" ", 2);
         String input = split[0];
