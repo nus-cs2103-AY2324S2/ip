@@ -48,8 +48,6 @@ public class DialogBox extends HBox {
         Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
         displayPicture.setClip(clip);
 
-        vbox.setStyle("-fx-background-color: transparent;"); // Set the background color of the VBox to be transparent
-        vbox.setMargin(this, new Insets(0, 5, 0, 5)); // Adjust the values according to your preferences for top, right, bottom, left margins
     }
 
 

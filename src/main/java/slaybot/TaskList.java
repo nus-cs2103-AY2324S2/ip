@@ -41,10 +41,19 @@ public class TaskList {
     /**
      * Iterates through the tasks in the TaskList and prints their information.
      */
-    public void iterate() {
+//    public void iterate() {
+//        for (int i = 0; i < tasks.size(); i++) {
+//            System.out.println(i + 1 + ". " + tasks.get(i));
+//        }
+//    }
+    public String iterate() {
+        String output = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i));
+            output += i + 1 + ". " + tasks.get(i) + "\n";
+            //System.out.println(i + 1 + ". " + tasks.get(i));
         }
+
+        return output;
     }
 
     /**
@@ -70,12 +79,10 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markTask(int index) {
+    public Task markTask(int index) {
         Task taskToMark = tasks.get(index);
         taskToMark.setMarked(true);
-        System.out.println("____________________________________________________________"
-                + "\nNice! I've marked this task as done:\n" + taskToMark.toString()
-                + "\n" + "____________________________________________________________");
+        return taskToMark;
     }
 
     /**
@@ -83,12 +90,10 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public void unmarkTask(int index) {
+    public Task unmarkTask(int index) {
         Task taskToUnmark = tasks.get(index);
         taskToUnmark.setMarked(false);
-        System.out.println("____________________________________________________________"
-                + "\nOK, I've marked this task as not done yet:\n" + taskToUnmark.toString()
-                + "\n" + "____________________________________________________________");
+        return taskToUnmark;
     }
 
 }

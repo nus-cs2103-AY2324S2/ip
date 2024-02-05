@@ -34,14 +34,7 @@ public class Ui {
     /**
      * Starts the user interface, allowing the user to interact with the SlayBot application.
      */
-    public void start() {
-        Scanner sc = new Scanner(System.in);
-        boolean flag = true;
-
-        System.out.println(DIVIDER + "\n" + WELCOME_TEXT + "\n" + DIVIDER);
-
-        while (flag) {
-            String input = sc.nextLine();
+    public String start(String input) {
             String[] splitWords = input.split(" ");
             Parser.Command command = null;
 
@@ -53,115 +46,99 @@ public class Ui {
                     System.out.println(e.getMessage());
                     System.out.println("Enter a valid command");
                     System.out.println(DIVIDER);
+                    return "Enter a valid command";
 
-                    input = sc.nextLine();
-                    splitWords = input.split(" ");
                 }
             }
 
             switch (command) {
-            case BYE:
-                flag = false;
-                System.out.println(DIVIDER + "\n" + BYE_TEXT + "\n" + DIVIDER);
-                Storage.saveTasks(tasks);
-                break;
-
-            case LIST:
-                System.out.println(DIVIDER);
-                System.out.println("Here are the tasks in your list:");
-                tasks.iterate();
-                System.out.println(DIVIDER);
-                Storage.saveTasks(tasks);
-                break;
-
-            case TODO:
-                ToDo todo = null;
-                try {
-                    todo = this.parser.parseTodo(splitWords);
-                } catch (InvalidTodoException e) {
-                    System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
-                    continue;
-                }
-                tasks.addTask(todo);
-
-                System.out.println(DIVIDER);
-                System.out.println("Todo Task Added: " + todo.toString());
-                System.out.println("You have " + tasks.getSize() + " tasks");
-                System.out.println(DIVIDER);
-                Storage.saveTasks(tasks);
-                break;
-
-            case DEADLINE:
-                Deadline deadline = null;
-                try {
-                    deadline = this.parser.parseDeadline(splitWords);
-                } catch (InvalidDeadlineException e) {
-                    System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
-                    continue;
-                }
-                tasks.addTask(deadline);
-
-                System.out.println(DIVIDER);
-                System.out.println("Deadline Task Added: " + deadline.toString());
-                System.out.println("You have " + tasks.getSize() + " tasks");
-                System.out.println(DIVIDER);
-                Storage.saveTasks(tasks);
-                break;
-
-            case EVENT:
-                Event event = null;
-                try {
-                    event = this.parser.parseEvent(splitWords);
-                } catch (InvalidEventException e) {
-                    System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
-                    continue;
-                }
-                tasks.addTask(event);
-
-                System.out.println(DIVIDER);
-                System.out.println("Event Task Added: " + event.toString());
-                System.out.println("You have " + tasks.getSize() + " tasks");
-                System.out.println(DIVIDER);
-                Storage.saveTasks(tasks);
-                break;
-
-            case MARK:
-                tasks.markTask(Integer.parseInt(splitWords[1]) - 1);
-                Storage.saveTasks(tasks);
-                break;
-
-            case UNMARK:
-                tasks.unmarkTask(Integer.parseInt(splitWords[1]) - 1);
-                Storage.saveTasks(tasks);
-                break;
-            case DELETE:
-                try {
-                    int indexToDelete = Integer.parseInt(splitWords[1]);
-                    tasks.removeTask(indexToDelete - 1);
-                    System.out.println(DIVIDER + "\n Successful deletion \n You now have "
-                            + tasks.getSize() + " tasks\n" + DIVIDER);
+                case BYE:
                     Storage.saveTasks(tasks);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(DIVIDER + "\n Please input a valid index\n" + DIVIDER);
-                    continue;
-                }
-                break;
-            case FIND:
-                try {
-                    List<Task> matchingTasks = tasks.findTasks(splitWords[1]);
-                    System.out.println(DIVIDER);
-                    System.out.println("Here are the matching tasks in your list");
-                    for (int i = 0; i < matchingTasks.size(); i++) {
-                        System.out.println(i + 1 + ". " + matchingTasks.get(i).toString());
+                    return BYE_TEXT;
+
+                case LIST:
+
+                    return "Here are the tasks in your list:\n" + tasks.iterate();
+
+                case TODO:
+                    ToDo todo = null;
+                    try {
+                        todo = this.parser.parseTodo(splitWords);
+                    } catch (InvalidTodoException e) {
+                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
                     }
-                    System.out.println(DIVIDER);
-                } catch (NullPointerException e) {
-                    System.out.println(DIVIDER + "\n No Results Found \n" + DIVIDER);
-                }
-                break;
-            default:
-                continue;
+                    tasks.addTask(todo);
+
+                    Storage.saveTasks(tasks);
+                    return "Todo Task Added: " + todo.toString() + "\n" + "You have " + tasks.getSize() + " tasks";
+
+                case DEADLINE:
+                    Deadline deadline = null;
+                    try {
+                        deadline = this.parser.parseDeadline(splitWords);
+                    } catch (InvalidDeadlineException e) {
+                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                    }
+                    tasks.addTask(deadline);
+
+                    Storage.saveTasks(tasks);
+                    return "Deadline Task Added: " + deadline.toString() + "\nYou have " + tasks.getSize() + " tasks";
+
+                case EVENT:
+                    Event event = null;
+                    try {
+                        event = this.parser.parseEvent(splitWords);
+                    } catch (InvalidEventException e) {
+                        System.out.println(DIVIDER + "\n" + e.getMessage() + "\nPlease try again" + "\n" + DIVIDER);
+                        //continue;
+                    }
+                    tasks.addTask(event);
+
+                    Storage.saveTasks(tasks);
+                    return "Event Task Added: " + event.toString() + "\nYou have " + tasks.getSize() + " tasks";
+
+
+                case MARK:
+                    Task t = tasks.markTask(Integer.parseInt(splitWords[1]) - 1);
+                    Storage.saveTasks(tasks);
+                    return "OK, I've marked this task as done:\n" + t.toString();
+
+
+                case UNMARK:
+                    Task t1 = tasks.unmarkTask(Integer.parseInt(splitWords[1]) - 1);
+                    Storage.saveTasks(tasks);
+                    return "OK, I've marked this task as not done yet:\n" + t1.toString();
+
+                case DELETE:
+                    String deleteText = "";
+                    try {
+                        int indexToDelete = Integer.parseInt(splitWords[1]);
+                        tasks.removeTask(indexToDelete - 1);
+                        deleteText = "\n Successful deletion \n You now have "
+                                + tasks.getSize() + " tasks\n";
+                        Storage.saveTasks(tasks);
+                    } catch (IndexOutOfBoundsException e) {
+                        deleteText = "Please input a valid index";
+                    }
+                    return deleteText;
+                case FIND:
+                    String findText = "";
+                    try {
+                        List<Task> matchingTasks = tasks.findTasks(splitWords[1]);
+                        findText += "Here are the matching tasks in your list\n";
+                        for (int i = 0; i < matchingTasks.size(); i++) {
+                            System.out.println(i + 1 + ". " + matchingTasks.get(i).toString());
+                            findText += i + 1 + ". " + matchingTasks.get(i).toString() + "\n";
+                        }
+                        System.out.println(DIVIDER);
+                    } catch (NullPointerException e) {
+                        findText = "No Results Found";
+                    }
+                    return findText;
+                default:
+                    return "Enter a command to begin";
             }
+
         }
-    }
 }
+

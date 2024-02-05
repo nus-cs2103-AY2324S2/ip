@@ -38,14 +38,15 @@ public class Slaybot {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+
+        return this.ui.start(input);
     }
 
 
-    public void run() {
-        this.ui.start();
-    }
+//    public void run() {
+//        this.ui.start();
+//    }
     public static void main(String[] args) {
-        new Slaybot().run();
+        //new Slaybot().run();
     }
 }
