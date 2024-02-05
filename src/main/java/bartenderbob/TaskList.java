@@ -23,7 +23,7 @@ public class TaskList {
             ui.showListElements(number, TASKS, i);
         }
     }
-    public void markDone(String index) throws BartenderBobException{
+    public void markDone(String index) throws BartenderBobException {
         try {
             int integerIndex = Integer.parseInt(index);
             Task task = TASKS.get(integerIndex - 1);
@@ -34,7 +34,7 @@ public class TaskList {
             throw new BartenderBobException();
         }
     }
-    public void unmarkDone(String index) throws BartenderBobException{
+    public void unmarkDone(String index) throws BartenderBobException {
         try {
             int integerIndex = Integer.parseInt(index);
             Task task = TASKS.get(integerIndex - 1);
@@ -46,7 +46,7 @@ public class TaskList {
         }
 
     }
-    public void delete(String index) throws BartenderBobException{
+    public void delete(String index) throws BartenderBobException {
         try {
             int integerIndex = Integer.parseInt(index);
             String display = TASKS.get(integerIndex - 1).show();

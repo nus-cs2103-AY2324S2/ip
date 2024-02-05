@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents the Event task that has a description, from date and a due date.
  */
-public class Event extends Task{
+public class Event extends Task {
     /** Event start date */
     private LocalDate from;
     /** Event due date */
@@ -69,7 +69,7 @@ public class Event extends Task{
      */
     @Override
     public String show() {
-        super.status = isDone? "X": " ";
+        super.status = isDone ? "X" : " ";
         String fromFormat = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String byFormat = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String fromByFormat = "(from: " + fromFormat + " to: " + byFormat + ")";
