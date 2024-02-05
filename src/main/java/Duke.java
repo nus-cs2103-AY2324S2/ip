@@ -28,6 +28,7 @@ public class Duke {
 
     /**
      * Runs the Duke application.
+     * Keeps receiving commands from the user and executing them until the user types "bye".
      */
     public void run() {
         ui.printWelcomeMessage();
