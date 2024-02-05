@@ -7,8 +7,14 @@ public class Task {
         this.isDone = false;
     }
 
+
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public int getStatusInteger() {
+        return (isDone ? 1 : 0); // mark done task with X
     }
 
     public void markAsDone() {
@@ -23,4 +29,9 @@ public class Task {
     public String toString() {
         return description;
     }
+
+    public String toStore() {
+        return description;
+    }
+
 }
