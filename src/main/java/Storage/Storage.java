@@ -2,13 +2,10 @@ package Storage;
 
 import Commands.Command;
 import Parser.Parser;
-import TaskList.Tasks.Task;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import TaskList.TaskList;
 
@@ -16,7 +13,7 @@ public class Storage {
     private final String filePath = "./cache.txt";
     public Storage() {
     }
-    public TaskList load(TaskList cachedTasks) throws IOException {
+    public TaskList loadCache(TaskList cachedTasks) throws IOException {
         File f = new File(this.filePath); // create a File for the given file path
         if (f.exists() && !f.isDirectory()) {
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -39,7 +36,7 @@ public class Storage {
         }
         return cachedTasks;
     }
-    public void save(TaskList cachedTasks) throws IOException {
+    public void saveToCache(TaskList cachedTasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < cachedTasks.size(); i++) {
             fw.write(cachedTasks.getTask(i).save()+ "\n");

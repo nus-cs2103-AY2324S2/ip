@@ -3,15 +3,10 @@ import Commands.Command;
 import Exceptions.InvalidInputException;
 import Storage.Storage;
 import TaskList.TaskList;
-import TaskList.Tasks.Deadline;
-import TaskList.Tasks.Event;
-import TaskList.Tasks.Task;
-import TaskList.Tasks.ToDo;
 import UI.IrisUI;
 import Parser.Parser;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Iris {
 
@@ -24,7 +19,7 @@ public class Iris {
             this.storage = new Storage();
 
             this.taskList = new TaskList();
-            storage.load(this.taskList);
+            storage.loadCache(this.taskList);
             ui.helloMessage();
 
         } catch (IOException e) {
@@ -53,7 +48,7 @@ public class Iris {
         try {
             command.setData(this.taskList);
             String result = command.execute();
-            this.storage.save(this.taskList);
+            this.storage.saveToCache(this.taskList);
             return result;
         } catch (Exception e) {
             ui.printWithDelimiter(e.getMessage());
