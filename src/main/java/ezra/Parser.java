@@ -1,6 +1,7 @@
 package ezra;
 
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
@@ -27,7 +28,7 @@ public class Parser {
             } else if (input.startsWith("unmark")) {
                 return tasks.unmark(Parser.parseUnmark(input), storage);
             } else if (input.startsWith("delete")) {
-                return tasks.delete(Parser.parseDelete(input), storage);
+                return tasks.delete(storage, Parser.parseDelete(input));
             } else if (input.startsWith("todo")) {
                 return tasks.updateTasks(Parser.parseToDo(input), storage);
             } else if (input.startsWith("deadline")) {
@@ -109,9 +110,10 @@ public class Parser {
      * @return The index of the task to be deleted. Invalid index is handled by delete in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
-    public static int parseDelete(String input) throws WrongFormatException {
-        if (Pattern.matches("delete\\s\\d+", input)) {
-            return Integer.parseInt(input.split("\\s")[1]) - 1;
+    public static String[] parseDelete(String input) throws WrongFormatException {
+        if (Pattern.matches("delete(\\s\\d+)+", input)) {
+            String[] splitArray = input.split("\\s");
+            return Arrays.copyOfRange(splitArray, 1, splitArray.length);
         } else {
             throw new WrongFormatException("Invalid 'delete' command format. Usage: delete <existing task number>");
         }

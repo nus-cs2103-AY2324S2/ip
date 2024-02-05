@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -79,30 +80,41 @@ public class TaskList {
     /**
      * Deletes a task at the specified index.
      *
-     * @param taskIndex The arrayList index of the task in to be deleted.
+     * @param taskNumbers The array of task numbers to be deleted.
      * @param storage The storage to update after deletion.
      * @return A message to be displayed after the delete operation.
      */
-    public String delete(int taskIndex, Storage storage) {
-        StringBuilder message = new StringBuilder();
+    public String delete(Storage storage, String... taskNumbers) {
+        int[] sortedTaskNumbers = Arrays.stream(taskNumbers).mapToInt(Integer::parseInt).toArray();
+        Arrays.sort(sortedTaskNumbers);
+        StringBuilder deletedTasks = new StringBuilder("I've removed the following task(s):\n");
+        StringBuilder invalidTaskNumbers = new StringBuilder();
+        boolean hasDeletedTasks = false;
 
-        // Check for invalid taskIndex
-        if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-            message.append("Invalid task number");
-        } else {
-            // Print task that was deleted and number of tasks remaining
-            message.append(String.format("Noted, I've removed this task:\n%s\n", this.tasks.get(taskIndex)));
-            this.tasks.remove(taskIndex);
-            message.append(String.format("Now you have %d tasks in the list.\n", this.tasks.size()));
+        // Delete task numbers from largest to smallest so that there are no changes in task number after each deletion
+        for (int i = sortedTaskNumbers.length - 1; i >= 0; i--) {
+            int taskIndex = sortedTaskNumbers[i] - 1;
+            // Check for invalid taskIndex
+            if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
+                invalidTaskNumbers.append(String.format("%d is an invalid task number\n", sortedTaskNumbers[i]));
+            } else {
+                deletedTasks.append(this.tasks.get(taskIndex)).append("\n");
+                this.tasks.remove(taskIndex);
+                hasDeletedTasks = true;
 
-            // Update tasks in storage
-            try {
-                storage.writeToFile(this);
-            } catch (IOException e) {
-                message.append("Something went wrong: ").append(e.getMessage());
+                // Update tasks in storage
+                try {
+                    storage.writeToFile(this);
+                } catch (IOException e) {
+                    return String.format("Something went wrong: %s\n", e.getMessage());
+                }
             }
         }
-        return message.toString();
+
+        if (hasDeletedTasks) {
+            invalidTaskNumbers.append(deletedTasks);
+        }
+        return invalidTaskNumbers.toString();
     }
 
     /**
@@ -124,7 +136,7 @@ public class TaskList {
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
-            message.append("Something went wrong: ").append(e.getMessage());
+            return String.format("Something went wrong: %s\n", e.getMessage());
         }
         return message.toString();
     }
@@ -154,7 +166,7 @@ public class TaskList {
             try {
                 storage.writeToFile(this);
             } catch (IOException e) {
-                message.append("Something went wrong: ").append(e.getMessage());
+                return String.format("Something went wrong: %s\n", e.getMessage());
             }
         }
         return message.toString();
@@ -185,7 +197,7 @@ public class TaskList {
             try {
                 storage.writeToFile(this);
             } catch (IOException e) {
-                message.append("Something went wrong: ").append(e.getMessage());
+                return String.format("Something went wrong: %s\n", e.getMessage());
             }
         }
         return message.toString();
