@@ -5,6 +5,8 @@ import Victor.TaskList.TaskList;
 import Victor.TaskType.Task;
 import Victor.Ui.Ui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.IOException;
 
@@ -31,8 +33,8 @@ public class Victor {
 //        try {
 //
 //        }
-//        catch (IOException e) {
-//            tasks = new TaskList();
+//        catch (FileNotFoundException e) {
+//
 //        }
     }
 
