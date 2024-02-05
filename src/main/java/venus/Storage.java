@@ -1,5 +1,12 @@
 package venus;
 
+/**
+ * This is a Storage class that controls data to be stored or loaded from .txt data file.
+ *
+ * @author peterXGD
+ * @since 2024-02-05
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,6 +19,13 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+
+    /**
+     * Returns Storage that help store or load content from a filepath relative to the project
+     * structure.
+     *
+     * @param filePath Relative filepath of data in project.
+     */
     public Storage (String filePath) {
         File folder = new File (filePath.split(File.separator)[0]);
         if (!folder.exists()) { // handling folder does not exist issues
@@ -23,6 +37,13 @@ public class Storage {
         }
         this.filePath = filePath;
     }
+
+    /**
+     * Store a single line of task into file.
+     *
+     * @param textToAdd The toString() string of a task that is stored.
+     * @throws FileNotFoundException Throws exception when file cannot be found.
+     */
     public void saveToFile(String textToAdd) throws FileNotFoundException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -42,6 +63,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds modified Tasks into the data location.
+     *
+     * @param data The TaskList. data to be accessed.
+     * @throws FileNotFoundException Throws exception when file cannot be found.
+     */
     public void saveAllFile(ArrayList<Task> data) throws FileNotFoundException {
         try {
             File f = new File(filePath);
@@ -66,6 +93,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads file content into ArrayList<Task> ls.
+     * @param ls A place where data from txt file is loaded to.
+     * @throws FileNotFoundException Throws exception if file to be loaded cannot be found.
+     */
     public void loadFile(ArrayList<Task> ls) throws FileNotFoundException {
 
         try {
