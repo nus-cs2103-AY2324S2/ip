@@ -30,7 +30,7 @@ public class Ui {
         this.showLine();
     }
 
-    public void showAddedTask(Task task, int size) {
+    public void showAddTask(Task task, int size) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + size + " tasks in the list.");
@@ -45,19 +45,19 @@ public class Ui {
         this.showLine();
     }
 
-    public void showMarkedTask(Task task) {
+    public void showMarkTask(Task task) {
         System.out.println("\tNice! I've marked this task as done:");
         System.out.println("\t  " + task);
         this.showLine();
     }
 
-    public void showUnmarkedTask(Task task) {
+    public void showUnmarkTask(Task task) {
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println("\t  " + task);
         this.showLine();
     }
 
-    public void showDeletedTask(Task task, int size) {
+    public void showDeleteTask(Task task, int size) {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + size + " tasks in the list.");

@@ -1,6 +1,5 @@
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -16,7 +15,7 @@ public class Storage {
         this.dataFile.createNewFile();
     }
 
-    public void loadData(ArrayList<Task> list) throws Exception {
+    public void loadData(TaskList list) throws Exception {
         if (!this.dataFile.exists()) {
             createDataFile();
             return;
@@ -43,9 +42,9 @@ public class Storage {
         }
     }
 
-    public void saveData(ArrayList<Task> list) throws Exception {
+    public void saveData(TaskList list) throws Exception {
         java.io.FileWriter fw = new java.io.FileWriter(this.dataFile);
-        for (Task task : list) {
+        for (Task task : list.getList()) {
             String type = "";
             String description = task.getDescription();
             String isDone = task.getIsDone() ? "1" : "0";
