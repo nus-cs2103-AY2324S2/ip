@@ -56,6 +56,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the task that can be written to a file.
+     *
+     * @return A string representation of the task that can be written to a file.
+     */
     public String toFileString() {
         return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
