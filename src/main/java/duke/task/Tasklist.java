@@ -1,16 +1,16 @@
 package duke.task;
 
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import duke.storage.Storage;
+
+/**
+ * Represents a list of tasks, with methods for operations on task list.
+ */
 public class Tasklist {
     private List<Task> todolist = new ArrayList<>();
 
@@ -30,6 +30,11 @@ public class Tasklist {
         return todolist.isEmpty();
     }
 
+    /**
+     * Prints the list of tasks in the task list.
+     *
+     * @return The list of tasks in the task list.
+     */
     public String printTodolist() {
         StringBuilder s = new StringBuilder();
         int i = 1;
@@ -44,28 +49,49 @@ public class Tasklist {
         return s.toString().trim();
     }
 
+    /**
+     * Marks a task as done or undone in the task list.
+     *
+     * @param taskNumber The index of the task to be marked as done.
+     * @param isDone The status of the task.
+     */
     public void markTaskAsDone(int taskNumber, boolean isDone) {
         todolist.get(taskNumber).markAsDone(isDone);
     }
 
+    /**
+     * Gets the list of tasks in the task list.
+     *
+     * @return The list of tasks in the task list.
+     */
     public List<Task> getTodolist() {
         return todolist;
     }
 
+    /**
+     * Gets the string representation of a task in the task list.
+     *
+     * @param taskNumber The index of the task.
+     * @return The string representation of the task.
+     */
     public String getTaskString(int taskNumber) {
         return todolist.get(taskNumber).toString();
     }
 
+    /**
+     * Restores the data from existing file, if any.
+     *
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void restoreData() {
-        // TODO: Handle details[1]
         try {
-            Boolean isDone;
+            boolean isDone;
             List<String> tasks = Storage.loadData();
             for (String task : tasks) {
                 String[] details = task.split("\\|");
-                isDone = details[1] != "0";
-                for(int i = 0; i < details.length; i++) {
-                     details[i] = details[i].trim();
+                isDone = !Objects.equals(details[1], "0");
+                for (int i = 0; i < details.length; i++) {
+                    details[i] = details[i].trim();
                 }
                 if (details[0].equals("T")) {
                     addItem(new Todo(details[2], isDone));

@@ -1,7 +1,5 @@
 package duke.storage;
 
-import duke.task.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,20 +7,35 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Storage {
-    public static final Path path = Paths.get("data", "duke.txt");
+import duke.task.Task;
 
+/**
+ * Represents the storage for the tasklist.
+ */
+public class Storage {
+    private static final Path path = Paths.get("data", "duke.txt");
+    /**
+     * Loads the data from the file.
+     *
+     * @return The data from the file.
+     * @throws IOException If an error occurs while reading from the file.
+     */
     public static List<String> loadData() throws IOException {
         Path dirPath = path.getParent();
         Files.createDirectories(dirPath);
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
-        List<String> lines = Files.readAllLines(path);
-        return lines;
+        return Files.readAllLines(path);
     }
 
-    public void saveData (List<Task> todolist) throws IOException {
+    /**
+     * Saves the data to the file.
+     *
+     * @param todolist The data to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
+    public void saveData(List<Task> todolist) throws IOException {
         String entry;
         Path dirPath = java.nio.file.Paths.get("data");
         Path fullPath = dirPath.resolve("duke.txt");

@@ -1,14 +1,19 @@
 package duke.parser;
 
-import duke.storage.Storage;
-import duke.ui.Ui;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+/**
+ * Represents a test class for Parser
+ */
 public class ParserTest {
     private Parser parser;
     private Ui ui;

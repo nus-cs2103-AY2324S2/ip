@@ -2,9 +2,18 @@ package duke.task;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description The description of the deadline task.
+     * @param by The deadline of the deadline task.
+     */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description);
         this.by = by;
@@ -18,6 +27,6 @@ public class Deadline extends Task {
 
     @Override
     public String getDataString() {
-        return "D | " + (isDone? "1" : "0") + " | " + super.getDescription() +  " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | " + super.getDescription() + " | " + by;
     }
 }

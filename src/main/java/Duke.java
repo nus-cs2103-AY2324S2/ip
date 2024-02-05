@@ -3,11 +3,18 @@ import duke.storage.Storage;
 import duke.task.Tasklist;
 import duke.ui.Ui;
 
+/**
+ * The main class of the Duke application.
+ * Runs the application.
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     private Tasklist tasklist;
 
+    /**
+     * Constructor for the Duke class.
+     */
     public Duke() {
         tasklist = new Tasklist();
         ui = new Ui();
@@ -19,6 +26,9 @@ public class Duke {
         duke.run();
     }
 
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.printWelcomeMessage();
         Parser parser = new Parser();

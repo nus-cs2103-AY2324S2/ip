@@ -1,7 +1,16 @@
 package duke.task;
 
+/**
+ * Represents a todo task.
+ */
 public class Todo extends Task {
 
+    /**
+     * Constructor for Todo.
+     *
+     * @param description The description of the todo task.
+     * @param isDone The status of the todo task.
+     */
     public Todo(String description, boolean isDone) {
         super(description);
         this.isDone = isDone;
@@ -14,6 +23,6 @@ public class Todo extends Task {
 
     @Override
     public String getDataString() {
-        return "T | " + (isDone? "1" : "0") + " | " + super.getDescription();
+        return "T | " + (isDone ? "1" : "0") + " | " + super.getDescription();
     }
 }

@@ -1,16 +1,19 @@
 package duke.ui;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Represents a test class for Ui
+ */
 public class UiTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -31,7 +34,8 @@ public class UiTest {
     public void testPrintMessage() {
         String message = "This is a test message.";
         ui.printMessage(message);
-        String expectedOutput = "\t__________________________________________\r\n\t" + message + "\r\n\t__________________________________________\r\n";
+        String expectedOutput = "\t__________________________________________\r\n\t"
+                + message + "\r\n\t__________________________________________\r\n";
         assertTrue(outContent.toString().contains(expectedOutput));
     }
 
