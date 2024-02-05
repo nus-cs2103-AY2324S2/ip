@@ -7,10 +7,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-// Class for the chatbot itself
+/**
+ * Class representing a task management chatbot named Hari.
+ */
 class handlerbot {
 
-    //Class Attributes
+    /**
+     * Main class for the Hari chatbot.
+     */
     public taskings[] arrtaskings; // To store tasks created by the user for easy retrieval and listing
     public int countertaskings; // Counter for assumption that there are no more than 100 tasks
 
@@ -217,7 +221,9 @@ class handlerbot {
         }
     }
 
-    // Custom exception class for handling corrupted data
+    /**
+     * Custom exception class for handling corrupted data during file operations.
+     */
     class CorruptedDataException extends Exception {
         public CorruptedDataException(String message) {
             super(message);
@@ -404,7 +410,11 @@ class handlerbot {
     }
 }
 
-// Main
+/**
+ * Main method to run the Hari chatbot program.
+ *
+ * @param args Command-line arguments (not used in this program).
+ */
 public class Hari {
     public static void main(String[] args) {
         Scanner inputread = new Scanner(System.in); // Scanner object to read and process user input
