@@ -65,7 +65,7 @@ public class TaskList {
         int counter = 1;
         for (int i = 0; i < this.taskList.size(); i++) {
             Task t = taskList.get(i);
-            if (t.getDescription().contains(keyword)) {
+            if (t.getDescription().toUpperCase().contains(keyword.toUpperCase())) {
                 System.out.println("\t\t" + counter + "." + t);
                 counter += 1;
             }

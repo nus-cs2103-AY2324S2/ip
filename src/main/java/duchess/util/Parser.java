@@ -8,29 +8,28 @@ public class Parser {
         if (input.substring(0, 4).equalsIgnoreCase("list")) {
             return 1;
         }
-        else if (input.substring(0, 6).toUpperCase().contains("DELETE")) {
+        else if (input.substring(0, 6).toUpperCase().contains("UNMARK")) {
             return 2;
         }
-        else if (input.substring(0, 4).toUpperCase().contains("TODO")) {
+        else if (input.substring(0, 4).toUpperCase().contains("MARK")) {
             return 3;
         }
-        else if (input.substring(0, 8).toUpperCase().contains("DEADLINE")) {
+        else if (input.substring(0, 6).toUpperCase().contains("DELETE")) {
             return 4;
         }
-        else if (input.substring(0, 5).toUpperCase().contains("EVENT")) {
+        else if (input.substring(0, 4).toUpperCase().contains("TODO")) {
             return 5;
         }
-        else if (input.substring(0, 6).toUpperCase().contains("UNMARK")) {
+        else if (input.substring(0, 8).toUpperCase().contains("DEADLINE")) {
             return 6;
         }
-        else if (input.substring(0, 4).toUpperCase().contains("MARK")) {
+        else if (input.substring(0, 5).toUpperCase().contains("EVENT")) {
             return 7;
         }
         else if (input.substring(0, 4).toUpperCase().contains("FIND")) {
             return 8;
         }
         else {
-            System.out.println("HERE");
             throw new DuchessException();
         }
     }
