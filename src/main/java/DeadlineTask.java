@@ -14,6 +14,11 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskName, String date_time) {
         super(taskName);
         this.date_time = new DateTime(date_time);
+        this.hasDate = true;
+    }
+    @Override
+    public Boolean isWithinDate(DateTime dt) {
+        return this.date_time.isSameDay(dt);
     }
     @Override
     public String toString() {

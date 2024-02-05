@@ -1,12 +1,15 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import java.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class Chaterpillar {
     public static boolean exited = false;
-    public static ArrayList<Task> listoftasks = new ArrayList<Task>();
+    public static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void greet() {
         print_horizontal_line();
         System.out.println("Hello! I'm Chaterpillar");
@@ -35,22 +38,19 @@ public class Chaterpillar {
         switch(input_sp[0]) {
             case "list":
                 echo("Here are the tasks in your list: ");
-                int i = 1;
-                for (Task each_task : listoftasks) {
-                    echo(i++ + ". " + each_task);
-                }
+                list_tasks(tasks);
                 break;
             case "mark":
                 echo("Nice! I've marked this task as done:");
                 num = Integer.parseInt(input_sp[1]);
-                curr_task = listoftasks.get(num-1);
+                curr_task = tasks.get(num-1);
                 curr_task.mark();
                 echo(curr_task.toString());
                 break;
             case "unmark":
                 echo("Ok, I've marked this task as not done yet:");
                 num = Integer.parseInt(input_sp[1]);
-                curr_task = listoftasks.get(num-1);
+                curr_task = tasks.get(num-1);
                 curr_task.unmark();
                 echo(curr_task.toString());
                 break;
@@ -119,6 +119,19 @@ public class Chaterpillar {
                         "'bye' - exits the chatbot";
                 echo(help_message);
                 break;
+            case "today":
+                echo("Here are the tasks for today:");
+                DateTime today = new DateTime(LocalDate.now());
+                ArrayList<Task> tasksToDisplayList = new ArrayList<Task>();
+                for (Task task : tasks) {
+                    if (task.hasDate) {
+                        if(task.isWithinDate(today)) {
+                            tasksToDisplayList.add(task);
+                        }
+                    }
+                }
+                list_tasks(tasksToDisplayList);
+                break;
             default:
                 String unrecognised = "Oops, I have no idea what that means. " +
                         "Use 'help' for a list of commands I recognise.";
@@ -128,17 +141,23 @@ public class Chaterpillar {
         print_horizontal_line();
     }
     public static void add_task(Task task) {
-        listoftasks.add(task);
+        tasks.add(task);
         echo("Got it. I've added this task:");
         echo(task.toString());
-        echo("Now you have " + listoftasks.size() + " tasks in the list.");
+        echo("Now you have " + tasks.size() + " tasks in the list.");
     }
     public static void delete_task(int index) {
-        Task task = listoftasks.remove(index);
+        Task task = tasks.remove(index);
         echo("Got it. I've removed this task:");
         echo(task.toString());
-        echo("Now you have " + listoftasks.size() + " tasks in the list.");
+        echo("Now you have " + tasks.size() + " tasks in the list.");
 
+    }
+    public static void list_tasks(List<Task> list) {
+        int i = 1;
+        for (Task each_task : list) {
+            echo(i++ + ". " + each_task);
+        }
     }
     public static void main(String[] args) {
         greet();

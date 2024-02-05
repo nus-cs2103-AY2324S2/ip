@@ -5,10 +5,15 @@ public class EventTask extends Task {
         super(taskname);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
+        this.hasDate = true;
+    }
+    @Override
+    public Boolean isWithinDate(DateTime dt) {
+        return dt.isWithinDate(this.dateTimeFrom, this.dateTimeTo);
     }
     @Override
     public String toString() {
         return "[D]" + super.toString() +
-                String.format("(from: %sto: %s)", this.dateTimeFrom, this.dateTimeTo);
+                String.format("(from: %s to: %s)", this.dateTimeFrom, this.dateTimeTo);
     }
 }

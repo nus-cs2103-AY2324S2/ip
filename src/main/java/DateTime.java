@@ -20,6 +20,12 @@ public class DateTime {
         this.dateTime = parseDateTime(dt);
     }
 
+    DateTime(LocalDate date) {
+        this.dateOnly = false;
+        this.timeOnly = false;
+        this.dateTime = date.atTime(0, 0);
+    }
+
     /**
      * Parses the string of date and/or time to a
      * <code>LocalDateTime</code> object.
@@ -67,6 +73,25 @@ public class DateTime {
                         .appendPattern("[d-MMMM h:mm a]")
                         .appendPattern("[d MMMM h:mm a]")
 
+                        .appendPattern("[d/M/uuuu h a]")
+                        .appendPattern("[d-M-uuuu h a]")
+                        .appendPattern("[d M uuuu h a]")
+                        .appendPattern("[d/MMM/uuuu h a]")
+                        .appendPattern("[d-MMM-uuuu h a]")
+                        .appendPattern("[d MMM uuuu h a]")
+                        .appendPattern("[d/MMMM/uuuu h a]")
+                        .appendPattern("[d-MMMM-uuuu h a]")
+                        .appendPattern("[d MMMM uuuu h a]")
+                        .appendPattern("[d/M h a]")
+                        .appendPattern("[d-M h a]")
+                        .appendPattern("[d M h a]")
+                        .appendPattern("[d/MMM h a]")
+                        .appendPattern("[d-MMM h a]")
+                        .appendPattern("[d MMM h a]")
+                        .appendPattern("[d/MMMM h a]")
+                        .appendPattern("[d-MMMM h a]")
+                        .appendPattern("[d MMMM h a]")
+
                         .appendPattern("[d/M/uuuu]")
                         .appendPattern("[d-M-uuuu]")
                         .appendPattern("[d M uuuu]")
@@ -85,28 +110,14 @@ public class DateTime {
                         .appendPattern("[d/MMMM]")
                         .appendPattern("[d-MMMM]")
                         .appendPattern("[d MMMM]")
-                        .appendPattern("[d/M/uuuu]")
-                        .appendPattern("[d-M-uuuu]")
-                        .appendPattern("[d M uuuu]")
-                        .appendPattern("[d/MMM/uuuu]")
-                        .appendPattern("[d-MMM-uuuu]")
-                        .appendPattern("[d MMM uuuu]")
-                        .appendPattern("[d/MMMM/uuuu]")
-                        .appendPattern("[d-MMMM-uuuu]")
-                        .appendPattern("[d MMMM uuuu]")
-                        .appendPattern("[d/M]")
-                        .appendPattern("[d-M]")
-                        .appendPattern("[d M]")
-                        .appendPattern("[d/MMM]")
-                        .appendPattern("[d-MMM]")
-                        .appendPattern("[d MMM]")
-                        .appendPattern("[d/MMMM]")
-                        .appendPattern("[d-MMMM]")
-                        .appendPattern("[d MMMM]")
+
+                        .appendPattern("[HHmm]")
+                        .appendPattern("[HH:mm]")
+                        .appendPattern("[h a]")
                         .parseDefaulting(ChronoField.YEAR, Year.now().getValue());
         DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();
 
-        return getDate(str, dateTimeFormatter);
+        return getDate(str.trim(), dateTimeFormatter);
     }
 
     /**
@@ -124,7 +135,6 @@ public class DateTime {
             dateOnly = true;
             return ((LocalDate) dt).atStartOfDay();
         } else if (dt instanceof LocalTime) {
-            timeOnly = true;
             return ((LocalTime) dt).atDate(LocalDate.now());
         } else if (dt instanceof YearMonth) {
             dateOnly = true;
@@ -133,12 +143,22 @@ public class DateTime {
             return LocalDateTime.from(dt);
         }
     }
+    public Boolean isSameDay(DateTime dt) {
+        return this.dateTime.toLocalDate().isEqual(dt.dateTime.toLocalDate());
+    }
+    public Boolean isWithinDate(DateTime dtStart, DateTime dtEnd) {
+        if (dateTime.toLocalDate().isAfter(dtStart.dateTime.toLocalDate())
+            && dateTime.toLocalDate().isBefore(dtEnd.dateTime.toLocalDate())) {
+            return true;
+        } else {
+            return dateTime.toLocalDate().isEqual(dtStart.dateTime.toLocalDate())
+                    || dateTime.toLocalDate().isEqual(dtEnd.dateTime.toLocalDate());
+        }
+    }
     @Override
     public String toString() {
         if (dateOnly) {
             return this.dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-        } else if (timeOnly) {
-            return this.dateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
         } else {
             return this.dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a"));
         }
