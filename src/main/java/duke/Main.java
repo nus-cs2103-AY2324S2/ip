@@ -70,6 +70,7 @@ public class Main extends Application {
 
         //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.setSpacing(15);
 
         userInput.setPrefWidth(325.0);
 
