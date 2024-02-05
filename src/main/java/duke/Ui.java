@@ -1,27 +1,38 @@
 package duke;
 
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
-import java.io.InputStream;
-import java.util.Scanner;
-import java.io.PrintStream;
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
 
     public static final String DIVIDER = "____________________________________________________________\n";
-
-    public static final String INTRO = "yoooooooo im sibehupzcoder9000\n" +
-            "what you want sia";
-
+    public static final String INTRO = "yoooooooo im sibehupzcoder9000\n"
+            + "what you want sia";
     public static final String OUTRO = "toodledoo";
 
     public final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Constructor for the user interface.
+     */
     public Ui() {
         this(System.in, System.out);
     }
 
+    /**
+     * Constructor for the user interface.
+     *
+     * @param in The input stream to be used.
+     * @param out The output stream to be used.
+     */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
@@ -34,20 +45,28 @@ public class Ui {
         }
     }
 
+    /** Shows intro message to the user */
     public void showIntro() {
         showToUser(DIVIDER, INTRO, DIVIDER);
     }
 
+    /** Shows outro message to the user */
     public void showOutro() {
         showToUser(DIVIDER, OUTRO, DIVIDER);
     }
 
+    /** Shows loading error message to the user */
     public void showLoadingError(String e) {
         showToUser(DIVIDER, e, DIVIDER);
     }
 
+    /**
+     * Shows the list of duke tasks to the user.
+     *
+     * @param list The list of duke tasks to be shown.
+     */
     public void showList(TaskList list) {
-        String message = "Here are the duke.tasks in your list";
+        String message = "Here are the tasks in your list";
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < list.getSize(); i++) {
             tasks.append(" ").append(i + 1).append(". ").append(list.getTask(i).toString()).append("\n");
