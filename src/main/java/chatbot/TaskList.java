@@ -99,85 +99,85 @@ public class TaskList {
         try {
             TaskType taskType = determineTaskType(input);
             switch (taskType) {
-                case TODO:
-                    if (input.length() <= 5) {
-                        throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
-                    }
-                    input = input.substring(5).trim();
-                    if (input.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
-                    }
-                    ToDo todo = new ToDo(input);
-                    taskList.add(todo);
-                    break;
-                case DEADLINE:
-                    if (input.length() <= 9) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the description and due-date/time of the deadline by including /by.");
-                    }
-                    input = input.substring(9).trim();
-                    String[] splitResult = input.split("/by", 2);
-                    String description = splitResult[0].trim();
-                    String by = null;
-                    try {
-                        by = splitResult[1].trim();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-                        Deadline deadline = new Deadline(description, dateTime);
-                        taskList.add(deadline);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
-                    } catch (DateTimeParseException e) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the due date or time in the format of dd/MM/yyyy HHmm.");
-                    }
-                    if (description.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. The description of a deadline cannot be empty.");
-                    } else if (by.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
-                    }
-                    break;
-                case EVENT:
-                    if (input.length() <= 6 || ! input.contains("/from") || ! input.contains("/to")) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the description, start time, and end time of the event by including /from start-time /to end-time.");
-                    }
-                    input = input.substring(6).trim();
-                    // Regular expression patterns
-                    Pattern descriptionPattern = Pattern.compile("^(.*?)\\s*/from");
-                    Pattern fromPattern = Pattern.compile("/from\\s+(\\d{2}/\\d{2}/\\d{4}\\s+\\d{4})");
-                    Pattern toPattern = Pattern.compile("/to\\s+(\\d{2}/\\d{2}/\\d{4}\\s+\\d{4})");
-                    // Match patterns against input
-                    Matcher descriptionMatcher = descriptionPattern.matcher(input);
-                    Matcher fromMatcher = fromPattern.matcher(input);
-                    Matcher toMatcher = toPattern.matcher(input);
-                    String descriptionEvent = null;
-                    String startTime = null;
-                    String endTime = null;
-                    // Find description, start time, and end time
-                    if (descriptionMatcher.find()) {
-                        descriptionEvent = descriptionMatcher.group(1);
-                    }
-                    if (fromMatcher.find()) {
-                        startTime = fromMatcher.group(1);
-                    }
-                    if (toMatcher.find()) {
-                        endTime = toMatcher.group(1);
-                    }
-                    if (descriptionEvent.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. The description of an event cannot be empty.");
-                    }
-                    // Check if description, start time, and end time are found
-                    if (descriptionEvent == null || startTime == null || endTime == null) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify both description, start time, and end time.");
-                    }
-                    // Parse start time and end time
+            case TODO:
+                if (input.length() <= 5) {
+                    throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
+                }
+                input = input.substring(5).trim();
+                if (input.isEmpty()) {
+                    throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
+                }
+                ToDo todo = new ToDo(input);
+                taskList.add(todo);
+                break;
+            case DEADLINE:
+                if (input.length() <= 9) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the description and due-date/time of the deadline by including /by.");
+                }
+                input = input.substring(9).trim();
+                String[] splitResult = input.split("/by", 2);
+                String description = splitResult[0].trim();
+                String by = null;
+                try {
+                    by = splitResult[1].trim();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                    LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
-                    LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
-                    // Create Event object and add it to the list
-                    Event event = new Event(descriptionEvent, startDateTime, endDateTime);
-                    taskList.add(event);
-                    break;
-                default:
-                    throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
+                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                    Deadline deadline = new Deadline(description, dateTime);
+                    taskList.add(deadline);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
+                } catch (DateTimeParseException e) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time in the format of dd/MM/yyyy HHmm.");
+                }
+                if (description.isEmpty()) {
+                    throw new AlfredException("Sorry Master Bruce. The description of a deadline cannot be empty.");
+                } else if (by.isEmpty()) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
+                }
+                break;
+            case EVENT:
+                if (input.length() <= 6 || ! input.contains("/from") || ! input.contains("/to")) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the description, start time, and end time of the event by including /from start-time /to end-time.");
+                }
+                input = input.substring(6).trim();
+                // Regular expression patterns
+                Pattern descriptionPattern = Pattern.compile("^(.*?)\\s*/from");
+                Pattern fromPattern = Pattern.compile("/from\\s+(\\d{2}/\\d{2}/\\d{4}\\s+\\d{4})");
+                Pattern toPattern = Pattern.compile("/to\\s+(\\d{2}/\\d{2}/\\d{4}\\s+\\d{4})");
+                // Match patterns against input
+                Matcher descriptionMatcher = descriptionPattern.matcher(input);
+                Matcher fromMatcher = fromPattern.matcher(input);
+                Matcher toMatcher = toPattern.matcher(input);
+                String descriptionEvent = null;
+                String startTime = null;
+                String endTime = null;
+                // Find description, start time, and end time
+                if (descriptionMatcher.find()) {
+                    descriptionEvent = descriptionMatcher.group(1);
+                }
+                if (fromMatcher.find()) {
+                    startTime = fromMatcher.group(1);
+                }
+                if (toMatcher.find()) {
+                    endTime = toMatcher.group(1);
+                }
+                if (descriptionEvent.isEmpty()) {
+                    throw new AlfredException("Sorry Master Bruce. The description of an event cannot be empty.");
+                }
+                // Check if description, start time, and end time are found
+                if (descriptionEvent == null || startTime == null || endTime == null) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify both description, start time, and end time.");
+                }
+                // Parse start time and end time
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
+                LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
+                // Create Event object and add it to the list
+                Event event = new Event(descriptionEvent, startDateTime, endDateTime);
+                taskList.add(event);
+                break;
+            default:
+                throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
             }
         String singularTask = taskList.size() == 1 ? "task" : "tasks";
         return (String.format("Got it. I've added this task:\n  %s\nNow you have %d %s in the list.",
