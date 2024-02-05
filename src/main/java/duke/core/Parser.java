@@ -89,7 +89,10 @@ public class Parser {
                 String[] fromdateAndFromtime = fromAndTo[0].strip().split(" ", 2);
                 String[] todateAndTotime = fromAndTo[1].strip().split(" ", 2);
 
-                String eventDesc = descAndRemaining[0];
+                String eventDesc = descAndRemaining[0].strip();
+                if (eventDesc.isEmpty()) {
+                    throw new InvalidCommandException(AddEventCommand.getUsage());
+                }
                 LocalDate fromDate = LocalDate.parse(fromdateAndFromtime[0]);
                 LocalTime fromTime = null;
                 if (fromdateAndFromtime.length == 2) {
