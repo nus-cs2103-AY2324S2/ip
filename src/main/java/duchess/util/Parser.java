@@ -2,7 +2,6 @@ package duchess.util;
 
 public class Parser {
     public Parser() {
-
     }
 
     public int getAction(String input) throws DuchessException {
