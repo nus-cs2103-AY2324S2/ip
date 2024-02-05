@@ -30,7 +30,7 @@ public class Parser {
 
         switch (commandWord) {
         case "bye":
-             return new ExitCommand();
+            return new ExitCommand();
         case "list":
             return new ListCommand();
         case "mark":

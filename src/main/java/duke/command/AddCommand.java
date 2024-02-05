@@ -6,17 +6,17 @@
 
 package duke.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
 import duke.DukeException;
 import duke.Ui;
+import duke.task.DateTimeUtil;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Storage;
 import duke.task.TaskList;
 import duke.task.Todo;
-import duke.task.DateTimeUtil;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class AddCommand extends Command {
     private final String fullCommand;
@@ -30,7 +30,7 @@ public class AddCommand extends Command {
         String[] commandParts = fullCommand.split(" ", 2);
         String taskType = commandParts[0];
 
-        if(!taskType.equals("todo") && !taskType.equals("deadline") && !taskType.equals("event")) {
+        if (!taskType.equals("todo") && !taskType.equals("deadline") && !taskType.equals("event")) {
             throw new DukeException("Please enter a valid task type.");
         }
 

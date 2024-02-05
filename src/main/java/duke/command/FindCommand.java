@@ -6,17 +6,16 @@
 
 package duke.command;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import duke.DukeException;
 import duke.Ui;
 import duke.task.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
-
-import java.io.IOException;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class FindCommand extends Command {
     private final String keyword;

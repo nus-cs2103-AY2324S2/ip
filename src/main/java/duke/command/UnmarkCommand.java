@@ -6,13 +6,13 @@
 
 package duke.command;
 
+import java.io.IOException;
+
 import duke.DukeException;
 import duke.Ui;
-import duke.task.Task;
 import duke.task.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
-
-import java.io.IOException;
 
 public class UnmarkCommand extends Command {
     private final String fullCommand;

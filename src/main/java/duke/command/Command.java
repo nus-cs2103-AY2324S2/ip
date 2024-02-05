@@ -6,12 +6,12 @@
 
 package duke.command;
 
+import java.io.IOException;
+
 import duke.DukeException;
+import duke.Ui;
 import duke.task.Storage;
 import duke.task.TaskList;
-import duke.Ui;
-
-import java.io.IOException;
 
 public abstract class Command {
     /**

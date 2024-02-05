@@ -6,13 +6,13 @@
 
 package duke;
 
-import duke.task.Task;
-import duke.task.TaskList;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class Ui {
     private final BufferedReader reader;
@@ -130,7 +130,7 @@ public class Ui {
      * @param task The Task object that has been marked as done.
      */
     public void showMarkedMessage(Task task) {
-        if(task.isDone()) {
+        if (task.isDone()) {
             writer.println("This task is already marked as done:\n  " + task);
         } else {
             task.markAsDone();
@@ -144,7 +144,7 @@ public class Ui {
      * @param task The Task object that has been marked as not done.
      */
     public void showUnmarkedMessage(Task task) {
-        if(task.isDone()) {
+        if (task.isDone()) {
             task.markAsNotDone();
             writer.println("OK, I've marked this task as not done yet:\n  " + task);
         } else {
