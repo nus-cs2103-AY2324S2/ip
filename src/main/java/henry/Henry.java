@@ -28,6 +28,9 @@ public class Henry {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            if (c.isExit()) {
+                System.exit(0);
+            }
             return c.execute(tasks, storage);
         } catch (HenryException e) {
             return e.getMessage();
