@@ -145,6 +145,13 @@ public class Parser {
             } else if (userReply.equals("bye")){
                     System.out.print("Bye. Hope to see you again soon!");
                     break;
+            } else if (userReply.contains("find")) {
+                String[] splitter = userReply.split(" ", 2);
+                System.out.println("Tasks that match your search");
+                System.out.println("------------------------------------------------------------------");
+                taskList.findInList(splitter[1]).listPrinter();
+                System.out.println("------------------------------------------------------------------");
+                userReply = inputTaker.nextLine();
             }
             else {
                 System.out.println("Please choose from the available prompts\n[todo/deadline/event/mark/unmark/list/bye]");

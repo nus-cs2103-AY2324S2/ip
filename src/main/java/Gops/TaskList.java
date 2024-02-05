@@ -159,4 +159,16 @@ public class TaskList {
             System.out.println(i + 1 + ") " + stringPrintTask(i));
         }
     }
+    public void add(Todo task) {
+        taskList.add(task);
+    }
+    public TaskList findInList(String item) {
+        TaskList refinedList = new TaskList();
+        for (Todo task : taskList) {
+            if (task.itemDescription.contains(item)) {
+                refinedList.add(task);
+            }
+        }
+        return refinedList;
+    }
 }
