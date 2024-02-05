@@ -16,6 +16,7 @@ import duke.command.DeleteCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 import duke.command.Command;
+import duke.command.FindCommand;
 
 import duke.exception.InvalidArgumentException;
 import duke.exception.InvalidCommandException;
@@ -25,12 +26,12 @@ import duke.exception.InvalidCommandException;
  */
 public class Parser {
     private enum CommandType {
-        BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
+        BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE, FIND
     }
 
     /**
      * Returns the respective command to be executed after deconstructing the user input.
-     * Possible commands are : BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE.
+     * Possible commands are : BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE, FIND.
      *
      * @param userInput String of user input to be deconstructed and processed.
      * @return Command to be executed.
@@ -67,6 +68,11 @@ public class Parser {
             case UNMARK:
                 description = components[1];
                 command = new UnmarkCommand(description);
+                break;
+
+            case FIND:
+                description = components[1];
+                command = new FindCommand(description);
                 break;
 
             case TODO:

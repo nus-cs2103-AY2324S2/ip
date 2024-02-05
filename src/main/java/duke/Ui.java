@@ -1,5 +1,6 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -61,11 +62,10 @@ public class Ui {
     public static void displayAllTasks(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
 
-        ArrayList<Task> arrayListOfTasks = taskList.getArrayList();
         int length = taskList.getSize();
 
         for (int i = 0; i < length; i++) {
-            Task task = arrayListOfTasks.get(i);
+            Task task = taskList.getTaskAtPosition(i + 1);
             System.out.println(i + 1 + "." + task.toString());
         }
 
@@ -130,6 +130,27 @@ public class Ui {
 
         printDivider();
 
+    }
+
+    /**
+     * Prints the list of tasks in the taskList that matches the keyword.
+     *
+     * @param taskList List of tasks to match the keyword with.
+     * @param keyword Keyword to match the task description with.
+     */
+    public static void displayMatchingTasks(TaskList taskList, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+
+        int length = taskList.getSize();
+        int counter = 0;
+
+        for (int i = 1; i < length + 1; i++) {
+            Task task = taskList.getTaskAtPosition(i);
+            if (task.toString().contains(keyword)) {
+                counter++;
+                System.out.println(counter + "." + task);
+            }
+        }
     }
 
     /**
