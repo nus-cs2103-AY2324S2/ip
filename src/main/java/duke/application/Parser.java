@@ -9,11 +9,30 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * The Parser class is responsible for parsing user input and executing corresponding commands.
+ * It handles various commands such as listing tasks, marking/unmarking tasks, adding todos,
+ * deadlines, and events, removing tasks, and exiting the application.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input into an array of strings, separating the command and the remaining input.
+     *
+     * @param input The user input to be parsed.
+     * @return An array containing the command and the remaining input.
+     */
     public static String[] parseInput(String input) {
         return input.split(" ", 2);
     }
 
+    /**
+     * Handles the execution of commands based on the parsed user input.
+     *
+     * @param input    The user input to be processed.
+     * @param taskList The task list to be manipulated.
+     */
     public void handleCommand(String input, TaskList taskList) {
         String[] parsedInput = Parser.parseInput(input);
 
@@ -51,6 +70,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the marking or unmarking of tasks based on user input.
+     *
+     * @param input    The user input specifying the task number and the action.
+     * @param taskList The task list to be manipulated.
+     */
     public static void markingHandler(String input, TaskList taskList) {
         String[] split = input.split(" ");
 
@@ -82,7 +107,9 @@ public class Parser {
 
     /**
      * Handles the creation and addition of Todo tasks to the task list.
-     * @param input User input specifying the Todo description.
+     *
+     * @param input    User input specifying the Todo description.
+     * @param taskList The task list to which the Todo task will be added.
      */
     private static void handleTodos(String input, TaskList taskList) {
         String description = input.substring(5).trim();
@@ -96,7 +123,9 @@ public class Parser {
 
     /**
      * Handles the creation and addition of Deadline tasks to the task list.
-     * @param input User input specifying the Deadline description and due date.
+     *
+     * @param input    User input specifying the Deadline description and due date.
+     * @param taskList The task list to which the Deadline task will be added.
      */
     private static void handleDeadlines(String input, TaskList taskList) {
         String[] splitParts = input.substring(9).split("/by", 2);
@@ -127,13 +156,15 @@ public class Parser {
 
     /**
      * Handles the creation and addition of Event tasks to the task list.
-     * @param input User input specifying the Event description and date range.
+     *
+     * @param input    User input specifying the Event description and date range.
+     * @param taskList The task list to which the Event task will be added.
      */
     private static void handleEvents(String input, TaskList taskList) {
         String[] splitParts = input.substring(6).split("/from", 2);
         String[] splitTo = splitParts[1].split("/to", 2);
 
-        if (splitParts.length > 1 && splitTo.length > 1) {
+        if (splitTo.length > 1) {
             String description = splitParts[0].trim();
             String fromDate = splitTo[0].trim();
             String toDate = splitTo[1].trim();
@@ -153,6 +184,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the removal of tasks from the task list based on user input.
+     *
+     * @param input    User input specifying the task number to be removed.
+     * @param taskList The task list from which the task will be removed.
+     */
     private static void handleRemove(String input, TaskList taskList) {
         String[] splitParts = input.split(" ");
         if (splitParts.length < 2) {
@@ -199,7 +236,12 @@ public class Parser {
         return splitParts.length > 1;
     }
 
-
+    /**
+     * Validates the input format for a date string.
+     *
+     * @param input The date string to be validated.
+     * @return True if the input is a valid date string, false otherwise.
+     */
     private static boolean isValidDate(String input) {
         try {
             LocalDate.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
