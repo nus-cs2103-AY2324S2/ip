@@ -1,8 +1,8 @@
-# Duke Ted
+# Duke Zeh
 
 > I'm not writing it down to remember it _later_, I'm writing it down to remember it **now**. - [Field Notes](https://fieldnotesbrand.com/)
 
-Duke Ted is a task management application based on [Project Duke](https://nus-cs2103-ay1920s1.github.io/website/se-book-adapted/projectDuke/index.html)🔥.
+Duke Zeh is a task management application based on [Project Duke](https://nus-cs2103-ay1920s1.github.io/website/se-book-adapted/projectDuke/index.html)🔥.
 
 ## Command List
 - `todo <task-name>`: Adds a new `ToDo` item.
@@ -25,15 +25,16 @@ Duke Ted is a task management application based on [Project Duke](https://nus-cs
 - [x] Level-7: Save
 - [x] Level-8: Dates and Times
 - [x] Level-9: Find
-- [ ] Level-10: GUI
+- [x] Level-10: GUI
 
-## Running Duke Ted
+## Running Duke Zeh
 1. Download the repository [here](https://github.com/KohGuanZeh/ip).
 2. Run `./gradlew clean build` from root folder.
 3. Locate `duke.jar` from `builds/lib`.
 4. Run `java -jar duke.jar`.
 
-## Code Snippet of Duke Ted
+## Old Code Snippet of Duke Zeh
+The following code was when Duke Zeh (formally known as Duke Ted) ran with CLI.
 ```java
 public class Duke {
     // File directory of stored data.
