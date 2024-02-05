@@ -9,7 +9,6 @@ import storage.Storage;
 import task.Event;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents the command used to add an event to the task list.
@@ -41,12 +40,11 @@ public class EventCommand extends Command {
      *
      * @param tasks   The TaskList representing the collection of tasks.
      * @param storage The Storage object handling storage operations.
-     * @param ui      The Ui object responsible for user interface interactions.
      * @throws EventFormatException Thrown when the input does not follow the correct deadline command format
      *                                or if the provided deadline start and/or end date is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws EventFormatException {
+    public String execute(TaskList tasks, Storage storage) throws EventFormatException {
         String[] args = message.split("/from");
         if (args.length == 1 || args.length > 2) {
             throw new EventFormatException();
@@ -65,9 +63,9 @@ public class EventCommand extends Command {
                     try {
                         storage.appendToFile(tasks);
                     } catch (IOException e) {
-                        ui.showErrorMessage(e.getMessage());
+                        return e.getMessage();
                     }
-                    ui.showToUser(String.format(SUCCESS_MESSAGE, event, tasks.numTasks()));
+                    return String.format(SUCCESS_MESSAGE, event, tasks.numTasks());
                 } catch (DateTimeParseException e) {
                     throw new EventFormatException();
                 }

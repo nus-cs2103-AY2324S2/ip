@@ -7,7 +7,6 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 import task.Todo;
-import ui.Ui;
 
 /**
  * Represents the command used to add a todo to the task list.
@@ -35,11 +34,10 @@ public class TodoCommand extends Command {
      *
      * @param tasks   The TaskList representing the collection of tasks.
      * @param storage The Storage object handling storage operations.
-     * @param ui      The Ui object responsible for user interface interactions.
      * @throws TodoFormatException Thrown when the input does not have a message.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws TodoFormatException {
+    public String execute(TaskList tasks, Storage storage) throws TodoFormatException {
         if (message.isEmpty()) {
             throw new TodoFormatException();
         }
@@ -48,8 +46,8 @@ public class TodoCommand extends Command {
         try {
             storage.appendToFile(tasks);
         } catch (IOException e) {
-            ui.showErrorMessage(e.getMessage());
+            return e.getMessage();
         }
-        ui.showToUser(String.format(SUCCESS_MESSAGE, todo, tasks.numTasks()));
+        return String.format(SUCCESS_MESSAGE, todo, tasks.numTasks());
     };
 }

@@ -4,7 +4,6 @@ import exception.FindFormatException;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Command representing the 'find' operation in Duke.
@@ -20,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws FindFormatException {
+    public String execute(TaskList tasks, Storage storage) throws FindFormatException {
         if (message.isEmpty()) {
             throw new FindFormatException();
         }
@@ -31,9 +30,9 @@ public class FindCommand extends Command {
             }
         }
         if (matchedTasks.isEmpty()) {
-            ui.showToUser(NO_TASK_FOUND_MESSAGE);
+            return NO_TASK_FOUND_MESSAGE;
         } else {
-            ui.showList(String.format(TASK_FOUND_MESSAGE, tasks.numTasks()), matchedTasks);
+            return String.format(TASK_FOUND_MESSAGE, tasks.numTasks()) + "\n" + matchedTasks;
         }
     }
 }
