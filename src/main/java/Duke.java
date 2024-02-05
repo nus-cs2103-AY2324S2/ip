@@ -297,8 +297,8 @@ public class Duke {
                     printWithLines(e.getMessage());
                 }
             }
+            saveData();
         }
         System.out.println(goodbyeMessage);
-        saveData();
     }
 }
