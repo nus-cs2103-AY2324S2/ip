@@ -2,24 +2,23 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui.Ui;
 
 /**
  * Exit the Chatbot.
  */
 public class ExitCommand extends Command {
 
+    public static final String BYE_BYE = "bye bye!";
     /**
      * Does nothing.
      *
      * @param tasks   The list of tasks.
-     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Goodbye message.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return "bye bye!";
+    public String execute(TaskList tasks, Storage storage) {
+        return BYE_BYE;
     }
 
     @Override

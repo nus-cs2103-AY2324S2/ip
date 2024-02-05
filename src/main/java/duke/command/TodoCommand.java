@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui.Ui;
 import duke.task.Task;
 import duke.task.ToDo;
 
@@ -26,12 +25,11 @@ public class TodoCommand extends Command {
      * Execute this todo.
      *
      * @param tasks   The list of tasks.
-     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Information about the todo.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Task task = new ToDo(this.todo);
         tasks.add(task);
         return tasks.standardize(task);

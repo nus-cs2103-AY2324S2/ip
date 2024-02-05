@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui.Ui;
 import duke.task.Task;
 
 /**
@@ -22,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         TaskList tasksWithKeyword = new TaskList();
         for (Task task : tasks) {
             if (task.contains(this.keyword)) {

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui.Ui;
 import duke.task.Task;
 
 
@@ -31,12 +30,11 @@ public class DeadlineCommand extends Command {
      * Adds a deadline event to the task list.
      *
      * @param tasks   The list of tasks.
-     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Information about the deadline event.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Task task = new duke.task.Deadline(this.event, this.dueBy);
         tasks.add(task);
         return tasks.standardize(task);
