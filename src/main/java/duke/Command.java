@@ -30,22 +30,21 @@ public class Command {
      * @param st <code>Storage</code> instance to update file for persistence of task data.
      * @throws DukeException If command fails.
      */
-    protected void execute(TaskList tl, Ui ui, Storage st) throws DukeException {
+    protected String execute(TaskList tl, Ui ui, Storage st) throws DukeException {
         if (this.command.equals("bye")) {
-            ui.echo("Bye. Hope to see you again soon!");
-            this.isExit = true;
+            return "Bye. Hope to see you again soon!";
         } else if (this.command.equals("list")) {
-            tl.list(ui);
+            return tl.list(ui);
         } else if (this.command.equals("unmark")) {
-            tl.unmark(ui, st, this.arguments);
+            return tl.unmark(ui, st, this.arguments);
         } else if (this.command.equals("mark")) {
-            tl.mark(ui, st, this.arguments);
+            return tl.mark(ui, st, this.arguments);
         } else if (this.command.equals("delete")) {
-            tl.deleteTask(ui, st, this.arguments);
+            return tl.deleteTask(ui, st, this.arguments);
         } else if (this.command.equals("find")) {
-            tl.find(ui, this.arguments[0]);
+            return tl.find(ui, this.arguments[0]);
         } else {
-            tl.addTask(ui, st, this.command, this.arguments);
+            return tl.addTask(ui, st, this.command, this.arguments);
         }
     }
 

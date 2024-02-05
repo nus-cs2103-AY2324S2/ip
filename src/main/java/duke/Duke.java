@@ -3,6 +3,7 @@ package duke;
 import java.io.IOException;
 
 import duke.exceptions.DukeException;
+import javafx.application.Application;
 
 /**
  * Main program of Duke that runs the application.
@@ -31,24 +32,20 @@ public class Duke {
     /**
      * Runs an instance of <code>Duke</code>.
      */
-    public void run() {
-        this.ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (DukeException de) {
-                System.out.println(de);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+    public String greet() {
+        return this.ui.greet();
     }
 
-    public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+    public String readCommand(String command) {
+        String reply = "";
+        try {
+            Command c = Parser.parse(command);
+            reply = c.execute(this.tasks, this.ui, this.storage);
+        } catch (DukeException de) {
+            System.out.println(de);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return reply;
     }
 }

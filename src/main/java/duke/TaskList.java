@@ -42,7 +42,7 @@ public class TaskList {
      * @param args Arguments for the task.
      * @throws InvalidTaskException
      */
-    protected void addTask(Ui ui, Storage st, String task, String[] args) throws InvalidTaskException {
+    protected String addTask(Ui ui, Storage st, String task, String[] args) throws InvalidTaskException {
         Task t = null;
         if (task.equals("todo")) {
             t = new Todo(args[0]);
@@ -63,10 +63,11 @@ public class TaskList {
         if (t != null) {
             tasks.add(t);
             st.save(this.tasks);
-            ui.echo("Got it. I've added this task:\n  "
+            return "Got it. I've added this task:\n  "
                     + t + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list.");
+                    + "Now you have " + tasks.size() + " tasks in the list.";
         }
+        return "";
     }
 
     /**
@@ -76,13 +77,13 @@ public class TaskList {
      * @param st <code>Storage</code> instance to update.
      * @param args Contains index for specifying task.
      */
-    protected void deleteTask(Ui ui, Storage st, String[] args) {
+    protected String deleteTask(Ui ui, Storage st, String[] args) {
         Task t = tasks.get(Integer.parseInt(args[0]) - 1);
         tasks.remove(t);
         st.save(this.tasks);
-        ui.echo("Noted. I've removed this task:\n  "
+        return "Noted. I've removed this task:\n  "
                 + t + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.");
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -90,14 +91,14 @@ public class TaskList {
      *
      * @param ui Display ui elements.
      */
-    protected void list(Ui ui) {
+    protected String list(Ui ui) {
         int count = 0;
-        System.out.println("Here are the tasks in your list:");
+        String res = "Here are the tasks in your list:";
         for (Task t : tasks) {
             count++;
-            System.out.println(count + ". " + t);
+            res = res.concat("\n" + count + ". " + t);
         }
-        ui.showLine();
+        return res;
     }
 
     /**
@@ -107,13 +108,13 @@ public class TaskList {
      * @param st <code>Storage</code> for file update.
      * @param args Index for specified task.
      */
-    protected void mark(Ui ui, Storage st, String[] args) {
+    protected String mark(Ui ui, Storage st, String[] args) {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markAsDone();
             st.save(this.tasks);
-            ui.echo("Nice! I've marked this task as done:\n"
-                    + t);
+            return "Nice! I've marked this task as done:\n"
+                    + t;
         } catch (IndexOutOfBoundsException ie) {
             throw new IllegalArgumentException("Index number cannot be out of bounds.");
         }
@@ -126,13 +127,13 @@ public class TaskList {
      * @param st <code>Storage</code> for file update.
      * @param args Index for specified task.
      */
-    protected void unmark(Ui ui, Storage st, String[] args) {
+    protected String unmark(Ui ui, Storage st, String[] args) {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markUndone();
             st.save(this.tasks);
-            ui.echo("OK, I've marked this task as not done yet:\n"
-                    + t);
+            return "OK, I've marked this task as not done yet:\n"
+                    + t;
         } catch (IndexOutOfBoundsException ie) {
             throw new IllegalArgumentException("Index number cannot be out of bounds.");
         }
@@ -144,15 +145,15 @@ public class TaskList {
      * @param ui Displays ui elements.
      * @param key keyword to filter <code>TaskList</code>.
      */
-    protected void find(Ui ui, String key) {
+    protected String find(Ui ui, String key) {
         int count = 1;
-        System.out.println("Here are the matching tasks in your list:");
+        String res = "Here are the matching tasks in your list:";
         for (Task t : tasks) {
             if (t.getTaskName().contains(key)) {
-                System.out.println(count + ". " + t);
+                res = res.concat("\n" + count + ". " + t);
                 count++;
             }
         }
-        ui.showLine();
+        return res;
     }
 }
