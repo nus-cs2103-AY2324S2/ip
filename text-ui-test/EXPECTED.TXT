@@ -39,5 +39,15 @@ Here is your list of tasks:
 2. [D][X] finish homework (by: yesterday)
 3. [E][ ] concert (from: tomorrow 2200 to: tomorrow 2300)
 ------------------------------------
+IndexOutOfBoundsException: index 4 out of bounds for size 3.
+------------------------------------
+Fine. I've removed this task:
+   [D][X] finish homework (by: yesterday)
+Now you have 2 tasks.
+------------------------------------
+Here is your list of tasks:
+1. [D][ ] finish homework (by: tomorrow)
+2. [E][ ] concert (from: tomorrow 2200 to: tomorrow 2300)
+------------------------------------
 Hope to never see you again. Goodbye!
 ------------------------------------

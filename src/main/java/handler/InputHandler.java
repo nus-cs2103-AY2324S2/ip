@@ -26,6 +26,11 @@ public class InputHandler {
                     throw new IllegalArgumentException("unmark", 1);
                 }
                 return new UnmarkAction(parsedInput[1]);
+            case "delete":
+                if (parsedInput.length != 2) {
+                    throw new IllegalArgumentException("delete", 1);
+                }
+                return new DeleteAction(parsedInput[1]);
             case "todo":
                 if (parsedInput.length < 2) {
                     throw new IllegalArgumentException("todo requires at least 1 argument");

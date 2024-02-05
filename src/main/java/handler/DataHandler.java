@@ -3,44 +3,51 @@ package handler;
 import action.task.Task;
 import exception.IndexOutOfBoundsException;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class DataHandler {
     public static final DataHandler instance = new DataHandler();
-    private static Task[] tasks = new Task[100];
-    private static int index = 0; // always equals to the index of last valid element plus 1
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private DataHandler() {};
 
     public void handleData(Task task) {
-        if (index >= 100) return;
-        tasks[index] = task;
-        index++;
+        tasks.add(task);
         // Todo: Exception handling
     }
 
     public void markTask(int index) throws IndexOutOfBoundsException {
-        if (index > DataHandler.index || index <= 0) {
-            throw new IndexOutOfBoundsException(index, DataHandler.index);
+        if (index > size() || index <= 0) {
+            throw new IndexOutOfBoundsException(index, size());
         }
-        tasks[index - 1].mark();
+        tasks.get(index - 1).mark();
     }
 
     public void unmarkTask(int index) throws IndexOutOfBoundsException {
-        if (index > DataHandler.index || index <= 0) {
-            throw new IndexOutOfBoundsException(index, DataHandler.index);
+        if (index > size() || index <= 0) {
+            throw new IndexOutOfBoundsException(index, size());
         }
-        tasks[index - 1].unmark();
+        tasks.get(index - 1).unmark();
     }
 
-    public int length() {
-        return index;
+    public void deleteTask(int index) throws IndexOutOfBoundsException {
+        if (index > size() || index <= 0) {
+            throw new IndexOutOfBoundsException(index, size());
+        }
+        tasks.remove(index - 1);
     }
 
-    public Task[] getData() {
-        return Arrays.copyOfRange(tasks, 0, index);
+    public int size() {
+        return tasks.size();
     }
 
-    public Task getTask(int index) {
-        return tasks[index - 1];
+    public ArrayList<Task> getData() {
+        return tasks;
+    }
+
+    public Task getTask(int index) throws IndexOutOfBoundsException{
+        if (index > size() || index <= 0) {
+            throw new IndexOutOfBoundsException(index, size());
+        }
+        return tasks.get(index - 1);
     }
 }

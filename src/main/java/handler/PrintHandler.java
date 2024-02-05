@@ -2,6 +2,8 @@ package handler;
 
 import action.task.Task;
 
+import java.util.ArrayList;
+
 public final class PrintHandler {
     public static final PrintHandler instance = new PrintHandler();
     private static final String DIVIDER = "------------------------------------";
@@ -14,10 +16,10 @@ public final class PrintHandler {
         System.out.println(msg);
         System.out.println(DIVIDER);
     }
-    public void printNumberedDivider(Task[] msgs) {
-        for (int i = 0; i < msgs.length; i++) {
+    public void printNumberedDivider(ArrayList<Task> msgs) {
+        for (int i = 0; i < msgs.size(); i++) {
             int index = i + 1;
-            System.out.println(Integer.toString(index) + ". " + msgs[i]);
+            System.out.println(Integer.toString(index) + ". " + msgs.get(i));
         }
         System.out.println(DIVIDER);
     }

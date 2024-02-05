@@ -35,8 +35,9 @@ public final class Nihao {
         printHandler.printWithDivider(GREETINGS);
 
         File myInput = new File("text-ui-test/input.txt");
-        try {
-            Scanner scanner = new Scanner(myInput);
+//        try {
+//            Scanner scanner = new Scanner(myInput);
+            Scanner scanner = new Scanner(System.in);
             while (true) {
                 String input = scanner.nextLine();
                 if (input.equals("bye")) {
@@ -52,8 +53,8 @@ public final class Nihao {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            printHandler.printWithDivider("File not found");
-        }
+//        } catch (FileNotFoundException e) {
+//            printHandler.printWithDivider("File not found");
+//        }
     }
 }

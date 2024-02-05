@@ -8,4 +8,7 @@ event concert /from tomorrow 2200 /to tomorrow 2300
 mark 2 3
 mark 2
 list
+delete 4
+delete 2
+list
 bye
