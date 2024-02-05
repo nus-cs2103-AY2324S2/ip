@@ -252,4 +252,14 @@ public class TaskList {
         }
         return result;
     }
+
+    public ArrayList<Task> findByKeyword(String keyword) {
+        ArrayList<Task> result = new ArrayList<Task>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
 }

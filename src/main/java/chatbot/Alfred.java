@@ -47,6 +47,9 @@ public class Alfred {
                         ui.echo(tasks.markList(parser.parseDescription(input)));
                     } else if (input.startsWith("delete")) {
                         ui.echo(tasks.deleteList(parser.parseDescription(input)));
+                    } else if (input.startsWith("find")) {
+                        String keyword = parser.parseDescription(input).trim();
+                        ui.printList(tasks.findByKeyword(keyword));
                     } else if (input.startsWith("date")) {
                         String date = parser.parseDescription(input).trim();
                         ui.printList(tasks.findByDate(parser.parseDateTime(date)));
