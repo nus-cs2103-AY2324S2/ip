@@ -3,7 +3,6 @@ package duke;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
@@ -31,7 +30,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadTasksFromFile() {
+    public ArrayList<Task> loadTasksFromFile() throws DukeException{
         try {
             FileInputStream readTasks = new FileInputStream(this.file);
             ObjectInputStream readStream = new ObjectInputStream(readTasks);
@@ -52,12 +51,12 @@ public class Storage {
         return new ArrayList<Task>();
     }
 
-    public void updateStorageFile(ArrayList<Task> myList) {
+    public void updateStorageFile(TaskList taskList) {
         try{
             FileOutputStream writeData = new FileOutputStream(this.file);
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
 
-            writeStream.writeObject(myList);
+            writeStream.writeObject(taskList.getListOfTasks());
             writeStream.flush();
             writeStream.close();
 
