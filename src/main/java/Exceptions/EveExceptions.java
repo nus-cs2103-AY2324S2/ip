@@ -1,3 +1,4 @@
+package Exceptions;
 public class EveExceptions extends RuntimeException {
 
     public EveExceptions(String error) {

@@ -1,3 +1,4 @@
+package FileStorage;
 // will split into this next time
 
 import java.io.File;
@@ -6,6 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tasks.Task;
+import tasks.Todo;
+import tasks.Event;
+import tasks.Deadline;
 
 public class Storage {
     private static final String directoryPath = "./data";
