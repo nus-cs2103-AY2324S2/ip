@@ -40,7 +40,7 @@ an emoji
 a hyperlink
 [here](https://github.com/wallacexuhanxiao/ip/releases/tag/A-Jar/)
 
-a inline coade ```main``` in line
+a inline coade `main` in line
 
 
 
