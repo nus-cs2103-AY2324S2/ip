@@ -1,4 +1,4 @@
-package Parser;
+package eve.parser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

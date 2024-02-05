@@ -1,7 +1,7 @@
-package tasks;
+package eve.tasks;
 
 import java.time.LocalDateTime;
-import Parser.Parser;
+import eve.parser.Parser;
 
 public class Event extends Task {
     protected LocalDateTime startString;

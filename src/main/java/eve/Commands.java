@@ -1,9 +1,10 @@
+package eve;
 import java.io.IOException;
 
-import Exceptions.EveExceptions;
-import FileStorage.Storage;
+import eve.exceptions.EveExceptions;
+import eve.fileStorage.Storage;
 import java.util.*;
-import tasks.Task;
+import eve.tasks.Task;
 
 
 public class Commands {

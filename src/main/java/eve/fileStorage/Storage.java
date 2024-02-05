@@ -1,4 +1,4 @@
-package FileStorage;
+package eve.fileStorage;
 // will split into this next time
 
 import java.io.File;
@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.Task;
-import tasks.Todo;
-import tasks.Event;
-import tasks.Deadline;
+import eve.tasks.Task;
+import eve.tasks.Todo;
+import eve.tasks.Event;
+import eve.tasks.Deadline;
 
 public class Storage {
     private static final String directoryPath = "./data";

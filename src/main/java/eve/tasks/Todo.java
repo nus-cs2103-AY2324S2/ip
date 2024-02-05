@@ -1,4 +1,4 @@
-package tasks;
+package eve.tasks;
 
 public class Todo extends Task {
 

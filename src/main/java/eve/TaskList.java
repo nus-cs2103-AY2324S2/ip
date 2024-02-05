@@ -1,10 +1,11 @@
+package eve;
 import java.util.ArrayList;
 
-import Exceptions.EveExceptions;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import eve.exceptions.EveExceptions;
+import eve.tasks.Deadline;
+import eve.tasks.Event;
+import eve.tasks.Task;
+import eve.tasks.Todo;
 
 public class TaskList {
     public static void commandList(ArrayList<Task> list){

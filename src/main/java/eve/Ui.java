@@ -1,3 +1,4 @@
+package eve;
 public class Ui {
     //not sure what to put here yet as of A-MoreOOP
 
