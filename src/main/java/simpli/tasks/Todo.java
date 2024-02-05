@@ -2,7 +2,7 @@ package simpli.tasks;
 
 public class Todo extends Task {
     /**
-     * Initalizes a todo task.
+     * Initalizes a todo task with the specified attributes.
      * @param isDone boolean true if the todo task is completed. False if otherwise.
      * @param name String.
      */

@@ -7,6 +7,13 @@ public class Deadline extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime by;
 
+    /**
+     * Initializes a deadline task with the specified attributes.
+     *
+     * @param isDone boolean representing if a task is completed or not.
+     * @param name String.
+     * @param by Date when the task is due.
+     */
     public Deadline(boolean isDone, String name, LocalDateTime by) {
         super(isDone, name);
         this.by = by;

@@ -8,7 +8,14 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-
+    /**
+     * Initializes an event task with the specified attributes.
+     *
+     * @param isDone boolean representing if a task is completed or not.
+     * @param name String.
+     * @param from Starting date and time of an event.
+     * @param to Ending date and time of an event.
+     */
     public Event(boolean isDone, String name, LocalDateTime from, LocalDateTime to) {
         super(isDone, name);
         this.from = from;
