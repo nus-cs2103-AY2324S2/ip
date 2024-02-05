@@ -32,7 +32,7 @@ public class Ui {
                 + "       "
                 + task.toString()
                 + "\n"
-                + "     Now you have "+ size +" tasks in the list.");
+                + "     Now you have " + size + " tasks in the list.");
     }
 
     public static void formatDelete (Task task, int size) {

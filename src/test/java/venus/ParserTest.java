@@ -23,7 +23,7 @@ public class ParserTest {
 
     @Test
     public void findEventContentTest() throws DukeException {
-        String[] expected = {"event","from bye bye", "to 21380"};
+        String[] expected = {"event", "from bye bye", "to 21380"};
         String[] actual = Parser.findEventParts("event event /from bye bye/to 21380");
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
@@ -32,7 +32,7 @@ public class ParserTest {
 
     @Test
     public void findEventContentTest2() throws DukeException {
-        String[] expected = {"event","from2019-10-10", "to   21380"};
+        String[] expected = {"event", "from2019-10-10", "to   21380"};
         String[] actual = Parser.findEventParts("event event /from2019-10-10/to   21380 ");
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);

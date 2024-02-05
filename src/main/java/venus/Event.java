@@ -21,7 +21,7 @@ public class Event extends Task{
         }
     }
     @Override
-    public String toString(){
+    public String toString() {
         String X = this.getMark() ? "X" : " ";
         return "[E]"+"[" + X + "] " + this.getItem()
                 + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))

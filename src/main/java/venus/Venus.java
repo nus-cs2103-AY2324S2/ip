@@ -25,8 +25,8 @@ public class Venus {
             sc.close();
             taskList.saveTasks(storage);
         } catch (FileNotFoundException e) {
-            Ui.formatResponse("File cannot be created or cannot be modified," +
-                    " please check file access modifiers!");
+            Ui.formatResponse("File cannot be created or cannot be modified,"
+                    + " please check file access modifiers!");
         }
         System.out.println(Ui.getEnd());
     }

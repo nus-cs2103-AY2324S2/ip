@@ -22,7 +22,7 @@ public class Task {
         return item;
     }
     @Override
-    public String toString(){
+    public String toString() {
         String X = mark ? "X" : " ";
         return ("[" + X + "] " + item);
     }

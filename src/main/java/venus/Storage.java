@@ -14,11 +14,11 @@ public class Storage {
     private String filePath;
     public Storage (String filePath) {
         File folder = new File (filePath.split(File.separator)[0]);
-        if (!folder.exists()) { //handling folder does not exist issues
+        if (!folder.exists()) { // handling folder does not exist issues
             folder.mkdir();
             System.out.println("Folder does not exist, data folder is created");
         }
-        if (!Files.exists(Path.of("data" + File.separator + "venus.txt"))) { //handling file does not exist
+        if (!Files.exists(Path.of("data" + File.separator + "venus.txt"))) { // handling file does not exist
             File f = new File("data" + File.separator + "venus.txt");
         }
         this.filePath = filePath;
@@ -44,7 +44,6 @@ public class Storage {
 
     public void saveAllFile(ArrayList<Task> data) throws FileNotFoundException {
         try {
-
             File f = new File(filePath);
             f.delete();
             f.createNewFile();
@@ -75,7 +74,7 @@ public class Storage {
             while (s.hasNext()) {
                 String[] items = s.nextLine().split("\\|");
                 String type = items[0].trim();
-                if (items.length == 1) { //this is to handle the blank spaces
+                if (items.length == 1) { // this is to handle the blank spaces
                     continue;
                 }
                 if (type.equals("T")) {

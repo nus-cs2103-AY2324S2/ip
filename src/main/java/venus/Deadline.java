@@ -10,7 +10,8 @@ public class Deadline extends Task{
         this.deadline = TimeFormatter.stringToTime(deadline);
     }
 
-    public Deadline(String s, boolean mark, String deadline) throws DateTimeParseException { //constructor used for loading
+    public Deadline(String s, boolean mark, String deadline) throws DateTimeParseException {
+    //constructor used for loading
         super(s);
         this.deadline = TimeFormatter.loadTimeFromString(deadline);
         if (mark) {
@@ -19,8 +20,9 @@ public class Deadline extends Task{
             this.unmark();
         }
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         String X = this.getMark() ? "X" : " ";
         return "[D]"+"[" + X + "] " + this.getItem()
                 + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";

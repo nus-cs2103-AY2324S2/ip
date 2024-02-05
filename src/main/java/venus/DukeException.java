@@ -1,4 +1,5 @@
 package venus;
+
 public class DukeException extends Exception {
     //nothing here at the moment
     public DukeException() {
