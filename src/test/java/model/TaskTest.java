@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import iggly.model.Deadline;
+import iggly.model.Event;
+import iggly.model.ToDo;
+
 public class TaskTest {
     private static ToDo todo;
     private static Event event;

@@ -10,10 +10,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import duke.Storage;
-import model.Task;
-import model.TaskList;
-import model.ToDo;
+import iggly.command.AddTaskCommand;
+import iggly.command.DeleteTaskCommand;
+import iggly.duke.Storage;
+import iggly.model.Task;
+import iggly.model.TaskList;
+import iggly.model.ToDo;
 
 public class DeleteTaskCommandTest {
     private static TaskList taskList;

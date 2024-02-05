@@ -12,16 +12,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import command.AddTaskCommand;
-import command.Command;
-import command.DeleteTaskCommand;
-import command.InvalidCommand;
-import command.ListTaskCommand;
-import command.MarkTaskCommand;
-import command.UnmarkTaskCommand;
-import model.Deadline;
-import model.TaskList;
-import model.ToDo;
+import iggly.command.AddTaskCommand;
+import iggly.command.Command;
+import iggly.command.DeleteTaskCommand;
+import iggly.command.InvalidCommand;
+import iggly.command.ListTaskCommand;
+import iggly.command.MarkTaskCommand;
+import iggly.command.UnmarkTaskCommand;
+import iggly.duke.DukeException;
+import iggly.duke.Parser;
+import iggly.duke.Storage;
+import iggly.model.Deadline;
+import iggly.model.TaskList;
+import iggly.model.ToDo;
 
 public class ParserTest {
     private static TaskList taskList;
@@ -75,12 +78,7 @@ public class ParserTest {
             parser = new Parser(ListTaskCommand.COMMAND_WORD + " 9", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Invalid index.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! Invalid index.\n", e.getMessage());
         }
     }
 
@@ -90,12 +88,7 @@ public class ParserTest {
             parser = new Parser(MarkTaskCommand.COMMAND_WORD + " 9", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Invalid index.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! Invalid index.\n", e.getMessage());
         }
     }
 
@@ -105,12 +98,7 @@ public class ParserTest {
             parser = new Parser(UnmarkTaskCommand.COMMAND_WORD + " 9", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Invalid index.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! Invalid index.\n", e.getMessage());
         }
     }
 
@@ -120,12 +108,7 @@ public class ParserTest {
             parser = new Parser(ListTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index of task cannot be empty.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index of task cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -135,12 +118,7 @@ public class ParserTest {
             parser = new Parser(MarkTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index of task cannot be empty.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index of task cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -150,12 +128,7 @@ public class ParserTest {
             parser = new Parser(UnmarkTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index of task cannot be empty.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index of task cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -165,12 +138,7 @@ public class ParserTest {
             parser = new Parser(ListTaskCommand.COMMAND_WORD + " a", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index you've input is not an integer.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index you've input is not an integer.\n", e.getMessage());
         }
     }
 
@@ -180,12 +148,7 @@ public class ParserTest {
             parser = new Parser(MarkTaskCommand.COMMAND_WORD + " a", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index you've input is not an integer.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index you've input is not an integer.\n", e.getMessage());
         }
     }
 
@@ -195,12 +158,7 @@ public class ParserTest {
             parser = new Parser(UnmarkTaskCommand.COMMAND_WORD + " a", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index you've input is not an integer.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index you've input is not an integer.\n", e.getMessage());
         }
     }
 
@@ -231,12 +189,7 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.TODO, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                    + "   OOPS!!! The description of a todo cannot be empty.\n"
-                    + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The description of a todo cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -246,12 +199,7 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.EVENT, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The description of an event cannot be empty.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The description of an event cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -261,12 +209,7 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.DEADLINE, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The description of a deadline cannot be empty.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The description of a deadline cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -277,9 +220,7 @@ public class ParserTest {
             command = parser.parse();
         } catch (DukeException e) {
             assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm\n"
-                            + "____________________________________________________________\n",
+                    "OOPS!!! Invalid input. Use: event event_title /from dd-mm-yyyy HHmm /to HHmm\n",
                     e.getMessage()
             );
         }
@@ -292,11 +233,8 @@ public class ParserTest {
             command = parser.parse();
         } catch (DukeException e) {
             assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Invalid input. Use: deadline deadline_title /by dd-mm-yyyy HHmm\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+                    "OOPS!!! Invalid input. Use: deadline deadline_title /by dd-mm-yyyy HHmm\n",
+                    e.getMessage());
         }
     }
 
@@ -307,11 +245,8 @@ public class ParserTest {
             command = parser.parse();
         } catch (DukeException e) {
             assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Invalid date & time input. Use /from dd-mm-yyyy HHmm /to HHmm\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+                    "OOPS!!! Invalid date & time input. Use /from dd-mm-yyyy HHmm /to HHmm\n",
+                    e.getMessage());
         }
     }
 
@@ -321,12 +256,7 @@ public class ParserTest {
             parser = new Parser(AddTaskCommand.DEADLINE + "test /by", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! Use dd-mm-yyyy HHmm as the date format.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! Use dd-mm-yyyy HHmm as the date format.\n", e.getMessage());
         }
     }
 
@@ -343,12 +273,7 @@ public class ParserTest {
             parser = new Parser(DeleteTaskCommand.COMMAND_WORD + " a", taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index you've input is not an integer.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index you've input is not an integer.\n", e.getMessage());
         }
     }
 
@@ -358,12 +283,7 @@ public class ParserTest {
             parser = new Parser(DeleteTaskCommand.COMMAND_WORD, taskList);
             command = parser.parse();
         } catch (DukeException e) {
-            assertEquals(
-                    "____________________________________________________________\n"
-                            + "   OOPS!!! The index of task cannot be empty.\n"
-                            + "____________________________________________________________\n",
-                    e.getMessage()
-            );
+            assertEquals("OOPS!!! The index of task cannot be empty.\n", e.getMessage());
         }
     }
 

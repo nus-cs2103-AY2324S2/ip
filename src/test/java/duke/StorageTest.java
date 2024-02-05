@@ -9,8 +9,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import model.Task;
-import model.ToDo;
+import iggly.duke.Storage;
+import iggly.model.Task;
+import iggly.model.ToDo;
 
 public class StorageTest {
     @Test

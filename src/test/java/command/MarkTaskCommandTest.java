@@ -8,9 +8,12 @@ import java.io.File;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import duke.Storage;
-import model.TaskList;
-import model.ToDo;
+import iggly.command.AddTaskCommand;
+import iggly.command.MarkTaskCommand;
+import iggly.command.UnmarkTaskCommand;
+import iggly.duke.Storage;
+import iggly.model.TaskList;
+import iggly.model.ToDo;
 
 public class MarkTaskCommandTest {
     @AfterEach
