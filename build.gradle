@@ -11,6 +11,8 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation 'org.mockito:mockito-inline:5.1.0'
+    testImplementation "org.mockito:mockito-junit-jupiter:5.10.0"
 }
 
 test {
@@ -28,6 +30,7 @@ test {
 }
 
 application {
+//    The base path is already set to src.main.java
     mainClass.set("Oak.Oak")
 }
 
