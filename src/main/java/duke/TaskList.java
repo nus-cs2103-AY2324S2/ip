@@ -1,6 +1,9 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.exceptions.CorruptedLogException;
 import duke.tasks.Task;
@@ -127,13 +130,10 @@ public class TaskList {
      * @return The output of the task list to be printed.
      */
     public String showTaskList() {
-        String ret = "";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task curr = this.tasks.get(i);
-            ret += (i + 1)
-                + "." + curr.getFullStatus() + "\n";
-        }
-        return ret;
+        List<String> results = IntStream.range(0, this.tasks.size()).mapToObj(
+            i -> ((i + 1) + "." + this.tasks.get(i).getFullStatus() + "\n"))
+            .collect(Collectors.toList());
+        return String.join("", results);
     }
 
     /**
@@ -144,13 +144,13 @@ public class TaskList {
      */
     public String listKeywords(String keyword) {
         String ret = "Asking shuheng for tasks related to " + keyword + "...\n";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task curr = this.tasks.get(i);
-            if (!curr.checkKeyword(keyword)) {
-                continue;
-            }
-            ret += (i + 1) + "." + curr.getFullStatus() + "\n";
-        }
+
+        List<String> results = IntStream.range(0, this.tasks.size()).filter(
+            i -> this.tasks.get(i).checkKeyword(keyword)
+        ).mapToObj(
+            i -> (String.valueOf(i + 1) + "."
+                + this.tasks.get(i).getFullStatus() + "\n")).collect(Collectors.toList());
+        ret += String.join("", results);
         return ret;
     }
 }
