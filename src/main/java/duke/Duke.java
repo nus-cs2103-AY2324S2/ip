@@ -17,6 +17,7 @@ public class Duke {
     private TaskList todo;
     private Ui ui;
 
+    // Duke Constructor
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
