@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime from;
     protected LocalDateTime to;
-    private static final DateTimeFormatter FORMATTER =DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
 
     public Event(boolean isDone, String name, LocalDateTime from, LocalDateTime to) {

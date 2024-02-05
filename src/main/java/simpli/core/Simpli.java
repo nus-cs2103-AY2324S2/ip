@@ -1,13 +1,13 @@
 package simpli.core;
 
-import simpli.tasks.TaskList;
-import simpli.storage.Storage;
-import simpli.ui.Ui;
 import simpli.configs.SimpliConfiguration;
 import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
+import simpli.storage.Storage;
+import simpli.tasks.TaskList;
+import simpli.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -32,11 +32,13 @@ public class Simpli {
         greet();
 
         try {
-            storage.loadTasksfromFile(SimpliConfiguration.DATAPATH);
+            storage.loadTasksFromFile(SimpliConfiguration.DATAPATH);
         } catch (IOException e) {
             ui.display("The file is corrupted :(");
         } catch (ActionException e) {
             ui.display("There is something wrong with the data/simpli.csv file :(");
+        } catch (TaskException e) {
+            ui.display("There is something wrong with the task parameters :(");
         }
 
         Scanner scanner = new Scanner(System.in);

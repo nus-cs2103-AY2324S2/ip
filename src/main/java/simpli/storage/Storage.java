@@ -1,6 +1,7 @@
 package simpli.storage;
 
 import simpli.exceptions.ActionException;
+import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
 import simpli.tasks.Task;
@@ -12,9 +13,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private final Parser parser;
-    private final TaskList taskList;
-    private final Interpreter intrpr;
+    private Parser parser;
+    private TaskList taskList;
+    private Interpreter intrpr;
 
     public Storage(Parser parser, Interpreter intrpr, TaskList taskList) {
         this.parser = parser;
@@ -36,7 +37,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public void loadTasksfromFile(String path) throws IOException, ActionException {
+    public void loadTasksFromFile(String path) throws IOException, ActionException, TaskException {
 
         File f = new File(path);
 
