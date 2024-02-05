@@ -57,7 +57,6 @@ public class Parser {
                 if (by == -1) {
                     throw new WrongFormatException("No deadline is specified.", cmd);
                 }
-
                 try {
                     taskList.store(new Deadline(args.substring(0, by).trim(), args.substring(by + 3).trim()));
                 } catch (DateTimeParseException e) {
@@ -70,7 +69,6 @@ public class Parser {
                 if (fromIdx == -1 || toIdx == -1) {
                     throw new WrongFormatException("No duration is specified.", cmd);
                 }
-
                 try {
                     taskList.store(new Event(args.substring(0, fromIdx).trim(),
                             args.substring(fromIdx + 5, toIdx).trim(), args.substring(toIdx + 3).trim()));
