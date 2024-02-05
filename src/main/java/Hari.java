@@ -10,65 +10,68 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class representing a task management chatbot named Hari.
  */
-class handlerbot {
+class HandlerBot {
+
+    private static final String FOLDER_PATH = "." + File.separator + "data";
+    private static final String FILE_PATH = FOLDER_PATH + File.separator + "hari.txt";
 
     /**
      * Main class for the Hari chatbot.
      */
-    public taskings[] arrtaskings; // To store tasks created by the user for easy retrieval and listing
-    public int countertaskings; // Counter for assumption that there are no more than 100 tasks
+    public Task[] arrTasks; // To store tasks created by the user for easy retrieval and listing
+    public int counterTasks; // Counter for assumption that there are no more than 100 tasks
 
     // Class object
-    public handlerbot() {
-        arrtaskings = new taskings[100]; // Assumption that there are no more than 100 tasks
-        countertaskings = 0; // Counter for the number of tasks
+    public HandlerBot() {
+        arrTasks = new Task[100]; // Assumption that there are no more than 100 tasks
+        counterTasks = 0; // Counter for the number of tasks
     }
 
-    // Class for task (called taskings)
-    public class taskings {
+    // Class for task (called Task)
+    public class Task {
         private String summary; // Description of tasks
         private boolean completion; // To check if a task is or is not completed
-        private String taskertype; // To identify the type of task
+        private String taskType; // To identify the type of task
         private LocalDate deadline; // Add LocalDate for deadline
-        private String timerstart; // Start time for Event tasks
-        private String timerend; // End time for Event tasks
-        private String deadlinestat; // Deadline for Deadline tasks
+        private String timerStart; // Start time for Event tasks
+        private String timerEnd; // End time for Event tasks
+        private String deadlineStat; // Deadline for Deadline tasks
 
         // Constructor for To Do tasks
-        public taskings(String summary) {
+        public Task(String summary) {
             this.summary = summary;
             this.completion = false;
-            this.taskertype = "T";
+            this.taskType = "T";
             this.deadline = null;
-            this.timerstart = null;
-            this.timerend = null;
+            this.timerStart = null;
+            this.timerEnd = null;
         }
 
         // Constructor for Deadline tasks
-        public taskings(String summary, String deadlineStat) {
+        public Task(String summary, String deadlineStat) {
             this.summary = summary;
             this.completion = false;
-            this.taskertype = "D";
+            this.taskType = "D";
             this.deadline = parseDeadline(deadlineStat);
-            this.timerstart = null;
-            this.timerend = null;
+            this.timerStart = null;
+            this.timerEnd = null;
         }
 
         // Constructor for Event tasks
-        public taskings(String summary, String startTime, String endTime) {
+        public Task(String summary, String startTime, String endTime) {
             this.summary = summary;
             this.completion = false;
-            this.taskertype = "E";
+            this.taskType = "E";
             this.deadline = null;
-            this.timerstart = startTime;
-            this.timerend = endTime;
+            this.timerStart = startTime;
+            this.timerEnd = endTime;
         }
 
         // Additional method to parse deadline string into LocalDate
-        private LocalDate parseDeadline(String deadlinestat) {
+        private LocalDate parseDeadline(String deadlineStat) {
             try {
                 // Parse the date string into a LocalDate object
-                return LocalDate.parse(deadlinestat, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return LocalDate.parse(deadlineStat, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             } catch (Exception e) {
                 // Handle parsing exception (invalid date format)
                 System.out.println("Error when parsing deadline. Please use the format yyyy-MM-dd.");
@@ -77,47 +80,47 @@ class handlerbot {
         }
 
         // To mark as completed
-        public void completionmark() {
+        public void completionMark() {
             this.completion = true;
         }
 
         // To unmark completed tasks
-        public void incompletionmark() {
+        public void incompletionMark() {
             this.completion = false;
         }
 
         // For displaying the X or [ ] depending on completion status
-        public String completionstatus() {
+        public String completionStatus() {
             return (completion ? "X" : " "); // To display the X or [ ]
         }
 
         // For displaying task description
-        public String summarystatus() {
+        public String summaryStatus() {
             return summary;
         }
 
         // For displaying the task type
-        public String taskstatus() {
-            return taskertype;
+        public String taskStatus() {
+            return taskType;
         }
 
         // For displaying start time of event tasks
-        public String timerstartstatus() {
-            return timerstart;
+        public String timerStartStatus() {
+            return timerStart;
         }
 
         // For displaying end time of event tasks
-        public String timerendstatus() {
-            return timerend;
+        public String timerEndStatus() {
+            return timerEnd;
         }
 
         // For displaying deadline of deadline tasks
-        public String deadlinestatus() {
-            return deadlinestat;
+        public String deadlineStatus() {
+            return deadlineStat;
         }
 
         // Additional method to check if task description is empty
-        public boolean summaryempty() {
+        public boolean summaryEmpty() {
             return summary.trim().isEmpty();
         }
 
@@ -125,22 +128,17 @@ class handlerbot {
         public String formattedDeadline() {
             return deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
-
     }
-
-    // File name and path
-    private static final String FOLDER_PATH = "." + File.separator + "data";
-    private static final String FILE_PATH = FOLDER_PATH + File.separator + "hari.txt";
 
     // Function to save tasks to a file
     private void saveTasksToFile() {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            for (int i = 0; i < countertaskings; i++) {
-                taskings task = arrtaskings[i];
-                writer.write(task.taskstatus() + " | " + (task.completion ? "1" : "0") + " | " +
-                        task.summarystatus() + " | " +
-                        (task.taskstatus().equals("D") ? task.deadlinestatus() : "") + " | " +
-                        (task.taskstatus().equals("E") ? task.timerstartstatus() + " to " + task.timerendstatus() : "") + "\n");
+            for (int i = 0; i < counterTasks; i++) {
+                Task task = arrTasks[i];
+                writer.write(task.taskStatus() + " | " + (task.completion ? "1" : "0") + " | " +
+                        task.summaryStatus() + " | " +
+                        (task.taskStatus().equals("D") ? task.deadlineStatus() : "") + " | " +
+                        (task.taskStatus().equals("E") ? task.timerStartStatus() + " to " + task.timerEndStatus() : "") + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -199,21 +197,21 @@ class handlerbot {
                 String type = parts[0];
                 boolean completion = parts[1].equals("1");
                 String summary = parts[2];
-                taskings task;
+                Task task;
                 if (type.equals("T")) {
-                    task = new taskings(summary);
+                    task = new Task(summary);
                 } else if (type.equals("D")) {
-                    task = new taskings(summary, parts[3]);
+                    task = new Task(summary, parts[3]);
                 } else if (type.equals("E")) {
-                    task = new taskings(summary, parts[3], parts[4]);
+                    task = new Task(summary, parts[3], parts[4]);
                 } else {
                     // Handle unrecognized task type
                     throw new CorruptedDataException("Unrecognized task type in the file.");
                 }
                 if (completion) {
-                    task.completionmark();
+                    task.completionMark();
                 }
-                arrtaskings[countertaskings++] = task;
+                arrTasks[counterTasks++] = task;
             }
         } catch (IOException e) {
             // Handle file not found or other IO exceptions
@@ -231,7 +229,7 @@ class handlerbot {
     }
 
     // Function that handles the greeting message
-    public void messagegreeting() {
+    public void messageGreeting() {
         try {
             // Load tasks from file when the chatbot starts up
             loadTasksFromFile();
@@ -246,7 +244,7 @@ class handlerbot {
             File file = new File(FILE_PATH);
             if (file.exists() && file.delete()) {
                 System.out.println("Corrupted file deleted. A new file will be created.");
-                messagegreeting(); // Retry loading from file
+                messageGreeting(); // Retry loading from file
             } else {
                 System.out.println("Failed to delete corrupted file. Please create new file manually.");
             }
@@ -254,53 +252,53 @@ class handlerbot {
     }
 
     // Function that handles the exit message
-    public void messagefarewell() {
+    public void messageFarewell() {
         System.out.println("____________________________________________________________");
         System.out.println("Au revoir! Till we meet again!");
         System.out.println("____________________________________________________________");
     }
 
     // Function that handles and echoes user input (this is maintained as not all inputs are tasks)
-    public void userechoedinput(String readerinput) {
-        if (readerinput.equalsIgnoreCase("list")) // To list out tasks
+    public void userEchoedInput(String readerInput) {
+        if (readerInput.equalsIgnoreCase("list")) // To list out tasks
         {
             System.out.println("____________________________________________________________");
-            taskingsdisplay();
+            taskingsDisplay();
             System.out.println("____________________________________________________________");
-        } else if (readerinput.equalsIgnoreCase("bye")) // To exit the chatbot program
+        } else if (readerInput.equalsIgnoreCase("bye")) // To exit the chatbot program
         {
-            messagefarewell();
+            messageFarewell();
         } else // Anything else, is assumed to be a new task to add
         {
-            additiontaskings(readerinput);
+            additionTaskings(readerInput);
         }
     }
 
     // Function to add tasks
-    // No modification done to userechoedinput function as not all inputs are tasks
-    public void additiontaskings(String taskings) {
+    // No modification done to userEchoedInput function as not all inputs are tasks
+    public void additionTaskings(String taskings) {
         // Display message based on the task type
         if (taskings.startsWith("todo")) {
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
-            arrtaskings[countertaskings] = new taskings(taskings.substring(5).trim()); // 5 because of the word to do
+            arrTasks[counterTasks] = new Task(taskings.substring(5).trim()); // 5 because of the word to do
         } else if (taskings.startsWith("deadline")) {
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             String[] parts = taskings.substring(8).trim().split("/by"); // 8 because of the word deadline
-            arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim());
-            System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" +
-                    "[" + arrtaskings[countertaskings].completionstatus() + "]" + arrtaskings[countertaskings].summarystatus() +
-                    " (by: " + arrtaskings[countertaskings].formattedDeadline() + ")");
+            arrTasks[counterTasks] = new Task(parts[0].trim(), parts[1].trim());
+            System.out.println("   " + "[" + arrTasks[counterTasks].taskStatus() + "]" +
+                    "[" + arrTasks[counterTasks].completionStatus() + "]" + arrTasks[counterTasks].summaryStatus() +
+                    " (by: " + arrTasks[counterTasks].formattedDeadline() + ")");
         } else if (taskings.startsWith("event")) {
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             String[] parts = taskings.substring(5).trim().split("/from|/to"); // 5 because of the word event
-            arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim(), parts[2].trim());
-            System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" +
-                    "[" + arrtaskings[countertaskings].completionstatus() + "]" +
-                    arrtaskings[countertaskings].summarystatus() +
-                    " (from: " + arrtaskings[countertaskings].timerstartstatus() + " to: " + arrtaskings[countertaskings].timerendstatus() + ")");
+            arrTasks[counterTasks] = new Task(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            System.out.println("   " + "[" + arrTasks[counterTasks].taskStatus() + "]" +
+                    "[" + arrTasks[counterTasks].completionStatus() + "]" +
+                    arrTasks[counterTasks].summaryStatus() +
+                    " (from: " + arrTasks[counterTasks].timerStartStatus() + " to: " + arrTasks[counterTasks].timerEndStatus() + ")");
         } else {
             // Error handlings for missing task types
             System.out.println("____________________________________________________________");
@@ -309,7 +307,7 @@ class handlerbot {
             return;
         }
 
-        System.out.println(" Now you have " + countertaskings + " task(s) in the list");
+        System.out.println(" Now you have " + counterTasks + " task(s) in the list");
         System.out.println("____________________________________________________________");
 
         // Save tasks to file whenever the task list changes
@@ -317,36 +315,36 @@ class handlerbot {
     }
 
     // Function to display tasks
-    // No modification done to userechoedinput function as not all inputs are tasks
-    public void taskingsdisplay() {
-        if (countertaskings == 0) {
+    // No modification done to userEchoedInput function as not all inputs are tasks
+    public void taskingsDisplay() {
+        if (counterTasks == 0) {
             System.out.println("____________________________________________________________");
             System.out.println(" Your task list is empty. Add tasks by simply typing them in."); // If there are no tasks, a message to guide the user
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
             System.out.println(" Here are your tasks:"); // Display all tasks
-            for (int i = 0; i < countertaskings; i++) {
-                System.out.println(" " + (i + 1) + ". " + "[" + arrtaskings[i].taskstatus() + "]" + "[" + arrtaskings[i].completionstatus() + "]" + arrtaskings[i].summarystatus() +
-                        (arrtaskings[i].taskstatus().equals("E") ?
-                                " (from: " + arrtaskings[i].timerstartstatus() + " to: " + arrtaskings[i].timerendstatus() + ")" :
-                                (arrtaskings[i].taskstatus().equals("D") ? " (by: " + arrtaskings[i].deadlinestatus() + ")" : "")));
+            for (int i = 0; i < counterTasks; i++) {
+                System.out.println(" " + (i + 1) + ". " + "[" + arrTasks[i].taskStatus() + "]" + "[" + arrTasks[i].completionStatus() + "]" + arrTasks[i].summaryStatus() +
+                        (arrTasks[i].taskStatus().equals("E") ?
+                                " (from: " + arrTasks[i].timerStartStatus() + " to: " + arrTasks[i].timerEndStatus() + ")" :
+                                (arrTasks[i].taskStatus().equals("D") ? " (by: " + arrTasks[i].deadlineStatus() + ")" : "")));
             }
             System.out.println("____________________________________________________________");
         }
     }
 
     // Function to mark task as completed
-    public void completionmark(int taskrecorder) {
-        if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
+    public void completionMark(int taskRecorder) {
+        if (taskRecorder > 0 && taskRecorder <= counterTasks) // If there are tasks
         {
             System.out.println("____________________________________________________________");
             System.out.println(" Another one in the bag! Well done!");
-            arrtaskings[taskrecorder - 1].completionmark(); // Mark as complete
-            System.out.println("   " + "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]" + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
-                    (arrtaskings[taskrecorder - 1].taskstatus().equals("E") ?
-                            " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
-                            (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
+            arrTasks[taskRecorder - 1].completionMark(); // Mark as complete
+            System.out.println("   " + "[" + arrTasks[taskRecorder - 1].taskStatus() + "]" + "[" + arrTasks[taskRecorder - 1].completionStatus() + "]" + arrTasks[taskRecorder - 1].summaryStatus() + "  " +
+                    (arrTasks[taskRecorder - 1].taskStatus().equals("E") ?
+                            " (from: " + arrTasks[taskRecorder - 1].timerStartStatus() + " to: " + arrTasks[taskRecorder - 1].timerEndStatus() + ")" :
+                            (arrTasks[taskRecorder - 1].taskStatus().equals("D") ? " (by: " + arrTasks[taskRecorder - 1].deadlineStatus() + ")" : "")));
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks or invalid task number
         {
@@ -360,16 +358,16 @@ class handlerbot {
     }
 
     // Function to unmark previously marked as completed task
-    public void incompletionmark(int taskrecorder) {
-        if (taskrecorder > 0 && taskrecorder <= countertaskings) // If there are tasks
+    public void incompletionMark(int taskRecorder) {
+        if (taskRecorder > 0 && taskRecorder <= counterTasks) // If there are tasks
         {
             System.out.println("____________________________________________________________");
             System.out.println(" Oh dear, better get on it!");
-            arrtaskings[taskrecorder - 1].incompletionmark(); // Mark as incomplete
-            System.out.println("   " + "[" + arrtaskings[taskrecorder - 1].taskstatus() + "]" + "[" + arrtaskings[taskrecorder - 1].completionstatus() + "]" + arrtaskings[taskrecorder - 1].summarystatus() + "  " +
-                    (arrtaskings[taskrecorder - 1].taskstatus().equals("E") ?
-                            " (from: " + arrtaskings[taskrecorder - 1].timerstartstatus() + " to: " + arrtaskings[taskrecorder - 1].timerendstatus() + ")" :
-                            (arrtaskings[taskrecorder - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[taskrecorder - 1].deadlinestatus() + ")" : "")));
+            arrTasks[taskRecorder - 1].incompletionMark(); // Mark as incomplete
+            System.out.println("   " + "[" + arrTasks[taskRecorder - 1].taskStatus() + "]" + "[" + arrTasks[taskRecorder - 1].completionStatus() + "]" + arrTasks[taskRecorder - 1].summaryStatus() + "  " +
+                    (arrTasks[taskRecorder - 1].taskStatus().equals("E") ?
+                            " (from: " + arrTasks[taskRecorder - 1].timerStartStatus() + " to: " + arrTasks[taskRecorder - 1].timerEndStatus() + ")" :
+                            (arrTasks[taskRecorder - 1].taskStatus().equals("D") ? " (by: " + arrTasks[taskRecorder - 1].deadlineStatus() + ")" : "")));
             System.out.println("____________________________________________________________");
         } else // Error handling: There are no tasks or invalid task number
         {
@@ -383,21 +381,21 @@ class handlerbot {
     }
 
     // Function to delete a task
-    public void taskdeleter(int tasknumber) {
-        if (tasknumber > 0 && tasknumber <= countertaskings) {
+    public void taskDeleter(int taskNumber) {
+        if (taskNumber > 0 && taskNumber <= counterTasks) {
             System.out.println("____________________________________________________________");
             System.out.println(" Okay, I've removed this task:");
-            System.out.println("   " + "[" + arrtaskings[tasknumber - 1].taskstatus() + "]" + "[" + arrtaskings[tasknumber - 1].completionstatus() + "]" + arrtaskings[tasknumber - 1].summarystatus() + "  " +
-                    (arrtaskings[tasknumber - 1].taskstatus().equals("E") ?
-                            " (from: " + arrtaskings[tasknumber - 1].timerstartstatus() + " to: " + arrtaskings[tasknumber- 1].timerendstatus() + ")" :
-                            (arrtaskings[tasknumber - 1].taskstatus().equals("D") ? " (by: " + arrtaskings[tasknumber - 1].deadlinestatus() + ")" : "")));
+            System.out.println("   " + "[" + arrTasks[taskNumber - 1].taskStatus() + "]" + "[" + arrTasks[taskNumber - 1].completionStatus() + "]" + arrTasks[taskNumber - 1].summaryStatus() + "  " +
+                    (arrTasks[taskNumber - 1].taskStatus().equals("E") ?
+                            " (from: " + arrTasks[taskNumber - 1].timerStartStatus() + " to: " + arrTasks[taskNumber - 1].timerEndStatus() + ")" :
+                            (arrTasks[taskNumber - 1].taskStatus().equals("D") ? " (by: " + arrTasks[taskNumber - 1].deadlineStatus() + ")" : "")));
             // Shift tasks in the array to fill the gap
-            for (int i = tasknumber - 1; i < countertaskings - 1; i++) {
-                arrtaskings[i] = arrtaskings[i + 1];
+            for (int i = taskNumber - 1; i < counterTasks - 1; i++) {
+                arrTasks[i] = arrTasks[i + 1];
             }
-            arrtaskings[countertaskings - 1] = null; // Set the last element to null
-            countertaskings--;
-            System.out.println(" Now you have " + countertaskings + " task(s) in the list");
+            arrTasks[counterTasks - 1] = null; // Set the last element to null
+            counterTasks--;
+            System.out.println(" Now you have " + counterTasks + " task(s) in the list");
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
@@ -417,104 +415,96 @@ class handlerbot {
  */
 public class Hari {
     public static void main(String[] args) {
-        Scanner inputread = new Scanner(System.in); // Scanner object to read and process user input
-        handlerbot hari = new handlerbot(); // Create a new "Hari" chatbot (handlerbot object)
-        hari.messagegreeting(); // Call the messagegreeting function to greet the user
+        Scanner inputRead = new Scanner(System.in); // Scanner object to read and process user input
+        HandlerBot hari = new HandlerBot(); // Create a new "Hari" chatbot (HandlerBot object)
+        hari.messageGreeting(); // Call the messageGreeting function to greet the user
 
-        String readerinput; // To store user input
+        String readerInput; // To store user input
 
         while (true) // Modified do-while to a while as I have now streamlined all the code in the main body and reduced the number of function calls
         {
-            readerinput = inputread.nextLine(); // Read and store user input inside readerinput variable
+            readerInput = inputRead.nextLine(); // Read and store user input inside readerInput variable
 
-            if (readerinput.equalsIgnoreCase("bye")) { // If "bye" is written as an input, the chatbot exits with the farewell message
+            if (readerInput.equalsIgnoreCase("bye")) { // If "bye" is written as an input, the chatbot exits with the farewell message
                 break;
-            } else if (readerinput.equalsIgnoreCase("list")) { // To list out tasks
-                hari.taskingsdisplay();
-            } else if (readerinput.startsWith("todo") || readerinput.startsWith("event")) {
+            } else if (readerInput.equalsIgnoreCase("list")) { // To list out tasks
+                hari.taskingsDisplay();
+            } else if (readerInput.startsWith("todo") || readerInput.startsWith("event")) {
                 // Check if there is anything following "todo" or "event"
-                if (readerinput.length() <= 5) {
+                if (readerInput.length() <= 5) {
                     System.out.println("____________________________________________________________");
                     System.out.println(" SAD! Missing task description after 'todo', 'deadline', or 'event'.");
                     System.out.println("____________________________________________________________");
                 } else {
-                    hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
+                    hari.userEchoedInput(readerInput); // Else, it proceeds to call the user input processing function
                 }
-            } else if (readerinput.startsWith("deadline")) {
+            } else if (readerInput.startsWith("deadline")) {
                 // Check if there is anything following "deadline"
-                if (readerinput.length() <= 9) {
+                if (readerInput.length() <= 9) {
                     System.out.println("____________________________________________________________");
                     System.out.println(" SAD! Missing task description after 'todo', 'deadline', or 'event'.");
                     System.out.println("____________________________________________________________");
                 } else {
-                    hari.userechoedinput(readerinput); // Else, it proceeds to call the user input processing function
+                    hari.userEchoedInput(readerInput); // Else, it proceeds to call the user input processing function
                 }
-            } else if (readerinput.startsWith("unmark") || readerinput.startsWith("delete")) {
+            } else if (readerInput.startsWith("unmark") || readerInput.startsWith("delete")) {
                 // Check if there is anything following "unmark", "mark", or "delete"
-                if (readerinput.length() <= 6) {
+                if (readerInput.length() <= 6) {
                     System.out.println("____________________________________________________________");
                     System.out.println(" SAD! Missing task number after 'unmark', 'mark', or 'delete'.");
                     System.out.println("____________________________________________________________");
                 } else {
                     try {
-                        int taskindexer = Integer.parseInt(readerinput.substring(6).trim());
-                        if (taskindexer > 0 && taskindexer <= hari.countertaskings) {
-                            if (readerinput.startsWith("unmark")) {
-                                hari.incompletionmark(taskindexer);
-                            } else if (readerinput.startsWith("mark")) {
-                                hari.completionmark(taskindexer);
-                            } else if (readerinput.startsWith("delete")) {
-                                hari.taskdeleter(taskindexer);
+                        int taskIndexer = Integer.parseInt(readerInput.substring(6).trim());
+                        if (taskIndexer > 0 && taskIndexer <= hari.counterTasks) {
+                            if (readerInput.startsWith("unmark")) {
+                                hari.incompletionMark(taskIndexer);
+                            } else if (readerInput.startsWith("delete")) {
+                                hari.taskDeleter(taskIndexer);
                             }
                         } else {
                             // Error handling: Invalid task number
                             System.out.println("____________________________________________________________");
-                            System.out.println(" SAD! Invalid task number.");
+                            System.out.println(" Hmmm...I don't seem to have a task under this number");
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
-                        // Error handling: Invalid task number format
+                        // Error handling: Invalid input after "unmark" or "delete"
                         System.out.println("____________________________________________________________");
-                        System.out.println(" SAD! Invalid task number.");
+                        System.out.println(" SAD! Please provide a valid task number after 'unmark' or 'delete'.");
                         System.out.println("____________________________________________________________");
                     }
                 }
-            } else if (readerinput.startsWith("mark")) {
-                // Check if there is anything following "unmark", "mark", or "delete"
-                if (readerinput.length() < 5) {
+            } else if (readerInput.startsWith("done")) {
+                // Check if there is anything following "done"
+                if (readerInput.length() <= 4) {
                     System.out.println("____________________________________________________________");
-                    System.out.println(" SAD! Missing task number after 'unmark', 'mark', or 'delete'.");
+                    System.out.println(" SAD! Missing task number after 'done'.");
                     System.out.println("____________________________________________________________");
                 } else {
                     try {
-                        int taskindexer = Integer.parseInt(readerinput.substring(5).trim());
-                        if (taskindexer > 0 && taskindexer <= hari.countertaskings) {
-                            if (readerinput.startsWith("unmark")) {
-                                hari.incompletionmark(taskindexer);
-                            } else if (readerinput.startsWith("mark")) {
-                                hari.completionmark(taskindexer);
-                            } else if (readerinput.startsWith("delete")) {
-                                hari.taskdeleter(taskindexer);
-                            }
+                        int taskIndexer = Integer.parseInt(readerInput.substring(4).trim());
+                        if (taskIndexer > 0 && taskIndexer <= hari.counterTasks) {
+                            hari.completionMark(taskIndexer);
                         } else {
                             // Error handling: Invalid task number
                             System.out.println("____________________________________________________________");
-                            System.out.println(" SAD! Invalid task number.");
+                            System.out.println(" Hmmm...I don't seem to have a task under this number");
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
-                        // Error handling: Invalid task number format
+                        // Error handling: Invalid input after "done"
                         System.out.println("____________________________________________________________");
-                        System.out.println(" SAD! Invalid task number.");
+                        System.out.println(" SAD! Please provide a valid task number after 'done'.");
                         System.out.println("____________________________________________________________");
                     }
                 }
             } else {
-                System.out.println("____________________________________________________________");
-                System.out.println(" SAD! I'm not sure what you mean. Please enter a valid command.");
-                System.out.println("____________________________________________________________");
+                // If none of the above conditions are met, it is assumed to be an unstructured input and echoes it back
+                hari.userEchoedInput(readerInput);
             }
         }
-        hari.messagefarewell(); // Call the messagefarewell function to display farewell message and exit the program
+
+        inputRead.close(); // Close the Scanner object to avoid resource leak
     }
 }
