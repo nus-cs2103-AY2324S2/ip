@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 // Class for the chatbot itself
 class handlerbot {
@@ -23,32 +25,51 @@ class handlerbot {
         private String summary; // Description of tasks
         private boolean completion; // To check if a task is or is not completed
         private String taskertype; // To identify the type of task
+        private LocalDate deadline; // Add LocalDate for deadline
         private String timerstart; // Start time for Event tasks
         private String timerend; // End time for Event tasks
         private String deadlinestat; // Deadline for Deadline tasks
 
         // Constructor for To Do tasks
         public taskings(String summary) {
-            this.summary = summary; // Description of tasks
-            this.completion = false; // To check if a task is or is not completed
-            this.taskertype = "T"; // Set task type to T
+            this.summary = summary;
+            this.completion = false;
+            this.taskertype = "T";
+            this.deadline = null;
+            this.timerstart = null;
+            this.timerend = null;
         }
 
         // Constructor for Deadline tasks
-        public taskings(String summary, String deadlinestat) {
+        public taskings(String summary, String deadlineStat) {
             this.summary = summary;
             this.completion = false;
             this.taskertype = "D";
-            this.deadlinestat = deadlinestat;
+            this.deadline = parseDeadline(deadlineStat);
+            this.timerstart = null;
+            this.timerend = null;
         }
 
         // Constructor for Event tasks
-        public taskings(String summary, String timerstart, String timerend) {
+        public taskings(String summary, String startTime, String endTime) {
             this.summary = summary;
             this.completion = false;
             this.taskertype = "E";
-            this.timerstart = timerstart;
-            this.timerend = timerend;
+            this.deadline = null;
+            this.timerstart = startTime;
+            this.timerend = endTime;
+        }
+
+        // Additional method to parse deadline string into LocalDate
+        private LocalDate parseDeadline(String deadlinestat) {
+            try {
+                // Parse the date string into a LocalDate object
+                return LocalDate.parse(deadlinestat, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } catch (Exception e) {
+                // Handle parsing exception (invalid date format)
+                System.out.println("Error when parsing deadline. Please use the format yyyy-MM-dd.");
+                return null;
+            }
         }
 
         // To mark as completed
@@ -94,6 +115,11 @@ class handlerbot {
         // Additional method to check if task description is empty
         public boolean summaryempty() {
             return summary.trim().isEmpty();
+        }
+
+        // Additional method to display deadline in a different format
+        public String formattedDeadline() {
+            return deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
 
     }
@@ -246,7 +272,7 @@ class handlerbot {
     }
 
     // Function to add tasks
-    // No modification done to userechoedinput function as not all inputs are tasks
+// No modification done to userechoedinput function as not all inputs are tasks
     public void additiontaskings(String taskings) {
         // Display message based on the task type
         if (taskings.startsWith("todo")) {
@@ -258,11 +284,19 @@ class handlerbot {
             System.out.println(" Got it. I've added this task:");
             String[] parts = taskings.substring(8).trim().split("/by"); // 8 because of the word deadline
             arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim());
+            System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" +
+                    "[" + arrtaskings[countertaskings].completionstatus() + "]" +
+                    arrtaskings[countertaskings].summarystatus() +
+                    " (by: " + arrtaskings[countertaskings].formattedDeadline() + ")");
         } else if (taskings.startsWith("event")) {
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             String[] parts = taskings.substring(5).trim().split("/from|/to"); // 5 because of the word event
             arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" +
+                    "[" + arrtaskings[countertaskings].completionstatus() + "]" +
+                    arrtaskings[countertaskings].summarystatus() +
+                    " (from: " + arrtaskings[countertaskings].timerstartstatus() + " to: " + arrtaskings[countertaskings].timerendstatus() + ")");
         } else {
             // Error handling for missing task types
             System.out.println("____________________________________________________________");
@@ -270,13 +304,6 @@ class handlerbot {
             System.out.println("____________________________________________________________");
             return;
         }
-
-        System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" + "[" + arrtaskings[countertaskings].completionstatus() + "]" + arrtaskings[countertaskings].summarystatus() +
-                (arrtaskings[countertaskings].taskstatus().equals("E") ?
-                        " (from: " + arrtaskings[countertaskings].timerstartstatus() + " to: " + arrtaskings[countertaskings].timerendstatus() + ")" :
-                        (arrtaskings[countertaskings].taskstatus().equals("D") ? " (by: " + arrtaskings[countertaskings].deadlinestatus() + ")" : "")));
-
-        countertaskings++;
 
         System.out.println(" Now you have " + countertaskings + " task(s) in the list");
         System.out.println("____________________________________________________________");
