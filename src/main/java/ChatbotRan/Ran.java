@@ -7,6 +7,7 @@ public class Ran {
     ArrayList<Task> tasks;
 
     public static void main(String[] args) {
+        TaskIO tr = new TaskIO();
 
 
         Ran chatbot = new Ran();

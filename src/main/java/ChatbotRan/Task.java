@@ -26,6 +26,7 @@ abstract class Task {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+    abstract String writeTask();
 
     @Override
     public String toString() {

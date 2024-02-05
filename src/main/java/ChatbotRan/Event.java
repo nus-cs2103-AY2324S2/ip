@@ -43,4 +43,9 @@ public class Event extends Task {
         }
         return null;
     }
+
+    @Override
+    String writeTask() {
+        return String.format("E\\%s\\%s\\%s",contents, from,to);
+    }
 }

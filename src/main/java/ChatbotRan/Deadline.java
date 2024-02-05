@@ -1,6 +1,8 @@
 package ChatbotRan;
 
-public class Deadline extends Task {
+import java.io.Serializable;
+
+public class Deadline extends Task{
     private String deadline;
 
     public Deadline(String contents, String deadline) {
@@ -32,5 +34,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString() + " (by: " + this.deadline + ")";
+    }
+
+    @Override
+    String writeTask() {
+        return String.format("D\\%s\\%s",contents, deadline);
     }
 }
