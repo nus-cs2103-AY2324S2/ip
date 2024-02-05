@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ui {
-    private static final String LINE = "\t____________________________________________________________";
+    private final String LINE = "\t____________________________________________________________";
     private Scanner sc = new Scanner(System.in);
 
     public String readCommand() {
