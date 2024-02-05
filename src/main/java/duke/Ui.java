@@ -75,7 +75,6 @@ public class Ui {
             } else if (message.startsWith("find")) {
                 return Parser.findTask(list, message);
             } else if (message.equals("bye")) {
-                // Assuming you have some logic to handle the "bye" command
                 return "Bye! Hope to see you again soon!";
             } else {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means buddy.");

@@ -78,7 +78,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         String response;
-
+        assert input != null : "Input should not be null";
         if (input.equals("bye")) {
             try {
                 Storage.saveCurrentList(tasks);
