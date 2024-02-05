@@ -25,10 +25,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String is_done = this.done ? "X" : " ";
+        String isDone = this.done ? "X" : " ";
         return String.format(
                 "[E][%s] %s (from: %s to: %s)",
-                is_done,
+                isDone,
                 this.event,
                 this.dateFormat(this.from),
                 this.dateFormat(this.to)

@@ -16,7 +16,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        String is_done = this.done ? "X" : " ";
-        return String.format("[T][%s] %s", is_done, this.event);
+        String isDone = this.done ? "X" : " ";
+        return String.format("[T][%s] %s", isDone, this.event);
     }
 }

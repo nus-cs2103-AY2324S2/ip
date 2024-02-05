@@ -3,11 +3,17 @@ package duke;
 import duke.command.Command;
 import duke.exceptions.ChatException;
 
+/**
+ * The Chatbot.
+ */
 public class Duke {
 
     private final Ui ui;
     private TaskList taskList;
 
+    /**
+     * Constructor.
+     */
     public Duke() {
         this.ui = new Ui();
         // Inspired and referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
@@ -20,6 +26,9 @@ public class Duke {
 
     }
 
+    /**
+     * The main read-eval-respond loop.
+     */
     public void loop() {
         String output = null;
         boolean isExit = false;

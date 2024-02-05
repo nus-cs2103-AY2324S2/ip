@@ -5,6 +5,9 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
+/**
+ * Representation of a user's *unmark* command.
+ */
 public class UnMarkCommand extends Command {
 
     private final int idx;

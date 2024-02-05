@@ -1,12 +1,19 @@
 package duke;
 
-import duke.exceptions.ChatException;
-
 import java.util.Scanner;
 
+import duke.exceptions.ChatException;
+
+
+/**
+ * The UI that responds to the user.
+ */
 public class Ui {
     private final Scanner sc;
 
+    /**
+     * Constructor.
+     */
     public Ui() {
         String msg =
                 "Hello! I'm Refinement\n"

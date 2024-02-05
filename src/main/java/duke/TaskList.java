@@ -1,10 +1,11 @@
 package duke;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import duke.exceptions.ChatException;
 import duke.task.Task;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A list of tasks.
