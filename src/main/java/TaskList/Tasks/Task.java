@@ -8,6 +8,10 @@ public abstract class Task {
         this.completed = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void markCompleted() {
         this.completed = true;
     }
