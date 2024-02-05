@@ -17,7 +17,7 @@ public class Command {
      * @param cmd Main command.
      * @param args Supplied arguments.
      */
-    protected Command(String cmd, String[] args) {
+    protected Command(String cmd, String... args) {
         this.command = cmd;
         this.arguments = args;
     }
