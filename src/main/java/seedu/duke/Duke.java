@@ -1,8 +1,8 @@
 package seedu.duke;
 
 import seedu.duke.task.Task;
-import seedu.duke.task.Events;
-import seedu.duke.task.Deadlines;
+import seedu.duke.task.Event;
+import seedu.duke.task.Deadline;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,10 +61,10 @@ public class Duke {
                     String task = parts[0];
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
                     LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
-                    taskList.addItem(new Deadlines(task, deadline), true);
+                    taskList.addItem(new Deadline(task, deadline), true);
                 } else if (userInput.startsWith("event")) {
                     String[] parts = Parser.parseEvent(userInput);
-                    taskList.addItem(new Events(parts[0], parts[1], parts[2]), true);
+                    taskList.addItem(new Event(parts[0], parts[1], parts[2]), true);
                 } else if (userInput.equals("list")) {
                     taskList.printList();
                 } else {

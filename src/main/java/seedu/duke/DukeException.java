@@ -12,8 +12,7 @@ package seedu.duke;
 public class DukeException extends Exception{
     public DukeException(String tasktype) {
         super("      ______________________________________________________________________________________\n"
-                + "      Oops! Please state the description of your "
-                + tasktype
+                + "      Oops! Please state the description of your " + tasktype
                 + "\n      ______________________________________________________________________________________\n");
     }
 
@@ -24,10 +23,9 @@ public class DukeException extends Exception{
                 + "      ______________________________________________________________________________________\n");
     }
 
-    public DukeException(String error, boolean isTrue) {
+    public DukeException(String error, boolean isDiff) {
         super("      ______________________________________________________________________________________\n"
-                + "      "
-                + error
+                + "      "  + error
                 + "\n      ______________________________________________________________________________________\n");
     }
 

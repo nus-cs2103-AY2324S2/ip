@@ -11,42 +11,43 @@ package seedu.duke.task;
  * @version 0.1
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description.trim();
-        this.isDone = false;
+        isDone = false;
     }
 
     public void markDone(boolean isNew) {
-        this.isDone = true;
+        isDone = true;
         if (isNew) {
-            this.printMarking(this, this.getTag());
+            printMarking(this, getTag());
         }
     }
 
     public void unmark() {
-        this.isDone = false;
-        this.printMarking(this, this.getTag());
+        isDone = false;
+        printMarking(this, getTag());
     }
 
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
      * Returns a string that contains information of the task to be stored in the hard disk.
      * Used as an argument in Storage class to be written into the file.
+     *
      * @return String that represents information of the Task object.
      */
     public String toStore() {
-        return " " + this.getTag() +  " | " + (this.isDone? "1" : "0")
-                +  " | "  + this.description + "\n";
+        return " " + getTag() +  " | " + (isDone? "1" : "0")
+                +  " | "  + description + "\n";
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public String getTag() {
@@ -58,29 +59,29 @@ public class Task {
             if (num == 1) {
                 System.out.print("      ________________________________________________________\n");
                 System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
-                        num, this.getTag(), this.getStatusIcon(), this.getDescription());
+                        num, getTag(), getStatusIcon(), getDescription());
             } else {
-                System.out.printf("      %d.[%s][%s] %s\n", num, this.getTag(), this.getStatusIcon(), this.getDescription());
+                System.out.printf("      %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
             }
         } else {
             if (num == 1) {
                 System.out.print("      ________________________________________________________\n");
                 System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
-                        num, this.getTag(), this.getStatusIcon(), this.getDescription());
+                        num, getTag(), getStatusIcon(), getDescription());
                 System.out.print("      ________________________________________________________\n");
             } else {
-                System.out.printf("      %d.[%s][%s] %s \n", num, this.getTag(), this.getStatusIcon(), this.getDescription());
+                System.out.printf("      %d.[%s][%s] %s \n", num, getTag(), getStatusIcon(), getDescription());
                 System.out.print("      ________________________________________________________\n");
             }
         }
     }
 
     public void printFullDesc() {
-        System.out.printf("         [%s][%s] %s\n", this.getTag(), this.getStatusIcon(), this.getDescription());
+        System.out.printf("         [%s][%s] %s\n", getTag(), getStatusIcon(), getDescription());
     }
 
     public void printMarking(Task task, String tag) {
-        if (this.isDone) {
+        if (isDone) {
             System.out.print("      ________________________________________________________\n"
                     + "      Great job! I've marked this task as done:\n");
             System.out.printf("      [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
