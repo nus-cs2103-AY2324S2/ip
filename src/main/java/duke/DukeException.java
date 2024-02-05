@@ -32,7 +32,7 @@ public class DukeException extends Exception{
      * @throws DukeException if the instruction is not in the list
      */
     public static void validateInstn(String str) throws DukeException {
-        String[] instnArr = {"todo", "deadline", "event", "mark", "unmark", "list", "delete"};
+        String[] instnArr = {"todo", "deadline", "event", "mark", "unmark", "list", "delete", "find"};
         String instn = str.split(" ")[0].toLowerCase();
         if (!Arrays.asList(instnArr).contains(instn)) {
             throw new DukeException("Invalid instruction for PeWPeWPeW:(((");
@@ -46,7 +46,7 @@ public class DukeException extends Exception{
      * @throws DukeException if the index is invalid
      */
     static void validateArrIndex(int index, ArrayList<Task> task_arr) throws DukeException {
-        if (index >= task_arr.size()) {
+        if (index>= task_arr.size()) {
             throw new DukeException("Your task number input is invalid, please try again");
         } else if (task_arr.get(index) == null) {
             throw new DukeException("Your task number input is invalid, please try again");
