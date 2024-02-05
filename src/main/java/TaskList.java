@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Represents the taskList to be used in the application.
  */
@@ -20,6 +22,14 @@ public class TaskList {
      */
     public void delete(int index) throws IndexOutOfBoundsException {
         tasks.remove(index - 1);
+    }
+
+    /**
+     * Returns the tasks. Meant to be only used by Storage to save this data
+     */
+    public Iterator<Task> getTasks() {
+
+        return this.tasks.iterator();
     }
 
     @Override
