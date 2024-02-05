@@ -14,8 +14,6 @@ public class Main {
         ui = new Ui(taskList);
         storage = new Storage(filePath, taskList);
         try {
-//            tasks = new TaskList(storage.readFromFile());
-//            tasks = new TaskList(storage.readFromFile());
             taskList.initialisePrevTaskList(storage.readFromFile());
 
         } catch (FileNotFoundException e) {
