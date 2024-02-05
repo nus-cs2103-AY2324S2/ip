@@ -6,9 +6,9 @@
 
 package duke.command;
 
+import duke.Ui;
 import duke.task.Storage;
 import duke.task.TaskList;
-import duke.Ui;
 
 public class ListCommand extends Command {
     @Override

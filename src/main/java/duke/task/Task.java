@@ -6,8 +6,6 @@
 
 package duke.task;
 
-import java.util.Collection;
-
 public class Task {
     protected String description;
     protected boolean isDone;

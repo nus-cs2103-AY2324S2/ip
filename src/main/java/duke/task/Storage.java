@@ -6,16 +6,15 @@
 
 package duke.task;
 
-import duke.DukeException;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.DukeException;
 
 public class Storage {
     private final String filePath;
@@ -125,9 +124,9 @@ public class Storage {
      * @return The string representation of the Task for storage.
      */
     private String taskToFileString(Task task) {
-        String type = task instanceof Todo ? "T" :
-                    task instanceof Deadline ? "D" :
-                    task instanceof Event ? "E" : "";
+        String type = task instanceof Todo ? "T"
+                : task instanceof Deadline ? "D"
+                : task instanceof Event ? "E" : "";
         String status = task.isDone() ? "1" : "0";
         String description = task.description;
 

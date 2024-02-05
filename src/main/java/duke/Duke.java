@@ -5,12 +5,12 @@
 
 package duke;
 
+import java.io.IOException;
+
+import duke.command.Command;
 import duke.task.Parser;
 import duke.task.Storage;
 import duke.task.TaskList;
-import duke.command.Command;
-
-import java.io.IOException;
 
 public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";

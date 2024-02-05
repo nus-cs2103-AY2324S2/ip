@@ -5,13 +5,13 @@
 
 package duke.task;
 
-import duke.DukeException;
-import duke.command.AddCommand;
-import duke.command.Command;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import duke.DukeException;
+import duke.command.AddCommand;
+import duke.command.Command;
 
 class ParserTest {
 

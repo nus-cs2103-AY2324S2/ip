@@ -6,11 +6,11 @@
 
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 public class DateTimeUtil {
     /**
@@ -23,12 +23,12 @@ public class DateTimeUtil {
     public static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
         DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         String[] dateTimeFormats = {
-                "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm",
-                "yyyy-MM-dd HHmm", "dd/MM/yyyy HHmm", "MM/dd/yyyy HHmm",
-                "dd-MM-yyyy HH:mm", "dd-MM-yyyy HHmm", "d-MM-yyyy HH:mm", "d-MM-yyyy HHmm",
-                "dd-M-yyyy HH:mm", "dd-M-yyyy HHmm", "d-M-yyyy HH:mm", "d-M-yyyy HHmm",
-                "d/M/yyyy HH:mm", "d/M/yyyy HHmm", "dd/M/yyyy HH:mm", "dd/M/yyyy HHmm",
-                "m/d/yyyy HH:mm", "m/d/yyyy HHmm", "mm/d/yyyy HH:mm", "mm/d/yyyy HHmm"
+            "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm",
+            "yyyy-MM-dd HHmm", "dd/MM/yyyy HHmm", "MM/dd/yyyy HHmm",
+            "dd-MM-yyyy HH:mm", "dd-MM-yyyy HHmm", "d-MM-yyyy HH:mm", "d-MM-yyyy HHmm",
+            "dd-M-yyyy HH:mm", "dd-M-yyyy HHmm", "d-M-yyyy HH:mm", "d-M-yyyy HHmm",
+            "d/M/yyyy HH:mm", "d/M/yyyy HHmm", "dd/M/yyyy HH:mm", "dd/M/yyyy HHmm",
+            "m/d/yyyy HH:mm", "m/d/yyyy HHmm", "mm/d/yyyy HH:mm", "mm/d/yyyy HHmm"
         };
 
         try {
@@ -45,6 +45,7 @@ public class DateTimeUtil {
             }
         }
 
-        throw new DukeException("Invalid date-time format. Please use a valid format such as yyyy-MM-dd HH:mm or dd/MM/yyyy HH:mm.");
+        throw new DukeException("Invalid date-time format. "
+                + "Please use a valid format such as yyyy-MM-dd HH:mm or dd/MM/yyyy HH:mm.");
     }
 }

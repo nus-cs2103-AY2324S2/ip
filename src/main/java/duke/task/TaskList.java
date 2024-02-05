@@ -6,11 +6,11 @@
 
 package duke.task;
 
-import duke.DukeException;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.DukeException;
 
 public class TaskList {
     private final List<Task> tasks;
