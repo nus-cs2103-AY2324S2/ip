@@ -3,7 +3,7 @@ package BadApple.main;
 import BadApple.task.Parser;
 import BadApple.task.Storage;
 import BadApple.task.TaskList;
-import BadApple.task.Tracker;
+import BadApple.task.Messenger;
 
 import java.io.IOException;
 import java.io.File;
@@ -13,6 +13,12 @@ import java.io.FileNotFoundException;
 
 import java.util.Scanner;
 
+/**
+ * This is the entry point to the program's code
+ * It handles the creation of required files and
+ * kickstarts the application by reading the file
+ * in the drive.
+ */
 public class BadPingGuo {
     public static void main(String[] args) {
         Ui.showWelcome();
@@ -24,31 +30,25 @@ public class BadPingGuo {
             FileReader fc = new FileReader(file);
             BufferedReader reader = new BufferedReader(fc);
 
-            Tracker.suppressMessages = true;
+            Messenger.suppressMessages = true;
             Storage.parseTasks(file);
-            Tracker.suppressMessages = false;
+            Messenger.suppressMessages = false;
 
             TaskList.listTasks(reader);
             System.out.println("Waiting for something to happen?");
 
-            // self note: update the file everytime an operation is complete.
-            // Delete the old file, for loop all the tasks into new file. Rename it to old file name.
             while(true) {
                 String request = sc.nextLine();
                 if (request.equalsIgnoreCase("bye")) break;
                 Parser.ProcessQuery(request, file);
             }
 
-            System.out.println("--------------------------------");
-            System.out.println("Everything is going to be okay.");
-
+            Ui.sayGoodbye();
             fc.close();
             reader.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("You've been living here for as long as... wait, no headspace detected?");
-            System.out.println("Would you like to enter White Space? \n" +
-                    "Only 'yes' will create the required files" );
+            Ui.askToCreateFile();
             String askToCreateFile = sc.nextLine();
             if (askToCreateFile.equalsIgnoreCase("yes")) {
                 makeFile();
@@ -61,15 +61,20 @@ public class BadPingGuo {
 
     }
 
-    public static boolean makeFile() {
+    /**
+     * Creates a file and directory for saving data
+     * to the local drive.
+     */
+    public static void makeFile() {
         try {
             File f1 = new File("src/main/data");
             File f = new File("src/main/data/whiteSpace.txt");
-            return f1.mkdir() && f.createNewFile();
+            if (f1.mkdir()) {
+                f.createNewFile();
+            }
         } catch (IOException e) {
             System.out.println("Humphrey has denied your entrance to white space! \n " +
                     "perhaps the write permissions aren't working?");
-            return false;
         }
     }
 }

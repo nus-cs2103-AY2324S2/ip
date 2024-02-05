@@ -1,15 +1,5 @@
 package BadApple.main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.lang.Integer.parseInt;
-
 public class Ui {
     public static void showWelcome() {
         String logo = " __      __.__    .__  __             _________                          \n" +
@@ -23,5 +13,20 @@ public class Ui {
         System.out.println("Welcome to");
         System.out.println(logo);
         System.out.println("You booted up your laptop and wonder what to do...");
+    }
+
+    /**
+     * Creates Files needed for BadApple to function.
+     * (i.e. data/whiteSpace.txt)
+     */
+    public static void askToCreateFile() {
+        System.out.println("You've been living here for as long as... wait, no headspace detected?");
+        System.out.println("Would you like to enter White Space? \n" +
+                "Only 'yes' will create the required files" );
+    }
+
+    public static void sayGoodbye() {
+        System.out.println("--------------------------------");
+        System.out.println("Everything is going to be okay.");
     }
 }

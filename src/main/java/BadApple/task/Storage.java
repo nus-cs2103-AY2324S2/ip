@@ -8,6 +8,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Manages the changes in tasks due to a user's commands.
+ * Commands are passed from the Parser into actual actions
+ * which this class then updates the program's task list.
+ * Currently, updateTask is called by Parser after each command.
+ */
 public class Storage {
     /**
      * After each request by the user, erases previous contents of the file
@@ -29,20 +35,32 @@ public class Storage {
         bufferedWriter.close();
     }
 
+    /**
+     * Adds a task to the program's task list.
+     * Meant to display messages to signal a task being added
+     * except when first loading in a task
+     * @param task Task to add to the TaskList
+     */
     public static void addTask(Task task) {
         TaskList.tasks.add(task);
-        if (!Tracker.suppressMessages) {
-            System.out.println(Tracker.CustomMessages.randomMsg(task));
+        if (!Messenger.suppressMessages) {
+            System.out.println(Messenger.CustomMessages.randomMsg(task));
             System.out.println(task);
         }
     }
 
+    /**
+     * Removes a task from the program's task list
+     * Usually called by the "delete" command
+     * @param i the index at which a task should be removed
+     */
     public static void removeTask(int i) {
         System.out.println("Exploooosion! now task " + TaskList.tasks.remove(i).brief() + " has been Kazuma-ed out of existence");
         System.out.println("You now have " + TaskList.tasks.size() + " tasks in your list");
     }
 
     /**
+     * Loads in the local drive's save file of Tasks.
      * given a File and its contents, add it into the Tracker's taskList
      * @param file the file to read from
      * @throws IOException when a file can't be read from
@@ -58,8 +76,8 @@ public class Storage {
             // deconstruct the line:
             ArrayList<String> args = new ArrayList<>(Arrays.asList(line.split(" ")));
 
-            String command = "";
-            String query = "";
+            String command;
+            String query;
             StringBuilder taskName;
             boolean status = args.get(2).equals("[X]");
 

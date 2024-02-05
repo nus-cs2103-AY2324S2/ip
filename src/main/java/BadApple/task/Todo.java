@@ -2,6 +2,11 @@ package BadApple.task;
 
 import BadApple.main.BadAppleException;
 
+/**
+ * Todo shares the same features as its parent class Task
+ * with the added feature of being able to extract its own
+ * description for the Task. It rejects empty task names.
+ */
 public class Todo extends Task {
 
     protected Todo(String desc) {

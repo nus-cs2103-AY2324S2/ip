@@ -1,7 +1,10 @@
 package BadApple.task;
 
-import static java.lang.Integer.parseInt;
-
+/**
+ * A Task is an item that has a description,
+ * it can be marked as done or unmarked.
+ * Many other types of Task inherit this simple template.
+ */
 public class Task {
 
     protected String description;
@@ -23,7 +26,7 @@ public class Task {
                 return;
             }
             this.isComplete = b;
-            if (!Tracker.suppressMessages) {
+            if (!Messenger.suppressMessages) {
                 System.out.println("I've " + MARK + " task " + (taskIndex+1));
                 System.out.println(this);
             }
