@@ -5,7 +5,6 @@ import eggy.task.Deadline;
 import eggy.task.Event;
 import eggy.task.Task;
 import eggy.task.Todo;
-import eggy.exception.EggyException;
 import eggy.exception.InvalidTaskTypeException;
 import eggy.exception.LoadTasksException;
 import eggy.exception.SaveTasksException;
@@ -30,19 +29,19 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> load() throws EggyException {
+    public List<Task> load() throws InvalidTaskTypeException, LoadTasksException {
         List<Task> tempTasks = new ArrayList<>();
         try {
             File file = new File(this.filePath);
             if (file.exists()) {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line = br.readLine();
-                while (line != null) {
-                    String[] taskStrings = line.split(" \\| ");
-                    try {
-                        TaskType taskType = TaskType.valueOf(taskStrings[0]);
-                        Task task;
-                        switch (taskType) {
+                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                    String line = br.readLine();
+                    while (line != null) {
+                        String[] taskStrings = line.split(" \\| ");
+                        try {
+                            TaskType taskType = TaskType.valueOf(taskStrings[0]);
+                            Task task;
+                            switch (taskType) {
                             case T:
                                 task = new Todo(taskStrings[2], taskStrings[1].equals("1"));
                                 break;
@@ -54,14 +53,14 @@ public class Storage {
                                 break;
                             default:
                                 throw new InvalidTaskTypeException();
+                            }
+                            tempTasks.add(task);
+                            line = br.readLine();
+                        } catch (IllegalArgumentException e) {
+                            throw new InvalidTaskTypeException();
                         }
-                        tempTasks.add(task);
-                        line = br.readLine();
-                    } catch (IllegalArgumentException e) {
-                        throw new InvalidTaskTypeException();
                     }
                 }
-                br.close();
             } else {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -72,7 +71,7 @@ public class Storage {
         }
     }
 
-    public void save(TaskList tasks) throws EggyException {
+    public void save(TaskList tasks) throws SaveTasksException {
         try {
             File file = new File(this.filePath);
             if (!file.exists()) {
