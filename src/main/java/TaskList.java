@@ -26,7 +26,7 @@ public class TaskList {
 
     public String mark_as_done(int index) throws IndexOutOfBoundsException{
         if (index > count || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the index is out of range.");
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
         list[index - 1].markAsDone();
         return "\t-----------------------------------\n" +
@@ -37,7 +37,7 @@ public class TaskList {
 
     public String mark_as_undone(int index) throws IndexOutOfBoundsException {
         if (index > count || index < 1) {
-            throw new IndexOutOfBoundsException("Sorry, the index is out of range.");
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
         list[index - 1].markAsUndone();
         return "\t-----------------------------------\n" +

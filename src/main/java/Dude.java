@@ -35,7 +35,8 @@ public class  Dude {
                     System.out.println(list());
                     break;
                 case "mark":
-
+                    System.out.println(mark_as_done(msg));
+                    break;
                 default:
                     System.out.println(add_task(msg));
             }
@@ -71,8 +72,25 @@ public class  Dude {
         return bye_msg;
     }
 
-    private static String mark_as_done(int index){
-        return taskList.mark_as_done(index);
+    private static String mark_as_done(String msg){
+        //Try to retrieve the index
+        int index = 0;
+        try{
+            index = Integer.parseInt(msg.split(" ")[1]);
+        } catch (IndexOutOfBoundsException e) {
+            return "\t-----------------------------------\n" +
+                    "\tPlease provide a valid task ID. Has to be an integer.\n" +
+                    "\t-----------------------------------";
+        }
+
+        //This will run only when the index is valid, as catch block will return the error message
+        try {
+            return taskList.mark_as_done(index);
+        } catch (IndexOutOfBoundsException e) {
+            return "\t-----------------------------------\n" +
+                    "\t" + e.getMessage() +"\n" +
+                    "\t-----------------------------------";
+        }
     }
 
     private static String get_echo_msg(String msg){
