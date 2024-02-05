@@ -9,12 +9,14 @@ public class TaskList {
         }
     }
     public void returnList() {
+        if (taskList.size() == 0) {
+            System.out.println("You have no items in your list.");
+            return;
+        }
         for (int i = 1; i < taskList.size() + 1; i++) {
             System.out.println(i + ". " + taskList.get(i-1).toString());
         }
-        if (taskList.size() == 0) {
-            System.out.println("You have no items in your list.");
-        }
+
     }
     public void addTask(Task item) {
         taskList.add(item);
@@ -36,11 +38,14 @@ public class TaskList {
      * @param index remove index'th task
      */
     public void delete(int index) {
-        this.taskList.remove(index);
+        this.taskList.remove(index - 1);
         System.out.println("Deleted task no. " + index);
         System.out.println("You have " + this.len() + " tasks left");
     }
-    public int len() {
+    /**
+     * Returns the size of the task list.
+     */
+    private int len() {
         return taskList.size();
     }
 
