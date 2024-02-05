@@ -48,30 +48,30 @@ public class Storage {
       Task task;
 
       switch (type) {
-        case "T":
-          task = new Todos(description);
-          break;
-        case "D":
-          String byString = parts[3];
+      case "T":
+        task = new Todos(description);
+        break;
+      case "D":
+        String byString = parts[3];
 
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-          LocalDateTime byDateTime = LocalDateTime.parse(byString, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime byDateTime = LocalDateTime.parse(byString, formatter);
 
-          task = new Deadline(description, byDateTime);
-          break;
-        case "E":
-          String fromString = parts[3];
-          String toString = parts[4];
+        task = new Deadline(description, byDateTime);
+        break;
+      case "E":
+        String fromString = parts[3];
+        String toString = parts[4];
 
-          DateTimeFormatter formatterE = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-          LocalDateTime fromDateTime = LocalDateTime.parse(fromString, formatterE);
-          LocalDateTime toDateTime = LocalDateTime.parse(toString, formatterE);
+        DateTimeFormatter formatterE = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime fromDateTime = LocalDateTime.parse(fromString, formatterE);
+        LocalDateTime toDateTime = LocalDateTime.parse(toString, formatterE);
 
-          task = new Events(description, fromDateTime, toDateTime);
-          break;
-        default:
-          task = new Task(description);
-          break;
+        task = new Events(description, fromDateTime, toDateTime);
+        break;
+      default:
+        task = new Task(description);
+        break;
       }
 
       if (status.equals("1")) {
