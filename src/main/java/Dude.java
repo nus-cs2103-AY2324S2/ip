@@ -25,14 +25,17 @@ public class  Dude {
         while(true){
 
             String s = sc.nextLine();
+            String first_arg = s.split(" ")[0];
 
-            switch (s){
+            switch (first_arg){
                 case "bye":
                     System.out.println(bye());
                     return;
                 case "list":
                     System.out.println(list());
                     break;
+                case "mark":
+
                 default:
                     System.out.println(add_task(s));
             }
@@ -51,7 +54,11 @@ public class  Dude {
     }
 
     private static String add_task(String msg){
-        return taskList.add_task(msg);
+        try {
+            return taskList.add_task(msg);
+        } catch (TaskListFullException e) {
+            return e.getMessage();
+        }
     }
 
     private static String list(){
@@ -67,6 +74,9 @@ public class  Dude {
         return bye_msg;
     }
 
+    private static String mark_as_done(int index){
+        return taskList.mark_as_done(index);
+    }
 
     private static String get_echo_msg(String msg){
         return "\t-----------------------------------\n" +

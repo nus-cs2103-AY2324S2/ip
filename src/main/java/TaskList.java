@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class TaskList {
 
-    private Task[] list;
+    private final Task[] list;
     private int count;
 
     public TaskList(){
@@ -10,12 +10,10 @@ public class TaskList {
         count = 0;
     }
 
-    public String add_task(String msg){
+    public String add_task(String msg) throws TaskListFullException {
 
         if (this.count >= 100) {
-            return "\t-----------------------------------\n" +
-                    "\tSorry, the list is full. Max size is 100.\n" +
-                    "\t-----------------------------------";
+            throw new TaskListFullException("Sorry, the task list is full.");
         }
 
         list[count] = new Task(msg);
@@ -23,6 +21,28 @@ public class TaskList {
 
         return "\t-----------------------------------\n" +
                 "\tadded: " + msg + "\n" +
+                "\t-----------------------------------";
+    }
+
+    public String mark_as_done(int index) throws IndexOutOfBoundsException{
+        if (index > count || index < 1) {
+            throw new IndexOutOfBoundsException("Sorry, the index is out of range.");
+        }
+        list[index - 1].markAsDone();
+        return "\t-----------------------------------\n" +
+                "\tNice! I've marked this task as done:\n" +
+                "\t  " + list[index - 1].toString() + "\n" +
+                "\t-----------------------------------";
+    }
+
+    public String mark_as_undone(int index) throws IndexOutOfBoundsException {
+        if (index > count || index < 1) {
+            throw new IndexOutOfBoundsException("Sorry, the index is out of range.");
+        }
+        list[index - 1].markAsUndone();
+        return "\t-----------------------------------\n" +
+                "\tNice! I've marked this task as undone:\n" +
+                "\t  " + list[index - 1].toString() + "\n" +
                 "\t-----------------------------------";
     }
 
