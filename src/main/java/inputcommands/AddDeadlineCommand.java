@@ -8,18 +8,52 @@ import snomtasklist.TaskList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+<<<<<<< HEAD:src/main/java/inputcommands/AddDeadlineCommand.java
 
 class AddDeadlineCommand extends Command {
+=======
+
+/**
+ * The AddDeadlineCommand implements the command of
+ * adding a task of type Deadline into tasklist.
+ */
+class AddDeadlineCommand extends Command {
+
+    /**
+     * {@inheritDoc}
+     * In this subclass, the command will return enum
+     * of type DEADLINE
+     *
+     * @return the enum of type DEADLINE
+     */
+    @Override
+    public CmdType getType() {
+        return CmdType.DEADLINE;
+    }
+>>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/AddDeadlineCommand.java
 
     protected AddDeadlineCommand(String desc) {
         super(desc);
     }
 
+<<<<<<< HEAD:src/main/java/inputcommands/AddDeadlineCommand.java
 
     @Override
     public CmdType getType() {
         return CmdType.DEADLINE;
     }
+=======
+    /**
+     * {@inheritDoc}
+     * In this subclass, we implement date checks and task description checks
+     * to ensure that the command is valid.
+     *
+     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
+     * @return a string representing a valid command.
+     * @throws InvalidCommandException if the description or date is blank or when the
+     * date is in the wrong format.
+     */
+>>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/AddDeadlineCommand.java
     @Override
     public String execute(TaskList lst) throws InvalidCommandException {
 
@@ -52,14 +86,6 @@ class AddDeadlineCommand extends Command {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-
-            System.out.println(new AddDeadlineCommand("deadline /2000-01-01").execute(null));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
 
 }
