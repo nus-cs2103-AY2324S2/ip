@@ -10,9 +10,7 @@ public class Duke {
                                 + "| |_| | |_| |   <  __/\n"
                                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static final String LINE = "\t____________________________________________________________";
-
-    private Scanner sc = new Scanner(System.in);
+    private static final Ui ui = new Ui();
     private ArrayList<Task> list = new ArrayList<>();
 
     private static enum Command {
@@ -22,34 +20,13 @@ public class Duke {
     private static final String filePath = Paths.get("data", "duke.txt").toString();
     private File dataFile = new File(filePath);
 
-    private void sayGreetings() {
-        System.out.println(LINE);
-        System.out.println("\tHello! I'm SKY");
-        System.out.println("\tWhat can I do for you?");
-        System.out.println(LINE);
-    }
-
-    private void sayBye() {
-        System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println(LINE);
-    }
-
-    private void echo(String input) {
-        System.out.println(input);
-    }
-
     private void add(Task task) {
         this.list.add(task);
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + task);
-        System.out.println("\tNow you have " + this.list.size() + " tasks in the list.");
+        ui.showAddedTask(task, this.list.size());
     }
 
     private void list() {
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < this.list.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + this.list.get(i));
-        }
+        ui.showList(this.list);
     }
 
     private void mark(String[] input) throws IncompleteCommandException, InvalidArgumentException {
@@ -58,7 +35,9 @@ public class Duke {
         } 
         try {
             int index = Integer.parseInt(input[1]) - 1;
-            this.list.get(index).markAsDone();
+            Task task = this.list.get(index);
+            task.markAsDone();
+            ui.showMarkedTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException();
         }
@@ -70,7 +49,9 @@ public class Duke {
         } 
         try {
             int index = Integer.parseInt(input[1]) - 1;
-            this.list.get(index).markNotDone();
+            Task task = this.list.get(index);
+            task.markNotDone();
+            ui.showUnmarkedTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException();
         }
@@ -121,9 +102,7 @@ public class Duke {
             int index = Integer.parseInt(input[1]) - 1;
             Task task = this.list.get(index);
             this.list.remove(index);
-            System.out.println("\tNoted. I've removed this task:");
-            System.out.println("\t  " + task);
-            System.out.println("\tNow you have " + this.list.size() + " tasks in the list.");
+            ui.showDeletedTask(task, this.list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException();
         }
@@ -137,7 +116,7 @@ public class Duke {
             }
             this.dataFile.createNewFile();
         } catch (Exception e) {
-            System.out.println(e);
+            ui.showErrorMessage(e);
         }
     }
 
@@ -167,10 +146,9 @@ public class Duke {
             }
             sc.close();  
         } catch (Exception e) {
-            System.out.println(e);
             this.dataFile.delete();
             this.list.clear();
-            System.out.println("\tData file is corrupted and has been deleted.");
+            ui.showCorruptedData();
         }
       
     }
@@ -201,24 +179,24 @@ public class Duke {
             }
             fw.close();
         } catch (Exception e) {
-            System.out.println(e);
+            ui.showErrorMessage(e);
         }
     }
 
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.loadData();
-        duke.sayGreetings();
+        ui.sayGreetings();
 
         while (true) {
             try {
-                String userInput = duke.sc.nextLine();
+                String userInput = ui.readCommand();
                 String[] input = userInput.split(" ", 2);
                 String action = input[0].toUpperCase();
-                System.out.println(LINE);
+                ui.showLine();
                 switch (Command.valueOf(action)) {
                     case BYE:
-                        duke.sayBye();
+                        ui.sayBye();
                         duke.saveData();
                         return;
                     case LIST:
@@ -247,14 +225,13 @@ public class Duke {
                 }
             } catch (IllegalArgumentException e) {
                 if (e.getMessage().contains("No enum constant Duke.Command.")) {
-                    System.out.println("\t " + new UnknownCommandException());
+                    ui.showErrorMessage(new UnknownCommandException());
                 } else {
-                    System.out.println("\t" + e.getMessage());
+                    ui.showErrorMessage(e);
                 }
             } catch (Exception e) {
-                System.out.println("\t" + e);
+                ui.showErrorMessage(e);
             }
-            System.out.println(LINE);
         }
     }
 }
