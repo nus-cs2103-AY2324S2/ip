@@ -1,6 +1,7 @@
 package me.ruibin.leto.tasklist;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,8 +15,8 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public static Deadline DeadlineFromCMD(String input) throws InvalidTaskException {
-        String regex = "(?i)deadline ([^,]+) /by (\\d{4}-\\d{2}-\\d{2})";
+    public static Deadline deadlineFromCommand(String input) throws InvalidTaskException {
+        String regex = "(?i)deadline ([^,]+) /by (\\d{4}-\\d{2}-\\d{2}) *";
         Matcher matcher = Pattern.compile(regex).matcher(input);
         if (!matcher.matches()) {
             throw new InvalidTaskException("deadline <description> /by <date>,"
@@ -41,16 +42,20 @@ public class Deadline extends Task {
      * @param entry text string containing the row in the csv
      * @return a Deadline task
      */
-    public static Deadline DeadlineFromCSV(String entry) throws InvalidTaskException {
+    public static Deadline deadlineFromCsv(String entry) throws InvalidTaskException {
         String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
-        Matcher matcher = Pattern.compile(regex).matcher(entry);
+        Matcher matcher = Pattern.compile(regex).matcher(entry.trim());
         if (!matcher.matches()) {
             throw new InvalidTaskException("Cannot match " + entry + " with regex");
         }
         Boolean completed = matcher.group(2).equals("Y");
         String message = matcher.group(3);
-        LocalDate deadline = LocalDate.parse(matcher.group(4));
-        return new Deadline(completed, message, deadline);
+        try {
+            LocalDate deadline = LocalDate.parse(matcher.group(4));
+            return new Deadline(completed, message, deadline);
+        } catch (DateTimeParseException e) {
+            throw new InvalidTaskException("By field, [" + matcher.group(4) + "] is invalid!");
+        }
     }
 
     @Override

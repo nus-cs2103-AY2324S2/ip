@@ -63,11 +63,11 @@ public class Storage {
             Ui.shortSay("Todo added");
             break;
         case "D":
-            TaskList.addTaskToList(Deadline.DeadlineFromCSV(entry));
+            TaskList.addTaskToList(Deadline.deadlineFromCsv(entry));
             Ui.shortSay("Deadline added");
             break;
         case "E":
-            TaskList.addTaskToList(Event.eventFromCSV(entry));
+            TaskList.addTaskToList(Event.eventFromCsv(entry));
             Ui.shortSay("Event added");
             break;
         }
