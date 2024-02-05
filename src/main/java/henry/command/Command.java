@@ -3,7 +3,6 @@ package henry.command;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
 
 /**
  * Represents a command object that can be executed
@@ -13,11 +12,10 @@ public abstract class Command {
      * Executes the command.
      *
      * @param tasks The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage object.
      * @throws HenryException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException;
+    public abstract String execute(TaskList tasks, Storage storage) throws HenryException;
 
     /**
      * Checks if the command is an exit command.

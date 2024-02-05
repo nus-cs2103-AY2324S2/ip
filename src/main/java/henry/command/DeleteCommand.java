@@ -3,7 +3,6 @@ package henry.command;
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
-import henry.Ui;
 
 /**
  * Represents a command to delete a task.
@@ -28,8 +27,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
-        tasks.deleteTask(index);
+    public String execute(TaskList tasks, Storage storage) throws HenryException {
+        String ret = tasks.deleteTask(index);
         storage.save(tasks);
+        return ret;
     }
 }
