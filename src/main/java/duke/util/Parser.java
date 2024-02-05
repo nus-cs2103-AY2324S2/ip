@@ -29,11 +29,12 @@ public class Parser {
 
         task_name = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
         if (!task_name.isBlank()) {
+            System.out.println(task_name);
             // calling the method
             task = new TodoTask(task_name, input);
             return task;
         } else {
-            throw new DukeException("\tInvalid todo command");
+            throw new DukeException("\tTodo description cannot be empty!\n\tEx: todo return book\n");
         }
     }
 
