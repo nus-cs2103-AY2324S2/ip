@@ -15,24 +15,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("TalkingJohn.TalkingJohn")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "TalkingJohn"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
