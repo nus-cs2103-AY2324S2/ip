@@ -1,6 +1,7 @@
 package simpli.storage;
 
 import simpli.exceptions.ActionException;
+import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
 import simpli.tasks.Task;
@@ -15,9 +16,9 @@ import java.util.Scanner;
  * Handles the saving and loading of tasks to and from the filesystem.
  */
 public class Storage {
-    private final Parser parser;
-    private final TaskList taskList;
-    private final Interpreter intrpr;
+    private Parser parser;
+    private TaskList taskList;
+    private Interpreter intrpr;
 
     /**
      * Initializes the storage with the specified parser, interpreter and task list.
@@ -59,7 +60,7 @@ public class Storage {
      * @throws IOException When file is not found.
      * @throws ActionException When the action or task does not exist.
      */
-    public void loadTasksfromFile(String path) throws IOException, ActionException {
+    public void loadTasksFromFile(String path) throws IOException, ActionException, TaskException {
 
         File f = new File(path);
 

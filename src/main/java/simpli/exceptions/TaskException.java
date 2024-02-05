@@ -3,7 +3,7 @@ package simpli.exceptions;
 /**
  * Thrown when tasks have invalid parameters.
  */
-public class TaskException extends ActionException {
+public class TaskException extends SimpliException {
     /**
      * Initializes the exception without a message.
      */

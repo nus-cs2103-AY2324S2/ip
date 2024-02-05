@@ -2,7 +2,6 @@ package simpli.parser;
 
 import simpli.actions.Action;
 import simpli.exceptions.ActionException;
-import simpli.exceptions.TaskException;
 
 import java.util.Arrays;
 
@@ -47,9 +46,7 @@ public final class Parser {
         }
         parsedTokens[2] = !actionType.equals(Action.LIST) ? taskInfo[1] : "";
 
-        for (int i = 1; i < tokens.length; i++) {
-            parsedTokens[i + 2] = tokens[i];
-        }
+        System.arraycopy(tokens, 1, parsedTokens, 3, tokens.length - 1);
 
         if (!isValidCommand(parsedTokens)) {
             throw new ActionException();

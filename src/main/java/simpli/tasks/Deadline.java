@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime by;
-    private static final DateTimeFormatter FORMATTER =DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Deadline(boolean isDone, String name, LocalDateTime by) {
         super(isDone, name);
