@@ -1,5 +1,8 @@
 package ghbot;
 
+import ghbot.executor.ByeExecutor;
+import ghbot.executor.Executor;
+
 import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
@@ -19,7 +22,15 @@ public class GHBot {
         while (true) {
             try {
                 String[] subStr = ui.validateInput();
-                Parser.parse(subStr, taskLst, storage);
+                Executor executor = Parser.parse(subStr);
+                if (executor != null) {
+                    executor.set(taskLst);
+                    executor.execute();
+                }
+                if (executor instanceof ByeExecutor) {
+                    break;
+                }
+                storage.writeDataToFile(taskLst.toList());
             } catch (GHBotException | IOException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
