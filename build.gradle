@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'Riz'
+
 repositories {
     mavenCentral()
 }
@@ -32,7 +34,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'RizBot.jar'
+    archiveBaseName = ""
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
