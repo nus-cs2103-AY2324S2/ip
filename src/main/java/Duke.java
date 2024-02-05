@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.nio.file.Paths;
 
 public class Duke {
     private static final String logo = " ____        _        \n"
@@ -18,6 +19,8 @@ public class Duke {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE,
     }
 
+    private static final String filePath = Paths.get("data", "duke.txt").toString();
+    private File dataFile = new File(filePath);
 
     private void sayGreetings() {
         System.out.println(LINE);
@@ -128,27 +131,23 @@ public class Duke {
 
     private void createDataFile() {
         try {
-            File file = new File("data");
-            if (!file.exists()) {
-                file.mkdir();
+            File dir = new File("data");
+            if (!dir.exists()) {
+                dir.mkdir();
             }
-            file = new File("data/duke.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            this.dataFile.createNewFile();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     private void loadData() {
-        File file = new File("data/duke.txt");
-        if (!file.exists()) {
+        if (!this.dataFile.exists()) {
             createDataFile();
             return;
         }
         try {
-            Scanner sc = new Scanner(file);
+            Scanner sc = new Scanner(this.dataFile);
             while (sc.hasNextLine()) {
                 String[] input = sc.nextLine().split(" \\| ");
                 String type = input[0];
@@ -174,10 +173,7 @@ public class Duke {
 
     private void saveData() {
         try {
-            File file = new File("data/duke.txt");
-            file.delete();
-            file.createNewFile();
-            java.io.FileWriter fw = new java.io.FileWriter(file);
+            java.io.FileWriter fw = new java.io.FileWriter(this.dataFile);
             for (Task task : this.list) {
                 String type = "";
                 String description = task.getDescription();
