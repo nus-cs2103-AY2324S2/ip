@@ -91,8 +91,8 @@ public class TaskList {
                 Event event = (Event) task;
                 LocalDate startDate = event.getStart().toLocalDate();
                 LocalDate endDate = event.getEnd().toLocalDate();
-                if ((date.isEqual(startDate) || date.isAfter(startDate)) &&
-                        (date.isEqual(endDate) || date.isBefore(endDate))) {
+                if ((date.isEqual(startDate) || date.isAfter(startDate))
+                        && (date.isEqual(endDate) || date.isBefore(endDate))) {
                     tasksOnDate.add(task);
                 }
             }
