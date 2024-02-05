@@ -1,4 +1,4 @@
-package Victor;
+package Victor.TaskType;
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {

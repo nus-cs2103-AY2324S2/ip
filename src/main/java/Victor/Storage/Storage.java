@@ -1,9 +1,9 @@
 package Victor.Storage;
 
-import Victor.Deadline;
-import Victor.Event;
-import Victor.Task;
-import Victor.Todo;
+import Victor.TaskType.Deadline;
+import Victor.TaskType.Event;
+import Victor.TaskType.Task;
+import Victor.TaskType.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package Victor;
+package Victor.TaskType;
 public class Task {
         protected String description;
         protected boolean isDone;
