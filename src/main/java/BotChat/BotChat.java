@@ -6,18 +6,15 @@ import java.util.Scanner;
  * The main class for the botChat application, responsible for handling user input and managing tasks.
  */
 public class BotChat {
-
+    private static final String FILE_PATH = "./botChat.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String FILE_PATH = "./botChat.txt";
 
     /**
      * Constructs a new botChat instance.
-     *
-     * @param filePath The file path for storing task data.
      */
-    public BotChat(String filePath) {
+    public BotChat() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
     }
@@ -56,50 +53,35 @@ public class BotChat {
      * Handles different types of user input commands.
      *
      * @param input The user input command.
+     * @return A response message or status.
      * @throws BotChatException If an error occurs during command processing.
      */
-    private void handleInput(String input) throws BotChatException {
+    public String handleInput(String input) throws BotChatException {
         Command command = Parser.getCommand(input.split(" ")[0]);
         switch (command) {
         case BYE:
-            ui.showGoodbyeMessage();
             System.exit(0);
-            break;
+            return "Goodbye";
         case LIST:
-            tasks.listTasks();
-            break;
+            return tasks.listTasks();
         case MARK:
-            tasks.markTask(input);
-            break;
+            return tasks.markTask(input);
         case UNMARK:
-            tasks.unmarkTask(input);
-            break;
+            return tasks.unmarkTask(input);
         case EVENT:
-            tasks.addEventTask(input);
-            break;
+            return tasks.addEventTask(input);
         case DEADLINE:
-            tasks.addDeadlineTask(input);
-            break;
+            return tasks.addDeadlineTask(input);
         case TODO:
-            tasks.addTodoTask(input);
-            break;
+            return tasks.addTodoTask(input);
         case DELETE:
-            tasks.deleteTask(input);
-            break;
+            return tasks.deleteTask(input);
         case FIND:
-            tasks.findTasks(input);
-            break;
+            return tasks.findTasks(input);
         case UNKNOWN:
             throw new BotChatException("Sorry, I do not understand that command. Please try again.");
+        default:
+            return "";
         }
-    }
-
-    /**
-     * The main method to start the botChat application.
-     *
-     * @param args The command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        new BotChat(FILE_PATH).run();
     }
 }
