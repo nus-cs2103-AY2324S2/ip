@@ -1,13 +1,11 @@
-import duke.DukeException;
-import duke.Parser;
-import duke.Storage;
-import duke.Ui;
-import tasks.TaskList;
+package duke;
+
+import duke.tasks.TaskList;
 
 import java.util.Scanner;
 
 /**
- * Represents a chat bot to keep track of user's tasks.
+ * Represents a chat bot to keep track of user's duke.tasks.
  */
 public class Duke {
 

@@ -1,7 +1,7 @@
 package duke;
 
-import tasks.Task;
-import tasks.TaskList;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -47,7 +47,7 @@ public class Ui {
     }
 
     public void showList(TaskList list) {
-        String message = "Here are the tasks in your list";
+        String message = "Here are the duke.tasks in your list";
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < list.getSize(); i++) {
             tasks.append(" ").append(i + 1).append(". ").append(list.getTask(i).toString()).append("\n");
@@ -62,7 +62,7 @@ public class Ui {
      */
     public void deleteMessage(int i, TaskList list) {
         String m1 = "I remove this one alrdy: \n";
-        String m2 = "\n Now you have " + (list.getSize() - 1) + " tasks in the list.\n";
+        String m2 = "\n Now you have " + (list.getSize() - 1) + " duke.tasks in the list.\n";
         showToUser(DIVIDER, m1, list.getTask(i - 1).toString(), m2, DIVIDER);
     }
 
@@ -73,7 +73,7 @@ public class Ui {
      */
     public void addMessage(Task task, TaskList list) {
         String m1 = " Got it. I've added this task:\n";
-        String m2 = "\n Now you have " + (list.getSize()) + " tasks in the list.\n";
+        String m2 = "\n Now you have " + (list.getSize()) + " duke.tasks in the list.\n";
         showToUser(DIVIDER, m1, task.toString(), m2, DIVIDER);
     }
 

@@ -1,10 +1,10 @@
 package duke;
 
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDo;
-import tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
+import duke.tasks.Deadline;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    public static final String FILE_PATH = "./data/Duke.txt";
+    public static final String FILE_PATH = "./data/duke.Duke.txt";
 
     public Storage() {
     }
