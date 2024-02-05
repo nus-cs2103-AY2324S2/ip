@@ -28,15 +28,6 @@ public class Task {
     }
 
     /**
-     * Returns the completion status of the task.
-     *
-     * @return true if the task is done, false otherwise.
-     */
-    public boolean isDone() {
-        return isDone;
-    }
-
-    /**
      * Marks the task as done.
      */
     public void markAsDone() {

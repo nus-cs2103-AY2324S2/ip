@@ -37,7 +37,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new DukeException("File not found: " + filePath);
         } catch (IOException e) {
-            // Catch IOException from createNewFile()
             throw new DukeException("An error occurred while creating or opening the file: " + filePath);
         }
     }
@@ -51,7 +50,6 @@ public class Storage {
      */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         File file = new File(filePath);
-        file.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(file);
         fw.write(textToAdd);
         fw.close();

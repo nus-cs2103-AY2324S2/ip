@@ -13,9 +13,16 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke("/Users/dom/ip/data/duke.txt");
+    private final Duke duke;
 
+    /**
+     * Constructor for Main class.
+     * Initializes a new Duke instance with the given file path.
+     *
+     * @throws DukeException if there is an error initializing Duke with the specified file path.
+     */
     public Main() throws DukeException {
+        duke = new Duke("/Users/dom/ip/data/duke.txt");
     }
 
     @Override
