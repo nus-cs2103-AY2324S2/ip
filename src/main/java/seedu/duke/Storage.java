@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -124,6 +125,29 @@ public class Storage {
         FileWriter fw = new FileWriter(f);
         fw.write(newData);
         fw.close();
+    }
+
+    public static void findFromFile(String input) throws IOException{
+        Scanner s = new Scanner(f);
+        String lowercaseInput = input.toLowerCase();
+        int ptr = 1;
+        int count = 0;
+        while (s.hasNextLine()) {
+            if (s.nextLine().toLowerCase().contains(lowercaseInput)) {
+                count++;
+                if (count == 1) {
+                    UI.printTop("      Here are the matching tasks in your list:\n");
+                }
+                taskList.getTask(ptr - 1).printMatchDesc(count);
+            }
+            ptr++;
+        }
+        //if no matching tasks found
+        if (count == 0) {
+            UI.printOut("      There was no matching tasks found in your list. Perhaps a typo?\n");
+        } else {
+            UI.printLine();
+        }
     }
 
     /**

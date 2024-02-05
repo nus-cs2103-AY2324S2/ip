@@ -67,10 +67,14 @@ public class Duke {
                     taskList.addItem(new Event(parts[0], parts[1], parts[2]), true);
                 } else if (userInput.equals("list")) {
                     taskList.printList();
+                } else if (userInput.startsWith("find")) {
+                    store.findFromFile(Parser.parseFind(userInput));
                 } else {
                     throw new DukeException();
                 }
             } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
 

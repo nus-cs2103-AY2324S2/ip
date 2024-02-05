@@ -91,5 +91,19 @@ public class Parser {
 
     }
 
+    /**
+     * Returns a string of the description of the task to be found in task list.
+     *
+     * @param input the user input from system (command)
+     * @return String parsed from the user input
+     * @throws DukeException
+     */
+    public static String parseFind(String input) throws DukeException{
+        String[] items = input.split(" ", 2);
+        if (items.length == 1) {
+            throw new DukeException("Oops, please state the description of the task you want to find.", true);
+        }
+        return items[1];
+    }
 
 }
