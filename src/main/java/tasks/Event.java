@@ -1,19 +1,22 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import Parser.Parser;
+
 public class Event extends Task {
-    protected String startString;
-    protected String endString;
+    protected LocalDateTime startString;
+    protected LocalDateTime endString;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.startString = start;
-        this.endString = end;
+        this.startString = Parser.stringToDateTime(start);
+        this.endString = Parser.stringToDateTime(start);
     }
 
     public Event(String description, String start, String end, String isDone) {
         super(description);
-        this.startString = start;
-        this.endString = end;
+        this.startString = Parser.stringToDateTime(start);
+        this.endString = Parser.stringToDateTime(start);
         
         if(isDone.equals("0")){
             this.isDone = false;

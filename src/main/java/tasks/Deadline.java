@@ -1,17 +1,26 @@
 package tasks;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import Parser.Parser;
 
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
+    
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        LocalDateTime temp = Parser.stringToDateTime(by);
+        this.by = temp;
     }
 
     public Deadline(String description, String by, String isDone) {
         super(description);
-        this.by = by;
+        LocalDateTime temp = Parser.stringToDateTime(by);
+        this.by = temp;
         if(isDone.equals("0")){
             this.isDone = false;
         } else {
