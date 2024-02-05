@@ -9,8 +9,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation 'org.mockito:mockito-core:3.+'
+    implementation 'org.mockito:mockito-junit-jupiter:3.+'
 }
 
 test {
@@ -24,6 +26,19 @@ test {
         showCauses true
         showStackTraces true
         showStandardStreams = false
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
     }
 }
 
