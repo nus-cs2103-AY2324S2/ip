@@ -20,7 +20,7 @@ class handlerbot {
         countertaskings = 0; // Counter for the number of tasks
     }
 
-    // Class for tasks (called taskings)
+    // Class for task (called taskings)
     public class taskings {
         private String summary; // Description of tasks
         private boolean completion; // To check if a task is or is not completed
