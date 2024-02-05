@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class Parser {
 
     /**
-     * Reads the user input, processes the command, and updates the task list.
+     * Reads the user input, processes the command, updates the task list, and returns a message.
      *
      * @param input   The user input command.
      * @param storage Storage object for writing tasks to a file.
@@ -17,33 +17,33 @@ public class Parser {
      * @return A message to be displayed to the user.
      */
     public static String generateReply(String input, Storage storage, TaskList tasks) {
-        String message = "Invalid command";
         try {
             if (input.equals("bye")) {
-                message = "Bye. Hope to see you again soon!";
+                return "Bye. Hope to see you again soon!";
             } else if (input.equals("list")) {
-                message = tasks.listTasks();
+                return tasks.listTasks();
             } else if (input.startsWith("mark")) {
-                message = tasks.mark(Parser.parseMark(input), storage);
+                return tasks.mark(Parser.parseMark(input), storage);
             } else if (input.startsWith("unmark")) {
-                message = tasks.unmark(Parser.parseUnmark(input), storage);
+                return tasks.unmark(Parser.parseUnmark(input), storage);
             } else if (input.startsWith("delete")) {
-                message = tasks.delete(Parser.parseDelete(input), storage);
+                return tasks.delete(Parser.parseDelete(input), storage);
             } else if (input.startsWith("todo")) {
-                message = tasks.updateTasks(Parser.parseToDo(input), storage);
+                return tasks.updateTasks(Parser.parseToDo(input), storage);
             } else if (input.startsWith("deadline")) {
-                message = tasks.updateTasks(Parser.parseDeadline(input), storage);
+                return tasks.updateTasks(Parser.parseDeadline(input), storage);
             } else if (input.startsWith("event")) {
-                message = tasks.updateTasks(Parser.parseEvent(input), storage);
+                return tasks.updateTasks(Parser.parseEvent(input), storage);
             } else if (input.startsWith("find")) {
-                message = tasks.find(Parser.parseFind(input));
+                return tasks.find(Parser.parseFind(input));
+            } else {
+                return "Invalid command";
             }
         } catch (WrongFormatException e) {
-            message = e.getMessage();
+            return e.getMessage();
         } catch (DateTimeParseException e) {
-            message = "Date time must be in this format: 28/01/2023 1800";
+            return  "Date time must be in this format: 28/01/2023 1800";
         }
-        return message;
     }
 
     /**
