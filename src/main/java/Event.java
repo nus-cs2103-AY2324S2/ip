@@ -3,11 +3,10 @@ public class Event extends Task {
     String end;
 
     public Event(String description, String start, String end, boolean isDone) {
-        super(description);
+        super(description, isDone);
         isEvent = true;
         this.start = start;
         this.end = end;
-        this.isDone = isDone;
     }
 
     public String getStart() {

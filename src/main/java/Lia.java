@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import java.time.format.DateTimeFormatter;
+
 public class Lia {
     private static final String FILE_NAME = "Lia.txt";
     private static final String FOLDER_NAME = "data";
@@ -22,6 +24,8 @@ public class Lia {
 
         System.out.println("Hello! I'm Lia :)");
         System.out.println("What can I do for you?");
+
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
         while (true) {
             String input = sc.nextLine();
@@ -41,7 +45,7 @@ public class Lia {
                         } else if (task instanceof Deadline) {
                             System.out.println(j + ". [" + task.getTaskIcon() + "]" +
                                     "[" + task.getStatusIcon() + "] " + task.description +
-                                    " (by: " + ((Deadline) task).date + ")");
+                                    " (by: " + ((Deadline) task).date.format(outputFormatter) + ")");
                         } else if (task instanceof Event) {
                             System.out.println(j + ". [" + task.getTaskIcon() + "]" +
                                     "[" + task.getStatusIcon() + "] " + task.description +
@@ -64,7 +68,7 @@ public class Lia {
                     } else if (task instanceof Deadline) {
                         System.out.println("[" + task.getTaskIcon() + "]" +
                                 "[" + task.getStatusIcon() + "] " + task.description +
-                                " (by: " + ((Deadline) task).date + ")");
+                                " (by: " + ((Deadline) task).date.format(outputFormatter) + ")");
                     } else if (task instanceof Event) {
                         System.out.println("[" + task.getTaskIcon() + "]" +
                                 "[" + task.getStatusIcon() + "] " + task.description +
@@ -86,7 +90,7 @@ public class Lia {
                     } else if (task instanceof Deadline) {
                         System.out.println("[" + task.getTaskIcon() + "]" +
                                 "[" + task.getStatusIcon() + "] " + task.description +
-                                " (by: " + ((Deadline) task).date + ")");
+                                " (by: " + ((Deadline) task).date.format(outputFormatter) + ")");
                     } else if (task instanceof Event) {
                         System.out.println("[" + task.getTaskIcon() + "]" +
                                 "[" + task.getStatusIcon() + "] " + task.description +
@@ -116,7 +120,7 @@ public class Lia {
                     Task deadlineTask = tasks.get(tasks.size() - 1);
                     System.out.println("[" + deadlineTask.getTaskIcon() + "]" +
                             "[" + deadlineTask.getStatusIcon() + "] " + deadlineTask.description +
-                            " (by: " + ((Deadline) deadlineTask).date + ")");
+                            " (by: " + ((Deadline) deadlineTask).date.format(outputFormatter) + ")");
                     System.out.println("You have " + tasks.size() + " task(s) in the list.");
                 } else if (input.startsWith("event")) {
                     String event = input.replaceFirst("event", "").split("/from")[0].trim();
@@ -150,7 +154,7 @@ public class Lia {
                     } else if (task instanceof Deadline) {
                         System.out.println("[" + task.getTaskIcon() + "]" +
                                 "[" + task.getStatusIcon() + "] " + task.description +
-                                " (by: " + ((Deadline) task).date + ")");
+                                " (by: " + ((Deadline) task).date.format(outputFormatter) + ")");
                     } else if (task instanceof Event) {
                         System.out.println("[" + task.getTaskIcon() + "]" +
                                 "[" + task.getStatusIcon() + "] " + task.description +
@@ -163,7 +167,7 @@ public class Lia {
                             "todo <task description>\n" +
                             "- Adds a task\n" +
                             "deadline <task description> /by <due by>\n" +
-                            "- Adds a task with a deadline\n" +
+                            "- Adds a task with a deadline (input date in yyyy-MM-dd format)\n" +
                             "event <event description> /from <starts at> to <ends at>\n" +
                             "- Adds an event\n" +
                             "mark <task number>\n" +
