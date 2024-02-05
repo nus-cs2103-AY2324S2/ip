@@ -223,72 +223,20 @@ public class Duke extends Application {
             }
         } catch (duke.DukeException e) {
             return e.getMessage();
+        } finally {
+            save();
         }
     }
 
     /**
-     * Runs the bot
+     * Saves the current tasks back to the file
      */
-//    public void run() {
-//
-//        ui.showWelcome();
-//        String input = ui.readCommand();
-//        while (true) {
-//            try {
-//                if (input.equals("bye")) {
-//                    break;
-//                }
-//                Command cmd = parser.parse(input);
-//                switch (cmd.type) {
-//                    case LIST:
-//                        ui.showTaskList(tasks.getTaskStrings());
-//                        break;
-//                    case MARK:
-//                        int toMark = Integer.parseInt(cmd.args[0]) - 1;
-//                        tasks.markTaskAsDone(toMark);
-//                        ui.showTaskMarked(tasks.getTask(toMark));
-//                        break;
-//                    case UNMARK:
-//                        int toUnmark = Integer.parseInt(cmd.args[0]) - 1;
-//                        tasks.markTaskAsUndone(toUnmark);
-//                        ui.showTaskUnmarked(tasks.getTask(toUnmark));
-//                        break;
-//                    case TODO:
-//                        Todo newTodo = createTodo(cmd.args[0]);
-//                        tasks.addTask(newTodo);
-//                        ui.showTaskAdded(newTodo, tasks.getSize());
-//                        break;
-//                    case DEADLINE:
-//                        Deadline newDeadline = createDeadline(cmd.args[0], cmd.args[1]);
-//                        tasks.addTask(newDeadline);
-//                        ui.showTaskAdded(newDeadline, tasks.getSize());
-//                        break;
-//                    case EVENT:
-//                        Event newEvent = createEvent(cmd.args[0], cmd.args[1], cmd.args[2]);
-//                        tasks.addTask(newEvent);
-//                        ui.showTaskAdded(newEvent, tasks.getSize());
-//                        //numList(duke.tasks.getSize());
-//                        break;
-//                    case DELETE:
-//                        Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
-//                        ui.showTaskDeleted(deletedTask, tasks.getSize());
-//                        break;
-//                    case FIND:
-//                        ui.showMatchingTasks(tasks.getMatchingTasks(cmd.args[0]));
-//                        break;
-//                    default:
-//                        throw new DukeException("Unknown command");
-//                }
-//                storage.updateFile(tasks.getFileStrings());
-//            } catch (duke.DukeException e) {
-//                ui.printLineBreak();
-//                System.out.println(e.getMessage());
-//            }
-//            ui.printLineBreak();
-//            input = ui.readCommand();
-//        }
-//        ui.showGoodbye();
-//    }
+    public void save() {
+        try {
+            storage.updateFile(tasks.getFileStrings());
+        } catch (DukeException e) {
+        }
+    }
 
     /**
      * Creates a LocalDateTime object from a string
