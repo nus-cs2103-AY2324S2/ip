@@ -40,6 +40,7 @@ public class TaskList {
      *
      * @param index Index of task as displayed.
      * @return Message stating the deleted task.
+     * @throws CommandException Exception indicating invalid command when passed index does not exist.
      */
     public String deleteTask(int index) throws CommandException {
         if (index <= 0 || index > this.taskList.size()) {
@@ -63,6 +64,7 @@ public class TaskList {
      *
      * @param index Index of task as displayed.
      * @return Task completion message.
+     * @throws CommandException Exception indicating invalid command when passed index does not exist.
      */
     public String markTask(int index) throws CommandException {
         if (index <= 0 || index > this.taskList.size()) {
@@ -78,6 +80,7 @@ public class TaskList {
      *
      * @param index Index of task as displayed.
      * @return Task incompletion message.
+     * @throws CommandException Exception indicating invalid command when passed index does not exist.
      */
     public String unmarkTask(int index) throws CommandException {
         if (index <= 0 || index > this.taskList.size()) {
