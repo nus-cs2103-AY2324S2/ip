@@ -1,34 +1,10 @@
-enum Task {
-    TODO("T") {
-        @Override
-        public String toString() {
-            return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask();
-        }
-    },
-    DEADLINE("D") {
-        @Override
-        public String toString() {
-            return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (by: " + getTo() + ")";
-        }
-    },
-    Event("E") {
-        @Override
-        public String toString() {
-            return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (from: " + getFrom() + " to:" + getTo() + ")";
-        }
-    };
-
+public abstract class Task {
     private String task;
     private boolean isDone;
-    private String icon;
-    private String to;
-    private String from;
-    Task(String icon) {
-        this.icon = icon;
+    private TaskType taskType;
+    Task(TaskType taskType, String task) {
+        this.taskType = taskType;
         this.isDone = false;
-    }
-
-    public void setTask(String task) {
         this.task = task;
     }
 
@@ -47,22 +23,6 @@ enum Task {
     }
 
     public String getIcon() {
-        return this.icon;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getTo() {
-        return this.to;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getFrom() {
-        return this.from;
+        return this.taskType.getIcon();
     }
 }

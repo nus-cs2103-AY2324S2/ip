@@ -1,12 +1,12 @@
 public class ByteTalkerException {
-    public static class TODONoTaskException extends Exception {
-        public TODONoTaskException(String errorMessage) {
+    public static class TodoNoTaskException extends Exception {
+        public TodoNoTaskException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class DEADLINEException extends Exception {
-        public DEADLINEException(String errorMessage) {
+    public static class DeadlineException extends Exception {
+        public DeadlineException(String errorMessage) {
             super(errorMessage);
         }
     }
