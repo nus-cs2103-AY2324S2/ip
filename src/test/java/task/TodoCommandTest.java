@@ -16,7 +16,7 @@ import ui.UiStub;
 public class TodoCommandTest {
 
     @Test
-    void execute_validMessage_success() throws TodoFormatException {
+    void execute_validMessage_success() {
         String todoMessage = "Buy groceries";
         TodoCommand todoCommand = new TodoCommand(todoMessage);
         TaskList taskList = new TaskList();
@@ -26,7 +26,7 @@ public class TodoCommandTest {
         assertDoesNotThrow(() -> todoCommand.execute(taskList, storageStub, uiStub));
         assertEquals(1, taskList.numTasks());
         assertTrue(storageStub.wasAppendToFileCalled());
-        assertTrue(uiStub.showToUserCalled);
+        assertTrue(uiStub.wasShowToUserCalled());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TodoCommandTest {
             assertEquals("Uncle also need to know the message!\n\tCorrect Usage: todo <message>",
                     exception.getMessage());
             assertFalse(storageStub.wasAppendToFileCalled());
-            assertFalse(uiStub.showToUserCalled);
+            assertFalse(uiStub.wasShowToUserCalled());
         }
     }
 }
