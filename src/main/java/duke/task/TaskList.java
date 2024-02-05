@@ -43,7 +43,15 @@ public class TaskList {
 
     public void list() {
         for (int i = 0; i < todo.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, todo.get(i));
+            System.out.printf("\t%d. %s", i + 1, todo.get(i));
+        }
+    }
+
+    public void find(String keyword) {
+        for (int i = 0; i < todo.size(); i++) {
+            if (todo.get(i).getName().contains(keyword)) {
+                System.out.printf("\t%d. %s", i + 1, todo.get(i));
+            }
         }
     }
 

@@ -35,6 +35,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
         String command;
+        String keyword;
         Task task;
         int idx;
         ui.welcome();
@@ -129,6 +130,16 @@ public class Duke {
                             System.out.println("\tNoted. I've removed this task:");
                             System.out.printf("\t\t%s\n", todo.deleteTask(idx));
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
+                            break;
+                        } catch (DukeException err) {
+                            System.out.println(err.getMessage());
+                            break;
+                        }
+                    case("find"):
+                        try {
+                            keyword = Parser.parse_find(input);
+                            System.out.println("\tHere are the matching tasks in your list:");
+                            todo.find(keyword);
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
