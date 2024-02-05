@@ -13,12 +13,23 @@ import shon.command.UnmarkCommand;
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
 
+/**
+ * Represents a Parser that makes sense of the user's inputs.
+ */
 public class Parser {
-
+    /** The allowed set of actions that the user can do */
     private enum Action {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
     }
 
+    /**
+     * Parses the user's input into a command with the appropriate parameters.
+     *
+     * @param input User's input.
+     * @return Command to be executed.
+     * @throws CommandException If given user input is empty, or a command not allowed in <code>Action</code>.
+     * @throws ParameterException If given parameters for that command is invalid.
+     */
     public static Command parse(String input) throws CommandException, ParameterException {
         Action action = Parser.getAction(input);
         switch (action) {
@@ -43,6 +54,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the type of action/command to take. Identified by the first word of user's input.
+     *
+     * @param input User's input.
+     * @return <code>Action</code> from the allowed set of actions.
+     * @throws CommandException If input is empty or not a command not allowed in <code>Action</code>.
+     */
     private static Action getAction(String input) throws CommandException {
         if (input.equals("")) {
             throw new CommandException("Please enter a command.");
@@ -55,6 +73,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the index for <code>mark</code>, <code>unmark</code> and <code>delete</code> command.
+     *
+     * @param input User's input.
+     * @return Index required for the action.
+     * @throws ParameterException If no index is entered, multiple indexes are entered, or the value entered
+     * is not a number.
+     */
     private static int getIdx(String input) throws ParameterException {
         String[] split = input.split(" ");
         if (split.length == 1) {
@@ -70,6 +96,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @param input User's input.
+     * @return Description of the task as a String.
+     * @throws ParameterException If the description is empty.
+     */
     private static String getDescription(String input) throws ParameterException {
         String[] split = input.split(" ", 2);
         if (split.length == 1) {
@@ -99,6 +132,14 @@ public class Parser {
         return description;
     }
 
+    /**
+     * Returns the by parameter for <code>deadline</code> command.
+     *
+     * @param input User's input.
+     * @return The by parameter as a String.
+     * @throws ParameterException If the input is a deadline command but <code>"/by"</code> is not found in the input,
+     * or if the given <code>/by</code> datetime is empty.
+     */
     private static String getBy(String input) throws ParameterException {
         if (!input.contains("/by")) {
             throw new ParameterException("Please indicate due date/time after \"/by\".");
@@ -110,6 +151,14 @@ public class Parser {
         return input.split("/by", 2)[1].strip();
     }
 
+    /**
+     * Returns the from parameter for <code>event</code> command.
+     *
+     * @param input User's input
+     * @return The from parameter as a String.
+     * @throws ParameterException If the input is an event command but <code>"/from"</code> is not found in the input,
+     * or if the given <code>/from</code> datetime is empty.
+     */
     private static String getFrom(String input)  throws ParameterException {
         if (!input.contains("/from")) {
             throw new ParameterException("Please indicate from date/time after \"/from\".");
@@ -133,6 +182,14 @@ public class Parser {
         return from;
     }
 
+    /**
+     * Returns the to parameter for <code>event</code> command.
+     *
+     * @param input User's input.
+     * @return The to parameter as a String.
+     * @throws ParameterException If the input is an event command but <code>"/to"</code> is not found in the input,
+     * or if the given <code>/to</code> datetime is empty.
+     */
     private static String getTo(String input) throws ParameterException {
         if (!input.contains("/to")) {
             throw new ParameterException("Please indicate to date/time after \"/to\".");
