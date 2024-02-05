@@ -3,12 +3,20 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.isDone = false;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getStatusAsNum() {
+        return (isDone ? "1" : "0"); // mark done task with X
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
