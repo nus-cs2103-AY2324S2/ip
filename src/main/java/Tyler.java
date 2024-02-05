@@ -1,10 +1,19 @@
-import java.util.*;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Tyler {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int curr = 0;
+    private static final String FILE_PATH = Paths.get(".",  "data", "Tyler.txt").toString();
 
-    public static void main(String[] args) throws EmptyNameException, UndefinedActionException, MarkNothingException {
+    public static void main(String[] args) throws IOException {
+        Tyler.loadTask();
         Tyler.greet();
         Scanner sc = new Scanner(System.in);
 
@@ -14,6 +23,7 @@ public class Tyler {
                   String input = sc.nextLine();
                   String[] arr = input.split(" ");
                   if (arr[0].equals("bye")) {
+                      Tyler.saveTask();
                       System.out.println("    Bye. Hope to see you again");
                       return ;
                   } else if (arr[0].equals("list")) {
@@ -64,8 +74,6 @@ public class Tyler {
                       String[] rest1 = input.split(" ", 2);
                       String[] rest2 = rest1[1].split(" /from ");
                       String[] rest3 = rest2[1].split(" /to ");
-                      //String start = sc.nextLine();
-                      //String end = sc.nextLine();
                       Task newTask = new Event(rest2[0], rest3[0], rest3[1]);
                       taskList.add(newTask);
                       System.out.println("    Got it! I've added this task:");
@@ -89,14 +97,9 @@ public class Tyler {
                       throw new UndefinedActionException();
                   }
                   System.out.println("    --------------------------------------------------");
-              } catch (MarkNothingException e) {
-                  System.out.println("    " + e.getMessage());
-              } catch (UndefinedActionException e) {
-                  System.out.println("    " + e.getMessage());
-              } catch (EmptyNameException e) {
+              } catch (MarkNothingException | UndefinedActionException | EmptyNameException e) {
                   System.out.println("    " + e.getMessage());
               }
-              continue;
           }
     }
 
@@ -115,5 +118,61 @@ public class Tyler {
         System.out.println("    What can I do for you?");
         System.out.println("    list, todo, deadline, event, mark, unmark, bye");
         System.out.println("    --------------------------------------------------");
+    }
+
+    public static void loadTask() throws IOException {
+        try {
+            File file = new File(FILE_PATH);
+            File parentD = file.getParentFile();
+            if (!parentD.exists()) {
+                parentD.mkdirs();
+            }
+            Scanner load = new Scanner(file);
+            while (load.hasNextLine()) {
+                String line = load.nextLine();
+                String[] input = line.split(" \\| ");
+                String type = input[0];
+                boolean isDone = input[1].equals("1");
+                if (type.equals("T")) {
+                    taskList.add(new Todo(input[2], isDone));
+                } else if (type.equals("D")) {
+                    taskList.add(new Deadline(input[2], input[3], isDone));
+                } else if (type.equals("E")) {
+                    taskList.add(new Event(input[2], input[3], input[4], isDone));
+                }
+                curr++;
+            }
+        } catch (FileNotFoundException e) {
+            File file = new File(FILE_PATH);
+            file.createNewFile();
+        }
+    }
+
+    public static String toFileString(Task task) {
+        String name = task.name;
+        boolean isDone = task.isDone;
+        int isDoned = isDone ? 1 : 0;
+        if (task instanceof Todo) {
+            return "T | " + isDoned + " | " + name;
+        } else if (task instanceof Deadline) {
+            Deadline dtask = (Deadline) task;
+            return "D | " + isDoned + " | " + name + " | " + dtask.end;
+        } else {
+            Event etask = (Event) task;
+            return "E | " + isDoned + " | " + name + " | " + etask.start + " | " + etask.end;
+        }
+    }
+
+    public static void saveTask() {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (Task task : taskList) {
+                bw.write(Tyler.toFileString(task));
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

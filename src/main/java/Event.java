@@ -1,11 +1,18 @@
 public class Event extends Task {
-    private String start;
-    private String end;
+    protected String start;
+    protected String end;
 
     public Event(String name, String start, String end) {
         super(name);
         this.start = start;
         this.end = end;
+    }
+
+    public Event(String name, String start, String end, boolean isDone) {
+        super(name);
+        this.start = start;
+        this.end = end;
+        this.isDone = isDone;
     }
 
     @Override
