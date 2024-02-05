@@ -51,16 +51,14 @@ public class Parser {
             output.add(parameter);
             return true;
         }
-        Ui.print("Parameter " + parameterName + " of " + command + " cannot be empty!\n");
-        return false;
+        throw new DudeParseException("Parameter " + parameterName + " of " + command + " cannot be empty!\n");
     }
 
     private static boolean checkFlagExists(
             ArrayList<String> output, String command, String parameterName, String parameter) {
         String[] parameterSplit = parameter.split(" ", 2);
         if (!parameterSplit[0].equals(parameterName)) {
-            Ui.print("Invalid flag name " + parameterName + " for command " + command + "\n");
-            return false;
+            throw new DudeParseException("Invalid flag name " + parameterName + " for command " + command + "\n");
         }
         String arg = parameterSplit.length > 1 ? parameterSplit[1] : "";
         return checkParameterExists(output, command, parameterName, arg);
@@ -70,9 +68,8 @@ public class Parser {
             ArrayList<String> output, String command, String[] parameterNames, String args) {
         String[] argsSplit = args.split("/");
         if (argsSplit.length != parameterNames.length) {
-            Ui.print("Invalid number of parameters for " + command + ", need to have: "
+            throw new DudeParseException("Invalid number of parameters for " + command + ", need to have: "
                     + Arrays.toString(parameterNames) + "\n");
-            return false;
         }
         if (!checkParameterExists(output, command, parameterNames[0], argsSplit[0])) {
             return false;
@@ -93,15 +90,13 @@ public class Parser {
                 if (isNumeric(parameters.get(i))) {
                     formattedParameters.add(Integer.parseInt(parameters.get(i)));
                 } else {
-                    Ui.print("Format of " + parameters.get(i) + " is not an integer\n");
-                    return false;
+                    throw new DudeParseException("Format of " + parameters.get(i) + " is not an integer\n");
                 }
             } else if (formats[i] == ParameterTypes.DATE) {
                 if (isDate(parameters.get(i))) {
                     formattedParameters.add(parameters.get(i).stripTrailing());
                 } else {
-                    Ui.print("Format of " + parameters.get(i) + " is not a date (yyyy-mm-dd)\n");
-                    return false;
+                    throw new DudeParseException("Format of " + parameters.get(i) + " is not a date (yyyy-mm-dd)\n");
                 }
             } else {
                 formattedParameters.add(parameters.get(i).stripTrailing());
@@ -119,7 +114,7 @@ public class Parser {
      * @param formats Array of ParameterTypes corresponding to the parameter names.
      * @return Whether command and arguments could be successfully parsed.
      */
-    public static boolean parse(
+    public static String parse(
             ArrayList<Object> formattedParameters,
             String command,
             String args,
@@ -127,9 +122,16 @@ public class Parser {
             ParameterTypes[] formats
     ) {
         ArrayList<String> parameters = new ArrayList<>();
-        if (!Parser.getParameters(parameters, command, parameterNames, args)) {
-            return false;
+        try {
+//            if (!Parser.getParameters(parameters, command, parameterNames, args)) {
+//                return false;
+//            }
+//            return Parser.formatParameters(formattedParameters, parameters, formats);
+            Parser.getParameters(parameters, command, parameterNames, args);
+            Parser.formatParameters(formattedParameters, parameters, formats);
+            return "success";
+        } catch (DudeParseException e) {
+            return e.getMessage();
         }
-        return Parser.formatParameters(formattedParameters, parameters, formats);
     }
 }

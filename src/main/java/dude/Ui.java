@@ -17,14 +17,14 @@ public class Ui {
     /**
      * Prints greeting text.
      */
-    public static void greeting() {
-        print("Hello! I'm Dude\nWhat can I do for you?\n");
+    public static String greeting() {
+        return "Hello! I'm Dude\nWhat can I do for you?\n";
     }
 
     /**
      * Prints goodbye text.
      */
-    public static void goodbye() {
-        print("Bye. Hope to see you again soon!\n");
+    public static String goodbye() {
+        return "Bye. Hope to see you again soon!\n";
     }
 }

@@ -21,116 +21,102 @@ import dude.task.Todo;
  * Dude - a Duke variant.
  */
 public class Dude {
+    private TaskList taskList;
+
     /**
-     * Runs the Dude program.
+     * Class constructor.
      */
-    public static void main(String[] args) {
-        Ui.greeting();
+    public Dude() {
+        taskList = new TaskList();
+    }
 
-        TaskList taskList = new TaskList();
-
-        Scanner scanner = new Scanner(System.in);
-        Application.launch(Gui.class, args);
-
-        loop:
-        while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-
-            String[] inputSplit = input.split(" ", 2);
-            String command = inputSplit[0];
-            String ipArgs = inputSplit.length > 1 ? inputSplit[1] : "";
-            ArrayList<Object> formattedParameters = new ArrayList<>();
-            switch (command) {
+    public String getResponse(String input) {
+        String[] inputSplit = input.split(" ", 2);
+        String command = inputSplit[0];
+        String ipArgs = inputSplit.length > 1 ? inputSplit[1] : "";
+        ArrayList<Object> formattedParameters = new ArrayList<>();
+        String parseResult;
+        switch (command) {
             case "bye":
-                break loop;
+                return Ui.goodbye();
             case "list":
-                taskList.list();
-                break;
+                return taskList.list();
             case "mark":
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"index"},
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER})
-                ) {
-                    continue;
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
-                taskList.mark((int) formattedParameters.get(0) - 1);
-                break;
+                return taskList.mark((int) formattedParameters.get(0) - 1);
             case "unmark":
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"index"},
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER})
-                ) {
-                    continue;
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
-                taskList.unmark((int) formattedParameters.get(0) - 1);
-                break;
+                return taskList.unmark((int) formattedParameters.get(0) - 1);
             case "delete":
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"index"},
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER})
-                ) {
-                    continue;
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
-                taskList.delete((int) formattedParameters.get(0) - 1);
-                break;
+                return taskList.delete((int) formattedParameters.get(0) - 1);
             case "find":
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"keyword"},
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING})
-                ) {
-                    continue;
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
-                taskList.find((String) formattedParameters.get(0));
-                break;
+                return taskList.find((String) formattedParameters.get(0));
             case "todo":
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"description"},
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING})
-                ) {
-                    continue;
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
                 Todo todo = new Todo((String) formattedParameters.get(0));
-                taskList.add(todo);
-                break;
+                return taskList.add(todo);
             case "deadline": {
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"description", "by"},
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE})
-                ) {
-                    continue;
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
                 Deadline deadline = new Deadline(
                         (String) formattedParameters.get(0),
                         (String) formattedParameters.get(1));
-                taskList.add(deadline);
-                break;
+                return taskList.add(deadline);
             }
             case "event": {
-                if (!Parser.parse(
+                parseResult = Parser.parse(
                         formattedParameters, command, ipArgs,
                         new String[]{"description", "from", "to"},
                         new Parser.ParameterTypes[]{
-                            Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE, Parser.ParameterTypes.DATE})
-                ) {
-                    continue;
+                                Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE, Parser.ParameterTypes.DATE});
+                if (parseResult != "success") {
+                    return parseResult;
                 }
                 Event event = new Event(
                         (String) formattedParameters.get(0),
                         (String) formattedParameters.get(1),
                         (String) formattedParameters.get(2));
-                taskList.add(event);
-                break;
+                return taskList.add(event);
             }
             default:
-                Ui.print("Unknown command detected!\n");
-            }
+                return "Unknown command detected!\n";
         }
-        Ui.goodbye();
     }
 }

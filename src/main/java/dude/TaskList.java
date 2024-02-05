@@ -29,55 +29,53 @@ public class TaskList {
      * Adds task to list.
      * @param task Task to be added to list.
      */
-    public void add(Task task) {
+    public String add(Task task) {
         storage.createRow(task);
         ArrayList<Task> tasks = storage.listRows();
-        Ui.print("Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
      * Lists the current tasks.
      */
-    public void list() {
+    public String list() {
         ArrayList<Task> tasks = storage.listRows();
         String listString = "";
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task task = tasks.get(i - 1);
             listString += i + "." + task + "\n";
         }
-        Ui.print(listString);
+        return listString;
     }
 
     /**
      * Marks task at index as done.
      * @param index Task index to be marked as done.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         ArrayList<Task> tasks = storage.listRows();
         if (index >= tasks.size() || index < 0) {
-            Ui.print("Invalid index range\n");
-            return;
+            return "Invalid index range\n";
         }
         Task task = tasks.get(index);
         task.mark();
         storage.createRows(tasks);
-        Ui.print("Nice! I've marked this task as done:\n" + task + "\n");
+        return "Nice! I've marked this task as done:\n" + task + "\n";
     }
 
     /**
      * Marks task at index as undone.
      * @param index Task index to be marked as undone.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         ArrayList<Task> tasks = storage.listRows();
         if (index >= tasks.size() || index < 0) {
-            Ui.print("Invalid index range\n");
-            return;
+            return "Invalid index range\n";
         }
         Task task = tasks.get(index);
         task.unmark();
         storage.createRows(tasks);
-        Ui.print("OK, I've marked this task as not done yet:\n" + task + "\n");
+        return "OK, I've marked this task as not done yet:\n" + task + "\n";
 
     }
 
@@ -85,23 +83,21 @@ public class TaskList {
      * Deletes task at index.
      * @param index Index at which task is removed.
      */
-    public void delete(int index) {
+    public String delete(int index) {
         ArrayList<Task> tasks = storage.listRows();
         if (index >= tasks.size() || index < 0) {
-            Ui.print("Invalid index range\n");
-            return;
+            return "Invalid index range\n";
         }
         Task task = tasks.remove(index);
         storage.createRows(tasks);
-        Ui.print(
-                "Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
      * Finds tasks based on search keyword.
      * @param keyword Keyword to search for.
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         ArrayList<Task> tasks = storage.listRows();
         String listString = "";
         int count = 1;
@@ -112,6 +108,6 @@ public class TaskList {
                 count++;
             }
         }
-        Ui.print("Here are the matching tasks in your list:\n" + listString);
+        return "Here are the matching tasks in your list:\n" + listString;
     }
 }
