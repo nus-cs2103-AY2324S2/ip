@@ -31,7 +31,7 @@ public class Bob {
                 }
             }
 
-            else if (input.trim().matches("mark|unmark|deadline|todo|event")) {
+            else if (input.trim().matches("mark|unmark|deadline|todo|event|delete")) {
                 System.out.println(" Your entry is incomplete!");
             }
 
@@ -97,6 +97,16 @@ public class Bob {
                 taskList.add(newTask);
                 System.out.println(" Got it. I've added this task:\n"
                         + "  " + newTask + "\n"
+                        + " Now you have " + taskList.size() + " tasks in the list.");
+            }
+
+            else if (input.startsWith("delete ")) {
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                Task task = taskList.get(index);
+                taskList.remove(index);
+
+                System.out.println(" Noted. I've removed this task:\n"
+                        + "  " + task + "\n"
                         + " Now you have " + taskList.size() + " tasks in the list.");
             }
 
