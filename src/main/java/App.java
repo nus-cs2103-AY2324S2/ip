@@ -1,5 +1,3 @@
-import exception.InvalidCommandException;
-
 public class App {
     private static Nihao nihao = Nihao.instance;
 

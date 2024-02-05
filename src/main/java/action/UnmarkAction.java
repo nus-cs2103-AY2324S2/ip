@@ -1,6 +1,6 @@
 package action;
 import action.task.Task;
-import exception.InvalidCommandException;
+import exception.IndexOutOfBoundsException;
 import handler.DataHandler;
 import handler.PrintHandler;
 
@@ -10,7 +10,7 @@ public class UnmarkAction implements Action{
         this.index = Integer.parseInt(index);
     }
     @Override
-    public void execute() throws InvalidCommandException {
+    public void execute() throws IndexOutOfBoundsException {
         DataHandler.instance.unmarkTask(index);
         Task task = DataHandler.instance.getTask(index);
         PrintHandler.instance.printWithDivider("Fine. I've marked this as uncompleted:\n" +

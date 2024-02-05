@@ -23,7 +23,7 @@ public final class PrintHandler {
     }
 
     public void printException(Exception e) {
-        System.out.println("Exception: " + e.getMessage());
+        System.out.println(e.getMessage());
         System.out.println(DIVIDER);
     }
 

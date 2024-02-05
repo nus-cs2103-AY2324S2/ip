@@ -2,6 +2,8 @@ hello
 mark 2
 list
 deadline finish homework /by tomorrow
+deadline finish homework /by yesterday
+deadline finish homework /by
 event concert /from tomorrow 2200 /to tomorrow 2300
 mark 2 3
 mark 2

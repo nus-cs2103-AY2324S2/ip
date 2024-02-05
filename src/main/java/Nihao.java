@@ -1,9 +1,10 @@
 import action.Action;
-import exception.InvalidCommandException;
 import handler.DataHandler;
 import handler.InputHandler;
 import handler.PrintHandler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public final class Nihao {
@@ -33,22 +34,26 @@ public final class Nihao {
         printHandler.printWithDivider(LOGO);
         printHandler.printWithDivider(GREETINGS);
 
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                printHandler.printWithDivider(GOODBYE);
-                break;
-            }
+        File myInput = new File("text-ui-test/input.txt");
+        try {
+            Scanner scanner = new Scanner(myInput);
+            while (true) {
+                String input = scanner.nextLine();
+                if (input.equals("bye")) {
+                    printHandler.printWithDivider(GOODBYE);
+                    break;
+                }
 
-            try {
-                Action action = inputHandler.handleInput(input);
-                action.execute();
-            } catch (InvalidCommandException e) {
-                printHandler.printException(e);
+                try {
+                    Action action = inputHandler.handleInput(input);
+                    action.execute();
+                } catch (Exception e) {
+                    printHandler.printException(e);
+                }
             }
-
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            printHandler.printWithDivider("File not found");
         }
-        scanner.close();
     }
 }

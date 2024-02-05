@@ -1,7 +1,7 @@
 package handler;
 
 import action.task.Task;
-import exception.InvalidCommandException;
+import exception.IndexOutOfBoundsException;
 
 import java.util.Arrays;
 
@@ -18,16 +18,16 @@ public class DataHandler {
         // Todo: Exception handling
     }
 
-    public void markTask(int index) throws InvalidCommandException {
+    public void markTask(int index) throws IndexOutOfBoundsException {
         if (index > DataHandler.index || index <= 0) {
-            throw new InvalidCommandException("Index out of bound");
+            throw new IndexOutOfBoundsException(index, DataHandler.index);
         }
         tasks[index - 1].mark();
     }
 
-    public void unmarkTask(int index) throws InvalidCommandException {
+    public void unmarkTask(int index) throws IndexOutOfBoundsException {
         if (index > DataHandler.index || index <= 0) {
-            throw new InvalidCommandException("Index out of bound");
+            throw new IndexOutOfBoundsException(index, DataHandler.index);
         }
         tasks[index - 1].unmark();
     }
