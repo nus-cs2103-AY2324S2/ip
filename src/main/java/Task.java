@@ -34,4 +34,14 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    /**
+     * Returns a string representation of the task for storing in a file.
+     * The format of the string depends on the specific task type.
+     *
+     * @return A string representation of the task in a file-compatible format.
+     */
+    public String toFileString() {
+        return "";
+    }
 }

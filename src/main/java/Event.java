@@ -24,4 +24,8 @@ public class Event extends Task {
         return "[E] " + super.getStatusIcon() + " " + description + " (from: " + start + " to: " + end + ")";
     }
 
+    @Override
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " | " + end;
+    }
 }
