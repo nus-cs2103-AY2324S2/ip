@@ -33,6 +33,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "blawg.jar"
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
