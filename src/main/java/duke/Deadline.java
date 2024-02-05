@@ -32,7 +32,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
+        return "D | " + super.toString() + " | "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 
     /**
@@ -62,6 +63,7 @@ public class Deadline extends Task {
      * @return A string representation of the task that can be written to a file.
      */
     public String toFileString() {
-        return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        return "D | " + super.toString() + " | "
+                + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }

@@ -3,6 +3,7 @@ package duke;
 /**
  * The Task class represents a task with a description and a completion status.
  */
+
 public class Task {
     private String description;
     private boolean isDone;
