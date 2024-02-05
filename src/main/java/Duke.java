@@ -100,7 +100,6 @@ public class Duke {
                             + System.lineSeparator());
                 }
             }
-            System.out.println("Save file created");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
