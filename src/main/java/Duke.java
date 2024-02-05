@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -16,12 +17,12 @@ public class Duke {
     }
 
     // to list the tasks
-    public static void listTasks(Task[] taskList, int count) {
+    public static void listTasks(ArrayList<Task> taskList, int count) {
         System.out.print("____________________________________________________________\r\n");
         System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < count; i++ ) {
+        for (int i = 0; i < taskList.size(); i++ ) {
             int number = i + 1;
-            String result = "   " + number + ". " + taskList[i].toString();
+            String result = "   " + number + ". " + taskList.get(i);
             System.out.println(result);
         }
         System.out.println("____________________________________________________________\r\n");
@@ -77,7 +78,7 @@ public class Duke {
         System.out.println(introMessage());
         Scanner sc = new Scanner(System.in);
         String userInput;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int count = 0;
 
         try {
@@ -100,36 +101,36 @@ public class Duke {
                     listTasks(tasks, count);
                 } else if (isTodo || isEvent || isDeadline) {
                     if (isTodo) {
-                        tasks[count] = new Todo(userInputArray[1], false);
+                        tasks.add(new Todo(userInputArray[1], false));
                         count++;
-                        System.out.println(addComment(tasks[count - 1], count));
+                        System.out.println(addComment(tasks.get(count - 1), count));
                     }
                     if (isEvent) {
                         String task = getTask(userInput);
                         int index = userInput.indexOf("/");
                         String when = replacer(userInput).substring(index);
-                        tasks[count] = new Event(task, false, when);
+                        tasks.add(new Event(task, false, when));
                         count++;
-                        System.out.println(addComment(tasks[count-1], count));
+                        System.out.println(addComment(tasks.get(count - 1), count));
                     }
                     if (isDeadline) {
                         int index = userInput.indexOf("/");
                         String when = userInput.substring(index + 3);
                         String task = getTask(userInput);
-                        tasks[count] = new Deadline(task, false, when);
+                        tasks.add(new Deadline(task, false, when));
                         count++;
-                        System.out.println(addComment(tasks[count-1], count));
+                        System.out.println(addComment(tasks.get(count - 1), count));
                     }
 
                 } else if (isMark || isUnmark) {
                     if (isMark) {
                         int lastNumber = Character.getNumericValue(lastChar);
-                        tasks[lastNumber-1].finishTask();
-                        System.out.println(markMessage(tasks[lastNumber - 1]));
+                        tasks.get(lastNumber - 1).finishTask();
+                        System.out.println(markMessage(tasks.get(lastNumber - 1)));
                     } else {
                         int lastNumber = Character.getNumericValue(lastChar);
-                        tasks[lastNumber-1].redoTask();
-                        System.out.println(markMessage(tasks[lastNumber - 1]));
+                        tasks.get(lastNumber - 1).redoTask();
+                        System.out.println(markMessage(tasks.get(lastNumber - 1)));
                     }
                 } else {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
