@@ -7,12 +7,24 @@ import eggy.storage.Storage;
 import eggy.task.TaskList;
 import eggy.ui.Ui;
 
+/**
+ * The main class of Eggy chatbot.
+ */
 public class Eggy {
+    /** The name of the chatbot. */
     public final String NAME = "Eggy";
+    /** The user interface of the chatbot. */
     private final Ui ui;
+    /** The storage of the chatbot. */
     private final Storage storage;
+    /** The task list of the chatbot. */
     private TaskList tasks;
 
+    /**
+     * Constructs an Eggy chatbot with the given storage path.
+     *
+     * @param filePath The file path of the storage.
+     */
     public Eggy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +36,9 @@ public class Eggy {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.printWelcome(this.NAME);
         boolean isExit = false;
@@ -42,6 +57,11 @@ public class Eggy {
         }
     }
 
+    /**
+     * The main method of the chatbot.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Eggy("data/tasks.txt").run();
     }
