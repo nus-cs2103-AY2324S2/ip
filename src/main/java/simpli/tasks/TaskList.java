@@ -44,19 +44,6 @@ public class TaskList {
         return removedTask;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder strItems = new StringBuilder();
-        for (int i = 0; i < tasks.size() - 1; i++) {
-            strItems.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
-        }
-        if (!tasks.isEmpty()) {
-            strItems.append(String.format("%d. %s", tasks.size(), tasks.get(tasks.size() - 1)));
-        }
-
-        return strItems.toString();
-    }
-
     public Task getTask(int taskNum) {
         return this.tasks.get(taskNum - 1);
     }
@@ -69,4 +56,20 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Returns the task list String representation.
+     * @return String representation of the task list.
+     */
+    @Override
+    public String toString() {
+        StringBuilder strItems = new StringBuilder();
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            strItems.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
+        }
+        if (!tasks.isEmpty()) {
+            strItems.append(String.format("%d. %s", tasks.size(), tasks.get(tasks.size() - 1)));
+        }
+
+        return strItems.toString();
+    }
 }

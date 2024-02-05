@@ -12,6 +12,9 @@ import simpli.parser.Parser;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main chatbot.
+ */
 public class Simpli {
     private Ui ui;
     private TaskList taskList;
@@ -19,6 +22,9 @@ public class Simpli {
     private Interpreter intrpr;
     private Storage storage;
 
+    /**
+     * Initializes the chatbot and its components.
+     */
     public Simpli() {
         this.ui = new Ui();
         this.taskList = new TaskList();
@@ -27,6 +33,9 @@ public class Simpli {
         this.storage = new Storage(parser, intrpr, taskList);
     }
 
+    /**
+     * Starts running the chatbot.
+     */
     public void start() {
         // welcome message
         greet();
@@ -70,6 +79,9 @@ public class Simpli {
         bye();
     }
 
+    /**
+     * Prints a greeting message.
+     */
     public void greet() {
         ui.display(
                 "Hello! I'm SIMP-LI\n" +
@@ -77,10 +89,18 @@ public class Simpli {
         );
     }
 
+    /**
+     * Prints a goodbye message.
+     */
     public void bye() {
         ui.display("Bye. Hope to simp for you again soon!");
     }
 
+    /**
+     * Returns the chatbot String representation.
+     *
+     * @return String representation of the chatbot.
+     */
     @Override
     public String toString() {
         return "SIMP-LI";

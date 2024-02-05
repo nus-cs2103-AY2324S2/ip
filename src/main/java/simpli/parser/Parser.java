@@ -6,15 +6,29 @@ import simpli.exceptions.TaskException;
 
 import java.util.Arrays;
 
+/**
+ * Parses various strings into an array of tokens.
+ */
 public final class Parser {
-    /* tokens index information
+    /**
+     * The maximum number of tokens allowed.
+     *
+     * Token index information:
      * 0 - command
      * 1 - isDone
      * 2 - taskName or taskNum (Mark, Unmark, Delete or Todo, Deadline, Event)
      * 3 - dueDate or fromDate (Deadline or Event task)
-     * 4 - toDate (Event task) */
+     * 4 - toDate (Event task)
+     * */
     private static final int MAX_TOKENS = 5;
 
+    /**
+     * Parses and breaks down the content String into tokens.
+     *
+     * @param content A command String.
+     * @return An Array of tokens.
+     * @throws ActionException if there are unknown tokens or invalid commands.
+     */
     public String[] parseCommand(String content) throws ActionException {
         String[] parsedTokens = new String[MAX_TOKENS];
         Arrays.fill(parsedTokens, "");
@@ -44,6 +58,12 @@ public final class Parser {
         return parsedTokens;
     }
 
+    /**
+     * Checks if command is valid.
+     *
+     * @param tokens An Array of tokens.
+     * @return true if command is valid, false if otherwise.
+     */
     public boolean isValidCommand(String[] tokens) {
         try {
             Action actionType = Action.valueOf(tokens[0].toUpperCase());
@@ -53,6 +73,12 @@ public final class Parser {
         return true;
     }
 
+    /**
+     * Parses and breaks down string of comma-separated values (csv) into tokens.
+     *
+     * @param csv comma-separated values.
+     * @return An Array of token.
+     */
     public String[] parseCsv(String csv) {
         String[] parsedTokens = new String[MAX_TOKENS];
         Arrays.fill(parsedTokens, "");

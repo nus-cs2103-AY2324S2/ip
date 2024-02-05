@@ -12,15 +12,31 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * Interpret and executes the tokens.
+ */
 public class Interpreter {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Initializes the interpreter with the specified ui object and taskList.
+     *
+     * @param ui
+     * @param taskList
+     */
     public Interpreter(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;
     }
 
+    /**
+     * Interprets and executes the specified actions.
+     *
+     * @param tokens Array of token.
+     * @throws ActionException When no such action exists.
+     * @throws TaskException When task have invalid parameters.
+     */
     public void interpret(String[] tokens) throws ActionException, TaskException {
         // interpret the string date and time as LocalDateTime object
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
