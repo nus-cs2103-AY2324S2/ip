@@ -28,4 +28,8 @@ public class Parser {
         String to = split[2].split("to ")[1];
         return new String[] { description, from, to };
     }
+
+    public String[] parseDeadlineFromStorage(String input) {
+        return input.split(" \\| ", 4);
+    }
 }
