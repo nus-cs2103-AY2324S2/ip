@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Asher {
     private static List<Task> tasks = new ArrayList<>();
@@ -54,16 +56,26 @@ public class Asher {
             if (isCompleted) {
                 todo.markDone();
             } task = todo;
-        } else if (type.equals("D") && splitParts.length == 4) {
-            String dueDate = splitParts[3];
-            Deadline deadline = new Deadline(description, dueDate);
+        } else if (type.equals("D") && splitParts.length == 5) {
+            String date = splitParts[3];
+            LocalDate dueDate = LocalDate.parse(date);
+            String dueTimeInString = splitParts[4];
+            LocalTime dueTime = LocalTime.parse(dueTimeInString);
+            Deadline deadline = new Deadline(description, dueDate, dueTime);
             if (isCompleted) {
                 deadline.markDone();
             } task = deadline;
-        } else if (type.equals("E") && splitParts.length == 5) {
-            String start = splitParts[3];
-            String end = splitParts[4];
-            Event event = new Event(description, start, end);
+        } else if (type.equals("E") && splitParts.length == 7) {
+            String startDateInString = splitParts[3];
+            LocalDate startDate = LocalDate.parse(startDateInString);
+            String startTimeInString = splitParts[4];
+            LocalTime startTime = LocalTime.parse(startTimeInString);
+
+            String endDateInString = splitParts[5];
+            LocalDate endDate = LocalDate.parse(endDateInString);
+            String endTimeInString = splitParts[6];
+            LocalTime endTime = LocalTime.parse(endTimeInString);
+            Event event = new Event(description, startDate, startTime, endDate, endTime);
             if (isCompleted) {
                 event.markDone();
             } task = event;
@@ -143,17 +155,24 @@ public class Asher {
         String description = command.substring(9, split).trim();
         String deadline = command.substring(split + 4).trim();
 
+        // split the deadline into date and time?
+        String[] deadlineParts = deadline.split(" ", 2);
+        String dueDateInString = deadlineParts[0].trim();
+        String dueTimeInString = deadlineParts[1].trim();
+        LocalDate dueDate = LocalDate.parse(dueDateInString);
+        LocalTime dueTime = LocalTime.parse(dueTimeInString);
+
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new BotException("Description and deadline cannot be empty!");
         }
-        return new Deadline(description, deadline);
+        return new Deadline(description, dueDate, dueTime);
     }
 
     private static Event createEvent(String command) throws BotException {
         int split1 = command.indexOf("/from");
         int split2 = command.indexOf("/to");
         if (split1 == -1 || split2 == -1) {
-            throw new BotException("Start and end time not found!");
+            throw new BotException("Start and End time not found!");
         }
 
         if (split2 + 4 >= command.length()) {
@@ -161,14 +180,30 @@ public class Asher {
         }
 
         String description = command.substring(6, split1).trim();
-        String startDate = command.substring(split1 + 6, split2).trim();
-        String deadline = command.substring(split2 + 4).trim();
 
-        if (description.isEmpty() || startDate.isEmpty() || deadline.isEmpty()) {
-            throw new BotException("Description, start time and end time not found!");
+        String start = command.substring(split1 + 6, split2).trim();
+        String[] startParts = start.split(" ", 2);
+        String startDateInString = startParts[0].trim();
+        LocalDate startDate = LocalDate.parse(startDateInString);
+        String startTimeInString = startParts[1].trim();
+        LocalTime startTime = LocalTime.parse(startTimeInString);
+
+        String end = command.substring(split2 + 4).trim();
+        String[] endParts = end.split(" ", 2);
+        String endDateInString = endParts[0].trim();
+        LocalDate endDate = LocalDate.parse(endDateInString);
+        String endTimeInString = endParts[1].trim();
+        LocalTime endTime = LocalTime.parse(endTimeInString);
+
+        if ((endDate.isBefore(startDate)) || (endTime.isBefore(startTime))) {
+            throw new BotException("Start Date/Time is after End Date/Time!");
         }
 
-        return new Event(description, startDate, deadline);
+        if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
+            throw new BotException("Description, StartTiming or EndTiming not found!");
+        }
+
+        return new Event(description, startDate, startTime, endDate, endTime);
     }
 
     private static int getTaskNumber(String task) {
