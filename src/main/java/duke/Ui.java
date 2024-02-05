@@ -1,3 +1,7 @@
+package duke;
+
+import duke.Task;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;

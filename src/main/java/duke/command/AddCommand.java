@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.*;
+import duke.command.Command;
+
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
@@ -37,7 +42,7 @@ public class AddCommand extends Command {
         }
     }
 
-    public static void processToDos(String description, ArrayList<Task> task) throws ToDosException{
+    public static void processToDos(String description, ArrayList<Task> task) throws ToDosException {
         if (description.isEmpty()) {
             throw new ToDosException("What todos do you need to record?");
         }
@@ -49,7 +54,7 @@ public class AddCommand extends Command {
         System.out.println("Now you have " + length + " tasks in the list.");
     }
 
-    public static void processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException{
+    public static void processDeadline(String description, ArrayList<Task> task) throws DeadlineException, DateException {
         if (description.isEmpty()) {
             throw new DeadlineException("What deadline do you need to record?");
         }
@@ -71,7 +76,7 @@ public class AddCommand extends Command {
         System.out.println("Now you have " + length + " tasks in the list.");
     }
 
-    public static void processEvents(String description, ArrayList<Task> task) throws EventException, DateException{
+    public static void processEvents(String description, ArrayList<Task> task) throws EventException, DateException {
         if (description.isEmpty()) {
             throw new EventException("What event do you need to record?");
         }
