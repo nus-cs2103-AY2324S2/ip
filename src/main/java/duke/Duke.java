@@ -1,5 +1,6 @@
 package duke;
 
+import duke.Ui.Ui;
 import duke.command.Command;
 import duke.exceptions.ChatException;
 

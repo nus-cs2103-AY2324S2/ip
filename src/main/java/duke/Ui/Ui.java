@@ -1,4 +1,4 @@
-package duke;
+package duke.Ui;
 
 import java.util.Scanner;
 
