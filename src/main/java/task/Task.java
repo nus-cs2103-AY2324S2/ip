@@ -52,20 +52,10 @@ public class Task {
         return isDone;
     }
 
-    /**
-     * Sets a new description for the task.
-     *
-     * @param description The new description for the task.
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
-     * Gets the description of the task.
-     *
-     * @return The description of the task.
-     */
     public String getDescription() {
         return this.description;
     }
@@ -76,7 +66,7 @@ public class Task {
      * @return The string "task.Task" representing the type of the task.
      */
     public String getType() {
-        return "task.Task";
+        return "Task";
     }
 
     /**
