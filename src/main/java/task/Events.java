@@ -1,5 +1,12 @@
 package task;
 
+/**
+ * The Events class represents a task with a specific start and end time in the Roland task management application.
+ * It extends the Task class and includes additional information about the event duration.
+ *
+ * @author wolffe88
+ */
+
 public class Events extends Task {
 
     protected String from;
@@ -27,6 +34,6 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from  + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

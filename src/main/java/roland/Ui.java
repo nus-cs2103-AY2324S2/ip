@@ -2,6 +2,13 @@ package roland;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class represents the user interface for the Roland task management application.
+ * It provides methods for displaying messages, reading user input, and showing errors.
+ *
+ * @author wolffe88
+ */
+
 public class Ui {
 
     private final String bot = "[ROLAND ⌐■-■] ";
@@ -12,8 +19,7 @@ public class Ui {
      */
     public void boot() {
         this.spacer();
-        String logo
-                = "██████╗  ██████╗ ██╗      █████╗ ███╗   ██╗██████╗\n"
+        String logo = "██████╗  ██████╗ ██╗      █████╗ ███╗   ██╗██████╗\n"
                 + "██╔══██╗██╔═══██╗██║     ██╔══██╗████╗  ██║██╔══██╗\n"
                 + "██████╔╝██║   ██║██║     ███████║██╔██╗ ██║██║  ██║\n"
                 + "██╔══██╗██║   ██║██║     ██╔══██║██║╚██╗██║██║  ██║\n"

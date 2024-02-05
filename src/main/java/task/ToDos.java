@@ -1,5 +1,11 @@
 package task;
 
+/**
+ * The ToDos class represents a simple to-do task in the Roland task management application.
+ * It extends the Task class and does not include any additional information.
+ *
+ * @author wolffe88
+ */
 
 public class ToDos extends Task {
 

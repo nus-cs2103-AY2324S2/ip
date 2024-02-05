@@ -2,6 +2,13 @@ package task;
 
 import java.io.Serializable;
 
+/**
+ * The Task class represents a basic task in the Roland task management application.
+ * It includes information about the task's description and completion status.
+ *
+ * @author wolffe88
+ */
+
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;

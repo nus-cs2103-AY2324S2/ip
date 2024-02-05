@@ -1,14 +1,24 @@
 package command;
 
 import roland.Storage;
-import task.Task;
 import roland.TaskList;
 import roland.Ui;
+import task.Task;
+
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+/**
+ * The DeleteCommand class represents a command to delete a task from the TaskList based on its index.
+ * It extends the Command class and implements the execute method to perform the deletion of the specified task.
+ * Upon execution, it removes the task from the TaskList, updates the user interface, and provides feedback
+ * about the successful removal, including the total number of tasks in the list.
+ *
+ * @author wolffe88
+ */
 
 public class DeleteCommand extends Command {
 
@@ -31,9 +41,10 @@ public class DeleteCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(index - 1);
-        tasks.remove(index-1);
+        tasks.remove(index - 1);
         serializeArrayList(tasks.getList(), storage.getFilePath());
-        System.out.println(ui.getBot() + "I have removed " + task.toString() + " from your list. You have " + tasks.size() + " task(s) in list");
+        System.out.println(ui.getBot() + "I have removed " + task.toString()
+                + " from your list. You have " + tasks.size() + " task(s) in list");
     }
 
     /**
