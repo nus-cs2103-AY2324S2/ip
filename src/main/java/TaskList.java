@@ -25,10 +25,9 @@ public class TaskList {
     }
 
     /**
-     * Returns the tasks. Meant to be only used by Storage to save this data
+     * Returns the tasks as an Iterator to prevent modification. Meant to be only used by Storage to save this data
      */
     public Iterator<Task> getTasks() {
-
         return this.tasks.iterator();
     }
 

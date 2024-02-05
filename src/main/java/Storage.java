@@ -36,12 +36,16 @@ public class Storage {
      * Creates one if it does not exist yet.
      */
     void saveToFile(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        // Loops through taskList, appends them to string with the specified format
+        tasks.getTasks().forEachRemaining(
+                task -> {
+                    String parsedTask = task.parsedFormatToSave();
+                    sb.append(parsedTask).append('\n');
+                }
+        );
         try {
-            // Loops through taskList, writes them to the file with the specified format
-            for (Task task: tasks.getTasks()) {
-                String parsedTask = task.parsedFormatToSave();
-                this.fileWriter.write(parsedTask + '\n');
-            }
+            this.fileWriter.write(sb.toString());
             this.fileWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
