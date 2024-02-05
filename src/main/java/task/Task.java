@@ -17,6 +17,16 @@ public class Task {
     }
 
     /**
+     * Returns a Task object to see if it is already done or not
+     *
+     * @param description
+     * @param isDone
+     */
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+    /**
      * Returns a string value of the Task's status of whether it is done or not
      */
     public String getStatusIcon() {
@@ -50,5 +60,12 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon()+ "] " + this.description;
+    }
+
+    /**
+     * Returns a String value of data to be saved to duke.txt
+     */
+    public String toDataFormat() {
+        return "";
     }
 }

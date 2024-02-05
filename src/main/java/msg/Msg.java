@@ -35,6 +35,12 @@ public class Msg {
     }
 
     /**
+     * Prints text to terminal
+     */
+    public void print() {
+        System.out.println(this.text);
+    }
+    /**
      * Returns string value of message object, which is just the text
      */
     @Override

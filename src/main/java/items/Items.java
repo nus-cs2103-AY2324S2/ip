@@ -1,8 +1,13 @@
 package items;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import handler.DataHandler;
 import msg.StdMsgs;
 import task.Task;
 import msg.Msg;
+
+import javax.xml.crypto.Data;
 
 /**
  * The items class is a representation of a list of tasks that is able to add, delete, mark and unmark tasks on that
@@ -21,13 +26,17 @@ public class Items {
      *
      * @param item
      */
-    public void add(Task item) {
+    public void add(Task item) throws IOException {
         this.item_list.add(item);
         item_count += 1;
         // ack msg
-        System.out.println(new Msg("Got it. I've added this task:", false));
-        System.out.println(item);
-        System.out.println(new Msg(String.format("Now you have %d tasks in the list.", this.item_count)));
+        new Msg(
+                "Got it. I've added this task:\n" +
+                        item +
+                        "\n" +
+                        String.format("Now you have %d tasks in the list.", this.item_count)
+        ).print();
+        DataHandler.overWriteItems(this.toDataFormat());
     }
 
     /**
@@ -35,10 +44,11 @@ public class Items {
      *
      * @param i
      */
-    public void mark(int i) {
+    public void mark(int i) throws IOException {
         this.item_list.get(i - 1).markAsDone();
-        System.out.println(StdMsgs.MARK);
-        System.out.println(new Msg(this.item_list.get(i - 1).toString()));
+        StdMsgs.MARK.print();
+        new Msg(this.item_list.get(i - 1).toString()).print();
+        DataHandler.overWriteItems(this.toDataFormat());
     }
 
     /**
@@ -46,10 +56,11 @@ public class Items {
      *
      * @param i
      */
-    public void unmark(int i) {
+    public void unmark(int i) throws IOException {
         this.item_list.get(i - 1).unMarkAsDone();
-        System.out.println(StdMsgs.UNMARK);
-        System.out.println(new Msg(this.item_list.get(i - 1).toString()));
+        StdMsgs.UNMARK.print();
+        new Msg(this.item_list.get(i - 1).toString()).print();
+        DataHandler.overWriteItems(this.toDataFormat());
     }
 
     /**
@@ -57,16 +68,22 @@ public class Items {
      *
      * @param i
      */
-    public void delete(int i) {
+    public void delete(int i) throws IOException {
         // exception handling when item_list is empty or invalid index is required
         Task temp = this.item_list.get(i - 1);
         this.item_list.remove(i - 1);
         this.item_count -= 1;
-        System.out.println(new Msg("Got it. I've deleted this task:", false));
-        System.out.println(temp);
-        System.out.println(new Msg(String.format("Now you have %d tasks in the list.", this.item_count)));
+        new Msg(
+                "Got it. I've deleted this task:\n" +
+                        temp +
+                        "\n" +
+                        String.format("Now you have %d tasks in the list.", this.item_count)
+        ).print();
+        DataHandler.overWriteItems(this.toDataFormat());
     }
-
+    public Msg toMsg() {
+        return new Msg(this.toString());
+    }
     /**
      * Prints the list of tasks
      *
@@ -75,10 +92,21 @@ public class Items {
     public String toString() {
         StringBuilder text = new StringBuilder("");
         if (item_count == 0) {
-            return "Sorry Sir/Mdm, it looks as though you hav yet to add any tasks";
+            return "Sorry Sir/Mdm, it looks as though you have yet to add any tasks";
         }
         for (int i = 0;i < item_count; i++) {
             text.append(String.format("%d. %s \n", i + 1, this.item_list.get(i)));
+        }
+        return text.toString();
+    }
+
+    public String toDataFormat() {
+        StringBuilder text = new StringBuilder("");
+        if (item_count == 0) {
+            return "Sorry Sir/Mdm, it looks as though you have yet to add any tasks";
+        }
+        for (int i = 0; i < item_count; i++) {
+            text.append(String.format("%s\n", this.item_list.get(i).toDataFormat()));
         }
         return text.toString();
     }

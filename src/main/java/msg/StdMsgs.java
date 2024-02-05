@@ -18,12 +18,14 @@ public enum StdMsgs {
     UNMARK(new Msg("OK, I've marked this task as not done yet:", false));
 
 
-    /** Every Std_Msgs is of the message class */
+    /** Every Std_Msgs has a message class */
     private Msg msg;
     StdMsgs(Msg msg){
         this.msg = msg;
     }
-
+    public void print() {
+        this.msg.print();
+    }
     /**
      * Returns the message in StdMsgs is a message
      */

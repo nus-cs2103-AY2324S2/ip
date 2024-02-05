@@ -15,12 +15,25 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, Boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
     /**
      * Return the String text that displays the task , when it ends by and with
      * the relevant tag
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toDataFormat() {
+        String isDone = this.isDone ? "1 | " : "0 | ";
+        return "D | " + isDone + this.description + " | " + this.by;
     }
 }
