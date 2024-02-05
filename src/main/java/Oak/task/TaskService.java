@@ -213,6 +213,12 @@ public class TaskService {
         return returnVal.toString();
     }
 
+    /**
+     * Find all tasks with names that match the `matchingValue`
+     *
+     * @param matchingValue
+     * @return All the tasks matching the value passed in (`matchingValue`), formatted in a string and separated by '\n'
+     */
     public String findTasks(String matchingValue) {
         StringBuilder returnVal = new StringBuilder();
 
