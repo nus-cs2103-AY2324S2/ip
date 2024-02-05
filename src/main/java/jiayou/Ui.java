@@ -1,7 +1,7 @@
 package jiayou;
 
 import java.util.Scanner;
-import jiayou.task.*;
+import jiayou.task.TaskList;
 
 /** Represents the user interface for the chatbot.
  * @author Liu Jiayao
@@ -36,17 +36,16 @@ public class Ui {
      * Prints all the command types and usages.
      */
     public void guide() {
-        System.out.println("To get the whole list of tasks: list");
-        System.out.println("To mark/unmark a certain task with the index x: mark/unmark x");
-        System.out.println("To delete a certain task with the index x: delete x");
-        System.out.println("To search tasks on a certain date: search_by_date YYYY-MM-DD");
-        System.out.println("To search tasks with the keyword x: search_by_keyword x");
-        System.out.println("To add a todo task: todo description");
-        System.out.println("To add a deadline task: deadline description /by YYYY-MM-DD");
-        System.out.println("To add an event task: event description /from YYYY-MM-DD /to YYYY-MM-DD");
+        System.out.println("1. To get the whole list of tasks: list");
+        System.out.println("2. To mark/unmark a certain task with the index x: mark/unmark x");
+        System.out.println("3. To delete a certain task with the index x: delete x");
+        System.out.println("4. To search tasks on a certain date: search_by_date YYYY-MM-DD");
+        System.out.println("5. To search tasks with the keyword x: search_by_keyword x");
+        System.out.println("6. To add a todo task: todo description");
+        System.out.println("7. To add a deadline task: deadline description /by YYYY-MM-DD");
+        System.out.println("8. To add an event task: event description /from YYYY-MM-DD /to YYYY-MM-DD");
         System.out.println(Ui.LINE);
     }
-
 
     /**
      * Starts reading in the user command and continuing the chat.

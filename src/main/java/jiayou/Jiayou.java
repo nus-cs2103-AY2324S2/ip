@@ -1,6 +1,6 @@
 package jiayou;
 
-import jiayou.task.*;
+import jiayou.task.TaskList;
 
 /** Represents a chatbot named Jiayou.
  * @author Liu Jiayao

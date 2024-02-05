@@ -3,7 +3,11 @@ package jiayou;
 import java.util.List;
 import java.nio.file.*;
 import java.io.*;
-import jiayou.task.*;
+import jiayou.task.TaskList;
+import jiayou.task.Task;
+import jiayou.task.ToDo;
+import jiayou.task.Event;
+import jiayou.task.Deadline;
 
 /** Represents the storage to link the text file with the task list of the chatbot.
  * @author Liu Jiayao
