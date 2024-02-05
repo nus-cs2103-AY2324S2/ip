@@ -2,6 +2,16 @@ package dude;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+import javafx.stage.Stage;
 
 import dude.task.Deadline;
 import dude.task.Event;
@@ -11,7 +21,6 @@ import dude.task.Todo;
  * Dude - a Duke variant.
  */
 public class Dude {
-
     /**
      * Runs the Dude program.
      */
@@ -21,6 +30,8 @@ public class Dude {
         TaskList taskList = new TaskList();
 
         Scanner scanner = new Scanner(System.in);
+        Application.launch(Gui.class, args);
+
         loop:
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
