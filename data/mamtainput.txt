@@ -26,3 +26,6 @@ E| |project meeting|Mon 2pm|4pm
 T| |borrow book 
 D| |return book|Sunday
 E| |project meeting|Mon 2pm|4pm
+T| |borrow book 
+D| |return book|Sunday
+E| |project meeting|Mon 2pm|4pm
