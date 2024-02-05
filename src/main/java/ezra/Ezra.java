@@ -34,12 +34,20 @@ public class Ezra {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            Parser.read(input, storage, tasks);
+            Parser.generateReply(input, storage, tasks);
             if (input.equals("bye")) {
                 break;
             }
         }
         scanner.close();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return Parser.generateReply(input, storage, tasks);
     }
 
     /**

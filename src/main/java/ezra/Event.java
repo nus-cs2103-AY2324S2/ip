@@ -40,7 +40,7 @@ public class Event extends Task {
         String startString = this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
         String endString = this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
         return String.format(
-                "[E][%s] %s (from: %s | to: %s)",
+                "[E][%s] %s (from: %s to: %s)",
                 this.getStatusIcon(),
                 this.description,
                 startString,
