@@ -1,7 +1,3 @@
-T | 1 | read
 T | 0 | run
-D | 0 | assignment | Sunday
-E | 0 | usher | tdy | tmr
-T | 0 | sleep
-T | 0 | washing
-D | 1 | ps1 | tdy
+D | 0 | homework | 2024-01-03 | 09:00
+E | 0 | open house | 2024-02-03 | 12:00 | 2024-02-05 | 20:20
