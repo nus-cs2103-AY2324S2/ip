@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class TaskList implements Savable {
 
-    private final ArrayList<Task> arr;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs a new TaskList with initial capacity of 100
      */
     public TaskList() {
-        arr = new ArrayList<Task>(100);
+        tasks = new ArrayList<Task>(100);
     }
 
     /**
@@ -23,7 +23,7 @@ public class TaskList implements Savable {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        this.arr.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -33,7 +33,7 @@ public class TaskList implements Savable {
      * @return true if task was already done, else false
      */
     public boolean markDone(int index) {
-        return arr.get(index).markDone();
+        return tasks.get(index).markDone();
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList implements Savable {
      * @return true if task was already not done, else false
      */
     public boolean unmarkDone(int index) {
-        return arr.get(index).unmarkDone();
+        return tasks.get(index).unmarkDone();
     }
 
     /**
@@ -53,15 +53,15 @@ public class TaskList implements Savable {
      * @return The String representation of the removed Task
      */
     public String delete(int index) {
-        String ret = this.arr.get(index).toString();
-        this.arr.remove(index);
+        String ret = this.tasks.get(index).toString();
+        this.tasks.remove(index);
         return ret;
     }
 
     @Override
     public String saveString() {
         String ret = "";
-        for (Task t : this.arr) {
+        for (Task t : this.tasks) {
             ret = ret + t.saveString() + "\n";
         }
         return ret;
@@ -70,8 +70,8 @@ public class TaskList implements Savable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < arr.size(); i++) {
-            sb.append((i + 1) + ". " + arr.get(i) + "\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
         return sb.toString();
     }
