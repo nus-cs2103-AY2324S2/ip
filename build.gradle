@@ -28,14 +28,7 @@ test {
 }
 
 application {
-    mainClass = 'com.example.Mamta'
-
-    // Specify the source directory for Java classes
-    sourceSets {
-        main {
-            java.srcDirs 'src/main/java/'
-        }
-    }
+    mainClass.set("com.example.Mamta.Mamta")
 }
 
 shadowJar {
