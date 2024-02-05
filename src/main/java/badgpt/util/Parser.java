@@ -95,6 +95,12 @@ public class Parser {
                 throw new WrongFormatException(e.getMessage(), cmd);
             }
             break;
+        case "find":
+            if (args.isEmpty()) {
+                throw new WrongFormatException("No keyword is specified.", cmd);
+            } else {
+                taskList.find(args);
+            }
         default:
             throw new NoSuchCommandException("No such command found.");
             // Fallthrough

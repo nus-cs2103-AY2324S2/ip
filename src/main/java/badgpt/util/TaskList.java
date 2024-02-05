@@ -145,6 +145,29 @@ public class TaskList {
     }
 
     /**
+     * Finds any tasks containing the specified keyword.
+     *
+     * @param keyword The term of interest to filter out tasks.
+     */
+    public void find(String keyword) throws ListEmptyException {
+        List<Task> filtered = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                filtered.add(task);
+            }
+        }
+
+        if (filtered.isEmpty()) {
+            throw new ListEmptyException("There are no tasks containing the specified keyword.");
+        } else {
+            for (int i = 0; i < filtered.size(); i++) {
+                tasksUi.printTask(filtered.get(i), i, filtered.size());
+            }
+        }
+    }
+
+    /**
      * Writes any changes to the task list to the save file.
      *
      * @param fileManager The FileManager instance handling the saving of data.
