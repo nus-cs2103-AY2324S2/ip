@@ -13,6 +13,11 @@ public class DeadlineCommand extends Command {
     private String description;
     private String by;
 
+    /**
+     * Creates a DeadlineCommand object.
+     * @param args The arguments of the command.
+     * @throws HenryException If the command is invalid.
+     */
     public DeadlineCommand(String args) throws HenryException {
         if (!args.contains("/by")) {
             throw new HenryException("Missing /by");

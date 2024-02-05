@@ -1,16 +1,16 @@
 package henry;
 
-import henry.task.Task;
-import henry.task.Deadline;
-import henry.task.Event;
-import henry.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import henry.task.Deadline;
+import henry.task.Event;
+import henry.task.Task;
+import henry.task.Todo;
 
 /**
  * Represents a Storage object for file IO.
@@ -48,17 +48,17 @@ public class Storage {
         while (line != null) {
             String[] currLine = line.split(" \\| ");
             switch (currLine[0]) {
-                case "T":
-                    items.add(new Todo(currLine[2]));
-                    break;
-                case "D":
-                    items.add(new Deadline(currLine[2], currLine[3]));
-                    break;
-                case "E":
-                    items.add(new Event(currLine[2], currLine[3], currLine[4]));
-                    break;
-                default:
-                    break;
+            case "T":
+                items.add(new Todo(currLine[2]));
+                break;
+            case "D":
+                items.add(new Deadline(currLine[2], currLine[3]));
+                break;
+            case "E":
+                items.add(new Event(currLine[2], currLine[3], currLine[4]));
+                break;
+            default:
+                break;
             }
             if (currLine[1].equals("1")) {
                 items.get(items.size() - 1).markAsDone();

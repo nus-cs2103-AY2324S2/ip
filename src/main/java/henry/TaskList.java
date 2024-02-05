@@ -1,8 +1,8 @@
 package henry;
 
-import henry.task.Task;
-
 import java.util.ArrayList;
+
+import henry.task.Task;
 
 /**
  * Represents a list of tasks.

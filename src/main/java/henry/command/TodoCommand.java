@@ -1,9 +1,9 @@
 package henry.command;
 
+import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
 import henry.Ui;
-import henry.HenryException;
 import henry.task.Todo;
 
 /**
@@ -12,6 +12,11 @@ import henry.task.Todo;
 public class TodoCommand extends Command {
     private final String description;
 
+    /**
+     * Creates a TodoCommand object.
+     * @param args The arguments of the command.
+     * @throws HenryException If the command is invalid.
+     */
     public TodoCommand(String args) throws HenryException {
         if (args.isBlank()) {
             throw new HenryException("No description provided");

@@ -1,9 +1,9 @@
 package henry.command;
 
+import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
 import henry.Ui;
-import henry.HenryException;
 
 /**
  * Represents a command to exit the program.

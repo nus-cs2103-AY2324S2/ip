@@ -1,9 +1,12 @@
 package henry;
 
-import henry.command.Command;
-
 import java.io.IOException;
 
+import henry.command.Command;
+
+/**
+ * Represents the Henry application.
+ */
 public class Henry {
     private Storage storage;
     private TaskList tasks;
