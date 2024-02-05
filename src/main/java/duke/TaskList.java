@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,5 +99,16 @@ public class TaskList {
         } catch (Exception e) {
             throw new DukeException("Error updating storage");
         }
+    }
+
+    public List<Task> findTasksFromKeyword(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 }

@@ -1,16 +1,19 @@
 package duke;
+
+import java.util.List;
+
 public class Handler {
     private TaskList taskList;
-    private Parser parser;
+    private Parser parser = new Parser();
+    private Ui ui = new Ui();
 
     public Handler(TaskList taskList) {
         this.taskList = taskList;
-        this.parser = new Parser();
     }
 
     public void handle(String input) throws DukeException {
         String command = parser.parseCommand(input);
-        
+
         if (command.equals("list")) {
             handleList();
         } else if (command.equals("mark")) {
@@ -19,6 +22,8 @@ public class Handler {
             handleUnmark(input);
         } else if (command.equals("delete")) {
             handleDelete(input);
+        } else if (command.equals("find")) {
+            handleFind(input);
         } else {
             handleAdd(input);
         }
@@ -47,4 +52,13 @@ public class Handler {
         taskList.deleteTask(index);
     }
 
+    private void handleFind(String input) {
+        String keyword = parser.parseDescription(input);
+        List<Task> keywordList = taskList.findTasksFromKeyword(keyword);
+        ui.printMessage("Here are the matching tasks in your list:\n");
+        for (Task task : keywordList) {
+            ui.printMessage(task.toString());
+        }
+        ui.printMessage("\n");
+    }
 }
