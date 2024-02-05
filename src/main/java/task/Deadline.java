@@ -20,11 +20,20 @@ public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * Creates a new {@code Deadline} instance with the specified description and
+     * Constructs a new {@code Deadline} instance with the specified description and
      * deadline date.
-     *
      * @param description The description of the deadline task.
      * @param by          The deadline date of the deadline task.
+     */
+    public Deadline(String description, LocalDate by) {
+        super(description);
+        this.by = by;
+    }
+
+    /**
+     * Creates a new {@code Deadline} instance with the specified description and
+     * deadline date.
+     * @param input The input string to be parsed into a deadline task.
      */
     public static Deadline createFromInput(String input) throws InvalidTaskFormatException, InvalidDateException {
         try {
@@ -43,20 +52,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructs a new {@code Deadline} instance with the specified description and
-     * deadline date.
-     *
-     * @param description The description of the deadline task.
-     * @param by          The deadline date of the deadline task.
-     */
-    public Deadline(String description, LocalDate by) {
-        super(description);
-        this.by = by;
-    }
-
-    /*
      * Returs the string representation of the deadline task.
-     * 
      * @return The string representation of the deadline task.
      */
     @Override
@@ -64,13 +60,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
-    /*
+    /**
      * Returns the string representation of the deadline task to be saved in the
      * hard disk.
-     * 
-     * @return The string representation of the deadline task to be saved in the
-     * hard
-     * disk.
+     * @return The string representation of the deadline task to be saved in the hard disk.
      */
     @Override
     public String toFileString() {

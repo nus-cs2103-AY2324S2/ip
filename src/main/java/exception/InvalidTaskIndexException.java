@@ -20,7 +20,6 @@ public class InvalidTaskIndexException extends Exception {
     /**
      * Constructs a new {@code InvalidTaskIndexException} instance with the
      * specified error message.
-     *
      * @param message The error message to be associated with the exception.
      */
     public InvalidTaskIndexException(String message) {
@@ -29,7 +28,6 @@ public class InvalidTaskIndexException extends Exception {
 
     /**
      * Returns the error message associated with the exception.
-     *
      * @return The error message associated with the exception.
      */
     public String getErrorMessage() {

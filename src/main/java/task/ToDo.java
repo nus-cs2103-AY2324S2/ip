@@ -13,9 +13,16 @@ import exception.InvalidTaskFormatException;
 public class ToDo extends Task {
 
     /**
-     * Creates a new {@code ToDo} instance with the specified description.
-     *
+     * Constructs a new {@code ToDo} instance with the specified description.
      * @param description The description of the to-do task.
+     */
+    public ToDo(String description) {
+        super(description);
+    }
+
+    /**
+     * Creates a new {@code ToDo} instance with the specified description.
+     * @param input The input string to be parsed into a to-do task.
      */
     public static ToDo createFromInput(String input) throws InvalidTaskFormatException {
         try {
@@ -27,17 +34,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Constructs a new {@code ToDo} instance with the specified description.
-     *
-     * @param description The description of the to-do task.
-     */
-    public ToDo(String description) {
-        super(description);
-    }
-
-    /*
      * Returs the string representation of the to-do task.
-     * 
      * @return The string representation of the to-do task.
      */
     @Override
@@ -47,7 +44,6 @@ public class ToDo extends Task {
 
     /**
      * Returns the string representation of the to-do task to be saved in the file.
-     * 
      * @return The string representation of the to-do task to be saved in the file.
      */
     @Override

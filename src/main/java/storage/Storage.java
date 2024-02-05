@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,7 +31,6 @@ public class Storage {
 
     /**
      * Constructs a new {@code Storage} instance with the specified file name.
-     *
      * @param fileName The name of the file to be associated with the storage.
      * @throws FileNotFoundException If the file specified by the file name does not
      *                               exist and cannot be created.
@@ -55,7 +52,6 @@ public class Storage {
 
     /**
      * Loads the task list from the hard disk.
-     *
      * @return The task list loaded from the hard disk.
      * @throws FileNotFoundException If the file specified by the file name does not
      *                               exist and cannot be created.

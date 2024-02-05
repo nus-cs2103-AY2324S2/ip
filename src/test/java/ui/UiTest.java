@@ -1,5 +1,7 @@
 package ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -8,8 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import task.Task;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for the Ui class.
@@ -28,7 +28,7 @@ public class UiTest {
         System.setOut(originalOut);
     }
 
-    /*
+    /**
      * Tests the display of the welcome message.
      * <p>
      * The welcome message is displayed correctly.
@@ -40,7 +40,7 @@ public class UiTest {
         assertEquals("Hello! I'm GeePeeTee\nWhat can I do for you?\n", outContent.toString());
     }
 
-    /*
+    /**
      * Tests the display of an error message.
      * <p>
      * The error message is displayed correctly.
@@ -52,7 +52,7 @@ public class UiTest {
         assertEquals("Oops! An error occurred:\nTest error message\n", outContent.toString());
     }
 
-    /*
+    /**
      * Tests the display of a task message.
      * <p>
      * A task message is displayed correctly.

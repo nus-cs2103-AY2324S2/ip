@@ -1,4 +1,3 @@
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -26,7 +25,6 @@ public class GeePeeTee {
 
     /**
      * Constructs a new {@code GeePeeTee} instance with the specified file path.
-     *
      * @param filePath The file path to be associated with the application.
      */
     public GeePeeTee(String filePath) {

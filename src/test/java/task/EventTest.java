@@ -1,20 +1,20 @@
 package task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import exception.InvalidDateException;
 import exception.InvalidTaskFormatException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
-
-/*
+/**
  * Tests for the Event class.
  */
 public class EventTest {
 
-    /*
+    /**
      * Tests the creation of an event task from user input.
      * <p>
      * The input string is in the correct format and the event task is created
@@ -35,7 +35,7 @@ public class EventTest {
         }
     }
 
-    /*
+    /**
      * Tests the creation of an event task from user input.
      * <p>
      * The input string is in the incorrect format and an exception is thrown.
@@ -65,7 +65,7 @@ public class EventTest {
         });
     }
 
-    /*
+    /**
      * Tests the creation of an event task from user input.
      * <p>
      * The input string is in the correct format but the date is in an incorrect

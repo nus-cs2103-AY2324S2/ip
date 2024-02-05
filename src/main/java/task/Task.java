@@ -14,7 +14,6 @@ public class Task {
 
     /**
      * Constructs a new {@code Task} instance with the specified description.
-     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -28,7 +27,6 @@ public class Task {
 
     /**
      * Returns the status of the task.
-     * 
      * @return The status of the task.
      */
     public String getStatusIcon() {
@@ -51,7 +49,6 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
-     * 
      * @return The string representation of the task.
      */
     @Override
@@ -61,7 +58,6 @@ public class Task {
 
     /**
      * Returns the string representation of the task to be saved in the file.
-     * 
      * @return The string representation of the task to be saved in the file.
      */
     public String toFileString() {

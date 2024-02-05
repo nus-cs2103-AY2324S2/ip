@@ -25,3 +25,6 @@ src/main/java/*.txt
 
 # Jar files
 jar/
+
+# VSC files
+.vscode/
