@@ -5,6 +5,8 @@ import duke.Tasks.TaskList;
 import java.util.Scanner;
 import java.util.List;
 
+import java.io.InputStream;
+
 
 /**
  * Handles user interaction, including input and output.
@@ -12,12 +14,18 @@ import java.util.List;
 public class Ui {
     private Scanner scanner;
 
+
     /**
      * Constructs a Ui object with a Scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
+    public String greet() {
+        return "Hello! I'm BotYue. \nWhat can I do for you?";
+    }
+
 
     /**
      * Reads a command entered by the user.
