@@ -1,9 +1,10 @@
+import duke.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Objects;
 import java.io.FileWriter;
 import java.io.IOException;
-
 public class Duke {
 
     private Storage storage;
