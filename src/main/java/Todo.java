@@ -3,8 +3,12 @@ public class Todo extends Task {
         super(TaskType.TODO, task);
     }
 
+    public Todo(String task, boolean isDone) {
+        super(TaskType.TODO, task, isDone);
+    }
+
     @Override
     public String toString() {
-        return "[" + getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask();
+        return "[" + getTaskType().getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask();
     }
 }

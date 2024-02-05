@@ -1,8 +1,14 @@
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ByteTalker {
     private ArrayList<Task> tasks = new ArrayList<>();
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
 
     public void returnList () {
         System.out.println("    Here are the tasks in your list:");
@@ -14,6 +20,7 @@ public class ByteTalker {
     public void markTask(String[] splitMessage) {
         Integer index = Integer.parseInt(splitMessage[1]) - 1;
         this.tasks.get(index).setStatus(true);
+        Storage.storeTasks(this.tasks);
         System.out.println("    Nice! I've marked this task as done:");
         System.out.println("      " + this.tasks.get(index).toString());
     }
@@ -21,6 +28,7 @@ public class ByteTalker {
     public void unmarkTask(String[] splitMessage) {
         Integer index = Integer.parseInt(splitMessage[1]) - 1;
         this.tasks.get(index).setStatus(false);
+        Storage.storeTasks(this.tasks);
         System.out.println("    OK, I've marked this task as not done yet:");
         System.out.println("      " + this.tasks.get(index).toString());
     }
@@ -80,6 +88,7 @@ public class ByteTalker {
                 throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
             }
             this.tasks.add(task);
+            Storage.storeTasks(this.tasks);
             System.out.println("    Got it. I've added this task:");
             System.out.println("       " + task.toString());
             System.out.println("    Now you have " + this.tasks.size() + " tasks in the list.");
@@ -91,6 +100,7 @@ public class ByteTalker {
     public void deleteTask(int position) {
         Task task = this.tasks.get(position - 1);
         this.tasks.remove(position - 1);
+        Storage.storeTasks(this.tasks);
         System.out.println("    Got it. I've removed this task:");
         System.out.println("        " + task.toString());
         System.out.println("    Now you have " + this.tasks.size() + " task in the list.");
@@ -102,13 +112,19 @@ public class ByteTalker {
         System.out.println("    Hello! I'm ByteTalker");
         System.out.println("    What can I do for you?");
         System.out.println("    -----------------------------------");
+        try {
+            Storage.setupDirectoryAndFile();
+        } catch (IOException e) {
+            System.out.println("Fail to create a new file");
+        }
+        Storage.loadTasks(chatbot.getTasks());
         while (true) {
             Scanner userInput = new Scanner(System.in);
             String userInputString = userInput.nextLine().strip();
             String[] splitMessage = userInputString.split(" ");
             System.out.println("    -----------------------------------");
             if (userInputString.equals("bye")) {
-                break;
+                break
             } else if (userInputString.equals("list")) {
                 chatbot.returnList();
             } else if (splitMessage[0].equals("mark")) {
