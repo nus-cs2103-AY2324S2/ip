@@ -1,5 +1,8 @@
 package riz.io;
 
+/**
+ * Class to handle all the Exceptions
+ */
 public class RizException extends Exception {
     String message;
 

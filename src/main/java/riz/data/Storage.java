@@ -9,12 +9,22 @@ import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+/**
+ * The Storage class primarily deals with writing information about the tasks
+ * from the current TaskList to a file, keeping it in memory. As well as
+ * reading and loading the existing file into the TaskList.
+ */
 public class Storage {
     private String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * This method processes and loads the current memory from the file into an ArrayList<Task>.
+     * @return an ArrayList<Task> containing all the Task objects that were stored
+     * in memory.
+     */
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(this.filePath);
@@ -64,7 +74,10 @@ public class Storage {
          return tasks;
     }
 
-
+    /**
+     * The method writes all tasks from the TaskList into memory.
+     * @param tasks ArrayList<Task> taken from the TaskList containing all current tasks.
+     */
     public void writeToFile(ArrayList<Task> tasks) {
         try (FileWriter fw = new FileWriter(this.filePath)) {
             for (Task task : tasks) {
@@ -75,6 +88,9 @@ public class Storage {
         }
     }
 
+    /**
+     * The method prints out all the current tasks that are stored in memory.
+     */
     public void printFromFile() {
         File file = new File(this.filePath);
         try (Scanner scanner = new Scanner(file)) {
@@ -86,6 +102,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Count the number of tasks in memory currently.
+     * @return The number of tasks in the file.
+     */
     public int countFromFile() {
         File file = new File(this.filePath);
         int i = 0;
