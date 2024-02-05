@@ -1,10 +1,11 @@
 package lamball;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
@@ -66,6 +67,6 @@ public class ParserTest {
         LamballParseException thrown = Assertions.assertThrows(LamballParseException.class, () -> {
             Parser.parse("the quick brown fox jumps over the lazy dog");
         });
-        assertEquals("Sorry, I don't understaaaaaand your commaaaaand, baa. :(",thrown.getMessage());
+        assertEquals("Sorry, I don't understaaaaaand your commaaaaand, baa. :(", thrown.getMessage());
     }
 }

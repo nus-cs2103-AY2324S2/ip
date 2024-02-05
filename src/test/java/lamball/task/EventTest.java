@@ -1,17 +1,18 @@
 package lamball.task;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 public class EventTest {
     @Test
     public void eventTest() {
         // Command Test
-        assertEquals(new Event("TEST", "2000-01-01", "2000-01-01").command(), "event TEST " +
-                "/from 2000-01-01 /to 2000-01-01");
+        assertEquals(new Event("TEST", "2000-01-01", "2000-01-01").command(), "event TEST "
+                + "/from 2000-01-01 /to 2000-01-01");
 
         // String Test
         assertEquals(new Event("TEST", "2000-01-01", "2000-01-01").toString(),

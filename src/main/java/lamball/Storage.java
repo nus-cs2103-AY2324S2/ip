@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,7 +67,7 @@ public class Storage {
         Scanner scanner = new Scanner(savedList);
         System.out.println("Initializing saved file...");
         int count = 0;
-        while(scanner.hasNext()) {
+        while (scanner.hasNext()) {
             try {
                 // Parses every line of the saved file - if error, deletes line in the file and ignores command
                 String currLine = scanner.nextLine();

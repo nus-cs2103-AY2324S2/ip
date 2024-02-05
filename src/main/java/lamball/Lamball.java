@@ -1,20 +1,20 @@
 package lamball;
 
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import lamball.ui.DialogBox;
-
-import java.util.Scanner;
 
 /**
  * Main chat bot class that is tasked with initializing and relaying user inputs to the various classes.
@@ -29,7 +29,6 @@ public class Lamball extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    public static String indent = "    ____________________________________________________________\n";
     private TaskList tasks;
     private Ui ui;
 

@@ -32,7 +32,7 @@ public class DialogBox extends HBox {
         text = l;
         displayPicture = iv;
 
-        text.setTextFill(Color.rgb(255,255,255));
+        text.setTextFill(Color.rgb(255, 255, 255));
         text.setWrapText(true);
 
 
@@ -48,7 +48,7 @@ public class DialogBox extends HBox {
         displayPicture.setFitHeight(100.0);
 
 
-        BackgroundFill backgroundFill = new BackgroundFill(Color.rgb(50,50,50), null, null);
+        BackgroundFill backgroundFill = new BackgroundFill(Color.rgb(50, 50, 50), null, null);
         Background background = new Background(backgroundFill);
         this.setBackground(background);
         this.setAlignment(Pos.TOP_RIGHT);

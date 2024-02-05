@@ -1,12 +1,14 @@
 package lamball;
 
+
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import lamball.task.Deadline;
 import lamball.task.Event;
 import lamball.task.Task;
 import lamball.task.ToDo;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 
 /**
@@ -40,7 +42,7 @@ public class TaskList {
 
     private void printList(ArrayList<Task> lst) {
         String listStr = "Here aaaaare the taaaasks in your list:";
-        for(int i = 0; i < lst.size(); i++) {
+        for (int i = 0; i < lst.size(); i++) {
             listStr += "\n    " + (i + 1) + ". " + lst.get(i).toString() + "";
         }
         lastDoneTask = listStr;
@@ -87,31 +89,31 @@ public class TaskList {
 
     private boolean deadline(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 2);
-        if (furtherSplit.length < 2 || !furtherSplit[1].substring(0,3).equals("by ")) {
-            throw new LamballParseException("Deadline is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat " +
-                    "is: deadline <name> /by <time>, baa.");
+        if (furtherSplit.length < 2 || !furtherSplit[1].substring(0, 3).equals("by ")) {
+            throw new LamballParseException("Deadline is in the wrong formaaaaaaat, baa. :(\n    Correct fo"
+                    + "rmaaat is: deadline <name> /by <time>, baa.");
         }
         try {
             Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
             tasks.add(temp);
-            lastDoneTask = "Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
-                    tasks.size() + " tasks in the list.";
+            lastDoneTask = "Added Deadline:\n        " + temp.toString() + "\n    Now you have "
+                    + tasks.size() + " tasks in the list.";
             if (!isInit) {
                 Storage.writeToFile("0 | " + temp.command());
             }
             return true;
         } catch (DateTimeParseException e) {
-            throw new LamballParseException("Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: " +
-                    "yyyy-mm-dd (e.g 2001-01-20)");
+            throw new LamballParseException("Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: "
+                    + "yyyy-mm-dd (e.g 2001-01-20)");
         }
     }
 
     private boolean event(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 3);
-        if (furtherSplit.length < 3 || !furtherSplit[1].substring(0,5).equals("from ") ||
-                !furtherSplit[2].substring(0,3).equals("to ")) {
-            throw new LamballParseException("Event is in the wrong formaaaaaaat, baa. :(\n    Correct " +
-                    "formaaat is: event <name> /from <time> /to <time>, baa.");
+        if (furtherSplit.length < 3 || !furtherSplit[1].substring(0, 5).equals("from ")
+                || !furtherSplit[2].substring(0, 3).equals("to ")) {
+            throw new LamballParseException("Event is in the wrong formaaaaaaat, baa. :(\n    Correct "
+                    + "formaaat is: event <name> /from <time> /to <time>, baa.");
         }
         try {
             Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
@@ -124,8 +126,8 @@ public class TaskList {
             }
             return true;
         } catch (DateTimeParseException e) {
-            throw new LamballParseException("Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo" +
-                    "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)");
+            throw new LamballParseException("Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo"
+                    + "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)");
         }
     }
 
@@ -163,44 +165,43 @@ public class TaskList {
      */
     public boolean runComd(String[] command, boolean isInit) throws LamballParseException {
         switch(command[0]) {
-            case "mark": {
-                mark(command, isInit);
-                return true;
-            }
-            case "unmark": {
-                unMark(command);
-                return true;
-            }
-            case "bye": {
-                return false;
-            }
-            case "list": {
-                printList(this.tasks);
-                return true;
-            }
-            case "todo": {
-                toDo(command, isInit);
-                return true;
-            }
-            case "deadline": {
-                deadline(command, isInit);
-                return true;
-            }
-            case "event": {
-                event(command, isInit);
-                return true;
-            }
-            case "delete": {
-                deleteFromList(command);
-                return true;
-            }
-            case "find": {
-                find(command);
-                return true;
-            }
-
+        case "mark": {
+            mark(command, isInit);
+            return true;
         }
-        // Should not reach here.
-        return false;
+        case "unmark": {
+            unMark(command);
+            return true;
+        }
+        case "bye": {
+            return false;
+        }
+        case "list": {
+            printList(this.tasks);
+            return true;
+        }
+        case "todo": {
+            toDo(command, isInit);
+            return true;
+        }
+        case "deadline": {
+            deadline(command, isInit);
+            return true;
+        }
+        case "event": {
+            event(command, isInit);
+            return true;
+        }
+        case "delete": {
+            deleteFromList(command);
+            return true;
+        }
+        case "find": {
+            find(command);
+            return true;
+        }
+        default:
+            return false;
+        }
     }
 }

@@ -1,8 +1,8 @@
 package lamball.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Event class, an extension of the Task class that has a duration, represented by

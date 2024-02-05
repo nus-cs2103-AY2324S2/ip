@@ -8,8 +8,8 @@ package lamball;
 
 public class Ui {
     private static final String WELCOME_MESSAGE =
-            "     Hello! I'm Lamball, your helpful sheep!\n" +
-            "     Whaaat can I do for you?\n";
+            "     Hello! I'm Lamball, your helpful sheep!\n"
+                    + "     Whaaat can I do for you?\n";
 
     private static final String GOODBYE_MESSAGE =
         "     See you again!\n";
@@ -61,7 +61,7 @@ public class Ui {
      * @return Formatted action for GUI processing.
      */
     public String displayAction(String msg) {
-        String returnVal ="    " + msg + "\n";
+        String returnVal = "    " + msg + "\n";
         System.out.println(returnVal);
         return returnVal;
     }

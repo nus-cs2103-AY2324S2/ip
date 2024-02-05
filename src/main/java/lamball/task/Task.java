@@ -40,7 +40,6 @@ public class Task {
     public String command() {
         return "How did you get here?";
     }
-    
     /**
      * Returns string representation of task for list printing
      *
