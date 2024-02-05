@@ -44,9 +44,37 @@ public class Duke {
                     System.out.println("Invalid task index.");
                 }
             } else {
-                tasks[taskCount] = new Task(command);
-                taskCount++;
-                System.out.println("added: " + command);
+                if (command.startsWith("todo")) {
+                    String description = command.substring(5).trim();
+                    tasks[taskCount] = new ToDoTask(description);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                } else if (command.startsWith("deadline")) {
+                    String[] parts = command.substring(9).split("/by");
+                    String description = parts[0].trim();
+                    String by = (parts.length > 1) ? parts[1].trim() : "";
+
+                    tasks[taskCount] = new DeadlineTask(description, by);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                } else if (command.startsWith("event")) {
+                    String[] parts = command.substring(6).split("/from");
+                    String description = parts[0].trim();
+                    String[] eventParts = parts[1].split("/to");
+                    String from = eventParts[0].trim();
+                    String to = eventParts[1].trim();
+                    tasks[taskCount] = new EventTask(description, from, to);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid command.");
+                }
             }
             System.out.println("____________________________________________________________");
             command = scanner.nextLine();
@@ -59,8 +87,8 @@ public class Duke {
 }
 
 class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -78,5 +106,46 @@ class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+}
+
+class ToDoTask extends Task {
+    public ToDoTask(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T][" + (isDone ? "X" : " ") + "] " + description;
+    }
+}
+
+class DeadlineTask extends Task {
+    private String by;
+
+    public DeadlineTask(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + by + ")";
+    }
+}
+
+class EventTask extends Task {
+    private String from;
+    private String to;
+
+    public EventTask(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + from + " to: " + to + ")";
     }
 }
