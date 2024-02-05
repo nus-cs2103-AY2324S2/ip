@@ -10,10 +10,16 @@ public class Event extends Task{
         this.endTime = endTime;
     }
 
+    public Event(String taskString, String startTime, String endTime, boolean isDone) {
+        super(taskString, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (From:" + startTime
-                + " to:" + endTime + ")";
+        return "[E]" + super.toString() + " | " + startTime
+                + " | " + endTime;
     }
 
     @Override
