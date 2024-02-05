@@ -3,8 +3,9 @@ import java.util.ArrayList;
 public class ChatBro {
     public static void main(String[] args) {
         Ui ui = new Ui();
-        ui.printWelcome();
+        Parser parser = new Parser();
         Database db = new Database();
+
         ArrayList<Task> taskList = new ArrayList<>(101);
         taskList.add(null); // First element left empty for 1-based indexing
         String savedTasks = db.readFromFile();
@@ -29,9 +30,10 @@ public class ChatBro {
             taskList.add(null);
         }
 
+        ui.printWelcome();
         boolean isRunning = true;
         while (isRunning) {
-            String input = ui.readInput();
+            String input = parser.readInput();
             String[] inputSplit = input.split(" ");
             String command = inputSplit[0];
             switch (command) {
@@ -215,6 +217,7 @@ public class ChatBro {
                         tasksToSave += taskList.get(i).toString() + "\n";
                     }
                     db.saveToFile(tasksToSave);
+                    parser.closeScanner();
                     ui.printBye();
                     break;
 
