@@ -1,4 +1,5 @@
 E | 0 | valentine's day | 14-02-2024 1930 | 14-02-2024 2200
 D | 1 | buy gift | 17-08-2024 1800
 0 | return money
-1 | go jog
+E | 1 | go school | 15-11-2020 0900 | 18-11-2020 1700
+1 | buy food
