@@ -1,3 +1,5 @@
+package com.example.Mamta;
+
 public class MamtaException {
     private final String exceptionMessage;
 
