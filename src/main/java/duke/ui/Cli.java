@@ -20,10 +20,13 @@ public class Cli extends Ui {
     private final Scanner sc = new Scanner(System.in);
 
     /**
-     * Displays the CLI UI of the application
+     * Displays the UI of the application
+     *
+     * @param taskList Tasklist to use for the application
+     * @param args     Arguments for the application
      */
     @Override
-    public void startUI(TaskList taskList) {
+    public void startUI(TaskList taskList, String[] args) {
         // Print greeting
         printGreeting();
 

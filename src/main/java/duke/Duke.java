@@ -3,7 +3,7 @@ package duke;
 import java.io.File;
 
 import duke.storage.TaskList;
-import duke.ui.Cli;
+import duke.ui.Gui;
 import duke.ui.Ui;
 
 /**
@@ -33,7 +33,7 @@ public class Duke {
      * @param file File to save and load tasks
      */
     public Duke(File file) {
-        this.ui = new Cli();
+        this.ui = new Gui();
 
         // Create data directory (if required)
         file.getParentFile().mkdirs();
@@ -43,12 +43,14 @@ public class Duke {
 
     /**
      * Run the Duke instance
+     *
+     * @param args Arguments to pass to the application
      */
-    public void run() {
-        this.ui.startUI(this.taskList);
+    public void run(String[] args) {
+        this.ui.startUI(this.taskList, args);
     }
 
     public static void main(String[] args) {
-        new Duke(SAVE_FILE).run();
+        new Duke(SAVE_FILE).run(args);
     }
 }

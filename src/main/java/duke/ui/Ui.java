@@ -11,6 +11,9 @@ import duke.storage.TaskList;
 public abstract class Ui {
     /**
      * Displays the UI of the application
+     *
+     * @param taskList Tasklist to use for the application
+     * @param args     Arguments for the application
      */
-    public abstract void startUI(TaskList taskList);
+    public abstract void startUI(TaskList taskList, String[] args);
 }
