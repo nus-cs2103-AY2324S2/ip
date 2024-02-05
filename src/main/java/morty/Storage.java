@@ -13,6 +13,10 @@ import morty.task.Event;
 import morty.task.Task;
 import morty.task.Todo;
 
+/**
+ * A class that deals with loading tasks from the file and saving tasks to the
+ * file.
+ */
 public class Storage {
 
   /**

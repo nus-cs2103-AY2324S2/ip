@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import morty.task.Task;
 
+/**
+ * A class that deals with the user interface.
+ */
 public class Ui {
 
   Scanner scanner;
