@@ -6,16 +6,12 @@ public class Tasks {
         tasks = new ArrayList<>();
     }
 
-    private static boolean isValidTaskId(int id) {
-        return id >= 0 && id < tasks.size();
-    }
-
 
     public void markTask(String command) throws DukeException {
         String[] words = command.split(" ");
         if (words.length == 2) {
             int taskId = Integer.parseInt(words[1]) -1;
-            if(isValidTaskId(taskId)) {
+            if(taskId < tasks.size()) {
                 Task t = tasks.get(taskId);
                 t.markAsDone();
                 System.out.println(" Nice ! I've marked this task as done: \n" + t);
@@ -31,7 +27,7 @@ public class Tasks {
         String[] words = command.split(" ");
         if (words.length == 2) {
             int taskId = Integer.parseInt(words[1]) - 1;
-            if (isValidTaskId(taskId)) {
+            if (taskId < tasks.size()) {
                 Task t = tasks.get(taskId);
                 t.markAsUndone();
                 System.out.println(" Ok, I've marked this task as not done yet: \n" + t);
@@ -85,7 +81,7 @@ public class Tasks {
         String[] parts = command.trim().split(" ");
         if (parts.length == 2) {
             int taskIndex = Integer.parseInt(parts[1].trim()) - 1;
-            if(isValidTaskId(taskIndex)) {
+            if(taskIndex < tasks.size()) {
                 Task removedTask = tasks.remove(taskIndex);
                 System.out.println(" Noted. I've removed this task:\n" + removedTask);
                 printTaskSize();

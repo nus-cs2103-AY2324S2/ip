@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Duke {
     private static final Tasks taskManager = new Tasks();
     public static void main(String[] args) {
+        // Load tasks from file on startup
+        //taskManager.loadTasks();
         greetUser();
         echo();
         exit();
@@ -40,6 +42,7 @@ public class Duke {
             }
 
             System.out.println("____________________________________");
+
         } while (true);
 
         //scanner.close();

@@ -1,4 +1,6 @@
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
@@ -6,7 +8,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -22,5 +23,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    public String toFileString() {
+        return  (isDone ? 1 : 0) + " | " + description;
     }
 }
