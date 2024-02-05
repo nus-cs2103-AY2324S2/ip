@@ -10,6 +10,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public void mark(int taskNum) {
         int itemIndex = taskNum - 1;
         tasks.get(itemIndex).done();
@@ -42,6 +46,17 @@ public class TaskList {
         Task removedTask = tasks.get(taskNum - 1);
         tasks.remove(taskNum - 1);
         return removedTask;
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.toString().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 
     @Override
