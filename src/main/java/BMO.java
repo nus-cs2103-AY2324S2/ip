@@ -1,16 +1,114 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.lang.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BMO {
-
     static List<Task> taskLog = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println(Constants.introPrint);
         System.out.println(Constants.tutorialPrint);
+        loadData();
         receive();
+    }
+
+    static void loadData() {
+        try {
+            String projectPath = System.getProperty("user.dir");
+            java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
+                    "main", "resources", "data", "bmo_data.txt");
+            boolean fileExists = java.nio.file.Files.exists(filePath);
+
+            if (!fileExists) {
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+                System.out.println("Info: Data file not found. Created a new file.");
+            } else {
+                String content = Files.readString(filePath);
+
+                if (!content.isEmpty() && isValidContentFormat(content)) {
+                    parseData(content);
+                    System.out.println("Tasks loaded successfully.");
+                } else {
+                    System.out.println("Error: Data file content is empty or corrupted.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error: Unable to load data. " + e.getMessage());
+        }
+    }
+
+    static void parseData(String content) {
+        String[] lines = content.split("\n");
+        Integer indexCounter = 0;
+
+        for (String line : lines) {
+            System.out.println(line);
+            String[] info = line.split("\\|");
+
+            String taskType = info[0].trim();
+            boolean isDone = info[1].trim().equals("1");
+            String taskDescription = info[2].trim();
+
+            switch (taskType) {
+                case "T":
+                    addLog("todo " + taskDescription);
+                    if (isDone) {
+                        done(indexCounter.toString());
+                    }
+                    indexCounter ++;
+                    break;
+                case "D":
+                    String taskDueDate = info[3].trim();
+                    addLog("deadline " + taskDescription + " /by " + taskDueDate);
+                    if (isDone) {
+                        done(indexCounter.toString());
+                    }
+                    indexCounter ++;
+                    break;
+                case "E":
+                    String taskStart = info[3].trim();
+                    String taskEnd = info[4].trim();
+                    addLog("event " + taskDescription + " /from " + taskStart
+                        + " /to " + taskEnd);
+                    if (isDone) {
+                        done(indexCounter.toString());
+                    }
+                    indexCounter ++;
+                    break;
+                default:
+                    System.out.println("Unknown task type: " + taskType);
+                    break;
+            }
+        }
+    }
+
+    static boolean isValidContentFormat(String content) {
+        // stretch goal to be implemented
+        return true;
+    }
+
+    static void saveData() {
+        try {
+            StringBuilder tasksContent = new StringBuilder();
+            for (Task task : taskLog) {
+                tasksContent.append(task.toSaveData());
+            }
+
+            String projectPath = System.getProperty("user.dir");
+            java.nio.file.Path filePath = java.nio.file.Paths.get(projectPath, "src",
+                    "main", "resources", "data", "bmo_data.txt");
+
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, tasksContent.toString().getBytes());
+            System.out.println("Tasks saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Error: Unable to save data. " + e.getMessage());
+        }
     }
 
     static void receive() {
@@ -47,6 +145,7 @@ public class BMO {
     }
 
     static void salute() {
+        saveData();
         System.out.println(Constants.byePrint);
         return;
     }
@@ -126,7 +225,7 @@ public class BMO {
 
         int index = Integer.parseInt((input));
 
-        if (index >= taskLog.size()) {
+        if (index > taskLog.size() || index <= 0) {
             System.out.println(Constants.errorPrint.outOfRange());
             return false;
         }
