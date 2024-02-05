@@ -14,7 +14,6 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         try {
-            String formattedDateTime = by.replace('T', ' ').replaceFirst("(?<=\\d)(?=(\\d{4}))", ":");
             this.byDate = LocalDateTime.parse(by, dateTimeFormatter);
             hasByDate = true;
         } catch (DateTimeParseException e) {

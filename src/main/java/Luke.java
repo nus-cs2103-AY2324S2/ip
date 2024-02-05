@@ -4,8 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Luke {
 
@@ -28,17 +26,13 @@ public class Luke {
         return false;
     }
 
-    private static LocalDate convertDate(String stringDate) {
-        return LocalDate.parse(stringDate);
-    }
-
     public static void main(String[] args) {
 
         String name = "Luke";
 
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
-        ArrayList<String> saveTaskList = new ArrayList<String>();
+        ArrayList<String> saveTaskList = new ArrayList<>();
 
         int noTasks = 0;
 
@@ -59,7 +53,7 @@ public class Luke {
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                if (data != "") {
+                if (data.isEmpty()) {
                     saveTaskList.add(data);
                     noTasks++;
                 }
@@ -120,28 +114,28 @@ public class Luke {
                     break;
                 case "mark":
                     try {
-                        int markIndex = Integer.valueOf(splited[1]);
+                        int markIndex = Integer.parseInt(splited[1]);
                         if (markIndex <= 0 || markIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
                         Task markTask = taskList.get(markIndex - 1);
                         markTask.setToDone();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(markTask.toString());
+                        System.out.println(markTask);
                     } catch (LukeException e) {
                         System.out.println(e);
                     }
                     break;
                 case "unmark":
                     try {
-                        int unmarkIndex = Integer.valueOf(splited[1]);
+                        int unmarkIndex = Integer.parseInt(splited[1]);
                         if (unmarkIndex <= 0 || unmarkIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
                         Task unmarkTask = taskList.get(unmarkIndex - 1);
                         unmarkTask.setToNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(unmarkTask.toString());
+                        System.out.println(unmarkTask);
                     } catch (LukeException e) {
                         System.out.println(e);
                     }
@@ -155,7 +149,7 @@ public class Luke {
                         taskList.add(todo);
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(todo.toString());
+                        System.out.println(todo);
                         noTasks++;
                         System.out.println("Now you have " + noTasks + " tasks in the list.");
                     } catch (LukeException e) {
@@ -181,7 +175,7 @@ public class Luke {
                         taskList.add(deadline);
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(deadline.toString());
+                        System.out.println(deadline);
                         noTasks++;
                         System.out.println("Now you have " + noTasks + " tasks in the list.");
                     } catch (LukeException e) {
@@ -210,7 +204,7 @@ public class Luke {
                         Event event = new Event(eventDescription, from, to);
                         taskList.add(event);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(event.toString());
+                        System.out.println(event);
                         noTasks++;
                         System.out.println("Now you have " + noTasks + " tasks in the list.");
                     } catch (LukeException e) {
@@ -219,7 +213,7 @@ public class Luke {
                     break;
                 case "delete":
                     try {
-                        int deleteIndex = Integer.valueOf(splited[1]);
+                        int deleteIndex = Integer.parseInt(splited[1]);
                         if (deleteIndex <= 0 || deleteIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
