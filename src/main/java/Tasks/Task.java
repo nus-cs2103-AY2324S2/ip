@@ -1,4 +1,7 @@
 package Tasks;
+
+import java.util.List;
+
 /**
  * Represents a generic task in a task management application.
  * This class serves as a base class for different types of tasks.

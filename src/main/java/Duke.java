@@ -87,6 +87,9 @@ public class Duke {
                         ui.printDelete(toDelete,tasks);
                         storage.saveTasks(tasks);
                         break;
+                    case FIND:
+                        ui.findTasks(inputs[1],tasks);
+                        break;
                     default:
                         ui.printError("Command not found!");
                         break;
