@@ -19,6 +19,10 @@ public class Deadline extends Task {
         return String.format("[D]%s (by: %s)", super.toStatusString(), this.date);
     }
 
+    /**
+     * Converts the task into string format for the save file.
+     * @return String in save file format.
+     */
     @Override
     public String toSaveFormatString() {
         String status = (super.isDone) ? "1" : "0";

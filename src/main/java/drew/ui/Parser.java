@@ -13,13 +13,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * This class handles the interpretation and execution of user input.
+ */
 public class Parser {
-
     /**
      * Checks the identity of the command.
      *
      * @param input String containing full user input.
      * @return drew.command.Command specified by user input.
+     * @throws UnknownCommandException Command is not recognized.
+     * @throws InsufficientArgumentsException Command is supplied with too little arguments.
+     * @throws IllegalArgumentException Command is supplied with the wrong arguments.
      */
     public Command checkCommandIdentity(String input) throws UnknownCommandException,
             InsufficientArgumentsException, IllegalArgumentException {
@@ -65,19 +70,15 @@ public class Parser {
                 throw new InsufficientArgumentsException("'Mark index' cannot be empty");
             }
             break;
-        //valid integer will be checked later
         case UNMARK:
             if (inputNoWhitespaceLength == 6) {
                 throw new InsufficientArgumentsException("'Unmark index' cannot be empty");
             }
             break;
-        //valid integer will be checked later
         case DELETE:
             if (inputNoWhitespaceLength == 6) {
                 throw new InsufficientArgumentsException("'Delete index' cannot be empty");
             }
-            break;
-        //valid integer will be checked later
         case DEADLINE:
             if (inputNoWhitespaceLength == 8) {
                 throw new InsufficientArgumentsException("'Deadline task' cannot be empty");
@@ -92,6 +93,14 @@ public class Parser {
         return userCommand;
     }
 
+    /**
+     * Handles the execution of commands
+     *
+     * @param list List that the command will operate upon.
+     * @param command Identity of the command identified.
+     * @param input String that contains the user input.
+     * @return Reply from the chatbot depending on the operation performed.
+     */
     public String executeCommand(TaskList list, Command command, String input) {
         ArrayList<Task> ls = list.getList();
         String reply = "";

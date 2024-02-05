@@ -19,6 +19,11 @@ public class Event extends Task{
     public String toStatusString() {
         return String.format("[E]%s (from: %s to: %s)", super.toStatusString(), this.startDate, this.endDate);
     }
+
+    /**
+     * Converts the task into string format for the save file.
+     * @return String in save file format.
+     */
     @Override
     public String toSaveFormatString() {
         String status = (super.isDone) ? "1" : "0";

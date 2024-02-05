@@ -14,6 +14,11 @@ public class Todo extends Task{
     public String toStatusString() {
         return String.format("[T]%s", super.toStatusString());
     }
+
+    /**
+     * Converts the task into string format for the save file.
+     * @return String in save file format.
+     */
     @Override
     public String toSaveFormatString() {
         String status = (super.isDone) ? "1" : "0";

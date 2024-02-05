@@ -5,6 +5,8 @@ import drew.ui.Parser;
 import drew.ui.Ui;
 
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
+
 /**
  * Main chatbot class. Contains the logic of the chatbot.
  *
@@ -27,6 +29,9 @@ public class Drew {
             tasks = new TaskList();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            tasks = new TaskList();
+        } catch (DateTimeParseException e) {
+            System.out.println("Date corrupted");
             tasks = new TaskList();
         }
     }

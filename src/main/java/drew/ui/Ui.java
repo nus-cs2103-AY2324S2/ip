@@ -2,6 +2,10 @@ package drew.ui;
 
 import java.util.Scanner;
 
+/**
+ * This class handles all the interactions with the user.
+ * This includes printing replies and reading input.
+ */
 public class Ui {
     public static final String DELIMITER = "______________________________________";
     Scanner sc;
@@ -9,6 +13,7 @@ public class Ui {
     public Ui() {
         this.sc = new Scanner(System.in);
     }
+
     public void greetUser() {
         System.out.println(DELIMITER);
         System.out.println("Hello! I'm Drew");
@@ -19,6 +24,10 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Encloses input string with lines.
+     * @param input String to be enclosed in lines
+     */
     public void reply(String input) {
         System.out.println(DELIMITER);
         System.out.print(input);

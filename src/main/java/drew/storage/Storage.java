@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -65,7 +66,7 @@ public class Storage {
      * Loads the task list from a txt file.
      * @return ArrayList that contains the list of tasks read.
      */
-    public ArrayList<Task> load() throws FileNotFoundException, IllegalArgumentException {
+    public ArrayList<Task> load() throws FileNotFoundException, IllegalArgumentException, DateTimeParseException {
         File savedTasks = new File(filePath);
         ArrayList<Task> ls = new ArrayList<>();
         // Debug
@@ -91,7 +92,7 @@ public class Storage {
      * @return Task object that corressponds to the input.
      * @throws IllegalArgumentException when input arguments are invalid and cannot be read.
      */
-    public Task parseSave(String input) throws IllegalArgumentException {
+    public Task parseSave(String input) throws IllegalArgumentException, DateTimeParseException {
         //Splits input string into components
         String[] args = input.split("\\|");
         int numberOfArguments = args.length;
@@ -99,7 +100,6 @@ public class Storage {
         //Removes whitespace from save string. Whitespace was used to increase readability of save txt file.
         for (int i = 0; i < numberOfArguments; i ++) {
             args[i] = args[i].trim();
-            System.out.println(args[i]);
         }
 
         Task task = null;
