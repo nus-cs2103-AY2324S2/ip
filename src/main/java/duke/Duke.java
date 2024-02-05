@@ -1,6 +1,7 @@
 package duke;
 
-import duke.ui.UserInterface;
+import duke.graphics.GraphicalUI;
+import javafx.application.Application;
 
 /**
  *
@@ -16,8 +17,6 @@ public class Duke {
                 + "| )   ( || )   ( || (____/\\  /\\____) )|  (__) ||  (__) ||  (__) |\n"
                 + "|/     \\||/     \\|(_______/  \\______/ (_______)(_______)(_______)\n";
         System.out.println(logo);
-
-        UserInterface userInterface = new UserInterface();
-        userInterface.start();
+        Application.launch(GraphicalUI.class, args);
     }
 }

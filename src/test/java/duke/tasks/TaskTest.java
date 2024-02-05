@@ -41,7 +41,7 @@ public class TaskTest {
 
     @Test
     public void testToString() {
-        assertEquals("[ ] [ ] Test Task", task.toString());
+        assertEquals("[ ] [  ] Test Task", task.toString());
         task.markDone();
         assertEquals("[ ] [X] Test Task", task.toString());
     }

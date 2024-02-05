@@ -1,5 +1,9 @@
 package duke.graphics;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -11,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
+
 
 /**
  * An example of a custom control using FXML.
@@ -23,6 +27,8 @@ public class DialogBox extends VBox {
     private Label senderName;
     @FXML
     private Text messageContent;
+    @FXML
+    private Text timeStamp;
     @FXML
     private ImageView profileImage;
 
@@ -38,6 +44,8 @@ public class DialogBox extends VBox {
         senderName.setText(name);
         messageContent.setText(text);
         profileImage.setImage(img);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        timeStamp.setText(formatter.format(LocalDateTime.now()));
     }
 
     /**
@@ -50,8 +58,7 @@ public class DialogBox extends VBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img, "Dave");
-        return db;
+        return new DialogBox(text, img, "Dave");
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {

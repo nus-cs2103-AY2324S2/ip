@@ -29,7 +29,7 @@ public class DeadlineTest {
 
     @Test
     public void testToString() {
-        assertEquals("[D] [ ] Finish Assignment by: 31-01-2024 12:00", deadline.toString());
+        assertEquals("[D] [  ] Finish Assignment by: 31-01-2024 12:00", deadline.toString());
     }
 
     @Test
