@@ -9,4 +9,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(), this.deadline);
     }
+
+    @Override
+    public String convertToDataStoreLine() {
+        return String.format("D|%s|%s|%s", super.convertToDataStoreLine(), super.getTaskString(), this.deadline);
+    }
 }
