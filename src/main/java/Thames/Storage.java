@@ -9,18 +9,34 @@ import Thames.task.Deadline;
 import Thames.task.Event;
 import Thames.task.Task;
 
+/**
+ * Storage class to save and load task lists.
+ */
 public class Storage {
+    /** File path of task list */
     protected String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads a saved task list in the file path.
+     *
+     * @return Saved task list.
+     * @throws FileNotFoundException If task list cannot be found.
+     */
     public Scanner load() throws FileNotFoundException {
         File f = new File(this.filePath);
         return new Scanner(f);
     }
 
+    /**
+     * Saves given task list into file path.
+     *
+     * @param taskList Task list to be saved.
+     * @throws IOException If error occurs while saving.
+     */
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         String text = "";

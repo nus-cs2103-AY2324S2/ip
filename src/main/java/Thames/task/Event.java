@@ -2,6 +2,10 @@ package Thames.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Class for tasks with a duration.
+ */
 public class Event extends Task{
     protected LocalDate from;
     protected LocalDate to;

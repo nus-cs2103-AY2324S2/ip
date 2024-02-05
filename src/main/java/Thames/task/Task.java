@@ -1,7 +1,12 @@
 package Thames.task;
 
+/**
+ * Class for tasks.
+ */
 public class Task {
+    /** Name of task */
     protected String name;
+    /** True if task is done */
     protected Boolean isDone;
     public Task(String name) {
         this.name = name;
@@ -15,10 +20,17 @@ public class Task {
     public Boolean getDone() {
         return this.isDone;
     }
+
+    /**
+     * Marks task as done.
+     */
     public void mark() {
         isDone = true;
     }
 
+    /**
+     * Marks task as not done.
+     */
     public void unmark() {
         isDone = false;
     }
