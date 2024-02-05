@@ -1,5 +1,4 @@
 package duke;
-
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 
@@ -31,7 +30,7 @@ public class Duke {
         greet();
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String commandString = this.ui.readCommand();
                 ui.showLine();

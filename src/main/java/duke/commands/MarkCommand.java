@@ -1,10 +1,8 @@
 package duke.commands;
-
-
-import duke.exceptions.InvalidCommandException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exceptions.InvalidCommandException;
 
 public class MarkCommand extends Command {
     private boolean isUnmarkCommand;

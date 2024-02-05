@@ -1,4 +1,11 @@
 package duke;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeFileException;
@@ -8,18 +15,10 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Storage {
     private String filePath;
 
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -50,7 +49,7 @@ public class Storage {
         return list;
     }
 
-    private static void loadTasks (Scanner scanner, TaskList list) throws InvalidCommandException {
+    private static void loadTasks(Scanner scanner, TaskList list) throws InvalidCommandException {
         while (scanner.hasNext()) {
             String currentTask = scanner.nextLine();
             String[] taskDetails = currentTask.split("\\|");
@@ -65,6 +64,8 @@ public class Storage {
             case "E":
                 newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
                 break;
+            default:
+                newTask = null;
             }
             if (newTask != null) {
                 if (taskDetails[1].equals("true")) {

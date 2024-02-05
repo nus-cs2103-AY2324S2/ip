@@ -1,12 +1,12 @@
 package duke.tasks;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.InvalidCommandException;
 
-import java.time.DateTimeException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 public class Deadline extends Task {
-    LocalDate deadline;
+    private LocalDate deadline;
     public Deadline(String name, String deadline) throws InvalidCommandException {
         super(name);
         try {

@@ -1,19 +1,17 @@
 package duke.commands;
-
-import duke.exceptions.InvalidCommandException;
 import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.InvalidCommandException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-import duke.TaskList;
-import duke.Ui;
-
 
 public class CreateTaskCommand extends Command {
     private String taskType;
     private String details;
-    public CreateTaskCommand (String taskType, String details) {
+    public CreateTaskCommand(String taskType, String details) {
         super(false);
         this.taskType = taskType;
         this.details = details;
