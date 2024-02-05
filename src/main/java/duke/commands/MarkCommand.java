@@ -35,6 +35,27 @@ public class MarkCommand extends Command {
     }
 
     /**
+     * Executes the command
+     *
+     * @param taskList Tasklist used for the command
+     *
+     * @return String containing the output of the command
+     */
+    @Override
+    public String execute(TaskList taskList) throws DukeException {
+        // Mark task as completed/uncomplete
+        Task markedTask = taskList.markTask(this.index, this.isCompleted);
+        // Print success message
+        String response;
+        if (isCompleted) {
+            response = "Nice! I've marked this task as done:\n";
+        } else {
+            response = "Nice! I've marked this task as not done:\n";
+        }
+        return response + String.format("  %s", markedTask.toString());
+    }
+
+    /**
      * Executes the mark command
      *
      * @param taskList Tasklist used for the command
@@ -42,16 +63,10 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui) throws DukeException {
-        // Mark task as completed/uncomplete
-        Task markedTask = taskList.markTask(this.index, this.isCompleted);
+        String successMessage = this.execute(taskList);
 
-        // Print success message
-        if (isCompleted) {
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            System.out.println("Nice! I've marked this task as not done:");
-        }
-        System.out.println(String.format("  %s", markedTask.toString()));
+        // Print tasks
+        System.out.println(successMessage);
     }
 
     /**

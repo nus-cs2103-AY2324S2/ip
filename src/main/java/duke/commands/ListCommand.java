@@ -37,13 +37,14 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the list command
+     * Executes the command
      *
      * @param taskList Tasklist used for the command
-     * @param ui       UI used for the command
+     *
+     * @return String containing the output of the command
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidArgumentException {
+    public String execute(TaskList taskList) throws InvalidArgumentException {
         String tasks;
         if (this.date != null) {
             tasks = taskList.getTasks(this.date);
@@ -51,8 +52,21 @@ public class ListCommand extends Command {
             tasks = taskList.getTasks();
         }
 
+        return tasks;
+    }
+
+    /**
+     * Executes the list command
+     *
+     * @param taskList Tasklist used for the command
+     * @param ui       UI used for the command
+     */
+    @Override
+    public void execute(TaskList taskList, Ui ui) throws InvalidArgumentException {
+        String successMessage = this.execute(taskList);
+
         // Print tasks
-        System.out.println(tasks);
+        System.out.println(successMessage);
     }
 
     /**
