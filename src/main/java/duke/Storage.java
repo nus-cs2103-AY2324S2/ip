@@ -55,7 +55,7 @@ public class Storage {
 <<<<<<< HEAD
      * @throws FileIOException if unsuccessful in creating file.
 =======
-     * @throws FileIoException if unsuccessful in creating file.
+     * @throws FileIOException if unsuccessful in creating file.
 >>>>>>> branch-Level-9
      */
         protected void saveInFile(TaskList list) throws FileIOException {

@@ -1,13 +1,16 @@
+
 package duke;
 
-import duke.exceptions.*;
-import duke.task.*;
 import java.util.ArrayList;
 
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import duke.exceptions.DukeException;
+import duke.exceptions.FileIOException;
+import duke.exceptions.IllegalDateFormatException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * Deals in connecting with the user command.
@@ -31,164 +34,72 @@ public class Parser {
      * @param storage Acts as a storage object for saving tasks.
      * @return boolean value depicting whether application should run or should be exited.
      */
-    public boolean parse(String str, IOHandler io, TaskList taskList, Storage storage) throws FileIOException {
+
+    public String parse(String str, IOHandler io, TaskList taskList, Storage storage) {
         String command = identify(str);
+        String result;
         try {
-                switch (command) {
+            switch (command) {
                 case "deadline":
-                    Deadline tempDeadline = setDeadline(str.substring(8));
+                    Deadline tempDeadline = taskList.setDeadline(str.substring(8));
                     taskList.addTask(tempDeadline);
-                    io.echoAdd(tempDeadline, taskList);
+                    result = io.echoAdd(tempDeadline, taskList);
                     storage.saveInFile(taskList);
-                    return true;
+                    break;
                 case "event":
-                    Event tempEvent = setEvent(str.substring(5));
+                    Event tempEvent = taskList.setEvent(str.substring(5));
                     taskList.addTask(tempEvent);
-                    io.echoAdd(tempEvent, taskList);
+                    result = io.echoAdd(tempEvent, taskList);
                     storage.saveInFile(taskList);
-                    return true;
+                    break;
                 case "todo":
-                    Todo tempToDo = setToDo(str.substring(4));
+                    Todo tempToDo = taskList.setToDo(str.substring(4));
                     taskList.addTask(tempToDo);
-                    io.echoAdd(tempToDo, taskList);
+                    result = io.echoAdd(tempToDo, taskList);
                     storage.saveInFile(taskList);
-                    return true;
+                    break;
                 case "delete":
-                    Task tempDelete = deleteTask(str, taskList);
+                    Task tempDelete = taskList.deleteTask(str, taskList);
                     storage.saveInFile(taskList);
-                    io.divider();
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(" " + tempDelete.toString());
-                    System.out.println("Now you have " + taskList.size() +" tasks in the list.");
-                    io.divider();
-                    return true;
+                    StringBuilder deleteResult = new StringBuilder();
+                    deleteResult.append("Noted. I've removed this task:\n");
+                    deleteResult.append(" ").append(tempDelete.toString()).append("\n");
+                    deleteResult.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+                    result = deleteResult.toString();
+                    break;
                 case "mark":
-                    Task tempMark = setDone(str, taskList);
-                    io.divider();
+                    Task tempMark = taskList.setDone(str, taskList);
+                    StringBuilder markResult = new StringBuilder();
                     storage.saveInFile(taskList);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tempMark);
-                    io.divider();
-                    return true;
+                    markResult.append("Nice! I've marked this task as done:\n");
+                    markResult.append("  ").append(tempMark);
+                    result = markResult.toString();
+                    break;
                 case "unmark":
-                    Task tempUnmark = setUndone(str, taskList);
-                    io.divider();
+                    Task tempUnmark = taskList.setUndone(str, taskList);
+                    StringBuilder unmarkResult = new StringBuilder();
                     storage.saveInFile(taskList);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tempUnmark);
-                    io.divider();
-                    return true;
+                    unmarkResult.append("I've marked this task as undone:\n");
+                    unmarkResult.append("  ").append(tempUnmark);
+                    result = unmarkResult.toString();
+                    break;
                 case "list":
-                    io.display(taskList);
-                    return true;
+                    result = io.display(taskList);
+                    break;
                 case "bye":
-                    io.exit();
-                    return false;
+                    result = io.exit();
+                    break;
                 case "find":
-                    ArrayList<Task> temp2 = taskList.find(str.substring(5));
-                    io.displaySearchResults(temp2);
-
-                    return true;
+                    ArrayList<Task> temp = taskList.find(str.substring(5));
+                    result = io.displaySearchResults(temp);
+                    break;
                 default:
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (DukeException | IllegalDateFormatException e) {
-            io.divider();
-            System.out.println("ERROR : " + e.getMessage());
-            io.divider();
+        } catch (DukeException | IllegalDateFormatException | FileIOException e) {
+            result = "ERROR : " + e.getMessage();
         }
-        return true;
+        return result;
     }
 
-    private Deadline setDeadline(String str) throws IllegalDateFormatException, SyntaxException {
-        String[] arr = str.split("/by ");
-        try {
-            if (arr.length != 2) {
-                throw new SyntaxException("Please check the command syntax");
-            }
-            return new Deadline(arr[0], parseDateTime(arr[1]));
-        } catch (DateTimeParseException e) {
-            throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.", str);
-        }
-    }
-
-    private Event setEvent(String str) throws IllegalDateFormatException, SyntaxException {
-        try {
-            String[] event = str.split("/from | /to ");
-            if (event.length != 3) {
-                throw new SyntaxException("Please check the command syntax");
-            }
-            return new Event(event[0],LocalDateTime.parse(event[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
-                    LocalDateTime.parse(event[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
-        } catch (DateTimeParseException e) {
-            throw new IllegalDateFormatException("Wrong Format for the date kindly put in \nyyyy-MM-dd HHmm.", str);
-        }
-    }
-
-    private Todo setToDo(String str)
-            throws DukeException {
-        String[] todo = str.split("todo ?+");
-        if (todo.length > 0) {
-            return new Todo(todo[0]);
-        } else {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
-        }
-    }
-
-    private LocalDateTime parseDateTime(String dateTime) throws IllegalDateFormatException {
-        try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } catch (DateTimeParseException e) {
-            throw new IllegalDateFormatException("Incorrect format", dateTime);
-        }
-    }
-
-    private Task deleteTask(String str, TaskList taskList) throws SyntaxException, SemanticException {
-        try {
-
-            String[] string = str.split(" ");
-            if (string.length != 2) {
-                throw new SyntaxException("Need only index number after delete");
-            }
-            int index = Integer.parseInt(string[1]);
-            return taskList.removeIndex(index);
-        } catch (NumberFormatException e) {
-            throw new SyntaxException("Need only index number after delete");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SemanticException("Index is out of bounds, please write correct index number");
-        }
-    }
-
-    private int getIndexOfMark(String str) {
-        return Integer.parseInt(str.substring(5));
-    }
-
-    private int getIndexOfUnmark(String str) {
-        return Integer.parseInt(str.substring(7));
-    }
-
-    private Task setDone(String str, TaskList taskList) throws SyntaxException, SemanticException {
-        try {
-            int index = getIndexOfMark(str);
-            taskList.markTask(index);
-            return taskList.get(index);
-        } catch (NumberFormatException e) {
-            throw new SyntaxException("Need only index number to mark as done");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SemanticException("Index is out of bounds, please write correct index number");
-        }
-    }
-
-    private Task setUndone(String str, TaskList taskList) throws SyntaxException, SemanticException {
-        try {
-            int index = getIndexOfUnmark(str);
-            taskList.unmarkTask(index);
-            return taskList.get(index);
-        } catch (NumberFormatException e) {
-            throw new SyntaxException("Need only index number to mark as undone");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SemanticException("Index is out of bounds, please write correct index number");
-        }
-
-    }
 }
