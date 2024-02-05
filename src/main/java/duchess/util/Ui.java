@@ -1,19 +1,30 @@
 package duchess.util;
 
 public class Ui {
-    public Ui() {
+    /**
+     * Create new Ui object.
+     */
+    public Ui() {}
 
-    }
+    /**
+     * Print message that there are no previous tasks recorded.
+     */
     public void showLoadingError() {
         System.out.println("No previous tasks.");
     }
 
+    /**
+     * Print exit message.
+     */
     public void printExit() {
         System.out.println("\t\t------------------------------------------");
         System.out.println("\t\tBye. Hope to see you again soon!");
         System.out.println("\t\t------------------------------------------");
     }
 
+    /**
+     * Print menu of commands that can be used.
+     */
     public void printMenu() {
         String menu = "\t\tHello! I'm Duchess" +
                 "\n\t\t--------------How to Use Me--------------" +
