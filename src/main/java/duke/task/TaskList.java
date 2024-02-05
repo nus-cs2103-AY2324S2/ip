@@ -23,7 +23,7 @@ public class TaskList {
      * @return A list of tasks.
      */
     public List<Task> getTasks() {
-        return new ArrayList<>(this.tasks); // Encapsulation: Return a copy to prevent external modifications
+        return tasks;
     }
 
     /**
