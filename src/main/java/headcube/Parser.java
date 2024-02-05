@@ -26,24 +26,24 @@ public class Parser {
      * Parses the given input string and performs the corresponding action.
      *
      * @param input The user input to parse.
+     * @return The response to the input
      */
-    public void parse(String input) {
+    public String parse(String input) {
         try {
             String[] split = input.split(" ", 2);
 
             if (input.equals("list")) {
-                ui.list(taskList);
+                return ui.list(taskList);
             } else if (split[0].equals("mark")) {
-                taskList.mark(Integer.parseInt(split[1]));
-
+                return taskList.mark(Integer.parseInt(split[1]));
             } else if (split[0].equals("find")) {
                 String keyword = split[1];
                 TaskList foundTasks = taskList.find(keyword);
-                ui.showFoundTasks(foundTasks);
+                return ui.showFoundTasks(foundTasks);
             } else if (split[0].equals("delete")) {
-                taskList.delete(Integer.parseInt(split[1]));
+                return taskList.delete(Integer.parseInt(split[1]));
             } else if (input.equals("save")) {
-                storage.save(taskList);
+                return storage.save(taskList);
             } else {
                 String[] string = input.split(" ", 2 );
                 String event = string[0];
@@ -69,12 +69,17 @@ public class Parser {
                 } else {
                     throw new HeadCubeException("I do not understand what that means!!");
                 }
-                System.out.println("Got it. I've added this task:\n  "
-                        + taskList.get(taskList.size() - 1));
-                System.out.println("Now you have " + taskList.size() + " tasks in the list.\n");
+
+                StringBuilder sb = new StringBuilder();
+                sb.append("Got it. I've added this task:\n  ")
+                        .append(taskList.get(taskList.size() - 1))
+                        .append("\nNow you have ")
+                        .append(taskList.size())
+                        .append(" tasks in the list.\n");
+                return sb.toString();
             }
         } catch (HeadCubeException e) {
-            ui.error(e.getMessage());
+            return ui.error(e.getMessage());
         }
     }
 

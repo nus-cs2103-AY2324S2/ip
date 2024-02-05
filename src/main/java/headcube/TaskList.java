@@ -6,7 +6,7 @@ import java.util.List;
  * adding, marking, and deleting tasks from the list.
  */
 public class TaskList {
-    private List<Task> tasks;
+    public List<Task> tasks;
 
     /**
      * Constructor of TaskList object, which creates an empty TaskList.
@@ -56,24 +56,33 @@ public class TaskList {
      * Marks a task in the task list as done.
      *
      * @param taskNumber The index of the task in the list to be marked as done.
+     * @return The string says the task is marked.
      */
-    public void mark(int taskNumber) {
+    public String mark(int taskNumber) {
         Task task = this.tasks.get(taskNumber - 1);
         task.done();
-        System.out.println("Nice! I've marked this task as done:\n  " + task);
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 
     /**
      * Deletes a task from the task list.
      *
      * @param taskNumber The index of the task in the list to be deleted.
+     * @return The string that says the task is deleted.
      */
-    public void delete(int taskNumber) {
+    public String delete(int taskNumber) {
         Task removedTask = this.tasks.remove(taskNumber - 1);
-        System.out.println("Noted. I've removed this task:\n  " + removedTask);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.\n");
+        return "Noted. I've removed this task:\n  " + removedTask + "\nNow you have "
+                + this.tasks.size() + " tasks in the list.\n";
     }
 
+    /**
+     * Searches for tasks whose descriptions contain the specified input keyword.
+     * Creates and returns a new TaskList consisting of only the matching tasks.
+     *
+     * @param input The keyword to search for in the task descriptions.
+     * @return A new TaskList containing only the tasks that match the search criteria.
+     */
     public TaskList find(String input) {
         TaskList found = new TaskList();
         for (Task task : tasks) {
