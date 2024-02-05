@@ -7,13 +7,25 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
+/**
+ * Represents a storage that stores the user's todo list.
+ */
 public class Storage {
-
+    /** The file object storing the data for the user's todo list */
     private File file;
+    /** The different type of task encoded in the data file */
     private enum Task {
         T, D, E
     }
 
+    /**
+     * Returns a <code>Storage</code> object with the data found at filepath. If no pre-existing data exists, a new file
+     * along with any relevant parent directory is created.
+     *
+     * @param filepath The filepath to the file storing the user's todo list.
+     * @throws Error If an IO error occurred while trying to create the new data file. Suggests potential errors in
+     * creating the relevant parent directories, or bug in storage initialisation.
+     */
     public Storage(String filepath) {
         try {
             this.file = new File(filepath);
@@ -26,6 +38,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the pre-existing list from the stored data file.
+     *
+     * @return <code>TaskList</code> loaded with the tasks and data from the existing data.
+     * @throws Error If the data file is not found. Suggests that data file does not exist and
+     * potential errors in storage initialisation.
+     */
     public TaskList loadList() {
         try {
             Scanner scanner = new Scanner(this.file);
@@ -72,6 +91,11 @@ public class Storage {
         list.addEvent(description, from, to, isDone);
     }
 
+    /**
+     * Writes to the data file with the updated data in the TaskList.
+     *
+     * @param data Data that is string-formatted to be stored in the data file.
+     */
     public void updateData(String[] data) {
         try {
             FileWriter writer = new FileWriter(this.file.getPath());
