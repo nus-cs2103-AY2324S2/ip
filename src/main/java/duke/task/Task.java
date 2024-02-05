@@ -1,26 +1,17 @@
 
 package duke.task;
-<<<<<<< HEAD
+
 
 /**
  * Contatins the information of the Task.
  */
+
 public abstract class Task {
 
     private String description;
     private boolean isDone;
 
-=======
 
-/**
- * Contatins the information of the Task.
- */
-public abstract class Task {
-
-    private String description;
-    private boolean isDone;
-
->>>>>>> branch-Level-9
     /**
      * Constructs the task object.
      * @param description Contains the description of the event.

@@ -1,23 +1,15 @@
 package duke.task;
 
-<<<<<<< HEAD
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-=======
-
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
->>>>>>> branch-Level-9
+
+
 /**
  * Consists of information related to Deadline.
  */
 public class Deadline extends Task {
-<<<<<<< HEAD
 
-=======
->>>>>>> branch-Level-9
     private LocalDateTime by;
 
     /**
@@ -34,17 +26,12 @@ public class Deadline extends Task {
      * String representation of the deadline.
      * @return formatted string with the deadline task.
      */
-<<<<<<< HEAD
+
 
     @Override public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return "[D]" + (this.checkDone() ? "[X] " : "[ ] ") + this.getDescription() + " (by: " + this.by.format(formatter) + ")";
-=======
-    @Override
-    public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        return "[D]" + (this.isDone ? "[X] " : "[ ] ") + this.description + " (by: " + this.by.format(formatter) + ")";
->>>>>>> branch-Level-9
+
     }
 
     /**
