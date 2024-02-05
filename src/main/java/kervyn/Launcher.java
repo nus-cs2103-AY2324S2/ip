@@ -8,6 +8,6 @@ import kervyn.Kervyn;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Kervyn.class, args);
+        Application.launch(Main.class, args);
     }
 }
