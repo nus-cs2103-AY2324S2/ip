@@ -21,7 +21,7 @@ public class Bob {
                 break;
             }
 
-            if (input.equals("list")) {
+            else if (input.equals("list")) {
                 int size = taskList.size();
 
                 System.out.println(" Here are the tasks in your list:");
@@ -31,22 +31,38 @@ public class Bob {
                 }
             }
 
-            else if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                Task task = taskList.get(index);
-                task.markAsDone();
+            else if (input.trim().matches("mark|unmark|deadline|todo|event")) {
+                System.out.println(" Your entry is incomplete!");
+            }
 
-                System.out.println(" Nice! I've marked this task as done:\n"
-                        + "  " + task);
+            else if (input.startsWith("mark ")) {
+                try {
+                    int index = Integer.parseInt(input.substring(5)) - 1;
+                    Task task = taskList.get(index);
+                    task.markAsDone();
+
+                    System.out.println(" Nice! I've marked this task as done:\n"
+                            + "  " + task);
+                }
+
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println(" There exists no such task.");
+                }
             }
 
             else if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
-                Task task = taskList.get(index);
-                task.markAsUndone();
+                try {
+                    int index = Integer.parseInt(input.substring(7)) - 1;
+                    Task task = taskList.get(index);
+                    task.markAsUndone();
 
-                System.out.println(" OK, I've marked this task as not done yet:\n"
-                        + "  " + task);
+                    System.out.println(" OK, I've marked this task as not done yet:\n"
+                            + "  " + task);
+                }
+
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println(" There exists no such task.");
+                }
             }
 
             else if (input.startsWith("deadline ")) {
@@ -85,11 +101,7 @@ public class Bob {
             }
 
             else {
-                Task newTask = new Task(input);
-                taskList.add(newTask);
-                System.out.println(" Got it. I've added this task:\n"
-                        + "  " + newTask + "\n"
-                        + " Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println(" Bob knows not what that means.");
             }
         }
 
