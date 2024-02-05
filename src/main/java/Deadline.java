@@ -12,11 +12,19 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.generateByDateString() + ")";
     }
 
     @Override
     public String toTaskSaveString() {
-        return "D|" + this.getStatusInt() + "|" + this.description + "|" + this.by;
+        return "D|" + this.getStatusInt() + "|" + this.description + "|" + this.generateBySaveString();
+    }
+
+    private String generateByDateString() {
+        return this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    private String generateBySaveString() {
+        return this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }
