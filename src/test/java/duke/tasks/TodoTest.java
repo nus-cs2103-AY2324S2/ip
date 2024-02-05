@@ -23,7 +23,7 @@ public class TodoTest {
 
     @Test
     public void testToString() {
-        assertEquals("[T] [ ] Buy groceries", todo.toString());
+        assertEquals("[T] [  ] Buy groceries", todo.toString());
     }
 
     @Test

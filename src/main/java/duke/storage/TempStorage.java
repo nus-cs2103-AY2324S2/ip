@@ -1,6 +1,7 @@
 package duke.storage;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 import duke.codec.Codec;
@@ -32,11 +33,11 @@ public class TempStorage {
      * @param i The index of the task to be deleted.
      * @throws ProcessingException If there is an issue executing the delete command or if the index is out of bounds.
      */
-    public void delete(int i) throws ProcessingException {
+    public String delete(int i) throws ProcessingException {
         try {
             Task task = list.get(i);
             list.remove(i);
-            System.out.printf("I have deleted this:\n%s\n", task);
+            return String.format("I have deleted this:\n%s\n", task);
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.DELETE, e);
         }
@@ -48,14 +49,14 @@ public class TempStorage {
      * @param i The index of the task to be marked as done.
      * @throws ProcessingException If there is an issue executing the mark command or if the index is out of bounds.
      */
-    public void mark(int i) throws ProcessingException {
+    public String mark(int i) throws ProcessingException {
         try {
             Task task = list.get(i);
             if (!task.getDone()) {
                 task.markDone();
-                System.out.printf("I have marked this:\n%s\n", task);
+                return String.format("I have marked this:\n%s\n", task);
             } else {
-                System.out.printf("%s is already marked!\n", task);
+                return String.format("%s is already marked!\n", task);
             }
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.MARK, e);
@@ -68,14 +69,14 @@ public class TempStorage {
      * @param i The index of the task to be marked as undone.
      * @throws ProcessingException If there is an issue executing the unmark command or if the index is out of bounds.
      */
-    public void unmark(int i) throws ProcessingException {
+    public String unmark(int i) throws ProcessingException {
         try {
             Task task = list.get(i);
             if (task.getDone()) {
                 task.markUndone();
-                System.out.printf("I have unmarked this:\n%s\n", task);
+                return String.format("I have unmarked this:\n%s\n", task);
             } else {
-                System.out.printf("%s is already unmarked!\n", task);
+                return String.format("%s is already unmarked!\n", task);
             }
 
         } catch (IndexOutOfBoundsException e) {
@@ -90,10 +91,10 @@ public class TempStorage {
      * @param task The task to be added.
      * @throws ProcessingException If there is an issue executing the add command.
      */
-    public void add(Task task) throws ProcessingException {
+    public String add(Task task) throws ProcessingException {
         try {
             list.add(task);
-            System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
+            return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
                     task,
                     list.size());
 
@@ -125,14 +126,16 @@ public class TempStorage {
      * Displays the task list to the console.
      * If the list is empty, it informs the user to add tasks.
      */
-    public void displayList() {
+    public String displayList() {
         if (list.isEmpty()) {
-            System.out.println("Your list is empty! Try adding tasks (eg. todo homework)");
+            return "Your list is empty! Try adding tasks (eg. todo homework)";
         } else {
+            StringJoiner joiner = new StringJoiner("\n");
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
-                System.out.printf("%d. %s\n", i + 1, task);
+                joiner.add(String.format("%d. %s", i + 1, task));
             }
+            return joiner.toString();
         }
     }
 
@@ -141,17 +144,18 @@ public class TempStorage {
      *
      * @param query The search query to match against task names.
      */
-    public void displaySearchList(String query) {
+    public String displaySearchList(String query) {
         ArrayList<Task> resultList = Search.search(list, query);
         if (resultList.isEmpty()) {
-            System.out.println("Your search was fruitless. Trying looking again");
+            return "Your search was fruitless. Trying looking again";
         } else {
-            System.out.println("Here are your matching search results");
+            StringJoiner joiner = new StringJoiner("\n");
+            joiner.add("Here are your matching search results");
             for (int i = 0; i < resultList.size(); i++) {
                 Task task = resultList.get(i);
-                System.out.printf("%d. %s\n", i + 1, task);
+                joiner.add(String.format("%d. %s", i + 1, task));
             }
+            return joiner.toString();
         }
     }
-
 }

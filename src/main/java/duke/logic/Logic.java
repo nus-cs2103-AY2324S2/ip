@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.logic;
 
 import java.util.Scanner;
 
@@ -6,22 +6,22 @@ import duke.command.Command;
 import duke.command.CommandProcessor;
 import duke.exceptions.HalException;
 import duke.storage.Storage;
+import javafx.application.Platform;
 
 /**
  * The `UserInterface` class handles user interactions and serves as the main interface for the Duke application.
  */
-public class UserInterface {
+public class Logic {
 
     private Scanner scan;
     private CommandProcessor cmd;
-
     private boolean startUpSuccess = false;
 
     /**
      * Initializes a new `UserInterface` object, sets up a scanner for user input,
      * and attempts to start the Duke application.
      */
-    public UserInterface() {
+    public Logic() {
         try {
             scan = new Scanner(System.in);
             String fileLocation = "./savefile.txt";
@@ -31,19 +31,10 @@ public class UserInterface {
         } catch (HalException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**
-     * Displays a greeting message to the user.
-     */
-    public void greet() {
-        String greeting = "Hi! My name is HAL9000";
-        System.out.println(greeting);
-    }
-
-    /**
-     * Displays a farewell message to the user.
+     * Displays a farewell message to the user in CLI.
      */
     public void exit() {
         String exit = "Bye! See ya soon";
@@ -59,38 +50,27 @@ public class UserInterface {
         System.out.println("Hi, you failed to start up properly! Sorry, bye!");
     }
 
-    /**
-     * Polls for user input and processes commands until the user decides to exit.
-     */
-    public void poll() {
-        boolean polling = true;
-        while (polling) {
-            String input = scan.nextLine();
-            try {
-                Command command = Command.processCommand(input);
-                if (command.isExit()) {
-                    polling = false;
-                } else {
-                    cmd.processData(command, input);
-                }
-            } catch (HalException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+    public String greet() {
+        return "Hi Dave, I'm HAL9000. What can I do for you today?";
     }
 
-    /**
-     * Starts the Duke application by displaying a greeting, polling for user input, and then exiting.
-     */
-    public void start() {
-
+    public String getResponse(String input) {
         if (!startUpSuccess) {
             startUpFailure();
-            return;
+            return "";
         }
 
-        greet();
-        poll();
-        exit();
+        try {
+            Command command = Command.processCommand(input);
+            if (command.isExit()) {
+                exit();
+                Platform.exit();
+                return "";
+            } else {
+                return cmd.processData(command, input);
+            }
+        } catch (HalException e) {
+            return e.getMessage();
+        }
     }
 }

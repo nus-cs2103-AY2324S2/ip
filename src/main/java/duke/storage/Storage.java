@@ -70,24 +70,24 @@ public class Storage {
         }
     }
 
-    public void add(Task task) throws ProcessingException {
-        temp.add(task);
+    public String add(Task task) throws ProcessingException {
+        return temp.add(task);
     }
-    public void delete(int i) throws ProcessingException {
-        temp.delete(i);
+    public String delete(int i) throws ProcessingException {
+        return temp.delete(i);
     }
-    public void mark(int i) throws ProcessingException {
-        temp.mark(i);
+    public String mark(int i) throws ProcessingException {
+        return temp.mark(i);
     }
-    public void unmark(int i) throws ProcessingException {
-        temp.unmark(i);
+    public String unmark(int i) throws ProcessingException {
+        return temp.unmark(i);
     }
-    public void displayList() {
-        temp.displayList();
+    public String displayList() {
+        return temp.displayList();
     }
 
-    public void displaySearchList(String query) {
-        temp.displaySearchList(query);
+    public String displaySearchList(String query) {
+        return temp.displaySearchList(query);
     }
 
     public void close() {

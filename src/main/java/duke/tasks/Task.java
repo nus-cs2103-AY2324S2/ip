@@ -37,7 +37,7 @@ public abstract class Task {
     }
     @Override
     public String toString() {
-        return String.format("[%s] [%s] %s", identifier, done ? "X" : " ", taskName);
+        return String.format("[%s] [%s] %s", identifier, done ? "X" : "  ", taskName);
     }
 
     public String getTaskName() {
