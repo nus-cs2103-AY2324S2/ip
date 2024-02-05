@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private String handleUserInput() {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -50,6 +50,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        return "";
+        if (input.contains("bye")) {
+            System.exit(0);
+        }
     }
 }
