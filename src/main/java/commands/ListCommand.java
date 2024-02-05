@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
  *  Represents the command used to display the list of tasks to the user.
@@ -18,14 +17,13 @@ public class ListCommand extends Command {
      * Executes the ListCommand, listing out all the tasks in the task list.
      * @param tasks   The TaskList representing the collection of tasks.
      * @param storage The Storage object handling storage operations.
-     * @param ui      The Ui object responsible for user interface interactions.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
-            ui.showToUser(SUCCESS_MESSAGE);
+            return SUCCESS_MESSAGE;
         } else {
-            ui.showList(String.format(LIST_MESSAGE, tasks.numTasks()), tasks);
+            return String.format(LIST_MESSAGE, tasks.numTasks()) + "\n" + tasks;
         }
     }
 }

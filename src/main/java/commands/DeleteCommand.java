@@ -3,7 +3,6 @@ package commands;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents the command used to delete a task from the task list.
@@ -28,17 +27,16 @@ public class DeleteCommand extends Command {
      * If the input index is out of range of the task list, an IndexOutOfBoundsException is thrown.
      * @param tasks   The TaskList representing the collection of tasks.
      * @param storage The Storage object handling storage operations.
-     * @param ui      The Ui object responsible for user interface interactions.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
             int index = Integer.parseInt(message);
             Task removed = tasks.get(index - 1);
             tasks.remove(index - 1);
-            ui.showToUser(String.format(SUCCESS_MESSAGE, removed, tasks.numTasks()));
+            return String.format(SUCCESS_MESSAGE, removed, tasks.numTasks());
         } catch (IndexOutOfBoundsException e) {
-            ui.showErrorMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 }

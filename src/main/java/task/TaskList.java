@@ -37,4 +37,15 @@ public class TaskList implements Iterable<Task> {
     public Iterator<Task> iterator() {
         return tasks.iterator();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+
+        return result.toString();
+    }
 }
