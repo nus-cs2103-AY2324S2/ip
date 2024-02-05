@@ -56,14 +56,10 @@ public class Storage {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                         end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
                         LocalDateTime end_time = LocalDateTime.parse(end, formatter);
-                        try {
-                            task = new DeadlineTask(task_name, end_time, input);
-                            todo.add(task);
-                            break;
-                        } catch (DukeException err) {
-                            System.out.println(err.getMessage());
-                            break;
-                        }
+                        task = new DeadlineTask(task_name, end_time, input);
+                        todo.add(task);
+                        break;
+
                     case ("event"):
                         first_string = input.split(" /")[0];
                         second_string = input.split(" /")[1];
@@ -71,14 +67,9 @@ public class Storage {
                         task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
                         start = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
                         end = String.join(" ", Arrays.copyOfRange(third_string.split(" "), 1, third_string.split(" ").length));
-                        try {
-                            task = new EventTask(task_name, start, end, input);
-                            todo.add(task);
-                            break;
-                        } catch (DukeException err) {
-                            System.out.println(err.getMessage());
-                            break;
-                        }
+                        task = new EventTask(task_name, start, end, input);
+                        todo.add(task);
+                        break;
                 }
 
             }

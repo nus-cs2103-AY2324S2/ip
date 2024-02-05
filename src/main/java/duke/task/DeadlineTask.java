@@ -4,19 +4,30 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import duke.exceptions.DukeException;
 
+
+/**
+ * Class for deadline tasks
+ */
 public class DeadlineTask extends Task {
 
     protected LocalDateTime end_time;
-    public DeadlineTask(String name, LocalDateTime end_time, String file_format) throws DukeException {
+    /**
+     * Constructor for DeadlineTask
+     *
+     * @param name Name of the DeadlineTask
+     * @param end_time Deadline for the task
+     * @param file_format File format for the task
+     */
+    public DeadlineTask(String name, LocalDateTime end_time, String file_format) {
         super(name, Task.Type.D, file_format);
         this.end_time = end_time;
-
-        if (this.name.isBlank()) {
-            String error_message = "\tInvalid deadline description!\n\tEx: deadline return book /by Sunday\n";
-            throw new DukeException(error_message);
-        }
     }
 
+    /**
+     * String representation of DeadlineTask
+     *
+     * @return String representation of DeadlineTask
+     */
     @Override
     public String toString() {
         String output;

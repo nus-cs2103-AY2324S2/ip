@@ -18,10 +18,23 @@ public class Parser {
     Parser() {
     }
 
+    /**
+     * Parses one word inputs such as "list"
+     *
+     * @param input The input line inputted by the user
+     * @return returns the inputted command
+     */
     public static String parse(String input) {
         return input.split(" ")[0];
     }
 
+    /**
+     * Parses todo commands
+     *
+     * @param input The input line inputted by the user
+     * @return TodoTask instance
+     * throws DukeException if input not correct TodoTask format
+     */
     public static TodoTask parse_todo(String input) throws DukeException {
 
         String task_name;
@@ -38,6 +51,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses deadline commands
+     *
+     * @param input The input line inputted by the user
+     * @return DeadlineTask instance
+     * throws DukeException if input not correct DeadLine format
+     */
     public static DeadlineTask parse_deadline(String input) throws DukeException {
         String task_name, start, end, first_string, second_string;
         first_string = input.split(" /")[0];
@@ -55,6 +75,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses event commands
+     *
+     * @param input The input line inputted by the user
+     * @return EventTask instance
+     * throws DukeException if input not correct EventTask format
+     */
     public static EventTask parse_event(String input) throws DukeException {
         if (input.split(" /").length == 3) {
             String first_string, second_string, third_string, task_name, start, end;
@@ -70,6 +97,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses delete commands
+     *
+     * @param input The input line inputted by the user
+     * @return Index of item to be deleted
+     * throws DukeException if input not correct delete command format
+     */
     public static int parse_delete(String input) throws DukeException {
         if (input.split(" ").length == 2) {
             return Integer.parseInt(input.split(" ")[1]);
@@ -78,6 +112,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses mark commands
+     *
+     * @param input The input line inputted by the user
+     * @return Index of item to be marked
+     * throws DukeException if input not correct mark command format
+     */
     public static int parse_mark(String input) throws DukeException {
         if (input.split(" ").length == 2) {
             return Integer.parseInt(input.split(" ")[1]);
@@ -86,6 +127,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses unmark commands
+     *
+     * @param input The input line inputted by the user
+     * @return Index of item to be unmarked
+     * throws DukeException if input not correct unmark command format
+     */
     public static int parse_unmark(String input) throws DukeException {
         if (input.split(" ").length == 2) {
             return Integer.parseInt(input.split(" ")[1]);
