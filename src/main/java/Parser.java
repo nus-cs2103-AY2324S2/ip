@@ -41,4 +41,9 @@ public class Parser {
     
         return new String[]{eventDescription, startTime, endTime};
     }
+
+    public String getRemainingWords(String input) {
+        String[] inputArray = input.split(" ");
+        return input.substring(inputArray[0].length()).strip();
+    }
 }
