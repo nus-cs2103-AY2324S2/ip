@@ -9,10 +9,16 @@ public class ChatBro {
         taskList.add(null); // First element left empty for 1-based indexing
         String savedTasks = db.readFromFile();
         String[] savedTasksSplit = savedTasks.split("\n"); // Split savedTasks by newline
-        for (int i = 0; i < savedTasksSplit.length; i++) {
-            String taskString = savedTasksSplit[i];
-            taskList.add(Task.parseTask(taskString));
+        try {
+            for (int i = 0; i < savedTasksSplit.length; i++) {
+                String taskString = savedTasksSplit[i];
+                taskList.add(Task.parseTask(taskString));
+            }
+        } catch (WrongFileFormatException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
         }
+
         for (int i = 0; i < savedTasksSplit.length; i++) {
             if (savedTasksSplit[0].isEmpty()) {
                 break;

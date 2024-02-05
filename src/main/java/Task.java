@@ -90,13 +90,23 @@ public abstract class Task {
      * Parses a string into a Task object.
      * @return Task object.
      */
-    public static Task parseTask(String taskString) {
-        if (taskString.length() < 7) {
-            return null; // Does not match any task type
+    public static Task parseTask(String taskString) throws WrongFileFormatException {
+        // Checking first 7 characters to determine type and status
+        if (taskString.length() < 7 || taskString.charAt(0) != '[' || taskString.charAt(2) != ']'
+                || taskString.charAt(3) != '[' || taskString.charAt(5) != ']') {
+            throw new WrongFileFormatException("savedTasks.txt is in the wrong format. Please delete the file and restart the program.");
         }
-        String type = taskString.charAt(1) + ""; // get the type of the task
-        String status = taskString.charAt(4) + ""; // get the status of the task
-        boolean isDone = status.equals("X");
+        String type = taskString.charAt(1) + "";
+        String status = taskString.charAt(4) + "";
+        boolean isDone;
+        if (status.equals("X")) {
+            isDone = true;
+        } else if (status.equals(" ")) {
+            isDone = false;
+        } else {
+            throw new WrongFileFormatException("savedTasks.txt is in the wrong format. Please delete the file and restart the program.");
+        }
+        // Parsing the rest of the string
         switch (type) {
         case "T":
             return new ToDo(taskString.substring(7), isDone);
@@ -104,8 +114,12 @@ public abstract class Task {
             String theRestD = taskString.substring(7); // the rest of the String after type and status
             String[] splitD = theRestD.split(" \\(by: ");
             String descriptionD = splitD[0];
-            String by = splitD[1].substring(0, splitD[1].length() - 1);
-            return new Deadline(descriptionD, by , isDone);
+            try {
+                String by = splitD[1].substring(0, splitD[1].length() - 1);
+                return new Deadline(descriptionD, by , isDone);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new WrongFileFormatException("savedTasks.txt is in the wrong format. Please delete the file and restart the program.");
+            }
         case "E":
             String theRestE = taskString.substring(7); // the rest of the String after type and status
             String[] splitE = theRestE.split(" \\(from: ");
@@ -115,7 +129,7 @@ public abstract class Task {
             String end = splitE2[1].substring(0, splitE2[1].length() - 1);
             return new Event(descriptionE, start, end, isDone);
         default:
-            return null; // Does not match any task type
+            throw new WrongFileFormatException("savedTasks.txt is in the wrong format. Please delete the file and restart the program.");
         }
     }
 
