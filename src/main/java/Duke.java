@@ -11,6 +11,10 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object
+     * @param filePath the path to the file containing the tasks
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +26,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program, takes user input and processes it
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String userInput = getUserInput(scanner);
@@ -63,6 +70,11 @@ public class Duke {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Main method that starts the program
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         System.out.println("Hello! I'm PeWPeWPeW");
         new Duke("data/duke.txt").run();
