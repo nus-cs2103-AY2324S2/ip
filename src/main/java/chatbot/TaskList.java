@@ -94,6 +94,9 @@ public class TaskList {
                         throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
                     }
                     input = input.substring(5).trim();
+                    if (input.isEmpty()) {
+                        throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
+                    }
                     ToDo todo = new ToDo(input);
                     taskList.add(todo);
                     break;
@@ -147,6 +150,9 @@ public class TaskList {
                     }
                     if (toMatcher.find()) {
                         endTime = toMatcher.group(1);
+                    }
+                    if (descriptionEvent.isEmpty()) {
+                        throw new AlfredException("Sorry Master Bruce. The description of an event cannot be empty.");
                     }
                     // Check if description, start time, and end time are found
                     if (descriptionEvent == null || startTime == null || endTime == null) {
