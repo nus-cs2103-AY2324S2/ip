@@ -1,16 +1,31 @@
 package duke;
+
+/**
+ * The Handler class is responsible for handling user input and executing the
+ * corresponding commands.
+ */
 public class Handler {
     private TaskList taskList;
-    private Parser parser;
+    private Parser parser = new Parser();
 
+    /**
+     * Constructs a new Handler object.
+     *
+     * @param taskList The list of tasks to be managed.
+     */
     public Handler(TaskList taskList) {
         this.taskList = taskList;
-        this.parser = new Parser();
     }
 
+    /**
+     * Handles the user input.
+     *
+     * @param input The user input.
+     * @throws DukeException If the input is invalid.
+     */
     public void handle(String input) throws DukeException {
         String command = parser.parseCommand(input);
-        
+
         if (command.equals("list")) {
             handleList();
         } else if (command.equals("mark")) {
@@ -43,7 +58,7 @@ public class Handler {
     }
 
     private void handleDelete(String input) throws DukeException {
-        int index = Integer.parseInt(input.split(" ")[1]);
+        int index = parser.parseIndex(input);
         taskList.deleteTask(index);
     }
 
