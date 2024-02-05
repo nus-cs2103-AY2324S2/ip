@@ -17,7 +17,8 @@ public class UI {
         this.scanner = new Scanner(System.in);
         this.store = store;
     }
-    private static final String LINE = "      ________________________________________________________\n";
+    private static final String LINE =
+                "      _________________________________________________________________________\n";
     private String logo = "     _______       ______     _______    _______    ___  ___\n"
             + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  |\n"
             + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /\n"
@@ -30,7 +31,7 @@ public class UI {
      * Prints out the introduction of the program and the name of the chatbot, Bobby.
      */
     public void intro() {
-        System.out.println("Hello! I'm\n" + this.logo + "\n\n What can I do for you today? :)\n");
+        System.out.println("Hello! I'm\n" + this.logo + "\n\nWhat can I do for you today? :)\n");
     }
 
     /**
@@ -55,5 +56,17 @@ public class UI {
      */
     public void bye() {
         System.out.print(LINE + "      Bye! Have a great day ahead :>\n" + LINE);
+    }
+
+    public static void printOut(String toPrint) {
+        System.out.print(LINE + toPrint + LINE);
+    }
+
+    public static void printTop(String toPrint) {
+        System.out.print(LINE + toPrint);
+    }
+
+    public static void printLine() {
+        System.out.print(LINE);
     }
 }

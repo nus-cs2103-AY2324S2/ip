@@ -11,8 +11,8 @@ package seedu.duke.task;
  * @version 0.1
  */
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description.trim();
@@ -57,7 +57,7 @@ public class Task {
     public void printTaskDesc(int num, boolean isLast){
         if (!isLast) {
             if (num == 1) {
-                System.out.print("      ________________________________________________________\n");
+                System.out.print("      _________________________________________________________________________\n");
                 System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
                         num, getTag(), getStatusIcon(), getDescription());
             } else {
@@ -65,13 +65,13 @@ public class Task {
             }
         } else {
             if (num == 1) {
-                System.out.print("      ________________________________________________________\n");
+                System.out.print("      _________________________________________________________________________\n");
                 System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
                         num, getTag(), getStatusIcon(), getDescription());
-                System.out.print("      ________________________________________________________\n");
+                System.out.print("      _________________________________________________________________________\n");
             } else {
                 System.out.printf("      %d.[%s][%s] %s \n", num, getTag(), getStatusIcon(), getDescription());
-                System.out.print("      ________________________________________________________\n");
+                System.out.print("      _________________________________________________________________________\n");
             }
         }
     }
@@ -80,17 +80,22 @@ public class Task {
         System.out.printf("         [%s][%s] %s\n", getTag(), getStatusIcon(), getDescription());
     }
 
+    public void printMatchDesc(int num) {
+        System.out.printf("         %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
+
+    }
+
     public void printMarking(Task task, String tag) {
         if (isDone) {
-            System.out.print("      ________________________________________________________\n"
+            System.out.print("      _________________________________________________________________________\n"
                     + "      Great job! I've marked this task as done:\n");
             System.out.printf("      [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
-            System.out.print("      ________________________________________________________\n");
+            System.out.print("      _________________________________________________________________________\n");
         } else {
-            System.out.print("      ________________________________________________________\n"
+            System.out.print("      _________________________________________________________________________\n"
                     + "      Ok, I've marked this task as not done yet:\n");
             System.out.printf("      [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
-            System.out.print("      ________________________________________________________\n");
+            System.out.print("      _________________________________________________________________________\n");
         }
     }
 }

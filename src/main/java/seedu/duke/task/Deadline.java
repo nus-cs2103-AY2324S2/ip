@@ -34,7 +34,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toStore() {
-        return " D | " + (this.isDone ? "1" : "0") +  " | "  + this.description + " | " + this.parseDateTime() + "\n";
+        return " D | " + (isDone ? "1" : "0") +  " | "  + description + " | " + parseDateTime() + "\n";
     }
 
     /**
@@ -46,37 +46,43 @@ public class Deadline extends Task{
      */
     private String parseDateTime() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
-        return this.deadline.format(outputFormatter);
+        return deadline.format(outputFormatter);
     }
 
     @Override
     public void printTaskDesc(int num, boolean isLast){
         if (!isLast) {
             if (num == 1) {
-                System.out.print("      ________________________________________________________\n");
+                System.out.print("      _________________________________________________________________________\n");
                 System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (by: %s)\n",
-                        num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.parseDateTime());
+                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
             } else {
                 System.out.printf("      %d.[%s][%s] %s (by: %s)\n",
-                        num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.parseDateTime());
+                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
             }
         } else {
             if (num == 1) {
-                System.out.print("      ________________________________________________________\n");
+                System.out.print("      _________________________________________________________________________\n");
                 System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (by: %s)\n",
-                        num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.parseDateTime());
-                System.out.print("      ________________________________________________________\n");
+                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
+                System.out.print("      _________________________________________________________________________\n");
             } else {
                 System.out.printf("      %d.[%s][%s] %s (by: %s)\n",
-                        num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.parseDateTime());
-                System.out.print("      ________________________________________________________\n");
+                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
+                System.out.print("      _________________________________________________________________________\n");
             }
         }
     }
 
     @Override
+    public void printMatchDesc(int num) {
+        System.out.printf("      %d.[%s][%s] %s (by: %s)\n",
+                num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
+    }
+
+    @Override
     public void printFullDesc() {
         System.out.printf("         [%s][%s] %s (by: %s)\n",
-                this.getTag(), this.getStatusIcon(), this.getDescription(), this.parseDateTime());
+                getTag(), getStatusIcon(), getDescription(), parseDateTime());
     }
 }
