@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -40,7 +41,7 @@ public class Duke {
             }
 
             System.out.println("____________________________________");
-            taskManager.saveTask();
+            Tasks.saveTask();
 
         } while (true);
 
