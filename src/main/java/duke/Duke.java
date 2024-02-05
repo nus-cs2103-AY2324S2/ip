@@ -1,12 +1,13 @@
 package duke;
+
+import duke.exception.AllyException;
 import duke.parser.Parser;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.ui.UI;
 
 import java.util.Scanner;
-import duke.ui.UI;
-import duke.exception.AllyException;
-import duke.task.Todo;
-import duke.task.Event;
-import duke.task.Deadline;
 public class Duke {
 
     protected static TaskList lst = new TaskList();
@@ -14,6 +15,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         UI ui = new UI(sc);
+        Finder finder;
         ui.showWelcome();
         lst = storage.loadTasks();
         while (ui.hasNextCommand()) {
@@ -46,6 +48,11 @@ public class Duke {
                         break;
                     case DELETE:
                         lst.deleteTask(Integer.parseInt(taskDetail.trim()));
+                        break;
+                    case FIND:
+                        ui.startFind();
+                        finder = new Finder(lst);
+                        finder.find(taskDetail);
                         break;
                     case UNKNOWN:
                         throw new AllyException();

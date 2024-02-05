@@ -1,5 +1,8 @@
 package duke.ui;
 
+import duke.TaskList;
+import duke.task.Task;
+
 import java.util.Scanner;
 
 public class UI {
@@ -30,4 +33,18 @@ public class UI {
         return scanner.hasNextLine();
     }
 
+    public void startFind() { System.out.println("Here are the matching tasks in your list:");}
+
+    public void printTasks(TaskList lst) {
+        int ctr = 1;
+        for (Task t : lst) {
+            System.out.println(ctr + ": " + t);
+            ctr++;
+        }
+        if (lst.size()==0) {
+            System.out.println("No results found.");
+        } else {
+            System.out.println("All results shown.");
+        }
+    }
 }

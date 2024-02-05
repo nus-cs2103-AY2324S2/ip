@@ -3,13 +3,12 @@ package duke.parser;
 public class Parser {
 
     public enum Command {
-        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN
     }
 
     public static Command parseCommand(String input) {
         String[] words = input.split(" ", 2);
         String firstWord = words.length > 0 ? words[0] : "";
-
         try {
             return Command.valueOf(firstWord.toUpperCase());
         } catch (IllegalArgumentException e) {
