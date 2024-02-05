@@ -1,1 +1,1 @@
-E | 0 | gym | Mar 22 2018 6:00 PM | Dec 22 2019 6:00 PM
+T | 0 | sleep
