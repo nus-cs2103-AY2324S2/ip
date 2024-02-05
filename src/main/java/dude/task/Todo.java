@@ -1,7 +1,9 @@
 package dude.task;
 
-public class Todo extends Task{
-
+/**
+ * Todo task.
+ */
+public class Todo extends Task {
     /**
      * Creates Todo object.
      * @param description Todo description.
@@ -9,7 +11,7 @@ public class Todo extends Task{
     public Todo(String description) {
         super(description);
     }
-    
+
     /**
      * Creates Todo object.
      * @param description Todo description.

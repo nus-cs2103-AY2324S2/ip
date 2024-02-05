@@ -1,21 +1,17 @@
 package dude;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
+/**
+ * Ui class that handles printing for Dude.
+ */
 public class Ui {
-    static final String spacer = "____________________________________________________________\n";
-    static final String name = "Dude";
+    static final String SPACER = "____________________________________________________________\n";
 
     /**
      * Prints text with spacers.
      * @param text Text to be printed.
      */
     public static void print(String text) {
-        System.out.println(spacer + text + spacer);
+        System.out.println(SPACER + text + SPACER);
     }
 
     /**

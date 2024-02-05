@@ -1,11 +1,11 @@
 package dude;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import dude.task.Deadline;
 import dude.task.Event;
 import dude.task.Todo;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Dude - a Duke variant.
@@ -22,7 +22,7 @@ public class Dude {
 
         Scanner scanner = new Scanner(System.in);
         loop:
-        while(scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
 
             String[] inputSplit = input.split(" ", 2);
@@ -105,7 +105,7 @@ public class Dude {
                         formattedParameters, command, ipArgs,
                         new String[]{"description", "from", "to"},
                         new Parser.ParameterTypes[]{
-                                Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE, Parser.ParameterTypes.DATE})
+                            Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE, Parser.ParameterTypes.DATE})
                 ) {
                     continue;
                 }

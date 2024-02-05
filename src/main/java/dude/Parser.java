@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Parser class used to parse Dude command input.
+ */
 public class Parser {
     /** Enum of parameter types that can be accepted as input. */
     public enum ParameterTypes {
@@ -63,7 +66,7 @@ public class Parser {
         return checkParameterExists(output, command, parameterName, arg);
     }
 
-    public static boolean getParameters(
+    private static boolean getParameters(
             ArrayList<String> output, String command, String[] parameterNames, String args) {
         String[] argsSplit = args.split("/");
         if (argsSplit.length != parameterNames.length) {
@@ -71,15 +74,19 @@ public class Parser {
                     + Arrays.toString(parameterNames) + "\n");
             return false;
         }
-        if (!checkParameterExists(output, command, parameterNames[0], argsSplit[0])) return false;
+        if (!checkParameterExists(output, command, parameterNames[0], argsSplit[0])) {
+            return false;
+        }
         for (int i = 1; i < argsSplit.length; i++) {
-            if (!checkFlagExists(output, command, parameterNames[i], argsSplit[i])) return false;
+            if (!checkFlagExists(output, command, parameterNames[i], argsSplit[i])) {
+                return false;
+            }
         }
 
         return true;
     }
 
-    public static boolean formatParameters(
+    private static boolean formatParameters(
             ArrayList<Object> formattedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
         for (int i = 0; i < formats.length; i++) {
             if (formats[i] == ParameterTypes.INTEGER) {
@@ -89,7 +96,7 @@ public class Parser {
                     Ui.print("Format of " + parameters.get(i) + " is not an integer\n");
                     return false;
                 }
-            } else if  (formats[i] == ParameterTypes.DATE) {
+            } else if (formats[i] == ParameterTypes.DATE) {
                 if (isDate(parameters.get(i))) {
                     formattedParameters.add(parameters.get(i).stripTrailing());
                 } else {
@@ -97,7 +104,7 @@ public class Parser {
                     return false;
                 }
             } else {
-                    formattedParameters.add(parameters.get(i).stripTrailing());
+                formattedParameters.add(parameters.get(i).stripTrailing());
             }
         }
         return true;

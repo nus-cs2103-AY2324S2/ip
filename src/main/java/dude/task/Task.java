@@ -1,5 +1,8 @@
 package dude.task;
 
+/**
+ * Task parent class.
+ */
 public abstract class Task {
     private boolean done = false;
     private final String name;

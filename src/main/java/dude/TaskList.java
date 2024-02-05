@@ -1,11 +1,14 @@
 package dude;
 
-import dude.task.Task;
-
 import java.util.ArrayList;
 
+import dude.task.Task;
+
+/**
+ * TaskList is an abstraction for Dude functions.
+ */
 public class TaskList {
-    Storage storage;
+    private Storage storage;
 
     /**
      * Class constructor.
@@ -21,6 +24,11 @@ public class TaskList {
     public TaskList(String listName) {
         this.storage = new Storage(listName);
     }
+
+    /**
+     * Adds task to list.
+     * @param task Task to be added to list.
+     */
     public void add(Task task) {
         storage.createRow(task);
         ArrayList<Task> tasks = storage.listRows();
@@ -89,6 +97,10 @@ public class TaskList {
                 "Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
     }
 
+    /**
+     * Finds tasks based on search keyword.
+     * @param keyword Keyword to search for.
+     */
     public void find(String keyword) {
         ArrayList<Task> tasks = storage.listRows();
         String listString = "";

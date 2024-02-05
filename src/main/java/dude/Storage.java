@@ -1,10 +1,5 @@
 package dude;
 
-import dude.task.Deadline;
-import dude.task.Event;
-import dude.task.Task;
-import dude.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,25 +7,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+import dude.task.Deadline;
+import dude.task.Event;
+import dude.task.Task;
+import dude.task.Todo;
+
+/**
+ * Storage class that controls task storing functionalities of Dude.
+ */
 public class Storage {
     private static final String directoryPath = "./data";
     private String filePath = "./data/dude.txt";
-
-    private boolean createStorageIfNotExists() {
-        new File(Storage.directoryPath).mkdirs();
-        File storageFile = new File(this.filePath);
-        if (!storageFile.exists()) {
-            System.out.println("dude.Storage file not found. Creating storage file...");
-            try {
-                storageFile.createNewFile();
-            } catch (IOException e) {
-                System.out.println("An error occurred creating the storage file.");
-                System.out.println(e);
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Class constructor.
@@ -52,6 +39,22 @@ public class Storage {
         if (!success) {
             throw new DudeNoStorageException();
         }
+    }
+
+    private boolean createStorageIfNotExists() {
+        new File(Storage.directoryPath).mkdirs();
+        File storageFile = new File(this.filePath);
+        if (!storageFile.exists()) {
+            System.out.println("dude.Storage file not found. Creating storage file...");
+            try {
+                storageFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred creating the storage file.");
+                System.out.println(e);
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
