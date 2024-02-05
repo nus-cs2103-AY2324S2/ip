@@ -1,13 +1,41 @@
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     enum Command {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
     }
     public static void main(String[] args) throws IOException {
-
         ArrayList<Task> list = new ArrayList<>();
+
+        // Load tasks from file
+        // Solution below inspired by https://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file-and-read-load-that-file-to-the
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./data/duke.txt"))) {
+            list = (ArrayList<Task>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            try {
+                // make directory first
+                new File("./data").mkdirs();
+                // then make file
+                // Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
+                File myObj = new File("./data/duke.txt");
+                if (myObj.createNewFile()) {
+                    System.out.println("File created: " + myObj.getName());
+                } else {
+                    System.out.println("File already exists.");
+                }
+            } catch (IOException i) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            System.out.println("Could not load tasks from file: " + e.getMessage());
+        }
 
         // Start-up introduction
         printBreak();
@@ -134,6 +162,13 @@ public class Duke {
                     word = sc.nextLine();
                 }
             }
+        }
+
+        // Save tasks to file
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./data/duke.txt"))) {
+            oos.writeObject(list);
+        } catch (IOException e) {
+            System.out.println("Could not save tasks to file: " + e.getMessage());
         }
 
         // Logging off upon "bye" command
