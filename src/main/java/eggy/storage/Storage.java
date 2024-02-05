@@ -46,10 +46,12 @@ public class Storage {
                                 task = new Todo(taskStrings[2], taskStrings[1].equals("1"));
                                 break;
                             case D:
-                                task = new Deadline(taskStrings[2], LocalDateTime.parse(taskStrings[3]), taskStrings[1].equals("1"));
+                                task = new Deadline(taskStrings[2], LocalDateTime.parse(taskStrings[3]),
+                                        taskStrings[1].equals("1"));
                                 break;
                             case E:
-                                task = new Event(taskStrings[2], LocalDateTime.parse(taskStrings[3]), LocalDateTime.parse(taskStrings[4]), taskStrings[1].equals("1"));
+                                task = new Event(taskStrings[2], LocalDateTime.parse(taskStrings[3]),
+                                        LocalDateTime.parse(taskStrings[4]), taskStrings[1].equals("1"));
                                 break;
                             default:
                                 throw new InvalidTaskTypeException();
