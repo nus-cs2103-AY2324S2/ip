@@ -25,7 +25,7 @@ public class DeadlineCommandTest {
         Deadline deadline  = new Deadline("go jim",
                 LocalDateTime.of(2024, 2, 11, 12, 30));
         deadline.markAsDone();
-        assertEquals("[D][X] go jim (by: Jan 11 2024 | 12:30 PM)", deadline.toString());
+        assertEquals("[D][X] go jim (by: Feb 11 2024 | 12:30 PM)", deadline.toString());
     }
 
     @Test
