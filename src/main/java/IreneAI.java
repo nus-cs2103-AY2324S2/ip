@@ -6,13 +6,15 @@
  * @since 2024-02-01
  */
 
+import javafx.scene.control.SplitPane;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IreneAI {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final String LINE = "____________________________________________________________";
-    public static void main(String[] args){
+    public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
 
         String chatbotName = "IreneAI";
@@ -21,73 +23,142 @@ public class IreneAI {
         System.out.println(" What can I do for you?");
         dividingLine(LINE);
 
-        // Echo message
         while (true) {
             System.out.println("You: ");
             String userInput = scanner.nextLine();
+            String[] splitInputs = userInput.split(" ");
+            Command command = Command.getCommand(splitInputs[0]);
             dividingLine(LINE);
 
-            // Terminating condition
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(" Bye. Hope to see you again soon!");
-                dividingLine(LINE);
-                break;
-            } else if (userInput.startsWith("todo ")) {
-                String description = userInput.substring(5);
-                tasks.add(new ToDo(description));
-                dividingLine(LINE);
-                System.out.println("Okie. I've added this task: ");
-                System.out.println("  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (userInput.startsWith("deadline ")) {
-                String[] parts = userInput.split(" /by ");
-                String description = parts[0].substring(9);
-                String deadline = parts[1];
-                tasks.add(new Deadline(description, deadline));
-                dividingLine(LINE);
-                System.out.println("Okie. I've added this task: ");
-                System.out.println("  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (userInput.startsWith("event ")) {
-                String[] parts = userInput.split(" /from ");
-                String description = parts[0].substring(6);
-                String[] from_to = parts[1].split(" /to ");
-                String from = from_to[0];
-                String to = from_to[1];
-                tasks.add(new Event(description, from, to));
-                dividingLine(LINE);
-                System.out.println("Okie. I've added this task: ");
-                System.out.println("  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (userInput.equalsIgnoreCase("list")) {
-                dividingLine(LINE);
-                System.out.println("Documented tasks: ");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ": " + tasks.get(i));
+            try {
+                switch (command) {
+                    case BYE:
+                        System.out.println(" Bye. Hope to see you again soon!");
+                        dividingLine(LINE);
+                        return;
+                    case TODO:
+                        String argument = splitInputs.length > 1 ? splitInputs[1] : "";
+                        if (argument.isEmpty()) {
+                            throw new DukeException("The description of a todo cannot be empty.");
+                        }
+                        handleTodo(argument);
+                        break;
+                    case DEADLINE:
+                        // Checks command contains "/by"
+                        boolean hasBy = userInput.split(" /by ").length > 1;
+                        // Makes sure arguments are at least 3 (e.g. command, subject, deadline)
+                        boolean isValid = hasBy && splitInputs.length > 2;
+                        if (!isValid) {
+                            throw new DukeException("The deadline command requires both description and time inputs, separated by ' /by '");
+                        }
+                        handleDeadline(userInput);
+                        break;
+                    case EVENT:
+                        // Checks command contains '/from'
+                        boolean hasFrom = userInput.split(" /from ").length > 1;
+                        // Checks command contains '/to'
+                        boolean hasTo = userInput.split(" /to ").length > 1;
+                        isValid = hasTo && hasFrom && splitInputs.length > 3;
+                        if (!isValid) {
+                            throw new DukeException("The event command requires a description, from when, and to when"
+                                    + ".\n" + "For example, event project meeting /from Mon 2pm /to 4pm");
+                        }
+                        handleEvent(userInput);
+                        break;
+                    case LIST:
+                        listTasks();
+                        break;
+                    case UNMARK:
+                        argument = splitInputs.length > 1 ? splitInputs[1] : "";
+                        if (argument.isEmpty()) {
+                            throw new DukeException("You must specific which task to unmark (in number).");
+                        }
+                        handleUnmark(userInput);
+                        break;
+                    case MARK:
+                        // future works: index out of bound cases
+                        argument = splitInputs.length > 1 ? splitInputs[1] : "";
+                        if (argument.isEmpty()) {
+                            throw new DukeException("You must specific which task to mark (in number).");
+                        }
+                        handleMark(userInput);
+                        break;
+                    case INVALID:
+                        //Default error handling
+                    default:
+                        throw new DukeException("I don't get what you mean.. (╥﹏╥)");
                 }
+            } catch (DukeException e) {
                 dividingLine(LINE);
-            } else if (userInput.startsWith("mark ")) {
-                // Index in an ArrayList starts from 0, therefore deducts 1 from actual counting
-                int index = Integer.parseInt(userInput.substring(5)) - 1;
-                Task task = tasks.get(index);
-                task.markAsDone();
-                dividingLine(LINE);
-                System.out.println("Brilliant! I've marked " + task.getDescription() + " as done : )");
-                System.out.println("  " + task);
-                dividingLine(LINE);
-            } else if (userInput.startsWith("unmark ")) {
-                int index = Integer.parseInt(userInput.substring(7)) - 1;
-                Task task = tasks.get(index);
-                task.markAsNotDone();
-                dividingLine(LINE);
-                System.out.println("Meow ~ I've marked " + task.getDescription() + " as not done : (");
-                System.out.println("  " + task);
+                System.out.println("OOPS!! " + e.getMessage());
                 dividingLine(LINE);
             }
         }
     }
 
-    public static void dividingLine(String line){
+    private static void handleTodo(String userInput) {
+        tasks.add(new ToDo(userInput));
+        dividingLine(LINE);
+        System.out.println("Okie. I've added this task: ");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void handleDeadline(String userInput) {
+        String[] parts = userInput.split(" /by ");
+        String description = parts[0].substring(9);
+        String deadline = parts[1];
+        tasks.add(new Deadline(description, deadline));
+        dividingLine(LINE);
+        System.out.println("Okie. I've added this task: ");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void handleEvent(String userInput) {
+        String[] parts = userInput.split(" /from ");
+        String description = parts[0].substring(6);
+        String[] from_to = parts[1].split(" /to ");
+        String from = from_to[0];
+        String to = from_to[1];
+        tasks.add(new Event(description, from, to));
+        dividingLine(LINE);
+        System.out.println("Okie. I've added this task: ");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void listTasks() {
+        dividingLine(LINE);
+        System.out.println("Documented tasks: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ": " + tasks.get(i));
+        }
+        dividingLine(LINE);
+    }
+
+    private static void handleUnmark(String userInput) {
+        int index = Integer.parseInt(userInput.substring(7)) - 1;
+        Task task = tasks.get(index);
+        task.markAsNotDone();
+        dividingLine(LINE);
+        System.out.println("Meow ~ I've marked " + task.getDescription() + " as not done : (");
+        System.out.println("  " + task);
+        dividingLine(LINE);
+    }
+
+    private static void handleMark(String userInput) {
+        // Index in an ArrayList starts from 0, therefore deducts 1 from actual counting
+        int index = Integer.parseInt(userInput.substring(5)) - 1;
+        Task task = tasks.get(index);
+        task.markAsDone();
+        dividingLine(LINE);
+        System.out.println("Brilliant! I've marked " + task.getDescription() + " as done : )");
+        System.out.println("  " + task);
+        dividingLine(LINE);
+    }
+
+    private static void dividingLine(String line){
         System.out.println(line);
     }
 }
