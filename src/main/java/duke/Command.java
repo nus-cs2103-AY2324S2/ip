@@ -26,25 +26,22 @@ public class Command {
      * Executes the command attached to the <code>Command</code> instance.
      *
      * @param tl <code>TaskList</code> instance to update tasks.
-     * @param ui <code>Ui</code> instance for CLI prints.
      * @param st <code>Storage</code> instance to update file for persistence of task data.
      * @throws DukeException If command fails.
      */
-    protected String execute(TaskList tl, Ui ui, Storage st) throws DukeException {
-        if (this.command.equals("bye")) {
-            return "Bye. Hope to see you again soon!";
-        } else if (this.command.equals("list")) {
-            return tl.list(ui);
-        } else if (this.command.equals("unmark")) {
-            return tl.unmark(ui, st, this.arguments);
-        } else if (this.command.equals("mark")) {
-            return tl.mark(ui, st, this.arguments);
-        } else if (this.command.equals("delete")) {
-            return tl.deleteTask(ui, st, this.arguments);
-        } else if (this.command.equals("find")) {
-            return tl.find(ui, this.arguments[0]);
+    protected String execute(TaskList tl, Storage st) throws DukeException {
+        if (command.equals("list")) {
+            return tl.list();
+        } else if (command.equals("unmark")) {
+            return tl.unmark(st, arguments);
+        } else if (command.equals("mark")) {
+            return tl.mark(st, arguments);
+        } else if (command.equals("delete")) {
+            return tl.deleteTask(st, arguments);
+        } else if (command.equals("find")) {
+            return tl.find(arguments[0]);
         } else {
-            return tl.addTask(ui, st, this.command, this.arguments);
+            return tl.addTask(st, command, arguments);
         }
     }
 

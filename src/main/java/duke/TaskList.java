@@ -36,13 +36,13 @@ public class TaskList {
     /**
      * Adds relevant task to <code>TaskList</code> and updates file from <code>Storage</code>.
      *
-     * @param ui Display ui elements.
      * @param st Stores task after update.
      * @param task Task type.
      * @param args Arguments for the task.
-     * @throws InvalidTaskException
+     * @return Dialogue for Duke.
+     * @throws InvalidTaskException If arguments for the task are not in a specific format.
      */
-    protected String addTask(Ui ui, Storage st, String task, String[] args) throws InvalidTaskException {
+    protected String addTask(Storage st, String task, String[] args) throws InvalidTaskException {
         Task t = null;
         if (task.equals("todo")) {
             t = new Todo(args[0]);
@@ -73,11 +73,11 @@ public class TaskList {
     /**
      * Deletes tasks from <code>TaskList</code> and updates file from <code>Storage</code>.
      *
-     * @param ui Display ui elements.
      * @param st <code>Storage</code> instance to update.
      * @param args Contains index for specifying task.
+     * @return Dialogue for Duke.
      */
-    protected String deleteTask(Ui ui, Storage st, String[] args) {
+    protected String deleteTask(Storage st, String[] args) {
         Task t = tasks.get(Integer.parseInt(args[0]) - 1);
         tasks.remove(t);
         st.save(this.tasks);
@@ -89,9 +89,9 @@ public class TaskList {
     /**
      * Lists down all saved tasks in <code>TaskList</code>.
      *
-     * @param ui Display ui elements.
+     * @return Dialogue for Duke.
      */
-    protected String list(Ui ui) {
+    protected String list() {
         int count = 0;
         String res = "Here are the tasks in your list:";
         for (Task t : tasks) {
@@ -104,11 +104,12 @@ public class TaskList {
     /**
      * Marks specified task as done.
      *
-     * @param ui Display ui elements.
      * @param st <code>Storage</code> for file update.
      * @param args Index for specified task.
+     * @return Dialogue for Duke.
+     * @throws IndexOutOfBoundsException If <code>TaskList</code> index is out of bounds.
      */
-    protected String mark(Ui ui, Storage st, String[] args) {
+    protected String mark(Storage st, String[] args) {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markAsDone();
@@ -123,11 +124,12 @@ public class TaskList {
     /**
      * Marks specified task as undone.
      *
-     * @param ui Display ui elements.
      * @param st <code>Storage</code> for file update.
      * @param args Index for specified task.
+     * @return Dialogue for Duke.
+     * @throws IndexOutOfBoundsException If <code>TaskList</code> index is out of bounds.
      */
-    protected String unmark(Ui ui, Storage st, String[] args) {
+    protected String unmark(Storage st, String[] args) {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markUndone();
@@ -142,10 +144,10 @@ public class TaskList {
     /**
      * Allows one to find tasks in tasklist with specified keyword.
      *
-     * @param ui Displays ui elements.
      * @param key keyword to filter <code>TaskList</code>.
+     * @return Dialogue for Duke.
      */
-    protected String find(Ui ui, String key) {
+    protected String find(String key) {
         int count = 1;
         String res = "Here are the matching tasks in your list:";
         for (Task t : tasks) {

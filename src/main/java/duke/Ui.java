@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Ui class that displays several ui elements onto the command-line.
+ *     Not in use if application is using JavaFX GUI.
  */
 public class Ui {
     private Scanner sc;

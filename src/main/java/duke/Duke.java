@@ -3,7 +3,6 @@ package duke;
 import java.io.IOException;
 
 import duke.exceptions.DukeException;
-import javafx.application.Application;
 
 /**
  * Main program of Duke that runs the application.
@@ -11,7 +10,6 @@ import javafx.application.Application;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructs a <code>Duke</code> to start the program.
@@ -19,12 +17,10 @@ public class Duke {
      * @param filePath File path for persistent task storage.
      */
     public Duke(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (IOException ie) {
-            this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
     }
@@ -33,18 +29,34 @@ public class Duke {
      * Runs an instance of <code>Duke</code>.
      */
     public String greet() {
-        return this.ui.greet();
+        return "Hello! I'm Hatsune Miku!\n"
+                + " What can I do for you?";
     }
 
+    /**
+     * Returns a goodbye message.
+     *
+     * @return Goodbye message string.
+     */
+    public String goodbye() {
+        return "Bye, Hope to see you again soon!";
+    }
+
+    /**
+     * Reads command String off of user input in <code>MainWindow</code>.
+     *
+     * @param command command String to be parsed.
+     * @return Dialogue for Duke after command processing.
+     */
     public String readCommand(String command) {
         String reply = "";
         try {
             Command c = Parser.parse(command);
-            reply = c.execute(this.tasks, this.ui, this.storage);
+            reply = c.execute(this.tasks, this.storage);
         } catch (DukeException de) {
-            System.out.println(de);
+            return de.getMessage();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
         return reply;
     }

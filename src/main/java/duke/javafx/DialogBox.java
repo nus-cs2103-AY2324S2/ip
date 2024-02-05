@@ -49,11 +49,27 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
+    /**
+     * Creates a dialog box containing the input and image
+     * for the user when input is entered.
+     *
+     * @param text Command from user input.
+     * @param img User image.
+     * @return Dialog box.
+     */
+    protected static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Creates a dialog box containing the reply and image
+     * for <code>Duke</code></code> when command is processed.
+     *
+     * @param text Reply from processed command.
+     * @param img Duke image.
+     * @return Dialog box.
+     */
+    protected static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
