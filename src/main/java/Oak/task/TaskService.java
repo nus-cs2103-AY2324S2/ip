@@ -212,4 +212,27 @@ public class TaskService {
 
         return returnVal.toString();
     }
+
+    /**
+     * Find all tasks with names that match the `matchingValue`
+     *
+     * @param matchingValue
+     * @return All the tasks matching the value passed in (`matchingValue`), formatted in a string and separated by '\n'
+     */
+    public String findTasks(String matchingValue) {
+        StringBuilder returnVal = new StringBuilder();
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).name.contains(matchingValue)) {
+                returnVal.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
+
+                // Only add new line if its not the last task
+                if (i < this.tasks.size() - 1) {
+                    returnVal.append("\n");
+                }
+            }
+        }
+
+        return returnVal.toString();
+    }
 }

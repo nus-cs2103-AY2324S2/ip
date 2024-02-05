@@ -45,6 +45,10 @@ public class FeedbackService {
             case List:
                 feedback = this.taskService.getAllTasks();
                 break;
+            case Find:
+                String matchingValue = (this.parseFindInput(cur));
+                feedback = this.taskService.findTasks(matchingValue);
+                break;
             case Mark:
                 if (cur.length <= 1) {
                     throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
@@ -185,5 +189,18 @@ public class FeedbackService {
         }
 
         return new String[] { temp[0].strip(), datetimes[0].strip(), datetimes[1].strip() };
+    }
+
+    /**
+     * Parses the input provided by the user for the 'Find' command
+     *
+     * @param input
+     * @return the matching value substring to compare tasks against
+     */
+    private String parseFindInput(String[] input) {
+        // @@author SherisseTJW-reused
+        // Reused from https://stackoverflow.com/a/34440330
+        // with minor modifications
+        return Arrays.stream(input).skip(1).map(String::trim).collect(Collectors.joining(" "));
     }
 }
