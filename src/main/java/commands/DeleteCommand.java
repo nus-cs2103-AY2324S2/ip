@@ -4,8 +4,13 @@ import DukeException.DukeException;
 import tasks.TaskList;
 import tasks.Task;
 
-public class DeleteCommand {
-    public static void execute(String details, TaskList tasks) throws DukeException {
+public class DeleteCommand extends Command {
+    private final String details;
+
+    DeleteCommand(String details) {
+        this.details = details;
+    }
+    public void execute(TaskList tasks) throws DukeException {
         if (details.length() < 1) {
             throw new DukeException("Please enter the tasks number that you want to delete: ex. delete 2");
         }
