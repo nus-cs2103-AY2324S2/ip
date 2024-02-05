@@ -1,6 +1,6 @@
 package Thames;
 
-import Thames.command.*;
+import Thames.command.;
 import Thames.task.ToDo;
 import Thames.task.Deadline;
 import Thames.task.Event;
@@ -19,6 +19,7 @@ public class Parser {
     static Command parse(String fullCommand) throws ThamesException {
         String[] split = fullCommand.trim().split(" ", 2);
         String input = split[0];
+
         switch(input.toLowerCase()) {
         case "todo":
             if (split.length != 2) {
