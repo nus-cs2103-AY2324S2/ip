@@ -12,9 +12,18 @@ import static Utils.StringUtils.parseDateTime;
 
 import static Utils.StringUtils.parseDateTime;
 
+/**
+ * This class contains utility methods for parsing user input into commands.
+ */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     public static final Pattern List_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+
+    /**
+     * Parses user input into a command.
+     * @param userInput User input to be parsed.
+     * @return Command object.
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -57,6 +66,7 @@ public class Parser {
                 return new InvalidCommand("Invalid command!");
         }
     }
+
     private Command prepareDelete(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
