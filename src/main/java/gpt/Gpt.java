@@ -2,9 +2,10 @@ package gpt;
 
 import java.util.Scanner;
 
-
-
-public class GPT {
+/**
+ * The main entry-point for the java.duke.Duke application.
+ */
+public class Gpt {
     private static final String FILE_PATH = "./gpt/data/GPT.txt"; //for packages, need to change this path to root????
 
 
@@ -29,7 +30,7 @@ public class GPT {
 
             try {
                 Parser.parseCommand(userInput, tl, ui, storage);
-            } catch (GPTException e) {
+            } catch (GptException e) {
                 ui.printErrorMessage(e.getMessage());
             }
         }

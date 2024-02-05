@@ -7,16 +7,18 @@ enum TaskType {
     T, D, E
 }
 
+/**
+ * Represents  a task.
+ */
 public class Task {
 
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
     private boolean isDone;
     private final String taskName;
     private final TaskType taskType;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
     /**
      * Constructor for creating a Task instance of taskType T.
@@ -25,7 +27,7 @@ public class Task {
      * @param taskType The type of the task (T, D, E).
      * @param isDone     The completion status of the task.
      */
-    public Task(String taskName, TaskType taskType, Boolean isDone ) {
+    public Task(String taskName, TaskType taskType, Boolean isDone) {
         this.taskName = taskName;
         this.isDone = isDone;
         this.taskType = taskType;
@@ -43,7 +45,7 @@ public class Task {
         this.taskName = taskName;
         this.isDone = isDone;
         this.taskType = taskType;
-        this.startDate= parseDateTime(startDate);
+        this.startDate = parseDateTime(startDate);
     }
 
     /**
@@ -130,7 +132,7 @@ public class Task {
     public String getStartDateString() {
         if (startDate != null) {
             return startDate.format(DATE_TIME_FORMAT);
-        } else  {
+        } else {
             return null;
         }
 
@@ -144,7 +146,7 @@ public class Task {
     public String getEndDateString() {
         if (endDate != null) {
             return endDate.format(DATE_TIME_FORMAT);
-        } else  {
+        } else {
             return null;
         }
     }
@@ -158,16 +160,16 @@ public class Task {
     public String toString() {
         String status = isDone ? "[X]" : "[ ]";
         switch (taskType) {
-            case T:
-                return String.format("[%s]%s %s", taskType, status, taskName);
-            case D:
-                return String.format("[%s]%s %s (by: %s)", taskType, status, taskName,
-                        startDate.format(DATE_FORMAT_OUTPUT));
-            case E:
-                return String.format("[%s]%s %s (from: %s to: %s)", taskType, status, taskName,
-                        startDate.format(DATE_FORMAT_OUTPUT), endDate.format(DATE_FORMAT_OUTPUT));
-            default:
-                return "";
+        case T:
+            return String.format("[%s]%s %s", taskType, status, taskName);
+        case D:
+            return String.format("[%s]%s %s (by: %s)", taskType, status, taskName,
+                    startDate.format(DATE_FORMAT_OUTPUT));
+        case E:
+            return String.format("[%s]%s %s (from: %s to: %s)", taskType, status, taskName,
+                    startDate.format(DATE_FORMAT_OUTPUT), endDate.format(DATE_FORMAT_OUTPUT));
+        default:
+            return "";
         }
     }
 
