@@ -1,17 +1,24 @@
 package henry.command;
 
+import java.util.ArrayList;
+
 import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
 import henry.Ui;
-import henry.task.Deadline;
 import henry.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command to find contacts.
+ */
 public class FindCommand extends Command {
     private String keyword;
 
+    /**
+     * Creates a FindCommand object.
+     * @param args The arguments of the command.
+     * @throws HenryException If the command is invalid.
+     */
     public FindCommand(String args) throws HenryException {
         if (args.isBlank()) {
             throw new HenryException("No keyword provided");

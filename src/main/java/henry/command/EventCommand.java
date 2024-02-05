@@ -1,9 +1,9 @@
 package henry.command;
 
+import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
 import henry.Ui;
-import henry.HenryException;
 import henry.task.Event;
 
 /**
@@ -14,11 +14,18 @@ public class EventCommand extends Command {
     private final String from;
     private final String to;
 
+    /**
+     * Creates a EventCommand object.
+     * @param args The arguments of the command.
+     * @throws HenryException If the command is invalid.
+     */
     public EventCommand(String args) throws HenryException {
         if (!args.contains("/from") || !args.contains("/to")) {
             throw new HenryException("Missing /from or /to");
         }
-        String description, from = "", to = "";
+        String description = "";
+        String from = "";
+        String to = "";
         String[] parts = args.split(" /from | /to ");
 
         if (parts.length < 3) {

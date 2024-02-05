@@ -1,9 +1,9 @@
 package henry.command;
 
+import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
 import henry.Ui;
-import henry.HenryException;
 
 /**
  * Represents a command to delete a task.
@@ -11,6 +11,11 @@ import henry.HenryException;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a DeleteCommand object.
+     * @param args The arguments of the command.
+     * @throws HenryException If the command is invalid.
+     */
     public DeleteCommand(String args) throws HenryException {
         if (args.isBlank()) {
             throw new HenryException("No index provided");

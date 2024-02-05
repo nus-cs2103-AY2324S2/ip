@@ -1,10 +1,13 @@
 package henry.command;
 
+import henry.HenryException;
 import henry.Storage;
 import henry.TaskList;
 import henry.Ui;
-import henry.HenryException;
 
+/**
+ * Represents a command object that can be executed
+ */
 public abstract class Command {
     /**
      * Executes the command.

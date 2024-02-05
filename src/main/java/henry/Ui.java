@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Represents the user interface of the application.
  */
 public class Ui {
-    Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Creates an Ui object.
@@ -29,14 +29,14 @@ public class Ui {
      * Greets the user.
      */
     public void greet() {
-        String logo = "  _    _                       \n" +
-                " | |  | |                      \n" +
-                " | |__| | ___ _ __  _ __ _   _ \n" +
-                " |  __  |/ _ \\ '_ \\| '__| | | |\n" +
-                " | |  | |  __/ | | | |  | |_| |\n" +
-                " |_|  |_|\\___|_| |_|_|   \\__, |\n" +
-                "                          __/ |\n" +
-                "                         |___/ \n";
+        String logo = "  _    _                       \n"
+                + " | |  | |                      \n"
+                + " | |__| | ___ _ __  _ __ _   _ \n"
+                + " |  __  |/ _ \\ '_ \\| '__| | | |\n"
+                + " | |  | |  __/ | | | |  | |_| |\n"
+                + " |_|  |_|\\___|_| |_|_|   \\__, |\n"
+                + "                          __/ |\n"
+                + "                         |___/ \n";
         String greetMessage = "Hello! I'm Henry\nWhat can I do for you?";
         System.out.println(logo);
         System.out.println(greetMessage);
