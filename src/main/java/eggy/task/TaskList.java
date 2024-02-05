@@ -2,6 +2,7 @@ package eggy.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private List<Task> tasks;
@@ -32,6 +33,10 @@ public class TaskList {
 
     public boolean isEmpty() {
         return this.tasks.isEmpty();
+    }
+
+    public List<Task> findMatchingTasks(String name) {
+        return this.tasks.stream().filter(task -> task.getName().contains(name)).collect(Collectors.toList());
     }
 
     public String toFileString() {

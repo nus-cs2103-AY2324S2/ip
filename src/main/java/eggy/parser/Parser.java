@@ -9,12 +9,13 @@ import eggy.command.ListCommand;
 import eggy.command.MarkCommand;
 import eggy.command.TodoCommand;
 import eggy.command.UnmarkCommand;
+import eggy.command.FindCommand;
 import eggy.exception.EggyException;
 import eggy.exception.InvalidCommandException;
 
 public class Parser {
     private enum CommandType {
-        BYE, LIST, DELETE, MARK, UNMARK, TODO, DEADLINE, EVENT
+        BYE, LIST, DELETE, MARK, UNMARK, TODO, DEADLINE, EVENT, FIND
     }
 
     public static Command parse(String fullCommand, int tasksSize) throws EggyException {
@@ -38,6 +39,8 @@ public class Parser {
                 return new DeadlineCommand(commands);
             case EVENT:
                 return new EventCommand(commands);
+            case FIND:
+                return new FindCommand(commands);
             default:
                 throw new InvalidCommandException();
             }

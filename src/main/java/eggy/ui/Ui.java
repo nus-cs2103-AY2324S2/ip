@@ -3,6 +3,7 @@ package eggy.ui;
 import eggy.task.Task;
 import eggy.task.TaskList;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -56,6 +57,13 @@ public class Ui {
 
     public void printTaskListEmpty() {
         System.out.println("     There are no tasks in your list.");
+    }
+
+    public void printMatchingTasks(List<Task> tasks) {
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + tasks.get(i));
+        }
     }
 
     public void printException(String message) {

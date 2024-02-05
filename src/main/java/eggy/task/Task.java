@@ -22,6 +22,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + this.name;
