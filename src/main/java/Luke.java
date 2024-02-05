@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Luke {
@@ -29,9 +30,9 @@ public class Luke {
 
         String name = "Luke";
 
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
-        ArrayList<String> saveTaskList = new ArrayList<String>();
+        ArrayList<String> saveTaskList = new ArrayList<>();
 
         int noTasks = 0;
 
@@ -52,7 +53,7 @@ public class Luke {
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                if (data != "") {
+                if (data.isEmpty()) {
                     saveTaskList.add(data);
                     noTasks++;
                 }
@@ -113,28 +114,28 @@ public class Luke {
                     break;
                 case "mark":
                     try {
-                        int markIndex = Integer.valueOf(splited[1]);
+                        int markIndex = Integer.parseInt(splited[1]);
                         if (markIndex <= 0 || markIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
                         Task markTask = taskList.get(markIndex - 1);
                         markTask.setToDone();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(markTask.toString());
+                        System.out.println(markTask);
                     } catch (LukeException e) {
                         System.out.println(e);
                     }
                     break;
                 case "unmark":
                     try {
-                        int unmarkIndex = Integer.valueOf(splited[1]);
+                        int unmarkIndex = Integer.parseInt(splited[1]);
                         if (unmarkIndex <= 0 || unmarkIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
                         Task unmarkTask = taskList.get(unmarkIndex - 1);
                         unmarkTask.setToNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(unmarkTask.toString());
+                        System.out.println(unmarkTask);
                     } catch (LukeException e) {
                         System.out.println(e);
                     }
@@ -148,7 +149,7 @@ public class Luke {
                         taskList.add(todo);
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(todo.toString());
+                        System.out.println(todo);
                         noTasks++;
                         System.out.println("Now you have " + noTasks + " tasks in the list.");
                     } catch (LukeException e) {
@@ -157,25 +158,24 @@ public class Luke {
                     break;
                 case "deadline":
                     try {
-                        String[] deadlineSplit = input.split("/");
-                        if (deadlineSplit.length < 2
-                                || !deadlineSplit[1].substring(0,2).equals("by")) {
+                        String[] deadlineSplit = input.split("/by");
+                        if (deadlineSplit.length != 2) {
                             throw new LukeException("Invalid command. Please follow the format for deadline tasks.");
                         }
                         if (deadlineSplit[0].substring(9).trim().isEmpty()) {
                             throw new LukeException("Invalid command. The description cannot be empty.");
                         }
-                        if (deadlineSplit[1].trim().length() <= 2) {
+                        if (deadlineSplit[1].trim().isEmpty()) {
                             throw new LukeException("Invalid command. The deadline cannot be empty.");
                         }
-                        String deadlineDescription = deadlineSplit[0].substring(9);
-                        String by = deadlineSplit[1].substring(3);
+                        String deadlineDescription = deadlineSplit[0].substring(9).trim();
+                        String by = deadlineSplit[1].trim();
 
                         Deadline deadline = new Deadline(deadlineDescription, by);
                         taskList.add(deadline);
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(deadline.toString());
+                        System.out.println(deadline);
                         noTasks++;
                         System.out.println("Now you have " + noTasks + " tasks in the list.");
                     } catch (LukeException e) {
@@ -184,28 +184,27 @@ public class Luke {
                     break;
                 case "event":
                     try {
-                        String[] eventSplit = input.split("/");
-                        if (eventSplit.length < 3
-                                || !eventSplit[1].substring(0,4).equals("from")
-                                || !eventSplit[2].substring(0,2).equals("to")) {
+                        String[] eventSplitFrom = input.split("/from");
+                        if (eventSplitFrom.length != 2) {
                             throw new LukeException("Invalid command. Please follow the format for event tasks.");
                         }
-                        if (eventSplit[0].substring(6).trim().isEmpty()) {
+                        String[] eventSplitTo = eventSplitFrom[1].split("/to");
+                        if (eventSplitFrom[0].substring(6).trim().isEmpty()) {
                             throw new LukeException("Invalid command. The description cannot be empty.");
                         }
-                        if (eventSplit[1].trim().length() <= 4 ) {
+                        if (eventSplitTo[0].trim().isEmpty()) {
                             throw new LukeException("Invalid command. The from section cannot be empty.");
                         }
-                        if (eventSplit[2].trim().length() <= 2 ) {
+                        if (eventSplitTo[1].trim().isEmpty()) {
                             throw new LukeException("Invalid command. The to section cannot be empty.");
                         }
-                        String eventDescription = eventSplit[0].substring(6);
-                        String from = eventSplit[1].substring(5);
-                        String to = eventSplit[2].substring(3);
+                        String eventDescription = eventSplitFrom[0].substring(6).trim();
+                        String from = eventSplitTo[0].trim();
+                        String to = eventSplitTo[1].trim();
                         Event event = new Event(eventDescription, from, to);
                         taskList.add(event);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(event.toString());
+                        System.out.println(event);
                         noTasks++;
                         System.out.println("Now you have " + noTasks + " tasks in the list.");
                     } catch (LukeException e) {
@@ -214,7 +213,7 @@ public class Luke {
                     break;
                 case "delete":
                     try {
-                        int deleteIndex = Integer.valueOf(splited[1]);
+                        int deleteIndex = Integer.parseInt(splited[1]);
                         if (deleteIndex <= 0 || deleteIndex > noTasks) {
                             throw new LukeException("Task does not exist. Please give a valid task number.");
                         }
