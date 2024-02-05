@@ -12,7 +12,12 @@ import java.io.PrintWriter;
 public class FileManager {
     // Singleton pattern but lazy loaded from wiki https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
     // Wanted a singleton pattern and this seemed the best.
-    private FileManager() {}
+    private FileManager() {
+        fileDirectory = "bin" + File.separatorChar + "SavedData" + File.separatorChar;
+        new File(fileDirectory).mkdirs();
+        storageFileName = "StorageData.txt";
+
+    }
     private static class LazyHolder {
         static final FileManager INSTANCE = new FileManager();
     }
@@ -21,10 +26,10 @@ public class FileManager {
     }
 
     /** Name of text file for the storage data. */
-    public String storageFileName = "StorageData.txt";
+    public String storageFileName;;
     
     /** Name of file directory */
-    public String fileDirectory = "bin" + File.separatorChar + "SavedData" + File.separatorChar;
+    public String fileDirectory;
 
     /**
      * Saves data into a file.

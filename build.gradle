@@ -32,7 +32,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "jav"
+    archiveFileName = "jav.jar"
+    archiveVersion = "v9.5"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
