@@ -17,7 +17,7 @@ public class UI {
         this.scanner = new Scanner(System.in);
         this.store = store;
     }
-    private static final String line = "      ________________________________________________________\n";
+    private static final String LINE = "      ________________________________________________________\n";
     private String logo = "     _______       ______     _______    _______    ___  ___\n"
             + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  |\n"
             + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /\n"
@@ -36,6 +36,7 @@ public class UI {
     /**
      * Throws a DukeException when the user input did not state the description of the
      * todo task, deadline or event command that is tailored to the different cases.
+     *
      * @param tasktype Type of task command that the user tried to call
      * @throws DukeException which is printed out to the user
      */
@@ -53,6 +54,6 @@ public class UI {
      * Prints out a bye message when the user ends the program by running the command bye
      */
     public void bye() {
-        System.out.print(line + "      Bye! Have a great day ahead :>\n" + line);
+        System.out.print(LINE + "      Bye! Have a great day ahead :>\n" + LINE);
     }
 }

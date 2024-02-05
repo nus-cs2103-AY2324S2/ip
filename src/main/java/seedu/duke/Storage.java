@@ -1,8 +1,8 @@
 package seedu.duke;
 
 import seedu.duke.task.Task;
-import seedu.duke.task.Events;
-import seedu.duke.task.Deadlines;
+import seedu.duke.task.Event;
+import seedu.duke.task.Deadline;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -34,6 +34,7 @@ public class Storage {
     /**
      * Scans the data from the file the holds the information of the existing tasks
      * and adds it to the TaskList object.
+     *
      * @throws FileNotFoundException if the file does not exist in the file path.
      */
     public void loadFile() throws FileNotFoundException {
@@ -48,9 +49,9 @@ public class Storage {
             } else if (taskDetails.length == 4) { //deadline
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
                 LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], formatter);
-                newTask = new Deadlines(taskDetails[2], deadline);
+                newTask = new Deadline(taskDetails[2], deadline);
             } else {
-                newTask = new Events(taskDetails[2], taskDetails[3], taskDetails[4]);
+                newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
             }
             if (taskDetails[1].equals("1")) { //if task/event/deadline is marked
                 newTask.markDone(false);
@@ -63,6 +64,7 @@ public class Storage {
 
     /**
      * Writes the inputted string to the file on the hard disk.
+     *
      * @param textToAdd the information to be written to the file
      * @throws IOException if an error occurs while writing to the file.
      */
@@ -75,6 +77,7 @@ public class Storage {
     /**
      * Deletes the line of information in the file that stores the details of the task at the index num
      * by rewriting a copy of the entire file to the same filepath and not writing the line that is to be deleted.
+     *
      * @param num the line of information in the file that is to be deleted,
      *            corresponds with the index of the task in the task list to be deleted.
      * @throws IOException if an error occurs while writing to the file.
@@ -98,6 +101,7 @@ public class Storage {
     /**
      * Updates the marking information stored in the file by rewriting a copy of the entire file to the
      * same file path and writing the new line of information where the marking has changed.
+     *
      * @param num the line of information in the file that is to be updated, corresponds with
      *            the index of the task in the task list whose marking is to be updated.
      * @param textToReplace the new text to replace the old line of code, which contains
@@ -124,6 +128,7 @@ public class Storage {
 
     /**
      * Writes the information of the newly added task to the file
+     *
      * @param task the Task object whose information is to be stored.
      */
     public static void add(Task task) { //to append items to taskList
@@ -136,6 +141,7 @@ public class Storage {
 
     /**
      * Deletes the information of the task to be deleted from the file.
+     *
      * @param num the index of the task to be deleted, which corresponds with the
      *            index of the line that contains the information to be deleted.
      */

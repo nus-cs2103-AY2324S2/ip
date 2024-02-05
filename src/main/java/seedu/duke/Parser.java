@@ -15,6 +15,7 @@ public class Parser {
     /**
      * Returns an integer of the task to be deleted, marked or unmarked. It is used as an
      * argument for the TaskList class.
+     *
      * @param input the user input from system (command)
      * @return Integer parsed from the user input
      * @throws DukeException
@@ -31,6 +32,7 @@ public class Parser {
     /**
      * Returns a string of the description of the todo task that can then be used
      * to initialise a Todo task and add it to the TaskList.
+     *
      * @param input the user input from system (command)
      * @return String parsed from the user input
      * @throws DukeException
@@ -45,7 +47,8 @@ public class Parser {
 
     /**
      * Returns a string array of the description of the deadline and the deadline, which is then used
-     * to initialise a Deadlines task and add it to the TaskLIst
+     * to initialise a Deadlines task and add it to the TaskList
+     *
      * @param input the user input from system (command)
      * @return String array which contains elements parsed from the user input, extracting
      * only the required information, the description and deadline.
@@ -64,6 +67,7 @@ public class Parser {
     /**
      * Returns a string array that contains the description of the event,
      * start and end timing. Used to initialise a Events Task and add it to the TaskList.
+     *
      * @param input the user input from system (command)
      * @return String array which contains elements parsed from user input. First element is the description of the event,
      * second element is the start timing and third element is the end timing of the event.
@@ -71,10 +75,10 @@ public class Parser {
      */
     public static String[] parseEvent(String input) throws DukeException{
         String[] items = input.split(" ", 2);
-        if (items.length == 1) {
-            UI.emptyDesc("event");
-        }
         try {
+            if (items.length == 1) {
+                UI.emptyDesc("event");
+            }
             String[] helper = input.split("/from ");
             String[] parts = new String[3];
             parts[0] = helper[0].replaceFirst("event ", ""); //task
