@@ -33,4 +33,14 @@ public abstract class Task {
     }
 
     public abstract String formatData();
+
+    /**
+     * Checks if task description contains keyword.
+     *
+     * @param keyword The keyword to look for in task descriptions.
+     * @return true if task description contains keyword, false otherwise.
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
 }

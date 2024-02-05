@@ -6,6 +6,7 @@ import shon.command.AddTodoCommand;
 import shon.command.Command;
 import shon.command.DeleteTaskCommand;
 import shon.command.ExitCommand;
+import shon.command.FindCommand;
 import shon.command.ListCommand;
 import shon.command.MarkCommand;
 import shon.command.UnmarkCommand;
@@ -16,7 +17,7 @@ import shon.exception.ParameterException;
 public class Parser {
 
     private enum Action {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE
     }
 
     public static Command parse(String input) throws CommandException, ParameterException {
@@ -36,6 +37,8 @@ public class Parser {
             return new AddEventCommand(Parser.getDescription(input), Parser.getFrom(input), Parser.getTo(input));
         case DELETE:
             return new DeleteTaskCommand(Parser.getIdx(input));
+        case FIND:
+            return new FindCommand(Parser.getKeyword(input));
         case BYE:
             return new ExitCommand();
         default:
@@ -146,5 +149,20 @@ public class Parser {
             throw new ParameterException("Event to date/time cannot be empty.");
         }
         return to.split("/to", 2)[1].strip();
+    }
+
+    /**
+     * Returns the keyword of the <code>find</code> command.
+     *
+     * @param input User's input.
+     * @return The keyword to look for in task descriptions.
+     * @throws ParameterException If no keyword is given.
+     */
+    private static String getKeyword(String input) throws ParameterException {
+        String[] split = input.split(" ", 2);
+        if (split.length == 1) {
+            throw new ParameterException("Please enter a keyword to find by.");
+        }
+        return split[1].strip();
     }
 }

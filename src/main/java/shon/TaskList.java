@@ -109,4 +109,24 @@ public class TaskList {
         }
         return output;
     }
+
+    /**
+     * Returns the tasks with description containing the given keyword.
+     *
+     * @param keyword The keyword to look for in task descriptions.
+     * @return An array of Strings representing the matching tasks.
+     */
+    public String[] filterByKeyword(String keyword) {
+        List<String> filteredTasks = new ArrayList<>();
+        filteredTasks.add("Here are the matching tasks in your list:");
+        for (int i = 0; i < this.list.size(); i++) {
+            Task task = this.list.get(i);
+            if (task.hasKeyword(keyword)) {
+                filteredTasks.add(filteredTasks.size() + "." + task.toString());
+            }
+        }
+        return filteredTasks.size() == 1
+               ? new String[]{"There are no tasks matching the keyword " + keyword + "."}
+               : filteredTasks.toArray(new String[0]);
+    }
 }
