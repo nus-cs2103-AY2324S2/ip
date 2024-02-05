@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import iggly.duke.DukeException;
 class DukeExceptionTest {
 
     @Test
@@ -12,11 +13,6 @@ class DukeExceptionTest {
 
         DukeException dukeException = new DukeException(errorMessage);
 
-        assertEquals(
-                "____________________________________________________________\n"
-                        + "   OOPS!!! " + errorMessage + "\n"
-                        + "____________________________________________________________\n",
-                dukeException.getMessage()
-        );
+        assertEquals("OOPS!!! " + errorMessage + "\n", dukeException.getMessage());
     }
 }

@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import duke.Storage;
-import model.Deadline;
-import model.Event;
-import model.Task;
-import model.TaskList;
-import model.ToDo;
+import iggly.command.AddTaskCommand;
+import iggly.duke.Storage;
+import iggly.model.Deadline;
+import iggly.model.Event;
+import iggly.model.Task;
+import iggly.model.TaskList;
+import iggly.model.ToDo;
 
 public class AddTaskCommandTest {
     @AfterEach
