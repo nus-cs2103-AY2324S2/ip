@@ -35,6 +35,8 @@ public class TasksUi extends Ui {
 
         if (total > 1) {
             System.out.println(index + ". " + task);
+        } else {
+            System.out.println(task);
         }
 
         if (index == total) {

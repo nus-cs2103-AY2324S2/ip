@@ -47,10 +47,12 @@ public class WrongFormatException extends CommandException {
         case "delete":
             rightUsage += "delete taskNum\n";
             example = "delete 2";
+            brainrot = "";
             break;
         case "find":
             rightUsage += "find keyword\n";
             example = "find book";
+            brainrot = "";
             break;
         }
     }

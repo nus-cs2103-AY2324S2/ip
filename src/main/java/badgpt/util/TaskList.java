@@ -162,7 +162,7 @@ public class TaskList {
             throw new ListEmptyException("There are no tasks containing the specified keyword.");
         } else {
             for (int i = 0; i < filtered.size(); i++) {
-                tasksUi.printTask(filtered.get(i), i, filtered.size());
+                tasksUi.printTask(filtered.get(i), i + 1, filtered.size());
             }
         }
     }
