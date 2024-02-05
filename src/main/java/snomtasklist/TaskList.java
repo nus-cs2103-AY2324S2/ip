@@ -79,4 +79,21 @@ public class TaskList {
             System.out.println(this.tasklst.get(i));
         }
     }
+
+    public void printMatchingTasks(String cmd) {
+        ArrayList<Task> found_tasks = new ArrayList<>();
+        for (int i = 0; i<counter; i++) {
+            if (this.task_lst.get(i).match(cmd)) {
+                found_tasks.add(task_lst.get(i));
+            }
+        }
+        if (found_tasks.size() > 0) {
+            System.out.println("Here are the tasks that match your description");
+            for (int j = 0; j < found_tasks.size(); j++) {
+                System.out.println(found_tasks.get(j));
+            }
+        } else {
+            System.out.println("Sorry, we did not find any tasks that matched your description");
+        }
+    }
 }

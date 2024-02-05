@@ -37,9 +37,13 @@ public class Parser {
             case LIST:
                 this.listTask(lst, storage);
                 break;
+            case FIND:
+                this.findTask(lst, cmd);
             case BYE:
                 status = false;
+
             }
+
             storage.saveTask(lst);
             return status;
 
@@ -99,8 +103,8 @@ public class Parser {
         lst.displayTaskList();
     }
 
-    private void exit(TaskList lst) {
-        return;
+    private void findTask(TaskList lst, String cmd) {
+        lst.printMatchingTasks(cmd);
     }
 
 
