@@ -206,8 +206,8 @@ public class TaskList {
     public String[] filterByKeyword(String keyword) {
         List<String> filteredTasks = new ArrayList<>();
         filteredTasks.add("Here are the matching tasks in your list:");
-        for (int i = 0; i < this.list.size(); i++) {
-            Task task = this.list.get(i);
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
             if (task.hasKeyword(keyword)) {
                 filteredTasks.add(filteredTasks.size() + "." + task.toString());
             }
