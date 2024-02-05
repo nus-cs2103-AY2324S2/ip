@@ -7,26 +7,19 @@ public class Parser {
     public int getAction(String input) throws DuchessException {
         if (input.equalsIgnoreCase("list")) {
             return 1;
-        }
-        else if (input.toUpperCase().contains("DELETE")) {
+        } else if (input.toUpperCase().contains("DELETE")) {
             return 2;
-        }
-        else if (input.toUpperCase().contains("TODO")) {
+        } else if (input.toUpperCase().contains("TODO")) {
             return 3;
-        }
-        else if (input.toUpperCase().contains("DEADLINE")) {
+        } else if (input.toUpperCase().contains("DEADLINE")) {
             return 4;
-        }
-        else if (input.toUpperCase().contains("EVENT")) {
+        } else if (input.toUpperCase().contains("EVENT")) {
             return 5;
-        }
-        else if (input.toUpperCase().contains("UNMARK")) {
+        } else if (input.toUpperCase().contains("UNMARK")) {
             return 6;
-        }
-        else if (input.toUpperCase().contains("MARK")) {
+        } else if (input.toUpperCase().contains("MARK")) {
             return 7;
-        }
-        else {
+        } else {
             throw new DuchessException();
         }
     }
