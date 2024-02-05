@@ -9,7 +9,12 @@ import Misc.Ui;
 
 import java.util.Scanner;
 
-
+/**
+ * This class encapsulates Irwyn chatbot.
+ *
+ * @author Irwyn Liong
+ * @version Week-3
+ */
 public class Irwyn {
 
     private static TaskList taskList;
@@ -17,6 +22,10 @@ public class Irwyn {
     private static StorageManager storageManager;
     private static final String filePath = System.getProperty("user.dir") + "/storage/taskData.txt";
 
+    /**
+     * Starts the Irwyn chatbot.
+     * Instantiates a TaskManager object, Ui object, and a StorageManager Object.
+     */
     private static void load() {
         try {
             ui = new Ui();
@@ -27,6 +36,10 @@ public class Irwyn {
             System.out.println("Irwyn failed to start");
         }
     }
+
+    /**
+     * Runs the Irwyn chatbot.
+     */
     public static void run(){
         boolean isExit = false;
         while (!isExit) {

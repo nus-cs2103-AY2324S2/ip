@@ -5,9 +5,26 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class encapsulates the TaskList class.
+ * It represents a TaskList to handle task operations.
+ *
+ * @author Irwyn Liong
+ * @version Week-3
+ */
+
 public class TaskList {
     ArrayList<Task> storage;
 
+    /**
+     * This method converts a string into a Task object.
+     * The string is expected to be in a specific format, with parts separated by " | ".
+     * Depending on the first part of the string, a different type of Task object is created.
+     * If the second part of the string is "1", the task is marked as done.
+     *
+     * @param data The string to be converted into a Task object.
+     * @return A Task object that represents the task specified by the input string. Returns null if the task type is not recognized.
+     */
     private Task StringToTask(String data) {
         String[] parts = data.split(" \\| ");
         switch (parts[0]) {
@@ -34,6 +51,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructor for a TaskList object.
+     * Adds the lists of task to storage.
+     * If file not found, throws an error for loading the task.
+     *
+     * @param filePath A file containing stored tasks.
+     */
     public TaskList(File filePath) {
         storage = new ArrayList<>();
          try {
@@ -49,31 +73,67 @@ public class TaskList {
             System.out.println("An error occurred while loading tasks from file.\n");
         }
     }
-
+    /**
+     * This method returns the list of tasks.
+     *
+     * @return A list of Task objects that represents the tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.storage;
     }
 
+    /**
+     * This method returns a specific task from the list.
+     *
+     * @param tasks The index of the task in the list.
+     * @return A Task object that represents the task at the specified index.
+     */
     public Task getTask(int tasks) {
         return this.storage.get(tasks);
     }
 
+    /**
+     * This method adds a task to the list.
+     *
+     * @param task The Task object to be added to the list.
+     */
     public void addTask(Task task) {
         this.storage.add(task);
     }
 
+    /**
+     * This method removes a task from the list.
+     *
+     * @param task The index of the task in the list.
+     * @return A Task object that represents the removed task.
+     */
     public Task delete(int task) {
         return this.storage.remove(task);
     }
 
+    /**
+     * This method returns the size of the list of tasks.
+     *
+     * @return An integer that represents the number of tasks in the list.
+     */
     public int getTasksSize() {
         return this.storage.size();
     }
 
+    /**
+     * This method marks a task as done.
+     *
+     * @param task The index of the task in the list.
+     */
     public void mark(int task) {
         storage.get(task).mark();
     }
 
+    /**
+     * This method marks a task as not done.
+     *
+     * @param task The index of the task in the list.
+     */
     public void unmark(int task) {
         storage.get(task).unmark();
     }

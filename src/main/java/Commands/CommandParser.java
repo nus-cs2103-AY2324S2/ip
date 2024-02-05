@@ -3,7 +3,21 @@ package Commands;
 import Irwyn.Exceptions.IrwynException;
 import Irwyn.Exceptions.TaskException;
 
+/**
+ * This class encapsulates Command Parser which parses commands.
+ *
+ * @author Irwyn Liong
+ * @version Week-3
+ */
 public class CommandParser {
+
+    /**
+     * Returns the parsed command.
+     *
+     * @param input Inputs from user.
+     * @return Command from user input.
+     * @throws IrwynException If the input is an invalid command.
+     */
     public static Command parse(String input) throws IrwynException {
         String command = input.split(" ")[0];
         switch (command) {

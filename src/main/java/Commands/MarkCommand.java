@@ -5,13 +5,33 @@ import Misc.Ui;
 
 import Irwyn.Tasks.TaskList;
 
+/**
+ * This class encapsulates the class MarkCommand.
+ * It marks the task on the list.
+ *
+ * @author Irwyn Liong
+ * @version Week-3
+ */
 public class MarkCommand extends Command {
     private final int mark;
 
+    /**
+     * Constructor for a MarkCommand object.
+     * @param input The input by the user to parse into a command.
+     */
     public MarkCommand(String input) {
         super(false);
         mark = Integer.parseInt(input.split(" ")[1]) - 1;
     }
+
+    /**
+     * Executes the mark command.
+     * This method marks a Task from the list.
+     *
+     * @param taskList TaskList handles the tasks list.
+     * @param ui Ui handles output.
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
         taskList.mark(mark);
