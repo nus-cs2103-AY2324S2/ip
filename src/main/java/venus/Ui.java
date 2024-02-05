@@ -1,4 +1,7 @@
 package venus;
+
+import java.util.ArrayList;
+
 public class Ui {
     private static final String START =
             "    ____________________________________________________________\n"
@@ -60,5 +63,16 @@ public class Ui {
 
     public static String getEnd() {
         return END;
+    }
+
+    public static void printFind(ArrayList<String> items) {
+        int i = 1;
+        System.out.println(BORDER
+                + "     Here are the matching tasks in your list:");
+        for (String s : items) {
+            System.out.println("     " + i + "." + s);
+            i++;
+        }
+        System.out.println(BORDER);
     }
 }
