@@ -54,6 +54,12 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Gets the response from Duke.
+     *
+     * @param input The input command.
+     * @return The response from Duke.
+     */
     public String getResponse(String input) {
         return "Duke heard: " + input;
     }
