@@ -53,10 +53,13 @@ public class DialogBox extends HBox {
         }
 
         setAlignment(Pos.TOP_LEFT);
+        this.setStyle("-fx-background-color: #D3D3D3;");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: #ADD8E6;");
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
