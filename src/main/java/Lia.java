@@ -1,8 +1,24 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 public class Lia {
+    private static final String FILE_NAME = "Lia.txt";
+    private static final String FOLDER_NAME = "data";
+    private static final String PROJECT_FOLDER = ".";
+    private static final Path FILE_PATH = Paths.get(PROJECT_FOLDER, FOLDER_NAME, FILE_NAME);
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
+        loadTasks();
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("Hello! I'm Lia :)");
         System.out.println("What can I do for you?");
@@ -82,7 +98,7 @@ public class Lia {
                         throw new LiaException("Task description cannot be empty.");
                     }
 
-                    tasks.add(new Todo(todo));
+                    tasks.add(new Todo(todo, false));
                     System.out.println("I've added this task:");
                     Task todoTask = tasks.get(tasks.size() - 1);
                     System.out.println("[" + todoTask.getTaskIcon() + "]" +
@@ -95,7 +111,7 @@ public class Lia {
                     }
 
                     String date = input.split("/by")[1].trim();
-                    tasks.add(new Deadline(deadline, date));
+                    tasks.add(new Deadline(deadline, date, false));
                     System.out.println("I've added this task:");
                     Task deadlineTask = tasks.get(tasks.size() - 1);
                     System.out.println("[" + deadlineTask.getTaskIcon() + "]" +
@@ -111,7 +127,7 @@ public class Lia {
                     String range = input.split("/from")[1].trim();
                     String start = range.split("/to")[0].trim();
                     String end = range.split("/to")[1].trim();
-                    tasks.add(new Event(event, start, end));
+                    tasks.add(new Event(event, start, end, false));
                     System.out.println("I've added this task:");
                     Task eventTask = tasks.get(tasks.size() - 1);
                     System.out.println("[" + eventTask.getTaskIcon() + "]" +
@@ -142,29 +158,88 @@ public class Lia {
                     }
                     System.out.println("You have " + tasks.size() + " task(s) in the list.");
                 } else if (input.equals("help")) {
-                    System.out.println("list");
-                    System.out.println("- Lists out all your tasks");
-                    System.out.println("todo <task description>");
-                    System.out.println("- Adds a task");
-                    System.out.println("deadline <task description> /by <due by>");
-                    System.out.println("- Adds a task with a deadline");
-                    System.out.println("event <event description> /from <starts at> to <ends at>");
-                    System.out.println("- Adds an event");
-                    System.out.println("mark <task number>");
-                    System.out.println("- Marks task at specified position as done");
-                    System.out.println("unmark <task number>");
-                    System.out.println("- Marks task at specified position as not done");
-                    System.out.println("delete <task number>");
-                    System.out.println(" - Deletes task at specified position");
-                    System.out.println("exit");
-                    System.out.println("- Ends the conversation");
+                    System.out.println("list\n" +
+                            "- Lists out all your tasks\n" +
+                            "todo <task description>\n" +
+                            "- Adds a task\n" +
+                            "deadline <task description> /by <due by>\n" +
+                            "- Adds a task with a deadline\n" +
+                            "event <event description> /from <starts at> to <ends at>\n" +
+                            "- Adds an event\n" +
+                            "mark <task number>\n" +
+                            "- Marks task at specified position as done\n" +
+                            "unmark <task number>\n" +
+                            "- Marks task at specified position as not done\n" +
+                            "delete <task number>\n" +
+                            " - Deletes task at specified position\n" +
+                            "exit\n" +
+                            "- Ends the conversation");
                 } else {
                     throw new LiaException("Invalid command. Type help for a list of valid commands and their usages.");
                 }
+                saveTasks();
             } catch (LiaException e) {
                 System.out.println(e.getMessage());
             }
         }
         System.out.println("Goodbye!");
+    }
+
+    private static void loadTasks() {
+        try {
+            Files.createDirectories(FILE_PATH.getParent());
+            try (BufferedReader br = Files.newBufferedReader(FILE_PATH)) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split(" \\| ");
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+
+                    switch (type) {
+                        case "T":
+                            tasks.add(new Todo(description, isDone));
+                            break;
+                        case "D":
+                            String by = parts[3];
+                            tasks.add(new Deadline(description, by, isDone));
+                            break;
+                        case "E":
+                            String start = parts[3];
+                            String end = parts[4];
+                            tasks.add(new Event(description, start, end, isDone));
+                            break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            Files.createDirectories(FILE_PATH.getParent());
+            try (BufferedWriter bw = Files.newBufferedWriter(FILE_PATH)) {
+                for (Task task : tasks) {
+                    String taskSave;
+                    if (task instanceof Todo) {
+                        taskSave = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+                    } else if (task instanceof Deadline) {
+                        taskSave = "D | " + (task.isDone() ? "1" : "0") + " | " +
+                                task.getDescription() + " | " + ((Deadline) task).getDate();
+                    } else if (task instanceof Event) {
+                        taskSave = "E | " + (task.isDone() ? "1" : "0") + " | " +
+                                task.getDescription() + " | " + ((Event) task).getStart() +
+                                " | " + ((Event) task).getEnd();
+                    } else {
+                        continue;
+                    }
+                    bw.write(taskSave + "\n");
+                }
+            }
+        } catch (IOException e) {
+                System.out.println("Error writing tasks: " + e.getMessage());
+        }
     }
 }
