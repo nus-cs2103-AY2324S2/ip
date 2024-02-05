@@ -157,19 +157,18 @@ public class Luke {
                     break;
                 case "deadline":
                     try {
-                        String[] deadlineSplit = input.split("/");
-                        if (deadlineSplit.length < 2
-                                || !deadlineSplit[1].substring(0,2).equals("by")) {
+                        String[] deadlineSplit = input.split("/by");
+                        if (deadlineSplit.length != 2) {
                             throw new LukeException("Invalid command. Please follow the format for deadline tasks.");
                         }
                         if (deadlineSplit[0].substring(9).trim().isEmpty()) {
                             throw new LukeException("Invalid command. The description cannot be empty.");
                         }
-                        if (deadlineSplit[1].trim().length() <= 2) {
+                        if (deadlineSplit[1].trim().isEmpty()) {
                             throw new LukeException("Invalid command. The deadline cannot be empty.");
                         }
-                        String deadlineDescription = deadlineSplit[0].substring(9);
-                        String by = deadlineSplit[1].substring(3);
+                        String deadlineDescription = deadlineSplit[0].substring(9).trim();
+                        String by = deadlineSplit[1].trim();
 
                         Deadline deadline = new Deadline(deadlineDescription, by);
                         taskList.add(deadline);
@@ -184,24 +183,23 @@ public class Luke {
                     break;
                 case "event":
                     try {
-                        String[] eventSplit = input.split("/");
-                        if (eventSplit.length < 3
-                                || !eventSplit[1].substring(0,4).equals("from")
-                                || !eventSplit[2].substring(0,2).equals("to")) {
+                        String[] eventSplitFrom = input.split("/from");
+                        if (eventSplitFrom.length != 2) {
                             throw new LukeException("Invalid command. Please follow the format for event tasks.");
                         }
-                        if (eventSplit[0].substring(6).trim().isEmpty()) {
+                        if (eventSplitFrom[0].substring(6).trim().isEmpty()) {
                             throw new LukeException("Invalid command. The description cannot be empty.");
                         }
-                        if (eventSplit[1].trim().length() <= 4 ) {
+                        String[] eventSplitTo = eventSplitFrom[1].split("/to");
+                        if (eventSplitTo[0].trim().isEmpty() ) {
                             throw new LukeException("Invalid command. The from section cannot be empty.");
                         }
-                        if (eventSplit[2].trim().length() <= 2 ) {
+                        if (eventSplitTo[1].trim().isEmpty() ) {
                             throw new LukeException("Invalid command. The to section cannot be empty.");
                         }
-                        String eventDescription = eventSplit[0].substring(6);
-                        String from = eventSplit[1].substring(5);
-                        String to = eventSplit[2].substring(3);
+                        String eventDescription = eventSplitFrom[0].substring(6);
+                        String from = eventSplitTo[0].trim();
+                        String to = eventSplitTo[1].trim();
                         Event event = new Event(eventDescription, from, to);
                         taskList.add(event);
                         System.out.println("Got it. I've added this task:");
