@@ -8,6 +8,11 @@ public class Duke {
     private final Ui ui;
 
 
+    /**
+     * Constructs a new Duke object with the specified file path for storage.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +24,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main loop of the Roland application, handling user interactions and commands.
+     */
     public void run() {
         ui.boot();
 //        System.out.println(System.getProperty("user.dir"));
@@ -37,10 +45,13 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * The main method to start the Roland application.
+     *
+     * @param args The command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("./src/main/java/data/roland.txt").run();
     }
-
-
-
 }
