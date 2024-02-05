@@ -37,14 +37,13 @@ public class TerminalController {
             if (curInput.equals(CommandEnum.Bye.getCommandValue())) {
                 stop = true;
             }
-            else {
-                try {
-                    feedback = feedbackService.run(curInput);
-                }
-                catch (InvalidInputException | IOException e) {
-                    System.out.println(e.getMessage());
-                    continue;
-                }
+
+            try {
+                feedback = feedbackService.run(curInput);
+            }
+            catch (InvalidInputException | IOException e) {
+                System.out.println(e.getMessage());
+                continue;
             }
 
             System.out.println("----------------------------------------------");

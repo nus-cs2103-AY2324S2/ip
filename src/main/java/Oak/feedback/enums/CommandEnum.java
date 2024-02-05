@@ -2,6 +2,7 @@ package Oak.feedback.enums;
 
 public enum CommandEnum {
     Bye("bye"),
+    Find("find"),
     List("list"),
     Mark("mark"),
     Unmark("unmark"),

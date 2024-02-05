@@ -212,4 +212,21 @@ public class TaskService {
 
         return returnVal.toString();
     }
+
+    public String findTasks(String matchingValue) {
+        StringBuilder returnVal = new StringBuilder();
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).name.contains(matchingValue)) {
+                returnVal.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
+
+                // Only add new line if its not the last task
+                if (i < this.tasks.size() - 1) {
+                    returnVal.append("\n");
+                }
+            }
+        }
+
+        return returnVal.toString();
+    }
 }
