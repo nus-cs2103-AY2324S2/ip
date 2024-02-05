@@ -1,15 +1,20 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
 
-    public static void main(String[] args) {
+    private static final String FILE_PATH = "./data/duke.txt";
+    public static  void main(String[] args) {
+        ArrayList<Task> list = new ArrayList<>();
+        loadTasks(list);
         String line = "__________________________________________________";
         System.out.println(line);
         System.out.println("Hello! I'm Floofy");
         System.out.println("What can I do for you?");
         System.out.println(line);
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
         loop:
         while (true) {
             String userInput = scanner.nextLine();
@@ -18,11 +23,13 @@ public class Duke {
                 int idx = Integer.parseInt(userInput.substring(5));
                 list.get(idx - 1).markTask();
                 System.out.println(line);
+                saveTasks(list);
             } else if (userInput.startsWith("unmark")) {
                 System.out.println(line);
                 int idx = Integer.parseInt(userInput.substring(7));
                 list.get(idx - 1).unmarkTask();
                 System.out.println(line);
+                saveTasks(list);
             } else if (userInput.startsWith("todo")) {
                 try {
                     if (userInput.length() < 6) {
@@ -38,6 +45,7 @@ public class Duke {
                 list.add(newTodo);
                 newTodo.addTask(list.size());
                 System.out.println(line);
+                saveTasks(list);
             } else if (userInput.startsWith("deadline")) {
                 try {
                     // other improvements: no content, empty deadline
@@ -59,6 +67,7 @@ public class Duke {
                 list.add(newDeadline);
                 newDeadline.addTask(list.size());
                 System.out.println(line);
+                saveTasks(list);
             } else if (userInput.startsWith("event")) {
                 try {
                     // other improvements: no content, empty start and end
@@ -88,6 +97,7 @@ public class Duke {
                 list.add(newEvent);
                 newEvent.addTask(list.size());
                 System.out.println(line);
+                saveTasks(list);
             } else if (userInput.startsWith("delete")) {
                 System.out.println(line);
                 int idx = Integer.parseInt(userInput.substring(7));
@@ -95,6 +105,7 @@ public class Duke {
                 list.remove(idx - 1);
                 removed.deleteTask(list.size());
                 System.out.println(line);
+                saveTasks(list);
             } else if (userInput.startsWith("bye")) {
                 System.out.println(line);
                 System.out.println("BYE BYE! Come back soon~~ YOUR WISH IS MY COMMAND <33");
@@ -108,7 +119,6 @@ public class Duke {
                     System.out.println(numberedOutput);
                 }
                 System.out.println(line);
-                break;
             } else {
                 try {
                     throw new DukeException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
@@ -118,6 +128,77 @@ public class Duke {
                 }
 
             }
+
         }
+    }
+
+    private static void saveTasks(ArrayList<Task> list) {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : list) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving tasks to file.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadTasks(ArrayList<Task> list) {
+        try {
+            File file = new File("./data/duke.txt");
+            // create parent directory if it doesn't exist.
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                if (!file.getParentFile().mkdirs()) {
+                    System.err.println("Failed to create parent directories.");
+                    return;
+                }
+            }
+
+            // create file if it doesn't exist.
+            if (!file.exists() && !file.createNewFile()) {
+                System.err.println("Failed to create the file.");
+                return;
+            }
+            Scanner scanner = new Scanner(file);
+            // these are for existing tasks !!
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.trim().isEmpty()) {
+                    break;
+                }
+                Task task = parseTask(line);
+                if (task != null) {
+                    list.add(task);
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            System.err.println("An error occurred while loading tasks from file.");
+            e.printStackTrace();
+        }
+    }
+
+    private static Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        Task task = null;
+
+        switch (parts[0]) {
+            case "T":
+                task = new ToDos(parts[2]);
+                break;
+            case "D":
+                task = new Deadline(parts[2], parts[3]);
+                break;
+            case "E":
+                String[] time = parts[3].split("-");
+                task = new Event(parts[2], time[0], time[1]);
+                break;
+        }
+        if (task != null && parts[1].equals("1")) {
+            task.markTask();
+        }
+        return task;
     }
 }
