@@ -1,8 +1,8 @@
-package leto.parser;
+package me.ruibin.leto.parser;
+
+import me.ruibin.leto.ui.Ui;
 
 import java.util.Scanner;
-
-import static leto.ui.Ui.shortSay;
 
 public class Parser {
     private static Scanner sc = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Parser {
                 if (r.equals(Results.EXIT)) {
                     isBye = true;
                 } else if (r.equals(Results.ERROR)) {
-                    shortSay("Error encountered!");
+                    Ui.shortSay("Error encountered!");
                 }
             } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
                 Commands.HELP.run("");

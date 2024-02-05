@@ -1,6 +1,6 @@
-package leto.tasklist;
+package me.ruibin.leto.tasklist;
 
-import static leto.ui.Ui.letoSpeak;
+import me.ruibin.leto.ui.Ui;
 
 public class InvalidTaskException extends Exception {
     private final String message;
@@ -9,6 +9,6 @@ public class InvalidTaskException extends Exception {
         this.message = message;
     }
     public void printException() {
-        letoSpeak("We have a problem! " + this.message);
+        Ui.letoSpeak("We have a problem! " + this.message);
     }
 }

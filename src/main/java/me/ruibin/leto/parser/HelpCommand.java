@@ -1,6 +1,6 @@
-package leto.parser;
+package me.ruibin.leto.parser;
 
-import leto.ui.Ui;
+import me.ruibin.leto.ui.Ui;
 
 import java.util.function.Function;
 

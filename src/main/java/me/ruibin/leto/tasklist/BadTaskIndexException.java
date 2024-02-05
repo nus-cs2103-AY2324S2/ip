@@ -1,4 +1,4 @@
-package leto.tasklist;
+package me.ruibin.leto.tasklist;
 
 public class BadTaskIndexException extends InvalidTaskException {
     public BadTaskIndexException(int CurrentIndex) {

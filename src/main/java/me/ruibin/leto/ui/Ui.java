@@ -1,4 +1,4 @@
-package leto.ui;
+package me.ruibin.leto.ui;
 
 import java.io.PrintWriter;
 

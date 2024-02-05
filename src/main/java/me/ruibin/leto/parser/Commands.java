@@ -1,4 +1,4 @@
-package leto.parser;
+package me.ruibin.leto.parser;
 
 import java.util.function.Function;
 

@@ -1,4 +1,4 @@
-package leto.tasklist;
+package me.ruibin.leto.tasklist;
 
 public class TodoInvalidCmdException extends InvalidTaskException {
     public TodoInvalidCmdException() {

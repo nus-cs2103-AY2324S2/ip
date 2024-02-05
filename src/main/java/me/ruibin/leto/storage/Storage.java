@@ -1,6 +1,12 @@
-package leto.storage;
+package me.ruibin.leto.storage;
 
-import leto.tasklist.*;
+import me.ruibin.leto.tasklist.TaskList;
+import me.ruibin.leto.tasklist.Task;
+import me.ruibin.leto.tasklist.Todo;
+import me.ruibin.leto.tasklist.Deadline;
+import me.ruibin.leto.tasklist.Event;
+import me.ruibin.leto.tasklist.InvalidTaskException;
+import me.ruibin.leto.ui.Ui;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
@@ -15,9 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static leto.ui.Ui.letoSpeak;
-import static leto.ui.Ui.shortSay;
-
 public class Storage {
     private static final String PATH_TO_STORE = "Leto-Tasks.csv";
 
@@ -29,25 +32,25 @@ public class Storage {
     public static void ReadFile() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(PATH_TO_STORE));
-            letoSpeak("We found an existing file, will attempt to import it to the list\nGive me a while");
+            Ui.letoSpeak("We found an existing file, will attempt to import it to the list\nGive me a while");
             File f = new File(PATH_TO_STORE);
             String absPath = f.getAbsolutePath();
-            shortSay("File path: " + absPath);
+            Ui.shortSay("File path: " + absPath);
             Stream<String> s = br.lines();
 //            s.forEach(Storage::ReadEntry);
             List<String> l = s.collect(Collectors.toList());
             for (String entry : l) {
                 ReadEntry(entry);
             }
-            shortSay("Import completed");
+            Ui.shortSay("Import completed");
         } catch (FileNotFoundException e) {
-            letoSpeak("We did not find an existing file containing tasks"
+            Ui.letoSpeak("We did not find an existing file containing tasks"
              + "\n  We will carry on without a blank list");
         } catch (UncheckedIOException e) {
-            letoSpeak("Blast! Ran into error while reading the file.\n"
+            Ui.letoSpeak("Blast! Ran into error while reading the file.\n"
                     + "We will proceed with an empty list.\n");
         } catch (InvalidTaskException e) {
-            letoSpeak("File might be corrupted\n"
+            Ui.letoSpeak("File might be corrupted\n"
                     + "Full error report below: " + e);
         }
     }
@@ -57,15 +60,15 @@ public class Storage {
         switch (parts[0]) {
         case "T":
             TaskList.addTaskToList(Todo.todoFromCSV(entry));
-            shortSay("Todo added");
+            Ui.shortSay("Todo added");
             break;
         case "D":
             TaskList.addTaskToList(Deadline.DeadlineFromCSV(entry));
-            shortSay("Deadline added");
+            Ui.shortSay("Deadline added");
             break;
         case "E":
             TaskList.addTaskToList(Event.eventFromCSV(entry));
-            shortSay("Event added");
+            Ui.shortSay("Event added");
             break;
         }
     }
@@ -74,19 +77,19 @@ public class Storage {
         int saved = 0;
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_TO_STORE));
-            letoSpeak("Saving tasks");
+            Ui.letoSpeak("Saving tasks");
             for (Task t : TaskList.getTasks()) {
                 WriteTask(bw, t);
                 saved++;
             }
             bw.flush();
             bw.close();
-            shortSay("Saving completed: " + saved + " tasks saved");
+            Ui.shortSay("Saving completed: " + saved + " tasks saved");
             File f = new File(PATH_TO_STORE);
             String absPath = f.getAbsolutePath();
-            shortSay("File path: " + absPath);
+            Ui.shortSay("File path: " + absPath);
         } catch (IOException e) {
-            letoSpeak("Blast! Ran into error while writing the file.\n"
+            Ui.letoSpeak("Blast! Ran into error while writing the file.\n"
                     + "Saved " + saved + " tasks in the list.\n");
         }
     }

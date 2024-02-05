@@ -1,6 +1,6 @@
-package leto.parser;
+package me.ruibin.leto.parser;
 
-import leto.tasklist.TaskList;
+import me.ruibin.leto.tasklist.TaskList;
 
 import java.util.function.Function;
 
