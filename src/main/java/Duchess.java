@@ -115,6 +115,9 @@ public class Duchess {
                         input = "list";
                         continue;
                     }
+                } else if (action == 8) {   // Find tasks
+                    String keyword = parser.getKeyword(input);
+                    tasks.findTasks(keyword);
                 }
             } catch (DuchessException e) {
                 System.out.println(lineBreak);

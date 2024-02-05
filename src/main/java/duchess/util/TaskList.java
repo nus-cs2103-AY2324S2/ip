@@ -59,6 +59,20 @@ public class TaskList {
         System.out.println("\t\t------------------------------------------");
     }
 
+    public void findTasks(String keyword) {
+        System.out.println("\t\t------------------------------------------");
+        System.out.println("\t\tHere are the matching tasks in your list: ");
+        int counter = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.getDescription().contains(keyword)) {
+                System.out.println("\t\t" + counter + "." + t);
+                counter += 1;
+            }
+        }
+        System.out.println("\t\t------------------------------------------");
+    }
+
     public int getNumberOfTasks() {
         return taskList.size();
     }
