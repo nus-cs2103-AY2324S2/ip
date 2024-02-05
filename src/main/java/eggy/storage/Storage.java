@@ -18,17 +18,34 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage of the chat bot.
+ */
 public class Storage {
+    /** The file path of the storage. */
     private final String filePath;
 
+    /** The type of task. */
     private enum TaskType {
         T, D, E
     }
 
+    /**
+     * Constructs the storage of the chat bot.
+     *
+     * @param filePath The file path of the storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the storage.
+     *
+     * @return The list of tasks.
+     * @throws InvalidTaskTypeException If the task type is invalid.
+     * @throws LoadTasksException If there is an error loading the tasks.
+     */
     public List<Task> load() throws InvalidTaskTypeException, LoadTasksException {
         List<Task> tempTasks = new ArrayList<>();
         try {
@@ -71,6 +88,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks to the storage.
+     *
+     * @param tasks The list of tasks.
+     * @throws SaveTasksException If there is an error saving the tasks.
+     */
     public void save(TaskList tasks) throws SaveTasksException {
         try {
             File file = new File(this.filePath);

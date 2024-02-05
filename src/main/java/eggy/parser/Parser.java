@@ -12,11 +12,23 @@ import eggy.command.UnmarkCommand;
 import eggy.exception.EggyException;
 import eggy.exception.InvalidCommandException;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
+    /** The type of command. */
     private enum CommandType {
         BYE, LIST, DELETE, MARK, UNMARK, TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Parses the user input and returns the command.
+     *
+     * @param fullCommand The full user input.
+     * @param tasksSize The size of the tasks.
+     * @return The command.
+     * @throws EggyException If the command is invalid.
+     */
     public static Command parse(String fullCommand, int tasksSize) throws EggyException {
         String[] commands = fullCommand.split(" ", 2);
         try {
