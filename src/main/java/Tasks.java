@@ -1,11 +1,31 @@
+import java.io.*;
 import java.util.ArrayList;
 
-public class Tasks {
+public class Tasks implements Serializable {
     private static ArrayList<Task> tasks;
+    private static final String FILE_PATH = "src/data/taskList.txt";
     public Tasks() {
-        tasks = new ArrayList<>();
+        // Load tasks from file on startup
+        loadTasks();
     }
 
+    private static void loadTasks() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
+            tasks = (ArrayList<Task>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            // Handle file not found or corrupted data file
+            //System.err.println("Error loading tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
+    }
+
+    public static void saveTask()  {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(tasks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void markTask(String command) throws DukeException {
         String[] words = command.split(" ");
