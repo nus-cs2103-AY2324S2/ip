@@ -150,4 +150,15 @@ public class TaskList {
             throw new DukeException("Error updating storage\n");
         }
     }
+
+    public List<Task> findTasksFromKeyword(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }

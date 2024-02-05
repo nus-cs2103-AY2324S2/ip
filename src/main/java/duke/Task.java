@@ -66,4 +66,8 @@ public class Task {
     public String toFileString() {
         return toString();
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
