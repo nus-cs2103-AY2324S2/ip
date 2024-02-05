@@ -4,6 +4,7 @@ import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.parser.Parser;
 import duke.storage.TaskList;
+import duke.ui.components.DialogBox;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -35,31 +38,42 @@ public class Gui extends Ui {
      * @author Ryan NgWH
      */
     public static class DukeGui extends Application {
+        // Images for user and duke
+        private Image user = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+        private Image duke = new Image(this.getClass().getResourceAsStream("/images/Duke.jpg"));
+
+        // GUI Elements
+        ScrollPane scrollPane;
+        VBox dialogContainer;
+        TextField userInput;
+        Button sendButton;
+        AnchorPane mainLayout;
+        Scene scene;
+
         /**
          * Default constructor for a Duke GUI
          */
         public DukeGui() {
+            // Create container for the chatbox
+            this.scrollPane = new ScrollPane();
+            this.dialogContainer = new VBox();
+            this.scrollPane.setContent(dialogContainer);
+
+            // Create elements for user input
+            this.userInput = new TextField();
+            this.sendButton = new Button("Send");
+
+            // Create GUI pane
+            this.mainLayout = new AnchorPane();
+            this.mainLayout.getChildren().addAll(this.scrollPane, this.userInput, this.sendButton);
+
+            // Set the scene
+            this.scene = new Scene(mainLayout);
         }
 
         @Override
         public void start(Stage stage) {
-            // Create container for the chatbox
-            ScrollPane scrollPane = new ScrollPane();
-            VBox dialogContainer = new VBox();
-            scrollPane.setContent(dialogContainer);
-
-            // Create elements for user input
-            TextField userInput = new TextField();
-            Button sendButton = new Button("Send");
-
-            // Create GUI pane
-            AnchorPane mainLayout = new AnchorPane();
-            mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-            // Set the scene
-            Scene scene = new Scene(mainLayout);
-
-            stage.setScene(scene);
+            stage.setScene(this.scene);
 
             // Format the GUI
             stage.setTitle("Duke");
@@ -67,33 +81,33 @@ public class Gui extends Ui {
             stage.setMinHeight(600.0);
             stage.setMinWidth(400.0);
 
-            mainLayout.setPrefSize(400.0, 600.0);
+            this.mainLayout.setPrefSize(400.0, 600.0);
 
-            scrollPane.setPrefSize(385, 535);
-            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            this.scrollPane.setPrefSize(385, 535);
+            this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-            scrollPane.setVvalue(1.0);
-            scrollPane.setFitToWidth(true);
+            this.scrollPane.setVvalue(1.0);
+            this.scrollPane.setFitToWidth(true);
 
-            dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            this.dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-            userInput.setPrefWidth(325.0);
+            this.userInput.setPrefWidth(325.0);
 
-            sendButton.setPrefWidth(55.0);
+            this.sendButton.setPrefWidth(55.0);
 
-            AnchorPane.setTopAnchor(scrollPane, 1.0);
+            AnchorPane.setTopAnchor(this.scrollPane, 1.0);
 
-            AnchorPane.setBottomAnchor(sendButton, 1.0);
-            AnchorPane.setRightAnchor(sendButton, 1.0);
+            AnchorPane.setBottomAnchor(this.sendButton, 1.0);
+            AnchorPane.setRightAnchor(this.sendButton, 1.0);
 
-            AnchorPane.setLeftAnchor(userInput, 1.0);
-            AnchorPane.setBottomAnchor(userInput, 1.0);
+            AnchorPane.setLeftAnchor(this.userInput, 1.0);
+            AnchorPane.setBottomAnchor(this.userInput, 1.0);
 
             // User input functionalities
-            sendButton.setOnMouseClicked((event) -> {
+            this.sendButton.setOnMouseClicked((event) -> {
                 try {
-                    dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+                    this.handleUserInput();
                 } catch (DukeException e) {
                     dialogContainer.getChildren().add(new Label(String.format("ERROR: %s", e.getMessage())));
                 } finally {
@@ -101,9 +115,9 @@ public class Gui extends Ui {
                 }
             });
 
-            userInput.setOnAction((event) -> {
+            this.userInput.setOnAction((event) -> {
                 try {
-                    dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+                    this.handleUserInput();
                 } catch (DukeException e) {
                     dialogContainer.getChildren().add(new Label(String.format("ERROR: %s", e.getMessage())));
                 } finally {
@@ -112,7 +126,7 @@ public class Gui extends Ui {
             });
 
             // Scroll to end every time dialogContainer's height changes
-            dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+            this.dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
             stage.show();
         }
@@ -122,20 +136,26 @@ public class Gui extends Ui {
          *
          * @param input User input to be parsed
          *
-         * @return Label with the response from the application
+         * @return String with the response from the application
          */
-        private Label getDialogLabel(String input) throws DukeException {
+        private String getResponse(String input) throws DukeException {
             // Parse user input
             Command command = Parser.parse(input);
 
             // Execute command
-            String response = command.execute(Gui.taskList);
+            return command.execute(Gui.taskList);
+        }
 
-            // Format response
-            Label responseLabel = new Label(response);
-            responseLabel.setWrapText(true);
-
-            return responseLabel;
+        /**
+         * Parse the user input and display a response on the GUI
+         */
+        private void handleUserInput() throws DukeException {
+            Label userText = new Label(this.userInput.getText());
+            Label dukeText = new Label(this.getResponse(this.userInput.getText()));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, new ImageView(this.user)),
+                    DialogBox.getDukeDialog(dukeText, new ImageView(this.duke)));
+            this.userInput.clear();
         }
     }
 
