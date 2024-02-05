@@ -4,7 +4,7 @@ import BadApple.main.BadAppleException;
 
 public class Todo extends Task {
 
-    private Todo(String desc) {
+    protected Todo(String desc) {
         super(desc);
     }
 

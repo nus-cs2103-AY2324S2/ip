@@ -15,7 +15,7 @@ public class Storage {
      * @param file the file to write tasks to
      * @throws IOException if file writing fails for any reason
      */
-    public static void updateTasks(File file) throws IOException{
+    public static void updateTasks(File file) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
 
         // write to file

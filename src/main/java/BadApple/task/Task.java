@@ -40,4 +40,18 @@ public class Task {
     public String brief() {
         return description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o instanceof Task) {
+            Task task = (Task) o;
+            return task.description.equals(this.description);
+        }
+
+        return false;
+    }
 }
