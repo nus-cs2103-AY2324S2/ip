@@ -1,4 +1,15 @@
 package seedu.duke.task;
+
+/**
+ * <h1> Task </h1>
+ * This Task class is a superclass of the Deadlines and Events classes. This class represents the individual Task objects
+ * and has attributes description and isDone which represents the description of the task
+ * and whether the task is completed respectively. This class handles all the functionalities of a Task object,
+ * such as the marking, unmarking of the task and printing the task description to be displayed to the user.
+ *
+ * @author Yap Xuan Xuan
+ * @version 0.1
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -24,6 +35,11 @@ public class Task {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Returns a string that contains information of the task to be stored in the hard disk.
+     * Used as an argument in Storage class to be written into the file.
+     * @return String that represents information of the Task object.
+     */
     public String toStore() {
         return " " + this.getTag() +  " | " + (this.isDone? "1" : "0")
                 +  " | "  + this.description + "\n";

@@ -14,6 +14,16 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * <h1> Duke </h1>
+ * Duke program is a chatbot that maintains your todo list of todo tasks, events and deadlines.
+ * Simply type "todo //name of your task" and Bobby, your friendly assistant will add it to
+ * your task list and it will be stored in the data on your hard disk as well!
+ * Type "list" to view all the tasks in your task list.
+ *
+ * @author Yap Xuan Xuan
+ * @version 0.1
+ */
 public class Duke {
     private static Storage store;
     private UI ui;
