@@ -31,10 +31,10 @@ public class TaskList {
             String typeOfTask = inputs.split(" ")[0];
             switch (typeOfTask.toLowerCase()) {
             case "event":
-                t = Event.eventFromCMD(inputs);
+                t = Event.eventFromCommand(inputs);
                 break;
             case "deadline":
-                t = Deadline.DeadlineFromCMD(inputs);
+                t = Deadline.deadlineFromCommand(inputs);
                 break;
             case "todo":
                 t = Todo.todoFromCMD(inputs);

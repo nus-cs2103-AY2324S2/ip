@@ -28,8 +28,8 @@ public class Event extends Task {
         }
     }
 
-    public static Event eventFromCMD(String input) throws InvalidTaskException {
-        String regex = "(?i)event ([^,]+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})";
+    public static Event eventFromCommand(String input) throws InvalidTaskException {
+        String regex = "(?i)event ([^,]+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2}) *";
         Matcher matcher = Pattern.compile(regex).matcher(input);
         if (!matcher.matches()) {
             throw new EventInvalidCmdException();
@@ -45,8 +45,8 @@ public class Event extends Task {
      * @param entry text string containing the row in the csv
      * @return an Event task
      */
-    public static Event eventFromCSV(String entry) throws InvalidTaskException {
-        String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
+    public static Event eventFromCsv(String entry) throws InvalidTaskException {
+        String regex = "([DTE]),([YN]),([^,]*),([^,]*),(\\d{4}-\\d{2}-\\d{2}),(\\d{4}-\\d{2}-\\d{2})(\\n?)";
         Matcher matcher = Pattern.compile(regex).matcher(entry);
         if (!matcher.matches()) {
             throw new InvalidTaskException("Cannot match " + entry + " with regex");
