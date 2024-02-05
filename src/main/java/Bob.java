@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Bob {
     public static void main(String[] args) {
@@ -10,6 +11,7 @@ public class Bob {
         System.out.println(greet);
 
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<>(100);
 
         while (true) {
             String input = scanner.nextLine();
@@ -19,7 +21,18 @@ public class Bob {
                 break;
             }
 
-            System.out.println(" " + input);
+            if (input.equals("list")) {
+                int size = list.size();
+
+                for (int count = 0; count < size; count++) {
+                    System.out.println(" " + (count + 1) + ". " + list.get(count));
+                }
+            }
+
+            else {
+                list.add(input);
+                System.out.println(" added: " + input);
+            }
         }
 
         scanner.close();
