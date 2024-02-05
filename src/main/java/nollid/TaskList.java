@@ -1,6 +1,7 @@
 package nollid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import nollid.tasks.Task;
@@ -40,12 +41,12 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Adds a task to the TaskList.
+     * Adds a variable number of tasks to the TaskList.
      *
-     * @param taskToAdd The task to be added.
+     * @param tasksToAdd The tasks to be added.
      */
-    public void add(Task taskToAdd) {
-        this.taskList.add(taskToAdd);
+    public void add(Task... tasksToAdd) {
+        this.taskList.addAll(Arrays.asList(tasksToAdd));
     }
 
     /**
