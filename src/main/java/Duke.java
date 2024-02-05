@@ -3,7 +3,6 @@ import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Duke {
 
@@ -25,7 +24,8 @@ public class Duke {
         ArrayList<list_Entry> user_list = new ArrayList<>();
 
         // Testing ListFileManager
-        ListFileManager lfm = new ListFileManager();
+        ListFileManager lfm = new ListFileManager("taskList");
+//        lfm.appendToFile("TEST");
 
 
         // End Testing
@@ -48,11 +48,7 @@ public class Duke {
                         break;
                     case MARK:
                         bot_functions.shifted_print("To mark a task as done\n--> Type: mark <list num>");
-//                        break;
-//                    case UNMARK:
                         bot_functions.shifted_print("To unmark a task as not done\n--> Type: unmark <list num>");
-//                        break;
-//                    case DELETE:
                         bot_functions.shifted_print("To delete a task from the list\n--> Type: delete <list num>");
                         break;
                     case EXIT:
@@ -61,6 +57,15 @@ public class Duke {
 
                 }
             }
+
+            if (input_command.equalsIgnoreCase("save")) {
+                for (int i = 0; i < user_list.size(); i++) {
+                    lfm.appendEntry(user_list.get(i));
+                }
+            } else if (input_command.equalsIgnoreCase("load")) {
+                user_list.clear();
+                lfm.loadList(user_list);
+            } else
             // IF EXIT
             if (input_command.equalsIgnoreCase("bye") || input_command.equalsIgnoreCase("exit")) {
                 bot_functions.shifted_print(bot_functions.signoffString());
@@ -146,7 +151,7 @@ public class Duke {
                     if (successFlag) {
                         user_list.add(ent);
                         StringBuilder text = new StringBuilder();
-                        String count_msg = "okie! Added a task to the list:\n   " + ent + "\nNow you have " + user_list.size() + " tasks in the list.";
+                        String count_msg = "Oki! Added a task to the list:\n   " + ent + "\nNow you have " + user_list.size() + " tasks in the list.";
                         text.append(count_msg);
                         bot_functions.shifted_print(text.toString());
                     } else {
