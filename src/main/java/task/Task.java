@@ -34,9 +34,9 @@ public abstract class Task {
         return isDone ? "[✔]" : "[ ]";
     }
 
-    abstract public void taskPrinter();
+    abstract public String taskPrinter();
 
-    abstract public void taskPrinter(int index);
+    abstract public String taskPrinter(int index);
 
     /**
      * Sets the isDone value of task to be true.

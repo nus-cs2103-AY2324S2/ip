@@ -15,12 +15,15 @@ public class ListCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String result = "";
         try {
-            tasks.printList();
+            result = tasks.printList();
         } catch (TobiasException e) {
             e.printMessage();
         }
+
+        return result;
     }
 
     /**

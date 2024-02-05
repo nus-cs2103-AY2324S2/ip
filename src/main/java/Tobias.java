@@ -46,10 +46,17 @@ public class Tobias {
         }
     }
 
-    /**
-     * Main function that kick-starts the whole program
-     * */
-    public static void main(String[] args) {
-        new Tobias("data/Tobias.txt").run();
+    public String getResponse(String input) throws TobiasException{
+
+        String response = "";
+        try {
+            Command c = Parser.parseCommands(input.trim(), tasks);
+            response = c.execute(tasks, ui, storage);
+        } catch (TobiasException e) {
+            response = e.printMessage();
+        }
+
+        return response;
     }
+
 }

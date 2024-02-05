@@ -47,10 +47,11 @@ public class DeadlineCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = new Deadline(description, isDone, deadline);
         tasks.addToList(task);
-        ui.addedTaskPrinter(task, tasks.taskNum());
+
+        return ui.addedTaskPrinter(task, tasks.taskNum());
     }
 
     /**

@@ -13,10 +13,15 @@ public class TobiasException extends Exception {
     /**
      * Prints the message of the instance of TobiasException in the console with dividers.
      * */
-    public void printMessage() {
-        String divider = "  =======================================================================================";
-        System.out.println(divider);
-        System.out.println(getMessage());
-        System.out.println(divider);
+    public String printMessage() {
+        String divider = "====================================";
+
+        String result = divider
+                + System.lineSeparator()
+                + getMessage()
+                + System.lineSeparator()
+                + divider;
+
+        return result;
     }
 }

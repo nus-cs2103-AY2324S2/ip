@@ -14,7 +14,9 @@ public class NoreplyCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {}
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "";
+    }
 
     /**
      * Informs if this command is an Exit command.

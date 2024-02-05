@@ -23,18 +23,18 @@ public class ToDo extends Task {
      * Prints the task in the console.
      * */
     @Override
-    public void taskPrinter() {
+    public String taskPrinter() {
         String result = "    " + "[T][ ]" + " " + description;
-        System.out.println(result);
+        return result;
     }
 
     /**
      * Prints the task and its corresponding index in the list of tasks in the console.
      * */
     @Override
-    public void taskPrinter(int index) {
+    public String taskPrinter(int index) {
         String result = "    " + (index+1) + ".[T]" + getStatusIcon() + " " + description;
-        System.out.println(result);
+        return result;
     }
 
     /**

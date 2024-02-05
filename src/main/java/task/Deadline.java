@@ -31,20 +31,20 @@ public class Deadline extends Task {
      * Prints the task in the console.
      * */
     @Override
-    public void taskPrinter() {
+    public String taskPrinter() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
         String result = "    " + "[D][ ]" + " " + description + "(by: " + deadline.format(output) + ")";
-        System.out.println(result);
+        return result;
     }
 
     /**
      * Prints the task and its corresponding index in the list of tasks in the console.
      * */
     @Override
-    public void taskPrinter(int index) {
+    public String taskPrinter(int index) {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
         String result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description  + "(by: " + deadline.format(output) + ")";
-        System.out.println(result);
+        return result;
     }
 
     /**

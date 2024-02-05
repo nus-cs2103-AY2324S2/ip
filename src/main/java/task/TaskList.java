@@ -75,24 +75,32 @@ public class TaskList {
      *
      * @throws TobiasException if the TaskList is empty.
      * */
-    public void printList() throws TobiasException {
+    public String printList() throws TobiasException {
+        StringBuilder result = new StringBuilder(Ui.printDivider()
+                + System.lineSeparator()
+                + "Your list is empty at the moment !"
+        );
+
         try {
             if (tasks.isEmpty()) {
-                throw new TobiasException("    Your list is empty at the moment !");
+                throw new TobiasException("Your list is empty at the moment !");
             } else {
-                Ui.printDivider();
-
-                System.out.println("    Here are the tasks in your list:");
+                result = new StringBuilder(Ui.printDivider()
+                        + System.lineSeparator()
+                        + "Here are the tasks in your list: "
+                );
                 for (Task task : tasks) {
                     int index = tasks.indexOf(task);
-                    task.taskPrinter(index);
+                    result.append(System.lineSeparator()).append(task.taskPrinter(index));
                 }
-
-                Ui.printDivider();
             }
         } catch (TobiasException e) {
             e.printMessage();
         }
+
+        result.append(System.lineSeparator()).append(Ui.printDivider());
+
+        return result.toString();
     }
 
 
@@ -102,7 +110,9 @@ public class TaskList {
      * @param keyword The keyword that needs to be in the task to be printed.
      * @throws TobiasException if there are no tasks with the given keyword.
      * */
-    public void printListFind(String keyword) throws TobiasException {
+    public String printListFind(String keyword) throws TobiasException {
+        StringBuilder result;
+
         List<Task> foundResults = new ArrayList<>();
 
         for (Task task : tasks) {
@@ -113,19 +123,25 @@ public class TaskList {
 
         try {
             if (foundResults.isEmpty()) {
-                throw new TobiasException("    Could not find any results containing keyword : " + keyword);
+                throw new TobiasException("Could not find any results containing keyword : " + keyword);
             } else {
-                Ui.printDivider();
-
-                System.out.println("    Here are the matching tasks in your list:");
+                result = new StringBuilder(Ui.printDivider()
+                        + System.lineSeparator()
+                        + "Here are the matching tasks in your list: "
+                );
                 for (Task task : foundResults) {
                     int index = tasks.indexOf(task);
-                    task.taskPrinter(index);
+                    result.append(System.lineSeparator()).append(task.taskPrinter(index));
                 }
-                Ui.printDivider();
             }
         } catch (TobiasException e) {
-            e.printMessage();
+            result = new StringBuilder(Ui.printDivider()
+                    + System.lineSeparator()
+                    + e.printMessage());
         }
+
+        result.append(System.lineSeparator()).append(Ui.printDivider());
+
+        return result.toString();
     }
 }

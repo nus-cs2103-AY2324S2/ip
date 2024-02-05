@@ -25,14 +25,19 @@ public class DeleteCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task curr = tasks.getTask(taskIndex);
         tasks.removeFromList(taskIndex);
 
-        Ui.printDivider();
-        System.out.println("    Noted, I've removed this task: ");
-        curr.taskPrinter();
-        Ui.printDivider();
+        String result = Ui.printDivider()
+                + System.lineSeparator()
+                + "Noted, I've removed this task: "
+                + System.lineSeparator()
+                + curr.taskPrinter()
+                + System.lineSeparator()
+                + Ui.printDivider();
+
+        return result;
     }
 
     /**

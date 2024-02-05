@@ -52,10 +52,11 @@ public class EventCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = new Event(description, isDone, from, to);
         tasks.addToList(task);
-        ui.addedTaskPrinter(task, tasks.taskNum());
+
+        return ui.addedTaskPrinter(task, tasks.taskNum());
     }
 
     /**

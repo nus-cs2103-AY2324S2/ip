@@ -5,28 +5,41 @@ import task.Task;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String DIVIDER = "  ---------------------------------------------------------------------------------------";
+    private static final String DIVIDER = "---------------------------------------------------";
     private static final String BOTNAME = "TOBIAS";
-
     /**
      * Prints the welcome message of Tobias in console.
      * */
-    public void helloPrinter() {
-        System.out.println(DIVIDER);
-        System.out.println("   Hello there! I'm " + BOTNAME);
-        System.out.println("   What can I do for you today ?");
-        System.out.println(DIVIDER);
+    public String helloPrinter() {
+        String result = DIVIDER
+                + System.lineSeparator()
+                + "   Hello there! I'm " + BOTNAME
+                + System.lineSeparator()
+                + "   What can I do for you today ?"
+                + System.lineSeparator()
+                + DIVIDER;
+
+        return result;
     }
 
     /**
      * Prints the farewell message of Tobias.
      * */
-    public void goodbyePrinter() {
+    public String goodbyePrinter() {
         System.out.println(DIVIDER);
-        System.out.println("    I say this with a heavy heart but Goodbye my lover :( Hope to see you soon!");
+        System.out.println("I say this with a heavy heart but Goodbye my lover :( Hope to see you soon!");
         System.out.println(DIVIDER);
-    }
 
+        String result = DIVIDER
+                + System.lineSeparator()
+                + "I say this with a heavy heart but Goodbye my lover :("
+                + System.lineSeparator()
+                + "Hope to see you soon!"
+                + System.lineSeparator()
+                + DIVIDER;
+
+        return result;
+    }
 
     /**
      * Prints the task given and the total number of tasks in the list.
@@ -34,19 +47,25 @@ public class Ui {
      * @param task Task that is provided.
      * @param size Total number of tasks in the list now.
      * */
-    public void addedTaskPrinter(Task task, int size) {
-        System.out.println(DIVIDER);
-        System.out.println("    Got it. I've added this task: ");
-        task.taskPrinter();
-        System.out.println("    Now you have " + size + " tasks in the list!");
-        System.out.println(DIVIDER);
+    public String addedTaskPrinter(Task task, int size) {
+        String result = DIVIDER
+                + System.lineSeparator()
+                + "Got it. I've added this task: "
+                + System.lineSeparator()
+                + task.taskPrinter()
+                + System.lineSeparator()
+                + "Now you have " + size + " tasks in the list!"
+                + System.lineSeparator()
+                + DIVIDER;
+
+        return result;
     }
 
     /**
      * Prints a divider.
      * */
-    public static void printDivider() {
-        System.out.println(DIVIDER);
+    public static String printDivider() {
+        return DIVIDER;
     }
 
     /**

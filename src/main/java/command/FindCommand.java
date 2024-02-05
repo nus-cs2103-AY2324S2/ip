@@ -27,13 +27,16 @@ public class FindCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String result = "";
+
         try {
-            tasks.printListFind(keyWord);
+            result = tasks.printListFind(keyWord);
         } catch (TobiasException e) {
-            e.printMessage();
+            result = e.printMessage();
         }
 
+        return result;
     }
 
     /**

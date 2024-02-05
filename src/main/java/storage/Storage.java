@@ -35,9 +35,9 @@ public class Storage {
             }
 
             if (file.createNewFile()) {
-                System.out.println("   I have made a new save file for ya : " + file.getAbsolutePath());
+                System.out.println("I have made a new save file for ya : " + file.getAbsolutePath());
             } else {
-                System.out.println("   You seem to have an existing save file, YAY : " + file.getAbsolutePath());
+                System.out.println("You seem to have an existing save file, YAY : " + file.getAbsolutePath());
             }
 
         } catch (Exception e) {
@@ -53,52 +53,48 @@ public class Storage {
      * @throws TobiasException If the given data contains corrupted commands.
      * */
     public static void localToList(String data, TaskList tasks) throws TobiasException {
-        try {
-            if (data.startsWith("T")) {
-                boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+        if (data.startsWith("T")) {
+            boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
-                int desc = data.indexOf("|desc");
-                String description = data.substring(desc+5);
+            int desc = data.indexOf("|desc");
+            String description = data.substring(desc+5);
 
-                Task newTask = new ToDo(description, isDone);
-                tasks.addToList(newTask);
+            Task newTask = new ToDo(description, isDone);
+            tasks.addToList(newTask);
 
-            }
-            else if (data.startsWith("D")) {
-                boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+        }
+        else if (data.startsWith("D")) {
+            boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
-                int desc = data.indexOf("|desc");
-                int by = data.indexOf("|by");
-                String description = data.substring(desc+5, by);
-                String byDate = data.substring(by+3);
-                LocalDateTime dd = Parser.dateFromString(byDate);
+            int desc = data.indexOf("|desc");
+            int by = data.indexOf("|by");
+            String description = data.substring(desc+5, by);
+            String byDate = data.substring(by+3);
+            LocalDateTime dd = Parser.dateFromString(byDate);
 
-                Task newTask = new Deadline(description, isDone, dd);
+            Task newTask = new Deadline(description, isDone, dd);
 
-                tasks.addToList(newTask);
+            tasks.addToList(newTask);
 
-            }
-            else if (data.startsWith("E")) {
-                boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
+        }
+        else if (data.startsWith("E")) {
+            boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
-                int desc = data.indexOf("|desc");
-                int from = data.indexOf("|from");
-                int to = data.indexOf("|to");
-                String description = data.substring(desc+5, from);
-                String fromDate = data.substring(from+5, to);
-                String toDate = data.substring(to+3);
+            int desc = data.indexOf("|desc");
+            int from = data.indexOf("|from");
+            int to = data.indexOf("|to");
+            String description = data.substring(desc+5, from);
+            String fromDate = data.substring(from+5, to);
+            String toDate = data.substring(to+3);
 
-                LocalDateTime f = Parser.dateFromString(fromDate);
-                LocalDateTime t = Parser.dateFromString(toDate);
+            LocalDateTime f = Parser.dateFromString(fromDate);
+            LocalDateTime t = Parser.dateFromString(toDate);
 
-                Task newTask = new Event(description, isDone, f, t);
-                tasks.addToList(newTask);
-            }
-            else {
-                throw new TobiasException("   OH NO, someone has ruined your save file :(");
-            }
-        } catch (Exception e) {
-            System.out.println("The error stems from the localToList function " + e.getMessage());
+            Task newTask = new Event(description, isDone, f, t);
+            tasks.addToList(newTask);
+        }
+        else {
+            throw new TobiasException("OH NO, someone has ruined your save file :(");
         }
     }
 

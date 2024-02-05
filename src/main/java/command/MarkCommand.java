@@ -26,14 +26,19 @@ public class MarkCommand extends Command {
      * @param ui Current Ui.
      * */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task curr = tasks.getTask(taskIndex);
         curr.markAsDone();
 
-        Ui.printDivider();
-        System.out.println("    Nice! I've marked this task as done: ");
-        curr.taskPrinter(taskIndex);
-        Ui.printDivider();
+        String result = Ui.printDivider()
+                + System.lineSeparator()
+                + "Nice! I've marked this task as done: "
+                + System.lineSeparator()
+                + curr.taskPrinter(taskIndex)
+                + System.lineSeparator()
+                + Ui.printDivider();
+
+        return result;
     }
 
     /**
