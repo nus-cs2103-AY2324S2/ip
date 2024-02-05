@@ -29,7 +29,7 @@ public class TaskList {
      * @param index Index of the task to be set to "done".
      */
     public void setDone(int index) {
-        Task curr = taskList.get(index);
+        Task curr = this.get(index);
         curr.isDone = true;
         ui.setDoneMessage(curr);
     }
@@ -40,7 +40,7 @@ public class TaskList {
      * @param index Index of the task to be set to not "done".
      */
     public void setNotDone(int index) {
-        Task curr = taskList.get(index);
+        Task curr = this.get(index);
         curr.isDone = false;
         ui.setNotDoneMessage(curr);
     }
@@ -62,13 +62,9 @@ public class TaskList {
     /**
      * Removes the task from the ArrayList taskList.
      *
-     * @param description Raw user input.
+     * @param index Index of task to be removed.
      */
-    public void removeTask(String description) {
-        String[] tokens = description.split(" ");
-        if (tokens.length == 1)
-            throw new ArrayIndexOutOfBoundsException("Please enter the index of the task to be deleted.");
-        int index = Integer.parseInt(tokens[1]);
+    public void removeTask(int index) {
         Task curr = taskList.remove(index-1);
         database.deleteLine(index);
         ui.removeTaskMessage(curr);
@@ -81,6 +77,25 @@ public class TaskList {
     public void listTask() {
         for (int i = 0; i < taskList.size(); i++) {
             ui.listTaskMessage(i+1, taskList.get(i));
+        }
+    }
+
+    /**
+     * Iterates through taskList and prints out all tasks with a matching
+     * sequence.
+     *
+     * @param sequence The substring to be compared when finding tasks.
+     */
+    public void findTask(String sequence) {
+        ArrayList<Task> matchingTaskArray = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.description.contains(sequence)) {
+                matchingTaskArray.add(task);
+            }
+        }
+
+        for (int i = 0; i < matchingTaskArray.size(); i++) {
+            ui.listTaskMessage(i+1, matchingTaskArray.get(i));
         }
     }
 

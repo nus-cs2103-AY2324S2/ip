@@ -55,7 +55,10 @@ public class Duke {
                     taskList.setNotDone(parser.indexParser(description));
                     break;
                 case "delete":
-                    taskList.removeTask(description);
+                    taskList.removeTask(parser.removeParser(description));
+                    break;
+                case "find":
+                    taskList.findTask(parser.findParser(description));
                     break;
                 default:
                     addingTask(command, description);

@@ -33,6 +33,29 @@ public class Parser {
     }
 
     /**
+     * Used to obtain the index of the task to be removed inputted by the user.
+     * @param description The raw user input.
+     * @return Int value of task to be removed.
+     */
+    public int removeParser(String description) {
+        String[] tokens = description.split(" ");
+        if (tokens.length == 1)
+            throw new ArrayIndexOutOfBoundsException("Please enter the index of the task to be deleted.");
+        return Integer.parseInt(tokens[1]);
+    }
+
+    /**
+     * Used to obtain the substring entered by the user when using find.
+     *
+     * @param description The raw user input.
+     * @return String of substring specified by user.
+     */
+    public String findParser(String description) {
+        String[] tokens = description.split(" ", 2);
+        return tokens[1];
+    }
+
+    /**
      * Custom parser for the Todo task.
      *
      * @param description The raw user input.
