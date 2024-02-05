@@ -19,13 +19,12 @@ public class Main {
         } catch (FileNotFoundException e) {
 //            ui.showLoadingError();
             System.out.println(e.getMessage());
-//            tasks = new TaskList();
         }
     }
 
     public void run() {
+        // tasks added to tasklist already
         ui.start();
-        // tasks added to tasklist already from above
 
         // then we store it
         storage.writeToFile(filePath);

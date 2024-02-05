@@ -3,7 +3,6 @@ public class Todo extends Task {
     protected String by;
     String DIVIDER = " | ";
 
-
     public Todo(boolean isDone, String description) {
         super(description);
     }
@@ -17,5 +16,4 @@ public class Todo extends Task {
     public String getFileString() {
         return "T" + DIVIDER + (isDone ? "1" : "0") + DIVIDER + description;
     }
-
 }

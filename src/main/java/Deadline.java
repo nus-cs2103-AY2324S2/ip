@@ -7,7 +7,6 @@ public class Deadline extends Task {
     String DATE_FORMAT = "MMM d yyyy";
     String DIVIDER = " | ";
 
-
     public Deadline(boolean isDone, String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);

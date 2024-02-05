@@ -7,7 +7,6 @@ public class TaskList {
         boolean isDoneDefault = false;
         Parser parser;
 
-
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.parser = new Parser();
@@ -82,8 +81,7 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
-
-
+    
     // add previous list form storage into newly initialised tasklist
     public void initialisePrevTaskList(ArrayList<Task> prevTaskList) {
         System.out.println(prevTaskList);

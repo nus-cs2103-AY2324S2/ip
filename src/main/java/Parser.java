@@ -7,13 +7,11 @@ public class Parser {
         String taskType = userInputArray[0].toLowerCase();
         ArrayList<String> outputArray = new ArrayList<>();
 
-//        try {
-            // Checks if task description is empty,
         if (userInputArray.length == 1) {
             // Missing description error
             throw new HALException("Missing description!");
 
-            // If task description is not empty, proceed as per normal
+        // If task description is not empty, proceed as per normal
         } else {
             switch (taskType) {
                 case "todo":
@@ -62,10 +60,6 @@ public class Parser {
                     break;
             }
         }
-
-//        } catch (HALException e) {
-//            System.out.println(e.getMessage());
-//        }
         return outputArray;
     }
 }

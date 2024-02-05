@@ -27,9 +27,6 @@ public class Ui {
         System.out.println("How may I assist you?");
         System.out.println(divider);
 
-        // retrieves tasks from storage
-//        TaskList newTaskList = new TaskList();
-
         //take in input
         Scanner scanner = new Scanner(System.in);
         while (true) {

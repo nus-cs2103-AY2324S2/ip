@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-//    String FILE_PATH = "data/hal.txt";
     boolean isDoneDefault = false;
     File file;
     private final TaskList taskList;
@@ -22,7 +21,6 @@ public class Storage {
                 System.out.println("File already exists: " + filePath);
             }
 
-//            readFromFile();
         } catch (IOException e) {
             System.out.println("Error creating or reading from file");
             e.printStackTrace();
@@ -48,9 +46,7 @@ public class Storage {
         try {
 
             while (sc.hasNextLine()) {
-//                System.out.println(sc.nextLine());
                 String[] parts = sc.nextLine().split(" \\| ");
-//                System.out.println(parts);
 
                 String taskType = parts[0];
                 boolean isDone = (Integer.parseInt(parts[1]) == 1);
@@ -69,7 +65,6 @@ public class Storage {
                     default:
                         System.out.println("Unknown task type");
                 }
-
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

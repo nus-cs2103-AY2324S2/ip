@@ -8,7 +8,6 @@ public class Event extends Task {
     String DATE_FORMAT = "MMM d yyyy";
     String DIVIDER = " | ";
 
-
     public Event(boolean isDone, String description, String deadlineFrom, String deadlineTo) {
         super(description);
         this.deadlineFrom = LocalDate.parse(deadlineFrom);
