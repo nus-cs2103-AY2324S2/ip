@@ -1,15 +1,28 @@
 package duke;
 
+import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.tasks.Deadline;
 import duke.tasks.ToDo;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
 
+    /**
+     * Constructor for the parser.
+     */
     public Parser() {}
 
+    /**
+     * Processes the user input.
+     * @param original The original user input.
+     * @param list The list of tasks.
+     * @param ui The user interface.
+     * @throws DukeException If the user input is invalid.
+     */
     public void processLine(String original, TaskList list, Ui ui) throws DukeException {
         String[] inputParts = original.split("\\s+");
 
@@ -46,6 +59,9 @@ public class Parser {
             int inputInt = Integer.parseInt(inputParts[1]);
             list.deleteTask(inputInt);
             ui.deleteMessage(inputInt, list);
+        } else if (inputParts[0].equals("find")) {
+            TaskList found = list.findTasks(inputParts[1]);
+            ui.showList(found);
         } else {
             throw new DukeException("harh what u talking sia walao");
         }

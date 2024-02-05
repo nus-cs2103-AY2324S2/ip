@@ -1,8 +1,8 @@
 package duke;
 
-import duke.tasks.TaskList;
-
 import java.util.Scanner;
+
+import duke.tasks.TaskList;
 
 /**
  * Represents a chat bot to keep track of user's duke.tasks.
@@ -12,10 +12,9 @@ public class Duke {
     private static TaskList list = new TaskList();
     private Ui ui;
 
-    public static void main(String[] args) {
-        new Duke().run();
-    }
-
+    /**
+     * Constructor for the chat bot.
+     */
     public Duke() {
         ui = new Ui();
         try {
@@ -25,6 +24,16 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to run the chat bot.
+     * @param args The arguments to be passed into the main method.
+     */
+    public static void main(String[] args) {
+        new Duke().run();
+    }
+    /**
+     * Runs the chat bot.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
