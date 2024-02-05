@@ -4,19 +4,15 @@ import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandIndexException;
 import snomtasklist.TaskList;
 
-class MarkTaskCommand extends Command {
-=======
-import SnomExceptions.InvalidCommandException;
-import SnomExceptions.InvalidCommandIndexException;
-import SnomTaskList.TaskList;
+
+
 
 /**
  * The MarkTaskCommand implements the command of marking
  * a task in the tasklist as done.
  *
  */
-class MarkTaskCommand extends Command{
->>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/MarkTaskCommand.java
+class MarkTaskCommand extends Command {
 
     protected MarkTaskCommand(String desc) {
         super(desc);

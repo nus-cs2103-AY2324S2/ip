@@ -22,14 +22,6 @@ public abstract class Command {
      */
     public abstract CmdType getType();
 
-//    /**
-//     * Checks against the Storage.TaskList.TaskList to ensure that task is valid.
-//     * Prevents duplicate tasks and invalid indices (if applicable).
-//     *
-//     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
-//     * @return a boolean value depending on whether the command is valid.
-//     */
-//    public abstract boolean checkCommand(Storage.TaskList.TaskList lst);
 
     /**
      * Verifies whether the command is valid or not.

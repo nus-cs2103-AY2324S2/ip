@@ -1,12 +1,14 @@
-package SnomParser;
+package snomparser;
 
-import InputCommands.Command;
-import SnomExceptions.InvalidCommandException;
+
 import SnomStorage.TaskStorage;
-import SnomTask.Deadline;
-import SnomTask.Event;
-import SnomTask.Todo;
-import SnomTaskList.TaskList;
+import inputcommands.Command;
+import snomexceptions.InvalidCommandException;
+import snomtask.Deadline;
+import snomtask.Event;
+import snomtask.Todo;
+import snomtasklist.TaskList;
+
 
 public class Parser {
 

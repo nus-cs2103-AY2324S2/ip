@@ -5,9 +5,8 @@ import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandIndexException;
 import snomtasklist.TaskList;
 
-<<<<<<< HEAD:src/main/java/inputcommands/UnmarkTaskCommand.java
-class UnmarkTaskCommand extends Command {
-=======
+
+
 
 /**
  * The UnmarkTaskCommand implements the command of unmarking
@@ -15,7 +14,7 @@ class UnmarkTaskCommand extends Command {
  *
  */
 class UnmarkTaskCommand extends Command{
->>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/UnmarkTaskCommand.java
+
 
     protected UnmarkTaskCommand(String desc) {
         super(desc);

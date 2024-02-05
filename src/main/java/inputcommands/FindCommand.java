@@ -1,10 +1,11 @@
-package InputCommands;
+package inputcommands;
 
-import SnomExceptions.InvalidCommandException;
-import SnomExceptions.InvalidCommandTaskDescException;
-import SnomTaskList.TaskList;
 
-class FindCommand extends Command{
+import snomexceptions.InvalidCommandException;
+import snomexceptions.InvalidCommandTaskDescException;
+import snomtasklist.TaskList;
+
+class FindCommand extends Command {
 
     @Override
     public CmdType getType() {

@@ -4,20 +4,25 @@ import snomexceptions.InvalidCommandDateFormatException;
 import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandTaskDescException;
 import snomtasklist.TaskList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-<<<<<<< HEAD:src/main/java/inputcommands/AddDeadlineCommand.java
 
-class AddDeadlineCommand extends Command {
-=======
+
+
+
 
 /**
  * The AddDeadlineCommand implements the command of
  * adding a task of type Deadline into tasklist.
  */
 class AddDeadlineCommand extends Command {
+
+    protected AddDeadlineCommand(String desc) {
+        super(desc);
+    }
+
+
 
     /**
      * {@inheritDoc}
@@ -30,19 +35,7 @@ class AddDeadlineCommand extends Command {
     public CmdType getType() {
         return CmdType.DEADLINE;
     }
->>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/AddDeadlineCommand.java
 
-    protected AddDeadlineCommand(String desc) {
-        super(desc);
-    }
-
-<<<<<<< HEAD:src/main/java/inputcommands/AddDeadlineCommand.java
-
-    @Override
-    public CmdType getType() {
-        return CmdType.DEADLINE;
-    }
-=======
     /**
      * {@inheritDoc}
      * In this subclass, we implement date checks and task description checks
@@ -51,9 +44,8 @@ class AddDeadlineCommand extends Command {
      * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a string representing a valid command.
      * @throws InvalidCommandException if the description or date is blank or when the
-     * date is in the wrong format.
+     *     date is in the wrong format.
      */
->>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/AddDeadlineCommand.java
     @Override
     public String execute(TaskList lst) throws InvalidCommandException {
 

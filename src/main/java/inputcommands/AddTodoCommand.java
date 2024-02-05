@@ -1,13 +1,9 @@
 package inputcommands;
 
-<<<<<<< HEAD:src/main/java/inputcommands/AddTodoCommand.java
+import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandTaskDescException;
 import snomtasklist.TaskList;
-=======
-import SnomExceptions.InvalidCommandException;
-import SnomExceptions.InvalidCommandTaskDescException;
-import SnomTaskList.TaskList;
->>>>>>> branch-A-JavaDoc:src/main/java/InputCommands/AddTodoCommand.java
+
 
 /**
  * The AddTodoCommand implements the command of adding

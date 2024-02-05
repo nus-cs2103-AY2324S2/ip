@@ -1,3 +1,4 @@
+package inputcommands;
 
 import snomexceptions.InvalidCommandException;
 import snomtasklist.TaskList;
@@ -15,7 +16,7 @@ public class ListCommand extends Command {
     }
 
     protected ListCommand() {
-        super (" ");
+        super(" ");
     }
 
 

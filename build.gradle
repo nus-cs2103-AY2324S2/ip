@@ -8,9 +8,6 @@ repositories {
     mavenCentral()
 }
 
-checkstyle {
-    toolVersion = '10.2'
-}
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
