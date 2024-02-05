@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class HALException extends Exception {
     public HALException() {
         super();

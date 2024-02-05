@@ -1,3 +1,8 @@
+package duke.gui;
+
+import duke.task.Storage;
+import duke.task.TaskList;
+
 import java.io.FileNotFoundException;
 
 public class Main {

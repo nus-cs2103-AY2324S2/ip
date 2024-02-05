@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.exception.HALException;
+import duke.gui.Parser;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 

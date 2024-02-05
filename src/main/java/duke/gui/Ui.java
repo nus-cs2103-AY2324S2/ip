@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package duke.gui;
+
+import duke.exception.HALException;
+import duke.task.TaskList;
+
 import java.util.Objects;
 import java.util.Scanner;
 

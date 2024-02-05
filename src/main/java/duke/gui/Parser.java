@@ -1,3 +1,7 @@
+package duke.gui;
+
+import duke.exception.HALException;
+
 import java.util.ArrayList;
 
 public class Parser {
