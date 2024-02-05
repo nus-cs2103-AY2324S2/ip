@@ -17,7 +17,7 @@ public class CommandBye extends Command {
      */
     @Override
     public void execute(String description) {
-        ui.print("Goodbye. See you later!");
+        ui.add("Goodbye. See you later!");
     }
     
 }

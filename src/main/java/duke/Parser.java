@@ -2,7 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+// import java.util.Scanner;
 
 import duke.commands.Command;
 import duke.commands.CommandBye;
@@ -24,10 +24,10 @@ public class Parser {
 
     enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND};
 
-    private Scanner scanner;
+    //private Scanner scanner;
     private Ui ui;
     private TaskList taskList;
-    private Boolean isRunning;
+    //private Boolean isRunning;
     
     /**
      * Constructor for Parser
@@ -35,8 +35,8 @@ public class Parser {
      * @param ui UI for printing to system
      */
     public Parser(TaskList taskList, Ui ui) {
-        this.isRunning = true;
-        this.scanner = new Scanner(System.in);
+        // this.isRunning = true;
+        // this.scanner = new Scanner(System.in);
         this.taskList = taskList;
         this.ui = ui;
 
@@ -45,23 +45,23 @@ public class Parser {
     /**
      * starts the chatbot
      */
-    public void run() {
-        while (isRunning) {
-            this.readUserInput();
-        }
-    }
+    // public void run() {
+    //     while (isRunning) {
+    //         this.readUserInput();
+    //     }
+    // }
 
     /**
      * splits the user command and description
      */
-    private void readUserInput() {
-        String userInput = scanner.nextLine();
+    public String readUserInput(String userInput) {
+        //String userInput = scanner.nextLine();
         String[] userInputSplit = userInput.split(" ", 2);
         ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInputSplit));
         userInputList.add("");
         String userCommand = userInputList.get(0).toLowerCase();
         String description = userInputList.get(1);
-        this.parseUserInput(userCommand, description);
+        return parseUserInput(userCommand, description);
     }
 
     /**
@@ -69,14 +69,14 @@ public class Parser {
      * @param userCommand String user command
      * @param description String user description
      */
-    private void parseUserInput(String userCommand, String description) {
-        Command command;
+    @SuppressWarnings("finally")
+    private String parseUserInput(String userCommand, String description) {
         try {
+            Command command;
             CommandType commandType = CommandType.valueOf(userCommand.toUpperCase());
             switch (commandType) {
                 case BYE:
                     command = new CommandBye(taskList, ui);
-                    isRunning = false;
                     break;
                 case LIST:
                     command = new CommandList(taskList, ui);
@@ -105,9 +105,11 @@ public class Parser {
             }
             command.execute(description);
         } catch (IllegalArgumentException e) {
-            ui.print("Sorry I don't recognize that command :/");
+            ui.add("Sorry I don't recognize that command :/");
         } catch (Exception e) {
-            ui.print(e.getMessage());
+            ui.add(e.getMessage());
+        } finally {
+            return ui.toString();
         }
     }
 }

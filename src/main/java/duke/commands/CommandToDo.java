@@ -31,10 +31,7 @@ public class CommandToDo extends Command {
             ui.add(String.format("Now you have %d tasks in the list.", taskList.getSize()));
         } catch (DukeCeption e) {
             ui.add(e.getMessage());
-        } finally {
-            ui.print();
         }
-
     }
 
     /**

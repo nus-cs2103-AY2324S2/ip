@@ -28,7 +28,6 @@ public class CommandList extends Command {
                     i + 1,
                     list.get(i)));
         }
-        ui.print();
     }
     
 }

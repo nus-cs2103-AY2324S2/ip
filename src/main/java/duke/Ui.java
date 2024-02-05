@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Class that prints to the system
  */
 public class Ui {
-    private final String BORDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    //private final String BORDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     private ArrayList<String> printList;
 
     /**
@@ -63,9 +63,6 @@ public class Ui {
             }
         }
         printList.clear();
-        return String.format("\t%s\n%s\n\t%s",
-                this.BORDER,
-                finalString,
-                this.BORDER);
+        return finalString;
     }
 }
