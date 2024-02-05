@@ -7,7 +7,7 @@ public class Duke {
 
     private static final String TASKS_CACHE_PATH = ".duke-cache";
     public static TaskList tasks;
-    private static final String horiLine = "---------------------------------\n";
+    private static final String HORIZONTALLINE= "---------------------------------\n";
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     enum Instruction {
@@ -26,7 +26,7 @@ public class Duke {
     private static void greet() {
         String greet = "Hello! I'm Dino\n"
                 + "What can I do for you?\n"
-                + horiLine;
+                + HORIZONTALLINE;
         System.out.println(greet);
     }
 
@@ -40,14 +40,14 @@ public class Duke {
         String input = scanner.nextLine();
 
         while(!input.equalsIgnoreCase("bye")) {
-            System.out.println(horiLine);
+            System.out.println(HORIZONTALLINE);
             try {
                 processInput(input);
             } catch(DukeException e) {
                 System.out.println("Invalid Instruction: " + e.getMessage());
             }
             storage.save(tasks);
-            System.out.println(horiLine);
+            System.out.println(HORIZONTALLINE);
             input = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
