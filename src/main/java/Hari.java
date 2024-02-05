@@ -284,8 +284,7 @@ class handlerbot {
             String[] parts = taskings.substring(8).trim().split("/by"); // 8 because of the word deadline
             arrtaskings[countertaskings] = new taskings(parts[0].trim(), parts[1].trim());
             System.out.println("   " + "[" + arrtaskings[countertaskings].taskstatus() + "]" +
-                    "[" + arrtaskings[countertaskings].completionstatus() + "]" +
-                    arrtaskings[countertaskings].summarystatus() +
+                    "[" + arrtaskings[countertaskings].completionstatus() + "]" + arrtaskings[countertaskings].summarystatus() +
                     " (by: " + arrtaskings[countertaskings].formattedDeadline() + ")");
         } else if (taskings.startsWith("event")) {
             System.out.println("____________________________________________________________");
