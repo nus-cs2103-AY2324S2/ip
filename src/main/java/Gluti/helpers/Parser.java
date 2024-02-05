@@ -64,7 +64,7 @@ public class Parser {
                     try {
                         storage.get(index - 1).setDone();
                         Task task = storage.get(index - 1);
-                        sendMessageToUI("Nice! I've marked this task as done:\n" +
+                        sendMessageToUI("Nice! I've marked this task as done:" +
                                 task.toString());
                     } catch (IndexOutOfBoundsException e) {
                         sendMessageToUI("Make sure that you have selected the correct task!");
@@ -76,7 +76,7 @@ public class Parser {
                     try {
                         storage.get(index - 1).setunDone();
                         Task task = storage.get(index - 1);
-                        sendMessageToUI("OK, I've marked this task as not done yet:\n" +
+                        sendMessageToUI("OK, I've marked this task as not done yet:" +
                                 task.toString());
                     } catch (IndexOutOfBoundsException e) {
                         sendMessageToUI("Make sure that you have selected the correct task!");
@@ -106,7 +106,7 @@ public class Parser {
                         String[] period = tempinpute[1].split("/from",2)[1].split("/to",2);
                         Event event = new Event(description, period);
                         storage.add(event);
-                        sendMessageToUI("Got it. I've added this task:\n" +
+                        sendMessageToUI("Got it. I've added this task:" +
                                 event);
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
@@ -124,7 +124,7 @@ public class Parser {
                         String time = tempinputd[1].split("/by", 2)[1];
                         Deadline deadline = new Deadline(description, time);
                         storage.add(deadline);
-                        sendMessageToUI("Got it. I've added this task:\n" +
+                        sendMessageToUI("Got it. I've added this task:" +
                                 deadline);
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
@@ -137,7 +137,7 @@ public class Parser {
                     try {
                         Task task = storage.get(index - 1);
                         storage.remove(index - 1);
-                        sendMessageToUI("Noted. I've removed this task:\n" +
+                        sendMessageToUI("Noted. I've removed this task:" +
                                 task.toString());
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {

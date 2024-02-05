@@ -1,5 +1,6 @@
 [D][X] meeting (by: Nov 11 2013)
 [D][X] meeting (by: Dec 29 2023)
-[T][ ] meeting
+[T][X] meeting
 [T][X] meeting
 [T][ ] meeting
+[T][ ] test GUI
