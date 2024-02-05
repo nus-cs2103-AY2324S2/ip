@@ -4,7 +4,7 @@ import duke.tasks.TaskList;
 
 public abstract class AddCommand extends Command {
 
-    private TaskList taskList;
+    private final TaskList taskList;
 
     public AddCommand(TaskList tasklist) {
         this.taskList = tasklist;

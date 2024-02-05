@@ -2,8 +2,6 @@ package duke.tasks;
 
 /**
  * This class represents a task that tracks if it is completed.
- *
- * @author Billy Ho Cheng En
  */
 abstract class Task implements Savable {
     private static final String DONE_SYMBOL = "[X]";
@@ -65,6 +63,7 @@ abstract class Task implements Savable {
         }
     }
 
+    @Override
     public String saveString() {
         return this.description + "\n" + this.is_done;
     }

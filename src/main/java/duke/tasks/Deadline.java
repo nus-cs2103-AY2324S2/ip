@@ -12,7 +12,6 @@ public class Deadline extends Task {
     private LocalDate deadlineDate = null;
     private LocalTime deadlineTime = null;
 
-
     /**
      * Constructs a new deadline Task with the specified description, completion status, and deadline.
      *
@@ -27,6 +26,7 @@ public class Deadline extends Task {
         this.deadlineTime = deadlineTime;
     }
 
+    @Override
     public String saveString() {
         return "DEADLINE" + "\n"
                 + super.saveString() + "\n"

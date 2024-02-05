@@ -8,9 +8,15 @@ import duke.tasks.TaskList;
  * This class represents a MEAN chatbot with task-tracking capabilities
  */
 public class MeanDuke {
+
     //Creates an empty task list
     static TaskList tasklist = new TaskList();
 
+    /**
+     * Initialises the MeanDuke chatbot
+     *
+     * @param args The command line arguments
+     */
     public static void main(String[] args) {
 
         //Try to load Task List from hard disk. If missing or corrupted, create a new file

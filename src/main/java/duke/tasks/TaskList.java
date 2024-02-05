@@ -1,11 +1,10 @@
-package duke.tasks; /**
- * This class represents a list of Tasks of up to 100 Tasks
- *
- * @author Billy Ho Cheng En
- */
+package duke.tasks;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a list of Tasks of up to 100 Tasks
+ */
 public class TaskList implements Savable {
 
     private final ArrayList<Task> arr;

@@ -1,18 +1,30 @@
 package duke.commands;
 
+import duke.core.Ui;
 import duke.exceptions.MeanDukeException;
 import duke.tasks.TaskList;
-import duke.core.Ui;
 
+/**
+ * This class represents a Command that marks the Task at the given index of the given TaskList as done.
+ */
 public class MarkCommand extends Command {
-    private int index;
-    private TaskList taskList;
+    private final int index;
+    private final TaskList taskList;
 
+    /**
+     * Constructs a new MarkCommand that marks the Task at the given index of the given TaskList as done.
+     *
+     * @param taskList TaskList containing Task to be marked as done.
+     * @param index    Index of Task in taskList to be marked as done.
+     */
     public MarkCommand(TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
     }
 
+    /**
+     * Returns the string describing the proper format to mark a Task in a TaskList as done.
+     */
     public static String getUsage() {
         return Command.getUsage() + " mark <taskIndex>";
     }
