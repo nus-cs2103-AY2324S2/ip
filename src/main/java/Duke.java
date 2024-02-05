@@ -3,6 +3,10 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -248,8 +252,13 @@ public class Duke {
 
     private static void readTaskListData() throws FileNotFoundException, IOException {
         String filePath = "./src/main/data/duke.txt";
+        String directoryPath = "./src/main/data";
         File read = new File(filePath);
+        Path directory = Paths.get(directoryPath);
         try {
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+            }
             if (!read.exists()) {
                 read.createNewFile();
             }
