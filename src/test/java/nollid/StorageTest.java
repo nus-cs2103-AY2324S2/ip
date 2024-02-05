@@ -66,4 +66,16 @@ public class StorageTest {
         int actual = tasks.size();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void load_malformedTask_listPartiallyInitialized() {
+        Path emptyFile = Paths.get(".", "data", "tests", "test_partiallyValid.json");
+
+        Storage s = new Storage(emptyFile);
+        ArrayList<Task> tasks = s.load();
+
+        int expected = 2;
+        int actual = tasks.size();
+        assertEquals(expected, actual);
+    }
 }
