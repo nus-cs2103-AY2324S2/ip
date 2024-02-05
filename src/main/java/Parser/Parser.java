@@ -62,6 +62,9 @@ public class Parser {
             case MarkUncompletedCommand.COMMAND_WORD:
                 return prepareMarkUncompleted(arguments);
 
+                case FindCommand.COMMAND_WORD:
+                return new FindCommand(arguments);
+
             default:
                 return new InvalidCommand("Invalid command!");
         }
