@@ -15,20 +15,22 @@ public class Parser {
      * @throws DuchessException  If no valid action identified.
      */
     public int getAction(String input) throws DuchessException {
-        if (input.equalsIgnoreCase("list")) {
+        if (input.substring(0, 4).equalsIgnoreCase("list")) {
             return 1;
-        } else if (input.toUpperCase().contains("DELETE")) {
+        } else if (input.substring(0, 6).toUpperCase().contains("UNMARK")) {
             return 2;
-        } else if (input.toUpperCase().contains("TODO")) {
+        } else if (input.substring(0, 4).toUpperCase().contains("MARK")) {
             return 3;
-        } else if (input.toUpperCase().contains("DEADLINE")) {
+        } else if (input.substring(0, 6).toUpperCase().contains("DELETE")) {
             return 4;
-        } else if (input.toUpperCase().contains("EVENT")) {
+        } else if (input.substring(0, 4).toUpperCase().contains("TODO")) {
             return 5;
-        } else if (input.toUpperCase().contains("UNMARK")) {
+        } else if (input.substring(0, 8).toUpperCase().contains("DEADLINE")) {
             return 6;
-        } else if (input.toUpperCase().contains("MARK")) {
+        } else if (input.substring(0, 5).toUpperCase().contains("EVENT")) {
             return 7;
+        } else if (input.substring(0, 4).toUpperCase().contains("FIND")) {
+            return 8;
         } else {
             throw new DuchessException();
         }
@@ -75,5 +77,9 @@ public class Parser {
         String[] shortenedInput = input.split("deadline ");
         String[] details = shortenedInput[1].split(" /by ");
         return details;
+    }
+
+    public String getKeyword(String input) {
+        return input.split("find ")[1];
     }
 }

@@ -55,7 +55,29 @@ public class Duchess {
                     System.out.println(lineBreak);
                     tasks.printTaskList();
                     System.out.println(lineBreak);
-                } else if (action == 2) {   // Delete task
+                } else if (action == 2) {   // Unmark task
+                    try {
+                        int itemIndex = Character.getNumericValue(input.charAt(7));
+                        tasks.unmarkTask(itemIndex);
+                    } catch (IndexOutOfBoundsException f) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    }
+                } else if (action == 3) {   // Mark task
+                    try {
+                        int itemIndex = Character.getNumericValue(input.charAt(5));
+                        tasks.markTask(itemIndex);
+                    } catch (IndexOutOfBoundsException f) {
+                        System.out.println(lineBreak);
+                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
+                        System.out.println(lineBreak);
+                        input = "list";
+                        continue;
+                    }
+                } else if (action == 4) {   // Delete task
                     try {
                         int itemIndex = Character.getNumericValue(input.charAt(7));
                         tasks.deleteTask(itemIndex);
@@ -66,7 +88,7 @@ public class Duchess {
                         input = "list";
                         continue;
                     }
-                } else if (action == 3) {   // Create task: To Do
+                } else if (action == 5) {   // Create task: To Do
                     System.out.println(lineBreak);
                     try {
                         String[] toDoDetails = parser.getToDoDetails(input);
@@ -77,7 +99,7 @@ public class Duchess {
                                 "\n\t\tTo create a 'To Do': todo <description>");
                         System.out.println(lineBreak);
                     }
-                } else if (action == 4) {   // Create task: duchess.tasks.Deadline
+                } else if (action == 6) {   // Create task: duchess.tasks.Deadline
                     System.out.println(lineBreak);
                     try {
                         String[] deadlineDetails = parser.getDeadlineDetails(input);
@@ -88,7 +110,7 @@ public class Duchess {
                                 "\n\t\tTo create a 'Deadline': deadline <description> /by <by>");
                         System.out.println(lineBreak);
                     }
-                } else if (action == 5) {   // Create task: duchess.tasks.Event
+                } else if (action == 7) {   // Create task: duchess.tasks.Event
                     System.out.println(lineBreak);
                     try {
                         String[] eventDetails = parser.getEventDetails(input);
@@ -100,28 +122,9 @@ public class Duchess {
                                 "\n\t\tTo create an 'Event': event <description> /from <from> /to <to>");
                         System.out.println(lineBreak);
                     }
-                } else if (action == 6) {   // Unmark task
-                    try {
-                        int itemIndex = Character.getNumericValue(input.charAt(7));
-                        tasks.unmarkTask(itemIndex);
-                    } catch (IndexOutOfBoundsException f) {
-                        System.out.println(lineBreak);
-                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
-                        System.out.println(lineBreak);
-                        input = "list";
-                        continue;
-                    }
-                } else if (action == 7) {   // Mark task
-                    try {
-                        int itemIndex = Character.getNumericValue(input.charAt(5));
-                        tasks.markTask(itemIndex);
-                    } catch (IndexOutOfBoundsException f) {
-                        System.out.println(lineBreak);
-                        System.out.println("\t\tOOPS!!! Please specify a valid task number.");
-                        System.out.println(lineBreak);
-                        input = "list";
-                        continue;
-                    }
+                } else if (action == 8) {   // Find tasks
+                    String keyword = parser.getKeyword(input);
+                    tasks.findTasks(keyword);
                 }
             } catch (DuchessException e) {
                 System.out.println(lineBreak);

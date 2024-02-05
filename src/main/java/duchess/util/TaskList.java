@@ -98,6 +98,26 @@ public class TaskList {
     }
 
     /**
+     * Print Task objects containing keyword.
+     *
+     * @param keyword keyword to look for in Task objects
+     */
+    public void findTasks(String keyword) {
+        System.out.println("\t\t------------------------------------------");
+        System.out.println("\t\tHere are the matching tasks in your list: ");
+        int counter = 1;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.getDescription().toUpperCase().contains(keyword.toUpperCase())) {
+                System.out.println("\t\t" + counter + "." + t);
+                counter += 1;
+            }
+        }
+        System.out.println("\t\t------------------------------------------");
+    }
+
+=======
+    /**
      * Get current number of Task objects in ArrayList.
      *
      * @return int number of Task objects.
