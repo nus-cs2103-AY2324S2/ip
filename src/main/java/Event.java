@@ -14,11 +14,29 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " +this.generateStartDateString() + " to: "
+                + this.generateEndDateString() + ")";
     }
 
     @Override
     public String toTaskSaveString() {
-        return "E|" + this.getStatusInt() + "|" + this.description + "|" + this.start + "|" + this.end;
+        return "E|" + this.getStatusInt() + "|" + this.description + "|" + this.generateStartSaveString()
+                + "|" + this.generateEndSaveString();
+    }
+
+    private String generateStartDateString() {
+        return this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    private String generateEndDateString() {
+        return this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    private String generateStartSaveString() {
+        return this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    private String generateEndSaveString() {
+        return this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }
