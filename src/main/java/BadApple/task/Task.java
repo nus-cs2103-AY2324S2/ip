@@ -8,7 +8,7 @@ public class Task {
     protected boolean isComplete = false;
 
     public Task(String desc) {
-        this.description = desc;
+        description = desc;
     }
 
     public void mark(boolean b, int taskIndex) {
