@@ -15,8 +15,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 class DukeException extends Exception {
 //    public DukeException (String s)
 //    {
@@ -27,9 +26,9 @@ class DukeException extends Exception {
 
 }
 public class Duke {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+    private static Ui ui;
     public static void updateFile(ArrayList<Task> updatedArray) throws IOException{
         int i = 0;
         try {
@@ -54,56 +53,15 @@ public class Duke {
             event,
             delete
         }
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        String Greeting = "____________________________________________________________\n" +
-                " Hello! I'm VICTOR\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
-        String Ending =
-                "____________________________________________________________\n"+
-                        " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
+        ui = new Ui();
         String barrier = "____________________________________________________________";
         ArrayList<Task> todoList = new ArrayList<Task>();
-        System.out.println(Greeting);
+        System.out.println(ui.getIntro());
         Scanner sc = new Scanner(System.in);
         String userInput = "";
-        File dataFile = new File("data/victor.txt");
-        try {
-            Scanner s = new Scanner(dataFile);
-            while (s.hasNext()) {
-                String nextLine = s.nextLine();
-                String[] inputs = nextLine.split("\\|");
-                String fileDataType = inputs[0].trim();
-                switch (fileDataType) {
-                    case "T" -> {
-                        Task newTodo = new Todo(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()));
-                        todoList.add(newTodo);
-                    }
-                    case "D" -> {
-                        Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim());
-                        todoList.add(newDeadline);
-                    }
-                    case "E" -> {
-                        Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim(), inputs[4].trim());
-                        todoList.add(newEvent);
-                    }
 
-                }
-            }
-        } catch (FileNotFoundException e) {
-            try {
-                boolean isCreated = dataFile.createNewFile();
-            } catch (IOException e2) {
-                System.out.println("Error: Cannot create hard drive file.");
-                System.out.println("Data will not be saved after session end.");
-            }
-        }
+        storage = new Storage("data/victor.txt");
+        todoList = storage.load();
         while (!userInput.equals("bye")) {
             userInput = sc.nextLine();
             String[] inputList = userInput.split(" ", 2);
@@ -247,7 +205,7 @@ public class Duke {
 //                System.out.println(barrier);
 //            }
         }
-        System.out.println(Ending);
+        System.out.println(ui.getEnding());
         updateFile(todoList);
         sc.close();
 
