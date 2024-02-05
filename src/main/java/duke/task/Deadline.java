@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Implementation of Task. Each Deadline comes with a description and a deadline.
@@ -25,7 +26,8 @@ public class Deadline implements Task {
     }
 
     public String getDate() {
-        return "by: " + date;
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return "by: " + date.format(pattern);
     }
 
     public String getCheck() {
@@ -46,6 +48,7 @@ public class Deadline implements Task {
 
     @Override
     public String toString() {
+
         return ("[" + type + "][" + getCheck() + "] " + desc + " (" + getDate() + ")");
     }
 }
