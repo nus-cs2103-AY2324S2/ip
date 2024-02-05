@@ -34,7 +34,7 @@ public class Parser {
      * <p>
      * The method processes the delete command.
      *
-     * @param cmd the full instruction
+     * @param cmd the full instruction.
      * @return an array of strings separated by function and index.
      * @throws DukeException when given wrong number of parameters.
      */
@@ -61,7 +61,7 @@ public class Parser {
      * <p>
      * This method will set the task to be complete or incomplete according to the user instruction.
      *
-     * @param cmd the mark/unmark command
+     * @param cmd the mark/unmark command.
      * @return an array of strings separated by function and index.
      * @throws DukeException when given incorrect parameter type or incorrect number of parameters.
      */
@@ -86,7 +86,7 @@ public class Parser {
      * <p>
      * This method processes all Add commands (Todo, deadline, event).
      *
-     * @param cmd add command
+     * @param cmd add command.
      * @return an array of strings separated by function and parameters.
      * @throws DukeException when given incorrect number of parameters.
      */
@@ -146,8 +146,10 @@ public class Parser {
 
     /**
      * Returns an Array of strings usable by find method.
+     * <p>
+     * This method matches the keyword to the descriptions found in every item in the TaskList.
      *
-     * @param cmd find command
+     * @param cmd find command.
      * @return str an array of strings separated by find and its keyword.
      * @throws DukeException when given incorrect number of parameters.
      */
@@ -166,9 +168,9 @@ public class Parser {
      * <p>
      * This method will validate that the input string is in the correct date format.
      *
-     * @param str
-     * @return
-     * @throws DukeException
+     * @param str A string that might be a date.
+     * @return a Local date Object.
+     * @throws DukeException when the string format is not a valid date.
      */
     public LocalDate validDate(String str) throws DukeException {
         LocalDate ld;
