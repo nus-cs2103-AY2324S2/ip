@@ -85,15 +85,15 @@ public class Parser {
      * is not a number.
      */
     private static int getIdx(String input) throws ParameterException {
-        String[] split = input.split(" ");
-        if (split.length == 1) {
+        String[] parameters = input.split(" ");
+        if (parameters.length == 1) {
             throw new ParameterException("Please enter which task number to mark.");
         }
-        if (split.length > 2) {
+        if (parameters.length > 2) {
             throw new ParameterException("Please enter only one task number to mark.");
         }
         try {
-            return Integer.parseInt(split[1].strip());
+            return Integer.parseInt(parameters[1].strip());
         } catch (NumberFormatException e) {
             throw new ParameterException("Please enter a valid number for task number.");
         }
@@ -107,28 +107,28 @@ public class Parser {
      * @throws ParameterException If the description is empty.
      */
     private static String getDescription(String input) throws ParameterException {
-        String[] split = input.split(" ", 2);
-        if (split.length == 1) {
+        String[] parameters = input.split(" ", 2);
+        if (parameters.length == 1) {
             throw new ParameterException("Description cannot be empty.");
         }
-        String description = split[1].strip();
+        String description = parameters[1].strip();
         // check empty description for deadline
-        split = description.split("/by", 2);
-        if (split.length == 0) {
+        parameters = description.split("/by", 2);
+        if (parameters.length == 0) {
             throw new ParameterException("Description cannot be empty.");
         }
-        description = split[0].strip();
+        description = parameters[0].strip();
         // check empty description for event
-        split = description.split("/to", 2);
-        if (split.length == 0) {
+        parameters = description.split("/to", 2);
+        if (parameters.length == 0) {
             throw new ParameterException("Description cannot be empty.");
         }
-        description = split[0].strip();
-        split = description.split("/from", 2);
-        if (split.length == 0) {
+        description = parameters[0].strip();
+        parameters = description.split("/from", 2);
+        if (parameters.length == 0) {
             throw new ParameterException("Description cannot be empty.");
         }
-        description = split[0].strip();
+        description = parameters[0].strip();
         if (description.equals("")) {
             throw new ParameterException("Description cannot be empty");
         }
@@ -168,17 +168,17 @@ public class Parser {
         }
         // drop the first word
         input = input.split(" ", 2)[1].strip();
-        String[] split = input.split("/from", 2);
+        String[] parameters = input.split("/from", 2);
         // description is guaranteed to be not empty since getDescription() is called first
-        if (split.length == 1) {
+        if (parameters.length == 1) {
             throw new ParameterException("Event from date/time cannot be empty.");
         }
-        String from = split[1].strip();
-        split = from.split("/to", 2);
-        if (split.length == 0) {
+        String from = parameters[1].strip();
+        parameters = from.split("/to", 2);
+        if (parameters.length == 0) {
             throw new ParameterException("Event from date/time cannot be empty.");
         }
-        from = split[0].strip();
+        from = parameters[0].strip();
         if (from.equals("")) {
             throw new ParameterException("Event from date/time cannot be empty.");
         }
@@ -216,10 +216,10 @@ public class Parser {
      * @throws ParameterException If no keyword is given.
      */
     private static String getKeyword(String input) throws ParameterException {
-        String[] split = input.split(" ", 2);
-        if (split.length == 1) {
+        String[] parameters = input.split(" ", 2);
+        if (parameters.length == 1) {
             throw new ParameterException("Please enter a keyword to find by.");
         }
-        return split[1].strip();
+        return parameters[1].strip();
     }
 }
