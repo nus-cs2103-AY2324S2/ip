@@ -158,6 +158,15 @@ public class Ui {
    *
    * @param taskList The matching task list.
    */
+  public void showFindUsage() {
+    System.out.println("Usage: find <keyword>");
+  }
+
+  /**
+   * Shows the matching task list.
+   *
+   * @param taskList The matching task list.
+   */
   public void showInvalidDone() {
     System.out.println("Invalid done command.");
   }
