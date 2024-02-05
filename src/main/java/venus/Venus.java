@@ -1,7 +1,10 @@
 package venus;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.util.Scanner;
+
 public class Venus {
 
     Storage storage;

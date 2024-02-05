@@ -1,11 +1,13 @@
 package venus;
-import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task{
+import java.time.LocalDate;
+
+public class Deadline extends Task {
     private LocalDate deadline;
-    public Deadline(String s, String deadline){
+    public Deadline(String s, String deadline) {
         super(s);
         this.deadline = TimeFormatter.stringToTime(deadline);
     }
@@ -23,8 +25,8 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        String X = this.getMark() ? "X" : " ";
-        return "[D]"+"[" + X + "] " + this.getItem()
+        String X = (this.getMark()) ? "X" : " ";
+        return "[D]" + "[" + X + "] " + this.getItem()
                 + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

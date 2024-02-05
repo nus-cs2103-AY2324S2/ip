@@ -23,7 +23,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        String X = mark ? "X" : " ";
+        String X = (mark) ? "X" : " ";
         return ("[" + X + "] " + item);
     }
 }
