@@ -1,5 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package duke.tasks;
+
 import java.io.FileWriter;
 import java.io.IOException;
 public class Task {

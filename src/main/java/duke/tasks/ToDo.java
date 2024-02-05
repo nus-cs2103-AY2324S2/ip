@@ -1,5 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
+package duke.tasks;
 
 public class ToDo extends Task {
     public ToDo(String name) {
