@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class Parser {
 
     /**
-     * Reads the user input, processes the command, updates the task list, and returns a message.
+     * Reads the user input, processes the command, updates the task list, and generates a reply.
      *
      * @param input   The user input command.
      * @param storage Storage object for writing tasks to a file.
@@ -24,9 +24,9 @@ public class Parser {
             } else if (input.equals("list")) {
                 return tasks.listTasks();
             } else if (input.startsWith("mark")) {
-                return tasks.mark(Parser.parseMark(input), storage);
+                return tasks.mark(storage, Parser.parseMark(input));
             } else if (input.startsWith("unmark")) {
-                return tasks.unmark(Parser.parseUnmark(input), storage);
+                return tasks.unmark(storage, Parser.parseUnmark(input));
             } else if (input.startsWith("delete")) {
                 return tasks.delete(storage, Parser.parseDelete(input));
             } else if (input.startsWith("todo")) {
@@ -107,7 +107,7 @@ public class Parser {
      * Parses a 'delete' command from the user input.
      *
      * @param input The user input command.
-     * @return The index of the task to be deleted. Invalid index is handled by delete in TaskList.
+     * @return The indices of the tasks to be deleted. Invalid index is handled by delete in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
     public static String[] parseDelete(String input) throws WrongFormatException {
@@ -115,7 +115,7 @@ public class Parser {
             String[] splitArray = input.split("\\s");
             return Arrays.copyOfRange(splitArray, 1, splitArray.length);
         } else {
-            throw new WrongFormatException("Invalid 'delete' command format. Usage: delete <existing task number>");
+            throw new WrongFormatException("Invalid 'delete' command format. Usage: delete <existing task numbers>");
         }
     }
 
@@ -123,14 +123,15 @@ public class Parser {
      * Parses a 'mark' command from the user input.
      *
      * @param input The user input command.
-     * @return The index of the task to be marked as done. Invalid index is handled by mark in TaskList.
+     * @return The indices of the tasks to be marked as done. Invalid index is handled by mark in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
-    public static int parseMark(String input) throws WrongFormatException {
-        if (Pattern.matches("mark\\s\\d+", input)) {
-            return Integer.parseInt(input.split("\\s")[1]) - 1;
+    public static String[] parseMark(String input) throws WrongFormatException {
+        if (Pattern.matches("mark(\\s\\d+)+", input)) {
+            String[] splitArray = input.split("\\s");
+            return Arrays.copyOfRange(splitArray, 1, splitArray.length);
         } else {
-            throw new WrongFormatException("Invalid 'mark' command format. Usage: mark <existing task number>");
+            throw new WrongFormatException("Invalid 'mark' command format. Usage: mark <existing task numbers>");
         }
     }
 
@@ -138,14 +139,15 @@ public class Parser {
      * Parses an 'unmark' command from the user input.
      *
      * @param input The user input command.
-     * @return The index of the task to be marked as not done. Invalid index is handled by unmark in TaskList.
+     * @return The indices of the tasks to be marked as not done. Invalid index is handled by unmark in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
-    public static int parseUnmark(String input) throws WrongFormatException {
-        if (Pattern.matches("unmark\\s\\d+", input)) {
-            return Integer.parseInt(input.split("\\s")[1]) - 1;
+    public static String[] parseUnmark(String input) throws WrongFormatException {
+        if (Pattern.matches("unmark(\\s\\d+)+", input)) {
+            String[] splitArray = input.split("\\s");
+            return Arrays.copyOfRange(splitArray, 1, splitArray.length);
         } else {
-            throw new WrongFormatException("Invalid 'unmark' command format. Usage: unmark <existing task number>");
+            throw new WrongFormatException("Invalid 'unmark' command format. Usage: unmark <existing task numbers>");
         }
     }
 

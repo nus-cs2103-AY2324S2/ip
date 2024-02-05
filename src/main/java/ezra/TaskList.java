@@ -144,63 +144,75 @@ public class TaskList {
     /**
      * Marks a task as done at the specified index.
      *
-     * @param taskIndex The arrayList index of the task to be marked as done.
+     * @param taskNumbers The array of task numbers to be marked as done.
      * @param storage The storage to update after marking.
      * @return A message to be displayed after marking the task.
      */
-    public String mark(int taskIndex, Storage storage) {
-        StringBuilder message = new StringBuilder();
+    public String mark(Storage storage, String... taskNumbers) {
+        StringBuilder markedTasks = new StringBuilder("I've marked the following task(s) as done:\n");
+        StringBuilder invalidTaskNumbers = new StringBuilder();
+        boolean hasMarkedTasks = false;
 
-        // Check for invalid taskIndex
-        if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-            message.append("Invalid task number");
-        } else {
-            this.tasks.get(taskIndex).isDone = true;
+        for (String taskNumber : taskNumbers) {
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            // Check for invalid taskIndex
+            if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
+                invalidTaskNumbers.append(String.format("%d is an invalid task number\n", taskIndex + 1));
+            } else {
+                this.tasks.get(taskIndex).isDone = true;
+                markedTasks.append(this.tasks.get(taskIndex)).append("\n");
+                hasMarkedTasks = true;
 
-            // Print task that was marked
-            message.append(String.format(
-                    "Nice! I have marked this task as done:\n%s\n",
-                    this.tasks.get(taskIndex)));
-
-            // Update tasks in storage
-            try {
-                storage.writeToFile(this);
-            } catch (IOException e) {
-                return String.format("Something went wrong: %s\n", e.getMessage());
+                // Update tasks in storage
+                try {
+                    storage.writeToFile(this);
+                } catch (IOException e) {
+                    return String.format("Something went wrong: %s\n", e.getMessage());
+                }
             }
         }
-        return message.toString();
+
+        if (hasMarkedTasks) {
+            invalidTaskNumbers.append(markedTasks);
+        }
+        return invalidTaskNumbers.toString();
     }
 
     /**
      * Marks a task as not done at the specified index.
      *
-     * @param taskIndex The arrayList index of the task to be marked as not done.
+     * @param taskNumbers The array of task numbers to be marked as not done.
      * @param storage The storage to update after marking.
      * @return A message to be displayed after unmarking the task.
      */
-    public String unmark(int taskIndex, Storage storage) {
-        StringBuilder message = new StringBuilder();
+    public String unmark(Storage storage, String... taskNumbers) {
+        StringBuilder unmarkedTasks = new StringBuilder("I've marked the following task(s) as not done:\n");
+        StringBuilder invalidTaskNumbers = new StringBuilder();
+        boolean hasUnmarkedTasks = false;
 
-        // Check for invalid taskIndex
-        if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-            message.append("Invalid task number");
-        } else {
-            this.tasks.get(taskIndex).isDone = false;
+        for (String taskNumber : taskNumbers) {
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            // Check for invalid taskIndex
+            if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
+                invalidTaskNumbers.append(String.format("%d is an invalid task number\n", taskIndex + 1));
+            } else {
+                this.tasks.get(taskIndex).isDone = false;
+                unmarkedTasks.append(this.tasks.get(taskIndex)).append("\n");
+                hasUnmarkedTasks = true;
 
-            // Print task that was unmarked
-            message.append(String.format(
-                    "OK, I've marked this task as not done yet:\n%s\n",
-                    this.tasks.get(taskIndex)));
-
-            // Update tasks in storage
-            try {
-                storage.writeToFile(this);
-            } catch (IOException e) {
-                return String.format("Something went wrong: %s\n", e.getMessage());
+                // Update tasks in storage
+                try {
+                    storage.writeToFile(this);
+                } catch (IOException e) {
+                    return String.format("Something went wrong: %s\n", e.getMessage());
+                }
             }
         }
-        return message.toString();
+
+        if (hasUnmarkedTasks) {
+            invalidTaskNumbers.append(unmarkedTasks);
+        }
+        return invalidTaskNumbers.toString();
     }
 
     /**
