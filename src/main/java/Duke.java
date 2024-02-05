@@ -21,19 +21,19 @@ public class Duke {
         String x = ("Here are the tasks in your list: " + "\n" +
                 "____________________________________________________________\n");
         String result = "";
-        for( int i = 0; i < counter; i++ ) {
+        for (int i = 0; i < counter; i++) {
             result += (i + 1) + ". " + a[i].toString() + "\n";
         }
-        String y =("____________________________________________________________\n");
+        String y = ("____________________________________________________________\n");
         return x + result + y;
     }
 
     public static String printMark(Task task) {
-        if(task.getStatus()) {
+        if (task.getStatus()) {
             return "____________________________________________________________\n" +
                     "Nice! I've marked this task as done:" + "\n" + task.toString() + "\n" +
-                    "____________________________________________________________\n" ;
-        }else{
+                    "____________________________________________________________\n";
+        } else {
             return "____________________________________________________________\n" +
                     "OK, I've marked this task as not done yet-:" + "\n" + task.toString() + "\n" +
                     "____________________________________________________________\n";
@@ -47,12 +47,17 @@ public class Duke {
                 "____________________________________________________________\n";
     }
 
-    public static String getTask( String message ){
+    public static String getTask(String message) {
         int start = message.indexOf(" ") + 1;
         int end = message.indexOf("/");
+        if (end == -1) {
+            // "/" not found, handle the case, e.g., throw an exception or return the rest of the string
+            end = message.length();
+        }
         String task = message.substring(start, end);
-        return task;
+        return task.trim();
     }
+
 
     public static String getTime(String message) {
         int start = message.indexOf("/");
@@ -64,6 +69,7 @@ public class Duke {
         String newString = message.replaceAll("/(\\w+)", "$1:");
         return newString;
     }
+
     public static void main(String[] args) {
         System.out.println(printIntro());
         Scanner input = new Scanner(System.in);
@@ -76,50 +82,60 @@ public class Duke {
         while (true) {
             String message = input.nextLine();
 
-            if (message.equals("bye")) {
-                System.out.println(printOutro());
-                break;
+            try {
+                if (message.equals("bye")) {
+                    System.out.println(printOutro());
+                    break;
 
-            } else if (message.equals("list")) {
-                System.out.println(list(tasks, counter));
+                } else if (message.equals("list")) {
+                    System.out.println(list(tasks, counter));
 
-            } else if (message.startsWith("mark") || message.startsWith("unmark")) {
-                String[] parts = message.split(" ");
-                int num = Integer.parseInt(parts[1]);
-                Task current = tasks[num - 1];
+                } else if (message.startsWith("mark") || message.startsWith("unmark")) {
+                    String[] parts = message.split(" ");
+                    int num = Integer.parseInt(parts[1]);
+                    Task current = tasks[num - 1];
 
-                if (message.startsWith("mark")) {
-                    current.markAsDone();
-                    System.out.println(printMark(current));
-                } else {
-                    current.unmark();
-                    System.out.println(printMark(current));
+                    if (message.startsWith("mark")) {
+                        current.markAsDone();
+                        System.out.println(printMark(current));
+                    } else {
+                        current.unmark();
+                        System.out.println(printMark(current));
+                    }
+                } else if (message.equals("todo") || message.equals("deadline") || message.equals("event")){
+                    throw new DukeExceptions("Don't forget the description !");
+                } else if(message.startsWith("todo") || message.startsWith("deadline") || message.startsWith("event")) {
+                    String time = getTime(message);
+                    if (message.startsWith("todo")) {
+                        String[] parts = message.split(" ", 2);
+                        String task = parts[1];
+                        tasks[counter] = new Todo(task);
+                        counter++;
+                        System.out.println(added(tasks[counter - 1], counter));
+                    } else if (message.startsWith("deadline")) {
+                        String task = getTask(message);
+                        String[] parts = time.split("by");
+                        tasks[counter] = new Deadline(task, parts[1]);
+                        counter++;
+                        System.out.println(added(tasks[counter - 1], counter));
+                    } else {
+                        String task = getTask(message);
+                        String[] parts = time.split("from");
+                        String[] dateParts = parts[1].split("/to");
+                        tasks[counter] = new Event(task, dateParts[0], dateParts[1]);
+                        counter++;
+                        System.out.println(added(tasks[counter - 1], counter));
+                    }
+
+                }else {
+                    throw new DukeExceptions("Sorry, I'm not sure what you mean");
                 }
-            } else {
-                String time = getTime(message);
-                if (message.startsWith("todo")) {
-                    String[] parts = message.split(" ", 2);
-                    String task = parts[1];
-                    tasks[counter] = new Todo(task);
-                    counter++;
-                    System.out.println(added(tasks[counter - 1], counter ));
-                } else if (message.startsWith("deadline")) {
-                    String task = getTask(message);
-                    String[] parts = time.split("by");
-                    tasks[counter] = new Deadline(task, parts[1]);
-                    counter++;
-                    System.out.println(added(tasks[counter -1], counter ));
-                } else {
-                    String task = getTask(message);
-                    String[] parts = time.split("from");
-                    String[] dateParts = parts[1].split("/to");
-                    tasks[counter] = new Event(task, dateParts[0], dateParts[1]);
-                    counter++;
-                    System.out.println(added(tasks[counter -1], counter ));
-                }
 
+
+            } catch (DukeExceptions e) {
+                System.out.println(e.getMessage());
             }
         }
     }
-    }
+}
 
