@@ -7,6 +7,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTask() {
+        return this.description;
+    }
+
+    public String getType() {
+        return "";
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
@@ -35,6 +43,10 @@ public class Task {
         System.out.println(this.toString());
         String formatted = String.format("Now you have %d tasks in the list.", newTotal);
         System.out.println(formatted);
+    }
+
+    public String toFileFormat() {
+        return String.format("%s | %d | %s", this.getType(), this.isDone ? 1 : 0, this.description);
     }
 
     @Override

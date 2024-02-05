@@ -4,6 +4,11 @@ public class ToDos extends Task {
     }
 
     @Override
+    public String getType() {
+        return "T";
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

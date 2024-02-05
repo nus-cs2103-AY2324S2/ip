@@ -1,0 +1,4 @@
+T | 0 | abc 
+D | 1 | def | wednesday
+E | 0 | ghi | thurs 2pm-4pm 
+T | 0 | jkl
