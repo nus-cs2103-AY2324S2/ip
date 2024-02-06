@@ -35,19 +35,22 @@ public class Command {
                 storage.rewriteFile(taskList);
                 break;
             case TODO:
-                taskList.add(new Todo(remainingWords));
-                storage.rewriteFile(taskList);
+                Todo todo = new Todo(remainingWords);
+                taskList.add(todo);
+                storage.appendToFile(todo.toFileString());
                 break;
             case DEADLINE:
                 String[] deadlineArray = parser.deadlineParse(remainingWords);
                 LocalDate deadlineTime = LocalDate.parse(deadlineArray[1]);
-                taskList.add(new Deadline(deadlineArray[0], deadlineTime));
-                storage.rewriteFile(taskList);
+                Deadline deadline = new Deadline(deadlineArray[0], deadlineTime);
+                taskList.add(deadline);
+                storage.appendToFile(deadline.toFileString());
                 break;
             case EVENT:
                 String[] eventArray = parser.eventParse(remainingWords);
-                taskList.add(new Event(eventArray[0], eventArray[1], eventArray[2]));
-                storage.rewriteFile(taskList);
+                Event event = new Event(eventArray[0], eventArray[1], eventArray[2]);
+                taskList.add(event);
+                storage.appendToFile(event.toFileString());
                 break;
             case BYE:
                 ui.sayBye();
