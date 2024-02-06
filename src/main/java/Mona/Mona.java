@@ -1,4 +1,4 @@
-package Mona;
+package mona;
 import java.util.Scanner;
 
 /**

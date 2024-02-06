@@ -1,4 +1,4 @@
-package Mona;
+package mona;
 public class Todo extends Task {
 
     public Todo(String description) {

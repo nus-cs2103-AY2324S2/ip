@@ -1,4 +1,4 @@
-package Mona;
+package mona;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
