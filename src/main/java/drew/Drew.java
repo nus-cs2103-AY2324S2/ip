@@ -1,3 +1,5 @@
+package drew;
+
 import drew.command.Command;
 import drew.storage.TaskList;
 import drew.storage.Storage;
@@ -36,7 +38,7 @@ public class Drew {
         }
     }
 
-    public void run(){
+    public void run() {
         ui.greetUser();
         boolean isExit = false;
 
@@ -50,7 +52,6 @@ public class Drew {
 
         storage.save(tasks);
         ui.bidFarewell();
-
     }
     public static void main(String[] args) {
         Drew drew = new Drew("save/tasks.txt");
