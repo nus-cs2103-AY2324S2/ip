@@ -1,13 +1,19 @@
 package ChatbotRan;
 
+import java.time.LocalDate;
+
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
     public Event(String contents, String from, String to) {
+        this(contents, LocalDate.parse(from), LocalDate.parse(to));
+    }
+
+    public Event(String contents, LocalDate from, LocalDate to) {
         super(contents);
-        this.setFrom(from);
-        this.setTo(to);
+        this.from = from;
+        this.to = to;
     }
 
     public static Event parse(String line, int space) {
@@ -23,19 +29,19 @@ public class Event extends Task {
         return "E";
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(LocalDate from) {
         this.from = from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(LocalDate to) {
         this.to = to;
     }
 

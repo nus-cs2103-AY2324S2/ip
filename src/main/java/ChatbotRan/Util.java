@@ -1,5 +1,7 @@
 package ChatbotRan;
 
+import java.time.LocalDate;
+
 class Util {
     private Util() {
     }
@@ -34,8 +36,7 @@ class Util {
             texts[delims.length] = line.substring(oldpos).strip();
             //System.out.println(Arrays.toString(texts));
             return texts;
-
         }
-
     }
+
 }
