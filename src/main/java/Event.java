@@ -5,8 +5,8 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = cleanWhiteSpace(from);
+        this.to = cleanWhiteSpace(to);
     }
 
     @Override
