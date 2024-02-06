@@ -1,10 +1,5 @@
 package storage;
-
-import actions.Action;
-import exceptionhandling.DukeException;
-import tasklist.TaskList;
-import tasks.Task;
-import ui.Duke;
+import static parser.Parser.parseCommand;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,19 +8,36 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static parser.Parser.parseCommand;
+import actions.Action;
+import exceptionhandling.DukeException;
+import tasklist.TaskList;
+import tasks.Task;
+import ui.Duke;
+
 
 /**
  * The `Storage` class handles the saving and loading of task data to and from a file.
  * It is responsible for writing tasks to a file when saving and reading tasks from a file when loading.
  */
 public class Storage {
-    private final static String FILE_NAME = "src/main/duke.txt";
+    private static final String FILE_NAME = "duke.txt";
 
     /**
      * Constructs a `Storage` object.
      */
     public Storage() {
+        File file = new File(Storage.FILE_NAME);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Save File created successfully.");
+                } else {
+                    System.out.println("Unable to create the Save file.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

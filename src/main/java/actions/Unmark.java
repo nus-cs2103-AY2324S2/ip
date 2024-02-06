@@ -3,7 +3,8 @@ package actions;
 import ui.Duke;
 
 /**
- * The `Unmark` class implements the Action interface and represents an action to unmark a task (mark it as undone) in the task list.
+ * The `Unmark` class implements the Action interface and represents an
+ * action to unmark a task (mark it as undone) in the task list.
  * It stores the index of the task to be unmarked and provides a method to execute the action.
  */
 public class Unmark implements Action {
@@ -20,7 +21,8 @@ public class Unmark implements Action {
     }
 
     /**
-     * Executes the unmark action by unmarking the task at the stored index (marking it as undone) in the task list of the Duke chatbot.
+     * Executes the unmark action by unmarking the task at the stored index
+     * (marking it as undone) in the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.
      */

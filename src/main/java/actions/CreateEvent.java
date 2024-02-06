@@ -1,11 +1,14 @@
 package actions;
 
-import ui.Duke;
 import tasks.Event;
+import ui.Duke;
+
 
 /**
- * The `CreateEvent` class implements the Action interface and represents an action to create a new Event task.
- * It stores the description, start time, and end time for the new Event task and provides a method to execute the action.
+ * The `CreateEvent` class implements the Action interface and represents
+ * an action to create a new Event task.
+ * It stores the description, start time, and end time for the new Event task
+ * and provides a method to execute the action.
  */
 public class CreateEvent implements Action {
 
@@ -27,7 +30,8 @@ public class CreateEvent implements Action {
     }
 
     /**
-     * Executes the create event action by creating a new Event task with the stored description, start time, and end time.
+     * Executes the create event action by creating a new Event task
+     * with the stored description, start time, and end time.
      * The new task is then added to the task list of the Duke chatbot.
      *
      * @param bot The Duke chatbot on which the action is to be executed.

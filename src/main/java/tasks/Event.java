@@ -2,7 +2,8 @@ package tasks;
 
 /**
  * The `Event` class extends the `Task` class and represents a task with a specific event duration.
- * It includes methods to get the type icon, description with the event duration, and the command format for saving to a file.
+ * It includes methods to get the type icon, description with the event duration,
+ * and the command format for saving to a file.
  */
 public class Event extends Task {
 
