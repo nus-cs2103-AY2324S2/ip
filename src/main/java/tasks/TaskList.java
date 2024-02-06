@@ -1,6 +1,7 @@
 package tasks;
 
 import datetime.DateTime;
+import exceptions.ChaterpillarException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,12 +36,12 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
-    public TaskList getTasksToday() {
+    public TaskList getTasksToday() throws ChaterpillarException {
         DateTime today = new DateTime(LocalDate.now());
         return getTasksOnDate(today);
     }
 
-    public TaskList getTasksOnDate(String date) {
+    public TaskList getTasksOnDate(String date) throws ChaterpillarException {
         DateTime dt = new DateTime(date);
         return getTasksOnDate(dt);
     }

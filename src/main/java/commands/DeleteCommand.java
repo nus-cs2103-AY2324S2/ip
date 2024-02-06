@@ -1,10 +1,11 @@
 package commands;
 
-import java.io.IOException;
-
+import exceptions.ChaterpillarException;
 import tasks.TaskList;
 import ui.Ui;
 import storage.Storage;
+
+import java.io.IOException;
 
 public class DeleteCommand extends Command {
     private final int index;
@@ -12,14 +13,16 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException, IOException {
         try {
             tasks.deleteTaskAtIndex(index);
         } catch (NumberFormatException e) {
-            ui.echo("Sorry, there is no number detected.\n" +
+            throw new ChaterpillarException(
+                    "Sorry, there is no number detected.\n" +
                     "The correct way to use the command is: delete number");
         } catch (IndexOutOfBoundsException e) {
-            ui.echo("Sorry, the item does not exist in the list.\n" +
+            throw new ChaterpillarException(
+                    "Sorry, the item does not exist in the list.\n" +
                     "The correct way to use the command is: delete number");
         }
         storage.saveAllToFile(tasks);

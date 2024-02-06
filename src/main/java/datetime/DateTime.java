@@ -1,5 +1,7 @@
 package datetime;
 
+import exceptions.ChaterpillarException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -17,13 +19,13 @@ public class DateTime {
     public LocalDateTime dateTime;
     public Boolean dateOnly;
     public Boolean timeOnly;
-    public DateTime(String dt) {
+    public DateTime(String dt) throws ChaterpillarException {
         this.dateOnly = false;
         this.timeOnly = false;
         this.dateTime = parseDateTime(dt);
     }
 
-    public DateTime(LocalDate date) {
+    public DateTime(LocalDate date) throws ChaterpillarException {
         this.dateOnly = false;
         this.timeOnly = false;
         this.dateTime = date.atTime(0, 0);
@@ -35,7 +37,7 @@ public class DateTime {
      * @param str <code>String</code> of date and/or time
      * @return <code>LocalDateTime</code> object
      */
-    public LocalDateTime parseDateTime(String str) throws DateTimeParseException {
+    public LocalDateTime parseDateTime(String str) throws ChaterpillarException {
         DateTimeFormatterBuilder dateTimeFormatterBuilder =
                 new DateTimeFormatterBuilder()
                         .appendPattern("[d/M/uuuu HHmm]")
@@ -119,7 +121,13 @@ public class DateTime {
                         .appendPattern("[h a]")
                         .parseDefaulting(ChronoField.YEAR, Year.now().getValue());
         DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();
-        return getDate(str.trim(), dateTimeFormatter);
+        try {
+            return getDate(str.trim(), dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new ChaterpillarException(
+                    "Invalid date format! I accept quite a number of common date format, " +
+                    "but here is one you can use: DD/MM/YYY HH:MM");
+        }
     }
 
     /**

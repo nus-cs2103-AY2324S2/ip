@@ -2,6 +2,7 @@ package commands;
 
 import java.io.IOException;
 
+import exceptions.ChaterpillarException;
 import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
@@ -12,7 +13,7 @@ public class TaskCommand extends Command {
     public TaskCommand(Task task) {
         this.task = task;
     }
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException, IOException {
         tasks.addTask(this.task);
         ui.echo("Got it. I've added this task:");
         ui.echo(task.toString());

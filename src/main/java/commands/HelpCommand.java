@@ -8,6 +8,7 @@ public class HelpCommand extends Command {
         String helpMessage =
                 "Hi! Here are the list of commands I recognise: \n\n" +
                 "'list' - lists the tasks registered in the list\n" +
+                "'today' - lists the tasks for today\n" +
                 "'todo' - adds an item that has no due date\n" +
                 "'deadline' - adds an item with a due date\n" +
                 "'event' - adds an item that has a duration\n" +

@@ -1,5 +1,6 @@
 package storage;
 
+import exceptions.ChaterpillarException;
 import tasks.*;
 
 import java.io.BufferedReader;
@@ -42,7 +43,7 @@ public class Storage {
      * @return An <code>ArrayList</code> of <code>tasks.Task</code> objects.
      * @throws IOException if there are any input/output errors.
      */
-    public TaskList loadFromFile() throws IOException {
+    public TaskList loadFromFile() throws ChaterpillarException, IOException {
         Path path = getHistoryFilePath();
         ArrayList<Task> newList = new ArrayList<Task>();
         try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -73,13 +74,11 @@ public class Storage {
                             break;
                         }
                         default:
-                            System.out.println("Error in type of task of this line: ");
-                            System.out.println(str);
-                            break;
+                            throw new ChaterpillarException(
+                                    "Error in type of task of this line: \n" + str);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Error in formatting of this line: ");
-                    System.out.println(str);
+                    throw new ChaterpillarException("Error in formatting of this line: \n" + str);
                 }
             }
         }
@@ -90,7 +89,7 @@ public class Storage {
      * Saves the entire list of Tasks into the file, by first clearing its contents.
      * @throws IOException if there are any input/output errors.
      */
-    public void saveAllToFile(TaskList tasks) throws IOException {
+    public void saveAllToFile(TaskList tasks) throws ChaterpillarException, IOException {
         Path path = getHistoryFilePath();
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.defaultCharset())) {
             writer.write("");   // clears the file
@@ -101,7 +100,7 @@ public class Storage {
             }
             writer.write(strBdr.toString());
         } catch (IOException e) {
-            // ToDo: Handle IOException
+            throw new ChaterpillarException("Error in writing to the file.");
         }
     }
 }

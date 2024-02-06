@@ -1,6 +1,7 @@
 package tasks;
 
 import datetime.DateTime;
+import exceptions.ChaterpillarException;
 
 /**
  * Represents a task with a deadline. A <code>tasks.DeadlineTask</code>
@@ -15,7 +16,7 @@ public class DeadlineTask extends Task {
      * Basic constructor
      * @param taskName name of task to be tracked
      */
-    public DeadlineTask(String taskName, String date_time) {
+    public DeadlineTask(String taskName, String date_time) throws ChaterpillarException {
         super(taskName);
         this.dateTime = new DateTime(date_time);
         this.hasDate = true;
@@ -28,7 +29,7 @@ public class DeadlineTask extends Task {
      * @param dateTime Date and/or Time of deadline
      * @param marked status of task (marked or unmarked)
      */
-    public DeadlineTask(String taskname, Boolean marked, String dateTime) {
+    public DeadlineTask(String taskname, Boolean marked, String dateTime) throws ChaterpillarException {
         super(taskname, marked);
         this.dateTime = new DateTime(dateTime);
     }

@@ -1,6 +1,7 @@
 package tasks;
 
 import datetime.DateTime;
+import exceptions.ChaterpillarException;
 
 /**
  * Represents a task which is an event. A <code>tasks.EventTask</code>
@@ -19,7 +20,7 @@ public class EventTask extends Task {
      * @param dateTimeFrom start date and/or time of the event
      * @param dateTimeTo end date and/or time of the event
      */
-    public EventTask(String taskname, String dateTimeFrom, String dateTimeTo) {
+    public EventTask(String taskname, String dateTimeFrom, String dateTimeTo) throws ChaterpillarException {
         super(taskname);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
@@ -34,7 +35,7 @@ public class EventTask extends Task {
      * @param dateTimeFrom start date and/or time of the event
      * @param dateTimeTo end date and/or time of the event
      */
-    public EventTask(String taskname, Boolean isMarked, String dateTimeFrom, String dateTimeTo) {
+    public EventTask(String taskname, Boolean isMarked, String dateTimeFrom, String dateTimeTo) throws ChaterpillarException {
         super(taskname,isMarked);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
