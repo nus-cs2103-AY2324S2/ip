@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package Objects;
+
+public class Todo extends Task {
     public Todo(String name,boolean mark) {
         super(name,mark);
     }

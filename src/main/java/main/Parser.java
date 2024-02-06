@@ -1,3 +1,5 @@
+package main;
+
 import Objects.Deadline;
 import Objects.Event;
 import Objects.Task;

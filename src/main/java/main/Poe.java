@@ -1,7 +1,8 @@
+package main;
+
+import main.Parser;
+
 import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Poe {
 
@@ -12,7 +13,7 @@ public class Poe {
 //            try {
 //                String fullCommand = ui.readCommand();
 //                ui.showLine(); // show the divider line ("_______")
-//                Command c = Parser.parse(fullCommand);
+//                Command c = main.Parser.parse(fullCommand);
 //                c.execute(tasks, ui, storage);
 //                isExit = c.isExit();
 //            } catch (DukeException e) {

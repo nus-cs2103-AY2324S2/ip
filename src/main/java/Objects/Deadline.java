@@ -1,7 +1,9 @@
+package Objects;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     LocalDate deadline;
     public Deadline(String name, boolean mark, LocalDate deadline) {
         super(name,mark);
