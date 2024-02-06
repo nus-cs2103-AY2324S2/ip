@@ -14,16 +14,18 @@ public class Martin {
     private Command command;
 
     public Martin() {
-        this.storage = new Storage(FILEPATH); // fixed file path for now 
-        this.tasks = new TaskList(todoList);
+        this.storage = new Storage(FILEPATH); // fixed file path for now
         this.ui = new Ui();
         this.parser = new Parser();
-        this.command = new Command(tasks, storage, ui, parser);
     }
 
     public void run() {
         ui.sayGreeting();
         Scanner sc = new Scanner(System.in);
+
+        todoList = storage.startUpSequence();
+        this.tasks = new TaskList(todoList);
+        this.command = new Command(tasks, storage, ui, parser);
         while (sc.hasNextLine()) {
             String input = sc.nextLine().strip();
             ChatbotKeyword command = parser.parse(input);
@@ -34,10 +36,11 @@ public class Martin {
                 System.out.println("Error writing to file");
             }
         }
+
         ui.sayBye();
         sc.close();
     }
-    
+
     public static void main(String[] args) {
         Martin martin = new Martin();
         martin.run();
