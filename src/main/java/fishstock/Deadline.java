@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  */
 class Deadline extends Task {
     protected static final String COMMAND = "deadline";
-    private static final String byKeyword = " /by ";
+    private static final String BY_KEYWORD = " /by ";
     private LocalDateTime by;
 
     /**
@@ -32,18 +32,18 @@ class Deadline extends Task {
         if (!Parser.startsWith(COMMAND, input)) {
             throw new FishStockException("OH NOSE! This input is not deadline..");
         }
-        int byIdx = input.indexOf(byKeyword);
+        int byIdx = input.indexOf(BY_KEYWORD);
         if (byIdx == -1) {
-            throw new FishStockException("OH NOSE! \"" + byKeyword + "\" not found..");
+            throw new FishStockException("OH NOSE! \"" + BY_KEYWORD + "\" not found..");
         }
         if (COMMAND.length() + 1 > byIdx) {
             throw new FishStockException("OH NOSE! The description of deadline cannot be empty..");
         }
-        if (byIdx + byKeyword.length() == input.length()) {
+        if (byIdx + BY_KEYWORD.length() == input.length()) {
             throw new FishStockException("OH NOSE! The by-date cannot be empty..");
         }
         String description = input.substring(COMMAND.length() + 1, byIdx);
-        String byStr = input.substring(byIdx + byKeyword.length());
+        String byStr = input.substring(byIdx + BY_KEYWORD.length());
         LocalDateTime by = Parser.parseDate(byStr);
         return new Deadline(description, by);
     }

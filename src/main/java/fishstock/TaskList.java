@@ -24,11 +24,12 @@ class TaskList {
     }
 
     /**
-     * Get list.
-     * @return The list.
+     * Prints the list.
      */
-    protected ArrayList<Task> getList() {
-        return list;
+    protected void printList() {
+        for (int i = 0; i < list.size(); i++) {
+            Ui.printMsg((i + 1) + "." + list.get(i));
+        }
     }
 
     /**
@@ -98,6 +99,12 @@ class TaskList {
         return task;
     }
 
+    /**
+     * Finds Tasks that contain input in description.
+     * @param input The input to be matched with.
+     * @return The Tasks that were found.
+     * @throws FishStockException The exceptions while finding Tasks.
+     */
     protected ArrayList<Task> findTask(String input) throws FishStockException {
         if (input.length() < 6) {
             throw new FishStockException("OH NOSE! The match word is empty..");

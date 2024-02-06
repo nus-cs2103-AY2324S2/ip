@@ -45,11 +45,8 @@ class Ui {
                     hasStopped = true;
                     break;
                 case LIST:
-                    result = list.getList();
                     Ui.printMsg("Here are the tasks in your list:");
-                    for (int i = 0; i < result.size(); i++) {
-                        Ui.printMsg((i + 1) + "." + result.get(i));
-                    }
+                    list.printList();
                     break;
                 case MARK:
                     task = list.changeMark(command, input);
