@@ -154,10 +154,8 @@ public class TaskList {
             return TaskType.EVENT;
         } else if (task.equals("help")) {
             return TaskType.HELP;
-        } else if (task.startsWith("delete")) {
+        } else { // if (task.startsWith("delete"))
             return TaskType.DELETE;
-        } else {
-            return TaskType.UNKNOWN;
         }
     }
 

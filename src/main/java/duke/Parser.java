@@ -12,7 +12,7 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public boolean parseInput(String input) {
+    public boolean executeUserInput(String input) {
         if (input.equals("bye")) {
             return false;
         }

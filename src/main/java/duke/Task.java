@@ -51,7 +51,7 @@ public class Task {
     /** 
      * Returns task type
      */
-    protected String taskType() {
+    protected String getTaskType() {
         return "";
     }
 
@@ -60,7 +60,7 @@ public class Task {
      * 
      * @return String task status
      */
-    public String taskStatus() {
+    public String getTaskStatus() {
         return this.isDone ? "done" : "not done";
     }
 
@@ -92,7 +92,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return taskType() + " | " + taskStatus() + " | " + this.task;
+        return getTaskType() + " | " + getTaskStatus() + " | " + this.task;
     }
 }
 

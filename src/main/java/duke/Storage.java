@@ -36,44 +36,44 @@ public class Storage {
                 String taskDescription = taskParts[2];
 
                 switch (taskType) {
-                    case "T":
-                        Todo newTodo = new Todo(taskDescription);
-                        if (taskStatus.equals("done")) {
-                            newTodo.markDone();
-                        }
-                        this.taskList.add(newTodo);
-                        break;
-                    case "D":
-                        String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
-                        String deadlineDescription = deadlineParts[0];
-                        String deadlineByDateTime = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+                case "T":
+                    Todo newTodo = new Todo(taskDescription);
+                    if (taskStatus.equals("done")) {
+                        newTodo.markDone();
+                    }
+                    this.taskList.add(newTodo);
+                    break;
+                case "D":
+                    String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
+                    String deadlineDescription = deadlineParts[0];
+                    String deadlineByDateTime = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
 
-                        Deadline newDeadline = new Deadline(deadlineDescription, deadlineByDateTime);
+                    Deadline newDeadline = new Deadline(deadlineDescription, deadlineByDateTime);
 
-                        if (taskStatus.equals("done")) {
-                            newDeadline.markDone();
-                        }
-                        this.taskList.add(newDeadline);
-                        break;
-                    case "E":
-                        String[] eventParts = taskDescription.split(" \\(from: ", 2);
-                        String eventDescription = eventParts[0];
+                    if (taskStatus.equals("done")) {
+                        newDeadline.markDone();
+                    }
+                    this.taskList.add(newDeadline);
+                    break;
+                case "E":
+                    String[] eventParts = taskDescription.split(" \\(from: ", 2);
+                    String eventDescription = eventParts[0];
 
-                        String eventAt = eventParts[1].substring(0, eventParts[1].length() - 1);
-                        String[] eventAtParts = eventAt.split(", to: ", 2);
+                    String eventAt = eventParts[1].substring(0, eventParts[1].length() - 1);
+                    String[] eventAtParts = eventAt.split(", to: ", 2);
 
-                        String eventFrom = eventAtParts[0];
-                        String eventTo = eventAtParts[1];
+                    String eventFrom = eventAtParts[0];
+                    String eventTo = eventAtParts[1];
 
-                        Events newEvent = new Events(eventDescription, eventFrom, eventTo);
-                        if (taskStatus.equals("done")) {
-                            newEvent.markDone();
-                        }
-                        this.taskList.add(newEvent);
-                        break;
-                    default:
-                        System.out.println("Unrecognized task type: " + task);
-                        throw new IOException("Error loading data from file: unrecognized task type");
+                    Events newEvent = new Events(eventDescription, eventFrom, eventTo);
+                    if (taskStatus.equals("done")) {
+                        newEvent.markDone();
+                    }
+                    this.taskList.add(newEvent);
+                    break;
+                default:
+                    System.out.println("Unrecognized task type: " + task);
+                    throw new IOException("Error loading data from file: unrecognized task type");
                 }
             }
         } catch (IOException e) {

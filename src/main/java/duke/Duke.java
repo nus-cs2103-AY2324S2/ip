@@ -37,7 +37,7 @@ public class Duke {
         while (true) {
             ui.printLine();
             
-            if (!parser.parseInput(input)) {
+            if (!parser.executeUserInput(input)) {
                 break;
             }
 
