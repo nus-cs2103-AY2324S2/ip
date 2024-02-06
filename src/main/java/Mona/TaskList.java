@@ -21,13 +21,15 @@ public class TaskList {
     /**
      * Display the contents of the task list
      */
-    public void displayList() {
-        System.out.println("  ____________________________________________________________");
+    public String displayList() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("  ______________________________________\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            System.out.println("    " + (i + 1) + ". " + currTask);
+            sb.append("    " + (i + 1) + ". " + currTask + "\n");
         }
-        System.out.println("  ____________________________________________________________");
+        sb.append("  ______________________________________\n");
+        return sb.toString();
     }
 
     /**
@@ -98,15 +100,18 @@ public class TaskList {
     public int getNumberOfTasks() {
         return this.tasks.size();
     }
-    public void showRelevantTasks(String keyword) {
-        System.out.println("  ____________________________________________________________\n" + "   Give Mona a second to find relevant tasks...");
+    public String showRelevantTasks(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("  ______________________________________\n");
+        sb.append("   Give Mona a second to find relevant tasks...");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
             if (!currTask.description.contains(keyword)) {
                 continue;
             }
-            System.out.println("    " + (i + 1) + ". " + currTask);
+            sb.append("    " + (i + 1) + ". " + currTask);
         }
-        System.out.println("  ____________________________________________________________");
+        sb.append("  ______________________________________\n");
+        return sb.toString();
     }
 }

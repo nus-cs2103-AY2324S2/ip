@@ -15,22 +15,22 @@ public class Ui {
     /**
      * Functionality for Mona's greeting at the start of the program
      */
-    public void greet() {
-        String introduction = "  ____________________________________________________________\n"
+    public String greet() {
+        String introduction = "  ______________________________________\n"
                 + "   Hello! I'm Mona\n"
                 + "   What can I do for you?\n"
-                + "  ____________________________________________________________\n";
-        System.out.println(introduction);
+                + "  ______________________________________\n";
+        return introduction;
     }
 
     /**
      * Mona's farewell when the user issues the bye command
      */
-    public void sayBye() {
-        String farewell = "  ____________________________________________________________\n"
+    public String sayBye() {
+        String farewell = "  ______________________________________\n"
                 + "   Bye. Hope to see you again soon!\n"
-                + "  ____________________________________________________________";
-        System.out.println(farewell);
+                + "  ______________________________________\n";
+        return farewell;
     }
 
     /**
@@ -39,36 +39,37 @@ public class Ui {
      * @param numTasks remaining number of tasks
      * @param hasIncreased whether a task was added or removed from the list
      */
-    public void showListAfterQuantityChange(Task task, int numTasks, boolean hasIncreased) {
+    public String showListAfterQuantityChange(Task task, int numTasks, boolean hasIncreased) {
         String action = hasIncreased ? "added" : "removed";
-        String response = "  ____________________________________________________________\n"
+        String response = "  ______________________________________\n"
                 + "     Noted. I've " + action + " this task: \n"
                 + "     " + task + "\n"
                 + "     Now you have " + numTasks + " tasks in the list.\n"
-                + "  ____________________________________________________________\n";
-        System.out.println(response);
+                + "  ______________________________________\n";
+        return response;
     }
 
     /**
      * Mona acknowledges that a task has been marked or unmarked
      * @param task the task that was marked or unmarked
      */
-    public void showListAfterProgressChange(Task task) {
+    public String showListAfterProgressChange(Task task) {
         String status = task.isDone ? "done" : "not done";
-        String response = "  ____________________________________________________________\n"
+        String response = "  ______________________________________\n"
                 + "     Got it! I've marked this task as " + status + ":\n"
                 + "     " + task + "\n"
-                + "  ____________________________________________________________\n";
-        System.out.println(response);
+                + "  ______________________________________\n";
+        return response;
     }
 
     /**
      * Mona echoes the message when an exception is thrown
      * @param message the message from the exception
      */
-    public void showError(String message) {
-        System.out.println("  ____________________________________________________________");
-        System.out.println("    " + message);
-        System.out.println("  ____________________________________________________________");
+    public String showError(String message) {
+        String response = "  ______________________________________\n"
+                + "    " + message
+                + "  ______________________________________\n";
+        return response;
     }
 }
