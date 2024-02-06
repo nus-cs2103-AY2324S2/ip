@@ -1,11 +1,11 @@
 package thecount.task;
 
-import thecount.ui.AddToListReply;
-import thecount.ui.Reply;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import thecount.ui.AddToListReply;
+import thecount.ui.Reply;
 
 /**
  * Represents a task with a deadline in the to-do list.
