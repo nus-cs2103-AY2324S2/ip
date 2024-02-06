@@ -3,8 +3,17 @@ package duke;
 import duke.ExitCommand;
 import duke.IncorrectCommand;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param input full user input string
+     * @return the command based on the user input
+     */
     public Command parse(String input) {
         String[] words = input.split("\\s+");
         String command = words[0];
