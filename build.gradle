@@ -7,8 +7,6 @@ plugins {
 
 checkstyle {
     toolVersion = '10.2'
-    configFile = file("${rootDir}/config/checkstyle.xml")
-    showViolations = true
 }
 
 repositories {
