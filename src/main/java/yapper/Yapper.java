@@ -16,8 +16,9 @@ public class Yapper {
         DEADLINE("deadline"),
         EVENT("event"),
         FIND("find");
-        private final String name;
+
         private static final Map<String, Command> COMMAND_MAP = new HashMap<>();
+        private final String name;
 
         private Command(String name) {
             this.name = name;

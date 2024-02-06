@@ -1,10 +1,10 @@
 package yapper;
 
 import exception.YapperException;
-import task.Task;
-import task.Todo;
 import task.Deadline;
 import task.Event;
+import task.Task;
+import task.Todo;
 
 public class Ui {
     private static final String LINE = "    ____________________________________________________________\n";
@@ -29,14 +29,14 @@ public class Ui {
     public static void hello() {
         String logo =
                 "       :::   :::           :::        :::::::::       :::::::::       ::::::::::       :::::::::\n"
-                +  "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n"
+                + "      :+:   :+:         :+: :+:      :+:    :+:      :+:    :+:      :+:              :+:    :+:\n"
                 + "      +:+ +:+         +:+   +:+     +:+    +:+      +:+    +:+      +:+              +:+    +:+\n"
                 + "      +#++:         +#++:++#++:    +#++:++#+       +#++:++#+       +#++:++#         +#++:++#:\n"
                 + "      +#+          +#+     +#+    +#+             +#+             +#+              +#+    +#+\n"
                 + "     #+#          #+#     #+#    #+#             #+#             #+#              #+#    #+#\n"
                 + "    ###          ###     ###    ###             ###             ##########       ###    ###\n\n";
-        System.out.print(LINE + "    What's poppin' fam, it's ya boi\n\n" + logo +
-                "    Hit me up with those deets and let's vibe together!\n" + LINE);
+        System.out.print(LINE + "    What's poppin' fam, it's ya boi\n\n" + logo
+                + "    Hit me up with those deets and let's vibe together!\n" + LINE);
     }
 
     public void bye() {

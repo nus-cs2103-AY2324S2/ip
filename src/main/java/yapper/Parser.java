@@ -5,10 +5,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import exception.YapperException;
-import task.Task;
-import task.Todo;
 import task.Deadline;
 import task.Event;
+import task.Task;
+import task.Todo;
 
 public class Parser {
     private final Scanner in;
