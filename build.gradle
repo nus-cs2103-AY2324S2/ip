@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -20,7 +21,13 @@ application {
     mainClass.set("Duke")
 }
 
+shadowJar {
+    archiveBaseName = "duke"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+
 run{
     standardInput = System.in
 }
-
