@@ -5,6 +5,7 @@ import duke.commands.Bye;
 import duke.commands.DeadlineCommand;
 import duke.commands.Delete;
 import duke.commands.EventCommand;
+import duke.commands.Find;
 import duke.commands.ListTasks;
 import duke.commands.Mark;
 import duke.commands.NamedCommand;
@@ -33,7 +34,8 @@ public class Parser {
             new ToDoCommand(), 
             new EventCommand(), 
             new DeadlineCommand(),
-            new Delete()
+            new Delete(),
+            new Find()
             );
     }
 

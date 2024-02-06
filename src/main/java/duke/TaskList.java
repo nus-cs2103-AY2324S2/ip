@@ -84,4 +84,14 @@ public class TaskList {
             System.out.println("Data could not be saved.");
         }
     }
+
+    public String findTasks(String s) {
+        ArrayList<Task> filtered = new ArrayList<>();
+        for (Task t : internalList) {
+            if (t.name.contains(s)) {
+                filtered.add(t);
+            }
+        }
+        return new TaskList(filtered, this.dataFile).generateName();
+    }
 }
