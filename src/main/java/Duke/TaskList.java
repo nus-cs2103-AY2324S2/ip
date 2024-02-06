@@ -190,4 +190,67 @@ public class TaskList {
         }
         ui.exit();
     }
+
+
+
+    public String runCommand(String input) {
+        String[] commandParts = input.split(" ", 2);
+        CommandType commandType = CommandType.getCommandType(commandParts[0]);
+        String response = "";
+
+        try {
+            switch (commandType) {
+            case LIST:
+                StringBuilder listBuilder = new StringBuilder();
+                for (int i = 0; i < taskList.size(); i++) {
+                    listBuilder.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
+                }
+                response = listBuilder.toString();
+                break;
+            case MARK:
+                // Parse index from commandParts[1], mark the task, and generate response
+                int markIndex = Integer.parseInt(commandParts[1]) - 1;
+                Task taskToMark = taskList.get(markIndex);
+                taskToMark.markDone();
+                storage.saveAllTasksToFile(this.taskList); // Save changes
+                response = "Marked as done: " + taskToMark.toString();
+                break;
+            case UNMARK:
+                // Similar to MARK, but for unmarking
+                int unmarkIndex = Integer.parseInt(commandParts[1]) - 1;
+                Task taskToUnmark = taskList.get(unmarkIndex);
+                taskToUnmark.markUndone();
+                storage.saveAllTasksToFile(this.taskList); // Save changes
+                response = "Marked as not done: " + taskToUnmark.toString();
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                // Handle adding tasks similarly, generate response string
+                Task newTask = parser.parseTask(input); // Assuming this method can directly handle the full input string
+                if (newTask != null) {
+                    taskList.add(newTask);
+                    storage.saveTaskToFile(newTask); // Save the new task
+                    response = "Added task: " + newTask.toString();
+                } else {
+                    response = "Error adding task.";
+                }
+                break;
+            case DELETE:
+                // Parse index for deletion and update response
+                int deleteIndex = Integer.parseInt(commandParts[1]) - 1;
+                Task taskToDelete = taskList.remove(deleteIndex);
+                storage.saveAllTasksToFile(this.taskList); // Save changes
+                response = "Deleted task: " + taskToDelete.toString();
+                break;
+            // Implement other cases as needed
+            default:
+                response = "Unknown command.";
+                break;
+            }
+        } catch (Exception e) {
+            response = "Error processing command: " + e.getMessage();
+        }
+        return response;
+    }
 }

@@ -18,14 +18,17 @@ public class MainApp extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private CustomOutputStream customOut;
-    private Duke Shirmin;
+    private VBoxOutputStream customOut;
+    private Duke duke;
     @Override
     public void init() throws Exception {
-//        super.init();
-//        Shirmin = new Duke();
-//        customOut = new CustomOutputStream();
-//        System.setOut(new PrintStream(customOut));
+//`        super.init();
+//        VBox dialogContainer = new VBox();
+//        customOut = new VBoxOutputStream(dialogContainer); // Initialize with your VBox instance
+//        System.setOut(new PrintStream(customOut, true));`
+        duke = new Duke();
+
+
 
     }
 
@@ -120,13 +123,43 @@ public class MainApp extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(min))
-        );
-        userInput.clear();
+//        Label userText = new Label(userInput.getText());
+//        Label dukeText = new Label(getResponse(userInput.getText()));
+//        dialogContainer.getChildren().addAll(
+//                DialogBox.getUserDialog(userText, new ImageView(user)),
+//                DialogBox.getDukeDialog(dukeText, new ImageView(min))
+//        );
+//        userInput.clear();
+        String input = userInput.getText();
+//        if (!input.isEmpty()) {
+//            String response = duke.runCommand(input); // Use Duke to process the command and get the response
+//            // Now display the response in your GUI
+//            Label dukeResponse = getDialogLabel(response); // You might adjust getDialogLabel for better formatting
+//            dialogContainer.getChildren().add(dukeResponse);
+//            userInput.clear(); // Clear the input field after processing
+//        }
+//
+//
+//        String input = userInput.getText();
+        if (!input.isEmpty()) {
+            // Display user input with user image
+            Label userText = new Label(input);
+            ImageView userImageView = new ImageView(user); // Assuming 'user' is the Image for the user
+            userImageView.setFitHeight(50); // Adjust size as needed
+            userImageView.setFitWidth(50);
+            DialogBox userInputBox = new DialogBox(userText, userImageView);
+
+            // Get Duke's response and display it with Duke's image
+            String response = duke.runCommand(input); // Use Duke to process the command and get the response
+            Label dukeText = new Label(response);
+            ImageView dukeImageView = new ImageView(min); // Assuming 'min' is the Image for Duke
+            dukeImageView.setFitHeight(50); // Adjust size as needed
+            dukeImageView.setFitWidth(50);
+            DialogBox dukeResponseBox = new DialogBox(dukeText, dukeImageView);
+
+            dialogContainer.getChildren().addAll(userInputBox, dukeResponseBox); // Add both DialogBoxes to the container
+            userInput.clear(); // Clear the input field after processing
+        }
     }
 
     /**
