@@ -1,10 +1,12 @@
 package TaskLists;
 
-import Tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import Tasks.Task;
+
+
 
 /**
  * The TaskList class represents a list of tasks.
@@ -66,13 +68,13 @@ public class TaskList implements Iterable<Task> {
     public String find(String keyWord) throws NoSuchElementException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
-        for(Task t : tasks){
-            if(t.toString().toLowerCase().indexOf(keyWord) != -1){
+        for (Task t : tasks) {
+            if (t.toString().toLowerCase().indexOf(keyWord) != -1) {
                 sb.append(i).append('.').append("\t").append(t).append("\n");
-                i+=1;
+                i += 1;
             }
         }
-        if (sb.toString().isEmpty()){
+        if (sb.toString().isEmpty()) {
             throw new NoSuchElementException("There is no such keyword found in the list");
         }
         return sb.toString();
@@ -87,7 +89,8 @@ public class TaskList implements Iterable<Task> {
      */
     public String removeTask(int index) throws IllegalArgumentException {
         if (!isValidIndex(index)) {
-            throw new IllegalArgumentException("Please input a valid number. To see the available number(s) of your task, type 'list'.");
+            throw new IllegalArgumentException("Please input a valid number. "
+                                             + "To see the available number(s) of your task, type 'list'.");
         } else {
             Task t = tasks.get(index - 1);
             tasks.remove(index - 1);
@@ -104,7 +107,8 @@ public class TaskList implements Iterable<Task> {
      */
     public String showMark(int taskNumber) throws IllegalArgumentException {
         if (!isValidIndex(taskNumber)) {
-            throw new IllegalArgumentException("Please input a valid number. To see the available number(s) of your task, type 'list'.");
+            throw new IllegalArgumentException("Please input a valid number. "
+                                             + "To see the available number(s) of your task, type 'list'.");
         } else {
             Task t = tasks.get(taskNumber - 1);
             t.markAsDone();
@@ -121,7 +125,8 @@ public class TaskList implements Iterable<Task> {
      */
     public String showUnmark(int taskNumber) throws IllegalArgumentException {
         if (!isValidIndex(taskNumber)) {
-            throw new IllegalArgumentException("Please input a valid number. To see the available number(s) of your task, type 'list'.");
+            throw new IllegalArgumentException("Please input a valid number. "
+                                             + "To see the available number(s) of your task, type 'list'.");
         } else {
             Task t = tasks.get(taskNumber - 1);
             t.markAsNotDone();

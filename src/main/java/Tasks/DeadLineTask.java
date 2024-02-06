@@ -8,11 +8,12 @@ import java.time.format.DateTimeFormatter;
  * The DeadLineTask class represents a task with a deadline.
  */
 public class DeadLineTask extends Task {
-    private final String formattedDeadline;
-    private final String deadLineLog;
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM-dd");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
     private static final String YEAR = "24-";
+    private final String formattedDeadline;
+    private final String deadLineLog;
+
 
     /**
      * Constructs a DeadLineTask object with the specified deadline and task description.

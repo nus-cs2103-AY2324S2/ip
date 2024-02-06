@@ -1,19 +1,20 @@
 package UiRelated;
 
+
 import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import TaskLists.TaskList;
 import Tasks.DeadLineTask;
 import Tasks.EventTask;
 import Tasks.Task;
 import Tasks.ToDoTask;
-import TaskLists.TaskList;
-
 
 
 /**
@@ -37,6 +38,7 @@ public class Storage {
      * @return An ArrayList containing the loaded tasks.
      * @throws FileNotFoundException If the file specified by the file path is not found.
      */
+    @SuppressWarnings("checkstyle:Indentation")
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner scanner = new Scanner(new File(filePath));
@@ -48,17 +50,17 @@ public class Storage {
             String taskName = components[2];
             Task task;
             switch (type) {
-                case "T":
-                    task = new ToDoTask(taskName);
-                    taskList.add(task);
-                    break;
-                case "D":
-                    task = new DeadLineTask(components[3], taskName);
-                    taskList.add(task);
-                    break;
-                default:
-                    task = new EventTask(components[3], components[4], taskName);
-                    taskList.add(task);
+            case "T":
+                task = new ToDoTask(taskName);
+                taskList.add(task);
+                break;
+            case "D":
+                task = new DeadLineTask(components[3], taskName);
+                taskList.add(task);
+                break;
+            default:
+                task = new EventTask(components[3], components[4], taskName);
+                taskList.add(task);
             }
             if (mark.equals("Y")) {
                 task.markAsDone();
@@ -81,6 +83,6 @@ public class Storage {
                 writer.newLine();
             }
         }
-        // Close the writer to ensure changes are saved
     }
 }
+

@@ -1,8 +1,10 @@
 package App;
 
-import Commands.Command;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import Commands.Command;
 import TaskLists.TaskList;
 import UiRelated.Parser;
 import UiRelated.Storage;
@@ -11,20 +13,20 @@ import UiRelated.Ui;
 
 
 /**
- * The HASSTNT class represents the entry point to the program.
+ * The HAssnt class represents the entry point to the program.
  */
-public class HASSTNT {
+public class HAssnt {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
     /**
-     * Constructs a HASSTNT object with the specified file path for storage.
+     * Constructs a HAssnt object with the specified file path for storage.
      *
      * @param filePath The file path for storing tasks.
      */
-    public HASSTNT(String filePath) {
+    public HAssnt(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -76,6 +78,6 @@ public class HASSTNT {
      * The main method to start the application.
      */
     public static void main(String[] args) {
-        new HASSTNT("./src/list_log").run();
+        new HAssnt("./src/list_log").run();
     }
 }

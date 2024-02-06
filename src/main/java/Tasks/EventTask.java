@@ -8,13 +8,13 @@ import java.time.format.DateTimeFormatter;
  * The EventTask class represents a task with a start and end time.
  */
 public class EventTask extends Task {
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM-dd");
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    private static final String YEAR = "24-";
     private final String startTime;
     private final String endTime;
     private final String formattedEndTime;
     private final String formattedStartTime;
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM-dd");
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-    private static final String YEAR = "24-";
 
     /**
      * Constructs an EventTask object with the specified start time, end time, and task description.
@@ -27,7 +27,8 @@ public class EventTask extends Task {
         super(task);
         this.startTime = startTime;
         this.endTime = endTime;
-        LocalTime sTime, eTime;
+        LocalTime sTime;
+        LocalTime eTime;
         LocalDate startDate;
 
         eTime = LocalTime.parse(endTime.toUpperCase().trim(), timeFormatter);
