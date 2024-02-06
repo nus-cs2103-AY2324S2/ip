@@ -1,16 +1,16 @@
-/**
- * This Object stores all Task objects created in the main interface.
- * Uses the ArrayList data structure to store the Task, and allows for manipulation,
- * such as addition, deletion, and editing Tasks.
- */
 package task;
 
 import java.util.ArrayList;
 
 import util.Messages;
 
+/**
+ * This Object stores all Task objects created in the main interface.
+ * Uses the ArrayList data structure to store the Task, and allows for manipulation,
+ * such as addition, deletion, and editing Tasks.
+ */
 public class TaskStorage {
-    public ArrayList<Task> sl;
+    private ArrayList<Task> sl;
 
     /**
      * Constructs an empty ArrayList to store Task objects.
@@ -19,11 +19,15 @@ public class TaskStorage {
         this.sl = new ArrayList<>();
     }
 
+    /**
+     * Constructs TaskStorage object with an existing ArrayList.
+     *
+     * @param taskList the pre-existing ArrayList to be saved.
+     */
     public TaskStorage(ArrayList<Task> taskList) {
         if (taskList != null) {
             this.sl = taskList;
-        }
-        else {
+        } else {
             this.sl = new ArrayList<>();
         }
     }
@@ -68,12 +72,40 @@ public class TaskStorage {
         }
         if (mark) {
             t.mark();
-        }
-        else {
+        } else {
             t.unmark();
         }
         return t.toString();
     }
+
+    /**
+     * Searches the existing stored Task for the keyword.
+     * Uses a loop to go through each element and check it's String.
+     *
+     * @param keyword Keyword that the we are looking for.
+     */
+    public String searchForTask(String keyword) {
+        ArrayList<Task> keywordHits = new ArrayList<>();
+        ArrayList<Integer> keywordHitIndexes = new ArrayList<>();
+        int counter = 1;
+        for (Task task:this.sl) {
+            if (task.toString().contains(keyword)) {
+                keywordHits.add(task);
+                keywordHitIndexes.add(counter);
+            }
+            counter++;
+        }
+
+        String totalAnswer = "";
+        for (int i = 0; i < keywordHits.size(); i++) {
+            totalAnswer += (keywordHitIndexes.get(i)) + "." + keywordHits.get(i);
+            if (i != keywordHits.size() - 1) {
+                totalAnswer += "\n";
+            }
+        }
+        return totalAnswer;
+    }
+
     /**
      * Returns the size of the ArrayList.
      */
@@ -82,15 +114,22 @@ public class TaskStorage {
     }
 
     /**
+     * To get the ArrayList stored for printing purposes.
+     */
+    public ArrayList<Task> getStorage() {
+        return this.sl;
+    }
+
+    /**
      * Returns a string representation of this TaskStorage.
      * This includes all the Task name, and conditions of each task.
-     * 
+     *
      * @return a string representation of this TaskStorage.
      */
     @Override
     public String toString() {
         String totalAns = "";
-        for (int i = 0; i < sl.size(); i ++) {
+        for (int i = 0; i < sl.size(); i++) {
             totalAns += (i + 1) + "." + sl.get(i);
             if (i != sl.size() - 1) {
                 totalAns += "\n";

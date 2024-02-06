@@ -1,9 +1,3 @@
-/**
- * Represents a FileReader object for Duke bot.
- * <p>
- * Handles reading of text data from files within the /resources directory, at data.txt.
- * Class is created to abstract the details of file output operations.
- */
 package util;
 
 import java.io.BufferedReader;
@@ -13,15 +7,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import task.Deadline;
+import task.Event;
 import task.Task;
 import task.TaskStorage;
-import task.Event;
 import task.ToDo;
 
+/**
+ * Represents a FileReader object for Duke bot.
+ *
+ * Handles reading of text data from files within the /resources directory, at data.txt.
+ * Class is created to abstract the details of file output operations.
+ */
 public class DataReader {
+    static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final String SAVED_DATA_FILE = "data.txt";
     private static final String SAVED_DATA_DIRECTORY = "data";
-    final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Reads the file line-by-line to create an ArrayList of Task and TaskStorage object.
@@ -32,10 +32,10 @@ public class DataReader {
     public TaskStorage readDataFile(TextUi textUi) {
         String currentDirectory = System.getProperty("user.dir");
         java.nio.file.Path path = java.nio.file.Paths.get(currentDirectory, SAVED_DATA_DIRECTORY, SAVED_DATA_FILE);
-        
+
         boolean fileExists = false;
         ArrayList<String> fileLines = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path.toString()))) {
             String line = br.readLine();
             while (line != null) {
                 fileLines.add(line);
@@ -43,6 +43,7 @@ public class DataReader {
             }
             fileExists = true;
         } catch (Exception e) {
+            System.out.println(e);
         }
 
         if (fileExists) {
@@ -63,8 +64,7 @@ public class DataReader {
                 textUi.printMessage(message + taskStorage);
             }
             return taskStorage;
-        }
-        else {
+        } else {
             return new TaskStorage();
         }
     }
@@ -82,14 +82,11 @@ public class DataReader {
             String[] splitLines = line.split("\\|");
             if (splitLines[0].equals("ToDo")) {
                 task = new ToDo(splitLines[2], splitLines[1]);
-            }
-            else if (splitLines[0].equals("Deadlines")) {
+            } else if (splitLines[0].equals("Deadlines")) {
                 task = new Deadline(splitLines[2], splitLines[3], splitLines[1]);
-            }
-            else if (splitLines[0].equals("Events")) {
+            } else if (splitLines[0].equals("Events")) {
                 task = new Event(splitLines[2], splitLines[3], splitLines[4], splitLines[1]);
-            }
-            else {
+            } else {
                 return null;
             }
             taskList.add(task);
@@ -99,11 +96,11 @@ public class DataReader {
 
     /**
      * Parses a string into a LocalDateTime object.
-     * 
-     * @param the String to be converted.
+     *
+     * @param dateString String to be converted.
      * @return the corrsponding LocalDateTime object created.
      */
     public LocalDateTime parseDate(String dateString) {
         return LocalDateTime.parse(dateString, DATE_FORMAT);
-    } 
+    }
 }

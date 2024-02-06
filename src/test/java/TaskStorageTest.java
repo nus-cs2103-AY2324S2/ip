@@ -1,15 +1,11 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import task.Deadline;
 import task.Task;
 import task.TaskStorage;
 import task.ToDo;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.time.LocalDateTime;
 
 public class TaskStorageTest {
 
@@ -51,5 +47,4 @@ public class TaskStorageTest {
         taskStorage.markTask(3, true);
         assertEquals(t3Task.getCompleted(), "1");
     }
-    
 }

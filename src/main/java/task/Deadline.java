@@ -1,19 +1,18 @@
+package task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Deadline Task.
  * <p>
  * This class is the representation of a Deadline task.
  * It extends from its parent class the Task class.
  */
-package task;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
-    final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private LocalDateTime endDateTime;
     public static final String TASK_TYPE = "deadline";
-
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDateTime endDateTime;
 
     /**
      * Creates a Deadline object.
@@ -46,18 +45,19 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of this Deadlines object for storage in DataWriter.
      * This includes the formating required for the reader to split and read it.
-     * 
-     * @return a formatted string representation of this object. 
+     *
+     * @return a formatted string representation of this object.
      */
     @Override
     public String formatDataLine() {
-        return "Deadlines|" + super.getCompleted() + "|" + super.command + "|" + this.endDateTime.format(DATE_FORMAT);
+        return "Deadlines|" + super.getCompleted() + "|"
+                + super.getCommand() + "|" + this.endDateTime.format(DATE_FORMAT);
     }
 
     /**
      * Returns a string representation of this Deadlines.
      * This includes an indicator that this is a Deadlines object.
-     * 
+     *
      * @return a string representation of this Deadlines object.
      */
     @Override
@@ -68,9 +68,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Executes the necessary action created from the parsed results. 
+     * Executes the necessary action created from the parsed results.
      * In this case, will add the Deadline object to the TaskStorage of the application.
-     * 
+     *
      * @param taskStorage The storage space where the action will take place.
      */
     @Override

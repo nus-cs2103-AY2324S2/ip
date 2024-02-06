@@ -1,13 +1,12 @@
-/**
- * Represents an incorrect task when parsing input.
- * This object is used to handle situations where the input is not valid or recognized.
- *
- */
 package task;
 
 import parser.ParseExecutionable;
 
-public class IncorrectTask implements ParseExecutionable{
+/**
+ * Represents an incorrect task when parsing input.
+ * This object is used to handle situations where the input is not valid or recognized.
+ */
+public class IncorrectTask implements ParseExecutionable {
 
     private String message;
 
@@ -20,7 +19,7 @@ public class IncorrectTask implements ParseExecutionable{
     public IncorrectTask(String message) {
         this.message = message;
     }
-    
+
     /**
      * To execute the necessary action by printing out the error message.
      * @param taskStorage The storage space where the action will take place.

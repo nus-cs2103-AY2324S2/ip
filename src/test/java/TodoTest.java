@@ -1,11 +1,9 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import task.Task;
 import task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
 
 public class TodoTest {
 
@@ -16,14 +14,14 @@ public class TodoTest {
     }
 
     @Test
-    public void taskMarkTest(){
+    public void taskMarkTest() {
         Task task = new ToDo("Homework Test 2");
         task.mark();
         assertEquals(task.toString(), "[T][X] Homework Test 2");
     }
 
     @Test
-    public void taskUnmarkTest(){
+    public void taskUnmarkTest() {
         Task task = new ToDo("Homework Test 3");
         task.mark();
         task.unmark();
@@ -31,7 +29,7 @@ public class TodoTest {
     }
 
     @Test
-    public void taskFormatPrintTest(){
+    public void taskFormatPrintTest() {
         Task task = new ToDo("Homework Test 4");
         task.mark();
         task.unmark();

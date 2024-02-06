@@ -1,3 +1,5 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import parser.ParseExecutionable;
@@ -5,8 +7,6 @@ import parser.Parser;
 import task.Task;
 import task.TaskStorage;
 import task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
 
@@ -29,5 +29,4 @@ public class ParserTest {
         parseExecutionable.execute(taskStorage);
         assertEquals(taskStorage.toString(), "1." + task.toString());
     }
-
 }

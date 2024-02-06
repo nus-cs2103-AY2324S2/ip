@@ -1,23 +1,17 @@
-/**
- * Represents a generic Task.
- * <p>
- * This class acts as a base for all specific Task types (e.g., Event, Todo, Deadline).
- * It can be extended to create the corresponding Task.
- */
+
 package task;
 
 import parser.ParseExecutionable;
 
-public abstract class Task implements ParseExecutionable{
-    String command;
-    boolean completed;
-    /**
-     * Returns a string representation of this Task for storage in DataWriter.
-     * This includes the formating required for the reader to split and read it.
-     * 
-     * @return a formatted string representation of this object. 
-     */
-    public abstract String formatDataLine();
+/**
+ * Represents a generic Task.
+ *
+ * This class acts as a base for all specific Task types (e.g., Event, Todo, Deadline).
+ * It can be extended to create the corresponding Task.
+ */
+public abstract class Task implements ParseExecutionable {
+    private String command;
+    private boolean completed;
 
     /**
      * Creates a Task object with the task name.
@@ -31,10 +25,17 @@ public abstract class Task implements ParseExecutionable{
     }
 
     /**
+     * Returns a string representation of this Task for storage in DataWriter.
+     * This includes the formating required for the reader to split and read it.
+     *
+     * @return a formatted string representation of this object.
+     */
+    public abstract String formatDataLine();
+
+    /**
      * Changes the Task's completedness to marked.
      * <p>
      * Changes the completedness to true.
-     * 
      */
     public void mark() {
         this.completed = true;
@@ -44,12 +45,14 @@ public abstract class Task implements ParseExecutionable{
      * Changes the Task's completedness to unmarked.
      * <p>
      * Sets the completedness of the object to false.
-     * 
      */
     public void unmark() {
         this.completed = false;
     }
 
+    /**
+     * To get the class's completed status.
+     */
     public String getCompleted() {
         if (this.completed) {
             return "1";
@@ -58,9 +61,16 @@ public abstract class Task implements ParseExecutionable{
     }
 
     /**
+     * To get the class's coommand String.
+     */
+    public String getCommand() {
+        return this.command;
+    }
+
+    /**
      * Returns a string representation of this Task.
      * This includes the completedness indicator and the Task name.
-     * 
+     *
      * @return a string representation of this Task.
      */
     @Override
@@ -69,7 +79,7 @@ public abstract class Task implements ParseExecutionable{
         if (!this.completed) {
             checkIfCompleted = " ";
         }
-        String s = "["+ checkIfCompleted +"] " + this.command;
+        String s = "[" + checkIfCompleted + "] " + this.command;
         return s;
     }
 }
