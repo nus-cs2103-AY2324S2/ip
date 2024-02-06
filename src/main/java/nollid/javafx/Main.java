@@ -12,7 +12,7 @@ import nollid.Storage;
 
 /**
  * Main class responsible for launching the Nollid application.
- * */
+ */
 public class Main extends Application {
     private Nollid nollid = new Nollid(Storage.DEFAULT_FILEPATH);
 
@@ -29,6 +29,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setNollid(nollid);
+
+            stage.setTitle("Nollid");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
