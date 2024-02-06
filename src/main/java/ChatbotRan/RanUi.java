@@ -1,5 +1,7 @@
 package ChatbotRan;
 
+import java.util.ArrayList;
+
 public class RanUi {
     public void greet() {
         System.out.println("Hello. I am ");
@@ -79,5 +81,16 @@ public class RanUi {
 
     public void error(TaskException e) {
         System.out.println(e.getMessage());
+    }
+
+    public void found(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks contain that string.");
+        } else {
+            System.out.println("Found "+tasks.size()+" match"+(tasks.size()==1?"":"es"));
+            for (Task t: tasks) {
+                printTask(t);
+            };
+        }
     }
 }
