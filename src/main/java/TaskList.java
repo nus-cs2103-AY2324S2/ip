@@ -8,6 +8,13 @@ public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
+     * Returns the number of tasks in the task list.
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
      * Adds a task to the task list
      */
     public void add(Task task) {
@@ -15,13 +22,39 @@ public class TaskList {
     }
 
     /**
-     * Deletes the item at index from task list
+     * Deletes the task at index from task list, and returns it
      *
-     * @param index index of task to delete as shown by list command
+     * @param listIndex index of task to delete as shown by list command
+     * @return the task that was deleted
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
-    public void delete(int index) throws IndexOutOfBoundsException {
-        tasks.remove(index - 1);
+    public Task delete(int listIndex) throws IndexOutOfBoundsException {
+        return tasks.remove(listIndex - 1);
+    }
+
+    /**
+     * Marks the item in task list at index as done, and returns it
+     *
+     * @param listIndex index of task to mark as shown by list command
+     * @return the task that was marked
+     * @throws IndexOutOfBoundsException if index is out of bounds
+     */
+    public Task mark(int listIndex) throws IndexOutOfBoundsException {
+        Task task = tasks.get(listIndex - 1);
+        task.markDone();
+        return task;
+    }
+
+    /**
+     * Unmarks the item in task list at index as done, and returns it
+     *
+     * @param listIndex index of task to unmark as shown by list command
+     * @return the task that was unmarked
+     * @throws IndexOutOfBoundsException if index is out of bounds
+     */
+    public Task unmark(int listIndex) throws IndexOutOfBoundsException {
+        Task task = tasks.get(listIndex - 1);
+        task.unmarkDone();
     }
 
     /**
