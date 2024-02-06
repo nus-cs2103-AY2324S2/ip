@@ -26,8 +26,4 @@ public class Task {
         }
         return "[ ] " + this.name;
     }
-
-
-
-
 }

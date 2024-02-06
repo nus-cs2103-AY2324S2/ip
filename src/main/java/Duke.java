@@ -136,13 +136,8 @@ public class Duke {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
-
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-
-
-
-
     }
 }
