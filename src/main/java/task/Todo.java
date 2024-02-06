@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Basic {@link Task} to be completed.
+ */
 public class Todo extends Task {
     public Todo(String desc) {
         super(desc);
