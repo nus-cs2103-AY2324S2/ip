@@ -6,7 +6,6 @@ import campus.tasks.Event;
 import campus.tasks.Task;
 import campus.tasks.ToDos;
 
-import java.util.Scanner;
 
 /**
  * Parser handles all the logic for when a command is entered into the ChatBot, it serves as the bridge between the
@@ -17,6 +16,12 @@ public class Parser {
     private TaskList taskList;
     private final Storage storage;
 
+    /**
+     * Initialiser for Paser class
+     * @param ui The Ui Class
+     * @param taskList The TaskList Class
+     * @param storage The Storage Class
+     */
     public Parser(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
         this.storage = storage;
@@ -89,12 +94,17 @@ public class Parser {
             msg = handleFindCommand(remaining);
             break;
         default:
-            throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
+            throw new CampusException("Sorry, I don't understand that command, "
+                    + "please check for potential spelling errors");
         }
         this.storage.updateFileFromList(this.taskList);
         return msg;
     }
 
+    /**
+     * Function to handle the command of type 'find'
+     * @param remaining the remaining portion of the command line entered
+     */
     public String handleFindCommand(String remaining) {
         TaskList tempTaskList = this.taskList.getTaskListWhere(remaining);
         return this.ui.display(tempTaskList);
@@ -106,7 +116,7 @@ public class Parser {
      * @param command mark/unmark/delete
      * @param userInput the index of the list
      */
-    public String handleUpdateCommands (String command, String userInput) {
+    public String handleUpdateCommands(String command, String userInput) {
         Task task = this.taskList.getIthTaskString(userInput);
         String msg = null;
         switch (command) {
@@ -122,6 +132,8 @@ public class Parser {
             this.taskList.delete(task);
             msg = this.ui.delete(this.taskList, task);
             break;
+        default:
+            break;
         }
         return msg;
     }
@@ -133,14 +145,14 @@ public class Parser {
      */
     public String handleTodoCommand(String remaining) throws CampusException {
         if (remaining.isEmpty()) {
-            throw new CampusException("Error! A todo task must have a name, please follow the following syntax: todo <task name>\n");
+            throw new CampusException("Error! A todo task must have a name, "
+                    + "please follow the following syntax: todo <task name>\n");
         } else {
             ToDos todo = new ToDos(remaining);
             this.taskList.add(todo);
             return this.ui.add(this.taskList, todo);
         }
     }
-
 
     /**
      * Handles the creation of a deadline object
@@ -150,7 +162,9 @@ public class Parser {
     public String handleDeadlineCommand(String remaining) throws CampusException {
         String[] temp = remaining.split("/by", 2);
         if (temp.length != 2) {
-            throw new CampusException("Error! A deadline task must have the correct number of parameters, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>\n");
+            throw new CampusException("Error! A deadline task must have the correct number of parameters, "
+                    + "please follow the following syntax: deadline <deadline name> "
+                    + "/by <endDateTime (HHmm dd/MM/yyyy)>\n");
         }
 
         String deadlineName = temp[0].trim();
@@ -174,7 +188,9 @@ public class Parser {
         String[] temp = remaining.split("/from", 2);
 
         if (temp.length != 2) {
-            throw new CampusException("Error! An event task must have the correct number of parameters, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>\n");
+            throw new CampusException("Error! An event task must have the correct number of parameters, "
+                    + "please follow the following syntax: event <event name> "
+                    + "/from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>\n");
         }
 
         String eventName = temp[0].trim();
@@ -182,7 +198,9 @@ public class Parser {
         String[] temp2 = remaining1.split("/to", 2);
 
         if (temp2.length != 2) {
-            throw new CampusException("Error! An event task must have parameters, please follow the following syntax: event <event name> /from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>\n");
+            throw new CampusException("Error! An event task must have parameters, "
+                    + "please follow the following syntax: event <event name> "
+                    + "/from <startDateTime (HHmm dd/MM/yyyy)> /to <endDateTime (HHmm dd/MM/yyyy)>\n");
         }
 
         String from = temp2[0].trim();

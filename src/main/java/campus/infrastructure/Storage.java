@@ -1,15 +1,16 @@
 package campus.infrastructure;
 
-import campus.tasks.Task;
-
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
+import java.io.BufferedWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import campus.tasks.Task;
+
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file
@@ -18,6 +19,10 @@ public class Storage {
     private final String filePath;
     private List<String> listOfStrings;
 
+    /**
+     * Initialiser for the Storage Class
+     * @param filePath The filePath as a String of the textfile used for storage
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -37,7 +42,8 @@ public class Storage {
     /**
      * Function to read from the expected file called "data", if not, create the file and return null
      * @param filePath Takes in the relative path file that it expects the datafile to be at
-     * @return Returns a list of strings, each string contains information about the DB, null if initialised for the first time
+     * @return Returns a list of strings, each string contains information about the DB, +
+     *      null if initialised for the first time.
      */
     public List<String> readFromDBCreateIfNotExists(String filePath) throws IOException {
         Path path = Paths.get(filePath);
@@ -61,7 +67,7 @@ public class Storage {
                 writer.newLine();
             }
             // System.out.println("Tasks written to file successfully");
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

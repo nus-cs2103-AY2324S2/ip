@@ -7,7 +7,11 @@ import campus.tasks.Task;
  * Deals with interactions with the User
  */
 public class Ui {
+    /**
+     * Produces a greeting message
+     */
     public String greet() {
+
         String message = "------------------------------\n"
                 + "Hello! I'm Campus\n"
                 + "What can I do for you?\n"
@@ -17,6 +21,9 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Produce a goodbye/exit message
+     */
     public String exit() {
         String message = "------------------------------\n"
                 + "Bye. Hope to see you again soon!\n"
@@ -45,6 +52,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Prints a message when a task is marked as done
+     * @param task The Task object instance
+     */
     public String markDone(Task task) {
         String message = "------------------------------\n"
                 + "Nice! I've completed this task successfully:\n"
@@ -54,6 +65,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Prints a message when a task is marked as undone
+     * @param task The Task object instance
+     */
     public String markUndone(Task task) {
         String message = "------------------------------\n"
                 + "Ok, this task is still not done yet:\n"
@@ -63,6 +78,11 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Prints a message when a task is deleted
+     * @param taskList The taskList object instance
+     * @param task The task object instance
+     */
     public String delete(TaskList taskList, Task task) {
         int numOfTasks = taskList.size();
 
@@ -75,6 +95,11 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Prints a message when a task is added to the list
+     * @param taskList The taskList object instance
+     * @param task The task object instance
+     */
     public String add(TaskList taskList, Task task) {
         int numOfTasks = taskList.size();
 
@@ -87,6 +112,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Produces the error message read from the CampusException class
+     * @param e The CampusException class instance
+     */
     public String displayErrorMessage(CampusException e) {
         String message = "------------------------------\n"
                 + String.format("%s\n", e.getMessage())
