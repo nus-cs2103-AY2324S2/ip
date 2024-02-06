@@ -45,6 +45,15 @@ public class TaskList {
         }
         fw.close();
     }
+    public TaskList filter(String keyword) {
+        TaskList res = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.taskName.toLowerCase().contains(keyword.toLowerCase())) {
+                res.loadTask(task);
+            }
+        }
+        return res;
+    }
 
     @Override
     public String toString() {

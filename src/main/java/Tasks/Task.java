@@ -1,7 +1,7 @@
 package Tasks;
 
 public abstract class Task {
-    protected String taskName;
+    public final String taskName;
     protected boolean completed;
 
     public Task(String task) {
