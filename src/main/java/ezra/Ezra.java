@@ -43,8 +43,10 @@ public class Ezra {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response based on the given input using the Parser class.
+     *
+     * @param input The input given the user.
+     * @return The response message to the user's input.
      */
     public String getResponse(String input) {
         return Parser.generateReply(input, storage, tasks);

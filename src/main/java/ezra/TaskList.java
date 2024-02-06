@@ -78,7 +78,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task at the specified index.
+     * Deletes the tasks corresponding to the give task numbers.
      *
      * @param taskNumbers The array of task numbers to be deleted.
      * @param storage The storage to update after deletion.
@@ -142,7 +142,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done at the specified index.
+     * Marks the tasks corresponding to the give task numbers as done.
      *
      * @param taskNumbers The array of task numbers to be marked as done.
      * @param storage The storage to update after marking.
@@ -179,7 +179,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as not done at the specified index.
+     * Marks the tasks corresponding to the give task numbers as not done.
      *
      * @param taskNumbers The array of task numbers to be marked as not done.
      * @param storage The storage to update after marking.
