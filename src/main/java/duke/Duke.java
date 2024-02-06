@@ -3,7 +3,16 @@ package duke;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Duke is a task management system that allows users to manage their tasks through a command-line interface.
+ */
 public class Duke {
+    /**
+     * Entry point of the Duke application.
+     *
+     * @param args Command-line arguments.
+     * @throws Exception If an error occurs during execution.
+     */
     public static void main(String[] args) throws Exception {
         Ui.printWelcomeMessage();
 

@@ -2,25 +2,44 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Handles user interface interactions such as printing messages.
+ */
 public class Ui {
+  /**
+   * Prints a welcome message.
+   */
   public static void printWelcomeMessage() {
     System.out.println("    ____________________________________________________________");
     System.out.println("    Hello! I'm Yappy\n    What can I do for you?");
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints a goodbye message.
+   */
   public static void printGoodbyeMessage() {
     System.out.println("    ____________________________________________________________");
     System.out.println("    Bye. Hope to see you again soon!");
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints an error message.
+   *
+   * @param message The error message to be printed.
+   */
   public static void printErrorMessage(String message) {
     System.out.println("    ____________________________________________________________");
     System.out.println("     Error: " + message);
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints the list of tasks.
+   *
+   * @param tasks The list of tasks to be printed.
+   */
   public static void printTaskList(ArrayList<Task> tasks) {
     System.out.println("    ____________________________________________________________");
     try {
@@ -38,6 +57,11 @@ public class Ui {
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints a message confirming a task is marked as done.
+   *
+   * @param task The task that is marked as done.
+   */
   public static void printMarkAsDoneMessage(Task task) {
     System.out.println("    ____________________________________________________________");
     System.out.println("     Nice! I've marked this task as done:");
@@ -45,6 +69,11 @@ public class Ui {
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints a message confirming a task is marked as undone.
+   *
+   * @param task The task that is marked as undone.
+   */
   public static void printMarkAsUndoneMessage(Task task) {
     System.out.println("    ____________________________________________________________");
     System.out.println("     OK, I've marked this task as not done yet:");
@@ -52,6 +81,12 @@ public class Ui {
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints a message confirming a task is added to the list.
+   *
+   * @param task The task that is added to the list.
+   * @param tasks The list of tasks.
+   */
   public static void printAddTaskMessage(Task task, ArrayList<Task> tasks) {
     System.out.println("    ____________________________________________________________");
     System.out.println("     Got it. I've added this task:");
@@ -60,6 +95,12 @@ public class Ui {
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints a message confirming a task is removed from the list.
+   *
+   * @param task The task that is removed from the list.
+   * @param tasks The list of tasks.
+   */
   public static void printRemoveTaskMessage(Task task, ArrayList<Task> tasks) {
     System.out.println("    ____________________________________________________________");
     System.out.println("     Noted. I've removed this task:");
@@ -68,6 +109,11 @@ public class Ui {
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Prints a message confirming a task is added.
+   *
+   * @param input The input string representing the added task.
+   */
   public static void printAddedMessage(String input) {
     System.out.println("    ____________________________________________________________");
     System.out.println("    added: " + input);

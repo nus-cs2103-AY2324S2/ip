@@ -1,7 +1,15 @@
 package duke;
 
+/**
+ * Represents a todo task in the task list.
+ */
 public class Todos extends Task {
 
+  /**
+   * Constructs a Todos object with the specified description.
+   *
+   * @param description The description of the todo task.
+   */
   public Todos(String description) {
     super(description);
   }

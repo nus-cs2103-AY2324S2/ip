@@ -3,11 +3,21 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that is an event occurring within a specific time and day frame.
+ */
 public class Events extends Task {
 
   protected LocalDateTime from;
   protected LocalDateTime to;
 
+  /**
+   * Constructs an Events object with the specified description, start time, and end time.
+   *
+   * @param description The description of the event.
+   * @param from The start time of the event in this format: dd-MM-yyyy 24hours.
+   * @param to The end time of the event in this format: dd-MM-yyyy 24hours.
+   */
   public Events(String description, LocalDateTime from, LocalDateTime to) {
     super(description);
     this.from = from;

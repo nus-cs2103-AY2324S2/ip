@@ -5,9 +5,17 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles the storage of tasks to and from duke.txt.
+ */
 public class Storage {
   private static final String FILE_PATH = "./data/duke.txt";
 
+  /**
+   * Saves the list of tasks to duke.txt.
+   *
+   * @param taskList The list of tasks to save.
+   */
   public static void saveTasksToFile(ArrayList<Task> taskList) {
     try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_PATH))) {
       for (Task task : taskList) {
@@ -19,6 +27,11 @@ public class Storage {
     }
   }
 
+  /**
+   * Loads tasks from duke.txt into the given task list.
+   *
+   * @param taskList The task list to populate with loaded tasks.
+   */
   public static void loadTasksFromFile(ArrayList<Task> taskList) {
     try {
       FileReader fileReader = new FileReader(FILE_PATH);
@@ -37,6 +50,12 @@ public class Storage {
     }
   }
 
+  /**
+   * Creates a Task object from a string representation.
+   *
+   * @param line The string representation of the task.
+   * @return The Task object created from the string representation.
+   */
   private static Task createTaskFromLine(String line) {
     String[] parts = line.split(" \\| ");
 

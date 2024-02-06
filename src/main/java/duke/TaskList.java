@@ -4,7 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks and provides methods to manipulate the tasks.
+ */
 public class TaskList {
+  /**
+   * Marks a task as done or undone based on the provided token.
+   *
+   * @param token The token array containing the command and index.
+   * @param tasks The list of tasks.
+   */
   protected static void markTaskAsDoneOrUndone(String[] token, ArrayList<Task> tasks) {
     try {
       int index = Integer.parseInt(token[1]) - 1;
@@ -25,6 +34,12 @@ public class TaskList {
     }
   }
 
+  /**
+   * Adds a deadline task to the list of tasks.
+   *
+   * @param input The input string containing the task description and deadline.
+   * @param tasks The list of tasks.
+   */
   protected static void addDeadlineTask(String input, ArrayList<Task> tasks) {
     String[] tokenD = input.split("/");
 
@@ -38,6 +53,12 @@ public class TaskList {
     Ui.printAddTaskMessage(d, tasks);
   }
 
+  /**
+   * Adds an event task to the list of tasks.
+   *
+   * @param input The input string containing the task description and event time frame.
+   * @param tasks The list of tasks.
+   */
   protected static void addEventTask(String input, ArrayList<Task> tasks) {
     String[] tokenE = input.split("/");
 
@@ -50,6 +71,12 @@ public class TaskList {
     Ui.printAddTaskMessage(e, tasks);
   }
 
+  /**
+   * Adds a todo task to the list of tasks.
+   *
+   * @param input The input string containing the todo description.
+   * @param tasks The list of tasks.
+   */
   protected static void addTodoTask(String input, ArrayList<Task> tasks) {
     if (input.substring(4).trim().isEmpty()) {
       Ui.printErrorMessage("No description found for your todo.");
@@ -60,6 +87,12 @@ public class TaskList {
     }
   }
 
+  /**
+   * Removes a task from the list of tasks based on the provided index.
+   *
+   * @param token The token array containing the command and index.
+   * @param tasks The list of tasks.
+   */
   protected static void removeTask(String[] token, ArrayList<Task> tasks) {
     try {
       int index = Integer.parseInt(token[1]) - 1;
