@@ -1,3 +1,5 @@
-deadline_read book /by 2023-10-14_0
-deadline_return book /by 2024-10-13_0
+todo_read book_0
+deadline_ip /by 2024-02-08_1
+event_join zoom /from 3PM /to 5PM_0
+deadline_do ip /by 2024-02-08_0
 EOF
