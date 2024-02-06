@@ -5,8 +5,10 @@ public abstract class Task { // Adapted from Course Website
     protected String description;
     protected boolean isDone;
 
-    protected DateTimeFormatter displayDateTimeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    protected DateTimeFormatter saveLoadDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+    protected final String displayDtFormatString = "MMM dd yyyy HH:mm";
+    protected final String saveLoadDtFormatString = "yyyy-MM-dd-HH-mm";
+    protected final DateTimeFormatter displayDateTimeFormat = DateTimeFormatter.ofPattern(displayDtFormatString);
+    protected final DateTimeFormatter saveLoadDateTimeFormat = DateTimeFormatter.ofPattern(saveLoadDtFormatString);
 
     public Task(String description) {
         this.description = description;
