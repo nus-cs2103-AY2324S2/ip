@@ -29,7 +29,7 @@ public abstract class Command {
      * @throws ZackException If there is an error while executing the command.
      * @throws IOException  If there is an error with input/output operations.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException;
 
     /**
      * Checks if the command is an exit command.

@@ -66,7 +66,11 @@ public class Task {
      */
     public String toFileString() {
         // Basic implementation for Task
-        // You might want to modify this depending on what information a base Task should save
         return "T | " + (isDone ? 1 : 0) + " | " + description;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

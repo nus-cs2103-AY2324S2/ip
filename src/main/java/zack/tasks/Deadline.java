@@ -51,4 +51,9 @@ public class Deadline extends Task {
         String formattedBy = by.format(formatter);
         return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedBy;
     }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
 }

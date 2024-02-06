@@ -26,8 +26,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ZackException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException {
         TaskList foundTasks = tasks.findTasksByKeyword(keyword);
-        ui.showFoundTasks(foundTasks);
+        return ui.showFoundTasks(foundTasks);
     }
 }

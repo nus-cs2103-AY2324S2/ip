@@ -36,7 +36,7 @@ public class DateCommand extends Command {
      * @throws ZackException If there is an error executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ZackException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException {
         ArrayList<Task> dateSpecificTasks = new ArrayList<>();
         for (Task task : tasks.getAllTasks()) {
             if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
@@ -45,6 +45,6 @@ public class DateCommand extends Command {
                 dateSpecificTasks.add(task);
             }
         }
-        ui.showTasksOnDate(date, dateSpecificTasks);
+        return ui.showTasksOnDate(date, dateSpecificTasks);
     }
 }

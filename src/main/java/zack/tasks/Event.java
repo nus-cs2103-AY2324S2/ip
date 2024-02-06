@@ -55,4 +55,9 @@ public class Event extends Task {
         String formattedTo = to.format(formatter);
         return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedFrom + " to " + formattedTo;
     }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
 }

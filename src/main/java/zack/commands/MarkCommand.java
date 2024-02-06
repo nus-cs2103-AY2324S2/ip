@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
      * @throws IOException   If there is an error in saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException, IOException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new ZackException("Task index is out of range. Please enter a number between 1 and "
                     + tasks.getSize() + ".");
@@ -47,7 +47,8 @@ public class MarkCommand extends Command {
         } else {
             task.unmark();
         }
-        ui.showMarkedTask(task, isDone);
+
         storage.save(tasks.getAllTasks());
+        return ui.showMarkedTask(task, isDone);
     }
 }
