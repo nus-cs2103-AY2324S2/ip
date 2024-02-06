@@ -29,6 +29,7 @@ public class Deadline extends Task {
         }
     }
 
+
     /**
      * Returns Deadline task details in the format to be stored in duke.txt.
      *

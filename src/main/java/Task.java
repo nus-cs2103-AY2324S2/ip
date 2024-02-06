@@ -32,22 +32,18 @@ public class Task {
      * Sets isDone to true.
      */
     public void markAsDone() {
-        Duke.breakLine();
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + this.toString());
-        Duke.breakLine();
     }
 
     /**
      * Sets isDone to false.
      */
     public void unmark() {
-        Duke.breakLine();
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet");
         System.out.println("  " + this.toString());
-        Duke.breakLine();
     }
 
     public String toString() {
