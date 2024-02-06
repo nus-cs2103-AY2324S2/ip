@@ -1,0 +1,50 @@
+package pan.controllers;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+import pan.Pan;
+import pan.Ui;
+import pan.Storage;
+import pan.TaskList;
+
+public class MainWindow extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private Pan pan = new Pan(new Ui(), new TaskList(new Storage()));
+
+    private Image smurf = new Image(this.getClass().getResourceAsStream("/images/clumsy.jpeg"));
+    private Image panda = new Image(this.getClass().getResourceAsStream("/images/pan.png"));
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(PanDialogBox.getPandaDialog(this.pan.sayHi(), panda));
+    }
+
+    public void setPan(Pan p) {
+        pan = p;
+    }
+
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        String response = pan.parseInput(input);
+        dialogContainer.getChildren().addAll(
+            PanDialogBox.getUserDialog(input, smurf),
+            PanDialogBox.getPandaDialog(response, panda));
+        userInput.clear();
+    }
+}

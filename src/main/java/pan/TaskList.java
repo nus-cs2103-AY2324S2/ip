@@ -7,7 +7,7 @@ import java.util.List;
 import pan.enums.TaskStatus;
 import pan.exceptions.TaskIndexException;
 
-class TaskList {
+public class TaskList {
     private List<Task> tasks;
     private Storage storage;
 
@@ -35,11 +35,11 @@ class TaskList {
      *
      * @param instruction New Task Instance that the user wants to add to the Task List.
      */
-    public void add(Task instruction) {
+    public String add(Task instruction) {
         tasks.add(instruction);
-        System.out.println("Got it. I've added this task:\n\t" + instruction.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println();
         this.storage.save(tasks);
+        return "Got it. I've added this task:\n\t" + instruction.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -48,14 +48,14 @@ class TaskList {
      * @param index Numeric Index of the Task's position within a Task List.
      * @throws TaskIndexException Occurs whenever the Index provided is out of bounds or do not exist.
      */
-    public void mark(int index) throws TaskIndexException {
+    public String mark(int index) throws TaskIndexException {
         if (index > tasks.size() || index < 0) {
             throw new TaskIndexException("You have entered an invalid index!");
         } else {
             Task task = tasks.get(index - 1);
             task.setIsDone(TaskStatus.COMPLETE);
-            System.out.println("Nice! I've marked this task as done:\n\t" + task.toString());
             this.storage.save(tasks);
+            return "Nice! I've marked this task as done:\n\t" + task.toString();
         }
     }
 
@@ -65,14 +65,14 @@ class TaskList {
      * @param index Numeric Index of the Task's position within a Task List.
      * @throws TaskIndexException Occurs whenever the Index provided is out of bounds or do not exist.
      */
-    public void unmark(int index) throws TaskIndexException {
+    public String unmark(int index) throws TaskIndexException {
         if (index > tasks.size()) {
             throw new TaskIndexException("You have entered an invalid index!");
         } else {
             Task task = tasks.get(index - 1);
             task.setIsDone(TaskStatus.INCOMPLETE);
-            System.out.println("OK, I've marked this task as not done yet:\n\t" + task.toString());
             this.storage.save(tasks);
+            return "OK, I've marked this task as not done yet:\n\t" + task.toString();
         }
     }
 
@@ -82,27 +82,27 @@ class TaskList {
      * @param index Numeric Index of the Task's position within a Task List.
      * @throws TaskIndexException Occurs whenever the Index provided is out of bounds or do not exist.
      */
-    public void delete(int index)throws TaskIndexException {
+    public String delete(int index)throws TaskIndexException {
         if (index > tasks.size()) {
             throw new TaskIndexException("You have entered an invalid index!");
         } else {
             Task task = tasks.get(index - 1);
             tasks.remove(index - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("\t" + task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             this.storage.save(tasks);
+            return "Noted. I've removed this task:\n\t" + task.toString() + "Now you have " + tasks.size() + " tasks in the list.";
         }
     }
 
     /**
      * Prints out the tasks within a Task List to the user.
      */
-    public void list() {
-        System.out.println("Here are the tasks in your list:");
+    public String list() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+            stringBuilder.append("\n\t" + (i + 1) + "." + tasks.get(i).toString());
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -110,13 +110,15 @@ class TaskList {
      *
      * @param searchKeyword String representation of the keyword that has been entered by the user.
      */
-    public void find(String searchKeyword) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String find(String searchKeyword) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(searchKeyword)) {
-                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+                stringBuilder.append("\t" + (i + 1) + "." + tasks.get(i).toString());
             }
         }
+        return stringBuilder.toString();
     }
 
     /**

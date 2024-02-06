@@ -1,68 +1,87 @@
 package pan;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import pan.enums.Commands;
+import pan.enums.TaskStatus;
+import pan.exceptions.InternalTestCases;
+import pan.exceptions.InvalidCommandException;
 
 /**
- * Pan - Represents the Main Class that would override the Default Application class
- * 
+ * Parser - Encapsulates logic with I/O operations in the CLI
  * @author Jerome Goh
  */
-public class Pan extends Application {
+public class Pan {
+    private Ui ui;
+    private TaskList taskList;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Parser parser;
-
-    public Pan() {
+    /**
+     * Constructs a Parser instance.
+     *
+     * @param ui Ui instance that parser depends on.
+     * @param taskList TaskList instance responsible for CRUD operations with chatbot's Tasks.
+     */
+    public Pan(Ui ui, TaskList taskList) {
+        this.ui = ui;
+        this.taskList = taskList;
     }
 
-    @Override
-    public void start(Stage stage) {
-        // The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        // Set up event handler for the sendButton
-        sendButton.setOnAction(event -> {
-            String input = userInput.getText(); // Get user input from the TextField
-            // Pass input to Parser for processing
-            parser.parseInput(input);
-            userInput.clear(); // Clear the TextField after sending the input
-        });
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        AnchorPane.setTopAnchor(scrollPane, 0.0);
-        AnchorPane.setBottomAnchor(userInput, 0.0);
-        AnchorPane.setLeftAnchor(userInput, 0.0);
-        AnchorPane.setRightAnchor(userInput, 60.0);
-        AnchorPane.setBottomAnchor(sendButton, 0.0);
-        AnchorPane.setRightAnchor(sendButton, 0.0);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        parser = new Parser(new Ui(), new TaskList(new Storage()));
+    /**
+     * Represents the driver method to parse and validate user logic.
+     *
+     * @param instruction The input instruction from the user.
+     */
+    public String parseInput(String instruction) {
+        try {
+            if (instruction.equals("list")) {
+                return taskList.list();
+            } else if (instruction.equals(Commands.BYE.name().toLowerCase())) {
+                return ui.bye();
+            } else if (instruction.matches("(mark) \\d+")) {
+                String index = instruction.substring(4).trim();
+                return taskList.mark(Integer.parseInt(index));
+            } else if (instruction.matches("(unmark) \\d+")) {
+                String index = instruction.substring(6).trim();
+                return taskList.unmark(Integer.parseInt(index));
+            } else if (instruction.matches("(todo)\\s(.+)")) {
+                String desc = instruction.substring(4).trim();
+                ToDos todos = new ToDos(desc, TaskStatus.INCOMPLETE);
+                return taskList.add(todos);
+            } else if (instruction.matches("(deadline)\\s(.+)\\s(/by)\\s(.+)")) {
+                String postfix = instruction.substring(8).trim();
+                String desc = postfix.split("/by")[0].trim();
+                String byDate = postfix.split("/by")[1].trim();
+                Deadlines deadlines = new Deadlines(desc, TaskStatus.INCOMPLETE, taskList.convertDate(byDate));
+                return taskList.add(deadlines);
+            } else if (instruction.matches("(event)\\s(.+)\\s(/from)\\s(.+)\\s(/to)\\s(.+)")) {
+                String postfix = instruction.substring(5).trim();
+                String desc = postfix.split("/from")[0].trim();
+                String from = postfix.split("/from")[1].split("/to")[0].trim();
+                String to = postfix.split("/from")[1].split("/to")[1].trim();
+                Events events = new Events(desc, TaskStatus.INCOMPLETE,
+                    taskList.convertDate(from), taskList.convertDate(to));
+                return taskList.add(events);
+            } else if (instruction.matches("(delete) \\d+")) {
+                String index = instruction.substring(6).trim();
+                return taskList.delete(Integer.parseInt(index));
+            } else if (instruction.matches("\\bfind\\s(.+)")) {
+                String searchKeyword = instruction.substring(4).trim();
+                return taskList.find(searchKeyword);
+            } else {
+                // catch other test cases
+                InternalTestCases.testMissingParameters(instruction);
+                // if exception is not caught it must be an invalid command
+                throw new InvalidCommandException(instruction);
+            }
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public String sayHi() {
+        return this.ui.hello();
     }
+
+    public String getResponse(String input) {
+        return "Pan replied: " + input;
+    }
+    
 }

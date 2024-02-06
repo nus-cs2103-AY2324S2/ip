@@ -1,6 +1,6 @@
 package pan;
 
-class Ui {
+public class Ui {
     /**
      * Creates an Ui instance.
      */
@@ -9,14 +9,14 @@ class Ui {
     /**
      * Prints out the Welcome Message to the user.
      */
-    public void hello() {
-        System.out.println("Hello! I'm Pan\nWhat can I do for you?");
+    public String hello() {
+        return "Hello! I'm Pan\nWhat can I do for you?";
     }
 
     /**
      * Prints out the Farewell Message to the user.
      */
-    public void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 }
