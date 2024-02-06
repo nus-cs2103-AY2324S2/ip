@@ -29,9 +29,9 @@ class Parser {
      * @return The command.
      */
     protected static Command parse(String input) {
-        if ("bye".equals(input)) {
+        if (startsWith("bye", input)) {
             return Command.BYE;
-        } else if ("list".equals(input)) {
+        } else if (startsWith("list", input)) {
             return Command.LIST;
         } else if (startsWith("mark", input)) {
             return Command.MARK;

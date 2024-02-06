@@ -23,13 +23,13 @@ class TaskList {
         return list.size();
     }
 
-    /**
-     * Prints the list.
-     */
-    protected void printList(Ui ui) {
+    @Override
+    public String toString() {
+        String result = "";
         for (int i = 0; i < list.size(); i++) {
-            ui.printMsg((i + 1) + "." + list.get(i));
+            result += (i + 1) + "." + list.get(i) + "\n";
         }
+        return result;
     }
 
     /**
@@ -105,17 +105,18 @@ class TaskList {
      * @return The Tasks that were found.
      * @throws FishStockException The exceptions while finding Tasks.
      */
-    protected ArrayList<Task> findTask(String input) throws FishStockException {
+    protected String findTasks(String input) throws FishStockException {
         if (input.length() < 6) {
             throw new FishStockException("OH NOSE! The match word is empty..");
         }
 
         String match = input.substring(5);
 
-        ArrayList<Task> result = new ArrayList<>();
+        int count = 0;
+        String result = "";
         for (Task task : list) {
             if (task.getDescription().contains(match)) {
-                result.add(task);
+                result += (++count) + "." + task + "\n";
             }
         }
         return result;
