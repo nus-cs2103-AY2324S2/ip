@@ -3,10 +3,10 @@ package ChatbotRan;
 import java.io.*;
 import java.util.ArrayList;
 
-public class TaskIO {
+public class TaskIo {
     public final String name;
 
-    public TaskIO(String s) {
+    public TaskIo(String s) {
         this.name = s;
         File taskFile = new File(name);
         taskFile.getParentFile().mkdir();
