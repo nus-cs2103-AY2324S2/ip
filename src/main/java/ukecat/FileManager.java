@@ -1,10 +1,10 @@
 package ukecat;
 
 import java.io.File;
-import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Manages the loading and updating of tasks from/to a data file.

@@ -3,21 +3,17 @@ package ukecat;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 
 import java.util.Objects;
 
 /**
- *
  * The main class representing the UkeCat application.
  * UkeCat is a simple program that interacts with users to manage tasks.
  * This class initializes the user interface, loads tasks from storage,
@@ -34,6 +30,9 @@ public class UkeCat extends Application {
     public UkeCat() {
         ui = new Ui();
     }
+
+    VBox dialogContainer = new VBox();
+    TextField userInput = new TextField();
 
     /**
      * Runs the UkeCat application.
@@ -68,8 +67,7 @@ public class UkeCat extends Application {
     public static void main(String[] args) {
         new UkeCat().run();
     }
-    VBox dialogContainer = new VBox();
-    TextField userInput = new TextField();
+
     /**
      * The start() method is called when the application is launched.
      *

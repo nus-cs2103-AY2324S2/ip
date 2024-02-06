@@ -5,7 +5,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ *  Reads string inputs and returns useful information.
+ */
 public class Parser {
     private static final Scanner sc = new Scanner(System.in);
 
@@ -53,13 +55,13 @@ public class Parser {
         // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
-            if (matcher.matches()) {
-                Storage.desc = matcher.group(1);
-                Storage.by = LocalDate.parse(matcher.group(2));
-            } else {
-                throw new UkeCatException("Wrong format1, use: deadline <desc> /by yyyy-mm-dd");
-            }
+        if (matcher.matches()) {
+            Storage.desc = matcher.group(1);
+            Storage.by = LocalDate.parse(matcher.group(2));
+        } else {
+            throw new UkeCatException("Wrong format1, use: deadline <desc> /by yyyy-mm-dd");
         }
+    }
 
     /**
      * Parses the input string to extract the description for an event using regex.
@@ -89,16 +91,17 @@ public class Parser {
      *
      * @param words An array of words representing the user input.
      * @return The task number (index) to be deleted.
-     * @throws UkeCatException If the input does not match the expected format or if the task number is not a valid integer.
+     * @throws UkeCatException If the input does not match the expected format
+     *         or if the task number is not a valid integer.
      */
     public static int parseDeleteTask(String[] words) throws UkeCatException {
-        try{
+        try {
             if (words.length == 2) {
                 return Integer.parseInt(words[1]) - 1;
             } else {
                 throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
             }
-        }  catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
         }
     }
@@ -108,7 +111,8 @@ public class Parser {
      *
      * @param words An array of words representing the user input.
      * @return The task number (index) to be deleted.
-     * @throws UkeCatException If the input does not match the expected format or if the task number is not a valid integer.
+     * @throws UkeCatException If the input does not match the expected format or if the task number is
+     *         not a valid integer.
      */
     public static int parseMarkTask(String[] words) throws UkeCatException {
         try {

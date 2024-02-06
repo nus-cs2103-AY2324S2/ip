@@ -1,7 +1,7 @@
 package ukecat;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 /**
@@ -17,8 +17,8 @@ public class Storage {
     public static LocalDate start; // for events
     public static LocalDate end; // for events
 
-    private static final ArrayList<Task> tasks = new ArrayList<>();
     public static int numT = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static ArrayList<Task> getTasks() {
         return tasks;
@@ -30,7 +30,7 @@ public class Storage {
      */
     public static void addTask() {
         Task t = null;
-        try{
+        try {
             switch (words[0]) {
             case "todo":
                 Parser.parseToDo(input);
@@ -54,7 +54,7 @@ public class Storage {
             System.out.println("  I added this task: " + t);
             report();
             FileManager.updateTasks();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -142,7 +142,7 @@ public class Storage {
      */
     public static void addCsvTask() {
         Task t;
-        try{
+        try {
             switch (words[0]) {
             case "todo":
                 Parser.parseToDo(input);
@@ -163,7 +163,7 @@ public class Storage {
                 break;
             }
             numT++;
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
