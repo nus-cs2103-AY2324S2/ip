@@ -6,8 +6,8 @@ public abstract class AddCommand extends Command {
 
     private TaskList taskList;
 
-    public AddCommand(TaskList tasklist) {
-        this.taskList = tasklist;
+    public AddCommand(TaskList taskList) {
+        this.taskList = taskList;
     }
 
     public static String getUsage() {

@@ -55,7 +55,7 @@ public class Storage {
             Ui.printMessage("Successfully loaded save file.");
             return taskList;
         } catch (NoSuchElementException | FileNotFoundException | DateTimeParseException e) {
-            Ui.printMessage("Missing or corrupted save file. Creating new tasklist");
+            Ui.printMessage("Missing or corrupted save file. Creating new Task List");
             return new TaskList();
         }
     }
@@ -82,11 +82,11 @@ public class Storage {
      *
      * @param savedTaskList The File to save the data into
      */
-    public static void save(TaskList tasklist) {
+    public static void save(TaskList taskList) {
         try {
             new File("./data").mkdir();
             FileWriter fw = new FileWriter(savedTaskList);
-            fw.write(tasklist.saveString());
+            fw.write(taskList.saveString());
             fw.close();
         } catch (IOException e) {
             Ui.printMessage("An error has occurred during saving.");

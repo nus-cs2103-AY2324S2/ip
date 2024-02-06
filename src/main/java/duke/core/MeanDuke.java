@@ -9,12 +9,12 @@ import duke.tasks.TaskList;
  */
 public class MeanDuke {
     //Creates an empty task list
-    static TaskList tasklist = new TaskList();
+    static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
 
         //Try to load Task List from hard disk. If missing or corrupted, create a new file
-        tasklist = Storage.load();
+        taskList = Storage.load();
 
         //Prints intro
         Ui.printIntro();
@@ -25,9 +25,9 @@ public class MeanDuke {
             String userInput = Ui.readInput();
             Ui.printSpacer();
             try {
-                Command cmd = Parser.parseUserInput(userInput, tasklist);
+                Command cmd = Parser.parseUserInput(userInput, taskList);
                 cmd.execute();
-                Storage.save(tasklist);
+                Storage.save(taskList);
                 isExit = cmd.isExitCommand();
             } catch (MeanDukeException e) {
                 Ui.printError(e);
