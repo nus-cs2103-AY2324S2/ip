@@ -8,9 +8,9 @@ public class ToDo extends Task {
         super(desc, isDone);
     }
 
-    public String toSave() {
+    public String toStore() {
         // need to store status as well
-        return "T | " + super.toSave();
+        return "T | " + super.toStore();
     }
 
     @Override

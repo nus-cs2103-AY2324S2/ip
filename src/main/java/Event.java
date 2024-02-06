@@ -17,9 +17,9 @@ public class Event extends Task {
         this.end = LocalDate.parse(end);
     }
 
-    public String toSave() {
+    public String toStore() {
         // need to store status as well
-        return "E | " + super.toSave() + " | " + start + " | " + end;
+        return "E | " + super.toStore() + " | " + start + " | " + end;
     }
 
     @Override

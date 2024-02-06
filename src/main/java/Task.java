@@ -20,7 +20,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toSave() {
+    public String toStore() {
         // need to store status as well
         return isDone + " | " + desc;
     }

@@ -185,7 +185,7 @@ public class Duke {
             // Print system message
             System.out.println("Noted. I've removed this task:");
             System.out.println(task.toString());
-            System.out.println("No-w you have " + list.size() + " tasks in the list.");
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
             break;
         case "todo":
             // Exception handling and splitting the string
