@@ -9,7 +9,6 @@ public class TaskIO {
     public ArrayList<Task> findTasks() {
         File dataFolder = new File("data");
         dataFolder.mkdir();
-        System.out.println(dataFolder.getAbsolutePath());
         File taskFile = new File(dataFolder, FILENAME);
         return readTasks(taskFile);
     }

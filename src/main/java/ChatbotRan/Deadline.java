@@ -1,12 +1,19 @@
 package ChatbotRan;
 
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDate;
 
-    public Deadline(String contents, String deadline) {
+public class Deadline extends Task {
+    private LocalDate deadline;
+
+    public Deadline(String contents, LocalDate deadline) {
         super(contents);
         this.deadline = deadline;
     }
+
+    public Deadline(String contents, String deadline) {
+        this(contents, LocalDate.parse(deadline));
+    }
+
 
     public static Deadline parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/by");
@@ -21,11 +28,11 @@ public class Deadline extends Task {
         return "D";
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
