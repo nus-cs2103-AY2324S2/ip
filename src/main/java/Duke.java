@@ -18,8 +18,59 @@ public class Duke {
 
         MyList myList = new MyList();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        File file = new File("src/main/java/data/duke.txt");
 
         try {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    String[] loadInput = line.split("\\|");
+                    String type = loadInput[0].trim();
+                    String done = loadInput[1].trim();
+                    String s, s1;
+                    Task task;
+
+                    switch (type) {
+                        case "T":
+                            s = loadInput[2].trim();
+                            task = new Todo(s);
+
+                            if (done.equals("1")) {
+                                task.markAsDone();
+                            }
+
+                            myList.addItem(task);
+                            break;
+                        case "D":
+                            s = loadInput[2].trim();
+                            s1 = loadInput[3].trim();
+                            task = new Deadline(s, s1);
+
+                            if (done.equals("1")) {
+                                task.markAsDone();
+                            }
+
+                            myList.addItem(task);
+                            break;
+                        case "E":
+                            s = loadInput[2].trim();
+                            s1 = loadInput[3].trim();
+                            String s2 = loadInput[4].trim();
+                            task = new Event(s, s1, s2);
+
+                            if (done.equals("1")) {
+                                task.markAsDone();
+                            }
+
+                            myList.addItem(task);
+                            break;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: File not Found");
+            }
+
             while (true) {
                 String userInput = br.readLine();
                 Request request = getRequest(userInput);
