@@ -8,6 +8,11 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Gets task completion symbol.
+     * @return "X" indicates completed, " " indicates incomplete.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -16,6 +21,9 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * @return Task description and completion status.
+     */
     public String toStatusString(){
         return "[" + getStatusIcon() + "] " + description;
     }
