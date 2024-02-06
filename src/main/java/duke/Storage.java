@@ -1,23 +1,24 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
 import duke.action.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.time.LocalDate;
-import java.util.Scanner;
 
 /**
  * Handles the reading and writing of tasks to and from a file.
  */
 class Storage {
-    File taskFile;
+    private File taskFile;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -68,6 +69,9 @@ class Storage {
                     }
                     tasks.addTask(eventTask);
                     break;
+
+                default:
+                    throw new IllegalArgumentException("Unexpected task type: " + taskType);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -99,8 +103,8 @@ class Storage {
                     taskLine = String.format("%s|%s|%s|%s\n", icon, status, description, ((Deadline) t).getBy());
                     break;
                 case "E":
-                    taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status, description,
-                            ((Event) t).getFrom(), ((Event) t).getTo());
+                    taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status,
+                            description, ((Event) t).getFrom(), ((Event) t).getTo());
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid task type: " + icon);

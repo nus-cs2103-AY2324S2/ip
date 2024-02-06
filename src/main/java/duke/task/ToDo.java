@@ -3,6 +3,7 @@ package duke.task;
 /**
  * Represents a task of type ToDo in the Duke application.
  */
+
 public class ToDo extends Task {
 
     /**

@@ -3,6 +3,7 @@ package duke.exception;
 /**
  * Represents an exception thrown when an unknown command is encountered.
  */
+
 public class UnknownCommandException extends DukeException {
 
     /**

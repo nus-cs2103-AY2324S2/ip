@@ -1,7 +1,7 @@
 package duke.action;
 
 import duke.task.Task;
-import java.util.List;
+
 
 /**
  * Represents an action to display the list of tasks.

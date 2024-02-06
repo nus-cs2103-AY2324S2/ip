@@ -3,11 +3,8 @@ package duke.exception;
 /**
  * Represents a generic exception in the Duke application.
  */
-public class DukeException extends Exception {
 
-    /**
-     * Constructs a DukeException with no specified detail message.
-     */
+public class DukeException extends Exception {
     public DukeException() {
         super();
     }

@@ -1,13 +1,15 @@
 package duke.action;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import duke.task.Task;
+
 
 /**
  * Represents a list of tasks in the Duke application.
  */
+
 public class TaskList implements Iterable<Task> {
 
     /**
@@ -52,8 +54,8 @@ public class TaskList implements Iterable<Task> {
      */
     public Task deleteTask(int index) {
         if (index >= 0 && index < mylist.size()) {
-            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() +
-                    "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
+            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString()
+                    + "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
             return mylist.remove(index);
         } else {
             return null;
@@ -140,8 +142,9 @@ public class TaskList implements Iterable<Task> {
         System.out.println(" Hello I'm NoisyChatter");
         System.out.println(" What can I do for you?");
     }
-
-
+    /**
+     * Finds the matches.
+     */
     public void matches(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : mylist) {
@@ -159,7 +162,6 @@ public class TaskList implements Iterable<Task> {
             }
         }
     }
-
 
     /**
      * Provides an iterator over the tasks in the list.

@@ -1,11 +1,9 @@
 package duke.task;
 
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Represents a generic task in the Duke application.
  */
+
 public class Task {
 
     /**

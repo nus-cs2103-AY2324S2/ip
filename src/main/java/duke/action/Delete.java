@@ -10,7 +10,8 @@ public class Delete implements Action {
     /**
      * The task that has been deleted.
      */
-    public Task deletedTask;
+    private Task deletedTask;
+
 
     /**
      * Constructs a Delete action with the specified task to be deleted.
@@ -28,8 +29,8 @@ public class Delete implements Action {
      */
     @Override
     public String response() {
-        return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have " +
-                " tasks in the list.";
+        return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have "
+            + " tasks in the list.";
     }
 }
 

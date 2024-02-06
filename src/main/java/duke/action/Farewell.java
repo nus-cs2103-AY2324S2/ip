@@ -3,6 +3,7 @@ package duke.action;
 /**
  * Represents an action to bid farewell to the user.
  */
+
 public class Farewell implements Action {
 
     /**

@@ -3,6 +3,7 @@ package duke.action;
 /**
  * Represents an action to echo a response message.
  */
+
 public class Echo implements Action {
 
     /**
