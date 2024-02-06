@@ -4,20 +4,14 @@ import java.util.Arrays;
 
 public class Duke {
 
-    static String horzLine = "____________________________________________________________";
-    static String chatbotName = "Destiny";
-    static String greetingMessage = horzLine
+    private static String horzLine = "____________________________________________________________";
+    private static String chatbotName = "Destiny";
+    private static String greetingMessage = horzLine
             + "\nGreetings! I'm " + chatbotName + "\nHow may I serve you?\n"
             + horzLine;
-    static String goodbyeMessage = horzLine +
-            "\nBye. Hope to see you again soon!\n"
+    private static String goodbyeMessage = horzLine
+            + "\nBye. Hope to see you again soon!\n"
             + horzLine;
-
-    public static void printWithLines(String message) {
-        System.out.println(horzLine);
-        System.out.println(message);
-        System.out.println(horzLine);
-    }
 
     private Ui ui;
     private Storage storage;
@@ -31,10 +25,16 @@ public class Duke {
         parser = new Parser();
     }
 
+    public static void printWithLines(String message) {
+        System.out.println(horzLine);
+        System.out.println(message);
+        System.out.println(horzLine);
+    }
+
     public void run() {
         System.out.println(greetingMessage);
 
-        while(!ui.getUserInput().equalsIgnoreCase("bye")) {
+        while (!ui.getUserInput().equalsIgnoreCase("bye")) {
             ui.inputMessage();
             String userMessage = ui.getUserInput();
 
@@ -50,15 +50,15 @@ public class Duke {
             try {
                 AcceptedCmds testCommand = AcceptedCmds.valueOf(userCmd.toLowerCase());
             } catch (IllegalArgumentException e) {
-                printWithLines("Please enter a valid command\nThe list of valid commands are as follows:\n" +
-                        Arrays.asList(AcceptedCmds.values()));
+                printWithLines("Please enter a valid command\nThe list of valid commands are as follows:\n"
+                        + Arrays.asList(AcceptedCmds.values()));
                 continue;
             }
 
             if (userCmd.equalsIgnoreCase("list")) {
                 list();
-            } else if (userCmd.equalsIgnoreCase("mark") ||
-                    userCmd.equalsIgnoreCase("unmark")) {
+            } else if (userCmd.equalsIgnoreCase("mark")
+                    || userCmd.equalsIgnoreCase("unmark")) {
                 try {
                     String possInteger = parser.getCmdDetails(userCmd, cmdDetails);
                     int taskIndex = Integer.valueOf(possInteger);
@@ -71,9 +71,9 @@ public class Duke {
                 } catch (DukeException e) {
                     printWithLines(e.getMessage());
                 } catch (NumberFormatException e) {
-                    printWithLines((tasks.size() != 0 ?
-                            "Invalid input type\nEnter a number between 1 and " + tasks.size() :
-                            "Invalid input type\nCan't mark or unmark either cause the list is empty"));
+                    printWithLines((tasks.size() != 0
+                            ? "Invalid input type\nEnter a number between 1 and " + tasks.size()
+                            : "Invalid input type\nCan't mark or unmark either cause the list is empty"));
                 }
             } else if (userCmd.equalsIgnoreCase("delete")) {
                 try {
@@ -83,9 +83,9 @@ public class Duke {
                 } catch (DukeException e) {
                     printWithLines(e.getMessage());
                 } catch (NumberFormatException e) {
-                    printWithLines((tasks.size() != 0 ?
-                            "Invalid input type\nEnter a number between 1 and " + tasks.size() :
-                            "Invalid input type\nCan't mark or unmark either cause the list is empty"));
+                    printWithLines((tasks.size() != 0
+                            ? "Invalid input type\nEnter a number between 1 and " + tasks.size()
+                            : "Invalid input type\nCan't mark or unmark either cause the list is empty"));
                 }
             } else if (userCmd.equalsIgnoreCase("todo")) {
                 try {
@@ -97,20 +97,20 @@ public class Duke {
                 }
             } else if (userCmd.equalsIgnoreCase("deadline")) {
                 try {
-                    String possDLDetails = parser.getCmdDetails(userCmd, cmdDetails);
-                    String[] splitDetails = possDLDetails.toLowerCase().split("/by ", 2);
+                    String possDlDetails = parser.getCmdDetails(userCmd, cmdDetails);
+                    String[] splitDetails = possDlDetails.toLowerCase().split("/by ", 2);
                     try {
                         Deadline newDL = new Deadline(splitDetails[0], splitDetails[1]);
                         tasks.addTask(newDL);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        printWithLines("After entering the deadline task name,\n" +
-                                "add '/by' followed by your desired deadline");
+                        printWithLines("After entering the deadline task name,\n"
+                                + "add '/by' followed by your desired deadline");
                     }
                 } catch (DukeException e) {
                     printWithLines(e.getMessage());
                 }
 
-            } else if (userCmd.equalsIgnoreCase("event")){
+            } else if (userCmd.equalsIgnoreCase("event")) {
                 try {
                     String possEventDetails = parser.getCmdDetails(userCmd, cmdDetails);
                     String[] splitDetails = possEventDetails.split("/from ", 2);
@@ -121,12 +121,12 @@ public class Duke {
                             Event newEvent = new Event(splitDetails[0], secondSplitDetails[0], secondSplitDetails[1]);
                             tasks.addTask(newEvent);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            printWithLines("After entering your desired start time,\n" +
-                                    "add '/to' followed by your desired end time");
+                            printWithLines("After entering your desired start time,\n"
+                                    + "add '/to' followed by your desired end time");
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        printWithLines("After entering the event task name,\n" +
-                                "add '/from' followed by your desired start time");
+                        printWithLines("After entering the event task name,\n"
+                                + "add '/from' followed by your desired start time");
                     }
                 } catch (DukeException e) {
                     printWithLines(e.getMessage());
@@ -136,9 +136,6 @@ public class Duke {
         }
         System.out.println(goodbyeMessage);
     }
-
-
-
 
 
     public void list() {
@@ -154,8 +151,6 @@ public class Duke {
         }
         System.out.println(horzLine);
     }
-
-
 
     public void markDone(int index) throws DukeException {
         if (tasks.size() == 0) {
@@ -178,7 +173,6 @@ public class Duke {
         tasks.get(index - 1).markAsUndone();
         printWithLines("OK, I've marked this task as not done yet:\n  " + tasks.get(index - 1).toString());
     }
-
 
     public static void main(String[] args) {
         new Duke().run();
