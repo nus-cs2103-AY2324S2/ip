@@ -53,6 +53,7 @@ public class Event extends Task {
      *
      * @return A formatted string suitable for storage, including task type, status, description, start and end time.
      */
+    @Override
     public String toStorageString() {
         return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0,
                 this.description,
