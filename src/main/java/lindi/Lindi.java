@@ -1,3 +1,5 @@
+package lindi;
+
 import lindi.commands.Command;
 import lindi.parser.Parser;
 import lindi.storage.Storage;
