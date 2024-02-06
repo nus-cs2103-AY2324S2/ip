@@ -47,7 +47,7 @@ public class Storage {
 
     /**
      * Given a list of strings, writes to a file.
-     * @param {@code stringTaskList} that is a list of tasks in their string database representation
+     * @param stringTaskList {@code List<String>} that is a list of tasks in their string database representation
      */
     public void writeLinesToFile(List<String> stringTaskList) {
         try {
