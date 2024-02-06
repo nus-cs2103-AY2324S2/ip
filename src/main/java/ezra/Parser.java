@@ -30,11 +30,11 @@ public class Parser {
             } else if (input.startsWith("delete")) {
                 return tasks.delete(storage, Parser.parseDelete(input));
             } else if (input.startsWith("todo")) {
-                return tasks.updateTasks(Parser.parseToDo(input), storage);
+                return tasks.updateTasks(storage, Parser.parseToDo(input));
             } else if (input.startsWith("deadline")) {
-                return tasks.updateTasks(Parser.parseDeadline(input), storage);
+                return tasks.updateTasks(storage, Parser.parseDeadline(input));
             } else if (input.startsWith("event")) {
-                return tasks.updateTasks(Parser.parseEvent(input), storage);
+                return tasks.updateTasks(storage, Parser.parseEvent(input));
             } else if (input.startsWith("find")) {
                 return tasks.find(Parser.parseFind(input));
             } else {

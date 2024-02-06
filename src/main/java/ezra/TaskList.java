@@ -80,8 +80,8 @@ public class TaskList {
     /**
      * Deletes the tasks corresponding to the give task numbers.
      *
-     * @param taskNumbers The array of task numbers to be deleted.
      * @param storage The storage to update after deletion.
+     * @param taskNumbers The array of task numbers to be deleted.
      * @return A message to be displayed after the delete operation.
      */
     public String delete(Storage storage, String... taskNumbers) {
@@ -120,11 +120,11 @@ public class TaskList {
     /**
      * Updates the TaskList by adding a new task.
      *
-     * @param task The task to be added.
      * @param storage The storage to update after addition.
+     * @param task The task to be added.
      * @return A message to be displayed after adding the task.
      */
-    public String updateTasks(Task task, Storage storage) {
+    public String updateTasks(Storage storage, Task task) {
         this.tasks.add(task);
 
         // Print task that was added and number of tasks remaining
@@ -144,8 +144,8 @@ public class TaskList {
     /**
      * Marks the tasks corresponding to the give task numbers as done.
      *
-     * @param taskNumbers The array of task numbers to be marked as done.
      * @param storage The storage to update after marking.
+     * @param taskNumbers The array of task numbers to be marked as done.
      * @return A message to be displayed after marking the task.
      */
     public String mark(Storage storage, String... taskNumbers) {
