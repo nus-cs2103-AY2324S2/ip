@@ -15,6 +15,15 @@ public class ByeCommand extends Command {
     public ByeCommand() {
     }
 
+    /**
+     * Runs the command to say bye to user and exit
+     * the program.
+     *
+     * @param s Storage containing data of
+     *          previous program.
+     * @param t Tasklist of program.
+     * @param u Ui that handles user interactions.
+     */
     @Override
     public String execute(Storage s, TaskList t, Ui u) {
         return u.bye();
