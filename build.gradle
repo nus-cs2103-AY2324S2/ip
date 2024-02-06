@@ -34,8 +34,10 @@ application {
 }
 
 shadowJar {
+    mainClassName = 'seedu.duke.Main'
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = 'duke.jar'
     dependsOn("distZip", "distTar")
 }
 
