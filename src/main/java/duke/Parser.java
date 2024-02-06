@@ -30,6 +30,8 @@ public class Parser {
                 return new MarkCommand(taskNumber);
             } catch (IndexOutOfBoundsException b) {
                 throw new DukeException("Invalid task number... count properly xx");
+            } catch (NumberFormatException n) {
+                throw new DukeException("number only...");
             }
         } else if (input.startsWith("unmark")) {
             try {
@@ -41,6 +43,8 @@ public class Parser {
                 return new UnmarkCommand(taskNumber);
             } catch (IndexOutOfBoundsException b) {
                 throw new DukeException("Invalid task number... count properly xx");
+            } catch (NumberFormatException n) {
+                throw new DukeException("number only...");
             }
         }
 
@@ -54,6 +58,8 @@ public class Parser {
                 return new DeleteCommand(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("invalid task number... count properly xx");
+            } catch (NumberFormatException n) {
+                throw new DukeException("number only...");
             }
         } else {
             try {
