@@ -170,11 +170,11 @@ public class Zack extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label zackText = new Label(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String zackText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getZackDialog(zackText, new ImageView(zack))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getZackDialog(zackText, zack)
         );
         userInput.clear();
     }
@@ -183,7 +183,7 @@ public class Zack extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    String getResponse(String input) {
         return "Zack heard: " + input;
     }
 
