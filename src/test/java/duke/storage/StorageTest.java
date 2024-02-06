@@ -1,11 +1,9 @@
 package duke.storage;
 
-import duke.tasks.Task;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class StorageTest {
     @Test
