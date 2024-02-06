@@ -7,6 +7,7 @@ public class DiboException extends Exception {
 
     /**
      * Constructor for the DiboException
+     *
      * @param errorMessage Error message to be printed for the user.
      */
     public DiboException(String errorMessage) {

@@ -98,6 +98,9 @@ public class Parser {
                 String descriptionEvent = getDescription(fullCommand, "event");
                 LocalDate startDate = getStartDate(fullCommand);
                 LocalDate endDate = getEndDate(fullCommand);
+                if (!startDate.isBefore(endDate)) {
+                    throw new DiboException("Oh no sir! Your start date must be before your end date :(");
+                }
                 return new AddEventCommand(descriptionEvent, startDate, endDate);
             } catch (IndexOutOfBoundsException e) {
                 throw new DiboException("Oh no sir! Please state the start and end of the task :D");

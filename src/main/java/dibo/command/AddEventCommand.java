@@ -41,7 +41,7 @@ public class AddEventCommand extends Command {
         Event event = new Event(this.description, this.start, this.end);
         taskList.addTask(event);
         ui.showAdded(event.toString(), taskList.getSize());
-        storage.save(taskList);
+        storage.saveData(taskList);
     }
 }
 

@@ -9,22 +9,22 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructor for the Ui class.
+     * Constructs the Ui class.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Scans the whole line for the user's command.
-     * @return The string representation of the user's command.
+     * Scans the whole line for the user's command and
+     * returns the string representation.
      */
     public String takeCommand() {
         return scanner.nextLine();
     }
 
     /**
-     * Prints hello message to the users.
+     * Prints a hello message to the users.
      */
     public void sayHi() {
         showSeparator();
@@ -34,7 +34,8 @@ public class Ui {
     }
 
     /**
-     * Takes in the string representaion of the taskList and reports it to the user.
+     * Takes in the string representation of the taskList and reports it to the user.
+     *
      * @param taskList The String representation of the taskList.
      */
     public void showList(String taskList) {
@@ -45,6 +46,7 @@ public class Ui {
 
     /**
      * Prints the message to show that the task has been successfully unmarked.
+     *
      * @param task The String representation of the task.
      */
     public void showUnmarked(String task) {
@@ -56,6 +58,7 @@ public class Ui {
 
     /**
      * Prints the message to show that the task has been successfully marked.
+     *
      * @param task The String representation of the task.
      */
     public void showMarked(String task) {
@@ -67,6 +70,7 @@ public class Ui {
 
     /**
      * Prints the message to show that the task has been successfully deleted.
+     *
      * @param task The String representation of the task.
      */
     public void showDeleted(String task, int size) {
@@ -80,6 +84,7 @@ public class Ui {
 
     /**
      * Prints the message to show that the task has been successfully added.
+     *
      * @param task The String representation of the task.
      * @param size The size of the taskList after the last action performed.
      */
@@ -94,26 +99,28 @@ public class Ui {
 
     /**
      * Prints the message to show that the task has been found.
-     * @param taskWithKeyword The specified keyword to find the task.
+     *
+     * @param tasksWithKeyword The string representation of the tasks that contains the specified keyword.
      */
-    public void showFound(String taskWithKeyword) {
+    public void showFound(String tasksWithKeyword) {
         showSeparator();
         System.out.println("Good news sir! We've found the tasks in your list:");
-        System.out.println(taskWithKeyword);
+        System.out.println(tasksWithKeyword);
         showSeparator();
     }
 
 
     /**
      * Prints the error message.
-     * @param errorMessage The string representation of the message.
+     *
+     * @param errorMessage The string representation of the error.
      */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
     /**
-     * Say goodbye to the user.
+     * Prints a goodbye message to the user.
      */
     public void sayBye() {
         showSeparator();

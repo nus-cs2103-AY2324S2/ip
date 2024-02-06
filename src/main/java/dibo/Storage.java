@@ -24,7 +24,7 @@ public class Storage {
     private String filePath;
 
     /**
-     * Constructor for the Storage class.
+     * Constructs the Storage class.
      *
      * @param filePath The file path to the text file.
      */
@@ -39,7 +39,7 @@ public class Storage {
      * @throws DiboException If an error occurs when loading.
      */
     public ArrayList<Task> loadData() throws DiboException {
-        ArrayList<Task> taskLists = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         try {
             File f = new File(this.filePath);
@@ -76,7 +76,7 @@ public class Storage {
                     task.markAsDone();
                 }
 
-                taskLists.add(task);
+                tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             File f = new File(this.filePath);
@@ -96,7 +96,7 @@ public class Storage {
                     + " You might want to take a look at the formatting of the text file :(");
         }
 
-        return taskLists;
+        return tasks;
     }
 
     /**
@@ -104,7 +104,7 @@ public class Storage {
      *
      * @throws DiboException If an error occurs when saving.
      */
-    public void save(TaskList taskList) throws DiboException {
+    public void saveData(TaskList taskList) throws DiboException {
         try {
             String updatedData = taskList.getSaveFormat();
             FileWriter fw = new FileWriter(this.filePath);
@@ -119,6 +119,5 @@ public class Storage {
 
     private LocalDate convertToLocalDate(String date) throws DateTimeParseException {
         return LocalDate.parse(date, Storage.INPUT_FORMAT);
-
     }
 }

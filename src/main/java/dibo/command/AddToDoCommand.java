@@ -33,6 +33,6 @@ public class AddToDoCommand extends Command {
         ToDo toDo = new ToDo(this.description);
         taskList.addTask(toDo);
         ui.showAdded(toDo.toString(), taskList.getSize());
-        storage.save(taskList);
+        storage.saveData(taskList);
     }
 }
