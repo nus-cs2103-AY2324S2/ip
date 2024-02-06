@@ -11,45 +11,53 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.NoSuchElementException;
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * This class represents the part of MeanDuke that handles loading and saving of data to disk.
+ */
 public class Storage {
 
     private static final String PATH = "./data/MeanDuke.txt";
-    private static File savedTaskList = new File(PATH);
+    private static final File savedTaskList = new File(PATH);
 
+    /**
+     * Attempts to load a TaskList from the PATH in disk. Creates a new one if it fails to load a save.
+     *
+     * @return The TaskList that was loaded from disk, or a new TaskList if loading fails.
+     */
     public static TaskList load() {
         try {
             TaskList taskList = new TaskList();
             Scanner s = new Scanner(savedTaskList);
             while (s.hasNext()) {
                 switch (s.nextLine()) {
-                case "TODO":
-                    taskList.add(new ToDo(s.nextLine(), parseSaveBoolean(s.nextLine())));
-                    break;
-                case "DEADLINE":
-                    String deadlineDesc = s.nextLine();
-                    boolean deadlineisDone = parseSaveBoolean(s.nextLine());
-                    String[] dateTime = s.nextLine().split(";");
-                    taskList.add(new Deadline(deadlineDesc, deadlineisDone,
-                            LocalDate.parse(dateTime[0]),
-                            dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
-                    break;
-                case "EVENT":
-                    String eventDesc = s.nextLine();
-                    boolean eventIsDone = parseSaveBoolean(s.nextLine());
-                    String[] dateTimeFrom = s.nextLine().split(";");
-                    String[] dateTimeTo = s.nextLine().split(";");
-                    taskList.add(new Event(eventDesc, eventIsDone,
-                            LocalDate.parse(dateTimeFrom[0]),
-                            dateTimeFrom.length == 1 ? null : LocalTime.parse(dateTimeFrom[1]),
-                            LocalDate.parse(dateTimeTo[0]),
-                            dateTimeTo.length == 1 ? null : LocalTime.parse(dateTimeTo[1])));
-                    break;
-                default:
-                    throw new NoSuchElementException(s.nextLine());
+                    case "TODO":
+                        taskList.add(new ToDo(s.nextLine(), parseSaveBoolean(s.nextLine())));
+                        break;
+                    case "DEADLINE":
+                        String deadlineDesc = s.nextLine();
+                        boolean deadlineisDone = parseSaveBoolean(s.nextLine());
+                        String[] dateTime = s.nextLine().split(";");
+                        taskList.add(new Deadline(deadlineDesc, deadlineisDone,
+                                LocalDate.parse(dateTime[0]),
+                                dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
+                        break;
+                    case "EVENT":
+                        String eventDesc = s.nextLine();
+                        boolean eventIsDone = parseSaveBoolean(s.nextLine());
+                        String[] dateTimeFrom = s.nextLine().split(";");
+                        String[] dateTimeTo = s.nextLine().split(";");
+                        taskList.add(new Event(eventDesc, eventIsDone,
+                                LocalDate.parse(dateTimeFrom[0]),
+                                dateTimeFrom.length == 1 ? null : LocalTime.parse(dateTimeFrom[1]),
+                                LocalDate.parse(dateTimeTo[0]),
+                                dateTimeTo.length == 1 ? null : LocalTime.parse(dateTimeTo[1])));
+                        break;
+                    default:
+                        throw new NoSuchElementException(s.nextLine());
                 }
             }
             Ui.printMessage("Successfully loaded save file.");
@@ -78,9 +86,9 @@ public class Storage {
     }
 
     /**
-     * Save the current TaskList into disk
+     * Attempts to save the current TaskList into disk at PATH.
      *
-     * @param savedTaskList The File to save the data into
+     * @param tasklist The TaskList to be saved into disk in text form.
      */
     public static void save(TaskList taskList) {
         try {

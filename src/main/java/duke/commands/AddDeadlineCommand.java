@@ -1,17 +1,28 @@
 package duke.commands;
 
+import duke.core.Ui;
 import duke.tasks.Deadline;
 import duke.tasks.TaskList;
-import duke.core.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * This class represents a Command that adds a Deadline to a TaskList
+ */
 public class AddDeadlineCommand extends AddCommand {
-    private String description;
-    private LocalDate deadlineDate;
-    private LocalTime deadlineTime;
+    private final String description;
+    private final LocalDate deadlineDate;
+    private final LocalTime deadlineTime;
 
+    /**
+     * Constructs a new AddDeadlineCommand that adds a new Deadline to the specified TaskList
+     *
+     * @param taskList     The TaskList to add the new Deadline to.
+     * @param description  The description of the new Deadline to be added.
+     * @param deadlineDate The date where the deadline task needs to be completed.
+     * @param deadlineTime The time when the deadline task needs to be completed.
+     */
     public AddDeadlineCommand(TaskList taskList, String description, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(taskList);
         this.description = description;
@@ -19,10 +30,14 @@ public class AddDeadlineCommand extends AddCommand {
         this.deadlineTime = deadlineTime;
     }
 
+    /**
+     * Returns the string describing the proper format to add a Deadline Task
+     */
     public static String getUsage() {
         return Command.getUsage() + " add deadline <description> /by <YYYY-MM-DD> [HH:MM]";
     }
 
+    @Override
     public void execute() {
         super.getTaskList().add(new Deadline(this.description,
                 false, this.deadlineDate, this.deadlineTime));

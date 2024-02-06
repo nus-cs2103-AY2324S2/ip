@@ -1,18 +1,30 @@
 package duke.commands;
 
+import duke.core.Ui;
 import duke.exceptions.MeanDukeException;
 import duke.tasks.TaskList;
-import duke.core.Ui;
 
+/**
+ * This class represents a Command that adds deletes a Task from a TaskList
+ */
 public class DeleteCommand extends Command {
-    private int index;
-    private TaskList taskList;
+    private final int index;
+    private final TaskList taskList;
 
+    /**
+     * Constructs a DeleteCommand that deletes the task at the given index of the given TaskList.
+     *
+     * @param taskList TaskList from which the Task is to be deleted from.
+     * @param index    Index of the Task to be deleted from taskList.
+     */
     public DeleteCommand(TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
     }
 
+    /**
+     * Returns the string describing the proper format for deleting a Task.
+     */
     public static String getUsage() {
         return Command.getUsage() + " delete <taskIndex>";
     }

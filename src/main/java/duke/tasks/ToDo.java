@@ -26,6 +26,7 @@ public class ToDo extends Task {
         super(description, TYPE_SYMBOL, isDone);
     }
 
+    @Override
     public String saveString() {
         return "TODO" + "\n" + super.saveString();
     }
