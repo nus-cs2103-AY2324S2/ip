@@ -51,17 +51,15 @@ public class Parser {
             ui.commandError();
             return true;
 
-<<<<<<< HEAD
-        } else if(command.equals("unmark")) {
-=======
-        } else if (command.equals("unmark")) {
+
+        }  else if (command.equals("unmark")) {
             /**
             * Marks a specified task as not done
             * 
             * @param task number the index of the task to be marked as not done
             * @throws IndexOutOfBoundsException if the task number is out of bounds
             */
->>>>>>> A-CodingStandard
+
             TaskList taskList = new TaskList(myList);
             taskList.unmarkList(parts);
             return true;
@@ -72,21 +70,17 @@ public class Parser {
             return true;
 
         } else if (command.equals("delete")){
-<<<<<<< HEAD
-=======
             /**
             * Deletes a specified task from the list
             * 
             * @param task numer the index of the task to be deleted
             * @throws INdexOutOfBoundsException if the task number is out of bounds
             */
->>>>>>> A-CodingStandard
             TaskList taskList = new TaskList(myList);
             taskList.remove(parts);
             return true;
 
         } else {
-
             TaskList taskList = new TaskList(myList);
             taskList.add(command, restOfInputs);
             return true;
