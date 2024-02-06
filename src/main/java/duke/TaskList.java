@@ -75,7 +75,7 @@ public class TaskList {
         Ui ui = new Ui();
 
         try {
-            if(command.equals("todo")) {
+            if (command.equals("todo")) {
                 /*
                 * Adds a Todo task to the list.
                 * 
@@ -120,7 +120,7 @@ public class TaskList {
                         ui.deadlineInfo(newDeadline, size);
                     }
 
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     ui.errorEncounter(e);
                 }
 
@@ -148,7 +148,7 @@ public class TaskList {
                         ui.eventInfo(newEvent, size);
                     }
 
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     ui.errorEncounter(e);
                 }
 

@@ -22,7 +22,7 @@ public class Storage {
         File folder = new File("./data");
         File file = new File(folder, "/duke.txt");
 
-        if(!folder.exists()) {
+        if (!folder.exists()) {
             // Creates the directory named by this abstract pathname, 
             // including any necessary but nonexistent parent directories
             folder.mkdirs();
@@ -42,7 +42,7 @@ public class Storage {
         ensureFolderAndFileExists();
         // OOS writes primitive data types and graphs of Java objects to an OutputStream
         // Both FileInputStream and FileOutputStream create byte streams linked to files
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
             // Open an OOS for writing to the files
             oos.writeObject(tasks);
 
@@ -57,7 +57,7 @@ public class Storage {
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = null;
 
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             tasks = (ArrayList<Task>) ois.readObject();
             
         } catch (FileNotFoundException e) {
