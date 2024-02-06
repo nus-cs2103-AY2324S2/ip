@@ -23,8 +23,9 @@ public class InputException extends HalException {
      * @return An `InputException` with a message describing the error during command parsing.
      */
     public static InputException exceptionCommandParsing(Command command, String input, Throwable cause) {
-        String message = "Something went wrong when processing your " + command + "command: \n"
-            + "Check your input again: " + input + "\n";
+        String message = String.format(
+                "Something went wrong when parsing your %s command, check your input again:\n%s",
+                command, input);
         return new InputException(message, cause);
     }
 }

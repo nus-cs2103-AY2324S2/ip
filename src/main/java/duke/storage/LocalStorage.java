@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  * It provides methods for loading, saving, and clearing tasks from a local file.
  */
 public class LocalStorage {
-    private final boolean createdNewFile;
+    private final boolean hasCreatedNewFile;
     private PrintWriter printWriter;
     private final Scanner scan;
     private final File saveFile;
@@ -25,18 +25,21 @@ public class LocalStorage {
     /**
      * Constructs a new `LocalStorage` object with the specified file location.
      *
-     * @param fileLocation The file location where tasks are stored.
+     * @param fileDirectory The file directory where save file is stored
+     * @param fileName The name of the file where the tasks are stored
      * @throws IOException If an I/O error occurs while creating or accessing the file.
      */
-    public LocalStorage(String fileLocation) throws IOException {
-        this.saveFile = new File(fileLocation);
-        this.createdNewFile = saveFile.createNewFile();
-        this.printWriter = new PrintWriter(new FileOutputStream(saveFile, true));
-        this.scan = new Scanner(saveFile);
+    public LocalStorage(String fileDirectory, String fileName) throws IOException {
+        String filePath = fileDirectory + fileName;
+        new File(fileDirectory).mkdir();
+        saveFile = new File(filePath);
+        hasCreatedNewFile = saveFile.createNewFile();
+        printWriter = new PrintWriter(new FileOutputStream(saveFile, true));
+        scan = new Scanner(saveFile);
     }
 
-    public boolean createdNewFile() {
-        return createdNewFile;
+    public boolean hasCreatedNewFile() {
+        return hasCreatedNewFile;
     }
 
     /**

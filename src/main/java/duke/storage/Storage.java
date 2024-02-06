@@ -20,15 +20,16 @@ public class Storage {
     /**
      * Constructs a new `Storage` object with the specified file location.
      *
-     * @param fileLocation The file location where tasks are stored.
+     * @param fileDirectory The file directory where save file is stored.
+     * @param fileName The name of the save file where the tasks are stored
      * @throws StartUpException If an error occurs during the startup process, such as file access issues.
      */
-    public Storage(String fileLocation) throws StartUpException {
+    public Storage(String fileDirectory, String fileName) throws StartUpException {
         temp = new TempStorage();
 
         try {
-            local = new LocalStorage(fileLocation);
-            if (local.createdNewFile()) {
+            local = new LocalStorage(fileDirectory, fileName);
+            if (local.hasCreatedNewFile()) {
                 saveFileNotFound();
             } else {
                 saveFileFound();

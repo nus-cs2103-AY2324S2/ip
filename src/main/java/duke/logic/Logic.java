@@ -24,8 +24,9 @@ public class Logic {
     public Logic() {
         try {
             scan = new Scanner(System.in);
-            String fileLocation = "./savefile.txt";
-            Storage storage = new Storage(fileLocation);
+            String fileDirectory = "./data/";
+            String fileName = "savefile.txt";
+            Storage storage = new Storage(fileDirectory, fileName);
             cmd = new CommandProcessor(storage);
             startUpSuccess = true;
         } catch (HalException e) {

@@ -22,8 +22,9 @@ public class ProcessingException extends HalException {
      * @return A `ProcessingException` with a message describing the error during command execution.
      */
     public static ProcessingException exceptionCommandExecution(Command command, Throwable cause) {
-        String message = "Something went wrong when executing your " + command + "command: \n"
-                + "Check your input again\n";
+        String message = String.format(
+                "Something went wrong when executing your %s command, check your input again",
+                command);
         return new ProcessingException(message, cause);
     }
 }
