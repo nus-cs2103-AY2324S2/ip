@@ -18,4 +18,10 @@ public class Event extends Task {
         String toString = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mma"));
         return "[E]" + super.toString() + "(from:" + fromString + " to:" + toString + ")";
     }
+
+    @Override
+    public String toFile() {
+        return "E | " + super.toFile() + " | " + this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
+                + " | " + this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+    }
 }
