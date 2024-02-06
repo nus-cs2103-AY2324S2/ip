@@ -43,7 +43,7 @@ public class DateTimeManager {
      * @return the String version of DateTime.
      * @throws AndeluException If none of the formatter matches the LocalDateTime.
      */
-    static String convertLocalDateTimeToString(LocalDateTime dt) throws AndeluException {
+    public static String convertLocalDateTimeToString(LocalDateTime dt) throws AndeluException {
         List<DateTimeFormatter> formatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
