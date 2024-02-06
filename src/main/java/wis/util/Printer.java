@@ -25,24 +25,24 @@ public class Printer {
      */
     public static void printActionAttach(Action action, Task task, TaskList tasks) {
         switch (action) {
-            case ADD_TODO:
-            case ADD_DEADLINE:
-            case ADD_EVENT:
-                printDecorator();
-                Printer.println("Got it. I've added this task:");
-                Printer.printlnFurtherIndent(task.toString());
-                tasks.printTaskCount();
-                printDecorator();
-                break;
-            case DELETE:
-                printDecorator();
-                Printer.println("Noted. I've removed this task:");
-                Printer.printlnFurtherIndent(task.toString());
-                tasks.printTaskCount();
-                printDecorator();
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal action argument provided.\n");
+        case ADD_TODO:
+        case ADD_DEADLINE:
+        case ADD_EVENT:
+            printDecorator();
+            Printer.println("Got it. I've added this task:");
+            Printer.printlnFurtherIndent(task.toString());
+            tasks.printTaskCount();
+            printDecorator();
+            break;
+        case DELETE:
+            printDecorator();
+            Printer.println("Noted. I've removed this task:");
+            Printer.printlnFurtherIndent(task.toString());
+            tasks.printTaskCount();
+            printDecorator();
+            break;
+        default:
+            throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
     }
 

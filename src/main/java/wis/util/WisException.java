@@ -11,7 +11,7 @@ public class WisException {
     /**
      * Handles exceptions thrown by actions that fail to execute.
      */
-    public static void ActionExceptionHandler(Action action) {
+    public static void actionExceptionHandler(Action action) {
         switch (action) {
             case ADD_TODO:
                 Printer.printDecorator();
@@ -64,7 +64,7 @@ public class WisException {
     /**
      * Handles exceptions due to failure to save file.
      */
-    public static void SaveFileExceptionHandler(IOException e) {
+    public static void saveFileExceptionHandler(IOException e) {
         Printer.printDecorator();
         Printer.println("Failed to save file to local.");
         Printer.println(e.getMessage());
@@ -74,7 +74,7 @@ public class WisException {
     /**
      * Handles exceptions due to failure to load file.
      */
-    public static void LoadFileExceptionHandler() {
+    public static void loadFileExceptionHandler() {
         Printer.printDecorator();
         Printer.println("Failed to load tasks from local.");
         Printer.println("Local data file might be corrupted.");
@@ -84,7 +84,7 @@ public class WisException {
     /**
      * Handles exceptions due to wrong format of date and time.
      */
-    public static void DateTimeExceptionHandler(Exception e) {
+    public static void dateTimeExceptionHandler(Exception e) {
         Printer.printDecorator();
         Printer.println(e.getMessage());
         Printer.println("Please use this format for time:");

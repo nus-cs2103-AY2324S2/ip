@@ -62,7 +62,7 @@ public class Ui {
         case BYE:
             return true;
         case INVALID:
-            WisException.ActionExceptionHandler(Action.INVALID);
+            WisException.actionExceptionHandler(Action.INVALID);
             break;
         default:
             throw new IllegalArgumentException("Illegal action argument provided.\n");
@@ -76,7 +76,7 @@ public class Ui {
             tasks.add(todo);
             Printer.printActionAttach(Action.ADD_TODO, todo, tasks);
         } catch (InputMismatchException e) {
-            WisException.ActionExceptionHandler(Action.ADD_TODO);
+            WisException.actionExceptionHandler(Action.ADD_TODO);
         }
     }
 
@@ -88,11 +88,11 @@ public class Ui {
             tasks.add(deadline);
             Printer.printActionAttach(Action.ADD_DEADLINE, deadline, tasks);
         } catch (InputMismatchException e) {
-            WisException.ActionExceptionHandler(Action.ADD_DEADLINE);
+            WisException.actionExceptionHandler(Action.ADD_DEADLINE);
         } catch (DateTimeParseException e) {
-            WisException.DateTimeExceptionHandler(e);
+            WisException.dateTimeExceptionHandler(e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            WisException.DateTimeExceptionHandler(e);
+            WisException.dateTimeExceptionHandler(e);
         }
     }
 
@@ -105,11 +105,11 @@ public class Ui {
             tasks.add(event);
             Printer.printActionAttach(Action.ADD_EVENT, event, tasks);
         } catch (InputMismatchException e) {
-            WisException.ActionExceptionHandler(Action.ADD_EVENT);
+            WisException.actionExceptionHandler(Action.ADD_EVENT);
         } catch (DateTimeParseException e) {
-            WisException.DateTimeExceptionHandler(e);
+            WisException.dateTimeExceptionHandler(e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            WisException.DateTimeExceptionHandler(e);
+            WisException.dateTimeExceptionHandler(e);
         }
     }
 
@@ -120,9 +120,9 @@ public class Ui {
             Storage.saveTasks(tasks);
             Printer.printActionAttach(Action.MARK, task);
         } catch (IndexOutOfBoundsException e) {
-            WisException.ActionExceptionHandler(Action.MARK);
+            WisException.actionExceptionHandler(Action.MARK);
         } catch (NumberFormatException e) {
-            WisException.ActionExceptionHandler(Action.MARK);
+            WisException.actionExceptionHandler(Action.MARK);
         }
     }
 
@@ -133,9 +133,9 @@ public class Ui {
             Storage.saveTasks(tasks);
             Printer.printActionAttach(Action.UNMARK, task);
         } catch (IndexOutOfBoundsException e) {
-            WisException.ActionExceptionHandler(Action.UNMARK);
+            WisException.actionExceptionHandler(Action.UNMARK);
         } catch (NumberFormatException e) {
-            WisException.ActionExceptionHandler(Action.UNMARK);
+            WisException.actionExceptionHandler(Action.UNMARK);
         }
     }
 
@@ -145,9 +145,9 @@ public class Ui {
             Storage.saveTasks(tasks);
             Printer.printActionAttach(Action.DELETE, task, tasks);
         } catch (IndexOutOfBoundsException e) {
-            WisException.ActionExceptionHandler(Action.DELETE);
+            WisException.actionExceptionHandler(Action.DELETE);
         } catch (NumberFormatException e) {
-            WisException.ActionExceptionHandler(Action.DELETE);
+            WisException.actionExceptionHandler(Action.DELETE);
         }
     }
 }
