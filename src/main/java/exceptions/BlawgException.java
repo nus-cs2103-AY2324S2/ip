@@ -1,6 +1,6 @@
 package exceptions;
 
-public class BlawgException extends Exception{
+public class BlawgException extends Exception {
     public BlawgException() {
 
         super();

@@ -4,7 +4,7 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
-public class InvalidCommand extends Command{
+public class InvalidCommand extends Command {
     public final String result;
 
     public InvalidCommand(String result) {

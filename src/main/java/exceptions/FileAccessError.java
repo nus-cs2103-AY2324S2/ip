@@ -1,6 +1,6 @@
 package exceptions;
 
-public class FileAccessError extends BlawgException{
+public class FileAccessError extends BlawgException {
     public FileAccessError() {
 
         super();

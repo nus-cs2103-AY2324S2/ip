@@ -1,6 +1,6 @@
 package exceptions;
 
-public class IncorrectDateError extends Exception{
+public class IncorrectDateError extends Exception {
     public IncorrectDateError() {
 
         super();

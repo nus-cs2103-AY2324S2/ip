@@ -5,7 +5,7 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private final int index;
 
     public MarkCommand(int index) {

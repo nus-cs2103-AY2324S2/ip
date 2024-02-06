@@ -5,7 +5,7 @@ import tasklist.TaskList;
 import ui.Ui;
 import storage.Storage;
 
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         storage.write(tasks.getTaskList());

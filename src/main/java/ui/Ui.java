@@ -13,8 +13,8 @@ public class Ui {
         this.printer = new PrintStream(System.out);
     }
     public void showWelcome() {
-        printer.print(LINE + "Paws what you're doing! I'm Blawg\n" +
-                "What can I do for you?\n" + LINE);
+        printer.print(LINE + "Paws what you're doing! I'm Blawg\n"
+                + "What can I do for you?\n" + LINE);
     }
 
     public void showBye() {
@@ -26,17 +26,14 @@ public class Ui {
     }
 
     public String getUserInput() {
-
         return sc.nextLine();
     }
 
     public void showResult(String result) {
-
         printer.print(result);
     }
 
     public void showError(String error) {
-
         printer.print(error);
     }
 }

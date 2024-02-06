@@ -1,6 +1,6 @@
 package exceptions;
 
-public class FileError extends BlawgException{
+public class FileError extends BlawgException {
     public FileError() {
 
         super();

@@ -82,7 +82,7 @@ public class Storage {
         return taskListArray;
     }
 
-    private String convertArrayToStr(ArrayList<Task> tasks)  {
+    private String convertArrayToStr(ArrayList<Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             stringBuilder.append(tasks.get(i).prepareForStorage());

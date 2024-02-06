@@ -6,7 +6,7 @@ import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private final int index;
 
     public DeleteCommand(int index) {
