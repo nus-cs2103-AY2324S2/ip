@@ -1,24 +1,30 @@
 package earl.logic;
 
+import java.util.ArrayList;
+
 import earl.util.TaskList;
 import earl.util.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Class responsible for the find command.
  */
 public class FindHandler extends Handler {
 
-    private final String [] COMMAND;
+    private final String [] command;
+
+    /**
+     * Class constructor.
+     *
+     * @param command  the user input that invoked this handler
+     */
     public FindHandler(String[] command) {
-        COMMAND = command;
+        this.command = command;
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) {
         int n = tasks.getSize();
-        String pattern = COMMAND[1];
+        String pattern = command[1];
         ArrayList<String> temp = new ArrayList<>();
         int c = 0;
         for (int i = 0; i < n; ++i) {

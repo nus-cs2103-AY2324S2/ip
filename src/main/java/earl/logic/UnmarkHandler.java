@@ -9,15 +9,22 @@ import earl.util.Ui;
  * Class responsible for the unmark command.
  */
 public final class UnmarkHandler extends Handler {
-    private final String[] COMMAND;
 
+    private final String[] command;
+
+    /**
+     * Class constructor.
+     *
+     * @param command  the user input that invoked this handler
+     */
     public UnmarkHandler(String[] command) {
-        COMMAND = command;
+        this.command = command;
     }
 
+    @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            int idx = Parser.parseIndex(COMMAND[1]);
+            int idx = Parser.parseIndex(command[1]);
             if (tasks.unmark(idx)) {
                 ui.makeResponse("Item marked as not done.");
             } else {

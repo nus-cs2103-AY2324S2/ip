@@ -32,7 +32,7 @@ public class Parser {
      * @return       an array of two {@code String} objects
      */
     public static String[] parseUserInput(String input) {
-       return input.split("\\s", 2);
+        return input.split("\\s", 2);
     }
 
     /** Returns the integer index equivalent of the user's selection. */

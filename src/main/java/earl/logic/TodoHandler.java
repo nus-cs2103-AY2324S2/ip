@@ -10,15 +10,21 @@ import earl.util.Ui;
  */
 public class TodoHandler extends Handler {
 
-    private final String[] COMMAND;
+    private final String[] command;
 
+    /**
+     * Class constructor.
+     *
+     * @param command  the user input that invoked this handler
+     */
     public TodoHandler(String[] command) {
-        COMMAND = command;
+        this.command = command;
     }
 
+    @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            tasks.add(new Todo(COMMAND[1]));
+            tasks.add(new Todo(command[1]));
             ui.makeResponse("Added new todo.",
                     "\t" + tasks.get(tasks.getSize() - 1),
                     "There are " + tasks.getSize() + " task(s) tracked.");

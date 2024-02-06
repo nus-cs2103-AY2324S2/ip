@@ -1,5 +1,8 @@
 package earl.logic;
 
+/**
+ * Factory class for {@code Handler} objects.
+ */
 public class HandlerFactory {
 
     /**

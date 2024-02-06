@@ -2,6 +2,9 @@ package earl.tasks;
 
 import earl.exceptions.EarlException;
 
+/**
+ * Factory class for {@code Task} objects.
+ */
 public class TaskFactory {
 
     /**

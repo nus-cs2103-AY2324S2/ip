@@ -28,10 +28,12 @@ public abstract class Task {
         isDone = status.equals("X");
     }
 
+    /** Returns a visual indicator of completion. */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /** Marks as complete. Returns success. */
     public boolean markAsDone() {
         if (!this.isDone) {
             this.isDone = true;
@@ -40,6 +42,7 @@ public abstract class Task {
         return false;
     }
 
+    /** Marks as incomplete. Returns success. */
     public boolean markUndone() {
         if (this.isDone) {
             this.isDone = false;

@@ -1,8 +1,8 @@
 package earl.util;
 
-import earl.tasks.Task;
-
 import java.util.ArrayList;
+
+import earl.tasks.Task;
 
 /**
  * Class encapsulating the list of tasks.

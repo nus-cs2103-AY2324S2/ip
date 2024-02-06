@@ -10,15 +10,21 @@ import earl.util.Ui;
  */
 public class DeadlineHandler extends Handler {
 
-    private final String[] COMMAND;
+    private final String[] command;
 
+    /**
+     * Class constructor.
+     *
+     * @param command  the user input that invoked this handler
+     */
     public DeadlineHandler(String[] command) {
-        COMMAND = command;
+        this.command = command;
     }
 
+    @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            String[] args = COMMAND[1].split("\\s/by\\s");
+            String[] args = command[1].split("\\s/by\\s");
             tasks.add(new Deadline(args[0], args[1]));
             ui.makeResponse("Added new deadline.",
                     "\t" + tasks.get(tasks.getSize() - 1),

@@ -8,14 +8,17 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String PADDING = " ".repeat(4);
-    private static void printDivider() {
-        System.out.println(PADDING + "_".repeat(50));
-    }
-    private final Scanner SC;
+
+    private final Scanner sc;
 
     /** Class constructor. */
-    public Ui () {
-        SC = new Scanner(System.in);
+    public Ui() {
+        sc = new Scanner(System.in);
+    }
+
+    /** Displays horizontal divider. */
+    private static void printDivider() {
+        System.out.println(PADDING + "_".repeat(50));
     }
 
     /**
@@ -36,7 +39,7 @@ public class Ui {
     }
 
     public String getUserInput() {
-        return SC.nextLine();
+        return sc.nextLine();
     }
 
     public void showGreeting() {
