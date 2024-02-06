@@ -14,10 +14,10 @@ import lindi.commands.UnmarkCommand;
  */
 public class Parser {
     /**
-     * Parses the user input and returns the corresponding lindi.commands.Command
+     * Parses the user input and returns the corresponding Command
      *
      * @param userInput the user input command string
-     * @return the lindi.commands.Command corresponding to the input string.
+     * @return the Command corresponding to the input string.
      */
     public static Command parse(String userInput) {
         // if command called, will be index 0, rest of string (args) in index 1
@@ -58,10 +58,16 @@ public class Parser {
         return Integer.parseInt(args);
     }
 
+    /**
+     * Returns an UnmarkCommand if args are valid, else InvalidCommand
+     *
+     * @param args arguments from user input
+     * @return UnmarkCommand if args are valid. <p>InvalidCommand if args is null or non-integer
+     */
     private static Command prepareUnmark(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index " +
-                    "of the lindi.task you want to modify :)");
+                    "of the task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);
@@ -72,10 +78,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an MarkCommand if args are valid, else InvalidCommand
+     *
+     * @param args arguments from user input
+     * @return MarkCommand if args are valid. <p>InvalidCommand if args is null or non-integer
+     */
     private static Command prepareMark(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index " +
-                    "of the lindi.task you want to modify :)");
+                    "of the task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);
@@ -86,10 +98,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an DeleteCommand if args are valid, else InvalidCommand
+     *
+     * @param args arguments from user input
+     * @return DeleteCommand if args are valid. <p>InvalidCommand if args is null or non-integer
+     */
     private static Command prepareDelete(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index " +
-                    "of the lindi.task you want to modify :)");
+                    "of the task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);
