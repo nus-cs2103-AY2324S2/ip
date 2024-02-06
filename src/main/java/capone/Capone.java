@@ -3,7 +3,7 @@ package capone;
 import capone.commands.Command;
 import capone.exceptions.CaponeException;
 import capone.exceptions.TaskListCorruptedException;
-import capone.ui.Cli.Cli;
+import capone.ui.cli.Cli;
 import capone.ui.Ui;
 
 /**
@@ -12,7 +12,8 @@ import capone.ui.Ui;
  * @author Tay Rui-Jie
  */
 public class Capone {
-
+    private static final String STORAGE_PATH = "./data/";
+    private static final String STORAGE_FILE = "tasks.json";
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -25,6 +26,15 @@ public class Capone {
      */
     public Capone(String taskListPath, String taskListName) {
         this.storage = new Storage(taskListPath, taskListName);
+        this.tasks = new TaskList();
+        this.ui = new Cli();
+    }
+
+    /**
+     * Constructs a Capone instance with the default task list path and name.
+     */
+    public Capone() {
+        this.storage = new Storage(Capone.STORAGE_PATH, Capone.STORAGE_FILE);
         this.tasks = new TaskList();
         this.ui = new Cli();
     }
@@ -59,6 +69,15 @@ public class Capone {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Capone("./data/", "tasks.json").run();
+        new Capone().run();
+    }
+
+    /**
+     * Gets the response from processing the user's input.
+     *
+     * @param input The user's input.
+     */
+    public String getResponse(String input) {
+        return input;
     }
 }

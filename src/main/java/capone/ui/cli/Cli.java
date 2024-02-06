@@ -1,4 +1,4 @@
-package capone.ui.Cli;
+package capone.ui.cli;
 
 import capone.TaskList;
 import capone.tasks.Task;
