@@ -17,15 +17,15 @@ public class TaskList {
         this.myList.add(task);
     }
 
-    public Task getTask (int i) {
-        return this.myList.get(i);
+    public Task getTask(int i) {
+        return this.myList.get(i - 1);
     }
 
-    public void deleteTask (int index) {
+    public void deleteTask(int index) {
         myList.remove(index - 1);
     }
 
-    public void showTasks () {
+    public void showTasks() {
         int index = 1;
         for (Task s : this.myList) {
             System.out.println(index + "." + s);
