@@ -1,16 +1,19 @@
+package alastor;
 
-public class Duke {
+import alastor.command.Command;
+
+public class Alastor {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
-    public Duke(String filePath) {
+    public Alastor(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (AlastorException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
@@ -28,7 +31,7 @@ public class Duke {
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (AlastorException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -37,7 +40,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/tasks.txt").run();
+        new Alastor("./data/tasks.txt").run();
     }
 }
-

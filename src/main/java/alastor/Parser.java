@@ -1,3 +1,11 @@
+package alastor;
+
+import alastor.command.*;
+import alastor.task.Deadline;
+import alastor.task.Event;
+import alastor.task.Task;
+import alastor.task.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,33 +13,33 @@ import java.util.ArrayList;
 
 public class Parser {
 
-    public static Integer stringToInt(String integer) throws DukeException {
+    public static Integer stringToInt(String integer) throws AlastorException {
         try{
             return Integer.parseInt(integer);
         } catch (NumberFormatException e) {
-            throw new DukeException("I'm afraid I've encountered an error while parsing the integer, my dear.");
+            throw new AlastorException("I'm afraid I've encountered an error while parsing the integer, my dear.");
         }
     }
-    public static LocalDateTime stringToDateTime(String dateTime) throws DukeException {
+    public static LocalDateTime stringToDateTime(String dateTime) throws AlastorException {
         try{
             return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         } catch (DateTimeParseException e) {
-            throw new DukeException("I'm afraid I've encountered an error while parsing the date and time, my dear.");
+            throw new AlastorException("I'm afraid I've encountered an error while parsing the date and time, my dear.");
         }
     }
 
-    public static void checkForEmpty(String[] arguments, int expectedNumber) throws DukeException {
+    public static void checkForEmpty(String[] arguments, int expectedNumber) throws AlastorException {
         if (arguments.length != expectedNumber) {
-            throw new DukeException("I'm afraid you're missing some arguments, my dear.");
+            throw new AlastorException("I'm afraid you're missing some arguments, my dear.");
         }
         for (String i : arguments) {
             if (i.isBlank()) {
-                throw new DukeException("I'm afraid you're missing some arguments, my dear.");
+                throw new AlastorException("I'm afraid you're missing some arguments, my dear.");
             }
         }
     }
 
-    public static void parseFile(String line, ArrayList<Task> list, int index) throws DukeException {
+    public static void parseFile(String line, ArrayList<Task> list, int index) throws AlastorException {
         String[] task = line.split("\\| ", 5);
         switch (task[0].trim()) {
             case "T":
@@ -50,7 +58,7 @@ public class Parser {
         }
     }
 
-    public static Command parseCommand(String command) throws DukeException {
+    public static Command parseCommand(String command) throws AlastorException {
         String[] task = command.trim().split(" ", 2);
         switch (task[0]) {
             case "list":
