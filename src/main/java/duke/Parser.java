@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represents the parser responsible for interpreting user commands.
  * This class contains methods to parse raw user input into executable commands,

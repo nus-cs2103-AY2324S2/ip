@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represents a chatbot that assists the user with managing a task list.
  * This chatbot has a task-list to keep track of tasks and a storage to store task content.

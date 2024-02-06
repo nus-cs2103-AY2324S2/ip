@@ -1,6 +1,8 @@
-public class MarkCommand extends Command {
+package duke;
+
+public class UnmarkCommand extends Command {
     private int index;
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
@@ -8,7 +10,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task t = tasks.get(index - 1);
-            t.markAsDone();
+            t.unmark();
             setExit(false);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
