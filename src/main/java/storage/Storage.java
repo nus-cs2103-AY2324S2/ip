@@ -1,6 +1,6 @@
-package Storage;
+package storage;
 
-import Exceptions.DukeException;
+import exceptions.DukeException;
 
 import java.io.IOException;
 import java.nio.file.Files;

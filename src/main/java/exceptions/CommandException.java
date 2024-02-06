@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class CommandException extends DukeException{
     public CommandException(String message) {

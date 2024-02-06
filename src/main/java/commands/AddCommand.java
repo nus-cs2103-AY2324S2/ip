@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Storage.TaskList;
-import UI.UserInterface;
+import storage.TaskList;
+import ui.UserInterface;
 import tasks.Task;
 
 public class AddCommand implements Command{

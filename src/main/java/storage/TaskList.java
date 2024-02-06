@@ -1,8 +1,8 @@
-package Storage;
+package storage;
 
-import Exceptions.ArgumentException;
+import exceptions.ArgumentException;
 import tasks.Task;
-import Parser.Parser;
+import parser.Parser;
 import java.util.ArrayList;
 import java.util.List;
 

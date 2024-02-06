@@ -1,11 +1,9 @@
-package Parser;
+package parser;
 
-import Commands.*;
-import Exceptions.ArgumentException;
-import Exceptions.CommandException;
+import commands.*;
+import exceptions.ArgumentException;
+import exceptions.CommandException;
 import tasks.Task;
-
-import java.util.ArrayList;
 
 public class Parser {
     public static Command parseInput(String input) throws CommandException, ArgumentException {

@@ -1,9 +1,11 @@
-import Commands.Command;
-import Exceptions.DukeException;
-import Parser.Parser;
-import Storage.Storage;
-import Storage.TaskList;
-import UI.UserInterface;
+package duke;
+
+import commands.Command;
+import exceptions.DukeException;
+import parser.Parser;
+import storage.Storage;
+import storage.TaskList;
+import ui.UserInterface;
 
 public class Stille {
     private final UserInterface ui;

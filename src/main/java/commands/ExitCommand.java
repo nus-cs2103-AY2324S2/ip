@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Storage.TaskList;
-import UI.UserInterface;
+import storage.TaskList;
+import ui.UserInterface;
 
 public class ExitCommand implements Command{
 
