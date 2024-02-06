@@ -26,7 +26,7 @@ public class Parser {
         String restOfInputs = parts.length > 1 ? parts[1] : "";
 
 
-        if(command.equals("list")) {
+        if (command.equals("list")) {
             /*
             * Displays the list of tasks in the MyList
             */
@@ -34,7 +34,7 @@ public class Parser {
             taskList.list();
             return true;
 
-        } else if(command.equals("bye")) {
+        } else if (command.equals("bye")) {
             /*
             * Save the new task in MyList before exitting the Duke Program
             */
@@ -45,7 +45,7 @@ public class Parser {
             ui.commandError();
             return true;
 
-        } else if(command.equals("unmark")) {
+        } else if (command.equals("unmark")) {
             /**
             * Marks a specified task as not done
             * 
@@ -67,7 +67,7 @@ public class Parser {
             taskList.markList(parts);
             return true;
 
-        } else if(command.equals("delete")){
+        } else if (command.equals("delete")){
             /**
             * Deletes a specified task from the list
             * 

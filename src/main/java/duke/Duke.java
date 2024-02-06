@@ -15,7 +15,6 @@ import java.util.Scanner;
  */
 
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -37,7 +36,7 @@ public class Duke {
         ui.blank();
         boolean result = true;
 
-        while(result) {
+        while (result) {
             // Read user input
             String userInput = sc.nextLine();
 
