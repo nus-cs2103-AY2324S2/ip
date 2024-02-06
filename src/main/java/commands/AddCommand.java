@@ -8,6 +8,10 @@ import ui.Ui;
 
 import java.sql.SQLOutput;
 
+/**
+ *  Represents a generic command that adds a task to a user's tasklist
+ *  and updates the user on their added task.
+ */
 public class AddCommand extends Command{
     private final Task task;
 

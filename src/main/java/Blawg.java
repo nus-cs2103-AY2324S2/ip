@@ -6,6 +6,14 @@ import storage.Storage;
 import ui.Ui;
 
 import parser.Parser;
+
+/**
+ * <p>
+ *  Represents a chatBox Ai. A <code>Blawg</code> object allows a User to
+ *  * relay instructions and have the instructions be executed. The commands
+ *  * that Blawg supports are list, deadline, event, todo, delete, bye, mark, unmark.
+ * </p>
+ */
 public class Blawg {
     private TaskList tasks;
     private Storage storage;
@@ -21,6 +29,10 @@ public class Blawg {
         }
     }
 
+    /**
+     * This method runs the chatbot Blawg, allowing it to start receiving input
+     * and outputting results to users.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

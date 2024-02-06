@@ -5,6 +5,9 @@ import tasklist.TaskList;
 import ui.Ui;
 import storage.Storage;
 
+/**
+ *  Generic Command class that executes instructions based on user input
+ */
 public abstract class Command {
     public Boolean isExit() {
         return false;

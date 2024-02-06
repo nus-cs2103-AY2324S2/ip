@@ -4,6 +4,11 @@ import tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * <p>
+ *  represents a collection of tasks that the user wants saved.
+ *  </p>
+ */
 public class TaskList {
     private ArrayList<Task>  taskList;
 

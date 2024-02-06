@@ -2,6 +2,10 @@ package exceptions;
 
 import exceptions.BlawgException;
 
+/**
+ *  Represents exception relating to user submitting incorrect command inputs with
+ *  wrong parameters.
+ */
 public class InvalidInputException extends BlawgException {
     public InvalidInputException() {
 

@@ -5,6 +5,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ *  Handles the unmarking of task as done
+ */
 public class UnmarkCommand extends Command{
     private final int index;
 

@@ -5,10 +5,13 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
-public class MarkCommand extends Command{
+/**
+ *  Handles the Marking of Task as done.
+ */
+public class MarkTaskCommand extends Command{
     private final int index;
 
-    public MarkCommand(int index) {
+    public MarkTaskCommand(int index) {
         this.index = index;
     }
 

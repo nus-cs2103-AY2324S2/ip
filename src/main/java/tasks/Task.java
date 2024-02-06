@@ -1,5 +1,10 @@
 package tasks;
 
+/**
+ * <p>
+ *  represents a generic Task that a user would want to save
+ *  </p>
+ */
 public class Task {
     private final String description;
     private boolean isDone;
@@ -23,10 +28,18 @@ public class Task {
         this.shortForm = shortForm;
     }
 
+    /**
+     * Converts the boolean isDone to a String for printing
+     * @return string "X" if done else " "
+     */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }
 
+    /**
+     * Converts the boolean isDone to a String for Storage
+     * @return string "1" if done else "0"
+     */
     public String getStatusIconNum() {
         return (this.isDone ? "1" : "0");
     }

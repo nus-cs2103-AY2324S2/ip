@@ -6,6 +6,9 @@ import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
+/**
+ *  Handles the deletion of tasks from the user's task list.
+ */
 public class DeleteCommand extends Command{
     private final int index;
 

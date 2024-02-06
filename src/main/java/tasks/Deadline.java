@@ -1,5 +1,11 @@
 package tasks;
 
+/**
+ * <p>
+ *  represents a Deadline Task that a user would want to save, it has
+ *  a description and a dueDate.
+ *  </p>
+ */
 public class Deadline extends Task {
     private final String date;
     public Deadline(String description, String date) {

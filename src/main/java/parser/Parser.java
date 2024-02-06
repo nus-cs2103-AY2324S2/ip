@@ -4,14 +4,14 @@ import commands.Command;
 import commands.ByeCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
-import commands.MarkCommand;
+import commands.MarkTaskCommand;
 import commands.UnmarkCommand;
 import commands.AddTodoCommand;
 import commands.AddDeadlineCommand;
 import commands.AddEventCommand;
 import commands.DeleteCommand;
 
-import exceptions.EmptyException;
+import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
 import exceptions.IncorrectDateError;
 
@@ -23,7 +23,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * <p>
+ *  Handles the understanding of user input
+ * </p>
+ */
 public class Parser {
+
+    /**
+     * Parses the user input into a specific command to be executed.
+     * <p>
+     * This method takes a string of user input, interprets the intended command,
+     * and returns the corresponding Command object. Supported commands include
+     * 'bye', 'list', 'mark', 'unmark', 'todo', 'deadline', 'event', and 'delete'.
+     * Commands not matching these are considered invalid.
+     * </p>
+     *
+     * @param userInput The user input string to be parsed.
+     * @return The specific Command object representing the intended action.
+     * @throws InvalidCommandException If the command is not recognised.
+     * @throws IncorrectDateError If the date for deadline or event commands is in an incorrect format.
+     * @throws InvalidInputException If the input for the commands is invalid or incomplete.
+     */
     public Command parse(String userInput) {
         try {
             String[] splitInput = userInput.split("\\s+");
@@ -35,7 +56,7 @@ public class Parser {
             } else if (firstWord.equalsIgnoreCase("mark")) {
                 try {
                     int number = Integer.parseInt(splitInput[1]);
-                    return new MarkCommand(number);
+                    return new MarkTaskCommand(number);
                 } catch (NumberFormatException e) {
                     return new InvalidCommand(e.getMessage() + "\n");
                 }
@@ -74,14 +95,17 @@ public class Parser {
                     return new InvalidCommand(e.getMessage() + "\n");
                 }
             } else {
-                throw new EmptyException("I don't know what that means :( Valid commands are: \n" +
+                throw new InvalidCommandException("I don't know what that means :( Valid commands are: \n" +
                         "list, todo, deadline, event, mark, unmark, bye\n");
             }
-        } catch (EmptyException | IncorrectDateError | InvalidInputException e) {
+        } catch (InvalidCommandException | IncorrectDateError | InvalidInputException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
 
+    /**
+     * helper function that splits userInput into the parameters needed to create a Deadline task
+     */
     private static Deadline getDeadlines(String deadlineText) throws InvalidInputException, IncorrectDateError {
         String deadlineTextLowerCase = deadlineText.toLowerCase();
 
@@ -105,6 +129,9 @@ public class Parser {
         return new Deadline(description, dateTime);
     }
 
+    /**
+     * helper function that splits userInput into the parameters needed to create an Event task
+     */
     private static Event getEvents(String eventText) throws InvalidInputException, IncorrectDateError {
         String eventTextLowerCase = eventText.toLowerCase();
 
@@ -135,6 +162,11 @@ public class Parser {
         return new Event(description, startDateTime, endDateTime);
     }
 
+    /**
+     * helper function that checks if the data entered by user is of the correct format
+     * @param date String of date to check validiity for
+     * @throws IncorrectDateError if Date is invalid
+     */
     private static String validDateChecker(String date) throws IncorrectDateError {
         DateTimeFormatter[] formatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),

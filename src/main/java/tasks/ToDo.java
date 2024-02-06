@@ -1,5 +1,11 @@
 package tasks;
 
+/**
+ * <p>
+ *  represents a Todo Task that a user would want to save, it has
+ *  only a description.
+ *  </p>
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
 

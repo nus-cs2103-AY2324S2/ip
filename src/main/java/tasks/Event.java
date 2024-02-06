@@ -1,5 +1,11 @@
 package tasks;
 
+/**
+ * <p>
+ *  represents a Event Task that a user would want to save, it has
+ *  a description, a startDate and an EndDate.
+ *  </p>
+ */
 public class Event extends Task {
     private final String startDate;
     private final String endDate;
