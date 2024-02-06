@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,7 +6,7 @@ import java.util.Scanner;
 
 public class Univus {
     private static Scanner scanner;
-    private List<Task> store;
+    private static List<Task> store;
     public Univus() {
         this.scanner = new Scanner(System.in);
         this.store = new ArrayList<>();
@@ -163,10 +164,59 @@ public class Univus {
             }
         }
     }
+    public void saveToFile(String filename, List<Task> store) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            for (Task task : store) {
+                writer.println(task.toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Task> loadFromFile(String filename) {
+        List<Task> store = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String message;
+            while ((message = reader.readLine()) != null) {
+                if (message.startsWith("[T]")) {
+                    int index = message.lastIndexOf("]");
+                    String description = "todo" + message.substring(index + 1);
+                    ToDos todo = new ToDos(description);
+                    store.add(todo);
+                } else if (message.startsWith("[D]")) {
+                    int startIndex = message.lastIndexOf("]");
+                    int endIndex = message.lastIndexOf("(");
+                    int timeIndex = message.lastIndexOf(":");
+                    String dueDate = "by" + message.substring(timeIndex + 1, message.length() - 1);
+                    String description = message.substring(startIndex + 2, endIndex);
+                    Deadlines deadline = new Deadlines(description, dueDate);
+                    store.add(deadline);
+                } else if (message.startsWith("[E]")) {
+                    int startIndex = message.lastIndexOf("]");
+                    int endIndex = message.lastIndexOf("(");
+                    int startIdx = message.indexOf(":");
+                    int endIdx = message.lastIndexOf(":");
+                    String description = message.substring(startIndex + 2, endIndex);
+                    String start = "from" + message.substring(startIdx + 1, endIdx - 2);
+                    String end = "to" + message.substring(endIdx + 1, message.length() - 1);
+                    Events event = new Events(description, start, end);
+                    store.add(event);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found. Creating an empty list.");
+            return new ArrayList<>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return store;
+    }
 
     public static void main(String[] args) throws UnivusException {
         Univus univus = new Univus();
         univus.greet();
+        store = univus.loadFromFile("./data/Univus.txt");
         while (true) {
             String message = scanner.nextLine();
             univus.echo(message);
@@ -174,5 +224,6 @@ public class Univus {
                 break;
             }
         }
+        univus.saveToFile("./data/Univus.txt", store);
     }
 }
