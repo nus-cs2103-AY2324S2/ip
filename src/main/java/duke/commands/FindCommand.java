@@ -19,7 +19,10 @@ public class FindCommand extends Command{
         Ui.printMessage(taskList.filter(searchString));
     }
 
+    /**
+     * Returns the String containing the proper usage of filtering the tasklist
+     */
     public static String getUsage() {
-        return Command.getUsage() + "find <filter>";
+        return Command.getUsage() + " find <filter>";
     }
 }
