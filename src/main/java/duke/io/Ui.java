@@ -57,4 +57,8 @@ public class Ui {
         System.out.println("Ok! I have removed this task from your list:\n  " + removedTask);
         System.out.println("Now you have " + totalTasks + " tasks in your list.");
     }
+
+    public static void showFindItemList(String keyword) {
+        System.out.println("Items containing '" + keyword + "':");
+    }
 }

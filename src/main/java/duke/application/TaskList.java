@@ -9,7 +9,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public ArrayList<Task> getTasks() {
+    public Task getTask(int i) {
+        return tasks.get(i);
+    }
+
+    public ArrayList<Task> getTaskList() {
         return tasks;
     }
 
