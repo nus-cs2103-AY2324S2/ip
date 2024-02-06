@@ -1,16 +1,16 @@
 package command;
 
+import java.time.LocalDateTime;
+
 import andelu.AndeluException;
+import andelu.DateTimeManager;
 import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
-import andelu.DateTimeManager;
-
 import task.Deadline;
 import task.Event;
 import task.Task;
 
-import java.time.LocalDateTime;
 
 /**
  * A Search command to search the tasks based on date.
@@ -47,9 +47,9 @@ public class SearchCommand extends Command {
             throw new AndeluException("Missing the date!");
         }
 
-        LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() +"T00:00");
+        LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() + "T00:00");
 
-        ui.printAnyStatement("Here are the tasks on " + input +":");
+        ui.printAnyStatement("Here are the tasks on " + input + ":");
 
         int index = 1;
         for (Task i : tasks.getTasks()) {

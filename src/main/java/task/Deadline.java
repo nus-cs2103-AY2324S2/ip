@@ -3,7 +3,6 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,8 +13,7 @@ import java.util.List;
 public class Deadline extends Task {
 
     /** The DateTime to complete this task. */
-    LocalDateTime by;
-
+    private LocalDateTime by;
 
     /**
      * A constructor to create the Deadline Object.
@@ -60,6 +58,6 @@ public class Deadline extends Task {
             }
         }
 
-        return "[D]["+ super.getStatusIcon() +"] " + super.getDescription() + " (by: " + byString + ")";
+        return "[D][" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + byString + ")";
     }
 }

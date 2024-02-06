@@ -1,17 +1,17 @@
 package andelu;
 
-import command.Command;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
-import command.AddToDoCommand;
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
+import command.AddToDoCommand;
+import command.Command;
 import command.DeleteCommand;
-import command.SearchCommand;
 import command.ExitCommand;
 import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
 import command.OtherCommand;
+import command.SearchCommand;
+import command.UnmarkCommand;
 
 /**
  * A Parser class to decide the instruction made by the user.
@@ -54,7 +54,7 @@ public class Parser {
         } else if (splitInput[0].equalsIgnoreCase(Action.FIND.toString())) {
             return new FindCommand(userInput);
 
-        }else if (splitInput[0].equalsIgnoreCase(Action.BYE.toString())) {
+        } else if (splitInput[0].equalsIgnoreCase(Action.BYE.toString())) {
             return new ExitCommand();
 
         } else {

@@ -1,16 +1,17 @@
 package command;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import andelu.AndeluException;
+import andelu.DateTimeManager;
 import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
-import andelu.DateTimeManager;
-
 import task.Event;
 import task.Task;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 
 /**
  * A AddEventCommand class to add new Event task.

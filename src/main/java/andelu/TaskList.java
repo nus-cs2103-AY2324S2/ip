@@ -1,8 +1,8 @@
 package andelu;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 /**
  * A class that contains all the tasks.

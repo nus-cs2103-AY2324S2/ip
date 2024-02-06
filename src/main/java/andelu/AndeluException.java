@@ -3,8 +3,7 @@ package andelu;
 /**
  * A DukeException class to handle exception messages.
  */
-public class AndeluException extends Exception{
-
+public class AndeluException extends Exception {
     /**
      * A constructor to create new DukeException.
      *
