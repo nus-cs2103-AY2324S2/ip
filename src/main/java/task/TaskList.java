@@ -50,7 +50,7 @@ public class TaskList {
      * @return Task that was deleted.
      */
     public Task delete(int index) {
-            return this.list.remove(index);
+        return this.list.remove(index);
     }
 
     /**

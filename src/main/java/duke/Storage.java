@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -43,15 +44,17 @@ public class Storage {
                 boolean isDone = input[1].equals("1");
                 String description = input[2];
                 switch (type) {
-                    case "T":
-                        list.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        list.add(new Deadline(description, input[3], isDone));
-                        break;
-                    case "E":
-                        list.add(new Event(description, input[3], input[4], isDone));
-                        break;
+                case "T":
+                    list.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    list.add(new Deadline(description, input[3], isDone));
+                    break;
+                case "E":
+                    list.add(new Event(description, input[3], input[4], isDone));
+                    break;
+                default:
+                    break;
                 }
             }
             sc.close();

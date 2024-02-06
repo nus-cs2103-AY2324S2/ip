@@ -34,5 +34,4 @@ public class AddEventCommand extends Command {
         tasks.add(event);
         ui.showAddTask(event, tasks.size());
     }
-    
 }

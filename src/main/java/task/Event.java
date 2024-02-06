@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task.
  */
 public class Event extends Task {
-    private final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
+    private final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern(
+            "[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -17,10 +18,10 @@ public class Event extends Task {
      * @param start The start date and time of the event.
      * @param end The end date and time of the event.
      */
-    public Event (String description, String start, String end) {
+    public Event(String description, String start, String end) {
         super(description);
-        if ((start.length() < 10 || (start.length() > 16 && start.length() != 64)) ||
-            (end.length() < 10 || (end.length() > 16 && end.length() != 64))) {
+        if ((start.length() < 10 || (start.length() > 16 && start.length() != 64))
+                || (end.length() < 10 || (end.length() > 16 && end.length() != 64))) {
             throw new IllegalArgumentException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
         }
         if (start.length() == 10) {
@@ -40,10 +41,10 @@ public class Event extends Task {
      * @param end The end date and time of the event.
      * @param isDone Whether the event is done.
      */
-    public Event (String description, String start, String end, boolean isDone) {
+    public Event(String description, String start, String end, boolean isDone) {
         super(description, isDone);
-        if ((start.length() < 10 || (start.length() > 16 && start.length() != 64)) ||
-            (end.length() < 10 || (end.length() > 16 && end.length() != 64))) {
+        if ((start.length() < 10 || (start.length() > 16 && start.length() != 64))
+                || (end.length() < 10 || (end.length() > 16 && end.length() != 64))) {
             throw new IllegalArgumentException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
         }
         if (start.length() == 10) {
@@ -78,7 +79,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() 
+        return "[E]" + super.toString()
             + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
             + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }

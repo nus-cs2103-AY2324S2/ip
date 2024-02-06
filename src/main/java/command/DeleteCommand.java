@@ -1,4 +1,5 @@
 package command;
+
 import duke.Ui;
 import task.Task;
 import task.TaskList;
@@ -27,5 +28,4 @@ public class DeleteCommand extends Command {
         Task removedTask = tasks.delete(index);
         ui.showDeleteTask(removedTask, tasks.size());
     }
-    
 }

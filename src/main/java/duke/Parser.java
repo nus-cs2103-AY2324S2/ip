@@ -5,10 +5,10 @@ import command.AddTodoCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnMarkCommand;
-import command.FindCommand;
 import exception.IncompleteCommandException;
 import exception.NoDeadlineException;
 import exception.NoPeriodException;
@@ -38,13 +38,13 @@ public class Parser {
         case "MARK":
             if (input.length == 1 || input[1].equals("")) {
                 throw new IncompleteCommandException(input[0]);
-            } 
+            }
             index = Integer.parseInt(input[1]) - 1;
             return new MarkCommand(index);
         case "UNMARK":
             if (input.length == 1 || input[1].equals("")) {
                 throw new IncompleteCommandException(input[0]);
-            } 
+            }
             index = Integer.parseInt(input[1]) - 1;
             return new UnMarkCommand(index);
         case "DELETE":
@@ -62,7 +62,7 @@ public class Parser {
         case "DEADLINE":
             if (input.length == 1 || input[1].equals("")) {
                 throw new IncompleteCommandException(input[0]);
-            } 
+            }
             input = input[1].split(" /by ", 2);
             if (input.length == 1) {
                 throw new NoDeadlineException();
@@ -73,7 +73,7 @@ public class Parser {
         case "EVENT":
             if (input.length == 1 || input[1].equals("")) {
                 throw new IncompleteCommandException(input[0]);
-            } 
+            }
             input = input[1].split(" /from ", 2);
             if (input.length == 1) {
                 throw new NoPeriodException();
