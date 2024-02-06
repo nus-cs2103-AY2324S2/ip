@@ -1,8 +1,8 @@
 package handler;
 
-import dukeexecpetions.DeadlineEmptyException;
-import dukeexecpetions.EventEmptyException;
-import dukeexecpetions.InvalidCmd;
+import dukeexceptions.DeadlineEmptyException;
+import dukeexceptions.EventEmptyException;
+import dukeexceptions.InvalidCmd;
 import items.TaskList;
 import msg.StdMsgs;
 import task.Deadline;

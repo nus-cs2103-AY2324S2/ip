@@ -33,7 +33,9 @@ public class Msg {
             this.text = text + "\n";
         }
     }
-
+    public void addTopDivider() {
+        text = Msg.DIVIDER + "\n" + text;
+    }
     /**
      * Prints text to terminal
      */

@@ -1,6 +1,6 @@
-package dukeexecpetions;
+package dukeexceptions;
 /** Exception when correct command is passed but is missing an empty field */
-public class EmptyFieldException extends Exception{
+public class EmptyFieldException extends dukeExceptions{
     /**
      * Concatenates the missing message to the corresponding empty field text
      * @param err

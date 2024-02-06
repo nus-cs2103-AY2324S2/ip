@@ -1,9 +1,9 @@
 package sirduke;
 import java.io.IOException;
 import java.util.Scanner;
-import dukeexecpetions.DeadlineEmptyException;
-import dukeexecpetions.EventEmptyException;
-import dukeexecpetions.InvalidCmd;
+import dukeexceptions.DeadlineEmptyException;
+import dukeexceptions.EventEmptyException;
+import dukeexceptions.InvalidCmd;
 import handler.CommandsHandler;
 import handler.DataHandler;
 import items.TaskList;
@@ -16,6 +16,7 @@ import msg.StdMsgs;
 public class SirDuke {
     /** The TaskList object that Sir Duke will use to store his tasks */
     private static TaskList items = new TaskList();
+
 
     public SirDuke(String filePath) {
 
