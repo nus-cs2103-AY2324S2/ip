@@ -24,7 +24,11 @@ public class Duke {
         ui.exit();
     }
 
-    public static void main(String[] args) throws RiriException, IOException {
-        new Duke("data/tasks.txt").run();
+    public static void main(String[] args) throws IOException {
+        try {
+            new Duke("data/tasks.txt").run();
+        } catch (RiriException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

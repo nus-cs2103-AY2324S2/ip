@@ -68,7 +68,7 @@ public class Ui {
                 String[] words = command.split("/by");
                 LocalDate date = parseDate(words[1].trim());
 
-                taskList.addTask(new Deadline(words[0].trim(), date));
+                taskList.addTask(new Deadline(words[0].substring(8).trim(), date));
                 System.out.println("Added deadline.");
                 continue;
             } else if (command.matches("\\bevent\\b.*")) {
@@ -76,7 +76,7 @@ public class Ui {
                 String[] from = words[1].split("/to");
                 LocalDate date1 = parseDate(from[0].trim());
                 LocalDate date2 =  parseDate(from[1].trim());
-                taskList.addTask(new Event(words[0].trim(), date1, date2));
+                taskList.addTask(new Event(words[0].substring(5).trim(), date1, date2));
                 System.out.println("Added event.");
                 continue;
             } else if (command.matches("\\btodo\\b.*")) {
@@ -90,8 +90,10 @@ public class Ui {
             } else if (command.matches("\\bdelete\\b.*")) {
                 String[] words = command.split("\\s+");
                 taskList.delete(Integer.parseInt(words[1].trim()));
+            } else if (command.trim().isEmpty()) {
+                continue;
             } else {
-                throw new RiriException("You ain't making sense!");
+                throw new RiriException("Unable to process or understand command.");
             }
         }
     }
