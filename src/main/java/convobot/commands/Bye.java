@@ -1,7 +1,7 @@
 package commands;
 
-import utils.TaskList;
 import utils.ResponseConstructor;
+import utils.TaskList;
 
 /**
  * Represents a command to exit the application.

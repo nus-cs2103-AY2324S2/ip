@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.ConvoBotException;
-import utils.TaskList;
 import utils.ResponseConstructor;
+import utils.TaskList;
 
 /**
  * Represents a command to unmark a completed task in the ConvoBot application.

@@ -3,8 +3,8 @@ package commands;
 import java.util.ArrayList;
 
 import exceptions.ConvoBotException;
-import utils.TaskList;
 import utils.ResponseConstructor;
+import utils.TaskList;
 
 /**
  * Represents the Find command, which searches for tasks in a TaskList based on a given query.

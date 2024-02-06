@@ -1,8 +1,8 @@
 package commands;
 
 import tasks.Task;
-import utils.TaskList;
 import utils.ResponseConstructor;
+import utils.TaskList;
 
 /**
  * Represents a command to add a task to the task list.

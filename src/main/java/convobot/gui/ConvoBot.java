@@ -1,11 +1,9 @@
 package gui;
 
-import javafx.application.Application;
-
 import commands.Command;
 import exceptions.ConvoBotException;
 import exceptions.ExitException;
-import gui.Main;
+import javafx.application.Application;
 import utils.Parser;
 import utils.ResponseConstructor;
 import utils.Storage;
@@ -31,7 +29,7 @@ public class ConvoBot {
     /**
      * Retrieves a response from ConvoBot based on the provided input.
      *
-     * @param input The input string representing the user's message.
+     * @param userInput The input string representing the user's message.
      * @return A string containing ConvoBot's response.
      * @throws ExitException If the user enters an exit command, this exception is thrown
      *                       to indicate that the application should exit.
