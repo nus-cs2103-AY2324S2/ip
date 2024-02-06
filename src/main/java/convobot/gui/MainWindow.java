@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         userInput.requestFocus(); // re-focus TextField
         String input = userInput.getText();
+        userInput.clear();
         String response = "";
         try {
             response = convo.getResponse(input);
@@ -52,6 +53,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, convoImage)
         );
-        userInput.clear();
     }
 }
