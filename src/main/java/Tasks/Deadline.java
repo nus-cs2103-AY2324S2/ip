@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class represents a deadline task by encapsulating information about a specific deadline,
+ * including the description, due date and time.
+ */
 public class Deadline extends Task {
     protected LocalDateTime deadline;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -17,7 +21,14 @@ public class Deadline extends Task {
 
     }
 
-    public static Deadline DeadlineOf(String input) throws InvalidInputException {
+    /**
+     * A factory method which creates a Deadline object using the user input.
+     *
+     * @param input User input which starts with "deadline".
+     * @return A Deadline object with the specified name and due date and time.
+     * @throws InvalidFormatException When the description of task or due date and time is empty in the user input.
+     */
+    public static Deadline DeadlineOf(String input) throws InvalidFormatException {
         if (input.replaceAll(" ", "").equals("deadline")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
         }
@@ -27,6 +38,12 @@ public class Deadline extends Task {
         }
         return new Deadline(t[0].replaceAll("\\s+$", ""), t[1]);
     }
+
+    /**
+     * Formats the details of the Deadline object as a String to be written to a text file.
+     *
+     * @return A String containing the description and due date and time of a Deadline object.
+     */
     @Override
     public String saveFormat() {
         int check = this.completed ? 1 : 0;

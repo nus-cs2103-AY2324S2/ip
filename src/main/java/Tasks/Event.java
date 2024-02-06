@@ -3,6 +3,10 @@ package Tasks;
 import Exceptions.InvalidFormatException;
 import Exceptions.LeluException;
 
+/**
+ * This class represents an Event task by encapsulating information about a specific event,
+ * including the description, start and end timings.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -13,6 +17,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * A factory method which creates an Event object using the user input.
+     *
+     * @param input User input which starts with "event".
+     * @return An Event object with the specified name and start and end timings.
+     * @throws InvalidFormatException When the description of event, or start and end times, is empty in the user input.
+     */
     public static Event EventOf(String input) throws InvalidFormatException {
         if (input.replaceAll(" ", "").equals("event")) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
@@ -27,6 +38,12 @@ public class Event extends Task {
         }
         return new Event(t[0], frTo[0], frTo[1]);
     }
+
+    /**
+     * Formats the details of the Event object as a String to be written to a text file.
+     *
+     * @return A String containing the description and start and end timings of an Event object.
+     */
     @Override
     public String saveFormat() {
         int check = this.completed ? 1 : 0;
