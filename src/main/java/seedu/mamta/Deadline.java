@@ -7,7 +7,6 @@ import java.time.LocalDate;
  * Inherits properties and methods from the Task class.
  */
 public class Deadline extends Task {
-
     /**
      * The deadline of the task.
      */
