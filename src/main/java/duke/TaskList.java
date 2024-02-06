@@ -27,8 +27,8 @@ public class TaskList {
 
     public void showTasks() {
         int index = 1;
-        for (Task s : this.myList) {
-            System.out.println(index + "." + s);
+        for (Task task : this.myList) {
+            System.out.println(index + "." + task);
             index++;
         }
     }
@@ -47,6 +47,15 @@ public class TaskList {
 
     public void unMarkTask(int index) {
         this.myList.get(index).setNotDone();
+    }
+
+    public void findTask(String text) {
+        int index = 1;
+        for (Task task : this.myList) {
+            if (task.toString().contains(text)) {
+                System.out.println(index + ". " + task);
+            }
+        }
     }
 
 
