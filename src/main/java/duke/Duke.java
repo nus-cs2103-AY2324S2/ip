@@ -54,7 +54,7 @@ public class Duke {
 
             if (command.startsWith("delete")) {
                 tempArr = command.split(" ");
-                currTask = this.tasks.getTask(Integer.parseInt(tempArr[1]) - 1);
+                currTask = this.tasks.getTask(Integer.parseInt(tempArr[1]));
                 this.tasks.deleteTask(Integer.parseInt(tempArr[1]) - 1);
                 this.ui.showDivider();
                 this.ui.showDeleteMessage(currTask, tasks);
