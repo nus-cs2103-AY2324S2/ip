@@ -1,7 +1,5 @@
 package pan;
 
-import java.util.Scanner;
-
 import javafx.application.Application;
 
 public class PanLauncher {
