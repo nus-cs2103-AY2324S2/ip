@@ -1,4 +1,5 @@
-T | 0 | abc 
-D | 1 | def | wednesday
-E | 0 | ghi | thurs 2pm-4pm 
-T | 0 | jkl
+T | 0 | 2103 level-8
+D | 0 | finish quiz | Feb 5 2024
+E | 0 | cny trip | Feb 9 2024 - Feb 12 2023
+D | 0 | 2109 pset 2 | Feb 10 2024
+T | 0 | internship apps asap

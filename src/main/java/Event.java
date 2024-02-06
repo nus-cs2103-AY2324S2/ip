@@ -1,11 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public Event(String description, String eventFrom, String eventTo) {
+    public Event(String description, LocalDate eventFromDate, LocalDate eventToDate) {
         super(description);
-        this.from = eventFrom;
-        this.to = eventTo;
+        this.from = eventFromDate;
+        this.to = eventToDate;
+    }
+
+    public String getDateString(LocalDate date) {
+        return date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + date.getDayOfMonth() + " " + date.getYear();
     }
 
     @Override
@@ -15,7 +22,7 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return super.toFileFormat() + String.format(" | %s-%s", this.from, this.to);
+        return super.toFileFormat() + String.format(" | %s - %s", getDateString(this.from), getDateString(this.to));
     }
 
     @Override
