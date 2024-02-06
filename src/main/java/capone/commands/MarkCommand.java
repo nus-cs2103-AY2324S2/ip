@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidIndexException;
@@ -36,10 +36,11 @@ public class MarkCommand extends Command {
      * @param taskList The TaskList to be updated.
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data.
+     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If any Capone-related exception occurs.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Please enter an index of a task you'd like to mark.\n"
                     + "You can view all tasks using the 'list' command.\n"
@@ -57,7 +58,7 @@ public class MarkCommand extends Command {
             storage.writeTasksToJsonFile(taskList);
 
             // Inform the user that the task has been marked.
-            ui.sendMessage("Nice! I've marked this task as done:\n" + markedTask + "\n");
+            return ui.sendMark(markedTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
                     + "You can check the list of valid indices using the 'list' command.");

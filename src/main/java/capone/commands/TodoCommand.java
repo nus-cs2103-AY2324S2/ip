@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.ToDo;
@@ -35,10 +35,11 @@ public class TodoCommand extends Command {
      * @param taskList The TaskList to be updated.
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data.
+     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If any Capone-related exception occurs.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw an error (insufficient args).
         if (inputList.size() == 1) {
             throw new InsufficientArgumentException("Please enter a description for this capone.tasks.ToDo task!\n"
@@ -59,7 +60,6 @@ public class TodoCommand extends Command {
         taskList.addTask(newTodo);
         storage.writeTasksToJsonFile(taskList);
 
-        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n"
-                + "Now you have %d task(s) in the list.\n", newTodo.toString(), taskList.getSize()));
+        return ui.sendTodo(taskList);
     }
 }

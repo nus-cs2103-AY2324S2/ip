@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 
