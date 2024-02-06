@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -74,6 +73,10 @@ public class Zack extends Application {
             ui.showLoadingError(e);
             tasks = new TaskList();
         }
+    }
+
+    public TaskList getTasks() {
+        return this.tasks;
     }
 
     @Override
@@ -184,7 +187,14 @@ public class Zack extends Application {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Zack heard: " + input;
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (ZackException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

@@ -94,10 +94,11 @@ public class Ui {
      *
      * @param task       The task that was added.
      * @param totalTasks The total number of tasks after adding.
+     * @return
      */
-    public void showAddedTask(Task task, int totalTasks) {
-        System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String showAddedTask(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + totalTasks
+                + " tasks in the list.";
     }
 
     /**
@@ -105,17 +106,18 @@ public class Ui {
      *
      * @param task       The task that was removed.
      * @param totalTasks The total number of tasks after deletion.
+     * @return
      */
-    public void showDeletedTask(Task task, int totalTasks) {
-        System.out.println("Noted. I've removed this task:\n" + task);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String showDeletedTask(Task task, int totalTasks) {
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + totalTasks
+                + " tasks in the list.";
     }
 
     /**
      * Prints the goodbye message when the user exits the application.
      */
-    public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbyeMessage() {
+        return "Goodbye! Hope to see you again soon!";
     }
 
     /**
@@ -124,11 +126,11 @@ public class Ui {
      * @param task   The task that was marked.
      * @param isDone True if the task is marked as done, false otherwise.
      */
-    public void showMarkedTask(Task task, boolean isDone) {
+    public String showMarkedTask(Task task, boolean isDone) {
         if (isDone) {
-            System.out.println("Nice! I've marked this task as done:\n" + task);
+            return "Nice! I've marked this task as done:\n" + task;
         } else {
-            System.out.println("OK, I've marked this task as not done yet:\n" + task);
+            return "OK, I've marked this task as not done yet:\n" + task;
         }
     }
 
@@ -137,11 +139,13 @@ public class Ui {
      *
      * @param tasks The list of tasks to display.
      */
-    public void showTaskList(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -150,11 +154,13 @@ public class Ui {
      * @param date  The date for which tasks are displayed.
      * @param tasks The list of tasks happening on the specified date.
      */
-    public void showTasksOnDate(LocalDate date, ArrayList<Task> tasks) {
-        System.out.println("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+    public String showTasksOnDate(LocalDate date, ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))).append(":\n");
         for (Task task : tasks) {
-            System.out.println(task);
+            sb.append(task).append("\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -178,14 +184,16 @@ public class Ui {
      * @throws ZackException If there is an error or exception while displaying
      *                      the found tasks.
      */
-    public void showFoundTasks(TaskList foundTasks) throws ZackException {
+    public String showFoundTasks(TaskList foundTasks) throws ZackException {
+        StringBuilder sb = new StringBuilder();
         if (foundTasks.getSize() == 0) {
-            System.out.println("No matching tasks in your list!");
+            sb.append("No matching tasks in your list!");
         } else {
-            System.out.println("Here are the matching tasks in your list:\n");
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundTasks.getSize(); i++) {
-                System.out.println((i + 1) + "." + foundTasks.getTask(i));
+                sb.append((i + 1)).append(".").append(foundTasks.getTask(i)).append("\n");
             }
         }
+        return sb.toString();
     }
 }

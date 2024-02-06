@@ -23,4 +23,9 @@ public class Todo extends Task {
     public String toFileString() {
         return super.toFileString();
     }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 }

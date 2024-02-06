@@ -26,6 +26,8 @@ public class Main extends Application {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ZackException e) {
+            throw new RuntimeException(e);
         }
     }
 }
