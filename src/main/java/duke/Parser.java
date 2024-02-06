@@ -7,11 +7,22 @@ public class Parser {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Constructor for Parser   
+     * 
+     * @param taskList
+     */
     public Parser(TaskList taskList) {
         this.ui = new Ui();
         this.taskList = taskList;
     }
 
+    /**
+     * Executes user input
+     * 
+     * @param input user input
+     * @return boolean
+     */ 
     public boolean executeUserInput(String input) {
         if (input.equals("bye")) {
             return false;

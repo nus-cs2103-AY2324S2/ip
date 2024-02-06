@@ -11,7 +11,9 @@ public class Duke {
     private Parser parser;
     private Ui ui;
     
-
+    /**
+     * Constructor for Duke
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
@@ -28,7 +30,6 @@ public class Duke {
      * @throws StringIndexOutOfBoundsException if input is not a number
      */
     public void start() {
-        // storage.loadTaskList();
 
         ui.showGreeting();
 
@@ -47,6 +48,11 @@ public class Duke {
         ui.closeScanner();
     }
 
+    /**
+     * Main method
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         Duke mainApp = new Duke();
         mainApp.start();

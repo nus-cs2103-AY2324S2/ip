@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.IOException;
 
 import java.nio.file.Files;
@@ -15,11 +16,19 @@ public class Storage {
     private Path folderPath = Paths.get(FOLDER_PATH);
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructor for Storage
+     *
+     * @param taskList
+     */
     public Storage(ArrayList<Task> taskList) {
         this.taskList = taskList;
         createTaskList();
     }
 
+    /** 
+     * Loads taskList from file
+     */
     public void loadTaskList() {
         try {
             // Clear existing tasks before loading
@@ -82,6 +91,9 @@ public class Storage {
         }
     }
 
+    /** 
+     * Saves taskList to file
+     */
     public void saveTaskListToFile() {
         try {
             ArrayList<String> newTaskList = new ArrayList<>();
@@ -96,6 +108,9 @@ public class Storage {
         }
     }
 
+    /** 
+     * Creates taskList and tasklist.txt if they do not exist
+     */
     private void createTaskList() {
         try {
             if (Files.notExists(folderPath)) {

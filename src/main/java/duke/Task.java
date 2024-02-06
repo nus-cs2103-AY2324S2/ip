@@ -47,19 +47,9 @@ public class Task {
     public boolean isDone() {
         return this.isDone;
     }
-
-    /** 
-     * Returns task type
-     */
     protected String getTaskType() {
         return "";
     }
-
-    /**
-     * Returns task status
-     * 
-     * @return String task status
-     */
     public String getTaskStatus() {
         return this.isDone ? "done" : "not done";
     }
@@ -84,12 +74,6 @@ public class Task {
         // If none of the formats match, you may want to handle this case
         throw new IllegalArgumentException("Date could not be parsed with any of the provided formats");
     }
-
-    /**
-     * toString method for Task
-     * 
-     * @return String
-     */
     @Override
     public String toString() {
         return getTaskType() + " | " + getTaskStatus() + " | " + this.task;
