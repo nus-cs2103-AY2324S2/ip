@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
 }
 
 repositories {
@@ -13,4 +14,8 @@ dependencies {
 
 application {
     mainClassName = 'duke.Duke'
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }

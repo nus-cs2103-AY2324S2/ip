@@ -53,6 +53,8 @@ public class Parser {
                     return new MarkCommand(arguments);
                 case "bye":
                     return new ByeCommand();
+                case "exit":
+                    return new ByeCommand();
                 case "unmark":
                     return new UnmarkCommand(arguments);
                 case "delete":
@@ -79,7 +81,7 @@ public class Parser {
                     throw new DukeException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(");
             }
         } catch (DukeException e) {
-            System.out.printf("\n%s" + e.getMessage());
+            System.out.printf("\n%s", e.getMessage());
             return new UnknownCommand();
         }
     }
