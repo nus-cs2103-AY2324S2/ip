@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import duke.task.Task;
 
+/**
+ * Class that represents a UserInterface that handles all user interactions.
+ */
 public class Ui {
     /**
      * Prints out a welcome message.
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm Pengu\n" + "What can I do for you?\n" +
-                "\nDid you know that the noise penguins make are called \"honks\"");
+        System.out.println("Hello! I'm Pengu\n" + "What can I do for you?\n"
+                + "\nDid you know that the noise penguins make are called \"honks\"");
         this.showLine();
     }
 

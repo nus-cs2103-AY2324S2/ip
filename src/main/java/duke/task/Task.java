@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Class that represents a Task
+ */
 public abstract class Task {
     /** String containing the description of the Task. */
     private String description;
@@ -41,7 +44,7 @@ public abstract class Task {
      * @param isDone Boolean value indicating whether the Task should be marked done.
      */
     public void updateTask(boolean isDone) {
-        if (isDone == true){
+        if (isDone == true) {
             this.isDone = true;
         } else {
             isDone = false;

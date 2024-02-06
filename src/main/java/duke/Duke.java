@@ -1,19 +1,20 @@
 package duke;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.command.Command;
 import duke.utility.DukeException;
 import duke.utility.Parser;
 import duke.utility.Storage;
 import duke.utility.TaskList;
 import duke.utility.Ui;
-
-import duke.command.Command;
-
 import duke.task.Task;
+
+/**
+ * Class that represents the Duke Chatbot.
+ */
 public class Duke {
     /** TaskList Object to be used to store Tasks. */
     private TaskList taskList;
@@ -29,7 +30,7 @@ public class Duke {
      * @throws DukeException
      * @throws IOException
      */
-    public Duke(String FilePath) throws DukeException,IOException{
+    public Duke(String FilePath) throws DukeException, IOException {
         this.userInterface = new Ui();
         this.fileStorage = new Storage(FilePath);
     }
@@ -40,17 +41,17 @@ public class Duke {
      * @throws DukeException
      * @throws IOException
      */
-    public void run() throws DukeException,IOException {
+    public void run() throws DukeException, IOException {
         userInterface.showWelcome();
         Scanner s = new Scanner(System.in);
-        if (this.fileStorage.isOccupied){
+        if (this.fileStorage.isOccupied) {
             ArrayList<Task> loadedList = fileStorage.loadStorage();
             taskList = new TaskList(loadedList);
         } else {
             taskList = new TaskList();
         }
         boolean isExit = false;
-        while(!isExit){
+        while (!isExit) {
             try {
                 Command c = Parser.parseInstructions(s.nextLine());
                 c.execute(taskList, userInterface, fileStorage);

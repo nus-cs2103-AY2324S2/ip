@@ -8,6 +8,9 @@ import duke.utility.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class that represents a Command that unmarks a {@link Task} from the {@link TaskList}.
+ */
 public class UnmarkTaskCommand extends Command {
     /** Index of the Task in the TaskList to be Unmarked. */
     private int indexToBeUnmarked;

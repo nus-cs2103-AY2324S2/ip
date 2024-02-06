@@ -8,6 +8,9 @@ import duke.utility.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Class representing a Command that Finds and List {@link Task} that appears in the {@link TaskList}.
+ */
 public class FindTaskCommand extends Command {
     /** String containing keyword to be used to search in the TaskList. */
     private String keyword;

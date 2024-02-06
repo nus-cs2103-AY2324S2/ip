@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * Class representing a storage which stores {@link Task}s from past {@link TaskList}s.
+ */
 public class Storage {
-    /** File Object that stores Tasks from previous sessions. */
-    private File storageFile;
     /** Boolean Value stating whether the storage file contains Tasks. */
     public boolean isOccupied;
+    /** File Object that stores Tasks from previous sessions. */
+    private File storageFile;
 
     /**
      * Constructs a Storage Object with storage based on FilePath.
@@ -21,15 +24,15 @@ public class Storage {
      * @throws DukeException
      * @throws IOException
      */
-    public Storage(String FilePath) throws DukeException, IOException{
+    public Storage(String FilePath) throws DukeException, IOException {
         storageFile = new File(FilePath);
         if (!storageFile.getParentFile().exists()) {
             storageFile.getParentFile().mkdirs();
         }
-        if(!storageFile.exists()) {
+        if (!storageFile.exists()) {
             storageFile.createNewFile();
         }
-        if(storageFile.length() == 0) {
+        if (storageFile.length() == 0) {
             isOccupied = false;
         } else {
             isOccupied = true;
@@ -43,7 +46,7 @@ public class Storage {
      * @throws DukeException
      * @throws IOException
      */
-    public ArrayList<Task> loadStorage() throws DukeException,IOException {
+    public ArrayList<Task> loadStorage() throws DukeException, IOException {
         Scanner s = new Scanner(storageFile);
         ArrayList<Task> loadedList = new ArrayList<>();
         while (s.hasNextLine()) {

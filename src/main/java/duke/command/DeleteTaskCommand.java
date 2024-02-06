@@ -8,7 +8,9 @@ import duke.utility.Ui;
 
 import java.io.IOException;
 
-
+/**
+ * Class representing a command that deletes a {@link Task} from the {@link TaskList}.
+ */
 public class DeleteTaskCommand extends Command {
     /** Index of Task to be deleted from the TaskList. */
     private int indexToBeDeleted;
