@@ -30,7 +30,7 @@ public class Storage {
     /**
      * Loads the content of the text file into the task list of the chatbot.
      */
-    public void load() {
+    public void loadFromFile() {
         try {
             if (!Files.exists(filePath.getParent())) {
                 Files.createDirectories(filePath.getParent());
@@ -49,7 +49,7 @@ public class Storage {
     /**
      * Write the content of the task list of the chatbot back to the linked text file.
      */
-    public void save() {
+    public void saveToFile() {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : this.taskList.getList()) {
                 writer.write(task.toStringForStore());

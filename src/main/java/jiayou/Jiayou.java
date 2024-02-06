@@ -20,7 +20,7 @@ public class Jiayou {
         this.ui = new Ui(this.tasks);
         this.storage = new Storage(filePath, this.tasks);
         this.tasks.linkStorage(this.storage);
-        this.storage.load();
+        this.storage.loadFromFile();
     }
 
     /**

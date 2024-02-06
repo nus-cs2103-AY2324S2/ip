@@ -25,7 +25,7 @@ public class TaskList {
      * Updates the linked text file.
      */
     public void updateStorage() {
-        this.storage.save();
+        this.storage.saveToFile();
     }
 
     /**
