@@ -7,6 +7,8 @@ import earl.util.Ui;
  * Class responsible for the list command.
  */
 public final class ListHandler extends Handler {
+
+    @Override
     public void handle(TaskList tasks, Ui ui) {
         if (!tasks.isEmpty()) {
             int n = tasks.getSize();

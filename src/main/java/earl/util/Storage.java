@@ -1,25 +1,27 @@
 package earl.util;
 
-import earl.exceptions.EarlException;
-import earl.tasks.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import earl.exceptions.EarlException;
+import earl.tasks.Task;
+
 /**
  * Class responsible for reading and writing data to disk.
  */
 public class Storage {
 
-    private final String FILE_PATH;
+    private final String filePath;
     private final ArrayList<Task> tasks = new ArrayList<>();
 
-    /** Class constructor. */
+    /**
+     * Class constructor.
+     */
     public Storage(String filePath) {
-        FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -28,12 +30,12 @@ public class Storage {
      * Attempts to find the storage file at the given file path.
      * Starts with an empty file if no existing file is found.
      *
-     * @return                an {@code ArrayList} of {@code Task} read
-     * @throws EarlException  if the file could not be created or read
+     * @return an {@code ArrayList} of {@code Task} read
+     * @throws EarlException if the file could not be created or read
      */
     public ArrayList<Task> load() throws EarlException {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
             if (isFolderMade || isFileMade) {
@@ -60,11 +62,11 @@ public class Storage {
     /**
      * Saves given list of {@code Task} onto the disk.
      *
-     * @param tasks           an {@code ArrayList} of {@code Task} to be saved
-     * @throws EarlException  if the file could not be written to
+     * @param tasks an {@code ArrayList} of {@code Task} to be saved
+     * @throws EarlException if the file could not be written to
      */
     public void save(ArrayList<Task> tasks) throws EarlException {
-        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+        try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 fw.write(task.toStorageString() + "\n");
             }
