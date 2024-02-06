@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 
 /**
@@ -13,7 +13,7 @@ public class WrongTimeFormatException extends Exception {
      * @param message The detail message.
      */
     public WrongTimeFormatException(String string) {
-       super(string);
+        super(string);
     }
 
     /**
@@ -23,7 +23,7 @@ public class WrongTimeFormatException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    " + super.getMessage() + "\n    Try again using the format {day month year} using " +
-                "\n    space, dash or slash as delimiters";
+        return "    " + super.getMessage() + "\n    Try again using the format {day month year} using "
+                + "\n    space, dash or slash as delimiters";
     }
 }

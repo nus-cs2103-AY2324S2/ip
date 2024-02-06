@@ -5,7 +5,8 @@ import java.util.ArrayList;
 /**
  * The TaskList class represents a list of tasks in the Duke task manager.
  * It manages operations such as adding, marking, unmarking, and removing tasks.
- * The class also provides methods for obtaining the length of the task list and generating a formatted string representation of the tasks.
+ * The class also provides methods for obtaining the length of the task list and generating a formatted
+ * string representation of the tasks.
  */
 public class TaskList {
     private static final String lines = "    ____________________________________________________________";
@@ -33,8 +34,8 @@ public class TaskList {
      *
      * @param task The task to be loaded and added.
      */
-    public  void loadFromSave(Task task) {
-       this.tasks.add(task);
+    public void loadFromSave(Task task) {
+        this.tasks.add(task);
     }
 
     /**
@@ -80,7 +81,7 @@ public class TaskList {
         StringBuilder result = new StringBuilder();
         result.append(lines).append("\n");
         for (int i = 1; i <= tasks.size(); i++) {
-            if (this.tasks.get(i-1).getDescription().toLowerCase()
+            if (this.tasks.get(i - 1).getDescription().toLowerCase()
                     .contains(key.toLowerCase())) {
                 result.append(String.format("    %d.", i)).append(this.tasks.get(i - 1).toString()).append("\n");
             }
@@ -107,9 +108,8 @@ public class TaskList {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append(lines).append("\n");
-
         for (int i = 1; i <= tasks.size(); i++) {
-           result.append(String.format("    %d.",i)).append(this.tasks.get(i-1).toString()).append("\n");
+            result.append(String.format("    %d.", i)).append(this.tasks.get(i - 1).toString()).append("\n");
         }
         result.append(lines);
         return result.toString();
@@ -124,7 +124,7 @@ public class TaskList {
         StringBuilder temporary = new StringBuilder();
 
         for (Task task : tasks) {
-           temporary.append("save ").append(task.isDone?"1 ":"0 ").append(task.getOriginalCommand() + "\n");
+            temporary.append("save ").append(task.isDone ? "1 " : "0 ").append(task.getOriginalCommand() + "\n");
         }
         Storage.save(temporary.toString());
     }

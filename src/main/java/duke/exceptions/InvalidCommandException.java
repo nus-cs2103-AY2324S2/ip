@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 /**
  * Exception class representing an error when an invalid command is entered.
@@ -22,7 +22,8 @@ public class InvalidCommandException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    " + super.getMessage() + "\n    You have entered an invalid command:\n" +
-                "    Try todo, event, deadline, list , delete , mark {index},\n    or unmark {index} instead.";
+        return "    " + super.getMessage()
+                + "\n    You have entered an invalid command:\n"
+                + "    Try todo, event, deadline, list , delete , mark {index},\n    or unmark {index} instead.";
     }
 }

@@ -2,7 +2,8 @@ package duke.storage;
 
 /**
  * The Task class represents a task in the Duke task manager.
- * It stores information such as the task's description, completion status, and the original command used to create the task.
+ * It stores information such as the task's description, completion status, and the original command
+ * used to create the task.
  */
 public class Task {
     protected String description;
@@ -14,7 +15,7 @@ public class Task {
      * Constructs a Task object with the specified original command and description.
      *
      * @param originalCommand The original command used to create the task.
-     * @param description The description of the task.
+     * @param description     The description of the task.
      */
     public Task(String originalCommand, String description) {
         this.originalCommand = originalCommand;

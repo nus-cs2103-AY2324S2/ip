@@ -1,5 +1,10 @@
-package duke.dukeException;
+package duke.exceptions;
 
+/**
+ * Exception class representing an error related to missing arguments in an events command.
+ * This exception is thrown when a deadlines command is missing the required parameter, which is the starting and
+ * ending time.
+ */
 public class MissingArgumentsExceptionEvents extends MissingArgumentsExceptionTodo {
 
     /**

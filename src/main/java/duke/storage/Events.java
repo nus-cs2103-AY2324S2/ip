@@ -9,9 +9,10 @@ import java.util.Optional;
 
 /**
  * The Events class represents an event task in the Duke task manager, which is a subtype of the Task class.
- * It inherits properties and methods from the Task class and provides a specific implementation for event tasks with date and time details.
+ * It inherits properties and methods from the Task class and provides a specific implementation for event tasks
+ * with date and time details.
  */
-public class Events extends Task{
+public class Events extends Task {
 
     protected LocalDate from;
     protected LocalTime fromTime;
@@ -22,9 +23,9 @@ public class Events extends Task{
      * Constructs an Events object with the specified original command, description, and date-time details.
      *
      * @param originalCommand The original command used to create the event task.
-     * @param description The description of the event task.
-     * @param dateTimeFrom The starting date and time of the event in string format.
-     * @param dateTimeTo The ending date and time of the event in string format.
+     * @param description     The description of the event task.
+     * @param dateTimeFrom    The starting date and time of the event in string format.
+     * @param dateTimeTo      The ending date and time of the event in string format.
      */
     public Events(String originalCommand, String description, String dateTimeFrom, String dateTimeTo) {
         super(originalCommand, description);
@@ -68,13 +69,14 @@ public class Events extends Task{
         } else if (lenTo == 5) {
             this.to = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitTo,
                     2, lenTo)));
-            this.toTime = LocalTime.parse(splitFrom[1] + " " + splitFrom[0],DateTimeFormatter.ofPattern("h:mm a"));
+            this.toTime = LocalTime.parse(splitFrom[1] + " " + splitFrom[0], DateTimeFormatter.ofPattern("h:mm a"));
         }
     }
 
 
     /**
-     * Returns a string representation of the event task, including its specific type identifier, the result of the superclass's toString method, and date-time details.
+     * Returns a string representation of the event task, including its specific type identifier, the result of the
+     * superclass's toString method, and date-time details.
      *
      * @return A string representation of the event task.
      */
@@ -83,9 +85,9 @@ public class Events extends Task{
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(" h:mm a");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-        return "[E]" + super.toString() + " (from: " + dateFormatter.format(this.from) +
-                Optional.ofNullable(fromTime).map(timeFormatter::format).orElse("") +
-                " to: " + dateFormatter.format(this.to) +
-                Optional.ofNullable(toTime).map(timeFormatter::format).orElse("") + ")";
+        return "[E]" + super.toString() + " (from: " + dateFormatter.format(this.from)
+                + Optional.ofNullable(fromTime).map(timeFormatter::format).orElse("")
+                + " to: " + dateFormatter.format(this.to)
+                + Optional.ofNullable(toTime).map(timeFormatter::format).orElse("") + ")";
     }
 }

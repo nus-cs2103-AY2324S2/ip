@@ -1,10 +1,10 @@
 package duke.ui;
 
-import duke.storage.TaskList;
-import duke.storage.Task;
+import duke.exceptions.ListOutofBoundsException;
 import duke.storage.Storage;
+import duke.storage.Task;
+import duke.storage.TaskList;
 
-import duke.dukeException.*;
 
 /**
  * The UI class handles interactions with the user through the command-line interface.
@@ -51,8 +51,8 @@ public class UI {
     public void addItem(Task task) {
         this.taskList.add(task);
         System.out.println(lines);
-        System.out.println("    " + "Got it. I've added this task:\n" + "      " + task + "\n" + "" +
-                String.format("    Now you have %d tasks in the list.", this.taskList.taskLength()));
+        System.out.println("    " + "Got it. I've added this task:\n" + "      " + task + "\n" + ""
+                + String.format("    Now you have %d tasks in the list.", this.taskList.taskLength()));
         System.out.println(lines);
     }
 
@@ -62,8 +62,8 @@ public class UI {
      * @param input The index of the task to be marked as done.
      * @throws ListOutofBoundsException If the provided index is out of bounds.
      */
-    public void markTaskUI(int input) throws ListOutofBoundsException{
-        if (input <0 || input > this.taskList.taskLength() - 1) {
+    public void markTaskUI(int input) throws ListOutofBoundsException {
+        if (input < 0 || input > this.taskList.taskLength() - 1) {
             throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
         }
         System.out.println(lines);
@@ -78,7 +78,7 @@ public class UI {
      * @param input The index of the task to be marked as not done.
      * @throws ListOutofBoundsException If the provided index is out of bounds.
      */
-    public void unMarkTask(int input) throws ListOutofBoundsException{
+    public void unMarkTask(int input) throws ListOutofBoundsException {
         if (input < 0 || input > this.taskList.taskLength() - 1) {
             throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
         }
@@ -102,7 +102,7 @@ public class UI {
         System.out.println(lines);
         System.out.println("    Noted. I've removed this task:");
         this.taskList.remove(input);
-        System.out.println(String.format("    Now you have %d tasks in the list.",this.taskList.taskLength()));
+        System.out.println(String.format("    Now you have %d tasks in the list.", this.taskList.taskLength()));
         System.out.println(lines);
     }
 

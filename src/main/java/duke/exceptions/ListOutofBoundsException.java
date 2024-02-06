@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 /**
  * Exception class representing an error when trying to access an element at an invalid index in a list.
@@ -22,7 +22,7 @@ public class ListOutofBoundsException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    ListOutofBoundsException\n    You have entered an invalid list index:\n" +
-                "    List size:" + super.getMessage();
+        return "    ListOutofBoundsException\n    You have entered an invalid list index:\n"
+                + "    List size:" + super.getMessage();
     }
 }

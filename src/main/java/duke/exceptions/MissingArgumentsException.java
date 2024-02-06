@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 /**
  * Exception class representing a generic error related to missing arguments in a command.
@@ -22,7 +22,7 @@ public class MissingArgumentsException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "    MissingArgumentException\n    You have missing arguments:\n" +
-                "    Try " + super.getMessage();
+        return "    MissingArgumentException\n    You have missing arguments:\n"
+                + "    Try " + super.getMessage();
     }
 }
