@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
     private BotChat botChat;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userr.png"));
-    private Image botchatImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image botchatImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.png"));
 
     /**
      * Initializes the controller. Binds the scrollPane to the heightProperty of the dialogContainer,
@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getBotChatDialog("Hello! I'm botChat\n What can I do for you?\n", userImage)
+                DialogBox.getBotChatDialog("Hello! I'm botChat\nWhat can I do for you?\n", botchatImage)
         );
 
         sendButton.setOnAction(event -> handleUserInput());

@@ -1,7 +1,5 @@
 package BotChat;
 
-//import java.util.Scanner;
-
 import javafx.application.Platform;
 
 /**
@@ -21,26 +19,6 @@ public class BotChat {
         storage = new Storage(FILE_PATH);
         tasks = storage.load();
     }
-
-//    /**
-//     * Handles user input by continuously scanning and processing commands until the user exits.
-//     */
-//    private void userInput() {
-//        // Scanner to scan what the user is inputting
-//        Scanner scanner = new Scanner(System.in);
-//        try {
-//            while (true) {
-//                String input = scanner.nextLine();
-//                try {
-//                    handleInput(input);
-//                } catch (BotChatException e) {
-//                    ui.showErrorMessage(e.getMessage());
-//                }
-//            }
-//        } finally {
-//            scanner.close();
-//        }
-//    }
 
     /**
      * Handles different types of user input commands.
