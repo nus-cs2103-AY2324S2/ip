@@ -18,10 +18,7 @@ public class Event extends Task {
 
     public static Event parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/from", "/to");
-        if (texts != null) {
-            return new Event(texts[0], texts[1], texts[2]);
-        }
-        return null;
+        return new Event(texts[0], texts[1], texts[2]);
     }
 
     @Override

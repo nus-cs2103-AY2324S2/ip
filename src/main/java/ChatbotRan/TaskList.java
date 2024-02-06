@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class TaskList {
-    TaskIO taskStore;
     private final ArrayList<Task> tasks;
+    TaskIO taskStore;
 
     public TaskList(TaskIO taskStore) {
         this.taskStore = taskStore;

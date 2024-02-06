@@ -1,7 +1,5 @@
 package ChatbotRan;
 
-import java.time.LocalDate;
-
 class Util {
     private Util() {
     }
@@ -16,8 +14,7 @@ class Util {
 
     public static String[] parse(String line, int space, String... delims) {
         if (space == -1) {
-            System.out.println("You've forgotten to write the contents of your task.");
-            return null;
+            throw new TaskException("You've forgotten to write the contents of your task.");
         } else {
             String[] texts = new String[delims.length + 1];
             int pos = space;
@@ -26,8 +23,7 @@ class Util {
                 String delim = delims[i];
                 pos = line.indexOf(delim, oldpos);
                 if (pos == -1) {
-                    System.out.println("Missing delimiter " + delim + ".");
-                    return null;
+                    throw new TaskException("Missing delimiter " + delim + ".");
                 } else {
                     texts[i] = line.substring(oldpos, pos).strip();
                     oldpos = pos + delim.length();

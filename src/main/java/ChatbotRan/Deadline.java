@@ -17,10 +17,7 @@ public class Deadline extends Task {
 
     public static Deadline parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/by");
-        if (texts != null) {
-            return new Deadline(texts[0], texts[1]);
-        }
-        return null;
+        return new Deadline(texts[0], texts[1]);
     }
 
     @Override
