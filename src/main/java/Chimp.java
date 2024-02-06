@@ -6,10 +6,12 @@ import java.util.Scanner;
 public class Chimp {
     private static final String divider = "____________________________________________________________\n";
     private ArrayList<Task> list;
+
     Chimp() {
         list = new ArrayList<>();
     }
-    public static void main(String[] args) throws InvalidParameterException{
+
+    public static void main(String[] args) throws InvalidParameterException {
         Chimp chimp = new Chimp();
         HashMap<String, String> phrases = chimp.getPhrases();
         chimp.say(phrases.get("greet"));
@@ -27,6 +29,10 @@ public class Chimp {
 
             try {
                 commandHandler(chimp, phrases, inp, command, arg);
+                // Update store if needed
+                if (Storage.isSaveCommand(command)) {
+                    Storage.saveOutputToFile(Storage.listToString(chimp.list));
+                }
             } catch (InvalidCommandException | CommandParseException e) {
                 chimp.say(phrases.get("hoo") + " - " + e);
             } catch (IndexOutOfBoundsException e) {
@@ -39,7 +45,8 @@ public class Chimp {
         sc.close();
     }
 
-    private static void commandHandler(Chimp chimp, HashMap<String, String> phrases, String inp, String command, String arg) throws InvalidCommandException, CommandParseException {
+    private static void commandHandler(Chimp chimp, HashMap<String, String> phrases, String inp, String command,
+            String arg) throws InvalidCommandException, CommandParseException {
         int num;
         switch (command) {
             case "list":
@@ -109,7 +116,6 @@ public class Chimp {
         }
     }
 
-
     private HashMap<String, String> getPhrases() {
         HashMap<String, String> phrases = new HashMap<>();
         String greet = " Hello! I'm Chimp\n" +
@@ -131,9 +137,10 @@ public class Chimp {
     }
 
     // TODO: Is this a maintainable way of doing things?
-    private void addToList(String task){
+    private void addToList(String task) {
         this.list.add(new Todo(task, TaskStatus.UNMARKED));
     }
+
     private void addToList(String task, String by) {
         this.list.add(new Deadline(task, TaskStatus.UNMARKED, by));
     }
