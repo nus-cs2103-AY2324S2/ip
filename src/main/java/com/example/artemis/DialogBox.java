@@ -13,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 /**
  * Represents a custom control for a dialog box using FXML.
@@ -25,9 +23,6 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    private static final double IMAGE_SIZE = 99.0; // Adjust the value as needed
-    private static final Color DIALOG_BOX_BACKGROUND_COLOR = Color.LIGHTBLUE; // Adjust the color as needed
-
 
     /**
      * Constructs a DialogBox with the specified text and image.
@@ -47,11 +42,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-    }
-
-    private void clipImageView(ImageView imageView) {
-        Circle clip = new Circle(IMAGE_SIZE / 2);
-        imageView.setClip(clip);
     }
 
     /**
