@@ -1,25 +1,50 @@
 package podz.task;
+
+/**
+ * Represents a task in the task manager.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task object with the specified description.
+     * 
+     * @param description the description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     * 
+     * @return the status icon of the task
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Unmarks the task as done.
+     */
     public void unmark() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the saved format of the task.
+     * 
+     * @return the saved format of the task
+     */
     public String savedFormat() {
         String isDoneStr = " 0 ";
         if (isDone) {
@@ -29,6 +54,11 @@ public class Task {
         return isDoneStr + "| " + description;
     }
 
+    /**
+     * Returns a string representation of the task.
+     * 
+     * @return a string representing the task
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
