@@ -2,27 +2,38 @@ package util;
 
 import exceptions.ChatBotException;
 import tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
+/**
+ * The TaskList class represents a list of tasks and provides methods to manipulate the tasks.
+ */
 public class TaskList {
     private static final int MAX_TASKS = 100;
     private static final String FILE_PATH = "./data/duke/.txt";
     private List<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Gets the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         if (this.tasks.size() < MAX_TASKS) {
             this.tasks.add(task);
@@ -33,6 +44,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param number The index of the task to be deleted.
+     * @throws ChatBotException If an error occurs while deleting the task.
+     */
     public void deleteTask(int number) throws ChatBotException {
         if (this.tasks.size() == 0) {
             throw new ChatBotException("Oops! There are no tasks in the list.");
@@ -47,6 +64,12 @@ public class TaskList {
                 (this.tasks.size() == 1 ? "" : "s") + " in the list");
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws ChatBotException If an error occurs while marking the task as done.
+     */
     public void markTask(int index) throws ChatBotException {
         if (index < 0) {
             throw new ChatBotException("Oops! Number entered cannot be negative.");
@@ -60,6 +83,12 @@ public class TaskList {
         System.out.println("\t" + currTask.toString());
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     * @throws ChatBotException If an error occurs while marking the task as not done.
+     */
     public void unmarkTask(int index) throws ChatBotException {
         if (index < 0) {
             throw new ChatBotException("Oops! Number entered cannot be negative.");
@@ -73,6 +102,9 @@ public class TaskList {
         System.out.println("\t" + currTask.toString());
     }
 
+    /**
+     * Lists all tasks in the task list.
+     */
     public void listTasks() {
         if (this.tasks.size() == 0) {
             //throw new exceptions.ChatBotException("Oops! The task list is currently empty.");
@@ -83,43 +115,6 @@ public class TaskList {
                 Task currTask = this.tasks.get(i);
                 System.out.println((i + 1) + "." + currTask.toString());
             }
-        }
-    }
-
-    public void saveToFile(TaskList taskList) {
-        File file = new File(FILE_PATH);
-        try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            FileWriter fw = new FileWriter(file);
-            for (Task task : taskList.getTasks()) {
-                fw.write(task.toStringForFile() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Oops! There was an error saving to file.");
-        }
-    }
-
-    public void loadFromFile(TaskList taskList) throws IOException {
-        File file = new File(FILE_PATH);
-        try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNext()) {
-                String taskString = scanner.nextLine();
-                Task task = Parser.parseTasksFromFile(taskString);
-                taskList.getTasks().add(task);
-            }
-        } catch (IOException e) {
-            System.out.println("Oops! There was an error loading the file.");
-        } catch (ChatBotException e) {
-            System.out.println("Oops! There was an error parsing the file.");
         }
     }
 }

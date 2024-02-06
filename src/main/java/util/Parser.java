@@ -2,17 +2,24 @@ package util;
 
 import commands.*;
 import exceptions.ChatBotException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-
+import tasks.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for parsing user input and converting it into executable commands.
+ * It also provides methods to parse tasks from file strings.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object corresponding to the parsed input.
+     */
     public Command firstParse(String input) {
         String[] sections = input.split(" ", 2);
         String commandWord = sections[0].toUpperCase();
@@ -126,6 +133,13 @@ public class Parser {
         return new EventCommand(event, start, end);
     }
 
+    /**
+     * Parses the date and time string into a LocalDateTime object.
+     *
+     * @param dateString The string representing the date and time.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws ChatBotException If the date and time format is invalid.
+     */
     public LocalDateTime parseDate(String dateString) throws ChatBotException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -141,6 +155,14 @@ public class Parser {
                 "Please enter in yyyy-MM-dd HHmm format, you may leave HHmm empty.");
     }
 
+
+    /**
+     * Parses the tasks from a file string and returns the corresponding Task object.
+     *
+     * @param tasksFromFile The string representing the task data from a file.
+     * @return A Task object corresponding to the parsed task data.
+     * @throws ChatBotException If the task format in the file string is invalid.
+     */
     public static Task parseTasksFromFile(String tasksFromFile) throws ChatBotException {
         String[] sections = tasksFromFile.split("\\|");
         if (sections.length < 3 || sections.length > 4) {

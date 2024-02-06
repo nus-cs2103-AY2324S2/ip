@@ -5,14 +5,23 @@ import util.Parser;
 import util.Ui;
 import util.TaskList;
 import util.Storage;
+
 import java.io.IOException;
 
+/**
+ * EdgarChatBot is a simple chatbot application that manages tasks.
+ * It uses TaskList, Storage, Ui, and Parser for various functionalities.
+ */
 public class EdgarChatBot {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for EdgarChatBot class.
+     * Initializes TaskList, Storage, Ui, and Parser.
+     */
     public EdgarChatBot() {
         this.taskList = new TaskList();
         this.storage = new Storage();
@@ -20,6 +29,10 @@ public class EdgarChatBot {
         this.parser = new Parser();
     }
 
+    /**
+     * Starts the EdgarChatBot application.
+     * Load tasks from the file, prints greetings, and processes user commands until "bye" is entered.
+     */
     public void startBot() {
         try {
             storage.loadFromFile(this.taskList);
