@@ -15,9 +15,8 @@ public class Ui {
     /**
      * Method that welcomes the user upon launching Duke.
      */
-    public void greeting() {
-        System.out.println("\tHELLO, Nice to meet you. I am " + this.name + "!");
-        System.out.println("\tWhat are we doing today?");
+    public String greeting() {
+        return "HELLO, Nice to meet you. I am " + this.name + "!";
     }
 
     /**
