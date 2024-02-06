@@ -89,53 +89,53 @@ public class Parser {
         String[] typeAndRemaining = inputWithoutAdd.split(" ", 2);
         String typeUpper = typeAndRemaining[0].toUpperCase();
         switch (typeUpper) {
-            case "TODO":
-                try {
-                    String TodoDesc = typeAndRemaining[1].strip();
-                    return new AddTodoCommand(taskList, TodoDesc);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new InvalidCommandException(AddTodoCommand.getUsage());
+        case "TODO":
+            try {
+                String TodoDesc = typeAndRemaining[1].strip();
+                return new AddTodoCommand(taskList, TodoDesc);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidCommandException(AddTodoCommand.getUsage());
+            }
+        case "DEADLINE":
+            try {
+                String[] descAndBy = typeAndRemaining[1].split("/by", 2);
+                String[] bydateAndBytime = descAndBy[1].strip().split(" ", 2);
+                LocalDate byDate = LocalDate.parse(bydateAndBytime[0]);
+                LocalTime byTime = null;
+                if (bydateAndBytime.length == 2) {
+                    byTime = LocalTime.parse(bydateAndBytime[1].strip());
                 }
-            case "DEADLINE":
-                try {
-                    String[] descAndBy = typeAndRemaining[1].split("/by", 2);
-                    String[] bydateAndBytime = descAndBy[1].strip().split(" ", 2);
-                    LocalDate byDate = LocalDate.parse(bydateAndBytime[0]);
-                    LocalTime byTime = null;
-                    if (bydateAndBytime.length == 2) {
-                        byTime = LocalTime.parse(bydateAndBytime[1].strip());
-                    }
-                    return new AddDeadlineCommand(taskList, descAndBy[0], byDate, byTime);
-                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                    throw new InvalidCommandException(AddDeadlineCommand.getUsage());
-                }
-            case "EVENT":
-                try {
-                    String[] descAndRemaining = typeAndRemaining[1].split("/from", 2);
-                    String[] fromAndTo = descAndRemaining[1].split("/to", 2);
-                    String[] fromdateAndFromtime = fromAndTo[0].strip().split(" ", 2);
-                    String[] todateAndTotime = fromAndTo[1].strip().split(" ", 2);
+                return new AddDeadlineCommand(taskList, descAndBy[0], byDate, byTime);
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                throw new InvalidCommandException(AddDeadlineCommand.getUsage());
+            }
+        case "EVENT":
+            try {
+                String[] descAndRemaining = typeAndRemaining[1].split("/from", 2);
+                String[] fromAndTo = descAndRemaining[1].split("/to", 2);
+                String[] fromdateAndFromtime = fromAndTo[0].strip().split(" ", 2);
+                String[] todateAndTotime = fromAndTo[1].strip().split(" ", 2);
 
-                    String eventDesc = descAndRemaining[0].strip();
-                    if (eventDesc.isEmpty()) {
-                        throw new InvalidCommandException(AddEventCommand.getUsage());
-                    }
-                    LocalDate fromDate = LocalDate.parse(fromdateAndFromtime[0]);
-                    LocalTime fromTime = null;
-                    if (fromdateAndFromtime.length == 2) {
-                        fromTime = LocalTime.parse(fromdateAndFromtime[1].strip());
-                    }
-                    LocalDate toDate = LocalDate.parse(todateAndTotime[0]);
-                    LocalTime toTime = null;
-                    if (todateAndTotime.length == 2) {
-                        toTime = LocalTime.parse(todateAndTotime[1].strip());
-                    }
-                    return new AddEventCommand(taskList, eventDesc, fromDate, fromTime, toDate, toTime);
-                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                String eventDesc = descAndRemaining[0].strip();
+                if (eventDesc.isEmpty()) {
                     throw new InvalidCommandException(AddEventCommand.getUsage());
                 }
-            default:
-                throw new InvalidCommandException(AddCommand.getUsage());
+                LocalDate fromDate = LocalDate.parse(fromdateAndFromtime[0]);
+                LocalTime fromTime = null;
+                if (fromdateAndFromtime.length == 2) {
+                    fromTime = LocalTime.parse(fromdateAndFromtime[1].strip());
+                }
+                LocalDate toDate = LocalDate.parse(todateAndTotime[0]);
+                LocalTime toTime = null;
+                if (todateAndTotime.length == 2) {
+                    toTime = LocalTime.parse(todateAndTotime[1].strip());
+                }
+                return new AddEventCommand(taskList, eventDesc, fromDate, fromTime, toDate, toTime);
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                throw new InvalidCommandException(AddEventCommand.getUsage());
+            }
+        default:
+            throw new InvalidCommandException(AddCommand.getUsage());
         }
     }
 

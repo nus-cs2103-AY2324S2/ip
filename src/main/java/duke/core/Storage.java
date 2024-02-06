@@ -34,30 +34,30 @@ public class Storage {
             Scanner s = new Scanner(savedTaskList);
             while (s.hasNext()) {
                 switch (s.nextLine()) {
-                    case "TODO":
-                        taskList.add(new ToDo(s.nextLine(), parseSaveBoolean(s.nextLine())));
-                        break;
-                    case "DEADLINE":
-                        String deadlineDesc = s.nextLine();
-                        boolean deadlineisDone = parseSaveBoolean(s.nextLine());
-                        String[] dateTime = s.nextLine().split(";");
-                        taskList.add(new Deadline(deadlineDesc, deadlineisDone,
-                                LocalDate.parse(dateTime[0]),
-                                dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
-                        break;
-                    case "EVENT":
-                        String eventDesc = s.nextLine();
-                        boolean eventIsDone = parseSaveBoolean(s.nextLine());
-                        String[] dateTimeFrom = s.nextLine().split(";");
-                        String[] dateTimeTo = s.nextLine().split(";");
-                        taskList.add(new Event(eventDesc, eventIsDone,
-                                LocalDate.parse(dateTimeFrom[0]),
-                                dateTimeFrom.length == 1 ? null : LocalTime.parse(dateTimeFrom[1]),
-                                LocalDate.parse(dateTimeTo[0]),
-                                dateTimeTo.length == 1 ? null : LocalTime.parse(dateTimeTo[1])));
-                        break;
-                    default:
-                        throw new NoSuchElementException(s.nextLine());
+                case "TODO":
+                    taskList.add(new ToDo(s.nextLine(), parseSaveBoolean(s.nextLine())));
+                    break;
+                case "DEADLINE":
+                    String deadlineDesc = s.nextLine();
+                    boolean deadlineisDone = parseSaveBoolean(s.nextLine());
+                    String[] dateTime = s.nextLine().split(";");
+                    taskList.add(new Deadline(deadlineDesc, deadlineisDone,
+                            LocalDate.parse(dateTime[0]),
+                            dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
+                    break;
+                case "EVENT":
+                    String eventDesc = s.nextLine();
+                    boolean eventIsDone = parseSaveBoolean(s.nextLine());
+                    String[] dateTimeFrom = s.nextLine().split(";");
+                    String[] dateTimeTo = s.nextLine().split(";");
+                    taskList.add(new Event(eventDesc, eventIsDone,
+                            LocalDate.parse(dateTimeFrom[0]),
+                            dateTimeFrom.length == 1 ? null : LocalTime.parse(dateTimeFrom[1]),
+                            LocalDate.parse(dateTimeTo[0]),
+                            dateTimeTo.length == 1 ? null : LocalTime.parse(dateTimeTo[1])));
+                    break;
+                default:
+                    throw new NoSuchElementException(s.nextLine());
                 }
             }
             Ui.printMessage("Successfully loaded save file.");
