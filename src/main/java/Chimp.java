@@ -1,4 +1,5 @@
 import java.security.InvalidParameterException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -141,11 +142,11 @@ public class Chimp {
         this.list.add(new Todo(task, TaskStatus.UNMARKED));
     }
 
-    private void addToList(String task, String by) {
+    private void addToList(String task, LocalDate by) {
         this.list.add(new Deadline(task, TaskStatus.UNMARKED, by));
     }
 
-    private void addToList(String task, String from, String to) {
+    private void addToList(String task, LocalDate from, LocalDate to) {
         this.list.add(new Event(task, TaskStatus.UNMARKED, from, to));
     }
 
