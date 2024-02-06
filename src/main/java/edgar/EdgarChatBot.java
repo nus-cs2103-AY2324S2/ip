@@ -43,7 +43,7 @@ public class EdgarChatBot {
         String userInput;
         do {
             userInput = this.ui.nextCommand();
-            Command c = this.parser.firstParse(userInput);
+            Command c = this.parser.parseCommand(userInput);
             ui.printDivider();
             c.execute(taskList, ui, storage);
             ui.printDivider();

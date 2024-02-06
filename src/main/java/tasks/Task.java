@@ -1,15 +1,14 @@
 package tasks;
 
 /**
- * The Task class represents a task with a description and a status indicating whether it is done or not.
- * It provides methods to get the task's status icon, mark it as done or not done, and generate string representations.
+ * Represents a task with a description and a status of completion.
  */
 public class Task {
     private String description;
     private boolean isDone;
 
     /**
-     * Constructs a Task object with the specified description.
+     * Constructs a Task object with the given description.
      *
      * @param description The description of the task.
      */
@@ -19,12 +18,21 @@ public class Task {
     }
 
     /**
-     * Returns the status icon of the task.
+     * Gets the status icon of the task.
      *
-     * @return A string containing "X" if the task is done, or a space if it is not done.
+     * @return The status icon, "X" if task is done, " " if not.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
     }
 
     /**
@@ -44,7 +52,7 @@ public class Task {
     /**
      * Returns a string representation of the task.
      *
-     * @return A string containing the task's status icon and description.
+     * @return A string representing the task.
      */
     @Override
     public String toString() {
@@ -52,9 +60,9 @@ public class Task {
     }
 
     /**
-     * Returns a string representation of the task for saving to file.
+     * Returns a string representation of the task for storing in a file.
      *
-     * @return A string containing the task's status (0 for not done, 1 for done) and description in a format suitable for file storage.
+     * @return A string representing the task for file storage.
      */
     public String toStringForFile() {
         return "| " + (this.isDone ? "1": "0") + " | " + this.description;

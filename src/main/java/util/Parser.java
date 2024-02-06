@@ -2,25 +2,27 @@ package util;
 
 import commands.*;
 import exceptions.ChatBotException;
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The Parser class is responsible for parsing user input and converting it into executable commands.
- * It also provides methods to parse tasks from file strings.
+ * Parses user input to create commands for executing various actions in the task manager.
  */
 public class Parser {
 
     /**
-     * Parses the user input and returns the corresponding Command object.
+     * Parses the first word of the input to determine the command to execute.
      *
-     * @param input The user input to be parsed.
-     * @return A Command object corresponding to the parsed input.
+     * @param input The user input string.
+     * @return A command object corresponding to the input.
      */
-    public Command firstParse(String input) {
+    public Command parseCommand(String input) {
         String[] sections = input.split(" ", 2);
         String commandWord = sections[0].toUpperCase();
 
@@ -41,11 +43,19 @@ public class Parser {
             return parseDeadline(input);
         case "EVENT":
             return parseEvent(input);
+        case "FIND":
+            return parseFind(input);
         default:
             return new InvalidCommand("Oops! Please enter a valid command.");
         }
     }
 
+    /**
+     * Parses the input string to create a command for adding a Todo task.
+     *
+     * @param input The user input string.
+     * @return A command object for adding a Todo task based on the input.
+     */
     public Command parseTodo(String input) {
         String[] sections = input.split(" ", 2);
             if (sections.length <= 1) {
@@ -55,6 +65,12 @@ public class Parser {
         return new TodoCommand(taskDescription);
     }
 
+    /**
+     * Parses the input string to create a command for marking a task as done.
+     *
+     * @param input The user input string.
+     * @return A command object for marking a task as done based on the input.
+     */
     public Command parseMark(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
@@ -62,11 +78,17 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
         }
         return new MarkCommand(index);
     }
 
+    /**
+     * Parses the input string to create a command for unmarking a task as done.
+     *
+     * @param input The user input string.
+     * @return A command object for unmarking a task as done based on the input.
+     */
     public Command parseUnmark(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
@@ -74,11 +96,17 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
         }
         return new UnmarkCommand(index);
     }
 
+    /**
+     * Parses the input string to create a command for deleting a task.
+     *
+     * @param input The user input string.
+     * @return A command object for deleting a task based on the input.
+     */
     public Command parseDelete(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1 || sections[1].isEmpty()) {
@@ -86,11 +114,17 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
         }
         return new DeleteCommand(index);
     }
 
+    /**
+     * Parses the input string to create a command for adding a deadline task.
+     *
+     * @param input The user input string.
+     * @return A command object for adding a deadline task based on the input.
+     */
     public Command parseDeadline(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
@@ -111,6 +145,12 @@ public class Parser {
         return new DeadlineCommand(taskDescription, due);
     }
 
+    /**
+     * Parses the input string to create a command for adding an event task.
+     *
+     * @param input The user input string.
+     * @return A command object for adding an event task based on the input.
+     */
     public Command parseEvent(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
@@ -134,11 +174,26 @@ public class Parser {
     }
 
     /**
-     * Parses the date and time string into a LocalDateTime object.
+     * Parses the input string to create a command for finding tasks.
      *
-     * @param dateString The string representing the date and time.
-     * @return A LocalDateTime object representing the parsed date and time.
-     * @throws ChatBotException If the date and time format is invalid.
+     * @param input The user input string.
+     * @return A command object for finding tasks based on the input.
+     */
+    public Command parseFind(String input) {
+        String[] sections = input.split(" ", 2);
+        if (sections.length <= 1) {
+            return new InvalidCommand("Oops! Please enter a task to find.");
+        }
+        String tasktoFind = sections[1].trim();
+        return new FindCommand(tasktoFind);
+    }
+
+    /**
+     * Parses a date string to LocalDateTime.
+     *
+     * @param dateString The date string to parse.
+     * @return The LocalDateTime object parsed from the date string.
+     * @throws ChatBotException If the date string is in an invalid format.
      */
     public LocalDateTime parseDate(String dateString) throws ChatBotException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -155,13 +210,12 @@ public class Parser {
                 "Please enter in yyyy-MM-dd HHmm format, you may leave HHmm empty.");
     }
 
-
     /**
-     * Parses the tasks from a file string and returns the corresponding Task object.
+     * Parses a string representing a task from a file and returns the corresponding Task object.
      *
-     * @param tasksFromFile The string representing the task data from a file.
-     * @return A Task object corresponding to the parsed task data.
-     * @throws ChatBotException If the task format in the file string is invalid.
+     * @param tasksFromFile The string representing the task from the file.
+     * @return The Task object parsed from the string.
+     * @throws ChatBotException If the string representation of the task is invalid.
      */
     public static Task parseTasksFromFile(String tasksFromFile) throws ChatBotException {
         String[] sections = tasksFromFile.split("\\|");

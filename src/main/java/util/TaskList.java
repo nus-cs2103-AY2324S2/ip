@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The TaskList class represents a list of tasks and provides methods to manipulate the tasks.
+ * Manages the list of tasks and provides operations to manipulate the tasks.
  */
 public class TaskList {
     private static final int MAX_TASKS = 100;
@@ -14,14 +14,14 @@ public class TaskList {
     private List<Task> tasks;
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs a new TaskList object.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Gets the list of tasks.
+     * Retrieves the list of tasks.
      *
      * @return The list of tasks.
      */
@@ -48,7 +48,7 @@ public class TaskList {
      * Deletes a task from the task list.
      *
      * @param number The index of the task to be deleted.
-     * @throws ChatBotException If an error occurs while deleting the task.
+     * @throws ChatBotException If the task list is empty or the specified index is invalid.
      */
     public void deleteTask(int number) throws ChatBotException {
         if (this.tasks.size() == 0) {
@@ -65,10 +65,10 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done.
+     * Marks a task in the task list as done.
      *
      * @param index The index of the task to be marked as done.
-     * @throws ChatBotException If an error occurs while marking the task as done.
+     * @throws ChatBotException If the specified index is invalid (negative or out of bounds).
      */
     public void markTask(int index) throws ChatBotException {
         if (index < 0) {
@@ -83,11 +83,12 @@ public class TaskList {
         System.out.println("\t" + currTask.toString());
     }
 
+
     /**
-     * Marks a task as not done.
+     * Marks a task in the task list as not done.
      *
      * @param index The index of the task to be marked as not done.
-     * @throws ChatBotException If an error occurs while marking the task as not done.
+     * @throws ChatBotException If the specified index is invalid (negative or out of bounds).
      */
     public void unmarkTask(int index) throws ChatBotException {
         if (index < 0) {
@@ -103,7 +104,8 @@ public class TaskList {
     }
 
     /**
-     * Lists all tasks in the task list.
+     * Prints all tasks in the task list.
+     * If the task list is empty, prints a message indicating that the list is empty.
      */
     public void listTasks() {
         if (this.tasks.size() == 0) {
@@ -116,6 +118,34 @@ public class TaskList {
                 System.out.println((i + 1) + "." + currTask.toString());
             }
         }
+    }
+
+    /**
+     * Finds tasks containing a specified keyword.
+     *
+     * @param keyWord The keyword to search for in task descriptions.
+     * @return A list of tasks containing the keyword.
+     * @throws ChatBotException If no tasks match the keyword.
+     */
+    public List<Task> findTasks(String keyWord) throws ChatBotException {
+        List<Task> matchingTasks = new ArrayList<>();
+        boolean isFound = false;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyWord)) {
+                matchingTasks.add(task);
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            throw new ChatBotException("Oops! No tasks matching the keyword \"" + keyWord + "\" were found." );
+        } else {
+            System.out.println("\tHere are the matching tasks in your list: ");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task currTask = matchingTasks.get(i);
+                System.out.println("\t" + (i + 1) + "." + currTask.toString());
+            }
+        }
+        return matchingTasks;
     }
 }
 
