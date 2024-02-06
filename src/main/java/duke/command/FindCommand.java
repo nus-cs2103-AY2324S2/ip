@@ -13,10 +13,10 @@ import duke.util.Ui;
  */
 public class FindCommand implements Command {
 
-    private String input;
+    private String[] keywords;
 
-    public FindCommand(String input) {
-        this.input = input;
+    public FindCommand(String... input) {
+        this.keywords = input;
     }
 
     /**
@@ -30,15 +30,22 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        String[] s = input.split("\\s");
-        String keyword = s[1];
+        ArrayList<Task> arr = findTasks(list, keywords);
+        return ui.showMatchedTasks(new TaskList(arr));
+    }
+
+    private ArrayList<Task> findTasks(TaskList list, String... keywords) {
         ArrayList<Task> arr = new ArrayList<>();
-        for (Task t : list.getList()) {
-            if (t.getTask().contains(keyword)) {
-                arr.add(t);
+        for (String keyword : keywords) {
+            for (Task t : list.getList()) {
+                if (t.getTask().contains(keyword)) {
+                    if (!arr.contains(t)) {
+                        arr.add(t);
+                    }
+                }
             }
         }
-        return ui.showMatchedTasks(new TaskList(arr));
+        return arr;
     }
 
     @Override
@@ -49,6 +56,14 @@ public class FindCommand implements Command {
     @Override
     public boolean equals(Object a) {
         FindCommand fc = (FindCommand) a;
-        return this.input.equals(fc.input);
+        if (fc.keywords.length != this.keywords.length) {
+            return false;
+        }
+        for (int i = 1; i < fc.keywords.length; i++) {
+            if (!this.keywords[i].equals(fc.keywords[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }
