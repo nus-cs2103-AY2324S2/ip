@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+
 public class Rick {
     public static ArrayList<Item> list = new ArrayList<>();
     public static Path directoryPath = Paths.get("./data");
@@ -51,6 +53,7 @@ public class Rick {
             }
         } catch (Exception e) {
             throw new RickException(e.getMessage());
+            //TODO switch error message
             //throw new RickException("There's something wrong with your local data... You might want to [check the file], " +
                     //"or [clear local data]");
         }
