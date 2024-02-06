@@ -34,6 +34,6 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
-        throw new InvalidCommandException(this.invalidCmd);
+        throw new InvalidCommandException(invalidCmd);
     }
 }

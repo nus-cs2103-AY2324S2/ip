@@ -47,7 +47,7 @@ public abstract class Task {
      *
      * @return true if the task is marked as completed, false otherwise.
      */
-    public boolean getIsMarked() {
+    public boolean isCompleted() {
         return isMarked;
     }
 

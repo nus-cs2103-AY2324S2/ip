@@ -8,6 +8,11 @@ import blu.storage.Storage;
 import blu.task.TaskList;
 import blu.ui.UI;
 
+/**
+ * The main class for the Blu application, which manages tasks for users.
+ * It initializes the application, processes user input in a loop until the exit command,
+ * and manages the application's shutdown process.
+ */
 public class Blu {
     private static final String STORAGE_PATH = "../data/data.csv";
     private TaskList taskList;

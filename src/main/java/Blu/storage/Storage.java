@@ -31,13 +31,13 @@ public class Storage implements AutoCloseable {
      * @throws StorageException If the file cannot be created or opened.
      */
     public Storage(String filePath) throws StorageException {
-        this.file = new File(filePath);
+        file = new File(filePath);
         try {
             if (!this.file.exists()) {
-                this.file.getParentFile().mkdirs();
-                this.file.createNewFile();
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
-            this.writer = new BufferedWriter(new FileWriter(this.file, true));
+            this.writer = new BufferedWriter(new FileWriter(file, true));
         } catch (IOException e) {
             throw new StorageException("Failed to create storage file");
         }
@@ -51,14 +51,14 @@ public class Storage implements AutoCloseable {
      */
     public void saveTasks(TaskList taskList) throws StorageException {
         try {
-            this.writer.close();
-            this.writer = new BufferedWriter(new FileWriter(this.file, false));
+            writer.close();
+            writer = new BufferedWriter(new FileWriter(file, false));
             List<Task> tasks = taskList.getAllTasks();
             for (Task task : tasks) {
-                this.writer.write(task.toCsv());
-                this.writer.newLine();
+                writer.write(task.toCsv());
+                writer.newLine();
             }
-            this.writer.flush();
+            writer.flush();
         } catch (IOException e) {
             throw new StorageException("Failed to save task to storage file");
         }
@@ -74,7 +74,7 @@ public class Storage implements AutoCloseable {
         List<Task> tasks = new ArrayList<>();
         int lineNumber = 1;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.file));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             while (line != null) {
                 Task task = TaskDecoder.fromCsv(line);
@@ -101,8 +101,8 @@ public class Storage implements AutoCloseable {
      */
     public void close() throws StorageException {
         try {
-            this.writer.flush();
-            this.writer.close();
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             throw new StorageException("Could not close writer");
         }

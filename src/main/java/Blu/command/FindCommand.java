@@ -23,7 +23,7 @@ public class FindCommand extends Command {
         this.searchString = searchString;
     }
 
-     /**
+    /**
      * Executes the find command.
      * This method searches the task list for tasks containing the specified search string
      * and displays the found tasks to the user through the UI.

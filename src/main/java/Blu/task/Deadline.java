@@ -3,15 +3,31 @@ package blu.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a title and the due date/time.
+ * Inherits from the {@link Task} class.
+ */
 public class Deadline extends Task {
     private static final String TASK_TYPE = "D";
     private LocalDateTime by;
 
+    /**
+     * Constructs a new Deadline task with the specified title and due date/time.
+     *
+     * @param title The title of the deadline task.
+     * @param by The due date and time of the task.
+     */
     public Deadline(String title, LocalDateTime by) {
         super(title);
         this.by = by;
     }
 
+    /**
+     * Formats the due date and time of the deadline task for display.
+     *
+     * @param by The LocalDateTime object to be formatted.
+     * @return A string representation of the due date and time in "MMM dd yyyy, HH:mm" format.
+     */
     private String displayDate(LocalDateTime by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return by.format(formatter);
@@ -19,12 +35,12 @@ public class Deadline extends Task {
 
     @Override
     public String toCsv() {
-        return String.format("%s,%s,%s,%s", TASK_TYPE, this.getIsMarked() ? "T" : "F", this.getTitle(), this.by);
+        return String.format("%s,%s,%s,%s", TASK_TYPE, this.isCompleted() ? "T" : "F", this.getTitle(), by);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s]%s (By: %s)", TASK_TYPE, super.toString(), displayDate(this.by));
+        return String.format("[%s]%s (By: %s)", TASK_TYPE, super.toString(), displayDate(by));
     }
 
     @Override
@@ -36,6 +52,6 @@ public class Deadline extends Task {
             return false;
         }
         Deadline other = (Deadline) obj;
-        return this.by.equals(other.by) && super.equals(other);
+        return by.equals(other.by) && super.equals(other);
     }
 }

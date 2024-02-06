@@ -9,7 +9,7 @@ import blu.ui.UI;
  * Represents a command to list all tasks in the task list.
  */
 public class ListCommand extends Command {
-    
+
     /**
      * Executes the list command.
      * This method retrieves all the tasks from the task list and displays them through the UI.
