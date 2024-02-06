@@ -3,6 +3,7 @@ package ChatbotRan;
 import java.util.Scanner;
 
 public class Ran {
+    Parser parser;
     TaskList taskList;
     TaskIO taskIO;
     RanUI ui;
@@ -11,6 +12,7 @@ public class Ran {
         this.taskList = new TaskList(taskIO);
         this.taskIO = taskIO;
         this.ui = new RanUI();
+        this.parser = new Parser();
     }
 
     public static void main(String[] args) {
@@ -21,68 +23,15 @@ public class Ran {
 
     public void run() {
         ui.greet();
-        boolean running = true;
         Scanner sc = new Scanner(System.in);
-
         do {
             ui.line();
-            String line = sc.nextLine();
-            int space = line.indexOf(' ');
-            String command = space == -1 ? line : line.substring(0, space);
-            Task task;
             try {
-                switch (command) {
-                case "mark":
-                    task = this.handleTaskNo(line, space);
-                    ui.mark(task.isCompleted());
-                    task.setCompleted(true);
-                    taskList.updateTasks();
-                    ui.printTask(task);
-                    break;
-                case "unmark":
-
-                    task = this.handleTaskNo(line, space);
-                    ui.unmark(task.isCompleted());
-                    task.setCompleted(false);
-                    taskList.updateTasks();
-                    ui.printTask(task);
-                    break;
-                case "delete":
-                    task = this.handleTaskNo(line, space);
-                    taskList.remove(task);
-                    ui.delete(task);
-                    ui.printNumber(taskList.size());
-                    break;
-                case "deadline":
-                    Deadline deadline = Deadline.parse(line, space);
-                    this.addTask(deadline);
-                    break;
-                case "todo":
-                    Todo todo = Todo.parse(line, space);
-                    this.addTask(todo);
-                    break;
-                case "event":
-                    Event event = Event.parse(line, space);
-                    this.addTask(event);
-                    break;
-                default:
-                    switch (line) {
-                    case "bye":
-                        running = false;
-                        break;
-                    case "list":
-                        ui.printTasks(taskList);
-                        break;
-                    default:
-                        ui.unknown();
-                    }
-
-
-                }
+                parser.exec(sc.nextLine(),taskList,ui);
             } catch (TaskException e) {
                 ui.error(e);
             }
-        } while (running);
+        } while (parser.running());
 
         ui.bye();
     }
