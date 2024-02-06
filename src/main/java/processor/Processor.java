@@ -23,7 +23,6 @@ public class Processor {
     public Processor(TaskList taskList, Ui chatbotUi) {
         this.taskList = taskList;
         this.chatbotUi = chatbotUi;
-        //this.file = new File("src/data/tasks.txt");
         this.storage = new Storage("src/data/tasks.txt", taskList);
     }
 
