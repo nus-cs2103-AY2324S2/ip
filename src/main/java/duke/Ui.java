@@ -1,7 +1,9 @@
 package duke;
-import java.util.Scanner;
-import task.Task;
+
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import task.Task;
 
 /**
  * Represents the user interface of the application.

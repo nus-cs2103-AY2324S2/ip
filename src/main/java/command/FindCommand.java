@@ -1,9 +1,10 @@
 package command;
 
+import java.util.ArrayList;
+
 import duke.Ui;
 import task.Task;
 import task.TaskList;
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks in the task list that match a keyword.

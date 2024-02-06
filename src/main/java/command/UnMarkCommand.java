@@ -27,5 +27,4 @@ public class UnMarkCommand extends Command {
         Task task = tasks.unMark(index);
         ui.showUnmarkTask(task);
     }
-    
 }
