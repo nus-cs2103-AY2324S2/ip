@@ -58,6 +58,23 @@ public class TaskList implements Savable {
         return ret;
     }
 
+    /**
+     * Filters the TaskList for Tasks containing the specified String in its fields. Not case-sensitive.
+     *
+     * @param filterString String to filter the TaskList by.
+     * @return String representation of the TaskList containing only Tasks who contain filterString.
+     */
+    public String filter(String filterString) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arr.size(); i++) {
+            String taskString = arr.get(i).toString();
+            if (taskString.toUpperCase().contains(filterString.toUpperCase())) {
+                sb.append((i + 1) + ". " + arr.get(i) + "\n");
+            }
+        }
+        return sb.toString();
+    }
+
     @Override
     public String saveString() {
         String ret = "";
