@@ -10,15 +10,23 @@ public enum Command {
     EVENT,
     UNKNOWN;
     public static Command getEnum(String str) {
-        return switch (str) {
-            case "list" -> LIST;
-            case "mark" -> MARK;
-            case "unmark" -> UNMARK;
-            case "delete" -> DELETE;
-            case "todo" -> TODO;
-            case "deadline" -> DEADLINE;
-            case "event" -> EVENT;
-            default -> UNKNOWN;
-        };
+        switch (str) {
+        case "list":
+            return LIST;
+        case "mark":
+            return MARK;
+        case "unmark":
+            return UNMARK;
+        case "delete":
+            return DELETE;
+        case "todo":
+            return TODO;
+        case "deadline":
+            return DEADLINE;
+        case "event":
+            return EVENT;
+        default:
+            return UNKNOWN;
+        }
     }
 }

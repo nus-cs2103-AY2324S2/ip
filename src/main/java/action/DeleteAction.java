@@ -12,10 +12,10 @@ public class DeleteAction implements Action{
     }
     @Override
     public void execute() throws IndexOutOfBoundsException {
-        Task task = DataHandler.instance.getTask(index);
-        DataHandler.instance.deleteTask(index);
-        int noOfTasks = DataHandler.instance.size();
-        PrintHandler.instance.printWithDivider("Fine. I've removed this task:\n"
+        Task task = DataHandler.getTask(index);
+        DataHandler.deleteTask(index);
+        int noOfTasks = DataHandler.size();
+        PrintHandler.printWithDivider("Fine. I've removed this task:\n"
                 + "   " + task + "\n"
                 + "Now you have " + noOfTasks + " tasks.");
     }
