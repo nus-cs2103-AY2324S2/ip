@@ -16,6 +16,6 @@ public class Deadline extends Task {
 
     @Override
     public String toStore() {
-        return ALIAS + super.toStore() + "," + by.format(Duke.dateTimeFormatter);
+        return ALIAS + super.toStore() + "," + by.format(Parser.dateTimeFormatter);
     }
 }

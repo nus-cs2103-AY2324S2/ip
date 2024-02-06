@@ -18,6 +18,6 @@ public class Event extends Task {
 
     @Override
     public String toStore() {
-        return ALIAS + super.toStore() + "," + from.format(Duke.dateTimeFormatter)  + "," + to.format(Duke.dateTimeFormatter);
+        return ALIAS + super.toStore() + "," + from.format(Parser.dateTimeFormatter)  + "," + to.format(Parser.dateTimeFormatter);
     }
 }
