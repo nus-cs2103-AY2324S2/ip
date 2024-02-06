@@ -1,4 +1,11 @@
+package oop;
+
 import java.util.ArrayList;
+import task.Task;
+import exceptions.DuplicateInstructionException;
+import exceptions.OutOfIndexException;
+import exceptions.MissingIndexException;
+
 
 public class TaskList {
     public ArrayList<Task> tasks;

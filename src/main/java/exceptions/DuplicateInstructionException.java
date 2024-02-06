@@ -1,3 +1,4 @@
+package exceptions;
 public class DuplicateInstructionException extends Exception{
     public String toString(String string) {
         String str;

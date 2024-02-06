@@ -1,3 +1,4 @@
+package exceptions;
 public class MissingDescriptionException  extends Exception{
     public String toString(String string) {
         String str = "\t I think you haven't had enough vitamin K." +

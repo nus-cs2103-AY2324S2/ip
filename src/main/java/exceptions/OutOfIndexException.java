@@ -1,3 +1,4 @@
+package exceptions;
 public class OutOfIndexException extends Exception {
     public String toString(Integer index) {
         String message;

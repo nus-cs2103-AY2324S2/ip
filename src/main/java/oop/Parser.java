@@ -1,4 +1,8 @@
+package oop;
+
 import java.util.Arrays;
+import exceptions.MissingIndexException;
+import exceptions.MissingDescriptionException;
 
 public class Parser {
     private static final String line = "\t______________________________________________________";
