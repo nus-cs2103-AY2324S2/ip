@@ -15,15 +15,14 @@
             </font>
         </TextField>
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send">
-        <font>
-            <Font name="Comic Sans MS Bold" size="14.0" />
-        </font>
+            <font>
+                <Font name="Comic Sans MS Bold" size="14.0" />
+            </font>
         </Button>
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0"
-                      style="-fx-background-color: #C0C0C0;-fx-border-color: #FFFFF0;"/>
+                <VBox fx:id="dialogContainer" prefWidth="388.0"/>
             </content>
         </ScrollPane>
     </children>

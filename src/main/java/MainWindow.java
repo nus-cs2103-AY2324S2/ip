@@ -42,6 +42,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getNarutoDialog("Hello! I'm Naruto, and I'm "
                         + "training to become a ninja!\nBelieve it!", narutoImage));
+                        scrollPane.setStyle("-fx-background: #C0C0C0;");
     }
 
     public void setNaruto(Naruto n) {
