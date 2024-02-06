@@ -4,10 +4,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a list that keeps track of tasks.
+ * The TaskList is able to add, delete, and mark or unmark tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private Ui ui = new Ui();
 
+    /**
+     * Creates a new TaskList object with existing task content.
+     *
+     * @param content Task content to be converted to Task objects and added to the list.
+     */
     public TaskList(String content) {
         if (!content.equals("")) {
             String[] separatedContent = content.split("\n");
@@ -39,6 +48,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a new TaskList object.
+     */
     public TaskList() {
 
     }
@@ -47,7 +59,6 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param t Task to be added.
-     * @throws DukeException If the task details are missing or the command is not supported.
      */
     public void add(Task t) {
         tasks.add(t);
@@ -72,7 +83,7 @@ public class TaskList {
      * Removes task of specified index from the task list.
      *
      * @param index Index of task on the list to be deleted
-     * @throws DukeException If index is missing or invalid.
+     * @throws DukeException If index is invalid.
      */
     public void delete(int index) throws DukeException {
         try {
@@ -87,10 +98,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns number of tasks in the list.
+     *
+     * @return Number of tasks.
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Retrieves Task from list given the task index.
+     *
+     * @param i Index of task.
+     * @return Task of index i in the list.
+     * @throws DukeException If the index specified is invalid.
+     */
     public Task get(int i) throws DukeException {
         try {
             return tasks.get(i);

@@ -18,7 +18,10 @@ public class Storage {
     }
 
     /**
-     * Creates a data directory and duke.txt file if not found.
+     * Initializes and loads file of given file path.
+     *
+     * @return Content of file.
+     * @throws DukeException If file was unable to be opened.
      */
     public String load() throws DukeException {
         File f = new File(filePath);
@@ -43,6 +46,8 @@ public class Storage {
 
     /**
      * Writes task list content to duke.txt.
+     *
+     * @param tasks
      */
     public void save(TaskList tasks) {
         try {

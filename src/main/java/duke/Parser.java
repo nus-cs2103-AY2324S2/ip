@@ -11,6 +11,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the input into their respective Command objects.
+     *
+     * @param input User input.
+     * @return Command to be executed.
+     * @throws DukeException If command is invalid or incomplete.
+     */
     public Command parse(String input) throws DukeException {
         if (input.equals("bye")) {
             return new ExitCommand();
@@ -21,40 +28,28 @@ public class Parser {
         }
 
         if (input.startsWith("mark")) {
-            try {
-                String[] parts = input.split("mark ");
-                if (parts.length < 2) {
-                    throw new DukeException("Missing task number...");
-                }
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new MarkCommand(taskNumber);
-            } catch (IndexOutOfBoundsException b) {
-                throw new DukeException("Invalid task number... count properly xx");
+            String[] parts = input.split("mark ");
+            if (parts.length < 2) {
+                throw new DukeException("Missing task number...");
             }
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new MarkCommand(taskNumber);
         } else if (input.startsWith("unmark")) {
-            try {
-                String[] parts = input.split("unmark ");
-                if (parts.length < 2) {
-                    throw new DukeException("Missing task number...");
-                }
-                int taskNumber = Integer.parseInt(parts[1]);
-                return new UnmarkCommand(taskNumber);
-            } catch (IndexOutOfBoundsException b) {
-                throw new DukeException("Invalid task number... count properly xx");
+            String[] parts = input.split("unmark ");
+            if (parts.length < 2) {
+                throw new DukeException("Missing task number...");
             }
+            int taskNumber = Integer.parseInt(parts[1]);
+            return new UnmarkCommand(taskNumber);
         }
 
         if (input.startsWith("delete")) {
-            try {
-                String taskNumber = input.replaceAll("delete", "").replaceAll(" ","");
-                if (taskNumber.length() < 1) {
-                    throw new DukeException("which task?");
-                }
-                int task = Integer.parseInt(taskNumber);
-                return new DeleteCommand(task);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("invalid task number... count properly xx");
+            String taskNumber = input.replaceAll("delete", "").replaceAll(" ","");
+            if (taskNumber.length() < 1) {
+                throw new DukeException("which task?");
             }
+            int task = Integer.parseInt(taskNumber);
+            return new DeleteCommand(task);
         } else {
             try {
                 Task taskAdded;
