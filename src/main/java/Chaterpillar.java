@@ -39,8 +39,8 @@ public class Chaterpillar {
                 Command command = Parser.parse(fullCommand);
                 command.execute(tasks, ui, storage);
                 hasExited = command.hasExited();
-            } catch (IOException e) {
-                ui.echo("IOException occurred.");
+            } catch (ChaterpillarException | IOException e) {
+                ui.echo(e.getMessage());
             } finally {
                 ui.printHorizontalLine();
             }

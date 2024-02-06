@@ -3,6 +3,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Ui {
+    private static final String LOGO =
+            "                           .    .\n" +
+            "                            )  (\n" +
+            "      _ _ _ _ _ _ _ _ _ _ _(.--.)\n" +
+            "    {{ { { { { { { { { { { ( 'v')\n" +
+            "     >>>>>>>>>>>>>>>>>>>>>>>`--'>";
     private static final BufferedReader reader = new BufferedReader(
             new InputStreamReader((System.in)));
 
@@ -29,6 +35,7 @@ public class Ui {
      */
     public void greet() {
         printHorizontalLine();
+        echo(LOGO);
         echo("Hello! I'm Chaterpillar");
         echo("What can I do for you?");
         printHorizontalLine();

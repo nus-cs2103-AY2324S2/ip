@@ -3,7 +3,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
-    public static Command parse(String input) {
+    public static Command parse(String input) throws ChaterpillarException {
         String[] inputSplit = input.split(" ");
 
         int num;
@@ -26,7 +26,8 @@ public class Parser {
                     currTask = new TodoTask(name);
                     return new TaskCommand(currTask);
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("Sorry, the name of the task todo cannot be empty.\n" +
+                    throw new ChaterpillarException(
+                            "Sorry, the name of the task todo cannot be empty.\n" +
                             "The way to use the command is as such: todo taskname");
                 }
             case "deadline":
@@ -37,11 +38,12 @@ public class Parser {
                     currTask = new DeadlineTask(name, date);
                     return new TaskCommand(currTask);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Sorry, this command is in the wrong format.\n" +
+                    throw new ChaterpillarException("Sorry, this command is in the wrong format.\n" +
                             "The way to use the command is: deadline taskname /by date_and_time");
                 } catch (DateTimeParseException e) {
-                    System.out.println("Unable to add task, wrong date/time format!");
-                    System.out.println("Suggested format: DD/MM/YYY HH:MM");
+                    throw new ChaterpillarException(
+                            "Unable to add task, wrong date/time format!\n" +
+                            "Suggested format: DD/MM/YYY HH:MM");
                 }
             case "event":
                 try {
@@ -52,11 +54,12 @@ public class Parser {
                     currTask = new EventTask(name, date1, date2);
                     return new TaskCommand(currTask);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Sorry, this command is in the wrong format.\n" +
+                    throw new ChaterpillarException("Sorry, this command is in the wrong format.\n" +
                             "The way to use the command is: event taskname /from date_and_time /to date_and_time");
                 } catch (DateTimeParseException e) {
-                    System.out.println("Unable to add task, wrong date/time format!");
-                    System.out.println("Suggested format: DD/MM/YYY HH:MM");
+                    throw new ChaterpillarException(
+                            "Unable to add task, wrong date/time format!\n" +
+                            "Suggested format: DD/MM/YYY HH:MM");
                 }
             case "delete":
                 try {
@@ -64,10 +67,12 @@ public class Parser {
                     int index = Integer.parseInt(temp[1])-1;
                     return new DeleteCommand(index);
                 } catch (NumberFormatException e) {
-                    System.out.println("Sorry, there is no number detected.\n" +
+                    throw new ChaterpillarException(
+                            "Sorry, there is no number detected.\n" +
                             "The correct way to use the command is: delete number");
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Sorry, the format for this command is wrong.\n" +
+                    throw new ChaterpillarException(
+                            "Sorry, the format for this command is wrong.\n" +
                             "The correct way to use the command is: delete number");
                 }
             case "today":
