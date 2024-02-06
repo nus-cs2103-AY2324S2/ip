@@ -4,6 +4,9 @@ import duke.utility.Storage;
 import duke.utility.TaskList;
 import duke.utility.Ui;
 
+/**
+ * Class that represents a Command that Lists {@link duke.task.Task} in the {@link TaskList}.
+ */
 public class ListTasksCommand extends Command {
     /**
      * Runs the ListTasksCommand to print out the list of Tasks currently in the TaskList.

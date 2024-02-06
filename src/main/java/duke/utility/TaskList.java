@@ -3,6 +3,10 @@ package duke.utility;
 import java.util.ArrayList;
 
 import duke.task.Task;
+
+/**
+ * Class that represents a TaskList that stores {@link Task}s.
+ */
 public class TaskList {
     /** ArrayList of Tasks. */
     private ArrayList<Task> taskStore;

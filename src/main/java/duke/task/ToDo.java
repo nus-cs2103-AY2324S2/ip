@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Class that represents a ToDo Task.
+ */
 public class ToDo extends Task {
     /**
      * Constructs a ToDo Object.

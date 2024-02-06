@@ -8,6 +8,9 @@ import duke.utility.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class that represents a Command that marks {@link Task} in the {@link TaskList}.
+ */
 public class MarkTaskCommand extends Command {
     /** Index of the Task in the TaskList to be Marked. */
     private int indexToBeMarked;

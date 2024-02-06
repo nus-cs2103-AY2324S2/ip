@@ -7,8 +7,11 @@ import duke.utility.Ui;
 
 import java.io.IOException;
 
+/**
+ * Class that represents a command that adds a {@link Task} in a {@link TaskList}.
+ */
 public class AddTaskCommand extends Command {
-
+    /**  Task object to be added into the TaskList */
     private Task taskToBeAdded;
 
     /**

@@ -4,6 +4,9 @@ import duke.utility.Storage;
 import duke.utility.TaskList;
 import duke.utility.Ui;
 
+/**
+ * Class representing a Command that exits out of the chatbot.
+ */
 public class ExitCommand extends Command {
     /**
      * Runs the ExistCommand to exit out of the Chatbot.

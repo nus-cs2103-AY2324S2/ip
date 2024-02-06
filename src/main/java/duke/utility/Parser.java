@@ -1,6 +1,13 @@
 package duke.utility;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.AddTaskCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.ExitCommand;
+import duke.command.FindTaskCommand;
+import duke.command.ListTasksCommand;
+import duke.command.MarkTaskCommand;
+import duke.command.UnmarkTaskCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -12,6 +19,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that represents a parser that is used by the chatbot to parse user input.
+ */
 public class Parser {
     /**
      * Returns a Command Object that adds a specified Task by parsing the String input.
@@ -95,7 +105,7 @@ public class Parser {
      * @return Command Object which alters Tasks in the TaskList
      * @throws DukeException
      */
-    public static Command parseInstructions(String userInput) throws DukeException{
+    public static Command parseInstructions(String userInput) throws DukeException {
         if (userInput.toLowerCase().equals("bye")) {
             return new ExitCommand();
         } else if (userInput.toLowerCase().equals("list")) {
@@ -135,7 +145,7 @@ public class Parser {
             return new FindTaskCommand(inputArr[1]);
         }
         String keyword = userInput.split(" ")[0].toLowerCase();
-        if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))){
+        if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))) {
             throw new DukeException("*HONK* Pengu has never seen such a command before,"
                     + " some commands Pengu can do are: list, todo, deadline");
         } else {
@@ -150,7 +160,7 @@ public class Parser {
      * @return Task Object based on String inputted.
      * @throws DukeException
      */
-    public static Task parseFileLine(String fileLine) throws DukeException{
+    public static Task parseFileLine(String fileLine) throws DukeException {
         Task t;
         DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
         if (fileLine.charAt(1) == 'T') {
@@ -240,14 +250,16 @@ public class Parser {
     private static boolean validTaskCommand(String str) throws DukeException {
         List<String> strArr = Arrays.asList(str.split(" "));
         String keyword = str.split(" ")[0].toLowerCase();
-        if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))){
-            throw new DukeException("*HONK* Pengu has never seen such a command before, some commands Pengu can do are: list, todo, deadline");
+        if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))) {
+            throw new DukeException("*HONK* Pengu has never seen such a command before,"
+                    + " some commands Pengu can do are: list, todo, deadline");
         } else if (keyword.equals("todo") && !(strArr.size() > 1)) {
             throw new DukeException("*HONK* Pengu needs a Task description to record this down");
         } else if (keyword.equals("deadline") && !(strArr.contains("/by"))) {
             throw new DukeException("*HONK* Pengu needs a /by followed by a end date for your task");
         } else if (keyword.equals("event") && !(strArr.contains("/from") && (strArr.contains("/to")))) {
-            throw new DukeException("*HONK* Pengu needs a /from followed by a from date and a /to followed by a end date for your task");
+            throw new DukeException("*HONK* Pengu needs a /from followed by a from date and a "
+                    + "/to followed by a end date for your task");
         } else if (keyword.equals("deadline") && strArr.get(1).equals("/by")) {
             throw new DukeException("Honk* Pengu cannot accept a deadline task without a description");
         } else if (keyword.equals("event") && (strArr.get(1).equals("/from") || strArr.get(1).equals("/to"))) {
