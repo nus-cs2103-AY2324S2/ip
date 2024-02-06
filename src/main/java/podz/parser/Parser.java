@@ -5,6 +5,7 @@ import podz.commands.Command;
 import podz.commands.DeadlineCommand;
 import podz.commands.DeleteCommand;
 import podz.commands.EventCommand;
+import podz.commands.FindCommand;
 import podz.commands.IncorrectCommand;
 import podz.commands.ListCommand;
 import podz.commands.MarkCommand;
@@ -27,6 +28,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
+        FIND,
         BYE,
         UNKNOWN;
 
@@ -57,7 +59,6 @@ public class Parser {
         Commands cmd = Commands.valueOfOrElse(command.toUpperCase());
 
         switch (cmd) {
-
         case LIST:
             return new ListCommand();
 
@@ -81,6 +82,9 @@ public class Parser {
 
         case BYE:
             return new ByeCommand();
+
+        case FIND:
+            return prepareFind(inputs);
 
         default:
             return new IncorrectCommand(
@@ -192,6 +196,19 @@ public class Parser {
 
             int index = Integer.parseInt(inputs[1]) - 1;
             return new DeleteCommand(index);
+        } catch (PodzException e) {
+            return new IncorrectCommand(e);
+        }
+    }
+
+    private Command prepareFind(String[] inputs) {
+        try {
+            if (inputs.length != 2) {
+                throw new PodzException("Wrong find command format!!");
+            }
+
+            String searchKeyword = inputs[1];
+            return new FindCommand(searchKeyword);
         } catch (PodzException e) {
             return new IncorrectCommand(e);
         }

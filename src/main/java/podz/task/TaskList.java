@@ -87,12 +87,41 @@ public class TaskList {
     }
 
     /**
+     * Returns the String representation of the task list which will be filtered
+     * based on the keyword.
+     * 
+     * @param keyword the keyword to search for in the task description
+     * @return the String representation of the filtered tasks
+     */
+    public String findTasks(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+
+        for (Task t : this.tasks) {
+            if (t.isRelevantTask(keyword)) {
+                filteredTasks.add(t);
+            }
+        }
+
+        return toString(filteredTasks);
+    }
+
+    /**
      * Returns a string representing the tasks in the list.
      * 
      * @return a string indicating all tasks in the list
      */
     @Override
     public String toString() {
+        String taskStr = "\tHere are the tasks in your list:";
+        for (int i = 0; i < tasks.size(); i++) {
+            int num = i + 1;
+            String nextTask = "\t" + num + ". " + tasks.get(i);
+            taskStr += "\n" + nextTask;
+        }
+        return taskStr;
+    }
+
+    private String toString(ArrayList<Task> tasks) {
         String taskStr = "\tHere are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
