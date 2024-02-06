@@ -35,7 +35,7 @@ public class Zack extends Application {
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/zack.png"));
+    private Image zack = new Image(this.getClass().getResourceAsStream("/images/zack.jpg"));
 
     /**
      * Constructs a new Zack instance without specifying a custom file path for data storage.
@@ -97,7 +97,7 @@ public class Zack extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Zack");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -171,10 +171,10 @@ public class Zack extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label zackText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getZackDialog(zackText, new ImageView(zack))
         );
         userInput.clear();
     }
@@ -184,7 +184,7 @@ public class Zack extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "Zack heard: " + input;
     }
 
 
