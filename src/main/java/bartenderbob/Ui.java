@@ -2,74 +2,70 @@ package bartenderbob;
 import java.util.ArrayList;
 
 public class Ui {
-    public void leave() {
-        System.out.println("Bye! Another round next time!");
+    public String leave() {
+        return "Bye! Another round next time!";
     }
-    public void showWelcomeMessage(String name) {
-        System.out.println("Welcome back! I'm " + name + "\nHow's it going out there?");
+    public String showWelcomeMessage(String name) {
+        return "Welcome back! I'm " + name + "\nHow's it going out there?";
     }
-    public void showLoadingError() {
-        System.out.println("Error occurred while loading!");
+    public String showLoadingError() {
+        return "Error occurred while loading!";
     }
-    public void showInvalidInputError(String userInput) {
-        System.out.println("What? I can't understand " + userInput + " =(");
+    public String showInvalidInputError(String userInput) {
+        return "What? I can't understand " + userInput + " =(";
     }
-    public void showInvalidMarkCommand() {
-        System.out.println("Hmm, please provide a valid task number to mark.");
+    public String showInvalidMarkCommand() {
+        return "Hmm, please provide a valid task number to mark.";
     }
-    public void showInvalidUnmarkCommand() {
-        System.out.println("Hmm, please provide a valid task number to unmark.");
+    public String showInvalidUnmarkCommand() {
+        return "Hmm, please provide a valid task number to unmark.";
     }
-    public void showInvalidDeleteCommand() {
-        System.out.println("Hmm, please provide a valid task number to delete.");
+    public String showInvalidDeleteCommand() {
+        return "Hmm, please provide a valid task number to delete.";
     }
-    public void showInvalidTodoCommand() {
-        System.out.println("Hmm, did you add in a description for the todo?");
+    public String showInvalidTodoCommand() {
+        return "Hmm, did you add in a description for the todo?";
     }
-    public void showInvalidDeadlineCommand() {
-        System.out.println("Hey, this is an invalid format for deadline!");
+    public String showInvalidDeadlineCommand() {
+        return "Hey, this is an invalid format for deadline!";
     }
-    public void showInvalidDateFormat() {
-        System.out.println("Date format should be of the form yyyy-MM-dd!");
+    public String showInvalidDateFormat() {
+        return "Date format should be of the form yyyy-MM-dd!";
     }
-    public void showInvalidEventCommand() {
-        System.out.println("Hey, this is an invalid format for event!");
+    public String showInvalidEventCommand() {
+        return "Hey, this is an invalid format for event!";
     }
-    public void showOutOfBoundsCommand() {
-        System.out.println("The index is out of bounds!");
+    public String showOutOfBoundsCommand() {
+        return "The index is out of bounds!";
     }
 
-    public void showSaveChangesError() {
-        System.out.println("Something went wrong while saving changes!");
+    public String showSaveChangesError() {
+        return "Something went wrong while saving changes!";
     }
-    public void showSaveTasksError() {
-        System.out.println("Something went wrong while saving tasks!");
+    public String showSaveTasksError() {
+        return "Something went wrong while saving tasks!";
     }
-    public void showStoreTasksMessage(Task task, int totalTasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.show());
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String showStoreTasksMessage(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n" + task.show() + "\nNow you have " + totalTasks
+                + " tasks in the list.";
     }
-    public void showListCommandHeader() {
-        System.out.println("Here are the tasks in your list!");
+    public String showListCommandHeader() {
+        return "Here are the tasks in your list!";
     }
-    public void showListElements(int number, ArrayList<Task> tasks, int i) {
-        System.out.println(number + "." + tasks.get(i).show());
+    public String showListElements(int number, ArrayList<Task> tasks, int i) {
+        return number + "." + tasks.get(i).show();
     }
-    public void showMarkDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.show());
+    public String showMarkDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.show();
     }
-    public void showUnmarkDone(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.show());
+    public String showUnmarkDone(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task.show();
     }
-    public void showDelete(String display, int totalTasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(display);
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    public String showDelete(String display, int totalTasks) {
+        return "Noted. I've removed this task:\n" + display
+                + "\nNow you have " + totalTasks + " tasks in the list.";
     }
-    public void showFindCommandHeader() {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFindCommandHeader() {
+        return "Here are the matching tasks in your list:";
     }
 }
