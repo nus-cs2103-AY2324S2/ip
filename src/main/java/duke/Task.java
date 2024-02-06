@@ -1,4 +1,4 @@
-package Riri;
+package duke;
 
 public class Task {
     private String task;

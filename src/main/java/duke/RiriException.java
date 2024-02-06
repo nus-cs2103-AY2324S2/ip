@@ -1,4 +1,4 @@
-package Riri;
+package duke;
 
 public class RiriException extends Exception {
     public RiriException(String s) {

@@ -1,36 +1,66 @@
-package Riri;
-
+package duke;
 import java.util.ArrayList;
+/**
+ * Class responsible for handling the logic of the task lists.
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
+    /**
+     * Create a task list based on the contents.
+     * @param contents tasks to be added to task list
+     */
     public TaskList(ArrayList<String> contents) {
         for (String c : contents) {
             addTask(parser(c));
         }
     }
+    /**
+     * Creating an empty task list.
+     */
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
+    /**
+     * Prints the task list to console.
+     */
     public void returnList() {
         if (taskList.size() == 0) {
             System.out.println("You have no items in your list.");
             return;
         }
         for (int i = 1; i < taskList.size() + 1; i++) {
-            System.out.println(i + ". " + taskList.get(i-1).toString());
+            System.out.println(i + ". " + taskList.get(i - 1).toString());
         }
 
     }
-    public void addTask(Task item) {
-        taskList.add(item);
-        System.out.println("Got it. Added: " + item.toString());
+    /**
+     * Adds task to the task list.
+     * @param task task to be added to task list
+     */
+    public void addTask(Task task) {
+        taskList.add(task);
+        System.out.println("Got it. Added: " + task.toString());
     }
-    public void loadTask(Task item) {
-        taskList.add(item);
+
+    /**
+     * Loading up tasks from storage to task list.
+     * @param task tasks from storage to be added to task list
+     */
+    public void loadTask(Task task) {
+        taskList.add(task);
     }
+    /**
+     * Marking task at index i as done. Displays list at the end of marking.
+     */
     public void mark(int i) {
-        this.taskList.get(i-1).markDone();
+        this.taskList.get(i - 1).markDone();
         this.returnList();
     }
+    /**
+     * Marking task at index i as undone. Displays list at the end of marking.
+     */
     public void unmark(int i) {
-        this.taskList.get(i-1).markUndone();
+        this.taskList.get(i - 1).markUndone();
         this.returnList();
     }
     /**
@@ -69,9 +99,8 @@ public class TaskList {
     public String toString() {
         String s = "";
         for (int i = 1; i < taskList.size()+1; i++) {
-            s += (taskList.get(i-1).toString() + "\n");
+            s += (taskList.get(i - 1).toString() + "\n");
         }
         return s;
     }
-
 }

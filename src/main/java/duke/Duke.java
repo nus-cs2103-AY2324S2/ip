@@ -1,13 +1,13 @@
-package Riri;
+package duke;
 
 import java.io.IOException;
 
-public class Riri {
+public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Riri(String filePath) {
+    public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage();
         try {
@@ -18,13 +18,13 @@ public class Riri {
     }
 
     public void run() throws RiriException, IOException {
-        ui.introduction("Riri");
+        ui.introduction("riri");
         ui.chat(tasks);
         storage.writeToFile(tasks.toString());
         ui.exit();
     }
 
     public static void main(String[] args) throws RiriException, IOException {
-        new Riri("data/tasks.txt").run();
+        new Duke("data/tasks.txt").run();
     }
 }
