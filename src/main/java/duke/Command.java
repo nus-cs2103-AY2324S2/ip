@@ -12,7 +12,6 @@ public class Command {
     protected TaskList tasks;
     protected Storage storage;
     protected String command;
-
     protected String input;
     public Command(String command, String input) {
         this.command = command;
