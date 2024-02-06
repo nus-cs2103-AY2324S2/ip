@@ -1,26 +1,40 @@
 package raphael.task;
+
 import java.util.ArrayList;
+
+import raphael.exception.RaphaelException;
 import raphael.format.FileFormattable;
 import raphael.format.Formatter;
-import raphael.exception.RaphaelException;
+
+/**
+ * The task list.
+ */
 public class TaskList implements FileFormattable {
     private final ArrayList<Task> tasks;
+
+    /**
+     * The overridden constructor of the task list.
+     * @param tasks the tasks to be loaded.
+     * @throws RaphaelException the exception exclusive for Raphael.
+     */
     public TaskList(String tasks) throws RaphaelException {
         this.tasks = new ArrayList<>();
         final String[] tasksArr = tasks.split("\n");
         for (String task : tasksArr) {
             final String[] taskArr = task.split(" \\|&\\| ");
             switch (taskArr[0]) {
-                case "T":
-                    this.tasks.add(new Todo(taskArr[2], taskArr[1].equals("1")));
-                    break;
-                case "D":
-                    this.tasks.add(new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1")));
-                    break;
-                case "E":
-                    this.tasks.add(new Event(taskArr[2], taskArr[3],
-                            taskArr[4], taskArr[1].equals("1")));
-                    break;
+            case "T":
+                this.tasks.add(new Todo(taskArr[2], taskArr[1].equals("1")));
+                break;
+            case "D":
+                this.tasks.add(new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1")));
+                break;
+            case "E":
+                this.tasks.add(new Event(taskArr[2], taskArr[3],
+                        taskArr[4], taskArr[1].equals("1")));
+                break;
+            default:
+                throw new RaphaelException("Error in loading the tasks!");
             }
         }
     }
@@ -29,6 +43,7 @@ public class TaskList implements FileFormattable {
     }
 
     /**
+     * Returns the number of task in the task list.
      *
      * @return the formatted string used to output the number of tasks in the current task list.
      */
@@ -44,9 +59,9 @@ public class TaskList implements FileFormattable {
      */
     public String checkTask(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new RaphaelException(RaphaelException.TYPE.INVALID_TASK_INDEX);
+            throw new RaphaelException(RaphaelException.Type.INVALID_TASK_INDEX);
         } else {
-            if(this.tasks.get(idx).check() == 0) {
+            if (this.tasks.get(idx).check() == 0) {
                 return String.format("Hooray! Congrats on completing the following task!:\n"
                         + "\t%s\n", this.tasks.get(idx));
             } else {
@@ -64,9 +79,9 @@ public class TaskList implements FileFormattable {
      */
     public String uncheckTask(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new RaphaelException(RaphaelException.TYPE.INVALID_TASK_INDEX);
+            throw new RaphaelException(RaphaelException.Type.INVALID_TASK_INDEX);
         } else {
-            if(this.tasks.get(idx).uncheck() == 0) {
+            if (this.tasks.get(idx).uncheck() == 0) {
                 return String.format("Uh oh! Workload + 1 by having the following task:\n"
                         + "\t%s\n", this.tasks.get(idx));
             } else {
@@ -96,7 +111,7 @@ public class TaskList implements FileFormattable {
      */
     public Task deleteTask(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new RaphaelException(RaphaelException.TYPE.INVALID_TASK_INDEX);
+            throw new RaphaelException(RaphaelException.Type.INVALID_TASK_INDEX);
         } else {
             Task temp = this.tasks.get(idx);
             this.tasks.remove(idx);
@@ -114,9 +129,16 @@ public class TaskList implements FileFormattable {
             return String.format("Here are the tasks in your list:\n%s", this);
         }
     }
+
+    /**
+     * Returns the tasks that contain the keyword.
+     *
+     * @param keyword the keyword to search for.
+     * @return all the matching tasks in a single string.
+     */
     public String find(String keyword) {
         String res = "";
-        for(Task task : this.tasks) {
+        for (Task task : this.tasks) {
             if (task.isContaining(keyword)) {
                 if (res.isEmpty()) {
                     res = task.toString();
@@ -134,7 +156,7 @@ public class TaskList implements FileFormattable {
     @Override
     public String toString() {
         String res = "";
-        for(int i = 0; i < this.tasks.size(); ++i) {
+        for (int i = 0; i < this.tasks.size(); ++i) {
             if (i == 0) {
                 res = Formatter.addIndex(this.tasks.get(i), i + 1);
             } else {
@@ -147,7 +169,7 @@ public class TaskList implements FileFormattable {
     @Override
     public String toFileFormat() {
         String fileFormat = "";
-        for(Task task : this.tasks) {
+        for (Task task : this.tasks) {
             if (fileFormat.isEmpty()) {
                 fileFormat = task.toFileFormat();
             } else {
