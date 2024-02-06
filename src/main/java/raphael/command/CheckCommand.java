@@ -1,9 +1,12 @@
 package raphael.command;
 
-import raphael.task.TaskList;
 import raphael.storage.Storage;
+import raphael.task.TaskList;
 import raphael.ui.Ui;
 
+/**
+ * The command class used for any command.
+ */
 public class CheckCommand extends Command {
 
     @Override
