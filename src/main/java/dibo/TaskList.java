@@ -64,12 +64,12 @@ public class TaskList {
      *
      * @throws DiboException if there is no such task with the specified keyword.
      */
-    public String getTasksWithKeyword(String keyword) throws DiboException {
+    public String getTasksWithKeyword(String[] keywords) throws DiboException {
         StringBuilder list = new StringBuilder();
         int taskCount = 0;
         for (int i = 0; i < count; ++i) {
             Task task = tasks.get(i);
-            if (task.hasKeyword(keyword)) {
+            if (task.hasKeywords(keywords)) {
                 taskCount++;
                 list.append(taskCount);
                 list.append(".");

@@ -9,15 +9,15 @@ import dibo.exception.DiboException;
  * Class to handle a command which finds tasks with a specified keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private String[] keywords;
 
     /**
      * Constructor for the FindCommand class.
      *
-     * @param keyword The keyword we are using to find the tasks.
+     * @param keywords The keywords we are using to find the tasks.
      */
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FindCommand(String ... keywords) {
+        this.keywords = keywords;
     }
 
     /**
@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @throws DiboException when an error occurs when we cannot find the task.
      */
     public void run(TaskList taskList, Ui ui, Storage storage) throws DiboException {
-        ui.showFound(taskList.getTasksWithKeyword(this.keyword));
+        ui.showFound(taskList.getTasksWithKeyword(this.keywords));
     }
 
 }

@@ -56,11 +56,16 @@ public abstract class Task {
         return isDone;
     }
     /**
-     * Returns true if the description contains the specified keyword.
-     * @param keyword The specified keyword.
-     * @return True if the description has the keyword, false otherwise.
+     * Returns true if the description contains the specified keywords.
+     * @param keywords The specified keywords.
+     * @return True if the description has all the keywords, false otherwise.
      */
-    public boolean hasKeyword(String keyword) {
-        return this.description.contains(keyword);
+    public boolean hasKeywords(String[] keywords) {
+        for (String keyword : keywords) {
+            if (!this.description.contains(keyword)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
