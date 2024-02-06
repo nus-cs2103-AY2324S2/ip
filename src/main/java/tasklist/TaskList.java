@@ -5,25 +5,20 @@ import tasks.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task>  taskList;
+    private ArrayList<Task>  tasks;
 
     public TaskList() {
 
-        this.taskList = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
 
-        this.taskList = tasks;
+        this.tasks = tasks;
     }
 
     public ArrayList<Task> getTaskList() {
 
-        return taskList;
-    }
-
-    public void setTaskList(ArrayList<Task> taskList) {
-
-        this.taskList = taskList;
+        return tasks;
     }
 }

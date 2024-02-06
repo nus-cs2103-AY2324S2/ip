@@ -18,7 +18,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String prepareStore() {
-        return super.prepareStore() + String.format(" | %s", this.date);
+    public String prepareForStorage() {
+        return super.prepareForStorage() + String.format(" | %s", this.date);
     }
 }

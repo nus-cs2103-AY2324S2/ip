@@ -27,21 +27,16 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
-    public String getStatusIconNum() {
+    public String getStatusIconAsNum() {
         return (this.isDone ? "1" : "0");
     }
 
-    public String getDescription() {
-
-        return this.description;
-    }
-
-    public void markDone() {
+    public void markAsDone() {
 
         this.isDone = true;
     }
 
-    public void unmarkDone() {
+    public void unmarkAsDone() {
 
         this.isDone = false;
     }
@@ -52,7 +47,7 @@ public class Task {
         return String.format("[%c][%s] %s", this.shortForm, getStatusIcon(), this.description);
     }
 
-    public String prepareStore() {
-        return String.format("%c | %s | %s", this.shortForm, getStatusIconNum(), this.description);
+    public String prepareForStorage() {
+        return String.format("%c | %s | %s", this.shortForm, getStatusIconAsNum(), this.description);
     }
 }

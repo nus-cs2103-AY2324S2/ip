@@ -21,7 +21,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String prepareStore() {
-        return super.prepareStore() + String.format(" | %s | %s", this.startDate, this.endDate);
+    public String prepareForStorage() {
+        return super.prepareForStorage() + String.format(" | %s | %s", this.startDate, this.endDate);
     }
 }

@@ -18,8 +18,8 @@ public class AddCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
         tasks.getTaskList().add(task);
-        String result = "Got it. I've added this task:\n" + task +
-                String.format("Now you have %d tasks in the list\n", tasks.getTaskList().size());
+        String result = "Got it. I've added this task:\n" + task
+                + String.format("Now you have %d tasks in the list\n", tasks.getTaskList().size());
         ui.showResult(result);
         storage.write(tasks.getTaskList());
     }
