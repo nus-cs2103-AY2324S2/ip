@@ -4,7 +4,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
 /**
- * Represents a database that stores and loads tasks in a file.
+ * Database that handles storing and loading of tasks into file.
  */
 public class Database {
     private static final String FILE_PATH = "./savedTasks.txt";

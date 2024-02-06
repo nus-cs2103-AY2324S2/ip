@@ -5,7 +5,6 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
-    protected static int taskCount = 0;
 
     /**
      * Constructor for Task class.
@@ -62,28 +61,6 @@ public abstract class Task {
      */
     public void markAsUndone() {
         this.isDone = false;
-    }
-
-    /**
-     * Increases the task count by 1.
-     */
-    public static void incrementTaskCount() {
-        taskCount++;
-    }
-
-    /**
-     * Decreases the task count by 1.
-     */
-    public static void decrementTaskCount() {
-        taskCount--;
-    }
-
-    /**
-     * Returns the task count.
-     * @return Task count.
-     */
-    public static int getTaskCount() {
-        return taskCount;
     }
 
     /**

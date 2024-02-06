@@ -1,237 +1,33 @@
 import java.util.ArrayList;
 
 public class ChatBro {
+    static boolean isRunning;
     public static void main(String[] args) {
-        Ui ui = new Ui();
         Parser parser = new Parser();
-        Database db = new Database();
+        TaskManager tm = new TaskManager(); // Instantiate TaskManager to create taskList
+        isRunning = true;
 
-        ArrayList<Task> taskList = new ArrayList<>(101);
-        taskList.add(null); // First element left empty for 1-based indexing
-        String savedTasks = db.readFromFile();
+        String savedTasks = Database.readFromFile();
         String[] savedTasksSplit = savedTasks.split("\n"); // Split savedTasks by newline
-        if (!savedTasksSplit[0].isEmpty()) {
+        int length = savedTasksSplit.length;
+        for (int i = 0; i < 100; i++) { // Fill taskList with null
+            tm.getList().add(null);
+        }
+        if (!savedTasksSplit[0].isEmpty()) { // savedTasks is not empty, load tasks into taskList
             try {
-                for (int i = 0; i < savedTasksSplit.length; i++) {
-                    String taskString = savedTasksSplit[i];
-                    taskList.add(db.parseTask(taskString));
+                for (int j = 0; j < length; j++) {
+                    String taskString = savedTasksSplit[j];
+                    tm.addTask(Database.parseTask(taskString));
                 }
             } catch (WrongFileFormatException e) {
-                Ui.printError(e.getMessage());
+                Ui.printMessage(e.getMessage());
                 System.exit(0);
             }
-
-            for (int i = 0; i < savedTasksSplit.length; i++) {
-                if (savedTasksSplit[0].isEmpty()) {
-                    break;
-                }
-                Task.incrementTaskCount();
-            }
-            for (int i = 0; i < 100 - savedTasksSplit.length; i++) {
-                taskList.add(null);
-            }
-        } else {
-            for (int i = 0; i < 100; i++) {
-                taskList.add(null);
-            }
         }
-        ui.printWelcome();
-        boolean isRunning = true;
+        Ui.printWelcome();
+
         while (isRunning) {
-            String input = parser.readInput();
-            String[] inputSplit = input.split(" ");
-            String command = inputSplit[0];
-            switch (command) {
-                case "list":
-                    System.out.println("Here are the tasks in your list bro:\n" +
-                            "_________________________");
-                    for (int i = 1; i <= 100; i++) {
-                        if (taskList.get(i) == null) {
-                            break;
-                        }
-                        System.out.println(i + "." + taskList.get(i).toString());
-                    }
-                    System.out.println("_________________________\n");
-                    break;
-
-                case "todo":
-                    String[] todoSplit = input.split("todo ");
-                    try {
-                        String todoName = todoSplit[1];
-                        if (todoName.trim().isEmpty()) { // Empty task description
-                            System.out.println("_________________________\n" +
-                                    "Hey bro, task description cannot be empty.\n" +
-                                    "_________________________\n");
-                            break;
-                        }
-                        for (int i = 1; i <= 100; i++) {
-                            if (taskList.get(i) == null) {
-                                taskList.add(i, new ToDo(todoName));
-                                Task.incrementTaskCount();
-                                System.out.println("_________________________\n" +
-                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\ninto your list.\n" +
-                                        "You've got " + Task.getTaskCount() + " task(s) now.\n" +
-                                        "_________________________\n");
-                                break;
-                            }
-                        }
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("_________________________\n" +
-                                "Hey bro, make sure to follow the format:\n" +
-                                "todo <task description> (task description cannot be empty)\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    break;
-
-                case "deadline":
-                    String[] deadlineSplit = input.split(" /by ");
-                    try {
-                        String deadlineName = deadlineSplit[0].substring(9); // 9 is the length of "deadline "
-                        if (deadlineName.trim().isEmpty()) { // Empty task description (whitespace)
-                            System.out.println("_________________________\n" +
-                                    "Hey bro, the given task description cannot be empty.\n" +
-                                    "_________________________\n");
-                            break;
-                        }
-                        if (deadlineSplit[1].trim().isEmpty()) { // Empty deadline (whitespace)
-                            System.out.println("_________________________\n" +
-                                    "Hey bro, the given deadline cannot be empty.\n" +
-                                    "_________________________\n");
-                            break;
-                        }
-                        for (int i = 1; i <= 100; i++) {
-                            if (taskList.get(i) == null) {
-                                taskList.add(i, new Deadline(deadlineName, deadlineSplit[1]));
-                                Task.incrementTaskCount();
-                                System.out.println("_________________________\n" +
-                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\ninto your list.\n" +
-                                        "You've got " + Task.getTaskCount() + " task(s) now.\n" +
-                                        "_________________________\n");
-                                break;
-                            }
-                        }
-                    } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                        System.out.println("_________________________\n" +
-                                "Hey bro, make sure to follow the format:\n" +
-                                "deadline <task description> /by <deadline date>\n" +
-                                "(task description and deadline date cannot be empty)\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    break;
-
-                case "event":
-                    String[] eventFromSplit = input.split(" /from ");
-                    try {
-                        String eventName = eventFromSplit[0].substring(6); // 6 is the length of "event "
-                        String[] eventToSplit = eventFromSplit[1].split(" /to "); // ETS[0] is from, ETS[1] is to
-                        if (eventName.trim().isEmpty()) { // Empty task description (whitespace)
-                            System.out.println("_________________________\n" +
-                                    "Hey bro, the task description cannot be empty.\n" +
-                                    "_________________________\n");
-                            break;
-                        }
-                        if (eventToSplit[0].trim().isEmpty()) { // Empty start time (whitespace)
-                            System.out.println("_________________________\n" +
-                                    "Hey bro, the start time cannot be empty.\n" +
-                                    "_________________________\n");
-                            break;
-                        }
-                        if (eventToSplit[1].trim().isEmpty()) { // Empty end time (whitespace)
-                            System.out.println("_________________________\n" +
-                                    "Hey bro, the end time cannot be empty.\n" +
-                                    "_________________________\n");
-                            break;
-                        }
-                        for (int i = 1; i <= 100; i++) {
-                            if (taskList.get(i) == null) {
-                                taskList.add(i, new Event(eventName, eventToSplit[0], eventToSplit[1]));
-                                Task.incrementTaskCount();
-                                System.out.println("_________________________\n" +
-                                        "Ok bro, I've added: \n" + taskList.get(i).toString() + "\ninto your list.\n" +
-                                        "You've got " + Task.getTaskCount() + " task(s) now.\n" +
-                                        "_________________________\n");
-                                break;
-                            }
-                        }
-                    } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                        System.out.println("_________________________\n" +
-                                "Hey bro, make sure to follow the format:\n" +
-                                "event <task description> /from <start time> /to <end time>\n" +
-                                "(task description, start time and end time cannot be empty)\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    break;
-
-                case "mark":
-                    int taskNum = Integer.parseInt(inputSplit[1]);
-                    if (taskList.get(taskNum) == null) {
-                        System.out.println("_________________________\n" +
-                                "Sorry bro, this task doesn't exist in your list.\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    taskList.get(taskNum).markAsDone();
-                    System.out.println("_________________________\n" +
-                            "Got it bro! Task " + taskNum + " is marked as done:\n" +
-                            taskList.get(taskNum).toString() +
-                            "\n_________________________\n");
-                    break;
-
-                case "unmark":
-                    int taskNum2 = Integer.parseInt(inputSplit[1]);
-                    if (taskList.get(taskNum2) == null) {
-                        System.out.println("_________________________\n" +
-                                "Sorry bro, this task doesn't exist in your list.\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    taskList.get(taskNum2).markAsUndone();
-                    System.out.println("_________________________\n" +
-                            "Got it bro! Task " + taskNum2 + " is marked as not done yet:\n" +
-                            taskList.get(taskNum2).toString() +
-                            "\n_________________________\n");
-                    break;
-
-                case "delete":
-                    int taskNum3 = Integer.parseInt(inputSplit[1]);
-                    if (taskList.get(taskNum3) == null) {
-                        System.out.println("_________________________\n" +
-                                "Sorry bro, this task doesn't exist in your list.\n" +
-                                "_________________________\n");
-                        break;
-                    }
-                    String taskName = taskList.get(taskNum3).toString();
-                    taskList.remove(taskNum3);
-                    Task.decrementTaskCount();
-                    System.out.println("_________________________\n" +
-                            "Got it bro! Task " + taskNum3 + " has been removed:\n" +
-                            taskName + "\n" +
-                            "_________________________\n");
-                    break;
-
-                case "bye":
-                    isRunning = false;
-                    String tasksToSave = "";
-                    for (int i = 1; i <= 100; i++) {
-                        if (taskList.get(i) == null) {
-                            break;
-                        }
-                        tasksToSave += taskList.get(i).toStorageFormat() + "\n";
-                    }
-                    db.saveToFile(tasksToSave);
-                    parser.closeScanner();
-                    ui.printBye();
-                    break;
-
-                default:
-                    System.out.println("_________________________\n" +
-                            "Sorry bro, I don't understand what you mean.\n" +
-                            "_________________________\n");
-                    break;
-            }
+            Parser.parseCommand();
         }
     }
 }
