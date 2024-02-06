@@ -1,7 +1,13 @@
 package raphael.ui;
+
 import java.util.Scanner;
-import raphael.task.TaskList;
+
 import raphael.task.Task;
+import raphael.task.TaskList;
+
+/**
+ * The class for user interface.
+ */
 public class Ui {
     private static final String START_LINE = "----------------"
             + "------------[Rep"
@@ -80,17 +86,35 @@ public class Ui {
      * @param task the task that need to be added.
      */
     public void showAddOutput(TaskList tasks, Task task) {
-        System.out.printf("Roger that! I have added the following task into your list:\n" +
-                "\t%s\n", task);
+        System.out.printf("Roger that! I have added the following task into your list:\n"
+                + "\t%s\n", task);
         System.out.println(tasks.getSize());
     }
+
+    /**
+     * Prints the output when find command is used.
+     *
+     * @param text the text to be print when find command is used.
+     */
     public void showFindOutput(String text) {
         System.out.println(text);
     }
+
+    /**
+     * Prints the output when delete command is used.
+     *
+     * @param task the task to be deleted.
+     */
     public void showDeleteOutput(Task task) {
         System.out.printf("Alrigthy! I have deleted the following task for you:\n"
                 + "\t%s\n", task);
     }
+
+    /**
+     * Prints the output when the list command is used.
+     *
+     * @param text the text to be print when list command is used.
+     */
     public void showListOutput(String text) {
         System.out.println(text);
     }
