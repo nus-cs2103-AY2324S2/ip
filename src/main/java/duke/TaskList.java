@@ -97,6 +97,17 @@ public class TaskList {
         }
     }
 
+    public TaskList find(String keyword) {
+        TaskList filteredList = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            if (currTask.getDescription().contains(keyword)) {
+                filteredList.taskList.add(currTask);
+            }
+        }
+        return filteredList;
+    }
+
     /**
      * Returns number of tasks in the list.
      *
