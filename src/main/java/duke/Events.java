@@ -18,11 +18,14 @@ public class Events extends Task {
   public String toString() {
     String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
     String formattedDateTo = to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
-    return "[E][" + getStatusIcon() + "] " + description + " (from: " + formattedDateFrom + " to: " + formattedDateTo + ")";
+    return "[E][" + getStatusIcon() + "] " + description
+            + " (from: " + formattedDateFrom + " to: " + formattedDateTo + ")";
   }
 
   @Override
   public String toFileString() {
-    return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")), to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
+    return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
+            from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")),
+            to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
   }
 }
