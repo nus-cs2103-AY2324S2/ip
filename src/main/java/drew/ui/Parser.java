@@ -47,6 +47,8 @@ public class Parser {
             userCommand = Command.DEADLINE;
         } else if (inputLength >= 5 && input.substring(0, 5).equalsIgnoreCase("event")) {
             userCommand = Command.EVENT;
+        } else if (inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("find")){
+            userCommand = Command.FIND;
         } else {
             userCommand = Command.UNKNOWN;
         }
@@ -90,6 +92,10 @@ public class Parser {
                 throw new InsufficientArgumentsException("'Event task' cannot be empty");
             }
             break;
+        case FIND:
+            if (inputNoWhitespaceLength == 4) {
+                throw new InsufficientArgumentsException("'Find' String cannot be empty");
+            }
         }
         return userCommand;
     }
@@ -193,6 +199,22 @@ public class Parser {
                 reply = reply + newTask.toStatusString() + "\n";
                 listLength++;
                 reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
+                break;
+            }
+            case FIND: {
+                String search = input.substring(4).trim();
+                reply = "Here are the matching tasks in your list:i\n";
+                ArrayList<Task> matchedTasks = new ArrayList<>();
+                for (int i = 0; i < listLength; i++) {
+                    Task task = ls.get(i);
+                    if (task.toString().contains(search)) {
+                        matchedTasks.add(task);
+                    }
+                }
+                for (int i = 0; i < matchedTasks.size(); i++) {
+                    reply = reply + Integer.toString(i + 1) + ". " +
+                            matchedTasks.get(i).toStatusString() + "\n";
+                }
                 break;
             }
             }
