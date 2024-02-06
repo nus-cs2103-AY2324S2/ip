@@ -13,36 +13,56 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    /** The ScrollPane that will contain the dialogs. */
     @FXML
     private ScrollPane scrollPane;
+
+    /** The container for dialog boxes (images and labels). */
     @FXML
     private VBox dialogContainer;
+
+    /** The text field for user input. */
     @FXML
     private TextField userInput;
+
+    /** The button to send user input. */
     @FXML
     private Button sendButton;
 
+    /** The instance of the Capone application. */
     private Capone capone;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream(DialogBox.getUserImg()));
-    private Image caponeImage = new Image(this.getClass().getResourceAsStream(DialogBox.getCaponeImg()));
+    /** The image representing the user in dialog boxes. */
+    private Image userImage = new Image(this.getClass().getResourceAsStream(DialogBox.getUserImgPath()));
 
+    /** The image representing Capone in dialog boxes. */
+    private Image caponeImage = new Image(this.getClass().getResourceAsStream(DialogBox.getCaponeImgPath()));
+
+    /**
+     * Initializes the controller. Binds the scroll
+     * pane to the height of the dialog container.
+     */
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the instance of the Capone application.
+     *
+     * @param capone The Capone application instance to be set.
+     */
     public void setCapone(Capone capone) {
         this.capone = capone;
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getCaponeDialog(this.capone.getUi().printWelcomeMsg(),
-                this.caponeImage)
+                DialogBox.getCaponeDialog(this.capone.getUi().printWelcomeMsg(), this.caponeImage)
         );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * Duke's reply and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

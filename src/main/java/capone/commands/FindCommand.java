@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
 import capone.tasks.Task;
+import capone.ui.Ui;
 
 /**
  * Represents a command to find tasks containing a specific keyword.

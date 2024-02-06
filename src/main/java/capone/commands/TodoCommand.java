@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.ToDo;
+import capone.ui.Ui;
 
 /**
  * Represents a command to create a new ToDo task and add it to the TaskList.

@@ -2,8 +2,8 @@ package capone.commands;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
+import capone.ui.Ui;
 
 /**
  * Represents a command to display a list of supported commands.

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidIndexException;
 import capone.tasks.Task;
+import capone.ui.Ui;
 
 /**
  * Represents a command to mark a task as completed in the TaskList.

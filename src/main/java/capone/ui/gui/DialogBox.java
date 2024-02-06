@@ -15,26 +15,31 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * The DialogBox class represents a custom control using FXML.
+ * This control is used to display a dialog box consisting of an ImageView to
+ * represent the user/bot image and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    private static final String USER_IMG = "/images/DaUser.png";
-    private static final String CAPONE_IMG = "/images/DaCapone.png";
+    /** The path to the default user image used for the GUI. */
+    private static final String USER_IMG_PATH = "/images/DaUser.png";
+
+    /** The path to the default Capone image used for the GUI. */
+    private static final String CAPONE_IMG_PATH = "/images/DaCapone.png";
+
+    /** The label displaying the text in the dialog box. */
     @FXML
     private Label dialog;
+
+    /** The ImageView displaying the user/bot image in the dialog box. */
     @FXML
     private ImageView displayPicture;
 
-    protected static String getUserImg() {
-        return DialogBox.USER_IMG;
-    }
-
-    protected static String getCaponeImg() {
-        return DialogBox.CAPONE_IMG;
-    }
-
+    /**
+     * Constructs a DialogBox with the given text and image.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -50,7 +55,25 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Gets the path to the user image used for the GUI.
+     *
+     * @return The path to the user image.
+     */
+    protected static String getUserImgPath() {
+        return DialogBox.USER_IMG_PATH;
+    }
+
+    /**
+     * Gets the path to the Capone image used for the GUI.
+     *
+     * @return The path to the Capone image.
+     */
+    protected static String getCaponeImgPath() {
+        return DialogBox.CAPONE_IMG_PATH;
+    }
+
+    /**
+     * Flips the dialog box for the bot reply.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -59,10 +82,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox representing user input.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return The DialogBox representing user input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox representing Capone's response.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img The image to display in the dialog box.
+     * @return The DialogBox representing Capone's response.
+     */
     public static DialogBox getCaponeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

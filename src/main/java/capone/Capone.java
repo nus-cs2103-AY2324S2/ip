@@ -3,11 +3,8 @@ package capone;
 import capone.commands.Command;
 import capone.exceptions.CaponeException;
 import capone.exceptions.TaskListCorruptedException;
-import capone.ui.cli.Cli;
 import capone.ui.Ui;
-import capone.ui.gui.DialogBox;
-import capone.ui.gui.MainWindow;
-import javafx.scene.image.Image;
+import capone.ui.cli.Cli;
 
 /**
  * The main class responsible for running the application and handling user commands.

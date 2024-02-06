@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
 import capone.tasks.Event;
+import capone.ui.Ui;
 
 /**
  * Represents a command to add an event task to the TaskList.
