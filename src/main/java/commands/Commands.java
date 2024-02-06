@@ -1,3 +1,5 @@
+package commands;
+
 public enum Commands {
     HELP,
     TODO,

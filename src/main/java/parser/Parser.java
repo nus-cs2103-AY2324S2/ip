@@ -1,5 +1,9 @@
+package parser;
+
+import storage.Storage;
+import tasks.TaskList;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
@@ -65,11 +69,11 @@ public class Parser {
                         System.out.print("Missing task description!\n");
                         System.out.print(dividerText);
                     } else if (todoDescription.contains("/by")) { // unnecessary due date
-                        System.out.print("Todo task cannot have a due date!\n");
+                        System.out.print("tasks.Todo task cannot have a due date!\n");
                         System.out.print(dividerText);
                     } else if (todoDescription.contains("/from") ||
                             todoDescription.contains("/to")) { // unnecessary from and to date
-                        System.out.print("Todo task cannot have a from and to date!\n");
+                        System.out.print("tasks.Todo task cannot have a from and to date!\n");
                         System.out.print(dividerText);
                     } else {
                         existingTaskList.addTodo(todoDescription);
@@ -146,7 +150,7 @@ public class Parser {
                         System.out.print("Missing to date!\n");
                         System.out.print(dividerText);
                     } else if (eventDescription.contains("/by")) { // unnecessary due date
-                        System.out.print("Event task cannot have a due date!\n");
+                        System.out.print("tasks.Event task cannot have a due date!\n");
                         System.out.print(dividerText);
                     } else {
                         try {
