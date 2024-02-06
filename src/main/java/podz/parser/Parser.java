@@ -1,15 +1,15 @@
 package podz.parser;
 
-import podz.command.ByeCommand;
-import podz.command.Command;
-import podz.command.DeadlineCommand;
-import podz.command.DeleteCommand;
-import podz.command.EventCommand;
-import podz.command.IncorrectCommand;
-import podz.command.ListCommand;
-import podz.command.MarkCommand;
-import podz.command.TodoCommand;
-import podz.command.UnmarkCommand;
+import podz.commands.ByeCommand;
+import podz.commands.Command;
+import podz.commands.DeadlineCommand;
+import podz.commands.DeleteCommand;
+import podz.commands.EventCommand;
+import podz.commands.IncorrectCommand;
+import podz.commands.ListCommand;
+import podz.commands.MarkCommand;
+import podz.commands.TodoCommand;
+import podz.commands.UnmarkCommand;
 import podz.exceptions.PodzException;
 import podz.task.Deadline;
 import podz.task.Event;

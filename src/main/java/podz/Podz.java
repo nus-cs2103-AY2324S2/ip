@@ -1,7 +1,7 @@
 package podz;
 
-import podz.command.ByeCommand;
-import podz.command.Command;
+import podz.commands.ByeCommand;
+import podz.commands.Command;
 import podz.parser.Parser;
 import podz.storage.Storage;
 import podz.task.TaskList;
