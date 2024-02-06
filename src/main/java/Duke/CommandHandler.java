@@ -6,7 +6,7 @@ package duke;
  * It provides methods to execute commands.
  */
 public class CommandHandler {
-    private Gui gui;
+    private Bird bird;
 
     public enum Command {
         BYE,
@@ -23,17 +23,17 @@ public class CommandHandler {
     /**
      * Constructs a new CommandHandler with the specified user interface.
      *
-     * @param gui the user interface to use
+     * @param bird the chatbot to use
      */
-    public CommandHandler(Gui gui) {
-        this.gui = gui;
+    public CommandHandler(Bird bird) {
+        this.bird = bird;
     }
 
     /**
      * Executes the specified command.
      *
      * @param userInput the command to execute
-     * @return true if the command is to exit, false otherwise
+     * @return the response of the chatbot
      * @throws DukeException if the command is not recognized or if an error occurs while executing the command
      */
     public String executeCommand(String userInput) throws DukeException {
