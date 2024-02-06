@@ -6,8 +6,15 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-
+/**
+ * Manages loading and saving of task data to and from file.
+ */
 public class Storage {
+
+    /**
+     * Loads task data from the specified file.
+     * @param filePath The path to the file containing task data.
+     */
     public static void loadTaskData(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -39,10 +46,14 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(MamtaException.IOException());
         }
     }
 
+    /**
+     * Saves tasks to the specified file.
+     * @param filePath The path to the file where tasks will be saved.
+     */
     public static void saveTasks(String filePath) {
         //prepare the output to be saved first
         StringBuilder output = new StringBuilder();

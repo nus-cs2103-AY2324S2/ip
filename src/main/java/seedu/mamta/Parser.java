@@ -1,7 +1,15 @@
 package seedu.mamta;
 
+/**
+ * Parses user input and transforms it into a format suitable for further processing.
+ */
 public class Parser {
 
+    /**
+     * Transforms user output into a format suitable for further processing.
+     * @param userOutput The user's output.
+     * @return Transformed output for further processing.
+     */
     public static String transformText(String userOutput) {
 
         String[] splitOutput = userOutput.split(" ");

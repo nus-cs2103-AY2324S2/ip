@@ -1,8 +1,23 @@
 package seedu.mamta;
 
 import java.time.LocalDate;
+
+/**
+ * Represents a task with a deadline.
+ * Inherits properties and methods from the Task class.
+ */
 public class Deadline extends Task {
+
+    /**
+     * The deadline of the task.
+     */
     private final String deadline;
+
+    /**
+     * Constructs a Deadline object with the given content and deadline.
+     * @param content The content of the task.
+     * @param deadline The deadline of the task.
+     */
     Deadline(String content, String deadline) {
         super(content);
         if (deadline.isEmpty()) { //handling the case where deadline does not get a valid deadline
@@ -12,11 +27,22 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Constructs a Deadline object with the given completion status, content, and deadline.
+     * @param isComplete The completion status of the task.
+     * @param content The content of the task.
+     * @param deadline The deadline of the task.
+     */
     Deadline(boolean isComplete, String content, String deadline) {
         super(isComplete, content);
         this.deadline = transformDates(deadline);
     }
 
+    /**
+     * Transforms the input deadline into a standardized format.
+     * @param deadline The input deadline.
+     * @return The transformed deadline in a standardized format.
+     */
     public String transformDates(String deadline) {
         String year = "";
         String month = "";
@@ -40,14 +66,28 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Marks the task as done.
+     * @return A new Deadline object with the task marked as done.
+     */
     @Override
     public Deadline markDone() {
         return new Deadline(true, this.content, this.deadline);
     }
+
+    /**
+     * Marks the task as not done.
+     * @return A new Deadline object with the task marked as not done.
+     */
     @Override
     public Deadline unmarkTask() {
         return new Deadline(false, this.content, this.deadline);
     }
+
+    /**
+     * Returns a string representation of the Deadline object.
+     * @return A string representation of the Deadline object.
+     */
     public String toString() {
         if (this.isComplete) {
             return String.format("D|X|%s|%s", this.content, this.deadline);
