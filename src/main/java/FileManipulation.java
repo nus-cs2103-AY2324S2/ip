@@ -39,7 +39,7 @@ public class FileManipulation {
                     break;
                 case 'D':
                     int dateIndex = Util.findNthDividerIndex(data,'|', 3);
-                    list.add(new Deadline(data.substring(4,dateIndex), isDone, data.substring(dateIndex)));
+                    list.add(new Deadline(data.substring(4,dateIndex), isDone, data.substring(dateIndex+1)));
                         break;
                 case 'E':
                     int dateStartIndex = Util.findNthDividerIndex(data,'|', 3);

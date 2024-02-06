@@ -1,6 +1,7 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 public class Parser {
     public static boolean isDateTime(String date) {
@@ -11,29 +12,40 @@ public class Parser {
             return false;
         }
     }
-    public static String convertToDateOnly(String date) {
-        try {
-            LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-            return localDate.format(formatter);
-        } catch (DateTimeException e) {
-            System.out.println("enter using the format:/2019-10-15");
-            System.out.println(e.getMessage());
+
+    public static String convertDateTimeToStringUI(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        if(localDateTime.toLocalTime().equals(LocalTime.MIDNIGHT)) {
+            formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         }
-        return null; // convert to propagating the error in the future
+
+        return localDateTime.format(formatter);
+    }
+    public static String convertDateTimeToStringStorage(LocalDateTime localDateTime) {
+        String formattedDateTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+        return formattedDateTime;
+    }
+    public static LocalDateTime storageConvertToDateTime(String date) {
+        return LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
     }
 
-    public static String convertToDateTime(String date) {
+
+    public static LocalDateTime inputConvertToDateTime(String date) throws DateTimeException{
         try {
-            int timeIndex = Util.findNthDividerIndex(date, ' ',1);
-            String timeFormat = date.substring(0,timeIndex) + "T" + date.substring(timeIndex+1);
+            String timeFormat = date;
+            if (date.contains(":")) {
+                int timeIndex = Util.findNthDividerIndex(date, ' ', 1);
+                timeFormat = date.substring(0, timeIndex) + "T" + date.substring(timeIndex + 1);
+            } else {
+                timeFormat = timeFormat + "T00:00";
+            }
+
+            System.out.println(timeFormat);
             LocalDateTime localDateTime = LocalDateTime.parse(timeFormat,DateTimeFormatter.ISO_DATE_TIME);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-            return localDateTime.format(formatter);
+            return localDateTime;
         } catch (DateTimeException e) {
-            System.out.println("enter using the format:/2019-10-15");
+            throw new DateTimeException("enter using the format:/2019-10-15 or /2019-10-15 18:30" );
         }
-        return null;
     }
 }
 
