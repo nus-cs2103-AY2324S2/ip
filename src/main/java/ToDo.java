@@ -1,12 +1,13 @@
 public class ToDo implements Item {
     public String name;
-    public String status = "[ ]";
+    public String status;
 
-    public ToDo(String name) throws RickException {
+    public ToDo(String name, String status) throws RickException {
         if (name.isBlank()) {
             throw new RickException("Nothing to do!");
         }
         this.name = name;
+        this.status = status;
     }
     @Override
     public String toString(){
@@ -17,5 +18,8 @@ public class ToDo implements Item {
     }
     public void unmark() {
         this.status = "[ ]";
+    }
+    public String store() {
+        return "T|" + this.status + "|" + this.name;
     }
 }

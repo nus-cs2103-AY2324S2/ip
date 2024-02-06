@@ -1,10 +1,10 @@
 public class Event implements Item{
-    public String name = "";
-    public String status = "[ ]";
-    public String from = "";
-    public String to = "";
+    public String name;
+    public String status;
+    public String from;
+    public String to;
 
-    public Event(String name, String from, String to) throws RickException{
+    public Event(String name, String status, String from, String to) throws RickException{
         if (name.isBlank()) {
             throw new RickException("Nothing scheduled?");
         }
@@ -15,6 +15,7 @@ public class Event implements Item{
             throw new RickException("to when?");
         }
         this.name = name;
+        this.status = status;
         this.from = from;
         this.to = to;
     }
@@ -27,5 +28,8 @@ public class Event implements Item{
     }
     public void unmark() {
         this.status = "[ ]";
+    }
+    public String store() {
+        return "E|" + this.status + "|" + this.name + "|" + this.from + "|" + this.to;
     }
 }
