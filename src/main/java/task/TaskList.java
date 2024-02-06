@@ -29,6 +29,18 @@ public class TaskList {
         }
     }
 
+    private void showResult(TaskList result, String keyword) {
+        int length = result.todoList.size();
+        if (length == 0) {
+            System.out.println("There is no task in your list that contains the keyword '" + keyword + "'");
+        } else {
+            for (int i = 0; i < length; i++) {
+                String pos = String.valueOf(i + 1);
+                System.out.println(pos + "." + result.todoList.get(i));
+            }
+        }
+    }
+
     public void listOverviewAfterAdding(Task t, Storage storage) {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
@@ -66,5 +78,17 @@ public class TaskList {
             System.out.println("Now you have " + length + " tasks in the list.");
         }
         storage.autoUpdate(this.todoList);
+    }
+
+    public void findTask(String userInput, Storage storage) {
+        String[] words = userInput.split("\\s+");
+        String keyword = words[1];
+        TaskList temp = new TaskList(new ArrayList<Task>());
+        for (Task t : this.todoList) {
+            if (t.getDescription().contains(keyword)) {
+                temp.add(t);
+            }
+        }
+        this.showResult(temp, keyword);
     }
 }
