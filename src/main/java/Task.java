@@ -19,6 +19,9 @@ public class Task {
         this.status = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
 
     @Override public String toString() {
         if (this.status) {
@@ -26,8 +29,4 @@ public class Task {
         }
         return "[ ] " + this.name;
     }
-
-
-
-
 }
