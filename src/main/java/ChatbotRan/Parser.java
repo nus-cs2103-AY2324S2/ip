@@ -1,5 +1,7 @@
 package ChatbotRan;
 
+import java.util.ArrayList;
+
 public class Parser {
     boolean isComplete = false;
 
@@ -44,6 +46,13 @@ public class Parser {
         case "event":
             Event event = Event.parse(line, space);
             this.addTask(event, taskList, ui);
+            break;
+        case "find":
+            if (space < 0) {
+                throw new TaskException("You forgot to include the search input.");
+            }
+            ArrayList<Task> tasks = taskList.find(line.substring(space).strip());
+            ui.found(tasks);
             break;
         default:
             switch (line) {

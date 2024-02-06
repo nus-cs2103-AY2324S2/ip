@@ -43,4 +43,14 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    public ArrayList<Task> find(String substring) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.getContents().contains(substring)) {
+                matchingTasks.add(t);
+            }
+        }
+        return matchingTasks;
+    }
 }
