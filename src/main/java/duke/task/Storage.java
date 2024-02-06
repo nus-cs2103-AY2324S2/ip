@@ -125,18 +125,25 @@ public class Storage {
      * @return The string representation of the Task for storage.
      */
     private String taskToFileString(Task task) {
-        String type = task instanceof Todo ? "T" :
-                    task instanceof Deadline ? "D" :
-                    task instanceof Event ? "E" : "";
+        String type = "";
+        if (task instanceof Todo) {
+            type = "T";
+        } else if (task instanceof Deadline) {
+            type = "D";
+        } else if (task instanceof Event) {
+            type = "E";
+        }
+
         String status = task.isDone() ? "1" : "0";
-        String description = task.description;
+        String description = task.getDescription();
 
         String details = type + " | " + status + " | " + description;
-        if (task instanceof Deadline deadline) {
-            details += " | " + deadline.by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        if (task instanceof Deadline) {
+            details += " | " + ((Deadline) task).by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } else if (task instanceof Event) {
             details += " | " + ((Event) task).from + " | " + ((Event) task).to;
         }
         return details;
     }
+
 }

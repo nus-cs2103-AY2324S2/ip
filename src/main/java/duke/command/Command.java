@@ -15,20 +15,22 @@ import java.io.IOException;
 
 public abstract class Command {
     /**
-     * Executes the command based on user input.
+     * Executes the specific command and returns a response message as a String.
+     * This method must be implemented by all subclasses to define the behavior of the command.
      *
-     * @param tasks   The TaskList containing the list of tasks.
-     * @param ui      The Ui object for user interaction.
-     * @param storage The Storage object for saving and loading tasks.
-     * @throws DukeException If an error related to Duke application occurs.
-     * @throws IOException   If there is an input/output error while saving or loading tasks.
+     * @param tasks   The TaskList containing the list of tasks to be manipulated or queried.
+     * @param ui      The Ui object for interacting with the user interface.
+     * @param storage The Storage object for reading from or writing to the storage file.
+     * @return A String representing the outcome of the command execution.
+     * @throws DukeException If an application-specific error occurs during command execution.
+     * @throws IOException   If an I/O error occurs while accessing the storage file.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException;
 
     /**
-     * Checks if the command is an exit command.
+     * Determines whether this command is an "exit" command that should signal the application to terminate.
      *
-     * @return True if the command is an exit command, otherwise false.
+     * @return True if this command is an exit command; false otherwise.
      */
     public abstract boolean isExit();
 }

@@ -37,7 +37,9 @@ public class Parser {
             return new MarkCommand(fullCommand);
         case "unmark":
             return new UnmarkCommand(fullCommand);
-        case "deadline", "todo", "event":
+        case "deadline":
+        case "todo":
+        case "event":
             return new AddCommand(fullCommand);
         case "delete":
             return new DeleteCommand(fullCommand);

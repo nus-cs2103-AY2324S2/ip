@@ -41,7 +41,8 @@ public class FindCommand extends Command {
      * @throws IOException  If there is an issue saving the tasks to the file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+        String response;
         if (keyword.isEmpty()) {
             throw new DukeException("Please provide a keyword to search for.");
         }
@@ -49,15 +50,15 @@ public class FindCommand extends Command {
         // Filtering the tasks that contain the keyword in their description
         List<Task> filteredTasks = tasks.getTasks().stream()
                 .filter(task -> task.getDescription().contains(keyword))
-                .toList();
+                .collect(Collectors.toList());
 
         if (filteredTasks.isEmpty()) {
-            ui.showMessage("No tasks found with the keyword: " + keyword);
+            return "No tasks found with the keyword: " + keyword;
         } else {
             String matchedTasks = IntStream.range(0, filteredTasks.size())
                     .mapToObj(index -> (index + 1) + ". " + filteredTasks.get(index).toString())
                     .collect(Collectors.joining("\n"));
-            ui.showMessage("Here are the matching tasks in your list:\n" + matchedTasks);
+            return "Here are the matching tasks in your list:\n" + matchedTasks;
         }
     }
 
