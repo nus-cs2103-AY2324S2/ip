@@ -25,6 +25,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return userInput;
+    }
+
     @Override
     public String toString() {
         return getStatusIcon() + userInput;

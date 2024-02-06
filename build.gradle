@@ -1,5 +1,3 @@
-mainClassName = 'seedu.duke.Main'
-
 plugins {
     id 'java'
     id 'application'

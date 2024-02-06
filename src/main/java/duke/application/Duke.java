@@ -19,7 +19,7 @@ public class Duke {
         taskList = new TaskList();
         parser = new Parser();
         Storage.createFolder();
-        Storage.loadFile(taskList.getTasks());
+        Storage.loadFile(taskList.getTaskList());
     }
 
     public void run() {
@@ -31,7 +31,7 @@ public class Duke {
 
             if ("bye".equalsIgnoreCase(input)) {
                 ui.showByeMessage();
-                Storage.saveTasks(taskList.getTasks());
+                Storage.saveTasks(taskList.getTaskList());
                 break;
             }
 

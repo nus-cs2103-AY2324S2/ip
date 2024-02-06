@@ -18,11 +18,11 @@ public class Parser {
         String[] parsedInput = Parser.parseInput(input);
 
         if ("list".equalsIgnoreCase(input)) {
-            Ui.showTaskList(taskList.getTasks());
+            Ui.showTaskList(taskList.getTaskList());
 
         } else if ("bye".equalsIgnoreCase(input)) {
             Ui.showByeMessage();
-            Storage.saveTasks(taskList.getTasks());
+            Storage.saveTasks(taskList.getTaskList());
             System.exit(0);
         } else if (parsedInput[0].equalsIgnoreCase("mark") || parsedInput[0].equalsIgnoreCase("unmark")) {
             markingHandler(input, taskList);
@@ -46,6 +46,8 @@ public class Parser {
             }
         } else if (parsedInput[0].equalsIgnoreCase("delete")) {
             handleRemove(input, taskList);
+        } else if (parsedInput[0].equalsIgnoreCase("find")) {
+            findItems(input, taskList);
         } else {
             Ui.showErrorMessage("I'm sorry, I don't understand! Please type your request again.");
         }
@@ -61,16 +63,16 @@ public class Parser {
 
         try {
             int index = Integer.parseInt(split[1]) - 1;
-            Task task = taskList.getTasks().get(index);
+            Task task = taskList.getTaskList().get(index);
 
             if ("mark".equalsIgnoreCase(split[0])) {
                 task.markAsDone();
-                Storage.saveTasks(taskList.getTasks());
+                Storage.saveTasks(taskList.getTaskList());
                 Ui.showMarkedAsDone(task);
                 Ui.printLine();
             } else if ("unmark".equalsIgnoreCase(split[0])) {
                 task.unmarkTask();
-                Storage.saveTasks(taskList.getTasks());
+                Storage.saveTasks(taskList.getTaskList());
                 Ui.showUnmarkedTask(task);
                 Ui.printLine();
             }
@@ -88,7 +90,7 @@ public class Parser {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
         taskList.addTask(todo);
-        Storage.saveTasks(taskList.getTasks());
+        Storage.saveTasks(taskList.getTaskList());
         System.out.println("Ok! I've added this todo: " + todo);
         System.out.println("Now you have " + taskList.getTotalTasks() + " tasks in your list.");
         Ui.printLine();
@@ -108,13 +110,13 @@ public class Parser {
                 LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
                 Deadlines deadline = new Deadlines(description, d1);
                 taskList.addTask(deadline);
-                Storage.saveTasks(taskList.getTasks());
+                Storage.saveTasks(taskList.getTaskList());
                 System.out.println("Ok! I've added this deadline: " + deadline);
 
             } else {
                 Deadlines deadline = new Deadlines(description, date);
                 taskList.addTask(deadline);
-                Storage.saveTasks(taskList.getTasks());
+                Storage.saveTasks(taskList.getTaskList());
                 System.out.println("Ok! I've added this deadline: " + deadline);
             }
             System.out.println("Now you have " + taskList.getTotalTasks() + " tasks in your list.");
@@ -142,7 +144,7 @@ public class Parser {
                 LocalDate d2 = LocalDate.parse(toDate);
                 Event event = new Event(description, d1, d2);
                 taskList.addTask(event);
-                Storage.saveTasks(taskList.getTasks());
+                Storage.saveTasks(taskList.getTaskList());
                 Ui.showTaskAdded(event, taskList.getTotalTasks());
                 Ui.printLine();
             } else {
@@ -162,11 +164,36 @@ public class Parser {
         try {
             int index = Integer.parseInt(splitParts[1]) - 1;
             Task removedTask = taskList.removeTask(index);
-            Storage.saveTasks(taskList.getTasks());
+            Storage.saveTasks(taskList.getTaskList());
             Ui.showTaskRemoved(removedTask, taskList.getTotalTasks());
             Ui.printLine();
         } catch (IndexOutOfBoundsException e) {
             Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
+        }
+    }
+
+    public void findItems(String input, TaskList tasks) {
+        Ui.showFindItemList(input);
+        boolean found = false;
+        String[] splitParts = input.split("find", 2);
+
+        if (splitParts.length > 1) {
+            String keyword = splitParts[1].trim();
+
+            for (int i = 0; i < tasks.getTotalTasks(); i++) {
+                Task item = tasks.getTask(i);
+                if (item.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                    System.out.println(item);
+                    found = true;
+                }
+            }
+        } else {
+            System.out.println("Please specify a search keyword.");
+        }
+
+
+        if (!found) {
+            System.out.println("No tasks found containing: " + input);
         }
     }
 
