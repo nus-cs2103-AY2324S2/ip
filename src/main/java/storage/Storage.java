@@ -1,3 +1,5 @@
+import tasks.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class Storage {
 
     /**
      * Loads the contents of the file and inputs it into the listOfTasks.
-     * @return An <code>ArrayList</code> of <code>Task</code> objects.
+     * @return An <code>ArrayList</code> of <code>tasks.Task</code> objects.
      * @throws IOException if there are any input/output errors.
      */
     public TaskList loadFromFile() throws IOException {
