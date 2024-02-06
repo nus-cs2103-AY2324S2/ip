@@ -21,7 +21,8 @@ public class Deadline extends Task {
         super(description);
         this.byString = by;
         try {
-            this.byDate = parseDate(by, dateFormat1, dateFormat2, dateFormat3, dateFormat4); // Parse the by string
+            this.byDate = parseDate(by, DATE_FORMAT_1, DATE_FORMAT_2, 
+                    DATE_FORMAT_3, DATE_FORMAT_4); // Parse the by string
         } catch (DateTimeException e) {
             throw new DateTimeException("Error parsing date in Deadline: " + e.getMessage());
         }
@@ -34,7 +35,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter displayFormatter = dateFormat4;
+        DateTimeFormatter displayFormatter = DATE_FORMAT_4;
         return super.toString() + " (by: " + byDate.format(displayFormatter) + ")";
     }
 }
