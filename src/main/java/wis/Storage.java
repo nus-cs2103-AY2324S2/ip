@@ -15,9 +15,16 @@ import wis.task.TaskList;
 import wis.util.WisException;
 import wis.util.FileDataParser;
 
+/**
+ * File manager for hard disk access.
+ */
 public class Storage {
     private static final String PATH = "./tasks.txt";
 
+    /**
+     * Saves the whole task list. Overwrites original file. Displays error
+     * message if fails.
+     */
     public static void saveTasks(TaskList tasks) {
         try {
             File file = new File(PATH);
@@ -35,6 +42,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads and returns the whole task list.
+     *
+     * @return Arraylist of all tasks loaded.
+     * @throws IOException  If load fails.
+     * @throws InputMismatchException  If file is corrupted.
+     */
     public static ArrayList<Task> loadTasks() throws IOException, InputMismatchException {
         File file = new File(PATH);
         ArrayList<Task> tasks = new ArrayList<>();

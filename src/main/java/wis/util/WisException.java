@@ -4,7 +4,13 @@ import java.io.IOException;
 
 import wis.Action;
 
+/**
+ * Contains exception handlers specific to this application.
+ */
 public class WisException {
+    /**
+     * Handles exceptions thrown by actions that fail to execute.
+     */
     public static void ActionExceptionHandler(Action action) {
         switch (action) {
             case ADD_TODO:
@@ -55,6 +61,9 @@ public class WisException {
         }
     }
 
+    /**
+     * Handles exceptions due to failure to save file.
+     */
     public static void SaveFileExceptionHandler(IOException e) {
         Printer.printDecorator();
         Printer.println("Failed to save file to local.");
@@ -62,6 +71,9 @@ public class WisException {
         Printer.printDecorator();
     }
 
+    /**
+     * Handles exceptions due to failure to load file.
+     */
     public static void LoadFileExceptionHandler() {
         Printer.printDecorator();
         Printer.println("Failed to load tasks from local.");
@@ -69,6 +81,9 @@ public class WisException {
         Printer.printDecorator();
     }
 
+    /**
+     * Handles exceptions due to wrong format of date and time.
+     */
     public static void DateTimeExceptionHandler(Exception e) {
         Printer.printDecorator();
         Printer.println(e.getMessage());

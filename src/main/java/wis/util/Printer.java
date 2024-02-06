@@ -4,6 +4,9 @@ import wis.Action;
 import wis.task.Task;
 import wis.task.TaskList;
 
+/**
+ * Contains static methods dealing with printing output.
+ */
 public class Printer {
     public static void printDecorator() {
         System.out.println("    ____________________________________________________________");
@@ -17,6 +20,9 @@ public class Printer {
         System.out.println("       " + string);
     }
 
+    /**
+     * Prints message displayed to users after performing an action.
+     */
     public static void printActionAttach(Action action, Task task, TaskList tasks) {
         switch (action) {
             case ADD_TODO:
@@ -40,6 +46,9 @@ public class Printer {
         }
     }
 
+    /**
+     * Prints message displayed to users after performing an action.
+     */
     public static void printActionAttach(Action action, Task task) {
         switch (action) {
             case MARK:
@@ -59,6 +68,23 @@ public class Printer {
         }
     }
 
+    /**
+     * Prints message displayed to users after performing an action.
+     */
+    public static void printActionAttach(Action action, TaskList tasks) {
+        if (action == Action.LIST) {
+            printDecorator();
+            Printer.println("Here are the tasks in your list:");
+            tasks.print();
+            printDecorator();
+        } else {
+            throw new IllegalArgumentException("Illegal action argument provided.\n");
+        }
+    }
+
+    /**
+     * Prints message displayed to users after performing an action.
+     */
     public static void printActionAttach(Action action) {
         switch (action) {
             case BYE:
@@ -74,17 +100,6 @@ public class Printer {
                 break;
             default:
                 throw new IllegalArgumentException("Illegal action argument provided.\n");
-        }
-    }
-
-    public static void printActionAttach(Action action, TaskList tasks) {
-        if (action == Action.LIST) {
-            printDecorator();
-            Printer.println("Here are the tasks in your list:");
-            tasks.print();
-            printDecorator();
-        } else {
-            throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
     }
 }
