@@ -1,3 +1,8 @@
+package command;
+import duke.Ui;
+import task.Deadline;
+import task.TaskList;
+
 public class AddDeadlineCommand extends Command {
     private String description;
     private String by;

@@ -1,3 +1,4 @@
+package exception;
 public class NoDeadlineException extends IncompleteCommandException {
 
     public NoDeadlineException() {

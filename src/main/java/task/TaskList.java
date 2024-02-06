@@ -1,9 +1,10 @@
+package task;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> list;
 
-    TaskList() {
+    public TaskList() {
         this.list = new ArrayList<>();
     }
 

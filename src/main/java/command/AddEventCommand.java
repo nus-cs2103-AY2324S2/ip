@@ -1,3 +1,8 @@
+package command;
+import duke.Ui;
+import task.Event;
+import task.TaskList;
+
 public class AddEventCommand extends Command {
     private String description;
     private String start;

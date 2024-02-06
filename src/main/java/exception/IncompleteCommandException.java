@@ -1,3 +1,4 @@
+package exception;
 public class IncompleteCommandException extends Exception {
     private String taskType;
     public IncompleteCommandException(String taskType) {

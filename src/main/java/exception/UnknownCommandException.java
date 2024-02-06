@@ -1,3 +1,4 @@
+package exception;
 public class UnknownCommandException extends Exception {
     @Override
     public String toString() {

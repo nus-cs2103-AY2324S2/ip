@@ -1,3 +1,8 @@
+package command;
+import duke.Ui;
+import task.TaskList;
+import task.Todo;
+
 public class AddTodoCommand extends Command {
     private String description;
 
