@@ -1,4 +1,4 @@
 D | 1 | return book | 2 December 2019, 6PM
 T | 1 | read book
 T | 0 | run away
-T | 1 | testGUI now
+T | 0 | testGUI
