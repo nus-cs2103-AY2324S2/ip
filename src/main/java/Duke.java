@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Duke {
 
     private static TaskList taskList = new TaskList();
@@ -111,7 +113,7 @@ public class Duke {
     private static void handleDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = CommandParser.parseDeadline(userInput);
         String description = deadlineDetails[0];
-        String due = deadlineDetails[1];
+        LocalDate due = LocalDate.parse(deadlineDetails[1]);
         String response = taskList.addTask(new Deadline(description, due));
         int totalTasks = taskList.getNumberTasks();
         UserInterface.printTaskAdded(response, totalTasks);
@@ -120,9 +122,10 @@ public class Duke {
     private static void handleEvent(String userInput) throws DukeException {
         String[] eventDetails = CommandParser.parseEvent(userInput);
         String description = eventDetails[0];
-        String start = eventDetails[1];
-        String end = eventDetails[2];
+        LocalDate start = LocalDate.parse(eventDetails[1]);
+        LocalDate end = LocalDate.parse(eventDetails[2]);
         String response = taskList.addTask(new Event(description, start, end));
         int totalTasks = taskList.getNumberTasks();
+        UserInterface.printTaskAdded(response, totalTasks);
     }
 }
