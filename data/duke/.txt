@@ -1,0 +1,4 @@
+D| 1 | go jim | 2024-01-11T12:30
+D| 1 | submit week 3 ip | 2024-02-02T23:59
+E| 0 | team meeting | 2024-02-09T20:00 to 2024-02-09T21:30
+T| 0 | eat
