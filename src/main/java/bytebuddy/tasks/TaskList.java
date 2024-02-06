@@ -377,7 +377,8 @@ public class TaskList {
         for (String keyword: keywords) {
             for (int i = 0; i < taskList.size(); i++) {
                 String description = taskList.get(i).getDescription().toLowerCase();
-                Pair<StringBuilder, Boolean> pair = processMatchingTask(keyword.toLowerCase(), str, foundTask, description, i);
+                Pair<StringBuilder, Boolean> pair =
+                        processMatchingTask(keyword.toLowerCase(), str, foundTask, description, i);
                 str = pair.getKey();
                 foundTask = pair.getValue();
             }
@@ -393,7 +394,8 @@ public class TaskList {
     }
 
 
-    private Pair<StringBuilder, Boolean> processMatchingTask(String keyword, StringBuilder str, boolean foundTask, String description, int i) {
+    private Pair<StringBuilder, Boolean> processMatchingTask(String keyword, StringBuilder str,
+            boolean foundTask, String description, int i) {
         if (description.contains(keyword)) {
             if (!foundTask) {
                 str.append("Here are the matching tasks in your list:");
