@@ -10,11 +10,11 @@ import task.Todo;
 import task.TaskList;
 
 public class Parser {
-    protected TaskList TodoList;
+    protected TaskList todoList;
     protected Storage storage;
 
-    public Parser(TaskList TodoList, Storage storage) {
-        this.TodoList = TodoList;
+    public Parser(TaskList todoList, Storage storage) {
+        this.todoList = todoList;
         this.storage = storage;
     }
 
@@ -26,11 +26,11 @@ public class Parser {
             if (userInput.equals("bye")) {
                 isExit = true;
             } else if (userInput.equals("list")) {
-                this.TodoList.printList();
+                this.todoList.printList();
             } else if (isMarkTask(userInput)) {
-                this.TodoList.changeMarkingOfTask(userInput, storage);
+                this.todoList.changeMarkingOfTask(userInput, storage);
             } else if (isDeleteTask(userInput)) {
-                this.TodoList.deleteTask(userInput, storage);
+                this.todoList.deleteTask(userInput, storage);
             } else {
                 this.echo(userInput);
             }
@@ -50,8 +50,8 @@ public class Parser {
                         System.out.println("The description of a todo cannot be empty!");
                     } else {
                         Task t = new Todo(description);
-                        this.TodoList.add(t);
-                        this.TodoList.listOverviewAfterAdding(t, this.storage);
+                        this.todoList.add(t);
+                        this.todoList.listOverviewAfterAdding(t, this.storage);
                     }
                     break;
                 }
@@ -63,8 +63,8 @@ public class Parser {
                         String ddl_description = parts.length > 0 ? parts[0].trim() : "";
                         String ddl_time = parts.length > 1 ? parts[1].trim() : "";
                         Task t = new Deadline(ddl_description, this.storage.readAsDate(ddl_time));
-                        TodoList.add(t);
-                        this.TodoList.listOverviewAfterAdding(t, this.storage);
+                        this.todoList.add(t);
+                        this.todoList.listOverviewAfterAdding(t, this.storage);
                     }
                     break;
                 }
@@ -78,8 +78,8 @@ public class Parser {
                         String event_to = parts.length > 2 ? parts[2].trim() : "";
                         Task t = new Event(event_description, this.storage.readAsDate(event_from),
                                 this.storage.readAsDate(event_to));
-                        TodoList.add(t);
-                        this.TodoList.listOverviewAfterAdding(t, this.storage);
+                        this.todoList.add(t);
+                        this.todoList.listOverviewAfterAdding(t, this.storage);
                     }
                     break;
                 }
