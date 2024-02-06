@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.Deadline;
+import capone.ui.Ui;
 
 /**
  * Represents a command to add a deadline task to TaskList.

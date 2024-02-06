@@ -12,9 +12,10 @@ import org.junit.jupiter.api.Test;
 import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
+import capone.ui.Ui;
+import capone.ui.cli.Cli;
 
 /**
  * Test class for the DeadlineCommand.
@@ -34,7 +35,7 @@ public class DeadlineCommandTest {
     public void initializeComponents() {
         this.storage = new Storage("./data/", "test.json");
         this.taskList = new TaskList();
-        this.ui = new Ui();
+        this.ui = new Cli();
         System.setOut(new PrintStream(stdoutMsg));
     }
 

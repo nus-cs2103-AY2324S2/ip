@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
+import capone.ui.Ui;
 
 /**
  * Represents a command to terminate the application. Extends the abstract class Command.
@@ -32,7 +32,6 @@ public class ByeCommand extends Command {
      * @param taskList The TaskList to be updated (not used in this command).
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data (not used in this command).
-     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If any Capone-related exception occurs.
      */
     @Override

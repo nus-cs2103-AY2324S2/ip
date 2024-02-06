@@ -2,8 +2,8 @@ package capone.commands;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.ui.Ui;
 import capone.exceptions.CaponeException;
+import capone.ui.Ui;
 
 /**
  * An abstract class representing a command in the Capone application.

@@ -27,6 +27,7 @@ public class Cli extends Ui {
      * Sends a formatted message after the user creates a Deadline task.
      *
      * @param taskList The list of tasks created.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendDeadline(TaskList taskList) {
@@ -42,6 +43,7 @@ public class Cli extends Ui {
      *
      * @param taskList The list of tasks created.
      * @param deletedTask The task that was deleted.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendDelete(TaskList taskList, Task deletedTask) {
@@ -56,6 +58,7 @@ public class Cli extends Ui {
      * Sends a formatted message after the user creates an Event task.
      *
      * @param taskList The list of tasks created.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendEvent(TaskList taskList) {
@@ -71,6 +74,7 @@ public class Cli extends Ui {
      * has no results.
      *
      * @param keyword The list of tasks created.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendNoResults(String keyword) {
@@ -81,6 +85,7 @@ public class Cli extends Ui {
 
     /**
      * Sends a message displaying the help information.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendHelp() {
@@ -105,6 +110,7 @@ public class Cli extends Ui {
      * Sends a formatted message showing the list of available tasks.
      *
      * @param taskList The list of tasks to display.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendList(TaskList taskList) {
@@ -122,6 +128,7 @@ public class Cli extends Ui {
      * Sends a formatted message after the user marks a task.
      *
      * @param task The task to be marked as complete.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendMark(Task task) {
@@ -134,6 +141,7 @@ public class Cli extends Ui {
      * Sends a formatted message after the user creates a ToDo task.
      *
      * @param taskList The list of tasks created.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendTodo(TaskList taskList) {
@@ -148,6 +156,7 @@ public class Cli extends Ui {
      * Sends a formatted message after the user unmarks a task.
      *
      * @param task The task to be marked as incomplete.
+     * @return The formatted output of the command.
      */
     @Override
     public String sendUnmark(Task task) {

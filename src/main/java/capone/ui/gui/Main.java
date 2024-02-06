@@ -14,8 +14,15 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /** The Capone instance assocaited with this application. */
     private Capone capone = new Capone();
 
+    /**
+     * The start method of the JavaFX application.
+     * It loads the main window FXML file, sets up the scene, and displays the main window.
+     *
+     * @param stage The primary stage for the JavaFX application.
+     */
     @Override
     public void start(Stage stage) {
         try {
