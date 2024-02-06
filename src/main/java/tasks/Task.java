@@ -3,6 +3,9 @@ package tasks;
 import Parser.Parser;
 import Exceptions.ArgumentException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -14,10 +17,11 @@ public abstract class Task {
             return new ToDo(taskData[2], taskData[1]);
         case "D":
             String[] args = Parser.parseDeadlineArgument(taskData[2]);
-            return new Deadline(args[0].trim(), args[1].trim(), taskData[1]);
+            return new Deadline(args[0].trim(), LocalDate.parse(args[1].trim()), taskData[1]);
         case "E":
             args = Parser.parseEventArgument(taskData[2]);
-            return new Event(args[0].trim(), args[1].trim(), args[2].trim(), taskData[1]);
+            return new Event(args[0].trim(), LocalDate.parse(args[1].trim()),
+                    LocalDate.parse(args[2].trim()), taskData[1]);
         default:
             throw new ArgumentException("Did not recognize task type " + taskType);
         }
@@ -32,10 +36,11 @@ public abstract class Task {
             return new ToDo(taskArgument);
         case "deadline":
             String[] args = Parser.parseDeadlineArgument(taskArgument);
-            return new Deadline(args[0].trim(), args[1].trim());
+            return new Deadline(args[0].trim(), LocalDate.parse(args[1].trim()));
         case "event":
             args = Parser.parseEventArgument(taskArgument);
-            return new Event(args[0].trim(), args[1].trim(), args[2].trim());
+            return new Event(args[0].trim(), LocalDate.parse(args[1].trim()),
+                    LocalDate.parse(args[2].trim()));
         default:
             throw new ArgumentException("Did not recognize task type " + taskType);
         }

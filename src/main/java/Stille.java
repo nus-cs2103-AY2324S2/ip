@@ -1,23 +1,14 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Scanner;
-import java.util.ArrayList;
-
 import Commands.Command;
 import Exceptions.DukeException;
 import Parser.Parser;
 import Storage.Storage;
 import Storage.TaskList;
 import UI.UserInterface;
-import tasks.*;
 
 public class Stille {
-    private UserInterface ui;
-    private Storage storage;
-    private TaskList list;
+    private final UserInterface ui;
+    private final Storage storage;
+    private final TaskList list;
 
     public Stille() {
         this.ui = new UserInterface();
