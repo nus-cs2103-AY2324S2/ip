@@ -2,15 +2,15 @@ import java.util.Scanner;
 
 public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
-    public static void displayBar() {
+    public void displayBar() {
         System.out.println("____________________________________________________________");
     }
-    public static void displayGreetCommand() {
+    public void displayGreetCommand() {
         System.out.println("Liv, under your instructions!");
         System.out.println("What is your command?\n");
     }
 
-    public static String readCommand() {
+    public String readCommand() {
         return SCANNER.nextLine();
     }
     public static void displayByeCommand() {
@@ -58,5 +58,9 @@ public class Ui {
         System.out.println("Task added:");
         System.out.println(event.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
+    }
+
+    public void displayErrorMessage(String message) {
+        System.out.println(message);
     }
 }

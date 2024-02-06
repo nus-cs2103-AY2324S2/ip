@@ -32,11 +32,12 @@ public class Storage {
         if (isDone)
             task.changeStatus();
     }
-    private void loadDataFile() {
+    public void loadDataFile() {
         // Data format: [<task type>] | [<isDone>] | <description> | <time>
         File file = new File(filePath);
         try {
             if (!file.exists()) {
+                file.getParentFile().mkdir();
                 file.createNewFile();
             }
         } catch (IOException e) {
@@ -52,7 +53,7 @@ public class Storage {
         }
     }
 
-    private void saveTaskToFile() {
+    public void saveTaskToFile() {
         // Data format: [<task type>] | [<isDone>] | <description> | <time>
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));

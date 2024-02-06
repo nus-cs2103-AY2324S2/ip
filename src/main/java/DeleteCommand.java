@@ -10,4 +10,9 @@ public class DeleteCommand extends Command {
         Task removed = tasks.deleteTask(trueIndex);
         Ui.displayDeleteCommand(removed);
     }
+
+    @Override
+    public boolean changedData() {
+        return true;
+    }
 }

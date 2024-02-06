@@ -10,4 +10,9 @@ public class TodoCommand extends Command {
         tasks.addTask(todo);
         Ui.displayTodoCommand(todo);
     }
+
+    @Override
+    public boolean changedData() {
+        return true;
+    }
 }

@@ -3,4 +3,8 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    public boolean changedData() {
+        return false;
+    }
 }

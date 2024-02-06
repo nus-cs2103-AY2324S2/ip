@@ -10,4 +10,9 @@ public class EventCommand extends Command {
         tasks.addTask(event);
         Ui.displayEventCommand(event);
     }
+
+    @Override
+    public boolean changedData() {
+        return true;
+    }
 }

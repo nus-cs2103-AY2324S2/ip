@@ -10,4 +10,9 @@ public class DeadlineCommand extends Command{
         tasks.addTask(deadline);
         Ui.displayDeadlineCommand(deadline);
     }
+
+    @Override
+    public boolean changedData() {
+        return true;
+    }
 }

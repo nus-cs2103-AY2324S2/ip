@@ -4,27 +4,26 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
     private static final DateTimeFormatter INPUT_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-    public Command parse(String input) throws LivException {
+    public static Command parse(String input) throws LivException {
         if (input.equalsIgnoreCase("bye")) {
-            parseByeCommand();
+            return parseByeCommand();
         } else if (input.equalsIgnoreCase("list")) {
-            parseListCommand();
+            return parseListCommand();
         } else if (input.startsWith("mark")) {
-            parseMarkOrUnmarkCommand(input, true);
+            return parseMarkOrUnmarkCommand(input, true);
         } else if (input.startsWith("unmark")) {
-            parseMarkOrUnmarkCommand(input, false);
+            return parseMarkOrUnmarkCommand(input, false);
         } else if (input.startsWith("delete")) {
-            parseDeleteCommand(input);
+            return parseDeleteCommand(input);
         } else if (input.startsWith("todo")) {
-            parseTodoCommand(input);
+            return parseTodoCommand(input);
         } else if (input.startsWith("deadline")) {
-            parseDeadlineCommand(input);
+            return parseDeadlineCommand(input);
         } else if (input.startsWith("event")) {
-            parseEventCommand(input);
+            return parseEventCommand(input);
         } else {
             throw new LivException("Invalid input!");
         }
-        return null;
     }
 
     public static Command parseByeCommand() {
@@ -46,7 +45,7 @@ public class Parser {
     public static Command parseListCommand() {
         return new ListCommand();
     }
-    public Command parseMarkOrUnmarkCommand(String input, boolean state) throws LivException {
+    public static Command parseMarkOrUnmarkCommand(String input, boolean state) throws LivException {
         int index = parseNumberInInput(input);
         int trueIndex = index - 1;
         if ((trueIndex < 0) || (trueIndex >= TaskList.getListSize())) {
@@ -58,7 +57,7 @@ public class Parser {
         return new UnmarkCommand(index);
     }
 
-    public Command parseDeleteCommand(String input) throws LivException {
+    public static Command parseDeleteCommand(String input) throws LivException {
         int index = parseNumberInInput(input);
         int trueIndex = index - 1;
         if ((trueIndex < 0) || (trueIndex >= TaskList.getListSize())) {
@@ -66,7 +65,7 @@ public class Parser {
         }
         return new DeleteCommand(index);
     }
-    public Command parseTodoCommand(String input) throws LivException {
+    public static Command parseTodoCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
@@ -75,7 +74,7 @@ public class Parser {
         TodoTask newTodoTask = new TodoTask(description);
         return new TodoCommand(newTodoTask);
     }
-    public Command parseDeadlineCommand(String input) throws LivException {
+    public static Command parseDeadlineCommand(String input) throws LivException {
         // deadline <description> /by <time>
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
@@ -91,7 +90,7 @@ public class Parser {
         Deadline newDeadline = new Deadline(description, by);
         return new DeadlineCommand(newDeadline);
     }
-    public Command parseEventCommand(String input) throws LivException {
+    public static Command parseEventCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
             throw new LivException("Description cannot be empty!");
