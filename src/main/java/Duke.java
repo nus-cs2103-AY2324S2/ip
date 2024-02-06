@@ -33,11 +33,11 @@ public class Duke {
         String message;
         if (task.isDone()) {
             message = "____________________________________________________________\r\n"
-                    + " Nice! I have marked this task as done:\n" + "   " + task.toString() + "\n"
+                    + " Nice! I have marked this task as done:\n" + "   " + task + "\n"
                     + "____________________________________________________________\n";
         } else {
             message = "____________________________________________________________\r\n"
-                    + " OK, I have marked this task as not done yet:\n" + "   " + task.toString() + "\n"
+                    + " OK, I have marked this task as not done yet:\n" + "   " + task + "\n"
                     + "____________________________________________________________\n";
         }
         return message;
@@ -62,6 +62,14 @@ public class Duke {
         return outro;
     }
 
+    public static String deleteMessage(Task task, int count) {
+        String message = "____________________________________________________________\r\n" +
+                " Noted. I have removed this task:\n" + "   " + task + "\n" + "Now you have " +
+                count + " tasks in the list.\n" +
+                "____________________________________________________________\r\n";
+        return message;
+    }
+
     public static String replacer(String input) {
         String replacedString = input.replaceAll("/(\\w+)", "$1:");
         return replacedString;
@@ -74,11 +82,14 @@ public class Duke {
         return task;
     }
 
+
+
     public static void main(String[] args) {
         System.out.println(introMessage());
         Scanner sc = new Scanner(System.in);
         String userInput;
-        ArrayList<Task> tasks = new ArrayList<>();
+        FileManager fileManager = new FileManager("./data/duke.txt");
+        ArrayList<Task> tasks = fileManager.loadTasks();
         int count = 0;
 
         try {
@@ -104,6 +115,7 @@ public class Duke {
                         tasks.add(new Todo(userInputArray[1], false));
                         count++;
                         System.out.println(addComment(tasks.get(count - 1), count));
+                        fileManager.saveTasks(tasks);
                     }
                     if (isEvent) {
                         String task = getTask(userInput);
@@ -112,6 +124,7 @@ public class Duke {
                         tasks.add(new Event(task, false, when));
                         count++;
                         System.out.println(addComment(tasks.get(count - 1), count));
+                        fileManager.saveTasks(tasks);
                     }
                     if (isDeadline) {
                         int index = userInput.indexOf("/");
@@ -120,6 +133,7 @@ public class Duke {
                         tasks.add(new Deadline(task, false, when));
                         count++;
                         System.out.println(addComment(tasks.get(count - 1), count));
+                        fileManager.saveTasks(tasks);
                     }
 
                 } else if (isMark || isUnmark) {
@@ -127,11 +141,19 @@ public class Duke {
                         int lastNumber = Character.getNumericValue(lastChar);
                         tasks.get(lastNumber - 1).finishTask();
                         System.out.println(markMessage(tasks.get(lastNumber - 1)));
+                        fileManager.saveTasks(tasks);
                     } else {
                         int lastNumber = Character.getNumericValue(lastChar);
                         tasks.get(lastNumber - 1).redoTask();
                         System.out.println(markMessage(tasks.get(lastNumber - 1)));
+                        fileManager.saveTasks(tasks);
                     }
+                } else if (userInputArray[0].equals("delete")) {
+                    int index = Character.getNumericValue(lastChar);
+                    Task temp = tasks.get(index - 1);
+                    tasks.remove(index - 1);
+                    System.out.println(deleteMessage(temp, tasks.size()));
+                    fileManager.saveTasks(tasks);
                 } else {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
