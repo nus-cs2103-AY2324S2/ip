@@ -3,132 +3,147 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BotChat {
-    private static final String FILEPATH = "./././data/botchat.txt";
     private static boolean terminate = false;
+    private static final String FILEPATH = "./././data/botchat.txt";
     private static Storage storage;
+    private static TaskList taskArrayList;
+    private static Parser parser;
     private static Pattern markPattern = Pattern.compile("mark \\d+");
     private static Pattern unmarkPattern = Pattern.compile("unmark \\d+");
 
     public static void addTask(String s) throws Exception {
-        if (s.startsWith("todo")) {
-            if (s.split("todo ").length < 2) {
-                throw new IncompleteCommandException("Todo command incomplete. It should be in the form of " +
-                        "todo description.");
-            } else {
-                storage.addToDataStore(new ToDo(s.split("todo ")[1]));
-            }
-        } else if (s.startsWith("deadline")) {
-            String slicedString = s.substring(8); // slice away "deadline "
-            String[] stringParts = slicedString.split("/by ");
-            if (stringParts.length < 2) {
-                throw new IncompleteCommandException("Deadline command incomplete. It should be in the form of " +
-                        "deadline description /by datetime.");
-            } else {
-                storage.addToDataStore(new Deadline(stringParts[0], stringParts[1]));
-            }
-        } else if (s.startsWith("event")) {
-            String slicedString = s.substring(5);
-            String[] stringParts = slicedString.split("/from |/to ");
-            if (stringParts.length < 3) {
-                throw new IncompleteCommandException("Event command incomplete. It should be in the form of " +
-                        "event description /from datetime /to datetime.");
-            } else {
-                storage.addToDataStore(new Event(stringParts[0], stringParts[1], stringParts[2]));
-            }
-        } else {
-            throw new InvalidCommandException(s);
+        String taskDescription;
+        switch (parser.extractCommand(s)) {
+            case "todo":
+                taskDescription = parser.extractDescription(s);
+                Task newDescriptionTask = new ToDo(taskDescription);
+                storage.addToDataStore(newDescriptionTask);
+                taskArrayList.addTask(newDescriptionTask);
+                break;
+            case "deadline":
+                taskDescription = parser.extractDescription(s);
+                String[] deadlineStringParts = taskDescription.split("/by ");
+                if (deadlineStringParts.length < 2) {
+                    throw new IncompleteCommandException("Deadline command incomplete. It should be in the form of " +
+                            "deadline description /by datetime.");
+                } else {
+                    Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
+                    storage.addToDataStore(newDeadlineTask);
+                    taskArrayList.addTask(newDeadlineTask);
+                }
+                break;
+            case "event":
+                taskDescription = parser.extractDescription(s);
+                String[] eventStringParts = taskDescription.split("/from |/to ");
+                if (eventStringParts.length < 3) {
+                    throw new IncompleteCommandException("Event command incomplete. It should be in the form of " +
+                            "event description /from datetime /to datetime.");
+                } else {
+                    Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
+                    storage.addToDataStore(newEventTask);
+                    taskArrayList.addTask(newEventTask);
+                }
+                break;
+            default:
+                throw new InvalidCommandException(s);
         }
     }
 
     public static String response(String s) {
         Matcher markMatcher = markPattern.matcher(s);
         Matcher unmarkMatcher = unmarkPattern.matcher(s);
-        if (s.equals("bye")) {
-            terminate = true;
-            return "Bye. Hope to see you again soon!";
-        } else if (s.equals("list")) {
-            StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
-            for (int i = 1; i <= storage.getLastIdx(); i++) {
-                stringBuilder.append(i);
-                stringBuilder.append(". ");
-                stringBuilder.append(storage.getTaskByIdx(i-1).toString());
-                stringBuilder.append("\n ");;
+        try {
+            String command = parser.extractCommand(s);
+            if (command.equals("bye")) {
+                terminate = true;
+                return Ui.byeMessage();
+            } else if (command.equals("list")) {
+                StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
+                for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
+                    stringBuilder.append(i);
+                    stringBuilder.append(". ");
+                    stringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
+                    stringBuilder.append("\n ");
+                }
+                return stringBuilder.toString();
+            } else if (markMatcher.matches()) {
+                try {
+                    int taskNum = convertTaskNumStringToInt(s);
+                    storage.editDataStoreTaskAsDone(taskNum);
+                    return markTaskAsDone(taskNum);
+                } catch (InvalidTaskNumberException e) {
+                    return e.toString();
+                }
+            } else if (unmarkMatcher.matches()) {
+                try {
+                    int taskNum = convertTaskNumStringToInt(s);
+                    storage.editDataStoreTaskAsUndone(taskNum);
+                    return unmarkTaskAsDone(taskNum);
+                } catch (InvalidTaskNumberException e) {
+                    return e.toString();
+                }
+            } else if (command.equals("delete")) {
+                String requestedDeletion = s.substring(7);
+                try {
+                    return deleteTask(requestedDeletion);
+                } catch (InvalidTaskNumberException e) {
+                    return e.toString();
+                }
+            } else {
+                try {
+                    addTask(s);
+                    return Ui.addTaskMessage(taskArrayList.getTaskByIdx(taskArrayList.getLastIdx() - 1).toString(),
+                            taskArrayList.getLastIdx());
+                } catch (Exception e) {
+                    return e.toString();
+                }
             }
-            return stringBuilder.toString();
-        } else if (markMatcher.matches()) {
-            try {
-                return markTaskAsDone(s);
-            } catch (InvalidTaskNumberException e) {
-                return e.toString();
-            }
-        } else if (unmarkMatcher.matches()) {
-            try {
-                return unmarkTaskAsDone(s);
-            } catch (InvalidTaskNumberException e) {
-                return e.toString();
-            }
-        } else if (s.startsWith("delete")) {
-            String requestedDeletion = s.substring(7);
-            try {
-                return deleteTask(requestedDeletion);
-            } catch (InvalidTaskNumberException e) {
-                return e.toString();
-            }
-        } else {
-            try {
-                addTask(s);
-                return String.format("Got it. I've added this task:\n %s \n Now you have %d tasks in the list.",
-                        storage.getTaskByIdx(storage.getLastIdx() - 1).toString(),
-                        storage.getLastIdx());
-            } catch (Exception e) {
-                return e.toString();
-            }
+        } catch (InvalidCommandException e) {
+            return e.toString();
         }
     }
 
-    public static String markTaskAsDone(String s) throws InvalidTaskNumberException {
-        String taskNumString = s.split("\\s+")[1];
-        int taskNum = Integer.parseInt(taskNumString);
-        if (taskNum > storage.getLastIdx()) {
-            throw new InvalidTaskNumberException(taskNumString);
-        }
-        storage.getTaskByIdx(taskNum - 1).markAsDone();
-        return String.format("Nice! I've marked this task as done: \n %s",
-                storage.getTaskByIdx(taskNum - 1).toString());
+    public static String markTaskAsDone(int taskNum) throws InvalidTaskNumberException {
+        taskArrayList.getTaskByIdx(taskNum - 1).markAsDone();
+        return Ui.markTaskAsDoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
 
-    public static String unmarkTaskAsDone(String s) throws InvalidTaskNumberException {
+    private static int convertTaskNumStringToInt(String s) throws InvalidTaskNumberException {
         String taskNumString = s.split("\\s+")[1];
         int taskNum = Integer.parseInt(taskNumString);
-        if (taskNum > storage.getLastIdx()) {
+        if (taskNum > taskArrayList.getLastIdx()) {
             throw new InvalidTaskNumberException(taskNumString);
         }
-        storage.getTaskByIdx(taskNum - 1).markAsUndone();
-        return String.format("Nice! I've marked this task as done: \n %s",
-                storage.getTaskByIdx(taskNum - 1).toString());
+        return taskNum;
+    }
+
+    public static String unmarkTaskAsDone(int taskNum) throws InvalidTaskNumberException {
+        taskArrayList.getTaskByIdx(taskNum - 1).markAsUndone();
+        return Ui.markTaskAsUndoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
 
     public static String deleteTask(String requestedDeletion) throws InvalidTaskNumberException {
         try {
             int taskNum = Integer.parseInt(requestedDeletion);
-            if (taskNum > storage.getLastIdx()) {
+            if (taskNum > taskArrayList.getLastIdx()) {
                 throw new InvalidTaskNumberException(requestedDeletion);
             }
-            String deletedTaskString = storage.getTaskByIdx(taskNum - 1).toString();
+            String deletedTaskString = taskArrayList.getTaskByIdx(taskNum - 1).toString();
             storage.removeFromDataStore(taskNum - 1);
+            taskArrayList.removeTask(taskNum - 1);
             storage = new Storage(FILEPATH);
-            return String.format("Noted. I've removed this task: \n %s \n Now you have %d tasks in the list.",
-                    deletedTaskString, storage.getLastIdx());
+            return Ui.taskRemovalMessage(deletedTaskString, taskArrayList.getLastIdx());
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException(requestedDeletion);
         }
     }
 
-    public static void main(String[] args) {
-        storage = new Storage(FILEPATH);
 
-        String greeting = "Hello! I'm BotChat.\n What can I do for you?";
-        System.out.println(greeting);
+    public static void main(String[] args) {
+        parser = new Parser();
+        storage = new Storage(FILEPATH);
+        taskArrayList = new TaskList(storage.readDataStore());
+        System.out.println(Ui.hiMessage());
 
         Scanner userInput = new Scanner(System.in);
 
