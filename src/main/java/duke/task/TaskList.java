@@ -1,4 +1,9 @@
+package duke.task;
+
 import java.util.ArrayList;
+
+import duke.commons.exceptions.DukeException;
+
 import java.io.Serializable;
 
 public class TaskList implements Serializable {

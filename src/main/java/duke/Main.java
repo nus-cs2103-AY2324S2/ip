@@ -1,6 +1,18 @@
+package duke;
+
 import java.time.LocalDate;
 
-public class Duke {
+import duke.command.CommandParser;
+import duke.command.CommandType;
+import duke.commons.exceptions.DukeException;
+import duke.storage.PersistentStorageHandler;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.ToDo;
+import duke.ui.UserInterface;
+
+public class Main {
 
     private static TaskList taskList = new TaskList();
 
@@ -9,8 +21,6 @@ public class Duke {
     public static void main(String[] args) {
 
         UserInterface.printWelcome();
-
-
 
         try {
             if (persistentStorageHandler.ensureTaskFileExists()) {
@@ -23,50 +33,50 @@ public class Duke {
         }
 
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String userInput = UserInterface.getUserInput();
                 CommandType commandType = CommandParser.parseCommand(userInput);
 
                 switch (commandType) {
                     case LIST:
-                    handleList();
-                    break;
+                        handleList();
+                        break;
 
                     case MARK:
-                    handleMark(userInput);
-                    break;
+                        handleMark(userInput);
+                        break;
 
                     case UNMARK:
-                    handleUnmark(userInput);
-                    break;
+                        handleUnmark(userInput);
+                        break;
 
                     case DELETE:
-                    handleDelete(userInput);
-                    break;
+                        handleDelete(userInput);
+                        break;
 
                     case TODO:
-                    handleToDo(userInput);
-                    break;
+                        handleToDo(userInput);
+                        break;
 
                     case DEADLINE:
-                    handleDeadline(userInput);
-                    break;
+                        handleDeadline(userInput);
+                        break;
 
                     case EVENT:
-                    handleEvent(userInput);
-                    break;
+                        handleEvent(userInput);
+                        break;
 
                     case EXIT:
-                    isExit = true;
-                    break;
+                        isExit = true;
+                        break;
 
                     case BYE:
-                    isExit = true;
-                    break;
+                        isExit = true;
+                        break;
 
                     default:
-                    throw new DukeException("Invalid Command" + commandType);
+                        throw new DukeException("Invalid Command" + commandType);
                 }
 
                 persistentStorageHandler.writeTaskFileToDisc(taskList);
@@ -108,7 +118,6 @@ public class Duke {
         int totalTasks = taskList.getNumberTasks();
         UserInterface.printTaskAdded(response, totalTasks);
     }
-
 
     private static void handleDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = CommandParser.parseDeadline(userInput);

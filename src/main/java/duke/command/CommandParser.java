@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.commons.exceptions.DukeException;
+
 public class CommandParser {
 
     public static CommandType parseCommand(String userInput) throws DukeException {
