@@ -26,11 +26,10 @@ public class UnmarkCommand extends Command {
      * Executes the UnmarkCommand, marking the specified task as not done.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    @Override
+    /*@Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (INDEX < 1 || INDEX > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
@@ -40,7 +39,40 @@ public class UnmarkCommand extends Command {
         task.markNotDone();
         ui.showUnmarkedMessage(task);
         storage.save(tasks.getAllTasks());
+    }*/
+
+    /*@Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (INDEX < 1 || INDEX > tasks.size()) {
+            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
+        }
+
+        Task task = tasks.get(INDEX - 1);
+        task.markNotDone();
+        ui.showUnmarkedMessage(task);
+        storage.save(tasks.getAllTasks());
+    }*/
+
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
+        if (INDEX < 1 || INDEX > tasks.size()) {
+            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
+        }
+
+        Task task = tasks.get(INDEX - 1);
+        task.markNotDone();
+
+        /*String unmarkedMessage = "   ____________________________________________________________\n" +
+                "    OK, I've marked this task as not done yet:\n" + "      " + task + "\n"
+                + "   ____________________________________________________________";*/
+        String unmarkedMessage = "    OK, I've marked this task as not done yet:\n" + "      " + task + "\n";
+
+
+        storage.save(tasks.getAllTasks());
+
+        return unmarkedMessage;
     }
+
 
 
     /**

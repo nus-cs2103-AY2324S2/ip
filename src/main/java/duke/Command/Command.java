@@ -14,11 +14,10 @@ public abstract class Command {
      * Executes the command.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 
 
     /**

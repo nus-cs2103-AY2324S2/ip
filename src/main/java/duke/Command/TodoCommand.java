@@ -30,17 +30,23 @@ public class TodoCommand extends Command {
      * Executes the TodoCommand, adding a new todo task to the task list.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
+
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = new TodoTask(description);
         tasks.addTask(task);
         int count = tasks.size();
-        ui.showAddedMessage(task, count);
+
+        String addedMessage = "    Got it. I've added this task:\n" + "      " + task + "\n" +
+                "    Now you have " + count + " tasks in the list.\n";
+
+
         storage.save(tasks.getAllTasks());
+
+        return addedMessage;
     }
 
 

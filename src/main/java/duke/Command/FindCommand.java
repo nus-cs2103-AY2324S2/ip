@@ -2,7 +2,6 @@ package duke.Command;
 
 import duke.Storage;
 import duke.Tasks.TaskList;
-import duke.Ui;
 import duke.Tasks.Task;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,19 +27,30 @@ public class FindCommand extends Command {
      * Displays the matching tasks in the UI.
      *
      * @param tasks   The list of tasks to search within.
-     * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks.
      */
+
+
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         List<Task> matchingTasks = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         for (Task task : tasks.getAllTasks()) {
             if (task.getTask().contains(keyword)) {
                 matchingTasks.add(task);
+                sb.append(task.toString()).append(System.lineSeparator());
             }
         }
-        ui.showMatchingTasks(matchingTasks);
+
+
+        String matchingTasksString = "    Here are the matching tasks in your list:\n"
+                + sb.toString() + "\n";
+
+
+
+        return matchingTasksString;
     }
+
 
     /**
      * Indicates whether this command is an exit command.

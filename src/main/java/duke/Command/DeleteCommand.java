@@ -27,11 +27,10 @@ public class DeleteCommand extends Command {
      * Executes the DeleteCommand, deleting a task from the task list.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    @Override
+    /*@Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (INDEX < 1 || INDEX > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
@@ -43,7 +42,32 @@ public class DeleteCommand extends Command {
         Ui.showDeletedMessage(deletedTask, count);
         storage.save(tasks.getAllTasks());
 
+    }*/
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
+        if (INDEX < 1 || INDEX > tasks.size()) {
+            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
+        }
+
+        Task deletedTask = tasks.get(INDEX - 1);
+        int count = tasks.size() - 1;
+        tasks.delete(INDEX - 1);
+
+        /*String deletedMessage =  "   ____________________________________________________________\n" +
+                "    Noted. I've removed this task:\n" + "      " + deletedTask + "\n" +
+                "    Now you have " + count + " tasks in the list.\n"
+                + "   ____________________________________________________________";*/
+
+        String deletedMessage = "    Noted. I've removed this task:\n" + "      " + deletedTask + "\n" +
+                "    Now you have " + count + " tasks in the list.\n";
+
+
+        storage.save(tasks.getAllTasks());
+        return deletedMessage;
+
     }
+
+
 
     /**
      * Checks if the command is an exit command.

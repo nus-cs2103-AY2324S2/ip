@@ -14,13 +14,25 @@ public class ListCommand extends Command {
      * Executes the ListCommand, displaying the list of tasks.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskList(tasks);
+    public String execute(TaskList tasks, Storage storage) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            String list = "    " + (i + 1) + ". " + tasks.get(i);
+            sb.append(list).append(System.lineSeparator());
+        }
+
+
+        String taskList = "    Here are the tasks in your list:\n"
+                + sb.toString() + "\n";
+
+        return taskList;
     }
+
+
+
 
 
     /**

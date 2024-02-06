@@ -34,17 +34,35 @@ public class DeadlineCommand extends Command {
      * Executes the DeadlineCommand, adding a deadline task to the task list.
      *
      * @param tasks   The list of tasks.
-     * @param ui      The user interface.
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    @Override
+    /*@Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = new DeadlineTask(description, deadline);
         tasks.addTask(task);
         int count = tasks.size();;
         ui.showAddedMessage(task, count);
         storage.save(tasks.getAllTasks());
+    }*/
+
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
+        Task task = new DeadlineTask(description, deadline);
+        tasks.addTask(task);
+        int count = tasks.size();
+
+        /*String addedMessage =  "   ____________________________________________________________\n" +
+                "    Got it. I've added this task:\n" + "      " + task + "\n" +
+                "    Now you have " + count + " tasks in the list.\n"
+                + "   ____________________________________________________________";*/
+
+        String addedMessage = "    Got it. I've added this task:\n" + "      " + task + "\n" +
+                "    Now you have " + count + " tasks in the list.\n";
+
+        storage.save(tasks.getAllTasks());
+
+        return addedMessage;
     }
 
     /**
