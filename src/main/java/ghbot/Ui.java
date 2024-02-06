@@ -18,7 +18,7 @@ public class Ui {
      * Ui Constructor.
      */
     public Ui() {
-        System.out.println("Hello! I'm ghbot.GHBot");
+        System.out.println("Hello! I'm GHBot");
         System.out.println("What can I do for you?");
         this.sc = new Scanner(System.in);
     }
