@@ -19,6 +19,7 @@ import java.util.List;
 
 import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.ui.Ui;
+import javafx.util.Pair;
 
 /**
  * The TaskList class represents a collection of tasks and
@@ -90,7 +91,9 @@ public class TaskList {
         return taskList.remove(index);
     }
 
-
+    private boolean isValidIndex(int markIndex) {
+        return markIndex < 0 || markIndex >= taskList.size();
+    }
 
     /**
      * Marks a task as done in the task list based on user input.
@@ -101,13 +104,15 @@ public class TaskList {
     public String mark(String info) throws ByteBuddyException {
         try {
             int markIndex = Integer.parseInt(info.trim()) - 1;
-            if (markIndex < 0 || markIndex >= taskList.size()) {
+            if (isValidIndex(markIndex)) {
                 // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
                 return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
             printWithSolidLineBreak("\t " + markToPrint);
+
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+
             return "\t " + markToPrint;
         } catch (NumberFormatException e) {
             // throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
@@ -128,7 +133,7 @@ public class TaskList {
     public String unmark(String info) throws ByteBuddyException {
         try {
             int unmarkIndex = Integer.parseInt(info.trim()) - 1;
-            if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
+            if (isValidIndex(unmarkIndex)) {
                 // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
                 return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
@@ -136,6 +141,7 @@ public class TaskList {
             printWithSolidLineBreak("\t " + unmarkToPrint);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+
             return "\t " + unmarkToPrint;
         } catch (NumberFormatException e) {
             // throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
@@ -155,7 +161,7 @@ public class TaskList {
     public String delete(String info) throws ByteBuddyException {
         try {
             int deleteIndex = Integer.parseInt(info.trim()) - 1;
-            if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
+            if (isValidIndex(deleteIndex)) {
                 // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
                 return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
@@ -163,6 +169,7 @@ public class TaskList {
             printTaskRemovedWithSolidLineBreak(removed);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+
             return returnTaskRemovedString(removed);
         } catch (NumberFormatException e) {
             // throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
@@ -190,6 +197,7 @@ public class TaskList {
             printTaskAddedWithSolidLineBreak(todo);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+
             return returnTaskAddedString(todo);
         } catch (IOException e) {
             // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
@@ -215,6 +223,7 @@ public class TaskList {
             printTaskAddedWithSolidLineBreak(deadline);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+
             return returnTaskAddedString(deadline);
         } catch (IndexOutOfBoundsException e) {
             // throw new ByteBuddyException("The correct usage is: " + DEADLINE_FORMAT);
@@ -245,6 +254,7 @@ public class TaskList {
             printTaskAddedWithSolidLineBreak(event);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+
             return returnTaskAddedString(event);
         } catch (IndexOutOfBoundsException e) {
             // throw new ByteBuddyException("The correct usage is: " + EVENT_FORMAT);
@@ -365,16 +375,11 @@ public class TaskList {
         boolean foundTask = false;
         StringBuilder str = new StringBuilder();
         for (String keyword: keywords) {
-            keyword = keyword.toLowerCase();
             for (int i = 0; i < taskList.size(); i++) {
                 String description = taskList.get(i).getDescription().toLowerCase();
-                if (description.contains(keyword)) {
-                    if (!foundTask) {
-                        str.append("Here are the matching tasks in your list:");
-                        foundTask = true;
-                    }
-                    str.append("\n\t\t ").append(i + 1).append(".").append(taskList.get(i));
-                }
+                Pair<StringBuilder, Boolean> pair = processMatchingTask(keyword.toLowerCase(), str, foundTask, description, i);
+                str = pair.getKey();
+                foundTask = pair.getValue();
             }
         }
 
@@ -387,4 +392,15 @@ public class TaskList {
         }
     }
 
+
+    private Pair<StringBuilder, Boolean> processMatchingTask(String keyword, StringBuilder str, boolean foundTask, String description, int i) {
+        if (description.contains(keyword)) {
+            if (!foundTask) {
+                str.append("Here are the matching tasks in your list:");
+                foundTask = true;
+            }
+            str.append("\n\t\t ").append(i + 1).append(".").append(taskList.get(i));
+        }
+        return new Pair<>(str, foundTask);
+    }
 }

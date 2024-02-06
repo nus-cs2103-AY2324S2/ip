@@ -31,7 +31,7 @@ public class Event extends Task {
 
         this.fromDate = parseDate(from);
         this.fromDateTime = parseDateTime(from);
-        // init from string depending on type, else use given by string
+        // Initialise 'by' string depending on type, else use given 'by' string as is
         if (fromDate.isPresent() || fromDateTime.isPresent()) {
             this.from = formatFromString(from);
         } else {
@@ -40,13 +40,12 @@ public class Event extends Task {
 
         this.toDate = parseDate(to);
         this.toDateTime = parseDateTime(to);
-        // init from string depending on type, else use given by string
+        // Initialise 'by' string depending on type, else use given 'by' string as is
         if (toDate.isPresent() || toDateTime.isPresent()) {
             this.to = formatToString(from);
         } else {
             this.to = to;
         }
-
     }
 
     /**
