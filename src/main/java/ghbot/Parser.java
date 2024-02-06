@@ -21,8 +21,8 @@ import java.time.format.DateTimeFormatter;
  * It deals with making sense of the user command.
  */
 public class Parser {
-    private static final DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter outTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
+    private static final DateTimeFormatter IN_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
 
     /**
      * Prints corresponding string for different commands.
@@ -52,18 +52,18 @@ public class Parser {
 
         } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.toString())) {
             String[] subStr = input[1].split("/by");
-            LocalDateTime inputTime = LocalDateTime.parse(subStr[1].trim(), inTimeFormat);
-            String formattedTime = inputTime.format(outTimeFormat);
+            LocalDateTime inputTime = LocalDateTime.parse(subStr[1].trim(), IN_TIME_FORMAT);
+            String formattedTime = inputTime.format(OUT_TIME_FORMAT);
 
             return new DeadlineExecutor(subStr[0], formattedTime);
 
         } else if (instr.equalsIgnoreCase(Instruction.EVENT.toString())) {
             String[] subStr = input[1].split("/from");
             String[] subStr2 = subStr[1].split("/to");
-            LocalDateTime inputFromTime = LocalDateTime.parse(subStr2[0].trim(), inTimeFormat);
-            String formattedFromTime = inputFromTime.format(outTimeFormat);
-            LocalDateTime inputToTime = LocalDateTime.parse(subStr2[1].trim(), inTimeFormat);
-            String formattedToTime = inputToTime.format(outTimeFormat);
+            LocalDateTime inputFromTime = LocalDateTime.parse(subStr2[0].trim(), IN_TIME_FORMAT);
+            String formattedFromTime = inputFromTime.format(OUT_TIME_FORMAT);
+            LocalDateTime inputToTime = LocalDateTime.parse(subStr2[1].trim(), IN_TIME_FORMAT);
+            String formattedToTime = inputToTime.format(OUT_TIME_FORMAT);
 
             return new EventExecutor(subStr[0], formattedFromTime, formattedToTime);
 
