@@ -30,8 +30,8 @@ public class Event extends Task {
             this.startTime = String.valueOf(MamtaException.invalidDates());
             this.endTime = "";
         } else {
-            this.startTime = transformDates(startTime);
-            this.endTime = transformDates(endTime);
+            this.startTime = setDates(startTime);
+            this.endTime = setDates(endTime);
         }
     }
 
@@ -44,8 +44,8 @@ public class Event extends Task {
      */
     Event(boolean isComplete, String content, String startTime, String endTime) {
         super(isComplete, content);
-        this.startTime = transformDates(startTime);
-        this.endTime = transformDates(endTime);
+        this.startTime = setDates(startTime);
+        this.endTime = setDates(endTime);
     }
 
 /**
@@ -53,7 +53,7 @@ public class Event extends Task {
  * @param deadline The input deadline.
  * @return The transformed deadline in a standardized format.
  */
-    public String transformDates(String deadline) {
+    public String setDates(String deadline) {
         String year = "";
         String month = "";
         String day = "";

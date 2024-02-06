@@ -10,14 +10,14 @@ public class TaskList {
     /**
      * List to store the history of tasks.
      */
-    private static ArrayList<Task> history = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Adds a task to the list.
      * @param t The task to be added.
      */
     public static void addTask(Task t) {
-        history.add(t);
+        tasks.add(t);
     }
 
     /**
@@ -25,21 +25,21 @@ public class TaskList {
      * @param t The task to be removed.
      */
     public static void removeTask(Task t) {
-        history.remove(t);
+        tasks.remove(t);
     }
 
     /**
      * Retrieves the history of tasks.
      * @return The list of tasks.
      */
-    public static ArrayList<Task> getHistory() {
-        return history;
+    public static ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     /**
      * Clears the list of tasks.
      */
     public static void clear() {
-        TaskList.history = new ArrayList<>();
+        TaskList.tasks = new ArrayList<>();
     }
 }
