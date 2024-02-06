@@ -3,6 +3,9 @@ package ChatbotRan;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadlines are Tasks with a date by which they should be completed.
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
 
@@ -15,7 +18,14 @@ public class Deadline extends Task {
         this(contents, LocalDate.parse(deadline));
     }
 
-
+    /**
+     * Parses user input into a Deadline with delimiter /by.
+     *
+     * @param line  line of user input
+     * @param space index to start parsing from
+     * @return Deadline object
+     * @throws TaskException if unparseable
+     */
     public static Deadline parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/by");
         try {

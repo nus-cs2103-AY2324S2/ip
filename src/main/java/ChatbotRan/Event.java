@@ -3,6 +3,9 @@ package ChatbotRan;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Events are Tasks that have a start and end date (LocalDate).
+ */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
@@ -17,6 +20,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Parse user input with delimiters /from /to into a Event object.
+     *
+     * @param line
+     * @param space location to start parsing
+     * @return Event object
+     * @throws TaskException if unparseable
+     */
     public static Event parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/from", "/to");
         try {
