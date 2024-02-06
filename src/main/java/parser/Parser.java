@@ -40,6 +40,8 @@ public class Parser {
                 this.todoList.changeMarkingOfTask(userInput, storage);
             } else if (isDeleteTask(userInput)) {
                 this.todoList.deleteTask(userInput, storage);
+            } else if (isFindTask(userInput)) {
+                this.todoList.findTask(userInput, storage);
             } else {
                 this.echo(userInput);
             }
@@ -146,6 +148,16 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     return false;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean isFindTask(String userInput) {
+        String[] words = userInput.split("\\s+");
+        if (words.length == 2) {
+            if (words[0].equals("find")) {
+                return true;
             }
         }
         return false;
