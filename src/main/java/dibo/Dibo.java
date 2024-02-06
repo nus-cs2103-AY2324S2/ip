@@ -10,38 +10,39 @@ import dibo.exception.DiboException;
  */
 
 public class Dibo {
+    private static final String FILE_PATH = "./data/dibo.txt";
+    private boolean isBye;
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
-    private Dibo(String path) {
-        this.storage = new Storage(path);
+    /**
+     * Constructs a Dibo object.
+     */
+    public Dibo() {
+        this.isBye = false;
+        this.storage = new Storage(FILE_PATH);
         this.ui = new Ui();
         try {
             this.tasks = new TaskList(this.storage.loadData());
         } catch (DiboException e) {
-            this.ui.showError(e.getMessage());
+            System.out.println(e.getMessage());
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
-
-    public static void main(String[] args) {
-        Dibo dibo = new Dibo("./data/dibo.txt");
-        dibo.run();
-    }
-    private void run() {
-        this.ui.sayHi();
-        boolean isBye = false;
-        while (!isBye) {
-            try {
-                String fullCommand = ui.takeCommand();
-                Command command = Parser.parse(fullCommand);
-                command.run(tasks, ui, storage);
-                isBye = command.isBye();
-            } catch (DiboException e) {
-                ui.showError(e.getMessage());
-            }
+    public String getResponse(String input) {
+        if (isBye) {
+            return "";
         }
+        try {
+            Command command = Parser.parse(input);
+            command.run(tasks, ui, storage);
+            isBye = command.isBye();
+            return ui.getOutput();
+        } catch (DiboException e) {
+            return e.getMessage();
+        }
+
     }
 
 }

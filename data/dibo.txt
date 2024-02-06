@@ -1,4 +1,5 @@
 todo | 0 | a
-todo | 1 | b
 deadline | 0 | c | Jan 01 2019
-todo | 0 | aa
+todo | 0 | a
+todo | 0 | b
+todo | 0 | c
