@@ -27,7 +27,8 @@ public class Deadline extends Task {
 
         this.byDate = parseDate(by);
         this.byDateTime = parseDateTime(by);
-        // init by string depending on type, else use given by string
+
+        // Initialise 'by' string depending on type, else use given 'by' string as is
         if (byDateTime.isPresent() || byDate.isPresent()) {
             this.by = formatByString(by);
         } else {
