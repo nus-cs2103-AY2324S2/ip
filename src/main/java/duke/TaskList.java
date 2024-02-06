@@ -27,6 +27,7 @@ public class TaskList {
      */
     public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException {
         this.taskList = new ArrayList<>();
+        assert taskList != null;
         for (String s : stringTasksList) {
             this.taskList.add(db2Task(s));
         }
@@ -55,6 +56,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         // Based on task type, extract traits
+        assert task != null;
         taskList.add(task);
     }
 
