@@ -55,7 +55,8 @@ public class Storage {
                 case "D":
                     String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
-                    String deadlineByDateTime = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+                    String deadlineByDateTime = deadlineParts[1]
+                            .substring(0, deadlineParts[1].length() - 1);
 
                     Deadline newDeadline = new Deadline(deadlineDescription, deadlineByDateTime);
 

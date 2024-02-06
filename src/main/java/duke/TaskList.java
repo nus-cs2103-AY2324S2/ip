@@ -111,10 +111,12 @@ public class TaskList {
                 storage.saveTaskListToFile();
     
             } else {
-                System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
+                System.out.println("\t" + "Invalid input for event. "
+                        + "Please use the format: event <task> /from <start time> /to <end time>");
             }
         } else {
-            System.out.println("\t" + "Invalid input for event. Please use the format: event <task> /from <start time> /to <end time>");
+            System.out.println("\t" + "Invalid input for event. "
+                    + "Please use the format: event <task> /from <start time> /to <end time>");
         }
     }
 

@@ -10,10 +10,11 @@ import java.util.Locale;
 public class Task {
     protected String task;
     protected boolean isDone;
-    protected DateTimeFormatter dateFormat1 = DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH);
-    protected DateTimeFormatter dateFormat2 = DateTimeFormatter.ofPattern("yyyy-M-d", Locale.ENGLISH);
-    protected DateTimeFormatter dateFormat3 = DateTimeFormatter.ofPattern("d-M-yyyy", Locale.ENGLISH);
-    protected DateTimeFormatter dateFormat4 = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
+    protected DateTimeFormatter DATE_FORMAT_1 = DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH);
+    protected DateTimeFormatter DATE_FORMAT_2 = DateTimeFormatter.ofPattern("yyyy-M-d", Locale.ENGLISH);
+    protected DateTimeFormatter DATE_FORMAT_3 = DateTimeFormatter.ofPattern("d-M-yyyy", Locale.ENGLISH);
+    protected DateTimeFormatter DATE_FORMAT_4 = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
+
 
     /**
      * Constructor for Task
@@ -88,6 +89,5 @@ enum TaskType {
     DEADLINE,
     EVENT,
     HELP,
-    DELETE,
-    UNKNOWN
+    DELETE
 }

@@ -2,7 +2,7 @@ package duke;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String line = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
 
     public Ui() {
@@ -46,7 +46,7 @@ public class Ui {
      * Prints the line
      */
     public void printLine() {
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
