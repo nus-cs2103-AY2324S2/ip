@@ -11,7 +11,8 @@ public class TaskList {
         this.taskList = new ArrayList<>();
         this.ui = new Ui();
         this.storage = storage;
-        storage.loadTaskList();
+
+        // storage.loadTaskList();
     }
 
     /**

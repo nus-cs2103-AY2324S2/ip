@@ -18,7 +18,7 @@ public class Storage {
     public Storage(ArrayList<Task> taskList) {
         this.taskList = taskList;
         createTaskList();
-        loadTaskList();
+        // loadTaskList();
     }
 
     public void loadTaskList() {
@@ -86,7 +86,7 @@ public class Storage {
     public void saveTaskListToFile() {
         try {
             ArrayList<String> newTaskList = new ArrayList<>();
-
+            
             for (Task task : this.taskList) {
                 newTaskList.add(task.toString());
             }

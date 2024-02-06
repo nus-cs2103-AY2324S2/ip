@@ -17,6 +17,8 @@ public class Duke {
         this.storage = new Storage(taskList);
         this.tasks = new TaskList(storage);
         this.parser = new Parser(tasks);
+
+        storage.loadTaskList();
     }
 
     /**

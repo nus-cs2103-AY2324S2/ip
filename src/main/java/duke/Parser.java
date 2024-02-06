@@ -5,12 +5,10 @@ package duke;
  */
 public class Parser {
     private Ui ui;
-    private int taskIndex;
     private TaskList taskList;
 
     public Parser(TaskList taskList) {
         this.ui = new Ui();
-        this.taskIndex = 1;
         this.taskList = taskList;
     }
 
@@ -20,7 +18,6 @@ public class Parser {
         }
 
         if (input.equals("list")) { // show list
-            this.taskIndex = 1;
             taskList.printList();
         } else if (input.startsWith("mark done")) { // mark as done
             try {
