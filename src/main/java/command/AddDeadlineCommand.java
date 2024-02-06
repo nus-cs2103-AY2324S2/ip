@@ -1,16 +1,17 @@
 package command;
 
-import andelu.DateTimeManager;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import andelu.AndeluException;
+import andelu.DateTimeManager;
+import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
-import andelu.Storage;
-
 import task.Deadline;
 import task.Task;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 
 /**
  * A AddDeadlineCommand class to add new Deadline task.
@@ -54,7 +55,7 @@ public class AddDeadlineCommand extends Command {
         String by = deadlineSplit[1].substring(3).trim();
 
         LocalDateTime byDt = DateTimeManager.convertStringToLocalDateTime(by);
-        Deadline newDeadline = new Deadline(name,false, byDt);
+        Deadline newDeadline = new Deadline(name, false, byDt);
         tasks.addTask(newDeadline);
         ArrayList<Task> newDeadlineList = new ArrayList<>();
         newDeadlineList.add(newDeadline);

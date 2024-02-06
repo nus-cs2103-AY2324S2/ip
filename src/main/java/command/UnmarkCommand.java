@@ -36,7 +36,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
-        String splitInput[] = input.split(" ");
+        String[] splitInput = input.split(" ");
         if (tasks.getTasks().size() == 0) {
             throw new AndeluException("No task at the moment.");
         } else if (splitInput.length < 2) {

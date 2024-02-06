@@ -4,7 +4,6 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,10 +14,10 @@ import java.util.List;
 public class Event extends Task {
 
     /** The start DateTime for this Event. */
-    LocalDateTime start;
+    private LocalDateTime start;
 
     /** The end DateTime for this Event. */
-    LocalDateTime end;
+    private LocalDateTime end;
 
 
     /**
@@ -78,6 +77,9 @@ public class Event extends Task {
             }
         }
 
-        return "[E]["+ super.getStatusIcon() +"] " + super.getDescription() + " (from: " + startString + " to: " + endString + ")";
+        return "[E][" + super.getStatusIcon() + "] "
+                + super.getDescription()
+                + " (from: " + startString + " to: "
+                + endString + ")";
     }
 }

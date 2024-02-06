@@ -13,7 +13,7 @@ import andelu.Ui;
 public abstract class Command {
 
     /** The status of the system. */
-    public boolean isExit;
+    private boolean isExit;
 
     /**
      * Creates a constructor.

@@ -1,19 +1,19 @@
 package andelu;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.io.IOException;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A Storage class that acts as a File Manager to handle all file's read and write method.
@@ -68,9 +68,16 @@ public class Storage {
     public void writeArrayListToFile(ArrayList<Task> tasks, boolean isOverwrite) {
         try {
             if (isOverwrite) {
-                Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+                Files.write(filePath,
+                        convertTasksToString(tasks).getBytes(),
+                        StandardOpenOption.CREATE,
+                        StandardOpenOption.WRITE,
+                        StandardOpenOption.TRUNCATE_EXISTING);
             } else {
-                Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+                Files.write(filePath,
+                        convertTasksToString(tasks).getBytes(),
+                        StandardOpenOption.CREATE,
+                        StandardOpenOption.APPEND);
             }
         } catch (IOException io) {
             Ui ui = new Ui();

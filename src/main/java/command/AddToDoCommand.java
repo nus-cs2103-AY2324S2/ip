@@ -1,14 +1,15 @@
 package command;
 
+
+import java.util.ArrayList;
+
 import andelu.AndeluException;
 import andelu.Storage;
 import andelu.TaskList;
 import andelu.Ui;
-
 import task.Task;
 import task.ToDo;
 
-import java.util.ArrayList;
 
 /**
  * A AddToDoCommand to add new ToDo task.
