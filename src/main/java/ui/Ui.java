@@ -34,10 +34,9 @@ public class Ui {
      * in between 2 lines given by the line variable.
      *
      * @param content The String in between the 2 lines.
-     * @return A String line separated consisting of line, content, line.
      */
-    public String output(String content) {
-        return line + "\n" + content + "\n" + line + "\n";
+    public void output(String content) {
+        System.out.println(line + "\n" + content + "\n" + line + "\n");
     }
 
     /**

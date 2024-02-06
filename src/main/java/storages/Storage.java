@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import tasks.Task;
+import tasks.taskType.Task;
 import tasks.TaskList;
 
 public class Storage {
@@ -43,7 +43,6 @@ public class Storage {
 
     public void updateFile(TaskList list) {
         String filename = "data/Fredricksen.txt";
-
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.getTask(i);
