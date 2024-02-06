@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
-
 public class Parser {
 
     public void parse(String fullCommand) throws DukeException {

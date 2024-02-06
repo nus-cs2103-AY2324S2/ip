@@ -1,10 +1,10 @@
 package duke;
 
-public class DukeException extends Exception{
+/**
+ * Duke Exception class
+ */
+public class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
     }
-
-
-
 }

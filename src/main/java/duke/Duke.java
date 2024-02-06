@@ -1,14 +1,25 @@
 package duke;
 
-import java.nio.file.Paths;
-import java.util.Scanner;  // Import the Scanner class
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
+/**
+ * A chatbot programme named Homie that helps you keep track
+ * of to-do tasks, deadlines and events. Date and time can be specified for deadlines and events.
+ * Other functions include adding tasks, finding tasks, marking or un-marking tasks as done,
+ * deleting tasks and listing tasks.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructor for Duke class
+     * @param filePath file path of storage text file
+     */
     public Duke(Path filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -19,9 +30,13 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
     public static String currentDir = System.getProperty("user.dir");
     public static final Path filePath = Paths.get(currentDir, "src", "main", "java", "duke", "data", "data.txt");
 
+    /**
+     * Run the chatbot application.
+     */
     public void run() {
         this.ui.showWelcome();
         boolean isExit = false;
@@ -147,11 +162,16 @@ public class Duke {
         new Duke(filePath).run();
     }
 
+    /**
+     * Check if command is valid or not
+     * Throws a Duke Exception if command is invalid
+     * @param command String representation of input command
+     * @throws DukeException If command is not recognised
+     */
     public static void checkCommand(String command) throws DukeException {
         String line = "____________________________________________________________";
         if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event") || command.startsWith("list") || command.startsWith("bye") || command.startsWith("delete") || command.contains("mark") || command.contains("find"))) {
             throw new DukeException("\n" + line + "\nOPPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
         }
     }
-
 }
