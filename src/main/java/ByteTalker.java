@@ -1,7 +1,12 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class ByteTalker {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -64,7 +69,7 @@ public class ByteTalker {
                     }
                 }
                 deadline = deadline.strip();
-                task = new Deadline(content, deadline);
+                task = new Deadline(content, convertDateTime(deadline));
             } else if (splitMessage[0].equals("event")) {
                 String content = " ";
                 String from = "";
@@ -83,7 +88,7 @@ public class ByteTalker {
                     }
                 }
                 to = to.strip();
-                task = new Event(content, from, to);
+                task = new Event(content, convertDateTime(from), convertDateTime(to));
             } else {
                 throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
             }
@@ -104,6 +109,31 @@ public class ByteTalker {
         System.out.println("    Got it. I've removed this task:");
         System.out.println("        " + task.toString());
         System.out.println("    Now you have " + this.tasks.size() + " task in the list.");
+    }
+
+    public static LocalDateTime convertDateTime(String dateTimeString) {
+        String cleanDateTimeString = dateTimeString.strip();
+        boolean isTimeExist = cleanDateTimeString.split(" ").length > 1;
+        boolean isInputFirstFormat = dateTimeString.split("-").length > 1;
+        DateTimeFormatter inputFormatter;
+        if (!isTimeExist) {
+            cleanDateTimeString += " 2359";
+        }
+
+        if (isInputFirstFormat) {
+            inputFormatter = DateTimeFormatter.ofPattern("yy-M-d Hmm");
+        } else {
+            inputFormatter = DateTimeFormatter.ofPattern("d/M/yy Hmm");
+        }
+
+        LocalDateTime dateTime = null;
+        try {
+            dateTime = LocalDateTime.parse(cleanDateTimeString, inputFormatter);
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            System.err.println("Unable to parse the date and time string: " + e.getMessage());
+            return dateTime;
+        }
     }
 
     public static void main(String[] args) {
