@@ -1,8 +1,10 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.lang.*;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,7 +62,7 @@ public class BMO {
                     if (isDone) {
                         done(indexCounter.toString());
                     }
-                    indexCounter ++;
+                    indexCounter++;
                     break;
                 case "D":
                     String taskDueDate = info[3].trim();
@@ -68,17 +70,17 @@ public class BMO {
                     if (isDone) {
                         done(indexCounter.toString());
                     }
-                    indexCounter ++;
+                    indexCounter++;
                     break;
                 case "E":
                     String taskStart = info[3].trim();
                     String taskEnd = info[4].trim();
                     addLog("event " + taskDescription + " /from " + taskStart
-                        + " /to " + taskEnd);
+                            + " /to " + taskEnd);
                     if (isDone) {
                         done(indexCounter.toString());
                     }
-                    indexCounter ++;
+                    indexCounter++;
                     break;
                 default:
                     System.out.println("Unknown task type: " + taskType);
@@ -150,13 +152,25 @@ public class BMO {
         return;
     }
 
+    static LocalDateTime formatDateTime(String input) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(input, formatter);
+        } catch (Exception e) {
+            System.out.println(Constants.errorPrint.erroneousAdd());
+            receive();
+        }
+
+        throw new IllegalArgumentException("Unrecognized date and time format: " + input);
+    }
+
     static void addLog(String input) {
         // create string formats for each task type for format checking
-        String deadlineFormat = "^deadline\\s+(\\w+(\\s+\\w+)*)\\s+/by\\s+(\\S+(\\s+\\w+)*)$";
+        String deadlineFormat = "^deadline\\s+(\\w+(\\s+\\w+)*)\\s+/by\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern deadlinePattern = Pattern.compile(deadlineFormat);
         Matcher deadlineMatcher = deadlinePattern.matcher(input);
 
-        String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+)*)\\s+/to\\s+(\\S+(\\s+\\w+)*)$";
+        String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+|/)*)\\s+/to\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern eventPattern = Pattern.compile(eventFormat);
         Matcher eventMatcher = eventPattern.matcher(input);
 
@@ -168,12 +182,19 @@ public class BMO {
         if (deadlineMatcher.matches()) {
             String task = deadlineMatcher.group(1);
             String by = deadlineMatcher.group(3);
-            newTask = new Deadlines(task, by);
+
+            LocalDateTime byDateTime = formatDateTime(by);
+
+            newTask = new Deadlines(task, byDateTime);
         } else if (eventMatcher.matches()) {
             String task = eventMatcher.group(1);
             String start = eventMatcher.group(3);
             String end = eventMatcher.group(5);
-            newTask = new Events(task, start, end);
+
+            LocalDateTime startDateTime = formatDateTime(start);
+            LocalDateTime endDateTime = formatDateTime(end);
+
+            newTask = new Events(task, startDateTime, endDateTime);
         } else if (toDoMatcher.matches()) {
             String task = toDoMatcher.group(1);
             newTask = new ToDos(task);
@@ -184,8 +205,8 @@ public class BMO {
                 System.out.println(Constants.errorPrint.todo());
             } else if (input.startsWith("event")) {
                 System.out.println(Constants.errorPrint.event());
-            } else if (input.isBlank()){
-                System.out.println(Constants.errorPrint.emptyAdd());
+            } else if (input.isBlank()) {
+                System.out.println(Constants.errorPrint.erroneousAdd());
             } else {
                 System.out.println(Constants.errorPrint.general());
             }
