@@ -78,7 +78,8 @@ public class Storage {
             throw new StorageLoadException("Error loading tasks from save file. Might be corrupted...\n"
                     + e.getMessage());
         } catch (FileNotFoundException e) {
-            throw new StorageLoadException("Error loading tasks from save file. File not found at path specified...\n");
+            throw new StorageLoadException("Error loading tasks from save file. " +
+                    "File not found at path specified...\n" + new File(dataDir, dataFileName));
         }
     }
 }
