@@ -28,7 +28,7 @@ public class Duke {
         storage = new Storage(directoryPath, fileName);
 
         try {
-            tasks = new TaskList(storage.dirAndFileSetUp());
+            tasks = new TaskList(storage.setUpDirAndFile());
         } catch (DukeException e) {
             ui.showLoadingError(e);
             tasks = new TaskList();
@@ -96,7 +96,7 @@ public class Duke {
                 case 5:
                     Task removed = tasks.deleteMechanism(result[1]);
                     if (result[1] <= tasks.getSize() + 1) {
-                        storage.fileUpdate(removed, 1, result[1]);
+                        storage.updateFile(removed, 1, result[1]);
                     }
                     break;
                 case 6:
@@ -108,7 +108,7 @@ public class Duke {
                     //pass to tasklist to add the task only, no other computation needed
                     Task taskToAdd = ui.analyseTask(echo);
                     tasks.taskMechanism(taskToAdd);
-                    storage.fileUpdate(taskToAdd, 0, 0);
+                    storage.updateFile(taskToAdd, 0, 0);
                     break;
                 default:
                     break;

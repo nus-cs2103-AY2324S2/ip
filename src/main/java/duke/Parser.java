@@ -45,9 +45,12 @@ public class Parser {
      */
     public String[] decryptInput(String echo) throws DukeException {
         String[] results = new String[3];
-
         String keyword = echo.split(" ")[0];
-        if (keyword.equals("deadline")) {
+        boolean isDeadline = keyword.equals("deadline");
+        boolean isEvent = keyword.equals("event");
+        boolean isTodo = keyword.equals("todo");
+
+        if (isDeadline) {
             String[] echoParts = echo.split("deadline", 2);
             String[] deadlineParts = echoParts[1].split("/by", 2);
 
@@ -58,7 +61,7 @@ public class Parser {
                 results[0] = deadlineParts[0];
                 results[1] = deadlineParts[1];
             }
-        } else if (keyword.equals("event")) {
+        } else if (isEvent) {
             String[] echoParts = echo.split("event", 2);
             String[] eventfirstHalfParts = echoParts[1].split("/from", 2);
             String[] eventsecondHalfParts = eventfirstHalfParts[1].split("/to", 2);
@@ -71,7 +74,7 @@ public class Parser {
                 results[1] = eventsecondHalfParts[0];
                 results[2] = eventsecondHalfParts[1];
             }
-        } else if (keyword.equals("todo")) {
+        } else if (isTodo) {
             String[] todoParts = echo.split("todo", 2);
 
             //test if empty task

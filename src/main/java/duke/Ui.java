@@ -29,9 +29,10 @@ public class Ui {
     public int[] analyseUserInput(String echo) {
         int[] results = new int[] {0, 0};
 
-        if (echo.equals("bye") || echo.equals("Bye")) {
+
+        if (echo.toLowerCase().equals("bye")) {
             results[0] = 1;
-        } else if (echo.equals("list") || echo.equals("List")) {
+        } else if (echo.toLowerCase().equals("list")) {
             results[0] = 2;
         } else if (echo.matches("mark -?[0-9]*")) {
             results[0] = 3;

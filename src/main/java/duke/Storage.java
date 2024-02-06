@@ -44,7 +44,7 @@ public class Storage {
      * @throws DukeException when data file does not exist
      */
 
-    public ArrayList<Task> dirAndFileSetUp() throws DukeException {
+    public ArrayList<Task> setUpDirAndFile() throws DukeException {
         ArrayList<Task> previousTasks = new ArrayList<Task>();
 
         if (!directory.exists()) {
@@ -113,7 +113,7 @@ public class Storage {
      * @param  command whether the Task is to be updated/deleted from the file
      * @param  lineNum at which line in the file the data is to be deleted
      */
-    public void fileUpdate(Task taskToUpdate, int command, int lineNum) {
+    public void updateFile(Task taskToUpdate, int command, int lineNum) {
         String taskString = taskToUpdate.toString(true);
 
         try {
