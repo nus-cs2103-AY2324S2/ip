@@ -1,10 +1,7 @@
 package handler;
-import dukeexecpetions.DeadlineEmptyException;
-import dukeexecpetions.InvalidCmd;
-import items.Items;
+import items.TaskList;
 import task.Deadline;
 import task.Event;
-import task.Task;
 import task.Todo;
 
 import java.io.File;
@@ -22,7 +19,7 @@ public class DataHandler {
         D, // Deadline
         E // Event
     }
-    public static void loadData(Items items)
+    public static void loadData(TaskList items)
             throws IOException {
         File data = new File("data/sirDuke.txt");
         Scanner parser;

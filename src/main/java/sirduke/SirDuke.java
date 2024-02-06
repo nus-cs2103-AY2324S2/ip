@@ -1,5 +1,4 @@
 package sirduke;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import dukeexecpetions.DeadlineEmptyException;
@@ -7,16 +6,20 @@ import dukeexecpetions.EventEmptyException;
 import dukeexecpetions.InvalidCmd;
 import handler.CommandsHandler;
 import handler.DataHandler;
+import items.TaskList;
 import msg.Msg;
 import msg.StdMsgs;
-import items.Items;
 
 /**
  * This class represents the Sir Duke Chatbot
  */
-public class Duke {
-    /** The Items object that Sir Duke will use to store his tasks */
-    private static Items items = new Items();
+public class SirDuke {
+    /** The TaskList object that Sir Duke will use to store his tasks */
+    private static TaskList items = new TaskList();
+
+    public SirDuke(String filePath) {
+
+    }
 
     /**
      * Runs Sir Duke

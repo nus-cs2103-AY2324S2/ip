@@ -3,8 +3,7 @@ package handler;
 import dukeexecpetions.DeadlineEmptyException;
 import dukeexecpetions.EventEmptyException;
 import dukeexecpetions.InvalidCmd;
-import items.Items;
-import msg.Msg;
+import items.TaskList;
 import msg.StdMsgs;
 import task.Deadline;
 import task.Event;
@@ -42,7 +41,7 @@ public class CommandsHandler {
      * @throws EventEmptyException Field to or from is empty
      * @throws DeadlineEmptyException Field by is empty
      */
-    public static boolean handleCommand(String userInput, Items items)
+    public static boolean handleCommand(String userInput, TaskList items)
             throws InvalidCmd, EventEmptyException, DeadlineEmptyException, IOException {
         Commands cmd;
         try {
