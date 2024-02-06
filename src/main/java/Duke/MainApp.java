@@ -122,6 +122,20 @@ public class MainApp extends Application{
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
+
+    /** Functions Status
+     *
+     * LIST           WORKING
+     * MARK           WORKING
+     * UNMARK         WORKING
+     * TODO
+     * DEADLINE
+     * EVENT
+     * DELETE         WORKING
+     * FIND;
+     *
+     *
+     */
     private void handleUserInput() {
 //        Label userText = new Label(userInput.getText());
 //        Label dukeText = new Label(getResponse(userInput.getText()));
