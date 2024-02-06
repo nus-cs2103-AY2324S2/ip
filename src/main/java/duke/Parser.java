@@ -13,7 +13,17 @@ import exception.NoDeadlineException;
 import exception.NoPeriodException;
 import exception.UnknownCommandException;
 
+/**
+ * Represents a parser to parse user input into commands.
+ */
 public class Parser {
+    /**
+     * Parses the user input into a command.
+     * @param command User input.
+     * @return Command to be executed.
+     * @throws IncompleteCommandException If the command is incomplete.
+     * @throws UnknownCommandException If the command is unknown.
+     */
     public static Command parseCommand(String command) throws IncompleteCommandException, UnknownCommandException {
         String[] input = command.split(" ", 2);
         String action = input[0].toUpperCase();
