@@ -22,7 +22,7 @@ fi
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Rick < input.txt > ACTUAL.TXT
 
-# convert to UNIX format
+## convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 

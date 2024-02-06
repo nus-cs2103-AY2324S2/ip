@@ -2,11 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Rick {
     public static ArrayList<Item> list = new ArrayList<>();
+
     public static void main(String[] args) {
         hello();
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             try {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("bye")) {
@@ -28,7 +29,9 @@ public class Rick {
             } catch (RickException e) {
                 reply(e.getMessage());
             } catch (Exception e1) {
-                reply("ERROR: Congratulations! You have input a message that the developer did not expect. Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
+                reply(e1.getMessage());
+//                reply("ERROR: Congratulations! You have input a message that the developer did not expect. Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
+                return;
             }
         }
     }
@@ -87,14 +90,14 @@ public class Rick {
                 if (!arg.contains(" /from ") || !arg.contains(" /to ") || splited[last].equals("/to") || splited[last].equals("/from")) {
                     throw new RickException("WHEN is the event?");
                 }
-                if (splited[1].equals("/from") || splited[1].equals("/sto")) {
+                if (splited[1].equals("/from") || splited[1].equals("/to")) {
                     throw new RickException("What event is this?");
                 }
                 int i = arg.indexOf("/from ");
                 int j = arg.indexOf("/to ");
                 String name = arg.substring(6, i-1);
-                String from = arg.substring(i + 6, j-1);
-                String to = arg.substring(j + 4);
+                String from = i < j ? arg.substring(i + 6, j-1) : arg.substring(i + 6);
+                String to = i < j ? arg.substring(j + 4) : arg.substring(j + 4, i - 1);
                 new_item = new Event(name, from, to);
                 list.add(new_item);
             } else {
@@ -102,9 +105,6 @@ public class Rick {
             }
         } catch (RickException e) {
             reply(e.getMessage());
-            return;
-        } catch (Exception e1) {
-            reply("ERROR: Congratulations! You have input a message that the developer did not expect. Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
             return;
         }
         String output = "Got it. I've added this task:\n" +
