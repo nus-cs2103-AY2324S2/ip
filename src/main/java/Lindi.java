@@ -1,3 +1,10 @@
+import lindi.commands.Command;
+import lindi.parser.Parser;
+import lindi.storage.Storage;
+import lindi.storage.StorageLoadException;
+import lindi.task.TaskList;
+import lindi.ui.Ui;
+
 /**
  * Entry point of Lindi Application.
  * Initializes the application and starts the interaction with the user.
@@ -26,7 +33,7 @@ public class Lindi {
     }
 
     /**
-     * Runs the program. This loops until terminated by user with ExitCommand.
+     * Runs the program. This loops until terminated by user with lindi.commands.ExitCommand.
      */
     public void run() {
         this.ui.greeting();

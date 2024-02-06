@@ -1,5 +1,6 @@
+package lindi.task;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
@@ -9,7 +10,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, this.saveLoadDateTimeFormat);
         } catch (DateTimeParseException e) {
-            throw new CreateDeadlineException(String.format("Deadline /by argument in the wrong format. Use " +
+            throw new CreateDeadlineException(String.format("lindi.task.Deadline /by argument in the wrong format. Use " +
                     "format '%s' instead. Not saving seconds and below :)", this.saveLoadDtFormatString));
         }
     }
