@@ -31,7 +31,7 @@ public class Duke {
     public String exit() {
         this.storage.saveFile(this.taskList);
         this.isEnded = true;
-        return "Saved!";
+        return "Tasks Saved!";
     }
 
     /**
