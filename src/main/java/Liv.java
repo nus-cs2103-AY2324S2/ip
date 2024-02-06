@@ -134,7 +134,6 @@ public class Liv {
         int splitterIndex = timeInterval.indexOf('/');
         if (splitterIndex == -1) {
             throw new LivException("Please enter the correct format for time!");
-
         }
         String time1 = timeInterval.substring(0, splitterIndex - 1);
         String time2 = timeInterval.substring(splitterIndex + 4);
