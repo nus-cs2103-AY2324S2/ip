@@ -15,6 +15,9 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+/**
+ * Handle the read and storage of data.
+ */
 public class Storage {
     private String pathName;
 
@@ -22,6 +25,12 @@ public class Storage {
         this.pathName = pathName;
     }
 
+    /**
+     * Convert the time from string to a LocalDate datatype.
+     * 
+     * @param time
+     * @return a LocalDate saving the date information.
+     */
     public LocalDate readAsDate(String time) {
         String[] parts = time.split(" ");
         String datePart = parts[0];

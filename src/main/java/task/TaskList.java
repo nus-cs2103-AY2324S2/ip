@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import storage.Storage;
 
+/**
+ * The class handling the Tasklist, a self-initiated data structure list.
+ */
+
 public class TaskList {
     protected ArrayList<Task> todoList;
 

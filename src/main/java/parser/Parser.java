@@ -9,6 +9,10 @@ import task.Task;
 import task.Todo;
 import task.TaskList;
 
+/**
+ * Read in user input and execute relative commands.
+ */
+
 public class Parser {
     protected TaskList TodoList;
     protected Storage storage;
@@ -17,6 +21,11 @@ public class Parser {
         this.TodoList = TodoList;
         this.storage = storage;
     }
+
+    /**
+     * Recognize keywords from the user input such as "bye" and "list".
+     * If not, pass it to further cases of commands.
+     */
 
     public void parse() {
         boolean isExit = false;
@@ -37,6 +46,12 @@ public class Parser {
         }
         scanner.close();
     }
+
+    /**
+     * Handle the three cases when the user input is "todo", "deadline" or "event".
+     * 
+     * @param userInput the input from the user.
+     */
 
     public void echo(String userInput) {
         String[] words = userInput.split("\\s+");
@@ -92,6 +107,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Check whether the user is intend to mark one of the tasks.
+     * 
+     * @param userInput
+     * @return True means the user want to mark, or false, which is otherwise.
+     */
+
     public boolean isMarkTask(String userInput) {
         String[] words = userInput.split("\\s+");
         if (words.length == 2) {
@@ -106,6 +128,13 @@ public class Parser {
         }
         return false;
     }
+
+    /**
+     * Check whether the user is intend to delete one of the tasks.
+     * 
+     * @param userInput
+     * @return True means the user want to delete, or false, which is otherwise.
+     */
 
     public boolean isDeleteTask(String userInput) {
         String[] words = userInput.split("\\s+");

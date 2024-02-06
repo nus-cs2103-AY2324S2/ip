@@ -6,6 +6,9 @@ import ui.Ui;
 import storage.Storage;
 import parser.Parser;
 
+/**
+ * The main class for duke chat bot.
+ */
 public class Duke {
 
     public static void main(String[] args) {

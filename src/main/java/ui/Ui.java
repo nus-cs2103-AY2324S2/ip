@@ -1,5 +1,9 @@
 package ui;
 
+/**
+ * The UI bot which can greet and say bye to the user.
+ */
+
 public class Ui {
     private String logo;
     private String botName;
