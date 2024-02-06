@@ -1,4 +1,4 @@
-package Mona;
+package mona;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

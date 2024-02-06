@@ -1,4 +1,4 @@
-package Mona;
+package mona;
 
 /**
  * This class contains all logic for parsing the user input
