@@ -27,6 +27,15 @@ public class Task {
     }
 
     /**
+     * Constructor used to clone a task object
+     * @param task
+     */
+    public Task(Task task) {
+        this.description = task.description;
+        this.isDone = task.isDone;
+    }
+
+    /**
      * Gets status icon denoting task completion.
      * @return String "X" if complete, else ""
      */

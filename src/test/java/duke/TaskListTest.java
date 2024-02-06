@@ -123,4 +123,56 @@ public class TaskListTest {
 
         testTasks.findTasks("Bread");
     }
+
+    @Test
+    public void testUndo() {
+        testTasks.addTask(new Todo("Buy Bread"));
+        testTasks.undo();
+
+        assertEquals(0, testTasks.size());
+
+        testTasks.addTask(new Deadline("Return Bread", "tomorrow"));
+        testTasks.addTask(new Todo("eat bread"));
+        testTasks.addTask(new Event("Bread discussion", "Mon 4pm", "5pm"));
+
+        // delete existing task
+        try {
+            testTasks.deleteTask(1);
+        } catch (DukeException.TaskNotFoundException e) {
+            assertEquals("Could not find task!", e.getMessage());
+        }
+        testTasks.undo();
+        assertEquals(3, testTasks.size());
+        testTasks.undo();
+        assertEquals(2, testTasks.size());
+        testTasks.undo();
+        assertEquals(3, testTasks.size());
+
+        // mark and undo marking
+        try {
+            testTasks.markTask(1);
+            Task t = testTasks.getTask(1);
+            assertEquals("Return Bread", t.description);
+            assertEquals(true, t.isDone);
+            testTasks.undo();
+            t = testTasks.getTask(1);
+            assertEquals(false, t.isDone);
+        } catch (DukeException.TaskNotFoundException e) {
+            assertEquals("Could not find task!", e.getMessage());
+        }
+
+        // unmark and undo unmarking
+        try {
+            testTasks.markTask(2);
+            testTasks.unmarkTask(2);
+            Task t = testTasks.getTask(2);
+            assertEquals("eat bread", t.description);
+            assertEquals(false, t.isDone);
+            testTasks.undo();
+            t = testTasks.getTask(2);
+            assertEquals(true, t.isDone);
+        } catch (DukeException.TaskNotFoundException e) {
+            assertEquals("Could not find task!", e.getMessage());
+        }
+    }
 }
