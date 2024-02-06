@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.ConvoBotException;
+import utils.ResponseConstructor;
 import utils.TaskList;
-import utils.UI;
 
 /**
  * Represents a command to unmark a completed task in the ConvoBot application.
@@ -24,12 +24,12 @@ public class Unmark implements Command {
      * Executes the Unmark command by unmarking the specified completed task and displaying a confirmation message.
      *
      * @param taskList The task list containing the task to be unmarked.
-     * @param ui       The user interface for displaying messages.
+     * @param rc       The response constructor for constructing messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
-    public void execute(TaskList taskList, UI ui) throws ConvoBotException {
+    public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
         taskList.mark(i, false);
-        ui.showUnmarked(taskList.getTaskString(i));
+        rc.showUnmarked(taskList.getTaskString(i));
     }
 
     /**
