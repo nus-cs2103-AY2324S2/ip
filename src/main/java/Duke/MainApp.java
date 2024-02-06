@@ -1,16 +1,16 @@
 package Duke;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.PrintStream;
+
 public class MainApp extends Application{
 
     private ScrollPane scrollPane;
@@ -18,6 +18,16 @@ public class MainApp extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private CustomOutputStream customOut;
+    private Duke Shirmin;
+    @Override
+    public void init() throws Exception {
+//        super.init();
+//        Shirmin = new Duke();
+//        customOut = new CustomOutputStream();
+//        System.setOut(new PrintStream(customOut));
+
+    }
 
     public static void main(String[] args) {
         // ...
@@ -48,7 +58,7 @@ public class MainApp extends Application{
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Shirmin");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -87,6 +97,7 @@ public class MainApp extends Application{
         });
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
     }
     /**
      * Iteration 1:
@@ -101,7 +112,7 @@ public class MainApp extends Application{
         return textToAdd;
     }
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/lulu.jpg"));
-    private final Image Shirmin = new Image(this.getClass().getResourceAsStream("/images/Shirmin.jpg"));
+    private final Image min = new Image(this.getClass().getResourceAsStream("/images/Shirmin.jpg"));
 
     /**
      * Iteration 2:
@@ -113,7 +124,7 @@ public class MainApp extends Application{
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(Shirmin))
+                DialogBox.getDukeDialog(dukeText, new ImageView(min))
         );
         userInput.clear();
     }
@@ -123,7 +134,8 @@ public class MainApp extends Application{
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Shirmin heard: " + input;
+        return "Duke heard: " + input;
     }
 }
+
 
