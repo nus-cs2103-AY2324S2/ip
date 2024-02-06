@@ -3,20 +3,22 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class FileRetriever {
+public class Storage {
 
     private static String workingDirectory = System.getProperty("user.dir");
     private static String dataDirectory = workingDirectory + "\\src\\main\\data";
     private static String saveFilePath = workingDirectory + "\\src\\main\\data\\SavedList.txt";
-    public static ArrayList<Task> getSavedTasks () {
+    public static TaskList getSavedTasks () {
 
         File saveFile = new File(saveFilePath);
+        TaskList taskListObj = new TaskList();
         ArrayList<Task> taskList = new ArrayList<>();
 
         try {
             if (fileExists(saveFilePath)) {
                 System.out.println("Previous saved list loaded.");
                 taskList = getListOfTasks(saveFile);
+                taskListObj = new TaskList(taskList);
             } else {
                 if (!directoryExists(dataDirectory)) {
                     createDirectory(dataDirectory);
@@ -25,7 +27,7 @@ public class FileRetriever {
                 saveFile.createNewFile();
                 System.out.println("File not found. New save file created.");
             }
-            return taskList;
+            return taskListObj;
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -33,8 +35,9 @@ public class FileRetriever {
         }
     }
 
-    public static void saveTaskList(ArrayList<Task> taskList) throws Exception {
+    public static void saveTaskList(TaskList taskListObj) throws Exception {
         File saveFile = new File(saveFilePath);
+        ArrayList<Task> taskList = taskListObj.getTaskList();
         BufferedWriter writerObj = new BufferedWriter(new FileWriter(saveFile, false));
         // save new
         for (Task task : taskList) {
