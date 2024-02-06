@@ -62,21 +62,31 @@ public class Gandalf {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             String input = scanner.nextLine();
+            StringBuilder taskType = new StringBuilder();
+            StringBuilder taskName = new StringBuilder();
+            StringBuilder date1 = new StringBuilder();
+            StringBuilder date2 = new StringBuilder();
+            StringBuilder[] parsedInput = {taskType, taskName, date1, date2};
+            int curr_info = 0;
             if(input.length() == 0){ //ignore accidental new lines from user
                 continue;
             }
-            //need to parse before checking for different commands
-            //first split by "/"
-            String[] splitInput = input.split("/"); //to separate dates for deadline and event
-            //further parse index 0 into task type and task name
-            String[] taskInfo = splitInput[0].trim().split(" ", 2); //by right is only size 2, index 0 is task type, 1 is task name
-            //check for bye or list or mark or unmarked
-            if (taskInfo[0].equals("bye")) {
+            for(int i = 0; i < input.length(); i++){
+                char curr_char = input.charAt(i);
+                if(curr_char == ' '){
+                    if(input.charAt(i - 1) == ' '){
+                        curr_info++;
+                        continue;
+                    }
+                }
+                parsedInput[curr_info].append(curr_char);
+            }
+            if (taskType.toString().equals("bye")) {
                 scanner.close();
                 System.out.println("So here at last, comes the end of our fellowship. I will not say: Do not weep. For not all tears are an evil.");
                 break;
             }
-            if(taskInfo[0].equals("list")){
+            if(taskType.toString().equals("list")){
                 for(int i = 0; i < faster_list.size(); i++){
                     Task action = faster_list.get(i);
                     System.out.println((i + 1) + ". " + action);
@@ -84,15 +94,8 @@ public class Gandalf {
                 System.out.println("Total number of tasks so far: " + (numOfActions + 1));
                 continue;
             }
-            try{
-                checkCommand(taskInfo, faster_list);
-            }
-            catch(GandalfException e){
-                System.out.println(e.getMessage());
-                continue;
-            }
-            if(taskInfo[0].equals("delete")){
-                int deleteNumber = Integer.parseInt(taskInfo[1]);
+            if(taskType.toString().trim().equals("delete")){
+                int deleteNumber = Integer.parseInt(taskName.toString());
                 System.out.println("removed task: " + faster_list.get(deleteNumber - 1));
                 faster_list.remove(deleteNumber - 1);
                 numOfActions--;
@@ -100,10 +103,10 @@ public class Gandalf {
                 writeToFile(faster_list);
                 continue;
             }
-            if(taskInfo[0].equals("mark") || taskInfo[0].equals("unmark")){
-                int taskNumber = Integer.parseInt(taskInfo[1]);
+            if(taskType.toString().trim().equals("mark") || taskType.toString().trim().equals("unmark")){
+                int taskNumber = Integer.parseInt(taskName.toString());
                 Task correspondingTask = faster_list.get(taskNumber - 1);
-                if(taskInfo[0].equals("mark")) {
+                if(taskType.toString().trim().equals("mark")) {
                     correspondingTask.markStatus(true);
                     System.out.println("The task is done, humans truly are remarkable creatures");
                 }
@@ -117,22 +120,21 @@ public class Gandalf {
             }
             //if reach this point assume task is new (and recognized) and does not exist in current array and must further breakdown the array
             numOfActions++;
-            if(taskInfo[0].equals("todo")){
-                Task currentTask = new ToDos(taskInfo[1]);
+            if(taskType.toString().trim().equals("todo")){
+                Task currentTask = new ToDos(taskName.toString().trim());
                 faster_list.add(currentTask);
                 writeToFile(faster_list);
                 System.out.println("added new task: " + currentTask);
             }
-            else if(taskInfo[0].equals("deadline")){
-                Task currentTask = new Deadlines(taskInfo[1], splitInput[1]);
+            else if(taskType.toString().trim().equals("deadline")){
+                System.out.println(date1.toString().trim());
+                Task currentTask = new Deadlines(taskName.toString().trim(), date1.toString().trim());
                 faster_list.add(currentTask);
                 writeToFile(faster_list);
                 System.out.println("added new task: " + currentTask);
             }
-            else if(taskInfo[0].equals("event")){
-                String startDate = splitInput[1].split(" ", 2)[1];
-                String endDate = splitInput[2].split(" ",2)[1];
-                Task currentTask = new Events(taskInfo[1], startDate, endDate);
+            else if(taskType.toString().trim().equals("event")){
+                Task currentTask = new Events(taskName.toString().trim(), date1.toString().trim(), date2.toString().trim());
                 faster_list.add(currentTask);
                 writeToFile(faster_list);
                 System.out.println("added new task: " + currentTask);
