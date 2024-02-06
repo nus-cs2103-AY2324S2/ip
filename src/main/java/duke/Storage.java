@@ -10,14 +10,30 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the storage of tasks to and from a file.
+ * Provides methods to save and load tasks from a specified file path.
+ */
 public class Storage {
 
+    /**
+     * The default file path for storing tasks.
+     */
     private static final String FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Constructs a storage instance with the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         
     }
 
+    /**
+     * Ensures the existence of the folder and file for storing tasks.
+     * If the folder or file does not exist, it creates them.
+     */
     private static void ensureFolderAndFileExists() {
         File folder = new File("./data");
         File file = new File(folder, "/duke.txt");
@@ -37,7 +53,12 @@ public class Storage {
             }
         }
     }
-    
+
+    /**
+     * Saves the provided list of tasks to the specified file path.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         ensureFolderAndFileExists();
         // OOS writes primitive data types and graphs of Java objects to an OutputStream
@@ -52,7 +73,11 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads the list of tasks from the specified file path.
+     *
+     * @return The list of tasks loaded from the file, or null if an error occurs.
+     */
     @SuppressWarnings("unchecked")
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = null;
