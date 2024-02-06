@@ -17,16 +17,16 @@ public class EventCommand implements NamedCommand {
         for (Pair<String, String> subcommPair : subcommPairs) {
             String subcommString = subcommPair.getFirst();
             switch (subcommString) {
-                case "/from":
-                    String fromDate = subcommPair.getSecond();
-                    t.setFromDate(fromDate);
-                    break;
-                case "/to":
-                    String toDate = subcommPair.getSecond();
-                    t.setToDate(toDate);
-                default:
-                    // add exception handling later
-                    break;
+            case "/from":
+                String fromDate = subcommPair.getSecond();
+                t.setFromDate(fromDate);
+                break;
+            case "/to":
+                String toDate = subcommPair.getSecond();
+                t.setToDate(toDate);
+            default:
+                // add exception handling later
+                break;
             }
         }
 

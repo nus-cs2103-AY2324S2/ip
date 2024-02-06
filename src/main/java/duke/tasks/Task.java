@@ -9,11 +9,11 @@ public class Task {
     protected static String INPUT_DATE_TIME_FORMAT = "yyyy-MM-dd HHmm";
     protected static String OUTPUT_DATE_TIME_FORMAT = "MMM dd yyyy hh:mm a";
     public String name;
-    public boolean done;
+    public boolean isDone;
 
     Task(String name, boolean done) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     Task(String name) {
@@ -29,7 +29,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (done ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     public String checkbox() {
@@ -37,19 +37,19 @@ public class Task {
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public boolean isMarked() {
-        return this.done;
+        return this.isDone;
     }
 
     private int isMarkedAsInt() {
-        return (this.done) ? 1 : 0;
+        return (this.isDone) ? 1 : 0;
     }
 
     protected ArrayList<String> exportDataAsArray() {
