@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Deadline Task.
- * <p>
+ *
  * This class is the representation of a Deadline task.
  * It extends from its parent class the Task class.
  */

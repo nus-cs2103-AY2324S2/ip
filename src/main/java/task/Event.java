@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Events Task.
- * <p>
+ *
  * This class is the representation of a Events task.
  * It extends from its parent class the Task class.
  */
