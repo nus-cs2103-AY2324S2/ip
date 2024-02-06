@@ -148,10 +148,10 @@ public class Parser {
         } else {
             if (toMark) {
                 throw new DukeException("Your mark instruction is unclear.\n"
-                        + "\t Try 'mark [task number to mark as done]'.");
+                        + "Try 'mark [task number to mark as done]'.");
             } else {
                 throw new DukeException("Your unmark instruction is unclear.\n"
-                        + "\t Try 'unmark [task number to mark as not done]'.");
+                        + "Try 'unmark [task number to mark as not done]'.");
             }
         }
     }
@@ -162,7 +162,7 @@ public class Parser {
             return new DeleteCommand(input);
         } else {
             throw new DukeException("Your delete instruction is unclear.\n"
-                    + "\t Try 'delete [task number to be deleted]'.");
+                    + "Try 'delete [task number to be deleted]'.");
         }
     }
 
@@ -172,7 +172,7 @@ public class Parser {
             return new TodoCommand(input);
         } else {
             throw new DukeException("The description of a todo cannot be empty.\n"
-                    + "\t Try 'todo [task description]'.");
+                    + "Try 'todo [task description]'.");
         }
     }
 
@@ -182,7 +182,7 @@ public class Parser {
             return new DeadlineCommand(input);
         } else {
             throw new DukeException("The description and due of a deadline cannot be empty.\n"
-                    + "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.");
+                    + "Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.");
         }
     }
 
@@ -192,7 +192,7 @@ public class Parser {
             return new EventCommand(input);
         } else {
             throw new DukeException("The description, start and end time of an event cannot be empty.\n"
-                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.");
+                    + "Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.");
         }
     }
 
@@ -209,7 +209,7 @@ public class Parser {
             return new FindCommand(input);
         } else {
             throw new DukeException("Specify a keyword to search.\n"
-                    + "\t Try 'find [keyword]'.");
+                    + "Try 'find [keyword]'.");
         }
     }
 

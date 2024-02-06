@@ -15,12 +15,13 @@ public class UnknownCommand implements Command {
      * @param list Not used.
      * @param ui Not used.
      * @param storage Not used.
+     * @return String of response of chatbot.
      * @throws DukeException Indicates invalid command.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         throw new DukeException("Sorry I don't know what that means.\n"
-                + "\t Try keywords: todo, deadline, event, list, mark, unmark, delete.");
+                + "Try keywords: todo, deadline, event, list, mark, unmark, delete, find.");
     }
 
     @Override

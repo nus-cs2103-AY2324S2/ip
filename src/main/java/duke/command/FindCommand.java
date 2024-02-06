@@ -25,10 +25,11 @@ public class FindCommand implements Command {
      * @param list Holds all tasks added.
      * @param ui Displays message of operation.
      * @param storage Handles IO operations.
+     * @return String of response of chatbot.
      * @throws DukeException No thrown.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
         String keyword = s[1];
         ArrayList<Task> arr = new ArrayList<>();
@@ -37,7 +38,7 @@ public class FindCommand implements Command {
                 arr.add(t);
             }
         }
-        ui.showMatchedTasks(new TaskList(arr));
+        return ui.showMatchedTasks(new TaskList(arr));
     }
 
     @Override

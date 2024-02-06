@@ -30,13 +30,12 @@ public class Ui {
     }
 
     /**
-     * Displays welcome message.
+     * Returns welcome message.
+     *
+     * @return Welcome message.
      */
-    public void showWelcome() {
-        System.out.println(LINE);
-        System.out.println(logo);
-        System.out.println("\t Hello! I'm " + this.name + ".");
-        System.out.println("\t What can I do for you?\n" + LINE);
+    public String showWelcome() {
+        return "Hello! I'm " + this.name + "." + "\nWhat can I do for you?";
     }
 
     /**
@@ -57,98 +56,104 @@ public class Ui {
     }
 
     /**
-     * Displays error message.
+     * Returns error message.
      *
      * @param errorMessage Details about the error to be displayed.
+     * @return Error message.
      */
-    public void showError(String errorMessage) {
-        System.out.println("\t OOPS!!! " + errorMessage);
+    public String showError(String errorMessage) {
+        return "OOPS!!! " + errorMessage;
     }
 
     /**
-     * Displays error message due to reading from file.
+     * Returns error message due to reading from file.
+     *
+     * @return Error message.
      */
-    public void showLoadingError() {
-        System.out.println("\t OOPS!!! Error loading tasks from file.");
+    public String showLoadingError() {
+        return "OOPS!!! Error loading tasks from file.";
     }
 
     /**
-     * Displays notification on successful mark operation.
+     * Returns notification on successful mark operation.
      *
      * @param task Task that was marked as done.
+     * @return Success message.
      */
-    public void showMarked(Task task) {
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t\t " + task.printTask());
+    public String showMarked(Task task) {
+        return "Nice! I've marked this task as done:" + "\n\t" + task.printTask();
     }
 
     /**
-     * Displays notification on successful unmark operation.
+     * Returns notification on successful unmark operation.
      *
      * @param task Task that was marked as not done.
+     * @return Success message.
      */
-    public void showUnmarked(Task task) {
-        System.out.println("\t Ok, I've marked this task as not done yet:");
-        System.out.println("\t\t " + task.printTask());
+    public String showUnmarked(Task task) {
+        return "Ok, I've marked this task as not done yet:" + "\n\t" + task.printTask();
     }
 
     /**
-     * Displays notification on successful add operation.
+     * Returns notification on successful add operation.
      *
      * @param t Task that was added.
      * @param list Holds all tasks added.
+     * @return Success message.
      */
-    public void showAdded(Task t, TaskList list) {
+    public String showAdded(Task t, TaskList list) {
         int size = list.getSize();
-        System.out.println("\t Got it! I've added this task:\n\t\t " + t.printTask());
-        System.out.println("\t Now you have " + size + (size > 1 ? " tasks" : " task") + " in the list.");
+        return "Got it! I've added this task:\n\t" + t.printTask()
+                + "\nNow you have " + size + (size > 1 ? " tasks" : " task") + " in the list.";
     }
 
     /**
-     * Displays all tasks in list.
+     * Returns all tasks in list.
      * Outputs message if list is empty.
      *
      * @param list Holds all tasks added
+     * @return String of tasks.
      */
-    public void showTasks(TaskList list) {
+    public String showTasks(TaskList list) {
         if (list.getSize() == 0) {
-            System.out.println("\t OOPS!!! No task in list.");
-            System.out.println("\t You may add task with keywords: todo, deadline, event.");
+            return "OOPS!!! No task in list." + "\nYou may add task with keywords: todo, deadline, event.";
         } else {
-            System.out.println(list.print());
+            return list.print();
         }
     }
 
     /**
-     * Displays notification on successful delete operation.
+     * Returns notification on successful delete operation.
      *
      * @param t Task that was deleted.
      * @param list Holds all tasks remaining.
+     * @return Success message.
      */
-    public void showDeleted(Task t, TaskList list) {
-        System.out.println("\t Noted I've removed this task:");
-        System.out.println("\t\t " + t.printTask());
-        System.out.println("\t Now you have " + list.getSize() + (list.getSize() > 1 ? " tasks" : " task")
-                + " in the list.");
+    public String showDeleted(Task t, TaskList list) {
+        return "Noted I've removed this task:" + "\n\t" + t.printTask()
+                + "\nNow you have " + list.getSize() + (list.getSize() > 1 ? " tasks" : " task") + " in the list.";
     }
 
     /**
-     * Displays exit message.
+     * Returns exit message.
+     *
+     * @return Exit message.
      */
-    public void showGoodbye() {
-        System.out.println("\t Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays all tasks in list.
+     * Returns all tasks in list.
      *
      * @param list Holds all tasks that matches search.
+     * @return String of tasks.
      */
-    public void showMatchedTasks(TaskList list) {
+    public String showMatchedTasks(TaskList list) {
         if (list.getSize() == 0) {
-            System.out.println("\t OOPS!!! No task matches you search.");
+            return "OOPS!!! No task matches you search.";
         } else {
-            System.out.println(list.printFound());
+            return list.printFound();
         }
     }
 }

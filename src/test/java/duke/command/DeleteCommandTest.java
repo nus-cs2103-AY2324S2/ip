@@ -46,7 +46,7 @@ public class DeleteCommandTest {
             dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
             fail();
         } catch (DukeException e) {
-            assertEquals("Task (-1) not found.\n" + "\t Here are the tasks in your list:\n\t\t 1."
+            assertEquals("Task (-1) not found.\n" + "Here are the tasks in your list:\n1."
                     + dl.printTask(), e.getMessage());
         }
     }
@@ -59,7 +59,7 @@ public class DeleteCommandTest {
             dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
             fail();
         } catch (DukeException e) {
-            assertEquals("Task (1) not found.\n\t No task in list.", e.getMessage());
+            assertEquals("Task (1) not found.\nNo task in list.", e.getMessage());
         }
     }
 }

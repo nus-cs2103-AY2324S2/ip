@@ -15,11 +15,12 @@ public class ExitCommand implements Command {
      * @param list Holds the tasks added.
      * @param ui Display messages about executed operation.
      * @param storage Handles IO storage operation.
+     * @return String of response of chatbot.
      * @throws DukeException No thrown.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        ui.showGoodbye();
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        return ui.showGoodbye();
     }
 
     @Override

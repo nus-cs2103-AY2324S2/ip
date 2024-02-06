@@ -88,7 +88,7 @@ public class ParserTest {
         try {
             Parser.parseCommand(input);
         } catch (DukeException e) {
-            assertEquals("Your delete instruction is unclear.\n\t Try 'delete [task number to be deleted]'.",
+            assertEquals("Your delete instruction is unclear.\nTry 'delete [task number to be deleted]'.",
                     e.getMessage());
         }
     }
@@ -110,7 +110,7 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("The description of a todo cannot be empty.\n\t Try 'todo [task description]'.",
+            assertEquals("The description of a todo cannot be empty.\nTry 'todo [task description]'.",
                     e.getMessage());
         }
     }
@@ -132,7 +132,7 @@ public class ParserTest {
             fail();
         } catch (DukeException e) {
             assertEquals("The description and due of a deadline cannot be empty.\n"
-                    + "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.", e.getMessage());
+                    + "Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.", e.getMessage());
         }
     }
 
@@ -144,7 +144,7 @@ public class ParserTest {
             fail();
         } catch (DukeException e) {
             assertEquals("The description and due of a deadline cannot be empty.\n"
-                    + "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.", e.getMessage());
+                    + "Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.", e.getMessage());
         }
     }
 
@@ -166,7 +166,7 @@ public class ParserTest {
             fail();
         } catch (DukeException e) {
             assertEquals("The description, start and end time of an event cannot be empty.\n"
-                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
+                    + "Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
                     e.getMessage());
         }
     }
@@ -179,7 +179,7 @@ public class ParserTest {
             fail();
         } catch (DukeException e) {
             assertEquals("The description, start and end time of an event cannot be empty.\n"
-                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
+                    + "Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
                     e.getMessage());
         }
     }
@@ -201,7 +201,7 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("Specify a keyword to search.\n\t Try 'find [keyword]'.", e.getMessage());
+            assertEquals("Specify a keyword to search.\nTry 'find [keyword]'.", e.getMessage());
         }
     }
 
@@ -212,7 +212,7 @@ public class ParserTest {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("Specify a keyword to search.\n\t Try 'find [keyword]'.", e.getMessage());
+            assertEquals("Specify a keyword to search.\nTry 'find [keyword]'.", e.getMessage());
         }
     }
 }

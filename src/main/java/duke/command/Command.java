@@ -9,7 +9,7 @@ import duke.util.Ui;
  * Represents a basic Command.
  */
 public interface Command {
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException;
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException;
 
     public boolean isExit();
 }
