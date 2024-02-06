@@ -1,3 +1,11 @@
+package chatbot.storage;
+
+import chatbot.exception.DukeException;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.Task;
+import chatbot.task.ToDo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,8 +32,8 @@ public class Storage {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
-     * Constructs a new Storage object.
-     * Initialises the new Storage object by creating a directory and file if they do not already exist.
+     * Constructs a new chatbot.storage.Storage object.
+     * Initialises the new chatbot.storage.Storage object by creating a directory and file if they do not already exist.
      *
      * @throws IOException if an I/O error occurs during creation of the file.
      */
@@ -90,7 +98,7 @@ public class Storage {
      * Parses the inputted line for the task data.
      *
      * @param line The line to be parsed.
-     * @return The Task containing the task data.
+     * @return The chatbot.task.Task containing the task data.
      */
     private static Task parseTask(String line) {
         Matcher todoMatcher = PATTERN_TODO.matcher(line);

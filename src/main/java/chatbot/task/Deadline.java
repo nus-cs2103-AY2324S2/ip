@@ -1,8 +1,10 @@
+package chatbot.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates the data and behaviour of a Deadline task.
+ * Encapsulates the data and behaviour of a chatbot.task.Deadline task.
  *
  * @author Huang Zhuoyan, Celeste
  * @version CS2103T AY24/25 Semester 1, G07
@@ -12,9 +14,9 @@ public class Deadline extends Task {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
-     * Constructs a new Deadline task with the given name and deadline.
+     * Constructs a new chatbot.task.Deadline task with the given name and deadline.
      *
-     * @param name The name of the Deadline task.
+     * @param name The name of the chatbot.task.Deadline task.
      * @param time The LocalDateTime object containing the deadline.
      */
     public Deadline(String name, LocalDateTime time) {
