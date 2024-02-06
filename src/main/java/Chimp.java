@@ -1,15 +1,14 @@
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Chimp {
     private static final String divider = "____________________________________________________________\n";
-    private ArrayList<Task> list;
+    private TaskList list;
 
     Chimp() {
-        list = new ArrayList<>();
+        list = new TaskList();
     }
 
     public static void main(String[] args) throws InvalidParameterException {
@@ -70,7 +69,7 @@ public class Chimp {
             case "todo": // TODO: Exception handling
                 if (arg == null || arg.equals(""))
                     throw new CommandParseException("todo must have a desc");
-                chimp.addToList(arg);
+                chimp.list.add(arg);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
             case "event":
@@ -96,7 +95,7 @@ public class Chimp {
                 }
 
                 String text = arg.split("/")[0].strip();
-                chimp.addToList(text, fromDate, toDate);
+                chimp.list.add(text, fromDate, toDate);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
             case "deadline":
@@ -116,7 +115,7 @@ public class Chimp {
 
                 // TODO: switch case scoping best practice?
                 text = arg.split("/")[0].strip();
-                chimp.addToList(text, byDate);
+                chimp.list.add(text, byDate);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
             case "delete":
@@ -151,19 +150,6 @@ public class Chimp {
         phrases.put("delete", delete);
 
         return phrases;
-    }
-
-    // TODO: Is this a maintainable way of doing things?
-    private void addToList(String task) {
-        this.list.add(new Todo(task, TaskStatus.UNMARKED));
-    }
-
-    private void addToList(String task, LocalDate by) {
-        this.list.add(new Deadline(task, TaskStatus.UNMARKED, by));
-    }
-
-    private void addToList(String task, LocalDate from, LocalDate to) {
-        this.list.add(new Event(task, TaskStatus.UNMARKED, from, to));
     }
 
     private void say(String phrase) {
