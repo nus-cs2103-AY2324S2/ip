@@ -32,65 +32,85 @@ public class Parser {
      * @param storage   The Storage object for saving and loading tasks.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseAndExecute(Ui.Command userInput, TaskList tasks, Ui ui, Storage storage)
+    public static String parseAndExecute(String userInput, TaskList tasks, Ui ui, Storage storage)
             throws DukeException {
 
-        //String[] words = userInput.split(" ");
-        //String commandStr = userInput.toUpperCase();
+        String[] words = userInput.split(" ");
+        String commandStr = userInput.toUpperCase();
+        System.out.println(words[0]);
 
-
-        switch (userInput) {
-        case BYE:
+        switch (words[0].toUpperCase()) {
+        case "BYE":
             // Handle BYE command
-            ui.showGoodbyeMessage();
-            System.exit(0);
-            break;
-        case LIST:
+            //System.exit(0);
+            return ui.showGoodbyeMessage();
+
+        case "LIST":
             // Handle LIST command
-            tasks.listTasks(ui);
-            break;
-        case DELETE:
+
+            return tasks.listTasks(ui);
+            //break;
+        case "TODO":
+
+            try {
+                return parseTodo(words, tasks, ui);
+            } catch (DukeException e) {
+                return ui.showError(e.getMessage());
+            }
+        case "DELETE":
             //if (words.length < 2) {
             //    throw new DukeException("The task number to mark is missing.");
             //}
             //nt taskNumberMark = Integer.parseInt(words[1]);
-            if (ui.hasNextInt()) {
+            /*if (ui.hasNextInt()) {
                 int num = ui.getUserInputInt();
-                tasks.removeTasks(num, ui);
+                return tasks.removeTasks(num, ui);
             } else {
-                throw new DukeException("The task number to mark is missing.");
+                 throw new DukeException("The task number to mark is missing.");
 
+            }*/
+            if (words.length != 2) {
+                throw new DukeException("The task number to delete is missing.");
             }
-            break; // Add break statement
+            int n = Integer.parseInt(words[1]);
+            return tasks.removeTasks(n, ui);
+            //break; // Add break statement
 
-        case MARK:
+        case "MARK":
             // Handle MARK command
 
-            if (ui.hasNextInt()) {
+            /*if (ui.hasNextInt()) {
                 int num = ui.getUserInputInt();
-                tasks.markTasks(num, ui);
+                return tasks.markTasks(num, ui);
 
             } else {
                 throw new DukeException("The task number to mark is missing.");
+            }*/
+            if (words.length != 2) {
+                throw new DukeException("The task number to mark is missing.");
+            }
+            int num = Integer.parseInt(words[1]);
+            return tasks.markTasks(num, ui);
+
+            //break;
+        case "DEADLINE":
+            try {
+                return parseDeadline(words, tasks, ui);
+            } catch (DukeException e) {
+                return ui.showError(e.getMessage());
             }
 
-            break;
-        case DEADLINE:
-            parseDeadline(tasks, ui);
-            break;
+        case "EVENT":
+            try {
+                return parseEvent(words, tasks, ui);
+            } catch (DukeException e) {
+                return ui.showError(e.getMessage());
+            }
 
-        case EVENT:
-            parseEvent(tasks, ui);
-            break;
-        case TODO:
 
-            parseTodo(tasks, ui);
-
-            break;
-
-        case FIND:
-            parseFind(tasks, ui);
-            break;
+        case "FIND":
+            return parseFind(words, tasks, ui);
+            //break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means.");
         }
@@ -103,7 +123,7 @@ public class Parser {
      * @param ui    The Ui object for user interface interactions.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseDeadline(TaskList tasks, Ui ui) throws DukeException {
+    public static String parseDeadline(String[] words, TaskList tasks, Ui ui) throws DukeException {
         /*if (words.length < 4) {
             throw new DukeException("Insufficient information for creating a deadline task.");
         }
@@ -129,8 +149,8 @@ public class Parser {
             System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
             return;
         }*/
-
-        String inputLine = ui.getUserInput3().trim();
+        //.............................................................
+        /*String inputLine = ui.getUserInput3().trim();
 
         // Check if there's "/by" in the input
         if (!inputLine.contains("/by")) {
@@ -138,7 +158,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! Please provide a deadline time using '/by'.");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-                return;
+                //return;
             }
         }
 
@@ -153,7 +173,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! The description and deadline time cannot be empty.");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-                return;
+                //return;
             }
         }
 
@@ -163,8 +183,40 @@ public class Parser {
         } catch (DateTimeParseException e) {
             // Handle the case where the date format is incorrect
             System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
-            return;
+            //return;
         }
+        return "added deadline"; */
+
+        if (words.length < 4) {
+            throw new DukeException("Insufficient information for creating a deadline task.");
+        }
+
+        if (words[1].isEmpty() || words[3].isEmpty()) {
+            try {
+                throw new DukeException("OOPS!!! The description and deadline time cannot be empty.");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                //return;
+            }
+        }
+        if (!words[2].equals("/by")) {
+            try {
+                throw new DukeException("OOPS!!! Please provide a deadline time using '/by'.");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                //return;
+            }
+        }
+
+        try {
+            // Attempt to create a Deadline with the provided description and time
+            tasks.addTasks(new Deadline(words[1], words[3]));
+        } catch (DateTimeParseException e) {
+            // Handle the case where the date format is incorrect
+            System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
+            //return;
+        }
+        return "added deadline";
 
     }
 
@@ -175,7 +227,7 @@ public class Parser {
      * @param ui    The Ui object for user interface interactions.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseEvent(TaskList tasks, Ui ui) throws DukeException {
+    public static String parseEvent(String[] words, TaskList tasks, Ui ui) throws DukeException {
         /*if (words.length < 6) {
             throw new DukeException("Insufficient information for creating a event task.");
         }
@@ -205,13 +257,15 @@ public class Parser {
             return;
         } */
 
+        // .............................
+        /*
         String inputLineEvent = ui.getUserInput3().trim();
         if (!inputLineEvent.contains("/from") || !inputLineEvent.contains("/to")) {
             try {
                 throw new DukeException("OOPS!!! Please provide event timing using '/from' and '/to'.");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-                return;
+                //return;
             }
         }
 
@@ -224,7 +278,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! The description of an event cannot be empty.");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-                return;
+                //return;
             }
         }
         partsEvent = partsEvent[1].split("/to", 2);
@@ -236,11 +290,42 @@ public class Parser {
                 throw new DukeException("OOPS!!! The event timing cannot be empty.");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-                return;
+                //return;
             }
         }
 
         tasks.addTasks(new Event(descriptionEvent, from, to));
+        return "added event";
+
+         */
+
+        if (words.length < 6) {
+            throw new DukeException("Insufficient information for creating a event task.");
+        }
+        String description = words[1];
+        String fromKeyword = words[2];
+        String fromTime = words[3];
+        String toKeyword = words[4];
+        String toTime = words[5];
+
+        if (!fromKeyword.equals("/from") || !toKeyword.equals("/to")
+                || description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
+            try {
+                throw new DukeException("OOPS!!! The description and event time cannot be empty.");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+        try {
+            // Attempt to create a Deadline with the provided description and time
+            tasks.addTasks(new Event(description, fromTime, toTime));
+        } catch (DateTimeParseException e) {
+            // Handle the case where the date format is incorrect
+            //System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
+
+        }
+        return "added event";
 
     }
 
@@ -251,7 +336,7 @@ public class Parser {
      * @param ui    The Ui object for user interface interactions.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseTodo(TaskList tasks, Ui ui) throws DukeException {
+    public static String parseTodo(String[] words, TaskList tasks, Ui ui) throws DukeException {
         /* if (words.length < 2) {
             throw new DukeException("Insufficient information for creating a event task.");
         }
@@ -260,6 +345,7 @@ public class Parser {
 
         tasks.addTasks(new Todo(description)); */
 
+        /*String res = "";
         String descriptionTodo = ui.getUserInput2().trim();
         System.out.println(descriptionTodo);
 
@@ -269,11 +355,25 @@ public class Parser {
                 throw new DukeException.EmptyTodoDescriptionException();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
-                return;
+                //return;
             }
         }
 
         tasks.addTasks(new Todo(descriptionTodo));
+        res += "added todo";
+        return res; */
+        String res = "";
+        if (words[1].isEmpty()) {
+            try {
+                throw new DukeException.EmptyTodoDescriptionException();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                //return;
+            }
+        }
+        tasks.addTasks(new Todo(words[1]));
+        res += "added todo";
+        return res;
 
     }
 
@@ -336,14 +436,34 @@ public class Parser {
      * @param tasks The TaskList containing the tasks to search.
      * @param ui    The Ui object for handling user interface interactions.
      */
-    public static void parseFind(TaskList tasks, Ui ui) {
-        String keyword = ui.getUserInput2().trim();
+    public static String parseFind(String[] words, TaskList tasks, Ui ui) {
+        /* String keyword = ui.getUserInput2().trim();
         //System.out.println(descriptionTodo);
         ArrayList<Task> matchingTasks = tasks.keywordSearch(keyword);
-
-        ui.showMessage("Here are the matching tasks in your list:");
+        String res = "";
+        res = ui.showMessage("Here are the matching tasks in your list:");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString());
+            res += ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString());
         }
+        return res; */
+        if (words.length < 2) {
+            try {
+                throw new DukeException("OOPS!!! The find value cannot be empty.");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        String keyword = words[1];
+       // for (int i = 1; i < words.length; i++) {
+         //   keyword += words[i] + " ";
+        //}
+
+        ArrayList<Task> matchingTasks = tasks.keywordSearch(keyword);
+        String res = "";
+        res = ui.showMessage("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            res += ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString());
+        }
+        return res;
     }
 }

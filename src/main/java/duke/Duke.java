@@ -1,33 +1,22 @@
 package duke;
 
-import java.util.Scanner;
+
+
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.util.Scanner;
 
 /**
  * Duke is a task management application that allows users to manage their tasks.
- * It provides a command-line interface for users to interact with their task list.
+ * It provides a command-line interface and a JavaFX GUI for users to interact with their task list.
  */
-public class Duke extends Application{
+public class Duke extends Application {
     private static final String FILE_PATH = "./data/duke.txt";
 
     private Ui ui;
     private Storage storage;
-
-
-    /**
-     * Enumeration representing possible commands in Duke.
-     */
-
-
-
-
-
     private TaskList tasks;
-
 
     /**
      * Constructs a Duke instance with the specified file path.
@@ -46,9 +35,20 @@ public class Duke extends Application{
     }
 
     /**
+     * JavaFX application entry point.
+     *
+     * @param stage The primary stage for this application.
+     */
+    @Override
+    public void start(Stage stage) {
+        // Create a JavaFX GUI instance and set up the stage
+        // You can leave this method empty if you are not using JavaFX directly in Duke
+    }
+
+    /**
      * Runs the Duke application, allowing users to interact with their task list.
      */
-    public void run() {
+    /*public void run() {
         ui.showWelcomeMessage();
 
         Scanner sc = new Scanner(System.in);
@@ -56,12 +56,11 @@ public class Duke extends Application{
 
         while (!isExit) {
             try {
-
                 Ui.Command userInput = ui.getUserInput();
-                if (userInput.equals("Bye")) {
+                if (userInput.equals(Ui.Command.BYE)) {
                     isExit = true;
                 }
-                Parser.parseAndExecute(userInput, tasks, ui, storage);
+                //Parser.parseAndExecute(userInput, tasks, ui, storage);
                 storage.saveTasks(tasks.getTasks());
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -69,23 +68,33 @@ public class Duke extends Application{
         }
 
         ui.showGoodbyeMessage();
+    } */
+
+    /**
+     * Gets the response for a given input.
+     *
+     * @param input The user input.
+     * @return The response from Duke.
+     */
+    public String getResponse(String input) {
+
+        try {
+
+            String output =  Parser.parseAndExecute(input, tasks, ui, storage);
+            storage.saveTasks(tasks.getTasks());
+            return output;
+        } catch (DukeException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
-    }
     /**
      * The main entry point for the Duke application.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-
-        new Duke("data/duke.txt").run();
+        launch(args);
     }
 }
+
