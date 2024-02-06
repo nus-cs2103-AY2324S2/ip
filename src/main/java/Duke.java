@@ -138,7 +138,7 @@ public class Duke {
             case "deadline":
                 String[] deadlineParts = parts[1].split(" /by ", 2);
                 if (deadlineParts.length < 2) {
-                    throw new DukeException("Deadline format incorrect. Correct format: deadline description /by time");
+                    throw new DukeException("Deadline format incorrect. Correct format: deadline description /by yyyy-MM-dd");
                 }
                 newTask = new Deadline(deadlineParts[0], deadlineParts[1], false);
                 break;
