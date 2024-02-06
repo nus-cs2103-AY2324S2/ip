@@ -6,10 +6,12 @@ public abstract class Task { // Adapted from Course Website
     protected String description;
     protected boolean isDone;
 
-    protected final String displayDtFormatString = "MMM dd yyyy HH:mm";
-    protected final String saveLoadDtFormatString = "yyyy-MM-dd-HH-mm";
-    protected final DateTimeFormatter displayDateTimeFormat = DateTimeFormatter.ofPattern(displayDtFormatString);
-    protected final DateTimeFormatter saveLoadDateTimeFormat = DateTimeFormatter.ofPattern(saveLoadDtFormatString);
+    protected static final String DISPLAY_DT_FORMAT_STRING = "MMM dd yyyy HH:mm";
+    protected static final String SAVE_LOAD_DT_FORMAT_STRING = "yyyy-MM-dd-HH-mm";
+    protected static final DateTimeFormatter DISPLAY_DATETIME_FORMAT =
+            DateTimeFormatter.ofPattern(DISPLAY_DT_FORMAT_STRING);
+    protected static final DateTimeFormatter SAVE_LOAD_DATETIME_FORMAT =
+            DateTimeFormatter.ofPattern(SAVE_LOAD_DT_FORMAT_STRING);
 
     public Task(String description) {
         this.description = description;
