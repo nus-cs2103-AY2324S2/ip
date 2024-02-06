@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
+    private final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
     private LocalDateTime by;
 
     public Deadline (String description, String by) {
@@ -14,7 +14,7 @@ public class Deadline extends Task {
         if (by.length() == 10) {
             by += " 00:00";
         }
-        this.by = LocalDateTime.parse(by, this.formatter);
+        this.by = LocalDateTime.parse(by, this.FORMAT);
     }
 
     public Deadline (String description, String by, boolean isDone) {
@@ -25,11 +25,11 @@ public class Deadline extends Task {
         if (by.length() == 10) {
             by += " 00:00";
         }
-        this.by = LocalDateTime.parse(by, this.formatter);
+        this.by = LocalDateTime.parse(by, this.FORMAT);
     }
 
     public String getBy() {
-        return this.by.format(this.formatter);
+        return this.by.format(this.FORMAT);
     }
 
     @Override

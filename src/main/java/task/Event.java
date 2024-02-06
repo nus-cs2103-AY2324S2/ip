@@ -3,7 +3,7 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
+    private final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -19,8 +19,8 @@ public class Event extends Task {
         if (end.length() == 10) {
             end += " 00:00";
         }
-        this.start = LocalDateTime.parse(start, this.formatter);
-        this.end = LocalDateTime.parse(end, this.formatter);
+        this.start = LocalDateTime.parse(start, this.FORMAT);
+        this.end = LocalDateTime.parse(end, this.FORMAT);
     }
 
     public Event (String description, String start, String end, boolean isDone) {
@@ -35,16 +35,16 @@ public class Event extends Task {
         if (end.length() == 10) {
             end += " 00:00";
         }
-        this.start = LocalDateTime.parse(start, this.formatter);
-        this.end = LocalDateTime.parse(end, this.formatter);
+        this.start = LocalDateTime.parse(start, this.FORMAT);
+        this.end = LocalDateTime.parse(end, this.FORMAT);
     }
 
     public String getStart() {
-        return this.start.format(this.formatter);
+        return this.start.format(this.FORMAT);
     }
 
     public String getEnd() {
-        return this.end.format(this.formatter);
+        return this.end.format(this.FORMAT);
     }
 
     @Override
