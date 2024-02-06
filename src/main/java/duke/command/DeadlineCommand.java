@@ -25,16 +25,17 @@ public class DeadlineCommand implements Command {
      * @param list Holds the tasks added.
      * @param ui Displays messages about executed operation.
      * @param storage Handles IO storage operation.
+     * @return String of response of chatbot.
      * @throws DukeException If date time format is not valid.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] task = input.split("/by");
         try {
             Task t = new Deadline(task[0].substring(9).trim(), task[1].trim());
             list.add(t);
-            ui.showAdded(t, list);
             storage.writeToFile(list);
+            return ui.showAdded(t, list);
         } catch (DateTimeParseException e) {
             throw new DukeException(e.getMessage());
         }

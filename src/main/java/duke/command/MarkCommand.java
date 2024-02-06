@@ -32,22 +32,24 @@ public class MarkCommand implements Command {
      * @param list Holds the tasks added.
      * @param ui Displays messages about executed operation.
      * @param storage Handles IO storage operation.
+     * @return String of response of chatbot.
      * @throws DukeException If index given is not within range.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
         int num = Integer.parseInt(s[1]);
         if (num <= list.getSize() && num >= 1) {
             Task t = list.getTask(num - 1);
             if (this.toMark) {
                 t.done();
-                ui.showMarked(t);
+                storage.writeToFile(list);
+                return ui.showMarked(t);
             } else {
                 t.undo();
-                ui.showUnmarked(t);
+                storage.writeToFile(list);
+                return ui.showUnmarked(t);
             }
-            storage.writeToFile(list);
         } else {
             throw new DukeException("Task (" + num + ") not found.\n" + list.print());
         }

@@ -24,14 +24,15 @@ public class TodoCommand implements Command {
      * @param list Holds the tasks added.
      * @param ui Display messages about executed operation.
      * @param storage Handles IO storage operation.
+     * @return String of response of chatbot.
      * @throws DukeException Not thrown.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         Task t = new Todo(input.substring(5));
         list.add(t);
-        ui.showAdded(t, list);
         storage.writeToFile(list);
+        return ui.showAdded(t, list);
     }
 
     @Override

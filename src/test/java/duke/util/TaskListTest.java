@@ -101,12 +101,12 @@ public class TaskListTest {
         Todo t = new Todo("read");
         arr.add(t);
         TaskList list = new TaskList(arr);
-        assertEquals("\t Here are the tasks in your list:\n\t\t 1." + t.printTask(), list.print());
+        assertEquals("Here are the tasks in your list:\n1." + t.printTask(), list.print());
     }
 
     @Test
     public void print_emptyList_printHeading() {
         TaskList list = new TaskList();
-        assertEquals("\t No task in list.", list.print());
+        assertEquals("No task in list.", list.print());
     }
 }

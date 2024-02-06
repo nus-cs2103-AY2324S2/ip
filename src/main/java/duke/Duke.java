@@ -15,7 +15,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
+    private boolean isExit = false;
     /**
      * Constructs a new Duke instance to run.
      * Reads from file to set up chatbot.
@@ -57,9 +57,37 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns response corresponding to input.
+     *
+     * @param input User input.
+     * @return Message from chatbot.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            isExit = c.isExit();
+            return c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
 
     /**
-     * Starts Duke chatbot. Entry point of application.
+     * Returns true if current command is bye.
+     *
+     * @return Value of isExit.
+     */
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public String getLogo() {
+        return ui.showWelcome();
+    }
+
+    /**
+     * Starts Duke chatbot on command line. Entry point of application.
      *
      * @param args Not used.
      */

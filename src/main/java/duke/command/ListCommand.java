@@ -16,15 +16,16 @@ public class ListCommand implements Command {
      * @param list Holds the tasks added.
      * @param ui Displays the tasks listed.
      * @param storage Not used.
+     * @return String of response of chatbot.
      * @throws DukeException If no task in TaskList.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         if (list.isEmpty()) {
             throw new DukeException("No task in list.\n"
-                    + "\t You may add task with keywords: todo, deadline, event.");
+                    + "You may add task with keywords: todo, deadline, event.");
         } else {
-            ui.showTasks(list);
+            return ui.showTasks(list);
         }
     }
 

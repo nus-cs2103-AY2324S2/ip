@@ -22,16 +22,17 @@ public class DeleteCommand implements Command {
      * @param list Holds the existing tasks including task to be removed.
      * @param ui Displays messages about executed operation.
      * @param storage Handles IO storage operation.
+     * @return String of response of chatbot.
      * @throws DukeException If index is not n range.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] s = input.split("\\s");
         int num = Integer.parseInt(s[1]);
         if (num <= list.getSize() && num >= 1) {
             Task t = list.delete(num - 1);
-            ui.showDeleted(t, list);
             storage.writeToFile(list);
+            return ui.showDeleted(t, list);
         } else {
             throw new DukeException("Task (" + num + ") not found.\n" + list.print());
         }
