@@ -154,6 +154,6 @@ public class Ui {
      * @return A string representing a horizontal line separator.
      */
     public String showLine() {
-        return "    _________________________________________________________\n";
+        return "    _______________________________________________    \n";
     }
 }
