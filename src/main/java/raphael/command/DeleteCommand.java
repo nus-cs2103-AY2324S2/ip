@@ -1,9 +1,9 @@
 package raphael.command;
 
 import raphael.exception.RaphaelException;
+import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.storage.Storage;
 
 /**
  * Deletes a task upon execution.
