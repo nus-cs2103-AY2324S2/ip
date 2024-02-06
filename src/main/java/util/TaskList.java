@@ -86,6 +86,27 @@ public class TaskList {
         }
     }
 
+    public List<Task> findTasks(String keyWord) throws ChatBotException {
+        List<Task> matchingTasks = new ArrayList<>();
+        boolean isFound = false;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyWord)) {
+                matchingTasks.add(task);
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            throw new ChatBotException("Oops! No tasks matching the keyword \"" + keyWord + "\" were found." );
+        } else {
+            System.out.println("\tHere are the matching tasks in your list: ");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task currTask = matchingTasks.get(i);
+                System.out.println("\t" + (i + 1) + "." + currTask.toString());
+            }
+        }
+        return matchingTasks;
+    }
+
     public void saveToFile(TaskList taskList) {
         File file = new File(FILE_PATH);
         try {

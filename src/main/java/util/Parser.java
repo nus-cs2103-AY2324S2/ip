@@ -34,6 +34,8 @@ public class Parser {
             return parseDeadline(input);
         case "EVENT":
             return parseEvent(input);
+        case "FIND":
+            return parseFind(input);
         default:
             return new InvalidCommand("Oops! Please enter a valid command.");
         }
@@ -55,7 +57,7 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
         }
         return new MarkCommand(index);
     }
@@ -67,7 +69,7 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
         }
         return new UnmarkCommand(index);
     }
@@ -79,7 +81,7 @@ public class Parser {
         }
         int index = Integer.parseInt(sections[1].trim());
         if (index <= 0) {
-            return new InvalidCommand("Oops! tasks.Task number cannot be zero or negative.");
+            return new InvalidCommand("Oops! Task number cannot be zero or negative.");
         }
         return new DeleteCommand(index);
     }
@@ -124,6 +126,21 @@ public class Parser {
             return new InvalidCommand("Oops! Please enter a valid date/time format.");
         }
         return new EventCommand(event, start, end);
+    }
+
+    /**
+     * Parses the input string to create a command for finding tasks.
+     *
+     * @param input The user input string.
+     * @return A command object for finding tasks based on the input.
+     */
+    public Command parseFind(String input) {
+        String[] sections = input.split(" ", 2);
+        if (sections.length <= 1) {
+            return new InvalidCommand("Oops! Please enter a task to find.");
+        }
+        String tasktoFind = sections[1].trim();
+        return new FindCommand(tasktoFind);
     }
 
     public LocalDateTime parseDate(String dateString) throws ChatBotException {
