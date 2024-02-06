@@ -9,12 +9,11 @@ import java.io.FileReader;
 import java.util.Objects;
 import java.nio.file.Files;
 
-public class DataStore {
+public class Storage {
     private String filePath;
-    private ArrayList<Task> taskArrayList = new ArrayList<>();
     private int lastIdx = 0;
 
-    public DataStore(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         Path path = Paths.get(filePath);
         try {
@@ -28,32 +27,22 @@ public class DataStore {
         }
     }
 
-    public void readDataStore() {
+    public ArrayList<Task> readDataStore() {
         Path path = Paths.get(filePath);
+        ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             this.lastIdx = 0;
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
                 Task task = convertTaskLineToTask(line);
-                this.taskArrayList.add(task);
+                taskArrayList.add(task);
                 markDataStoreTaskStatus(task, line);
                 this.lastIdx++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public ArrayList<Task> getTaskArrayList() {
-        return this.taskArrayList;
-    }
-
-    public Task getTaskByIdx(int idx) {
-        return this.taskArrayList.get(idx);
-    }
-
-    public int getLastIdx() {
-        return this.lastIdx;
+        return taskArrayList;
     }
 
     public void addToDataStore(Task task) {
@@ -65,7 +54,6 @@ public class DataStore {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        taskArrayList.add(task);
         this.lastIdx++;
     }
 
@@ -96,7 +84,7 @@ public class DataStore {
         }
     }
 
-    private static Task convertTaskLineToTask(String line) {
+    private Task convertTaskLineToTask(String line) {
         String[] splitLine = line.split("\\|");
         String taskAlphabet = splitLine[0];
         switch (taskAlphabet) {
@@ -115,6 +103,62 @@ public class DataStore {
         String[] splitLine = taskLine.split("\\|");
         if (Objects.equals(splitLine[1], "1")) {
             task.markAsDone();
+        }
+    }
+
+    public void editDataStoreTaskAsDone(int i) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
+            StringBuilder content = new StringBuilder();
+            String line;
+            int currentLineNumber = 0;
+
+            while ((line = reader.readLine()) != null) {
+                currentLineNumber++;
+                if (currentLineNumber == i) {
+                    line = line.replace("0", "1");
+                }
+                content.append(line);
+                content.append("\n");
+            }
+
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
+            writer.write(content.toString());
+            writer.close();
+
+            System.out.println("File successfully updated.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editDataStoreTaskAsUndone(int i) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
+            StringBuilder content = new StringBuilder();
+            String line;
+            int currentLineNumber = 0;
+
+            while ((line = reader.readLine()) != null) {
+                currentLineNumber++;
+                if (currentLineNumber == i) {
+                    line = line.replace("1", "0");
+                }
+                content.append(line);
+                content.append("\n");
+            }
+
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
+            writer.write(content.toString());
+            writer.close();
+
+            System.out.println("File successfully updated.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
