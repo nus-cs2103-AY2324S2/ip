@@ -81,7 +81,7 @@ public class Parser {
         } else if (input.startsWith("unmark")) {
             return new Command(Command.CommandType.UNMARK, input.substring(7).trim());
         } else if (input.startsWith("find")) {
-        return parseFindCommand(input);
+            return parseFindCommand(input);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
