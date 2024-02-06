@@ -195,24 +195,23 @@ public class ParserTest {
     }
 
     @Test
+    public void parseCommand_findMultipleKeywords_findCommand() {
+        String input = "find meeting read do";
+        try {
+            assertEquals(new FindCommand("meeting", "read", "do"), Parser.parseCommand(input));
+        } catch (DukeException e) {
+            fail();
+        }
+    }
+
+    @Test
     public void parseCommand_findNoKeyword_dukeException() {
         String input = "find ";
         try {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
-            assertEquals("Specify a keyword to search.\nTry 'find [keyword]'.", e.getMessage());
-        }
-    }
-
-    @Test
-    public void parseCommand_findTwoKeywords_dukeException() {
-        String input = "find meeting two";
-        try {
-            Parser.parseCommand(input);
-            fail();
-        } catch (DukeException e) {
-            assertEquals("Specify a keyword to search.\nTry 'find [keyword]'.", e.getMessage());
+            assertEquals("Specify 1 or more keyword/s to search.\nTry 'find [keywords]'.", e.getMessage());
         }
     }
 }

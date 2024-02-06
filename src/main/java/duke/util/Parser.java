@@ -205,11 +205,12 @@ public class Parser {
      */
     private static Command parseFindCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
-        if (Parser.matchPattern(lowerInput, "find\\s\\S+")) {
-            return new FindCommand(input);
+        if (Parser.matchPattern(lowerInput, "find\\s.+")) {
+            String[] keywords = input.substring(4).trim().split("\\s");
+            return new FindCommand(keywords);
         } else {
-            throw new DukeException("Specify a keyword to search.\n"
-                    + "Try 'find [keyword]'.");
+            throw new DukeException("Specify 1 or more keyword/s to search.\n"
+                    + "Try 'find [keywords]'.");
         }
     }
 
