@@ -47,7 +47,9 @@ test {
 }
 
 application {
-    mainClass.set("jerome.JeromeGpt")
+    mainClass.set("jerome.gui.Launcher")
+    // Use this for the Command Line version
+//    mainClass.set("jerome.JeromeGpt")
 }
 
 shadowJar {

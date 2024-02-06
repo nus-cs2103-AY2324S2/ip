@@ -96,5 +96,18 @@ public class JeromeGpt {
     }
 
 
+    /**
+     * Retrieves the response from the application based on the user input.
+     *
+     * @param input the user input.
+     * @return the response generated required by Duke.
+     */
+    public String getResponse(String input) {
+        Command command = new Parser().parseCommand(input);
+        CommandResult commandResult = executeCommand(command);
+        return commandResult.feedbackToUser;
+    }
+
+
 }
 
