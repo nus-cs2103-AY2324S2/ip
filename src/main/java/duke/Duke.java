@@ -5,9 +5,7 @@ import java.io.InputStreamReader;
 
 import java.util.ArrayList;
 
-/**
- * Duke is a task management system that allows users to manage their tasks through a command-line interface.
- */
+/** Duke is a task management system that allows users to manage their tasks through a command-line interface */
 public class Duke {
     /**
      * Entry point of the Duke application.

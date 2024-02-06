@@ -2,22 +2,16 @@ package duke;
 
 import java.util.ArrayList;
 
-/**
- * Handles user interface interactions such as printing messages.
- */
+/** Handles user interface interactions such as printing messages */
 public class Ui {
-  /**
-   * Prints a welcome message.
-   */
+  /** Prints a welcome message */
   public static void printWelcomeMessage() {
     System.out.println("    ____________________________________________________________");
     System.out.println("    Hello! I'm Yappy\n    What can I do for you?");
     System.out.println("    ____________________________________________________________");
   }
 
-  /**
-   * Prints a goodbye message.
-   */
+  /** Prints a goodbye message */
   public static void printGoodbyeMessage() {
     System.out.println("    ____________________________________________________________");
     System.out.println("    Bye. Hope to see you again soon!");

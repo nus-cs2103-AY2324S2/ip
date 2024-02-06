@@ -5,9 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 
-/**
- * Represents a list of tasks and provides methods to manipulate the tasks.
- */
+/** Represents a list of tasks and provides methods to manipulate the tasks */
 public class TaskList {
   /**
    * Marks a task as done or undone based on the provided token.

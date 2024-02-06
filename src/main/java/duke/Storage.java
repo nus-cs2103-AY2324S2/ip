@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Handles the storage of tasks to and from duke.txt.
- */
+/** Handles the storage of tasks to and from duke.txt */
 public class Storage {
   private static final String FILE_PATH = "./data/duke.txt";
 

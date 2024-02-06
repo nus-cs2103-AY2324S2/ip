@@ -1,8 +1,6 @@
 package duke;
 
-/**
- * Represents a task in the task list.
- */
+/** Represents a task in the task list */
 public class Task {
   protected String description;
   protected boolean isDone;
@@ -26,16 +24,12 @@ public class Task {
     return (isDone ? "X" : " ");
   }
 
-  /**
-   * Marks the task as done ("X").
-   */
+  /** Marks the task as done ("X") */
   public void markAsDone() {
     this.isDone = true;
   }
 
-  /**
-   * Marks the task as undone (" ").
-   */
+  /** Marks the task as undone (" ") */
   public void markAsUndone() {
     this.isDone = false;
   }

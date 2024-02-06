@@ -1,8 +1,6 @@
 package duke;
 
-/**
- * Represents an exception specific to the Duke application.
- */
+/** Represents an exception specific to the Duke application */
 public class DukeException extends Exception {
   /**
    * Constructs a DukeException with the specified error message.
