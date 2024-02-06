@@ -1,9 +1,11 @@
 import java.io.File;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 public class HughJazz {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -75,11 +77,23 @@ public class HughJazz {
                 newTask = new Todo(taskDetails, false);
             } else if (taskType.equals("deadline")) {
                 String[] details = taskDetails.split(" /by ", 2);
-                newTask = new Deadline(details[0], false, details[1]);
+                try {
+                    newTask = new Deadline(details[0], false, details[1]);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please use the format dd/MM/yyyy HHmm for dates.");
+                    System.out.println("Try again:");
+                    return;
+                }
             } else if (taskType.equals("event")) {
                 String[] details = taskDetails.split(" /from ", 2);
                 String[] times = details[1].split(" /to ", 2);
-                newTask = new Event(details[0], false, times[0], times[1]);
+                try {
+                    newTask = new Event(details[0], false, times[0], times[1]);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please use the format dd/MM/yyyy HHmm for dates.");
+                    System.out.println("Try again:");
+                    return;
+                }
             } else {
                 // Handle invalid task type
                 System.out.println("Invalid task type");

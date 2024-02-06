@@ -1,21 +1,38 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, Boolean isDone,String from, String to) {
+    public Event(String description, Boolean isDone,String from, String to) throws DateTimeParseException{
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            System.err.println("Failed to parse the date/time: " + from);
+            throw e;
+        }
+        try {
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            System.err.println("Failed to parse the date/time: " + to);
+            throw e;
+        }
     }
 
     @Override
     public String toFileFormat() {
-        return "E | " +  this.isDone + " | " + this.description  + " | " + this.from + "-" + this.to;
+        return "E | " +  this.isDone + " | " + this.description  + " | " + this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + "-" + this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma")) + ")";
     }
 }
