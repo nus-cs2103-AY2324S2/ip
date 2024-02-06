@@ -15,6 +15,9 @@ import podz.task.Deadline;
 import podz.task.Event;
 import podz.task.Todo;
 
+/**
+ * Represents the parser of the user's input.
+ */
 public class Parser {
     public enum Commands {
         LIST,
@@ -27,6 +30,12 @@ public class Parser {
         BYE,
         UNKNOWN;
 
+        /**
+         * Returns the enum value corresponding to command input or a default value.
+         * 
+         * @param command the string to be converted into an enum value
+         * @return the enum value representing the string
+         */
         public static Commands valueOfOrElse(String command) {
             try {
                 return Commands.valueOf(command);
@@ -36,6 +45,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the <code>Command</code> based on the user's input.
+     * 
+     * @param userInput the input of the user
+     * @return the <code>Command</code> based on specified input
+     */
     public Command parseCommand(String userInput) {
         String inputs[] = userInput.split(" ", 2);
         String command = inputs[0];

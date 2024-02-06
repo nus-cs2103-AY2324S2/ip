@@ -1,12 +1,23 @@
 package podz.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task in the task manager.
+ */
 public class Event extends Task {
 
     protected String from, to, formattedFrom, formattedTo;
 
+    /**
+     * Constructs an Event object with the specified description, start date and end date.
+     * 
+     * @param description the description of the event
+     * @param from the start date and time of the event
+     * @param to the end date and time of the event
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -19,6 +30,12 @@ public class Event extends Task {
         this.formattedTo = formatDT(toDT);
     }
 
+    /**
+     * Formats the date and time into a specific format.
+     * 
+     * @param dateAndTime the array containing date and time information
+     * @return the formatted date and time string
+     */
     private String formatDT(String[] dateAndTime) {
         String formattedString;
         if (dateAndTime.length >= 2) {
@@ -38,11 +55,21 @@ public class Event extends Task {
         return formattedString;
     }
 
+    /**
+     * Returns the saved format of the event task.
+     * 
+     * @return the saved format of the event task
+     */
     @Override
     public String savedFormat() {
         return "E " + "|" + super.savedFormat() + " | " + this.from + " | " + this.to;
     }
 
+    /**
+     * Returns a string representation of the event task.
+     * 
+     * @return a string representing the event task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.formattedFrom + " to: " +  this.formattedTo + ")";

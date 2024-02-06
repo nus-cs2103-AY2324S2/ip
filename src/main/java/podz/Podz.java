@@ -7,6 +7,9 @@ import podz.storage.Storage;
 import podz.task.TaskList;
 import podz.ui.Ui;
 
+/**
+ * Represents the entry of a task management application.
+ */
 public class Podz {
     private Storage storage;
     private TaskList tasks;
@@ -20,11 +23,19 @@ public class Podz {
         parser = new Parser();
     }
 
+    /**
+     * The main method to start the Podz application.
+     * 
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         Podz podz = new Podz();
         podz.run();
     }
 
+    /**
+     * Runs the Podz application, allowing user to interact with the task manager.
+     */
     public void run() {
         ui.printGreeting();
 

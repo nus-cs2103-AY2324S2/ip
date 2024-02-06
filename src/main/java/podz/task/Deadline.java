@@ -1,12 +1,22 @@
 package podz.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task in the task manager.
+ */
 public class Deadline extends Task {
 
     protected String by, formattedBy, time;
 
+    /**
+     * Constructs a Deadline object with the specified description and deadline.
+     * 
+     * @param description the description of the deadline task
+     * @param by the deadline date and time
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -30,11 +40,21 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the saved format of the deadline task.
+     * 
+     * @return the saved format of the deadline task
+     */
     @Override
     public String savedFormat() {
         return "D " + "|" + super.savedFormat() + " | " + this.by;
     }
 
+    /**
+     * Returns a string representation of the deadline task.
+     * 
+     * @return a string representing the deadline task
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.formattedBy + ")";
