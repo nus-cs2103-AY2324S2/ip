@@ -17,9 +17,15 @@ public class Duke {
         if (dataFile.getDoesExist()) {
             try {
                 dataFile.loadFile(list);
-                for (int i = 0; i < list.size();i++) {
-                    System.out.println(list.get(i));
+                if (list.size()!= 0) {
+                    for (int i = 0; i < list.size();i++) {
+                        System.out.println(list.get(i));
+                    }
+                    System.out.println("Previous Chat log");
                 }
+
+                //System.out.println("____________________________________________________________");
+                System.out.println(message);
 
             } catch(FileNotFoundException e) {
                 System.out.println("File not found");
@@ -33,6 +39,7 @@ public class Duke {
             try {
                 String input = scanner.nextLine();
                 if (input.equals("bye")) {
+
                     break;
                 } else if(input.equals("list")) {
                     if (list.isEmpty()) {
@@ -168,6 +175,7 @@ public class Duke {
 
         }
         System.out.println(end);
+
 
 
     }
