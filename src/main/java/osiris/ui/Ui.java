@@ -9,38 +9,38 @@ public class Ui {
 
     /**
      * Outputs introduction messages to the user.
+     *
+     * @return The introduction messages as a single string.
      */
-    public void displayIntroductions() {
-        this.printSeparator();
-        for (String line : UiOutputs.NAME_ASCII_ART) {
-            System.out.println(line);
-        }
-        this.printSeparator();
-        System.out.println(UiOutputs.INTRODUCTIONS);
-        this.printSeparator();
+    public String displayIntroductions() {
+        return "Hello, I'm Osiris.\nHow may I assist you today?";
     }
 
     /**
      * Prompts the user with the Osiris message prompt.
+     *
+     * @return The Osiris message prompt as a single string.
      */
-    public void displayOsirisPromptMessage() {
-        System.out.print(UiOutputs.MESSAGE_OSIRIS_PROMPT);
+    public String displayOsirisPromptMessage() {
+        return UiOutputs.MESSAGE_OSIRIS_PROMPT;
     }
 
     /**
      * Outputs a message for unsupported commands.
+     *
+     * @return The message for unsupported commands as a single string.
      */
-    public void displayUnsupportedCommandMessage() {
-        System.out.println(UiOutputs.UNSUPPORTED_COMMAND_OUTPUT);
+    public String displayUnsupportedCommandMessage() {
+        return UiOutputs.UNSUPPORTED_COMMAND_OUTPUT;
     }
 
     /**
      * Outputs goodbye messages to the user.
+     *
+     * @return The goodbye messages as a single string.
      */
-    public void displayGoodbyes() {
-        this.printSeparator();
-        System.out.println(UiOutputs.GOODBYES);
-        this.printSeparator();
+    public String displayGoodbyes() {
+        return UiOutputs.GOODBYES;
     }
 
     /**
@@ -48,13 +48,13 @@ public class Ui {
      *
      * @param taskDetails The details of the added task.
      * @param taskCount   The total count of tasks.
+     * @return The success notification for adding a to-do task as a single string.
      */
-    public void displayToDoTaskAdditionNotification(String taskDetails, int taskCount) {
-        this.printSeparator();
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("        " + taskDetails);
-        System.out.printf("     Now you have %d tasks in the list.%n", taskCount);
-        this.printSeparator();
+    public String displayToDoTaskAdditionNotification(String taskDetails, int taskCount) {
+        String confirmationMessage = String.format("Got it. I've added this task:%n");
+        confirmationMessage += String.format("    %s%n", taskDetails);
+        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        return confirmationMessage;
     }
 
     /**
@@ -62,13 +62,13 @@ public class Ui {
      *
      * @param taskDetails The details of the added task.
      * @param taskCount   The total count of tasks.
+     * @return The success notification for adding a deadline task as a single string.
      */
-    public void displayDeadlineTaskAdditionNotification(String taskDetails, int taskCount) {
-        this.printSeparator();
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("        " + taskDetails);
-        System.out.printf("     Now you have %d tasks in the list.%n", taskCount);
-        this.printSeparator();
+    public String displayDeadlineTaskAdditionNotification(String taskDetails, int taskCount) {
+        String confirmationMessage = String.format("Got it. I've added this task:%n");
+        confirmationMessage += String.format("    %s%n", taskDetails);
+        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        return confirmationMessage;
     }
 
     /**
@@ -76,13 +76,13 @@ public class Ui {
      *
      * @param taskDetails The details of the added task.
      * @param taskCount   The total count of tasks.
+     * @return The success notification for adding an event task as a single string.
      */
-    public void displayEventTaskAdditionNotification(String taskDetails, int taskCount) {
-        this.printSeparator();
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("        " + taskDetails);
-        System.out.printf("     Now you have %d tasks in the list.%n", taskCount);
-        this.printSeparator();
+    public String displayEventTaskAdditionNotification(String taskDetails, int taskCount) {
+        String confirmationMessage = String.format("Got it. I've added this task:%n");
+        confirmationMessage += String.format("    %s%n", taskDetails);
+        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        return confirmationMessage;
     }
 
 
@@ -90,12 +90,11 @@ public class Ui {
      * Displays a success notification for marking a task as completed.
      *
      * @param taskDetails The details of the completed task.
+     * @return The success notification for marking a task as completed as a single string.
      */
-    public void displayMarkTaskCompleteNotification(String taskDetails) {
-        this.printSeparator();
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("        " + taskDetails);
-        this.printSeparator();
+    public String displayMarkTaskCompleteNotification(String taskDetails) {
+        return String.format("Nice! I've marked this task as done:%n    %s", taskDetails);
+
     }
 
 
@@ -103,12 +102,10 @@ public class Ui {
      * Displays a success notification for marking a task as incomplete.
      *
      * @param taskDetails The details of the incomplete task.
+     * @return The success notification for marking a task as incomplete as a single string.
      */
-    public void displayMarkTaskIncompleteNotification(String taskDetails) {
-        this.printSeparator();
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("        " + taskDetails);
-        this.printSeparator();
+    public String displayMarkTaskIncompleteNotification(String taskDetails) {
+        return String.format("OK, I've marked this task as not done yet:%n    %s", taskDetails);
     }
 
     /**
@@ -116,13 +113,13 @@ public class Ui {
      *
      * @param taskDetails The details of the removed task.
      * @param taskCount   The total count of tasks.
+     * @return The success notification for removing a task as a single string.
      */
-    public void displayDeleteTaskNotification(String taskDetails, int taskCount) {
-        this.printSeparator();
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("        " + taskDetails);
-        System.out.printf("     Now you have %d tasks in the list.%n", taskCount);
-        this.printSeparator();
+    public String displayDeleteTaskNotification(String taskDetails, int taskCount) {
+        String confirmationMessage = "Noted. I've removed this task:\n";
+        confirmationMessage += "    " + taskDetails + "\n";
+        confirmationMessage += String.format("Now you have %d tasks in the list.%n", taskCount);
+        return confirmationMessage;
     }
 
 
@@ -130,28 +127,28 @@ public class Ui {
      * Prints the list of user tasks.
      *
      * @param taskDetailsList The list containing details of user tasks.
+     * @return The list of user tasks as a single string.
      */
-    public void printUserTasks(ArrayList<String> taskDetailsList) {
-        this.printSeparator();
-        System.out.println("     Here are the tasks in your list:");
+    public String printUserTasks(ArrayList<String> taskDetailsList) {
+        StringBuilder taskList = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < taskDetailsList.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + taskDetailsList.get(i));
+            taskList.append("    ").append(i + 1).append(". ").append(taskDetailsList.get(i)).append("\n");
         }
-        this.printSeparator();
+        return taskList.toString();
     }
 
     /**
      * Prints the details of the found tasks to the user interface.
      *
      * @param taskDetailsList The list of task details to be printed.
+     * @return The details of the found tasks as a single string.
      */
-    public void printFoundUserTasks(ArrayList<String> taskDetailsList) {
-        this.printSeparator();
-        System.out.println("     Here are the matching tasks in your list:");
+    public String printFoundUserTasks(ArrayList<String> taskDetailsList) {
+        StringBuilder matchingTasks = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < taskDetailsList.size(); i++) {
-            System.out.println("     " + (i + 1) + ". " + taskDetailsList.get(i));
+            matchingTasks.append("    ").append(i + 1).append(". ").append(taskDetailsList.get(i)).append("\n");
         }
-        this.printSeparator();
+        return matchingTasks.toString();
     }
 
     /**

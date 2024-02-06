@@ -1,12 +1,14 @@
 package osiris.formatters;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
+
+import osiris.exceptions.OsirisException;
 
 /**
  * Unit tests for the DateTimeFormatters class.
@@ -14,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class DateTimeFormattersTest {
 
     /**
-     * Test case to validate the formatting of user input date strings into LocalDate objects.
+     * Tests to validate the formatting of user input date strings into LocalDate objects.
      */
     @Test
     public void formatUserInputDate_validInput_localDateReturned() {
@@ -23,16 +25,20 @@ public class DateTimeFormattersTest {
     }
 
     /**
-     * Test case to validate handling of invalid user input date strings, expecting a null result.
+     * Tests to validate handling of invalid user input date strings, expecting an exception.
      */
     @Test
-    public void formatUserInputDate_invalidInput_nullReturned() {
-        LocalDate date = DateTimeFormatters.getInstance().formatUserInputDate("invalid");
-        assertNull(date);
+    public void formatUserInputDate_invalidInput_throwException() {
+        try {
+            LocalDate date = DateTimeFormatters.getInstance().formatUserInputDate("invalid");
+        } catch (OsirisException e) {
+            assertEquals("Failed to parse the date-time string: invalid"
+                    + "\nPlease try /by dd-mm-yyyy for a deadline tasks.", e.getMessage());
+        }
     }
 
     /**
-     * Test case to validate the formatting of user input date-time strings into LocalDateTime objects.
+     * Tests to validate the formatting of user input date-time strings into LocalDateTime objects.
      */
     @Test
     public void formatUserInputDateTime_validInput_localDateTimeReturned() {
@@ -41,16 +47,20 @@ public class DateTimeFormattersTest {
     }
 
     /**
-     * Test case to validate handling of invalid user input date-time strings, expecting a null result.
+     * Tests to validate handling of invalid user input date-time strings, expecting an exception.
      */
     @Test
-    public void formatUserInputDateTime_invalidInput_nullReturned() {
-        LocalDateTime dateTime = DateTimeFormatters.getInstance().formatUserInputDateTime("invalid");
-        assertNull(dateTime);
+    public void formatUserInputDateTime_invalidInput_throwException() {
+        try {
+            LocalDateTime dateTime = DateTimeFormatters.getInstance().formatUserInputDateTime("invalid");
+        } catch (OsirisException e) {
+            assertEquals("Failed to parse the date-time string: invalid"
+                    + "\nPlease provide date time range 'dd-MM-yyyy HHmm' format.", e.getMessage());
+        }
     }
 
     /**
-     * Test case to validate the formatting of user input date-time range strings.
+     * Tests to validate the formatting of user input date-time range strings.
      */
     @Test
     public void formatUserInputDateTimeRange_validInput_localDateTimeArrReturned() {
@@ -60,16 +70,21 @@ public class DateTimeFormattersTest {
     }
 
     /**
-     * Test case to validate handling of invalid user input date-time range strings, expecting a null result.
+     * Tests to validate handling of invalid user input date-time range strings, expecting an exception.
      */
     @Test
-    public void formatUserInputDateTimeRange_invalidInput_nullReturned() {
-        LocalDateTime[] dateTime = DateTimeFormatters.getInstance().formatUserInputDateTimeRange("invalid", "invalid");
-        assertNull(dateTime);
+    public void formatUserInputDateTimeRange_invalidInput_throwException() {
+        try {
+            LocalDateTime[] dateTime = DateTimeFormatters.getInstance()
+                    .formatUserInputDateTimeRange("invalid", "invalid");
+        } catch (OsirisException e) {
+            assertEquals("Failed to parse the date time range."
+                    + "\nPlease provide date time range 'dd-MM-yyyy HHmm' format.", e.getMessage());
+        }
     }
 
     /**
-     * Test case to validate the formatting of stored date strings into LocalDate objects.
+     * Tests to validate the formatting of stored date strings into LocalDate objects.
      */
     @Test
     public void formatStoredDate_validInput_localDateReturned() {
@@ -78,16 +93,20 @@ public class DateTimeFormattersTest {
     }
 
     /**
-     * Test case to validate handling of invalid stored date strings, expecting a null result.
+     * Tests to validate handling of invalid stored date strings, expecting an exception.
      */
     @Test
-    public void formatStoredDate_invalidInput_nullReturned() {
-        LocalDate date = DateTimeFormatters.getInstance().formatStoredDate("invalid");
-        assertNull(date);
+    public void formatStoredDate_invalidInput_throwException() {
+        try {
+            LocalDate date = DateTimeFormatters.getInstance().formatStoredDate("invalid");
+        } catch (OsirisException e) {
+            assertEquals("Unable to parse Date Times stored. "
+                    + "Storage File may have been corrupted.", e.getMessage());
+        }
     }
 
     /**
-     * Test case to validate the formatting of stored date-time strings into LocalDateTime objects.
+     * Tests to validate the formatting of stored date-time strings into LocalDateTime objects.
      */
     @Test
     public void formatStoredDateTime_validInput_localDateTimeReturned() {
@@ -97,16 +116,20 @@ public class DateTimeFormattersTest {
     }
 
     /**
-     * Test case to validate handling of invalid stored date-time strings, expecting a null result.
+     * Tests to validate handling of invalid stored date-time strings, expecting an exception.
      */
     @Test
-    public void formatStoredDateTime_invalidInput_nullReturned() {
-        LocalDateTime dateTime = DateTimeFormatters.getInstance().formatStoredDateTime("invalid");
-        assertNull(dateTime);
+    public void formatStoredDateTime_invalidInput_throwException() {
+        try {
+            LocalDateTime dateTime = DateTimeFormatters.getInstance().formatStoredDateTime("invalid");
+        } catch (OsirisException e) {
+            assertEquals("Unable to parse Date Times stored. "
+                    + "Storage File may have been corrupted.", e.getMessage());
+        }
     }
 
     /**
-     * Test case to validate the formatting of stored date-time range strings into an array of LocalDateTime objects.
+     * Tests to validate the formatting of stored date-time range strings into an array of LocalDateTime objects.
      */
     @Test
     public void formatStoredDateTimeRange_validInput_localDateTimeReturned() {
@@ -116,11 +139,16 @@ public class DateTimeFormattersTest {
     }
 
     /**
-     * Test case to validate handling of invalid stored date-time range strings, expecting a null result.
+     * Tests to validate handling of invalid stored date-time range strings, expecting an exception.
      */
     @Test
     public void formatStoredDateTimeRange_invalidInput_nullReturned() {
-        LocalDateTime[] dateTime = DateTimeFormatters.getInstance().formatStoredDateTimeRange("invalid", "invalid");
-        assertNull(dateTime);
+        try {
+            LocalDateTime[] dateTime = DateTimeFormatters.getInstance()
+                    .formatStoredDateTimeRange("invalid", "invalid");
+        } catch (OsirisException e) {
+            assertEquals("Unable to parse Date Times stored. "
+                    + "Storage File may have been corrupted.", e.getMessage());
+        }
     }
 }

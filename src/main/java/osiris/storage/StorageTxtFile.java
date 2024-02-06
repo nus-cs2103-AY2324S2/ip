@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import osiris.exceptions.OsirisStorageFileException;
+
 /**
  * Manages storage in a text file format.
  */
@@ -23,6 +25,8 @@ public class StorageTxtFile extends Storage {
 
     /**
      * Initializes the text file storage.
+     *
+     * @throws OsirisStorageFileException If error creating new Txt file for storage.
      */
     public void initialiseStorageTxtFile() {
         try {
@@ -38,6 +42,7 @@ public class StorageTxtFile extends Storage {
             }
         } catch (IOException e) {
             System.out.println("Error: Unable to create new Txt file for Task storage.");
+            throw new OsirisStorageFileException("Error: Unable to create new Txt file for Task storage.");
         }
     }
 
@@ -45,6 +50,7 @@ public class StorageTxtFile extends Storage {
      * Reads the contents of the text file storage.
      *
      * @return The contents of the text file storage as an ArrayList of strings.
+     * @throws OsirisStorageFileException If error reading the Txt storage file.
      */
     public ArrayList<String> readStorageTxtFile() {
 
@@ -60,18 +66,19 @@ public class StorageTxtFile extends Storage {
             return readContents;
         } catch (FileNotFoundException e) {
             System.out.println("Error: Unable to locate filepath " + this.getFilepath());
+            throw new OsirisStorageFileException("Error: Unable to locate filepath " + this.getFilepath());
         } finally {
             if (scanner != null) {
                 scanner.close();
             }
         }
-        return readContents;
     }
 
     /**
      * Appends content to the text file storage.
      *
      * @param content The content to append to the text file storage.
+     * @throws OsirisStorageFileException If error appending task to the Txt storage file.
      */
     public void appendToStorageTxtFile(String content) {
         try {
@@ -80,11 +87,14 @@ public class StorageTxtFile extends Storage {
             fw.close();
         } catch (IOException e) {
             System.out.println("Error: Unable to update Task Storage File. Trouble appending.");
+            throw new OsirisStorageFileException("Error: Unable to update Task Storage File. Trouble appending.");
         }
     }
 
     /**
      * Clears the contents of the text file storage.
+     *
+     * @throws OsirisStorageFileException If error clearing data on the Txt storage file.
      */
     public void clearStorageTxtFile() {
         try {
@@ -92,8 +102,9 @@ public class StorageTxtFile extends Storage {
             fw.close();
         } catch (IOException e) {
             System.out.println("Error: Unable to update Task Storage File. Trouble clearing contents.");
+            throw new OsirisStorageFileException("Error: Unable to update Task Storage File. "
+                    + "Trouble clearing contents.");
         }
     }
-
 
 }

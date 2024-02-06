@@ -34,7 +34,7 @@ public abstract class Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String notification if the command is executed successfully.
      */
-    public abstract boolean execute(TaskManager taskManager, Ui userInterface);
+    public abstract String execute(TaskManager taskManager, Ui userInterface);
 }

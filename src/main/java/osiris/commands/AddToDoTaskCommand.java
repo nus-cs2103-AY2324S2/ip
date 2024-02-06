@@ -1,5 +1,6 @@
 package osiris.commands;
 
+import osiris.exceptions.OsirisException;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
@@ -28,15 +29,16 @@ public class AddToDoTaskCommand extends Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return true if the command is executed successfully, false otherwise.
+     * @return String notification if the command is executed successfully.
+     * @throws OsirisException If an error occurs that has not been detected.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
+    public String execute(TaskManager taskManager, Ui userInterface) {
         boolean isSuccess = taskManager.addToDoTask(taskName, false);
         if (isSuccess) {
-            userInterface.displayToDoTaskAdditionNotification(taskManager.getTask(
+            return userInterface.displayToDoTaskAdditionNotification(taskManager.getTask(
                     taskManager.getTotalTaskCount() - 1).toString(), taskManager.getTotalTaskCount());
         }
-        return true;
+        throw new OsirisException("An error has occurred. Please try again.");
     }
 }

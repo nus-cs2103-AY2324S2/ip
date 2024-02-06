@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import osiris.exceptions.*;
+
 /**
  * A singleton class for date and time formatters used in the application.
  */
@@ -33,6 +35,7 @@ public class DateTimeFormatters {
      *
      * @param dateStr The date string provided by the user.
      * @return The LocalDate object parsed from the string.
+     * @throws OsirisParseDateException If the date string cannot be parsed.
      */
     public LocalDate formatUserInputDate(String dateStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -42,7 +45,7 @@ public class DateTimeFormatters {
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: " + dateStr);
             System.out.println("Please try /by dd-mm-yyyy for a deadline tasks.");
-            return null;
+            throw new OsirisParseDateException(dateStr);
         }
     }
 
@@ -51,6 +54,7 @@ public class DateTimeFormatters {
      *
      * @param dateTimeStr The date and time string provided by the user.
      * @return The LocalDateTime object parsed from the string.
+     * @throws OsirisDateTimeException If the date and time string cannot be parsed.
      */
     public LocalDateTime formatUserInputDateTime(String dateTimeStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -60,7 +64,7 @@ public class DateTimeFormatters {
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: " + dateTimeStr);
             System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
-            return null;
+            throw new OsirisParseDateTimeException(dateTimeStr);
         }
     }
 
@@ -68,8 +72,9 @@ public class DateTimeFormatters {
      * Formats the user input strings to an array of LocalDateTime objects representing a range.
      *
      * @param fromDateTimeStr The starting date and time string.
-     * @param toDateTimeStr       The ending date and time string.
+     * @param toDateTimeStr The ending date and time string.
      * @return An array of LocalDateTime objects representing the date time range.
+     * @throws OsirisParseDateTimeRangeException If the date time range cannot be parsed.
      */
     public LocalDateTime[] formatUserInputDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -82,7 +87,7 @@ public class DateTimeFormatters {
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date time range.");
             System.out.println("Please provide date time range in 'dd-MM-yyyy HHmm' format.");
-            return null;
+            throw new OsirisParseDateTimeRangeException();
         }
     }
 
@@ -91,6 +96,7 @@ public class DateTimeFormatters {
      *
      * @param dateStr The stored date string.
      * @return The LocalDate object parsed from the string.
+     * @throws OsirisParseStoredDateTimeException If the stored date string cannot be parsed.
      */
     public LocalDate formatStoredDate(String dateStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
@@ -99,7 +105,7 @@ public class DateTimeFormatters {
             return LocalDate.parse(dateStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: '" + dateStr);
-            return null;
+            throw new OsirisParseStoredDateTimeException();
         }
     }
 
@@ -108,6 +114,7 @@ public class DateTimeFormatters {
      *
      * @param dateTimeStr The stored date and time string.
      * @return The LocalDateTime object parsed from the string.
+     * @throws OsirisParseStoredDateTimeException If the stored date and time string cannot be parsed.
      */
     public LocalDateTime formatStoredDateTime(String dateTimeStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
@@ -116,7 +123,7 @@ public class DateTimeFormatters {
             return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: '" + dateTimeStr);
-            return null;
+            throw new OsirisParseStoredDateTimeException();
         }
     }
 
@@ -124,8 +131,9 @@ public class DateTimeFormatters {
      * Formats the stored date time range strings to an array of LocalDateTime objects.
      *
      * @param fromDateTimeStr The starting date and time string.
-     * @param toDateTimeStr       The ending date and time string.
+     * @param toDateTimeStr The ending date and time string.
      * @return An array of LocalDateTime objects representing the date time range.
+     * @throws OsirisParseStoredDateTimeException If the stored date time range strings cannot be parsed.
      */
     public LocalDateTime[] formatStoredDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
@@ -137,8 +145,7 @@ public class DateTimeFormatters {
             return new LocalDateTime[]{startDateTime, endDateTime};
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date time range: " + fromDateTimeStr + " OR " + toDateTimeStr);
-            return null;
+            throw new OsirisParseStoredDateTimeException();
         }
     }
-
 }

@@ -1,9 +1,11 @@
 package osiris.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import osiris.exceptions.OsirisInvalidInputException;
 
 /**
  * Unit tests for InputsValidator class.
@@ -22,10 +24,13 @@ public class InputsValidatorTest {
      * Tests invalid inputs for marking a task as complete.
      */
     @Test
-    public void isMarkTaskCompleteInputValid_invalidInputs_falseReturned() {
-        assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark "));
-        assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1.5"));
-        assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark a"));
+    public void isMarkTaskCompleteInputValid_invalidInputs_throwException() {
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark "); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1.5"); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark a"); });
     }
 
     /**
@@ -40,10 +45,13 @@ public class InputsValidatorTest {
      * Tests the validity of input for marking a task as incomplete.
      */
     @Test
-    public void isMarkTaskIncompleteInputValid_invalidInput_falseReturned() {
-        assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark "));
-        assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1.5"));
-        assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark a"));
+    public void isMarkTaskIncompleteInputValid_invalidInput_throwException() {
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark "); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1.5"); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark a"); });
     }
 
     /**
@@ -58,10 +66,13 @@ public class InputsValidatorTest {
      * Tests invalid input for deleting a task.
      */
     @Test
-    public void isDeleteTaskInputValid_invalidInput_falseReturned() {
-        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete "));
-        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete 1.5"));
-        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete a"));
+    public void isDeleteTaskInputValid_invalidInput_throwException() {
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isDeleteTaskInputValid("delete "); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isDeleteTaskInputValid("delete 1.5"); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isDeleteTaskInputValid("delete a"); });
     }
 
     /**
@@ -78,9 +89,11 @@ public class InputsValidatorTest {
      * Tests invalid input for adding a ToDo task.
      */
     @Test
-    public void isAddToDoTaskInputValid_invalidInput_falseReturned() {
-        assertFalse(InputsValidator.getInstance().isAddToDoTaskInputValid("todo"));
-        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("todo "));
+    public void isAddToDoTaskInputValid_invalidInput_throwException() {
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isAddToDoTaskInputValid("todo"); });
+        assertThrows(OsirisInvalidInputException.class, ()-> {
+            InputsValidator.getInstance().isDeleteTaskInputValid("todo "); });
     }
 
     /**
@@ -97,18 +110,40 @@ public class InputsValidatorTest {
      * Tests invalid input for adding a deadline task.
      */
     @Test
-    public void isAddDeadlineTaskInputValid_invalidInput_falseReturned() {
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01/01/2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline /by 01-01-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 2024-01-01"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 32-01-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-13-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 1-01-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-1-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 1-1-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task 01-01-2024"));
-        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task by 01-01-2024"));
+    public void isAddDeadlineTaskInputValid_invalidInput_throwException() {
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01/01/2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline /by 01-01-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 2024-01-01");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 32-01-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-13-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 1-01-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-1-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 1-1-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task 01-01-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task by 01-01-2024");
+        });
     }
 
     /**
@@ -126,20 +161,34 @@ public class InputsValidatorTest {
      * Tests invalid input for adding an event task.
      */
     @Test
-    public void isAddEventTaskInputValid_invalidInput_falseReturned() {
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event /from 01-01-2024 1200 /to 01-01-2024 1300"));
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event School Meeting from 01-01-2024 1200 to 01-01-2024 1300"));
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 /to 01-01-2024"));
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 1300 /to 01-01-2024 1200"));
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event School Meeting 01-01-2024 1200 01-01-2024 1300"));
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event School Meeting /from 32-01-2024 1200 /to 33-01-2024 1300"));
-        assertFalse(InputsValidator.getInstance()
-                .isAddEventTaskInputValid("event School Meeting /from 01-13-2024 1200 /to 01-13-2024 1300"));
+    public void isAddEventTaskInputValid_invalidInput_throwException() {
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event /from 01-01-2024 1200 /to 01-01-2024 1300");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event School Meeting from 01-01-2024 1200 to 01-01-2024 1300");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 /to 01-01-2024");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 1300 /to 01-01-2024 1200");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event School Meeting 01-01-2024 1200 01-01-2024 1300");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event School Meeting /from 32-01-2024 1200 /to 33-01-2024 1300");
+        });
+        assertThrows(OsirisInvalidInputException.class, () -> {
+            InputsValidator.getInstance()
+                    .isAddEventTaskInputValid("event School Meeting /from 01-13-2024 1200 /to 01-13-2024 1300");
+        });
     }
 }

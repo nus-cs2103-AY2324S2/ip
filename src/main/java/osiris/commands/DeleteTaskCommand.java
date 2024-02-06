@@ -1,5 +1,6 @@
 package osiris.commands;
 
+import osiris.exceptions.OsirisException;
 import osiris.task.Task;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
@@ -29,14 +30,15 @@ public class DeleteTaskCommand extends Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return Always returns true.
+     * @return String notification if the command is executed successfully.
+     * @throws OsirisException If an error occurs that has not been detected.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
+    public String execute(TaskManager taskManager, Ui userInterface) {
         Task deletedTask = taskManager.deleteTask(taskIndex - 1);
         if (deletedTask != null) {
-            userInterface.displayDeleteTaskNotification(deletedTask.toString(), taskManager.getTotalTaskCount());
+            return userInterface.displayDeleteTaskNotification(deletedTask.toString(), taskManager.getTotalTaskCount());
         }
-        return true;
+        throw new OsirisException("An error has occurred. Please try again.");
     }
 }

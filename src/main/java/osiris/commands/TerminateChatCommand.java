@@ -25,11 +25,11 @@ public class TerminateChatCommand extends Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return Always returns true.
+     * @return String saying goodbye.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
+    public String execute(TaskManager taskManager, Ui userInterface) {
         taskManager.terminate();
-        return true;
+        return userInterface.displayGoodbyes();
     }
 }

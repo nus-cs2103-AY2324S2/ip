@@ -20,14 +20,13 @@ public class PrintUserTasksCommand extends Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return Always returns true.
+     * @return String notification if the command is executed successfully.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
+    public String execute(TaskManager taskManager, Ui userInterface) {
         ArrayList<Task> taskList = taskManager.getUserTasks();
         ArrayList<String> taskDetailsArrayList = taskList.stream().map(Task::toString)
                 .collect(Collectors.toCollection(ArrayList::new));
-        userInterface.printUserTasks(taskDetailsArrayList);
-        return true;
+        return userInterface.printUserTasks(taskDetailsArrayList);
     }
 }

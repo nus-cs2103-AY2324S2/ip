@@ -1,8 +1,11 @@
 package osiris;
 
-import java.util.Scanner;
-
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import osiris.commands.Command;
+import osiris.exceptions.OsirisException;
+import osiris.exceptions.OsirisStorageFileException;
 import osiris.interpreters.UserInputInterpreter;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
@@ -20,27 +23,42 @@ public class Osiris {
     private final Ui userInterface = new Ui();
 
     /**
-     * Initiates the chat session with the user.
-     * Manages user input, interprets commands, and handles task management.
+     * Initiates the necessary dependencies & outputs introductions when done.
      */
-    public void startChat() {
-        Scanner scanner = new Scanner(System.in);
-        taskManager.initialise();
-
-        userInterface.displayIntroductions();
-
-        boolean isTerminate = false;
-
-        while (!isTerminate) {
-            userInterface.displayOsirisPromptMessage();
-            String userInput = scanner.nextLine();
-
-            Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
-            userCommand.execute(taskManager, userInterface);
-            isTerminate = userCommand.isTerminateChat();
+    public String startChat() {
+        try {
+            taskManager.initialise();
+            return userInterface.displayIntroductions();
+        } catch (OsirisStorageFileException e) {
+            return e.getMessage() + " Please restart system.";
+        } catch (OsirisException e) {
+            return e.getMessage() + " Please restart system.";
         }
-
-        userInterface.displayGoodbyes();
     }
 
+    /**
+     * Processes the user input.
+     *
+     * @param userInput The user input string.
+     * @return String to be outputted to the user.
+     */
+    public String processInput(String userInput) {
+        String response = "";
+        boolean isTerminate = false;
+        try {
+            Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
+            response = userCommand.execute(taskManager, userInterface);
+            isTerminate = userCommand.isTerminateChat();
+            if (isTerminate) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                delay.setOnFinished(event -> {
+                    Platform.exit();
+                });
+                delay.play();
+            }
+        } catch (OsirisException e) {
+            return e.getMessage();
+        }
+        return response;
+    }
 }
