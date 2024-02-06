@@ -71,8 +71,8 @@ public class Parser {
                 String description = String.join(" ", java.util.Arrays.copyOfRange(
                         splitInput, 1, splitInput.length));
                 if (description.isEmpty()) {
-                    throw new InvalidInputException("Invalid input! Proper usage is \n" +
-                            "todo {task description}\n");
+                    throw new InvalidInputException("Invalid input! Proper usage is \n"
+                            + "todo {task description}\n");
                 }
                 ToDo task = new ToDo(description);
                 return new AddTodoCommand(task);
@@ -122,9 +122,10 @@ public class Parser {
         }
         description = deadlineText.substring(0, indexToUse).trim();
         date = deadlineText.substring(indexToUse + lengthToSkip).trim();
-        String dateTime = validDateChecker(date);
+        String dateTime = checkValidDate(date);
         if (dateTime == null) {
-            throw new IncorrectDateError("Valid dates are of forms d/M/yyyy HHmm, yyyy-MM-dd HH:mm or dd MMM yyyy h:mm a\n");
+            throw new IncorrectDateError("Valid dates are of forms d/M/yyyy HHmm, yyyy-MM-dd HH:mm "
+                    + "or dd MMM yyyy h:mm a\n");
         }
         return new Deadline(description, dateTime);
     }
@@ -154,10 +155,11 @@ public class Parser {
         description = eventText.substring(0, fromIndexToUse).trim();
         startDate = eventText.substring(fromIndexToUse + fromLengthToSkip, toIndexToUse);
         endDate = eventText.substring(toIndexToUse + toLengthToSkip).trim();
-        String startDateTime = validDateChecker(startDate);
-        String endDateTime = validDateChecker(endDate);
+        String startDateTime = checkValidDate(startDate);
+        String endDateTime = checkValidDate(endDate);
         if (startDateTime == null || endDateTime == null) {
-            throw new IncorrectDateError("Valid dates are of forms d/M/yyyy HHmm, yyyy-MM-dd HH:mm or dd MMM yyyy h:mm a");
+            throw new IncorrectDateError("Valid dates are of forms d/M/yyyy HHmm, yyyy-MM-dd HH:mm "
+                    + "or dd MMM yyyy h:mm a");
         }
         return new Event(description, startDateTime, endDateTime);
     }
@@ -167,7 +169,7 @@ public class Parser {
      * @param date String of date to check validiity for
      * @throws IncorrectDateError if Date is invalid
      */
-    private static String validDateChecker(String date) throws IncorrectDateError {
+    private static String checkValidDate(String date) throws IncorrectDateError {
         DateTimeFormatter[] formatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
@@ -177,7 +179,8 @@ public class Parser {
             try {
                 return LocalDateTime.parse(date, formatter).format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
             } catch (DateTimeParseException e) {
-                throw new IncorrectDateError("Valid dates are of forms d/M/yyyy HHmm, yyyy-MM-dd HH:mm or dd MMM yyyy h:mm a");
+                throw new IncorrectDateError("Valid dates are of forms d/M/yyyy HHmm, yyyy-MM-dd HH:mm "
+                        + "or dd MMM yyyy h:mm a");
             }
         }
         return null;

@@ -22,8 +22,8 @@ public class Ui {
      * This method prints the welcome message on start up of chatBot
      */
     public void showWelcome() {
-        printer.print(LINE + "Paws what you're doing! I'm Blawg\n" +
-                "What can I do for you?\n" + LINE);
+        printer.print(LINE + "Paws what you're doing! I'm Blawg\n"
+                + "What can I do for you?\n" + LINE);
     }
 
     /**
@@ -44,7 +44,6 @@ public class Ui {
      * This method gets User Input from CLI
      */
     public String getUserInput() {
-
         return sc.nextLine();
     }
 
@@ -53,7 +52,6 @@ public class Ui {
      * @Param result This wil be what is printed based on the Processing of data
      */
     public void showResult(String result) {
-
         printer.print(result);
     }
 
@@ -62,7 +60,6 @@ public class Ui {
      * @Param result This will be the error printed
      */
     public void showError(String error) {
-
         printer.print(error);
     }
 }

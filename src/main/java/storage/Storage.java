@@ -27,7 +27,6 @@ public class Storage {
     private final String fileName;
 
     public Storage(String fileName) {
-
         this.fileName = fileName;
     }
 
@@ -45,7 +44,7 @@ public class Storage {
     public void write(ArrayList<Task> data) throws FileError {
         try {
             FileWriter writer = new FileWriter(fileName, false);
-            writer.write(taskListWriter(data) + "\n");
+            writer.write(convertArrayToStr(data) + "\n");
             writer.close();
         } catch (IOException e) {
             throw new FileError("Problem writing to file!");
@@ -66,20 +65,20 @@ public class Storage {
      * @throws FileAccessError if file is not at the expected location
      */
     public ArrayList<Task> read() throws FileError, FileAccessError {
-        ArrayList<String> content = new ArrayList<>();
+        ArrayList<String> contents = new ArrayList<>();
         try {
             File file = new File(fileName);
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
-                content.add(line);
+                contents.add(line);
             }
             reader.close();
         } catch (IOException e) {
             throw new FileError("Problem reading from file!");
         }
-        String[] data = content.toArray(new String[0]);
-        return taskListCreator(data);
+        String[] data = contents.toArray(new String[0]);
+        return convertStrToArray(data);
     }
 
     /**
@@ -88,24 +87,24 @@ public class Storage {
      * @param data of the form String[]
      * @return ArrayList
      */
-    private ArrayList<Task> taskListCreator(String[] data) throws FileAccessError {
+    private ArrayList<Task> convertStrToArray(String[] data) throws FileAccessError {
         ArrayList<Task> taskListArray = new ArrayList<>();
         for (String datum : data) {
             try {
                 String[] splitData = datum.split(" \\| ");
                 String type = splitData[0];
-                Boolean marked = Objects.equals(splitData[1], "1");
+                Boolean isMarked = Objects.equals(splitData[1], "1");
                 String description = splitData[2];
                 Task toAdd;
                 switch (type) {
                 case "T":
-                    toAdd = new ToDo(description, marked);
+                    toAdd = new ToDo(description, isMarked);
                     break;
                 case "D":
-                    toAdd = new Deadline(description, marked, splitData[3]);
+                    toAdd = new Deadline(description, isMarked, splitData[3]);
                     break;
                 case "E":
-                    toAdd = new Event(description, marked, splitData[3], splitData[4]);
+                    toAdd = new Event(description, isMarked, splitData[3], splitData[4]);
                     break;
                 default:
                     throw new FileAccessError("Error reading from data.txt");
@@ -124,10 +123,10 @@ public class Storage {
      * @param tasks of the form ArrayList
      * @return String
      */
-    private String taskListWriter(ArrayList<Task> tasks)  {
+    private String convertArrayToStr(ArrayList<Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            stringBuilder.append(tasks.get(i).prepareStore());
+            stringBuilder.append(tasks.get(i).prepareForStorage());
             if (i < tasks.size() - 1) {
                 stringBuilder.append("\n");
             }

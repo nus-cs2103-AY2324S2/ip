@@ -8,7 +8,7 @@ import ui.Ui;
  *  Handles any InvalidCommand that a user inputs. Error message
  *  will be displayed to the user on execute
  */
-public class InvalidCommand extends Command{
+public class InvalidCommand extends Command {
     public final String result;
 
     public InvalidCommand(String result) {

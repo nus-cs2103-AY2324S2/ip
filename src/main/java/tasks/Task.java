@@ -40,21 +40,16 @@ public class Task {
      * Converts the boolean isDone to a String for Storage
      * @return string "1" if done else "0"
      */
-    public String getStatusIconNum() {
+    public String getStatusIconAsNum() {
         return (this.isDone ? "1" : "0");
     }
 
-    public String getDescription() {
-
-        return this.description;
-    }
-
-    public void markDone() {
+    public void markAsDone() {
 
         this.isDone = true;
     }
 
-    public void unmarkDone() {
+    public void unmarkAsDone() {
 
         this.isDone = false;
     }
@@ -65,7 +60,7 @@ public class Task {
         return String.format("[%c][%s] %s", this.shortForm, getStatusIcon(), this.description);
     }
 
-    public String prepareStore() {
-        return String.format("%c | %s | %s", this.shortForm, getStatusIconNum(), this.description);
+    public String prepareForStorage() {
+        return String.format("%c | %s | %s", this.shortForm, getStatusIconAsNum(), this.description);
     }
 }

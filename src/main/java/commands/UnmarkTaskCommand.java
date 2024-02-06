@@ -17,9 +17,9 @@ public class UnmarkTaskCommand extends Command{
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
-        tasks.getTaskList().get(index - 1).unmarkDone();
-        String result = "OK, I've marked this task as not done yet:\n" +
-                tasks.getTaskList().get(index - 1);
+        tasks.getTaskList().get(index - 1).unmarkAsDone();
+        String result = "OK, I've marked this task as not done yet:\n"
+                + tasks.getTaskList().get(index - 1);
         ui.showResult(result);
         storage.write(tasks.getTaskList());
     }

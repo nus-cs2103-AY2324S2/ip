@@ -60,7 +60,7 @@ public class StorageTest {
         // Prepare the expected string representation of tasks
         StringBuilder expectedContent = new StringBuilder();
         for (Task task : tasks) {
-            expectedContent.append(task.prepareStore()).append("\n");
+            expectedContent.append(task.prepareForStorage()).append("\n");
         }
 
         // Assert that the file content matches the expected string

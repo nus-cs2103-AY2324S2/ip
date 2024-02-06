@@ -19,12 +19,11 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-
         return super.toString() + String.format(" (by: %s)\n", this.date);
     }
 
     @Override
-    public String prepareStore() {
-        return super.prepareStore() + String.format(" | %s", this.date);
+    public String prepareForStorage() {
+        return super.prepareForStorage() + String.format(" | %s", this.date);
     }
 }

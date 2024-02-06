@@ -7,7 +7,7 @@ import storage.Storage;
 /**
  *  Handles the displaying of the user's task list to the user in a readable manner
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();

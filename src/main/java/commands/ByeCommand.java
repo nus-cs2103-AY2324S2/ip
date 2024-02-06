@@ -10,10 +10,10 @@ import storage.Storage;
  *  Writes all data from the user's tasklist to a storage txt file
  *  and displays a goodbye message.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws FileError {
-        storage.write(taskList.getTaskList());
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileError {
+        storage.write(tasks.getTaskList());
         ui.showBye();
     }
 
