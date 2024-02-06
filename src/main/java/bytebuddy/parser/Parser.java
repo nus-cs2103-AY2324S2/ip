@@ -67,6 +67,8 @@ public class Parser {
      * @return A list of trimmed substrings.
      */
     public static List<String> splitStringWithTrim(String info, String separator, int maxTokens) {
+        assert info != null : "Input string must not be null";
+
         if (info.isEmpty()) {
             return Collections.emptyList();
         }

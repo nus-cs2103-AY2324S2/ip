@@ -92,17 +92,23 @@ public class Storage {
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNext()) {
                 String[] parts = scanner.nextLine().split(" \\| ");
+                assert parts.length >= 3 : "Invalid task format";
+
                 switch (parts[0]) {
                 case "T":
+                    assert parts.length == 3 : "Invalid Todo task format";
                     list.add(new Todo(parts[1], parts[2]));
                     break;
                 case "D":
+                    assert parts.length == 4 : "Invalid Deadline task format";
                     list.add(new Deadline(parts[1], parts[2], parts[3]));
                     break;
                 case "E":
+                    assert parts.length == 5 : "Invalid Event task format";
                     list.add(new Event(parts[1], parts[2], parts[3], parts[4]));
                     break;
                 default:
+                    assert false : "Unknown task type";
                     break;
                 }
             }
