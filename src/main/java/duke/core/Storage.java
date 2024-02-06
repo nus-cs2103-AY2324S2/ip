@@ -39,9 +39,9 @@ public class Storage {
                     break;
                 case "DEADLINE":
                     String deadlineDesc = s.nextLine();
-                    boolean deadlineisDone = parseSaveBoolean(s.nextLine());
+                    boolean deadlineIsDone = parseSaveBoolean(s.nextLine());
                     String[] dateTime = s.nextLine().split(";");
-                    taskList.add(new Deadline(deadlineDesc, deadlineisDone,
+                    taskList.add(new Deadline(deadlineDesc, deadlineIsDone,
                             LocalDate.parse(dateTime[0]),
                             dateTime.length == 1 ? null : LocalTime.parse(dateTime[1])));
                     break;
@@ -88,7 +88,7 @@ public class Storage {
     /**
      * Attempts to save the current TaskList into disk at PATH.
      *
-     * @param tasklist The TaskList to be saved into disk in text form.
+     * @param taskList The TaskList to be saved into disk in text form.
      */
     public static void save(TaskList taskList) {
         try {

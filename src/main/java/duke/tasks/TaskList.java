@@ -65,10 +65,10 @@ public class TaskList implements Savable {
      */
     public String filter(String filterString) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < arr.size(); i++) {
-            String taskString = arr.get(i).toString();
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskString = tasks.get(i).toString();
             if (taskString.toUpperCase().contains(filterString.toUpperCase())) {
-                sb.append((i + 1) + ". " + arr.get(i) + "\n");
+                sb.append((i + 1) + ". " + tasks.get(i) + "\n");
             }
         }
         return sb.toString();

@@ -9,8 +9,8 @@ import java.time.LocalTime;
 public class Deadline extends Task {
 
     private static final String TYPE_SYMBOL = "[D]";
-    private LocalDate deadlineDate = null;
-    private LocalTime deadlineTime = null;
+    private final LocalDate deadlineDate;
+    private final LocalTime deadlineTime;
 
     /**
      * Constructs a new deadline Task with the specified description, completion status, and deadline.
