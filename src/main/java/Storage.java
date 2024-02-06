@@ -1,5 +1,4 @@
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.Files;
 
 import java.io.File;
@@ -8,76 +7,91 @@ import java.io.FileNotFoundException;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_NAME = "ByteTalker.txt";
-    private static final String DIRECTORY_PATH = "./data";
-    private static Path filePath = Paths.get(DIRECTORY_PATH, FILE_NAME);
+    private static Path filePath;
 
-    public static void setupDirectoryAndFile() throws IOException {
-        Path directoryPath = filePath.getParent();
-        boolean directoryExists = Files.exists(directoryPath);
-        boolean fileExists = Files.exists(filePath);
-
-        if (!directoryExists) {
-            Files.createDirectory(directoryPath);
-        }
-
-        if (!fileExists) {
-            Files.createFile(filePath);
-        }
+    public Storage(String filePath) {
+        this.filePath = Path.of(filePath);
     }
 
-    public static void storeTasks(ArrayList<Task> tasks) {
+    public void setupDirectoryAndFile() {
         try {
-            ArrayList<String> tempTasks = new ArrayList<>();
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currentTask = tasks.get(i);
-                boolean isTodo = currentTask.getTaskType() == TaskType.TODO;
-                boolean isDeadline = currentTask.getTaskType() == TaskType.DEADLINE;
-                boolean isEvent = currentTask.getTaskType() == TaskType.EVENT;
-                String done = currentTask.getStatus() ? "1" : "0";
-                String temp = currentTask.getTaskType().getIcon() + " / " + done + " / " + currentTask.getTask();
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yy Hmm");
-                if (isDeadline) {
-                    Deadline deadlineTask = (Deadline) currentTask;
-                    temp += " / " + deadlineTask.getDeadline().format(outputFormatter);
-                } else if (isEvent) {
-                    Event eventTask = (Event) currentTask;
-                    temp += " / " + eventTask.getFrom().format(outputFormatter) + " / " + eventTask.getTo().format(outputFormatter);
-                }
-                tempTasks.add(temp);
+            Path directoryPath = filePath.getParent();
+            boolean directoryExists = Files.exists(directoryPath);
+            boolean fileExists = Files.exists(filePath);
+
+            if (!directoryExists) {
+                Files.createDirectory(directoryPath);
+                System.out.println("Directory does not exist; hence, created");
+            } else {
+                System.out.println("Directory exists");
             }
-            Files.write(filePath, tempTasks);
+
+            if (!fileExists) {
+                Files.createFile(filePath);
+                System.out.println("File does not exist; hence, created");
+            } else {
+                System.out.println("File exists");
+            }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Failed to create a new file");
         }
     }
 
-    public static void loadTasks(ArrayList<Task> tasks) {
-        try {
-            File file = new File(filePath.toString());
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                String[] splitMessage = sc.nextLine().split(" / ");
-                boolean isTodo = splitMessage.length == 3;
-                boolean isDeadline = splitMessage.length == 4;
-                boolean isEvent = splitMessage.length == 5;
-                boolean isDone = splitMessage[1].equals("1");
-                Task temp = null;
-                if (isTodo) {
-                    temp = new Todo(splitMessage[2], isDone);
-                } else if (isDeadline) {
-                    temp = new Deadline(splitMessage[2], ByteTalker.convertDateTime(splitMessage[3]), isDone);
-                } else if (isEvent) {
-                    temp = new Event(splitMessage[2], ByteTalker.convertDateTime(splitMessage[3]), ByteTalker.convertDateTime(splitMessage[4]), isDone);
-                }
-                tasks.add(temp);
+    public void storeTasks(ArrayList<Task> tasks) throws IOException {
+        ArrayList<String> tempTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            boolean isTodo = currentTask.getTaskType() == TaskType.TODO;
+            boolean isDeadline = currentTask.getTaskType() == TaskType.DEADLINE;
+            boolean isEvent = currentTask.getTaskType() == TaskType.EVENT;
+            String done = currentTask.getStatus() ? "1" : "0";
+            String temp = currentTask.getTaskType().getIcon() + " / " + done + " / " + currentTask.getTask();
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yy Hmm");
+            if (isDeadline) {
+                Deadline deadlineTask = (Deadline) currentTask;
+                temp += " / " + deadlineTask.getDeadline().format(outputFormatter);
+            } else if (isEvent) {
+                Event eventTask = (Event) currentTask;
+                temp += " / " + eventTask.getFrom().format(outputFormatter) + " / " + eventTask.getTo().format(outputFormatter);
             }
-        } catch (FileNotFoundException ex) {
-            System.out.println("File Not Found");
+            tempTasks.add(temp);
         }
+        Files.write(filePath, tempTasks);
+    }
+
+    public ArrayList<Task> loadTasks() throws FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath.toString());
+        Scanner sc = new Scanner(file);
+        int numberOfTasks = 0;
+        System.out.println("Loading saved tasks");
+        while (sc.hasNextLine()) {
+            numberOfTasks++;
+            String[] splitMessage = sc.nextLine().split(" / ");
+            boolean isTodo = splitMessage.length == 3;
+            boolean isDeadline = splitMessage.length == 4;
+            boolean isEvent = splitMessage.length == 5;
+            boolean isDone = splitMessage[1].equals("1");
+            Task temp = null;
+            if (isTodo) {
+                temp = new Todo(splitMessage[2], isDone);
+            } else if (isDeadline) {
+                temp = new Deadline(splitMessage[2], Parser.parseDateTime(splitMessage[3]), isDone);
+            } else if (isEvent) {
+                temp = new Event(splitMessage[2], Parser.parseDateTime(splitMessage[3]),
+                        Parser.parseDateTime(splitMessage[4]), isDone);
+            }
+            tasks.add(temp);
+        }
+        if (numberOfTasks == 0) {
+            System.out.println("No Tasks Saved");
+        } else {
+            System.out.println("Loaded saved tasks");
+        }
+
+        return tasks;
     }
 }
