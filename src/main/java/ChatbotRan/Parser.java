@@ -7,7 +7,7 @@ public class Parser {
         return !isComplete;
     }
 
-    public void exec(String line, TaskList taskList, RanUI ui) {
+    public void exec(String line, TaskList taskList, RanUi ui) {
         int space = line.indexOf(' ');
         String command = space == -1 ? line : line.substring(0, space);
         Task task;
@@ -75,7 +75,7 @@ public class Parser {
         }
     }
 
-    private void addTask(Task task, TaskList taskList, RanUI ui) {
+    private void addTask(Task task, TaskList taskList, RanUi ui) {
         taskList.add(task);
         ui.addTask(task);
         ui.printNumber(taskList.size());

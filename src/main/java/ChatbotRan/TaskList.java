@@ -5,9 +5,9 @@ import java.util.function.Consumer;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
-    TaskIO taskStore;
+    TaskIo taskStore;
 
-    public TaskList(TaskIO taskStore) {
+    public TaskList(TaskIo taskStore) {
         this.taskStore = taskStore;
         this.tasks = taskStore.findTasks();
     }

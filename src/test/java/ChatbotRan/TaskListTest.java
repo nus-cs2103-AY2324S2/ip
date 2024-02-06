@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-class TaskIOStub extends TaskIO {
-    ArrayList<Task> list;
-    public TaskIOStub(ArrayList<Task> list) {
+class TaskIoStub extends TaskIo {
+    ArrayList<Task> tasks;
+    public TaskIoStub(ArrayList<Task> tasks) {
         super("data/ran.txt");
-        this.list=list;
+        this.tasks = tasks;
     }
 
     @Override
@@ -18,7 +18,7 @@ class TaskIOStub extends TaskIO {
 
     @Override
     public ArrayList<Task> findTasks() {
-        return list;
+        return tasks;
     }
 }
 class TaskListTest {
@@ -27,7 +27,7 @@ class TaskListTest {
     void get() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("task1"));
-        TaskList tl = new TaskList(new TaskIOStub(tasks));
+        TaskList tl = new TaskList(new TaskIoStub(tasks));
         assertEquals(tl.get(0), tasks.get(0));
     }
 
@@ -35,7 +35,7 @@ class TaskListTest {
     void remove() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("task1"));
-        TaskList tl = new TaskList(new TaskIOStub(tasks));
+        TaskList tl = new TaskList(new TaskIoStub(tasks));
         tl.remove(tasks.get(0));
 assertThrows(RuntimeException.class, () -> tl.get(0));
     }
@@ -44,7 +44,7 @@ assertThrows(RuntimeException.class, () -> tl.get(0));
     void set() {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("task1"));
-        TaskList tl = new TaskList(new TaskIOStub(tasks));
+        TaskList tl = new TaskList(new TaskIoStub(tasks));
         Task t2 = new Todo("task2");
         tl.set(0,t2);
         assertEquals(tl.get(0),t2);

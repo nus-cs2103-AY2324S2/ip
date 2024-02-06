@@ -5,18 +5,18 @@ import java.util.Scanner;
 public class Ran {
     Parser parser;
     TaskList taskList;
-    TaskIO taskIO;
-    RanUI ui;
+    TaskIo taskIo;
+    RanUi ui;
 
-    public Ran(TaskIO taskIO) {
-        this.taskList = new TaskList(taskIO);
-        this.taskIO = taskIO;
-        this.ui = new RanUI();
+    public Ran(TaskIo taskIo) {
+        this.taskList = new TaskList(taskIo);
+        this.taskIo = taskIo;
+        this.ui = new RanUi();
         this.parser = new Parser();
     }
 
     public static void main(String[] args) {
-        TaskIO ti = new TaskIO("data/ran.txt");
+        TaskIo ti = new TaskIo("data/ran.txt");
         Ran chatbot = new Ran(ti);
         chatbot.run();
     }
