@@ -7,12 +7,10 @@ public class TaskList {
     private int taskIndex;
     private Storage storage;
 
-    public TaskList(Storage storage) {
-        this.taskList = new ArrayList<>();
+    public TaskList(Storage storage, ArrayList<Task> taskList) {
+        this.taskList = taskList;
         this.ui = new Ui();
         this.storage = storage;
-
-        // storage.loadTaskList();
     }
 
     /**

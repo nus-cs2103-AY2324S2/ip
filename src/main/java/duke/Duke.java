@@ -15,10 +15,9 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
-        this.tasks = new TaskList(storage);
-        this.parser = new Parser(tasks);
-
         storage.loadTaskList();
+        this.tasks = new TaskList(storage, taskList);
+        this.parser = new Parser(tasks);
     }
 
     /**
@@ -29,6 +28,8 @@ public class Duke {
      * @throws StringIndexOutOfBoundsException if input is not a number
      */
     public void start() {
+        // storage.loadTaskList();
+
         ui.showGreeting();
 
         String input = ui.getUserInput();

@@ -18,7 +18,6 @@ public class Storage {
     public Storage(ArrayList<Task> taskList) {
         this.taskList = taskList;
         createTaskList();
-        // loadTaskList();
     }
 
     public void loadTaskList() {
