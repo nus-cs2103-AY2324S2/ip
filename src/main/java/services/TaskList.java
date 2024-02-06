@@ -62,6 +62,7 @@ public class TaskList {
      * @throws DukeException If the index is out of range.
      */
     public Task deleteTask(int index) throws DukeException {
+        assert index >= 1 : "Index cannot be less than 1";
         if (this.tasks.size() == 0) {
             throw new DukeException("Task index is out of range.");
         }
@@ -89,6 +90,7 @@ public class TaskList {
      * @throws DukeException If the index is out of range.
      */
     public void markTask(int index) throws DukeException {
+        assert index >= 1 : "Index cannot be less than 1";
         if (index <= 0 || index > this.tasks.size()) {
             throw new DukeException("Task index is out of range.");
         }
@@ -105,6 +107,7 @@ public class TaskList {
      * @throws DukeException If the index is out of range.
      */
     public void unmarkTask(int index) throws DukeException {
+        assert index >= 1 : "Index cannot be less than 1";
         if (index <= 0 || index > this.tasks.size()) {
             throw new DukeException("Task index is out of range.");
         }
