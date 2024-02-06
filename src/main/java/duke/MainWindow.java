@@ -56,6 +56,10 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Creates a dialogue box to greet the user the instant
+     * they enter the program.
+     */
     @FXML
     private void greetUser() {
         Ui ui = new Ui();
