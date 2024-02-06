@@ -2,7 +2,7 @@
  * Represents a user command to be executed
  */
 public abstract class Command {
-//    private boolean hasBeenExecuted = false;
+    protected String statusMsg = "Not executed yet";
 
     /**
      * Returns if the command is to exit. ExitCommand overrides this method to return true.
@@ -13,18 +13,23 @@ public abstract class Command {
         return false;
     }
 
-//    public abstract String commandStatus();
+    /**
+     * Returns the status message of this command.
+     */
+    public String status() {
+        return this.statusMsg;
+    }
 
     /**
-     * Executes the command.
+     * Executes the command. Updates status msg accordingly.
      *
      * @param tasks TaskList to be used in execution. May be modified.
      * @param storage Storage for automatic saving of changes
      */
     public abstract void execute(TaskList tasks, Storage storage);
 
-    @Override
-    public String toString() {
-        return "Empty shell of command";
-    }
+//    @Override
+//    public String toString() {
+//        return commandStatus();
+//    }
 }
