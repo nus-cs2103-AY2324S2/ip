@@ -1,8 +1,11 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,7 +14,6 @@ import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.function.Consumer;
 
 public class Chipchat {
     private static List<Task> taskList = new ArrayList<>();
