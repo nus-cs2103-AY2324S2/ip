@@ -1,8 +1,8 @@
 package me.ruibin.leto.parser;
 
-import me.ruibin.leto.ui.Ui;
-
 import java.util.function.Function;
+
+import me.ruibin.leto.ui.Ui;
 
 public class HelpCommand implements Function<String, Results> {
     @Override

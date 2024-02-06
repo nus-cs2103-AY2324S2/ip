@@ -1,8 +1,8 @@
 package me.ruibin.leto.parser;
 
-import me.ruibin.leto.tasklist.TaskList;
-
 import java.util.function.Function;
+
+import me.ruibin.leto.tasklist.TaskList;
 
 public class DeleteCommand implements Function<String, Results> {
     @Override

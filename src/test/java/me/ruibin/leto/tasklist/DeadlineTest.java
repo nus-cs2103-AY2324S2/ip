@@ -1,11 +1,12 @@
 package me.ruibin.leto.tasklist;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -36,7 +37,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadlineFromCSV_validEntry_success() {
+    public void deadlineFromCsv_validEntry_success() {
         LocalDate deadline = LocalDate.now().minusDays(1);
         String entry = "D,N,SUBMIT.Paper #CS320," + deadline.toString() + ",,";
         String correctOutput = "[D][ ] SUBMIT.Paper #CS320 (by: "
@@ -50,7 +51,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadlineFromCSV_invalidEmptyDatesEntry_failure() {
+    public void deadlineFromCsv_invalidEmptyDatesEntry_failure() {
         String entry = "D,N,SUBMIT.Paper #CS320,XXX,,";
         String errorMessage = "By field, [XXX] is invalid!";
         try {

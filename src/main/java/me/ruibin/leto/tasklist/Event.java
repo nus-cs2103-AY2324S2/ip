@@ -9,9 +9,9 @@ public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
-    private Event(Boolean completed, String TaskString, LocalDate from, LocalDate to) {
+    private Event(Boolean completed, String taskString, LocalDate from, LocalDate to) {
         // Call to 'super()' must be first statement in constructor body
-        super(completed, TaskString);
+        super(completed, taskString);
         this.from = from;
         this.to = to;
     }
@@ -60,7 +60,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to +")"
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")"
                 + " " + this.eventDaysMessage();
     }
 
@@ -69,7 +69,7 @@ public class Event extends Task {
      * Type,Completed,Task,By,From,To
      * @return String in csv format
      */
-    public String toCSVString() {
-        return "E," + super.toCSVString() + ",," + this.from + "," + this.to;
+    public String toCsvString() {
+        return "E," + super.toCsvString() + ",," + this.from + "," + this.to;
     }
 }

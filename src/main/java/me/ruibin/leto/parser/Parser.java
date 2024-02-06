@@ -1,8 +1,8 @@
 package me.ruibin.leto.parser;
 
-import me.ruibin.leto.ui.Ui;
-
 import java.util.Scanner;
+
+import me.ruibin.leto.ui.Ui;
 
 public class Parser {
     private static Scanner sc = new Scanner(System.in);

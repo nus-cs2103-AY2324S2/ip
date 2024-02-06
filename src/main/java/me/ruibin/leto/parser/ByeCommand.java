@@ -1,8 +1,8 @@
 package me.ruibin.leto.parser;
 
-import me.ruibin.leto.tasklist.TaskList;
-
 import java.util.function.Function;
+
+import me.ruibin.leto.tasklist.TaskList;
 
 public class ByeCommand implements Function<String, Results> {
     @Override

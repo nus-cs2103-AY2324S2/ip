@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
 public class Deadline extends Task {
     private LocalDate deadline;
 
-    private Deadline(Boolean completed, String TaskString, LocalDate deadline) {
+    private Deadline(Boolean completed, String taskString, LocalDate deadline) {
         // Call to 'super()' must be first statement in constructor body
-        super(completed, TaskString);
+        super(completed, taskString);
         this.deadline = deadline;
     }
 
@@ -69,7 +69,7 @@ public class Deadline extends Task {
      * Type,Completed,Task,By,From,To
      * @return String in csv format
      */
-    public String toCSVString() {
-        return "D," + super.toCSVString() + "," + this.deadline.toString() + ",,";
+    public String toCsvString() {
+        return "D," + super.toCsvString() + "," + this.deadline.toString() + ",,";
     }
 }

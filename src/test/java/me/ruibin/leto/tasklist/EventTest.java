@@ -1,16 +1,17 @@
 package me.ruibin.leto.tasklist;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
-    public void eventFromCommand_validCommand_success () {
+    public void eventFromCommand_validCommand_success() {
         LocalDate startDate = LocalDate.now().plusDays(10);
         LocalDate endDate = LocalDate.now().plusDays(20);
         StringBuilder correctOuputBuilder = new StringBuilder("[E][ ] H4(K1nG  cOnv@nt!0n (from: ");
@@ -41,7 +42,7 @@ public class EventTest {
     }
 
     @Test
-    public void eventFromCSV_validCsvEntry_success() {
+    public void eventFromCsv_validCsvEntry_success() {
         LocalDate startDate = LocalDate.now().plusDays(10);
         LocalDate endDate = LocalDate.now().plusDays(20);
         String entry = MessageFormat.format("E,Y,  H4(K1nG  cOnv@nt!0n,,{0},{1}",
