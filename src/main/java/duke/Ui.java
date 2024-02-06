@@ -1,30 +1,26 @@
 package duke;
 
-import duke.TaskList;
-
-import java.util.ArrayList;
-
 public class Ui {
-    public static final String divider = "____________________________________________________________";
+    public static final String DIVIDER = "____________________________________________________________";
     public Ui() {
 
     }
 
     public void showWelcome() {
-        System.out.println(divider + "\nHello! I'm Homie");
-        System.out.println("What can I do for you?\n" + divider);
+        System.out.println(DIVIDER + "\nHello! I'm Homie");
+        System.out.println("What can I do for you?\n" + DIVIDER);
     }
 
     public void showGoodbye() {
-        System.out.println(divider + "\nBye Homie. Hope to see you again soon!\n" + divider);
+        System.out.println(DIVIDER + "\nBye Homie. Hope to see you again soon!\n" + DIVIDER);
     }
 
     public void showDivider() {
-        System.out.println(divider + "\n");
+        System.out.println(DIVIDER + "\n");
     }
 
     public void showLoadingError() {
-        System.out.println(divider + "\nHomie, theres an error loading your tasks!\n" + divider);
+        System.out.println(DIVIDER + "\nHomie, theres an error loading your tasks!\n" + DIVIDER);
     }
 
     public void showListMessage() {
@@ -74,5 +70,4 @@ public class Ui {
     public void showFindMessage() {
         System.out.println("Here are the matching tasks in your list:");
     }
-
 }
