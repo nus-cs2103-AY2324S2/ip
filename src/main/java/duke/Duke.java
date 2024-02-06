@@ -1,26 +1,59 @@
 package duke;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 import java.io.IOException;
 import java.io.FileWriter;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import java.util.Collections;
 
 
-public class Duke {
+/**
+ * Represents the main class for the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
+public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    public Duke(String filePath) {
+    private String FILE_PATH = "./data/duke.txt/duke.txt";
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/minnie.jpeg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/spinminnie.jpeg"));
+    /**
+     * Constructs a new Duke instance with the specified file path for data storage.
+     *
+     */
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -29,6 +62,155 @@ public class Duke {
         }
     }
 
+    @Override
+    public void start(Stage stage) {
+        Duke duke = new Duke();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Step 1. Setting up required components
+
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        //Part 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String userInputText = userInput.getText();
+        try {
+            Command command = Parser.parse(userInputText); // Parse the user input to get the command
+            command.execute(tasks, ui, storage); // Execute the command
+
+            // Get the response from executing the command (add, list, delete, etc.)
+            String response = ""; // Initialize an empty response
+            if (command instanceof AddTodoCommand || command instanceof AddDeadlineCommand || command instanceof AddEventCommand) {
+                // If it's an add command, display the added task
+                response = ui.showTaskAdded(tasks.getTask(tasks.getSize() - 1), tasks.getSize());
+            } else if (command instanceof ListCommand) {
+                // If it's a list command, list all tasks
+                response = ui.showTaskList(tasks);
+            } else if (command instanceof DeleteCommand) {
+                // If it's a delete command, display the deleted task info
+                // Note: You need to modify DeleteCommand to return the deleted task info
+            }
+            // ... handle other types of commands similarly ...
+
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userInputText, user),
+                    DialogBox.getDukeDialog(response, duke)
+            );
+        } catch (DukeException e) {
+            // Handle exceptions, show error messages
+            String errorResponse = ui.showError(e.getMessage());
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(errorResponse, duke));
+        }
+        userInput.clear();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+
+        return "SCZL heard: " + input;
+    }
+
+    /**
+     * Runs the Duke application. Initializes the necessary components and starts
+     * the command loop to receive and process user input.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -44,12 +226,26 @@ public class Duke {
         }
         ui.closeScanner();
     }
-
+    /**
+     * The entry point of the application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
-
-        new Duke("./data/duke.txt/duke.txt").run();
+        Launcher.main(new String[2]);
     }
 }
+
+
+/**
+ * A launcher class to workaround classpath issues.
+ */
+class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Duke.class, args);
+    }
+}
+
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -62,33 +258,33 @@ class Ui {
     private Scanner scanner;
 
     public Ui() {
+
         scanner = new Scanner(System.in);
     }
 
-    public void showWelcome() {
-        System.out.println("Hello! I'm SCZL");
-        System.out.println("What can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm SCZL\nWhat can I do for you?";
     }
 
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
-    public void showTaskList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList(TaskList tasks) {//
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + "." + tasks.getTask(i));
+            sb.append((i + 1)).append(".").append(tasks.getTask(i)).append("\n");
         }
+        return sb.toString();
     }
 
     public String readCommand() {
