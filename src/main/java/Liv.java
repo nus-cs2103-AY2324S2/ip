@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -97,6 +99,7 @@ public class Liv {
         System.out.println("You have " + tasks.size() + " mission(s) on the list");
     }
 
+    private static final DateTimeFormatter INPUT_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static void handleDeadlineTask(String command) throws LivException {
         // deadline <description> /by <time>
         int spaceIndex = command.indexOf(' ');
@@ -109,7 +112,8 @@ public class Liv {
         }
         String description = command.substring(spaceIndex + 1, timeIndex - 1);
         String time = command.substring(timeIndex + 4);
-        Deadline newDeadline = new Deadline(description, time);
+        LocalDateTime by = LocalDateTime.parse(time, INPUT_PATTERN);
+        Deadline newDeadline = new Deadline(description, by);
         tasks.add(newDeadline);
         System.out.println("Deadline added:");
         System.out.println(newDeadline.getDisplayedString());
@@ -132,9 +136,12 @@ public class Liv {
             throw new LivException("Please enter the correct format for time!");
 
         }
-        String from = timeInterval.substring(0, splitterIndex - 1);
-        String to = timeInterval.substring(splitterIndex + 4);
+        String time1 = timeInterval.substring(0, splitterIndex - 1);
+        String time2 = timeInterval.substring(splitterIndex + 4);
+        LocalDateTime from = LocalDateTime.parse(time1, INPUT_PATTERN);
+        LocalDateTime to = LocalDateTime.parse(time2, INPUT_PATTERN);
         Event newEvent = new Event(description, from, to);
+        tasks.add(newEvent);
         System.out.println("Event added:");
         System.out.println(newEvent.getDisplayedString());
         System.out.println("You have " + tasks.size() + " mission(s) on the list");
@@ -165,13 +172,13 @@ public class Liv {
             task = new TodoTask(description);
         } else if (taskType.equals("[D]")) {
             String time = parts[3];
-            task = new Deadline(description, time);
+            task = new Deadline(description, LocalDateTime.parse(time));
         } else if (taskType.equals("[E]")) {
             String time = parts[3];
-            int splitterIndex = time.indexOf("to");
-            String from = time.substring(0, splitterIndex - 1);
-            String to = time.substring(splitterIndex);
-            task = new Event(description, from, to);
+            int splitterIndex = time.indexOf(' ');
+            String from = time.substring(0, splitterIndex);
+            String to = time.substring(splitterIndex + 1);
+            task = new Event(description, LocalDateTime.parse(from), LocalDateTime.parse(to));
         } else {
             throw new RuntimeException("Unknown format: " + line);
         }
