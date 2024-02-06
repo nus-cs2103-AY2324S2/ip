@@ -32,12 +32,13 @@ public class ByeCommand extends Command {
      * @param taskList The TaskList to be updated (not used in this command).
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data (not used in this command).
+     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If any Capone-related exception occurs.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
-        ui.sendGoodbye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         scanner.close();
         System.exit(0);
+        return ui.sendGoodbye();
     }
 }

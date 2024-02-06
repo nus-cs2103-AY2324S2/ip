@@ -5,6 +5,9 @@ import capone.exceptions.CaponeException;
 import capone.exceptions.TaskListCorruptedException;
 import capone.ui.cli.Cli;
 import capone.ui.Ui;
+import capone.ui.gui.DialogBox;
+import capone.ui.gui.MainWindow;
+import javafx.scene.image.Image;
 
 /**
  * The main class responsible for running the application and handling user commands.
@@ -43,7 +46,7 @@ public class Capone {
      * Runs the instance, displaying a welcome message and reading tasks from storage.
      * Continuously processes user commands in a loop till user exits.
      */
-    public void run() {
+    public void runCli() {
         this.ui.printWelcomeMsg();
 
         try {
@@ -51,15 +54,17 @@ public class Capone {
         } catch (TaskListCorruptedException e) {
             System.out.println(e.getMessage());
         }
+    }
 
-        while (true) {
-            Command command = Parser.processInputs();
-
-            try {
-                command.execute(tasks, ui, storage);
-            } catch (CaponeException e) {
-                System.out.println(e.getMessage());
-            }
+    /**
+     * Runs the instance, displaying a welcome message and reading tasks from storage.
+     * Continuously processes user commands in a loop till user exits.
+     */
+    public void runGui() {
+        try {
+            this.storage.readTasksFromJsonFile(this.tasks);
+        } catch (TaskListCorruptedException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -69,7 +74,7 @@ public class Capone {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Capone().run();
+        new Capone().runCli();
     }
 
     /**
@@ -78,6 +83,20 @@ public class Capone {
      * @param input The user's input.
      */
     public String getResponse(String input) {
-        return input;
+        try {
+            Command command = Parser.processInputs(input);
+            return command.execute(tasks, ui, storage);
+        } catch (CaponeException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Gets the ui object of this Capone instance.
+     *
+     * @return The ui instance associated with this Capone instance.
+     */
+    public Ui getUi() {
+        return this.ui;
     }
 }

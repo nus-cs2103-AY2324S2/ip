@@ -36,10 +36,11 @@ public class FindCommand extends Command {
      * @param taskList The list of tasks to search within.
      * @param ui The user interface for displaying messages.
      * @param storage The storage to handle data storage operations.
+     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If there is an issue executing the find command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (this.inputList.size() == 1) {
             throw new InsufficientArgumentException("Insufficient arguments!\n"
@@ -60,9 +61,10 @@ public class FindCommand extends Command {
         }
 
         if (filteredList.isEmpty()) {
-            ui.sendNoResults(keyword);
+            return ui.sendNoResults(keyword);
         } else {
             new ListCommand().execute(filteredList, ui, storage);
         }
+        return null;
     }
 }

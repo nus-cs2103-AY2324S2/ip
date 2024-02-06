@@ -20,10 +20,20 @@ import javafx.scene.layout.HBox;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final String USER_IMG = "/images/DaUser.png";
+    private static final String CAPONE_IMG = "/images/DaCapone.png";
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    protected static String getUserImg() {
+        return DialogBox.USER_IMG;
+    }
+
+    protected static String getCaponeImg() {
+        return DialogBox.CAPONE_IMG;
+    }
 
     private DialogBox(String text, Image img) {
         try {

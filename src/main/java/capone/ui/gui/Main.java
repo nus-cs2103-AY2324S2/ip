@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setCapone(this.capone);
             stage.show();
+            this.capone.runGui();
         } catch (IOException e) {
             e.printStackTrace();
         }

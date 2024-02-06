@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Capone capone;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image caponeImage = new Image(this.getClass().getResourceAsStream("/images/DaCapone.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(DialogBox.getUserImg()));
+    private Image caponeImage = new Image(this.getClass().getResourceAsStream(DialogBox.getCaponeImg()));
 
     @FXML
     public void initialize() {
@@ -34,6 +34,10 @@ public class MainWindow extends AnchorPane {
 
     public void setCapone(Capone capone) {
         this.capone = capone;
+        this.dialogContainer.getChildren().addAll(
+                DialogBox.getCaponeDialog(this.capone.getUi().printWelcomeMsg(),
+                this.caponeImage)
+        );
     }
 
     /**

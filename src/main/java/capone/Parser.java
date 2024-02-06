@@ -63,26 +63,47 @@ public class Parser {
     public static Command processInputs() {
         Parser.inputList = Parser.splitInput(Parser.readUserInput());
         String firstWord = inputList.get(0);
+        return Parser.findCommand(firstWord);
+    }
 
-        if (firstWord.equalsIgnoreCase("list")) {
+    /**
+     * Processes user inputs and returns the appropriate
+     * Command instance based on the first word of the input.
+     *
+     * @return Command object corresponding to the user input.
+     */
+    public static Command processInputs(String input) {
+        Parser.inputList = Parser.splitInput(input);
+        String firstWord = inputList.get(0);
+        return Parser.findCommand(firstWord);
+    }
+
+    /**
+     * Finds the command type from the user's input.
+     *
+     * @param command The user's input command.
+     * @return A new instance of the user's command.
+     */
+    private static Command findCommand(String command) {
+        if (command.equalsIgnoreCase("list")) {
             return new ListCommand();
-        } else if (firstWord.equalsIgnoreCase("mark")) {
+        } else if (command.equalsIgnoreCase("mark")) {
             return new MarkCommand(Parser.inputList);
-        } else if (firstWord.equalsIgnoreCase("unmark")) {
+        } else if (command.equalsIgnoreCase("unmark")) {
             return new UnmarkCommand(Parser.inputList);
-        } else if (firstWord.equalsIgnoreCase("todo")) {
+        } else if (command.equalsIgnoreCase("todo")) {
             return new TodoCommand(Parser.inputList);
-        } else if (firstWord.equalsIgnoreCase("deadline")) {
+        } else if (command.equalsIgnoreCase("deadline")) {
             return new DeadlineCommand(inputList);
-        } else if (firstWord.equalsIgnoreCase("event")) {
+        } else if (command.equalsIgnoreCase("event")) {
             return new EventCommand(inputList);
-        } else if (firstWord.equalsIgnoreCase("delete")) {
+        } else if (command.equalsIgnoreCase("delete")) {
             return new DeleteCommand(inputList);
-        } else if (firstWord.equalsIgnoreCase("find")) {
+        } else if (command.equalsIgnoreCase("find")) {
             return new FindCommand(inputList);
-        } else if (firstWord.equalsIgnoreCase("bye")) {
+        } else if (command.equalsIgnoreCase("bye")) {
             return new ByeCommand(scanner);
-        } else if (firstWord.equalsIgnoreCase("help")) {
+        } else if (command.equalsIgnoreCase("help")) {
             return new HelpCommand();
         } else {
             return new InvalidCommand();

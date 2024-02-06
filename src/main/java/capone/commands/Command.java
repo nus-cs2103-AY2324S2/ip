@@ -19,7 +19,8 @@ public abstract class Command {
      * @param taskList The TaskList to be updated.
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data.
+     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If any Capone-related exception occurs.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException;
 }

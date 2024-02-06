@@ -19,10 +19,11 @@ public class InvalidCommand extends Command {
      * @param taskList The TaskList (not used in this command).
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data (not used in this command).
+     * @return The String output of the bot after executing the user's command (not used).
      * @throws InvalidCommandException If an invalid command is encountered.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidCommandException {
         throw new InvalidCommandException("I'm sorry, I don't understand what you just said.\n"
                 + "Use 'help' to display the list of valid commands");
     }

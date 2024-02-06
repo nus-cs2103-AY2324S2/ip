@@ -19,10 +19,11 @@ public class HelpCommand extends Command {
      * @param taskList The TaskList (not used in this command).
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data (not used in this command).
+     * @return The String output of the bot after executing the user's command.
      * @throws CaponeException If any Capone-related exception occurs.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
-        ui.sendHelp();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
+        return ui.sendHelp();
     }
 }

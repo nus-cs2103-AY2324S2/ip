@@ -13,25 +13,29 @@ public abstract class Ui {
 
     /**
      * Prints a welcome message with the Capone logo.
+     *
+     * @return Return the Capone logo.
      */
-    public void printWelcomeMsg() {
+    public String printWelcomeMsg() {
         String logo = "░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░\n"
                 + "░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░\n"
                 + "░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░";
-        System.out.printf("Hello! I'm\n%s\nWhat can I do for you?\n%n", logo);
+        String output = String.format("Hello! I'm\n%s\nWhat can I do for you?\n%n", logo);
+        System.out.printf(output);
+        return output;
     }
 
     /**
      * Sends a goodbye message to the user.
      */
-    public abstract void sendGoodbye();
+    public abstract String sendGoodbye();
 
     /**
      * Sends a formatted message after the user creates a Deadline task.
      *
      * @param taskList The list of tasks created.
      */
-    public abstract void sendDeadline(TaskList taskList);
+    public abstract String sendDeadline(TaskList taskList);
 
     /**
      * Sends a formatted message after the user deletes a task.
@@ -39,14 +43,14 @@ public abstract class Ui {
      * @param taskList The list of tasks created.
      * @param deletedTask The task that was deleted.
      */
-    public abstract void sendDelete(TaskList taskList, Task deletedTask);
+    public abstract String sendDelete(TaskList taskList, Task deletedTask);
 
     /**
      * Sends a formatted message after the user creates an Event task.
      *
      * @param taskList The list of tasks created.
      */
-    public abstract void sendEvent(TaskList taskList);
+    public abstract String sendEvent(TaskList taskList);
 
     /**
      * Sends a formatted message after the user searches for a task
@@ -54,38 +58,38 @@ public abstract class Ui {
      *
      * @param keyword The list of tasks created.
      */
-    public abstract void sendNoResults(String keyword);
+    public abstract String sendNoResults(String keyword);
 
     /**
      * Sends a message displaying the help information.
      */
-    public abstract void sendHelp();
+    public abstract String sendHelp();
 
     /**
      * Sends a formatted message showing the list of available tasks.
      *
      * @param taskList The list of tasks to display.
      */
-    public abstract void sendList(TaskList taskList);
+    public abstract String sendList(TaskList taskList);
 
     /**
      * Sends a formatted message after the user marks a task.
      *
      * @param task The task to be marked as complete.
      */
-    public abstract void sendMark(Task task);
+    public abstract String sendMark(Task task);
 
     /**
      * Sends a formatted message after the user creates a ToDo task.
      *
      * @param taskList The list of tasks created.
      */
-    public abstract void sendTodo(TaskList taskList);
+    public abstract String sendTodo(TaskList taskList);
 
     /**
      * Sends a formatted message after the user unmarks a task.
      *
      * @param task The task to be marked as incomplete.
      */
-    public abstract void sendUnmark(Task task);
+    public abstract String sendUnmark(Task task);
 }

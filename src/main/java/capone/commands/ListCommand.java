@@ -2,6 +2,7 @@ package capone.commands;
 
 import capone.Storage;
 import capone.TaskList;
+import capone.exceptions.CaponeException;
 import capone.ui.Ui;
 
 /**
@@ -18,9 +19,11 @@ public class ListCommand extends Command {
      * @param taskList The TaskList to be displayed.
      * @param ui       The Ui to interact with the user.
      * @param storage  The Storage for saving data (not used in this command).
+     * @return The String output of the bot after executing the user's command (not used).
+     * @throws CaponeException If there is an issue executing the find command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.sendList(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
+        return ui.sendList(taskList);
     }
 }

@@ -17,8 +17,10 @@ public class Cli extends Ui {
      * Sends a goodbye message to the user.
      */
     @Override
-    public void sendGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String sendGoodbye() {
+        String output = "Bye. Hope to see you again soon!\n";
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -27,10 +29,12 @@ public class Cli extends Ui {
      * @param taskList The list of tasks created.
      */
     @Override
-    public void sendDeadline(TaskList taskList) {
-        System.out.printf(String.format("Got it. I've added this task:\n%s\n"
+    public String sendDeadline(TaskList taskList) {
+        String output = String.format("Got it. I've added this task:\n%s\n"
                         + "Now you have %d task(s) in the list.\n",
-                taskList.getLastTask().toString(), taskList.getSize()));
+                taskList.getLastTask().toString(), taskList.getSize());
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -40,10 +44,12 @@ public class Cli extends Ui {
      * @param deletedTask The task that was deleted.
      */
     @Override
-    public void sendDelete(TaskList taskList, Task deletedTask) {
-        System.out.printf(String.format("Noted. I've removed this task:\n%s\n"
+    public String sendDelete(TaskList taskList, Task deletedTask) {
+        String output = String.format("Noted. I've removed this task:\n%s\n"
                         + "Now you have %d tasks in the list.\n",
-                deletedTask.toString(), taskList.getSize()));
+                deletedTask.toString(), taskList.getSize());
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -52,10 +58,12 @@ public class Cli extends Ui {
      * @param taskList The list of tasks created.
      */
     @Override
-    public void sendEvent(TaskList taskList) {
-        System.out.printf(String.format("Got it. I've added this task:\n%s\n"
-                + "Now you have %d task(s) in the list.\n",
-                taskList.getLastTask().toString(), taskList.getSize()));
+    public String sendEvent(TaskList taskList) {
+        String output = String.format("Got it. I've added this task:\n%s\n"
+                        + "Now you have %d task(s) in the list.\n",
+                taskList.getLastTask().toString(), taskList.getSize());
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -65,16 +73,18 @@ public class Cli extends Ui {
      * @param keyword The list of tasks created.
      */
     @Override
-    public void sendNoResults(String keyword) {
-        System.out.printf(String.format("No results found for the given keyword %s\n", keyword));
+    public String sendNoResults(String keyword) {
+        String output = String.format("No results found for the given keyword %s\n", keyword);
+        System.out.printf(output);
+        return output;
     }
 
     /**
      * Sends a message displaying the help information.
      */
     @Override
-    public void sendHelp() {
-        System.out.printf("Commands I understand:\n"
+    public String sendHelp() {
+        String output = "Commands I understand:\n"
                 + "1. list - Lists the tasks entered.\n"
                 + "2. todo [description] - Creates a new capone.tasks.ToDo task. Remember to enter the description!\n"
                 + "3. deadline [description] /by [date] - Creates a new capone.tasks.Deadline task.\n"
@@ -86,7 +96,9 @@ public class Cli extends Ui {
                 + "5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!\n"
                 + "6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!\n"
                 + "7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!\n"
-                + "8. find [keyword] - Finds all tasks that matches the given input keyword.\n");
+                + "8. find [keyword] - Finds all tasks that matches the given input keyword.\n";
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -95,10 +107,15 @@ public class Cli extends Ui {
      * @param taskList The list of tasks to display.
      */
     @Override
-    public void sendList(TaskList taskList) {
+    public String sendList(TaskList taskList) {
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskList.getSize(); i++) {
-            System.out.printf(String.format("%d. %s\n", i + 1, taskList.getTask(i).toString()));
+            String task = String.format("%d. %s\n", i + 1, taskList.getTask(i).toString());
+            System.out.printf(task);
+            output.append(task);
         }
+
+        return output.toString();
     }
 
     /**
@@ -107,8 +124,10 @@ public class Cli extends Ui {
      * @param task The task to be marked as complete.
      */
     @Override
-    public void sendMark(Task task) {
-        System.out.printf("Nice! I've marked this task as completed:\n" + task.toString() + "\n");
+    public String sendMark(Task task) {
+        String output = "Nice! I've marked this task as completed:\n" + task.toString() + "\n";
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -117,10 +136,12 @@ public class Cli extends Ui {
      * @param taskList The list of tasks created.
      */
     @Override
-    public void sendTodo(TaskList taskList) {
-        System.out.printf(String.format("Got it. I've added this task:\n%s\n"
+    public String sendTodo(TaskList taskList) {
+        String output = String.format("Got it. I've added this task:\n%s\n"
                 + "Now you have %d task(s) in the list.\n",
-                taskList.getLastTask().toString(), taskList.getSize()));
+                taskList.getLastTask().toString(), taskList.getSize());
+        System.out.printf(output);
+        return output;
     }
 
     /**
@@ -129,7 +150,9 @@ public class Cli extends Ui {
      * @param task The task to be marked as incomplete.
      */
     @Override
-    public void sendUnmark(Task task) {
-        System.out.printf("Nice! I've marked this task as incomplete:\n" + task.toString() + "\n");
+    public String sendUnmark(Task task) {
+        String output = "Nice! I've marked this task as incomplete:\n" + task.toString() + "\n";
+        System.out.printf(output);
+        return output;
     }
 }
