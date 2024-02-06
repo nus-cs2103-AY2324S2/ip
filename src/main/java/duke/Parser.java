@@ -1,8 +1,10 @@
 package duke;
 
 import java.util.ArrayList;
-/*
- * Deals with making sense of the user command
+
+/**
+ * Deals with parsing and interpreting user commands for task management.
+ * Parses the user input and executes corresponding actions on the task list.
  */
 
 
@@ -12,12 +14,25 @@ public class Parser {
     private ArrayList<Task> myList;
     private Ui ui;
 
+    /**
+     * Constructs a Parser with the specified user input and task list.
+     *
+     * @param userInput The user input to be parsed.
+     * @param myList    The list of tasks to be managed.
+     */
+
     public Parser(String userInput, ArrayList<Task> myList) {
         this.userInput = userInput;
         this.myList = myList;
         this.ui = new Ui();
     }
 
+
+    /**
+     * Parses and executes the user command based on the provided input.
+     *
+     * @return True if the program should continue processing commands, false if the program should exit.
+     */
     public boolean parseCommand() {
 
         // Split input into "command" and "parameters"
@@ -26,18 +41,18 @@ public class Parser {
         String restOfInputs = parts.length > 1 ? parts[1] : "";
 
 
-        if(command.equals("list")) {
+        if (command.equals("list")) {
             /*
-            * Displays the list of tasks in the MyList
-            */
+             * Displays the list of tasks in the MyList
+             */
             TaskList taskList = new TaskList(myList);
             taskList.list();
             return true;
 
-        } else if(command.equals("bye")) {
+        } else if (command.equals("bye")) {
             /*
-            * Save the new task in MyList before exitting the Duke Program
-            */
+             * Save the new task in MyList before exiting the Duke Program
+             */
             return false;
 
         } else if (parts.length == 1) {
@@ -45,34 +60,29 @@ public class Parser {
             ui.commandError();
             return true;
 
-        } else if(command.equals("unmark")) {
-            /**
-            * Marks a specified task as not done
-            * 
-            * @param task number the index of the task to be marked as not done
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
+        } else if (command.equals("unmark")) {
+
             TaskList taskList = new TaskList(myList);
             taskList.unmarkList(parts);
             return true;
 
         } else if (command.equals("mark")) {
-            /**
+            /*
             * Marks a specified task as done
-            * 
-            * @param taskNUmver the index of the task to be marked as done
-            * @throws INdexOutOfBoundsException if the task numr is out of bounds
+            *
+            * @param task number the index of the task to be marked as done
+            * @throws IndexOutOfBoundsException if the task number is out of bounds
             */
             TaskList taskList = new TaskList(myList);
             taskList.markList(parts);
             return true;
 
-        } else if(command.equals("delete")){
-            /**
+        } else if (command.equals("delete")){
+            /*
             * Deletes a specified task from the list
             * 
-            * @param task numer the index of the task to be deleted
-            * @throws INdexOutOfBoundsException if the task number is out of bounds
+            * @param task number the index of the task to be deleted
+            * @throws IndexOutOfBoundsException if the task number is out of bounds
             */
             TaskList taskList = new TaskList(myList);
             taskList.remove(parts);
