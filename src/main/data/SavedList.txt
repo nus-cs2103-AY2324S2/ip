@@ -1,3 +1,0 @@
-T|0|someTask
-T|0|someOtherTask
-D|0|someDeadline|2024-04-11

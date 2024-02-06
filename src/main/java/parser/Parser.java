@@ -10,10 +10,10 @@ public class Parser {
 
     private static String dividerText = "____________________________________________________________\n";
 
-    private static Scanner scannerObj = new Scanner(System.in);
+    //private static Scanner scannerObj = new Scanner(System.in);
 
-    public static int processCommand(TaskList existingTaskList) {
-        String input = scannerObj.nextLine();
+    public static int processCommand(String input, TaskList existingTaskList) {
+        //String input = scannerObj.nextLine();
         String[] splitInput = input.split(" ");
         String command = splitInput[0].toLowerCase();
         System.out.print(dividerText);
@@ -54,6 +54,7 @@ public class Parser {
                             existingTaskList.deleteTask(taskNum);
                         }
                     } catch (NumberFormatException e) {
+                        System.out.println(e.getMessage());
                         System.out.print("Invalid task number entered\n");
                         System.out.print(dividerText);
                     } catch (IndexOutOfBoundsException e) {
@@ -150,7 +151,7 @@ public class Parser {
                         System.out.print("Missing to date!\n");
                         System.out.print(dividerText);
                     } else if (eventDescription.contains("/by")) { // unnecessary due date
-                        System.out.print("tasks.Event task cannot have a due date!\n");
+                        System.out.print("Event task cannot have a due date!\n");
                         System.out.print(dividerText);
                     } else {
                         try {

@@ -3,15 +3,20 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
+import java.util.Scanner;
+
 public class Tam {
     private static TaskList taskListObj;
+    private static Scanner scannerObj = new Scanner(System.in);
 
     public static void main(String[] args) {
         taskListObj = Storage.getSavedTasks();
         Ui.greet();
-        int status = Parser.processCommand(taskListObj);
+        String nextCommand = scannerObj.nextLine();
+        int status = Parser.processCommand(nextCommand, taskListObj);
         while (status == 1) {
-            status = Parser.processCommand(taskListObj);
+            nextCommand = scannerObj.nextLine();
+            status = Parser.processCommand(nextCommand, taskListObj);
         }
         Ui.exit();
     }
