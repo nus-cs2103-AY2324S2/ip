@@ -9,6 +9,11 @@ public abstract class Task {
     private String taskName;
     private Boolean isDone;
 
+    /**
+     * Constructor for a Task object.
+     *
+     * @param taskName
+     */
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;

@@ -11,8 +11,8 @@ public class Event extends Task {
      * Creates an event task with start and end time.
      *
      * @param taskName description of the event.
-     * @param from start time.
-     * @param to end time.
+     * @param from     start time.
+     * @param to       end time.
      */
     public Event(String taskName, String from, String to) {
         super(taskName);
@@ -24,14 +24,12 @@ public class Event extends Task {
         return this.from;
     }
 
-    public String getEnd()
-    {
+    public String getEnd() {
         return this.to;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "[E]" + super.toString() + "( from: " + from + " to: " + to + ")";
     }
 
