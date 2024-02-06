@@ -1,3 +1,5 @@
+package duke.storage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -5,9 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
-class PersistentStorageHandler {
+import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.TaskDataNotFoundException;
+import duke.task.TaskList;
+
+public class PersistentStorageHandler {
 
     private static final String TASKLIST_PATH = "./tasklist.dat";
 
@@ -53,6 +58,7 @@ class PersistentStorageHandler {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TASKLIST_PATH));
             oos.writeObject(taskList);
+            oos.close();
         } catch (Exception e) {
             System.out.println(">>: " + e.getMessage());
             throw new DukeException("Failed to write to file: " + TASKLIST_PATH);
