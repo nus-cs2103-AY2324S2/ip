@@ -1,16 +1,38 @@
 package seedu.mamta;
 import java.io.FileNotFoundException;
 
+
+/**
+ * Main class for the Mamta task manager application.
+ */
 public class Mamta {
 
+    /**
+     * Generates a greeting message.
+     * @return A greeting message.
+     */
     public static String greet() {
         return "Hello! I'm Mamta\nWhat can I do for you?";
     }
 
+    /**
+     * Generates a farewell message.
+     * @return A farewell message.
+     */
     public static String exit() {
         return "Bye. Hope to see you again soon!";
     }
 
+
+    /**
+     * Echoes the input command based on its type and parameters.
+     * @param taskType The type of the task.
+     * @param command The command to be executed.
+     * @param taskNum The task number (if applicable).
+     * @param deadline The deadline (if applicable).
+     * @param endTime The end time (if applicable).
+     * @return A response based on the input command.
+     */
     public static String echo(String taskType, String command, int taskNum, String deadline, String endTime) {
         String output = "";
         switch (command) {
@@ -74,6 +96,11 @@ public class Mamta {
 
     }
 
+    /**
+     * Runs the Mamta application.
+     * @param loadTasksFile The file path for loading tasks.
+     * @param inputNewTasksFile The file path for inputting new tasks.
+     */
     public static void run(String loadTasksFile, String inputNewTasksFile) {
         System.out.println(Ui.printBotLogo());
         Ui.loadTasksFromFile(loadTasksFile);
@@ -82,6 +109,11 @@ public class Mamta {
 
     }
 
+    /**
+     * Main method to run the Mamta application.
+     * @param args Command-line arguments.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public static void main(String[] args) throws FileNotFoundException {
         Mamta.run("./data/mamtainput.txt", "./text-ui-test/input.txt");
     }
