@@ -2,10 +2,10 @@ list
 todo 1
 list
 mark 1
-deadline 2 /by monday
+deadline 2 /by 2022-03-01
 unmark 1
 list
-event 3 /from tuesday /to friday
+event 3 /from 2022-03-01 /to 2024-03-03
 mark 3
 list
 unmark 3
