@@ -8,14 +8,22 @@ import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+
 /**
  * Represents task tracking bot.
  */
-public class Duke {
+public class Duke extends Application {
     private Ui ui = null;
     private Parser parser = null;
     private TaskList taskList = null;
     private Storage storage = null;
+
     private enum LivState {
         ACTIVE,
         INACTIVE
@@ -23,9 +31,30 @@ public class Duke {
     private static Duke instance = null;
     private LivState currentState = null;
 
-    private Duke() {
+    public Duke() {
         // break the initialisation into the initialization function of different classes
         currentState = LivState.INACTIVE;
+
+        // additional line of code to accommodate the need to have a publicly available constructor
+        instance = this;
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        helloWorld.setFont(Font.font("Arial", FontWeight.BOLD, 50));
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+
+        Label notHelloWorld = new Label("not Hello World!"); // Creating a new Label control
+        notHelloWorld.setFont(Font.font("Arial", FontWeight.BOLD, 50));
+        Scene secondaryScene = new Scene(notHelloWorld); // Setting the scene to be our Label
+
+        Stage secondaryStage = new Stage();
+        secondaryStage.setScene(secondaryScene); // Setting the stage to show our screen
+        secondaryStage.show(); // Render the stage.
     }
 
     /**
@@ -35,7 +64,7 @@ public class Duke {
      * Creates a Data directory to host the data file if local taskList not found.
      * Starts listening to user input.
      */
-    private void Start() {
+    private void instanceStart() {
         // initialize duke.ui.Ui
         ui = Ui.getInstance();
         ui.initUi();
@@ -76,7 +105,7 @@ public class Duke {
         return currentState == LivState.ACTIVE;
     }
     public static void main(String[] args) {
-        getInstance().Start();
+        getInstance().instanceStart();
     }
 
     /**
