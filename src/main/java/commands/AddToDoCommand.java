@@ -1,11 +1,11 @@
-package Commands;
+package commands;
 
-import Exceptions.LeluException;
-import Tasks.Task;
-import Tasks.ToDo;
-import TasksStorage.Storage;
-import TasksStorage.TaskList;
-import Ui.Ui;
+import exceptions.LeluException;
+import tasks.Task;
+import tasks.ToDo;
+import tasksstorage.Storage;
+import tasksstorage.TaskList;
+import ui.Ui;
 
 public class AddToDoCommand extends Command {
 

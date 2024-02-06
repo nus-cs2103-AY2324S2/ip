@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Exceptions.LeluException;
-import TasksStorage.Storage;
-import TasksStorage.TaskList;
-import Ui.Ui;
+import exceptions.LeluException;
+import tasksstorage.Storage;
+import tasksstorage.TaskList;
+import ui.Ui;
 
 public class ByeCommand extends Command {
 
