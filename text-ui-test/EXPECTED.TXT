@@ -2,8 +2,27 @@
 Hello, my name is Fireraya!
 What can I do for you today sir?
 --------------------------------
-added: a
-added: b
 I've added this Todo:
 [T][ ] a
+Now you have 1 tasks in the list
+Here is a list of your tasks!
+1.[T][ ] a
+Good job completing these tasks!:
+1.[T][X] a
+I've added this Deadline:
+[D][ ] b (by: 1st Feb)
+Now you have 2 tasks in the list
+Here is a list of your tasks!
+1.[T][X] a
+2.[D][ ] b (by: 1st Feb)
+I've added this Event:
+[E][ ] Conference SJI (from: This wed 6.30pm to: This Web 8.30pm)
 Now you have 3 tasks in the list
+Good job completing these tasks!:
+3.[E][X] Conference SJI (from: This wed 6.30pm to: This Web 8.30pm)
+Here is a list of your tasks!
+1.[T][X] a
+2.[D][ ] b (by: 1st Feb)
+3.[E][X] Conference SJI (from: This wed 6.30pm to: This Web 8.30pm)
+Oh no :<. Task Undone.
+3.[E][ ] Conference SJI (from: This wed 6.30pm to: This Web 8.30pm)

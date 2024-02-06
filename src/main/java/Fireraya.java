@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+
 public class Fireraya {
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -11,11 +12,6 @@ public class Fireraya {
         System.out.println("Hello, my name is Fireraya!");
         System.out.println("What can I do for you today sir?");
         System.out.println("--------------------------------");
-    }
-
-    public static void addTask(String a) {
-        tasks.add(new Task(a));
-        System.out.println("added: " + a);
     }
 
     public static void addTodo(String a) {
@@ -64,9 +60,7 @@ public class Fireraya {
 
     public static void end() {
         System.out.println("Bye, hope to see you soon!");
-    }
-
-    public static void parse() {};
+    };
 
     public static void main(String[] args) throws FirerayaException {
 
@@ -98,7 +92,7 @@ public class Fireraya {
                         throw new InvalidNumOfArgsException();
                     }
                     int curr = Integer.parseInt(all[1]) - 1;
-                    if (tasks.size() <= curr || curr == -1) {
+                    if (tasks.size() <= curr || curr < 0) {
                         throw new FirerayaException("That task does not exist!");
                     }
                     tasks.get(curr).markAsDone();
@@ -112,7 +106,7 @@ public class Fireraya {
                         throw new InvalidNumOfArgsException();
                     }
                     int curr = Integer.parseInt(all[1]) - 1;
-                    if (tasks.size() <= curr || curr == -1) {
+                    if (tasks.size() <= curr || curr < 0) {
                         throw new FirerayaException("That task does not exist!");
                     }
                     tasks.get(curr).markAsUndone();
@@ -192,7 +186,7 @@ public class Fireraya {
                         throw new InvalidNumOfArgsException();
                     }
                     int curr = Integer.parseInt(all[1]) - 1;
-                    if (tasks.size() <= curr || curr == -1) {
+                    if (tasks.size() <= curr || curr < 0) {
                         throw new FirerayaException("That task does not exist!");
                     }
                     System.out.println("Noted. I've removed this task:");
