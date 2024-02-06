@@ -9,7 +9,14 @@ import task.Event;
 public class Ui {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";
-    private static boolean hasEnded = false;
+    private boolean hasEnded;
+    private final TaskList mainTasks;
+
+    public Ui(TaskList mainTasks) {
+        this.mainTasks = mainTasks;
+        hasEnded = false;
+        mainTasks.setUi(this);
+    }
 
     public static String indent() {
         return INDENT;
@@ -32,13 +39,12 @@ public class Ui {
                 "    Hit me up with those deets and let's vibe together!\n" + LINE);
     }
 
-    public static void bye() throws YapperException {
+    public void bye() {
         System.out.print(INDENT + "Peace out, fam! Stay lit and keep those good vibes rollin'!\n");
         hasEnded = true;
-        FileManager.saveTasks();
     }
 
-    public static boolean hasEnded() {
+    public boolean hasEnded() {
         return hasEnded;
     }
 
@@ -46,32 +52,43 @@ public class Ui {
         System.out.println(INDENT + "I gotchu bruv. Here's your list:");
     }
 
-    public static void markMessage(Task task) {
+    public void markMessage(Task task) {
         System.out.println(INDENT + "Yasss King/Queen! This task is officially slayed:\n  " + INDENT + task);
     }
 
-    public static void unmarkMessage(Task task) {
+    public void unmarkMessage(Task task) {
         System.out.println(INDENT + "You forgor:\n  " + INDENT + task);
     }
 
-    public static void deleteMessage(Task task) {
+    public void deleteMessage(Task task) {
         System.out.println(INDENT + "Zamn! This task never happened:\n  " + INDENT + task);
     }
 
-    public static void addTodoMessage(Todo todo) {
+    public void addTodoMessage(Todo todo) {
         System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
-        System.out.println(INDENT + "Yo, we're " + TaskList.listSize()
+        System.out.println(INDENT + "Yo, we're " + mainTasks.listSize()
                 + " task(s) deep! Let's keep this SIGMA GRINDSET!");
     }
 
-    public static void addDeadlineMessage(Deadline deadline) {
+    public void addDeadlineMessage(Deadline deadline) {
         System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
-        System.out.println(INDENT + "Yo, we're " + TaskList.listSize()
+        System.out.println(INDENT + "Yo, we're " + mainTasks.listSize()
                 + " task(s) deep! Let's keep this SIGMA GRINDSET!");
     }
-    public static void addEventMessage(Event event) {
+    public void addEventMessage(Event event) {
         System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
-        System.out.print(INDENT + "Yo, we're " + TaskList.listSize()
+        System.out.print(INDENT + "Yo, we're " + mainTasks.listSize()
                 + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
+    }
+
+    public static void findMessage(String searchedString) {
+        System.out.println(INDENT + "Aight imma look for: " + searchedString);
+        System.out.println(INDENT + ".");
+        System.out.println(INDENT + ".");
+        System.out.println(INDENT + ".");
+    }
+
+    public static void foundNothingMessage() {
+        System.out.println(INDENT + "My bad G, I ain't found nothing");
     }
 }

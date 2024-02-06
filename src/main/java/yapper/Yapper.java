@@ -14,7 +14,8 @@ public class Yapper {
         DELETE("delete"),
         TODO("todo"),
         DEADLINE("deadline"),
-        EVENT("event");
+        EVENT("event"),
+        FIND("find");
         private final String name;
         private static final Map<String, Command> COMMAND_MAP = new HashMap<>();
 
@@ -35,17 +36,25 @@ public class Yapper {
 
     public static void run() {
         Ui.hello();
-        FileManager.loadTasks();
-        while (!Ui.hasEnded()) {
-
-            System.out.print(Ui.line());
-
+        TaskList mainTasks = new TaskList();
+        Ui ui = new Ui(mainTasks);
+        Parser parser = new Parser(mainTasks, ui);
+        FileManager fm = new FileManager(parser);
+        fm.loadTasks();
+        while (!ui.hasEnded()) {
             try {
-                Parser.parseCommand();
+                parser.parseCommand();
             } catch (YapperException e) {
                 System.out.println(e.getMessage());
             }
 
+            if (ui.hasEnded()) {
+                try {
+                    fm.saveTasks();
+                } catch (YapperException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
             System.out.print(Ui.line());
         }
     }

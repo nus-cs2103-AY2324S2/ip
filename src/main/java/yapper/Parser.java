@@ -11,32 +11,50 @@ import task.Deadline;
 import task.Event;
 
 public class Parser {
-    private static final Scanner in = new Scanner(System.in);
-    private static final String INDENT = Ui.indent();
+    private final Scanner in;
+    private final String INDENT = Ui.indent();
+    private final TaskList mainTasks;
+    private final Ui ui;
+
+    public Parser(TaskList mainTasks, Ui ui) {
+        in = new Scanner(System.in);
+        this.mainTasks = mainTasks;
+        this.ui = ui;
+    }
 
     // get next command and arguments
-    public static String[] parseInput() {
+    public String[] parseInput() {
         String input = in.nextLine().trim();
         return input.split(" ", 2); // [command, arguments]
     }
 
-    public static void parseCommand() throws YapperException {
+    public void parseCommand() throws YapperException {
         String[] cmdArg = parseInput();
         Yapper.Command cmd = Yapper.Command.valueOfCommandName(cmdArg[0]);
+
+        System.out.print(Ui.line());
 
         // invalid command
         if (cmd == null) {
             throw (new YapperException(INDENT + "What is blud yappin'? Here's the legit commands:\n"
-                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, bye"));
+                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
 
         // Commands create a Command class in the future
         switch (cmd) {
         case BYE:
-            Ui.bye();
+            ui.bye();
             break;
         case LIST:
-            TaskList.listTasks();
+            mainTasks.listTasks();
+            break;
+        case FIND:
+            // empty find
+            if (cmdArg.length != 2) {
+                throw (new YapperException(INDENT + "What is lil bro looking for?"));
+            }
+
+            mainTasks.find(cmdArg[1]); // can be expanded to change current TaskList to look at found Task List
             break;
         case MARK:
             // Fallthrough
@@ -48,7 +66,7 @@ public class Parser {
                     int i = Integer.parseInt(cmdArg[1]);
 
                     // incorrect index
-                    if (i > TaskList.listSize()) {
+                    if (i > mainTasks.listSize()) {
                         throw (new YapperException(INDENT + "You ain't got that many tasks bruh!"));
                     } else if (i < 1) { // incorrect index
                         throw (new YapperException(INDENT + "Start from task 1 lil bro!"));
@@ -56,11 +74,11 @@ public class Parser {
 
                     // Execute MARK/UNMARK/DELETE
                     if (cmdArg[0].equals("mark")) {
-                        TaskList.markTask(i);
+                        mainTasks.markTask(i);
                     } else if (cmdArg[0].equals("unmark")) {
-                        TaskList.unmarkTask(i);
+                        mainTasks.unmarkTask(i);
                     } else {
-                        TaskList.deleteTask(i);
+                        mainTasks.deleteTask(i);
                     }
                 } catch (java.lang.NumberFormatException e) { // non number typed
                     throw (new YapperException(INDENT
@@ -97,16 +115,16 @@ public class Parser {
             break;
         default: // Shouldn't reach here, invalid commands should be null
             throw (new YapperException(INDENT + "What is blud yappin'? Here's the legit commands:"
-                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, bye"));
+                    + INDENT + "list, todo, deadline, event, mark, unmark, delete, find, bye"));
         }
     }
 
     // add task according to what type they are
-    public static void parseTask(String arg, Task.ID id) throws YapperException {
+    public void parseTask(String arg, Task.ID id) throws YapperException {
         switch (id) {
         case TODO:
             Todo todo = new Todo(arg);
-            TaskList.addTask(todo);
+            mainTasks.addTask(todo);
             break;
         case DEADLINE: {
             String[] descDate = arg.split(" /by ", 2); // [description, by]
@@ -119,7 +137,7 @@ public class Parser {
             try {
                 LocalDate deadlineBy = LocalDate.parse(descDate[1]);
                 Deadline deadline = new Deadline(descDate[0], deadlineBy);
-                TaskList.addTask(deadline);
+                mainTasks.addTask(deadline);
             } catch (DateTimeParseException e) { // incorrect formatting for date
                 throw (new YapperException(INDENT + "When you wanna do this task by lil bro?\n"
                         + INDENT + "type deadline <task> /by <yyyy-mm-dd>\n"
@@ -150,7 +168,7 @@ public class Parser {
                 LocalDate eventFrom = LocalDate.parse(fromTo[0]);
                 LocalDate eventTo = LocalDate.parse(fromTo[1]);
                 Event event = new Event(descDate[0], eventFrom, eventTo);
-                TaskList.addTask(event);
+                mainTasks.addTask(event);
             } catch (DateTimeParseException e) {
                 throw (new YapperException(INDENT + "When does this event start/end lil bro?\n"
                         + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
@@ -163,7 +181,7 @@ public class Parser {
         }
     }
 
-    public static void parseData(String data) throws YapperException {
+    public void parseData(String data) throws YapperException {
         String[] taskData = data.split("" + " / ");
         boolean isDone; // used for creating new Task
         switch (taskData[0]) {
@@ -183,7 +201,7 @@ public class Parser {
                 throw new YapperException("Error in the save files 2");
             }
 
-            TaskList.addTaskNoMessage(new Todo(isDone, taskData[2]));
+            mainTasks.addTaskNoMessage(new Todo(isDone, taskData[2]));
             break;
         case "D":
             if (taskData.length != 4) {
@@ -200,7 +218,7 @@ public class Parser {
 
             try {
                 LocalDate by = LocalDate.parse(taskData[3]);
-                TaskList.addTaskNoMessage(new Deadline(isDone, taskData[2], by));
+                mainTasks.addTaskNoMessage(new Deadline(isDone, taskData[2], by));
             } catch (DateTimeParseException e) {
                 throw new YapperException("Error in the save files 5");
             }
@@ -221,7 +239,7 @@ public class Parser {
             try {
                 LocalDate from = LocalDate.parse(taskData[3]);
                 LocalDate to = LocalDate.parse(taskData[3]);
-                TaskList.addTaskNoMessage(new Event(isDone, taskData[2], from, to));
+                mainTasks.addTaskNoMessage(new Event(isDone, taskData[2], from, to));
             } catch (DateTimeParseException e) {
                 throw new YapperException("Error in the save files 8");
             }
@@ -231,10 +249,10 @@ public class Parser {
         }
     }
 
-    public static String parseToData() {
+    public String parseToData() {
         String data = "";
-        for (int i = 0; i < TaskList.listSize(); i++) {
-            Task task = TaskList.getTask(i);
+        for (int i = 0; i < mainTasks.listSize(); i++) {
+            Task task = mainTasks.getTask(i);
 
             if (task instanceof Todo) {
                 data += String.format("T / %d / %s",
@@ -256,7 +274,7 @@ public class Parser {
             }
 
             // add new line after each task except for the last line
-            if (i != TaskList.listSize() - 1) {
+            if (i != mainTasks.listSize() - 1) {
                 data += System.lineSeparator();
             }
         }

@@ -8,55 +8,82 @@ import task.Deadline;
 import task.Event;
 
 public class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks;
+    private Ui ui;
 
-    public static int listSize() {
+    public TaskList() {
+        tasks = new ArrayList<>();
+    }
+
+    public void setUi(Ui ui) {
+        this.ui = ui;
+    }
+
+    public int listSize() {
         return tasks.size();
     }
 
-    public static Task getTask(int i) {
+    public Task getTask(int i) {
         return tasks.get(i);
     }
 
-    public static void addTask(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
         if (task instanceof Todo) {
-            Ui.addTodoMessage((Todo) task);
+            ui.addTodoMessage((Todo) task);
         } else if (task instanceof Deadline) {
-            Ui.addDeadlineMessage((Deadline) task);
+            ui.addDeadlineMessage((Deadline) task);
         } else if (task instanceof Event) {
-            Ui.addEventMessage((Event) task);
+            ui.addEventMessage((Event) task);
         } else {
             System.out.println("wrong task type added, user should not reach here");
         }
     }
 
-    public static void addTaskNoMessage(Task task) {
+    public void addTaskNoMessage(Task task) {
         tasks.add(task);
     }
 
-    public static void listTasks() {
+    public void listTasks() {
         Ui.listMessage();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(Ui.indent() + (i + 1) + "." + tasks.get(i));
         }
     }
 
-    public static void markTask(int i) {
+    public void markTask(int i) {
         Task task = tasks.get(i - 1);
         task.markAsDone();
-        Ui.markMessage(task);
+        ui.markMessage(task);
     }
 
-    public static void unmarkTask(int i) {
+    public void unmarkTask(int i) {
         Task task = tasks.get(i - 1);
         task.unmark();
-        Ui.unmarkMessage(task);
+        ui.unmarkMessage(task);
     }
 
-    public static void deleteTask(int i) {
+    public void deleteTask(int i) {
         Task task = tasks.get(i - 1);
         tasks.remove(i - 1);
-        Ui.deleteMessage(task);
+        ui.deleteMessage(task);
+    }
+
+    public TaskList find(String string) {
+        TaskList foundTasks = new TaskList();
+        Ui.findMessage(string);
+        for (Task task : tasks) {
+            if (task.contains(string)) {
+                foundTasks.addTaskNoMessage(task);
+            }
+        }
+
+        if (foundTasks.listSize() == 0) {
+            Ui.foundNothingMessage();
+        } else {
+            foundTasks.listTasks();
+        }
+
+        return foundTasks;
     }
 }

@@ -10,7 +10,12 @@ import java.util.Scanner;
 import exception.YapperException;
 
 public class FileManager {
-    public static void loadTasks() {
+    private final Parser parser;
+    public FileManager(Parser parser) {
+        this.parser = parser;
+    }
+
+    public void loadTasks() {
         Path dir = Paths.get("data");
         try {
             if (!Files.exists(dir)) {
@@ -27,7 +32,7 @@ public class FileManager {
             }
             Scanner scanner = new Scanner(file);
             while(scanner.hasNext()) {
-                Parser.parseData(scanner.nextLine());
+                parser.parseData(scanner.nextLine());
             }
         } catch (IOException e) {
             System.out.println("Error in the IO when creating taskData file");
@@ -37,10 +42,9 @@ public class FileManager {
     }
 
     // can have a hasChanged check with the taskList to prevent rewriting data even if no changed occurred
-    public static void saveTasks() throws YapperException {
+    public void saveTasks() throws YapperException {
         try (FileWriter fw = new FileWriter("data/taskData.txt")){
-            fw.write(Parser.parseToData());
-            fw.close();
+            fw.write(parser.parseToData());
         } catch (IOException e) {
             throw (new YapperException("IO Exception when saving data"));
         }
