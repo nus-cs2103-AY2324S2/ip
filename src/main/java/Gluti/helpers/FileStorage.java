@@ -3,7 +3,6 @@ package Gluti.helpers;
 import java.io.*;
 import java.util.ArrayList;
 import Gluti.utils.Task;
-import Gluti.utils.GlutiException;
 import Gluti.utils.Todo;
 import Gluti.utils.Event;
 import Gluti.utils.Deadline;
@@ -22,9 +21,8 @@ public class FileStorage {
      * Initialises a FileStorage instance
      * Check if there already exists a file, load tasks from file if exists
      * Creates a new file if !exists
-     * @throws GlutiException IO Exceptions
      */
-    public FileStorage() throws GlutiException {
+    public FileStorage() {
         checkIfExist();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE));
@@ -90,9 +88,8 @@ public class FileStorage {
 
     /**
      * Checks and creates the directory and file if there is no such directory or file
-     * @throws GlutiException IO Errors
      */
-    private void checkIfExist() throws GlutiException {
+    private void checkIfExist() {
         if (!DATA_FILE.exists()) {
             if (!DATA_FOLDER.exists()) {
                 DATA_FOLDER.mkdirs();
@@ -100,7 +97,7 @@ public class FileStorage {
             try {
                 DATA_FILE.createNewFile();
             } catch (IOException e) {
-                throw new GlutiException("Gluti detects IO Error!");
+                //Todo catch errors
             }
         }
     }
@@ -108,9 +105,8 @@ public class FileStorage {
     /**
      * Saves the TaskList onto a file (Called during termination)
      * @param newTasks saved tasks from program
-     * @throws GlutiException IO Errors
      */
-    public void saveList(ArrayList<Task> newTasks) throws GlutiException {
+    public void saveList(ArrayList<Task> newTasks) {
         try {
             FileWriter fileWriter = new FileWriter(DATA_FILE);
             StringBuilder tasks = new StringBuilder();
@@ -120,7 +116,7 @@ public class FileStorage {
             fileWriter.write(tasks.toString());
             fileWriter.close();
         } catch (IOException e) {
-            throw new GlutiException("Gluti detects IO Error!");
+            //Todo catch errors
         }
     }
 
