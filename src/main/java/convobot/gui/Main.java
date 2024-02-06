@@ -27,6 +27,7 @@ public class Main extends Application {
             Font.loadFont(getClass().getResourceAsStream("/styles/SourceSans3-Regular.otf"), 16);
             Font.loadFont(getClass().getResourceAsStream("/styles/PeaxHandwritingbold.ttf"), 16);
             scene.getStylesheets().add(getClass().getResource("/styles/dark-theme.css").toExternalForm());
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
