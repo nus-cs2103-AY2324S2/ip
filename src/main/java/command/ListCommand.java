@@ -1,9 +1,8 @@
-package Command;
+package command;
 
-import Dook.DookException;
-import Task.TaskList;
-import Dook.Ui;
-import Dook.Storage;
+import task.TaskList;
+import dook.Ui;
+import dook.Storage;
 
 public class ListCommand extends Command {
 

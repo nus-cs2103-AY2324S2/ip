@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Dook.Storage;
-import Dook.Ui;
-import Task.TaskList;
+import dook.Storage;
+import dook.Ui;
+import task.TaskList;
 
 public class MeowCommand extends Command {
 

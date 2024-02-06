@@ -1,20 +1,20 @@
-package Dook;
+package dook;
 
-import Command.AddCommand;
-import Command.Command;
-import Command.DeleteCommand;
-import Command.MarkCommand;
-import Command.ByeCommand;
-import Command.ListCommand;
-import Command.UnmarkCommand;
-import Command.FindCommand;
-import Command.MeowCommand;
-import Command.DanceCommand;
-import Task.Deadline;
-import Task.Event;
-import Task.TaskType;
-import Task.ToDo;
-import Task.Task;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.MarkCommand;
+import command.ByeCommand;
+import command.ListCommand;
+import command.UnmarkCommand;
+import command.FindCommand;
+import command.MeowCommand;
+import command.DanceCommand;
+import task.Deadline;
+import task.Event;
+import task.TaskType;
+import task.ToDo;
+import task.Task;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

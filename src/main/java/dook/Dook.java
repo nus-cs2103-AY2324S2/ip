@@ -1,13 +1,18 @@
-package Dook;
+package dook;
 
-import Command.Command;
-import Task.TaskList;
+import command.Command;
+import task.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-public class Dook {
+
+public class Dook extends Application {
 
     private static final ArrayList<String> FILE_PATH = new ArrayList<>(List.of("data", "dook.txt"));
     private TaskList tasks;
@@ -15,7 +20,7 @@ public class Dook {
     private Parser parser;
     private Storage storage;
 
-    Dook() {
+    public Dook() {
         this.tasks = new TaskList();
         this.ui = new Ui();
         this.parser = new Parser();
@@ -57,11 +62,14 @@ public class Dook {
         }
     }
 
-    /**
-     * Driver function.
-     */
-    public static void main(String[] args) {
-        Dook dook = new Dook();
-        dook.run();
+
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }

@@ -1,4 +1,4 @@
-package Dook;
+package dook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Ui {
                 + "|____/ \\___/ \\___/|_|\\_\\     じしˍ,)ノ\n";
         printSeparator();
         System.out.println("Hello from Dook! :D meow\n" + logo);
-        System.out.println("What can I do for you? uwu");
+        System.out.println("What can I do for you?? uwu");
         printSeparator();
     }
 

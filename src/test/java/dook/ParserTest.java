@@ -1,4 +1,4 @@
-package Dook;
+package dook;
 
 import org.junit.jupiter.api.Test;
 

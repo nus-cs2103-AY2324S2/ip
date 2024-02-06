@@ -1,9 +1,9 @@
-package Command;
+package command;
 
-import Task.TaskList;
-import Dook.Ui;
-import Dook.Storage;
-import Dook.DookException;
+import task.TaskList;
+import dook.Ui;
+import dook.Storage;
+import dook.DookException;
 
 public class ByeCommand extends Command {
 

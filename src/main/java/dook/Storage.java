@@ -1,6 +1,6 @@
-package Dook;
+package dook;
 
-import Task.TaskList;
+import task.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;

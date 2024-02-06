@@ -1,10 +1,10 @@
-package Command;
+package command;
 
-import Task.Task;
-import Task.TaskList;
-import Dook.Ui;
-import Dook.Storage;
-import Dook.DookException;
+import task.Task;
+import task.TaskList;
+import dook.Ui;
+import dook.Storage;
+import dook.DookException;
 
 public class AddCommand extends Command {
 
