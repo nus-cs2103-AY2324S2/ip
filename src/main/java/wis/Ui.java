@@ -12,6 +12,9 @@ import wis.util.InputParser;
 import wis.util.WisException;
 import wis.util.Printer;
 
+/**
+ * Part of the chat box which deals with user interation.
+ */
 public class Ui {
     private String input;
 
@@ -23,6 +26,12 @@ public class Ui {
         this.input = input;
     }
 
+    /**
+     * Parses user input for action, and performs the action.
+     *
+     * @param tasks Task list storing all tasks.
+     * @return True if and only if user input signals exit.
+     */
     public boolean parseInput(TaskList tasks) {
         String[] words = input.split(" ");
         Action action = InputParser.parseAction(input, words);

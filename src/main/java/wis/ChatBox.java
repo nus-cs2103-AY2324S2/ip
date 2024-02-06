@@ -8,6 +8,9 @@ import wis.task.TaskList;
 import wis.util.Printer;
 import wis.util.WisException;
 
+/**
+ * Main window running chat box of the application.
+ */
 public class ChatBox {
     private Scanner scanner;
     private Ui ui;
@@ -21,6 +24,9 @@ public class ChatBox {
         this.isExitSignal = false;
     }
 
+    /**
+     * Loads tasks from disk to launch chat box.
+     */
     public void launch() {
         try {
             this.tasks = new TaskList(Storage.loadTasks());
@@ -32,6 +38,9 @@ public class ChatBox {
         }
     }
 
+    /**
+     * Keeps the chat box running until receiving exit signal.
+     */
     private void run() {
         Printer.printActionAttach(Action.GREET);
         while (!isExitSignal) {

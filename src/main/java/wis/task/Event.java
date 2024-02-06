@@ -5,15 +5,24 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.time.LocalDateTime;
 
+/**
+ * An event task that has starting and ending dates and time. A description of
+ * the task is inherited from Task class.
+ */
 public class Event extends Task{
-    LocalDateTime beginTime;
-    LocalDateTime endTime;
+    private LocalDateTime beginTime;
+    private LocalDateTime endTime;
     public Event(String description, LocalDateTime beginTime, LocalDateTime endTime) {
         super(description);
         this.beginTime = beginTime;
         this.endTime = endTime;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Date and time are displayed in the format: Feb 15 2024, 1800
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s %d %d, %s to: %s %d %d, %s)",
@@ -28,6 +37,9 @@ public class Event extends Task{
                 LocalTime.of(endTime.getHour(), endTime.getMinute()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toSavedString() {
         return String.format("E#!#%s#!#%s#!#%s\n",

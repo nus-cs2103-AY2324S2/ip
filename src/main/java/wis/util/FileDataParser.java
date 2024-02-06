@@ -8,7 +8,18 @@ import wis.task.Task;
 import wis.task.Deadline;
 import wis.task.Event;
 
+/**
+ * Parser for parsing stored file data.
+ */
 public class FileDataParser extends Parser {
+    /**
+     * Parses a line in a stored file to obtain the task it represents.
+     *
+     * @param line Line in the stored file to be parsed.
+     * @return Task represented by the line.
+     * @throws InputMismatchException  If parsing fails as the line has
+     * unknown format.
+     */
     public static Task parseLine(String line) throws InputMismatchException {
         String[] words = line.split("#!#");
         if (words[0].equals("T")) {
