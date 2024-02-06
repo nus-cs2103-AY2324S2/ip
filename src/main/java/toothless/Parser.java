@@ -5,6 +5,7 @@ import toothless.commands.Command;
 import toothless.commands.DeadlineCommand;
 import toothless.commands.DeleteCommand;
 import toothless.commands.EventCommand;
+import toothless.commands.FindCommand;
 import toothless.commands.ListCommand;
 import toothless.commands.MarkCommand;
 import toothless.commands.TodoCommand;
