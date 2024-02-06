@@ -2,16 +2,18 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.1'
-    // id 'org.openjfx.javafxplugin' version '17.0.7'
-
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 repositories {
     mavenCentral()
 }
-
+javafx {
+    version = "17.0.8"
+    modules = [ 'javafx.controls' ]
+}
 dependencies {
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '17.0.8'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
