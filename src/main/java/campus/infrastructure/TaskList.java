@@ -1,17 +1,17 @@
 package campus.infrastructure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import campus.exceptions.CampusException;
 import campus.tasks.Deadline;
 import campus.tasks.Event;
 import campus.tasks.Task;
 import campus.tasks.ToDos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * TaskList Class handles all CRUD actions related to the Task Class, it also contains the List<Task> field to store
- * the various tasks in the list and does List Manipulation operations on them
+ * TaskList Class handles all CRUD actions related to the Task Class, it also contains the List of 'Task'
+ * type field to store the various tasks in the list and does List Manipulation operations on them
  */
 public class TaskList {
     private List<Task> tasks;
@@ -21,10 +21,10 @@ public class TaskList {
     }
 
     /**
-     * Updates the current List<Tasks> given a List<String> input read from the saved txt file in memory
-     * @param listOfStrings List<String> format
-     * @throws CampusException In the event that the file is corrupted and the List<String> does not match the
-     * accepted txt file formatting for its data
+     * Updates the current List of Task type given a List of String type input read from the saved txt file in memory
+     * @param listOfStrings List of String format
+     * @throws CampusException In the event that the file is corrupted and the List of String type does not match the
+     *      accepted txt file formatting for its data
      */
     public void updateListFromFile(List<String> listOfStrings) throws CampusException {
         if (listOfStrings == null) {
@@ -66,6 +66,9 @@ public class TaskList {
                     String eventEndTime = parts[4].trim();
                     task.add(new Event(eventName, isCompleted, eventStartTime, eventEndTime));
                 }
+                break;
+            default:
+                break;
             }
         }
         this.tasks = task;
@@ -90,7 +93,7 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
-    public  Task getIthTaskString(String userInput) {
+    public Task getIthTaskString(String userInput) {
         String listNumber = userInput.substring(userInput.length() - 1);
         int index = Integer.parseInt(listNumber) - 1;
         return this.tasks.get(index);
