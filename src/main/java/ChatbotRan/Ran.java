@@ -27,35 +27,13 @@ public class Ran {
         do {
             ui.line();
             try {
-                parser.exec(sc.nextLine(),taskList,ui);
+                parser.exec(sc.nextLine(), taskList, ui);
             } catch (TaskException e) {
                 ui.error(e);
             }
         } while (parser.running());
 
         ui.bye();
-    }
-
-
-    private Task handleTaskNo(String line, int space) throws TaskException {
-        if (space == -1) {
-            throw new TaskException("Missing task number.");
-        }
-        Integer taskNo = Util.parseNumber(line, space);
-        if (taskNo == null || taskNo < 1) {
-            throw new TaskException("Invalid task number.");
-        } else if (taskNo > taskList.size()) {
-            throw new TaskException("No task by that number.");
-        } else {
-            return taskList.get(taskNo - 1);
-        }
-    }
-
-    private void addTask(Task task) {
-        taskList.add(task);
-        ui.addTask(task);
-        ui.printNumber(taskList.size());
-
     }
 
 }

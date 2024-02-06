@@ -1,6 +1,7 @@
 package ChatbotRan;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private LocalDate from;
@@ -18,7 +19,11 @@ public class Event extends Task {
 
     public static Event parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/from", "/to");
-        return new Event(texts[0], texts[1], texts[2]);
+        try {
+            return new Event(texts[0], texts[1], texts[2]);
+        } catch (DateTimeParseException e) {
+            throw new TaskException("Invalid date: " + e.getParsedString());
+        }
     }
 
     @Override

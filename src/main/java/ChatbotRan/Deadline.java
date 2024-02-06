@@ -1,6 +1,7 @@
 package ChatbotRan;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDate deadline;
@@ -17,7 +18,11 @@ public class Deadline extends Task {
 
     public static Deadline parse(String line, int space) {
         String[] texts = Util.parse(line, space, "/by");
-        return new Deadline(texts[0], texts[1]);
+        try {
+            return new Deadline(texts[0], texts[1]);
+        } catch (DateTimeParseException e) {
+            throw new TaskException("Invalid date: " + e.getParsedString());
+        }
     }
 
     @Override
