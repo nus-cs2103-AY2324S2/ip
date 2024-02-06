@@ -1,5 +1,9 @@
+package tasks;
+
+import datetime.DateTime;
+
 /**
- * Represents a task which is an event. A <code>EventTask</code>
+ * Represents a task which is an event. A <code>tasks.EventTask</code>
  * object contains its description or name, represented by a String,
  * a boolean indicating whether the task is marked,
  * a String representing the start date and/or time of the event, and

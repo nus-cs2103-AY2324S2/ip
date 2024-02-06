@@ -1,5 +1,11 @@
+package commands;
+
 import java.io.IOException;
 
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+import storage.Storage;
 public class TaskCommand extends Command {
     private final Task task;
 

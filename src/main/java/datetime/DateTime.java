@@ -1,3 +1,5 @@
+package datetime;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -15,13 +17,13 @@ public class DateTime {
     public LocalDateTime dateTime;
     public Boolean dateOnly;
     public Boolean timeOnly;
-    DateTime(String dt) {
+    public DateTime(String dt) {
         this.dateOnly = false;
         this.timeOnly = false;
         this.dateTime = parseDateTime(dt);
     }
 
-    DateTime(LocalDate date) {
+    public DateTime(LocalDate date) {
         this.dateOnly = false;
         this.timeOnly = false;
         this.dateTime = date.atTime(0, 0);
@@ -144,10 +146,10 @@ public class DateTime {
         }
 
     }
-    public Boolean isSameDay(DateTime dt) {
+    public boolean isSameDay(DateTime dt) {
         return this.dateTime.toLocalDate().isEqual(dt.dateTime.toLocalDate());
     }
-    public Boolean isWithinDate(DateTime dtStart, DateTime dtEnd) {
+    public boolean isWithinDate(DateTime dtStart, DateTime dtEnd) {
         if (dateTime.toLocalDate().isAfter(dtStart.dateTime.toLocalDate())
             && dateTime.toLocalDate().isBefore(dtEnd.dateTime.toLocalDate())) {
             return true;

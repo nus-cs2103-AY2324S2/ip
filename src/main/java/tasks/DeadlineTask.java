@@ -1,5 +1,9 @@
+package tasks;
+
+import datetime.DateTime;
+
 /**
- * Represents a task with a deadline. A <code>DeadlineTask</code>
+ * Represents a task with a deadline. A <code>tasks.DeadlineTask</code>
  * object contains its description or name, represented by a String,
  * a boolean indicating whether the task is marked, and
  * a String representing the date and/or time of deadline.

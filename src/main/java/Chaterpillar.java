@@ -1,18 +1,11 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
+import exceptions.ChaterpillarException;
+import commands.Command;
+import parser.Parser;
+import tasks.TaskList;
+import ui.Ui;
+import storage.Storage;
+
 import java.io.IOException;
-
-import java.time.LocalDate;
-
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Main class for Chaterpillar chatbot.
