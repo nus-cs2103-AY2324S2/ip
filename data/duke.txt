@@ -1,3 +1,2 @@
-T | true | borrow book
-D | false | return book | Sunday
-E | true | project meeting | Mon 2pm-4pm
+E | false | project meeting | 02/02/2001 1400-22/08/2011 1600
+E | false | project meeting | 02/02/2001 1400-22/08/2011 1600
