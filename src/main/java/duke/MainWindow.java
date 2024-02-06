@@ -12,8 +12,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    public static String USER_IMG_PATH = "/images/user.png";
-    public static String STEVE_IMG_PATH = "/images/steve.png";
+    public static final String USERIMGPATH = "/images/user.png";
+    public static final String STEVEIMGPATH = "/images/steve.png";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMG_PATH));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream(STEVE_IMG_PATH));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(USERIMGPATH));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream(STEVEIMGPATH));
 
     @FXML
     public void initialize() {
