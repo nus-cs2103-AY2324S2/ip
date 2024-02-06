@@ -34,7 +34,8 @@ dependencies {
 
 // Configure application-related settings
 application {
-    mainClass.set("cli.ConvoBot")
+    // mainClass.set("cli.ConvoBot") // uncomment this to use CLI
+    mainClass.set("gui.ConvoBot") // uncomment this to use GUI
 }
 
 // Configure settings for Shadow

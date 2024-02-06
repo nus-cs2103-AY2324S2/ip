@@ -1,7 +1,5 @@
 package cli;
 
-import javafx.application.Application;
-
 import commands.Command;
 import exceptions.ConvoBotException;
 import gui.Main;
@@ -62,22 +60,11 @@ public class ConvoBot {
     }
 
     /**
-     * Retrieves a response from ConvoBot based on the provided input.
-     *
-     * @param input The input string representing the user's message.
-     * @return A string containing ConvoBot's response.
-     */
-    public String getResponse(String input) {
-        return "ConvoBot heard: " + input;
-    }
-
-    /**
      * Main entry point for the ConvoBot application.
      *
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        // new ConvoBot("./data/tasks.txt").run(); // uncomment this to use CLI instead of GUI
-        Application.launch(Main.class, args);
+        new ConvoBot("./data/tasks.txt").run();
     }
 }
