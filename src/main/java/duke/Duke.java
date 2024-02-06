@@ -19,16 +19,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.image.Image;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -70,7 +65,7 @@ public class Duke extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(this, tasks, ui, storage);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -168,33 +163,31 @@ public class Duke extends Application {
     @FXML
     private void handleUserInput() {
         String userInputText = userInput.getText();
+        String response;
+
         try {
-            Command command = Parser.parse(userInputText); // Parse the user input to get the command
-            command.execute(tasks, ui, storage); // Execute the command
-
-            // Get the response from executing the command (add, list, delete, etc.)
-            String response = ""; // Initialize an empty response
-            if (command instanceof AddTodoCommand || command instanceof AddDeadlineCommand || command instanceof AddEventCommand) {
-                // If it's an add command, display the added task
-                response = ui.showTaskAdded(tasks.getTask(tasks.getSize() - 1), tasks.getSize());
-            } else if (command instanceof ListCommand) {
-                // If it's a list command, list all tasks
+            Command command = Parser.parse(userInputText);
+            command.execute(tasks, ui, storage);
+            if (command instanceof DeleteCommand || command instanceof AddTodoCommand || command instanceof AddEventCommand || command instanceof AddDeadlineCommand || command instanceof ListCommand) {
+                // Show updated task list after adding/deleting a task or when list command is invoked
                 response = ui.showTaskList(tasks);
-            } else if (command instanceof DeleteCommand) {
-                // If it's a delete command, display the deleted task info
-                // Note: You need to modify DeleteCommand to return the deleted task info
+            } else if (command instanceof FindCommand) {
+                response = command.execute(tasks, ui, storage);
+            } else {
+                // For other commands, you can customize the response
+                response = "Command executed successfully.";
             }
-            // ... handle other types of commands similarly ...
-
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userInputText, user),
-                    DialogBox.getDukeDialog(response, duke)
-            );
         } catch (DukeException e) {
-            // Handle exceptions, show error messages
-            String errorResponse = ui.showError(e.getMessage());
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(errorResponse, duke));
+            // Handle exceptions, for example, invalid command, task not found, etc.
+            response = e.getMessage();
         }
+
+        // Display the response or updated task list in the GUI
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userInputText, user),
+                DialogBox.getDukeDialog(response, duke)
+        );
+
         userInput.clear();
     }
 
@@ -315,6 +308,39 @@ class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public String showMatchedTasks(List<Task> matchedTasks) {
+        if (matchedTasks.isEmpty()) {
+            return "No matching tasks found.";
+        } else {
+            StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchedTasks.size(); i++) {
+                response.append(i + 1).append(".").append(matchedTasks.get(i)).append("\n");
+            }
+            return response.toString();
+        }
+    }
+
+    public String formatMatchedTasks(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String formatTaskList(TaskList tasks) {
+        if (tasks.getSize() == 0) {
+            return "Task list is empty.";
+        }
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task task = tasks.getTask(i);
+            response.append(i + 1).append(".").append(task).append("\n");
+        }
+        return response.toString();
     }
 }
 
@@ -454,6 +480,11 @@ class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number format.");
             }
+        case "find":
+            if (commandArgs.isEmpty()) {
+                throw new DukeException("The keyword for find cannot be empty.");
+            }
+            return new FindCommand(commandArgs);
         case "bye":
             return new ExitCommand();
         default:
@@ -502,30 +533,44 @@ class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
+
         this.tasks = tasks;
     }
 
     public TaskList() {
+
         this(new ArrayList<>());
     }
 
     public void addTask(Task task) {
+
         tasks.add(task);
     }
 
     public Task removeTask(int index) {
+
         return tasks.remove(index);
     }
 
     public Task getTask(int index) {
+
         return tasks.get(index);
     }
 
     public int getSize() {
+
         return tasks.size();
     }
 
-    // ... any other methods needed for task management ...
+    public List<Task> findTasks(String keyword) {
+        List<Task> res = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                res.add(task);
+            }
+        }
+        return res;
+    }
 }
 
 
@@ -615,7 +660,7 @@ class Event extends Task {
 }
 
 abstract class Command {
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
     public abstract boolean isExit();
 }
 
@@ -627,7 +672,7 @@ class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DukeException("Invalid task number.");
         }
@@ -635,10 +680,12 @@ class MarkCommand extends Command {
         task.markAsDone();
         ui.showMarkedTask(task);
         storage.save(tasks);
+        return "Marked as done: " + task;
     }
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
@@ -651,7 +698,7 @@ class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DukeException("Invalid task number.");
         }
@@ -659,6 +706,7 @@ class UnmarkCommand extends Command {
         task.markAsNotDone();
         ui.showUnmarkedTask(task);
         storage.save(tasks);
+        return "Marked as not done: " + task;
     }
 
     @Override
@@ -675,13 +723,14 @@ class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DukeException("Invalid task number.");
         }
         Task task = tasks.removeTask(index);
         ui.showDeletedTask(task, tasks.getSize());
         storage.save(tasks);
+        return "Deleted task: " + task;
     }
 
     @Override
@@ -692,8 +741,9 @@ class DeleteCommand extends Command {
 
 class ExitCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
+        return "Goodbye!";
     }
 
     @Override
@@ -706,8 +756,9 @@ class ExitCommand extends Command {
 
 class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showTaskList(tasks);
+        return ui.formatTaskList(tasks);
     }
     public boolean isExit() {
         return false;
@@ -722,11 +773,12 @@ class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
         ui.showTaskAdded(newTodo, tasks.getSize());
         storage.save(tasks);
+        return "Added task: " + newTodo;
     }
 
     @Override
@@ -745,11 +797,12 @@ class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline newDeadline = new Deadline(description, by);
         tasks.addTask(newDeadline);
         ui.showTaskAdded(newDeadline, tasks.getSize());
         storage.save(tasks);
+        return "Added task: " + newDeadline;
     }
 
     @Override
@@ -770,15 +823,43 @@ class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event newEvent = new Event(description, start, end);
         tasks.addTask(newEvent);
         ui.showTaskAdded(newEvent, tasks.getSize());
         storage.save(tasks);
+        return "Added task: " + newEvent;
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+}
+
+class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        List<Task> matchedTasks = tasks.findTasks(keyword);
+        if (matchedTasks.isEmpty()) {
+            return "No tasks matched your keyword.";
+        } else {
+            return ui.formatMatchedTasks(matchedTasks); // Assuming you have implemented this method to format the list of tasks into a String.
+        }
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    public String getKeyword() {
+        return keyword;
     }
 }
