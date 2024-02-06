@@ -34,6 +34,7 @@ application {
 
 shadowJar {
     archiveBaseName = "mamta"
+    archiveFileName = 'mamta.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
