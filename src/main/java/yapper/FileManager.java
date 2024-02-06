@@ -31,7 +31,7 @@ public class FileManager {
                 file = Files.createFile(file);
             }
             Scanner scanner = new Scanner(file);
-            while(scanner.hasNext()) {
+            while (scanner.hasNext()) {
                 parser.parseData(scanner.nextLine());
             }
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class FileManager {
 
     // can have a hasChanged check with the taskList to prevent rewriting data even if no changed occurred
     public void saveTasks() throws YapperException {
-        try (FileWriter fw = new FileWriter("data/taskData.txt")){
+        try (FileWriter fw = new FileWriter("data/taskData.txt")) {
             fw.write(parser.parseToData());
         } catch (IOException e) {
             throw (new YapperException("IO Exception when saving data"));

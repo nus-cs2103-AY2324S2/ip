@@ -1,6 +1,5 @@
 package yapper;
 
-import exception.YapperException;
 import task.Deadline;
 import task.Event;
 import task.Task;
