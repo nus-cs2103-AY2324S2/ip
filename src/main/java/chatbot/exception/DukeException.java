@@ -1,3 +1,5 @@
+package chatbot.exception;
+
 /**
  * Encapsulates the exceptions specific to the chatbot.
  *
@@ -6,7 +8,7 @@
  */
 public class DukeException extends Exception {
     /**
-     * Constructs a new DukeException with the specified error message.
+     * Constructs a new chatbot.exception.DukeException with the specified error message.
      *
      * @param message The specified error message.
      */

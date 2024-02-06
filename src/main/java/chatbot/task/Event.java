@@ -1,8 +1,10 @@
+package chatbot.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates the data and behaviour of an Event task.
+ * Encapsulates the data and behaviour of an chatbot.task.Event task.
  *
  * @author Huang Zhuoyan, Celeste
  * @version CS2103T AY24/25 Semester 1, G07
@@ -13,9 +15,9 @@ public class Event extends Task {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
-     * Constructs a new Event task with the given name, start date and end date.
+     * Constructs a new chatbot.task.Event task with the given name, start date and end date.
      *
-     * @param name The name of the Deadline task.
+     * @param name The name of the chatbot.task.Deadline task.
      * @param start The LocalDateTime object containing the start date.
      * @param end The LocalDateTime object containing the end date.
      */

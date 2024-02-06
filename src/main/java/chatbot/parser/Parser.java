@@ -1,7 +1,11 @@
+package chatbot.parser;
+
+import chatbot.exception.DukeException;
+import chatbot.task.TaskList;
+import chatbot.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class Parser {
     private TaskList tasks;

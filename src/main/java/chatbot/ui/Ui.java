@@ -1,3 +1,7 @@
+package chatbot.ui;
+
+import chatbot.exception.DukeException;
+import chatbot.task.TaskList;
 
 public class Ui {
     private static final int LINE_LENGTH = 60;

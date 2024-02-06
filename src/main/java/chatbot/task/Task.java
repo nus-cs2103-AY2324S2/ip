@@ -1,5 +1,7 @@
+package chatbot.task;
+
 /**
- * Encapsulates the data and behaviour of a Task.
+ * Encapsulates the data and behaviour of a chatbot.task.Task.
  *
  * @author Huang Zhuoyan, Celeste
  * @version CS2103T AY24/25 Semester 1, G07
@@ -9,7 +11,7 @@ public class Task {
     private boolean completed;
 
     /**
-     * Constructs a new Task with the given name.
+     * Constructs a new chatbot.task.Task with the given name.
      *
      * @param name The name or descriptor of the task.
      */

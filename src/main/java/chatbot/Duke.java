@@ -1,9 +1,13 @@
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package chatbot;
+
+import chatbot.exception.DukeException;
+import chatbot.parser.Parser;
+import chatbot.storage.Storage;
+import chatbot.task.TaskList;
+import chatbot.ui.Ui;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * Encapsulates the data and behaviour of the chatbot.
@@ -41,7 +45,7 @@ public class Duke {
                 Ui.printErrorMessage(e.getMessage());
             } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
                 String exceptionMessage = Ui.createLine() + "\n"
-                        + "invalid date time format! please use YYYY-MM-DD HH:MM format!"
+                        + "invalid date time format! please use YYYY-MM-DD HH:MM format!" + "\n"
                         + Ui.createLine();
                 Ui.printErrorMessage(exceptionMessage);
             }
