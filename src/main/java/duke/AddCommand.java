@@ -12,13 +12,13 @@ public class AddCommand extends Command {
     /**
      * Executes the adding of a task to the specified tasklist.
      *
-     * @param tasks Tasklist to be added to.
+     * @param taskList Tasklist to be added to.
      * @param ui User interface.
      * @param storage Storage to save Tasklist content.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.add(this.t);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        taskList.add(this.t);
         setExit(false);
     }
 }

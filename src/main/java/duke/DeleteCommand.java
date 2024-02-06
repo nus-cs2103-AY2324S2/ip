@@ -12,13 +12,13 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the task from the task list.
      *
-     * @param tasks Task list to delete from.
+     * @param taskList Task list to delete from.
      * @param ui User interface to display message.
      * @param storage Storage where task content is stored.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            tasks.delete(this.index);
+            taskList.delete(this.index);
             setExit(false);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());

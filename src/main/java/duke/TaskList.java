@@ -1,15 +1,13 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a list that keeps track of tasks.
  * The TaskList is able to add, delete, and mark or unmark tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> taskList = new ArrayList<>();
     private Ui ui = new Ui();
 
     /**
@@ -25,21 +23,22 @@ public class TaskList {
                 String taskType = details[0];
                 Task taskRead = null;
                 switch (taskType) {
-                    case "T":
-                        ToDo td = new ToDo(details[2]);
-                        tasks.add(td);
-                        taskRead = td;
-                        break;
-                    case "D":
-                        Deadline d = new Deadline(details[2], details[3]);
-                        tasks.add(d);
-                        taskRead = d;
-                        break;
-                    case "E":
-                        Event e = new Event(details[2], details[3], details[4]);
-                        tasks.add(e);
-                        taskRead = e;
-                        break;
+                case "T":
+                    ToDo td = new ToDo(details[2]);
+                    taskList.add(td);
+                    taskRead = td;
+                    break;
+                case "D":
+                    Deadline d = new Deadline(details[2], details[3]);
+                    taskList.add(d);
+                    taskRead = d;
+                    break;
+                case "E":
+                    Event e = new Event(details[2], details[3], details[4]);
+                    taskList.add(e);
+                    taskRead = e;
+                    break;
+                default:
                 }
                 if (details[1].equals("X")) {
                     taskRead.markAsDone();
@@ -61,11 +60,11 @@ public class TaskList {
      * @param t Task to be added.
      */
     public void add(Task t) {
-        tasks.add(t);
-        int numItems = tasks.size();
+        taskList.add(t);
+        int numItems = taskList.size();
         String sOrP = numItems == 1 ? "task" : "tasks";
         ui.showMessage("Got it. I've added this task:\n" + t.toString()
-                + "\nNow you have " + numItems + " " + sOrP +" in the list.");
+                + "\nNow you have " + numItems + " " + sOrP + " in the list.");
     }
 
     /**
@@ -73,9 +72,9 @@ public class TaskList {
      */
     public void list() {
         ui.showMessage("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task t = tasks.get(i);
-            System.out.printf("%d. %s\n", i+1, t.toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            System.out.printf("%d. %s\n", i + 1, t.toString());
         }
     }
 
@@ -87,9 +86,9 @@ public class TaskList {
      */
     public void delete(int index) throws DukeException {
         try {
-            Task removedTask = tasks.get(index - 1);
-            tasks.remove(index - 1);
-            int numItems = tasks.size();
+            Task removedTask = taskList.get(index - 1);
+            taskList.remove(index - 1);
+            int numItems = taskList.size();
             String sOrP = numItems == 1 ? "task" : "tasks";
             ui.showMessage("Noted. I've removed this task:\n" + removedTask.toString()
                     + "\nNow you have " + numItems + " " + sOrP + " in the list.");
@@ -104,7 +103,7 @@ public class TaskList {
      * @return Number of tasks.
      */
     public int size() {
-        return tasks.size();
+        return taskList.size();
     }
 
     /**
@@ -116,7 +115,7 @@ public class TaskList {
      */
     public Task get(int i) throws DukeException {
         try {
-            return tasks.get(i);
+            return taskList.get(i);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid task number... count properly xx");
         }

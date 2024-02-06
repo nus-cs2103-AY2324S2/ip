@@ -57,7 +57,7 @@ public class Parser {
 
         if (input.startsWith("delete")) {
             try {
-                String taskNumber = input.replaceAll("delete", "").replaceAll(" ","");
+                String taskNumber = input.replaceAll("delete", "").replaceAll(" ", "");
                 if (taskNumber.length() < 1) {
                     throw new DukeException("which task?");
                 }

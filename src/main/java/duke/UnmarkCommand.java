@@ -11,14 +11,14 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the unmarking of a task.
-     * @param tasks Tasklist containing task.
+     * @param taskList Tasklist containing task.
      * @param ui User interface.
      * @param storage Storage to store Tasklist content.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Task t = tasks.get(index - 1);
+            Task t = taskList.get(index - 1);
             t.unmark();
             setExit(false);
         } catch (DukeException e) {

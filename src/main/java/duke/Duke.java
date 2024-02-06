@@ -6,21 +6,29 @@ package duke;
  */
 public class Duke {
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Creates a new Duke object with the given filePath to store data.
+     *
+     * @param filePath Filepath to storage file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (DukeException e) {
-            tasks = new TaskList();
+            taskList = new TaskList();
         }
     }
 
+    /**
+     * Runs and starts the chatbot.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -29,7 +37,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.breakLine();
                 Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
@@ -42,6 +50,10 @@ public class Duke {
         ui.exit();
     }
 
+    /**
+     * Main method.
+     * @param args Arguments.
+     */
     public static void main(String[] args) {
         Duke duke = new Duke("./data/duke.txt");
         duke.run();

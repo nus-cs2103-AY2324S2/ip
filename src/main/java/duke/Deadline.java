@@ -2,10 +2,12 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     protected LocalDate byDate;
     protected String by;

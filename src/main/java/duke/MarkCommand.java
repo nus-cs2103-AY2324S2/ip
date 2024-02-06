@@ -12,14 +12,14 @@ public class MarkCommand extends Command {
     /**
      * Executes the marking of a task.
      *
-     * @param tasks TaskList.
+     * @param taskList TaskList.
      * @param ui User interface.
      * @param storage Storage to store TaskList content.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Task t = tasks.get(index - 1);
+            Task t = taskList.get(index - 1);
             t.markAsDone();
             setExit(false);
         } catch (DukeException e) {
