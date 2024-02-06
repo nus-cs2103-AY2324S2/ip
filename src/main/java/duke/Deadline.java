@@ -43,6 +43,14 @@ public class Deadline extends Task {
         this.by = Dates.dateTime2DbStr(by);
     }
 
+    /**
+     * Constructor used to clone a Deadline object
+     */
+    public Deadline(Deadline deadline) {
+        super(deadline);
+        this.by = deadline.by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

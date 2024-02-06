@@ -8,6 +8,19 @@ import java.util.List;
  */
 public class TaskList {
     public ArrayList<Task> taskList;
+    public ArrayList<Task> prevTaskList; // contains the taskList before mutation
+    private Task prevTask; // contains the task involved in the previous operation
+    private MutateOps prevOp; // contains the previous operation that mutated taskList
+
+    /**
+     * Enum of operations that can mutate taskList
+     */
+    private enum MutateOps {
+        MARK,
+        UNMARK,
+        ADD,
+        DELETE
+    }
 
     // duke.Todo representation - 0 means not done, 1 means done
     // T | done? | desc
@@ -50,17 +63,6 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the current taskList.
-     *
-     * @param task to be added
-     */
-    public void addTask(Task task) {
-        // Based on task type, extract traits
-        assert task != null;
-        taskList.add(task);
-    }
-
-    /**
      * Gets a task from the current taskList.
      *
      * @param index of task to get
@@ -75,6 +77,21 @@ public class TaskList {
     }
 
     /**
+     * Adds a task to the current taskList.
+     *
+     * @param task to be added
+     */
+    public void addTask(Task task) {
+        // Based on task type, extract traits
+        assert task != null;
+
+        // update prevTaskList
+        prevTaskList = cloneTaskList(taskList);
+
+        taskList.add(task);
+    }
+
+    /**
      * Deletes a task from the duke.TaskList, given its index.
      *
      * @param index of task to delete
@@ -83,6 +100,9 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new DukeException.TaskNotFoundException();
         } else {
+            // update prevTaskList
+            prevTaskList = cloneTaskList(taskList);
+
             taskList.remove(index - 1);
         }
     }
@@ -96,6 +116,9 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new DukeException.TaskNotFoundException();
         } else {
+            // update prevTaskList
+            prevTaskList = cloneTaskList(taskList);
+
             Task t = this.getTask(index);
             t.markAsDone();
         }
@@ -110,8 +133,25 @@ public class TaskList {
         if (index < 1 || index > taskList.size()) {
             throw new DukeException.TaskNotFoundException();
         } else {
+            // update prevTaskList
+            prevTaskList = cloneTaskList(taskList);
+
             Task t = this.getTask(index);
             t.unmarkAsDone();
+        }
+    }
+
+    /**
+     * Reverts taskList to prevTaskList
+     */
+    public void undo() {
+        if (prevTaskList == null) {
+            System.out.println("Undo unsuccessful, no previous actions to undo!");
+        } else {
+            ArrayList<Task> tmpTaskList = cloneTaskList(taskList);
+            taskList = prevTaskList;
+            prevTaskList = tmpTaskList;
+            System.out.println("Undo Successful!");
         }
     }
 
@@ -178,5 +218,30 @@ public class TaskList {
             System.out.println("Failed to add task: " + task);
             return null;
         }
+    }
+
+    /**
+     * Clones taskList, for saving the previous state in case of an undo
+     * @param taskList to deep copy
+     * @return A deep copy of the task list
+     */
+    private ArrayList<Task> cloneTaskList(ArrayList<Task> taskList) {
+        ArrayList<Task> newPrevTaskList = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task instanceof Todo) {
+                Todo todoTask = (Todo) task;
+                newPrevTaskList.add(new Todo(todoTask));
+            } else if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                newPrevTaskList.add(new Deadline(deadlineTask));
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                newPrevTaskList.add(new Event(eventTask));
+            } else {
+                System.out.println("Failed to add task: " + task);
+                return null;
+            }
+        }
+        return newPrevTaskList;
     }
 }

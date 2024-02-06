@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+
 /**
  * Task that has a description only.
  */
@@ -15,6 +17,14 @@ public class Todo extends Task {
 
     public Todo(String description, Boolean isDone) {
         super(description, isDone);
+    }
+
+    /**
+     * Constructor used to clone a Todo object
+     * @param todo
+     */
+    public Todo(Todo todo) {
+        super(todo);
     }
 
     @Override

@@ -50,6 +50,15 @@ public class Event extends Task {
         this.to = Dates.dateTime2DbStr(to);
     }
 
+    /**
+     * Constructor used to clone an Event object
+     */
+    public Event(Event event) {
+        super(event);
+        this.from = event.from;
+        this.to = event.to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
