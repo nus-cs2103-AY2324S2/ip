@@ -40,6 +40,12 @@ public class Parser {
             */
             return false;
 
+        } else if (command.equals("find")){
+
+            TaskList taskList = new TaskList(myList);
+            taskList.find(parts);
+            return true;
+
         } else if (parts.length == 1) {
 
             ui.commandError();

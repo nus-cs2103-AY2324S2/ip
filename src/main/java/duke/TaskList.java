@@ -71,6 +71,24 @@ public class TaskList {
         
     }
 
+    public void find(String[] parts) {
+
+        Ui ui = new Ui();
+        ui.findListDetails();
+
+        String keyword = parts[1];
+
+        for (Task task : myList) {
+
+            if (task.getDescription().contains(keyword)) {
+                System.out.println((myList.indexOf(task) + 1) + "." + task);
+            }
+        }
+
+        ui.separationLiine();
+
+    }
+
     public void add(String command, String restOfInputs) {
         Ui ui = new Ui();
 
