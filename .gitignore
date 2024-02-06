@@ -22,3 +22,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # application data
 src/main/java/data/duke.txt
+data/duke.txt
