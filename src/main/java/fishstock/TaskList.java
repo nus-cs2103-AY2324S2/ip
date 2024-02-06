@@ -26,9 +26,9 @@ class TaskList {
     /**
      * Prints the list.
      */
-    protected void printList() {
+    protected void printList(Ui ui) {
         for (int i = 0; i < list.size(); i++) {
-            Ui.printMsg((i + 1) + "." + list.get(i));
+            ui.printMsg((i + 1) + "." + list.get(i));
         }
     }
 
