@@ -1,21 +1,15 @@
 package duke;
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
-
 
 public class TaskListTest {
     @Test
     public void addTaskShouldIncreaseSize() {
         TaskList taskList = new TaskList();
         Task task = new Task("Sample Task");
-
         int initialSize = taskList.getSize();
         taskList.addTask(task);
-
         assertEquals(initialSize + 1, taskList.getSize());
     }
 
