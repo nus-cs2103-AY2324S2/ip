@@ -1,3 +1,7 @@
+package alastor;
+
+import alastor.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
