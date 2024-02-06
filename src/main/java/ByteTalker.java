@@ -1,173 +1,168 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-
 public class ByteTalker {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private TaskList tasks;
+    private Storage storage;
+    //private TaskList tasks;
+    private Ui ui;
+    boolean isExit = false;
 
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
-    }
-
-    public void returnList () {
-        System.out.println("    Here are the tasks in your list:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + this.tasks.get(i).toString());
+    public ByteTalker(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        storage.setupDirectoryAndFile();
+        try {
+            tasks = new TaskList(storage.loadTasks());
+        } catch (FileNotFoundException e) {
+            ui.showFileNotFoundErrorMsg();
+            isExit = true;
         }
     }
 
     public void markTask(String[] splitMessage) {
-        Integer index = Integer.parseInt(splitMessage[1]) - 1;
-        this.tasks.get(index).setStatus(true);
-        Storage.storeTasks(this.tasks);
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("      " + this.tasks.get(index).toString());
+        int index = Integer.parseInt(splitMessage[1]) - 1;
+        try {
+            this.tasks.changeTaskStatus(index, true);
+            this.storage.storeTasks(this.tasks.getTasks());
+            ui.markTaskMsg(this.tasks.getTask(index));
+        } catch (IOException e) {
+            ui.showErrorMsgStoreTasks();
+            this.tasks.changeTaskStatus(index, false);
+        }
     }
 
     public void unmarkTask(String[] splitMessage) {
-        Integer index = Integer.parseInt(splitMessage[1]) - 1;
-        this.tasks.get(index).setStatus(false);
-        Storage.storeTasks(this.tasks);
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("      " + this.tasks.get(index).toString());
+        int index = Integer.parseInt(splitMessage[1]) - 1;
+        try {
+            this.tasks.changeTaskStatus(index, false);
+            this.storage.storeTasks(this.tasks.getTasks());
+            ui.unmarkTaskMsg(this.tasks.getTask(index));
+        } catch (IOException e) {
+            ui.showErrorMsgStoreTasks();
+            this.tasks.changeTaskStatus(index, true);
+        }
     }
 
     public void addTask(String[] splitMessage) {
         try {
-            Task task;
-            if (splitMessage[0].equals("todo")) {
-                try {
-                    if (splitMessage.length == 1) {
-                        throw new ByteTalkerException.TodoNoTaskException("No Task");
-                    }
-                    String content = " ";
-                    for (int i = 1; i < splitMessage.length; i++) {
-                        content = content + splitMessage[i] + " ";
-                    }
-                    content = content.strip();
-                    task = new Todo(content);
-                } catch (ByteTalkerException.TodoNoTaskException ex) {
-                    System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
-                    return;
-                }
-            } else if (splitMessage[0].equals("deadline")) {
-                String content = " ";
-                String deadline = "";
-                for (int i = 1; i < splitMessage.length; i++) {
-                    boolean isContentFilled = splitMessage[i].equals("/by");
-                    if (isContentFilled) {
-                        content = deadline.strip();
-                        deadline = "";
-                    } else {
-                        deadline = deadline + splitMessage[i] + " ";
-                    }
-                }
-                deadline = deadline.strip();
-                task = new Deadline(content, convertDateTime(deadline));
-            } else if (splitMessage[0].equals("event")) {
-                String content = " ";
-                String from = "";
-                String to = "";
-                for (int i = 1; i < splitMessage.length; i++) {
-                    boolean isContentFilled = splitMessage[i].equals("/from");
-                    boolean isFromFilled = splitMessage[i].equals("/to");
-                    if (splitMessage[i].equals("/from")) {
-                        content = to.strip();
-                        to = "";
-                    } else if (splitMessage[i].equals("/to")) {
-                        from = to.strip();
-                        to = "";
-                    } else {
-                        to = to + splitMessage[i] + " ";
-                    }
-                }
-                to = to.strip();
-                task = new Event(content, convertDateTime(from), convertDateTime(to));
+            Task task = null;
+            boolean isTodo = splitMessage[0].equals("todo");
+            boolean isDeadline = splitMessage[0].equals("deadline");
+            boolean isEvent = splitMessage[0].equals("event");
+            if (isTodo) {
+                task = addTodo(splitMessage);
+            } else if (isDeadline) {
+                task = addDescription(splitMessage);
+            } else if (isEvent) {
+                task = addEvent(splitMessage);
             } else {
                 throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
             }
-            this.tasks.add(task);
-            Storage.storeTasks(this.tasks);
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("       " + task.toString());
-            System.out.println("    Now you have " + this.tasks.size() + " tasks in the list.");
+            try {
+                if (task != null) {
+                    this.tasks.addTask(task, this.tasks.getSize());
+                }
+                this.storage.storeTasks(this.tasks.getTasks());
+                ui.addTaskMsg(task, this.tasks.getSize());
+            } catch (IOException e) {
+                ui.showErrorMsgStoreTasks();
+                this.tasks.removeTask(this.tasks.getSize() - 1);
+            }
         } catch (ByteTalkerException.UnsupportedTaskException ex) {
             System.out.println("    " + ex.getMessage() + ". Please only enter the supported types of task.");
         }
     }
 
+    public Todo addTodo(String[] splitMessage) {
+        try {
+            if (splitMessage.length == 1) {
+                throw new ByteTalkerException.TodoNoTaskException("No Task");
+            }
+            String content = " ";
+            for (int i = 1; i < splitMessage.length; i++) {
+                content = content + splitMessage[i] + " ";
+            }
+            content = content.strip();
+            return new Todo(content);
+        } catch (ByteTalkerException.TodoNoTaskException ex) {
+            System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
+            return null;
+        }
+    }
+
+    public Deadline addDescription(String[] splitMessage) {
+        String content = " ";
+        String deadline = "";
+        for (int i = 1; i < splitMessage.length; i++) {
+            boolean isContentFilled = splitMessage[i].equals("/by");
+            if (isContentFilled) {
+                content = deadline.strip();
+                deadline = "";
+            } else {
+                deadline = deadline + splitMessage[i] + " ";
+            }
+        }
+        deadline = deadline.strip();
+        return new Deadline(content, Parser.parseDateTime(deadline));
+    }
+
+    public Event addEvent(String[] splitMessage) {
+        String content = " ";
+        String from = "";
+        String to = "";
+        for (int i = 1; i < splitMessage.length; i++) {
+            boolean isContentFilled = splitMessage[i].equals("/from");
+            boolean isFromFilled = splitMessage[i].equals("/to");
+            if (isContentFilled) {
+                content = to.strip();
+                to = "";
+            } else if (isFromFilled) {
+                from = to.strip();
+                to = "";
+            } else {
+                to += splitMessage[i] + " ";
+            }
+        }
+        to = to.strip();
+        return new Event(content, Parser.parseDateTime(from), Parser.parseDateTime(to));
+    }
+
     public void deleteTask(int position) {
-        Task task = this.tasks.get(position - 1);
-        this.tasks.remove(position - 1);
-        Storage.storeTasks(this.tasks);
-        System.out.println("    Got it. I've removed this task:");
-        System.out.println("        " + task.toString());
-        System.out.println("    Now you have " + this.tasks.size() + " task in the list.");
-    }
-
-    public static LocalDateTime convertDateTime(String dateTimeString) {
-        String cleanDateTimeString = dateTimeString.strip();
-        boolean isTimeExist = cleanDateTimeString.split(" ").length > 1;
-        boolean isInputFirstFormat = dateTimeString.split("-").length > 1;
-        DateTimeFormatter inputFormatter;
-        if (!isTimeExist) {
-            cleanDateTimeString += " 2359";
-        }
-
-        if (isInputFirstFormat) {
-            inputFormatter = DateTimeFormatter.ofPattern("yy-M-d Hmm");
-        } else {
-            inputFormatter = DateTimeFormatter.ofPattern("d/M/yy Hmm");
-        }
-
-        LocalDateTime dateTime = null;
+        Task task = this.tasks.getTask(position - 1);
         try {
-            dateTime = LocalDateTime.parse(cleanDateTimeString, inputFormatter);
-            return dateTime;
-        } catch (DateTimeParseException e) {
-            System.err.println("Unable to parse the date and time string: " + e.getMessage());
-            return dateTime;
-        }
-    }
-
-    public static void main(String[] args) {
-        ByteTalker chatbot = new ByteTalker();
-        System.out.println("    -----------------------------------");
-        System.out.println("    Hello! I'm ByteTalker");
-        System.out.println("    What can I do for you?");
-        System.out.println("    -----------------------------------");
-        try {
-            Storage.setupDirectoryAndFile();
+            this.tasks.removeTask(position - 1);
+            this.storage.storeTasks(this.tasks.getTasks());
+            ui.deleteTaskMsg(task, this.tasks.getSize());
         } catch (IOException e) {
-            System.out.println("Fail to create a new file");
+            ui.showErrorMsgStoreTasks();
+            this.tasks.addTask(task, position - 1);
         }
-        Storage.loadTasks(chatbot.getTasks());
-        while (true) {
-            Scanner userInput = new Scanner(System.in);
-            String userInputString = userInput.nextLine().strip();
-            String[] splitMessage = userInputString.split(" ");
-            System.out.println("    -----------------------------------");
+    }
+
+    public void run() {
+        ui.showWelcome();
+        while (!isExit) {
+            String userInputString = ui.storeUserInput();
+            String[] splitMessage = Parser.parse(userInputString);
             if (userInputString.equals("bye")) {
                 break;
             } else if (userInputString.equals("list")) {
-                chatbot.returnList();
+                this.ui.returnList(this.tasks.getTasks());
             } else if (splitMessage[0].equals("mark")) {
-                chatbot.markTask(splitMessage);
+                markTask(splitMessage);
             } else if (splitMessage[0].equals("unmark")) {
-                chatbot.unmarkTask(splitMessage);
+                unmarkTask(splitMessage);
             } else if (splitMessage[0].equals("delete")) {
-                chatbot.deleteTask(Integer.parseInt(splitMessage[1]));
+                deleteTask(Integer.parseInt(splitMessage[1]));
             } else {
-                chatbot.addTask(splitMessage);
+                addTask(splitMessage);
             }
-            System.out.println("    -----------------------------------");
         }
-        System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    -----------------------------------");
+        ui.showBye();
+    }
+
+    public static void main(String[] args) {
+        new ByteTalker("./data/ByteTalker.txt").run();
     }
 }
