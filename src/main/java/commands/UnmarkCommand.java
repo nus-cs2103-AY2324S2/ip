@@ -4,6 +4,7 @@ import core.Ui;
 import data.Storage;
 import tasks.TaskList;
 
+//CHECKSTYLE.OFF: MissingJavadocType
 public class UnmarkCommand extends Command {
     private String input;
 

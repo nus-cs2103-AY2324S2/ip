@@ -1,7 +1,7 @@
 package core;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public class Ui {
             + "                     \\______/\n";
 
     /**
-     * Constructs a Ui instance and initializes the scanner for user input.
+     * Constructs an Ui instance and initializes the scanner for user input.
      */
     public Ui() {
         scanner = new Scanner(System.in);
@@ -162,6 +162,10 @@ public class Ui {
     }
 
 
+
+    /**
+     * Displays an error message to the user when they input an invalid format for the 'find' command.
+     */
     public void showFindFormatError() {
         System.out.println("Sorry, " + user + ", please use 'find [yyyy-mm-dd]' / 'find [key word]' "
                 + "to search for relevant tasks");

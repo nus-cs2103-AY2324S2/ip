@@ -1,16 +1,17 @@
 package tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
 import core.Ui;
 import data.Storage;
 import enums.TaskType;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * The TaskList class manages a list of tasks and provides methods to manipulate them.
@@ -64,7 +65,6 @@ public class TaskList {
         case TODO:
             task = new ToDo(parts[1]);
             break;
-
         case DEADLINE:
             String[] info = parts[1].split(" /by ", 2);
             if (info.length < 2) {
@@ -79,7 +79,6 @@ public class TaskList {
                 return;
             }
             break;
-
         case EVENT:
             String[] eventParts = parts[1].split(" /from ", 2);
             if (eventParts.length < 2) {
@@ -100,6 +99,9 @@ public class TaskList {
                 return;
             }
             break;
+        default:
+            ui.showTaskTypes();
+            return;
         }
 
         if (task != null) {

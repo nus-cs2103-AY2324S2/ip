@@ -1,7 +1,8 @@
 package tasks;
 
-import enums.TaskType;
 import java.time.LocalDate;
+
+import enums.TaskType;
 
 /**
  * The Deadline class represents a task of type "Deadline" with a description and a due date.
