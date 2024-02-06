@@ -28,10 +28,14 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Scrolls down to the end every time dialogContainer's height changes.
+     * Displays greeting message.
      */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getEzraDialog("Hello! I'm Ezra.\nWhat can I do for you?", dukeImage)
+        );
     }
 
     /**
