@@ -30,17 +30,7 @@ public class Storage {
      * Saves the  task list to the designated text file for storing data for the program.
      * Creates one if it does not exist yet.
      */
-    void saveToFile(TaskList tasks) throws IOException {
-        // Creates the directories if they do not exist yet. No effect if it exists.
-        File dir = new File(dataDir);
-        dir.mkdirs();
-
-        // Creates the file if it does not exist yet. No effect if it exists.
-        File dataFile = new File(dir, dataFileName);
-        dataFile.createNewFile();
-
-        this.fileWriter = new FileWriter(dataFile);
-
+    void saveToFile(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         // Loops through taskList, appends them to string with the specified format
         tasks.getTasks().forEachRemaining(
@@ -50,6 +40,16 @@ public class Storage {
                 }
         );
         try {
+            // Creates the directories if they do not exist yet. No effect if it exists.
+            File dir = new File(dataDir);
+            dir.mkdirs();
+
+            // Creates the file if it does not exist yet. No effect if it exists.
+            File dataFile = new File(dir, dataFileName);
+            dataFile.createNewFile();
+
+            this.fileWriter = new FileWriter(dataFile);
+
             this.fileWriter.write(sb.toString());
             this.fileWriter.close();
         } catch (IOException e) {
