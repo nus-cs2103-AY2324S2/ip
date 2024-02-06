@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -75,9 +76,10 @@ public class Duke {
                     if (split.length < 2) {
                         throw new DukeException("Where is the rest of your description?");
                     }
-                    String dateline = split[1];
                     String[] splitAgain = split[0].split(" ", 2);
-                    Deadline deadline = new Deadline(splitAgain[1], dateline);
+                    String dateline = split[1];
+                    LocalDate localDate = LocalDate.parse(dateline);
+                    Deadline deadline = new Deadline(splitAgain[1], localDate);
                     list.add(deadline);
                     printBreak();
                     System.out.println("Got it. I've added this task:");
@@ -117,8 +119,8 @@ public class Duke {
                         throw new DukeException("Where is the rest of your description?");
                     }
                     String description = split[0].split(" ", 2)[1];
-                    String from = split[1].split(" /to ")[0];
-                    String to = split[1].split(" /to ")[1];
+                    LocalDate from = LocalDate.parse(split[1].split(" /to ")[0]);
+                    LocalDate to = LocalDate.parse(split[1].split(" /to ")[1]);
                     Event event = new Event(description, from, to);
                     list.add(event);
                     printBreak();
