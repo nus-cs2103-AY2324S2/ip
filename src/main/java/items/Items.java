@@ -7,7 +7,6 @@ import msg.StdMsgs;
 import task.Task;
 import msg.Msg;
 
-import javax.xml.crypto.Data;
 
 /**
  * The items class is a representation of a list of tasks that is able to add, delete, mark and unmark tasks on that
@@ -90,7 +89,7 @@ public class Items {
      */
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder("");
+        StringBuilder text = new StringBuilder();
         if (item_count == 0) {
             return "Sorry Sir/Mdm, it looks as though you have yet to add any tasks";
         }
@@ -101,7 +100,7 @@ public class Items {
     }
 
     public String toDataFormat() {
-        StringBuilder text = new StringBuilder("");
+        StringBuilder text = new StringBuilder();
         if (item_count == 0) {
             return "Sorry Sir/Mdm, it looks as though you have yet to add any tasks";
         }

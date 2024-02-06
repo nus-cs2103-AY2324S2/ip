@@ -54,20 +54,20 @@ public class DataHandler {
                 switch (tag) {
                     case D:
                         inputsToCmd = line.split("\\s\\|\\s", 4);
-                        isDone = (inputsToCmd[1] == "1");
+                        isDone = (inputsToCmd[1].equals("1"));
                         LocalDateTime by = LocalDateTime.parse(inputsToCmd[3], formatter);
                         items.add(new Deadline(inputsToCmd[2], isDone, by));
                         break;
                     case E:
                         inputsToCmd = line.split("\\s\\|\\s", 5);
-                        isDone = (inputsToCmd[1] == "1");
+                        isDone = (inputsToCmd[1].equals("1"));
                         LocalDateTime from = LocalDateTime.parse(inputsToCmd[3], formatter);
                         LocalDateTime to = LocalDateTime.parse(inputsToCmd[4], formatter);;
                         items.add(new Event(inputsToCmd[2], isDone, from, to));
                         break;
                     case T:
                         inputsToCmd = line.split("\\s\\|\\s", 3);
-                        isDone = (inputsToCmd[1] == "1");
+                        isDone = (inputsToCmd[1].equals("1"));
                         items.add(new Todo(inputsToCmd[2], isDone));
                         break;
                 }
