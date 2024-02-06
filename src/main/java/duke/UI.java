@@ -4,7 +4,7 @@ package duke;
  * The UI class handles user interface interactions.
  */
 public class UI {
-    private final String LINE = "______________________________________________________\n";
+    //private final String LINE = "______________________________________________________\n";
 
     /**
      * Constructs a new UI instance.
@@ -14,11 +14,8 @@ public class UI {
     /**
      * Displays a welcome message when the program starts.
      */
-    public void onStart() {
-        System.out.print(LINE);
-        System.out.println("Hello! I'm ChatterPal!");
-        System.out.println("What can I do for you?");
-        System.out.print(LINE);
+    public String onStart() {
+        return "Hello! I'm ChatterPal!" + "\n" + "What can I do for you?" + "\n";
     }
 
     /**
@@ -26,8 +23,8 @@ public class UI {
      *
      * @param s The task message to be displayed.
      */
-    public void onTaskAddition(String s) {
-        System.out.println(LINE + s + "\n" + LINE);
+    public String onTaskAddition(String s) {
+        return  s + "\n" ;
     }
 
     /**
@@ -36,11 +33,11 @@ public class UI {
      * @param s      The deleted task message.
      * @param integer The number of tasks remaining.
      */
-    public void onTaskDeletion(String s, int integer) {
-        String message = String.format("%sNoted. I've removed this task:\n" +
-                "%s\nNow you have %d tasks left.\n%s", LINE, s, integer, LINE);
+    public String onTaskDeletion(String s, int integer) {
+        String message = String.format("Noted. I've removed this task:\n" +
+                "%s\nNow you have %d tasks left.\n", s, integer);
 
-        System.out.println(message);
+        return message;
     }
 
     /**
@@ -48,8 +45,8 @@ public class UI {
      *
      * @param s The list of tasks to be displayed.
      */
-    public void onPrintList(String s) {
-        System.out.println(LINE + s + LINE);
+    public String onPrintList(String s) {
+        return s;
     }
 
     /**
@@ -57,19 +54,17 @@ public class UI {
      *
      * @param s The string representing the matching tasks.
      */
-    public void onPrintFind(String s) {
-        if (!s.isEmpty()) {
-            System.out.println( LINE + "Here are the matching tasks in your list:\n" + s + LINE);
-        }
+    public String onPrintFind(String s) {
+        return "Here are the matching tasks in your list:\n" + s;
     }
     /**
      * Displays a message when a task is marked as completed.
      *
      * @param s The completed task message.
      */
-    public void onMark(String s) {
-        String output = LINE + "Great job on completing the task!\n" + s + "\n" + LINE;
-        System.out.println(output);
+    public String onMark(String s) {
+        String output = "Great job on completing the task!\n" + s + "\n";
+        return output;
     }
 
     /**
@@ -77,19 +72,17 @@ public class UI {
      *
      * @param s The incomplete task message.
      */
-    public void onUnmark(String s) {
-        String output = LINE + "OK, I've marked this task as not done yet: \n" + s + "\n" + LINE;
-        System.out.println(output);
+    public String onUnmark(String s) {
+        String output = "OK, I've marked this task as not done yet: \n" + s + "\n";
+        return output;
     }
 
     /**
      * Displays a farewell message when the program ends.
      */
-    public void onEnd() {
-        System.out.println(LINE);
-        System.out.println("Farewell! Can't wait to catch up with you again. Until next time, " +
-                "take care and stay awesome! ");
-        System.out.println(LINE);
+    public String onEnd() {
+        return "\n" + "Farewell! Can't wait to catch up with you again. Until next time, " +
+                "take care and stay awesome!\n";
     }
 
 }

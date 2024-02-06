@@ -1,10 +1,13 @@
 package duke;
 
-public class Events extends Task{
-    public String from;
-    public String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Events(String description, String from, String to) {
+public class Events extends Task{
+    public LocalDateTime from;
+    public LocalDateTime to;
+
+    public Events(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -12,6 +15,9 @@ public class Events extends Task{
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedFrom = from.format(outputFormatter);
+        String formattedTo = to.format(outputFormatter);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), formattedFrom, formattedTo);
     }
 }

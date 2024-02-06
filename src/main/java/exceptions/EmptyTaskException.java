@@ -1,6 +1,8 @@
-package duke;
+package exceptions;
 
-public class EmptyTaskException extends DukeExceptions{
+import exceptions.DukeExceptions;
+
+public class EmptyTaskException extends DukeExceptions {
     public String msg = "You can't do nothing!";
     public EmptyTaskException() {
         super();

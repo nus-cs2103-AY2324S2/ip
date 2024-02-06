@@ -1,5 +1,7 @@
 package duke;
 
+import exceptions.DukeExceptions;
+
 import java.util.ArrayList;
 
 /**
@@ -64,9 +66,8 @@ public class Storage {
      *
      * @param index The index of the task to be removed.
      * @return The removed task.
-     * @throws DukeExceptions If there is an issue accessing the storage.
      */
-    public Task pop(int index) throws DukeExceptions {
+    public Task pop(int index) {
         Task t = this.storage.get(index);
         this.storage.remove(index);
         return t;
@@ -77,7 +78,7 @@ public class Storage {
      *
      * @param s The string representing the matching tasks.
      */
-    public String find(String s) throws DukeExceptions {
+    public String find(String s) {
         String output = "";
         try {
             for (int i=0; i<this.storage.size(); i++) {

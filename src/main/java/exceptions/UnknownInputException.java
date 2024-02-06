@@ -1,4 +1,6 @@
-package duke;
+package exceptions;
+
+import exceptions.DukeExceptions;
 
 public class UnknownInputException extends DukeExceptions {
     final String msg = "WHAT DO YOU MEANNNNN";

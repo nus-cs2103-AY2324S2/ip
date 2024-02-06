@@ -118,7 +118,10 @@ public class Save {
                         }
                         s.add(t);
                     } else if (parts[0].equals("E")) {
-                        Events e = new Events(parts[2], parts[3], parts[4]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+                        LocalDateTime localDateTimeFrom = LocalDateTime.parse(parts[3], formatter);
+                        LocalDateTime localDateTimeTo = LocalDateTime.parse(parts[4], formatter);
+                        Events e = new Events(parts[2], localDateTimeFrom, localDateTimeTo);
                         if (isDone) {
                             e.markAsDone();
                         }
