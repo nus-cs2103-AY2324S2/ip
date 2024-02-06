@@ -1,3 +1,10 @@
+package liv.processor;
+
+import liv.exception.LivException;
+import liv.task.Task;
+import liv.container.TaskList;
+import liv.ui.Ui;
+
 public class DeleteCommand extends Command {
     private final int index;
 

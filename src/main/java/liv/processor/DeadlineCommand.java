@@ -1,4 +1,10 @@
-public class DeadlineCommand extends Command{
+package liv.processor;
+
+import liv.task.Deadline;
+import liv.container.TaskList;
+import liv.ui.Ui;
+
+public class DeadlineCommand extends Command {
     private Deadline deadline;
 
     public DeadlineCommand(Deadline deadline) {
