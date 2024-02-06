@@ -1,17 +1,17 @@
 package zack.util;
 
-import zack.ZackException;
-import zack.tasks.Deadline;
-import zack.tasks.Event;
-import zack.tasks.Task;
-import zack.tasks.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import zack.ZackException;
+import zack.tasks.Deadline;
+import zack.tasks.Event;
+import zack.tasks.Task;
+import zack.tasks.Todo;
 
 /**
  * Handles saving and loading tasks from a file.
@@ -62,7 +62,8 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new ZackException("Task file not found. A new file will be created upon adding tasks to the task list.");
+            throw new ZackException("Task file not found. A new file will be created "
+                    + "upon adding tasks to the task list.");
         }
         return loadedTasks;
     }
@@ -87,14 +88,18 @@ public class Storage {
         case "T":
             return new Todo(description, isDone);
         case "D":
-            if (parts.length < 4) throw new ZackException("Invalid deadline format");
+            if (parts.length < 4) {
+                throw new ZackException("Invalid deadline format");
+            }
             return new Deadline(description, parts[3], isDone);
         case "E":
-            if (parts.length < 4) throw new ZackException("Invalid event format");
+            if (parts.length < 4) {
+                throw new ZackException("Invalid event format");
+            }
             // ["E", "1", "project meeting", "2022-08-01 2200 to 2022-08-01 2300"]
-            String[] from_to = parts[3].split(" to ");
-            String from = from_to[0];
-            String to = from_to[1];
+            String[] fromTo = parts[3].split(" to ");
+            String from = fromTo[0];
+            String to = fromTo[1];
             return new Event(description, from, to, isDone);
         default:
             throw new ZackException("Unknown task type");

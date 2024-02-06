@@ -1,16 +1,18 @@
 package zack.tasks;
 
-import zack.ZackException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import zack.ZackException;
+
 
 /**
  * Represents a task with a specific event duration.
  */
 public class Event extends Task {
-    private LocalDateTime from, to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event task with the specified description, start time, end time, and completion status.

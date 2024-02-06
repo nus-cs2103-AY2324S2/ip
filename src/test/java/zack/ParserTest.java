@@ -1,6 +1,10 @@
 package zack;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import zack.commands.AddTaskCommand;
 import zack.commands.ByeCommand;
 import zack.commands.Command;
@@ -10,8 +14,7 @@ import zack.commands.FindCommand;
 import zack.commands.ListCommand;
 import zack.commands.MarkCommand;
 import zack.util.Parser;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class ParserTest {
 

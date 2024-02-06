@@ -1,9 +1,9 @@
 package zack.util;
 
+import java.util.ArrayList;
+
 import zack.ZackException;
 import zack.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * Manages a list of tasks.
@@ -82,6 +82,17 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Searches for tasks in the current TaskList containing a specific keyword.
+     *
+     * This method iterates through the tasks in the current TaskList and checks
+     * if each task's description contains the specified keyword. If a task's description
+     * contains the keyword, it is added to a new TaskList, which is then returned as
+     * the result of the search operation.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A new TaskList containing tasks whose descriptions contain the specified keyword.
+     */
     public TaskList findTasksByKeyword(String keyword) {
         TaskList foundTasks = new TaskList();
         for (Task task : this.tasks) {

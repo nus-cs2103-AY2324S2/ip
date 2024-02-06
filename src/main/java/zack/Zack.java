@@ -1,12 +1,12 @@
 package zack;
 
+import java.io.IOException;
+
 import zack.commands.Command;
 import zack.util.Parser;
 import zack.util.Storage;
 import zack.util.TaskList;
 import zack.util.Ui;
-
-import java.io.IOException;
 
 /**
  * The main class of the Zack program that handles user interactions and task management.

@@ -1,14 +1,17 @@
 package zack;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import zack.tasks.Deadline;
 import zack.tasks.Event;
 import zack.tasks.Task;
 import zack.tasks.Todo;
 import zack.util.Storage;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StorageTest {
 
@@ -26,6 +29,9 @@ class StorageTest {
         assertTrue(task instanceof Todo);
         assertFalse(task.isDone());
         assertEquals("read book", task.getDescription());
+    }
+
+    private void assertFalse(boolean done) {
     }
 
     @Test
@@ -51,6 +57,8 @@ class StorageTest {
         String input = "T | read book";
         assertThrows(ZackException.class, () -> storage.parseTask(input));
     }
+
+
 
     @Test
     void parseTask_unknownTaskType_exceptionThrown() {

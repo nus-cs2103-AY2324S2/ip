@@ -1,13 +1,31 @@
 package zack.util;
 
-import zack.ZackException;
-import zack.commands.*;
-import zack.Zack;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import zack.Zack;
+import zack.ZackException;
+import zack.commands.AddTaskCommand;
+import zack.commands.ByeCommand;
+import zack.commands.Command;
+import zack.commands.DateCommand;
+import zack.commands.DeleteCommand;
+import zack.commands.FindCommand;
+import zack.commands.ListCommand;
+import zack.commands.MarkCommand;
+
+/**
+ * The Parser class is responsible for parsing user input and converting it into
+ * executable commands for the Zack task management application. It handles the
+ * interpretation of various command types and their associated parameters.
+ *
+ * This class provides a method to parse user input and determine the appropriate
+ * command to be executed based on the input provided by the user.
+ *
+ * @see Command
+ * @see ZackException
+ */
 public class Parser {
     /**
      * Parses the user input into a command object.
