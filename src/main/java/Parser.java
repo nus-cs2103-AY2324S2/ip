@@ -8,8 +8,10 @@ public class Parser {
         switch (command) {
             case "list":
                 return ChatbotKeyword.LIST;
-            case "done":
+            case "mark":
                 return ChatbotKeyword.MARK;
+            case "unmark":
+                return ChatbotKeyword.UNMARK;
             case "delete":
                 return ChatbotKeyword.DELETE;
             case "todo":
