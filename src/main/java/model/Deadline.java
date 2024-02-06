@@ -3,12 +3,30 @@ package model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The {@code Deadline} class represents deadline tasks.
+ * 
+ * <p> This is an immutable class.
+ * 
+ * <p> Contains:
+ * <ul>
+ * <li>a {@code String} name.</li>
+ * <li>a {@code boolean} done state.</li>
+ * <li>a {@code LocalDateTime} deadline.</li>
+ * </ul>
+ */
 public class Deadline implements Task {
     private final String name;
     private final boolean done;
     private final LocalDateTime deadline;
     public static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
+    /**
+     * Contructor to create a new {@code Deadline} object, with {@code done} set to {@code false} by default.
+     * 
+     * @param name Name of the deadline task.
+     * @param deadline {@code LocalDateTime} object representing the deadline.
+     */
     Deadline(String name, LocalDateTime deadline) {
         this.name = name;
         this.done = false;
@@ -21,14 +39,27 @@ public class Deadline implements Task {
         this.deadline = deadline;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return {@code Deadline} object with {@code done} set as {@code true}.
+     */
     public Deadline mark() {
         return new Deadline(name, true, deadline);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return {@code Deadline} object with {@code done} set as {@code false}.
+     */
     public Deadline unmark() {
         return new Deadline(name, false, deadline);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         String d = this.done ? "X" : " ";

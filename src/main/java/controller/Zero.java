@@ -17,6 +17,13 @@ import model.Storage;
 import model.Task;
 import view.Ui;
 
+/**
+ * Main control class for running the Zero bot.
+ * 
+ * <p>The bot can be run by creating a new instance and calling the {@link controller.Zero#run()} method.
+ * 
+ * <p>After the bot is done running, call {@link controller.Zero#close()} to properly terminate.
+ */
 public class Zero {
     private static final String NAME_STRING = "Zero";
     private static final Reader USER_INPUT = new InputStreamReader(System.in);
@@ -32,6 +39,18 @@ public class Zero {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Creates a new {@code Zero} instance which initializes the following:
+     * <ul>
+     * <li>{@link controller.Parser#dtfInput} {@code LocalDateTime} format for user inputs.</li>
+     * <li>{@link model.Deadline#dtf} {@code LocalDateTime} format for output.</li>
+     * <li>{@link model.Event#dtf} {@code LocalDateTime} format for output.</li>
+     * <li>{@link view.Ui} Sets the input reader, output writer and divider displayed.</li>
+     * <li>{@link model.Storage} Loads the save file.</li>
+     * </ul>
+     * 
+     * @throws IOException If an I/O error occurs.
+     */
     public Zero() throws IOException {
         // Set Date Time formats for relevant classes
         Parser.dtfInput = DATE_TIME_FORMATTER_INPUT;
@@ -42,11 +61,23 @@ public class Zero {
         storage = new Storage(SAVE_FILE_PATH);
     }
 
+    /**
+     * Close Input reader and Output writer.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void close() throws IOException {
-        // Close Input reader and Output writer
         ui.close();
     }
 
+    /**
+     * Run Zero bot.
+     * 
+     * <p> Contains the main Zero bot logic and decision making.
+     *
+     * @return This {@code Zero} instance.
+     * @throws IOException If an I/O error occurs.
+     */
     public Zero run() throws IOException {
         // Startup message
         ui.showGreet(NAME_STRING);

@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Commands that are available for use in Zero.
+ */
 public enum Command {
     EXIT,
     BYE,
