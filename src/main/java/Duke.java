@@ -46,11 +46,9 @@ public class Duke {
             } catch (DukeException d) {
                 System.out.println(d);
             }
-
             System.out.println("What else can I do for you? (try typing my name 3 times with no space in between)");
             userInput = getUserInput(scanner);
         }
-
         ui.showByeMessage();
     }
 
