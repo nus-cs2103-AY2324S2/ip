@@ -6,15 +6,10 @@ import java.util.Scanner;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +20,11 @@ public class Ui extends Application {
     private boolean isExit ;
     private Scanner sc;
     private VBox  outputArea;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
     /**
      * Initializes a Ui instance and sets the status to "working"
      * @param fStorage the filestorage object that is going to be used in the program
@@ -49,53 +49,94 @@ public class Ui extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws GlutiException {
-        primaryStage.setTitle("Gluti Chatbot");
-        ImageView userImageView = new ImageView(new Image(getClass().getClassLoader().getResource("data/usericon.jpg").toExternalForm()));
-        userImageView.setFitWidth(50);
-        userImageView.setFitHeight(50);
-        TextArea inputField = new TextArea();
-        outputArea = new VBox ();
-        outputArea.setPadding(new Insets(10));
+    public void start(Stage stage) throws GlutiException {
+//        primaryStage.setTitle("Gluti Chatbot");
+//        ImageView userImageView = new ImageView(new Image(getClass().getClassLoader().getResource("data/usericon.jpg").toExternalForm()));
+//        userImageView.setFitWidth(50);
+//        userImageView.setFitHeight(50);
+//        TextArea inputField = new TextArea();
+//        outputArea = new VBox ();
+//        outputArea.setPadding(new Insets(10));
+//
+//        // Button to trigger an action
+//        Button actionButton = new Button("Enter");
+//        actionButton.setOnAction(event -> {
+//            String inputText = inputField.getText();
+//            inputField.clear();
+//            try {
+//                processInput(inputText);
+//            } catch (Exception e) {
+//                try {
+//                    throw new GlutiException("Error!");
+//                } catch (GlutiException ex) {
+//                    throw new RuntimeException(ex);
+//                }
+//            }
+//        });
+//        VBox mainBox = new VBox(10,
+//                outputArea,
+//                createInputBox(inputField, actionButton)
+//        );
+//        Button exitButton = new Button("Exit");
+//        exitButton.setOnAction(event -> {
+//            primaryStage.close();
+//        });
+//
+//        //rootLayout.getChildren().addAll(new Label("Chatbox:"), outputArea, new Label("Input:"), inputField, actionButton, exitButton);
+//
+//        //HBox mainBox = new HBox(20, inputBox,imageBox, resultBox);
+//        //mainBox.setPadding(new Insets(20));
+//        // Create a scene and set it in the stage
+//        Scene scene = new Scene(mainBox, 600, 400);
+//        primaryStage.setScene(scene);
+//
+//        // Show the stage
+//        primaryStage.show();
+//
+//        String logo = "Hello! I'm Gluti\n" +
+//                "What can I do for you?";
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
 
-        // Button to trigger an action
-        Button actionButton = new Button("Enter");
-        actionButton.setOnAction(event -> {
-            String inputText = inputField.getText();
-            inputField.clear();
-            try {
-                processInput(inputText);
-            } catch (Exception e) {
-                try {
-                    throw new GlutiException("Error!");
-                } catch (GlutiException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-        VBox mainBox = new VBox(10,
-                outputArea,
-                createInputBox(inputField, actionButton)
-        );
-        Button exitButton = new Button("Exit");
-        exitButton.setOnAction(event -> {
-            primaryStage.close();
-        });
+        userInput = new TextField();
+        sendButton = new Button("Send");
 
-        //rootLayout.getChildren().addAll(new Label("Chatbox:"), outputArea, new Label("Input:"), inputField, actionButton, exitButton);
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        //HBox mainBox = new HBox(20, inputBox,imageBox, resultBox);
-        //mainBox.setPadding(new Insets(20));
-        // Create a scene and set it in the stage
-        Scene scene = new Scene(mainBox, 600, 400);
-        primaryStage.setScene(scene);
+        scene = new Scene(mainLayout);
 
-        // Show the stage
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
 
-        String logo = "Hello! I'm Gluti\n" +
-                "What can I do for you?";
+        mainLayout.setPrefSize(400.0, 600.0);
 
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
         //outputArea.appendText(logo + "\n");
 
         //while (!isExit) {
@@ -103,6 +144,23 @@ public class Ui extends Application {
 //            parser.parse(sc.nextLine());
 //            isExit = parser.isLooping();
         //}
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
     }
     private HBox createInputBox(TextArea userInputTextArea, Button sendButton) {
         HBox inputBox = new HBox(10, userInputTextArea, sendButton);
