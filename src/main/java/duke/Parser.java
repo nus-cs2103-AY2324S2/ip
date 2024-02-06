@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     public String[] getCommand(String userMessage) {
         String[] result = new String[2];

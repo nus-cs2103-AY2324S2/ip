@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,7 +17,7 @@ public class Event extends Task {
         if (description.trim().length() == 0 || fromTime.length() == 0 || toTime.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this Deadline task";
+                errorMessage += "\na description for this duke.Deadline task";
             }
             if (fromTime.length() == 0) {
                 errorMessage += "\na deadline after the '/from' command";
@@ -47,7 +49,7 @@ public class Event extends Task {
         if (description.trim().length() == 0 || fromTime.length() == 0 || toTime.length() == 0) {
             String errorMessage = "Please enter the following:";
             if (description.trim().length() == 0) {
-                errorMessage += "\na description for this Deadline task";
+                errorMessage += "\na description for this duke.Deadline task";
             }
             if (fromTime.length() == 0) {
                 errorMessage += "\na deadline after the '/from' command";
