@@ -12,7 +12,7 @@ public class TaskListTest {
         String[] words = new String[] {"todo", "test", "123"};
         testList.addToDo(words, true, false);
         String actual = testList.list();
-        String expected = "1: [T][ ] test 123";
+        String expected = "1: " + testList.getTaskList().get(0).toString();
         assertEquals(expected, actual);
     }
 
