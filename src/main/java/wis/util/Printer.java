@@ -1,5 +1,7 @@
 package wis.util;
 
+import java.util.ArrayList;
+
 import wis.Action;
 import wis.task.Task;
 import wis.task.TaskList;
@@ -85,6 +87,17 @@ public class Printer {
             printDecorator();
         } else {
             throw new IllegalArgumentException("Illegal action argument provided.\n");
+        }
+    }
+
+    public static void printActionAttach(Action action, ArrayList<Pair<Integer, Task>> matchingTasks) {
+        if (action == Action.FIND) {
+            printDecorator();
+            Printer.println("Here are the matching tasks in your list:");
+            for (Pair<Integer, Task> pair : matchingTasks) {
+                Printer.printlnFurtherIndent(pair.first + ". " + pair.second.toString());
+            }
+            printDecorator();
         }
     }
 }

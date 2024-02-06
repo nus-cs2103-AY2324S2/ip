@@ -43,6 +43,11 @@ public class WisException {
                 Printer.println("Use this format: delete <task_index>");
                 Printer.printDecorator();
                 break;
+        case FIND:
+            Printer.printDecorator();
+            Printer.println("Use this format: find <keyword>");
+            Printer.printDecorator();
+            break;
             case INVALID:
                 Printer.printDecorator();
                 Printer.println("Input format unsupported.");

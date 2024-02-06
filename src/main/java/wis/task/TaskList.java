@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import wis.Storage;
+import wis.util.Pair;
 import wis.util.Printer;
 
 public class TaskList {
@@ -35,6 +36,17 @@ public class TaskList {
         this.taskCount--;
         Storage.saveTasks(this);
         return this.list.remove(i);
+    }
+
+    public ArrayList<Pair<Integer, Task>> find(String pattern) {
+        ArrayList<Pair<Integer, Task>> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < taskCount; i++) {
+            Task task = list.get(i);
+            if (task.hasPattern(pattern)) {
+                matchingTasks.add(new Pair<>(i + 1, task));
+            }
+        }
+        return matchingTasks;
     }
 
     public void print() {
