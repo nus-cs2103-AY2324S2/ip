@@ -52,7 +52,7 @@ public class Parser {
      * @return the <code>Command</code> based on specified input
      */
     public Command parseCommand(String userInput) {
-        String inputs[] = userInput.split(" ", 2);
+        String[] inputs = userInput.split(" ", 2);
         String command = inputs[0];
         Commands cmd = Commands.valueOfOrElse(command.toUpperCase());
 

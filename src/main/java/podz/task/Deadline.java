@@ -21,7 +21,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
 
-        String dateAndTime[] = by.split(" ");
+        String[] dateAndTime = by.split(" ");
 
         if (dateAndTime.length >= 2) {
             LocalDate d1 = LocalDate.parse(dateAndTime[0]);
