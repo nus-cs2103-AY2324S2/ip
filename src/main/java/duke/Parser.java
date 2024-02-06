@@ -36,7 +36,7 @@ public class Parser {
 
         } else if(command.equals("bye")) {
             /*
-            * Save the new task in MyList before exitting the Duke Program
+            * Save the new task in MyList before exiting the Duke Program
             */
             return false;
 
@@ -46,34 +46,16 @@ public class Parser {
             return true;
 
         } else if(command.equals("unmark")) {
-            /**
-            * Marks a specified task as not done
-            * 
-            * @param task number the index of the task to be marked as not done
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
             TaskList taskList = new TaskList(myList);
             taskList.unmarkList(parts);
             return true;
 
         } else if (command.equals("mark")) {
-            /**
-            * Marks a specified task as done
-            * 
-            * @param taskNUmver the index of the task to be marked as done
-            * @throws INdexOutOfBoundsException if the task numr is out of bounds
-            */
             TaskList taskList = new TaskList(myList);
             taskList.markList(parts);
             return true;
 
-        } else if(command.equals("delete")){
-            /**
-            * Deletes a specified task from the list
-            * 
-            * @param task numer the index of the task to be deleted
-            * @throws INdexOutOfBoundsException if the task number is out of bounds
-            */
+        } else if (command.equals("delete")){
             TaskList taskList = new TaskList(myList);
             taskList.remove(parts);
             return true;

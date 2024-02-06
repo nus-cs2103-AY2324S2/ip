@@ -101,12 +101,6 @@ public class TaskList {
                 }
 
             } else if (command.equals("deadline")) {
-                /**
-                * Adds a Deadline task to the list
-                * 
-                * @param item The description of the deadline task
-                * @param time The due date and time of the deadline task
-                */
 
                 try {
                     if (restOfInputs == null) {
@@ -131,13 +125,6 @@ public class TaskList {
                 }
 
             } else if (command.equals("event")) {
-                /**
-                * Adds an Event task to the list
-                * 
-                * @param item The description of the Event task
-                * @param from The start time of the Event task
-                * @para to The end time of the Event task
-                */
 
                 try {
                     if (restOfInputs == null) {
