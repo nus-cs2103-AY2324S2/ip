@@ -30,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("src/main/java/academicweapon/Duke.java")
+    mainClass.set("academicweapon.Duke")
 }
 
 shadowJar {
