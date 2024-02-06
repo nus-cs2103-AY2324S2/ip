@@ -11,29 +11,22 @@ import java.util.Scanner;
  * deleting tasks and listing tasks.
  */
 public class Duke {
-
+    private static final String CURRENT_DIR = System.getProperty("user.dir");
+    public static final Path FILE_PATH = Paths.get(CURRENT_DIR, "src", "main", "java", "duke", "data", "data.txt");
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     /**
      * Constructor for Duke class
-     * @param filePath file path of storage text file
+     * @param filePath File path of storage text file
      */
     public Duke(Path filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.loadTasksFromFile());
-        } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        tasks = new TaskList(storage.loadTasksFromFile());
+        ui.showLoadingError();
+        tasks = new TaskList();
     }
-
-    public static String currentDir = System.getProperty("user.dir");
-    public static final Path filePath = Paths.get(currentDir, "src", "main", "java", "duke", "data", "data.txt");
-
     /**
      * Run the chatbot application.
      */
@@ -42,7 +35,7 @@ public class Duke {
         boolean isExit = false;
 
         Scanner scanner = new Scanner(System.in); // Create scanner
-        String command = scanner.nextLine();  // Read user command
+        String command = scanner.nextLine();
 
         String[] tempArr;
         Task currTask;
@@ -107,7 +100,7 @@ public class Duke {
                     tempArr = (command.substring(9)).split("/");
                     Deadline currDeadline = new Deadline(tempArr[0], tempArr[1].substring(3));
                     this.tasks.addTask(currDeadline);
-                    this.ui.showDeadlineMessage(currDeadline,this.tasks);
+                    this.ui.showDeadlineMessage(currDeadline, this.tasks);
                     this.ui.showDivider();
                     this.storage.updateStorageFile(this.tasks);
                     break;
@@ -120,6 +113,8 @@ public class Duke {
                     this.ui.showEventMessage(currEvent, this.tasks);
                     this.ui.showDivider();
                     this.storage.updateStorageFile(this.tasks);
+                    break;
+                default:
                     break;
                 }
                 command = scanner.nextLine(); // Read next command
@@ -159,7 +154,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(filePath).run();
+        new Duke(FILE_PATH).run();
     }
 
     /**
@@ -170,7 +165,9 @@ public class Duke {
      */
     public static void checkCommand(String command) throws DukeException {
         String line = "____________________________________________________________";
-        if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event") || command.startsWith("list") || command.startsWith("bye") || command.startsWith("delete") || command.contains("mark") || command.contains("find"))) {
+        if (!(command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")
+                || command.startsWith("list") || command.startsWith("bye") || command.startsWith("delete")
+                || command.contains("mark") || command.contains("find"))) {
             throw new DukeException("\n" + line + "\nOPPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
         }
     }
