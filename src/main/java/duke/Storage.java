@@ -31,7 +31,7 @@ public class Storage {
                 String content = "";
                 while (fileScanner.hasNext()) {
                     String task = fileScanner.nextLine();
-                    content = content + task.replaceAll(" ", "") + " ";
+                    content = content + task + "\n";
                 }
                 return content;
             }
