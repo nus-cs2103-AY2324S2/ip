@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents the storage of the Drew. It contains the methods to save and load files.
+ * Represents the storage of the drew.Drew. It contains the methods to save and load files.
  */
 public class Storage {
     /**
@@ -66,22 +66,18 @@ public class Storage {
      * Loads the task list from a txt file.
      * @return ArrayList that contains the list of tasks read.
      */
-    public ArrayList<Task> load() throws FileNotFoundException, IllegalArgumentException, DateTimeParseException {
+    public ArrayList<Task> load() throws FileNotFoundException,
+            IllegalArgumentException, DateTimeParseException {
+
         File savedTasks = new File(filePath);
         ArrayList<Task> ls = new ArrayList<>();
-        // Debug
-//        System.out.println(savedTasks.getAbsolutePath());
 
         Scanner fileReader = new Scanner(savedTasks);
         System.out.println("Load status: File found");
-        int i = 0;
         while (fileReader.hasNext()) {
             String line = fileReader.nextLine();
-//                System.out.println(line);
             Task task = parseSave(line);
-//                System.out.println(task.toStatusString());
             ls.add(task);
-            i++;
         }
         return ls;
     }
@@ -102,7 +98,7 @@ public class Storage {
             args[i] = args[i].trim();
         }
 
-        Task task = null;
+        Task task;
         switch (args[0]) {
         case "T":
             if (numberOfArguments != 3) {

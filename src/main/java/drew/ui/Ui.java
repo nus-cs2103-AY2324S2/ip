@@ -16,7 +16,7 @@ public class Ui {
 
     public void greetUser() {
         System.out.println(DELIMITER);
-        System.out.println("Hello! I'm Drew");
+        System.out.println("Hello! I'm drew.Drew");
         System.out.println("What can I do for you?");
         System.out.println(DELIMITER);
     }

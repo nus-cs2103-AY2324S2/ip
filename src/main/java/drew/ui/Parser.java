@@ -1,8 +1,8 @@
 package drew.ui;
 
+import drew.command.Command;
 import drew.exceptions.InsufficientArgumentsException;
 import drew.exceptions.UnknownCommandException;
-import drew.command.Command;
 import drew.storage.TaskList;
 import drew.task.Deadline;
 import drew.task.Event;
@@ -28,6 +28,7 @@ public class Parser {
      */
     public Command checkCommandIdentity(String input) throws UnknownCommandException,
             InsufficientArgumentsException, IllegalArgumentException {
+
         int inputLength = input.length();
         Command userCommand;
         if (inputLength == 3 && input.substring(0, 3).equalsIgnoreCase("bye")) {
