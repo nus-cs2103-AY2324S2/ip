@@ -5,42 +5,45 @@ import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
-import duke.ui.Ui;
 
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+
+    public Duke(String saveFile) {
+        storage = new Storage(saveFile);
+    }
+
+    public String load() {
         try {
             tasks = new TaskList(storage.load());
+            return "Successfully loaded save file";
         } catch (DukeException e) {
-            ui.showError(e);
             tasks = new TaskList();
+            return e.toString();
         }
     }
 
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.getUserCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e);
-            }
+    public String greet() {
+        return "Hello! I'm notDuke\nWhat can I do for you?";
+    }
+
+    public String getResponse(String userInput) {
+        try {
+            Command c = Parser.parse(userInput);
+            return c.execute(tasks, storage);
+        } catch (DukeException e) {
+            return e.toString();
         }
     }
 
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    public boolean isBye(String userInput) {
+        try {
+            Command c = Parser.parse(userInput);
+            return c.isExit();
+        } catch (DukeException e) {
+            return false;
+        }
     }
 }
-

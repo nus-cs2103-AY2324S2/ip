@@ -36,7 +36,7 @@ public class TaskList {
      */
     public String add(Task newTask) {
         list.add(newTask);
-        return "Got it. I've added this task:" + System.lineSeparator() + newTask.taskInfo() + listStatus();
+        return "Got it. I've added this task:\n" + newTask.taskInfo() + listStatus();
     }
 
     /**
@@ -45,10 +45,10 @@ public class TaskList {
      */
     public String list() {
         if (list.size() == 0) {
-            return "The list is empty" + System.lineSeparator();
+            return "The list is empty\n";
         }
         int index = 1;
-        String output = "Here are the tasks in your list" + System.lineSeparator();
+        String output = "Here are the tasks in your list\n";
         for (Task item : list) {
             output = output + index + ".";
             index++;
@@ -63,7 +63,7 @@ public class TaskList {
      */
     public String listStatus() {
         int length = list.size();
-        return "Now you have " + length + " task" + (length > 1 ? "s" : "") + " in the list." + System.lineSeparator();
+        return "Now you have " + length + " task" + (length > 1 ? "s" : "") + " in the list.\n";
     }
 
     /**
@@ -77,7 +77,7 @@ public class TaskList {
         try {
             Task removed = list.remove(index - 1);
             removed.taskInfo();
-            return "Noted. I've removed this duke.task:" + System.lineSeparator() + listStatus();
+            return "Noted. I've removed this duke.task:\n" + listStatus();
         } catch (IndexOutOfBoundsException e3) {
             throw new DukeTaskNotFound(index);
         }
@@ -122,7 +122,7 @@ public class TaskList {
      * @return a string that represents the tasks occurring on the date
      */
     public String check(LocalDate date) {
-        String output = String.format("Tasks on %s:", date) + System.lineSeparator();
+        String output = String.format("Tasks on %s:\n", date);
         for (Task item : list) {
             output += item.happenOn(date);
         }
@@ -139,13 +139,13 @@ public class TaskList {
         String output = "";
         for (Task t: list) {
             output += t.saveOutput();
-            output += System.lineSeparator();
+            output += "\n";
         }
         return output;
     }
 
     public String find(String match) {
-        String output = "Here are the matching tasks in your list:" + System.lineSeparator();
+        String output = "Here are the matching tasks in your list:\n";
         for (Task item : list) {
             output += item.printMatch(match);
         }

@@ -3,3 +3,4 @@ T | 0 | 1
 D | 0 | do work | 2024-01-01T16:00
 E | 0 | school event | 2024-01-01T08:00/2024-01-04T20:00
 T | 0 | work day
+T | 1 | new task
