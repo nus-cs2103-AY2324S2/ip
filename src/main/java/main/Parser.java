@@ -1,3 +1,8 @@
+import Objects.Deadline;
+import Objects.Event;
+import Objects.Task;
+import Objects.Todo;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
