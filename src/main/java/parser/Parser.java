@@ -2,6 +2,7 @@ package parser;
 
 import commands.Command;
 import commands.ByeCommand;
+import commands.FindCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
@@ -73,6 +74,10 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     return new InvalidCommand(e.getMessage() + "\n");
                 }
+            }else if (firstWord.equalsIgnoreCase("find")) {
+                String wordToSearch = String.join(" ", java.util.Arrays.copyOfRange(
+                        splitInput, 1, splitInput.length));
+                return new FindCommand(wordToSearch);
             } else {
                 throw new EmptyException("I don't know what that means :( Valid commands are: \n" +
                         "list, todo, deadline, event, mark, unmark, bye\n");

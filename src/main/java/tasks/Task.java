@@ -42,8 +42,11 @@ public class Task {
     }
 
     public void unmarkDone() {
-
         this.isDone = false;
+    }
+
+    public boolean descriptionContainsWord(String word) {
+        return this.description.contains(word);
     }
 
     @Override
