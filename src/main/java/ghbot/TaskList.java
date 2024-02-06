@@ -36,7 +36,7 @@ public class TaskList {
     /**
      * Returns a specific task.
      * @param index Index of the specific task.
-     * @return The specific task.
+     * @return A specific task.
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
