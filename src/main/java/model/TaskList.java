@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
@@ -13,6 +14,11 @@ public class TaskList implements Serializable {
 
     public int size() {
         return tasks.size();
+    }
+
+    private Task addTask(Task t) {
+        tasks.add(t);
+        return t;
     }
 
     // Overloaded Method for ToDo task
@@ -50,6 +56,16 @@ public class TaskList implements Serializable {
         Task t = tasks.get(index).unmark();
         tasks.set(index, t);
         return t;
+    }
+
+    public TaskList match(String s) {
+        TaskList result = new TaskList();
+        for (Task t : tasks) {
+            if (t.nameContains(s)) {
+                result.addTask(t);
+            }
+        }
+        return result;
     }
 
     public String toString() {

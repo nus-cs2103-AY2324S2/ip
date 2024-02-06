@@ -83,7 +83,7 @@ public class Zero {
                 } catch (NumberFormatException e) {
                     ui.showIndexParseError();
                 } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexOutOfBoundsError(storage.getTaskList());
+                    ui.showIndexOutOfBoundsError(storage.getTaskList().size());
                 }
                 break;
             case UNMARK:
@@ -95,7 +95,7 @@ public class Zero {
                 } catch (NumberFormatException e) {
                     ui.showIndexParseError();
                 } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexOutOfBoundsError(storage.getTaskList());
+                    ui.showIndexOutOfBoundsError(storage.getTaskList().size());
                 }
                 break;
             case DELETE:
@@ -103,11 +103,11 @@ public class Zero {
                     int idx = Parser.parseIndex(input.get("name"));
                     Task t = storage.getTaskList().deleteTask(idx);
                     storage.saveTaskList();
-                    ui.showDeleteDone(t, storage.getTaskList());
+                    ui.showDeleteDone(t, storage.getTaskList().size());
                 } catch (NumberFormatException e) {
                     ui.showIndexParseError();
                 } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexOutOfBoundsError(storage.getTaskList());
+                    ui.showIndexOutOfBoundsError(storage.getTaskList().size());
                 }
                 break;
             case TODO:
@@ -116,7 +116,7 @@ public class Zero {
                     Parser.checkNullOrEmpty(s);
                     Task t = storage.getTaskList().addTask(s);
                     storage.saveTaskList();
-                    ui.showAddTaskDone(t, storage.getTaskList());
+                    ui.showAddTaskDone(t, storage.getTaskList().size());
                 } catch (IllegalArgumentException e) {
                     ui.showMissingTaskNameError();
                 }
@@ -128,7 +128,7 @@ public class Zero {
                     LocalDateTime by = Parser.parseDateTime(input.get("/by"));
                     Task t = storage.getTaskList().addTask(s, by);
                     storage.saveTaskList();
-                    ui.showAddTaskDone(t, storage.getTaskList());
+                    ui.showAddTaskDone(t, storage.getTaskList().size());
                 } catch (IllegalArgumentException e) {
                     ui.showMissingTaskNameError();
                 } catch (NullPointerException | DateTimeParseException e) {
@@ -145,11 +145,20 @@ public class Zero {
                     LocalDateTime to = Parser.parseDateTime(input.get("/to"));
                     Task t = storage.getTaskList().addTask(s, from, to);
                     storage.saveTaskList();
-                    ui.showAddTaskDone(t, storage.getTaskList());
+                    ui.showAddTaskDone(t, storage.getTaskList().size());
                 } catch (IllegalArgumentException e) {
                     ui.showMissingTaskNameError();
                 } catch (NullPointerException | DateTimeParseException e) {
                     ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", error);
+                }
+                break;
+            case FIND:
+                try {
+                    String s = input.get("name");
+                    Parser.checkNullOrEmpty(s);
+                    ui.showAllMatchingTasks(storage.getTaskList().match(s));
+                } catch (IllegalArgumentException e) {
+                    ui.showMissingFindArgError();
                 }
                 break;
             default:

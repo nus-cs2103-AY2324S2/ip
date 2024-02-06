@@ -5,7 +5,7 @@ public class ToDo implements Task {
 
     ToDo(String name) {
         this.name = name;
-        this.done = false;
+        done = false;
     }
 
     private ToDo(String name, boolean done) {
@@ -14,11 +14,15 @@ public class ToDo implements Task {
     }
 
     public ToDo mark() {
-        return new ToDo(this.name, true);
+        return new ToDo(name, true);
     }
 
     public ToDo unmark() {
-        return new ToDo(this.name, false);
+        return new ToDo(name, false);
+    }
+
+    public boolean nameContains(String s) {
+        return name.contains(s);
     }
 
     @Override

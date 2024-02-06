@@ -11,7 +11,7 @@ public class Deadline implements Task {
 
     Deadline(String name, LocalDateTime deadline) {
         this.name = name;
-        this.done = false;
+        done = false;
         this.deadline = deadline;
     }
 
@@ -29,9 +29,13 @@ public class Deadline implements Task {
         return new Deadline(name, false, deadline);
     }
 
+    public boolean nameContains(String s) {
+        return name.contains(s);
+    }
+
     @Override
     public String toString() {
-        String d = this.done ? "X" : " ";
+        String d = done ? "X" : " ";
         return String.format("[D][%s] %s (by: %s)", d, name, deadline.format(dtf));
     }
 }
