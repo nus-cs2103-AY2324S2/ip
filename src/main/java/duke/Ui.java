@@ -22,6 +22,24 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("-------------------------");
     }
+    private LocalDate parseDate(String date) {
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy");
+        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3};
+
+        for (DateTimeFormatter dateFormat : formatters) {
+            try {
+                return LocalDate.parse(date, dateFormat);
+            } catch (IllegalArgumentException e) {
+                // Parsing failed for this pattern, try the next one
+            }
+        }
+
+        throw new IllegalArgumentException("Unable to parse the date string using any of the specified patterns.");
+    }
+
     /**
      * This method handles the logic for chatting with the user
      * @param taskList the task list that stores all the tasks created by the user
@@ -29,10 +47,6 @@ public class Ui {
     public void chat(TaskList taskList) throws RiriException {
         boolean isOn = true;
         Scanner sc = new Scanner(System.in);
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-mm-dd HHmm");
-        DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3};
 
         while (isOn) {
             String command = sc.nextLine();
@@ -52,7 +66,7 @@ public class Ui {
                 continue;
             } else if (command.matches("\\bdeadline\\b.*")) {
                 String[] words = command.split("/by");
-                LocalDate date = LocalDate.parse(words[1].trim(), formatter1);
+                LocalDate date = parseDate(words[1].trim());
 
                 taskList.addTask(new Deadline(words[0].trim(), date));
                 System.out.println("Added deadline.");
@@ -60,8 +74,8 @@ public class Ui {
             } else if (command.matches("\\bevent\\b.*")) {
                 String[] words = command.split("/from+");
                 String[] from = words[1].split("/to");
-                LocalDate date1 = LocalDate.parse(from[0].trim(), formatter1);
-                LocalDate date2 =  LocalDate.parse(from[1].trim(), formatter1);
+                LocalDate date1 = parseDate(from[0].trim());
+                LocalDate date2 =  parseDate(from[1].trim());
                 taskList.addTask(new Event(words[0].trim(), date1, date2));
                 System.out.println("Added event.");
                 continue;

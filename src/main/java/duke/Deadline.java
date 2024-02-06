@@ -8,7 +8,7 @@ public class Deadline extends Task {
     protected String by;
     public Deadline(String task, String by) {
         super(task);
-        this.byDate = LocalDate.parse(by);
+        this.byDate = parseDate(by);
         this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
     public Deadline(String task, LocalDate by) {
@@ -16,7 +16,23 @@ public class Deadline extends Task {
         this.byDate = by;
         this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
+    private LocalDate parseDate(String date) {
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy");
+        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3};
 
+        for (DateTimeFormatter dateFormat : formatters) {
+            try {
+                return LocalDate.parse(date, dateFormat);
+            } catch (IllegalArgumentException e) {
+                // Parsing failed for this pattern, try the next one
+            }
+        }
+
+        throw new IllegalArgumentException("Unable to parse the date string using any of the specified patterns.");
+    }
     /** Static method to create a Deadline object from a formatted string
      * @param inputString string to parse to Deadline object
      * @return Deadline object
