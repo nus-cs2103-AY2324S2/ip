@@ -4,12 +4,16 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class TaskIO {
-    public final String FILENAME = "ran.txt";
+    public final String name;
+
+    public TaskIO(String s) {
+        this.name = s;
+        File taskFile = new File(name);
+        taskFile.getParentFile().mkdir();
+    }
 
     public ArrayList<Task> findTasks() {
-        File dataFolder = new File("data");
-        dataFolder.mkdir();
-        File taskFile = new File(dataFolder, FILENAME);
+        File taskFile = new File(name);
         return readTasks(taskFile);
     }
 
@@ -20,7 +24,7 @@ public class TaskIO {
             while ((line = br.readLine()) != null) {
                 String[] contents = line.split("\\\\");
                 boolean completed = Boolean.parseBoolean(contents[1]);
-                Task t = null;
+                Task t;
                 switch (contents[0]) {
                 case "D":
                     t = new Deadline(contents[2], contents[3]);
@@ -46,9 +50,7 @@ public class TaskIO {
     }
 
     public void writeTasks(ArrayList<Task> tasks) {
-        File dataFolder = new File("data");
-        dataFolder.mkdir();
-        File taskFile = new File(dataFolder, FILENAME);
+        File taskFile = new File(name);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(taskFile))) {
             for (Task t : tasks) {
                 bw.write(t.writeTask());

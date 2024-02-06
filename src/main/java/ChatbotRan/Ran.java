@@ -4,16 +4,15 @@ import java.util.Scanner;
 
 public class Ran {
     TaskList taskList;
-
+    TaskIO taskIO;
 
     public Ran(TaskIO taskIO) {
         this.taskList = new TaskList(taskIO);
+        this.taskIO = taskIO;
     }
 
     public static void main(String[] args) {
-        TaskIO ti = new TaskIO();
-
-
+        TaskIO ti = new TaskIO("data/ran.txt");
         Ran chatbot = new Ran(ti);
         chatbot.run();
     }
