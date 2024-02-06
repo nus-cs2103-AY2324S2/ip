@@ -4,4 +4,5 @@ public interface Item {
 
     public void mark();
     public void unmark();
+    public String store();
 }

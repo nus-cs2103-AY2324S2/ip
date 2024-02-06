@@ -1,9 +1,9 @@
 public class Deadline implements Item {
     public String name;
-    public String status = "[ ]";
+    public String status;
     public String ddl;
 
-    public Deadline(String name, String ddl) throws RickException{
+    public Deadline(String name, String status, String ddl) throws RickException{
         if (name.isBlank()) {
             throw new RickException("Nothing is due!");
         }
@@ -12,6 +12,7 @@ public class Deadline implements Item {
         }
         this.name = name;
         this.ddl = ddl;
+        this.status = status;
     }
     @Override
     public String toString(){
@@ -22,5 +23,8 @@ public class Deadline implements Item {
     }
     public void unmark() {
         this.status = "[ ]";
+    }
+    public String store() {
+        return "D|" + this.status + "|" + this.name + "|" + this.ddl;
     }
 }

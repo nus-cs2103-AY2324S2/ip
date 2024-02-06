@@ -1,9 +1,72 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 public class Rick {
     public static ArrayList<Item> list = new ArrayList<>();
+<<<<<<< HEAD
 
+=======
+    public static Path directoryPath = Paths.get("./data");
+    public static Path filePath = Paths.get("./data/rick.txt");
+    public static void loadFile() throws RickException {
+        reply("Loading local data...");
+        try {
+            //If directory data does not exist, create it
+            if (!Files.isDirectory(directoryPath)) {
+                Files.createDirectory(directoryPath);
+            }
+            //If file duke.txt does not exist, create it
+            if (!Files.exists(filePath)) {
+                reply("Thank you for using Rick assistant! 어서 와, 리크은 처음이지?\n" +
+                        "We are setting up your device for the first time!");
+                Files.createFile(filePath);
+            }
+            BufferedReader reader = Files.newBufferedReader(filePath);
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] splited = line.split("\\|");
+                //T|[ ]|name
+                //D|[ ]|name|by
+                //E|[ ]|name|from|to
+                switch (splited[0]) {
+                case ("T"):
+                    if (splited.length != 3) {
+                        reply(Integer.toString(splited.length));
+                        reply(splited[2]);
+                        throw new Exception("T length wrong");}
+                    list.add(new ToDo(splited[2], splited[1]));
+                    break;
+                case ("D"):
+                    if (splited.length != 4) {throw new Exception("D length wrong");}
+                    list.add(new Deadline(splited[2], splited[1], splited[3]));
+                    break;
+                case ("E"):
+                    if (splited.length != 5) {throw new Exception("E length wrong");}
+                    list.add(new Event(splited[2], splited[1], splited[3], splited[4]));
+                    break;
+                default:
+                    throw new Exception("starting letter wrong");
+                }
+            }
+        } catch (Exception e) {
+            throw new RickException(e.getMessage());
+            //throw new RickException("There's something wrong with your local data... You might want to [check the file], " +
+                    //"or [clear local data]");
+        }
+    }
+    //TODO implement 'clear local data'
+>>>>>>> branch-Level-7
     public static void main(String[] args) {
+        try {
+            loadFile();
+        } catch (RickException e) {
+            reply(e.getMessage());
+            return;
+        }
         hello();
         Scanner scanner = new Scanner(System.in);
 
@@ -35,9 +98,22 @@ public class Rick {
             }
         }
     }
+
+    public static void update() throws RickException {
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(filePath);
+            for (Item i : list) {
+                writer.write(i.store());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (Exception e) {
+            throw new RickException("There's something wrong with saving the data ㅜㅜ");
+        }
+    }
     public static void hello() {
         String hello = "Hello! I'm Rick\n"+
-                "What can I do for you ?";
+                "Tell me about your plan !";
         reply(hello);
     }
 
@@ -72,7 +148,7 @@ public class Rick {
         }
         try {
             if (splited[0].equals("todo")) {
-                new_item = new ToDo(arg.substring(5));
+                new_item = new ToDo(arg.substring(5), "[ ]");
                 list.add(new_item);
             } else if (splited[0].equals("deadline")) {
                 if (!arg.contains(" /by ") || splited[last].equals("/by")) {
@@ -84,7 +160,7 @@ public class Rick {
                 int i = arg.indexOf("/by");
                 String ddl = arg.substring(i + 4);
                 String name = arg.substring(9, i - 1);
-                new_item = new Deadline(name, ddl);
+                new_item = new Deadline(name, "[ ]", ddl);
                 list.add(new_item);
             } else if (splited[0].equals("event")) {
                 if (!arg.contains(" /from ") || !arg.contains(" /to ") || splited[last].equals("/to") || splited[last].equals("/from")) {
@@ -96,9 +172,15 @@ public class Rick {
                 int i = arg.indexOf("/from ");
                 int j = arg.indexOf("/to ");
                 String name = arg.substring(6, i-1);
+<<<<<<< HEAD
                 String from = i < j ? arg.substring(i + 6, j-1) : arg.substring(i + 6);
                 String to = i < j ? arg.substring(j + 4) : arg.substring(j + 4, i - 1);
                 new_item = new Event(name, from, to);
+=======
+                String from = arg.substring(i + 6, j-1);
+                String to = arg.substring(j + 4);
+                new_item = new Event(name, "[ ]", from, to);
+>>>>>>> branch-Level-7
                 list.add(new_item);
             } else {
                 throw new RickException("It seems that you are missing the space in your instruction. Homesick alien?");
@@ -110,6 +192,7 @@ public class Rick {
         String output = "Got it. I've added this task:\n" +
                 new_item +
                 "\nNow you have " + list.size() + " tasks in the list.";
+        update();
         reply(output);
     }
 
@@ -125,6 +208,7 @@ public class Rick {
             Item item = list.get(i);
             item.mark();
             String output = "Nice! I've marked this task as done:\n"+ item;
+            update();
             reply(output);
         }
     }
@@ -141,6 +225,7 @@ public class Rick {
             Item item = list.get(i);
             item.unmark();
             String output = "OK, I've marked this task as not done yet:\n"+ item;
+            update();
             reply(output);
         }
     }
@@ -156,6 +241,7 @@ public class Rick {
             String output = "Noted. I've removed this task:\n" +
                     item +
                     "\nNow you have " + list.size() + " tasks in the list.";
+            update();
             reply(output);
         } catch (Exception e) {
             reply("Index wrong lah!");
