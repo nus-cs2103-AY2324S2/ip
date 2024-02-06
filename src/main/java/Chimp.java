@@ -86,8 +86,17 @@ public class Chimp {
                 if (to == null || to.equals(""))
                     throw new CommandParseException("deadline needs by date/time!");
 
+                LocalDate fromDate;
+                LocalDate toDate;
+                try {
+                    fromDate = LocalDate.parse(from);
+                    toDate = LocalDate.parse(to);
+                } catch (Exception e) {
+                    throw new CommandParseException("Invalid date format provided to event");
+                }
+
                 String text = arg.split("/")[0].strip();
-                chimp.addToList(text, from, to);
+                chimp.addToList(text, fromDate, toDate);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
             case "deadline":
@@ -95,12 +104,19 @@ public class Chimp {
                 String by = bySubCommand.substring(3);
                 by = by.strip();
 
+                LocalDate byDate;
+                try {
+                    byDate = LocalDate.parse(by);
+                } catch (Exception e) {
+                    throw new CommandParseException("Invalid date format provided to deadline");
+                }
+
                 if (by == null || by.equals(""))
                     throw new CommandParseException("deadline needs by date/time!");
 
                 // TODO: switch case scoping best practice?
                 text = arg.split("/")[0].strip();
-                chimp.addToList(text, by);
+                chimp.addToList(text, byDate);
                 chimp.say(chimp.list.get(chimp.list.size() - 1));
                 break;
             case "delete":
