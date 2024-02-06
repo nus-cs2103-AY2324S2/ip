@@ -1,16 +1,23 @@
 package raphael.command;
 
 import raphael.exception.RaphaelException;
+import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.storage.Storage;
 
 /**
- * Modifies the isDone property of a task indicated by index
+ * Modifies the isDone property of a task indicated by index.
  */
 public class EditCommand extends Command {
     private final int idx;
     private final boolean isMark;
+
+    /**
+     * The constructor for the check/uncheck command.
+     *
+     * @param idx the index of the task to be modified.
+     * @param isMark the status value of the task to be modified.
+     */
     public EditCommand(int idx, boolean isMark) {
         this.idx = idx;
         this.isMark = isMark;
