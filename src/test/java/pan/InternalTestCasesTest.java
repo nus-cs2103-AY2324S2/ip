@@ -1,4 +1,7 @@
-package pan.exceptions;
+package pan;
+
+import pan.exceptions.InternalTestCases;
+import pan.exceptions.InvalidCommandException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
