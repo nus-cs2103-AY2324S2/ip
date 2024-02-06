@@ -1,8 +1,9 @@
 package raphael.command;
+
+import raphael.storage.Storage;
 import raphael.task.Task;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.storage.Storage;
 
 /**
  * Adds the task upon execution.
