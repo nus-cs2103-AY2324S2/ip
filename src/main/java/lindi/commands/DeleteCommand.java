@@ -32,8 +32,8 @@ public class DeleteCommand extends Command {
                     deletedTask, tasks.size());
             storage.saveToFile(tasks);
         } catch (IndexOutOfBoundsException e) {
-            this.statusMsg = "Sorry, I can't find that task. Please enter a valid index\n" +
-                    "You can see the tasks list by inputting \"list\"";
+            this.statusMsg = "Sorry, I can't find that task. Please enter a valid index\n"
+                    + "You can see the tasks list by inputting \"list\"";
         }
     }
 }

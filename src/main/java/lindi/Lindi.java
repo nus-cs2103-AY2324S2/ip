@@ -15,7 +15,7 @@ public class Lindi {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    private final String NAME = "Lindi";  // Log It N Do It -> LINDI
+    private final String name = "Lindi"; // Log It N Do It -> LINDI
 
     /**
      * Initializes Lindi
@@ -25,7 +25,7 @@ public class Lindi {
      */
     public Lindi(String dataDir, String dataFileName) {
         this.storage = new Storage(dataDir, dataFileName);
-        this.ui = new Ui(this.NAME);
+        this.ui = new Ui(this.name);
         try {
             this.tasks = this.storage.loadFromFile();
         } catch (StorageLoadException e) {

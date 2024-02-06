@@ -1,11 +1,10 @@
 package lindi.storage;
 
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import lindi.task.CreateTaskException;
 import lindi.task.Task;
@@ -19,15 +18,14 @@ public class Storage {
     private FileWriter fileWriter;
     private Scanner fileScanner;
 
-    String dataDir;
-    String dataFileName;
+    private final String dataDir;
+    private final String dataFileName;
     /**
      * Initialises Storage to load data from and save data to a file. Creates
      * the required directories and files if necessary.
      *
      * @param dataDir directory to store the data file
      * @param dataFileName name of data file (.txt format)
-     * @throws IOException - if an I/O operation occurred using File
      */
     public Storage(String dataDir, String dataFileName) {
         this.dataDir = dataDir;
@@ -69,7 +67,7 @@ public class Storage {
     /**
      * Loads the taskList from the data file for this session
      *
-     * @throws FileNotFoundException if data file not exist at file path
+     * @throws StorageLoadException if data file not exist at file path
      */
     public TaskList loadFromFile() throws StorageLoadException {
         try {
@@ -86,8 +84,8 @@ public class Storage {
             throw new StorageLoadException("Error loading tasks from save file. Might be corrupted...\n"
                     + e.getMessage());
         } catch (FileNotFoundException e) {
-            throw new StorageLoadException("Error loading tasks from save file. " +
-                    "File not found at path specified...\n" + new File(dataDir, dataFileName));
+            throw new StorageLoadException("Error loading tasks from save file. "
+                    + "File not found at path specified...\n" + new File(dataDir, dataFileName));
         }
     }
 }

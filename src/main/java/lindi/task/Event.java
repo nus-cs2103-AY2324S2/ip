@@ -3,6 +3,10 @@ package lindi.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Represents an event task
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
@@ -10,7 +14,7 @@ public class Event extends Task {
     /**
      * Initialises the event task
      *
-     * @param description description of the deadline
+     * @param description description of the event
      * @param from start datetime of event following '{@value SAVE_LOAD_DT_FORMAT_STRING}' format
      * @param to end datetime of the dateline following '{@value SAVE_LOAD_DT_FORMAT_STRING}' format
      * @throws CreateEventException if param from or to provided is in the wrong format

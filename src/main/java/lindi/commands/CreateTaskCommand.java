@@ -1,12 +1,12 @@
 package lindi.commands;
 
 import lindi.storage.Storage;
+import lindi.task.CreateTaskException;
 import lindi.task.Task;
 import lindi.task.TaskList;
-import lindi.task.CreateTaskException;
 
 /**
- * Represents a command that creates a lindi.task.Task upon execution
+ * Represents a command that creates a task upon execution
  */
 public class CreateTaskCommand extends Command {
     private final String commandString;
@@ -23,14 +23,14 @@ public class CreateTaskCommand extends Command {
     /**
      * {@inheritDoc}
      * <p>
-     * Creates task relying on lindi.task.Task class factory method, adds it to task list.
+     * Creates task relying on Task class factory method, adds it to task list.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        try{
+        try {
             Task createdtask = Task.create(this.commandString);
             tasks.add(createdtask);
-            this.statusMsg = String.format("Okay. I've deleted this lindi.task:\n\t%s\nNow you have %d tasks in the list.",
+            this.statusMsg = String.format("Okay. I've deleted this task:\n\t%s\nNow you have %d tasks in the list.",
                     createdtask, tasks.size());
             storage.saveToFile(tasks);
         } catch (CreateTaskException e) {

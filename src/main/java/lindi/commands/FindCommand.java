@@ -3,6 +3,9 @@ package lindi.commands;
 import lindi.storage.Storage;
 import lindi.task.TaskList;
 
+/**
+ * Represents a command that filters out tasks in the task list upon execution
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

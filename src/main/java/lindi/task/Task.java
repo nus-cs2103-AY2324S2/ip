@@ -2,10 +2,10 @@ package lindi.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Abstract representation for tasks
+ */
 public abstract class Task { // Adapted from Course Website
-    protected String description;
-    protected boolean isDone;
-
     protected static final String DISPLAY_DT_FORMAT_STRING = "MMM dd yyyy HH:mm";
     protected static final String SAVE_LOAD_DT_FORMAT_STRING = "yyyy-MM-dd-HH-mm";
     protected static final DateTimeFormatter DISPLAY_DATETIME_FORMAT =
@@ -13,10 +13,25 @@ public abstract class Task { // Adapted from Course Website
     protected static final DateTimeFormatter SAVE_LOAD_DATETIME_FORMAT =
             DateTimeFormatter.ofPattern(SAVE_LOAD_DT_FORMAT_STRING);
 
+    protected final String description;
+    protected boolean isDone = false;
+
+    /**
+     * Initialises the task with the given description
+     *
+     * @param description description of the task
+     */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
     }
+
+    /**
+     * Factory method for subclasses of Task.
+     *
+     * @param fullString full user input string
+     * @return ToDo, Deadline or Event depending on input string
+     * @throws CreateTaskException if arguments to create task are invalid
+     */
     public static Task create(String fullString) throws CreateTaskException {
         // s is either `todo`, `event` or `deadline`
         String[] sTokens = fullString.split(" ", 2);
@@ -134,7 +149,7 @@ public abstract class Task { // Adapted from Course Website
     @Override
     public String toString() {
         return String.format("[%s] %s",
-                (isDone ? "X" : " "), this.description);
+                isDone ? "X" : " ", this.description);
     }
 
     public abstract String parsedFormatToSave();

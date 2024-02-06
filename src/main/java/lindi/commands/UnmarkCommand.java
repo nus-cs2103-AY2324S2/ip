@@ -31,8 +31,8 @@ public class UnmarkCommand extends Command {
             this.statusMsg = "Nice! I've marked this task as not done yet:\n\t" + unmarkedTask;
             storage.saveToFile(tasks);
         } catch (IndexOutOfBoundsException e) {
-            this.statusMsg = "Sorry, I can't find that task. Please enter a valid index\n" +
-                    "You can see the tasks list by inputting \"list\"";
+            this.statusMsg = "Sorry, I can't find that task. Please enter a valid index\n"
+                    + "You can see the tasks list by inputting \"list\"";
         }
     }
 }
