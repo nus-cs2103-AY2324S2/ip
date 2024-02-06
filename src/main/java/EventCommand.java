@@ -6,8 +6,8 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui) {
+    public void execute(TaskList tasks, Ui ui) {
         tasks.addTask(event);
-        UI.displayEventCommand(event);
+        Ui.displayEventCommand(event);
     }
 }
