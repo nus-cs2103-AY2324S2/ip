@@ -16,10 +16,11 @@ import java.time.format.DateTimeFormatter;
  * </ul>
  */
 public class Deadline implements Task {
+    private static DateTimeFormatter dtfOutput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
     private final String name;
     private final boolean done;
     private final LocalDateTime deadline;
-    public static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     /**
      * Contructor to create a new {@code Deadline} object, with {@code done} set to {@code false} by default.
@@ -37,6 +38,10 @@ public class Deadline implements Task {
         this.name = name;
         this.done = done;
         this.deadline = deadline;
+    }
+
+    public static void setDateTimeFormat(DateTimeFormatter dtf) {
+        dtfOutput = dtf;
     }
 
     /**
@@ -63,6 +68,6 @@ public class Deadline implements Task {
     @Override
     public String toString() {
         String d = this.done ? "X" : " ";
-        return String.format("[D][%s] %s (by: %s)", d, name, deadline.format(dtf));
+        return String.format("[D][%s] %s (by: %s)", d, name, deadline.format(dtfOutput));
     }
 }

@@ -59,8 +59,8 @@ public class Ui {
     }
 
     public void showInvalidCommand(String cmd) {
-        pw.printf("I don't understand what you mean by \"%s\"\nPlease request something like:\n" + 
-        "  bye, list, mark, delete, todo, deadline, event.", cmd);
+        pw.printf("I don't understand what you mean by \"%s\"\nPlease request something like:\n"
+                + "  bye, list, mark, delete, todo, deadline, event.", cmd);
     }
 
     public void showGreet(String name) {

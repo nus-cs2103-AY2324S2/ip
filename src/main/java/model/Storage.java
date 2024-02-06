@@ -61,7 +61,7 @@ public class Storage {
     // Updates the save file with the task data
     // Reopen and close the ObjectOutputStream each time to override the file and update properly
     public void saveTaskList() throws IOException {
-        try{
+        try {
             FileOutputStream fos = new FileOutputStream(saveFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(tasks);

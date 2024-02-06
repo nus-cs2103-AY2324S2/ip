@@ -16,12 +16,13 @@ import java.time.format.DateTimeFormatter;
  * <li>a {@code LocalDateTime} end date.</li>
  * </ul>
  */
-public class Event implements Task{
+public class Event implements Task {
+    private static DateTimeFormatter dtfOutput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
     private final String name;
     private final boolean done;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    public static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     /**
      * Contructor to create a new {@code Event} object, with {@code done} set to {@code false} by default.
@@ -42,6 +43,10 @@ public class Event implements Task{
         this.done = done;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public static void setDateTimeFormat(DateTimeFormatter dtf) {
+        dtfOutput = dtf;
     }
 
     /**
@@ -69,6 +74,6 @@ public class Event implements Task{
     public String toString() {
         String d = this.done ? "X" : " ";
         return String.format("[E][%s] %s (from: %s) (to: %s)", d, name,
-                startDate.format(dtf), endDate.format(dtf));
+                startDate.format(dtfOutput), endDate.format(dtfOutput));
     }
 }

@@ -30,12 +30,12 @@ public class Zero {
     private static final Writer USER_OUTPUT = new OutputStreamWriter(System.out);
     private static final String DIVIDER = "_".repeat(100) + "\n";
     private static final String SAVE_FILE_PATH = "data/save.ser";
-    private static final DateTimeFormatter DATE_TIME_FORMATTER_INPUT = 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_INPUT =
             DateTimeFormatter.ofPattern("d/M/uu HHmm");
     private static final String DATE_TIME_INPUT_FORMAT = "dd/mm/yy HHMM"; // For display to users
-    private static final DateTimeFormatter DATE_TIME_FORMATTER_OUTPUT = 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_OUTPUT =
             DateTimeFormatter.ofPattern("EEE, d MMM uuuu, hh:mm a");
-    
+
     private Ui ui;
     private Storage storage;
 
@@ -53,9 +53,9 @@ public class Zero {
      */
     public Zero() throws IOException {
         // Set Date Time formats for relevant classes
-        Parser.dtfInput = DATE_TIME_FORMATTER_INPUT;
-        Deadline.dtf = DATE_TIME_FORMATTER_OUTPUT;
-        Event.dtf = DATE_TIME_FORMATTER_OUTPUT;
+        Parser.setDateTimeFormat(DATE_TIME_FORMATTER_INPUT);
+        Deadline.setDateTimeFormat(DATE_TIME_FORMATTER_OUTPUT);
+        Event.setDateTimeFormat(DATE_TIME_FORMATTER_OUTPUT);
 
         ui = new Ui(USER_INPUT, USER_OUTPUT, DIVIDER);
         storage = new Storage(SAVE_FILE_PATH);

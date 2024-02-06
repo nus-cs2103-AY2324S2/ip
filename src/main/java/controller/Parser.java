@@ -9,7 +9,11 @@ import java.util.Hashtable;
  * Parser class for parsing user inputs in the Zero bot. 
  */
 public class Parser {
-    static DateTimeFormatter dtfInput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static DateTimeFormatter dtfInput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+    public static void setDateTimeFormat(DateTimeFormatter dtf) {
+        dtfInput = dtf;
+    }
 
     /**
      * Parses input string in the form of "[cmd] [index/name] [args...]".
