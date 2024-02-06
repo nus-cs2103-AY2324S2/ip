@@ -6,7 +6,7 @@ public class Deadline extends Task {
 
     protected LocalDateTime by;
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
-    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Deadline(String description, String by) {
         super(description);

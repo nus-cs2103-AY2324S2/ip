@@ -7,7 +7,7 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
-    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Event(String description, String start, String end) {
         super(description);
