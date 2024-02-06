@@ -1,17 +1,16 @@
 package ghbot;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import ghbot.executor.ByeExecutor;
 import ghbot.executor.Executor;
 
-import java.io.IOException;
-
-import java.time.format.DateTimeParseException;
-
 /**
- * GHBot Class.
+ * GhBot Class.
  * This is the main class for the chatbot.
  */
-public class GHBot {
+public class GhBot {
 
     public static void main(String[] args) {
         String fileName = "./data/history.txt";
@@ -31,7 +30,7 @@ public class GHBot {
                     break;
                 }
                 storage.writeDataToFile(taskLst.toList());
-            } catch (GHBotException | IOException | DateTimeParseException e) {
+            } catch (GhBotException | IOException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
         }
