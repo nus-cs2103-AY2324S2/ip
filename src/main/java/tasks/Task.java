@@ -1,8 +1,9 @@
 package tasks;
 
-import enums.TaskType;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import enums.TaskType;
 
 /**
  * The Task class represents a generic task with a description and completion status.

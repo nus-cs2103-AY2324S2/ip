@@ -1,7 +1,9 @@
 package tasks;
 
-import enums.TaskType;
 import java.time.LocalDate;
+
+import enums.TaskType;
+
 
 /**
  * The Event class represents a task of type "Event" with a description, start date, and end date.

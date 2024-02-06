@@ -1,22 +1,24 @@
 package data;
 
-import core.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import core.Ui;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 public class StorageTest {
     private Path tempFile;
@@ -38,7 +40,7 @@ public class StorageTest {
     }
 
     @Test
-    public void saveTasks_LoadTasks_tasksSavedAndLoaded() {
+    public void saveTasks_loadTasks_tasksSavedAndLoaded() {
         ToDo todo = new ToDo("Read book");
         Deadline deadline = new Deadline("Submit assignment", java.time.LocalDate.now());
         Event event = new Event("Team meeting", java.time.LocalDate.now(),
@@ -61,7 +63,7 @@ public class StorageTest {
     }
 
     @Test
-    public void loadTasks_NoFile_emptyTaskList() {
+    public void loadTasks_noFile_emptyTaskList() {
         // Attempt to load tasks where no file exists
         List<Task> loadedTasks = storage.load();
         assertTrue(loadedTasks.isEmpty(), "Should load an empty list if the file does not exist.");

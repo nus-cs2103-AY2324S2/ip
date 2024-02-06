@@ -1,14 +1,15 @@
 package core;
 
+import java.nio.file.Paths;
+
 import commands.Command;
 import data.Storage;
-import java.nio.file.Paths;
 import tasks.TaskList;
 
 /**
  * The Ragdoll class is the main class that manages the execution of a command-line application.
  */
-public class Ragdoll{
+public class Ragdoll {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -41,7 +42,7 @@ public class Ragdoll{
         ui.showWelcomeMessage();
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             String input = ui.readCommand();
             ui.showLine();
 

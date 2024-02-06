@@ -1,20 +1,22 @@
 package data;
 
-import core.Ui;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import core.Ui;
+
+//CHECKSTYLE.OFF: MissingJavadocType
 public class StorageTestCorruptedLine {
     private Path tempFile;
     private Storage storage;
@@ -30,6 +32,7 @@ public class StorageTestCorruptedLine {
         Files.write(tempFile, lines);
     }
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     @Test
     public void load_withCorruptedLine_outputsCorruptedMessage() {
         storage.load();

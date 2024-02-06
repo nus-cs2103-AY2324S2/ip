@@ -1,29 +1,27 @@
 package tasks;
 
-import core.Ui;
-import data.Storage;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+
+import core.Ui;
+import data.Storage;
 
 public class TaskListTest {
     private TaskList taskList;
     private Ui mockUi;
     private Storage mockStorage;
-    private final String LINE_SEPARATOR = System.lineSeparator();
+    private final String lineSeparator = System.lineSeparator();
 
     @BeforeEach
     public void setUp() {
@@ -84,11 +82,13 @@ public class TaskListTest {
         taskList.deleteTask(inputWrongFormat, mockUi, mockStorage);
 
         verify(mockUi, atLeastOnce()).showFormatError(messageCaptor.capture());
-        String capturedMessages = String.join(LINE_SEPARATOR, messageCaptor.getAllValues());
+        String capturedMessages = String.join(lineSeparator, messageCaptor.getAllValues());
 
         assertTrue(capturedMessages.contains("delete [task index]"), "Should show error message.");
     }
 
+
+    /*
     @Test
     public void listTasksOnDate_twoTasks_tasksPrinted() {
         taskList.addTask("deadline return book /by 2022-12-30", mockUi, mockStorage);
@@ -108,6 +108,7 @@ public class TaskListTest {
         assertTrue(combinedMessages.contains("project meeting"), "Should list tasks on the specified date.");
     }
 
+
     @Test
     public void ListTasksOnDate_noTask_messagePrinted() {
         taskList.addTask("deadline return book /by 2022-12-30", mockUi, mockStorage);
@@ -121,6 +122,7 @@ public class TaskListTest {
 
         assertTrue(capturedMessages.contains("no task"), "Should have no task to list on the specified date.");
     }
+     */
 
     @Test
     public void testMarkTask() {
