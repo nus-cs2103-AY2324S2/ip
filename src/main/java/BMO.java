@@ -53,11 +53,11 @@ public class BMO {
 
     static void addLog(String input) {
         // create string formats for each task type for format checking
-        String deadlineFormat = "^deadline\\s+(\\w+(\\s+\\w+)*)\\s+/by\\s+(\\S+(\\s+\\w+)*)$";
+        String deadlineFormat = "^deadline\\s+(\\w+(\\s+\\w+)*)\\s+/by\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern deadlinePattern = Pattern.compile(deadlineFormat);
         Matcher deadlineMatcher = deadlinePattern.matcher(input);
 
-        String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+)*)\\s+/to\\s+(\\S+(\\s+\\w+)*)$";
+        String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+)*)\\s+/to\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern eventPattern = Pattern.compile(eventFormat);
         Matcher eventMatcher = eventPattern.matcher(input);
 
