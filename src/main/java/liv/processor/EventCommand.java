@@ -1,3 +1,9 @@
+package liv.processor;
+
+import liv.task.Event;
+import liv.container.TaskList;
+import liv.ui.Ui;
+
 public class EventCommand extends Command {
     private Event event;
 

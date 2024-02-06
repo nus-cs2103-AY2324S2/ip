@@ -1,4 +1,11 @@
+package liv.ui;
+
 import java.util.Scanner;
+import liv.container.TaskList;
+import liv.task.Task;
+import liv.task.TodoTask;
+import liv.task.Deadline;
+import liv.task.Event;
 
 public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -6,7 +13,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
     public void displayGreetCommand() {
-        System.out.println("Liv, under your instructions!");
+        System.out.println("liv.Liv, under your instructions!");
         System.out.println("What is your command?\n");
     }
 
@@ -43,19 +50,19 @@ public class Ui {
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
     public static void displayTodoCommand(TodoTask todo) {
-        System.out.println("Task added:");
+        System.out.println("liv.task.Task added:");
         System.out.println(todo.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
 
     public static void displayDeadlineCommand(Deadline deadline) {
-        System.out.println("Deadline added:");
+        System.out.println("liv.task.Deadline added:");
         System.out.println(deadline.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
 
     public static void displayEventCommand(Event event) {
-        System.out.println("Task added:");
+        System.out.println("liv.task.Task added:");
         System.out.println(event.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
