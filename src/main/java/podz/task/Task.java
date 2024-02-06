@@ -29,6 +29,16 @@ public class Task {
         return isDoneStr + "| " + description;
     }
 
+    /**
+     * Returns whether the task description contains the specified keyword.
+     *
+     * @param keyword the keyword to check for in the task description
+     * @return true if the task description contains the keyword, false otherwise
+     */
+    public boolean isRelevantTask(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
