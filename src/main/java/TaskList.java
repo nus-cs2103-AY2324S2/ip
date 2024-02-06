@@ -2,13 +2,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
+
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Task get(int index) {
+        return this.tasks.get(index);
+    }
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public int size() {
+        return this.tasks.size();
     }
 
     public void addTask(Task task) {
@@ -19,17 +31,17 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
-    public ArrayList<Task> getTasksToday() {
+    public TaskList getTasksToday() {
         DateTime today = new DateTime(LocalDate.now());
         return getTasksOnDate(today);
     }
 
-    public ArrayList<Task> getTasksOnDate(String date) {
+    public TaskList getTasksOnDate(String date) {
         DateTime dt = new DateTime(date);
         return getTasksOnDate(dt);
     }
 
-    public ArrayList<Task> getTasksOnDate(DateTime date) {
+    public TaskList getTasksOnDate(DateTime date) {
         ArrayList<Task> tasksToDisplayList = new ArrayList<Task>();
         for (Task task : tasks) {
             if (task.hasDate) {
@@ -38,7 +50,7 @@ public class TaskList {
                 }
             }
         }
-        return tasksToDisplayList;
+        return new TaskList(tasksToDisplayList);
     }
 
 

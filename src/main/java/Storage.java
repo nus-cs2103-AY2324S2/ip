@@ -38,7 +38,7 @@ public class Storage {
      * @return An <code>ArrayList</code> of <code>Task</code> objects.
      * @throws IOException if there are any input/output errors.
      */
-    public ArrayList<Task> loadFromFile() throws IOException {
+    public TaskList loadFromFile() throws IOException {
         Path path = getHistoryFilePath();
         ArrayList<Task> newList = new ArrayList<Task>();
         try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -79,19 +79,19 @@ public class Storage {
                 }
             }
         }
-        return newList;
+        return new TaskList(newList);
     }
 
     /**
      * Saves the entire list of Tasks into the file, by first clearing its contents.
      * @throws IOException if there are any input/output errors.
      */
-    public void saveAllToFile(ArrayList<Task> tasks) throws IOException {
+    public void saveAllToFile(TaskList tasks) throws IOException {
         Path path = getHistoryFilePath();
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.defaultCharset())) {
             writer.write("");   // clears the file
             StringBuilder strBdr = new StringBuilder();
-            for (Task task : tasks) {
+            for (Task task : tasks.getTasks()) {
                 String str = task.stringForSaving();
                 strBdr.append(str).append("\n");
             }
