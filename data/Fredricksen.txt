@@ -1,1 +1,9 @@
 type: T isDone: false content: todo laundry
+type: D isDone: false content: deadline project /by 21/12/2019
+type: D isDone: false content: deadline project /by 21/12/2019
+type: D isDone: false content: deadline project /by 21/12/2019
+type: D isDone: false content: deadline project /by 21/12/2019 1900
+type: D isDone: false content: deadline projects /by 21/12/2019
+type: D isDone: false content: deadline projects /by 12/12/2019
+type: D isDone: false content: deadline projects /by 12/12/2019
+type: D isDone: false content: deadline projection /by 12/12/2019

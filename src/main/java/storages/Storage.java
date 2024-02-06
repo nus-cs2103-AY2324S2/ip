@@ -43,7 +43,6 @@ public class Storage {
 
     public void updateFile(TaskList list) {
         String filename = "data/Fredricksen.txt";
-
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.getTask(i);

@@ -40,10 +40,10 @@ public class Fredricksen {
 
     public void run() {
         ui.showWelcome();
-        System.out.println("");
         boolean isLoop = true;
         // while loop
         while (isLoop) {
+            System.out.println("");
             String task = ui.readCommand();
             String[] splitTask = task.split(" ");
             if (splitTask[0].equals("bye")) {

@@ -1,5 +1,6 @@
 package tasks.taskType;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -37,29 +38,39 @@ public class Task {
 
     public DateTimeFormatter[] getFormatsDateTime() {
         return new DateTimeFormatter[]{
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("d/M/yyyy"),
                 DateTimeFormatter.ofPattern("d-M-yyyy"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),
                 DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
         };
     }
 
     public String formatDates(String date) {
         String result = "";
+        LocalDateTime time = null;
         DateTimeFormatter[] formats = this.getFormatsDateTime();
         for (DateTimeFormatter format : formats) {
             try {
-                LocalDateTime time = LocalDateTime.parse(date, format);
-                result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"));
-                break;
-            } catch (DateTimeParseException error) {
-                break;
-            } finally {
-                System.out.println("Please pass date in dd/MM/yyyy HHmm format");
+                time = LocalDateTime.parse(date, format);
+            } catch (DateTimeParseException err) {
             }
         }
+
+        try {
+            result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"));
+            System.out.println("Hello");
+        } catch (DateTimeException err) {
+            if (result.equals("")) {
+                try {
+                    result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                } catch (DateTimeException error) {}
+            }
+        } catch (NullPointerException err) {
+            System.out.println("Please enter the date in mm/dd/yyyy format");
+        }
+
         return result;
     }
 
