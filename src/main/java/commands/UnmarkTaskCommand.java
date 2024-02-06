@@ -8,10 +8,10 @@ import ui.Ui;
 /**
  *  Handles the unmarking of task as done
  */
-public class UnmarkCommand extends Command{
+public class UnmarkTaskCommand extends Command{
     private final int index;
 
-    public UnmarkCommand(int index) {
+    public UnmarkTaskCommand(int index) {
         this.index = index;
     }
 

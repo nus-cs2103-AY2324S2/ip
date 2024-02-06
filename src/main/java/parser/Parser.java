@@ -5,7 +5,7 @@ import commands.ByeCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.MarkTaskCommand;
-import commands.UnmarkCommand;
+import commands.UnmarkTaskCommand;
 import commands.AddTodoCommand;
 import commands.AddDeadlineCommand;
 import commands.AddEventCommand;
@@ -63,7 +63,7 @@ public class Parser {
             } else if (firstWord.equalsIgnoreCase("unmark")) {
                 try {
                     int number = Integer.parseInt(splitInput[1]);
-                    return new UnmarkCommand(number);
+                    return new UnmarkTaskCommand(number);
                 } catch (NumberFormatException e) {
                     return new InvalidCommand(e.getMessage() + "\n");
                 }
