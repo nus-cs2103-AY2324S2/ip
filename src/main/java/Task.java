@@ -29,13 +29,9 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("Mission completed:\n");
-        System.out.println(" " + this.getStatusIcon() + " " + this.getDescription());
     }
     public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("Mission pending:\n");
-        System.out.println(" " + this.getStatusIcon() + " " + this.getDescription());
     }
 
     public String serializeTask() {
