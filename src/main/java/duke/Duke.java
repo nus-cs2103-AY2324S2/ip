@@ -7,15 +7,6 @@ import duke.tasks.TaskList;
  */
 public class Duke {
 
-    // private final String LOGO = "" 
-    //         + "\t    __    _                 \n"
-    //         + "\t   / /   (_)___  __  _______\n"
-    //         + "\t  / /   / / __ \\/ / / / ___/\n"
-    //         + "\t / /___/ / / / / /_/ (__  ) \n"
-    //         + "\t/_____/_/_/ /_/\\__,_/____/  \n";
-
-    // private final String NAME = "Linus";
-
     private final String FILE_PATH = "./data/linus.txt";
 
     private Ui ui;
@@ -33,7 +24,7 @@ public class Duke {
         this.taskList = new TaskList();
         this.storage = new Storage(FILE_PATH);
         this.ui = new Ui();
-        this.parser = new Parser(taskList, ui);
+        this.parser = new Parser(taskList, ui, storage);
     }
 
     /**
@@ -41,19 +32,9 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return parser.readUserInput(input);
+        parser.readUserInput(input);
+        return ui.toString();
     }
-
-    /**
-     * Starts the program
-     */
-    // public void startProgram() {
-    //     ui.print("Hello from\n" + LOGO);
-    //     ui.greeting(NAME);
-    //     this.loadData();
-    //     parser.run();
-    //     this.saveData();
-    // }
 
     /**
      * Loads the TaskList tasks data from file
@@ -69,11 +50,5 @@ public class Duke {
         storage.saveData(taskList, ui);
     }
 
-    // public static void main(String[] args) {
-
-    //     Duke duke = new Duke();
-    //     duke.startProgram();
-
-    // }
 }
 
