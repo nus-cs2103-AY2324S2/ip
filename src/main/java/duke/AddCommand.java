@@ -7,8 +7,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.add(this.t);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        taskList.add(this.t);
         setExit(false);
     }
 }

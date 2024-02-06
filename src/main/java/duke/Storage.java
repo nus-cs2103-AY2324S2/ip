@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -18,7 +17,10 @@ public class Storage {
     }
 
     /**
-     * Creates a data directory and duke.txt file if not found.
+     * Creates and loads content of file.
+     *
+     * @return File content.
+     * @throws DukeException If unable to initialize file.
      */
     public String load() throws DukeException {
         File f = new File(filePath);
@@ -44,18 +46,18 @@ public class Storage {
     /**
      * Writes task list content to duke.txt.
      */
-    public void save(TaskList tasks) {
+    public void save(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter("./data/duke.txt");
-            for (int i = 0; i < tasks.size(); i++) {
-                Task curr = tasks.get(i);
+            for (int i = 0; i < taskList.size(); i++) {
+                Task curr = taskList.get(i);
                 if (curr instanceof ToDo) {
                     ToDo temp = (ToDo) curr;
                     fw.write(temp.getFileFormat());
                 } else if (curr instanceof Deadline) {
                     Deadline temp = (Deadline) curr;
                     fw.write(temp.getFileFormat());
-                } else if (curr instanceof Event){
+                } else if (curr instanceof Event) {
                     Event temp = (Event) curr;
                     fw.write(temp.getFileFormat());
                 }

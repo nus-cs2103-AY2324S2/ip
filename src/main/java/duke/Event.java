@@ -10,9 +10,9 @@ public class Event extends Task {
     /**
      * Creates a new Event object with the specified description, start time and end time.
      *
-     * @param description
-     * @param start
-     * @param end
+     * @param description Task description.
+     * @param start Start date or time.
+     * @param end End date or time.
      */
     public Event(String description, String start, String end) {
         super(description);

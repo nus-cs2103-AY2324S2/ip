@@ -10,7 +10,7 @@ public class Task {
     /**
      * Creates a new Task object with the specified description.
      *
-     * @param description
+     * @param description Task description.
      */
     public Task(String description) {
         this.description = description;

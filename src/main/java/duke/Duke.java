@@ -6,7 +6,7 @@ package duke;
  */
 public class Duke {
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
     private Parser parser;
 
@@ -15,9 +15,9 @@ public class Duke {
         storage = new Storage(filePath);
         parser = new Parser();
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (DukeException e) {
-            tasks = new TaskList();
+            taskList = new TaskList();
         }
     }
 
@@ -29,7 +29,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.breakLine();
                 Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
@@ -42,9 +42,6 @@ public class Duke {
         ui.exit();
     }
 
-    /**
-     * Starts the chatbot and scans for user input until the user says bye.
-     */
     public static void main(String[] args) {
         Duke duke = new Duke("./data/duke.txt");
         duke.run();

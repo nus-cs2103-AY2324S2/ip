@@ -2,7 +2,6 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +13,8 @@ public class Deadline extends Task {
     /**
      * Creates a new Deadline object with the specified description and deadline.
      *
-     * @param description
-     * @param by
+     * @param description Task description.
+     * @param by Deadline.
      */
     public Deadline(String description, String by) {
         super(description);

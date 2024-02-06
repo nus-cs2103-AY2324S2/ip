@@ -5,9 +5,9 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            tasks.delete(this.index);
+            taskList.delete(this.index);
             setExit(false);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
