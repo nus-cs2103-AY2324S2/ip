@@ -30,7 +30,7 @@ public class Deadline implements Task {
      */
     Deadline(String name, LocalDateTime deadline) {
         this.name = name;
-        this.done = false;
+        done = false;
         this.deadline = deadline;
     }
 
@@ -60,6 +60,10 @@ public class Deadline implements Task {
      */
     public Deadline unmark() {
         return new Deadline(name, false, deadline);
+    }
+
+    public boolean nameContains(String s) {
+        return name.contains(s);
     }
 
     /**

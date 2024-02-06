@@ -79,8 +79,8 @@ public class Ui {
         }
     }
 
-    public void showIndexOutOfBoundsError(TaskList tasks) {
-        pw.printf("Task selected does not exist.\nTask number must be between 1 to %d.", tasks.size());
+    public void showIndexOutOfBoundsError(int nTasks) {
+        pw.printf("Task selected does not exist.\nTask number must be between 1 to %d.", nTasks);
     }
 
     public void showIndexParseError() {
@@ -95,22 +95,33 @@ public class Ui {
         pw.printf("OK, I've marked this task as not done yet:\n  %s", t);
     }
 
-    public void showDeleteDone(Task t, TaskList tasks) {
+    public void showDeleteDone(Task t, int nTasks) {
         pw.printf("Noted. I've removed this task:\n  %s\nNow you have %d task(s) in the list.",
-                t, tasks.size());
+                t, nTasks);
     }
 
     public void showMissingTaskNameError() {
         pw.printf("Please enter a NAME for your task!");
     }
 
-    public void showAddTaskDone(Task t, TaskList tasks) {
+    public void showAddTaskDone(Task t, int nTasks) {
         pw.printf("Got it. I've added this task:\n  %s\nNow you have %d task(s) in the list.",
-                t, tasks.size());
+                t, nTasks);
     }
 
     public void showDateTimeParseError(String format, String taskType, String dateType) {
         pw.printf("Please enter a valid DATE and TIME (%s)\nfor your %s task's [%s] date.", format, taskType, dateType);
     }
 
+    public void showAllMatchingTasks(TaskList tasks) {
+        if (tasks.size() == 0) {
+            pw.printf("No matching tasks found.");
+        } else {
+            pw.printf("Here are the matching tasks in your list:\n%s", tasks);
+        }
+    }
+
+    public void showMissingFindArgError() {
+        pw.printf("Please enter a TEXT to find the Task!");
+    }
 }

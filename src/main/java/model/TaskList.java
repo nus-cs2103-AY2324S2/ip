@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The {@code TaskList} class represents a list of tasks.
  * 
@@ -22,6 +24,11 @@ public class TaskList implements Serializable {
 
     public int size() {
         return tasks.size();
+    }
+
+    private Task addTask(Task t) {
+        tasks.add(t);
+        return t;
     }
 
     /**
@@ -77,6 +84,16 @@ public class TaskList implements Serializable {
         Task t = tasks.get(index).unmark();
         tasks.set(index, t);
         return t;
+    }
+
+    public TaskList match(String s) {
+        TaskList result = new TaskList();
+        for (Task t : tasks) {
+            if (t.nameContains(s)) {
+                result.addTask(t);
+            }
+        }
+        return result;
     }
 
     public String toString() {

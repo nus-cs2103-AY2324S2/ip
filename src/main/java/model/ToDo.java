@@ -22,7 +22,7 @@ public class ToDo implements Task {
      */
     ToDo(String name) {
         this.name = name;
-        this.done = false;
+        done = false;
     }
 
     private ToDo(String name, boolean done) {
@@ -36,7 +36,7 @@ public class ToDo implements Task {
      * @return {@code ToDo} object with {@code done} set as {@code true}.
      */
     public ToDo mark() {
-        return new ToDo(this.name, true);
+        return new ToDo(name, true);
     }
 
     /**
@@ -45,7 +45,11 @@ public class ToDo implements Task {
      * @return {@code ToDo} object with {@code done} set as {@code false}.
      */
     public ToDo unmark() {
-        return new ToDo(this.name, false);
+        return new ToDo(name, false);
+    }
+
+    public boolean nameContains(String s) {
+        return name.contains(s);
     }
 
     /**

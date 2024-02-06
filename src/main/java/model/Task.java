@@ -21,4 +21,6 @@ public interface Task extends Serializable {
      * @return {@code Task} object with mark set as incomplete.
      */
     public Task unmark();
+
+    public boolean nameContains(String s);
 }
