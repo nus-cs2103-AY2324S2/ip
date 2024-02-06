@@ -26,9 +26,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         String[] commandParts = fullCommand.split(" ", 2);
         String taskType = commandParts[0];
+        String response;
 
         if (!taskType.equals("todo") && !taskType.equals("deadline") && !taskType.equals("event")) {
             throw new DukeException("Please enter a valid task type.");
@@ -42,6 +43,7 @@ public class AddCommand extends Command {
         switch (taskType) {
         case "todo":
             tasks.add(new Todo(description));
+            response = ui.showAddedTask(tasks);
             break;
         case "deadline":
             String[] deadlineParts = description.split(" /by ");
@@ -49,6 +51,7 @@ public class AddCommand extends Command {
                 throw new DukeException("The deadline time or task name is missing.");
             }
             tasks.add(new Deadline(deadlineParts[0].trim(), DateTimeUtil.parseDateTime(deadlineParts[1].trim())));
+            response = ui.showAddedTask(tasks);
             break;
         case "event":
             String[] eventParts = description.split(" /from ", 2);
@@ -78,12 +81,13 @@ public class AddCommand extends Command {
             LocalDateTime startTime = DateTimeUtil.parseDateTime(startTimeString);
             LocalDateTime endTime = DateTimeUtil.parseDateTime(endTimeString);
             tasks.add(new Event(eventDescription, startTime, endTime));
+            response = ui.showAddedTask(tasks);
             break;
         default:
             throw new DukeException("Please enter a valid task type.");
         }
-        ui.showAddedTask(tasks);
         storage.saveTasks(tasks);
+        return response;
     }
 
     @Override

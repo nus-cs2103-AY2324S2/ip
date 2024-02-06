@@ -23,19 +23,21 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+        String response;
         try {
             int index = Integer.parseInt(fullCommand.substring(5).trim()) - 1;
             if (index < 0 || index >= tasks.size()) {
                 throw new DukeException("duke.Task number " + (index + 1) + " does not exist.");
             }
             Task task = tasks.getTasks().get(index);
-            ui.showMarkedMessage(task);
             task.markAsDone();
+            response = ui.showMarkedMessage(task);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid task number to unmark.");
         }
         storage.saveTasks(tasks);
+        return response;
     }
 
     @Override

@@ -1,8 +1,8 @@
-/*
- * Duke.java
- * This is the main class of the Duke application, responsible for handling user input and managing tasks.
+/**
+ * Represents the main class of the Duke application.
+ * This class is responsible for initializing the application, handling user input,
+ * and generating responses.
  */
-
 package duke;
 
 import java.io.IOException;
@@ -13,54 +13,47 @@ import duke.task.Storage;
 import duke.task.TaskList;
 
 public class Duke {
-    private static final String FILE_PATH = "./data/duke.txt";
-    private static final Storage storage = new Storage(FILE_PATH);
-    private TaskList tasks;
-    private final Ui ui;
+    private Storage storage; // The storage handler for loading and saving tasks
+    private TaskList tasks; // The list of tasks
+    private final Ui ui; // The UI handler for interacting with users
 
     /**
-     * Creates a new Duke instance, initializes the UI, and loads tasks from storage.
+     * Constructs a new instance of Duke. Initializes the UI, storage, and attempts to load tasks from the storage file.
      */
     public Duke() {
-        ui = new Ui();
+        this.ui = new Ui();
         try {
-            tasks = storage.loadTasks();
+            this.storage = new Storage("./data/duke.txt");
+            this.tasks = storage.loadTasks();
         } catch (IOException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
+            // If tasks cannot be loaded, initializes an empty TaskList
         }
     }
 
     /**
-     * Starts the Duke application and runs the command loop.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-                ui.showLine();
-            }
-        }
-        ui.close();
-    }
-
-    /**
-     * Main method to start the Duke application.
+     * Retrieves the welcome message to be displayed to the user at the start of the application.
      *
-     * @param args Command-line arguments (not used).
+     * @return The welcome message string.
      */
-    public static void main(String[] args) {
-        new Duke().run();
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
+
+    /**
+     * Processes the user input and returns the response from Duke.
+     * This method parses the input, executes the corresponding command, and returns the result.
+     * If an exception occurs during the process, it returns an error message.
+     *
+     * @param input The user input string.
+     * @return The response from Duke based on the user input.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            return ui.showError(e.getMessage());
+        }
     }
 }

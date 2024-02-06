@@ -6,7 +6,6 @@
 
 package duke.task;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,17 +56,17 @@ public class TaskList {
     /**
      * Lists the tasks in the TaskList and prints them to the provided PrintWriter.
      *
-     * @param writer The PrintWriter to write the task list to.
      */
-    public void listTasks(PrintWriter writer) {
+    public String listTasks() {
         if (tasks.isEmpty()) {
-            writer.println("Your task list is empty.");
+            return "Your task list is empty.";
         } else {
             String taskWord = tasks.size() == 1 ? "task" : "tasks";
-            writer.println("Here are the " + taskWord + " in your list:");
+            StringBuilder message = new StringBuilder("Here are the " + taskWord + " in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                writer.println((i + 1) + ". " + tasks.get(i));
+                message.append("\n").append(i + 1).append(". ").append(tasks.get(i));
             }
+            return message.toString();
         }
     }
 
