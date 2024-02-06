@@ -4,6 +4,10 @@ import raphael.exception.RaphaelException;
 import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
+
+/**
+ * The command class for the find command.
+ */
 public class FindCommand extends Command {
 
     private final String keyword;
