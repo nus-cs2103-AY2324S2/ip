@@ -42,4 +42,15 @@ public class TaskList {
     public static void clear() {
         TaskList.tasks = new ArrayList<>();
     }
+
+    public static String searchOutput(String keyword) {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getContent().contains(keyword) ) {
+                output.append(String.format("%d. %s\n", i + 1, tasks.get(i).toString()));
+            }
+        }
+        return output.toString();
+    }
+
 }

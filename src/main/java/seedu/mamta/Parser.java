@@ -20,6 +20,15 @@ public class Parser {
 
         //in the case user wants to mark/unmark , export this into a helper later
         switch (splitOutput[0]) {
+        case "find":
+            word = splitOutput[0];
+            StringBuilder searchQuery = new StringBuilder();
+            for (int i = 1; i < splitOutput.length; i++) {
+                searchQuery.append(splitOutput[i]);
+            }
+            String echoOut = Mamta.echo(searchQuery.toString(), word, taskNum, "", "");
+            System.out.println(echoOut);
+            return echoOut;
         case "mark":
         case "unmark":
         case "delete":
@@ -32,8 +41,9 @@ public class Parser {
             for (int i = 1; i < splitOutput.length; i++) {
                 task.append(splitOutput[i]).append(" ");
             }
-            System.out.println(Mamta.echo(splitOutput[0], task.toString(), taskNum, "", ""));
-            return Mamta.echo(splitOutput[0], task.toString(), taskNum, "", "");
+            String echoOutt = Mamta.echo(splitOutput[0], task.toString(), taskNum, "", "");
+            System.out.println(echoOutt);
+            return echoOutt;
         }
         case "deadline":
         case "event": {
@@ -65,13 +75,16 @@ public class Parser {
                     endTime.append(i + 1 == splitOutput.length ? splitOutput[i] : splitOutput[i] + " ");
                 }
             }
-            System.out.println(Mamta.echo(splitOutput[0], task.toString(), taskNum, deadline.toString(), endTime.toString()));
-            return Mamta.echo(splitOutput[0], task.toString(), taskNum, deadline.toString(), endTime.toString());
+            String echOut = Mamta.echo(splitOutput[0], task.toString(), taskNum, deadline.toString(), endTime.toString());
+            System.out.println(echOut);
+            return echOut;
         }
         default:
-            System.out.println(Mamta.echo("default", userOutput, taskNum, "", ""));
-            return Mamta.echo("default", userOutput, taskNum, "", "");
+            String eOut = Mamta.echo("default", userOutput, taskNum, "", "");
+            System.out.println(eOut);
+            return eOut;
         }
     }
+
 
 }
