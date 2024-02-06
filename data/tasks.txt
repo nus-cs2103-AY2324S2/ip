@@ -1,7 +1,7 @@
 T|O|eat cake
 T|O|drink coffee
 T|O|bake cookies
-D|O|return book|2012-08-08
+D|X|return book|2012-08-08
 T|O|borrow book
 D|O|return book|2018-11-15
-T|X|hellofalallalala
+D|O|drink latte|2018-11-15

@@ -22,3 +22,4 @@ public class EmptyDescriptionException extends DukeException {
         return super.getMessage() + "The description cannot be empty.";
     }
 }
+

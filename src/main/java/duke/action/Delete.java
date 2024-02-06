@@ -30,8 +30,10 @@ public class Delete implements Action {
     @Override
     public String response() {
         return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have "
-            + " tasks in the list.";
+                + " tasks in the list.";
     }
 }
+
+
 
 

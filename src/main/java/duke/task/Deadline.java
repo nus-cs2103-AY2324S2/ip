@@ -50,7 +50,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.getDayOfMonth()
-            + " " + by.getMonth() + " " + by.getYear() + ")";
+                + " " + by.getMonth() + " " + by.getYear() + ")";
 
     }
 }

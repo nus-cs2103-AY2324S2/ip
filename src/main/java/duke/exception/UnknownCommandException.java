@@ -23,3 +23,4 @@ public class UnknownCommandException extends DukeException {
         return super.getMessage() + "I didn't understand that command.";
     }
 }
+
