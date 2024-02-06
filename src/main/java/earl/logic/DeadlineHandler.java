@@ -20,8 +20,7 @@ public class DeadlineHandler extends Handler {
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
             String[] args = COMMAND[1].split("\\s/by\\s");
-            tasks.add(new Deadline(args[0],
-                    Parser.parseDateTime(args[1])));
+            tasks.add(new Deadline(args[0], args[1]));
             ui.makeResponse("Added new deadline.",
                     "\t" + tasks.get(tasks.getSize() - 1),
                     "There are " + tasks.getSize()

@@ -47,7 +47,8 @@ public class Storage {
                 tasks.add(Parser.parseStorageEntry(entry));
             }
         } catch (EarlException e) {
-            throw e;
+            throw new EarlException("Storage file is corrupted... "
+                    + "starting with empty list.");
         } catch (Exception e) {
             throw new EarlException("Unknown exception occurred "
                     + "when attempting to create or access "

@@ -37,8 +37,8 @@ class ParserTest {
             Parser.parseStorageEntry("abc");
             fail();
         } catch (Exception e) {
-            assertEquals("Storage file is corrupted... "
-                    + "starting with empty list.", e.getMessage());
+            assertEquals("Unknown arguments for task creation.",
+                    e.getMessage());
         }
     }
 }

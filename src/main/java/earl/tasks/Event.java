@@ -7,23 +7,24 @@ import java.time.format.DateTimeFormatter;
  * Class representing task of type event.
  */
 public class Event extends Task {
+
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     private static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter
             .ofPattern("dd/MM/yyyy HHmm");
 
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DATETIME_FORMAT);;
+        this.to = LocalDateTime.parse(to, DATETIME_FORMAT);;
     }
 
     public Event(String status, String description,
-                 LocalDateTime from, LocalDateTime to) {
+                 String from, String to) {
         super(status, description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DATETIME_FORMAT);;
+        this.to = LocalDateTime.parse(to, DATETIME_FORMAT);;
     }
 
     @Override

@@ -43,7 +43,7 @@ public class TaskList {
         return tasks.get(idx).markAsDone();
     }
 
-    /** Marks the task at the given index as undone. Returns success.*/
+    /** Marks the task at the given index as undone. Returns success. */
     public boolean unmark(int idx) {
         return tasks.get(idx).markUndone();
     }

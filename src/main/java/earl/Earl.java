@@ -1,7 +1,7 @@
 package earl;
 
 import earl.exceptions.EarlException;
-import earl.logic.Handler;
+import earl.logic.HandlerFactory;
 import earl.util.Parser;
 import earl.util.Storage;
 import earl.util.TaskList;
@@ -48,7 +48,7 @@ public class Earl {
         while (!input.equals("bye")) {
             try {
                 command = Parser.parseUserInput(input);
-                Handler.dispatch(command).handle(tasks, ui);
+                HandlerFactory.of(command).handle(tasks, ui);
             } catch (EarlException e) {
                 ui.makeResponse(e.getMessage());
             } finally {
@@ -64,7 +64,9 @@ public class Earl {
         ui.showGoodbye();
     }
 
-    /** Entry point of the Earl class. File path is decided here. */
+    /**
+     * Entry point of the Earl class. File path is decided here.
+     */
     public static void main(String[] args) {
         new Earl("data/earl.txt").run();
     }

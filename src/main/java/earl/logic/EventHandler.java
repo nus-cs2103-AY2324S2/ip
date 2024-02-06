@@ -20,9 +20,7 @@ public class EventHandler extends Handler {
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
             String[] args = COMMAND[1].split("\\s/(from|to)\\s");
-            tasks.add(new Event(args[0],
-                    Parser.parseDateTime(args[1]),
-                    Parser.parseDateTime(args[2])));
+            tasks.add(new Event(args[0], args[1], args[2]));
             ui.makeResponse("Added new event.",
                     "\t" + tasks.get(tasks.getSize() - 1),
                     "There are " + tasks.getSize()
