@@ -31,29 +31,31 @@ public class TaskList {
      * Marks the specified task to be done.
      *
      * @param num Task's specified by user.
+     * @return Display text for mark.
      * @throws DukeException If number is not on the list.
      */
-    public void mark(int num) throws DukeException {
+    public String mark(int num) throws DukeException {
         try {
             Task task = taskList.get(num);
             task.markAsDone();
-            Ui.printMark(task.toString());
+            return Ui.printMark(task.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please enter a number for the task that is on the list.\n");
         }
     }
 
     /**
-     * Marks the specified task to be undone.
+     * Unmarks the specified task to be undone.
      *
      * @param num Task's specified by user.
+     * @return Display text for unmark.
      * @throws DukeException f number is not on the list.
      */
-    public void unmark(int num) throws DukeException {
+    public String unmark(int num) throws DukeException {
         try {
             Task task = taskList.get(num);
             task.markAsUndone();
-            Ui.printUnmark(task.toString());
+            return Ui.printUnmark(task.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please enter a number for the task that is on the list.\n");
         }
@@ -63,11 +65,12 @@ public class TaskList {
      * Adds todos to the list.
      *
      * @param description Todos' Description.
+     * @return Display text for add todos.
      */
-    public void toDo(String description) {
+    public String toDo(String description) {
         Task task = new ToDos(description);
         taskList.add(task);
-        Ui.printAdd(task.toString(), taskList.size());
+        return Ui.printAdd(task.toString(), taskList.size());
     }
 
     /**
@@ -75,11 +78,12 @@ public class TaskList {
      *
      * @param description Deadline's Description.
      * @param date Task's Deadline.
+     * @return Display text for add deadlines.
      */
-    public void deadline(String description, LocalDate date) {
+    public String deadline(String description, LocalDate date) {
         Task task = new Deadlines(description, date);
         taskList.add(task);
-        Ui.printAdd(task.toString(), taskList.size());
+        return Ui.printAdd(task.toString(), taskList.size());
     }
 
     /**
@@ -88,24 +92,26 @@ public class TaskList {
      * @param description Event's Description.
      * @param from Event's Start.
      * @param to Event's End.
+     * @return Display text for add events.
      */
-    public void event(String description, String from, String to) {
+    public String event(String description, String from, String to) {
         Task task = new Events(description, from, to);
         taskList.add(task);
-        Ui.printAdd(task.toString(), taskList.size());
+        return Ui.printAdd(task.toString(), taskList.size());
     }
 
     /**
      * Deletes specified task from the list.
      *
      * @param num Task's specified by user.
+     * @return Display text for delete.
      * @throws DukeException If number is not on the list.
      */
-    public void delete(int num) throws DukeException {
+    public String delete(int num) throws DukeException {
         try {
             Task task = taskList.get(num);
             taskList.remove(num);
-            Ui.printDelete(task.toString(), taskList.size());
+            return Ui.printDelete(task.toString(), taskList.size());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please enter a number for the task that is on the list.\n");
         }
@@ -129,10 +135,6 @@ public class TaskList {
 
     public Task getTask(int num) {
         return taskList.get(num);
-    }
-
-    public int getSize() {
-        return taskList.size();
     }
 
     public ArrayList<Task> getList() {
