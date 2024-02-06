@@ -1,7 +1,7 @@
 package duke;
 
 import duke.exceptions.DukeException;
-import duke.parser.Parser;
+import duke.dataprocessing.CommandParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.commands.Command;
@@ -14,8 +14,8 @@ public class Duke {
 
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
         try {
+            storage = new Storage(filePath);
             taskList = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -30,8 +30,9 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                Command c = CommandParser.parse(fullCommand);
                 c.execute(taskList, ui, storage);
+                storage.update(taskList);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());

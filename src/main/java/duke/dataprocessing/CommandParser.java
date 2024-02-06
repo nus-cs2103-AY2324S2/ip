@@ -1,12 +1,11 @@
-package duke.parser;
+package duke.dataprocessing;
 
 import duke.commands.*;
 import duke.exceptions.DukeException;
-import duke.tasks.Task;
 
-import java.util.NoSuchElementException;
+import java.time.LocalDate;
 
-public class Parser {
+public class CommandParser {
     public static Command parse(String fullCommand) throws DukeException {
         String mainCommand = fullCommand.split(" ")[0];
         String subCommands = fullCommand.substring(fullCommand.indexOf(' ') + 1);
@@ -44,10 +43,12 @@ public class Parser {
                 throw new DukeException("OOPS!!! Invalid arguments provided.");
             }
 
-            return new AddCommand(mainCommand, deadlineCommands[0], deadlineCommands[1]);
+            LocalDate deadline = DateTimeParser.parse(deadlineCommands[1]);
+
+            return new AddCommand(mainCommand, deadlineCommands[0], deadline);
         case "event":
             if (isSingleCommand) {
-                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a event cannot be empty.");
             }
             String[] eventCommands = subCommands.split(" /from ");
             if (eventCommands.length != 2) {
@@ -58,7 +59,14 @@ public class Parser {
                 throw new DukeException("OOPS!!! Invalid arguments provided.");
             }
 
-            return new AddCommand(mainCommand, eventCommands[0], startEnd[0], startEnd[1]);
+            LocalDate start = DateTimeParser.parse(startEnd[0]);
+            LocalDate end = DateTimeParser.parse(startEnd[1]);
+
+            if (end.isBefore(start)) {
+                throw new DukeException("OOPS!!! Your end date is before your start date.");
+            }
+
+            return new AddCommand(mainCommand, eventCommands[0], start, end);
         case "delete":
             if (isSingleCommand) {
                 throw new DukeException("OOPS!!! Some arguments are missing.");
@@ -66,9 +74,7 @@ public class Parser {
             int index = Integer.parseInt(subCommands) - 1;
             return new DeleteCommand(index);
         default:
-            System.out.println("default");
+            return new UnknownCommand();
         }
-
-        return new ExitCommand(); // delete after implementing all cases
     }
 }

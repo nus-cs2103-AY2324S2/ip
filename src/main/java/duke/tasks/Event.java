@@ -1,13 +1,21 @@
 package duke.tasks;
 
-public class Event extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String taskDescription, String start, String end) {
+public class Event extends Task {
+    private LocalDate start;
+    private LocalDate end;
+
+    public Event(String taskDescription, LocalDate start, LocalDate end) {
         super(taskDescription);
         this.start = start;
         this.end = end;
+    }
+
+    @Override
+    public String toFileString() {
+        return String.format("T,%b,%s,%s,%s", isDone, taskDescription, start, end);
     }
 
     @Override
@@ -15,8 +23,8 @@ public class Event extends Task {
         return String.format("[E][%s] %s (from: %s to: %s)",
                 this.isDone ? "X" : " ",
                 this.taskDescription,
-                this.start,
-                this.end
+                this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
         );
     }
 }

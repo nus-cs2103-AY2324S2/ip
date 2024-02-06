@@ -16,4 +16,6 @@ public abstract class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+    public abstract String toFileString();
 }
