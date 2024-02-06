@@ -120,7 +120,9 @@ public class ResponseConstructor {
     }
 
     /**
-     * Returns the final string and clears the buffer.
+     * Returns the constructed string and clears the buffer.
+     *
+     * @return the constructed string.
      */
     public String getResponse() {
         String result = response.toString();
