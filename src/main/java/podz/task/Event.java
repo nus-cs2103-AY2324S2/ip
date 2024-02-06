@@ -12,11 +12,12 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         
-        String fromDT[] = from.split(" ");
-        String toDT[] = to.split(" ");
+        // splits the from/to information to an array containing its date and time
+        String[] fromDateTime = from.split(" ");
+        String[] toDateTime = to.split(" ");
 
-        this.formattedFrom = formatDT(fromDT);
-        this.formattedTo = formatDT(toDT);
+        this.formattedFrom = formatDT(fromDateTime);
+        this.formattedTo = formatDT(toDateTime);
     }
 
     private String formatDT(String[] dateAndTime) {
@@ -45,6 +46,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.formattedFrom + " to: " +  this.formattedTo + ")";
+        return "[E]" + super.toString() + " (from: " + this.formattedFrom 
+                + " to: " +  this.formattedTo + ")";
     }
 }

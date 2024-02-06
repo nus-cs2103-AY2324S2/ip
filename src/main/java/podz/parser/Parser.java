@@ -37,7 +37,7 @@ public class Parser {
     }
 
     public Command parseCommand(String userInput) {
-        String inputs[] = userInput.split(" ", 2);
+        String[] inputs = userInput.split(" ", 2);
         String command = inputs[0];
         Commands cmd = Commands.valueOfOrElse(command.toUpperCase());
 
