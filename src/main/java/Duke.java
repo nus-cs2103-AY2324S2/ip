@@ -4,14 +4,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Duke {
-    private static final String LINE = "___________________________________________________________\n";
+    private static final String LINE = "    ___________________________________________________________\n";
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ArrayList<String> listOfStrings = new ArrayList<>();
+        ArrayList<Task> listOfTasks = new ArrayList<>();
         boolean hasEnded = false;
         String botName = "Yube";
-        int counter = 1;
 
         greet(botName);
         while (!(hasEnded)) {
@@ -20,13 +19,21 @@ public class Duke {
                 bye();
                 hasEnded = true;
             } else if (input.equals("list")) {
-                printList(listOfStrings);
+                printList(listOfTasks);
+            } else if (input.contains("mark")) {
+                String[] parts = input.split(" ");
+                int index = Integer.parseInt(parts[1]);
+                if (input.contains("unmark")) {
+                    unmark(listOfTasks.get(index - 1));
+                } else {
+                    mark(listOfTasks.get(index - 1));
+                }
             } else {
                 repeatFunction(input);
-                listOfStrings.add(String.format("%s. %s\n", counter, input));
-                counter++;
+                listOfTasks.add(new Task(input));
             }
         }
+
     }
 
     /**
@@ -36,7 +43,23 @@ public class Duke {
      */
     public static void greet(String botName) {
         System.out.println(String.format(
-                "%sHello! I'm %s \nWhat can I do for you? \n%s", LINE, botName, LINE));
+                "%s     Hello! I'm %s \n     What can I do for you? \n%s", LINE, botName, LINE));
+    }
+
+    public static void mark(Task task) {
+        System.out.println(LINE);
+        System.out.println("     Nice! I've marked this task as done:");
+        task.setDone();
+        System.out.println("  " + task.toString());
+        System.out.println(LINE);
+    }
+
+    public static void unmark(Task task) {
+        System.out.println(LINE);
+        System.out.println("     OK, I've marked this task as not done yet:");
+        task.setNotDone();
+        System.out.println("  " + task.toString());
+        System.out.println(LINE);
     }
 
     /**
@@ -44,7 +67,7 @@ public class Duke {
      */
     public static void bye() {
         System.out.println(String.format(
-                "%sBye. Hope to see you again soon! \n%s", LINE, LINE));
+                "%s     Bye. Hope to see you again soon! \n%s", LINE, LINE));
     }
 
     /**
@@ -53,7 +76,7 @@ public class Duke {
      * @param input User input
      */
     public static void repeatFunction(String input) {
-        System.out.println(String.format("%sadded: %s\n%s", LINE, input, LINE));
+        System.out.println(String.format("%s     added: %s\n%s", LINE, input, LINE));
     }
 
     /**
@@ -61,10 +84,10 @@ public class Duke {
      * 
      * @param listOfStrings list of Strings
      */
-    public static void printList(ArrayList<String> listOfStrings) {
+    public static void printList(ArrayList<Task> listOfTasks) {
         StringBuilder finalString = new StringBuilder();
         finalString.append(LINE);
-        for (String c : listOfStrings) {
+        for (Task c : listOfTasks) {
             finalString.append(c);
         }
         finalString.append(LINE);
