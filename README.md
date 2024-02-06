@@ -8,9 +8,9 @@
 - Keeps your life ~~in~~ on track!
 
 ## How to use Howie?
-1. - [x] Download the latest JAR file from [here](https://github.com/smolegz/ip/releases/tag/A-Jar)!
-1.   - [x] Open up your command line.
-1.  - [x] Type in the following command:
+1. - [ ] Download the latest JAR file from [here](https://github.com/smolegz/ip/releases/tag/A-Jar)!
+1.   - [ ] Open up your command line.
+1.  - [ ] Type in the following command:
   ```powershell
   java -jar C:\filepath\of\the\downloaded\jar\file
   ```
