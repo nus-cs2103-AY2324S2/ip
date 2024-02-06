@@ -52,7 +52,7 @@ public class FileManager {
      * Saves the task list data received from {@link Parser} and writes it to the local file.
      */
     public void saveTasks() throws YapperException {
-        try (FileWriter fw = new FileWriter("data/taskData.txt")){
+        try (FileWriter fw = new FileWriter("data/taskData.txt")) {
             fw.write(parser.parseToData());
         } catch (IOException e) {
             throw (new YapperException("IO Exception when saving data"));

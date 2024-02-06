@@ -14,6 +14,12 @@ public class Ui {
     private boolean hasEnded;
     private final TaskList mainTasks;
 
+    /**
+     * Initialises a Ui that corresponds to a main {@link TaskList}.
+     * Main {@link TaskList} will also contain a reference to this instance.
+     *
+     * @param mainTasks Main {@link TaskList} to read from.
+     */
     public Ui(TaskList mainTasks) {
         this.mainTasks = mainTasks;
         hasEnded = false;
@@ -79,7 +85,7 @@ public class Ui {
      *
      * @param todo Todo task that was added into the {@link TaskList}.
      */
-    public  void addTodoMessage(Todo todo) {
+    public void addTodoMessage(Todo todo) {
         System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
         System.out.println(INDENT + "Yo, we're " + mainTasks.listSize()
                 + " task(s) deep! Let's keep this SIGMA GRINDSET!");
@@ -109,6 +115,11 @@ public class Ui {
                 + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
     }
 
+    /**
+     * Prints message when user searches for a {@link String}
+     *
+     * @param searchedString {@link String} that user is finding.
+     */
     public static void findMessage(String searchedString) {
         System.out.println(INDENT + "Aight imma look for: " + searchedString);
         System.out.println(INDENT + ".");

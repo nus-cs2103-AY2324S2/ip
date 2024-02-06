@@ -14,11 +14,17 @@ import task.Todo;
  * Handles interpreting strings for commands and task list data.
  */
 public class Parser {
+    private static final String INDENT = Ui.indent();
     private final Scanner in;
-    private final String INDENT = Ui.indent();
     private final TaskList mainTasks;
     private final Ui ui;
 
+    /**
+     * Initialises a Parser that corresponds to a main {@link TaskList} and {@link Ui}.
+     *
+     * @param mainTasks Corresponding main {@link TaskList}.
+     * @param ui Corresponding {@link Ui}.
+     */
     public Parser(TaskList mainTasks, Ui ui) {
         in = new Scanner(System.in);
         this.mainTasks = mainTasks;
