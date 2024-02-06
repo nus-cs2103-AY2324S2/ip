@@ -3,6 +3,11 @@ package task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class is a child of class Task.
+ * Deadline handles the task where there is a deadline.
+ */
+
 public class Deadline extends Task {
 
     protected LocalDate by;
@@ -20,6 +25,13 @@ public class Deadline extends Task {
     public LocalDate getBy() {
         return this.by;
     }
+
+    /**
+     * This function returns a String type representation of date.
+     * 
+     * @param localDate
+     * @return String of a date.
+     */
 
     private String formatter(LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");

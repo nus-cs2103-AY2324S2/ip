@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * This class is the basic of all Tasks in the TodoList.
+ */
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,6 +17,12 @@ public class Task {
         this.description = description;
         this.isDone = isDone;
     }
+
+    /**
+     * return the signed status in X or not.
+     * 
+     * @return status.
+     */
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

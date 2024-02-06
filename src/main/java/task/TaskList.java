@@ -33,6 +33,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * List the whole TodoList after adding any tasks.
+     * 
+     * @param t
+     * @param storage
+     */
+
     public void listOverviewAfterAdding(Task t, Storage storage) {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
@@ -45,6 +52,14 @@ public class TaskList {
         storage.autoUpdate(this.todoList);
     }
 
+    /**
+     * This function handles the change of marking of tasks.
+     * It can mark task and unmark task.
+     * 
+     * @param userInput
+     * @param storage
+     */
+
     public void changeMarkingOfTask(String userInput, Storage storage) {
         String[] words = userInput.split("\\s+");
         int number = Integer.parseInt(words[1]);
@@ -56,6 +71,13 @@ public class TaskList {
         }
         storage.autoUpdate(this.todoList);
     }
+
+    /**
+     * This function handle the deletion of task in the TodoList.
+     * 
+     * @param userInput
+     * @param storage
+     */
 
     public void deleteTask(String userInput, Storage storage) {
         String[] words = userInput.split("\\s+");

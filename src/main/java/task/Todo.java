@@ -1,5 +1,10 @@
 package task;
 
+/**
+ * This class is a child of class Task.
+ * Todo handles the task where there is no date involved.
+ */
+
 public class Todo extends Task {
 
     public Todo(String description) {
