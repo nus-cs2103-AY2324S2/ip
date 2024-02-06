@@ -5,7 +5,7 @@ Todo command incomplete. It should be in the form of todo description.
 Got it. I've added this task:
  [T] [ ] borrow book 
  Now you have 1 tasks in the list.
-Deadline command incomplete. It should be in the form of deadline description /by datetime.
+task.Deadline command incomplete. It should be in the form of deadline description /by datetime.
 Got it. I've added this task:
  [D] [ ]  return book  (by: Sunday) 
  Now you have 2 tasks in the list.
@@ -16,7 +16,7 @@ Nice! I've marked this task as done:
 Invalid task number 3. Please try again.
 Nice! I've marked this task as done: 
  [T] [ ] borrow book
-Event command incomplete. It should be in the form of event description /from datetime /to datetime.
+task.Event command incomplete. It should be in the form of event description /from datetime /to datetime.
 Got it. I've added this task:
  [E] [ ]  project meeting  (from: Mon 2pm  to: 4pm) 
  Now you have 3 tasks in the list.

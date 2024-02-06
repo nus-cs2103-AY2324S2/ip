@@ -1,3 +1,5 @@
+package exception;
+
 public class IncompleteCommandException extends Exception {
 
     public IncompleteCommandException(String s) {

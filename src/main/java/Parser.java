@@ -1,3 +1,6 @@
+import exception.IncompleteCommandException;
+import exception.InvalidCommandException;
+
 public class Parser {
 
     public String extractCommand(String string) throws InvalidCommandException {

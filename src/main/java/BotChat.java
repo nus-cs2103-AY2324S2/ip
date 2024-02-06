@@ -1,3 +1,11 @@
+import exception.IncompleteCommandException;
+import exception.InvalidCommandException;
+import exception.InvalidTaskNumberException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +32,7 @@ public class BotChat {
                 taskDescription = parser.extractDescription(s);
                 String[] deadlineStringParts = taskDescription.split("/by ");
                 if (deadlineStringParts.length < 2) {
-                    throw new IncompleteCommandException("Deadline command incomplete. It should be in the form of " +
+                    throw new IncompleteCommandException("task.Deadline command incomplete. It should be in the form of " +
                             "deadline description /by datetime.");
                 } else {
                     Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
@@ -36,7 +44,7 @@ public class BotChat {
                 taskDescription = parser.extractDescription(s);
                 String[] eventStringParts = taskDescription.split("/from |/to ");
                 if (eventStringParts.length < 3) {
-                    throw new IncompleteCommandException("Event command incomplete. It should be in the form of " +
+                    throw new IncompleteCommandException("task.Event command incomplete. It should be in the form of " +
                             "event description /from datetime /to datetime.");
                 } else {
                     Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
