@@ -9,11 +9,16 @@ import task.Task;
 import task.TaskList;
 import task.Todo;
 
-
+/**
+ * Represents a local storage to save and load tasks from a file.
+ */
 public class Storage {
     private static final String filePath = Paths.get("data", "duke.txt").toString();
     private File dataFile = new File(filePath);
 
+    /**
+     * Constructor for Storage.
+     */
     public void createDataFile() throws Exception {
         File dir = new File("data");
         if (!dir.exists()) {
@@ -22,6 +27,10 @@ public class Storage {
         this.dataFile.createNewFile();
     }
 
+    /**
+     * Loads tasks from the data file into the task list.
+     * @param list Task list to load the tasks into.
+     */
     public void loadData(TaskList list) throws Exception {
         if (!this.dataFile.exists()) {
             createDataFile();
@@ -49,6 +58,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the task list into the data file.
+     * @param list Task list to save the tasks from.
+     */
     public void saveData(TaskList list) throws Exception {
         java.io.FileWriter fw = new java.io.FileWriter(this.dataFile);
         for (Task task : list.getList()) {

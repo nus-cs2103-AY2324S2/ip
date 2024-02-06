@@ -4,7 +4,9 @@ import command.Command;
 import exception.UnknownCommandException;
 import task.TaskList;
 
-
+/**
+ * Represents a chat bot that helps the user to manage tasks.
+ */
 public class Duke {
     private static final String logo = " ____        _        \n"
                                 + "|  _ \\ _   _| | _____ \n"
@@ -16,6 +18,9 @@ public class Duke {
     private TaskList taskList = new TaskList();
     private Storage storage;
 
+    /**
+     * Constructor for Duke.
+     */
     Duke() {
         this.taskList = new TaskList();
         this.storage = new Storage();
@@ -26,6 +31,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to run the chat bot.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         Duke duke = new Duke();
         ui.sayGreetings();

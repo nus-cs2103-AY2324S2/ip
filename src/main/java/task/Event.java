@@ -2,11 +2,21 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * Constructor for Event.
+     * @param description The description of the event.
+     * @param start The start date and time of the event.
+     * @param end The end date and time of the event.
+     */
     public Event (String description, String start, String end) {
         super(description);
         if ((start.length() < 10 || (start.length() > 16 && start.length() != 64)) ||
@@ -23,6 +33,13 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end, this.formatter);
     }
 
+    /**
+     * Constructor for Event.
+     * @param description The description of the event.
+     * @param start The start date and time of the event.
+     * @param end The end date and time of the event.
+     * @param isDone Whether the event is done.
+     */
     public Event (String description, String start, String end, boolean isDone) {
         super(description, isDone);
         if ((start.length() < 10 || (start.length() > 16 && start.length() != 64)) ||
@@ -39,14 +56,26 @@ public class Event extends Task {
         this.end = LocalDateTime.parse(end, this.formatter);
     }
 
+    /**
+     * Returns the start date and time of the event.
+     * @return The start date and time of the event.
+     */
     public String getStart() {
         return this.start.format(this.formatter);
     }
 
+    /**
+     * Returns the end date and time of the event.
+     * @return The end date and time of the event.
+     */
     public String getEnd() {
         return this.end.format(this.formatter);
     }
 
+    /**
+     * Returns the string representation of the event.
+     * @return The string representation of the event.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() 
