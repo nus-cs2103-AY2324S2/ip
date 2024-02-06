@@ -47,6 +47,9 @@ public class InputParser extends Parser {
         if (words[0].equals("event")) {
             return Action.ADD_EVENT;
         }
+        if (words[0].equals("find")) {
+            return Action.FIND;
+        }
         return Action.INVALID;
     }
 

@@ -21,6 +21,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+
+    /**
+     * Checks whether description of the task contains some keyword.
+     */
+    public boolean hasPattern(String pattern) {
+        return this.description.contains(pattern);
+    }
+
     /**
      * Returns a string describing the task to display to users.
      */

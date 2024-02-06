@@ -1,6 +1,7 @@
 package wis;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import wis.task.Task;
@@ -10,6 +11,7 @@ import wis.task.Event;
 import wis.task.TaskList;
 import wis.util.InputParser;
 import wis.util.WisException;
+import wis.util.Pair;
 import wis.util.Printer;
 
 /**
@@ -58,6 +60,9 @@ public class Ui {
             break;
         case LIST:
             Printer.printActionAttach(Action.LIST, tasks);
+            break;
+        case FIND:
+            find(words, tasks);
             break;
         case BYE:
             return true;
@@ -148,6 +153,15 @@ public class Ui {
             WisException.actionExceptionHandler(Action.DELETE);
         } catch (NumberFormatException e) {
             WisException.actionExceptionHandler(Action.DELETE);
+        }
+    }
+
+    private void find(String[] words, TaskList tasks) {
+        try {
+            ArrayList<Pair<Integer, Task>> matchingTasks = tasks.find(words[1]);
+            Printer.printActionAttach(Action.FIND, matchingTasks);
+        } catch (IndexOutOfBoundsException e) {
+            WisException.ActionExceptionHandler(Action.FIND);
         }
     }
 }
