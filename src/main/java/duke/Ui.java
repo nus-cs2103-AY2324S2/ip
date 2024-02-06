@@ -52,6 +52,11 @@ public class Ui {
         System.out.println("Here are the tasks in your list: ");
     }
 
+    public void findListDetails() {
+        System.out.println("------------------------------------------------------------");
+        System.out.println("Here are the matching tasks in your list: ");
+    }
+
     public void removeTop(Task task) {
         System.out.println("------------------------------------------------------------");
         System.out.println("Noted. I've removed this task: ");
