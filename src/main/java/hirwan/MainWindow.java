@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Hirwan duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setDuke(Hirwan d) {
-        hirwan = d;
+        duke = d;
     }
 
     /**
@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = Hirwan.getResponse(input);
+        String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
