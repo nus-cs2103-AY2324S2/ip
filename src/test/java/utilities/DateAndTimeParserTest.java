@@ -1,10 +1,10 @@
 package utilities;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 
 import exceptions.WilliamException;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -15,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class DateAndTimeParserTest {
     /**
-     * Tests the acceptDateAndTime method with the correct input, no exception
-     * thrown
+     * Tests the acceptDateAndTime method with the correct input, no exception thrown
      */
     @Test
     public void acceptDateAndTime_correctDateTime_noException() {
@@ -39,8 +38,7 @@ public class DateAndTimeParserTest {
     }
 
     /**
-     * Tests the checkWhetherToAndFromValid method with the correct input, no
-     * exception thrown
+     * Tests the checkWhetherToAndFromValid method with the correct input, no exception thrown
      */
     @Test
     public void checkWhetherToAndFromValid_correctToAndFrom_noException() {
@@ -49,8 +47,7 @@ public class DateAndTimeParserTest {
     }
 
     /**
-     * Tests the checkWhetherToAndFromValid method with the wrong input, exception
-     * thrown
+     * Tests the checkWhetherToAndFromValid method with the wrong input, exception thrown
      */
     @Test
     public void checkWhetherToAndFromValid_fromDateAfterToDate_exceptionThrown() {
