@@ -1,26 +1,31 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
     Event(String desc, String start, String end) {
         super(desc);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     Event(String desc, boolean isDone, String start, String end) {
         super(desc, isDone);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     public String toSave() {
         // need to store status as well
-        return "E - " + super.toSave() + " - " + start + " - " + end;
+        return "E | " + super.toSave() + " | " + start + " | " + end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() +
+                " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

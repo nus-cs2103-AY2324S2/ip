@@ -22,7 +22,7 @@ public class Task {
 
     public String toSave() {
         // need to store status as well
-        return isDone + " - " + desc;
+        return isDone + " | " + desc;
     }
 
     public String toString() {

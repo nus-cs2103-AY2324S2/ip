@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -9,25 +10,25 @@ import java.util.function.ToDoubleFunction;
 public class Duke {
     public static void main(String[] args) {
 
-        File dir;
-        File f;
+        File directory;
+        File file;
         ArrayList<Task> list = new ArrayList<>();
 
-        dir = new File("./data");
-        if (!dir.exists()) {
-            dir.mkdirs();
+        directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
-        f = new File(dir, "duke.txt");
-        if (!f.exists()) {
+        file = new File(directory, "duke.txt");
+        if (!file.exists()) {
             try {
-                f.createNewFile();
+                file.createNewFile();
             } catch (IOException ex) {
                 System.out.println(ex.toString());
             }
         }
         try {
-            list = readFileContents(f);
-        } catch (FileNotFoundException fe) {
+            list = readFileContents(file);
+        } catch (FileNotFoundException | DateTimeParseException ex) {
             System.out.println("File corrupted! Failed to create new file.");
         }
 
@@ -66,7 +67,7 @@ public class Duke {
         }
 
         try {
-            FileWriter fw = new FileWriter(f);
+            FileWriter fw = new FileWriter(file);
             for (Task task: list) {
                 fw.write(task.toSave() + "\n");
             }
@@ -84,28 +85,28 @@ public class Duke {
         Scanner sc = new Scanner(filePath);
         String s;
         String[] stringSplit;
-        Task t;
+        Task task;
         while (sc.hasNext()) {
             s = sc.nextLine();
             try {
-                stringSplit = s.split("-");
+                stringSplit = s.split("\\|");
                 for (int i = 0; i < stringSplit.length; i++) {
                     stringSplit[i] = stringSplit[i].trim();
                     System.out.println(stringSplit[i]);
                 }
-                boolean marked = Boolean.valueOf(stringSplit[1]);
+                boolean isDone = Boolean.valueOf(stringSplit[1]);
                 switch (stringSplit[0]){
                 case "T":
-                    t = new ToDo(stringSplit[2], marked);
-                    list.add(t);
+                    task = new ToDo(stringSplit[2], isDone);
+                    list.add(task);
                     break;
                 case "D":
-                    t = new Deadline(stringSplit[2], marked, stringSplit[3]);
-                    list.add(t);
+                    task = new Deadline(stringSplit[2], isDone, stringSplit[3]);
+                    list.add(task);
                     break;
                 case "E":
-                    t = new Event(stringSplit[2], marked, stringSplit[3], stringSplit[4]);
-                    list.add(t);
+                    task = new Event(stringSplit[2], isDone, stringSplit[3], stringSplit[4]);
+                    list.add(task);
                     break;
                 default:
                     throw new DukeException("Corrupted Data!");
@@ -122,7 +123,7 @@ public class Duke {
         String command = stringSplit[0];
         String desc;
         int index;
-        Task t;
+        Task task;
 
         switch (command) {
         case "mark":
@@ -138,13 +139,13 @@ public class Duke {
             }
 
             // get Task, edit and put back to list
-            t = list.get(index);
-            t.mark();
-            list.set(index, t);
+            task = list.get(index);
+            task.mark();
+            list.set(index, task);
 
             // Print system message
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(t.toString());
+            System.out.println(task.toString());
             break;
         case "unmark":
             // Exception handling and splitting the string
@@ -159,13 +160,13 @@ public class Duke {
             }
 
             // get Task, edit and put back to list
-            t = list.get(index);
-            t.unmark();
-            list.set(index, t);
+            task = list.get(index);
+            task.unmark();
+            list.set(index, task);
 
             // Print system message
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(t.toString());
+            System.out.println(task.toString());
             break;
         case "delete":
             // Exception handling and splitting the string
@@ -179,11 +180,11 @@ public class Duke {
                 throw new DukeException("You only have " + list.size() + " tasks in the list.");
             }
 
-            t = list.remove(index); // remove task
+            task = list.remove(index); // remove task
 
             // Print system message
             System.out.println("Noted. I've removed this task:");
-            System.out.println(t.toString());
+            System.out.println(task.toString());
             System.out.println("No-w you have " + list.size() + " tasks in the list.");
             break;
         case "todo":
@@ -194,12 +195,12 @@ public class Duke {
             desc = str.split(command + " ")[1];
 
             // Create Task and add to list
-            t = new ToDo(desc.trim());
-            list.add(t);
+            task = new ToDo(desc.trim());
+            list.add(task);
 
             // Print system message
             System.out.println("Got it. I've added this task:");
-            System.out.println(t.toString());
+            System.out.println(task.toString());
             System.out.println("Now you have " + list.size() + " tasks in this list.");
             break;
         case "deadline":
@@ -216,12 +217,12 @@ public class Duke {
             String by = stringSplit[1];
 
             // Create Task and add to list
-            t = new Deadline(desc.trim(), by.trim());
-            list.add(t);
+            task = new Deadline(desc.trim(), by.trim());
+            list.add(task);
 
             // Print system message
             System.out.println("Got it. I've added this task:");
-            System.out.println(t.toString());
+            System.out.println(task.toString());
             System.out.println("Now you have " + list.size() + " tasks in this list.");
             break;
         case "event":
@@ -243,12 +244,12 @@ public class Duke {
             String to = stringSplit[1];
 
             // Create Task and add to list
-            t = new Event(desc.trim(), from.trim(), to.trim());
-            list.add(t);
+            task = new Event(desc.trim(), from.trim(), to.trim());
+            list.add(task);
 
             // Print system message
             System.out.println("Got it. I've added this task:");
-            System.out.println(t.toString());
+            System.out.println(task.toString());
             System.out.println("Now you have " + list.size() + " tasks in this list.");
             break;
         default:
