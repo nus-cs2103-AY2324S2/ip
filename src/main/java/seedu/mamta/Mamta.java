@@ -37,6 +37,8 @@ public class Mamta {
         String output = "";
 
         switch (command) {
+        case "find":
+            return String.format("------------------------------------------\nHere are the matching tasks in your list: \n%s\n------------------------------------------",  TaskList.searchOutput(taskType));
         case "bye":
             return String.format("------------------------------------------\n%s\n------------------------------------------", Mamta.exit());
         case "list":
