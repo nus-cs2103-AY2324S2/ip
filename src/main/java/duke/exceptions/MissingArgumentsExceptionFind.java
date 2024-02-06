@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 /**
  * Represents an exception thrown when there are missing arguments in a "find" command.

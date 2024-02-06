@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 /**
  * Exception class representing an error related to missing arguments in a todo command.
@@ -12,7 +12,7 @@ public class MissingArgumentsExceptionTodo extends MissingArgumentsException {
      * @param message The detail message.
      */
     public MissingArgumentsExceptionTodo(String string) {
-       super(string);
+        super(string);
     }
 
     /**

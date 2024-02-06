@@ -1,4 +1,4 @@
-package duke.dukeException;
+package duke.exceptions;
 
 /**
  * Exception class representing an error related to missing arguments in marking commands (mark, unmark, delete).

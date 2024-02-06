@@ -1,15 +1,15 @@
 package duke.storage;
 
-import duke.parser.Parser;
-import duke.parser.Token;
-
-import duke.ui.UI;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+
+import duke.parser.Parser;
+import duke.parser.Token;
+import duke.ui.UI;
+
 
 /**
  * The Storage class is responsible for loading tasks from and saving tasks to a file.

@@ -25,7 +25,7 @@ public class Token {
     /**
      * Constructs a Token object with the specified command and task.
      *
-     * @param cmd The command associated with the token.
+     * @param cmd  The command associated with the token.
      * @param task The task associated with the token.
      */
     public Token(Command cmd, Task task) {
@@ -36,7 +36,7 @@ public class Token {
     /**
      * Constructs a Token object with the specified command and selected item index.
      *
-     * @param cmd The command associated with the token.
+     * @param cmd          The command associated with the token.
      * @param selectedItem The index of the selected item.
      */
     public Token(Command cmd, int selectedItem) {
@@ -96,5 +96,4 @@ public class Token {
     public String getSearchKey() {
         return this.searchKey;
     }
-
 }

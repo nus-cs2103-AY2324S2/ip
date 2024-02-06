@@ -2,16 +2,13 @@ package duke;
 
 import java.util.Scanner;
 
-import duke.dukeException.InvalidCommandException;
-import duke.dukeException.ListOutofBoundsException;
-import duke.dukeException.MissingArgumentsException;
-
-import duke.dukeException.WrongTimeFormatException;
-
-import duke.ui.UI;
-
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.ListOutofBoundsException;
+import duke.exceptions.MissingArgumentsException;
+import duke.exceptions.WrongTimeFormatException;
 import duke.parser.Parser;
 import duke.parser.Token;
+import duke.ui.UI;
 
 /**
  * The Duke program is a simple task manager that allows users to manage their tasks through a command-line interface.
@@ -29,7 +26,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         boolean isTrue = true;
-        while(isTrue) {
+        while (isTrue) {
             String input = scanner.nextLine().trim();
             parser.feed(input);
             Token output;
@@ -56,7 +53,7 @@ public class Duke {
             case UNMARK:
                 try {
                     ui.unMarkTask(output.getSelectedItem() - 1);
-                } catch (ListOutofBoundsException e){
+                } catch (ListOutofBoundsException e) {
                     UI.error(e.getMessage());
                 }
                 break;

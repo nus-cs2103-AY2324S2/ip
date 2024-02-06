@@ -1,24 +1,23 @@
 package duke.parser;
 
-import duke.dukeException.InvalidCommandException;
-import duke.dukeException.MissingArgumentsException;
-import duke.dukeException.WrongTimeFormatException;
-import duke.dukeException.MissingArgumentsExceptionMarking;
-import duke.dukeException.MissingArgumentsExceptionDeadlines;
-import duke.dukeException.MissingArgumentsExceptionTodo;
-import duke.dukeException.MissingArgumentsExceptionEvents;
-
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-import java.time.LocalDate;
-import java.time.DateTimeException;
-import java.time.format.DateTimeFormatter;
-
-import duke.storage.Task;
-import duke.storage.Events;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.MissingArgumentsException;
+import duke.exceptions.MissingArgumentsExceptionDeadlines;
+import duke.exceptions.MissingArgumentsExceptionEvents;
+import duke.exceptions.MissingArgumentsExceptionMarking;
+import duke.exceptions.MissingArgumentsExceptionTodo;
+import duke.exceptions.WrongTimeFormatException;
 import duke.storage.Deadlines;
+import duke.storage.Events;
+import duke.storage.Task;
 import duke.storage.Todos;
+
 
 /**
  * The Parser class is responsible for parsing user input and converting it into meaningful commands and tasks.
@@ -57,17 +56,17 @@ public class Parser {
      * Parses the input string and returns a Token object representing the command and associated data.
      *
      * @return The Token object representing the parsed command and associated data.
-     * @throws InvalidCommandException If the command is invalid.
+     * @throws InvalidCommandException   If the command is invalid.
      * @throws MissingArgumentsException If required arguments are missing.
-     * @throws WrongTimeFormatException If there is an issue with the time format in the input.
+     * @throws WrongTimeFormatException  If there is an issue with the time format in the input.
      */
-    public Token parse() throws InvalidCommandException, MissingArgumentsException , WrongTimeFormatException {
+    public Token parse() throws InvalidCommandException, MissingArgumentsException, WrongTimeFormatException {
         String[] split = this.input.split(" ");
         Token token;
         Task task = null;
         int flag;
         int flag2;
-        switch(split[0]) {
+        switch (split[0]) {
         case "list":
             if (split.length != 1) {
                 throw new InvalidCommandException("InvalidCommandException");
@@ -141,7 +140,7 @@ public class Parser {
             flag2 = Arrays.asList(split).indexOf("/to");
             if (split.length < 5) {
                 throw new MissingArgumentsExceptionEvents("event");
-            } else if (flag < 2 || flag2 == split.length -1 || flag2 - flag <= 1) {
+            } else if (flag < 2 || flag2 == split.length - 1 || flag2 - flag <= 1) {
                 throw new MissingArgumentsExceptionEvents("event");
             } else {
                 int space = this.input.indexOf(" ");
@@ -157,7 +156,7 @@ public class Parser {
 
                     int lenTemp = temporaryArray.length;
 
-                    for (int i=0; i<temporaryArray.length/2; i++) {
+                    for (int i = 0; i < temporaryArray.length / 2; i++) {
                         String temp = temporaryArray[i];
                         temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
                         temporaryArray[lenTemp - 1 - i] = temp;
@@ -185,7 +184,7 @@ public class Parser {
 
                     int lenTemp = temporaryArray.length;
 
-                    for (int i=0; i<temporaryArray.length/2; i++) {
+                    for (int i = 0; i < temporaryArray.length / 2; i++) {
                         String temp = temporaryArray[i];
                         temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
                         temporaryArray[lenTemp - 1 - i] = temp;
@@ -214,7 +213,7 @@ public class Parser {
 
             if (split.length < 4) {
                 throw new MissingArgumentsExceptionDeadlines("deadline");
-            } else if (flag < 2 || flag == split.length -1) {
+            } else if (flag < 2 || flag == split.length - 1) {
                 throw new MissingArgumentsExceptionDeadlines("deadline");
             } else {
                 int space = this.input.indexOf(" ");
@@ -281,15 +280,16 @@ public class Parser {
 
         if (splitString.length < 3) {
             throw new WrongTimeFormatException("wrong time buddy");
-        } if (splitString.length > 5) {
+        }
+        if (splitString.length > 5) {
             throw new WrongTimeFormatException("Too many inputs");
         } else {
             try {
-               int year = Integer.parseInt(splitString[2]);
-               int month = Integer.parseInt(splitString[1]);
-               int day = Integer.parseInt(splitString[0]);
+                int year = Integer.parseInt(splitString[2]);
+                int month = Integer.parseInt(splitString[1]);
+                int day = Integer.parseInt(splitString[0]);
 
-               checkRealDate(year, month, day);
+                checkRealDate(year, month, day);
             } catch (NumberFormatException e) {
                 throw new WrongTimeFormatException("Use numerals for date");
             } catch (WrongTimeFormatException exception) {
@@ -300,7 +300,7 @@ public class Parser {
                 String twelveHourFormat = "";
 
                 if (splitString.length > 4) {
-                   twelveHourFormat = splitString[4];
+                    twelveHourFormat = splitString[4];
                 }
 
                 checkRealTime(splitString[3], twelveHourFormat);
@@ -316,7 +316,7 @@ public class Parser {
      * @param day   The day.
      * @throws WrongTimeFormatException If the date is invalid.
      */
-    private void checkRealDate(int year , int month, int day) throws WrongTimeFormatException {
+    private void checkRealDate(int year, int month, int day) throws WrongTimeFormatException {
         try {
             LocalDate dateToBeChecked = LocalDate.of(year, month, day);
 
@@ -333,7 +333,7 @@ public class Parser {
     /**
      * Checks if the provided time and twelve-hour format (AM/PM) form a valid time and throws an exception if not.
      *
-     * @param time            The time string.
+     * @param time             The time string.
      * @param twelveHourFormat The twelve-hour format (AM/PM).
      * @throws WrongTimeFormatException If the time is invalid.
      */
