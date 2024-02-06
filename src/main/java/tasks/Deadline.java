@@ -1,8 +1,8 @@
-package Tasks;
+package tasks;
 
-import Exceptions.InvalidFormatException;
-import Exceptions.InvalidInputException;
-import Exceptions.LeluException;
+import exceptions.InvalidFormatException;
+import exceptions.InvalidInputException;
+import exceptions.LeluException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +29,7 @@ public class Deadline extends Task {
     }
     @Override
     public String saveFormat() {
-        int check = this.completed ? 1 : 0;
+        int check = this.isCompleted ? 1 : 0;
         return String.format("D | %d | %s | %s\n", check, this.taskName,
                 this.deadline.format(formatter));
     }

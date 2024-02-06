@@ -1,7 +1,7 @@
-package Tasks;
+package tasks;
 
-import Exceptions.InvalidFormatException;
-import Exceptions.LeluException;
+import exceptions.InvalidFormatException;
+import exceptions.LeluException;
 
 public class ToDo extends Task {
     public ToDo(String taskName) {
@@ -16,7 +16,7 @@ public class ToDo extends Task {
         return new ToDo(t);
     }
     public String saveFormat() {
-        int check = this.completed ? 1 : 0;
+        int check = this.isCompleted ? 1 : 0;
         return String.format("T | %d | %s \n", check, this.taskName);
     }
     @Override

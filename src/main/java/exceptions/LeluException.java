@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class LeluException extends Exception {
     public enum ErrorType {

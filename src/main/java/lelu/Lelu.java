@@ -1,11 +1,11 @@
-package Lelu;
+package lelu;
 
-import TasksStorage.Storage;
-import TasksStorage.TaskList;
-import Ui.Ui;
-import Exceptions.*;
-import Commands.ByeCommand;
-import Commands.Command;
+import tasksstorage.Storage;
+import tasksstorage.TaskList;
+import ui.Ui;
+import exceptions.*;
+import commands.ByeCommand;
+import commands.Command;
 
 
 import java.time.format.DateTimeParseException;

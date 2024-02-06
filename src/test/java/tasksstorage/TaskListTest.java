@@ -1,5 +1,5 @@
-package TasksStorage;
-import Tasks.Deadline;
+package tasksstorage;
+import tasks.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;

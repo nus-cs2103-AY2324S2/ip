@@ -1,14 +1,13 @@
-package TasksStorage;
+package tasksstorage;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {

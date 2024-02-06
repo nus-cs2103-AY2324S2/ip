@@ -1,9 +1,9 @@
-package Lelu;
+package lelu;
 
-import Exceptions.InvalidInputException;
-import Exceptions.LeluException;
-import Ui.Ui;
-import Commands.*;
+import exceptions.InvalidInputException;
+import exceptions.LeluException;
+import ui.Ui;
+import commands.*;
 
 public class Parser {
     public static Command parse(String message, Ui ui) throws LeluException {

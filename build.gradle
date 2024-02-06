@@ -28,12 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("Lelu.Lelu")
+    mainClass.set("lelu.Lelu")
 }
 
 shadowJar {
     archiveBaseName = "lelu"
     archiveClassifier = null
+    archiveFileName = 'lelu.jar'
     dependsOn("distZip", "distTar")
 }
 

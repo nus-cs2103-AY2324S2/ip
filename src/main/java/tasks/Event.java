@@ -1,7 +1,7 @@
-package Tasks;
+package tasks;
 
-import Exceptions.InvalidFormatException;
-import Exceptions.LeluException;
+import exceptions.InvalidFormatException;
+import exceptions.LeluException;
 
 public class Event extends Task {
     protected String from;
@@ -29,7 +29,7 @@ public class Event extends Task {
     }
     @Override
     public String saveFormat() {
-        int check = this.completed ? 1 : 0;
+        int check = this.isCompleted ? 1 : 0;
         return String.format("E | %d | %s | %s | %s\n", check, this.taskName, this.from, this.to);
     }
     @Override

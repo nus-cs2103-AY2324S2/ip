@@ -1,23 +1,23 @@
-package Tasks;
+package tasks;
 
 public abstract class Task {
     protected String taskName;
-    protected boolean completed;
+    protected boolean isCompleted;
 
     public Task(String task) {
         this.taskName = task;
     }
 
     public void markTask() {
-        this.completed = true;
+        this.isCompleted = true;
     }
     public void unmarkTask() {
-        this.completed = false;
+        this.isCompleted = false;
     }
     public abstract String saveFormat();
     @Override
     public String toString() {
-        String check = completed ? "[X]" : "[ ]";
+        String check = isCompleted ? "[X]" : "[ ]";
         return check + " " + this.taskName;
     }
 }
