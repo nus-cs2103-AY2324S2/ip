@@ -6,12 +6,12 @@ public class Ran {
     Parser parser;
     TaskList taskList;
     TaskIO taskIO;
-    RanUI ui;
+    RanUi ui;
 
     public Ran(TaskIO taskIO) {
         this.taskList = new TaskList(taskIO);
         this.taskIO = taskIO;
-        this.ui = new RanUI();
+        this.ui = new RanUi();
         this.parser = new Parser();
     }
 

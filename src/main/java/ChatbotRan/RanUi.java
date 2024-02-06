@@ -1,6 +1,6 @@
 package ChatbotRan;
 
-public class RanUI {
+public class RanUi {
     public void greet() {
         System.out.println("Hello. I am ");
         String art = "__________                \n" +
@@ -55,8 +55,8 @@ public class RanUI {
         System.out.println("Goodbye, please return soon.");
     }
 
-    public void unmark(boolean complete) {
-        if (complete) {
+    public void unmark(boolean completed) {
+        if (completed) {
             System.out.println("If that's the case, I'll set that task as incomplete: ");
         } else {
             System.out.println("That task is already incomplete: ");
