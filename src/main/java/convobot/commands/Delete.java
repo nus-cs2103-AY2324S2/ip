@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.ConvoBotException;
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -27,7 +27,7 @@ public class Delete implements Command {
      * @param ui       The user interface for displaying messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
-    public void execute(TaskList taskList, UI ui) throws ConvoBotException {
+    public void execute(TaskList taskList, Ui ui) throws ConvoBotException {
         String removedTaskString = taskList.getTaskString(i);
         taskList.delete(i);
         ui.showRemoved(removedTaskString, taskList.size());

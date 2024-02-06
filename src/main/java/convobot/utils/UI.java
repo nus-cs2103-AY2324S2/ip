@@ -9,7 +9,7 @@ import exceptions.ConvoBotException;
  * The {@code UI} class provides methods for interacting with the user through the console.
  * It includes methods for reading user input, displaying messages, and presenting task-related information.
  */
-public class UI {
+public class Ui {
 
     private static final String LEFT_PADDING = "    ";
     private final Scanner scanner;
@@ -17,7 +17,7 @@ public class UI {
     /**
      * Constructs a new {@code UI} instance with a {@code Scanner} for reading user input.
      */
-    public UI() {
+    public Ui() {
         scanner = new Scanner(System.in);
     }
 

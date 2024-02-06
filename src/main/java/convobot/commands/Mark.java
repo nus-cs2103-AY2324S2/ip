@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.ConvoBotException;
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents a command to mark a task as completed in the ConvoBot application.
@@ -27,7 +27,7 @@ public class Mark implements Command {
      * @param ui       The user interface for displaying messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
-    public void execute(TaskList taskList, UI ui) throws ConvoBotException {
+    public void execute(TaskList taskList, Ui ui) throws ConvoBotException {
         taskList.mark(i, true);
         ui.showMarked(taskList.getTaskString(i));
     }

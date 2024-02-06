@@ -2,7 +2,7 @@ package commands;
 
 import tasks.Task;
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents a command to add a task to the task list.
@@ -26,7 +26,7 @@ public class Add implements Command {
      * @param taskList The task list to which the task will be added.
      * @param ui       The user interface for displaying messages.
      */
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, Ui ui) {
         taskList.add(task);
         ui.showAdded(task.toString(), taskList.size());
     }

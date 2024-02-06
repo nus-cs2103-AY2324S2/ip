@@ -1,7 +1,7 @@
 package commands;
 
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents a command to exit the application.
@@ -14,7 +14,7 @@ public class Bye implements Command {
      * @param taskList The task list (not used in this command).
      * @param ui       The user interface (not used in this command).
      */
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, Ui ui) {
         return;
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import exceptions.ConvoBotException;
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents the Find command, which searches for tasks in a TaskList based on a given query.
@@ -32,7 +32,7 @@ public class Find implements Command {
      * @param ui       The UI to display the matching tasks.
      * @throws ConvoBotException If there is an issue executing the command.
      */
-    public void execute(TaskList taskList, UI ui) throws ConvoBotException {
+    public void execute(TaskList taskList, Ui ui) throws ConvoBotException {
         ArrayList<String> matchingTaskStrings = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
             String desc = taskList.getTaskDescription(i).toLowerCase(); // query is case-insensitive

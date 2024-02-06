@@ -5,7 +5,7 @@ import exceptions.ConvoBotException;
 import utils.Parser;
 import utils.Storage;
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * The main class representing the ConvoBot application.
@@ -13,7 +13,7 @@ import utils.UI;
 public class ConvoBot {
 
     private final TaskList tasks;
-    private final UI ui;
+    private final Ui ui;
 
     /**
      * Constructor for ConvoBot class.
@@ -22,7 +22,7 @@ public class ConvoBot {
      */
     public ConvoBot(String filePath) {
         tasks = new TaskList(new Storage(filePath));
-        ui = new UI();
+        ui = new Ui();
     }
 
     /**

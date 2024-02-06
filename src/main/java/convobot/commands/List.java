@@ -1,7 +1,7 @@
 package commands;
 
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents a command to display the list of tasks in the ConvoBot application.
@@ -14,7 +14,7 @@ public class List implements Command {
      * @param taskList The task list to be displayed.
      * @param ui       The user interface for displaying messages.
      */
-    public void execute(TaskList taskList, UI ui) {
+    public void execute(TaskList taskList, Ui ui) {
         ui.showTaskList(taskList);
     }
 

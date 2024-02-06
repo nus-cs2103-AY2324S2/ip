@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.ConvoBotException;
 import utils.TaskList;
-import utils.UI;
+import utils.Ui;
 
 /**
  * Represents a command in the ConvoBot application.
@@ -16,7 +16,7 @@ public interface Command {
      * @param ui       The user interface for displaying messages.
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
-    public void execute(TaskList taskList, UI ui) throws ConvoBotException;
+    public void execute(TaskList taskList, Ui ui) throws ConvoBotException;
 
     /**
      * Checks if the command is an exit command.
