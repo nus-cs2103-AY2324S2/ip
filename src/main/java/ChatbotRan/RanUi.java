@@ -2,7 +2,13 @@ package ChatbotRan;
 
 import java.util.ArrayList;
 
+/**
+ * Displays chatbot responses to the CLI.
+ */
 public class RanUi {
+    /**
+     * Prints the startup message.
+     */
     public void greet() {
         System.out.println("Hello. I am ");
         String art = "__________                \n" +
@@ -15,10 +21,18 @@ public class RanUi {
         System.out.println("What would you like to do today?");
     }
 
+    /**
+     * Prints a line to separate the next command.
+     */
     public void line() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints all tasks in the TaskList.
+     *
+     * @param taskList list of tasks
+     */
     public void printTasks(TaskList taskList) {
         int size = taskList.size();
         if (size == 0) {
@@ -30,11 +44,19 @@ public class RanUi {
         }
     }
 
+    /**
+     * Prints a generic error message.
+     */
     public void unknown() {
 
         System.out.println("I didn't understand that.");
     }
 
+    /**
+     * Prints response after adding a Task
+     *
+     * @param task task
+     */
     public void addTask(Task task) {
         System.out.println("I've added this task to the list: ");
         System.out.println(task);
@@ -48,15 +70,28 @@ public class RanUi {
         }
     }
 
+    /**
+     * Prints response after deleting a task.
+     *
+     * @param task task
+     */
     public void delete(Task task) {
         System.out.println("I've deleted this task: ");
         System.out.println(task);
     }
 
+    /**
+     * Prints the shutdown message.
+     */
     public void bye() {
         System.out.println("Goodbye, please return soon.");
     }
 
+    /**
+     * Prints response after attempting to unmark a task.
+     *
+     * @param completed whether the task was complete
+     */
     public void unmark(boolean completed) {
         if (completed) {
             System.out.println("If that's the case, I'll set that task as incomplete: ");
@@ -66,6 +101,11 @@ public class RanUi {
         }
     }
 
+    /**
+     * Prints response after attempting to mark a task.
+     *
+     * @param completed whether the task was complete
+     */
     public void mark(boolean completed) {
 
         if (!completed) {
@@ -75,10 +115,20 @@ public class RanUi {
         }
     }
 
+    /**
+     * Prints one task.
+     *
+     * @param task task
+     */
     public void printTask(Task task) {
         System.out.println(task);
     }
 
+    /**
+     * Prints results of a parsing error.
+     *
+     * @param e error from parsing a task
+     */
     public void error(TaskException e) {
         System.out.println(e.getMessage());
     }

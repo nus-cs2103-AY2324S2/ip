@@ -2,12 +2,28 @@ package ChatbotRan;
 
 import java.util.ArrayList;
 
+/**
+ * Parses and executes commands
+ */
 public class Parser {
     boolean isComplete = false;
 
+    /**
+     * Returns whether the user has input a quit command
+     *
+     * @return True if quit
+     */
     public boolean running() {
         return !isComplete;
     }
+
+    /**
+     * Parses and executes a given line, acting on the tasks and printing to the UI.
+     *
+     * @param line     line of text
+     * @param taskList
+     * @param ui
+     */
 
     public void exec(String line, TaskList taskList, RanUi ui) {
         int space = line.indexOf(' ');
