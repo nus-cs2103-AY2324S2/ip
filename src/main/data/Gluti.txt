@@ -4,3 +4,4 @@
 [T][X] meeting
 [T][ ] meeting
 [T][ ] test GUI
+[T][ ] meeting

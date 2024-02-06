@@ -1,4 +1,4 @@
-package Gluti.helpers;
+package Gluti.Gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

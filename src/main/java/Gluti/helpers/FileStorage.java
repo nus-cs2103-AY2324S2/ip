@@ -1,10 +1,12 @@
 package Gluti.helpers;
 
-import Gluti.utils.*;
-
 import java.io.*;
 import java.util.ArrayList;
-
+import Gluti.utils.Task;
+import Gluti.utils.GlutiException;
+import Gluti.utils.Todo;
+import Gluti.utils.Event;
+import Gluti.utils.Deadline;
 /**
  * Provides a Storage interface that is shared among the program
  * Loads tasks from file when program is ran
@@ -23,7 +25,7 @@ public class FileStorage {
      * @throws GlutiException IO Exceptions
      */
     public FileStorage() throws GlutiException {
-        checkifexist();
+        checkIfExist();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE));
             String line = reader.readLine();
@@ -90,7 +92,7 @@ public class FileStorage {
      * Checks and creates the directory and file if there is no such directory or file
      * @throws GlutiException IO Errors
      */
-    private void checkifexist() throws GlutiException {
+    private void checkIfExist() throws GlutiException {
         if (!DATA_FILE.exists()) {
             if (!DATA_FOLDER.exists()) {
                 DATA_FOLDER.mkdirs();

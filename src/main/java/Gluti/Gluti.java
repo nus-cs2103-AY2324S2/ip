@@ -12,16 +12,15 @@ import java.io.IOException;
  */
 
 public class Gluti extends Application {
-    private FileStorage fStorage;
-    private Ui ui;
+
     public static void main(String[] args) throws GlutiException, IOException {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws GlutiException {
-        fStorage = new FileStorage();
-        ui = new Ui(fStorage);
+        FileStorage fStorage = new FileStorage();
+        Ui ui = new Ui(fStorage);
         ui.run(primaryStage);
     }
 }
