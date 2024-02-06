@@ -34,7 +34,7 @@ dependencies {
 
 // Configure application-related settings
 application {
-    mainClass.set("convobot.ConvoBot")
+    mainClass.set("cli.ConvoBot")
 }
 
 // Configure settings for Shadow

@@ -1,4 +1,4 @@
-package convobot;
+package cli;
 
 import javafx.application.Application;
 
@@ -33,7 +33,7 @@ public class ConvoBot {
      * Shows welcome message, reads user input, parses and executes commands until the exit command is encountered.
      * Handles exceptions and displays error messages.
      */
-    public void run() {
+    private void run() {
         ui.showWelcomeMsg();
         while (true) {
             String userInput = ui.readUserInput();
@@ -59,6 +59,16 @@ public class ConvoBot {
             }
         }
         ui.showExitMsg();
+    }
+
+    /**
+     * Retrieves a response from ConvoBot based on the provided input.
+     *
+     * @param input The input string representing the user's message.
+     * @return A string containing ConvoBot's response.
+     */
+    public String getResponse(String input) {
+        return "ConvoBot heard: " + input;
     }
 
     /**

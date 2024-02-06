@@ -7,10 +7,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import cli.ConvoBot;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final ConvoBot convo = new ConvoBot("./data/tasks.txt");
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -20,18 +25,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Convo convo;
-
     private final Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image dukeImage = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image convoImage = new Image(getClass().getResourceAsStream("/images/DaConvo.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
-    public void setConvo(Convo c) {
-        convo = c;
     }
 
     /**
@@ -45,7 +44,7 @@ public class MainWindow extends AnchorPane {
         String response = convo.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, convoImage)
         );
         userInput.clear();
     }
