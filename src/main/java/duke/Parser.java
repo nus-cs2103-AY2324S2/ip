@@ -2,7 +2,6 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 import duke.commands.Command;
 import duke.commands.CommandBye;
@@ -24,44 +23,33 @@ public class Parser {
 
     enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND};
 
-    private Scanner scanner;
     private Ui ui;
     private TaskList taskList;
-    private Boolean isRunning;
+    private Storage storage;
     
     /**
      * Constructor for Parser
      * @param taskList TaskList List for storing Tasks
      * @param ui UI for printing to system
      */
-    public Parser(TaskList taskList, Ui ui) {
-        this.isRunning = true;
-        this.scanner = new Scanner(System.in);
+    public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
-
-    }
-
-    /**
-     * starts the chatbot
-     */
-    public void run() {
-        while (isRunning) {
-            this.readUserInput();
-        }
+        this.storage = storage;
+        storage.loadData(taskList, ui);
     }
 
     /**
      * splits the user command and description
      */
-    private void readUserInput() {
-        String userInput = scanner.nextLine();
+    public void readUserInput(String userInput) {
+        //String userInput = scanner.nextLine();
         String[] userInputSplit = userInput.split(" ", 2);
         ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInputSplit));
         userInputList.add("");
         String userCommand = userInputList.get(0).toLowerCase();
         String description = userInputList.get(1);
-        this.parseUserInput(userCommand, description);
+        parseUserInput(userCommand, description);
     }
 
     /**
@@ -70,13 +58,13 @@ public class Parser {
      * @param description String user description
      */
     private void parseUserInput(String userCommand, String description) {
-        Command command;
         try {
+            Command command;
             CommandType commandType = CommandType.valueOf(userCommand.toUpperCase());
             switch (commandType) {
                 case BYE:
+                    storage.saveData(taskList, ui);
                     command = new CommandBye(taskList, ui);
-                    isRunning = false;
                     break;
                 case LIST:
                     command = new CommandList(taskList, ui);
@@ -105,9 +93,9 @@ public class Parser {
             }
             command.execute(description);
         } catch (IllegalArgumentException e) {
-            ui.print("Sorry I don't recognize that command :/");
+            ui.add("Sorry I don't recognize that command :/");
         } catch (Exception e) {
-            ui.print(e.getMessage());
-        }
+            ui.add(e.getMessage());
+        } 
     }
 }

@@ -27,9 +27,6 @@ public class CommandUnmark extends Command {
             ui.add(task.toString());
         } catch (DukeCeption e) {
             ui.add(e.getMessage());
-        } finally {
-            ui.print();
         }
-
     }
 }

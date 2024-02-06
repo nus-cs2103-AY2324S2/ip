@@ -1,5 +1,4 @@
 T;;0;;asg
-T;;1;;asfd sgd
 T;;1;;asfa
 T;;0;;asdaf
 D;;0;;Do homework;;19/03/2020 1900

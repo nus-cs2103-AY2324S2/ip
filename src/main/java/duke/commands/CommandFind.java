@@ -25,7 +25,6 @@ public class CommandFind extends Command {
                 counter += 1;
             }
         }
-        ui.print();
     }
     
 }

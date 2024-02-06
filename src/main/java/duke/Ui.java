@@ -5,7 +5,6 @@ import java.util.ArrayList;
  * Class that prints to the system
  */
 public class Ui {
-    private final String BORDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     private ArrayList<String> printList;
 
     /**
@@ -57,15 +56,12 @@ public class Ui {
         String finalString = "";
         for (int i = 0; i < printList.size(); i++) {
             if (i == printList.size() - 1) {
-                finalString += String.format("\t%s", printList.get(i));
+                finalString += String.format("%s", printList.get(i));
             } else {
-                finalString += String.format("\t%s\n", printList.get(i));
+                finalString += String.format("%s\n", printList.get(i));
             }
         }
         printList.clear();
-        return String.format("\t%s\n%s\n\t%s",
-                this.BORDER,
-                finalString,
-                this.BORDER);
+        return finalString;
     }
 }
