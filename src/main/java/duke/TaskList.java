@@ -87,6 +87,17 @@ public class TaskList {
         }
     }
 
+    public TaskList find(String keyword) {
+        TaskList filteredList = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            if (currTask.getDescription().contains(keyword)) {
+                filteredList.tasks.add(currTask);
+            }
+        }
+        return filteredList;
+    }
+
     public int size() {
         return tasks.size();
     }

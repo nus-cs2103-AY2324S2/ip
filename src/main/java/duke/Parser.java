@@ -20,6 +20,14 @@ public class Parser {
             return new ListCommand();
         }
 
+        if (input.startsWith("find")) {
+            if (input.length() < 6) {
+                throw new DukeException("find what");
+            }
+            String keyword = input.split("find ")[1];
+            return new FindCommand(keyword);
+        }
+
         if (input.startsWith("mark")) {
             try {
                 String[] parts = input.split("mark ");
