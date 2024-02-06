@@ -4,11 +4,10 @@ package bartenderbob;
  * Handles exceptions that is specific to BartenderBob chatbot.
  */
 public class BartenderBobException extends Exception {
-    /** First word of the user input */
-    private String firstWord;
     /** Displays messages to the user */
     private static final Ui UI = new Ui();
-
+    /** First word of the user input */
+    private String firstWord;
     /**
      * Creates an instance of BartenderBobException.
      */
@@ -31,36 +30,30 @@ public class BartenderBobException extends Exception {
      *
      * @param userInput The user input to BartenderBob.
      */
-    public static void invalidInput(String userInput) {
-        UI.showInvalidInputError(userInput);
+    public static String invalidInput(String userInput) {
+        return UI.showInvalidInputError(userInput);
     }
 
     /**
      * Displays error message when a user gives an input
      * with missing parameters that is required by BartenderBob.
      */
-    public void displayError() {
+    public String displayError() {
         switch (firstWord) {
         case "mark":
-            UI.showInvalidMarkCommand();
-            break;
+            return UI.showInvalidMarkCommand();
         case "unmark":
-            UI.showInvalidUnmarkCommand();
-            break;
+            return UI.showInvalidUnmarkCommand();
         case "delete":
-            UI.showInvalidDeleteCommand();
-            break;
+            return UI.showInvalidDeleteCommand();
         case "todo":
-            UI.showInvalidTodoCommand();
-            break;
+            return UI.showInvalidTodoCommand();
         case "deadline":
-            UI.showInvalidDeadlineCommand();
-            break;
+            return UI.showInvalidDeadlineCommand();
         case "event":
-            UI.showInvalidEventCommand();
-            break;
+            return UI.showInvalidEventCommand();
         default:
-            break;
+            return "";
         }
     }
 
@@ -68,7 +61,7 @@ public class BartenderBobException extends Exception {
      * Displays error message when a user specified task index
      * is out of bounds.
      */
-    public void tasksOutOfBounds() {
-        UI.showOutOfBoundsCommand();
+    public String tasksOutOfBounds() {
+        return UI.showOutOfBoundsCommand();
     }
 }
