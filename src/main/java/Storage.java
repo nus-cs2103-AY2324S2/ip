@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
@@ -38,12 +40,13 @@ public class Storage {
                 boolean isEvent = currentTask.getTaskType() == TaskType.EVENT;
                 String done = currentTask.getStatus() ? "1" : "0";
                 String temp = currentTask.getTaskType().getIcon() + " / " + done + " / " + currentTask.getTask();
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yy Hmm");
                 if (isDeadline) {
                     Deadline deadlineTask = (Deadline) currentTask;
-                    temp += " / " + deadlineTask.getDeadline();
+                    temp += " / " + deadlineTask.getDeadline().format(outputFormatter);
                 } else if (isEvent) {
                     Event eventTask = (Event) currentTask;
-                    temp += " / " + eventTask.getFrom() + " / " + eventTask.getTo();
+                    temp += " / " + eventTask.getFrom().format(outputFormatter) + " / " + eventTask.getTo().format(outputFormatter);
                 }
                 tempTasks.add(temp);
             }
@@ -67,9 +70,9 @@ public class Storage {
                 if (isTodo) {
                     temp = new Todo(splitMessage[2], isDone);
                 } else if (isDeadline) {
-                    temp = new Deadline(splitMessage[2], splitMessage[3], isDone);
+                    temp = new Deadline(splitMessage[2], ByteTalker.convertDateTime(splitMessage[3]), isDone);
                 } else if (isEvent) {
-                    temp = new Event(splitMessage[2], splitMessage[3], splitMessage[4], isDone);
+                    temp = new Event(splitMessage[2], ByteTalker.convertDateTime(splitMessage[3]), ByteTalker.convertDateTime(splitMessage[4]), isDone);
                 }
                 tasks.add(temp);
             }
