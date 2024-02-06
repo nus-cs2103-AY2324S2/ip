@@ -9,6 +9,11 @@ public class Event extends Task {
     }
 
     @Override
+    String taskToLine() {
+        return "E | " + super.taskToLine() + " | " + startTime + " | " + endTime;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(" (from: %s to: %s) ", startTime, endTime);
     }

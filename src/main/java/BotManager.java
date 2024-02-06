@@ -1,12 +1,54 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BotManager {
     private final String name;
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
+    private final File file;
 
-    BotManager(String name) {
+    BotManager(String fileFolder, String fileName, String name) {
         this.name = name;
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
+        File directory = new File(fileFolder);
+        if (!directory.exists()) {
+            try {
+                boolean isDirMade = directory.mkdirs();
+                if (!isDirMade) {
+                    throw new DukeException("    Oops! Something is wrong with directory creation!\n");
+                }
+            } catch (DukeException e) {
+                System.out.println(e);
+            }
+        }
+        file = new File(fileFolder + "/" + fileName);
+        if (!file.exists()) {
+            try {
+                boolean isCreated = file.createNewFile();
+                if (!isCreated) {
+                    throw new DukeException("    Oops! Something is wrong with file creation!\n");
+                }
+            } catch (IOException e) {
+                System.out.println("    Oops! Unable to create a file for storage!\n");
+            } catch (DukeException e) {
+                System.out.println(e);
+            }
+        } else {
+            try {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine();
+                    tasks.add(Task.lineToTask(line));
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("    Oops! Unable to find the file!\n");
+            } catch (DukeException e) {
+                System.out.println(e);
+            }
+        }
     }
 
     void greeting() {
@@ -62,6 +104,13 @@ public class BotManager {
 
     private void addTask(String prompt) throws DukeException {
         Task task = createTask(prompt);
+        try {
+            FileWriter fw = new FileWriter(file, true);
+            fw.write(task.taskToLine() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("    Oops! unable to write to the file!\n");
+        }
         tasks.add(task);
         System.out.println("    Got it. I've added this task:");
         System.out.println("      " + task);
@@ -82,8 +131,9 @@ public class BotManager {
         if (tasks.size() == 1) {
             System.out.println("    Now you have 1 task in the list\n");
         } else {
-            System.out.printf("    Now you have %d tasks in the list\n%n", tasks.size());
+            System.out.printf("    Now you have %d tasks in the list\n", tasks.size());
         }
+        deleteLineInFile(num);
     }
 
     private void list() {
@@ -108,6 +158,7 @@ public class BotManager {
             task.mark();
             System.out.println("    Nice! I've marked this task as done:");
             System.out.println("      " + task + '\n');
+            editLineInFile(num, task);
         }
     }
 
@@ -122,6 +173,53 @@ public class BotManager {
             task.unmark();
             System.out.println("    OK, I've marked this task as not done yet:");
             System.out.println("      " + task + '\n');
+            editLineInFile(num, task);
+        }
+    }
+
+    private void deleteLineInFile(int num) {
+        try {
+            int i = 1;
+            ArrayList<String> lines = new ArrayList<>();
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String newLine = sc.nextLine();
+                if (i != num) {
+                    lines.add(newLine);
+                }
+                i++;
+            }
+            FileWriter fw = new FileWriter(file);
+            for (String line : lines) {
+                fw.write(line + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("    Oops! Something is wrong with the file management!\n");
+        }
+    }
+
+    private void editLineInFile(int num, Task task) {
+        try {
+            int i = 1;
+            ArrayList<String> lines = new ArrayList<>();
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String newLine = sc.nextLine();
+                if (i != num) {
+                    lines.add(newLine);
+                } else {
+                    lines.add(task.taskToLine());
+                }
+                i++;
+            }
+            FileWriter fw = new FileWriter(file);
+            for (String line : lines) {
+                fw.write(line + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("    Oops! Something is wrong with the file management!\n");
         }
     }
 
@@ -140,6 +238,7 @@ public class BotManager {
                 break;
             case "delete":
                 deleteTask(Integer.parseInt(order[1]));
+                break;
             default:
                 addTask(prompt);
             }
