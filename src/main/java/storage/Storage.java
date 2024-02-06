@@ -32,15 +32,15 @@ public class Storage {
      */
     public void writeToFile() throws IOException {
         try {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-        for (Task task : taskList.getTaskList()) {
-            writer.write(task.toString());
-            writer.newLine();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            for (Task task : taskList.getTaskList()) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
         }
-        writer.close();
-    } catch (IOException e) {
-        System.out.println("Error writing to file.");
-    }
     }
 
     /**
