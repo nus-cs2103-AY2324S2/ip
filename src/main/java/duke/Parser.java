@@ -11,6 +11,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the input into their respective Command objects.
+     *
+     * @param input User input.
+     * @return Command to be executed.
+     * @throws DukeException If command is invalid or incomplete.
+     */
     public Command parse(String input) throws DukeException {
         if (input.equals("bye")) {
             return new ExitCommand();
