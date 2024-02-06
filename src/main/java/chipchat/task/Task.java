@@ -1,12 +1,14 @@
-package task;
+package chipchat.task;
+
+import chipchat.action.CommandType;
 
 public abstract class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void mark() {
@@ -19,11 +21,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String status_icon = this.isDone ? "X" : " ";
-        return "[" + status_icon + "] " + this.description;
-    }
-
-    public String dataString() {
-        return String.format("%s|%s", this.isDone, this.description);
+        String statusIcon = this.isDone ? "X" : " ";
+        return String.format("[%s] %s", statusIcon, this.description);
     }
 }
