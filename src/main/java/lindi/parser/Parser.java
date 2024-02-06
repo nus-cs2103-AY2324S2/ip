@@ -1,14 +1,25 @@
+package lindi.parser;
+
+import lindi.commands.Command;
+import lindi.commands.CreateTaskCommand;
+import lindi.commands.DeleteCommand;
+import lindi.commands.ExitCommand;
+import lindi.commands.InvalidCommand;
+import lindi.commands.ListCommand;
+import lindi.commands.MarkCommand;
+import lindi.commands.UnmarkCommand;
+
 /**
  * Deals with making sense (parsing) of the user command.
  */
 public class Parser {
     /**
-     * Parses the user input and returns the corresponding Command
+     * Parses the user input and returns the corresponding lindi.commands.Command
      *
      * @param userInput the user input command string
-     * @return the Command corresponding to the input string.
+     * @return the lindi.commands.Command corresponding to the input string.
      */
-    static Command parse(String userInput) {
+    public static Command parse(String userInput) {
         // if command called, will be index 0, rest of string (args) in index 1
         String[] userInputTokens = userInput.split(" ", 2);
         String commandWord = userInputTokens[0];
@@ -50,7 +61,7 @@ public class Parser {
     private static Command prepareUnmark(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index " +
-                    "of the task you want to modify :)");
+                    "of the lindi.task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);
@@ -64,7 +75,7 @@ public class Parser {
     private static Command prepareMark(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index " +
-                    "of the task you want to modify :)");
+                    "of the lindi.task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);
@@ -78,7 +89,7 @@ public class Parser {
     private static Command prepareDelete(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index " +
-                    "of the task you want to modify :)");
+                    "of the lindi.task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);

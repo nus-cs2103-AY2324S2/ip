@@ -1,5 +1,6 @@
+package lindi.task;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
@@ -12,7 +13,7 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(from, this.saveLoadDateTimeFormat);
             this.to = LocalDateTime.parse(to, this.saveLoadDateTimeFormat);
         } catch (DateTimeParseException e) {
-            throw new CreateEventException(String.format("Event /from or /to argument in the wrong format. Use " +
+            throw new CreateEventException(String.format("lindi.task.Event /from or /to argument in the wrong format. Use " +
                     "format '%s' for each instead. Not saving seconds and below :)", this.saveLoadDtFormatString));
         }
     }

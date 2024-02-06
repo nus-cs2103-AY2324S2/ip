@@ -1,3 +1,5 @@
+package lindi.task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -8,24 +10,24 @@ public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Returns the number of tasks in the task list.
+     * Returns the number of tasks in the lindi.task list.
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * Adds a task to the task list
+     * Adds a lindi.task to the lindi.task list
      */
     public void add(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Deletes the task at index from task list, and returns it
+     * Deletes the lindi.task at index from lindi.task list, and returns it
      *
-     * @param listIndex index of task to delete as shown by list command
-     * @return the task that was deleted
+     * @param listIndex index of lindi.task to delete as shown by list command
+     * @return the lindi.task that was deleted
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
     public Task delete(int listIndex) throws IndexOutOfBoundsException {
@@ -33,10 +35,10 @@ public class TaskList {
     }
 
     /**
-     * Marks the item in task list at index as done, and returns it
+     * Marks the item in lindi.task list at index as done, and returns it
      *
-     * @param listIndex index of task to mark as shown by list command
-     * @return the task that was marked
+     * @param listIndex index of lindi.task to mark as shown by list command
+     * @return the lindi.task that was marked
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
     public Task mark(int listIndex) throws IndexOutOfBoundsException {
@@ -46,10 +48,10 @@ public class TaskList {
     }
 
     /**
-     * Unmarks the item in task list at index as done, and returns it
+     * Unmarks the item in lindi.task list at index as done, and returns it
      *
-     * @param listIndex index of task to unmark as shown by list command
-     * @return the task that was unmarked
+     * @param listIndex index of lindi.task to unmark as shown by list command
+     * @return the lindi.task that was unmarked
      * @throws IndexOutOfBoundsException if index is out of bounds
      */
     public Task unmark(int listIndex) throws IndexOutOfBoundsException {
@@ -59,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the tasks as an Iterator to prevent modification. Meant to be only used by Storage to save this data
+     * Returns the tasks as an Iterator to prevent modification. Meant to be only used by lindi.storage.Storage to save this data
      */
     public Iterator<Task> getTasks() {
         return this.tasks.iterator();

@@ -1,3 +1,8 @@
+package lindi.commands;
+
+import lindi.storage.Storage;
+import lindi.task.TaskList;
+
 /**
  * Represents an invalid command that has no effect
  */

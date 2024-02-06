@@ -1,4 +1,5 @@
-import java.util.Objects;
+package lindi.task;
+
 import java.time.format.DateTimeFormatter;
 
 public abstract class Task { // Adapted from Course Website
@@ -62,10 +63,10 @@ public abstract class Task { // Adapted from Course Website
     }
 
     /**
-     * Returns a new Task created from the parsedString taken from the saved data file.
+     * Returns a new lindi.task.Task created from the parsedString taken from the saved data file.
      *
      * @param parsedString string from data file
-     * @return a subclass of Task (ToDo, Event, Deadline)
+     * @return a subclass of lindi.task.Task (lindi.task.ToDo, lindi.task.Event, lindi.task.Deadline)
      * @throws CreateTaskException if save file corrupted or edited such that format is not what is expected
      */
     public static Task createFromParsedString(String parsedString) throws CreateTaskException {
@@ -96,7 +97,7 @@ public abstract class Task { // Adapted from Course Website
         String commandString = String.format("%s %s", taskType, taskDescription);
         Task newTask;
 
-        // Create the new task using the user input string constructor
+        // Create the new lindi.task using the user input string constructor
         if (taskType.equals("todo") && parsedTokens.length == 3) {
             newTask = Task.create(commandString);
         } else if (taskType.equals("deadline") && parsedTokens.length == 4) {
@@ -104,10 +105,10 @@ public abstract class Task { // Adapted from Course Website
         } else if (taskType.equals("event") && parsedTokens.length == 5) {
             newTask = Task.create(commandString + String.format("/from %s /to %s", parsedTokens[3], parsedTokens[4]));
         } else {
-            throw new CreateTaskException("Task type and token count not matched. File corrupted.");
+            throw new CreateTaskException("lindi.task.Task type and token count not matched. File corrupted.");
         }
 
-        // Finally mark if task is done or not
+        // Finally mark if lindi.task is done or not
         if (taskIsDone) {
             assert newTask != null;
             newTask.markDone();

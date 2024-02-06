@@ -1,4 +1,9 @@
+package lindi.ui;
+
 import java.util.Scanner;
+
+import lindi.commands.Command;
+
 /**
  * Text based UI of the application. Deals with interactions with the user
  */

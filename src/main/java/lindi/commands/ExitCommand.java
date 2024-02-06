@@ -1,3 +1,8 @@
+package lindi.commands;
+
+import lindi.storage.Storage;
+import lindi.task.TaskList;
+
 /**
  * Represents a command that exits the program upon execution
  */

@@ -1,11 +1,18 @@
+package lindi.storage;
+
+import java.util.Scanner;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+
+import lindi.task.CreateTaskException;
+import lindi.task.Task;
+import lindi.task.TaskList;
 
 /**
- * Represents the storage unit for the application. Deals with loading tasks from the file and saving tasks in the file.
+ * Represents the lindi.storage unit for the application. Deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
     private FileWriter fileWriter;
@@ -14,7 +21,7 @@ public class Storage {
     String dataDir;
     String dataFileName;
     /**
-     * Initialises Storage to load data from and save data to a file. Creates
+     * Initialises lindi.storage.Storage to load data from and save data to a file. Creates
      * the required directories and files if necessary.
      *
      * @param dataDir directory to store the data file
@@ -27,12 +34,12 @@ public class Storage {
     }
 
     /**
-     * Saves the  task list to the designated text file for storing data for the program.
+     * Saves the  lindi.task list to the designated text file for storing data for the program.
      * Creates one if it does not exist yet.
      *
-     * @param tasks Task list to save to file
+     * @param tasks lindi.task.Task list to save to file
      */
-    void saveToFile(TaskList tasks) {
+    public void saveToFile(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         // Loops through taskList, appends them to string with the specified format
         tasks.getTasks().forEachRemaining(
@@ -63,7 +70,7 @@ public class Storage {
      *
      * @throws FileNotFoundException if data file not exist at file path
      */
-    TaskList loadFromFile() throws StorageLoadException {
+    public TaskList loadFromFile() throws StorageLoadException {
         try {
             this.fileScanner = new Scanner(new File(dataDir, dataFileName));
             TaskList tasksToReturn = new TaskList();
