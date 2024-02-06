@@ -10,9 +10,9 @@ public class MarkAction implements Action{
     }
     @Override
     public void execute() throws IndexOutOfBoundsException {
-        DataHandler.instance.markTask(index);
-        Task task = DataHandler.instance.getTask(index);
-        PrintHandler.instance.printWithDivider("Fine. I've marked this as completed:\n" +
+        DataHandler.markTask(index);
+        Task task = DataHandler.getTask(index);
+        PrintHandler.printWithDivider("Fine. I've marked this as completed:\n" +
                 "   " + task);
     }
 }

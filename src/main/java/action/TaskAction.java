@@ -14,9 +14,9 @@ public class TaskAction implements Action{
 
     @Override
     public void execute() {
-        DataHandler.instance.handleData(task);
-        int noOfTasks = DataHandler.instance.size();
-        PrintHandler.instance.printWithDivider("Ok.. I've added this task to your list:\n" +
+        DataHandler.handleData(task);
+        int noOfTasks = DataHandler.size();
+        PrintHandler.printWithDivider("Ok.. I've added this task to your list:\n" +
                 "   " + task.toString() + "\n" +
                 "Now you have " + noOfTasks + " tasks.");
     }

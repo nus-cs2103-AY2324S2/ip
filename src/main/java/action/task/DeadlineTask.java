@@ -2,6 +2,9 @@ package action.task;
 
 public class DeadlineTask extends Task{
     private String by;
+    public String getBy() {
+        return by;
+    }
     public DeadlineTask(String taskName, String by) {
         super(taskName);
         this.by = by;

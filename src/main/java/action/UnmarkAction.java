@@ -11,9 +11,9 @@ public class UnmarkAction implements Action{
     }
     @Override
     public void execute() throws IndexOutOfBoundsException {
-        DataHandler.instance.unmarkTask(index);
-        Task task = DataHandler.instance.getTask(index);
-        PrintHandler.instance.printWithDivider("Fine. I've marked this as uncompleted:\n" +
+        DataHandler.unmarkTask(index);
+        Task task = DataHandler.getTask(index);
+        PrintHandler.printWithDivider("Fine. I've marked this as uncompleted:\n" +
                 "   " + task);
     }
 }
