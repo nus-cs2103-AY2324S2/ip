@@ -10,7 +10,7 @@ public class ToDo extends Task {
 
     public String toSave() {
         // need to store status as well
-        return "T - " + super.toSave();
+        return "T | " + super.toSave();
     }
 
     @Override
