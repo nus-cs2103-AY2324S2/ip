@@ -44,7 +44,7 @@ public class Parser {
                 break;
             }
             case "todo": {
-                addSuccessful = taskList.addTodo(words, !reading, isDone);
+                addSuccessful = taskList.addToDo(words, !reading, isDone);
                 break;
             }
             case "deadline": {

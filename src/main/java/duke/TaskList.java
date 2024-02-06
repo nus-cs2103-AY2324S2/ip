@@ -34,7 +34,7 @@ public class TaskList {
         return str.toString();
     }
 
-    public boolean addTodo(String[] words, boolean announce, boolean isDone) {
+    public boolean addToDo(String[] words, boolean announce, boolean isDone) {
         boolean successful = false;
         int length = words.length;
         int wordsIndex = 1;
