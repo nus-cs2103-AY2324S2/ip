@@ -1,21 +1,39 @@
 package duke;
 
+/**
+ * The task class contains the functions to add,remove,find and mark tasks
+ * @author Tejas
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a task given a description
+     * @param description name of task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Marks ('X') tasks that are completed
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Unmarks completed tasks
+     */
     public void unmark() {
         this.isDone = false;
     }
+
+    /**
+     * Return X if task is completed
+     */
 
     public String getStatusIcon() {
         return (isDone? "X" : " ");
@@ -28,6 +46,12 @@ public class Task {
     public String printWithStatus() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    /**
+     * Parses task given command
+     * @param taskString user command
+     * @return New task
+     */
 
     public static Task parser(String taskString) {
         String str = taskString.substring(1,2);

@@ -3,6 +3,9 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Deadline task
+ */
 public class Deadline extends Task{
     protected String by = "";
     private LocalDate date;
@@ -17,6 +20,10 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    /**
+     * Converts date to type String
+     * @return String task format
+     */
     public String toString() {
         if (by.equals("")) {
             return "[D]" + super.printWithStatus() + " (by: " +

@@ -8,10 +8,18 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.time.LocalDate;
 
+/**
+ * Main chatbot program
+ */
+
 public class Duke {
     private static final String FILE_PATH = "data/duke.txt";
     private Ui ui;
     List<Task> list;
+
+    /**
+     * Constructs an instance of Duke
+     */
 
     public Duke() {
         ui = new Ui();
@@ -22,6 +30,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Runs Chatbot
+     * @throws DukeException
+     */
     private void run() throws DukeException{
 
         Ui Ui = new Ui();
@@ -42,8 +54,6 @@ public class Duke {
         } catch (IOException e) {
             System.out.println("Error " + e.getMessage());
         }
-
-        //List<duke.Task> list = new ArrayList<>();
 
         try {
             list = retrieveData(f);
@@ -91,8 +101,6 @@ public class Duke {
                 }
                 InputHandler handler = new InputHandler();
                 String[] data = comd.split("/");
-                //System.out.println("this is the input: " + data[1].substring(3));
-                //System.out.println("next " + data[2]);
 
                 LocalDate deadlineDate = handler.formatDeadline(data);
 

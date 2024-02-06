@@ -1,4 +1,8 @@
 package duke;
+
+/**
+ * Handles Chatbot UI
+ */
 public class Ui {
     public void greet() {
         System.out.println();

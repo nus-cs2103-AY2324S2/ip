@@ -1,6 +1,10 @@
 package duke;
 
 import java.time.LocalDate;
+
+/**
+ * Handles String input and returns as a LocalDate
+ */
 public class InputHandler {
     public LocalDate formatDeadline(String[] data) throws ArrayIndexOutOfBoundsException{
 
@@ -17,11 +21,7 @@ public class InputHandler {
             System.out.println("Please enter valid date format for deadline: dd/mm/yyyy");
         }
 
-
-
-
         String deadline = data[3] + "-" + data[2] + "-" + data[1];
-
         return LocalDate.parse(deadline);
     }
 }
