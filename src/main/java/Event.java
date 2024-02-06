@@ -22,7 +22,7 @@ public class Event implements Item{
     @Override
     public String toString(){
         return "[E]" + this.status + " " + this.name + " (from: " + this.from + " to: " + this.to + ")";
-    };
+    }
     public void mark() {
         this.status = "[X]";
     }

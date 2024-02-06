@@ -7,9 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 public class Rick {
     public static ArrayList<Item> list = new ArrayList<>();
-<<<<<<< HEAD
-
-=======
     public static Path directoryPath = Paths.get("./data");
     public static Path filePath = Paths.get("./data/rick.txt");
     public static void loadFile() throws RickException {
@@ -59,7 +56,6 @@ public class Rick {
         }
     }
     //TODO implement 'clear local data'
->>>>>>> branch-Level-7
     public static void main(String[] args) {
         try {
             loadFile();
@@ -172,15 +168,10 @@ public class Rick {
                 int i = arg.indexOf("/from ");
                 int j = arg.indexOf("/to ");
                 String name = arg.substring(6, i-1);
-<<<<<<< HEAD
-                String from = i < j ? arg.substring(i + 6, j-1) : arg.substring(i + 6);
-                String to = i < j ? arg.substring(j + 4) : arg.substring(j + 4, i - 1);
-                new_item = new Event(name, from, to);
-=======
+
                 String from = arg.substring(i + 6, j-1);
                 String to = arg.substring(j + 4);
                 new_item = new Event(name, "[ ]", from, to);
->>>>>>> branch-Level-7
                 list.add(new_item);
             } else {
                 throw new RickException("It seems that you are missing the space in your instruction. Homesick alien?");
