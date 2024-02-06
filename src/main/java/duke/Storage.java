@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Used by the TaskList class, and handles reading, writing and deleting from lines in the file
+ * Used by the TaskList class, and handles reading, writing and deleting from lines in the file.
  */
 public class Storage {
 
     private String filepath;
 
     /**
-     * Carries out operations like reading and writing to a specified database file
+     * Carries out operations like reading and writing to a specified database file.
      * @param filepath
      */
     public Storage(String filepath) {
@@ -32,7 +32,7 @@ public class Storage {
     }
 
     /**
-     * Reads all lines of the file into a List of strings
+     * Reads all lines of the file into a List of strings.
      *
      * @return List/<String/> that contains all lines of the file
      */
@@ -46,8 +46,8 @@ public class Storage {
     }
 
     /**
-     * Given a list of strings, writes to a file
-     * @param stringTaskList that is a list of tasks in their string database representation
+     * Given a list of strings, writes to a file.
+     * @param {@code stringTaskList} that is a list of tasks in their string database representation
      */
     public void writeLinesToFile(List<String> stringTaskList) {
         try {
@@ -67,7 +67,7 @@ public class Storage {
     }
 
     /**
-     * Returns a List of strings of tasks in db representation
+     * Returns a List of strings of tasks in db representation.
      * @return List/<String/> of tasks in db representation
      */
     public List<String> load() {
@@ -76,7 +76,7 @@ public class Storage {
     }
 
     /**
-     * Deletes the contents of the file
+     * Deletes the contents of the database file.
      */
     public void clearFile() {
         try {

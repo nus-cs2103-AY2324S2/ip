@@ -1,12 +1,12 @@
 package duke;
 
 /**
- * Task that has a description only
+ * Task that has a description only.
  */
 public class Todo extends Task {
 
     /**
-     * Default constructor, isDone set to false
+     * Default constructor, isDone set to false.
      * @param description of Todo
      */
     public Todo(String description) {
@@ -36,7 +36,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the a Todo Task to the database representation of Todo
+     * Converts the a Todo Task to the database representation of Todo.
      * @param todoTask is the todo Task object
      * @return Task the string rep of Todo in the database
      */

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains a list of Task objects, and handles operations like getting, updating and deleting them
+ * Contains a list of Task objects, and handles operations like getting, updating and deleting them.
  */
 public class TaskList {
     public ArrayList<Task> taskList;
@@ -23,7 +23,7 @@ public class TaskList {
     }
 
     /**
-     * Initialises the TaskList, given a list of strings of tasks in their database representations
+     * Initialises the TaskList, given a list of strings of tasks in their database representations.
      */
     public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException {
         this.taskList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * Gives users a way to find a task by searching for a keyword
+     * Gives users a way to find a task by searching for a keyword.
      * @param keyword to search for in description, is case-sensitive
      */
     public void findTasks(String keyword) {
@@ -49,7 +49,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the current taskList
+     * Adds a task to the current taskList.
      *
      * @param task to be added
      */
@@ -59,7 +59,7 @@ public class TaskList {
     }
 
     /**
-     * Gets a task from the current taskList
+     * Gets a task from the current taskList.
      *
      * @param index of task to get
      */
@@ -73,7 +73,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the duke.TaskList, given its index
+     * Deletes a task from the duke.TaskList, given its index.
      *
      * @param index of task to delete
      */
@@ -86,7 +86,7 @@ public class TaskList {
     }
 
     /**
-     * markTask marks a task as completed by line number
+     * markTask marks a task as completed by line number.
      *
      * @param index of task to mark
      */
@@ -100,7 +100,7 @@ public class TaskList {
     }
 
     /**
-     * unmarkTask unmarks a task as completed by line number
+     * unmarkTask unmarks a task as completed by line number.
      *
      * @param index of the task to unmark
      */
@@ -114,7 +114,7 @@ public class TaskList {
     }
 
     /**
-     * Prints out the contents of the tasklist
+     * Prints out the contents of the tasklist.
      */
     public void printTasks() {
         for (int i = 0; i < this.taskList.size(); i++) {
@@ -123,7 +123,7 @@ public class TaskList {
     }
 
     /**
-     * Gets number of tasks
+     * Gets number of tasks.
      * @return int number of tasks
      */
     public int size() {
@@ -131,10 +131,10 @@ public class TaskList {
     }
 
     /**
-     * Converts the database representation of a duke.Task to the duke.Task object
+     * Converts the database representation of a Task to the Task object.
      *
      * @param dbTask the string rep of the duke.Task in the database
-     * @return duke.Task the duke.Task object
+     * @return Task the duke.Task object
      */
     public static Task db2Task(String dbTask) throws DukeException.UnknownCommandException {
         String[] params = dbTask.split(" \\| ");
@@ -156,9 +156,9 @@ public class TaskList {
     }
 
     /**
-     * Converts a duke.Task to their database representation
+     * Converts a Task to their database representation.
      *
-     * @param task the duke.Task object
+     * @param task the Task object
      * @return String the string rep of duke.Task in the database
      */
     public static String task2Db(Task task) {

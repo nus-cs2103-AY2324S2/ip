@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Constructs Exceptions that are specific to the Duke bot
+ * Constructs Exceptions that are specific to the Duke bot.
  */
 public class DukeException extends Exception {
     // unknown command
@@ -14,7 +14,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when an unknown command is given to the bot
+     * An Exception for when an unknown command is given to the bot.
      */
     public static class UnknownCommandException extends DukeException {
         public UnknownCommandException() {
@@ -23,7 +23,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when the arguments given to the find command are invalid
+     * An Exception for when the arguments given to the find command are invalid.
      */
     public static class FindParamsException extends DukeException {
         public FindParamsException() {
@@ -32,7 +32,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when the arguments given to the mark command are invalid
+     * An Exception for when the arguments given to the mark command are invalid.
      */
     public static class MarkParamsException extends DukeException {
         public MarkParamsException() {
@@ -41,7 +41,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when the arguments given to the delete command are invalid
+     * An Exception for when the arguments given to the delete command are invalid.
      */
     public static class DeleteParamsException extends DukeException {
         public DeleteParamsException() {
@@ -50,7 +50,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when the arguments given to the todo command are invalid or missing
+     * An Exception for when the arguments given to the todo command are invalid or missing.
      */
     public static class TodoDescriptionMissingException extends DukeException {
         public TodoDescriptionMissingException() {
@@ -59,7 +59,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when the arguments given to the event command are invalid or missing
+     * An Exception for when the arguments given to the event command are invalid or missing.
      */
     public static class EventDetailsMissingException extends DukeException {
         public EventDetailsMissingException() {
@@ -68,7 +68,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for when the arguments given to the deadline command are invalid or missing
+     * An Exception for when the arguments given to the deadline command are invalid or missing.
      */
     public static class DeadlineDetailsMissingException extends DukeException {
         public DeadlineDetailsMissingException() {
@@ -77,7 +77,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * An Exception for getTask where index is wrong, or the entry is not of type T, E, D
+     * An Exception for getTask where index is wrong, or the entry is not of type T, E, D.
      */
     public static class TaskNotFoundException extends DukeException {
         public TaskNotFoundException() {

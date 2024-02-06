@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
- * Takes in and processes user input according to the available bot commands
+ * Takes in and processes user input according to the available bot command.
  */
 public class Parser {
     private TaskList myTasks;
@@ -14,13 +14,12 @@ public class Parser {
     }
 
     /**
-     * Processes a single command
+     * Processes a single command.
+     *
      * @param command taken in by scanner
      * @return boolean that denotes whether to continue processing
      */
     public boolean processCmd(String command) {
-        String border = "____________________________________________________________";
-
         try {
             String cmd = command.split(" ")[0];
             String params = command.substring(cmd.length()).trim();
@@ -143,7 +142,6 @@ public class Parser {
             System.out.println(e);
             System.out.println("An unexpected error occurred.");
         }
-//        System.out.println(border);
         return true;
     }
 }

@@ -3,14 +3,14 @@ package duke;
 import java.time.LocalDateTime;
 
 /**
- * Deadline is a type of task with a by field that denotes by when it has to be completed
+ * Deadline is a type of task with a by field that denotes by when it has to be completed.
  */
 public class Deadline extends Task {
 
     protected String by;
 
     /**
-     * Default constructor, isDone set to false
+     * Default constructor, isDone set to false.
      *
      * @param description of Deadline
      * @param by is the end of the deadline
@@ -21,8 +21,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overloaded constructor, isDone can be set
-     * @param description of duke.Deadline
+     * Overloaded constructor, isDone can be set.
+     *
+     * @param description of Deadline
      * @param isDone sets the completion status of Deadline
      * @param by is the end of the deadline
      */
@@ -32,8 +33,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overloaded constructor
-     * @param description of duke.Deadline
+     * Overloaded constructor.
+     *
+     * @param description of Deadline
      * @param by is the end of the deadline
      */
     public Deadline(String description, LocalDateTime by) {
@@ -47,9 +49,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the database representation of Deadline to a Deadline Task
+     * Converts the database representation of Deadline to a Deadline Task.
      *
-     * @param dbDeadline the string rep of Deadline in the database
+     * @param dbDeadline the string rep of Deadline in the database.
      * @return Task the Deadline Task object
      */
     public static Deadline db2Deadline(String dbDeadline) {
@@ -62,7 +64,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts a Deadline Task to the database representation of Deadline
+     * Converts a Deadline Task to the database representation of Deadline.
      *
      * @param deadlineTask the Deadline Task object
      * @return Task the string rep of Deadline in the database

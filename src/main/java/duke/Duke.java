@@ -34,8 +34,7 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Given a user input string, invokes the parser and returns the output in the UI.
      */
     String getResponse(String input) {
         // Create a StringBuilder to hold the output
@@ -69,7 +68,7 @@ public class Duke {
     }
 
     /**
-     * Saves the current tasklist to the hard drive
+     * Saves the current tasklist to the hard drive.
      */
     private void save() {
         List<String> lines = new ArrayList<>();
@@ -81,7 +80,7 @@ public class Duke {
     }
 
     /**
-     * Starts up the bot and sets up the Parser and UI
+     * Starts up the bot and sets up the Parser and UI.
      */
     public void run() {
         String greeting = "____________________________________________________________\n"

@@ -3,7 +3,7 @@ package duke;
 import java.time.LocalDateTime;
 
 /**
- * Event class represents a task with a time range
+ * Event class represents a task with a time range.
  */
 public class Event extends Task {
 
@@ -11,7 +11,8 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Default constructor, isDone set to false
+     * Default constructor, isDone set to false.
+     *
      * @param description of Event
      * @param from is the start time of event
      * @param to is the end time of event
@@ -23,7 +24,8 @@ public class Event extends Task {
     }
 
     /**
-     * Overloaded constructor, isDone can be set
+     * Overloaded constructor, isDone can be set.
+     *
      * @param description of Event
      * @param isDone completion status of Event
      * @param from is the start time of event
@@ -36,7 +38,8 @@ public class Event extends Task {
     }
 
     /**
-     * Overloaded constructor
+     * Overloaded constructor.
+     *
      * @param description of Event
      * @param from is the start time of event
      * @param to is the end time of event
@@ -53,7 +56,8 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the database representation of Event to a Event Task
+     * Converts the database representation of Event to a Event Task.
+     *
      * @param dbEvent the string rep of Event in the database
      * @return Task the Event Task object
      */
@@ -68,7 +72,8 @@ public class Event extends Task {
     }
 
     /**
-     * Converts a Event Task to the database representation of Event
+     * Converts a Event Task to the database representation of Event.
+     *
      * @param eventTask the Event Task object
      * @return Task the string rep of Event in the database
      */

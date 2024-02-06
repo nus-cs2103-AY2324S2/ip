@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Dates class handles validation and formatting of strings in input and database format
+ * Dates class handles validation and formatting of strings in input and database format.
  */
 public class Dates {
     // Looks for pattern "dd/MM/yyyy HHmm", used for input purposes
@@ -27,10 +27,10 @@ public class Dates {
     static final DateTimeFormatter DATE_DB_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
 
     /**
-     * Validates an input string and returns true if it matches
+     * Validates an input string and returns true if it matches.
      *
-     * @param date is the date in "dd/MM/yyyy HHmm" format
-     * @return boolean if it matches
+     * @param date is the date in "dd/MM/yyyy HHmm" format.
+     * @return boolean if it matches.
      */
     public static boolean isValidInputDate(String date) {
         Matcher matcher = Dates.DATE_INPUT_PATTERN.matcher(date);
@@ -38,10 +38,10 @@ public class Dates {
     }
 
     /**
-     * Checks that the db string date matches the db date pattern
+     * Checks that the db string date matches the db date pattern.
      *
-     * @param date is the date in "dd Month yyyy HH:mm" format
-     * @return True if the date String matches the pattern
+     * @param date is the date in "dd Month yyyy HH:mm" format.
+     * @return True if the date String matches the pattern.
      */
     public static boolean isValidDbDate(String date) {
         Matcher matcher = DATE_DB_PATTERN.matcher(date);
@@ -49,10 +49,10 @@ public class Dates {
     }
 
     /**
-     * Creates a datetime object, using the input string formatter
+     * Creates a datetime object, using the input string formatter.
      *
-     * @param date which is a string that has a valid input pattern
-     * @return LocalDateTime class based on the date String
+     * @param date which is a string that has a valid input pattern.
+     * @return LocalDateTime class based on the date String.
      */
     public static LocalDateTime inputStr2DateTime(String date) {
         try {
@@ -64,10 +64,10 @@ public class Dates {
     }
 
     /**
-     * Creates a datetime object, using the db string formatter
+     * Creates a datetime object, using the db string formatter.
      *
-     * @param date which is a string that has a valid db pattern
-     * @return LocalDateTime class based on the date String
+     * @param date which is a string that has a valid db pattern.
+     * @return LocalDateTime class based on the date String.
      */
     public static LocalDateTime dbStr2DateTime(String date) {
         try {
@@ -79,10 +79,10 @@ public class Dates {
     }
 
     /**
-     * Converts a datetime object to its database string representation
+     * Converts a datetime object to its database string representation.
      *
      * @param datetime object
-     * @return String representation for database dates
+     * @return String representation for database dates.
      */
     public static String dateTime2DbStr(LocalDateTime datetime) {
         try {

@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Task class contains a description, and a boolean marking its status of completion
+ * Task class contains a description, and a boolean marking its status of completion.
  */
 public class Task {
     protected String description;
@@ -17,9 +17,9 @@ public class Task {
     }
 
     /**
-     * Overloaded Task constructor
+     * Class constructor specifying completion status
      * @param description of the task
-     * @param Boolean denoting task completion status
+     * @param isDone denoting task completion status
      */
     public Task(String description, Boolean isDone) {
         this.description = description;
@@ -27,7 +27,7 @@ public class Task {
     }
 
     /**
-     * Gets status icon denoting task completion
+     * Gets status icon denoting task completion.
      * @return String "X" if complete, else ""
      */
     public String getStatusIcon() {
@@ -35,14 +35,14 @@ public class Task {
     }
 
     /**
-     * Marks task as complete
+     * Marks task as complete.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks task as incomplete
+     * Marks task as incomplete.
      */
     public void unmarkAsDone() {
         this.isDone = false;

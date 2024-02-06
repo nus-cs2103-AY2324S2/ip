@@ -1,6 +1,4 @@
-T | 1 | return book
 D | 1 | return book | Sunday
-D | 0 | do homework | no idea :-p
+T | 1 | hi
 T | 0 | hi
-T | 0 | hi
-T | 0 | hi
+E | 1 | long project meeting  | 01 May 2000 00:01 | 01 May 2020 10:00
