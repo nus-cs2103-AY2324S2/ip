@@ -18,6 +18,4 @@ public class Event extends Task {
     public String toString() {
         return "E | " + (isComplete ? 1 : 0) + " | " + description + " | " + from + " to " + to;
     }
-
-
 }
