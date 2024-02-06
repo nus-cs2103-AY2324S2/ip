@@ -1,3 +1,5 @@
+package Martin;
+
 public class Event extends Task {
     private String from;
     private String to;
@@ -15,6 +17,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.from + " | " + this.to;
+        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.from + " | "
+                + this.to;
     }
 }

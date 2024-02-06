@@ -1,3 +1,5 @@
+package Martin;
+
 public class Parser {
     public Parser() {
     }
@@ -31,7 +33,7 @@ public class Parser {
         String[] deadlineArray = input.split(" /by ");
         String deadlineDescription = deadlineArray[0];
 
-        return new String[]{deadlineDescription, deadlineArray[1]};
+        return new String[] { deadlineDescription, deadlineArray[1] };
     }
 
     public String[] eventParse(String input) {
@@ -40,8 +42,8 @@ public class Parser {
         String[] eventTime = eventArray[1].split("-");
         String startTime = eventTime[0];
         String endTime = eventTime[1];
-    
-        return new String[]{eventDescription, startTime, endTime};
+
+        return new String[] { eventDescription, startTime, endTime };
     }
 
     public String getRemainingWords(String input) {

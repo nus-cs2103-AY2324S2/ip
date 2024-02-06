@@ -1,7 +1,9 @@
+package Martin;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate due;
     private final String DATE_TIME_FORMAT = "MMM d yyyy";
 
@@ -12,7 +14,8 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.due.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)) + ")";
+        return "[D]" + super.toString() + " (by: " + this.due.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))
+                + ")";
     }
 
     @Override

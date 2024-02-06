@@ -1,3 +1,5 @@
+package Martin;
+
 public abstract class Task {
     private String description;
     private boolean isDone;
@@ -6,7 +8,7 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
-    
+
     public String getDescription() {
         return this.description;
     }
@@ -24,7 +26,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (this.isDone ? "\u2713" : " "); //return tick or X symbols
+        return (this.isDone ? "\u2713" : " "); // return tick or X symbols
     }
 
     @Override

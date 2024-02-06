@@ -1,3 +1,5 @@
+package Martin;
+
 public class Ui {
     public Ui() {
 
