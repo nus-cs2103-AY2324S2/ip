@@ -15,6 +15,12 @@ public class Main extends Application {
 
     private Belle duke = new Belle("src/main/data/belleList.txt");
 
+
+    /**
+     * Initiates application.
+     *
+     * @param stage Stage for application.
+     */
     @Override
     public void start(Stage stage) {
         try {
