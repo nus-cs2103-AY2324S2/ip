@@ -15,9 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * A custom control using FXML.
+ * This control represents a dialog box consisting of an ImageView to represent
+ * the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
     }
