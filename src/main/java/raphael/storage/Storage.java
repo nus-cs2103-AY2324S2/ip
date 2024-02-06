@@ -1,25 +1,32 @@
 package raphael.storage;
 
-import raphael.exception.RaphaelException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import raphael.exception.RaphaelException;
 
 /**
  * Handles task file I/O.
  */
 public class Storage {
     private final Path filePath;
+
+    /**
+     * The constructor of the file I/O object.
+     *
+     * @param filePath the path to the task file.
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
         try {
             Files.createDirectories(this.filePath.getParent());
             Files.createFile(this.filePath);
         } catch (IOException e) {
-//            throw new DukeException(DukeException.CONNECT_FILE_EXCEPTION);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -34,13 +41,13 @@ public class Storage {
             BufferedReader br = Files.newBufferedReader(this.filePath);
             String line;
             StringBuilder tasks = new StringBuilder();
-            while((line = br.readLine()) != null && !line.equals("\n")) {
+            while ((line = br.readLine()) != null && !line.equals("\n")) {
                 tasks.append(line).append("\n");
             }
             br.close();
             return tasks.toString();
         } catch (IOException e) {
-            throw new RaphaelException(RaphaelException.TYPE.READ_IO_EXCEPTION);
+            throw new RaphaelException(RaphaelException.Type.READ_IO_EXCEPTION);
         }
     }
 
@@ -56,7 +63,7 @@ public class Storage {
             bw.write(content);
             bw.close();
         } catch (IOException e) {
-            throw new RaphaelException(RaphaelException.TYPE.WRITE_IO_EXCEPTION);
+            throw new RaphaelException(RaphaelException.Type.WRITE_IO_EXCEPTION);
         }
     }
 }
