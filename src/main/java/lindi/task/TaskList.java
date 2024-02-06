@@ -61,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the tasks as an Iterator to prevent modification. Meant to be only used by lindi.storage.Storage to save this data
+     * Returns the tasks as an Iterator to prevent modification.
      */
     public Iterator<Task> getTasks() {
         return this.tasks.iterator();

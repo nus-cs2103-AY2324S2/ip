@@ -12,7 +12,7 @@ public class CreateTaskCommand extends Command {
     private final String commandString;
 
     /**
-     * Creates command to create lindi.task.Task with the arguments supplied by the user
+     * Creates command to create a task with the arguments supplied by the user
      *
      * @param commandString user input string
      */
@@ -22,8 +22,8 @@ public class CreateTaskCommand extends Command {
 
     /**
      * {@inheritDoc}
-     *
-     * Creates lindi.task relying on lindi.task.Task class factory method, adds it to lindi.task list.
+     * <p>
+     * Creates task relying on lindi.task.Task class factory method, adds it to task list.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {

@@ -12,6 +12,9 @@ public class ExitCommand extends Command {
         this.statusMsg = "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Returns true. Will exit main program loop.
+     */
     @Override
     public boolean isExit() {
         return true;

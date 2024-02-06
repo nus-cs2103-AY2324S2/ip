@@ -12,7 +12,7 @@ import lindi.task.Task;
 import lindi.task.TaskList;
 
 /**
- * Represents the lindi.storage unit for the application. Deals with loading tasks from the file and saving tasks in the file.
+ * Represents the storage unit for the application. Deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
     private FileWriter fileWriter;
@@ -21,7 +21,7 @@ public class Storage {
     String dataDir;
     String dataFileName;
     /**
-     * Initialises lindi.storage.Storage to load data from and save data to a file. Creates
+     * Initialises Storage to load data from and save data to a file. Creates
      * the required directories and files if necessary.
      *
      * @param dataDir directory to store the data file
@@ -34,10 +34,10 @@ public class Storage {
     }
 
     /**
-     * Saves the  lindi.task list to the designated text file for storing data for the program.
+     * Saves the task list to the designated text file for storing data for the program.
      * Creates one if it does not exist yet.
      *
-     * @param tasks lindi.task.Task list to save to file
+     * @param tasks task list to save to file
      */
     public void saveToFile(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
