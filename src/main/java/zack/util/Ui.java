@@ -1,12 +1,12 @@
 package zack.util;
 
-import zack.ZackException;
-import zack.tasks.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import zack.ZackException;
+import zack.tasks.Task;
 
 /**
  * Handles user interaction and displays messages to the user.
@@ -166,6 +166,18 @@ public class Ui {
         System.err.println("Error: " + e.getMessage()); // Display the exception message
     }
 
+    /**
+     * Displays a list of tasks that have been found based on a search operation.
+     *
+     * This method is used to display a list of tasks that match a search criteria
+     * in the specified TaskList. If no matching tasks are found, it prints a message
+     * indicating that no tasks were found. If matching tasks are found, it prints a
+     * numbered list of those tasks with their details.
+     *
+     * @param foundTasks The TaskList containing the matching tasks to display.
+     * @throws ZackException If there is an error or exception while displaying
+     *                      the found tasks.
+     */
     public void showFoundTasks(TaskList foundTasks) throws ZackException {
         if (foundTasks.getSize() == 0) {
             System.out.println("No matching tasks in your list!");

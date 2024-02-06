@@ -1,5 +1,8 @@
 package zack.commands;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import zack.ZackException;
 import zack.tasks.Deadline;
 import zack.tasks.Event;
@@ -7,9 +10,6 @@ import zack.tasks.Task;
 import zack.util.Storage;
 import zack.util.TaskList;
 import zack.util.Ui;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Command class responsible for displaying tasks specific to a given date.

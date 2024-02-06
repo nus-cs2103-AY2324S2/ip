@@ -1,12 +1,11 @@
 package zack.commands;
 
-import zack.Zack;
+import java.io.IOException;
+
 import zack.ZackException;
 import zack.util.Storage;
 import zack.util.TaskList;
 import zack.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents an abstract command that can be executed.
