@@ -1,8 +1,5 @@
 package duke;
 
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
-
 /**
  * Represents a task in the task list.
  */
