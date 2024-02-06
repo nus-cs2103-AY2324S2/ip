@@ -6,8 +6,18 @@ import duke.ChatSession;
 import duke.Pair;
 import duke.SubcommandParser;
 
+/**
+ * EventCommand class to handle the execution of event command
+ */
 public class EventCommand implements NamedCommand {
     public String getName() { return "event"; }
+
+    /**
+     * Adds an event task to the task list
+     * 
+     * @param session Chat session
+     * @param commandArgs Command arguments
+     */
     public void execute(ChatSession session, String commandArgs) {
         Pair<String, List<Pair<String, String>>> data = SubcommandParser.parseSubcommands(commandArgs, "/");
         String name = data.getFirst();

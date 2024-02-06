@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import duke.exceptions.FileCorruptionException;
 
+/**
+ * GoldBot class to handle main bot operations
+ */
 public class GoldBot {
     public static void main(String[] args) {
         System.out.println("test");
