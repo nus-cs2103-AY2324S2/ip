@@ -14,9 +14,9 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
-    public String toSave() {
+    public String toStore() {
         // need to store status as well
-        return "D | " + super.toSave() + " | " + by;
+        return "D | " + super.toStore() + " | " + by;
     }
 
     @Override
