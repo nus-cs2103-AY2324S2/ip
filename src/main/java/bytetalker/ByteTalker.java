@@ -1,10 +1,21 @@
+package bytetalker;
+
+import bytetalker.task.Task;
+import bytetalker.task.Todo;
+import bytetalker.task.Deadline;
+import bytetalker.task.Event;
+import bytetalker.task.TaskList;
+import bytetalker.ui.Ui;
+import bytetalker.storage.Storage;
+import bytetalker.parser.Parser;
+import bytetalker.exception.ByteTalkerException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ByteTalker {
     private TaskList tasks;
     private Storage storage;
-    //private TaskList tasks;
     private Ui ui;
     boolean isExit = false;
 
@@ -77,7 +88,7 @@ public class ByteTalker {
     public Todo addTodo(String[] splitMessage) {
         try {
             if (splitMessage.length == 1) {
-                throw new ByteTalkerException.TodoNoTaskException("No Task");
+                throw new ByteTalkerException.TodoNoTaskException("No bytetalker.task.Task");
             }
             String content = " ";
             for (int i = 1; i < splitMessage.length; i++) {
@@ -163,6 +174,6 @@ public class ByteTalker {
     }
 
     public static void main(String[] args) {
-        new ByteTalker("./data/ByteTalker.txt").run();
+        new ByteTalker("./data/bytetalker.ByteTalker.txt").run();
     }
 }

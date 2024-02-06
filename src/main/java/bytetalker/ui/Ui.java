@@ -1,10 +1,14 @@
+package bytetalker.ui;
+
+import bytetalker.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     public void showWelcome() {
         System.out.println("    -----------------------------------");
-        System.out.println("    Hello! I'm ByteTalker");
+        System.out.println("    Hello! I'm bytetalker.ByteTalker");
         System.out.println("    What can I do for you?");
         System.out.println("    Supported tasks are todo, deadline, and event");
         System.out.println("    todo {task}");

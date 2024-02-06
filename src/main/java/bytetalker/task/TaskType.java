@@ -1,3 +1,5 @@
+package bytetalker.task;
+
 public enum TaskType {
     TODO("T") {
     },

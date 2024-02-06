@@ -1,3 +1,5 @@
+package bytetalker.task;
+
 public abstract class Task {
     private String task;
     private boolean isDone;

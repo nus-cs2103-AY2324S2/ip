@@ -1,8 +1,10 @@
+package bytetalker.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 

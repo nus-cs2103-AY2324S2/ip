@@ -1,3 +1,5 @@
+package bytetalker.exception;
+
 public class ByteTalkerException {
     public static class TodoNoTaskException extends Exception {
         public TodoNoTaskException(String errorMessage) {
