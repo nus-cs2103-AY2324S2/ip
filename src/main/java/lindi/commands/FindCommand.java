@@ -30,6 +30,8 @@ public class FindCommand extends Command {
                     }
                 }
         );
-        this.statusMsg = tasksToDisplay.toString();
+        this.statusMsg = tasksToDisplay.size() == 0
+                ? "There are no tasks containing that search key!" // Replaces default no tasks message in TaskList
+                : tasksToDisplay.toString();
     }
 }

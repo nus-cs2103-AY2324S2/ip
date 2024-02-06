@@ -1,13 +1,6 @@
 package lindi.parser;
 
-import lindi.commands.Command;
-import lindi.commands.CreateTaskCommand;
-import lindi.commands.DeleteCommand;
-import lindi.commands.ExitCommand;
-import lindi.commands.InvalidCommand;
-import lindi.commands.ListCommand;
-import lindi.commands.MarkCommand;
-import lindi.commands.UnmarkCommand;
+import lindi.commands.*;
 
 /**
  * Deals with making sense (parsing) of the user command.
@@ -28,6 +21,9 @@ public class Parser {
         switch (commandWord) {
             case "list":
                 return new ListCommand();
+
+        case "find":
+            return prepareFind(args);
 
             case "unmark":
                 return prepareUnmark(args);
@@ -56,6 +52,13 @@ public class Parser {
 
     private static int getIndexFromArgs(String args) throws NumberFormatException {
         return Integer.parseInt(args);
+    }
+
+    private static Command prepareFind(String args) {
+        if (args == null) {
+            return new InvalidCommand("Please give me something to search for :)");
+        }
+        return new FindCommand(args);
     }
 
     private static Command prepareUnmark(String args) {
