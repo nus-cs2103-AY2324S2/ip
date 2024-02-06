@@ -25,7 +25,7 @@ public class Deadline extends Task {
         if (t.length < 2) {
             InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
         }
-        return new Deadline(t[0], t[1]);
+        return new Deadline(t[0].replaceAll("\\s+$", ""), t[1]);
     }
     @Override
     public String saveFormat() {

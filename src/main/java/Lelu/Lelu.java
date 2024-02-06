@@ -2,7 +2,7 @@ package Lelu;
 
 import TasksStorage.Storage;
 import TasksStorage.TaskList;
-import UI.Ui;
+import Ui.Ui;
 import Exceptions.*;
 import Commands.ByeCommand;
 import Commands.Command;

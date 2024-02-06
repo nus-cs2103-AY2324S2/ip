@@ -11,7 +11,7 @@ public class InvalidFormatException extends InvalidInputException {
                         "   todo <task>");
             case DEADLINE:
                 throw new InvalidFormatException("   To set a deadline, enter:\n" +
-                        "   deadline <task> /by <deadline>\n");
+                        "   deadline <task> /by <YYYY-MM-DD HH:mm>\n");
             case EVENT:
                 throw new InvalidFormatException("   To record an event, enter:\n" +
                         "   event <event> /from <date and time> /to <date and time>\n");

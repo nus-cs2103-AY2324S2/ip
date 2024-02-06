@@ -1,7 +1,4 @@
-package UI;
-
-import Tasks.Task;
-import TasksStorage.TaskList;
+package Ui;
 
 public class Ui {
 

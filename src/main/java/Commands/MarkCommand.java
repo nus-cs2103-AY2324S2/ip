@@ -1,12 +1,9 @@
 package Commands;
 
 import Exceptions.LeluException;
-import Tasks.Task;
 import TasksStorage.Storage;
 import TasksStorage.TaskList;
-import UI.Ui;
-
-import java.util.ArrayList;
+import Ui.Ui;
 
 public class MarkCommand extends Command {
     @Override

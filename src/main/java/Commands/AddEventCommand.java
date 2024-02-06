@@ -5,9 +5,7 @@ import Tasks.Event;
 import Tasks.Task;
 import TasksStorage.Storage;
 import TasksStorage.TaskList;
-import UI.Ui;
-
-import java.util.ArrayList;
+import Ui.Ui;
 
 public class AddEventCommand extends Command {
     @Override

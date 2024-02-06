@@ -2,7 +2,7 @@ package Lelu;
 
 import Exceptions.InvalidInputException;
 import Exceptions.LeluException;
-import UI.Ui;
+import Ui.Ui;
 import Commands.*;
 
 public class Parser {

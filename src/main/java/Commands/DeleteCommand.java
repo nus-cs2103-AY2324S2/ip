@@ -1,10 +1,9 @@
 package Commands;
 
 import Exceptions.LeluException;
-import Tasks.Task;
 import TasksStorage.Storage;
 import TasksStorage.TaskList;
-import UI.Ui;
+import Ui.Ui;
 
 
 public class DeleteCommand extends Command {
