@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidIndexException;
@@ -57,7 +57,7 @@ public class MarkCommand extends Command {
             storage.writeTasksToJsonFile(taskList);
 
             // Inform the user that the task has been marked.
-            ui.sendMessage("Nice! I've marked this task as done:\n" + markedTask + "\n");
+            ui.sendMark(markedTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
                     + "You can check the list of valid indices using the 'list' command.");

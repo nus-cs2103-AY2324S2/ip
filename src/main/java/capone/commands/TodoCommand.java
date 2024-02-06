@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.ToDo;
@@ -59,7 +59,6 @@ public class TodoCommand extends Command {
         taskList.addTask(newTodo);
         storage.writeTasksToJsonFile(taskList);
 
-        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n"
-                + "Now you have %d task(s) in the list.\n", newTodo.toString(), taskList.getSize()));
+        ui.sendTodo(taskList);
     }
 }

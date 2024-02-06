@@ -3,6 +3,8 @@ package capone;
 import capone.commands.Command;
 import capone.exceptions.CaponeException;
 import capone.exceptions.TaskListCorruptedException;
+import capone.ui.Cli.Cli;
+import capone.ui.Ui;
 
 /**
  * The main class responsible for running the application and handling user commands.
@@ -24,7 +26,7 @@ public class Capone {
     public Capone(String taskListPath, String taskListName) {
         this.storage = new Storage(taskListPath, taskListName);
         this.tasks = new TaskList();
-        this.ui = new Ui();
+        this.ui = new Cli();
     }
 
     /**

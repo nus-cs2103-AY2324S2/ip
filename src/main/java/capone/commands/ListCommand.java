@@ -2,7 +2,7 @@ package capone.commands;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 
 /**
  * Represents a command to list all tasks in the TaskList.
@@ -21,8 +21,6 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        for (int i = 0; i < taskList.getSize(); i++) {
-            ui.sendMessage(String.format("%d. %s\n", i + 1, taskList.getTask(i).toString()));
-        }
+        ui.sendList(taskList);
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidCommandException;
@@ -60,7 +60,7 @@ public class FindCommand extends Command {
         }
 
         if (filteredList.isEmpty()) {
-            ui.sendMessage(String.format("No results found for the given keyword %s\n", keyword));
+            ui.sendNoResults(keyword);
         } else {
             new ListCommand().execute(filteredList, ui, storage);
         }

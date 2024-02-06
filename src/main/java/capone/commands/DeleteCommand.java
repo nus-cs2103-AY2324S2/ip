@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.exceptions.InvalidIndexException;
@@ -57,8 +57,7 @@ public class DeleteCommand extends Command {
 
             storage.writeTasksToJsonFile(taskList);
 
-            ui.sendMessage(String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.\n",
-                    removedTask.toString(), taskList.getSize()));
+            ui.sendDelete(taskList, removedTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidIndexException("Sorry, you have entered an invalid index.\n"
                     + "You can check the list of valid indices using the 'list' command.");

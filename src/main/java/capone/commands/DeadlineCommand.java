@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.Deadline;
@@ -107,8 +107,6 @@ public class DeadlineCommand extends Command {
 
         storage.writeTasksToJsonFile(taskList);
 
-        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n"
-                + "Now you have %d task(s) in the list.\n",
-                taskList.getLastTask().toString(), taskList.getSize()));
+        ui.sendDeadline(taskList);
     }
 }

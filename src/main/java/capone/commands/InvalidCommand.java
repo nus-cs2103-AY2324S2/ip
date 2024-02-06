@@ -2,7 +2,7 @@ package capone.commands;
 
 import capone.Storage;
 import capone.TaskList;
-import capone.Ui;
+import capone.ui.Ui;
 import capone.exceptions.InvalidCommandException;
 
 /**
