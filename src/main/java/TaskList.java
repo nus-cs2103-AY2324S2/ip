@@ -36,7 +36,7 @@ public class TaskList {
         int index = 1;
         String out = "";
         for (Task task: tasks) {
-            out += index + "." + task.toString();
+            out += index + "." + task.toString() + "\n";
             index++;
         }
         return out;

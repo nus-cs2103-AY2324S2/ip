@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
     static String LINE = "_____________________________________________";
 
@@ -9,12 +11,21 @@ public class Ui {
 
     public void close() {
         String closing = "Bye. Hope to see you again soon!\n";
-        String out = LINE + "\n" + closing + LINE + "\n";
+        String out = closing + LINE + "\n";
         System.out.println(out);
     }
 
+    String readCommand() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+    }
+
+    void showLine() {
+        System.out.println(LINE);
+    }
+
     void addMessage(String str, int taskSize) {
-        String out = LINE + "\n" + "Got it. I've added this task:\n" + str
+        String out = "Got it. I've added this task:\n" + str
                 + "\nNow you have " + taskSize + " tasks in this list.";
         System.out.println(out);
     }

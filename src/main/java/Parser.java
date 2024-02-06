@@ -26,7 +26,7 @@ class Parser {
 
     public static Command parseToCommand(String line) throws DukeException {
         String[] stringSplit = line.split(" ");
-        String commandWord = stringSplit[0];
+        String commandWord = stringSplit[0].trim();
         Command command;
         int index;
 
@@ -61,8 +61,9 @@ class Parser {
         case "event":
         case "todo":
         case "deadline":
-            String description = line.split(commandWord + " ")[0];
+            String description = line.split(commandWord + " ")[1];
             command = new AddCommand(commandWord, description);
+            break;
         default:
             throw new DukeException("I'm sorry, I don't know what that means.\n" +
                     "Please input valid commands (i.e. [command] [description]).\n" +
