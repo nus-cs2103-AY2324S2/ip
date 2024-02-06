@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 /**
  * This class encapsulates Irwyn chatbot.
- * Java coding standards is followed throughout the code.
  *
  * @author Irwyn Liong
  * @version Week-3
