@@ -98,7 +98,7 @@ public class Storage {
             fw.write("T | 1 | dummy offset\n");
             ArrayList<Task> todoList = taskList.getTodoList();
             for (int i = 0; i < todoList.size(); i++) {
-                todoList.get(i).toFileString();
+                fw.write(todoList.get(i).toFileString());
             }
             fw.close();
         } catch (IOException e) {
