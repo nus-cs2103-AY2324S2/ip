@@ -3,6 +3,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class Duke {
 
     private static final String FILE_PATH = "./data/duke.txt";
@@ -59,11 +63,13 @@ public class Duke {
                     System.err.println(e.getMessage());
                     continue;
                 }
+                System.out.println(line);
                 int preIdx = userInput.indexOf("/by");
                 int idx = preIdx + 4;
                 String deadlineTask = userInput.substring(9, preIdx - 1);
                 String deadlineBy = userInput.substring(idx);
-                Deadline newDeadline = new Deadline(deadlineTask, deadlineBy);
+                LocalDate deadlineDate = LocalDate.parse(deadlineBy);
+                Deadline newDeadline = new Deadline(deadlineTask, deadlineDate);
                 list.add(newDeadline);
                 newDeadline.addTask(list.size());
                 System.out.println(line);
@@ -92,8 +98,10 @@ public class Duke {
                 int timeToStart = preIdxTo + 4;
                 String eventTask = userInput.substring(6, preIdxFrom - 1);
                 String eventFrom = userInput.substring(timeFromStart, timeFromEnd);
+                LocalDate eventDateFrom = LocalDate.parse(eventFrom);
                 String eventTo = userInput.substring(timeToStart);
-                Event newEvent = new Event(eventTask, eventFrom, eventTo);
+                LocalDate eventDateTo = LocalDate.parse(eventTo);
+                Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
                 list.add(newEvent);
                 newEvent.addTask(list.size());
                 System.out.println(line);
@@ -189,16 +197,28 @@ public class Duke {
                 task = new ToDos(parts[2]);
                 break;
             case "D":
-                task = new Deadline(parts[2], parts[3]);
+                // will receive date as Oct 15 2019
+                // need to convert to LocalDate
+                LocalDate deadlineBy = convertDate(parts[3]);
+                task = new Deadline(parts[2], deadlineBy);
                 break;
             case "E":
-                String[] time = parts[3].split("-");
-                task = new Event(parts[2], time[0], time[1]);
+                // will receive date as Oct 15 2019 - Oct 16 2019
+                String[] time = parts[3].split("\\s*-\\s*");
+                LocalDate eventFrom = convertDate(time[0]);
+                LocalDate eventTo = convertDate(time[1]);
+                task = new Event(parts[2], eventFrom, eventTo);
                 break;
         }
         if (task != null && parts[1].equals("1")) {
             task.markTask();
         }
         return task;
+    }
+
+    public static LocalDate convertDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return localDate;
     }
 }
