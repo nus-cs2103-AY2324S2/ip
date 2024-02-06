@@ -41,6 +41,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getBotChatDialog("Hello! I'm botChat\n What can I do for you?\n", userImage)
         );
+
+        sendButton.setOnAction(event -> handleUserInput());
     }
 
     /**
@@ -68,7 +70,9 @@ public class MainWindow extends AnchorPane {
             );
             userInput.clear();
         } catch (BotChatException e) {
-            System.err.println("Error: " + e.getMessage());
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getBotChatDialog("Error: " + e.getMessage(), botchatImage)
+            );
         }
     }
 }

@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getBotChatDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        //db.flip();
         return db;
     }
 }

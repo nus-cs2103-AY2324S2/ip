@@ -1,6 +1,8 @@
 package BotChat;
 
-import java.util.Scanner;
+//import java.util.Scanner;
+
+import javafx.application.Platform;
 
 /**
  * The main class for the botChat application, responsible for handling user input and managing tasks.
@@ -17,37 +19,28 @@ public class BotChat {
     public BotChat() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
-    }
-
-    /**
-     * Runs the botChat application. Loads tasks, displays a welcome message, and handles user input.
-     */
-    public void run() {
         tasks = storage.load();
-        ui.showWelcomeMessage();
-        userInput();
     }
 
-    /**
-     * Handles user input by continuously scanning and processing commands until the user exits.
-     */
-    private void userInput() {
-        // Scanner to scan what the user is inputting
-        Scanner scanner = new Scanner(System.in);
-        try {
-            while (true) {
-                String input = scanner.nextLine();
-                try {
-                    handleInput(input);
-                } catch (BotChatException e) {
-                    ui.showErrorMessage(e.getMessage());
-                }
-                Storage.saveTaskToHardDisk(tasks.getTasks());
-            }
-        } finally {
-            scanner.close();
-        }
-    }
+//    /**
+//     * Handles user input by continuously scanning and processing commands until the user exits.
+//     */
+//    private void userInput() {
+//        // Scanner to scan what the user is inputting
+//        Scanner scanner = new Scanner(System.in);
+//        try {
+//            while (true) {
+//                String input = scanner.nextLine();
+//                try {
+//                    handleInput(input);
+//                } catch (BotChatException e) {
+//                    ui.showErrorMessage(e.getMessage());
+//                }
+//            }
+//        } finally {
+//            scanner.close();
+//        }
+//    }
 
     /**
      * Handles different types of user input commands.
@@ -60,8 +53,9 @@ public class BotChat {
         Command command = Parser.getCommand(input.split(" ")[0]);
         switch (command) {
         case BYE:
-            System.exit(0);
-            return "Goodbye";
+            Storage.saveTaskToHardDisk(tasks.getTasks());
+            Platform.exit();
+            return "Goodbye!";
         case LIST:
             return tasks.listTasks();
         case MARK:

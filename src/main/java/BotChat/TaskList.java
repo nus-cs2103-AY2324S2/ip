@@ -24,6 +24,15 @@ public class TaskList {
     }
 
     /**
+     * Gets the list of tasks.
+     *
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
      * Adds a task to the task list.
      *
      * @param task The task to be added.
@@ -66,14 +75,18 @@ public class TaskList {
     /**
      * Lists all the tasks in the task list.
      *
-     * @return A response message containing the list of tasks.
+     * @return A response message containing the list of tasks or a message indicating an empty task list.
      */
     public String listTasks() {
-        StringBuilder response = new StringBuilder("Here are your tasks:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        if (tasks.isEmpty()) {
+            return "Your task list is empty!";
+        } else {
+            StringBuilder response = new StringBuilder("Here are your tasks:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+            }
+            return response.toString();
         }
-        return response.toString();
     }
 
     /**
@@ -265,14 +278,5 @@ public class TaskList {
             }
         }
         return response.toString();
-    }
-
-    /**
-     * Gets the list of tasks.
-     *
-     * @return The list of tasks.
-     */
-    public ArrayList<Task> getTasks() {
-        return tasks;
     }
 }
