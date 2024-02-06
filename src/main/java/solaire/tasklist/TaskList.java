@@ -10,7 +10,7 @@ import solaire.parser.Parser;
  * Represents a list of Tasks.
  */
 public class TaskList {
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class TaskList {
 
         System.out.print("Couldn't find task associated with given id\n");
     }
-    
+
     /**
      * Mark a specified task as "not done".
      *
@@ -119,6 +119,11 @@ public class TaskList {
         System.out.print("Couldn't find task associated with given id\n");
     }
 
+    /**
+     * Filters the current list of tasks based on a given prompt and returns the corresponding list.
+     *
+     * @param prompt a user input to match task descriptions against.
+     */
     public void findTask(String prompt) {
         prompt = prompt.trim();
         if (prompt.equals("")) {

@@ -1,21 +1,18 @@
 package solaire.storage;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import solaire.Solaire;
 import solaire.data.exception.SolaireException;
 import solaire.data.task.Deadline;
 import solaire.data.task.Event;
 import solaire.data.task.Task;
 import solaire.data.task.Todo;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 /**
  * Represents a local storage as a utility class.
@@ -26,6 +23,7 @@ public class Storage {
 
     /**
      * Loads data from a pre-determined file path and generates a list of tasks for UI.
+     *
      * @return an <code>ArrayList</code> of <code>Task</code> objects.
      */
     public static ArrayList<Task> loadFromLocal() {
@@ -103,28 +101,30 @@ public class Storage {
         String taskDescription = taskDetails[2].trim();
 
         switch (taskDetails.length) {
-            case 3: {
-                Task newTask = new Todo(taskDescription);
-                if (isComplete) {
-                    newTask.markAsDone();
-                }
-                taskList.add(newTask);
-                break;
+        case 3: {
+            Task newTask = new Todo(taskDescription);
+            if (isComplete) {
+                newTask.markAsDone();
             }
-            case 4: {
-                Task newTask;
-                if (taskType.trim().equals("D")) {
-                    newTask = new Deadline(taskDescription, taskDetails[3]);
-                } else {
-                    String[] timeDetails = taskDetails[3].split("\\-");
-                    newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
-                }
-                if (isComplete) {
-                    newTask.markAsDone();
-                }
-                taskList.add(newTask);
-                break;
+            taskList.add(newTask);
+            break;
+        }
+        case 4: {
+            Task newTask;
+            if (taskType.trim().equals("D")) {
+                newTask = new Deadline(taskDescription, taskDetails[3]);
+            } else {
+                String[] timeDetails = taskDetails[3].split("\\-");
+                newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
             }
+            if (isComplete) {
+                newTask.markAsDone();
+            }
+            taskList.add(newTask);
+            break;
+        }
+        default:
+            throw new SolaireException("Invalid task format in local storage");
         }
     }
 }

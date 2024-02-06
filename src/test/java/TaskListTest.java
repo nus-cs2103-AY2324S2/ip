@@ -1,15 +1,15 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
 import solaire.data.exception.SolaireException;
 import solaire.data.task.Deadline;
 import solaire.data.task.Event;
 import solaire.data.task.Task;
 import solaire.data.task.Todo;
 import solaire.tasklist.TaskList;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
 

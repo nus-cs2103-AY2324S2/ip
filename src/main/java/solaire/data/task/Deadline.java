@@ -1,10 +1,10 @@
 package solaire.data.task;
 
-import solaire.data.exception.SolaireException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import solaire.data.exception.SolaireException;
 
 /**
  * Represents a task with a deadline.
@@ -16,7 +16,7 @@ public class Deadline extends Task {
      * Creates a task with a specified deadline.
      *
      * @param taskName description of the task.
-     * @param ddl deadline as a String.
+     * @param ddl      deadline as a String.
      * @throws SolaireException if ddl does not follow the LocalDate format specified.
      */
     public Deadline(String taskName, String ddl) throws SolaireException {
