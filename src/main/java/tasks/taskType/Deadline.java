@@ -4,9 +4,13 @@ public class Deadline extends Task {
 
     public Deadline(String task, String type, boolean isDone) {
         super(task, type, isDone);
-        // this.deadline = deadline;
     }
 
+    /**
+     * Returns the String representation of a date in MM DD YYYY form eg. Dec 15 2020
+     * @param fullCommand
+     * @return a String in the format MM DD YYYY form eg. Dec 15 2020
+     */
     public String formatByDtPattern(String fullCommand) {
         int byStartIndex = fullCommand.indexOf("/by");
         String date = fullCommand.substring(byStartIndex + 4);
