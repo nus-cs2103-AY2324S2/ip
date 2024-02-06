@@ -40,14 +40,14 @@ public class Storage {
                 String[] task = s.split(" \\| ");
                 Task t;
                 switch(task[0]) {
-                    case "T":
-                        t = new ToDo(task[2]);
-                        break;
-                    case "D":
-                        t = new Deadline(task[2], task[3]);
-                        break;
-                    default:
-                        t = new Event(task[2], task[3], task[4]);
+                case "T":
+                    t = new ToDo(task[2]);
+                    break;
+                case "D":
+                    t = new Deadline(task[2], task[3]);
+                    break;
+                default:
+                    t = new Event(task[2], task[3], task[4]);
                 }
                 if (task[1].equals("1")) {
                     t.markTask();

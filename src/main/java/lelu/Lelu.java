@@ -51,7 +51,7 @@ public class Lelu {
 
     public static void main(String[] args) {
         new Lelu("./data/lelu.txt");
-        }
+    }
 
 }
 
