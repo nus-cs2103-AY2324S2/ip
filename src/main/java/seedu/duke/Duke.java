@@ -1,16 +1,29 @@
 package seedu.duke;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 import java.io.IOException;
 import java.io.FileWriter;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
+import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -275,7 +288,7 @@ class Parser {
      * @return The command object corresponding to the user input.
      * @throws DukeException If the command is invalid or if the input format is incorrect.
      */
-    public static Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand) throws DukeException { //////
         String[] commandParts = fullCommand.split(" ", 2);
         String commandType = commandParts[0];
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
@@ -532,18 +545,27 @@ class Event extends Task {
  * Represents the main class for the Duke application.
  * Initializes the application and starts the interaction with the user.
  */
-public class Duke {
+/**
+ * Represents the main class for the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
+public class Duke extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String FILE_PATH = "./data/duke.txt/duke.txt";
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
     /**
      * Constructs a new Duke instance with the specified file path for data storage.
      *
-     * @param filePath The file path used for storing task data.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -551,6 +573,85 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+    @Override
+    public void start(Stage stage) {
+        //Step 1. Setting up required components
+
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        //You will need to import `javafx.scene.layout.Region` for this.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Step 3. Add functionality to handle user input.
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+    /**
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        // You will need to import `javafx.scene.control.Label`.
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
     /**
      * Runs the Duke application. Initializes the necessary components and starts
      * the command loop to receive and process user input.
@@ -576,7 +677,35 @@ public class Duke {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("./data/duke.txt/duke.txt").run();
+        // Swap between previous and current
+        Launcher.main(new String[2]);
+    }
+}
+
+class DialogBox extends HBox {
+
+    private Label text;
+    private ImageView displayPicture;
+
+    public DialogBox(Label l, ImageView iv) {
+        text = l;
+        displayPicture = iv;
+
+        text.setWrapText(true);
+        displayPicture.setFitWidth(100.0);
+        displayPicture.setFitHeight(100.0);
+
+        this.setAlignment(Pos.TOP_RIGHT);
+        this.getChildren().addAll(text, displayPicture);
+    }
+}
+
+/**
+ * A launcher class to workaround classpath issues.
+ */
+class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Duke.class, args);
     }
 }
 
