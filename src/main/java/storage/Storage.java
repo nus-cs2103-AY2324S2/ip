@@ -39,7 +39,7 @@ public class Storage {
         return localDate;
     }
 
-    public void autoUpdate(ArrayList<Task> TodoList) {
+    public void autoUpdate(ArrayList<Task> todoList) {
         File file = new File(this.pathName);
         file.getParentFile().mkdirs();
         try {
@@ -47,7 +47,7 @@ public class Storage {
                 file.createNewFile();
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for (Task t : TodoList) {
+            for (Task t : todoList) {
                 if (t instanceof Todo) {
                     writer.write("T | " + t.getIsDone() + " | " + t.getDescription());
                 } else if (t instanceof Deadline) {

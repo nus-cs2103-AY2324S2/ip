@@ -19,9 +19,9 @@ public class Duke {
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
-        TaskList TodoList = new TaskList(temp);
+        TaskList todoList = new TaskList(temp);
 
-        Parser parser = new Parser(TodoList, storage);
+        Parser parser = new Parser(todoList, storage);
         parser.parse();
 
         duke.exit();

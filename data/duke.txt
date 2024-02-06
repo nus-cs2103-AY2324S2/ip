@@ -1,2 +1,3 @@
 T | false | learn CS2103
 D | true | ip | 2024-02-05
+T | true | finish task
