@@ -3,6 +3,11 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to be executed.
+ * A <code>Command</code> object corresponds to a command that the user inputs.
+ * e.g. <code>todo read book</code>
+ */
 public class Command {
     protected TaskList tasks;
     protected Storage storage;
@@ -16,6 +21,12 @@ public class Command {
 
     public Command(){}
 
+    /**
+     * Executes the command and returns the result.
+     * @param tasks the list of tasks
+     * @param storage the storage object
+     * @throws IOException if there is an error writing to the file
+     */
     public void execute(TaskList tasks, Storage storage) throws IOException {
         String description;
         String keyword;

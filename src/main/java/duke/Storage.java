@@ -12,12 +12,20 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Represents a storage object that interacts with the file system.
+ */
 public class Storage {
     protected String path;
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Loads the tasks from the file and returns an ArrayList of tasks.
+     *
+     * @return An ArrayList of tasks.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -54,6 +62,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a task to the file.
+     *
+     * @param textToAdd The task to be added.
+     * @throws IOException If an I/O error occurs.
+     */
     public void addToFile(String textToAdd) throws IOException {
         BufferedWriter fw = new BufferedWriter(new FileWriter(this.path, true));
         String line = "0 " + textToAdd;
@@ -62,6 +76,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Removes a task from the file.
+     *
+     * @param lineNumberToRemove The line number of the task to be removed.
+     * @throws IOException If an I/O error occurs.
+     */
     public void removeFromFile(int lineNumberToRemove) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(this.path));
         StringBuilder content = new StringBuilder();
@@ -85,6 +105,13 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Edits a line in the file.
+     *
+     * @param lineToEdit The line number of the task to be edited.
+     * @param isDone The status of the task.
+     * @throws IOException If an I/O error occurs.
+     */
     public void editLineInFile(int lineToEdit, int isDone) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(this.path));
         StringBuilder content = new StringBuilder();
