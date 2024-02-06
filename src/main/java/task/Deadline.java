@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
+    private final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("[yyyy-MM-dd HH:mm][yyyy/MM/dd HH:mm][yyyy MM dd HH:mm][yyyy.MM.dd HH:mm]");
     private LocalDateTime by;
 
     /**
@@ -22,7 +22,7 @@ public class Deadline extends Task {
         if (by.length() == 10) {
             by += " 00:00";
         }
-        this.by = LocalDateTime.parse(by, this.formatter);
+        this.by = LocalDateTime.parse(by, this.FORMAT);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Deadline extends Task {
         if (by.length() == 10) {
             by += " 00:00";
         }
-        this.by = LocalDateTime.parse(by, this.formatter);
+        this.by = LocalDateTime.parse(by, this.FORMAT);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Deadline extends Task {
      * @return The date and time of the deadline.
      */
     public String getBy() {
-        return this.by.format(this.formatter);
+        return this.by.format(this.FORMAT);
     }
 
     /**
