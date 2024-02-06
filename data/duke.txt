@@ -1,3 +1,6 @@
-E | 0 | valentine's day | 14-02-2024 1930 | 14-02-2024 2200
+E | 1 | valentine's day | 14-02-2024 1930 | 14-02-2024 2200
 D | 0 | buy gift | 17-08-2024 1800
 0 | return money
+D | 0 | birthday | 23-03-2024 1400
+1 | read book
+0 | return book

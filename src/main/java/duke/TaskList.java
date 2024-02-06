@@ -106,4 +106,20 @@ public class TaskList {
       Ui.printErrorMessage("Please provide a valid numeric index for deletion.");
     }
   }
+
+  /**
+   * Finds tasks containing a specified keyword and prints them using the provided UI.
+   *
+   * @param keyword The keyword to search for within the task descriptions.
+   * @param tasks   The list of tasks to search through.
+   */
+  protected static void findTask(String keyword, ArrayList<Task> tasks) {
+    ArrayList<Task> matchingTasks = new ArrayList<>();
+    for (Task task : tasks) {
+      if (task.toString().contains(keyword.substring(5))) {
+        matchingTasks.add(task);
+      }
+    }
+    Ui.printMatchingTasks(matchingTasks);
+  }
 }

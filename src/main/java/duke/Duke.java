@@ -42,6 +42,8 @@ public class Duke {
                 taskList.addTodoTask(input, tasks);
             } else if (token[0].equals("delete")) {
                 taskList.removeTask(token, tasks);
+            } else if (token[0].equals("find")) {
+                taskList.findTask(input, tasks);
             } else {
                 Task n = new Task(input);
                 tasks.add(n);
