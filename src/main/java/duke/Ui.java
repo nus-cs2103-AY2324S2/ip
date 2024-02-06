@@ -68,10 +68,11 @@ public class Ui {
      * Returns a message indicating that a task has been marked as done.
      *
      * @param task The Task object that has been marked as done.
-     * @return A string indicating that the specified task has been marked as done, or that it was already marked as done.
+     * @return A string indicating that the specified task has been marked as done,
+     *      or that it was already marked as done.
      */
     public String showMarkedMessage(Task task) {
-        if(task.isDone()) {
+        if (task.isDone()) {
             return "This task is already marked as done:\n  " + task;
         } else {
             task.markAsDone();
@@ -83,7 +84,8 @@ public class Ui {
      * Returns a message indicating that a task has been marked as not done.
      *
      * @param task The Task object that has been marked as not done.
-     * @return A string indicating that the specified task has been marked as not done, or that it was already marked as not done.
+     * @return A string indicating that the specified task has been marked as not done,
+     *      or that it was already marked as not done.
      */
 
     public String showUnmarkedMessage(Task task) {

@@ -41,7 +41,7 @@ class AddCommandTest {
     void addTodo_emptyDescription_throwsDukeException() {
         AddCommand command = new AddCommand("todo ");
         DukeException exception = assertThrows(DukeException.class, () -> command.execute(tasks, ui, storage));
-        String expectedMessage = "The description of a todo cannot be empty."; // Assuming this is the message in DukeException
+        String expectedMessage = "The description of a todo cannot be empty.";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -58,7 +58,8 @@ class AddCommandTest {
     void addDeadline_invalidDateTime_throwsDukeException() {
         AddCommand command = new AddCommand("deadline return book /by 2022-12-12");
         DukeException exception = assertThrows(DukeException.class, () -> command.execute(tasks, ui, storage));
-        String expectedMessage = "Invalid date-time format. Please use a valid format such as yyyy-MM-dd HH:mm or dd/MM/yyyy HH:mm.";
+        String expectedMessage = "Invalid date-time format. "
+                + "Please use a valid format such as yyyy-MM-dd HH:mm or dd/MM/yyyy HH:mm.";
         assertEquals(expectedMessage, exception.getMessage());
     }
 }
