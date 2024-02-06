@@ -71,7 +71,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         boolean isChatting = true;
 
-        while(isChatting == true) {
+        while (isChatting == true) {
             //get input
             String echo = scanner.nextLine();
             try {
@@ -95,7 +95,7 @@ public class Duke {
                     break;
                 case 5:
                     Task removed = tasks.deleteMechanism(result[1]);
-                    if(result[1] <= tasks.getSize() + 1) {
+                    if (result[1] <= tasks.getSize() + 1) {
                         storage.fileUpdate(removed, 1, result[1]);
                     }
                     break;
@@ -109,6 +109,8 @@ public class Duke {
                     Task taskToAdd = ui.analyseTask(echo);
                     tasks.taskMechanism(taskToAdd);
                     storage.fileUpdate(taskToAdd, 0, 0);
+                    break;
+                default:
                     break;
                 }
             } catch (DukeException e) {

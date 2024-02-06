@@ -16,7 +16,7 @@ public class Parser {
      * @return an integer that represents the Task to be operated on
      */
     public int digOutInt(String echo) {
-        String echoParts[] = echo.split(" ", 2);
+        String[] echoParts = echo.split(" ", 2);
 
         int numberToOperateOn = Integer.parseInt(echoParts[1]);
 
@@ -30,7 +30,7 @@ public class Parser {
      * @return an String that represents the keyword to find
      */
     public String digOutSearch(String echo) {
-        String echoParts[] = echo.split(" ", 2);
+        String[] echoParts = echo.split(" ", 2);
         return echoParts[1];
     }
 
@@ -48,8 +48,8 @@ public class Parser {
 
         String keyword = echo.split(" ")[0];
         if (keyword.equals("deadline")) {
-            String echoParts[] = echo.split("deadline", 2);
-            String deadlineParts[] = echoParts[1].split("/by", 2);
+            String[] echoParts = echo.split("deadline", 2);
+            String[] deadlineParts = echoParts[1].split("/by", 2);
 
             if ((deadlineParts[0]).matches("\\s+") || ((deadlineParts[1]).matches("\\s+"))
                     || (deadlineParts[1].equals(""))) {
@@ -59,12 +59,12 @@ public class Parser {
                 results[1] = deadlineParts[1];
             }
         } else if (keyword.equals("event")) {
-            String echoParts[] = echo.split("event", 2);
-            String eventfirstHalfParts[] = echoParts[1].split("/from", 2);
-            String eventsecondHalfParts[] = eventfirstHalfParts[1].split("/to", 2);
+            String[] echoParts = echo.split("event", 2);
+            String[] eventfirstHalfParts = echoParts[1].split("/from", 2);
+            String[] eventsecondHalfParts = eventfirstHalfParts[1].split("/to", 2);
 
             if (((eventfirstHalfParts[0]).matches("\\s+")) || (eventsecondHalfParts[0].matches("\\s+"))
-                    || (eventsecondHalfParts[1].matches(  "\\s+")) || (eventsecondHalfParts[1].matches(""))) {
+                    || (eventsecondHalfParts[1].matches("\\s+")) || (eventsecondHalfParts[1].matches(""))) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
                 results[0] = eventfirstHalfParts[0];
@@ -72,7 +72,7 @@ public class Parser {
                 results[2] = eventsecondHalfParts[1];
             }
         } else if (keyword.equals("todo")) {
-            String todoParts[] = echo.split("todo", 2);
+            String[] todoParts = echo.split("todo", 2);
 
             //test if empty task
             if ((todoParts[1]).matches("\\s+") || (todoParts[1]).equals("")) {

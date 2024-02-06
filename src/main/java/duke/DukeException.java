@@ -6,7 +6,7 @@ package duke;
  * AY23/24 Semester 2
  * Author: Chua Zen Khoon
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     public DukeException(String str) {
         super(str);

@@ -36,7 +36,7 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
@@ -47,7 +47,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() +"]"
+        return "[" + this.getStatusIcon() + "]"
                 + this.description;
     }
 
@@ -61,11 +61,11 @@ public class Task {
 
         int isDoneInt = 0;
 
-        if(this.isDone == true) {
+        if (this.isDone == true) {
             isDoneInt = 1;
         }
 
-        return isDoneInt +"@" + this.description;
+        return isDoneInt + "@" + this.description;
     }
 
     /**
@@ -75,13 +75,13 @@ public class Task {
      * @throws DukeException when task is already marked
      */
     public String markAsDone() throws DukeException {
-        if(this.isDone == true) {
+        if (this.isDone == true) {
             throw new DukeException("This task is already completed.\n");
         } else {
             this.isDone = true;
             return "Very well. This task is now completed.\n"
                     + this.toString()
-                    +"\n";
+                    + "\n";
         }
     }
 
@@ -92,7 +92,7 @@ public class Task {
      * @throws DukeException when task is already unmarked
      */
     public String unMarkTask() throws DukeException {
-        if(this.isDone == false) {
+        if (this.isDone == false) {
             throw new DukeException("This task is already unmarked.\n");
         } else {
             this.isDone = false;

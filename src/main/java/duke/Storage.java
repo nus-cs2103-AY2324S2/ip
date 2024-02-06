@@ -1,13 +1,12 @@
 package duke;
 
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.FileNotFoundException;
-
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,9 +38,9 @@ public class Storage {
 
     /**
      * Creates a directory and file should the items do not exist
-     * If the items exist, retrieve the data in the file and store it into an ArrayList<Task>
+     * If the items exist, retrieve the data in the file and store it into an ArrayList of Tasks
      *
-     * @return an ArrayList<Task> to be loaded into the TaskList instance
+     * @return an ArrayList of Tasks to be loaded into the TaskList instance
      * @throws DukeException when data file does not exist
      */
 
@@ -56,20 +55,20 @@ public class Storage {
 
         try {
             hasRecords = dataFile.createNewFile();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("There seems to be previous records. Loading...");
         }
 
-        if(hasRecords == true) {
+        if (hasRecords == true) {
             throw new DukeException("No previous records found.");
         }
 
-        if(hasRecords == false) {
+        if (hasRecords == false) {
             System.out.println("Previous records loaded.\n");
             try {
                 Scanner scanner = new Scanner(dataFile);
 
-                while(scanner.hasNextLine()) {
+                while (scanner.hasNextLine()) {
                     previousTasks.add(transferFileContent(scanner.nextLine()));
                 }
 
@@ -89,22 +88,19 @@ public class Storage {
      * @return a Task that is decrypted
      * @throws DukeException when file line cannot be read
      */
-    private Task transferFileContent (String line) throws DukeException {
-        String taskComponents[] = line.split("@");
+    private Task transferFileContent(String line) throws DukeException {
+        String[] taskComponents = line.split("@");
         Task taskAdded = new Task("Error. Unable to retrieve Task.");
 
-        if(taskComponents.length == 3) {
+        if (taskComponents.length == 3) {
             taskAdded = new Todo(taskComponents[2]);
-
-        } else if (taskComponents.length == 4 ) {
-            taskAdded = new Deadline(taskComponents[2],taskComponents[3]);
-
-        } else if (taskComponents.length == 5 ) {
+        } else if (taskComponents.length == 4) {
+            taskAdded = new Deadline(taskComponents[2], taskComponents[3]);
+        } else if (taskComponents.length == 5) {
             taskAdded = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
-
         }
 
-        if(taskComponents[1].equals("1")) {
+        if (taskComponents[1].equals("1")) {
             taskAdded.markAsDone();
         }
         return taskAdded;
@@ -121,12 +117,12 @@ public class Storage {
         String taskString = taskToUpdate.toString(true);
 
         try {
-            if(command == 0) {
+            if (command == 0) {
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter(
-                        dataFile,true ));
+                        dataFile, true));
 
-                if(dataFile.length() != 0) {
+                if (dataFile.length() != 0) {
                     writer.newLine();
                 }
 
@@ -138,7 +134,7 @@ public class Storage {
                 StringBuilder sb = new StringBuilder();
                 int lineNumCount = 1;
 
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     if ((lineNumCount == lineNum)) {
                         sb.append("");
                     } else {
@@ -154,7 +150,7 @@ public class Storage {
                 writer.close();
                 reader.close();
             }
-        } catch( IOException e) {
+        } catch (IOException e) {
             System.out.println("Oops!");
         }
     }

@@ -9,7 +9,7 @@ package duke;
 public class Ui {
 
     private Parser parser;
-    public Ui(){
+    public Ui() {
         parser = new Parser();
     }
 
@@ -27,7 +27,7 @@ public class Ui {
      *          to operate on
      */
     public int[] analyseUserInput(String echo) {
-        int[] results = new int[] {0,0};
+        int[] results = new int[] {0, 0};
 
         if (echo.equals("bye") || echo.equals("Bye")) {
             results[0] = 1;
@@ -39,7 +39,7 @@ public class Ui {
         } else if (echo.matches("unmark -?[0-9]*")) {
             results[0] = 4;
             results[1] = parser.digOutInt(echo);
-        } else if (echo.matches("delete -?[0-9]*")){
+        } else if (echo.matches("delete -?[0-9]*")) {
             results[0] = 5;
             results[1] = parser.digOutInt(echo);
         } else if (echo.matches("find [a-zA-Z0-9]*")) {
@@ -67,7 +67,7 @@ public class Ui {
         Task taskAdded = new Task("Error. Unable to retrieve Task.");
         String[] results = parser.decryptInput(echo);
 
-        if(results[1] == null && results[2] == null) {
+        if (results[1] == null && results[2] == null) {
             taskAdded = new Todo(results[0]);
         } else if (results[2] == null) {
             taskAdded = new Deadline(results[0], results[1]);

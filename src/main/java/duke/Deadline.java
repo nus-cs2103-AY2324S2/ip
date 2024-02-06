@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * AY23/24 Semester 2
  * Author: Chua Zen Khoon
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     /**
      * A Deadline instance contains a do by time/date

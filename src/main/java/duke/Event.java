@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * AY23/24 Semester 2
  * Author: Chua Zen Khoon
  */
-public class Event extends Task{
+public class Event extends Task {
 
     /**
      * A Event instance contains a start time/date
