@@ -35,6 +35,10 @@ public class TaskList {
         }
     }
 
+    public void clearCurrentTasks() {
+        tasklist.clear();
+    }
+
     /**
      * Lists all tasks from previous iterations of Duke.run() which are stored in
      * Storage s as well as current tasks in current iterations of Duke.run().
@@ -42,7 +46,7 @@ public class TaskList {
     public String list() throws FileNotFoundException {
         String str = "";
         try {
-            str = "All tasks: \n" +  s.getFileContent() + "\n" + "Current tasks: \n" +getCurrentList();
+            str = "All tasks: \n" +  s.getFileContent() + "\n" + "Current tasks: \n" + getCurrentList();
         } catch (FileNotFoundException e) {
             str = "file not found! try again xx";
         }
@@ -55,7 +59,7 @@ public class TaskList {
             int j = i + 1;
             str += "    " + j + ". " + tasklist.get(i).getCat()
                     + tasklist.get(i).marked() + " "
-                    + tasklist.get(i).getTask() + tasklist.get(i).getDetails();
+                    + tasklist.get(i).getTask() + tasklist.get(i).getDetails() + "\n";
         }
         return str;
     }
@@ -108,7 +112,6 @@ public class TaskList {
             tasklist.add(task);
             str = "Got it. I've added this task: \n" + task.add() + "\n" +
                     "Now you have " + tasklist.size() + " tasks in the list.";
-
         } catch (StringIndexOutOfBoundsException e) {
             str = "ENTER INSTRUCTION";
         }
@@ -176,9 +179,9 @@ public class TaskList {
             for (int i = 0; i < tasklist.size(); i++) {
                 if (tasklist.get(i).isFound(str)) {
                     if (j == 1) {
-                        str = "Here are the matching tasks in your list: \n";
+                        ret = "Here are the matching tasks in your list: \n";
                     }
-                    str += "    " + j + ". " + tasklist.get(i).getCat()
+                    ret += "    " + j + ". " + tasklist.get(i).getCat()
                                         + tasklist.get(i).marked() + " "
                                         + tasklist.get(i).getTask()
                                         + tasklist.get(i).getDetails() + "\n";

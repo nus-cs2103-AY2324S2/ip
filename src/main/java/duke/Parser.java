@@ -6,6 +6,8 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Represents a parser that parses user's String input
@@ -31,12 +33,17 @@ private TaskList tasklist;
      */
 
     public String parsing(String command) throws StringIndexOutOfBoundsException, NumberFormatException,
-            ArrayIndexOutOfBoundsException, FileNotFoundException {
+            ArrayIndexOutOfBoundsException, FileNotFoundException, IOException {
         String res = "";
         if (command.equals("list")) {
             res = tasklist.list();
+        } else if (command.equals("clear list")) {
+            FileWriter fw = new FileWriter("data/EUEU.txt", false);
+            fw.close();
         } else if (command.equals("bye")) {
             res = "byeee love uu ttyl ok!";
+            tasklist.write();
+            tasklist.clearCurrentTasks();
         } else if (command.startsWith("mark")) {
             try {
                 String str = command.substring(5);

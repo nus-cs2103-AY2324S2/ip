@@ -3,6 +3,7 @@ package duke;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -30,6 +31,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             return "file not found! try again xx";
         }
+
         return str;
     }
 

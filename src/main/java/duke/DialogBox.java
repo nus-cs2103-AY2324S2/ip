@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 
 public class DialogBox extends HBox {
     @FXML
@@ -21,11 +22,15 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
+//        VBox.setMargin(text, new Insets(0,10,0,0));
+//        VBox.setMargin(displayPicture, new Insets(0,0,0,10));
         displayPicture.setFitHeight(100.0);
         displayPicture.setFitWidth(100.0);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+        this.setPadding(new Insets(10));
+
 
     }
 
@@ -37,15 +42,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
+        l.setPadding(new Insets(0,10,10,10));
         DialogBox db = new DialogBox(l, iv);
-        db.setPadding(new Insets(10));
         return db;
     }
 
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
+        l.setPadding(new Insets(0,10, 10, 10));
         DialogBox db = new DialogBox(l, iv);
         db.flip();
-        db.setPadding(new Insets(10));
         return db;
     }
 }
