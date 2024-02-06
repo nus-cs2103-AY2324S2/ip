@@ -10,7 +10,5 @@ public class PanLauncher {
      */
     public static void main(String[] args) {
         Application.launch(Pan.class, args);
-        Parser parser = new Parser(new Ui(), new Scanner(System.in), new TaskList(new Storage()));
-        parser.parseInput();
     }
 }
