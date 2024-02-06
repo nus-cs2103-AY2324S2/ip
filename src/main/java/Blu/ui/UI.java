@@ -87,8 +87,11 @@ public class UI {
      * @param taskList The TaskList after adding the new task.
      */
     public void showTaskAdded(Task task, TaskList taskList) {
-        String[] messages = {"Added task to the list:", task.toString(), 
-                "You have " + taskList.getNumberOfTasks() + " tasks currently."};
+        String[] messages = {
+            "Added task to the list:",
+            task.toString(),
+            "You have " + taskList.getNumberOfTasks() + " tasks currently."
+        };
         showToUser(messages);
     }
 
@@ -99,8 +102,11 @@ public class UI {
      * @param taskList The TaskList after deleting the task.
      */
     public void showTaskDeleted(Task task, TaskList taskList) {
-        String[] messages = {"Deleted task from list:", task.toString(), 
-                "You have " + taskList.getNumberOfTasks() + " tasks currently"};
+        String[] messages = {
+            "Deleted task from list:",
+            task.toString(),
+            "You have " + taskList.getNumberOfTasks() + " tasks currently"
+        };
         showToUser(messages);
     }
 

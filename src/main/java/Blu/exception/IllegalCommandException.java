@@ -4,7 +4,7 @@ package blu.exception;
  * Represents exceptions caused by from illegal or incorrect command formats supplied by the user.
  */
 public class IllegalCommandException extends BluException {
-    
+
     /**
      * Constructs a new IllegalCommandException with the specified detail message.
      * The detail message is prefixed with "Illegal Command Format:" to indicate the nature of the error.

@@ -60,7 +60,6 @@ public class InputParser {
         }
     }
 
-
     private int findParamIdx(String[] tokens, String param) {
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i].equals(param)) {

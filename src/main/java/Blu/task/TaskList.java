@@ -55,7 +55,7 @@ public class TaskList {
                 + taskNumber + "\n"
                 + "Please use the list command to view valid task numbers.");
         }
-        return this.tasks.get(idx);
+        return tasks.get(idx);
     }
 
     /**
@@ -64,7 +64,7 @@ public class TaskList {
      * @return The list of all tasks.
      */
     public List<Task> getAllTasks() {
-        return this.tasks;
+        return tasks;
     }
 
     /**
@@ -73,7 +73,7 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int getNumberOfTasks() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
@@ -82,7 +82,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void addTask(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -98,7 +98,7 @@ public class TaskList {
             + taskNumber + "\n"
             + "Please use the list command to view valid task numbers.");
         }
-        this.tasks.remove(idx);
+        tasks.remove(idx);
     }
 
     /**
@@ -121,15 +121,15 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        if (this.tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             return "All tasks completed!";
         }
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             String title = String.format("%d. %s", i + 1, task.toString());
             // do not add new line when for last task in list
-            if (i == this.tasks.size() - 1) {
+            if (i == tasks.size() - 1) {
                 stringBuilder.append(title);
             } else {
                 stringBuilder.append(title + "\n");
