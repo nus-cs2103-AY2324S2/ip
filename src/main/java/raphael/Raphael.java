@@ -1,9 +1,14 @@
 package raphael;
+
+import raphael.command.Command;
 import raphael.parser.Parser;
 import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.command.Command;
+
+/**
+ * The main class of Raphael.
+ */
 public class Raphael {
     public static final String LOGO = "\n"
             + "  _____                _                   _\n"
@@ -18,6 +23,11 @@ public class Raphael {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+
+    /**
+     * The constructor of Raphael.
+     * @param filePath the file path of the task file to be read.
+     */
     public Raphael(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
