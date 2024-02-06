@@ -1,7 +1,7 @@
-import java.util.Scanner;
+package ChatBro;
 
 /**
- * Represents the user interface of the ChatBro.
+ * Represents the user interface of the ChatBro.ChatBro.
  */
 public class Ui {
     public static void printWelcome() {
@@ -10,7 +10,7 @@ public class Ui {
                 + " \\ \\/ /__    / /\n"
                 + "  \\  / _ \\  /_/ \n"
                 + "  /_/\\___/ (_)\n\n"
-                + "I'm ChatBro!\n"
+                + "I'm ChatBro.ChatBro!\n"
                 + "What can I do for you bro?\n"
                 + "Use the available commands: list, bye, mark, unmark, delete, OR\n"
                 + "create a new task (todo, deadline, event) to store in your list bro.\n"

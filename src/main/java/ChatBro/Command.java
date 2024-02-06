@@ -1,3 +1,5 @@
+package ChatBro;
+
 /**
  * Enumerates the available commands and their respective execution methods.
  */

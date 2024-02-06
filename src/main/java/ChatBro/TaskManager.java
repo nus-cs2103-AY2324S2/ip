@@ -1,3 +1,5 @@
+package ChatBro;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -49,7 +51,7 @@ public class TaskManager {
 
     /**
      * Returns the task count.
-     * @return Task count.
+     * @return ChatBro.Task count.
      */
     public static int getTaskCount() {
         return taskCount;

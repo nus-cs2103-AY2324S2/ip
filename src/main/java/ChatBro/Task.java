@@ -1,3 +1,5 @@
+package ChatBro;
+
 /**
  * Represents a user's task.
  */
@@ -7,7 +9,7 @@ public abstract class Task {
     protected String type;
 
     /**
-     * Constructor for Task class.
+     * Constructor for ChatBro.Task class.
      * @param description Description of task.
      */
     public Task(String description) {
@@ -16,7 +18,7 @@ public abstract class Task {
     }
 
     /**
-     * Constructor for Task class.
+     * Constructor for ChatBro.Task class.
      * @param description Description of task.
      * @param isDone Status of task.
      */

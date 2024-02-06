@@ -1,14 +1,16 @@
+package ChatBro;
+
 /**
- * Event class that represents a Task with starting and ending time.
+ * ChatBro.Event class that represents a ChatBro.Task with starting and ending time.
  */
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
 
     /**
-     * Constructor for Event class.
+     * Constructor for ChatBro.Event class.
      *
-     * @param description Description of Event object.
+     * @param description Description of ChatBro.Event object.
      */
     public Event(String description, String startTime, String endTime) {
         super(description);

@@ -1,13 +1,15 @@
+package ChatBro;
+
 /**
- * Deadline class that represents a Task with a deadline.
+ * ChatBro.Deadline class that represents a ChatBro.Task with a deadline.
  */
 public class Deadline extends Task {
     protected String by;
     /**
-     * Constructor for Deadline class.
+     * Constructor for ChatBro.Deadline class.
      *
-     * @param description Description of Deadline object.
-     * @param by the deadline of Deadline object.
+     * @param description Description of ChatBro.Deadline object.
+     * @param by the deadline of ChatBro.Deadline object.
      */
     public Deadline(String description, String by) {
         super(description);

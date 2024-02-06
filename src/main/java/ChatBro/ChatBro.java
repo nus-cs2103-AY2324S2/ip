@@ -1,10 +1,10 @@
-import java.util.ArrayList;
+package ChatBro;
 
 public class ChatBro {
     static boolean isRunning;
     public static void main(String[] args) {
         Parser parser = new Parser();
-        TaskManager tm = new TaskManager(); // Instantiate TaskManager to create taskList
+        TaskManager tm = new TaskManager(); // Instantiate ChatBro.TaskManager to create taskList
         isRunning = true;
 
         String savedTasks = Database.readFromFile();

@@ -1,11 +1,13 @@
+package ChatBro;
+
 /**
- * ToDo class that represents a Task without any associated time.
+ * ChatBro.ToDo class that represents a ChatBro.Task without any associated time.
  */
 public class ToDo extends Task {
     /**
-     * Constructor for ToDo class.
+     * Constructor for ChatBro.ToDo class.
      *
-     * @param description Description of ToDo object.
+     * @param description Description of ChatBro.ToDo object.
      */
     public ToDo(String description) {
         super(description);
