@@ -1,13 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    private String by;
-    public Deadline(String name, String by) {
+    private LocalDateTime by;
+    public Deadline(String name, String by) throws GulieException {
         this(name, by, false);
     }
 
-    public Deadline(String name, String by, boolean mark) {
+    public Deadline(String name, String by, boolean mark) throws GulieException {
         super(name, mark);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new GulieException("The datetime that you have given is invalid.");
+        }
     }
 
     @Override
@@ -17,6 +24,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.by);
+        return String.format("[D]%s (by: %s)", super.toString(), Gulie.getDateTimeFormatter().format(by));
     }
 }

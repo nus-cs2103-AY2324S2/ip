@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ public class Gulie {
     private final static String line = "____________________________________________________________";
     private ArrayList<Task> taskList;
     private final static String savepath = "./data/Gulie.txt";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd'/'MM'/'yyyy HH':'mm");
 
     public Gulie() {
         System.out.println(line);
@@ -187,6 +189,10 @@ public class Gulie {
             System.out.println("Error loading: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    static DateTimeFormatter getDateTimeFormatter() {
+        return DATE_TIME_FORMATTER;
     }
 
     public static void main(String[] args) {

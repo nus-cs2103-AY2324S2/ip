@@ -1,14 +1,22 @@
-public class Event extends Task {
-    private String from, to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String name, String from, String to) {
+public class Event extends Task {
+    private LocalDateTime from, to;
+
+    public Event(String name, String from, String to) throws GulieException {
         this(name, from, to, false);
     }
 
-    public Event(String name, String from, String to, boolean mark) {
+    public Event(String name, String from, String to, boolean mark) throws GulieException {
         super(name, mark);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDateTime.parse(from);
+            this.to = LocalDateTime.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new GulieException("The datetime that you have given is invalid.");
+        }
     }
 
     @Override
@@ -18,6 +26,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        DateTimeFormatter dtf = Gulie.getDateTimeFormatter();
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), dtf.format(from), dtf.format(to));
     }
 }
