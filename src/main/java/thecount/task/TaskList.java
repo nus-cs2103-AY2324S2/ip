@@ -1,11 +1,11 @@
 package thecount.task;
 
+import java.util.ArrayList;
+
+import thecount.exception.TheCountException;
 import thecount.ui.PrintList;
 import thecount.ui.RemoveFromListReply;
 import thecount.ui.Reply;
-import thecount.exception.TheCountException;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
@@ -107,7 +107,8 @@ public class TaskList {
      * Finds tasks containing the specified keyword (non case-sensitive).
      *
      * @param keyword The keyword to search for.
-     */public void findTask(String keyword) {
+     */
+    public void findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         keyword = keyword.toLowerCase();
 

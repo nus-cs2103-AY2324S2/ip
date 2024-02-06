@@ -3,14 +3,14 @@ package thecount.parser;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import thecount.exception.TheCountException;
 import thecount.storage.Storage;
-import thecount.task.TaskList;
-import thecount.task.ToDo;
 import thecount.task.Deadline;
 import thecount.task.Event;
+import thecount.task.TaskList;
+import thecount.task.ToDo;
 import thecount.ui.Goodbye;
 import thecount.ui.Reply;
-import thecount.exception.TheCountException;
 
 /**
  * Parses user input and executes corresponding commands.
@@ -48,40 +48,40 @@ public class Parser {
         // Checks for BYE command
         while (true) {
             switch (getCommandType(userInput)) {
-                case BYE:
-                    new Goodbye().displayMessage();
-                    scanner.close();
-                    System.exit(0);
-                    break;
-                case LIST:
-                    tasks.printList();
-                    break;
-                case MARK:
-                    handleMarkTask(userInput, tasks);
-                    break;
-                case UNMARK:
-                    handleUnmarkTask(userInput, tasks);
-                    break;
-                case TODO:
-                    handleTodoTask(userInput, tasks);
-                    break;
-                case DEADLINE:
-                    handleDeadlineTask(userInput, tasks);
-                    break;
-                case EVENT:
-                    handleEventTask(userInput, tasks);
-                    break;
-                case DELETE:
-                    handleDeleteTask(userInput, tasks);
-                    break;
-                case FIND:
-                    handleFindTask(userInput, tasks);
-                    break;
-                case INVALID:
-                    handleInvalidCommand();
-                    break;
-                default:
-                    break;
+            case BYE:
+                new Goodbye().displayMessage();
+                scanner.close();
+                System.exit(0);
+                break;
+            case LIST:
+                tasks.printList();
+                break;
+            case MARK:
+                handleMarkTask(userInput, tasks);
+                break;
+            case UNMARK:
+                handleUnmarkTask(userInput, tasks);
+                break;
+            case TODO:
+                handleTodoTask(userInput, tasks);
+                break;
+            case DEADLINE:
+                handleDeadlineTask(userInput, tasks);
+                break;
+            case EVENT:
+                handleEventTask(userInput, tasks);
+                break;
+            case DELETE:
+                handleDeleteTask(userInput, tasks);
+                break;
+            case FIND:
+                handleFindTask(userInput, tasks);
+                break;
+            case INVALID:
+                handleInvalidCommand();
+                break;
+            default:
+                break;
             }
             loader.write(tasks);
             userInput = scanner.nextLine();

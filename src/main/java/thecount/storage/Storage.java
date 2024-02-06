@@ -1,16 +1,16 @@
 package thecount.storage;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import thecount.task.TaskList;
-import thecount.task.ToDo;
+import thecount.exception.TheCountException;
 import thecount.task.Deadline;
 import thecount.task.Event;
-import thecount.exception.TheCountException;
+import thecount.task.TaskList;
+import thecount.task.ToDo;
 
 /**
  * Manages the loading and writing of tasks to a file.
@@ -97,25 +97,25 @@ public class Storage {
             String info = parts[3].trim();
 
             switch (taskType) {
-                case "T":
-                    tasks.add(new ToDo(info));
-                    break;
-                case "D":
-                    String deadlineTime = parts[4].trim();
-                    try {
-                        tasks.add(new Deadline(info, deadlineTime));
-                    } catch (DateTimeParseException e) {
-                        System.out.println(e);
-                    }
-                    break;
-                case "E":
-                    String[] time = parts[4].trim().split("-");
-                    String fromTime = time[0];
-                    String toTime = time[1];
-                    tasks.add(new Event(info, fromTime, toTime));
-                    break;
-                default:
-                    break;
+            case "T":
+                tasks.add(new ToDo(info));
+                break;
+            case "D":
+                String deadlineTime = parts[4].trim();
+                try {
+                    tasks.add(new Deadline(info, deadlineTime));
+                } catch (DateTimeParseException e) {
+                    System.out.println(e);
+                }
+                break;
+            case "E":
+                String[] time = parts[4].trim().split("-");
+                String fromTime = time[0];
+                String toTime = time[1];
+                tasks.add(new Event(info, fromTime, toTime));
+                break;
+            default:
+                break;
             }
             if (isTaskDone.equals("1")) {
                 try {
