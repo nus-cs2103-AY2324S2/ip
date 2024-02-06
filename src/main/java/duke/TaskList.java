@@ -13,6 +13,18 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public void find(String keyword) {
+        int num = 1;
+        Iterator<Task> it = tasks.iterator();
+        System.out.println("Here are the matching tasks in your list:");
+        while (it.hasNext()) {
+            Task task = it.next();
+            if (task.description.contains(keyword)) {
+                System.out.println(num + "." + task.toString());
+                num++;
+            }
+        }
+    }
     public void list() {
         int num = 1;
         Iterator<Task> it = tasks.iterator();
