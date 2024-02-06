@@ -93,19 +93,18 @@ public class Ui {
         System.out.println("Here are the tasks in your list: ");
     }
 
-<<<<<<< HEAD
     public void findListDetails() {
         System.out.println("------------------------------------------------------------");
         System.out.println("Here are the matching tasks in your list: ");
     }
 
-=======
+
     /**
      * Displays information about the removal of a task.
      *
      * @param task The task that has been removed.
      */
->>>>>>> A-Jar
+
     public void removeTop(Task task) {
         System.out.println("------------------------------------------------------------");
         System.out.println("Noted. I've removed this task: ");

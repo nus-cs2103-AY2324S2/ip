@@ -42,22 +42,12 @@ public class Parser {
 
 
         if (command.equals("list")) {
-            /*
-             * Displays the list of tasks in the MyList
-             */
             TaskList taskList = new TaskList(myList);
             taskList.list();
             return true;
 
         } else if (command.equals("bye")) {
-            /*
-<<<<<<< HEAD
-            * Save the new task in MyList before exiting the Duke Program
-            */
-=======
-             * Save the new task in MyList before exiting the Duke Program
-             */
->>>>>>> A-Jar
+
             return false;
 
         } else if (command.equals("find")){
@@ -71,48 +61,18 @@ public class Parser {
             ui.commandError();
             return true;
 
-<<<<<<< HEAD
-
-        }  else if (command.equals("unmark")) {
-            /**
-            * Marks a specified task as not done
-            * 
-            * @param task number the index of the task to be marked as not done
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
-=======
         } else if (command.equals("unmark")) {
->>>>>>> A-Jar
 
             TaskList taskList = new TaskList(myList);
             taskList.unmarkList(parts);
             return true;
 
         } else if (command.equals("mark")) {
-<<<<<<< HEAD
-=======
-            /*
-            * Marks a specified task as done
-            *
-            * @param task number the index of the task to be marked as done
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
->>>>>>> A-Jar
             TaskList taskList = new TaskList(myList);
             taskList.markList(parts);
             return true;
 
         } else if (command.equals("delete")){
-<<<<<<< HEAD
-            /**
-=======
-            /*
->>>>>>> A-Jar
-            * Deletes a specified task from the list
-            * 
-            * @param task number the index of the task to be deleted
-            * @throws IndexOutOfBoundsException if the task number is out of bounds
-            */
             TaskList taskList = new TaskList(myList);
             taskList.remove(parts);
             return true;

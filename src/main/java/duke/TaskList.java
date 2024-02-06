@@ -97,7 +97,6 @@ public class TaskList {
         
     }
 
-<<<<<<< HEAD
     public void find(String[] parts) {
 
         Ui ui = new Ui();
@@ -112,32 +111,15 @@ public class TaskList {
             }
         }
 
-        ui.separationLiine();
+        ui.separationLine();
 
     }
 
-=======
-    /**
-     * Adds a new task to the list based on the provided command and input.
-     * @param command The type of task to be added.
-     * @param restOfInputs The additional details for the task.
-     */
->>>>>>> A-Jar
     public void add(String command, String restOfInputs) {
         Ui ui = new Ui();
 
         try {
             if (command.equals("todo")) {
-<<<<<<< HEAD
-                /*
-                * Adds a Todo task to the list.
-                * 
-                * @param item The description of the Todo task
-                * @throws DukeException if the description is empty
-                */
-=======
->>>>>>> A-Jar
-
                 try {
                     if (restOfInputs == null) {
                         String errorMessage = ui.emptyErrorMessage();
