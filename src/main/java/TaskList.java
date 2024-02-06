@@ -55,6 +55,7 @@ public class TaskList {
     public Task unmark(int listIndex) throws IndexOutOfBoundsException {
         Task task = tasks.get(listIndex - 1);
         task.unmarkDone();
+        return task;
     }
 
     /**
