@@ -1,7 +1,7 @@
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        return; // Do nothing
+        this.statusMsg = "Bye. Hope to see you again soon!";
     }
 
     @Override

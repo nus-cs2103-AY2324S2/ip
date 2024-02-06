@@ -35,7 +35,7 @@ public class Ui {
      * Displays to the user the status of the given command.
      */
     public void displayCommand(Command command) {
-        this.print(command.toString());
+        this.print(command.status());
     }
 
     /**
@@ -50,13 +50,6 @@ public class Ui {
      * Displays a greeting message.
      */
     public void greeting() {
-        this.print(String.format("Hello I'm %s\n What can I do for you?", this.name));
-    }
-
-    /**
-     * Displays a goodbye message.
-     */
-    public void goodBye() {
-        this.print("Bye. Hope to see you again soon!");
+        this.print(String.format("Hello I'm %s\nWhat can I do for you?", this.name));
     }
 }
