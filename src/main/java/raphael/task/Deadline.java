@@ -27,7 +27,7 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.DEADLINE));
+            throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.DEADLINE));
         }
     }
 
@@ -43,7 +43,7 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.DEADLINE));
+            throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.DEADLINE));
         }
     }
 

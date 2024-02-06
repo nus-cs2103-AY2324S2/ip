@@ -1,4 +1,8 @@
 package raphael.format;
+
+/**
+ * The class in charge of prepending index.
+ */
 public class Formatter {
     /**
      * Returns the string representation of object o prepended by idx.

@@ -36,43 +36,43 @@ public class Parser {
             return new ExitCommand();
         case "todo":
             if (inputArr.length == 1 || (inputArr[1] = inputArr[1].trim()).isEmpty()) {
-                throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.TODO));
+                throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.TODO));
             }
             Task toDo = new Todo(inputArr[1]);
             return new AddCommand(toDo);
         case "deadline":
             if (inputArr.length == 1 || (inputArr[1] = inputArr[1].trim()).isEmpty()) {
-                throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.DEADLINE));
+                throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.DEADLINE));
             }
             final String[] descriptionDeadline = inputArr[1].split("/by ");
             if (descriptionDeadline.length != 2
                     || (descriptionDeadline[0] = descriptionDeadline[0].trim()).isEmpty()) {
-                throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.DEADLINE));
+                throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.DEADLINE));
             }
             Task deadline = new Deadline(descriptionDeadline[0], descriptionDeadline[1]);
             return new AddCommand(deadline);
         case "event":
             if (inputArr.length == 1 || (inputArr[1] = inputArr[1].trim()).isEmpty()) {
-                throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.EVENT));
+                throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.EVENT));
             }
             final String[] descriptionTime = inputArr[1].split("/from ");
             if (descriptionTime.length != 2
                     || (descriptionTime[0] = descriptionTime[0].trim()).isEmpty()) {
-                throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.EVENT));
+                throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.EVENT));
             }
             final String[] timeRange = descriptionTime[1].split("/to ");
             if (timeRange.length != 2
                     || (timeRange[0] = timeRange[0].trim()).isEmpty()) {
-                throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.EVENT));
+                throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.EVENT));
             }
             Event event = new Event(descriptionTime[0], timeRange[0], timeRange[1]);
             return new AddCommand(event);
         case "mark":
-            return Parser.processTaskWithIndex(inputArr, Command.TYPE.MARK);
+            return Parser.processTaskWithIndex(inputArr, Command.Type.MARK);
         case "unmark":
-            return Parser.processTaskWithIndex(inputArr, Command.TYPE.UNMARK);
+            return Parser.processTaskWithIndex(inputArr, Command.Type.UNMARK);
         case "delete":
-            return Parser.processTaskWithIndex(inputArr, Command.TYPE.DELETE);
+            return Parser.processTaskWithIndex(inputArr, Command.Type.DELETE);
         case "list":
             return new ListCommand();
         case "any":
@@ -86,16 +86,16 @@ public class Parser {
             throw new RaphaelException("I'm sorry that I can't recognize the command!");
         }
     }
-    private static Command processTaskWithIndex(String[] inputArr, Command.TYPE commandType) throws RaphaelException {
+    private static Command processTaskWithIndex(String[] inputArr, Command.Type commandType) throws RaphaelException {
         if (inputArr.length != 2) {
             throw new RaphaelException(RaphaelException.invalidFormat(commandType));
         }
         try {
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            if (commandType.equals(Command.TYPE.DELETE)) {
+            if (commandType.equals(Command.Type.DELETE)) {
                 return new DeleteCommand(idx);
             }
-            return new EditCommand(idx, commandType.equals(Command.TYPE.MARK));
+            return new EditCommand(idx, commandType.equals(Command.Type.MARK));
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new RaphaelException(RaphaelException.invalidFormat(commandType));
         }
