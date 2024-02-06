@@ -51,7 +51,7 @@ public class Events extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start.format(Task.OUTPUT_FORMAT) + "hrs to: " +
-                end.format(Task.OUTPUT_FORMAT) + "hrs)";
+        return "[E]" + super.toString() + " (from: " + start.format(Task.OUTPUT_FORMAT) + "hrs to: "
+                + end.format(Task.OUTPUT_FORMAT) + "hrs)";
     }
 }

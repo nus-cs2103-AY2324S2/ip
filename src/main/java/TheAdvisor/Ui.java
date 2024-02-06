@@ -16,16 +16,16 @@ public class Ui {
      * Displays an introduction message for the user.
      */
     public void intro() {
-        System.out.println("Hello, I am The Advisor. The one and only advisor you will ever need in your investing " +
-                "journey. What can I do for you?");
+        System.out.println("Hello, I am The Advisor. The one and only advisor you will ever need in your investing "
+                + "journey. What can I do for you?");
     }
 
     /**
      * Displays a goodbye message and exits the application.
      */
     public void goodbye() {
-        System.out.println("Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed" +
-                " to help you in your investing journey!");
+        System.out.println("Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed"
+                + " to help you in your investing journey!");
         System.exit(0);
     }
 

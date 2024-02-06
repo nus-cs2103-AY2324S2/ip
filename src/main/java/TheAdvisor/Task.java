@@ -8,11 +8,10 @@ import java.time.format.DateTimeFormatter;
  * It also provides methods to interact with the task.
  */
 public class Task implements Serializable {
-    protected String description;
-    protected boolean isDone;
-
     protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Constructs a new Task with the given description.

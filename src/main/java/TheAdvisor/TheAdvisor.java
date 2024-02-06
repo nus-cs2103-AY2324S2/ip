@@ -1,9 +1,9 @@
 package theadvisor;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.io.Serializable;
 
 /**
  * TheAdvisor class represents the main application that manages tasks.
@@ -85,38 +85,42 @@ public class TheAdvisor implements Serializable {
                     break;
                 case TODO:
                     String todo = str.substring(4);
-                    checkEmptyDescription(todo, "The description for todo cannot be empty. " +
-                            "The input should be <todo> + description");
+                    checkEmptyDescription(todo, "The description for todo cannot be empty. "
+                            + "The input should be <todo> + description");
                     ToDos toDos = new ToDos(todo);
                     taskList.addToList(toDos);
                     storage.saveTasks(taskList);
                     break;
                 case DEADLINE:
                     String due = str.substring(8);
-                    checkEmptyDescription(due, "The description for deadline cannot be empty. " +
-                            "The input should be <deadline> + description");
+                    checkEmptyDescription(due, "The description for deadline cannot be empty. "
+                            + "The input should be <deadline> + description");
                     String[] arrTask = due.split(" /by ");
-                    checkArrayLength(arrTask, 2, "Invalid deadline format " +
-                            "Please use the correct format: deadline + description + /by + <YYYY-MM-DD HHmm>");
+                    checkArrayLength(arrTask, 2, "Invalid deadline format "
+                            + "Please use the correct format: deadline + description + /by + <YYYY-MM-DD HHmm>");
                     try {
-                        Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1], Task.INPUT_FORMAT));
+                        Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1],
+                                Task.INPUT_FORMAT));
                         taskList.addToList(deadline);
                         storage.saveTasks(taskList);
                     } catch (DateTimeException e) {
-                        throw new TheAdvisorException("Incorrect format of your timestamp! " +
-                                "Please input YYYY-MM-DD HHmm");
+                        throw new TheAdvisorException("Incorrect format of your timestamp! "
+                                + "Please input YYYY-MM-DD HHmm");
                     }
                     break;
                 case EVENT:
                     String event = str.substring(5);
-                    checkEmptyDescription(event, "The description for event cannot be empty. The " +
-                            "input should be <event> + description + /from <YYYY-MM-DD HHmm> + /to <YYYY-MM-DD HHmm>");
+                    checkEmptyDescription(event, "The description for event cannot be empty. The "
+                            + "input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
+                            + "/to <YYYY-MM-DD HHmm>");
                     String[] eventArr = event.split(" /from ");
-                    checkArrayLength(eventArr, 2, "Invalid event format. " +
-                            "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + /to <YYYY-MM-DD HHmm>");
+                    checkArrayLength(eventArr, 2, "Invalid event format. "
+                            + "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
+                            + "/to <YYYY-MM-DD HHmm>");
                     String[] timings = eventArr[1].split(" /to");
-                    checkArrayLength(timings, 2, "Invalid event format" +
-                            "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + /to <YYYY-MM-DD HHmm>");
+                    checkArrayLength(timings, 2, "Invalid event format"
+                            + "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
+                            + "/to <YYYY-MM-DD HHmm>");
                     String startStr = timings[0].trim();
                     String endStr = timings[1].trim();
                     try {
@@ -126,14 +130,14 @@ public class TheAdvisor implements Serializable {
                         taskList.addToList(events);
                         storage.saveTasks(taskList);
                     } catch (DateTimeException e) {
-                        throw new TheAdvisorException("Incorrect format of your timestamp! " +
-                                "Please input YYYY-MM-DD HHmm");
+                        throw new TheAdvisorException("Incorrect format of your timestamp! "
+                                + "Please input YYYY-MM-DD HHmm");
                     }
                     break;
                 case FIND:
                     String keyword = str.substring(5);
-                    checkEmptyDescription(keyword, "Please key in the keyword of what you wish " +
-                            "to find please!");
+                    checkEmptyDescription(keyword, "Please key in the keyword of what you wish "
+                            + "to find please!");
                     taskList.findItem(keyword);
                     break;
                 default:
@@ -146,7 +150,6 @@ public class TheAdvisor implements Serializable {
                 System.out.println("Please input something >_<*");
             }
         }
-
     }
 
     /**
@@ -165,7 +168,8 @@ public class TheAdvisor implements Serializable {
         }
     }
 
-    private static void checkArrayLength(String[] array, int expectedLength, String errorMessage) throws TheAdvisorException {
+    private static void checkArrayLength(String[] array, int expectedLength, String errorMessage)
+            throws TheAdvisorException {
         if (array.length != expectedLength) {
             throw new TheAdvisorException(errorMessage);
         }

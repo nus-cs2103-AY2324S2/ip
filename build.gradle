@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'checkstyle'
 }
 
 group = "org.example"
@@ -23,6 +24,10 @@ test {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 shadowJar {

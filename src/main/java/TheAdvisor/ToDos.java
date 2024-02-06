@@ -27,7 +27,7 @@ public class ToDos extends Task implements Serializable {
     }
 
     /**
-     * Returns the desciption of the task.
+     * Returns the description of the task.
      *
      * @return A string that is the description of the task.
      */

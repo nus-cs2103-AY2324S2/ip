@@ -2,9 +2,9 @@ package theadvisor;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -18,7 +18,7 @@ public class Storage implements Serializable {
      *
      * @param filePath The path where the TaskList should be saved at.
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 

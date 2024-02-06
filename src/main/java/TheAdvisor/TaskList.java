@@ -1,7 +1,7 @@
 package theadvisor;
 
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * The TaskList class represents a list of tasks and provides methods for managing tasks.
@@ -33,10 +33,10 @@ public class TaskList implements Serializable {
      */
     public void addToList(Task task) {
         this.taskList.add(task);
-        System.out.println("     Got it. I've added this task:\n" +
-                "       " + task.toString() + "\n" +
-                "     Now you have " + taskList.size() +
-                " tasks in the list.");
+        System.out.println("     Got it. I've added this task:\n"
+                + "       " + task.toString() + "\n"
+                + "     Now you have " + taskList.size()
+                + " tasks in the list.");
     }
 
     /**
@@ -50,10 +50,11 @@ public class TaskList implements Serializable {
             checkIndex(index);
             Task task = this.taskList.get(index);
             this.taskList.remove(index);
-            System.out.println("     Noted. I've removed this task:\n" + "       " +
-                    task.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
+            System.out.println("     Noted. I've removed this task:\n" + "       "
+                    + task.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! Do try again :)");
+            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
+                    + "Do try again :)");
         }
     }
 
@@ -69,10 +70,11 @@ public class TaskList implements Serializable {
             Task task = this.taskList.get(index);
             checkMarked(task);
             task.markDone();
-            System.out.println("     Nice! I've marked this task as done:\n" + "       " +
-                    task.toString());
+            System.out.println("     Nice! I've marked this task as done:\n" + "       "
+                    + task.toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! Do try again :)");
+            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
+                    + "Do try again :)");
         }
     }
 
@@ -88,10 +90,11 @@ public class TaskList implements Serializable {
             Task task = this.taskList.get(index);
             checkUnmarked(task);
             task.unmark();
-            System.out.println("          OK, I've marked this task as not done yet:\n" + "       " +
-                    task.toString());
+            System.out.println("          OK, I've marked this task as not done yet:\n" + "       "
+                    + task.toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! Do try again :)");
+            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
+                    + "Do try again :)");
         }
     }
 
