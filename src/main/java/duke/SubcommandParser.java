@@ -4,7 +4,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * SubcommandParser utility class to handle parsing of commands with subcommands (eg. event task /from 2020-12-12 /to 2020-12-13)
+ */
 public class SubcommandParser {
+    /**
+     * Parses subcommands from a string
+     * 
+     * @param text String to parse
+     * @param initializer Initializer for subcommands
+     * @return Pair of initial argument and list of subcommands
+     */
     public static Pair<String, List<Pair<String, String>>> parseSubcommands(String text, String initializer) {
         List<Pair<String, String>> subcommandList = new ArrayList<>();
         List<Pair<String, List<String>>> subcommandInternalList = new ArrayList<>();

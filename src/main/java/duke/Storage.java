@@ -12,13 +12,26 @@ import duke.tasks.ToDo;
 
 import duke.tasks.Task;
 
+/**
+ * Storage class to handle file operations
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage class
+     * @param filePath Path to file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads file from path
+     * 
+     * @return File object
+     * @throws IOException
+     */
     public File loadFile() throws IOException {
         File data = new File(filePath);
         data.getParentFile().mkdirs();
@@ -26,6 +39,13 @@ public class Storage {
         return data;
     }
 
+    /**
+     * Creates task list from file
+     * 
+     * @return TaskList object
+     * @throws FileCorruptionException
+     * @throws IOException
+     */
     public TaskList createTaskList() throws FileCorruptionException, IOException {
         File file = this.loadFile();
         TaskList taskList = new TaskList(file);

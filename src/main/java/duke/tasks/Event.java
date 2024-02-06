@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Event class to represent tasks with a start and end time
+ */
 public class Event extends Task {
     public Optional<LocalDateTime> fromDate;
     public Optional<LocalDateTime> toDate;
@@ -29,7 +32,7 @@ public class Event extends Task {
         return "E";
     }
 
-    public String constructTimeString() {
+    private String constructTimeString() {
         List<String> arr = new ArrayList<>();
         if (this.fromDate.isPresent()) {
             arr.add(String.format("from: %s", this.getFromDate()));

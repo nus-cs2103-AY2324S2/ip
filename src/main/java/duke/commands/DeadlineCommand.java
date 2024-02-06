@@ -6,8 +6,18 @@ import duke.Pair;
 import duke.SubcommandParser;
 import duke.tasks.Deadline;
 
+/**
+ * DeadlineCommand class to handle the execution of deadline command
+ */
 public class DeadlineCommand implements NamedCommand {
     public String getName() { return "deadline"; }
+
+    /**
+     * Adds a deadline task to the task list
+     * 
+     * @param session Chat session
+     * @param commandArgs Command arguments
+     */
     public void execute(ChatSession session, String commandArgs) {
         Pair<String, List<Pair<String, String>>> data = SubcommandParser.parseSubcommands(commandArgs, "/");
         String name = data.getFirst();

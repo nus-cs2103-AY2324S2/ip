@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Deadline class for tasks with deadlines
+ */
 public class Deadline extends Task {
     public Optional<LocalDateTime> byDate;
 
@@ -26,21 +29,37 @@ public class Deadline extends Task {
         return "D";
     }
 
-    public String constructTimeString() {
+    private String constructTimeString() {
         if (this.byDate.isPresent()) {
             return String.format("(by: %s)", this.getByDate());
         }
         return "";
     }
 
+    /**
+     * Returns a string representation of the task name with deadline time
+     * 
+     * @return String of task name with deadline time
+     */
     public String getName() {
         return String.format("%s %s", super.getName(), this.constructTimeString());
     }
 
+    /**
+     * Sets the deadline date
+     * 
+     * @param byDate Deadline date
+     * @throws DateTimeParseException If the date is not in the correct format
+     */
     public void setByDate(String byDate) throws DateTimeParseException {
         this.byDate = Optional.of(this.parseDate(byDate, true));
     }
 
+    /**
+     * Gets the deadline date
+     * 
+     * @return String of deadline date in format specified by OUTPUT_DATE_TIME_FORMAT
+     */
     public String getByDate() {
         return this.byDate.map(
             d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""

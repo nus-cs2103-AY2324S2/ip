@@ -12,6 +12,9 @@ import duke.commands.ToDoCommand;
 import duke.commands.Unmark;
 import duke.exceptions.InvalidParametersException;
 
+/**
+ * Parser class to handle parsing of commands
+ */
 public class Parser {
     private ChatSession session;
     public List<NamedCommand> commandList;
@@ -21,7 +24,7 @@ public class Parser {
         this.session = session;
     }
 
-    public void initCommands() {
+    private void initCommands() {
         this.commandList = List.of(
             new Bye(),
             new ListTasks(), 
@@ -34,6 +37,11 @@ public class Parser {
             );
     }
 
+    /**
+     * Handles message from user
+     * 
+     * @param message Message from user
+     */
     public void handleMessage(String message) {
         String[] result = message.split(" ", 2);
         String command = result[0];
@@ -60,7 +68,8 @@ public class Parser {
         this.unmatchedCommand(message);
     }
 
-    public void unmatchedCommand(String message) {
+
+    private void unmatchedCommand(String message) {
         session.printMessage("unrecognized command");
     }
 
