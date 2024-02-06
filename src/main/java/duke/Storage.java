@@ -47,7 +47,7 @@ public class Storage {
     /**
      * Writes task list content to duke.txt.
      *
-     * @param tasks
+     * @param tasks Task content to save.
      */
     public void save(TaskList tasks) {
         try {

@@ -42,9 +42,6 @@ public class Duke {
         ui.exit();
     }
 
-    /**
-     * Starts the chatbot and scans for user input until the user says bye.
-     */
     public static void main(String[] args) {
         Duke duke = new Duke("./data/duke.txt");
         duke.run();
