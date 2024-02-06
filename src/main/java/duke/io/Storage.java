@@ -6,9 +6,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Storage - Handles saving and loading tasks to and from a file.
+ */
 public class Storage {
     private static final String FILEPATH = "./data/duke.txt";
 
+    /**
+     * Creates the data folder if it does not exist.
+     */
     public static void createFolder() {
         Path folder = Paths.get("./data/");
         if (Files.notExists(folder)) {
@@ -20,6 +26,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to a file.
+     *
+     * @param tasks ArrayList of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
             for (Task task : tasks) {
@@ -31,6 +42,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file.
+     *
+     * @param tasks ArrayList to store the loaded tasks.
+     */
     public static void loadFile(ArrayList<Task> tasks) {
         File file = new File(FILEPATH);
         if (!file.exists()) {
