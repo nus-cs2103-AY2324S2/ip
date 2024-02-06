@@ -69,4 +69,13 @@ public class Task {
 
         }
     }
+
+    public boolean isMatchingDesc(String keyword) {
+        if (description.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
+
 }

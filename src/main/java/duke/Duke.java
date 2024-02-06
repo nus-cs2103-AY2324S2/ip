@@ -11,11 +11,13 @@ import java.time.LocalDate;
 public class Duke {
     private static final String FILE_PATH = "data/duke.txt";
     private Ui ui;
-    List<Task> list;
+    //List<Task> list;
+    TaskList tlist;
 
     public Duke() {
         ui = new Ui();
-        list = new ArrayList<>();
+        //list = new ArrayList<>();
+        tlist = new TaskList();
     }
 
     public static void main(String[] args) throws DukeException {
@@ -43,16 +45,12 @@ public class Duke {
             System.out.println("Error " + e.getMessage());
         }
 
-        //List<duke.Task> list = new ArrayList<>();
-
         try {
-            list = retrieveData(f);
+            tlist.retrieveData(f);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         Ui.greet();
-
 
         while (scanner.hasNextLine()) {
             String comd = scanner.nextLine();
@@ -61,48 +59,35 @@ public class Duke {
                 break;
             }
             if (comd.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println(i+1 + ". " + list.get(i));
-                }
+
+                tlist.listTasks();
             }
 
             else if (comd.startsWith("todo ")) {
                 if (comd.length() <= 5) {
                     throw new DukeException("Empty Description");
                 }
-                Todo t = new Todo(comd.substring(5));
-                list.add(t);
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(list.get(list.size() - 1));
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                tlist.addTask(comd);
 
                 try {
-                    addData(FILE_PATH, t.toString() + System.lineSeparator());
+                    addData(FILE_PATH, new Todo(comd.substring(5)).toString() + System.lineSeparator());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
-
             }
 
             else if (comd.startsWith("deadline ")) {
                 if (comd.length() <= 9) {
                     throw new DukeException("Empty Description");
                 }
+
+                tlist.addTask(comd);
                 InputHandler handler = new InputHandler();
                 String[] data = comd.split("/");
-                //System.out.println("this is the input: " + data[1].substring(3));
-                //System.out.println("next " + data[2]);
-
                 LocalDate deadlineDate = handler.formatDeadline(data);
 
                 String task = data[0].substring(9);
                 Deadline d = new Deadline(task, deadlineDate);
-                list.add(d);
-
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(list.get(list.size() - 1));
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
 
                 try {
                     addData(FILE_PATH, d.toString() + System.lineSeparator());
@@ -115,14 +100,11 @@ public class Duke {
                 if (comd.length() <= 6) {
                     throw new DukeException("Empty Description");
                 }
+                tlist.addTask(comd);
                 String[] data = comd.split("/");
                 String task = data[0].substring(6);
 
                 Event e = new Event(task, data[1].substring(5), data[2].substring(3));
-                list.add(e);
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(list.get(list.size() - 1));
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
 
                 try {
                     addData(FILE_PATH, e.toString() + System.lineSeparator());
@@ -132,16 +114,10 @@ public class Duke {
             }
 
             else if(comd.startsWith("mark ")) {
-                String[] res = comd.split(" ");
-                String in = res[1];
-                int index = Integer.parseInt(in);
-
-                list.get(index - 1).mark();
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(list.get(index - 1).printWithStatus());
+                tlist.markTask(comd);
 
                 try {
-                    write(FILE_PATH, list);
+                    write(FILE_PATH, tlist.getList());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -149,34 +125,27 @@ public class Duke {
             }
 
             else if (comd.startsWith("unmark ")) {
-                String[] result = comd.split(" ");
-                String in = result[1];
-                int index = Integer.parseInt(in);
-                list.get(index - 1).unmark();
-                System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println(list.get(index - 1).printWithStatus());
+                tlist.unmarkTask(comd);
 
                 try {
-                    write(FILE_PATH, list);
+                    write(FILE_PATH, tlist.getList());
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
             }
 
             else if (comd.startsWith("delete ")) {
-                String[] result = comd.split(" ");
-                int in = Integer.parseInt(result[1]);
-
-                System.out.println("Noted. I've removed this task: ");
-                System.out.println(list.get(in - 1).printWithStatus());
-                list.remove(in - 1);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                tlist.deleteTask(comd);
 
                 try {
-                    write(FILE_PATH, list);
+                    write(FILE_PATH, tlist.getList());
                 } catch (IOException err) {
                     System.out.println(err.getMessage());
                 }
+            }
+
+            else if (comd.startsWith("find ")) {
+                tlist.findTask(comd);
             }
             else {
                 throw new DukeException("Invalid Command!");
@@ -193,7 +162,6 @@ public class Duke {
             while(fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
                 loadedList.add(Task.parser(taskData));
-                //System.out.println("successfully loaded");
             }
         }
 
