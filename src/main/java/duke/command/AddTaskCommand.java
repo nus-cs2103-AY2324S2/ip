@@ -28,6 +28,14 @@ public class AddTaskCommand extends Command {
         this.msg = msg;
     }
 
+    /**
+     * Runs the command to add task to tasklist.
+     *
+     * @param s Storage containing data of
+     *          previous program.
+     * @param t Tasklist of program.
+     * @param u Ui that handles user interactions.
+     */
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         Task curr;

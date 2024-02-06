@@ -11,7 +11,7 @@ import duke.run.Ui;
 public abstract class Command {
 
     /**
-     * Runs the belle.belle.command to complete its
+     * Runs the command to complete its
      * specific function.
      *
      * @param s Storage containing data of
