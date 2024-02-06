@@ -1,4 +1,4 @@
-package podz.command;
+package podz.commands;
 
 import podz.task.Todo;
 import podz.ui.Ui;

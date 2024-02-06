@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import podz.storage.Storage;
 
 public class TaskList {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    protected ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;

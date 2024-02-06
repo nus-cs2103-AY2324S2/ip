@@ -1,4 +1,4 @@
-package podz.command;
+package podz.commands;
 
 import podz.task.Deadline;
 import podz.ui.Ui;

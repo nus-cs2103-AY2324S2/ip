@@ -1,5 +1,6 @@
-package podz.command;
+package podz.commands;
 
+import podz.exceptions.PodzException;
 import podz.task.TaskList;
 import podz.ui.Ui;
 
@@ -10,5 +11,5 @@ public abstract class Command {
         this.taskList = taskList;
     }
 
-    public abstract void execute(Ui ui);
+    public abstract void execute(Ui ui) throws PodzException;
 }
