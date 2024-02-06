@@ -1,21 +1,21 @@
+package task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Events Task.
  * <p>
  * This class is the representation of a Events task.
  * It extends from its parent class the Task class.
  */
-package task;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Event extends Task {
+    public static final String TASK_TYPE = "event";
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private String from;
     private String to;
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
-    final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    public static final String TASK_TYPE = "event";
 
 
     /**
@@ -34,6 +34,16 @@ public class Event extends Task {
         this.toDateTime = LocalDateTime.parse(to.split("to ")[1].trim(), DATE_FORMAT);
     }
 
+    /**
+     * Creates a Events object, with a mark variable to indicate if the
+     * created object as been marked as complete or not.
+     * Will call the super constructor with the task name variable.
+     *
+     * @param c The name of the task.
+     * @param from The start of the event.
+     * @param to The end of the event.
+     * @param mark Indication of completed or not.
+     */
     public Event(String c, String from, String to, String mark) {
         super(c);
         this.from = from.split("from ")[1];
@@ -48,30 +58,31 @@ public class Event extends Task {
     /**
      * Returns a string representation of this Events object for storage in DataWriter.
      * This includes the formating required for the reader to split and read it.
-     * 
-     * @return a formatted string representation of this object. 
+     *
+     * @return a formatted string representation of this object.
      */
     @Override
     public String formatDataLine() {
-        return "Events|" + super.getCompleted() + "|" + super.command + "|from " + this.from + "|to " + this.to ;
+        return "Events|" + super.getCompleted() + "|" + super.getCommand() + "|from " + this.from + "|to " + this.to;
     }
 
     /**
      * Returns a string representation of this Events.
      * This includes an indicator that this is a Events object.
-     * 
+     *
      * @return a string representation of this Events object.
      */
     @Override
     public String toString() {
-        String s = "[E]" + super.toString() + "(from: " + this.fromDateTime.format(DATE_FORMAT) + " to: " + this.toDateTime.format(DATE_FORMAT) + ")";
+        String s = "[E]" + super.toString() + "(from: " + this.fromDateTime.format(DATE_FORMAT) + " to: "
+                + this.toDateTime.format(DATE_FORMAT) + ")";
         return s;
     }
 
     /**
-     * Executes the necessary action created from the parsed results. 
+     * Executes the necessary action created from the parsed results.
      * In this case, will add the Event object to the TaskStorage of the application.
-     * 
+     *
      * @param taskStorage The storage space where the action will take place.
      */
     @Override

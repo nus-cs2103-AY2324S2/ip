@@ -1,9 +1,3 @@
-/**
- * Represents a FileWriter object for Duke bot.
- * <p>
- * Handles writing of created Tasks information to the /resources directory, at data.txt.
- * Class is created to abstract the details of file input operations.
- */
 package util;
 
 import java.io.BufferedWriter;
@@ -15,6 +9,12 @@ import java.util.ArrayList;
 import task.Task;
 import task.TaskStorage;
 
+/**
+ * Represents a FileWriter object for Duke bot.
+ *
+ * Handles writing of created Tasks information to the /resources directory, at data.txt.
+ * Class is created to abstract the details of file input operations.
+ */
 public class DataWriter {
     private static final String SAVED_DATA_FILE = "data.txt";
     private static final String SAVED_DATA_DIRECTORY = "data";
@@ -31,8 +31,8 @@ public class DataWriter {
         File f = new File(directory.toString());
         f.mkdir();
         java.nio.file.Path path = java.nio.file.Paths.get(currentDirectory, SAVED_DATA_DIRECTORY, SAVED_DATA_FILE);
-        
-        ArrayList<Task> taskList = taskStorage.sl;
+
+        ArrayList<Task> taskList = taskStorage.getStorage();
         boolean isSuccessful = false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString(), false))) {
             for (Task task : taskList) {

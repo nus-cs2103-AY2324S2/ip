@@ -1,9 +1,4 @@
-/**
- * The main user interface for the "ChatBot", promptly named BobBot.
- * <p>
- * This class is a front to manage user input, displaying the corresponding output, 
- * and managed the conditional statements for the prompting.
- */
+
 import parser.ParseExecutionable;
 import parser.Parser;
 import task.ActionTask;
@@ -13,7 +8,19 @@ import util.DataWriter;
 import util.Messages;
 import util.TextUi;
 
+/**
+ * The main user interface for the "ChatBot", promptly named BobBot.
+ * <p>
+ * This class is a front to manage user input, displaying the corresponding output,
+ * and managed the conditional statements for the prompting.
+**/
 public class Duke {
+
+    /**
+     * Main function to start the Chatbot.
+     *
+     * @param args arguments for the method.
+     */
     public static void main(String[] args) {
         TextUi textUi = new TextUi();
         Parser parser = new Parser();
@@ -27,7 +34,7 @@ public class Duke {
             textUi.printMessage(actionable.execute(ts));
             if (actionable instanceof ActionTask) {
                 ActionTask actionTask = (ActionTask) actionable;
-                isExit = actionTask.isExit;
+                isExit = actionTask.isItExitAction();
             }
         } while (!isExit);
         DataWriter dataWriter = new DataWriter();
