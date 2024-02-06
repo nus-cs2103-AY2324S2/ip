@@ -15,7 +15,7 @@ import util.Messages;
 /**
  * The parser class is responsible for interpreting and converting
  * user input into executionable actions in the main application.
- * <p>
+ *
  * This class supports parsing descriptions that can either represent
  * commands (like list, mark task, etc). Corresponding to the input, the
  * parser produces a result that encapsulates the intended action.

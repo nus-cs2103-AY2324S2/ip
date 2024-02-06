@@ -10,7 +10,7 @@ import util.TextUi;
 
 /**
  * The main user interface for the "ChatBot", promptly named BobBot.
- * <p>
+ *
  * This class is a front to manage user input, displaying the corresponding output,
  * and managed the conditional statements for the prompting.
 **/
