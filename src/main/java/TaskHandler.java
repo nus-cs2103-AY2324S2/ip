@@ -3,6 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskHandler{
 
@@ -113,7 +115,15 @@ public class TaskHandler{
                             "So where is the deadline task????");
                 }
                 String msg = input.substring(9);
-                Deadline task = new Deadline(msg);
+                Pattern p = Pattern.compile("(.+) /by (.+)");
+                Matcher m = p.matcher(msg);
+                String taskMsg;
+                if (m.find()) {
+                    taskMsg = m.group(1) + " | By: " + m.group(2);
+                } else {
+                    taskMsg = msg;
+                }
+                Deadline task = new Deadline(taskMsg);
                 String output = "__________________________________\n" +
                         "Ok, I have added this task:\n" +
                         "   " + task.toString() +
@@ -132,7 +142,15 @@ public class TaskHandler{
                             "SO where is the event????");
                 }
                 String msg = input.substring(6);
-                Event task = new Event(msg);
+                Pattern p = Pattern.compile("(.+) /from (.+) /to (.+)");
+                Matcher m = p.matcher(msg);
+                String taskMsg;
+                if (m.find()) {
+                    taskMsg = m.group(1) + " | From: " + m.group(2) + " To: " + m.group(3);
+                } else {
+                    taskMsg = msg;
+                }
+                Event task = new Event(taskMsg);
                 String output = "__________________________________\n" +
                         "Ok, I have added this task:\n" +
                         "   " + task.toString() +
