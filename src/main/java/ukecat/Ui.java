@@ -59,7 +59,7 @@ public class Ui {
 
     // Hardcoded messages
     public static final String LINE = "________________________________________________________________________\n";
-    public static String WELCOME =
+    public static final String WELCOME =
             "                    /~(_)~\\.    Hi! I'm UkeCat, a cat with an ukulele!\n"
                     + " /= ••\\      /~(_)~\\        \\   \\| /\\           What can I do for you?\n"
                     + "K=|=|=|=|=|=|=|=|=(  )===]  |     (`~ o7 \n"
