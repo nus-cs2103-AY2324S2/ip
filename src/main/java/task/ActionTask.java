@@ -5,7 +5,7 @@ import util.Messages;
 
 /**
  * Represents an ActionTask.
- * <p>
+ *
  * This class is the representation of a ActionTask, that defines a certain action.
  * It implements from ParseExecutionable to execute it's required action after being parsed.
  */
