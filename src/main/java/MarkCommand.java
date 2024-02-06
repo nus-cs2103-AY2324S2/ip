@@ -1,5 +1,14 @@
+/**
+ * Represents a command that marks a task as done upon execution
+ */
 public class MarkCommand extends Command {
     private final int listIndex;
+
+    /**
+     * Creates command that marks a Task in the Task List
+     *
+     * @param listIndex index of task to mark
+     */
     public MarkCommand(int listIndex) {
         this.listIndex = listIndex;
     }

@@ -1,3 +1,6 @@
+/**
+ * Represents a command that lists out tasks in the task list upon execution
+ */
 public class ListCommand extends Command {
     /**
      * {@inheritDoc}

@@ -1,6 +1,14 @@
+/**
+ * Represents a command that marks a task as not done upon execution
+ */
 public class UnmarkCommand extends Command {
     private final int listIndex;
 
+    /**
+     * Creates command that unmarks a Task in the Task List
+     *
+     * @param listIndex index of task to unmark
+     */
     public UnmarkCommand(int listIndex) {
         this.listIndex = listIndex;
     }

@@ -1,8 +1,18 @@
+/**
+ * Represents a command that creates a Task upon execution
+ */
 public class CreateTaskCommand extends Command {
     private final String commandString;
+
+    /**
+     * Creates command to create Task with the arguments supplied by the user
+     *
+     * @param commandString user input string
+     */
     public CreateTaskCommand(String commandString) {
         this.commandString = commandString;
     }
+
     /**
      * {@inheritDoc}
      *

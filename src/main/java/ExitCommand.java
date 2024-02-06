@@ -1,3 +1,6 @@
+/**
+ * Represents a command that exits the program upon execution
+ */
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {

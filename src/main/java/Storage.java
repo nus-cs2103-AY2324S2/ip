@@ -29,6 +29,8 @@ public class Storage {
     /**
      * Saves the  task list to the designated text file for storing data for the program.
      * Creates one if it does not exist yet.
+     *
+     * @param tasks Task list to save to file
      */
     void saveToFile(TaskList tasks) {
         StringBuilder sb = new StringBuilder();

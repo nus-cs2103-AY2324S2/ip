@@ -1,5 +1,14 @@
+/**
+ * Represents a command that deletes a Task upon execution
+ */
 public class DeleteCommand extends Command {
     private final int listIndex;
+
+    /**
+     * Creates command to delete a Task from the task list
+     *
+     * @param listIndex index of task to delete
+     */
     public DeleteCommand(int listIndex) {
         this.listIndex = listIndex;
     }
@@ -7,7 +16,7 @@ public class DeleteCommand extends Command {
     /**
      * {@inheritDoc}
      *
-     * Delete the task at listIndex in tasks.
+     * Delete the task at listIndex from tasks.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
