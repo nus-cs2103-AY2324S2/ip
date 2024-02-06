@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.ArrayList;
+
 import exceptions.WilliamException;
 
 /**
@@ -27,50 +29,35 @@ public class AdditionalInfoParser {
     }
 
     /**
-     * Splits the method by "/by"
+     * Splits the input regardless of '/by', '/to' or '/from'
      * 
      * @param input Input that is the additional details
-     * @return string[] An array of String that contains the name and the date
-     * @throws WilliamException If the input does not have the "/by" or missing text before/after
-     *         "/by"
+     * @param keywords The splitting conditions
+     * @return string[] An array of String that contains the name and dates in seperated form
+     * @throws WilliamException If the input does not contain the keywords
      */
-    public static String[] splitBy(String input) throws WilliamException {
+    public static String[] splitInput(String input, String... keywords) throws WilliamException {
         checkAdditionalDetailEmpty(input);
-        String[] twoParts = input.split(" /by ", 2);
-        if (twoParts.length < 2) {
-            throw new WilliamException(
-                    "The input does not contain the required '/by' keyword or is missing text before/after '/by' keyword. Please try again!");
+
+        ArrayList<String> parts = new ArrayList<>();
+        String currentPart = input;
+
+        for (String keyword : keywords) {
+            String[] splitParts = currentPart.split(keyword, 2);
+            if (splitParts.length < 2) {
+                throw new WilliamException("The input does not contain the required '" + keyword
+                        + "' keyword or is missing text before/after '" + keyword
+                        + "' keyword. Please try again!");
+            }
+            parts.add(splitParts[0]);
+            currentPart = splitParts[1];
         }
-        DateAndTimeParser.acceptDateAndTime(twoParts[1]);
-        return twoParts;
+
+        parts.add(currentPart);
+
+        return parts.toArray(new String[0]);
     }
 
-    /**
-     * Splits the method by "/to" and "/from"
-     * 
-     * @param input Input that is the additional details
-     * @return string[] An array of String that contains the name, from and to date
-     * @throws WilliamException If the input does not contain "/to", "/from" keywords and is missing
-     *         text before/after the keywords
-     */
-    public static String[] splitToAndFrom(String input) throws WilliamException {
-        checkAdditionalDetailEmpty(input);
-        String[] firstSplit = input.split(" /from ", 2);
-        if (firstSplit.length < 2) {
-            throw new WilliamException(
-                    "The input does not contain the required '/from' keyword or is missing text before/after '/from' keyword. Please try again!");
-        }
-        String[] secondSplit = firstSplit[1].split(" /to ", 2);
-        if (secondSplit.length < 2) {
-            throw new WilliamException(
-                    "The input does not contain the required '/to' keyword or is missing text before/after '/to' keyword. Please try again!");
-        }
-        DateAndTimeParser.acceptDateAndTime(secondSplit[0]);
-        DateAndTimeParser.acceptDateAndTime(secondSplit[1]);
-        DateAndTimeParser.checkWhetherToAndFromValid(secondSplit[0], secondSplit[1]);
-        String[] threeParts = {firstSplit[0], secondSplit[0], secondSplit[1]};
-        return threeParts;
-    }
 
     /**
      * Checks whether the additional detail is empty
