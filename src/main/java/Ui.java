@@ -4,7 +4,7 @@ import java.util.Scanner;
  * Represents the user interface of the ChatBro.
  */
 public class Ui {
-    public void printWelcome() {
+    public static void printWelcome() {
         System.out.println("_________________________\n"
                 + " __  __       __\n"
                 + " \\ \\/ /__    / /\n"
@@ -16,12 +16,17 @@ public class Ui {
                 + "create a new task (todo, deadline, event) to store in your list bro.\n"
                 + "_________________________\n");
     }
-    public void printLine() {
+    public static void printLine() {
         System.out.println("_________________________");
     }
-    public void printBye() {
+    public static void printBye() {
         printLine();
         System.out.println("Hasta la vista bro!");
+        printLine();
+    }
+    public static void printError(String error) {
+        printLine();
+        System.out.println(error);
         printLine();
     }
 }

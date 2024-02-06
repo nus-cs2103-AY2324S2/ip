@@ -10,26 +10,31 @@ public class ChatBro {
         taskList.add(null); // First element left empty for 1-based indexing
         String savedTasks = db.readFromFile();
         String[] savedTasksSplit = savedTasks.split("\n"); // Split savedTasks by newline
-        try {
+        if (!savedTasksSplit[0].isEmpty()) {
+            try {
+                for (int i = 0; i < savedTasksSplit.length; i++) {
+                    String taskString = savedTasksSplit[i];
+                    taskList.add(db.parseTask(taskString));
+                }
+            } catch (WrongFileFormatException e) {
+                Ui.printError(e.getMessage());
+                System.exit(0);
+            }
+
             for (int i = 0; i < savedTasksSplit.length; i++) {
-                String taskString = savedTasksSplit[i];
-                taskList.add(Task.parseTask(taskString));
+                if (savedTasksSplit[0].isEmpty()) {
+                    break;
+                }
+                Task.incrementTaskCount();
             }
-        } catch (WrongFileFormatException e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
-
-        for (int i = 0; i < savedTasksSplit.length; i++) {
-            if (savedTasksSplit[0].isEmpty()) {
-                break;
+            for (int i = 0; i < 100 - savedTasksSplit.length; i++) {
+                taskList.add(null);
             }
-            Task.incrementTaskCount();
+        } else {
+            for (int i = 0; i < 100; i++) {
+                taskList.add(null);
+            }
         }
-        for (int i = 0; i < 100 - savedTasksSplit.length; i++) {
-            taskList.add(null);
-        }
-
         ui.printWelcome();
         boolean isRunning = true;
         while (isRunning) {
@@ -214,7 +219,7 @@ public class ChatBro {
                         if (taskList.get(i) == null) {
                             break;
                         }
-                        tasksToSave += taskList.get(i).toString() + "\n";
+                        tasksToSave += taskList.get(i).toStorageFormat() + "\n";
                     }
                     db.saveToFile(tasksToSave);
                     parser.closeScanner();

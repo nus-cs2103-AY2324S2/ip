@@ -15,6 +15,7 @@ public class Parser {
         String input = readInput();
         String[] inputSplit = input.split(" ");
         String command = inputSplit[0];
+        return command;
     }
     public void closeScanner() {
         sc.close();
