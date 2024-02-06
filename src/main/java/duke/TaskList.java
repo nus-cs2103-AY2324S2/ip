@@ -10,7 +10,7 @@ public class TaskList {
 
     public TaskList(String content) {
         if (!content.equals("")) {
-            String[] separatedContent = content.split(" ");
+            String[] separatedContent = content.split("\n");
             for (int i = 0; i < separatedContent.length; i++) {
                 String[] details = separatedContent[i].split("\\|");
                 String taskType = details[0];
@@ -74,7 +74,7 @@ public class TaskList {
      * @param index Index of task on the list to be deleted
      * @throws DukeException If index is missing or invalid.
      */
-    public void delete(int index) {
+    public void delete(int index) throws DukeException {
         try {
             Task removedTask = tasks.get(index - 1);
             tasks.remove(index - 1);
@@ -83,7 +83,7 @@ public class TaskList {
             ui.showMessage("Noted. I've removed this task:\n" + removedTask.toString()
                     + "\nNow you have " + numItems + " " + sOrP + " in the list.");
         } catch (IndexOutOfBoundsException e) {
-            ui.showMessage("Invalid task number... count properly xx");
+            throw new DukeException("Invalid task number... count properly xx");
         }
     }
 
