@@ -2,10 +2,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class TaskReader {
     public static void loadTasksFromFile(ArrayList<Task> tasks, String filePath) {
+        createDirectory(filePath);
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -34,7 +39,8 @@ public class TaskReader {
                 return new ToDo(description);
             case "D":
                 String dueBy = parts.length > 3 ? parts[3].trim() : "";
-                return new Deadline(description, dueBy);
+                LocalDate dueByDate = parseDate(dueBy);
+                return new Deadline(description, dueByDate);
             case "E":
                 String start = parts.length > 3 ? parts[3].trim() : "";
                 String end = parts.length > 4 ? parts[4].trim() : "";
@@ -54,4 +60,12 @@ public class TaskReader {
         }
     }
 
+    private static LocalDate parseDate(String dateString) {
+        try {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            return null;
+        }
+    }
 }
