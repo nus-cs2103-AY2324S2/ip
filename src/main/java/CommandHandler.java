@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class CommandHandler {
@@ -97,6 +100,15 @@ public class CommandHandler {
     private static void validateIndex(int index, ArrayList<Task> tasks) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Task not found. Please provide a valid task number.");
+        }
+    }
+
+    private static LocalDate parseDate(String dateString) {
+        try {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            return null;
         }
     }
 

@@ -1,3 +1,1 @@
-T | 0 | work
-D | 0 | hw | 6pm
-E | 0 | party | 2pm | 6pm
+D | 0 | presentation | Mar 12 2024

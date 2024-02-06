@@ -1,16 +1,20 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Deadline extends Task {
 
-    protected String dueBy;
+    protected LocalDate dueByDate;
 
-    public Deadline(String description, String dueBy) {
+    public Deadline(String description, LocalDate dueByDate) {
         super(description);
-        this.dueBy = dueBy;
+        this.dueByDate = dueByDate;
     }
 
     public static void addDeadlineTask(ArrayList<Task> tasks, int taskCounter, String description, String dueBy) {
-        tasks.add(new Deadline(description, dueBy));
+        LocalDate dueByDate = parseDate(dueBy);
+        tasks.add(new Deadline(description, dueByDate));
         taskCounter++;
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).getStatusIcon());
@@ -19,11 +23,22 @@ public class Deadline extends Task {
 
     @Override
     public String getStatusIcon() {
-        return "[D] " + super.getStatusIcon() + " " + description + " (by: " + dueBy + ")";
+        return "[D] " + super.getStatusIcon() + " " + description + " (by: " +
+                dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + dueBy;
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
+                dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    private static LocalDate parseDate(String dateString) {
+        try {
+            return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            return null;
+        }
     }
 }
