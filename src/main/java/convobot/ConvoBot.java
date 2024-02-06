@@ -1,7 +1,10 @@
 package convobot;
 
+import javafx.application.Application;
+
 import commands.Command;
 import exceptions.ConvoBotException;
+import gui.Main;
 import utils.Parser;
 import utils.Storage;
 import utils.TaskList;
@@ -26,7 +29,7 @@ public class ConvoBot {
     }
 
     /**
-     * Main execution loop for the ConvoBot application.
+     * Main execution loop for the ConvoBot command-line application.
      * Shows welcome message, reads user input, parses and executes commands until the exit command is encountered.
      * Handles exceptions and displays error messages.
      */
@@ -64,6 +67,7 @@ public class ConvoBot {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new ConvoBot("./data/tasks.txt").run();
+        // new ConvoBot("./data/tasks.txt").run(); // uncomment this to use CLI instead of GUI
+        Application.launch(Main.class, args);
     }
 }
