@@ -20,15 +20,17 @@ public class Storage {
      *
      * @throws FileNotFoundException When data file doesn't exist.
      */
-    public void getFileContent() throws FileNotFoundException {
+    public String getFileContent() throws FileNotFoundException {
+        String str = "";
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                System.out.println("    " + s.nextLine());
+                str += "    " + s.nextLine() + "\n";
             }
         } catch (FileNotFoundException e) {
-            System.out.println("file not found! try again xx");
+            return "file not found! try again xx";
         }
+        return str;
     }
 
     /**

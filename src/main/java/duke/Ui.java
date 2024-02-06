@@ -2,6 +2,7 @@ package duke;
 
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import duke.task.Task;
@@ -46,14 +47,18 @@ public class Ui {
     /**
      * Reads command of user's next line and passes String command to Parser.
      * @throws FileNotFoundException When File f does not exist.
+     * @throws IOException When File f cannot be found.
      */
-    public void readCommand() throws FileNotFoundException {
+    public String readCommand() throws FileNotFoundException, IOException {
         Parser parse = new Parser(tasklist);
         Task task = new Task(user.nextLine());
         while (!task.getTask().equals("bye")) {
             parse.parsing(task.getTask());
             task = new Task(user.nextLine());
         }
+
+        tasklist.write();
+        return exit();
     }
 
 

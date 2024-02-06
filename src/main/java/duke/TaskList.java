@@ -39,21 +39,25 @@ public class TaskList {
      * Lists all tasks from previous iterations of Duke.run() which are stored in
      * Storage s as well as current tasks in current iterations of Duke.run().
      */
-    public void list() throws FileNotFoundException {
+    public String list() throws FileNotFoundException {
+        String str = "";
         try {
-            System.out.println("All tasks:");
-            s.getFileContent();
-            System.out.println();
-            System.out.println("Current tasks: ");
-            for (int i = 0; i < tasklist.size(); i++) {
-                int j = i + 1;
-                System.out.println("    " + j + ". " + tasklist.get(i).getCat()
-                        + tasklist.get(i).marked() + " "
-                        + tasklist.get(i).getTask() + tasklist.get(i).getDetails());
-            }
+            str = "All tasks: \n" +  s.getFileContent() + "\n" + "Current tasks: \n" +getCurrentList();
         } catch (FileNotFoundException e) {
-            System.out.println("file not found! try again xx");
+            str = "file not found! try again xx";
         }
+        return str;
+    }
+
+    public String getCurrentList() {
+        String str = "";
+        for (int i = 0; i < tasklist.size(); i++) {
+            int j = i + 1;
+            str += "    " + j + ". " + tasklist.get(i).getCat()
+                    + tasklist.get(i).marked() + " "
+                    + tasklist.get(i).getTask() + tasklist.get(i).getDetails();
+        }
+        return str;
     }
 
     /**
@@ -61,17 +65,17 @@ public class TaskList {
      * @param task Todo task to be added to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. todo).
      */
-    public void addTask(Todo task) throws StringIndexOutOfBoundsException {
+    public String addTask(Todo task) throws StringIndexOutOfBoundsException {
+        String str = "";
         try {
             tasklist.add(task);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task.add());
-            System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+            str = "Got it. I've added this task: \n" + task.add() + "\n" +
+                    "Now you have " + tasklist.size() + " tasks in the list.";
 
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("ENTER INSTRUCTION");
+            str = "ENTER INSTRUCTION";
         }
-
+        return str;
     }
 
     /**
@@ -79,17 +83,17 @@ public class TaskList {
      * @param task Deadline task to be added to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. deadline).
      */
-    public void addTask(Deadline task) throws StringIndexOutOfBoundsException {
+    public String addTask(Deadline task) throws StringIndexOutOfBoundsException {
+        String str = "";
         try {
             tasklist.add(task);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task.add());
-            System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+            str = "Got it. I've added this task: \n" + task.add() +  "\n" +
+                    "Now you have " + tasklist.size() + " tasks in the list.";
 
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("ENTER INSTRUCTION");
+            str = "ENTER INSTRUCTION";
         }
-
+        return str;
     }
 
     /**
@@ -98,17 +102,17 @@ public class TaskList {
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. event).
      */
 
-    public void addTask(Event task) throws StringIndexOutOfBoundsException {
+    public String addTask(Event task) throws StringIndexOutOfBoundsException {
+        String str = "";
         try {
             tasklist.add(task);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task.add());
-            System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+            str = "Got it. I've added this task: \n" + task.add() + "\n" +
+                    "Now you have " + tasklist.size() + " tasks in the list.";
 
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("ENTER INSTRUCTION");
+            str = "ENTER INSTRUCTION";
         }
-
+        return str;
     }
 
     /**
@@ -116,15 +120,17 @@ public class TaskList {
      * @param number Task number in current list to be marked.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
-    public void mark(int number) throws IndexOutOfBoundsException {
+    public String mark(int number) throws IndexOutOfBoundsException {
+        String str = "";
         try {
             Task task = tasklist.get(number);
             task.setDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(task.mark(number));
+            str = "Nice! I've marked this task as done: \n" +
+                    task.mark(number);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No such task to mark.");
+            str = "No such task to mark.";
         }
+        return str;
     }
 
     /**
@@ -132,16 +138,17 @@ public class TaskList {
      * @param number Task number in current list to be unmarked.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
-    public void unmark(int number) throws IndexOutOfBoundsException {
+    public String unmark(int number) throws IndexOutOfBoundsException {
+        String str = "";
         try {
             Task task = tasklist.get(number);
             task.setNotDone();
-            System.out.println("Ok, I've marked this task as not done yet:");
-            System.out.println(task.unmark(number));
+            str = "Ok, I've marked this task as not done yet: \n" +
+                    task.unmark(number);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No such task to unmark.");
+            str = "No such task to unmark.";
         }
-
+        return str;
     }
 
     /**
@@ -149,39 +156,42 @@ public class TaskList {
      * @param number Task number in current list to be deleted.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
-    public void delete(int number) throws IndexOutOfBoundsException {
+    public String delete(int number) throws IndexOutOfBoundsException {
+        String str = "";
         try {
             Task task = tasklist.get(number);
             tasklist.remove(number);
-            System.out.println("Noted. I've removed this task: ");
-            System.out.println(task.delete());
-            System.out.println("Now you have " + tasklist.size() + " tasks in the current list.");
+            str = "Noted. I've removed this task: \n" + task.delete() + "\n" +
+            "Now you have " + tasklist.size() + " tasks in the current list.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No such task to delete.");
+            str = "No such task to delete.";
         }
+        return str;
     }
 
-    public void find(String str) throws StringIndexOutOfBoundsException {
+    public String find(String str) throws StringIndexOutOfBoundsException {
+        String ret = "";
         try {
             int j = 1;
             for (int i = 0; i < tasklist.size(); i++) {
                 if (tasklist.get(i).isFound(str)) {
                     if (j == 1) {
-                        System.out.println("Here are the matching tasks in your list:");
+                        str = "Here are the matching tasks in your list: \n";
                     }
-                    System.out.println("    " + j + ". " + tasklist.get(i).getCat()
+                    str += "    " + j + ". " + tasklist.get(i).getCat()
                                         + tasklist.get(i).marked() + " "
                                         + tasklist.get(i).getTask()
-                                        + tasklist.get(i).getDetails());
+                                        + tasklist.get(i).getDetails() + "\n";
                     j++;
                 }
             }
             if (j == 1) {
-                System.out.println("No matching tasks!");
+                ret = "No matching tasks!";
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("ENTER INSTRUCTION");
+            ret = "ENTER INSTRUCTION";
         }
+        return ret;
     }
 }
 
