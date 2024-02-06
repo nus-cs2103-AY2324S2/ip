@@ -1,31 +1,33 @@
-# Duke User Guide
+# NotDuke
 
-// Update the title above to match the actual product name
+>"Your mind is for having ideas, not holding them." – David Aleen ([source](https://dansilvestre.com/productivity-quotes))
 
-// Product screenshot goes here
+NotDuke frees your mind of having to remember things you need to do. It's,
 
-// Product intro goes here
+- text-based
+- easy to learn
+- ~~FAST~~ *SUPER FAST* to use
 
-## Adding deadlines
+All you need to do is,
 
-// Describe the action and its outcome.
+1. download it from [here](https://github.com/yorklim/ip/releases).
+1. double-click it.
+1. add your tasks.
+1. let it manage your tasks for you :wink:
 
-// Give examples of usage
+And its **FREE**!
 
-Example: `keyword (optional arguments)`
+Features:
+- [x] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
 
-// A description of the expected outcome goes here
-
+---
+If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
 ```
-expected output
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
-
