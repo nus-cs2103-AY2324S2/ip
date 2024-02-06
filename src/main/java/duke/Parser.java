@@ -49,11 +49,11 @@ public class Parser {
                 if (fromIndex == -1) {
                     throw new DukeException("No /from???");
                 }
-                if (toIndex == -1) {
-                    throw new DukeException("No /to???");
-                }
                 if (fromIndex == parts.size() - 1) {
                     throw new DukeException("Add something after your /from...");
+                }
+                if (toIndex == -1) {
+                    throw new DukeException("No /to???");
                 }
                 if (toIndex == parts.size() - 1) {
                     throw new DukeException("Add something after your /to...");
