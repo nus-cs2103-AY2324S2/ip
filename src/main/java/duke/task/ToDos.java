@@ -36,6 +36,6 @@ public class ToDos extends Task {
     public String taskInfo() {
         String output = "";
         output += "[T]";
-        return output + super.taskInfo() + System.lineSeparator();
+        return output + super.taskInfo() + "\n";
     }
 }
