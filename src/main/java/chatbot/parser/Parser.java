@@ -7,16 +7,35 @@ import chatbot.ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulates the data and behaviour of the parser which parses user input.
+ *
+ * @author Huang Zhuoyan, Celeste
+ * @version CS2103T AY24/25 Semester 1, G07
+ */
 public class Parser {
     private TaskList tasks;
     private Ui ui;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a new Parser.
+     *
+     * @param tasks The TaskList object containing the user's task list.
+     * @param ui The Ui object that handles user interface interactions.
+     */
     public Parser(TaskList tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
     }
 
+    /**
+     * Parses user input and executes corresponding commands.
+     *
+     * @param input The user input to be parsed.
+     * @return True if the application should exit, false otherwise.
+     * @throws DukeException The error that occurs during parsing or execution of the command.
+     */
     public boolean parseUserInput(String input) throws DukeException {
         String[] inputTokens = input.split(" ");
         String[] deadlineFormatChecker = input.split("/by");

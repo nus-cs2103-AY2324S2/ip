@@ -7,26 +7,58 @@ import chatbot.ui.Ui;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Encapsulates the data and behaviour of a task list.
+ *
+ * @author Huang Zhuoyan, Celeste
+ * @version CS2103T AY24/25 Semester 1, G07
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new TaskList.
+     * Initialises a new TaskList with an empty list of tasks.
+     */
     public TaskList() {
         ArrayList<Task> newTaskList = new ArrayList<>();
         this.tasks = newTaskList;
     }
 
+    /**
+     * Constructs a TaskList with the specified list of tasks.
+     *
+     * @param tasks The list of tasks to initialise the TaskList with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
     public int getNumOfTasks() {
         return tasks.size();
     }
 
+    /**
+     * Prints the task description of the specified task.
+     *
+     * @param taskNum The index of the task to retrieve.
+     * @return The task description of the specified task.
+     */
     public String printTask(int taskNum) {
         return tasks.get(taskNum - 1).printTask();
     }
 
+    /**
+     * Marks the specified task as completed.
+     *
+     * @param taskNum The index of the task to be marked.
+     * @throws DukeException For an invalid task index.
+     */
     public void markTask(int taskNum) throws DukeException {
         if (taskNum == 0) {
             String exceptionMessage = Ui.createLine() + "\n"
@@ -45,6 +77,12 @@ public class TaskList {
         Ui.printMarkedTask(this, taskNum);
     }
 
+    /**
+     * Unmarks the specified task.
+     *
+     * @param taskNum The index of the task to be unmarked.
+     * @throws DukeException For an invalid task index.
+     */
     public void unmarkTask(int taskNum) throws DukeException {
         if (taskNum == 0) {
             String exceptionMessage = Ui.createLine() + "\n"
@@ -63,6 +101,12 @@ public class TaskList {
         Ui.printUnmarkedTask(this, taskNum);
     }
 
+    /**
+     * Deletes the specified task.
+     *
+     * @param taskNum The index of the task to be deleted.
+     * @throws DukeException For an invalid task index.
+     */
     public void deleteTask(int taskNum) throws DukeException {
         if (taskNum == 0) {
             String exceptionMessage = Ui.createLine() + "\n"
@@ -84,6 +128,11 @@ public class TaskList {
         Ui.printDeletedTask(deletedTaskMessage, remainingNumOfTasks);
     }
 
+    /**
+     * Adds a new ToDo task with the specified task description.
+     *
+     * @param name The task description of the ToDo task.
+     */
     public void addTodoTask(String name) {
         ToDo addedTask = new ToDo(name);
         tasks.add(addedTask);
@@ -92,6 +141,12 @@ public class TaskList {
         Storage.saveData(tasks);
     }
 
+    /**
+     * Adds a new Deadline task with the specified task description and deadline.
+     *
+     * @param name The task description of the Deadline task.
+     * @param deadline The LocalDateTime object containing the deadline of the task.
+     */
     public void addDeadlineTask(String name, LocalDateTime deadline) {
         Deadline addedTask = new Deadline(name, deadline);
         tasks.add(addedTask);
@@ -100,6 +155,13 @@ public class TaskList {
         Storage.saveData(tasks);
     }
 
+    /**
+     * Adds a new Event task with the specified task description, start and end dates.
+     *
+     * @param name The task description of the Event task.
+     * @param start The LocalDateTime object containing the start date of the task.
+     * @param end The LocalDateTime object containing the end date of the task.
+     */
     public void addEventTask(String name, LocalDateTime start, LocalDateTime end) {
         Event addedTask = new Event(name, start, end);
         tasks.add(addedTask);
