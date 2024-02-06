@@ -7,10 +7,16 @@ class Task {
         this.name = name;
     }
 
+    /**
+     * Marks the task as Done
+     */
     public void setDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void setNotDone() {
         this.isDone = false;
     }

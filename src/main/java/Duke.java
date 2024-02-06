@@ -37,15 +37,20 @@ public class Duke {
     }
 
     /**
-     * Displays a greeting message
+     * Displays a greeting message.
      * 
-     * @param botName Name of the bot
+     * @param botName Name of the bot.
      */
     public static void greet(String botName) {
         System.out.println(String.format(
                 "%s     Hello! I'm %s \n     What can I do for you? \n%s", LINE, botName, LINE));
     }
 
+    /**
+     * Marks a task as done.
+     * 
+     * @param task
+     */
     public static void mark(Task task) {
         System.out.println(LINE);
         System.out.println("     Nice! I've marked this task as done:");
@@ -54,6 +59,11 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    /**
+     * Marks a task as not done.
+     * 
+     * @param task
+     */
     public static void unmark(Task task) {
         System.out.println(LINE);
         System.out.println("     OK, I've marked this task as not done yet:");
@@ -63,7 +73,7 @@ public class Duke {
     }
 
     /**
-     * Displays a farewell message
+     * Displays a farewell message.
      */
     public static void bye() {
         System.out.println(String.format(
@@ -71,18 +81,18 @@ public class Duke {
     }
 
     /**
-     * Displays a repeated message of the input by the user
+     * Displays a repeated message of the input by the user.
      * 
-     * @param input User input
+     * @param input User input.
      */
     public static void repeatFunction(String input) {
         System.out.println(String.format("%s     added: %s\n%s", LINE, input, LINE));
     }
 
     /**
-     * Displays the list of Strings
+     * Displays the list of Strings.
      * 
-     * @param listOfStrings list of Strings
+     * @param listOfStrings list of Strings.
      */
     public static void printList(ArrayList<Task> listOfTasks) {
         StringBuilder finalString = new StringBuilder();
