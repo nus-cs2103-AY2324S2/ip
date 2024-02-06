@@ -1,3 +1,10 @@
+package duke;
+
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.io.IOException;
 
 public class Duke {
@@ -35,8 +42,8 @@ public class Duke {
 //    private static Scanner sc = new Scanner(System.in);
 //
 //    public static void main(String[] args) {
-//        ArrayList<Task> list = Storage.retrieveList();
-//        Storage.createFile();
+//        ArrayList<duke.task.Task> list = duke.storage.Storage.retrieveList();
+//        duke.storage.Storage.createFile();
 //        System.out.println("================================ \n" +
 //                "Hello I'm Axolotl! \n" +
 //                "What can I do for you? \n" +
@@ -44,7 +51,7 @@ public class Duke {
 //
 //        String input = sc.nextLine();
 //
-//        while (!input.equals(Command.TERMINATE.commandName)) {
+//        while (!input.equals(duke.command.Command.TERMINATE.commandName)) {
 //            int cmdSplit = input.indexOf(" ");
 //            String command = input;
 //            String task = null;
@@ -53,12 +60,12 @@ public class Duke {
 //                    command = input.substring(0, cmdSplit);
 //                    task = input.substring(input.indexOf(" ") + 1);
 //                } else {
-//                    if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName) | command.equals(Command.DELETE.commandName)) {
+//                    if (command.equals(duke.command.Command.MARK.commandName) | command.equals(duke.command.Command.UNMARK.commandName) | command.equals(duke.command.Command.DELETE.commandName)) {
 //                        System.out.println("-------------------------------- \n" +
 //                                "Oops, I'm not sure which task you are referring to! Please indicate a task number (e.g. " + command + " 1) \n" +
 //                                "-------------------------------- \n");
 //                        continue;
-//                    } else if (command.equals(Command.TODO.commandName)) {
+//                    } else if (command.equals(duke.command.Command.TODO.commandName)) {
 //                        System.out.println("-------------------------------- \n" +
 //                                "Oops, wrong format! Please indicate task details (e.g. todo CS2103 Lab 1) \n" +
 //                                "-------------------------------- \n");
@@ -66,9 +73,9 @@ public class Duke {
 //                    }
 //                }
 //
-//                if (command.equals(Command.LIST.commandName)) {
+//                if (command.equals(duke.command.Command.LIST.commandName)) {
 //                    printTaskList(list);
-//                } else if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName) | command.equals(Command.DELETE.commandName)) {
+//                } else if (command.equals(duke.command.Command.MARK.commandName) | command.equals(duke.command.Command.UNMARK.commandName) | command.equals(duke.command.Command.DELETE.commandName)) {
 //                    try {
 //                        int taskNo = Integer.parseInt(task) - 1;
 //
@@ -79,14 +86,14 @@ public class Duke {
 //                            printTaskList(list);
 //                            System.out.println("-------------------------------- \n");
 //                        } else {
-//                            Task t = list.get(taskNo);
-//                            if (command.equals(Command.MARK.commandName)) {
+//                            duke.task.Task t = list.get(taskNo);
+//                            if (command.equals(duke.command.Command.MARK.commandName)) {
 //                                t.done();
 //                                System.out.println("-------------------------------- \n" +
 //                                        "Nice! I've marked task " + task + " as done: \n" +
 //                                        t.toString() + "\n" +
 //                                        "-------------------------------- \n");
-//                            } else if (command.equals(Command.UNMARK.commandName)) {
+//                            } else if (command.equals(duke.command.Command.UNMARK.commandName)) {
 //                                t.undone();
 //                                System.out.println("-------------------------------- \n" +
 //                                        "Sure, I've marked task " + task + " as not done yet: \n" +
@@ -107,13 +114,13 @@ public class Duke {
 //                                "(e.g. mark 1) \n" +
 //                                "-------------------------------- \n");
 //                    }
-//                } else if (command.equals(Command.TODO.commandName) | command.equals(Command.DEADLINE.commandName) | command.equals(Command.EVENT.commandName)) {
-//                    Task t = null;
+//                } else if (command.equals(duke.command.Command.TODO.commandName) | command.equals(duke.command.Command.DEADLINE.commandName) | command.equals(duke.command.Command.EVENT.commandName)) {
+//                    duke.task.Task t = null;
 //                    boolean success = true;
 //                    try {
-//                        if (command.equals(Command.TODO.commandName)) {
-//                            t = new ToDo(task, false);
-//                        } else if (command.equals(Command.DEADLINE.commandName)) {
+//                        if (command.equals(duke.command.Command.TODO.commandName)) {
+//                            t = new duke.task.ToDo(task, false);
+//                        } else if (command.equals(duke.command.Command.DEADLINE.commandName)) {
 //                            if (task == null || !task.contains(" /by ")) {
 //                                success = false;
 //                                System.out.println("-------------------------------- \n" +
@@ -121,7 +128,7 @@ public class Duke {
 //                                        "-------------------------------- \n");
 //                            } else {
 //                                String[] deadline = task.split(" /by ");
-//                                t = new Deadline(deadline[0], false, LocalDateTime.parse(deadline[1], dateTimeFormatter));
+//                                t = new duke.task.Deadline(deadline[0], false, LocalDateTime.parse(deadline[1], dateTimeFormatter));
 //
 //
 //                            }
@@ -136,7 +143,7 @@ public class Duke {
 //                                try {
 //                                    LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to ")), dateTimeFormatter);
 //                                    LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)), dateTimeFormatter);
-//                                    t = new Event(event, false, from, to);
+//                                    t = new duke.task.Event(event, false, from, to);
 //                                } catch (IndexOutOfBoundsException e) {
 //                                    System.out.println("-------------------------------- \n" +
 //                                            "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 4pm /to 11/10/2019 5pm ) \n" +
@@ -151,7 +158,7 @@ public class Duke {
 //                                    t.toString() + "\n" +
 //                                    "Now you have " + list.size() + " task(s) in the list. \n" +
 //                                    "-------------------------------- \n");
-//                            Storage.updateFile(list);
+//                            duke.storage.Storage.updateFile(list);
 //                        }
 //                    } catch (DateTimeException e) {
 //                        System.out.println("-------------------------------- \n" +
@@ -162,7 +169,7 @@ public class Duke {
 //                } else {
 //                    System.out.println( "-------------------------------- \n" +
 //                                        "Oops, I'm not sure what you meant by that! Commands available:");
-//                    for (Command c: EnumSet.allOf(Command.class)) {
+//                    for (duke.command.Command c: EnumSet.allOf(duke.command.Command.class)) {
 //                        System.out.println(c.commandSignature);
 //                    }
 //
@@ -179,7 +186,7 @@ public class Duke {
 //                "================================ \n");
 //    }
 //
-//    public static void printTaskList(ArrayList<Task> list) {
+//    public static void printTaskList(ArrayList<duke.task.Task> list) {
 //        System.out.println( "-------------------------------- \n" +
 //                "Here are the tasks in your list:");
 //        if (list.isEmpty()) {
@@ -187,7 +194,7 @@ public class Duke {
 //        }
 //        else {
 //            for (int i = 0; i < list.size(); i++) {
-//                Task iTask = list.get(i);
+//                duke.task.Task iTask = list.get(i);
 //                System.out.println((i + 1) + ". " + iTask.toString());
 //            }
 //        }

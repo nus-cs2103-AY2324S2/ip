@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.format.DateTimeFormatter;
 public class Task {
     public static DateTimeFormatter dateTimeString = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");

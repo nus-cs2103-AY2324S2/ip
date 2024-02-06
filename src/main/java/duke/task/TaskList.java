@@ -1,5 +1,8 @@
-import java.io.*;
-import java.util.Scanner;
+package duke.task;
+
+import duke.storage.Storage;
+import duke.ui.Ui;
+
 import java.util.ArrayList;
 public class TaskList extends ArrayList<Task> {
 

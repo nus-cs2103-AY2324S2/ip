@@ -1,3 +1,5 @@
+package duke.task;
+
 public class ToDo extends Task{
     static protected String ALIAS = "T";
     public ToDo(String taskName, boolean status) {

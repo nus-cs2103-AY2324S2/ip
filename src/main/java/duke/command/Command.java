@@ -1,3 +1,5 @@
+package duke.command;
+
 public enum Command {
     TODO("todo", "todo <task_name>"),
     DEADLINE("deadline", "deadline <task_name> /by <due_date>"),

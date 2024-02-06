@@ -1,3 +1,9 @@
+package duke.ui;
+
+import duke.command.Command;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
