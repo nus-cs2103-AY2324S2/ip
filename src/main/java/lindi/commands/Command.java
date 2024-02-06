@@ -32,9 +32,4 @@ public abstract class Command {
      * @param storage lindi.storage.Storage for automatic saving of changes
      */
     public abstract void execute(TaskList tasks, Storage storage);
-
-//    @Override
-//    public String toString() {
-//        return commandStatus();
-//    }
 }
