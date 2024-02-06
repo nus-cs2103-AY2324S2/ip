@@ -26,9 +26,9 @@ public class ChatBox {
             this.tasks = new TaskList(Storage.loadTasks());
             run();
         } catch (IOException e) {
-            WisException.LoadFileExceptionHandler();
+            WisException.loadFileExceptionHandler();
         } catch (InputMismatchException e) {
-            WisException.LoadFileExceptionHandler();
+            WisException.loadFileExceptionHandler();
         }
     }
 

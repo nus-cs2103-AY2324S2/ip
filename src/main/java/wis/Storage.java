@@ -31,7 +31,7 @@ public class Storage {
             bufferedWriter.close();
 
         } catch (IOException e) {
-            WisException.SaveFileExceptionHandler(e);
+            WisException.saveFileExceptionHandler(e);
         }
     }
 

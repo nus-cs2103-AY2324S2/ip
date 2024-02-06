@@ -5,7 +5,7 @@ import java.io.IOException;
 import wis.Action;
 
 public class WisException {
-    public static void ActionExceptionHandler(Action action) {
+    public static void actionExceptionHandler(Action action) {
         switch (action) {
             case ADD_TODO:
                 Printer.printDecorator();
@@ -55,21 +55,21 @@ public class WisException {
         }
     }
 
-    public static void SaveFileExceptionHandler(IOException e) {
+    public static void saveFileExceptionHandler(IOException e) {
         Printer.printDecorator();
         Printer.println("Failed to save file to local.");
         Printer.println(e.getMessage());
         Printer.printDecorator();
     }
 
-    public static void LoadFileExceptionHandler() {
+    public static void loadFileExceptionHandler() {
         Printer.printDecorator();
         Printer.println("Failed to load tasks from local.");
         Printer.println("Local data file might be corrupted.");
         Printer.printDecorator();
     }
 
-    public static void DateTimeExceptionHandler(Exception e) {
+    public static void dateTimeExceptionHandler(Exception e) {
         Printer.printDecorator();
         Printer.println(e.getMessage());
         Printer.println("Please use this format for time:");
