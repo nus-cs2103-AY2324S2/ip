@@ -6,15 +6,15 @@ import java.time.format.DateTimeFormatter;
  * Deadlines - Represents a task with a deadline, a subclass of Task.
  */
 
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private String byDate;
     private LocalDate d1;
-    public Deadlines(String description, String byDate) {
+    public Deadline(String description, String byDate) {
         super(description);
         this.byDate = byDate;
     }
 
-    public Deadlines(String description, LocalDate d1) {
+    public Deadline(String description, LocalDate d1) {
         super(description);
         this.d1 = d1;
     }

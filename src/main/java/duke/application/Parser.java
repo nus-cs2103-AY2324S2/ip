@@ -1,10 +1,10 @@
 package duke.application;
-import duke.io.Ui;
-import duke.io.Storage;
-import duke.task.Deadlines;
+import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Todo;
+import duke.io.Storage;
 import duke.task.Task;
+import duke.task.Todo;
+import duke.io.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,19 +27,19 @@ public class Parser {
         } else if (parsedInput[0].equalsIgnoreCase("mark") || parsedInput[0].equalsIgnoreCase("unmark")) {
             markingHandler(input, taskList);
         } else if (parsedInput[0].equalsIgnoreCase("deadline")) {
-            if (validateDeadlineInput(input)) {
+            if (isDeadlineInput(input)) {
                 handleDeadlines(input, taskList);
             } else {
                 Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
         } else if (parsedInput[0].equalsIgnoreCase("todo")) {
-            if (validateTodoInput(input)) {
+            if (isTodoInput(input)) {
                 handleTodos(input, taskList);
             } else {
                 Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
             }
         } else if (parsedInput[0].equalsIgnoreCase("event")) {
-            if (validateEventInput(input)) {
+            if (isEventInput(input)) {
                 handleEvents(input, taskList);
             } else {
                 Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
@@ -108,13 +108,13 @@ public class Parser {
             String date = splitParts[1].trim();
             if (isValidDate(date)) {
                 LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
-                Deadlines deadline = new Deadlines(description, d1);
+                Deadline deadline = new Deadline(description, d1);
                 taskList.addTask(deadline);
                 Storage.saveTasks(taskList.getTaskList());
                 System.out.println("Ok! I've added this deadline: " + deadline);
 
             } else {
-                Deadlines deadline = new Deadlines(description, date);
+                Deadline deadline = new Deadline(description, date);
                 taskList.addTask(deadline);
                 Storage.saveTasks(taskList.getTaskList());
                 System.out.println("Ok! I've added this deadline: " + deadline);
@@ -202,7 +202,7 @@ public class Parser {
      * @param input User input specifying the Deadline description and due date.
      * @return True if the input format is valid, false otherwise.
      */
-    private static boolean validateDeadlineInput(String input) {
+    private static boolean isDeadlineInput(String input) {
         String[] splitParts = input.substring(9).split("/by", 2);
         return splitParts.length > 1;
     }
@@ -212,7 +212,7 @@ public class Parser {
      * @param input User input specifying the Todo description.
      * @return True if the input format is valid, false otherwise.
      */
-    private static boolean validateTodoInput(String input) {
+    private static boolean isTodoInput(String input) {
         return input.length() > 5;
     }
 
@@ -221,7 +221,7 @@ public class Parser {
      * @param input User input specifying the Event description and date range.
      * @return True if the input format is valid, false otherwise.
      */
-    private static boolean validateEventInput(String input) {
+    private static boolean isEventInput(String input) {
         String[] splitParts = input.substring(6).split("/from", 2);
         return splitParts.length > 1;
     }
