@@ -127,6 +127,10 @@ public abstract class Task { // Adapted from Course Website
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",

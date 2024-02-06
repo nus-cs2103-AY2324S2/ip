@@ -4,6 +4,7 @@ import lindi.commands.Command;
 import lindi.commands.CreateTaskCommand;
 import lindi.commands.DeleteCommand;
 import lindi.commands.ExitCommand;
+import lindi.commands.FindCommand;
 import lindi.commands.InvalidCommand;
 import lindi.commands.ListCommand;
 import lindi.commands.MarkCommand;
@@ -28,6 +29,9 @@ public class Parser {
         switch (commandWord) {
         case "list":
             return new ListCommand();
+
+        case "find":
+            return prepareFind(args);
 
         case "unmark":
             return prepareUnmark(args);
@@ -58,6 +62,18 @@ public class Parser {
         return Integer.parseInt(args);
     }
 
+    /**
+     * Returns an FindCommand if args are valid, else InvalidCommand
+     *
+     * @param args arguments from user input
+     * @return FindCommand if args are valid. <p>InvalidCommand if args is null
+     */
+    private static Command prepareFind(String args) {
+        if (args == null) {
+            return new InvalidCommand("Please give me something to search for :)");
+        }
+        return new FindCommand(args);
+    }
     /**
      * Returns an UnmarkCommand if args are valid, else InvalidCommand
      *
@@ -107,7 +123,7 @@ public class Parser {
     private static Command prepareDelete(String args) {
         if (args == null) {
             return new InvalidCommand("Uh oh ! You have to give me the index "
-                    + "of the lindi.task you want to modify :)");
+                    + "of the task you want to modify :)");
         }
         try {
             int listIndex = getIndexFromArgs(args);
