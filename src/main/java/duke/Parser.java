@@ -34,10 +34,10 @@ public class Parser {
             return duke.exit();
         } else if (commandInput.equals("date")) {
             return "Maybe another time ><\n";
-        } else if(commandInput.equals("whoami")) {
+        } else if (commandInput.equals("whoami")) {
             return "You are ZGMF X10A Freedom!\n"
                     + "How could you forget? O_o\n";
-        } else if(commandInput.equals("hello")) {
+        } else if (commandInput.equals("hello")) {
             return "HELLO FREEDOM!! c:";
         } else if (commandInput.equals("list")) {
             this.command = commandInput;
