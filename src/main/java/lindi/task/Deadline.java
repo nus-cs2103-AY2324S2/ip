@@ -10,8 +10,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, this.saveLoadDateTimeFormat);
         } catch (DateTimeParseException e) {
-            throw new CreateDeadlineException(String.format("lindi.task.Deadline /by argument in the wrong format. Use " +
-                    "format '%s' instead. Not saving seconds and below :)", this.saveLoadDtFormatString));
+            throw new CreateDeadlineException(String.format("lindi.task.Deadline /by argument in the wrong format. Use "
+                    + "format '%s' instead. Not saving seconds and below :)", this.saveLoadDtFormatString));
         }
     }
 
@@ -24,6 +24,6 @@ public class Deadline extends Task {
     public String parsedFormatToSave() {
         return String.format("D | %c | %s | %s",
                 this.isDone ? 'y' : 'n', this.description,
-                this.by.format(this.saveLoadDateTimeFormat));
+                        this.by.format(this.saveLoadDateTimeFormat));
     }
 }
