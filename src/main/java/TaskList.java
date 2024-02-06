@@ -54,6 +54,13 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    public void deleteAllTasks() {
+        taskList.clear();
+        System.out.print("All tasks deleted.\n");
+        System.out.print("Tasks in list: " + taskList.size() + "\n");
+        System.out.print(dividerText);
+    }
+
     public void listTasks() {
         if (!this.taskList.isEmpty()) {
             for (int i = 0; i < this.taskList.size(); i++) {

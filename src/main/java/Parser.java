@@ -42,8 +42,13 @@ public class Parser {
 
                 case "delete":
                     try {
-                        int taskNum = Integer.parseInt(splitInput[1]);
-                        existingTaskList.deleteTask(taskNum);
+                        if (splitInput[1].equalsIgnoreCase("all")) {
+                            existingTaskList.deleteAllTasks();
+                        }
+                        else {
+                            int taskNum = Integer.parseInt(splitInput[1]);
+                            existingTaskList.deleteTask(taskNum);
+                        }
                     } catch (NumberFormatException e) {
                         System.out.print("Invalid task number entered\n");
                         System.out.print(dividerText);
@@ -99,13 +104,6 @@ public class Parser {
                     }
                     else {
                         try {
-                            // assume yyyy-mm-dd format
-//                            String[] dateStringArray = deadlineDueDate.split("-");
-//                            int[] dateArray = new int[3];
-//                            for (int i = 0; i < 3; i++) {
-//                                dateArray[i] = Integer.parseInt(dateStringArray[i]);
-//                            }
-                            //LocalDate deadlineDueDateLocal = LocalDate.of(dateArray[0], dateArray[1], dateArray[2]);
                             LocalDate deadlineDueDateLocal = LocalDate.parse(deadlineDueDate);
                             existingTaskList.addDeadline(deadlineDescription, deadlineDueDateLocal);
                         }
@@ -152,17 +150,6 @@ public class Parser {
                         System.out.print(dividerText);
                     } else {
                         try {
-                            // assume yyyy-mm-dd format
-//                            String[] fromDateStringArray = eventFrom.split("-");
-//                            String[] toDateStringArray = eventTo.split("-");
-//                            int[] fromDateArray = new int[3];
-//                            int[] toDateArray = new int[3];
-//                            for (int i = 0; i < 3; i++) {
-//                                fromDateArray[i] = Integer.parseInt(fromDateStringArray[i]);
-//                                toDateArray[i] = Integer.parseInt(toDateStringArray[i]);
-//                            }
-//                            LocalDate eventFromDateLocal = LocalDate.of(fromDateArray[0], fromDateArray[1], fromDateArray[2]);
-//                            LocalDate eventToDateLocal = LocalDate.of(toDateArray[0], toDateArray[1], toDateArray[2]);
                             LocalDate eventFromDateLocal = LocalDate.parse(eventFrom);
                             LocalDate eventToDateLocal = LocalDate.parse(eventTo);
                             existingTaskList.addEvent(eventDescription, eventFromDateLocal, eventToDateLocal);
