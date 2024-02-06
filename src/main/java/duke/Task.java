@@ -2,10 +2,17 @@ package duke;
 
 import java.io.Serializable;
 
+/**
+ * Task class that contains task objects.
+ */
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task class
+     * @param description This is the String description of the tasks.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
