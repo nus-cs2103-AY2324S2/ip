@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class FileManipulation {
@@ -37,14 +38,14 @@ public class FileManipulation {
                     list.add(new Todo(data.substring(4), isDone));
                     break;
                 case 'D':
-                    int dateIndex = Util.findNthDivider(data, 3);
+                    int dateIndex = Util.findNthDividerIndex(data,'|', 3);
                     list.add(new Deadline(data.substring(4,dateIndex), isDone, data.substring(dateIndex)));
                         break;
                 case 'E':
-                    int dateStartIndex = Util.findNthDivider(data, 3);
-                    int dateEndIndex = Util.findNthDivider(data,4);
+                    int dateStartIndex = Util.findNthDividerIndex(data,'|', 3);
+                    int dateEndIndex = Util.findNthDividerIndex(data,'|',4);
                     list.add(new Event(data.substring(4,dateStartIndex), isDone,
-                            data.substring(dateStartIndex, dateEndIndex), data.substring(dateEndIndex)));
+                            data.substring(dateStartIndex+1, dateEndIndex), data.substring(dateEndIndex+1)));
                     break;
                 default:
                     break;
@@ -68,4 +69,5 @@ public class FileManipulation {
         }
 
     }
+
 }

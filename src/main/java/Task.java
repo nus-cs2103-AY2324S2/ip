@@ -22,7 +22,6 @@ public class Task {
             storageIsDone = "1";
         }
         String details = storageIsDone + "|" + description;
-        System.out.println(details);
         return details;
     }
     @Override

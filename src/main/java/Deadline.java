@@ -1,20 +1,30 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private String date;
-    public Deadline (String desc, String date) {
+    private String dateOrDateTime;
+    public Deadline (String desc, String dateOrDateTimeUnformatted) {
         super(desc);
-        this.date = date;
+        if (Parser.isDateTime(dateOrDateTimeUnformatted)) {
+            this.dateOrDateTime = Parser.convertToDateTime(dateOrDateTimeUnformatted);
+        } else {
+            this.dateOrDateTime = Parser.convertToDateOnly(dateOrDateTimeUnformatted);
+        }
+
     }
-    public Deadline (String desc, boolean isDone, String date) {
+    public Deadline (String desc, boolean isDone, String dateOrDateTimeStorage) {
         super(desc, isDone);
-        this.date = date;
+        this.dateOrDateTime = dateOrDateTimeStorage;
     }
     @Override
     public String saveStorage(){
         String details = super.saveStorage();
-        details = "D|" + details +"|" +  date;
-        return details;
+            details = "D|" + details +"|" +  dateOrDateTime;
+            return details;
+
+
     }
     public String toString() {
-        return "[D]" + super.toString() + "(" + date + ")";
+        return "[D]" + super.toString() + "(" + dateOrDateTime + ")";
     }
 }
