@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.DukeException;
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +21,7 @@ public class TaskList {
     }
     public void deleteTask(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("Task with specified number does not exist.");
+            throw new DukeException("duke.task.Task with specified number does not exist.");
         }
         Task removedTask = tasks.remove(taskNumber - 1);
         System.out.println("Deleted: " + removedTask);
@@ -24,7 +29,7 @@ public class TaskList {
     }
     public void markTask(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("Task with specified number does not exist.");
+            throw new DukeException("duke.task.Task with specified number does not exist.");
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
@@ -32,7 +37,7 @@ public class TaskList {
     }
     public void unmarkTask(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            throw new DukeException("Task with specified number does not exist.");
+            throw new DukeException("duke.task.Task with specified number does not exist.");
         }
         Task task = tasks.get(taskNumber - 1);
         task.unmarkAsDone();

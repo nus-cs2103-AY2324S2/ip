@@ -1,3 +1,9 @@
+package duke.parser;
+
+import duke.DukeException;
+import duke.task.*;
+import duke.ui.Ui;
+
 public class Parser {
 
     public static void parse(String userInput, TaskList tasks, Ui ui) throws DukeException {
@@ -50,18 +56,18 @@ public class Parser {
             case "deadline":
                 String[] deadlineParts = parts[1].split(" /by ", 2);
                 if (deadlineParts.length < 2) {
-                    throw new DukeException("Deadline format incorrect. Please use the format: deadline description /by yyyy-MM-dd");
+                    throw new DukeException("duke.task.Deadline format incorrect. Please use the format: deadline description /by yyyy-MM-dd");
                 }
                 newTask = new Deadline(deadlineParts[0], deadlineParts[1], false);
                 break;
             case "event":
                 String[] eventParts = parts[1].split(" /at ", 2);
                 if (eventParts.length < 2) {
-                    throw new DukeException("Event format incorrect. Please use the format: event description /at from to");
+                    throw new DukeException("duke.task.Event format incorrect. Please use the format: event description /at from to");
                 }
                 String[] timeParts = eventParts[1].split(" to ", 2);
                 if (timeParts.length < 2) {
-                    throw new DukeException("Event time format incorrect. Please include both start and end times.");
+                    throw new DukeException("duke.task.Event time format incorrect. Please include both start and end times.");
                 }
                 newTask = new Event(eventParts[0], timeParts[0], timeParts[1], false);
                 break;
