@@ -17,8 +17,7 @@ import java.util.regex.Matcher;
  * @version CS2103T AY24/25 Semester 1, G07
  */
 public class Storage {
-    private static final String PATH_DIRECTORY = "./data/";
-    private static final String PATH_FILE = "./data/duke.txt";
+    private static String PATH_FILE;
     private static final Pattern PATTERN_TODO = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?)");
     private static final Pattern PATTERN_DEADLINE = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?)");
     private static final Pattern PATTERN_EVENT = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?) \\| (.*?)");
@@ -30,21 +29,16 @@ public class Storage {
      *
      * @throws IOException if an I/O error occurs during creation of the file.
      */
-    public Storage() throws IOException {
-        File file = new File(PATH_FILE);
-        File directory = new File(PATH_DIRECTORY);
-        if (!directory.exists()) {
-            boolean isCreated = directory.mkdirs();
-            if (!isCreated) {
-                System.out.println("Failed to create directory: " + PATH_DIRECTORY);
-            }
-        }
+    public Storage(String filePath) throws DukeException {
+        File file = new File(filePath);
+        PATH_FILE = filePath;
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
+                String exceptionMessage = "Error creating file: " + e.getMessage();
+                throw new DukeException(exceptionMessage);
             }
         }
     }
@@ -73,7 +67,7 @@ public class Storage {
      *
      * @return The ArrayList containing the saved data of the user's task list.
      */
-    public static ArrayList<Task> loadData() {
+    public static ArrayList<Task> loadData() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(PATH_FILE));
@@ -86,7 +80,8 @@ public class Storage {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println("Error loading data from file: " + e.getMessage());
+            String exceptionMessage = "Error loading data from file: " + e.getMessage();
+            throw new DukeException(exceptionMessage);
         }
         return taskList;
     }
