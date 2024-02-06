@@ -19,14 +19,6 @@ public class Storage {
         return saveCommands.contains(command);
     }
 
-    public static String listToString(List<Task> list) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(i + 1).append(". ").append(list.get(i)).append("\n");
-        }
-        return sb.toString();
-    }
-
     public static void saveOutputToFile(String output) {
         Path filePath = Path.of("./data/chimp.txt");
 

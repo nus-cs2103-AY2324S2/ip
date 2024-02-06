@@ -31,7 +31,7 @@ public class Chimp {
                 commandHandler(chimp, phrases, inp, command, arg);
                 // Update store if needed
                 if (Storage.isSaveCommand(command)) {
-                    Storage.saveOutputToFile(Storage.listToString(chimp.list));
+                    Storage.saveOutputToFile(chimp.list.toString());
                 }
             } catch (InvalidCommandException | CommandParseException e) {
                 chimp.say(phrases.get("hoo") + " - " + e);
