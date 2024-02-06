@@ -23,7 +23,7 @@ public class Deadline extends Task {
         if (deadline.isEmpty()) { //handling the case where deadline does not get a valid deadline
             this.deadline = String.valueOf(MamtaException.invalidDates());
         } else {
-            this.deadline = transformDates(deadline);
+            this.deadline = setDates(deadline);
         }
     }
 
@@ -35,7 +35,7 @@ public class Deadline extends Task {
      */
     Deadline(boolean isComplete, String content, String deadline) {
         super(isComplete, content);
-        this.deadline = transformDates(deadline);
+        this.deadline = setDates(deadline);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      * @param deadline The input deadline.
      * @return The transformed deadline in a standardized format.
      */
-    public String transformDates(String deadline) {
+    public String setDates(String deadline) {
         String year = "";
         String month = "";
         String day = "";

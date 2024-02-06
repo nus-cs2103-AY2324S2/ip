@@ -57,7 +57,7 @@ public class Storage {
     public static void saveTasks(String filePath) {
         //prepare the output to be saved first
         StringBuilder output = new StringBuilder();
-        for (Task task: TaskList.getHistory()) {
+        for (Task task: TaskList.getTasks()) {
             output.append(task.toString()).append("\n");
         }
         //save the output
