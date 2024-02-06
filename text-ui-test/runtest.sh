@@ -12,6 +12,12 @@ then
     rm ACTUAL.TXT
 fi
 
+# delete file persistence output from previous run
+if [ -e "./tasklist.dat" ]
+then
+    rm tasklist.dat
+fi
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
 then
