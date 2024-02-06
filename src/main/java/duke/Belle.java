@@ -40,6 +40,13 @@ public class Belle {
         }
     }
 
+    /**
+     * Returns string response from Belle according to the
+     * specified command.
+     *
+     * @param input Users input command to Belle.
+     * @return String Belle's string response.
+     */
     public String getResponse(String input) {
         try {
             if (isExit) {
