@@ -1,4 +1,4 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 public class Task {
     protected final boolean isComplete;

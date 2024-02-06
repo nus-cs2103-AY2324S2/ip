@@ -1,4 +1,4 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 public class Todo extends Task {
 
@@ -6,7 +6,7 @@ public class Todo extends Task {
         super(content);
     }
 
-    Todo(boolean isComplete, String content) {
+    public Todo(boolean isComplete, String content) {
         super(isComplete, content);
     }
     @Override

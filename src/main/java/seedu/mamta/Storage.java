@@ -1,4 +1,4 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,20 +1,26 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 import java.time.LocalDate;
-public class Deadline extends Task {
-    private final String deadline;
-    Deadline(String content, String deadline) {
+
+public class Event extends Task {
+    private final String startTime;
+    private final String endTime;
+
+    Event(String content, String startTime, String endTime) {
         super(content);
-        if (deadline.isEmpty()) { //handling the case where deadline does not get a valid deadline
-            this.deadline = String.valueOf(MamtaException.invalidDates());
+        if (startTime.isEmpty() || endTime.isEmpty()) { //handling the case where event does not get valid dates.
+            this.startTime = String.valueOf(MamtaException.invalidDates());
+            this.endTime = "";
         } else {
-            this.deadline = transformDates(deadline);
+            this.startTime = transformDates(startTime);
+            this.endTime = transformDates(endTime);
         }
     }
 
-    Deadline(boolean isComplete, String content, String deadline) {
+    Event(boolean isComplete, String content, String startTime, String endTime) {
         super(isComplete, content);
-        this.deadline = transformDates(deadline);
+        this.startTime = transformDates(startTime);
+        this.endTime = transformDates(endTime);
     }
 
     public String transformDates(String deadline) {
@@ -41,18 +47,20 @@ public class Deadline extends Task {
     }
 
     @Override
-    public Deadline markDone() {
-        return new Deadline(true, this.content, this.deadline);
+    public Event markDone() {
+        return new Event(true, this.content, this.startTime, this.endTime);
     }
     @Override
-    public Deadline unmarkTask() {
-        return new Deadline(false, this.content, this.deadline);
+    public Event unmarkTask() {
+        return new Event(false, this.content, this.startTime, this.endTime);
     }
+
     public String toString() {
         if (this.isComplete) {
-            return String.format("D|X|%s|%s", this.content, this.deadline);
+            return String.format("E|X|%s|%s|%s", this.content, this.startTime, this.endTime);
         } else {
-            return String.format("D| |%s|%s", this.content, this.deadline);
+            return String.format("E| |%s|%s|%s", this.content, this.startTime, this.endTime);
         }
     }
+
 }

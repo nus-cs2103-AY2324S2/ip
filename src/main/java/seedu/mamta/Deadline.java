@@ -1,26 +1,20 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 import java.time.LocalDate;
-
-public class Event extends Task {
-    private final String startTime;
-    private final String endTime;
-
-    Event(String content, String startTime, String endTime) {
+public class Deadline extends Task {
+    private final String deadline;
+    Deadline(String content, String deadline) {
         super(content);
-        if (startTime.isEmpty() || endTime.isEmpty()) { //handling the case where event does not get valid dates.
-            this.startTime = String.valueOf(MamtaException.invalidDates());
-            this.endTime = "";
+        if (deadline.isEmpty()) { //handling the case where deadline does not get a valid deadline
+            this.deadline = String.valueOf(MamtaException.invalidDates());
         } else {
-            this.startTime = transformDates(startTime);
-            this.endTime = transformDates(endTime);
+            this.deadline = transformDates(deadline);
         }
     }
 
-    Event(boolean isComplete, String content, String startTime, String endTime) {
+    Deadline(boolean isComplete, String content, String deadline) {
         super(isComplete, content);
-        this.startTime = transformDates(startTime);
-        this.endTime = transformDates(endTime);
+        this.deadline = transformDates(deadline);
     }
 
     public String transformDates(String deadline) {
@@ -47,20 +41,18 @@ public class Event extends Task {
     }
 
     @Override
-    public Event markDone() {
-        return new Event(true, this.content, this.startTime, this.endTime);
+    public Deadline markDone() {
+        return new Deadline(true, this.content, this.deadline);
     }
     @Override
-    public Event unmarkTask() {
-        return new Event(false, this.content, this.startTime, this.endTime);
+    public Deadline unmarkTask() {
+        return new Deadline(false, this.content, this.deadline);
     }
-
     public String toString() {
         if (this.isComplete) {
-            return String.format("E|X|%s|%s|%s", this.content, this.startTime, this.endTime);
+            return String.format("D|X|%s|%s", this.content, this.deadline);
         } else {
-            return String.format("E| |%s|%s|%s", this.content, this.startTime, this.endTime);
+            return String.format("D| |%s|%s", this.content, this.deadline);
         }
     }
-
 }

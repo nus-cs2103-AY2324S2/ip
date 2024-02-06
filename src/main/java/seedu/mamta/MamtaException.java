@@ -1,4 +1,4 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 public class MamtaException {
     private final String exceptionMessage;

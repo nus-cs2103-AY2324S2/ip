@@ -1,13 +1,14 @@
-package com.example.Mamta;
+package seedu.mamta;
 
 public class Parser {
 
-    public static void transformText(String userOutput) {
+    public static String transformText(String userOutput) {
 
         String[] splitOutput = userOutput.split(" ");
 
         String word = "";
         int taskNum = -1;
+        String output = "";
 
         //in the case user wants to mark/unmark , export this into a helper later
         switch (splitOutput[0]) {
@@ -16,15 +17,15 @@ public class Parser {
         case "delete":
              word = splitOutput[0];
              taskNum = Integer.parseInt(splitOutput[1]);
-             System.out.println(Mamta.echo("default", word, taskNum, "", ""));
-             break;
+             System.out.println(output);
+             return Mamta.echo("default", word, taskNum, "", "");
         case "todo": {
             StringBuilder task = new StringBuilder();
             for (int i = 1; i < splitOutput.length; i++) {
                 task.append(splitOutput[i]).append(" ");
             }
             System.out.println(Mamta.echo(splitOutput[0], task.toString(), taskNum, "", ""));
-            break;
+            return Mamta.echo(splitOutput[0], task.toString(), taskNum, "", "");
         }
         case "deadline":
         case "event": {
@@ -57,11 +58,11 @@ public class Parser {
                 }
             }
             System.out.println(Mamta.echo(splitOutput[0], task.toString(), taskNum, deadline.toString(), endTime.toString()));
-            break;
+            return Mamta.echo(splitOutput[0], task.toString(), taskNum, deadline.toString(), endTime.toString());
         }
         default:
             System.out.println(Mamta.echo("default", userOutput, taskNum, "", ""));
-            break;
+            return Mamta.echo("default", userOutput, taskNum, "", "");
         }
     }
 
