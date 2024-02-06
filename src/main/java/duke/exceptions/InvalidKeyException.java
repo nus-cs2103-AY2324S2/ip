@@ -3,7 +3,7 @@ package duke.exceptions;
 /**
  * Exception thrown when the instruction keyword is unknown.
  */
-public class InvalidKeyException extends BaseException{
+public class InvalidKeyException extends BaseException {
     /**
      * Calls parent constructor with specific pre-defined message.
      */

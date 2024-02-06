@@ -3,7 +3,7 @@ package duke.exceptions;
 /**
  * Exception thrown when the index is out of bound.
  */
-public class InvalidNumberException extends BaseException{
+public class InvalidNumberException extends BaseException {
     /**
      * Calls parent constructor with specific pre-defined message.
      */

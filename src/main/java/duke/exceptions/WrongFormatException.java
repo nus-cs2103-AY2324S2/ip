@@ -3,7 +3,7 @@ package duke.exceptions;
 /**
  * Exception thrown when the instruction format is wrong.
  */
-public class WrongFormatException extends BaseException{
+public class WrongFormatException extends BaseException {
     /**
      * Calls parent constructor with specific pre-defined message.
      */

@@ -1,15 +1,15 @@
 package duke.ui;
 
+import java.util.Scanner;
+
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Class represents UI functionalities.
  */
 public class UI {
-	private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Displays greeting sentence.
@@ -28,6 +28,7 @@ public class UI {
 
     /**
      * Displays matching task list.
+     *
      * @param taskList List to be displayed.
      */
     public void showMatchedList(TaskList taskList) {
@@ -37,7 +38,8 @@ public class UI {
 
     /**
      * Displays success message after add task to the list.
-     * @param task Task added.
+     *
+     * @param task  Task added.
      * @param count Number of tasks in the list after the addition.
      */
     public void onAddSuccess(Task task, Integer count) {
@@ -48,6 +50,7 @@ public class UI {
 
     /**
      * Displays success message after mark task.
+     *
      * @param task Task marked
      */
     public void onMarkDone(Task task) {
@@ -57,6 +60,7 @@ public class UI {
 
     /**
      * Displays success message after unmark task.
+     *
      * @param task Task unmarked.
      */
     public void onUnmarkDone(Task task) {
@@ -66,7 +70,8 @@ public class UI {
 
     /**
      * Displays success message after delete task.
-     * @param task Task deleted.
+     *
+     * @param task     Task deleted.
      * @param taskList Task list after deletion.
      */
     public void onDelete(Task task, TaskList taskList) {
@@ -77,6 +82,7 @@ public class UI {
 
     /**
      * Displays general error message.
+     *
      * @param msg Error message.
      */
     public void showErrorMsg(String msg) {
@@ -92,6 +98,7 @@ public class UI {
 
     /**
      * Reads one line of user input.
+     *
      * @return User input
      */
     public String getUserInput() {
@@ -107,9 +114,10 @@ public class UI {
 
     /**
      * Displays number of tasks in the list.
+     *
      * @param count Number of tasks.
      */
     public void showTaskListCount(Integer count) {
-        System.out.println("Now you have "+ count +" tasks in the list." );
+        System.out.println("Now you have " + count + " tasks in the list.");
     }
 }

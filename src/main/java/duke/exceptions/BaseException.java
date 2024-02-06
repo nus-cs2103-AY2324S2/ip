@@ -3,7 +3,7 @@ package duke.exceptions;
 /**
  * Base exception for this project.
  */
-public class BaseException extends RuntimeException{
+public class BaseException extends RuntimeException {
 
     /**
      * Initializes BaseException based on the parent class RuntimeException.
@@ -25,7 +25,7 @@ public class BaseException extends RuntimeException{
      * Initializes BaseException based on the parent class RuntimeException and message given.
      * @param message warning message.
      */
-    public BaseException(String message){
+    public BaseException(String message) {
         super(message);
     }
 }

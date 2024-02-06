@@ -6,6 +6,7 @@ package duke.tasks;
 public class Todo extends Task {
     /**
      * Initializes a Todo object with given params.
+     *
      * @param status True for completed, False for not completed yet.
      * @param detail Detail information of the task.
      */
@@ -15,6 +16,7 @@ public class Todo extends Task {
 
     /**
      * Formats object to be stored in file.
+     *
      * @return Formatted string to be stored in file.
      */
     @Override
@@ -22,8 +24,8 @@ public class Todo extends Task {
         return "T|" + super.inFileStringFormat();
     }
 
-	@Override
-	public String toString() {
-		return "[T]" + super.toString();
-	}
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
 }

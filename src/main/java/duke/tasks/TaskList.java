@@ -1,16 +1,17 @@
 package duke.tasks;
 
-import duke.exceptions.*;
-import duke.utils.KeyEnum;
-
-import java.io.IOException;
 import java.util.ArrayList;
+
+import duke.exceptions.EmptyBodyException;
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.OutOfBoundException;
+import duke.utils.KeyEnum;
 
 /**
  * Class represents a list of tasks.
  */
 public class TaskList {
-	private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Initializes empty task list.
@@ -21,6 +22,7 @@ public class TaskList {
 
     /**
      * Initializes task list with given arraylist.
+     *
      * @param tasks Existing list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -29,6 +31,7 @@ public class TaskList {
 
     /**
      * Returns Number of tasks in the list.
+     *
      * @return Number of tasks in the list.
      */
     public Integer getNumOfTasks() {
@@ -37,6 +40,7 @@ public class TaskList {
 
     /**
      * Returns the formatted task string to be stored in file.
+     *
      * @param i Index of task being used.
      * @return String format of that task in file storage format.
      */
@@ -49,35 +53,39 @@ public class TaskList {
      */
     public void listTask() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1)+". " + tasks.get(i));
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
     /**
      * Adds a task into list.
-     * @param detail Description of task.
-     * @param from Start date of task.
-     * @param to Due date of task.
+     *
+     * @param detail     Description of task.
+     * @param from       Start date of task.
+     * @param to         Due date of task.
      * @param currentKey Type of task.
      * @return Added task.
-     * @throws EmptyBodyException If the command body is empty.
+     * @throws EmptyBodyException       If the command body is empty.
      * @throws InvalidDateTimeException If the due date for deadline is not in recognisable format.
      */
-    public Task addTask(String detail, String from, String to, KeyEnum currentKey) throws EmptyBodyException, InvalidDateTimeException {
+    public Task addTask(String detail, String from, String to, KeyEnum currentKey)
+            throws EmptyBodyException, InvalidDateTimeException {
         Task task = null;
         switch (currentKey) {
-            case DEADLINE:
-                task = new Deadline(false, detail, to);
-                break;
-            case TODO:
-                task = new Todo(false, detail);
-                break;
-            case EVENT:
-                task = new Event(false, detail, from, to);
-                break;
+        case DEADLINE:
+            task = new Deadline(false, detail, to);
+            break;
+        case TODO:
+            task = new Todo(false, detail);
+            break;
+        case EVENT:
+            task = new Event(false, detail, from, to);
+            break;
+        default:
+            break;
         }
         // Throw empty body exception if the added
-        if (task==null || detail.length() == 0) {
+        if (task == null || detail.length() == 0) {
             throw new EmptyBodyException();
         }
         tasks.add(task);
@@ -86,7 +94,8 @@ public class TaskList {
 
     /**
      * Marks the status of a task.
-     * @param id Index of task used.
+     *
+     * @param id     Index of task used.
      * @param status Task to be marked True or False
      * @return The marked task.
      * @throws OutOfBoundException If the index is out of bound.
@@ -104,6 +113,7 @@ public class TaskList {
 
     /**
      * Deletes a task from list.
+     *
      * @param id Index of task used.
      * @return The deleted task.
      * @throws OutOfBoundException If the index is out of bound.
@@ -120,6 +130,7 @@ public class TaskList {
 
     /**
      * Finds matched tasks based on the word.
+     *
      * @param word Keyword to find a match.
      * @return Matched task list.
      */
@@ -127,7 +138,7 @@ public class TaskList {
         ArrayList<Task> matchedTasksArr = new ArrayList<>();
         // iterate through the task list
         System.out.println(word);
-        for (Task task: tasks) {
+        for (Task task : tasks) {
             if (task.getDetail().contains(word)) {
                 matchedTasksArr.add(task);
             }
