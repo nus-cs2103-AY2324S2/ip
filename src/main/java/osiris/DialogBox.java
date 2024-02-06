@@ -9,10 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 /**
  * Custom control representing a dialog box in the chat interface.
@@ -20,9 +20,16 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
 
+    /**
+     * Represents a single dialog entry in the conversation.
+     * It includes text and an image to display either user or chatBot messages.
+     */
     @FXML
-    private Label dialog;
+    private Text dialog;
 
+    /**
+     * The ImageView component used to display the profile picture associated with the dialog entry.
+     */
     @FXML
     private ImageView displayPicture;
 
@@ -43,6 +50,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setWrappingWidth(345);
         displayPicture.setImage(img);
     }
 

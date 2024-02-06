@@ -17,6 +17,12 @@ public class Main extends Application {
     /** The Osiris chatBot. */
     private final Osiris chatBot = new Osiris();
 
+    /**
+     * The start method overridden from the Application class.
+     * It sets up the JavaFX stage, loads the main window FXML, and initializes the Osiris chatBot.
+     *
+     * @param stage The primary stage for the JavaFX application.
+     */
     @Override
     public void start(Stage stage) {
         try {

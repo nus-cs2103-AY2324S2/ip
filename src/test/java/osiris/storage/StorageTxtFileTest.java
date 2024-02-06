@@ -19,21 +19,40 @@ import org.junit.jupiter.api.Test;
 public class StorageTxtFileTest {
 
     /**
-     * Test for checking if the storage file exists.
+     * Tests initialise storage file function.
      */
     @Test
-    public void storageFileExistTest() {
+    public void initialiseStorageTxtFile() {
         StorageTxtFile storage = new StorageTxtFile("Test.txt");
         storage.initialiseStorageTxtFile();
-        assertTrue(storage.doesStorageFileExist());
 
         File testFile = new File("Test.txt");
+        assertTrue(testFile.exists());
+
         testFile.delete();
-        assertFalse(storage.doesStorageFileExist());
     }
 
     /**
-     * Test for reading content from the text file storage.
+     * Tests storage file exists function.
+     */
+    @Test
+    public void storageFileExistTest() {
+        try {
+            File testFile = new File("Test.txt");
+            testFile.createNewFile();
+
+            StorageTxtFile storage = new StorageTxtFile("Test.txt");
+            assertTrue(storage.doesStorageFileExist());
+
+            testFile.delete();
+            assertFalse(storage.doesStorageFileExist());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Tests reading content from the text file storage function.
      */
     @Test
     public void readTxtFileStorageTest() {
@@ -69,7 +88,7 @@ public class StorageTxtFileTest {
     }
 
     /**
-     * Test for appending content to the text file storage.
+     * Tests for appending content to the text file storage.
      */
     @Test
     public void appendToTxtFileStorageTest() {
@@ -110,7 +129,7 @@ public class StorageTxtFileTest {
     }
 
     /**
-     * Test for clearing content from the text file storage.
+     * Tests for clearing content from the text file storage.
      */
     @Test
     public void clearTxtFileStorage() {

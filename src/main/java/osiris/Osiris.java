@@ -1,5 +1,8 @@
 package osiris;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import osiris.commands.Command;
 import osiris.exceptions.OsirisException;
 import osiris.exceptions.OsirisStorageFileException;
@@ -46,6 +49,13 @@ public class Osiris {
             Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
             response = userCommand.execute(taskManager, userInterface);
             isTerminate = userCommand.isTerminateChat();
+            if (isTerminate) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                delay.setOnFinished(event -> {
+                    Platform.exit();
+                });
+                delay.play();
+            }
         } catch (OsirisException e) {
             return e.getMessage();
         }

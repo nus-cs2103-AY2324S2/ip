@@ -14,18 +14,23 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
 
+    /** The ScrollPane component used to contain the dialog elements and enable scrolling. */
     @FXML
     private ScrollPane scrollPane;
 
+    /** The VBox component serving as a container for the dialog elements. */
     @FXML
     private VBox dialogContainer;
 
+    /** The TextField where the user inputs messages. */
     @FXML
     private TextField userInput;
 
+    /** The Button used to send user messages. */
     @FXML
     private Button sendButton;
 
+    /** An instance of the Osiris class, responsible for processing messages and interactions. */
     private Osiris osiris;
 
     /** Image of Osiris. */

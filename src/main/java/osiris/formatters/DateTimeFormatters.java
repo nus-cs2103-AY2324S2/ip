@@ -5,10 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import osiris.exceptions.OsirisDateTimeException;
-import osiris.exceptions.OsirisParseDateException;
-import osiris.exceptions.OsirisParseDateTimeRangeException;
-import osiris.exceptions.OsirisParseStoredDateTimeException;
+import osiris.exceptions.*;
 
 /**
  * A singleton class for date and time formatters used in the application.
@@ -67,7 +64,7 @@ public class DateTimeFormatters {
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: " + dateTimeStr);
             System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
-            throw new OsirisDateTimeException(dateTimeStr);
+            throw new OsirisParseDateTimeException(dateTimeStr);
         }
     }
 

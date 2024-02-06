@@ -5,9 +5,8 @@
 
 .dialogBox {
     -fx-background-color: #FFFF;
-    -fx-min-height: 50px;
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
+    -fx-min-width: 350px;
+    -fx-max-width: 350px;
     -fx-padding: 10px;
     -fx-background-radius: 10px;
     -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.5) , 10,0,0,1 );
