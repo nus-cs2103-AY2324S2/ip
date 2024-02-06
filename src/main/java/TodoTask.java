@@ -4,6 +4,7 @@
  * a boolean indicating whether the task is marked.
  */
 public class TodoTask extends Task {
+
     /**
      * Basic Constructor
      * @param taskName name of task to be tracked
@@ -11,6 +12,7 @@ public class TodoTask extends Task {
     public TodoTask(String taskName) {
         super(taskName);
     }
+
     /**
      * Overloaded Constructor with isMarked status
      * @param taskname name of task to be tracked

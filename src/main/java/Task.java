@@ -17,6 +17,7 @@ public class Task {
         this.isMarked = false;
         this.hasDate = false;
     }
+
     /**
      * Overloaded constructor with marked status
      * @param taskName name of task to be tracked
@@ -26,6 +27,7 @@ public class Task {
         this.taskName = taskName;
         this.isMarked = isMarked;
     }
+
     /**
      * Sets this task as marked, by setting the
      * boolean flag to be true.
@@ -33,6 +35,7 @@ public class Task {
     public void mark() {
         this.isMarked = true;
     }
+
     /**
      * Sets this task as unmarked, by setting the
      * boolean flag to be false.
@@ -40,6 +43,7 @@ public class Task {
     public void unmark() {
         this.isMarked = false;
     }
+
     /**
      * Returns a formatted string meant for saving into the
      * text file.

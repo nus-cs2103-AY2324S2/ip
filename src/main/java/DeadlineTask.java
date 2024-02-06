@@ -16,10 +16,7 @@ public class DeadlineTask extends Task {
         this.dateTime = new DateTime(date_time);
         this.hasDate = true;
     }
-    @Override
-    public Boolean isWithinDate(DateTime dt) {
-        return this.dateTime.isSameDay(dt);
-    }
+
     /**
      * Overloaded Constructor with date/time specified
      * and marked status
@@ -30,6 +27,11 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskname, Boolean marked, String dateTime) {
         super(taskname, marked);
         this.dateTime = new DateTime(dateTime);
+    }
+
+    @Override
+    public Boolean isWithinDate(DateTime dt) {
+        return this.dateTime.isSameDay(dt);
     }
     @Override
     public String stringForSaving() {

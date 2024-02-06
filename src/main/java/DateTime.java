@@ -117,7 +117,6 @@ public class DateTime {
                         .appendPattern("[h a]")
                         .parseDefaulting(ChronoField.YEAR, Year.now().getValue());
         DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();
-
         return getDate(str.trim(), dateTimeFormatter);
     }
 

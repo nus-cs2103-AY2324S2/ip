@@ -21,6 +21,15 @@ public class EventTask extends Task {
         this.dateTimeTo = new DateTime(dateTimeTo);
         this.hasDate = true;
     }
+
+    /**
+     * Overloaded Constructor with event start and end
+     * date and/or time specified
+     * @param taskname name of task to be tracked
+     * @param isMarked <code>Boolean</code>
+     * @param dateTimeFrom start date and/or time of the event
+     * @param dateTimeTo end date and/or time of the event
+     */
     public EventTask(String taskname, Boolean isMarked, String dateTimeFrom, String dateTimeTo) {
         super(taskname,isMarked);
         this.dateTimeFrom = new DateTime(dateTimeFrom);

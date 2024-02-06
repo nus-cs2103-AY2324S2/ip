@@ -22,6 +22,7 @@ public class Chaterpillar {
     public static ArrayList<Task> tasks = new ArrayList<Task>();
     public static final String CHATBOT_PATH_NAME = "./data";
     public static final String CHATBOT_FILE_NAME = "history.txt";
+
     /**
      * Prints the greeting message by the Chaterpillar chatbot.
      * It also prints the horizontal lines as dividers before and after the message.
@@ -32,6 +33,7 @@ public class Chaterpillar {
         System.out.println("What can I do for you?");
         printHorizontalLine();
     }
+
     /**
      * Exits the program.
      * It sets the exited flag to true, and prints the exit message.
@@ -40,6 +42,7 @@ public class Chaterpillar {
         hasExited = true;
         System.out.println("Bye. Hope to see you again soon!");
     }
+
     /**
      * Prints out the message given in the String argument.
      * @param s the message to be printed
@@ -47,6 +50,7 @@ public class Chaterpillar {
     public static void echo(String s) {
         System.out.println(s);
     }
+
     /**
      * Prints out a horizontal line, typically used to segment
      * the start and end of a message by the chatbot.
@@ -55,11 +59,12 @@ public class Chaterpillar {
         String line = "-".repeat(50);
         System.out.println(line);
     }
+
     /**
      * Parses the input from the user, then calls the respective
      * methods to deal with the various actions of the chatbot.
      *
-     * @param reader used to read from <code>System.in</code>
+     * @param reader <code>BufferedReader</code> used to read from <code>System.in</code>
      * @return <code>Task</code> object
      * @throws IOException if there are any input/output errors
      * @see IOException
@@ -73,7 +78,7 @@ public class Chaterpillar {
         Task currTask = null;
         String name;
         String[] temp;
-        Boolean edited = false;
+        boolean edited = false;
 
         switch(inputSplit[0]) {
         case "list":
@@ -196,10 +201,11 @@ public class Chaterpillar {
         printHorizontalLine();
         return edited;
     }
+
     /**
      * Adds the specified task (in the argument) to the
-     * static ArrayList to be tracked by the chatbot.
-     * @param task object containing the specified task
+     * static <code>ArrayList</code> to be tracked by the chatbot.
+     * @param task <code>Task</code> object containing the specified task
      */
     public static void addTask(Task task) {
         tasks.add(task);
@@ -207,10 +213,11 @@ public class Chaterpillar {
         echo(task.toString());
         echo("Now you have " + tasks.size() + " tasks in the list.");
     }
+
     /**
      * Deletes the task at the specified index,
      * then shifts all the tasks in the index behind it up by 1.
-     * @param index integer specifying the number of the task to be deleted
+     * @param index <code>Integer</code> specifying the number of the task to be deleted
      */
     public static void deleteTask(int index) {
         Task task = tasks.remove(index);
@@ -218,12 +225,14 @@ public class Chaterpillar {
         echo(task.toString());
         echo("Now you have " + tasks.size() + " tasks in the list.");
     }
+
     public static void listTasks(List<Task> list) {
         int i = 1;
         for (Task each_task : list) {
             echo(i++ + ". " + each_task);
         }
     }
+
     /**
      * Gets the path of the file that stores the list of tasks.
      * Creates the directory if it is not found.
@@ -292,6 +301,7 @@ public class Chaterpillar {
         }
         return newList;
     }
+
     /**
      * Saves the entire list of Tasks into the file, by first clearing its contents.
      * @throws IOException if there are any input/output errors.
@@ -310,6 +320,7 @@ public class Chaterpillar {
             // ToDo: Handle IOException
         }
     }
+
     public static void main(String[] args) throws IOException {
         greet();
         tasks = loadFromFile();
