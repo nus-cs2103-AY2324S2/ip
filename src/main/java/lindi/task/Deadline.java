@@ -21,8 +21,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, Task.SAVE_LOAD_DATETIME_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new CreateDeadlineException(String.format("Deadline /by argument in the wrong format. Use " +
-                    "format '%s' instead. Not saving seconds and below :)", Task.SAVE_LOAD_DATETIME_FORMAT));
+            throw new CreateDeadlineException(String.format("Deadline /by argument in the wrong format. Use "
+                    + "format '%s' instead. Not saving seconds and below :)", Task.SAVE_LOAD_DATETIME_FORMAT));
         }
     }
 
@@ -35,6 +35,6 @@ public class Deadline extends Task {
     public String parsedFormatToSave() {
         return String.format("D | %c | %s | %s",
                 this.isDone ? 'y' : 'n', this.description,
-                this.by.format(Task.SAVE_LOAD_DATETIME_FORMAT));
+                        this.by.format(Task.SAVE_LOAD_DATETIME_FORMAT));
     }
 }

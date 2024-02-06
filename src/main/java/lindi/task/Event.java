@@ -21,8 +21,8 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(from, Task.SAVE_LOAD_DATETIME_FORMAT);
             this.to = LocalDateTime.parse(to, Task.SAVE_LOAD_DATETIME_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new CreateEventException(String.format("lindi.task.Event /from or /to argument in the wrong format. Use " +
-                    "format '%s' for each instead. Not saving seconds and below :)", Task.SAVE_LOAD_DATETIME_FORMAT));
+            throw new CreateEventException(String.format("Event /from or /to argument in the wrong format. Use "
+                    + "format '%s' for each instead. Not saving seconds and below :)", Task.SAVE_LOAD_DATETIME_FORMAT));
         }
     }
 
