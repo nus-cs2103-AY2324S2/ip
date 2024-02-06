@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import exceptions.ConvoBotException;
 import utils.TaskList;
-import utils.Ui;
+import utils.ResponseConstructor;
 
 /**
  * Represents the Find command, which searches for tasks in a TaskList based on a given query.
@@ -29,10 +29,10 @@ public class Find implements Command {
      * Executes the Find command by searching for tasks that match the specified query.
      *
      * @param taskList The TaskList to search for matching tasks.
-     * @param ui       The UI to display the matching tasks.
+     * @param rc       The response constructor to construct the string for the matching tasks.
      * @throws ConvoBotException If there is an issue executing the command.
      */
-    public void execute(TaskList taskList, Ui ui) throws ConvoBotException {
+    public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
         ArrayList<String> matchingTaskStrings = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
             String desc = taskList.getTaskDescription(i).toLowerCase(); // query is case-insensitive
@@ -40,7 +40,7 @@ public class Find implements Command {
                 matchingTaskStrings.add(taskList.getTaskString(i));
             }
         }
-        ui.showMatchingTasks(matchingTaskStrings);
+        rc.showMatchingTasks(matchingTaskStrings);
     }
 
     /**

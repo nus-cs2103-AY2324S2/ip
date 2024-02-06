@@ -2,7 +2,7 @@ package commands;
 
 import tasks.Task;
 import utils.TaskList;
-import utils.Ui;
+import utils.ResponseConstructor;
 
 /**
  * Represents a command to add a task to the task list.
@@ -24,11 +24,11 @@ public class Add implements Command {
      * Executes the Add command by adding the task to the task list and displaying a confirmation message.
      *
      * @param taskList The task list to which the task will be added.
-     * @param ui       The user interface for displaying messages.
+     * @param rc       The response constructor for constructing messages.
      */
-    public void execute(TaskList taskList, Ui ui) {
+    public void execute(TaskList taskList, ResponseConstructor rc) {
         taskList.add(task);
-        ui.showAdded(task.toString(), taskList.size());
+        rc.showAdded(task.toString(), taskList.size());
     }
 
     /**

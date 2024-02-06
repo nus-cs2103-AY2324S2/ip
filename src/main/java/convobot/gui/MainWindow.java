@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import exceptions.ExitException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -39,7 +42,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         userInput.requestFocus(); // re-focus TextField
         String input = userInput.getText();
-        String response = convo.getResponse(input);
+        String response = "";
+        try {
+            response = convo.getResponse(input);
+        } catch (ExitException e) {
+            Platform.exit();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, convoImage)
