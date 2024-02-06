@@ -26,7 +26,7 @@ public class GoldBot {
         
         Scanner scanner = new Scanner(System.in);
 
-        while (session.continueSession) {
+        while (session.shouldContinueSession) {
             String input = scanner.nextLine();
             session.handleMessage(input);
         }
