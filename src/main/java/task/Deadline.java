@@ -1,8 +1,13 @@
 package task;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /** This class represents a deadline where the User can specify when a task would end by*/
 public class Deadline extends Task {
     /** The field for when teh task ends by*/
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a deadline object that takes the task as per the description and when the task
@@ -10,12 +15,12 @@ public class Deadline extends Task {
      * @param description
      * @param by
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, Boolean isDone, String by) {
+    public Deadline(String description, Boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
@@ -25,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
     /**
@@ -34,6 +39,6 @@ public class Deadline extends Task {
     @Override
     public String toDataFormat() {
         String isDone = this.isDone ? "1 | " : "0 | ";
-        return "D | " + isDone + this.description + " | " + this.by;
+        return "D | " + isDone + description + " | " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 }

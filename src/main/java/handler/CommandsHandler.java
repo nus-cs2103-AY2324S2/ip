@@ -12,6 +12,8 @@ import task.Task;
 import task.Todo;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class represents how Sir Duke handles the input with the appropriate given
@@ -48,6 +50,7 @@ public class CommandsHandler {
         } catch (IllegalArgumentException e) {
             throw new InvalidCmd(userInput);
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         switch (cmd) {
         case BYE:
             StdMsgs.BYE.print();
@@ -73,15 +76,15 @@ public class CommandsHandler {
             // exception handling here is incomplete. How to see if only from or to fields are empty?
             items.add(
                     new Event(inputs[0],
-                            inputs[1].substring(5),
-                            inputs[2].substring(3)));
+                            LocalDateTime.parse(inputs[1].substring(5), formatter),
+                            LocalDateTime.parse(inputs[2].substring(3), formatter)));
             break;
         case DEADLINE:
             inputs = userInput.substring(9).split("\\s/by\\s", 2);
             if (inputs.length != 2) {
                 throw new DeadlineEmptyException(userInput);
             }
-            items.add(new Deadline(inputs[0], inputs[1]));
+            items.add(new Deadline(inputs[0], LocalDateTime.parse(inputs[1], formatter)));
             break;
         case ADD:
             items.add(new Task(userInput));
