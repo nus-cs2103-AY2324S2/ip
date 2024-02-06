@@ -9,6 +9,16 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, String by, String status) {
+        super(description, status);
+        this.by = by;
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "D " + super.toSaveFormat() + " /by " + by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
