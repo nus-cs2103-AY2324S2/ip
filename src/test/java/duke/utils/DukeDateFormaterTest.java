@@ -1,11 +1,10 @@
 package duke.utils;
 
-import duke.utils.DukeDateFormater;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class DukeDateFormaterTest {
     @Test
@@ -16,17 +15,17 @@ public class DukeDateFormaterTest {
         Assertions.assertEquals("2019-12-01", date.toString());
 
         // Format date fail - the string is not in valid date format
-        Assertions.assertThrows(DateTimeParseException.class, ()-> {
+        Assertions.assertThrows(DateTimeParseException.class, () -> {
             LocalDate date2 = formater.stringToDate("2019-12-99");
         });
 
         // Format date fail - the string is not in valid date format
-        Assertions.assertThrows(DateTimeParseException.class, ()-> {
+        Assertions.assertThrows(DateTimeParseException.class, () -> {
             LocalDate date2 = formater.stringToDate("2019/12/01");
         });
 
         // Format date fail - the string is not in valid date format
-        Assertions.assertThrows(DateTimeParseException.class, ()-> {
+        Assertions.assertThrows(DateTimeParseException.class, () -> {
             LocalDate date2 = formater.stringToDate("abca-bc-ab");
         });
 

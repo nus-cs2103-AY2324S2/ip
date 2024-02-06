@@ -1,17 +1,18 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.exceptions.InvalidDateTimeException;
 import duke.utils.DukeDateFormater;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Class represent Task type Deadline.
  */
 public class Deadline extends Task {
-	private LocalDate by;
-	private DukeDateFormater formater = new DukeDateFormater();
+    private LocalDate by;
+    private DukeDateFormater formater = new DukeDateFormater();
 
     /**
      * Initializes a Deadline object with given params.
@@ -38,8 +39,8 @@ public class Deadline extends Task {
         return "D|" + super.inFileStringFormat() + "|" + this.by.toString();
     }
 
-	@Override
-	public String toString() {
-		return "[D]" + super.toString() + "(by: " + this.formater.dateToString(this.by) + ")";
-	}
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + "(by: " + this.formater.dateToString(this.by) + ")";
+    }
 }

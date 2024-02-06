@@ -3,7 +3,7 @@ package duke.exceptions;
 /**
  * Exception thrown when the date/time format can't be recognized by the DukeDateFormator.
  */
-public class InvalidDateTimeException extends BaseException{
+public class InvalidDateTimeException extends BaseException {
     /**
      * Calls parent constructor with specific pre-defined message.
      */
