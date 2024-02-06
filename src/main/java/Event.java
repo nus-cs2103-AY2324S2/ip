@@ -1,19 +1,43 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  * class that represents an event type task 
  */
 public class Event extends Task{
-    private String startTime;
-    private String endTime;
-    public Event(String taskString, String startTime, String endTime) {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = 
+            DateTimeFormatter.ofPattern("dd-MM-uuuu");
+    private LocalDate startTime;
+    private LocalDate endTime;
+    
+    public Event(String taskString, String startTime, String endTime) throws InvalidDateException {
         super(taskString);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);
+            this.endTime = LocalDate.parse(endTime, DATE_TIME_FORMATTER);
+            if (this.startTime.isAfter(this.endTime)) {
+                throw new DateMismatchException(startTime + " " +
+                        endTime);   
+            }
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException(startTime + " " +
+                    endTime);
+        }
     }
 
-    public Event(String taskString, String startTime, String endTime, boolean isDone) {
+    public Event(String taskString, String startTime, String endTime, boolean isDone) throws InvalidDateException{
         super(taskString, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);
+            this.endTime = LocalDate.parse(endTime, DATE_TIME_FORMATTER);
+            if (this.startTime.isAfter(this.endTime)) {
+                throw new DateMismatchException(startTime + " " +
+                        endTime);   
+            }
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException(startTime + " " +
+                    endTime);
+        }
     }
 
     @Override

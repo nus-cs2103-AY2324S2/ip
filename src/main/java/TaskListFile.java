@@ -42,14 +42,22 @@ public class TaskListFile {
             case ('E'):
                 String taskDescEvent = task.substring(9);
                 String[] taskStartEnd = taskDescEvent.split(" \\| ", 3);
-                Event eventTask = new Event(taskStartEnd[0], taskStartEnd[1], taskStartEnd[2], isDone);
-                loadTaskList.add(eventTask);
+                try {
+                    Event eventTask = new Event(taskStartEnd[0], taskStartEnd[1], taskStartEnd[2], isDone);
+                    loadTaskList.add(eventTask);
+                } catch (InvalidDateException e) {
+                    System.out.println("Error reading a task: " + task);
+                }
                 break;
             case ('D'):
                 String taskDescDeadline = task.substring(9);
                 String taskDeadline[] = taskDescDeadline.split(" \\| ", 2);
-                Deadline deadlineTask = new Deadline(taskDeadline[0], taskDeadline[1], isDone);
-                loadTaskList.add(deadlineTask);
+                try {
+                    Deadline deadlineTask = new Deadline(taskDeadline[0], taskDeadline[1], isDone);
+                    loadTaskList.add(deadlineTask);
+                } catch (InvalidDateException e) {
+                    System.out.println("Error reading a task: " + task);
+                }
                 break;
             default:
                 System.out.println(task);
@@ -58,33 +66,4 @@ public class TaskListFile {
         fileScanner.close();
         return loadTaskList;
     }
-
-    /*
-    public static void main(String[] args) {
-        TaskListFile fileWriter = new TaskListFile("TaskList.txt");
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        try {
-            Todo task1 = new Todo("run around");
-            Event task2 = new Event("sprint", "today", "tommorow when i am done");
-            Deadline task3 = new Deadline("cycle", "next week");
-            taskList.add(task1);
-            taskList.add(task2);
-            taskList.add(task3);
-            fileWriter.writeToFile(taskList);
-            System.out.println("written");
-        } catch(IOException e) {
-            System.out.println(e);
-        }
-
-        try {
-            System.out.println("starting to read");
-            ArrayList<Task> newTaskList = fileWriter.loadFromFile();
-            for (int x = 0; x < newTaskList.size(); x++) {
-                System.out.println(newTaskList.get(x).toString());
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-    }
-    */
 }

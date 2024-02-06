@@ -1,16 +1,43 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  * class that represents a deadline type of task instantiated in an Aaronbot tasklist
  */
 public class Deadline extends Task{
-    private String deadline;
-    public Deadline(String taskString, String deadline) {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = 
+            DateTimeFormatter.ofPattern("dd-MM-uuuu");
+    private LocalDate deadline;
+    
+    public Deadline(String taskString, String deadline) throws DateFormatException{
         super(taskString);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDate.parse(deadline, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException(deadline);
+        }
     }
 
-    public Deadline(String taskString, String deadline, boolean isDone) {
+    public Deadline(String taskString, String deadline, boolean isDone) throws DateFormatException{
         super(taskString, isDone);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDate.parse(deadline, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException(deadline);
+        }
+    }
+
+    /**
+     * Setter method for altering deadline date for a deadline task
+     * @param userString new desired date
+     * @throws InvalidDateException if userString is in the wrong format
+     */
+    public void changeDeadline(String userString) throws InvalidDateException {
+        try {
+            this.deadline = LocalDate.parse(userString, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(userString);
+        }
     }
 
     @Override

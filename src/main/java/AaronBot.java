@@ -7,7 +7,6 @@ import java.util.Scanner;
  * Represents the main AaronBot class, executes the user-bot interaction task adding/deleting/marking
  */
 public class AaronBot {
-    private static TaskListFile fileReader = new TaskListFile();
     private static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
         try {
@@ -70,8 +69,9 @@ public class AaronBot {
             String[] tokenizedTaskDetails = tokenizedUserInput[1].split(" ", 2);
             try {
                 isAdded = addToList(tokenizedTaskDetails[0], tokenizedTaskDetails[1]);
-            } catch (InvalidTaskTypeException e) {
-                System.out.println("Hey!! I don't know that task type: " + e.toString());
+            } catch (TaskErrorException e) {
+                System.out.println("Hey!! something went wrong with the task");
+                System.out.println(e);
                 return true;
             }
             if (isAdded) {
@@ -178,7 +178,7 @@ public class AaronBot {
      * @return boolean value representing whether task has already been added to the list before
      * @throws InvalidTaskTypeException if the task type is invalid
      */
-    private static boolean addToList(String taskType, String newTask) throws InvalidTaskTypeException {
+    private static boolean addToList(String taskType, String newTask) throws TaskErrorException {
         Task task;
         switch(taskType) {
         case ("todo"):
@@ -186,12 +186,22 @@ public class AaronBot {
             break;
         case ("deadline"):
             String[] tokenizedTask = newTask.split(" /by ", 2);
-            task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
+            try {
+                task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
+            } catch (InvalidDateException e) {
+                System.out.println("Dear Stdent, invalid dates entered! \n" + e);
+                throw new TaskListAddException(newTask);
+            }
             break;
         case ("event"):
             String[] taskTimingSplit = newTask.split(" /from ", 2);
             String[] startEndSplit = taskTimingSplit[1].split(" /to ", 2);
-            task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
+            try {
+                task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
+            } catch (InvalidDateException e) {
+                System.out.println("Dear Student, invalid dates entered! \n" + e);
+                throw new TaskListAddException(newTask);
+            }
             break;
         default:
             throw new InvalidTaskTypeException(taskType);
