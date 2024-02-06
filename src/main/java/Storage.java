@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -7,9 +8,11 @@ import java.util.Scanner;
  * Represents the storage unit for the application. Deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
-    private final FileWriter fileWriter;
-    private final Scanner fileScanner;
+    private FileWriter fileWriter;
+    private Scanner fileScanner;
 
+    String dataDir;
+    String dataFileName;
     /**
      * Initialises Storage to load data from and save data to a file. Creates
      * the required directories and files if necessary.
@@ -18,7 +21,16 @@ public class Storage {
      * @param dataFileName name of data file (.txt format)
      * @throws IOException - if an I/O operation occurred using File
      */
-    public Storage(String dataDir, String dataFileName) throws IOException {
+    public Storage(String dataDir, String dataFileName) {
+        this.dataDir = dataDir;
+        this.dataFileName = dataFileName;
+    }
+
+    /**
+     * Saves the  task list to the designated text file for storing data for the program.
+     * Creates one if it does not exist yet.
+     */
+    void saveToFile(TaskList tasks) throws IOException {
         // Creates the directories if they do not exist yet. No effect if it exists.
         File dir = new File(dataDir);
         dir.mkdirs();
@@ -28,14 +40,7 @@ public class Storage {
         dataFile.createNewFile();
 
         this.fileWriter = new FileWriter(dataFile);
-        this.fileScanner = new Scanner(dataFile);
-    }
 
-    /**
-     * Saves the  task list to the designated text file for storing data for the program.
-     * Creates one if it does not exist yet.
-     */
-    void saveToFile(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         // Loops through taskList, appends them to string with the specified format
         tasks.getTasks().forEachRemaining(
@@ -53,18 +58,25 @@ public class Storage {
     }
     /**
      * Loads the taskList from the data file for this session
+     *
+     * @throws FileNotFoundException if data file not exist at file path
      */
-    void loadFromFile(TaskList tasks) {
+    TaskList loadFromFile() throws StorageLoadException {
         try {
+            this.fileScanner = new Scanner(new File(dataDir, dataFileName));
+            TaskList tasksToReturn = new TaskList();
             // Data file exist in folder, load it into our taskList
             while (fileScanner.hasNextLine()) {
                 String parsedString = fileScanner.nextLine();
                 Task task = Task.createFromParsedString(parsedString);
-                tasks.add(task);
+                tasksToReturn.add(task);
             }
+            return tasksToReturn;
         } catch (CreateTaskException e) {
-            System.out.println("Error loading tasks from save file. Might be corrupted...");
-            throw new RuntimeException(e.getMessage());
+            throw new StorageLoadException("Error loading tasks from save file. Might be corrupted...\n"
+                    + e.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new StorageLoadException("Error loading tasks from save file. File not found at path specified...\n");
         }
     }
 }
