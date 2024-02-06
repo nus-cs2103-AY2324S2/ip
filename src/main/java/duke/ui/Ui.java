@@ -6,7 +6,7 @@ import java.util.Scanner;
 import duke.task.Task;
 
 /**
- * The UI component for the Duke chatbot.
+ * The UI component for the fanTASKtic.
  * Handles interactions with the user, such as reading commands and displaying messages.
  */
 public class Ui {
@@ -40,7 +40,7 @@ public class Ui {
      */
     public void welcomeMsg() {
         System.out.println("Hello from \n" + LOGO);
-        System.out.println("This is Dooloodoodooloodoo!\n"
+        System.out.println("This is fanTasktic!\n"
                 + "What can I do for you?\n");
     }
 
