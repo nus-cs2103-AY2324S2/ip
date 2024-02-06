@@ -8,6 +8,7 @@ import command.ExitCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnMarkCommand;
+import command.FindCommand;
 import exception.IncompleteCommandException;
 import exception.NoDeadlineException;
 import exception.NoPeriodException;
@@ -83,6 +84,12 @@ public class Parser {
                 throw new NoPeriodException();
             }
             return new AddEventCommand(description, arr[0], arr[1]);
+        case "FIND":
+            if (input.length == 1 || input[1].equals("")) {
+                throw new IncompleteCommandException(input[0]);
+            }
+            description = input[1];
+            return new FindCommand(description);
         default:
             throw new UnknownCommandException();
         }

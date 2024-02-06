@@ -115,4 +115,16 @@ public class Ui {
         System.out.println("\tData file is corrupted. Starting with an empty list.");
         this.showLine();
     }
+
+    /**
+     * Shows the tasks that match the keyword
+     * @param list the list of tasks that match the keyword
+     */
+    public void showFindTasks(ArrayList<Task> list) {
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + list.get(i));
+        }
+        this.showLine();
+    }
 }
