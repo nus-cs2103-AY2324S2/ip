@@ -27,40 +27,45 @@ public class TaskList {
     /**
      * Creates the message when task is added to tasklist.
      */
-    public static void addTask() throws DukeException{
-        System.out.println("Got it. I've added this task:\n");
+    public String addTask() throws DukeException{
+        //System.out.println("Got it. I've added this task:\n");
 
-        System.out.println(list.get(list.size()-1).ToString());
+        //System.out.println(list.get(list.size()-1).ToString());
 
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+       //System.out.println("Now you have " + list.size() + " tasks in the list.");
         store.save();
+        return "Got it. I've added this task:\n" + list.get(list.size()-1).ToString() + "\n" + "Now you have " + list.size() + " tasks in the list.\n";
     }
 
     /**
      * Creates an event in the tasklist.
      * @param str The string representation of the event.
      */
-    public static void eventCase(String str) throws DukeException {
+    public String eventCase(String str) throws DukeException {
         str = str.replace("event", "");
         //str = str.replace("from", "");
         //str = str.replace("to", "");
         String[] eventtokens = str.split(" ((/from)|(/to)) ");
 
         if(eventtokens.length < 1) {
-            throw new DukeException("OOPS!!! The description of a event cannot be empty." +
-                    "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
+            return "OOPS!!! The description of a event cannot be empty." + "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]\n";
+           // throw new DukeException("OOPS!!! The description of a event cannot be empty." +
+                  //  "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
         } else if(eventtokens.length < 2) {
-            throw new DukeException("OOPS!!! The beginning date of a event cannot be empty." +
-                    "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
+            return "OOPS!!! The description of a event cannot be empty." + "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]\n";
+            //throw new DukeException("OOPS!!! The beginning date of a event cannot be empty." +
+                    //"Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
         } else if(eventtokens.length < 3) {
-            throw new DukeException("OOPS!!! The ending date of a event cannot be empty." +
-                    "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
+            return "OOPS!!! The description of a event cannot be empty." + "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]\n";
+            //throw new DukeException("OOPS!!! The ending date of a event cannot be empty." +
+                    //"Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
         }
         String subject = eventtokens[0];
 
         String to = eventtokens[1];
         String from = eventtokens[2];
         list.add(new Event(subject, to, from));
+        return addTask();
 
 
 
@@ -69,117 +74,142 @@ public class TaskList {
      * Creates an deadline in the tasklist.
      * @param str The string representation of the deadline.
      */
-    public static void deadlineCase(String str) throws DukeException {
+    public String deadlineCase(String str) throws DukeException {
         str = str.replace("deadline", "");
         //str = str.replace("by", "");
         String[] deadlinetokens = str.split("/by");
         if(deadlinetokens.length < 1) {
-            throw new DukeException("OOPS!!! The description of a deadline cannot be empty." +
-                    "Please give this instruction in the following format: deadline [description] / [deadline date]");
+            return "OOPS!!! The description of a deadline cannot be empty." +
+                    "Please give this instruction in the following format: deadline [description] / [deadline date]\n";
+            //throw new DukeException("OOPS!!! The description of a deadline cannot be empty." +
+                    //"Please give this instruction in the following format: deadline [description] / [deadline date]");
         }
         else if(deadlinetokens.length < 2) {
-            throw new DukeException("OOPS!!! You must provide a deadline for this task." +
-                    "Please give this instruction in the following format: deadline [description] / [deadline date]");
+            return "OOPS!!! The description of a deadline cannot be empty." +
+                    "Please give this instruction in the following format: deadline [description] / [deadline date]\n";
+            //throw new DukeException("OOPS!!! You must provide a deadline for this task." +
+                    //"Please give this instruction in the following format: deadline [description] / [deadline date]");
         }
         String subject = deadlinetokens[0];
         String deadline = deadlinetokens[1];
         list.add(new Deadline(subject, deadline));
+        return addTask();
 
     }
+
+
+
     /**
      * Creates an todo task in the tasklist.
      * @param str The string representation of the task.
      */
-    public static void todoCase(String str) throws DukeException {
+    public String todoCase(String str) throws DukeException {
         str = str.replace("todo", "");
         int strcount = str.split("\\s").length;
 
         if(strcount == 1) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty. " +
-                    " Please give this instruction in the following format: todo [description]");
+            return "OOPS!!! The description of a todo cannot be empty. " +
+                    " Please give this instruction in the following format: todo [description]\n";
+            //throw new DukeException("OOPS!!! The description of a todo cannot be empty. " +
+                   // " Please give this instruction in the following format: todo [description]");
         }
         list.add(new Task(str));
+        return addTask();
 
     }
     /**
      * marks a task as done.
      * @param  tokens The command to mark task as done.
      */
-    public static void markCase(String[] tokens) throws DukeException{
+    public String markCase(String[] tokens) throws DukeException{
         if(tokens.length != 2) {
-            throw new DukeException("please give this instruction in the following format: mark [task number]");
+            return "please give this instruction in the following format: mark [task number]";
+           // throw new DukeException("please give this instruction in the following format: mark [task number]");
+
         }
         int no = Integer.parseInt(tokens[1]) - 1;
         list.get(no).markAsDone();
         System.out.println("Nice! I've marked this task as done:\n");
         System.out.println(list.get(no).ToString());
         store.save();
+        return "Nice! I've marked this task as done:\n" + list.get(no).ToString();
     }
 
     /**
      * marks a task as undone.
      * @param  tokens The command to mark task as undone.
      */
-    public static void unmarkCase(String[] tokens) throws DukeException{
+    public String unmarkCase(String[] tokens) throws DukeException{
         if(tokens.length != 2) {
-            throw new DukeException("please give this instruction in the following format: unmark [task number]");
+            return "please give this instruction in the following format: unmark [task number]";
+            //throw new DukeException("please give this instruction in the following format: unmark [task number]");
         }
         int no = Integer.parseInt(tokens[1]) - 1;
         list.get(no).unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(list.get(no).ToString());
         store.save();
+        return "OK, I've marked this task as not done yet:\n" + list.get(no).ToString();
     }
 
     /**
      * removes a task.
      * @param  tokens The command to remove a task.
      */
-    public static ArrayList<Task> removeCase(String[] tokens) throws DukeException{
+    public String removeCase(String[] tokens) throws DukeException{
         if(tokens.length != 2) {
-            throw new DukeException("please give this instruction in the following format: delete [task number]");
+            return "please give this instruction in the following format: delete [task number]";
+            //throw new DukeException("please give this instruction in the following format: delete [task number]");
         }
-        System.out.println("Noted. I've removed this task:\n");
         int no = Integer.parseInt(tokens[1])-1;
-        System.out.println(list.get(no).ToString());
+        String result = "Noted. I've removed this task:\n";
+        result += list.get(no).ToString() + "\n";
+        //System.out.println("Noted. I've removed this task:\n");
+        //.out.println(list.get(no).ToString());
         list.remove(no);
-
-
-
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+        result += "Now you have " + list.size() + " tasks in the list.";
         store.save();
 
-        return list;
+        return result;
 
 
 
     }
 
-    public static void findCase(String str) throws DukeException{
+    public String findCase(String str) throws DukeException{
         if(str.equals("find")) {
-            throw new DukeException("please give this instruction in the following format: find [keyword]");
+            return "please give this instruction in the following format: find [keyword]";
+            //throw new DukeException("please give this instruction in the following format: find [keyword]");
         }
         String keyword = str.replace("find", "");
-        System.out.println("Here are the matching tasks in your list:");
+        String result = "Here are the matching tasks in your list:\n";
+        //System.out.println("Here are the matching tasks in your list:");
+        int n = 0;
         for (int i = 0; i < list.size(); i++) {
-            int n = 0;
+
             Task task = list.get(i);
             if (task.description.contains(keyword)) {
                 n++;
                 System.out.println( n + "." + task.ToString());
+                result += n + "." + task.ToString() + "\n";
 
             }
         }
+        return result;
 
     }
     /**
      * prints the task list.
      */
-    public static void printList(){
+    public String printList(){
         System.out.println("Here are the tasks in your list:\n");
+        String result = "Here are the tasks in your list:\n";
         for (int a = 0; a < list.size(); a++) {
             System.out.println(a + 1 + ". " + list.get(a).ToString());
+            result += a + 1 + ". " + list.get(a).ToString() + "\n";
         }
+        return result;
     }
 
 
@@ -197,6 +227,15 @@ public class TaskList {
     public Task getTask(int n){
 
         return list.get(n);
+    }
+
+/**
+ * Prints outro.
+ */
+    public String bye() throws DukeException{
+        return "Bye. Hope to see you again soon!\n";
+
+        // if keyword is bye, exit the program
     }
 
 

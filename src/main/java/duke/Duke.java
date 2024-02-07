@@ -1,5 +1,11 @@
 package duke;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+
 /**
  *  * Represents the main class of the application.
  *
@@ -7,7 +13,9 @@ package duke;
  * @author Loh Jin Hun
  *
  */
-public class Duke {
+public class Duke{
+
+
 
     /**
      * The storage unit of the chatbot that saves and loads from the hard drive
@@ -22,11 +30,19 @@ public class Duke {
     private static Ui ui;
     private static Parser parser;
     private static final String FILE_PATH = "data/duke.txt";
+    final static String BINGUS_LOGO = " B   i   n   g   u   s ";
+    final static  String NAME = "Bingus";
 
 
 
 
-
+    public Duke() throws DukeException{
+        ui = new Ui();
+        ui.intro();
+        storage = new Storage(FILE_PATH);
+        list = new TaskList(storage);// array to store tasks given
+        parser = new Parser(list);
+    }
 
 
 
@@ -40,11 +56,25 @@ public class Duke {
         list = new TaskList(storage);// array to store tasks given
         parser = new Parser(list);
         ui.read_commands(parser);
+    }
 
-
-
-                }
+    public String getResponse(String input) throws DukeException{
+        if(input.equals("bye")){
+            System.exit(0);
         }
+        return parser.parse(input);
+    }
+
+    public Parser getParser(){
+        return this.parser;
+    }
+
+
+
+
+}
+
+
 
 
 
