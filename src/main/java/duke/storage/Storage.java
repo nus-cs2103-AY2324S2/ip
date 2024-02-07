@@ -17,10 +17,21 @@ import java.util.List;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified in the constructor.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DukeException If an error occurs while loading tasks from the file.
+     */
     public List<Task> load() throws DukeException {
         List<Task> loadedTasks = new ArrayList<>();
         try {
@@ -49,6 +60,12 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Saves the list of tasks to the file specified in the constructor.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws DukeException If an error occurs while saving tasks to the file.
+     */
     public void save(List<Task> tasks) throws DukeException {
         try {
             File directory = new File(filePath).getParentFile();

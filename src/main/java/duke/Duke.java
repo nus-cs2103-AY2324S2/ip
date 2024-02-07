@@ -10,6 +10,12 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+
+    /**
+     * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath The file path where tasks will be stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +28,10 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +49,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to start the Duke application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }

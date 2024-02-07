@@ -1,24 +1,47 @@
 package duke.task;
 
 import duke.DukeException;
-import duke.task.Task;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
     private List<Task> tasks;
+
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
+    /**
+     * Constructs a TaskList with the specified list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
     }
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Added: " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskNumber The number of the task to be deleted.
+     * @throws DukeException If the specified task number is out of range.
+     */
     public void deleteTask(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("duke.task.Task with specified number does not exist.");
@@ -27,6 +50,13 @@ public class TaskList {
         System.out.println("Deleted: " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    /**
+     * Marks a task as done.
+     *
+     * @param taskNumber The number of the task to be marked as done.
+     * @throws DukeException If the specified task number is out of range.
+     */
     public void markTask(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("duke.task.Task with specified number does not exist.");
@@ -35,6 +65,13 @@ public class TaskList {
         task.markAsDone();
         System.out.println("Marked as done: " + task);
     }
+
+    /**
+     * Marks a task as not done.
+     *
+     * @param taskNumber The number of the task to be unmarked as done.
+     * @throws DukeException If the specified task number is out of range.
+     */
     public void unmarkTask(int taskNumber) throws DukeException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("duke.task.Task with specified number does not exist.");
@@ -43,6 +80,10 @@ public class TaskList {
         task.unmarkAsDone();
         System.out.println("Unmarked as done: " + task);
     }
+
+    /**
+     * Lists all tasks in the task list.
+     */
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("Your task list is empty.");
@@ -53,6 +94,12 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Gets the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return this.tasks;
     }

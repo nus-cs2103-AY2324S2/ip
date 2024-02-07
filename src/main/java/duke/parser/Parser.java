@@ -6,6 +6,14 @@ import duke.ui.Ui;
 
 public class Parser {
 
+    /**
+     * Parses the user input and executes the corresponding command.
+     *
+     * @param userInput The user input to be parsed.
+     * @param tasks     The TaskList object containing the list of tasks.
+     * @param ui        The Ui object responsible for user interface interactions.
+     * @throws DukeException If an error occurs during parsing or execution of the command.
+     */
     public static void parse(String userInput, TaskList tasks, Ui ui) throws DukeException {
         String[] parts = userInput.trim().split(" ", 2);
         String command = parts[0].toLowerCase();
@@ -43,6 +51,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the creation of tasks based on the given command and input parts.
+     *
+     * @param command The command indicating the type of task to create.
+     * @param parts   The input parts containing task details.
+     * @param tasks   The TaskList object to add the created task to.
+     * @param ui      The Ui object responsible for user interface interactions.
+     * @throws DukeException If an error occurs during task creation.
+     */
     private static void handleTaskCreation(String command, String[] parts, TaskList tasks, Ui ui) throws DukeException {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new DukeException("The description of a " + command + " cannot be empty.");
