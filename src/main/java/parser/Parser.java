@@ -23,6 +23,8 @@ public class Parser {
             return new MarkDoneCommand(Integer.parseInt(inputArgs[1].trim()));
         case "unmark":
             return new MarkNotDoneCommand(Integer.parseInt(inputArgs[1].trim()));
+        case "find":
+            return new FindCommand(inputArgs[1].trim());
         default:
             throw new CommandException("Please input a valid command");
         }
@@ -47,5 +49,9 @@ public class Parser {
             throw new ArgumentException("Insufficient argument provided for event task");
         }
         return result;
+    }
+
+    public static boolean matchStrings(String target, String matcher) {
+        return target.toLowerCase().contains(matcher.toLowerCase());
     }
 }

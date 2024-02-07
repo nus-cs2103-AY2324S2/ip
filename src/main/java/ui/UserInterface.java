@@ -60,6 +60,10 @@ public class UserInterface {
         this.showMessage("Now you have " + size + " tasks in the list.");
     }
 
+    public void showFound(String list) {
+        this.showMessage("Here are the matching tasks in your list:\n" + list);
+    }
+
     public String readCommand() {
         return sc.nextLine();
     }
