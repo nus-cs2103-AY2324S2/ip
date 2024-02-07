@@ -1,11 +1,26 @@
-package Commands;
+package commands;
 
-import Exceptions.InvalidFormatException;
-import Exceptions.LeluException;
-import TasksStorage.Storage;
-import TasksStorage.TaskList;
-import Ui.Ui;
+import exceptions.InvalidFormatException;
+import exceptions.LeluException;
+import tasksstorage.Storage;
+import tasksstorage.TaskList;
+import ui.Ui;
+
+/**
+ * This class represents a command for finding tasks, using a keyword, from the task list managed
+ * by the chatbot. When executed, this command lists out tasks containing keyword.
+ */
 public class FindCommand extends Command {
+
+    /**
+     * Executes the command to search for tasks containing the keyword entered by the user.
+     *
+     * @param tasks   Recorded list of tasks.
+     * @param ui      Format of output shown.
+     * @param storage To save and load tasks recorded.
+     * @param message Input of user.
+     * @throws LeluException If the input is in the wrong format.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
         if (message.replaceAll(" ", "").equals("find")) {
