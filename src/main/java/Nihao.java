@@ -1,4 +1,5 @@
 import action.Action;
+import action.ExitAction;
 import handler.DataHandler;
 import handler.InputHandler;
 import handler.PrintHandler;
@@ -9,21 +10,10 @@ import java.util.Scanner;
 
 public final class Nihao {
     public static final Nihao instance = new Nihao();
-    private static final String LOGO = "::::    ::: ::::::::::: :::    :::     :::      ::::::::  \n" +
-        ":+:+:   :+:     :+:     :+:    :+:   :+: :+:   :+:    :+: \n" +
-        ":+:+:+  +:+     +:+     +:+    +:+  +:+   +:+  +:+    +:+ \n" +
-        "+#+ +:+ +#+     +#+     +#++:++#++ +#++:++#++: +#+    +:+ \n" +
-        "+#+  +#+#+#     +#+     +#+    +#+ +#+     +#+ +#+    +#+ \n" +
-        "#+#   #+#+#     #+#     #+#    #+# #+#     #+# #+#    #+# \n" +
-        "###    #### ########### ###    ### ###     ###  ########  ";
-
-    private final String GREETINGS = "Hello! I'm Nihao.\nI'm lazy and I don't want to do anything for you.";
-    private final String GOODBYE = "Hope to never see you again. Goodbye!";
     private Nihao() {}
 
     public void run() {
-        PrintHandler.printWithDivider(LOGO);
-        PrintHandler.printWithDivider(GREETINGS);
+        PrintHandler.printInit();
 
 //        File myInput = new File("text-ui-test/input.txt");
 //        try {
@@ -31,15 +21,12 @@ public final class Nihao {
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 String input = scanner.nextLine();
-                if (input.equals("bye")) {
-                    PrintHandler.printWithDivider(GOODBYE);
-                    DataHandler.save();
-                    break;
-                }
-
                 try {
                     Action action = InputHandler.handleInput(input);
                     action.execute();
+                    if (action instanceof ExitAction) {
+                        break;
+                    }
                 } catch (Exception e) {
                     PrintHandler.printException(e);
                 }

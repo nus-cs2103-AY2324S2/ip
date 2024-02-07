@@ -2,6 +2,7 @@ package handler;
 
 import action.Action;
 import action.DeleteAction;
+import action.ExitAction;
 import action.ListAction;
 import action.MarkAction;
 import action.TaskAction;
@@ -23,6 +24,8 @@ public class InputHandler {
         Command command = Command.getEnum(commandName);
         String taskName;
         switch (command) {
+        case BYE:
+            return new ExitAction();
         case LIST:
             return new ListAction();
         case MARK:

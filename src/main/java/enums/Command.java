@@ -1,6 +1,7 @@
 package enums;
 
 public enum Command {
+    BYE,
     LIST,
     MARK,
     UNMARK,
@@ -11,6 +12,8 @@ public enum Command {
     UNKNOWN;
     public static Command getEnum(String str) {
         switch (str) {
+        case "bye":
+            return BYE;
         case "list":
             return LIST;
         case "mark":
