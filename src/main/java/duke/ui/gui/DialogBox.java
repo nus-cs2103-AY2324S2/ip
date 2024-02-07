@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
 
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.CENTER_LEFT);
     }
 
     /**
