@@ -62,22 +62,22 @@ public class TheAdvisor implements Serializable {
                 }
                 break;
             case MARK:
-                checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
-                        + "mark + (number) to mark something on the list as completed.");
+                checkArrayLength(2, "Invalid format. Make sure that the format is: "
+                        + "mark + (number) to mark something on the list as completed.", strings);
                 int markNumber = Integer.parseInt(strings[1]);
                 response = taskList.markTask(markNumber - 1);
                 storage.saveTasks(taskList);
                 break;
             case UNMARK:
-                checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
-                        + "unmark + (number) to unmark something on the list.");
+                checkArrayLength(2, "Invalid format. Make sure that the format is: "
+                        + "unmark + (number) to unmark something on the list.", strings);
                 int unmarkNumber = Integer.parseInt(strings[1]);
                 response = taskList.unmarkTask(unmarkNumber - 1);
                 storage.saveTasks(taskList);
                 break;
             case DELETE:
-                checkArrayLength(strings, 2, "Invalid format. Make sure that the format is: "
-                        + "delete + (number) to delete something from the list.");
+                checkArrayLength(2, "Invalid format. Make sure that the format is: "
+                        + "delete + (number) to delete something from the list.", strings);
                 int deleteNumber = Integer.parseInt(strings[1]);
                 response = taskList.deleteFromList(deleteNumber - 1);
                 storage.saveTasks(taskList);
@@ -95,8 +95,8 @@ public class TheAdvisor implements Serializable {
                 checkEmptyDescription(due, "The description for deadline cannot be empty. "
                         + "The input should be <deadline> + description");
                 String[] arrTask = due.split(" /by ");
-                checkArrayLength(arrTask, 2, "Invalid deadline format "
-                        + "Please use the correct format: deadline + description + /by + <YYYY-MM-DD HHmm>");
+                checkArrayLength(2, "Invalid deadline format "
+                        + "Please use the correct format: deadline + description + /by + <YYYY-MM-DD HHmm>", arrTask);
                 try {
                     Deadline deadline = new Deadline(arrTask[0], LocalDateTime.parse(arrTask[1],
                             Task.INPUT_FORMAT));
@@ -113,13 +113,13 @@ public class TheAdvisor implements Serializable {
                         + "input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
                         + "/to <YYYY-MM-DD HHmm>");
                 String[] eventArr = event.split(" /from ");
-                checkArrayLength(eventArr, 2, "Invalid event format. "
+                checkArrayLength(2, "Invalid event format. "
                         + "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
-                        + "/to <YYYY-MM-DD HHmm>");
+                        + "/to <YYYY-MM-DD HHmm>", eventArr);
                 String[] timings = eventArr[1].split(" /to");
-                checkArrayLength(timings, 2, "Invalid event format"
+                checkArrayLength(2, "Invalid event format"
                         + "The input should be <event> + description + /from <YYYY-MM-DD HHmm> + "
-                        + "/to <YYYY-MM-DD HHmm>");
+                        + "/to <YYYY-MM-DD HHmm>", timings);
                 String startStr = timings[0].trim();
                 String endStr = timings[1].trim();
                 try {
@@ -155,7 +155,7 @@ public class TheAdvisor implements Serializable {
         }
     }
 
-    private static void checkArrayLength(String[] array, int expectedLength, String errorMessage)
+    private static void checkArrayLength(int expectedLength, String errorMessage, String... array)
             throws TheAdvisorException {
         if (array.length != expectedLength) {
             throw new TheAdvisorException(errorMessage);
