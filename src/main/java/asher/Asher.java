@@ -1,11 +1,10 @@
 package asher;
 
-import java.util.Scanner;
-
 import asher.Commands.Parser;
 import asher.Commands.Storage;
 import asher.Tasks.TaskList;
 import asher.Ui.Ui;
+import java.util.Scanner;
 
 public class Asher {
     private final Ui ui;
