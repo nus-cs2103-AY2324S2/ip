@@ -87,6 +87,9 @@ public class Storage {
                     task = new Event(parts[2], Integer.parseInt(parts[1]), parts[3], parts[4]);
                     taskList.add(task);
                     break;
+                default:
+                    System.out.println("Invalid task type");
+                    break;
                 }
             }
             System.out.println("Data loaded");
@@ -113,7 +116,7 @@ public class Storage {
             // type |   1/0  | <event-name> | <date> | <date>
             for (Task element : taskList) {
                 fw.write(element.getTaskType());
-                fw.write('|' + Integer.toString(element.getIsDone()) );
+                fw.write('|' + Integer.toString(element.getIsDone()));
                 fw.write('|' + element.toString());
 
                 // add dates, if relevant

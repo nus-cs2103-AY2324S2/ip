@@ -53,7 +53,7 @@ public abstract class Task {
      *
      * @return The completion status of the task.
      */
-    public int getIsDone(){
+    public int getIsDone() {
         return isDone ? 1 : 0;
     }
 
