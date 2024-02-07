@@ -1,8 +1,5 @@
 package theadvisor;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -10,51 +7,44 @@ import java.util.ArrayList;
  * It handles user input, displays messages, and prints the task list.
  */
 public class Ui {
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     /**
      * Displays an introduction message for the user.
-     */
-    public void intro() {
-        System.out.println("Hello, I am The Advisor. The one and only advisor you will ever need in your investing "
-                + "journey. What can I do for you?");
-    }
-
-    /**
-     * Displays a goodbye message and exits the application.
-     */
-    public void goodbye() {
-        System.out.println("Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed"
-                + " to help you in your investing journey!");
-        System.exit(0);
-    }
-
-    /**
-     * Reads and returns user input.
      *
-     * @return The user input as a string.
-     * @throws IOException If an I/O error occurs while reading the input.
+     * @return The introduction message.
      */
-    public String getUserInput() throws IOException {
-        return br.readLine();
+    public static String intro() {
+        return "Hello, I am The Advisor. The one and only advisor you will ever need in your investing "
+                + "journey. What can I do for you?";
+    }
+
+    /**
+     * Displays a goodbye message.
+     *
+     * @return The goodbye message.
+     */
+    public String goodbye() {
+        return "Goodbye. Thank you for using TheAdvisor chatbox and I hope that my advice has managed"
+                + " to help you in your investing journey!";
     }
 
     /**
      * Prints the tasks in the provided task list.
      *
      * @param taskList The task list to be printed.
+     * @return The formatted string representation of the task list.
      */
-    public void printList(TaskList taskList) {
+    public String printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTaskList();
         int counter = 1;
         if (tasks.size() == 0) {
-            System.out.println("     Sorry, there are no tasks in your list. Start adding them :)");
+            return "Sorry, there are no tasks in your list. Start adding them :)";
         } else {
-            System.out.println("     Here are the tasks in your list:");
+            StringBuilder toReturn = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("     " + counter + ". " + taskList.getTask(i).toString());
+                toReturn.append(counter).append(". ").append(taskList.getTask(i).toString()).append("\n");
                 counter++;
             }
+            return toReturn.toString();
         }
     }
 }

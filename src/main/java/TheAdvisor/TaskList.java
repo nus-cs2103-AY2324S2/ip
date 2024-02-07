@@ -30,28 +30,30 @@ public class TaskList implements Serializable {
      * Adds a task to the list and prints a confirmation message.
      *
      * @param task The task to be added.
+     * @return The confirmation message.
      */
-    public void addToList(Task task) {
+    public String addToList(Task task) {
         this.taskList.add(task);
-        System.out.println("     Got it. I've added this task:\n"
-                + "       " + task.toString() + "\n"
-                + "     Now you have " + taskList.size()
-                + " tasks in the list.");
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + taskList.size()
+                + " tasks in the list.";
     }
 
     /**
      * Deletes a task from the list based on the given index and prints a confirmation message.
      *
      * @param index The index of the task to be deleted.
+     * @return The confirmation message.
      * @throws TheAdvisorException If the index is out of bounds or the list is empty.
      */
-    public void deleteFromList(int index) throws TheAdvisorException {
+    public String deleteFromList(int index) throws TheAdvisorException {
         try {
             checkIndex(index);
             Task task = this.taskList.get(index);
             this.taskList.remove(index);
-            System.out.println("     Noted. I've removed this task:\n" + "       "
-                    + task.toString() + "\n" + "     Now you have " + taskList.size() + " tasks in the list.");
+            return "Noted. I've removed this task:\n" + task.toString() + "\n"
+                    + "Now you have " + taskList.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
             throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
                     + "Do try again :)");
@@ -62,19 +64,19 @@ public class TaskList implements Serializable {
      * Marks a task as done based on the given index and prints a confirmation message.
      *
      * @param index The index of the task to be marked.
+     * @return The confirmation message.
      * @throws TheAdvisorException If the index is out of bounds or the task is already marked.
      */
-    public void markTask(int index) throws TheAdvisorException {
+    public String markTask(int index) throws TheAdvisorException {
         try {
             checkIndex(index);
             Task task = this.taskList.get(index);
             checkMarked(task);
             task.markDone();
-            System.out.println("     Nice! I've marked this task as done:\n" + "       "
-                    + task.toString());
+            return "Nice! I've marked this task as done:\n" + task.toString();
         } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
-                    + "Do try again :)");
+            throw new TheAdvisorException("We use 1-based indexing for deletion, marking, and unmarking! "
+                    + "Please try again :)");
         }
     }
 
@@ -82,19 +84,19 @@ public class TaskList implements Serializable {
      * Unmarks a task as done based on the given index and prints a confirmation message.
      *
      * @param index The index of the task to be unmarked.
+     * @return The confirmation message.
      * @throws TheAdvisorException If the index is out of bounds or the task is already unmarked.
      */
-    public void unmarkTask(int index) throws TheAdvisorException {
+    public String unmarkTask(int index) throws TheAdvisorException {
         try {
             checkIndex(index);
             Task task = this.taskList.get(index);
             checkUnmarked(task);
             task.unmark();
-            System.out.println("          OK, I've marked this task as not done yet:\n" + "       "
-                    + task.toString());
+            return "OK, I've marked this task as not done yet:\n" + task.toString();
         } catch (IndexOutOfBoundsException e) {
-            throw new TheAdvisorException("We use 1-based indexing for deletion, marking and unmarking! "
-                    + "Do try again :)");
+            throw new TheAdvisorException("We use 1-based indexing for deletion, marking, and unmarking! "
+                    + "Please try again :)");
         }
     }
 
@@ -154,17 +156,18 @@ public class TaskList implements Serializable {
         } else if (index > size) {
             throw new TheAdvisorException("Out of bounds. We use 1-indexing for marking. Please try again.");
         } else if (size == 0) {
-            throw new TheAdvisorException("The list is empty! Start adding in things :)");
+            throw new TheAdvisorException("The list is empty! Start adding things :)");
         }
     }
 
     /**
-     * Comb through the TaskList to see if there are any tasks in the list that matches the keyword.
-     * Print out the matching task(s) if any. Else inform the user that there is no tasks with such keyword.
+     * Finds tasks in the list that match the given keyword.
      *
-     * @param keyword The keyword the user is looking for from the list.
+     * @param keyword The keyword to search for.
+     * @return A string representation of matching tasks.
+     * @throws TheAdvisorException If no matching tasks are found.
      */
-    public void findItem(String keyword) throws TheAdvisorException {
+    public String findItem(String keyword) throws TheAdvisorException {
         ArrayList<Integer> indexes = new ArrayList<>();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -174,13 +177,14 @@ public class TaskList implements Serializable {
         }
 
         if (indexes.size() == 0) {
-            throw new TheAdvisorException("Sorry! There is no such item that fits your description (,,>  <,,)");
+            throw new TheAdvisorException("Sorry! There are no tasks that match your search criteria.");
         } else {
-            System.out.println("     Here are the matching tasks in your list:");
+            StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int j = 0; j < indexes.size(); j++) {
                 Task task = taskList.get(indexes.get(j));
-                System.out.println("     " + (j + 1) + ". " + task.toString());
+                toReturn.append(j + 1).append(". ").append(task.toString()).append("\n");
             }
+            return toReturn.toString();
         }
     }
 }
