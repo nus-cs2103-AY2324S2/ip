@@ -1,5 +1,5 @@
 package duke;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -13,6 +13,8 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+
+    private static String filePath = "/Users/leedoye/ip/src/data/duke_tasks.txt";
 
     /**
      * Constructs a Duke instance.
@@ -31,6 +33,10 @@ public class Duke {
         parser = new Parser();
     }
 
+    public Duke() {
+        this(filePath);
+    }
+
     /**
      * Runs the Duke program according to the user command line.
      */
@@ -39,82 +45,94 @@ public class Duke {
         while(true) {
             Scanner sc = new Scanner(System.in);        
             String order = sc.nextLine();
-            String[] orders = order.split(" "); 
-            if (orders[0].equals("bye")) {
-                ui.bye();
+            String response = getResponse(order);
+            System.out.println(response);
+            if (order.equals("bye")) {
                 System.exit(0);
-            } else if (orders[0].equals("list")) {
-                ui.list(tasks.getTasks());
-            } else if (orders[0].equals("unmark")) {
-                try {
-                    int number = parser.parseUnmark(order, tasks.getSize());
-                    tasks.unmark(number);
-                    ui.unmark(tasks.getTask(number));
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (orders[0].equals("mark")) {
-                try {
-                    int number = parser.parseMark(order, tasks.getSize());
-                    tasks.mark(number);
-                    ui.mark(tasks.getTask(number));
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (orders[0].equals("todo")) {  
-                try {
-                    Task task = parser.parseTodo(order);
-                    tasks.addTask(task);
-                    ui.addedMessage(task);
-                    ui.totalTask(tasks.getSize());
-                    storage.save(tasks.getTasks());
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (orders[0].equals("deadline")) {  
-                try {
-                    Task task = parser.parseDeadline(order);
-                    tasks.addTask(task);
-                    ui.addedMessage(task);
-                    ui.totalTask(tasks.getSize());
-                    storage.save(tasks.getTasks());
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (orders[0].equals("event")) {  
-                try {
-                    Task task = parser.parseEvent(order);
-                    tasks.addTask(task);
-                    ui.addedMessage(task);
-                    ui.totalTask(tasks.getSize());
-                    storage.save(tasks.getTasks());
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (orders[0].equals("delete")) {
-                try {
-                    int number = parser.parseDelete(order, tasks.getSize());
-                    ui.deletedMessage(tasks.getTask(number));
-                    tasks.deleteTask(number);
-                    ui.totalTask(tasks.getSize());
-                    storage.save(tasks.getTasks());
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (orders[0].equals("find")) {
-                try {
-                    String word = parser.parseFind(order);
-                    TaskList newtasks = new TaskList(tasks.findTasks(word));
-                    ui.findList(newtasks.getTasks());
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                ui.dontUnderstand();
             }
         }
     }
-    
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        String response;
+
+        String[] orders = input.split(" ");
+
+        if (orders[0].equals("bye")) {
+            response = ui.bye();
+        } else if (orders[0].equals("list")) {
+            response = ui.list(tasks.getTasks());
+        } else if (orders[0].equals("unmark")) {
+            try {
+                int number = parser.parseUnmark(input, tasks.getSize());
+                tasks.unmark(number);
+                response = ui.unmark(tasks.getTask(number));
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else if (orders[0].equals("mark")) {
+            try {
+                int number = parser.parseMark(input, tasks.getSize());
+                tasks.mark(number);
+                response = ui.mark(tasks.getTask(number));
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else if (orders[0].equals("todo")) { 
+            try {
+                Task task = parser.parseTodo(input);
+                tasks.addTask(task);
+                response = ui.addedMessage(task) + ui.totalTask(tasks.getSize());
+                storage.save(tasks.getTasks());
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else if (orders[0].equals("deadline")) { 
+            try {
+                Task task = parser.parseDeadline(input);
+                tasks.addTask(task);
+                response = ui.addedMessage(task) + ui.totalTask(tasks.getSize());
+                storage.save(tasks.getTasks());
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else if (orders[0].equals("event")) { 
+            try {
+                Task task = parser.parseEvent(input);
+                tasks.addTask(task);
+                response = ui.addedMessage(task) + ui.totalTask(tasks.getSize());
+                storage.save(tasks.getTasks());
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else if (orders[0].equals("delete")) {
+            try {
+                int number = parser.parseDelete(input, tasks.getSize());
+                response = ui.deletedMessage(tasks.getTask(number));
+                tasks.deleteTask(number);
+                response += ui.totalTask(tasks.getSize());
+                storage.save(tasks.getTasks());
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else if (orders[0].equals("find")) {
+            try {
+                String word = parser.parseFind(input);
+                TaskList newtasks = new TaskList(tasks.findTasks(word));
+                response = ui.findList(newtasks.getTasks());
+            } catch (DukeException e) {
+                response = e.getMessage();
+            }
+        } else {
+            response = ui.dontUnderstand();
+        }
+        return response;
+    }
+        
     /**
      * The entry point(the file path) for the program. 
      *
@@ -123,8 +141,5 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("/Users/leedoye/ip/src/data/duke_tasks.txt").run();
     }
+    
 }
-
-
-
-

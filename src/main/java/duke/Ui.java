@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,89 +14,93 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void printLine() {
-        System.out.println("____________________________________________________________");
+    public String printLine() {
+        return "____________________________________________________________";
     }
 
-    public void welcome() {
-        printLine();
-        System.out.println("Hello! I'm Doye\n" + "What can I do for you?");
-        printLine();
+    public String welcome() {
+        return printLine() + "\n" +
+               "Hello! I'm Doye\n" + 
+               "What can I do for you?\n" +
+               printLine();
     }
 
-    public void bye() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-        
+    public String bye() {
+        return printLine() + "\n" +
+               "Bye. Hope to see you again soon!\n" +
+               printLine();
     }
 
-    public void list(List<Task> tasks) {
-        printLine();
-        System.out.println("Here are the tasks in your list:");
+    public String list(List<Task> tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append(printLine()).append("\n")
+              .append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task addTask = tasks.get(i);
-            System.out.println((i + 1) + "." + addTask.toString());
+            result.append((i + 1)).append(".").append(addTask.toString()).append("\n");
         }
-        printLine();
+        result.append(printLine());
+        return result.toString();
     }
 
-    public void findList(List<Task> tasks) {
-        printLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String findList(List<Task> tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append(printLine()).append("\n")
+              .append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task addTask = tasks.get(i);
-            System.out.println((i + 1) + "." + addTask.toString());
+            result.append((i + 1)).append(".").append(addTask.toString()).append("\n");
         }
-        printLine();
+        result.append(printLine());
+        return result.toString();
     }
 
-    public void unmark(Task t) {
-        printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(t.toString());
-        printLine();
+    public String unmark(Task t) {
+        return printLine() + "\n" +
+               "OK, I've marked this task as not done yet:\n" +
+               t.toString() + "\n" +
+               printLine();
     }
 
-    public void mark(Task t) {
-        printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t.toString());
-        printLine();
+    public String mark(Task t) {
+        return printLine() + "\n" +
+               "Nice! I've marked this task as done:\n" +
+               t.toString() + "\n" +
+               printLine();
     }
 
-    public void showError(DukeException e) {
-        printLine();
-        System.out.println("OOPS!!! " + e.toString());
-        printLine();
+    public String showError(DukeException e) {
+        return printLine() + "\n" +
+               "OOPS!!! " + e.toString() + "\n" +
+               printLine();
     }
 
-    public void dontUnderstand() {
-        printLine();
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        printLine();
+    public String dontUnderstand() {
+        return printLine() + "\n" +
+               "OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+               printLine();
     }
 
-    public void showLoadingError() {
-        printLine();
-        System.out.println("loading error");
-        printLine();
+    public String showLoadingError() {
+        return printLine() + "\n" +
+               "loading error\n" +
+               printLine();
     }
 
-    public void addedMessage(Task task) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
+    public String addedMessage(Task task) {
+        return printLine() + "\n" +
+               "Got it. I've added this task:\n" +
+               task.toString();
     }
 
-    public void deletedMessage(Task task) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
+    public String deletedMessage(Task task) {
+        return printLine() + "\n" +
+               "Noted. I've removed this task:\n" +
+               task.toString();
     }
 
-    public void totalTask(int count) {
-        System.out.println("Now you have " + count + " tasks in the list.");
-        printLine();
+    public String totalTask(int count) {
+        return "Now you have " + count + " tasks in the list.\n" +
+               printLine();
     }
 }
