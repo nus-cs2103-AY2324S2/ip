@@ -1,6 +1,15 @@
 package ellie;
 
-import ellie.command.*;
+import ellie.command.Command;
+import ellie.command.AddCommand;
+import ellie.command.DeleteCommand;
+import ellie.command.ExitCommand;
+import ellie.command.FindCommand;
+import ellie.command.HelpCommand;
+import ellie.command.InvalidCommand;
+import ellie.command.ListCommand;
+import ellie.command.MarkUnmarkCommand;
+
 import ellie.exception.InvalidTaskInputException;
 import ellie.exception.UnknownInputException;
 import ellie.task.Deadline;

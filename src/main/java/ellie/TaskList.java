@@ -95,7 +95,8 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done at the specified index, saves the updated list to storage, and prints a confirmation message.
+     * Marks a task as done at the specified index, saves the updated list to storage,
+     * and prints a confirmation message.
      *
      * @param index The index of the task to be marked as done.
      */
@@ -115,7 +116,8 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task as done at the specified index, saves the updated list to storage, and prints a confirmation message.
+     * Unmarks a task as done at the specified index, saves the updated list to storage,
+     * and prints a confirmation message.
      *
      * @param index The index of the task to be unmarked as done.
      */

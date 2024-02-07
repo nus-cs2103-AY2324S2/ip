@@ -12,7 +12,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
-    private String startDateString, endDateString;
+    private String startDateString;
+    private String endDateString;
 
     private LocalDate startDate, endDate;
 

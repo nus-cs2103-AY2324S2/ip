@@ -1,13 +1,6 @@
 package ellie;
 
 import ellie.command.Command;
-import ellie.command.InvalidCommand;
-import ellie.exception.InvalidTaskInputException;
-import ellie.exception.UnknownInputException;
-import ellie.task.Deadline;
-import ellie.task.Event;
-import ellie.task.Task;
-import ellie.task.Todo;
 
 import java.util.Scanner;
 

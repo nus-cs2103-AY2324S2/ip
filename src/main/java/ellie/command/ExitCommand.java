@@ -1,16 +1,21 @@
 package ellie.command;
 
-import ellie.Parser;
 import ellie.TaskList;
 
+/**
+ * Represents a command to exit the application.
+ */
 public class ExitCommand extends Command {
-    
+
+    /**
+     * Constructs an ExitCommand object.
+     */
     public ExitCommand() {
         super.isExit = true;
     }
 
     public void run(TaskList tasklist) {
-
+        return;
     }
 
     @Override

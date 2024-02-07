@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
  * Example: submit report /by 11/10/2019 5pm
  */
 public class Deadline extends Task {
-    
     private String dueDateString;
     private LocalDate dueDate;
 
