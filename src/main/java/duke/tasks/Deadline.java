@@ -15,7 +15,7 @@ public class Deadline extends Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + (isDone ? "X" : " ") + "] " + description + "(by: "
+        return "[D]" + "[" + (isDone() ? "X" : " ") + "] " + getDescription() + "(by: "
                 + deadline.format(DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy")) + ")";
     }
 }

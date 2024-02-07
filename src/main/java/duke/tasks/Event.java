@@ -16,7 +16,7 @@ public class Event extends Task implements Serializable {
     }
 
     public String toString() {
-        return "[E]" + "[" + (isDone ? "X" : " ") + "] " + description
+        return "[E]" + "[" + (isDone() ? "X" : " ") + "] " + getDescription()
                 + "(from: " + start.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY"))
                 + " to: "+ end.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY")) + ")";
     }
