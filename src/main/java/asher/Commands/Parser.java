@@ -11,15 +11,28 @@ import asher.Tasks.TaskList;
 import asher.Tasks.Todo;
 import asher.Ui.Ui;
 
+/**
+ * The Parser class handles the parsing of user commands and return the corresponding actions for each command.
+ */
 public class Parser {
     private final Ui ui;
     private final TaskList taskList;
 
+    /**
+     * Constructs a Parser object with the given Ui and the TaskList.
+     * @param ui The Ui object to interact with user.
+     * @param taskList The TaskList object to manage tasks.
+     */
     public Parser(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the user input command and executes the actions for a command.
+     * @param input The user input command.
+     * @throws BotException BotException is thrown if there is an invalid command.
+     */
     public void parseCommand(String input) throws BotException {
         String[] word = input.split(" ");
         String inputType = word[0];
@@ -52,6 +65,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Create a Todo task based on the user input.
+     * @param input The user input command.
+     * @return The created Todo List.
+     * @throws BotException BotException is thrown if there is an invalid Todo command or the description is empty.
+     */
     public static Todo createToDoCommand(String input) throws BotException {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2) {
@@ -65,6 +84,11 @@ public class Parser {
         return new Todo(description);
     }
 
+    /**
+     * Parses the user input command to create a Todo task.
+     * @param input The user input command.
+     * @throws BotException Bot Exception is thrown when there is an invalid command.
+     */
     public void parseToDoCommand(String input) throws BotException {
         Todo todo = createToDoCommand(input);
         taskList.addTask(todo);
@@ -73,6 +97,12 @@ public class Parser {
         ui.showNumberOfTaskInListMessage(totalTask);
     }
 
+    /**
+     * Create a Deadline task based on the user input.
+     * @param input The user input command.
+     * @return The created Deadline List.
+     * @throws BotException BotException is thrown if there is an invalid Deadline command or the description/deadline is empty.
+     */
     public static Deadline createDeadlineCommand(String input) throws BotException {
         int split = input.indexOf("/by");
         if (split == -1) {
@@ -98,6 +128,11 @@ public class Parser {
         return new Deadline(description, dueDate, dueTime);
     }
 
+    /**
+     * Parses the user input command to create a Deadline task.
+     * @param input The user input command.
+     * @throws BotException Bot Exception is thrown when there is an invalid command.
+     */
     public void parseDeadlineCommand(String input) throws BotException {
         Deadline deadline = createDeadlineCommand(input);
         taskList.addTask(deadline);
@@ -106,6 +141,13 @@ public class Parser {
         ui.showNumberOfTaskInListMessage(totalTask);
     }
 
+    /**
+     * Create an Event task based on the user input.
+     * @param input The user input command.
+     * @return The created Event List.
+     * @throws BotException BotException is thrown if there is an invalid Event command or when the endDate/endTime is
+     * before the startDate/startTime or when the description/start/end is empty.
+     */
     public static Event createEventCommand(String input) throws BotException {
         int split1 = input.indexOf("/from");
         int split2 = input.indexOf("/to");
@@ -144,6 +186,11 @@ public class Parser {
         return new Event(description, startDate, startTime, endDate, endTime);
     }
 
+    /**
+     * Parses the user input command to create an Event task.
+     * @param input The user input command.
+     * @throws BotException Bot Exception is thrown when there is an invalid command.
+     */
     public void parseEventCommand(String input) throws BotException {
         Event event = createEventCommand(input);
         taskList.addTask(event);
@@ -152,6 +199,13 @@ public class Parser {
         ui.showNumberOfTaskInListMessage(totalTask);
     }
 
+    /**
+     * Parses the user input command to mark a task done and update the task status.
+     * @param command The user input command.
+     * @param taskList The TaskList containing the tasks.
+     * @param ui The Ui object for displaying messages that the task is marked.
+     * @throws BotException Bot Exception is thrown when the task is not found.
+     */
     private static void parseMarkCommand(String command, TaskList taskList, Ui ui) throws BotException {
         int taskNumber = taskList.getTaskNumber(command);
         if (taskNumber != -1) {
@@ -162,6 +216,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input command to unmark a task done and update the task status.
+     * @param command The user input command.
+     * @param taskList The TaskList containing the tasks.
+     * @param ui The Ui object for displaying messages that the task is unmarked.
+     * @throws BotException Bot Exception is thrown when the task is not found.
+     */
     private static void parseUnmarkCommand(String command, TaskList taskList, Ui ui) throws BotException {
         int taskNumber = taskList.getTaskNumber(command);
         if (taskNumber != -1) {
@@ -172,6 +233,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input command to delete a task and remove it from the TaskList.
+     * @param input The user input command.
+     * @param taskList The TaskList containing the tasks.
+     * @param ui The Ui object for displaying messages that delete is successful.
+     * @throws BotException Bot Exception is thrown if there is an invalid command.
+     */
     private static void parseDeleteCommand(String input, TaskList taskList, Ui ui) throws BotException {
         try {
             String[] words = input.split(" ");

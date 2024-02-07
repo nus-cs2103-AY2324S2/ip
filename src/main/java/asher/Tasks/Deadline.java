@@ -4,20 +4,37 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a type of task called deadline.
+ */
 public class Deadline extends Task {
     protected LocalDate dueDate;
     protected LocalTime dueTime;
 
+    /**
+     * Constructs a Deadline with the given description and the given due date.
+     * @param description The description of the deadline.
+     * @param dueDate The end date of the deadline.
+     * @param dueTime The end time of the deadline.
+     */
     public Deadline(String description, LocalDate dueDate, LocalTime dueTime) {
         super(description);
         this.dueDate = dueDate;
         this.dueTime = dueTime;
     }
 
+    /**
+     * Retrieves the due date of the task.
+     * @return The due date in LocalDate object.
+     */
     public LocalDate getDueDate() {
         return dueDate;
     }
 
+    /**
+     * Retrieves the due time of the task.
+     * @return The due time in LocalTime object.
+     */
     public LocalTime getDueTime() {
         return dueTime;
     }
