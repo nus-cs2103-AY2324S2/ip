@@ -10,7 +10,8 @@ public class LeluException extends Exception {
     public enum ErrorType {
         TODO,
         EVENT,
-        DEADLINE
+        DEADLINE,
+        FIND
     }
     public LeluException(String message) {
         super(message);

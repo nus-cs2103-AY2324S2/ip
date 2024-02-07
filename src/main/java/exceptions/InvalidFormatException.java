@@ -26,6 +26,11 @@ public class InvalidFormatException extends InvalidInputException {
         case EVENT:
             throw new InvalidFormatException("   To record an event, enter:\n" +
                     "   event <event> /from <date and time> /to <date and time>\n");
+        case FIND:
+            throw new InvalidFormatException("   To search for your task, enter\n" +
+                    "   find <keyword>\n");
+
+
 
         }
     }

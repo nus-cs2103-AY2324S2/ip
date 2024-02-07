@@ -33,6 +33,8 @@ public class Parser {
             return new AddDeadlineCommand();
         case "event":
             return new AddEventCommand();
+        case "find":
+            return new FindCommand();
         default:
             throw new InvalidInputException(ui.showInstructions());
         }
