@@ -7,6 +7,9 @@ import seiki.data.exception.SeikiException;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'find' command.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 

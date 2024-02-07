@@ -59,6 +59,10 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Searches for task that matches the {@code keyword}.
+     * @param keyword
+     */
     public TaskList searchByKeyword(String keyword) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : taskList) {
