@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +11,14 @@ class DukeException extends Exception {
 }
 
 public class Duke {
+    private static final String FILE_PATH = "duke.txt";
+    private static ArrayList<Task> tasks;
+    public Duke() {
+        tasks = loadTasksFromFile();
+    }
+
     public static void main(String[] args) {
+        Duke duke = new Duke();
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -21,7 +31,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+      
 
         String command = scanner.nextLine();
         while (!command.equals("bye")) {
@@ -115,10 +125,62 @@ public class Duke {
             System.out.println("____________________________________________________________");
             command = scanner.nextLine();
         }
+        duke.saveTasksToFile(tasks);
+        
 
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+    }
+    private ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    Task task = parseTaskFromString(line);
+                    tasks.add(task);
+                }
+                scanner.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    private Task parseTaskFromString(String line) {
+        String[] parts = line.split("\\|");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("X");
+        String description = parts[2].trim();
+        
+        switch (type) {
+            case "[D]":
+                String by = parts[3].trim();
+                return new DeadlineTask(description, by);
+            case "[E]":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+                return new EventTask(description, from, to);
+            default:
+                return new ToDoTask(description);
+        }
+    }
+    
+
+    private  void saveTasksToFile(ArrayList<Task> tasks) {
+        try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                writer.println(task.toFileString());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 }
 
@@ -141,15 +203,27 @@ class Task {
         this.isDone = false;
     }
 
+    public String toFileString() {
+        return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+
+
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 }
 
+
+
 class ToDoTask extends Task {
     public ToDoTask(String description) {
         super(description);
+    }
+
+    @Override
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
@@ -167,6 +241,11 @@ class DeadlineTask extends Task {
     }
 
     @Override
+    public String toFileString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+    }
+
+    @Override
     public String toString() {
         return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + by + ")";
     }
@@ -180,6 +259,11 @@ class EventTask extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 
     @Override
