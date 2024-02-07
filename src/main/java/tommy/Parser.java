@@ -1,4 +1,4 @@
-package duke;
+package tommy;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,19 +7,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.ListCommand;
-import duke.command.ByeCommand;
-import duke.command.DeleteCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
-import duke.command.Command;
-import duke.command.FindCommand;
+import tommy.command.AddDeadlineCommand;
+import tommy.command.AddEventCommand;
+import tommy.command.AddTodoCommand;
+import tommy.command.ListCommand;
+import tommy.command.ByeCommand;
+import tommy.command.DeleteCommand;
+import tommy.command.MarkCommand;
+import tommy.command.UnmarkCommand;
+import tommy.command.Command;
+import tommy.command.FindCommand;
 
-import duke.exception.InvalidArgumentException;
-import duke.exception.InvalidCommandException;
+import tommy.exception.InvalidArgumentException;
+import tommy.exception.InvalidCommandException;
 
 /**
  * Represents the class that deals with all the formatting and making sense of the String inputs.

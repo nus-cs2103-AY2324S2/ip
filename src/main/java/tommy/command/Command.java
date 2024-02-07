@@ -1,11 +1,11 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Storage;
 
-import duke.task.TaskList;
+import tommy.task.TaskList;
 
-import duke.exception.InvalidArgumentException;
+import tommy.exception.InvalidArgumentException;
 
 /**
  * Abstract class that is the parent class of all commands.
@@ -18,7 +18,7 @@ public abstract class Command {
      *
      * @returns Availability to take in input commands.
      */
-    public boolean getActive() {
+    public boolean isActive() {
         return true;
     }
 

@@ -1,9 +1,9 @@
-package duke.exception;
+package tommy.exception;
 
 /**
  * Represents the exceptions thrown in the program related to invalid inputs.
  */
-public class InvalidArgumentException extends DukeException{
+public class InvalidArgumentException extends TommyException {
 
     /**
      * Constructor for an InvalidArgumentException,

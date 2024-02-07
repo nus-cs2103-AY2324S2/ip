@@ -1,4 +1,4 @@
-package duke.task;
+package tommy.task;
 
 /**
  * Represents the task of type Todo.

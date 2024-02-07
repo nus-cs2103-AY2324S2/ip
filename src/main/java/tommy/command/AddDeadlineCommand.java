@@ -1,14 +1,14 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Parser;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Parser;
+import tommy.Storage;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Deadline;
+import tommy.task.Task;
+import tommy.task.TaskList;
+import tommy.task.Deadline;
 
-import duke.exception.InvalidArgumentException;
+import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to add a Deadline task to the taskList.

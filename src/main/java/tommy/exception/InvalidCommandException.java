@@ -1,9 +1,9 @@
-package duke.exception;
+package tommy.exception;
 
 /**
  * Represents the exceptions thrown in the program related to invalid commands.
  */
-public class InvalidCommandException extends DukeException {
+public class InvalidCommandException extends TommyException {
 
     /**
      * Constructor for an InvalidCommandException,

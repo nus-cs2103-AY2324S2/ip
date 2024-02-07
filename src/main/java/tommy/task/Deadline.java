@@ -1,4 +1,4 @@
-package duke.task;
+package tommy.task;
 
 /**
  * Represents the task with a deadline in the format [ <code>details</code> (by: <code>date</code>) ].

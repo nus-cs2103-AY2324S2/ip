@@ -1,9 +1,9 @@
-package duke.exception;
+package tommy.exception;
 
 /**
  * Represents the exceptions thrown in the program when file is corrupted, missing or invalid.
  */
-public class InvalidFileException extends DukeException {
+public class InvalidFileException extends TommyException {
 
     /**
      * Constructor for an InvalidFileException,

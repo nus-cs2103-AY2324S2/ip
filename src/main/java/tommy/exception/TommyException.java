@@ -1,17 +1,17 @@
-package duke.exception;
+package tommy.exception;
 
 /**
  * Abstract class that is the parent class of all exceptions created in the program.
  */
-public abstract class DukeException extends Exception {
+public abstract class TommyException extends Exception {
 
     /**
-     * Constructor for an DukeException,
+     * Constructor for an TommyException,
      * which initialises the exception with its error message.
      *
-     * @param message Description of the DukeException error.
+     * @param message Description of the TommyException error.
      */
-    public DukeException(String message) {
+    public TommyException(String message) {
         super(message);
     }
 

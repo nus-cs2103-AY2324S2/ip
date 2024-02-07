@@ -1,9 +1,9 @@
-package duke;
+package tommy;
 
 import java.util.ArrayList;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import tommy.task.Task;
+import tommy.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
-import duke.exception.InvalidFileException;
+import tommy.exception.InvalidFileException;
 
 
 /**

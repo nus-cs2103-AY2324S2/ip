@@ -1,12 +1,12 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Storage;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import tommy.task.Task;
+import tommy.task.TaskList;
 
-import duke.exception.InvalidArgumentException;
+import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to delete a task from the taskList.
@@ -16,7 +16,6 @@ public class DeleteCommand extends Command {
     private int positionToDelete;
 
     // TODO : consider catching exception for invalid string which isn't a number
-    // TODO : Add JavaDocs for exceptions
     /**
      * Constructor for a delete task command,
      * which initialises the command with the position (in the taskList) of the task

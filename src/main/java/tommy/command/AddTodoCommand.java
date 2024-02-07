@@ -1,13 +1,13 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Storage;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import tommy.task.Task;
+import tommy.task.TaskList;
+import tommy.task.Todo;
 
-import duke.exception.InvalidArgumentException;
+import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to add a Todo task to the taskList.
@@ -22,7 +22,7 @@ public class AddTodoCommand extends Command {
      *
      * @param description Description of the Todo task.
      */
-    public AddTodoCommand(String description) {
+    public AddTodoCommand(String description) throws InvalidArgumentException {
         this.description = description;
     }
 

@@ -1,4 +1,4 @@
-package duke.task;
+package tommy.task;
 
 /**
  * Abstract class that is the parent class of all types of tasks.

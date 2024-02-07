@@ -1,4 +1,4 @@
-package duke.task;
+package tommy.task;
 
 /**
  * Represents an Event task with the format [ details (from: <code>date</code>) to: <code>date</code>) ].

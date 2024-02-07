@@ -1,13 +1,11 @@
-package duke;
+package tommy;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
-import java.util.ArrayList;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import tommy.task.Task;
+import tommy.task.TaskList;
 
-import duke.exception.DukeException;
+import tommy.exception.TommyException;
 
 /**
  * Represents the class that deals with all displays and interactions with the user.
@@ -156,9 +154,9 @@ public class Ui {
     }
 
     /**
-     * Prints the relevant error message for the DukeException thrown.
+     * Prints the relevant error message for the TommyException thrown.
      */
-    public static void printError(DukeException e) {
+    public static void printError(TommyException e) {
         System.out.println(e.errorMessage());
         printDivider();
     }

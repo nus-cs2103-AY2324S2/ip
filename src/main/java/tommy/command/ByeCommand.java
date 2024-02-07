@@ -1,9 +1,9 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Storage;
 
-import duke.task.TaskList;
+import tommy.task.TaskList;
 
 /**
  * Represents the command to terminate and exit the program.
@@ -21,7 +21,7 @@ public class ByeCommand extends Command {
      * @returns False, as the program terminates.
      */
     @Override
-    public boolean getActive() {
+    public boolean isActive() {
         return false;
     }
 }

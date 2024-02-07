@@ -1,11 +1,11 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Storage;
 
-import duke.task.TaskList;
+import tommy.task.TaskList;
 
-import duke.exception.InvalidArgumentException;
+import tommy.exception.InvalidArgumentException;
 
 /**
  * Represents the command to mark a task in the taskList.

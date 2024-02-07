@@ -1,11 +1,8 @@
-package duke.command;
+package tommy.command;
 
-import duke.Storage;
-import duke.Ui;
-import duke.exception.InvalidArgumentException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import tommy.Storage;
+import tommy.Ui;
+import tommy.task.TaskList;
 
 /**
  * Represents the command to find task with matching keyword.

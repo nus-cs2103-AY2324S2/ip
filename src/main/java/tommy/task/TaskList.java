@@ -1,4 +1,4 @@
-package duke.task;
+package tommy.task;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class TaskList {
     public TaskList() {
         taskList = new ArrayList<>();
     }
-    
+
     /**
      * Constructor for an ArrayList filled with a list of tasks retrieved
      * from storage.

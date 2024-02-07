@@ -1,13 +1,13 @@
-package duke;
+package tommy;
 
-import duke.command.Command;
-import duke.task.TaskList;
-import duke.exception.DukeException;
+import tommy.command.Command;
+import tommy.task.TaskList;
+import tommy.exception.TommyException;
 
 /**
  * Represents the Chatbot.
  */
-public class Duke {
+public class Tommy {
 
     private Storage storage;
     private TaskList tasks;
@@ -20,12 +20,12 @@ public class Duke {
      *
      * @param filePath String of the path of the file to retrieve the past log taskList from.
      */
-    public Duke(String filePath) {
+    public Tommy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (TommyException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -44,8 +44,8 @@ public class Duke {
                 String userInput = this.ui.getInput();
                 Command command = Parser.parseCommand(userInput);
                 command.execute(this.storage, this.tasks, this.ui);
-                isActive = command.getActive();
-            } catch (DukeException e) {
+                isActive = command.isActive();
+            } catch (TommyException e) {
                 Ui.printError(e);
             }
         }
@@ -53,7 +53,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/tasks.txt").run();
+        new Tommy("./data/tasks.txt").run();
     }
 }
 

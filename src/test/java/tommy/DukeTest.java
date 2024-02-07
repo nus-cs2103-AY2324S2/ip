@@ -1,11 +1,8 @@
-package duke;
+package tommy;
 
-import duke.command.ListCommand;
-import duke.exception.InvalidArgumentException;
-import duke.exception.InvalidCommandException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import tommy.task.Task;
+import tommy.task.TaskList;
+import tommy.task.Todo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

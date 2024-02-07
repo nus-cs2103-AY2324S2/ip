@@ -1,9 +1,9 @@
-package duke.command;
+package tommy.command;
 
-import duke.Ui;
-import duke.Storage;
+import tommy.Ui;
+import tommy.Storage;
 
-import duke.task.TaskList;
+import tommy.task.TaskList;
 
 /**
  * Represents the command to list all tasks in the taskList.
