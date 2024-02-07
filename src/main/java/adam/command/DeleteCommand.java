@@ -26,12 +26,12 @@ public class DeleteCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
-        String t = tasks.delete(this.taskNumber);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        String t = taskList.delete(this.taskNumber);
         return ui.showResult(
                 "Ok, I've removed this task:",
                 t,
-                "Now you have " + tasks.size() + " task(s) in the list.");
+                "Now you have " + taskList.size() + " task(s) in the list.");
     }
 
     /**

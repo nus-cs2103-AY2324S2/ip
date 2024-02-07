@@ -26,8 +26,8 @@ public class UnmarkCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
-        String t = tasks.unmark(this.taskNumber);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        String t = taskList.unmark(this.taskNumber);
         return ui.showResult(
                 "Nice, I've marked this task as not done:",
                 t);

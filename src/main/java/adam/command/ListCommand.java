@@ -24,13 +24,15 @@ public class ListCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
-        ArrayList<String> taskStrings = new ArrayList<>();
-        taskStrings.add("Here are your tasks:");
-        for (Task t : tasks.getTasks()) {
-            taskStrings.add(t.toString());
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        ArrayList<Task> tasks = taskList.getTasks();
+        String[] taskStrings = new String[taskList.size() + 1];
+        taskStrings[0] = "Here are your tasks:";
+        for (int i = 1; i < taskStrings.length; i++) {
+            taskStrings[i] = i + ". " + tasks.get(i - 1).toString();
         }
-        return ui.showResult(taskStrings.toArray(new String[0]));
+
+        return ui.showResult(taskStrings);
     }
 
     /**

@@ -37,26 +37,26 @@ public class AddCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
         Task t = null;
         switch (this.command) {
         case "todo":
             t = new Todo(this.desc);
-            tasks.add(t);
+            taskList.add(t);
             break;
         case "deadline":
             t = new Deadline(this.desc, this.details[0]);
-            tasks.add(t);
+            taskList.add(t);
             break;
         case "event":
             t = new Event(this.desc, this.details[0], this.details[1]);
-            tasks.add(t);
+            taskList.add(t);
             break;
         }
         return ui.showResult(
                 "Got it. I've added this task:",
                 t.toString(),
-                "Now you have " + tasks.size() + " task(s) in the list.");
+                "Now you have " + taskList.size() + " task(s) in the list.");
     }
 
     /**

@@ -21,8 +21,8 @@ public class ExitCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
-        storage.save(tasks);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        storage.save(taskList);
         return ui.showBye();
     }
 
