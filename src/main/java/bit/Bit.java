@@ -1,9 +1,11 @@
 package bit;
 
-import  java.util.Scanner;
+import java.util.Scanner;
 
 
-
+/**
+ * Bit, the chatbot to handle all your tasks!
+ */
 public class Bit {
 
     private static final Ui UI = new Ui();
@@ -18,7 +20,7 @@ public class Bit {
         store.cleanList();
         Parser parser = new Parser();
 
-        while(true) {
+        while (true) {
             UI.printLineBreak();
             String input = scanner.nextLine();
             String s = parser.parse(input);
@@ -34,29 +36,16 @@ public class Bit {
                 tasklist.delete(parser.getIndex());
             } else if (s.equals("find")) {
                 UI.listHits(parser.getWord(), tasklist);
-            } else if (s.equals("add")){
-                try{
+            } else if (s.equals("add")) {
+                try {
                     tasklist.addTo(input);
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
             }
-
-
-
         }
         store.saveAll(tasklist);
         UI.sayBye();
 
     }
-
-
-
-
-
-
-
-
-
-
 }
