@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String PADDING = " ".repeat(4);
+    private static final String DIVIDER = "_".repeat(50);
 
     private final Scanner sc;
 
@@ -21,7 +22,7 @@ public class Ui {
 
     /** Displays horizontal divider. */
     private static void printDivider() {
-        System.out.println(PADDING + "_".repeat(50));
+        System.out.println(PADDING + DIVIDER);
     }
 
     /**
@@ -55,11 +56,11 @@ public class Ui {
     }
 
     public String getResponse() {
-        StringBuilder res = new StringBuilder(PADDING + "\n");
+        StringBuilder res = new StringBuilder(PADDING + DIVIDER + "\n");
         for (String line: prevResponse) {
-            res.append(line).append("\n");
+            res.append(PADDING).append(line).append("\n");
         }
-        res.append(PADDING).append("\n");
+        res.append(PADDING).append(DIVIDER).append("\n");
         return res.toString();
     }
 }

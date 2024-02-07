@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private final Earl earl = new Earl("./data/earl.txt");;
+    private final Earl earl = new Earl("./data/earl.txt");
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setEarl(earl);
+            fxmlLoader.<MainWindow>getController().init();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

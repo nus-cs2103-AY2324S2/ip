@@ -1,6 +1,7 @@
 package earl.gui;
 
 import earl.Earl;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -38,6 +39,11 @@ public class MainWindow extends AnchorPane {
         earl = e;
     }
 
+    public void init() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(earl.getResponse(), dukeImage));
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
      * Duke's reply and then appends them to the dialog container.Clears the
@@ -48,9 +54,11 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = earl.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+                DialogBox.getUserDialog(input + " ".repeat(4), userImage),
+                DialogBox.getDukeDialog(response, dukeImage));
         userInput.clear();
+        if (input.equals("bye")) {
+            Platform.exit();
+        }
     }
 }
