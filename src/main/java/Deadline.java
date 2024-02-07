@@ -15,4 +15,11 @@ public class Deadline extends Task {
         String formattedDateTime = this.by.format(customFormatter);
         return "[D]" + super.toString() + " (by: " + formattedDateTime + ")";
     }
+
+    @Override
+    public String toSave() {
+        DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String formattedDateTime = this.by.format(customFormatter);
+        return "D | " + (super.isDone ? "1" : "0") + " | " + super.description + " | " + formattedDateTime;
+    }
 }

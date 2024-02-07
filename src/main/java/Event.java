@@ -18,4 +18,12 @@ public class Event extends Task {
         String formattedDateTime1 = this.end.format(customFormatter);
         return "[E]" + super.toString() + " (from: " + formattedDateTime + " to: " + formattedDateTime1 + ")";
     }
+
+    @Override
+    public String toSave() {
+        DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String formattedDateTime = this.start.format(customFormatter);
+        String formattedDateTime1 = this.end.format(customFormatter);
+        return "E | " + (super.isDone ? "1" : "0") + " | " + super.description + " | " + formattedDateTime + " | " + formattedDateTime1;
+    }
 }

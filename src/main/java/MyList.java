@@ -1,9 +1,18 @@
+import java.io.*;
 import java.util.*;
 public class MyList {
     private List<Task> items;
 
     public MyList() {
         this.items = new ArrayList<>();
+    }
+
+    public MyList(List<Task> t) {
+        this.items = t;
+    }
+
+    public List<Task> getItemsForSaving() {
+        return this.items;
     }
 
     public String addItem(Task t) {
