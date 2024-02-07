@@ -3,12 +3,15 @@ package duke.ui;
 import java.io.IOException;
 
 import duke.Duke;
-import javafx.fxml.FXMLLoader;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * GUI for Duke chatbot using FXML.
+ */
 public class Gui extends Application {
 
     private final Duke duke = new Duke();

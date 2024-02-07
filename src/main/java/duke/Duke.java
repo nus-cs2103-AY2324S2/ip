@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeUnknownCommandException;
 import duke.parser.Parser;
@@ -30,39 +28,39 @@ public class Duke {
             String output = "";
 
             switch (command) {
-                case BYE:
-                    output = sayGoodbye();
-                    isOpen = false;
-                    break;
-                case LIST:
-                    output = taskList.toString();
-                    break;
-                case TODO:
-                    output = taskList.addToDoTask(arguments);
-                    break;
-                case MARK:
-                    output = taskList.markTask(arguments);
-                    break;
-                case UNMARK:
-                    output = taskList.unmarkTask(arguments);
-                    break;
-                case DEADLINE:
-                    output = taskList.addDeadlineTask(arguments);
-                    break;
-                case EVENT:
-                    output = taskList.addEventTask(arguments);
-                    break;
-                case DELETE:
-                    output = taskList.deleteTask(arguments);
-                    break;
-                case FIND:
-                    output = taskList.findTask(arguments);
-                    break;
-                case INVALID:
-                    throw new DukeUnknownCommandException(
-                            String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
-                default:
-                    break;
+            case BYE:
+                output = sayGoodbye();
+                isOpen = false;
+                break;
+            case LIST:
+                output = taskList.toString();
+                break;
+            case TODO:
+                output = taskList.addToDoTask(arguments);
+                break;
+            case MARK:
+                output = taskList.markTask(arguments);
+                break;
+            case UNMARK:
+                output = taskList.unmarkTask(arguments);
+                break;
+            case DEADLINE:
+                output = taskList.addDeadlineTask(arguments);
+                break;
+            case EVENT:
+                output = taskList.addEventTask(arguments);
+                break;
+            case DELETE:
+                output = taskList.deleteTask(arguments);
+                break;
+            case FIND:
+                output = taskList.findTask(arguments);
+                break;
+            case INVALID:
+                throw new DukeUnknownCommandException(
+                        String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
+            default:
+                break;
             }
 
             return output;
