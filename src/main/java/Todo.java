@@ -1,6 +1,6 @@
 public class Todo extends Task{
 
-    static Todo from(String s){
+    static Todo from(String s) throws InvalidDescriptionException {
         //Expects a string in the format "todo <description>"
 
         //get rid of the command
@@ -9,7 +9,7 @@ public class Todo extends Task{
         if (!description.isEmpty()){
             return new Todo(description);
         }else {
-            throw new IllegalArgumentException("The description of a todo cannot be empty.");
+            throw new InvalidDescriptionException("The description of a todo cannot be empty.");
         }
     }
 
