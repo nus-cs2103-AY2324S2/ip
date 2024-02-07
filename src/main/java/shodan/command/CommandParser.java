@@ -4,6 +4,7 @@ import shodan.ShodanException;
 import shodan.command.impl.AddCommand;
 import shodan.command.impl.ByeCommand;
 import shodan.command.impl.DeleteCommand;
+import shodan.command.impl.FindCommand;
 import shodan.command.impl.ListCommand;
 import shodan.command.impl.MarkCommand;
 import shodan.tasks.Task;
@@ -85,6 +86,12 @@ public class CommandParser {
                 } catch (NumberFormatException e) {
                     throw new ShodanException("Input argument not recognised, please enter the task number.");
                 }
+            case FIND:
+                if (tokens.isEmpty()) {
+                    throw new ShodanException("No arguments provided. "
+                            + "Please enter at least one keyword, for example: \n\tfind book");
+                }
+                return new FindCommand(tokens);
             default:
                 throw new IllegalArgumentException();
             }

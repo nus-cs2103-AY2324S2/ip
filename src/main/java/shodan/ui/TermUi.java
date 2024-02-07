@@ -53,6 +53,21 @@ public class TermUi {
             System.out.println(tasks.get(i));
         }
     }
+    /**
+     * Accepts a list of searched tasks, and outputs them to the user.
+     *
+     * @param tasks the list of tasks.
+     */
+    public void listSearchedTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks were found matching your search.");
+        }
+        System.out.println("Here are the tasks that matched your search:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.print(i + 1 + ". ");
+            System.out.println(tasks.get(i));
+        }
+    }
 
     /**
      * Print a message to the user.

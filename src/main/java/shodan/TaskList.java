@@ -3,6 +3,7 @@ package shodan;
 import shodan.tasks.Task;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Manages the list of {@link Task tasks}. Contains methods
@@ -55,6 +56,12 @@ public class TaskList {
         Task task = tasks.get(index);
         task.setDone(done);
         return task;
+    }
+
+    public List<Task> findTasks(List<String> keywords) {
+        return tasks.stream()
+                .filter(task -> keywords.stream().anyMatch(keyword -> task.getName().contains(keyword)))
+                .collect(Collectors.toList());
     }
 
     /**
