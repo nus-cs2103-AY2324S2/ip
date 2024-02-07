@@ -97,6 +97,7 @@ public class Chatbot {
 
     private void outputList() {
         printHorizontalLine();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.numOfItems; i++) {
             System.out.println((i+1) + ". " + this.list[i]);
         }
