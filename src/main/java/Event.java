@@ -1,14 +1,29 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Event extends Task {
 
     private LocalDateTime fromTime;
     private LocalDateTime toTime;
-    public Event(String description, LocalDateTime fromTime, LocalDateTime toTime) {
-        super(description);
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+    public Event(List<String> splitStr) throws CroException {
+        int isDone = Integer.parseInt(splitStr.get(1));
+        int fromIndex = splitStr.indexOf("/from");
+        int toIndex = splitStr.indexOf("/to");
+        String description = String.join(" ", splitStr.subList(2, fromIndex));
+        try {
+            this.fromTime = LocalDateTime.parse(splitStr.get(fromIndex + 1));
+            this.toTime = LocalDateTime.parse(splitStr.get(toIndex + 1));
+        } catch (Exception e) {
+            throw new CroException("start or end time must be in the format YYYY MM DD HH MM");
+        }
+        if (description.equals("")) {
+            throw new CroException("description, start or end cannot be empty!");
+        }
+        this.description = description;
+        if (isDone == 1) {
+            this.markAsDone();
+        }
     }
     @Override
     public String toString() {

@@ -1,4 +1,6 @@
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Task {
     protected String description;
@@ -8,6 +10,10 @@ public class Task {
     public Task(String description){
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task() {
+
     }
 
     public String getStatusIcon() {
