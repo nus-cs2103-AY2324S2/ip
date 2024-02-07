@@ -18,7 +18,7 @@ public class Duke {
     }
 
     public void run() throws RiriException, IOException {
-        ui.introduction("riri");
+        ui.introduce("riri");
         ui.chat(tasks);
         storage.writeToFile(tasks.toString());
         ui.exit();

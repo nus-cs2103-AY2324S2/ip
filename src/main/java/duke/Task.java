@@ -24,7 +24,7 @@ public class Task {
      * Function to help check if a task is done
      * @return true if task is done, false otherwise
      */
-    public boolean done() {
+    public boolean getIsDone() {
         return this.isDone;
     }
     /**
@@ -32,10 +32,10 @@ public class Task {
      * @return X if task is done, otherwise " "
      */
     public String getStatus() {
-        return (this.isDone) ? "X" : " ";
+        return (this.getIsDone()) ? "X" : " ";
     }
     @Override
     public String toString() {
-        return "["+this.getStatus()+"] "+this.task;
+        return "[" + this.getStatus() + "] " + this.task;
     }
 }

@@ -9,10 +9,10 @@ public class Ui {
      * Introduces our chatbot and prompts the user to start asking questions
      * @param name is the name given to our chatbot
      * */
-    public void introduction(String name) {
+    public void introduce(String name) {
         System.out.println("--------------------------------------------------");
         System.out.println("What's up. I'm " + name + ".");
-        System.out.println("I'm about to blow your world.");
+        System.out.println("I am here to help you create and manage your task list :)");
         System.out.println("--------------------------------------------------");
     }
     /**
