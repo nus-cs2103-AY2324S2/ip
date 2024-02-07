@@ -9,13 +9,13 @@ import java.time.format.DateTimeParseException;
 /**
  * This class serves as a central point for managing and executing a variety of user commands.
  * It encapsulates the logic for each command as individual methods, allowing for easy execution
- * based on user input. Commands such as 'list', 'unmark', 'mark', 'delete', and others are supported, each
+ * based on user input. Command such as 'list', 'unmark', 'mark', 'delete', and others are supported, each
  * corresponding to a specific method within this class.
  */
-public class Commands {
+public class Command {
     Storage storage;
 
-    public Commands(String filePath) {
+    public Command(String filePath) {
         this.storage = new Storage(filePath);
     }
     /**

@@ -34,7 +34,7 @@ public class Demon {
     public void run() {
         Scanner sc = new Scanner(System.in);
         ui = new Ui();
-        Commands command = new Commands(filePath);
+        Command command = new Command(filePath);
         ui.welcomeMessage();
         String input = sc.nextLine();
 
