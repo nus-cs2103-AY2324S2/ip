@@ -30,17 +30,17 @@ public class Deadline extends Task {
      * @param time The LocalDateTime object to be formatted.
      * @return The formatted deadline, as a String.
      */
-    public String deadlineFormatter(LocalDateTime time) {
+    public String formatDeadline(LocalDateTime time) {
         return time.format(formatter);
     }
 
     @Override
     public String printTask() {
-        return "[D]" + super.printTask() + " (by: " + deadlineFormatter(this.deadline) + ")";
+        return "[D]" + super.printTask() + " (by: " + formatDeadline(this.deadline) + ")";
     }
 
     @Override
     public String saveTask() {
-        return "D | " + super.saveTask() + " | " + deadlineFormatter(this.deadline);
+        return "D | " + super.saveTask() + " | " + formatDeadline(this.deadline);
     }
 }

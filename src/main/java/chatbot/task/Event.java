@@ -33,18 +33,18 @@ public class Event extends Task {
      * @param time The LocalDateTime object to be formatted.
      * @return The formatted deadline, as a String.
      */
-    public String deadlineFormatter(LocalDateTime time) {
+    public String formatDeadline(LocalDateTime time) {
         return time.format(formatter);
     }
 
     @Override
     public String printTask() {
-        return "[E]" + super.printTask() + " (from: " + deadlineFormatter(this.start)
-                + " to: " + deadlineFormatter(this.end) + ")";
+        return "[E]" + super.printTask() + " (from: " + formatDeadline(this.start)
+                + " to: " + formatDeadline(this.end) + ")";
     }
 
     @Override
     public String saveTask() {
-        return "E | " + super.saveTask() + " | " + deadlineFormatter(this.start) + " | " + deadlineFormatter(this.end);
+        return "E | " + super.saveTask() + " | " + formatDeadline(this.start) + " | " + formatDeadline(this.end);
     }
 }

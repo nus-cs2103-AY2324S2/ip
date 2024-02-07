@@ -28,7 +28,8 @@ public class Storage {
     private static String PATH_FILE;
     private static final Pattern PATTERN_TODO = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?)");
     private static final Pattern PATTERN_DEADLINE = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?)");
-    private static final Pattern PATTERN_EVENT = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?) \\| (.*?)");
+    private static final Pattern PATTERN_EVENT = Pattern.compile(
+            "([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?) \\| (.*?)");
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
