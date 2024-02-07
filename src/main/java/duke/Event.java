@@ -1,39 +1,33 @@
 package duke;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
+/**
+ * This class represents the events in the task list.
+ */
 public class Event extends Task {
-    String from;
-    String to;
-    LocalDate fromDate;
-    LocalDate toDate;
+    private LocalDate from;
+    private LocalDate to;
 
+    /**
+     * Creates events. String is parsed into LocalDate format.
+     */
     public Event(String task, String from, String to) {
         super(task);
-        this.fromDate = LocalDate.parse(from);
-        this.toDate = LocalDate.parse(to);
-        this.from = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        this.to = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
-    public Event(String task, LocalDate from, LocalDate to) {
-        super(task);
-        this.fromDate = from;
-        this.toDate = to;
-        this.from = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        this.to = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.from = super.parseDate(from);
+        this.to = super.parseDate(to);
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to " + to + ")";
+        return "[E]" + super.toString() + " (from: "
+                + super.stringifyDate(from) + " to " + super.stringifyDate(to) + ")";
     }
-
-    /** Static method to create an Event object from a formatted string
-     * @param inputString string to parse to Event object
+    /**
+     * Static method to create an Event object from a formatted string
+     * @param inputString string to parse to an Event object
      * @return Event object
      */
     public static Event parseEventFromString(String inputString) {
-        // Assuming the inputString is formatted as "[ ][ ] task description (from: start_time to end_time)"
+        // Assuming the inputString is formatted as "[E][ ] task description (from: start_time to end_time)"
         int indexOfFirstBracket = inputString.indexOf('[');
         int indexOfSecondBracket = inputString.indexOf(']');
         int indexOfFrom = inputString.indexOf("(from:");

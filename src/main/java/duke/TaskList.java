@@ -11,6 +11,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<String> contents) {
         for (String c : contents) {
+            System.out.println(c);
             addTask(parser(c));
         }
     }
@@ -98,7 +99,7 @@ public class TaskList {
     @Override
     public String toString() {
         String s = "";
-        for (int i = 1; i < taskList.size()+1; i++) {
+        for (int i = 1; i < taskList.size() + 1; i++) {
             s += (taskList.get(i - 1).toString() + "\n");
         }
         return s;

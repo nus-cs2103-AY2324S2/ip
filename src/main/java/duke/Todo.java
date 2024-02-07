@@ -1,11 +1,14 @@
 package duke;
-
+/**
+ * This class models the Todo objects in the task list. This class extends from the parent Task class
+ */
 public class Todo extends Task {
     public Todo(String task) {
         super(task);
     }
 
-    /** Static method to create a Todo object from a formatted string
+    /**
+     * Static method to create a Todo object from a formatted string
      * @param inputString string to parse to Todo object
      * @return Todo object
      */

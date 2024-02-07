@@ -1,12 +1,16 @@
 package duke;
 
 import java.io.IOException;
-
+/**
+ * This class holds the main logic for the chatbot.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
+    /**
+     * Constructs the Duke object.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage();
@@ -16,19 +20,23 @@ public class Duke {
             System.out.println(e.getMessage());
         }
     }
-
-    public void run() throws RiriException, IOException {
+    /**
+     * Handles displaying the ui and loading and storing the task list on the local storage.
+     */
+    private void run() {
         ui.introduction("riri");
-        ui.chat(tasks);
-        storage.writeToFile(tasks.toString());
+        try {
+            ui.chat(tasks);
+            storage.writeToFile(tasks.toString());
+        } catch (RiriException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         ui.exit();
     }
 
-    public static void main(String[] args) throws IOException {
-        try {
-            new Duke("data/tasks.txt").run();
-        } catch (RiriException e) {
-            System.out.println(e.getMessage());
-        }
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 }
