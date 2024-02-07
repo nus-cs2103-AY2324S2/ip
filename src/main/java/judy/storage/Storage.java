@@ -31,25 +31,43 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> load() {
         if (file.length() == 0) {
             return new ArrayList<>(); // Handle empty file or non-existing file
         }
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            @SuppressWarnings("unchecked")
-            ArrayList<Task> taskList = (ArrayList<Task>) ois.readObject();
-            return taskList;
-        } catch (IOException | ClassNotFoundException e) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            StringBuilder encodedTasks = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                encodedTasks.append(line).append("\n");
+            }
+
+            ArrayList<Task> decodedTasks = Decoder.decodeTasks(encodedTasks.toString()).getTaskList();
+
+            // Check if decoding resulted in null
+            if (decodedTasks == null) {
+                // Handle the null case (log, display an error, etc.)
+                System.err.println("Error decoding tasks from file. Null result.");
+                return new ArrayList<>();
+            }
+
+            return new ArrayList<>(decodedTasks);
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
         return new ArrayList<>();
     }
 
     public void save(ArrayList<Task> taskList) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.file))) {
-            oos.writeObject(taskList);
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+            String encodedTasks = Encoder.encodeTasks(taskList);
+            writer.print(encodedTasks);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -1,8 +1,6 @@
 package judy.task;
 
-import java.io.Serializable;
-
-public class Task implements Serializable {
+public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -14,9 +12,16 @@ public class Task implements Serializable {
     public boolean isDone() {
         return this.isDone;
     }
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
+    }
 
     private String getStatusIcon() {
         return (isDone() ? "X" : " ");
+    }
+
+    private String getDecodeStatus() {
+        return (isDone() ? "1" : "0");
     }
 
     public void markAsDone() {
@@ -30,6 +35,10 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    public String encode() {
+        return " | " + getDecodeStatus() + " | " + this.description;
     }
 
 }
