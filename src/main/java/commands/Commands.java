@@ -9,5 +9,6 @@ public enum Commands {
     MARK,
     UNMARK,
     BYE,
-    DELETE
+    DELETE,
+    FIND
 }
