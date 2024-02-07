@@ -12,6 +12,14 @@ public class BalkanBot {
         System.out.println(line);
     }
 
+    public static void printDeletion(Task deletedTask, int current) {
+        System.out.println(line);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask.toString());
+        System.out.println("Now you have " + current + " task(s) in the list.");
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
         String line = "------------------------------------------";
         Task[] listOfInputs = new Task[100];
@@ -60,7 +68,7 @@ public class BalkanBot {
                                 listOfInputs[index].mark();
                                 System.out.println("Dje si pizda materina! I've marked this task as done:" + "\n" +
                                         listOfInputs[index].toString());
-                            } catch (NumberFormatException e){
+                            } catch (NumberFormatException e) {
                                 System.out.println("OOPS!!! The input after the mark command has to be an integer.");
                             }
                         }
@@ -148,7 +156,35 @@ public class BalkanBot {
                         }
                     }
                     case "delete": {
-
+                        if (brokenCommand.length < 2) {
+                            System.out.println("OOPS!!! The number for the delete command cannot be empty.");
+                        } else {
+                            try {
+                                Task deletedTask = null;
+                                int index = Integer.parseInt(brokenCommand[1]) - 1;
+                                for (int i = 0; i < listOfInputs.length; i++) {
+                                    Task currentTask = listOfInputs[i];
+                                    if (currentTask == null) {
+                                        if (i <= index) {
+                                            throw new ArrayIndexOutOfBoundsException();
+                                        }
+                                        break;
+                                    } else if (i >= index) {
+                                        if (i == index) {
+                                            deletedTask = currentTask;
+                                        }
+                                        listOfInputs[i] = listOfInputs[i + 1];
+                                    }
+                                }
+                                current--;
+                                printDeletion(deletedTask, current);
+                            } catch (NumberFormatException e) {
+                                System.out.println("OOPS!!! The input after the delete command has to be an integer.");
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println("OOPS!!! The input for delete is out of bounds.");
+                            }
+                        }
+                        break;
                     }
                     default: {
                         System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
