@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
-    private static final int MAX_TASKS = 100;
+    public static final int MAX_TASKS = 100;
 
     public int getSize() {
         return tasks.size();

@@ -14,6 +14,14 @@ public class Deadline extends Task {
         this.dueTime = dueTime;
     }
 
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public LocalTime getDueTime() {
+        return dueTime;
+    }
+
     @Override
     public String writeToString() {
         String status = isDone ? "1" : "0";

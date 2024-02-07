@@ -18,6 +18,22 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
     @Override
     public String writeToString() {
         String status = isDone ? "1" : "0";

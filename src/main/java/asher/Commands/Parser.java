@@ -106,7 +106,7 @@ public class Parser {
         ui.showNumberOfTaskInListMessage(totalTask);
     }
 
-    private static Event createEventCommand(String input) throws BotException {
+    public static Event createEventCommand(String input) throws BotException {
         int split1 = input.indexOf("/from");
         int split2 = input.indexOf("/to");
         if (split1 == -1 || split2 == -1) {
