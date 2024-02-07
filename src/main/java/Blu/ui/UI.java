@@ -14,12 +14,8 @@ import blu.task.TaskList;
  * Handles all user input/output operations for the Blu application.
  */
 public class UI {
-    private String showToUser(String message) {
-        return message;
-    }
-
-    private String showToUser(String[] messages) {
-        return String.join("\n", messages);
+    private String showToUser(String... message) {
+        return String.join("\n", message);
     }
 
     /**
