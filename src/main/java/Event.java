@@ -15,7 +15,7 @@ public class Event extends Task {
 
     @Override
     public String fileString() {
-        return "E/" + this.from + "/" + this.to + "/" + super.fileString();
+        return "E/" + super.fileString() + "/" + this.from + "/" + this.to;
     }
 }
 

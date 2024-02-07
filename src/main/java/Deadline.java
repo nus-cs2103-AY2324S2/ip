@@ -13,6 +13,6 @@ public class Deadline extends Task {
 
     @Override
     public String fileString() {
-        return "D/" + this.by + "/" + super.fileString();
+        return "D/" + super.fileString() + "/" + this.by;
     }
 }
