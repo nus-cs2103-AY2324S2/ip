@@ -15,9 +15,21 @@ public class Parser {
                 commands(taskList, request.substring(6), reading, false);
                 break;
             }
-
             case "list": {
                 System.out.println(taskList.list());
+                break;
+            }
+            case "find": {
+                if (words.length < 2) {
+                    System.out.println("No Search Term Detected!");
+                } else {
+                    StringBuilder searchTerm = new StringBuilder();
+                    searchTerm.append(words[1]);
+                    for(int i = 2; i < words.length; i++) {
+                        searchTerm.append(" ").append(words[i]);
+                    }
+                    taskList.find(searchTerm.toString());
+                }
                 break;
             }
             case "mark": {

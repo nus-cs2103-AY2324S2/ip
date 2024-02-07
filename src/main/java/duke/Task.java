@@ -27,6 +27,15 @@ public abstract class Task {
         System.out.println(toString());
     }
 
+    /**
+     * Gets the name of the task
+     *
+     * @return the name of the task
+     */
+    public String getName() {
+        return this.name;
+    }
+
     public String convertToText() {
         return "";
     }

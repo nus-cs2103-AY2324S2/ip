@@ -175,4 +175,24 @@ public class TaskList {
             System.out.println(String.format("You now have %s tasks left", tasks.size()));
         }
     }
+
+    /**
+     * Prints all matching tasks that have the searchTerm.
+     *
+     * @param searchTerm the search term to look for.
+     */
+    public void find(String searchTerm) {
+        boolean foundSomething = false;
+        for (Task task : tasks) {
+            String taskName = task.getName();
+            if (taskName.contains(searchTerm)) {
+                System.out.println(task);
+                foundSomething = true;
+            }
+        }
+
+        if(!foundSomething) {
+            System.out.println("No tasks found :(");
+        }
+    }
 }
