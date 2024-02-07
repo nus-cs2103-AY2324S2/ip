@@ -8,7 +8,7 @@ import java.util.List;
  * It provides methods for adding, retrieving, marking as done, unmarking, and deleting tasks.
  */
 public class TaskList {
-    private final List<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
