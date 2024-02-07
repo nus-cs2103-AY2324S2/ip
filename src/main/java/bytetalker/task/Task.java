@@ -1,5 +1,12 @@
 package bytetalker.task;
 
+/**
+ * Represents the task that user can type in to store in the list
+ *
+ * @author Junseo Kim
+ * @version 1.0
+ * @since 2024-02-06
+ */
 public abstract class Task {
     private String task;
     private boolean isDone;
@@ -22,6 +29,11 @@ public abstract class Task {
 
     public abstract String toString();
 
+    /**
+     * 
+     *
+     * @return
+     */
     public String getStatusIcon() {
         return this.isDone ? "X" : " ";
     }
