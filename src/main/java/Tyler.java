@@ -1,17 +1,23 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.nio.file.Paths;
-import java.util.Scanner;
-import java.util.ArrayList;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Tyler {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int curr = 0;
     private static final String FILE_PATH = Paths.get(".",  "data", "Tyler.txt").toString();
-
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
     public static void main(String[] args) throws IOException {
         Tyler.loadTask();
         Tyler.greet();
@@ -59,8 +65,8 @@ public class Tyler {
                       }
                       String[] rest1 = input.split(" ", 2);
                       String[] rest2 = rest1[1].split(" /by ");
-                      //String end = sc.nextLine();
-                      Task newTask = new Deadline(rest2[0], rest2[1]);
+                      LocalDateTime end = LocalDateTime.parse(rest2[1], INPUT_DATE_FORMAT);
+                      Task newTask = new Deadline(rest2[0], end);
                       taskList.add(newTask);
                       System.out.println("    Got it! I've added this task:");
                       System.out.println("      " + newTask.toString());
@@ -74,7 +80,10 @@ public class Tyler {
                       String[] rest1 = input.split(" ", 2);
                       String[] rest2 = rest1[1].split(" /from ");
                       String[] rest3 = rest2[1].split(" /to ");
-                      Task newTask = new Event(rest2[0], rest3[0], rest3[1]);
+                      LocalDateTime start = LocalDateTime.parse(rest3[0], INPUT_DATE_FORMAT);
+                      LocalDateTime end = LocalDateTime.parse(rest3[1], INPUT_DATE_FORMAT);
+                      Task newTask = new Event(rest2[0], start, end);
+
                       taskList.add(newTask);
                       System.out.println("    Got it! I've added this task:");
                       System.out.println("      " + newTask.toString());
@@ -136,9 +145,11 @@ public class Tyler {
                 if (type.equals("T")) {
                     taskList.add(new Todo(input[2], isDone));
                 } else if (type.equals("D")) {
-                    taskList.add(new Deadline(input[2], input[3], isDone));
+                    taskList.add(new Deadline(input[2], LocalDateTime.parse(input[3], OUTPUT_DATE_FORMAT), isDone));
                 } else if (type.equals("E")) {
-                    taskList.add(new Event(input[2], input[3], input[4], isDone));
+                    LocalDateTime start = LocalDateTime.parse(input[3], OUTPUT_DATE_FORMAT);
+                    LocalDateTime end = LocalDateTime.parse(input[4], OUTPUT_DATE_FORMAT);
+                    taskList.add(new Event(input[2], start, end, isDone));
                 }
                 curr++;
             }
@@ -156,10 +167,10 @@ public class Tyler {
             return "T | " + isDoned + " | " + name;
         } else if (task instanceof Deadline) {
             Deadline dtask = (Deadline) task;
-            return "D | " + isDoned + " | " + name + " | " + dtask.end;
+            return "D | " + isDoned + " | " + name + " | " + dtask.end.format(OUTPUT_DATE_FORMAT);
         } else {
             Event etask = (Event) task;
-            return "E | " + isDoned + " | " + name + " | " + etask.start + " | " + etask.end;
+            return "E | " + isDoned + " | " + name + " | " + etask.start.format(OUTPUT_DATE_FORMAT) + " | " + etask.end.format(OUTPUT_DATE_FORMAT);
         }
     }
 

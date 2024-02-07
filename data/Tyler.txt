@@ -1,3 +1,4 @@
-T | 0 | readbook
-D | 1 | wedding | Sunday
-E | 0 | Meeting | 2 | 4
+T | 0 | Check email from Zaleha
+D | 0 | CS2102 meeting | 07 Feb 2024 1:00 PM
+E | 0 | library job | 07 Feb 2024 9:00 AM | 07 Feb 2024 1:00 PM
+D | 0 | wedding | 07 Feb 2024 4:00 PM
