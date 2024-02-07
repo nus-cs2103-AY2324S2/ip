@@ -90,7 +90,7 @@ public class Blu extends Application {
             }
             return command.execute(taskList, storage, ui);
         } catch (BluException e) {
-            BluLogger.severe(e.getMessage());
+            BluLogger.warning(e.getMessage());
             return ui.showErrorMessage(e.getMessage());
         }
     }
