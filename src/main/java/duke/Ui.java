@@ -14,22 +14,11 @@ final static String BINGUS_LOGO = " B   i   n   g   u   s ";
      */
     public static void intro() {
         System.out.println("Hello from\n" + BINGUS_LOGO);
-        System.out.println("Hello! I'm \n" + NAME);
+        System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?\n");// initial introductory message
 
     }
-    /**
-     * Prints outro.
-     */
-    public static void bye() throws DukeException{
-        System.out.println("Bye. Hope to see you again soon!\n");
 
-        System.exit(1);// if keyword is bye, exit the program
-    }
-    /**
-     * gives commands to parser to process.
-     * @param parser parser used to process commands.
-     */
     public static void read_commands(Parser parser) throws DukeException{
         Scanner bfn = new Scanner(
                 new InputStreamReader(System.in));// scanner to read user input
