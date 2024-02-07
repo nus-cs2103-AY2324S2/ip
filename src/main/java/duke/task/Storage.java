@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    boolean isDoneDefault = false;
+    boolean IS_DONE_DEFAULT = false;
     File file;
     private final TaskList taskList;
     public Storage(String filePath, TaskList taskList) {
@@ -55,17 +55,17 @@ public class Storage {
                 String description = parts[2];
 
                 switch (taskType) {
-                    case "T":
-                        prevTaskList.add(new Todo(isDone, description));
-                        break;
-                    case "D":
-                        prevTaskList.add(new Deadline(isDoneDefault, description, parts[3]));
-                        break;
-                    case "E":
-                        prevTaskList.add(new Event(isDoneDefault, description, parts[3], parts[4]));
-                        break;
-                    default:
-                        System.out.println("Unknown task type");
+                case "T":
+                    prevTaskList.add(new Todo(isDone, description));
+                    break;
+                case "D":
+                    prevTaskList.add(new Deadline(IS_DONE_DEFAULT, description, parts[3]));
+                    break;
+                case "E":
+                    prevTaskList.add(new Event(IS_DONE_DEFAULT, description, parts[3], parts[4]));
+                    break;
+                default:
+                    System.out.println("Unknown task type");
                 }
             }
         } catch (Exception e) {

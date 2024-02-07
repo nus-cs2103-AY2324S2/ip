@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TaskList {
         ArrayList<Task> taskList;
-        boolean isDoneDefault = false;
+        boolean IS_DONE_DEFAULT = false;
         Parser parser;
 
     public TaskList() {
@@ -26,16 +26,16 @@ public class TaskList {
             String description = parsedInputArray.get(1);
 
             if (taskType.equalsIgnoreCase("todo")) {
-                taskList.add(new Todo(isDoneDefault, description));
+                taskList.add(new Todo(IS_DONE_DEFAULT, description));
 
             } else if (taskType.equalsIgnoreCase("deadline")) {
                 String deadlineBy = parsedInputArray.get(2);
-                taskList.add(new Deadline(isDoneDefault, description, deadlineBy));
+                taskList.add(new Deadline(IS_DONE_DEFAULT, description, deadlineBy));
 
             } else if (taskType.equalsIgnoreCase("event")) {
                 String eventFrom = parsedInputArray.get(2);
                 String eventTo = parsedInputArray.get(3);
-                taskList.add(new Event(isDoneDefault, description, eventFrom, eventTo));
+                taskList.add(new Event(IS_DONE_DEFAULT, description, eventFrom, eventTo));
 
             }
 
