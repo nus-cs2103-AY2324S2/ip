@@ -1,12 +1,13 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class TaskList {
 
-    private final Task[] list;
+    private final ArrayList<Task> list;
     private int count;
 
     public TaskList(){
-        list = new Task[100];
+        list = new ArrayList<>(100);
         count = 0;
     }
 
@@ -16,7 +17,7 @@ public class TaskList {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
 
-        list[count] = task;
+        list.add(task);
         count++;
 
         return "\t-----------------------------------\n" +
@@ -30,10 +31,10 @@ public class TaskList {
         if (index > count || index < 1) {
             throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
-        list[index - 1].markAsDone();
+        list.get(index - 1).markAsDone();
         return "\t-----------------------------------\n" +
                 "\tNice! I've marked this task as done:\n" +
-                "\t  " + index + ". " + list[index - 1].toString() + "\n" +
+                "\t  " + index + ". " + list.get(index - 1).toString() + "\n" +
                 "\t-----------------------------------";
     }
 
@@ -41,10 +42,10 @@ public class TaskList {
         if (index > count || index < 1) {
             throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
-        list[index - 1].markAsUndone();
+        list.get(index - 1).markAsUndone();
         return "\t-----------------------------------\n" +
                 "\tNice! I've marked this task as undone:\n" +
-                "\t  " + index + ". " + list[index - 1].toString() + "\n" +
+                "\t  " + index + ". " + list.get(index - 1).toString() + "\n" +
                 "\t-----------------------------------";
     }
 
@@ -53,7 +54,7 @@ public class TaskList {
     public String toString() {
         String result = "\t-----------------------------------\n";
         for (int i = 0; i < count; i++) {
-            result += "\t" + (i + 1) + ". " + list[i].toString() + "\n";
+            result += "\t" + (i + 1) + ". " + list.get(i).toString() + "\n";
         }
         result += "\t-----------------------------------";
         return result;
