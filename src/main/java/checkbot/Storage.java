@@ -1,12 +1,5 @@
 package checkbot;
 
-import checkbot.exception.SaveFileException;
-import checkbot.task.Deadline;
-import checkbot.task.Event;
-import checkbot.task.Task;
-import checkbot.task.Todo;
-import checkbot.task.TodoList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,6 +9,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import checkbot.exception.SaveFileException;
+import checkbot.task.Deadline;
+import checkbot.task.Event;
+import checkbot.task.Task;
+import checkbot.task.Todo;
+import checkbot.task.TodoList;
+
 /**
  * Handles the loading and saving of tasks to a txt file.
  */
@@ -24,7 +24,7 @@ public class Storage {
 
     /**
      * Constructor for Storage.
-     * 
+     *
      * @param filePath The file path to the file where the tasks are stored.
      */
     public Storage(String filePath) {
@@ -103,7 +103,7 @@ public class Storage {
 
     /**
      * Saves the tasks of the given TodoList to the txt file specified by filePath.
-     * 
+     *
      * @param todoList The TodoList to save to the txt file.
      * @throws SaveFileException If there is an error saving the file.
      */

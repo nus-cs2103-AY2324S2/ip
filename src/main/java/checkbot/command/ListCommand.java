@@ -10,6 +10,6 @@ import checkbot.Ui;
 public class ListCommand extends Command {
     @Override
     public void execute(TodoList todoList, Storage storage, Ui ui) {
-        ui.showList(todoList);
+        ui.printList(todoList);
     }
 }

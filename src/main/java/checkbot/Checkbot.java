@@ -1,10 +1,10 @@
 package checkbot;
 
+import java.util.Scanner;
+
 import checkbot.command.Command;
 import checkbot.exception.CheckbotException;
 import checkbot.task.TodoList;
-
-import java.util.Scanner;
 
 /**
  * Represents the main class of the Checkbot program.
@@ -19,7 +19,7 @@ public class Checkbot {
 
     /**
      * Constructor for Checkbot.
-     * 
+     *
      * @param filePath The file path to the file where the tasks are stored.
      */
     public Checkbot(String filePath) {
@@ -31,7 +31,7 @@ public class Checkbot {
 
     /**
      * Main method to run the Checkbot program.
-     * 
+     *
      * @param args Command line arguments, not used.
      */
     public static void main(String[] args) {

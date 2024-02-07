@@ -16,8 +16,8 @@ public class Ui {
      */
     public void showWelcome() {
         print(
-                "Hello, I'm Checkbot, your personal assistant.\n" +
-                        "What tasks do you have to do?");
+                "Hello, I'm Checkbot, your personal assistant.\n"
+                        + "What tasks do you have to do?");
     }
 
     /**
@@ -27,14 +27,19 @@ public class Ui {
         print("Goodbye!");
     }
 
-    public void showList(TodoList todoList) {
+    /**
+     * Prints the TodoList to the console.
+     *
+     * @param todoList The todolist in question.
+     */
+    public void printList(TodoList todoList) {
         print("Here is your todo list:\n"
                 + todoList);
     }
 
     /**
      * Shows the message to the user when a task is added to the list.
-     * 
+     *
      * @param task   The task that was added.
      * @param length The number of tasks in the list.
      */
@@ -47,7 +52,7 @@ public class Ui {
 
     /**
      * Shows the message to the user when a task is marked as done.
-     * 
+     *
      * @param task The task that was marked as done.
      */
     public void showMarkedTaskMessage(Task task) {
@@ -57,7 +62,7 @@ public class Ui {
 
     /**
      * Shows the message to the user when a task is marked as incomplete.
-     * 
+     *
      * @param task The task that was marked as incomplete.
      */
     public void showUnmarkedTaskMessage(Task task) {
@@ -67,7 +72,7 @@ public class Ui {
 
     /**
      * Shows the message to the user when a task is deleted from the list.
-     * 
+     *
      * @param task   The task that was deleted.
      * @param length The number of tasks in the list.
      */
@@ -80,7 +85,7 @@ public class Ui {
 
     /**
      * Shows the error message to the user.
-     * 
+     *
      * @param e The exception that was thrown.
      */
     public void showError(CheckbotException e) {
@@ -89,6 +94,7 @@ public class Ui {
 
     /**
      * Prints the given sublist to the user.
+     *
      * @param subList The sublist containing tasks that matches the user's search query.
      */
     public void showSubList(TodoList subList) {
@@ -97,8 +103,8 @@ public class Ui {
             return;
         }
         print(
-                "Here are the matching tasks in your list:\n" +
-                        subList
+                "Here are the matching tasks in your list:\n"
+                        + subList
         );
     }
 
