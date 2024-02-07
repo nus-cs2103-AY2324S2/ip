@@ -40,6 +40,8 @@ public class Parser {
                     + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
         }
     }
+
+
     enum Instruction {
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
     }

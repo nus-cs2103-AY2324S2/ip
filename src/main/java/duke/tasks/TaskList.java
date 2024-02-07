@@ -9,9 +9,6 @@ public class TaskList implements Serializable {
 
     private final List<Task> tasks = new ArrayList<>();
 
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
 
     public int size() {
         return tasks.size();

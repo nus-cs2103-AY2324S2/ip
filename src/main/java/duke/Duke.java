@@ -1,7 +1,8 @@
 package duke;
 
 import duke.tasks.TaskList;
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.Parser;
 
 import java.util.List;
 import java.util.Scanner;

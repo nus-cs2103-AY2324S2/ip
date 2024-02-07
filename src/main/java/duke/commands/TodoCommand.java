@@ -3,13 +3,13 @@ package duke.commands;
 import duke.DukeException.DukeException;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TodoCommand extends Command {
     private final String details;
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+
 
     public TodoCommand(String details) {
         this.details = details;
@@ -25,5 +25,4 @@ public class TodoCommand extends Command {
         messages.add("Now you have " + tasks.size() + " tasks in the list.");
         return messages;
     }
-
 }
