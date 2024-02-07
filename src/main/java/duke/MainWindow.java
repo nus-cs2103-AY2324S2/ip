@@ -1,5 +1,6 @@
 package duke;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -35,6 +38,21 @@ public class MainWindow extends AnchorPane {
         String input = this.userInput.getText();
         String response = duke.getResponse(input);
         //String response = "this is a test.";
+        if(response.equals("Bye. Bingus hopes to see you again soon!\n")){
+            /*this.dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, this.USER_IMAGE),
+                    DialogBox.getDukeDialog(response, this.BINGUS_IMAGE)
+            );*/
+           // this.dialogContainer.getChildren().addAll(
+                   // DialogBox.getDukeDialog("See you soon, take care!", this.BINGUS_IMAGE)
+          //  );
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(event -> {
+                Platform.exit();
+            });
+            delay.play();
+        }
         this.dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, this.USER_IMAGE),
                 DialogBox.getDukeDialog(response, this.BINGUS_IMAGE)

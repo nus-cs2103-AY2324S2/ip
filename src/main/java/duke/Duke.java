@@ -59,9 +59,9 @@ public class Duke{
     }
 
     public String getResponse(String input) throws DukeException{
-        if(input.equals("bye")){
-            System.exit(0);
-        }
+        //if(input.equals("bye")){
+        //    System.exit(0);
+        //}
         return parser.parse(input);
     }
 
