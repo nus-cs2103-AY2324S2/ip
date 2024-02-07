@@ -30,9 +30,9 @@ public class AddToDoCommand extends Command {
      * Executes the addition of a new ToDo task.
      */
     @Override
-    public void execute() {
+    public String execute() {
         ToDo todo = new ToDo(description);
         tasks.addTask(todo);
-        ui.showTaskAdded(tasks);
+        return ui.showTaskAdded(tasks);
     }
 }

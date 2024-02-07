@@ -31,8 +31,9 @@ public class DeleteCommand extends Command {
      * @throws AtlasException If the taskIndex is out of bounds of the task list.
      */
     @Override
-    public void execute() throws AtlasException {
-        ui.showTaskDeleted(tasks, taskIndex);
+    public String execute() throws AtlasException {
+        String str = ui.showTaskDeleted(tasks, taskIndex);
         tasks.deleteTask(taskIndex);
+        return str;
     }
 }

@@ -22,16 +22,18 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public void showGreeting() {
-        System.out.println("Hello! I'm Atlas");
-        System.out.println("What can I do for you?");
+    public static String showGreeting() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello! I'm Atlas\n");
+        sb.append("What can I do for you?");
+        return sb.toString();
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -39,8 +41,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
@@ -57,10 +59,10 @@ public class Ui {
      *
      * @param tasks The TaskList from which to retrieve the newly added task.
      */
-    public void showTaskAdded(TaskList tasks) {
+    public String showTaskAdded(TaskList tasks) {
         ArrayList<Task> al = tasks.getTasks();
-        System.out.println("Got it. I've added this task:\n  " + al.get(al.size() - 1));
-        System.out.println("Now you have " + al.size() + " tasks in the list.");
+        return ("Got it. I've added this task:\n  " + al.get(al.size() - 1));
+
     }
 
     /**
@@ -69,10 +71,9 @@ public class Ui {
      * @param tasks The TaskList from which to retrieve the deleted task.
      * @param index The index of the deleted task.
      */
-    public void showTaskDeleted(TaskList tasks, int index) {
+    public String showTaskDeleted(TaskList tasks, int index) {
         ArrayList<Task> al = tasks.getTasks();
-        System.out.println("Got it. I've removed this task:\n  " + al.get(index));
-        System.out.println("Now you have " + (al.size() - 1) + " tasks in the list.");
+        return ("Got it. I've removed this task:\n  " + al.get(index));
     }
 
     /**
@@ -81,15 +82,18 @@ public class Ui {
      * @param tasks The TaskList from which to retrieve tasks.
      * @param date  The date for which tasks should be displayed.
      */
-    public void showTasksOnDate(TaskList tasks, LocalDate date) {
+    public String showTasksOnDate(TaskList tasks, LocalDate date) {
         ArrayList<Task> al = tasks.getTasksOnDate(date);
         if (al.isEmpty()) {
-            System.out.println("No tasks found on " + date);
+            return ("No tasks found on " + date);
         } else {
-            System.out.println("Tasks on " + date + ":");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Tasks on ").append(date).append(":\n");
+            int i = 1;
             for (Task task : al) {
-                System.out.println(task);
+                sb.append(i).append(". ").append(task).append("\n");
             }
+            return sb.toString();
         }
     }
 
@@ -99,11 +103,13 @@ public class Ui {
      * @param tasks The TaskList from which to retrieve the marked task.
      * @param index The index of the marked task.
      */
-    public void showMark(TaskList tasks, int index) {
+    public String showMark(TaskList tasks, int index) {
         ArrayList<Task> al = tasks.getTasks();
-        System.out.println("Nice! I've marked this task as done:");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I've marked this task as done:\n");
         String str = al.get(index).toString();
-        System.out.println(str);
+        sb.append(str);
+        return sb.toString();
     }
 
     /**
@@ -112,11 +118,13 @@ public class Ui {
      * @param tasks The TaskList from which to retrieve the unmarked task.
      * @param index The index of the unmarked task.
      */
-    public void showunMark(TaskList tasks, int index) {
+    public String showunMark(TaskList tasks, int index) {
         ArrayList<Task> al = tasks.getTasks();
-        System.out.println("OK, I've marked this task as not done yet");
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK, I've marked this task as not done yet:\n");
         String str = al.get(index).toString();
-        System.out.println(str);
+        sb.append(str);
+        return sb.toString();
     }
 
     /**
@@ -124,23 +132,33 @@ public class Ui {
      *
      * @param tasks The ArrayList of tasks to be displayed.
      */
-    public void showAllTasks(ArrayList<Task> tasks) {
+    public String showAllTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
+            return ("There are no tasks in your list.");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 
-    public void showMatchingTasks(ArrayList<Task> tasks) {
+    /**
+     * Takes in a list of tasks and returns a string matching the tasks.
+     *
+     * @param tasks Tasks found in the TaskList.
+     * @return A string of tasks that match.
+     */
+    public String showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks found");
+            return ("No matching tasks found");
         }
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            sb.append(i + 1).append(".").append(tasks.get(i));
         }
+        return sb.toString();
     }
 }

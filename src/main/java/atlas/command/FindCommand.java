@@ -32,8 +32,8 @@ public class FindCommand extends Command {
      * and displays the matching tasks to the user using the Ui.
      */
     @Override
-    public void execute() {
+    public String execute() {
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 }

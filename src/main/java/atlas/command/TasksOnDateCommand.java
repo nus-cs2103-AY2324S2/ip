@@ -32,7 +32,7 @@ public class TasksOnDateCommand extends Command {
      * The tasks scheduled for the specified date are displayed to the user through the Ui.
      */
     @Override
-    public void execute() {
-        ui.showTasksOnDate(tasks, date);
+    public String execute() {
+        return ui.showTasksOnDate(tasks, date);
     }
 }

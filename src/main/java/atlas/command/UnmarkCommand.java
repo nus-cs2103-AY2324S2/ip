@@ -32,8 +32,8 @@ public class UnmarkCommand extends Command {
      * @throws AtlasException If an error occurs during unmarking the task (e.g., index out of bounds).
      */
     @Override
-    public void execute() throws AtlasException {
+    public String execute() throws AtlasException {
         tasks.unmarkTask(taskIndex);
-        ui.showunMark(tasks, taskIndex);
+        return ui.showunMark(tasks, taskIndex);
     }
 }

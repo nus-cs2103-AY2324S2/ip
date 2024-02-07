@@ -25,7 +25,7 @@ public class InvalidCommand extends Command {
      * that an invalid command was entered.
      */
     @Override
-    public void execute() {
-        ui.showError("Invalid command entered. Please try again.");
+    public String execute() {
+        return ui.showError("Invalid command entered. Please try again.");
     }
 }
