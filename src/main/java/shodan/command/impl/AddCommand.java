@@ -26,7 +26,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(List<String> args, String taskType) {
         this.args = args;
-        this.type = TaskType.valueOf(taskType);
+        type = TaskType.valueOf(taskType);
     }
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) throws ShodanException {
         Task task = TaskParser.parse(args, type);

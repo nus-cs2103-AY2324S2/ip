@@ -39,7 +39,7 @@ public class StorageManager {
                 throw new RuntimeException(e);
             }
         }
-        this.taskSaveLocation = rb.getString("TASK_SAVE_PATH");
+        taskSaveLocation = rb.getString("TASK_SAVE_PATH");
     }
 
     /**
@@ -49,7 +49,7 @@ public class StorageManager {
      */
     public void saveTasks(List<Task> tasks) {
         String tasksSerialized = TaskSerializer.serialize(tasks);
-        try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
+        try (FileWriter writer = new FileWriter(taskSaveLocation)) {
             writer.write(tasksSerialized);
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class StorageManager {
      * @return the list of tasks.
      */
     public List<Task> loadTasks() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.taskSaveLocation))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(taskSaveLocation))) {
             return TaskSerializer.parseText(reader.lines());
         } catch (IOException e) {
             e.printStackTrace();

@@ -27,7 +27,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
+        return "[" + (isDone ? "X" : " ") + "] " + name;
     }
 
     /**
@@ -55,6 +55,6 @@ public abstract class Task {
      * @return the name of the task.
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 }
