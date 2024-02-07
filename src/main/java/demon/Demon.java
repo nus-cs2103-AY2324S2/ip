@@ -1,9 +1,9 @@
 package demon;
 
-import java.nio.file.NoSuchFileException;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.NoSuchFileException;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 /**
  * A chatbot that allows user to add, delete, and modify tasks or reminders.
@@ -16,12 +16,10 @@ public class Demon {
     /**
      * Initializes the bot and load tasks saved in taskList.txt file
      * if there is any previous tasks.
-     *
-     * @param filePath The relative path to the taskList.txt file
      */
-    public Demon(String filePath) {
+    public Demon() {
         ui = new Ui();
-        final Storage STORAGE = new Storage(filePath);
+        final Storage STORAGE = new Storage(this.filePath);
         try {
             tasks = new TaskList(STORAGE.load());
         } catch (NoSuchFileException e) {
@@ -30,6 +28,7 @@ public class Demon {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        run();
     }
     public void run() {
         Scanner sc = new Scanner(System.in);
@@ -119,7 +118,13 @@ public class Demon {
         Ui.printDivider();
     }
 
-    public static void main(String[] args) {
-        new Demon("src/main/taskList.txt").run();
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        return "Demon heard: " + input;
     }
 }
+
+
