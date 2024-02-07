@@ -55,12 +55,12 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @param ui    The Ui object for displaying messages.
      */
-    public void markTasks(int index, Ui ui) {
+    public String markTasks(int index, Ui ui) {
         try {
             tasks.get(index - 1).setStatus();
-            ui.markedMessage(tasks.get(index - 1));
+            return ui.markedMessage(tasks.get(index - 1));
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
+            return ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
         }
     }
 
@@ -70,13 +70,13 @@ public class TaskList {
      * @param in The index of the task to be removed.
      * @param ui The Ui object for displaying messages.
      */
-    public void removeTasks(int in, Ui ui) {
+    public String removeTasks(int in, Ui ui) {
         try {
             Task temp = tasks.get(in - 1);
             tasks.remove(in - 1);
-            ui.deleteMessage(temp.toString());
+            return ui.deleteMessage(temp.toString());
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
+            return ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
         }
     }
 
@@ -85,16 +85,20 @@ public class TaskList {
      *
      * @param ui The Ui object for displaying messages.
      */
-    public void listTasks(Ui ui) {
+    public String listTasks(Ui ui) {
+        StringBuilder res = new StringBuilder();
         if (tasks.isEmpty()) {
-            ui.showMessage("There are no tasks in the list.");
+            res.append(ui.showMessage("There are no tasks in the list."));
         } else {
-            ui.showMessage("Here are the tasks in your list:");
+            res.append(ui.showMessage("Here are the tasks in your list:"));
             for (int i = 0; i < tasks.size(); i++) {
-                ui.showMessage((i + 1) + ". " + tasks.get(i).toString());
+                res.append("\n"); // Add a newline character
+                res.append(ui.showMessage((i + 1) + ". " + tasks.get(i).toString()));
             }
         }
+        return res.toString();
     }
+
 
     /**
      * Searches for tasks containing a specified keyword in their descriptions.

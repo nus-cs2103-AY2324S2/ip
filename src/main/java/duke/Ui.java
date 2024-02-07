@@ -42,7 +42,7 @@ public class Ui {
         return getCommand(scanner.next());
     }
 
-    private static Command getCommand(String input) {
+    public static Command getCommand(String input) {
         try {
             return Command.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -66,8 +66,10 @@ public class Ui {
      *
      * @param str The command that was deleted.
      */
-    public void deleteMessage(String str) {
-        System.out.println("I have deleted the below command: \n" + str);
+    public String deleteMessage(String str) {
+        String res = "I have deleted the below command: \n" + str;
+        System.out.println(res);
+        return res;
     }
 
     /**
@@ -101,8 +103,10 @@ public class Ui {
     /**
      * Displays the goodbye message.
      */
-    public void showGoodbyeMessage() {
+    public String showGoodbyeMessage() {
+
         System.out.println("Bye! Hope to see you again soon.");
+        return "Bye! Hope to see you again soon.";
     }
 
     /**
@@ -110,15 +114,18 @@ public class Ui {
      *
      * @param errorMessage The error message to display.
      */
-    public void showError(String errorMessage) {
-        System.out.println("Error: " + errorMessage);
+    public String showError(String errorMessage) {
+        String res = "Error: " + errorMessage;
+        System.out.println(res);
+        return res;
     }
 
     /**
      * Displays an error message for loading tasks.
      */
-    public void showLoadingError() {
+    public String showLoadingError() {
         System.out.println("Error loading tasks from file. Starting with an empty task list.");
+        return "Error loading tasks from file. Starting with an empty task list.";
     }
 
     /**
@@ -126,13 +133,15 @@ public class Ui {
      *
      * @param task The task that was marked.
      */
-    public void markedMessage(Task task) {
-        System.out.println("\t"
+    public String markedMessage(Task task) {
+        String res = "\t"
                 + "Nice! I've marked this task "
                 + "as done:"
                 + "\n"
                 + "\t "
-                + task);
+                + task;
+        System.out.println(res);
+        return res;
     }
 
     /**
@@ -140,8 +149,9 @@ public class Ui {
      *
      * @param str The message to display.
      */
-    public void showMessage(String str) {
+    public String showMessage(String str) {
         System.out.println(str);
+        return str;
     }
 }
 
