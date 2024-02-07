@@ -19,12 +19,14 @@ public class TaskList {
      *
      * @param task
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
+        String result;
         tasks.add(task);
-        System.out.println("Got it. I've added this task:\n"
+        result = "Got it. I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + getSize()
-                + " tasks in the list.");
+                + " tasks in the list.";
+        return result;
     }
 
     /**
@@ -39,12 +41,14 @@ public class TaskList {
     /**
      * Lists down tasks in order when command is called.
      */
-    public void listDownTask() {
+    public String listDownTask() {
+        String result;
         int size = getSize();
-        System.out.println("Here are the tasks in your list:");
+        result = "Here are the tasks in your list:\n";
         for(int i = 1; i <= size; i++) {
-            System.out.println(i +": " + tasks.get(i - 1));
+            result += i +": " + tasks.get(i - 1) + "\n";
         }
+        return result;
     }
 
     /**
@@ -52,11 +56,13 @@ public class TaskList {
      *
      * @param index
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
+        String result;
         Task removed = getTask(index - 1);
-        System.out.println("Noted. I've removed this task:\n" + removed);
+        result = "Noted. I've removed this task:\n" + removed + "\n";
         tasks.remove(index - 1);
-        System.out.println("Now you have " + getSize() + " tasks in the list");
+        result += "Now you have " + getSize() + " tasks in the list";
+        return result;
     }
 
     /**
@@ -64,10 +70,12 @@ public class TaskList {
      *
      * @param index
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
+        String result;
         Task modTask = tasks.get(index - 1);
         modTask.setIsDone(true);
-        System.out.println("Nice! I've marked this task as done:\n" + modTask);
+        result = "Nice! I've marked this task as done:\n" + modTask;
+        return result;
     }
 
     /**
@@ -75,10 +83,12 @@ public class TaskList {
      *
      * @param index
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
+        String result;
         Task modTask = tasks.get(index - 1);
         modTask.setIsDone(false);
-        System.out.println("OK, I've marked this task as not done yet:\n" + modTask);
+        result = "OK, I've marked this task as not done yet:\n" + modTask;
+        return result;
     }
 
     /**
@@ -86,17 +96,19 @@ public class TaskList {
      *
      * @param keyword
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
+        String result;
         List<Task> temp = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 temp.add(task);
             }
         }
-        System.out.println("Here are the matching tasks in your list:");
+        result = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < temp.size(); i++) {
-            System.out.println((i + 1) + "." + temp.get(i));
+            result += (i + 1) + "." + temp.get(i) + "\n";
         }
+        return result;
     }
 
     public Task getTask(int index) {

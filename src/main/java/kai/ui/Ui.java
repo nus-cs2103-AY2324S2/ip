@@ -1,30 +1,10 @@
-package kai.util;
-
-import java.util.Scanner;
+package kai.ui;
 
 public class Ui {
-    private Scanner sc;
-
-    /**
-     * Creates a new Ui object, initialize scanner object.
-     */
-    public Ui() {
-        sc = new Scanner(System.in);
-    }
-
-    /**
-     * Reads new input by user and store it in a String variable.
-     *
-     * @return input by user.
-     */
-    public String readUserInput() {
-        return sc.nextLine();
-    }
-
     /**
      * Displays welcome message when chatbot is first booted up.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         System.out.println("Hello! I'm KAI\n" + "Please type in what you want to do");
     }
 
@@ -40,8 +20,7 @@ public class Ui {
     /**
      * Displays farewell messages when chatbot is terminated.
      */
-    public void showFarewell() {
-        sc.close();
+    public static void showFarewell() {
         System.out.println("Bye Bye. Hope to see you again soon!");
     }
 }
