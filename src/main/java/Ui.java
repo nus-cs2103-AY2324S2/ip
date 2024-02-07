@@ -17,7 +17,7 @@ public class Ui {
     }
 
     public void printExitMessage() {
-        System.out.println("\r\nBye. Hope to see you again soon!\r\n" + line);
+        System.out.println("Bye. Hope to see you again soon!\r\n" + line);
     }
 
     public void showLoadingError() {
@@ -79,6 +79,4 @@ public class Ui {
     public void printErrorMessage(String errorMessage) {
         System.out.println(errorMessage);
     }
-
-
 }

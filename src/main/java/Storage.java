@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-
 public class Storage {
     private File file;
     private String filePath;

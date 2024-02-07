@@ -31,7 +31,7 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public LocalDateTime parseDate(String dateTime) {
+    public LocalDateTime parseDateTime(String dateTime) {
         List<String> separators = Arrays.asList("-", "/");
         List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
         List<String> timeCombinations = Arrays.asList("HH:mm", "HHmm", "hh:mm a");
