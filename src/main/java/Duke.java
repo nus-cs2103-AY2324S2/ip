@@ -1,187 +1,46 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
 public class Duke {
-    public static void main(String[] args) throws IOException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        String name = "Anxi";
-        String line = "------------------------------------------------------------";
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        ArrayList<Task> tasks = new ArrayList<>();
-        Save save = new Save();
-        save.loadTasks(tasks);
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-        System.out.println(line);
-        System.out.println(logo);
-        System.out.println("Hello! I'm " + name + "\r\nWhat can I do for you? \r\n" + line);
+    public Duke(String filePath) throws IOException {
+        ui = new Ui();
+        storage = new Storage(filePath);
 
-        String readIn = br.readLine() + " ";
-        String[] command = readIn.split(" ", 2);
+        try {
+            taskList = new TaskList(storage.loadTasks());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
+    }
 
-        while(!command[0].equalsIgnoreCase("bye")) {
-            System.out.println(line);
+    public void run() throws DukeException, IOException {
+        Parser parser = new Parser();
+        ui.printWelcomeMessage();
 
-            switch (command[0].toLowerCase()) {
-                case "list":
-                    System.out.println("Here are the tasks in your list:");
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            int exit = parser.parseInput(br.readLine(), storage, taskList, ui);
+            ui.printLine();
 
-                    for (int i = 0; i < tasks.size(); ++i) {
-                        System.out.println((i + 1) + "." + tasks.get(i).toString());
-                    }
-                    break;
-
-                case "mark":
-                    try {
-                        if (command[1].matches("")) {
-                            throw new DukeException();
-                        }
-
-                        int m = Integer.parseInt(command[1]);
-                        if (((m - 1) < 0) || (m > tasks.size())) {
-                            throw new DukeException();
-                        }
-
-                        tasks.get(m - 1).updateIsDone(true);
-                        save.updateTask(tasks.get(m - 1), m, tasks.size());
-
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(" " + tasks.get(m - 1).toString());
-
-                    } catch (DukeException de) {
-                        System.out.println("Missing the target with your input, what to mark?");
-                    }
-
-                    break;
-
-                case "unmark":
-                    try {
-                        if (command[1].matches("")) {
-                            throw new DukeException();
-                        }
-
-                        int u = Integer.parseInt(command[1]);
-                        if (((u - 1) < 0) || (u > tasks.size())) {
-                            throw new DukeException();
-                        }
-
-                        tasks.get(u - 1).updateIsDone(false);
-                        save.updateTask(tasks.get(u - 1), u, tasks.size());
-
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(" " + tasks.get(u - 1).toString());
-                    } catch (DukeException de) {
-                        System.out.println("Missing the target with your input, what to unmark?");
-                    }
-
-                    break;
-
-                case "todo":
-                    try {
-                        if (command[1].matches("")) {
-                            throw new DukeException();
-                        }
-
-                        Task task = new ToDo(command[1]);
-                        tasks.add(task);
-                        save.addNewTask(task);
-                        System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-
-                    } catch (DukeException de) {
-                        System.out.println("Need to check my eyesight, nothing to do.");
-                    }
-
-                    break;
-
-                case "event":
-                    try {
-                        if (command[1].matches("")) {
-                            throw new DukeException();
-                        }
-
-                        String[] e = command[1].split("/to | /from");
-                        if (e.length < 3) {
-                            throw new DukeException();
-                        }
-
-                        Task task = new Event(e[0].strip(), e[1].strip(), e[2].strip());
-                        tasks.add(task);
-                        save.addNewTask(task);
-
-                        System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-
-                    } catch (DukeException de) {
-                        System.out.println("This event is the highlight of the social \"calen-darling.\"");
-                        System.out.println("Got all the details?");
-                    }
-
-                    break;
-
-                case "deadline":
-                    try {
-                        if (command[1].matches("")) {
-                            throw new DukeException();
-                        }
-
-                        String[] d = command[1].split("/by");
-
-                        if (d.length < 2) {
-                            throw new DukeException();
-                        }
-
-                        Task task = new Deadline(d[0].strip(), d[1].strip());
-                        tasks.add(task);
-                        save.addNewTask(task);
-                        System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-
-                    } catch (DukeException de) {
-                        System.out.println("To survive is to procrastinate death, when is this due?");
-                    }
-
-                    break;
-
-                case "delete":
-                    try {
-                        if (command[1].matches("")) {
-                            throw new DukeException();
-                        }
-
-                        int del = Integer.parseInt(command[1]);
-                        if (((del - 1) < 0) || (del > tasks.size())) {
-                            throw new DukeException();
-                        }
-
-                        Task task = tasks.get(del - 1);
-                        tasks.remove(del - 1);
-                        save.deleteTask(task);
-
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(" " + task);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-
-                    } catch (DukeException de) {
-                        System.out.println("Missing the target with your input, what to remove?");
-                    }
-
-                    break;
-
-                default:
-                    System.out.println("Are you as clueless about \"" + command[0] + "\" as I am?");
-                    break;
+            while (exit != 0) {
+                exit = parser.parseInput(br.readLine(), storage, taskList, ui);
+                ui.printLine();
             }
-
-            System.out.println(line);
-            readIn = br.readLine() + " ";
-            command = readIn.split(" ", 2);
+        } catch (DukeException de) {
+            ui.printErrorMessage(de.getErrorMessage());
         }
 
-        System.out.println(line + "\r\nBye. Hope to see you again soon!\r\n" + line);
-        br.close();
+        ui.printExitMessage();
+    }
+
+    public static void main(String[] args) throws DukeException, IOException {
+        new Duke("data/duke.txt").run();
     }
 }
