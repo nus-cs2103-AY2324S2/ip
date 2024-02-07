@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.main.TaskList;
+
 public class Task {
     String name;
     String type;

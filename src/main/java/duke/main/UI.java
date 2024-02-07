@@ -1,5 +1,7 @@
 package duke.main;
 
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,10 +39,15 @@ public class UI {
         System.out.println(taskList.get(index).toString());
     }
 
-    public void printList() {
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ": " + taskList.get(i).toString());
+    public void printList(TaskList list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ": " + list.get(i).toString());
         }
+    }
+
+    public void printOnFind(TaskList list) {
+        System.out.println("Here are the matching tasks in your list: ");
+        this.printList(list);
     }
 
     public void printTotal() {

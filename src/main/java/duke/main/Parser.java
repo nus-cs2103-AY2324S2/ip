@@ -43,7 +43,7 @@ public class Parser {
                     String[] v2 = v1[1].split("/to ");
                     try {
                         this.taskList.add(new Event(v1[0], v2[0], v2[1]));
-                    } catch (DateFormatException formatException) {
+                    } catch (ArrayIndexOutOfBoundsException | DateFormatException formatException) {
                         this.ui.printException(formatException);
                     }
                     this.ui.printOnAdd();
@@ -78,9 +78,11 @@ public class Parser {
                     } catch (ArrayIndexOutOfBoundsException arrException) {
                         this.ui.printException(arrException);
                     }
+                case find:
+                    this.ui.printOnFind(taskList.find(details));
                     break;
                 case list:
-                    this.ui.printList();
+                    this.ui.printList(taskList);
                     break;
                 default:
                     throw new UnknownInputException();

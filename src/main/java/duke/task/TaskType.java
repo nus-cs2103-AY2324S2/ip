@@ -8,6 +8,10 @@ public enum TaskType {
         delete,
         todo,
         deadline,
-        event /*,
+        event,
+
+        find
+
+        /*,
         exit */;
 }
