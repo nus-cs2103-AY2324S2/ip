@@ -1,10 +1,10 @@
 package aurora.tasklist;
 
 import aurora.objects.Deadline;
-import aurora.objects.DukeException;
 import aurora.objects.Event;
 import aurora.objects.Task;
 import aurora.objects.Todo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -91,6 +91,41 @@ public class TaskList {
         this.taskList.remove(taskIndex);
         System.out.println("I've removed this task as you instructed: \n" +
                 taskString + "\nNumber of tasks in the list: " + taskList.size());
+    }
+
+    /**
+     * Marks a task in the taskList as done and returns a confirmation message.
+     *
+     * @param taskIndex Index of the task in the ArrayList.
+     * @return A string confirming the task has been marked as done.
+     */
+    public String markTaskGui(int taskIndex) {
+        this.taskList.get(taskIndex).setDone();
+        return "I've marked this task as done: \n" + this.taskList.get(taskIndex).toString();
+    }
+
+    /**
+     * Unmarks a task in the taskList and returns a confirmation message.
+     *
+     * @param taskIndex Index of the task in the ArrayList.
+     * @return A string confirming the task has been unmarked.
+     */
+    public String unmarkTaskGui(int taskIndex) {
+        this.taskList.get(taskIndex).setNotDone();
+        return "I've marked this task as not done yet: \n" + this.taskList.get(taskIndex).toString();
+    }
+
+    /**
+     * Deletes a task from the taskList and returns a confirmation message.
+     *
+     * @param taskIndex Index of the task in the ArrayList.
+     * @return A string confirming the task has been deleted.
+     */
+    public String deleteTaskGui(int taskIndex) {
+        String taskString = this.taskList.get(taskIndex).toString();
+        this.taskList.remove(taskIndex);
+        return "I've removed this task as you instructed: \n" + taskString +
+                "\nNumber of tasks in the list: " + this.taskList.size();
     }
 
     /**

@@ -14,10 +14,10 @@ import aurora.command.UnmarkCommand;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 
 /**
  * Parser that helps to split the command string into chunks that can then be processed by the application.
@@ -51,6 +51,7 @@ public class Parser {
      * Parses a command and returns an appropriate Command object
      *
      * @params command Full command in String format
+     * @return An appropriate command object given the command string.
      */
     public Command parseCommand(String command) {
         String[] splitCommands = Parser.splitAtAllBlanks(command);
@@ -90,6 +91,7 @@ public class Parser {
             return invalidCommand;
         }
     }
+
 
 
     /**

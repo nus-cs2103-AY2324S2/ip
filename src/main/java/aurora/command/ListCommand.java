@@ -4,6 +4,7 @@ import aurora.objects.Task;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+
 import java.util.ArrayList;
 
 /**
@@ -37,6 +38,14 @@ public class ListCommand extends Command {
     public void handle() {
         ArrayList<Task> arrayFormList = this.taskList.getTaskList();
         this.ui.printTaskList(arrayFormList);
+    }
+
+    @Override
+    public String handleGui() {
+        String message = "Command not executed.";
+        ArrayList<Task> arrayFormList = this.taskList.getTaskList();
+        message = this.ui.getTaskListString(arrayFormList);
+        return message;
     }
 
     @Override

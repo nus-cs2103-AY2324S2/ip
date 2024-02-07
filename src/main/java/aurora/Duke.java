@@ -1,31 +1,14 @@
 package aurora;
 
-import aurora.command.ByeCommand;
 import aurora.command.Command;
-import aurora.command.DeadlineCommand;
-import aurora.command.DeleteCommand;
-import aurora.command.EventCommand;
-import aurora.command.FindCommand;
-import aurora.command.InvalidCommand;
-import aurora.command.ListCommand;
-import aurora.command.MarkCommand;
-import aurora.command.TodoCommand;
-import aurora.command.UnmarkCommand;
-import aurora.objects.Deadline;
 import aurora.objects.DukeException;
-import aurora.objects.Event;
 import aurora.objects.Task;
-import aurora.objects.Todo;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Duke is the main class for the application that runs according to the commands given to it by the user.
@@ -54,7 +37,7 @@ public class Duke {
     /**
      * Constructor for the Duke class
      */
-    private Duke() {
+    public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("./data/duke.txt");
         try {
@@ -85,13 +68,13 @@ public class Duke {
      */
     public void exeAurora() {
         this.ui.printOpeningMessage();
-        executionLoop();
+        executeLoop();
     }
 
     /**
      * Execution loop for commands.
      */
-    public void executionLoop() {
+    public void executeLoop() {
         boolean isBye = false;
         while (!isBye) {
             try {
@@ -106,5 +89,22 @@ public class Duke {
                 this.ui.printALine();
             }
         }
+    }
+
+    /**
+     * Function to get a response from the program via a Gui
+     *
+     * @param command String input from the user.
+     * @return String output of Aurora.
+     */
+    public String executeGui(String command) {
+        String output = "Failed to get output from Parser.";
+        try {
+            Command outputCommand = this.parser.parseCommand(command);
+            output = outputCommand.handleGui();
+        } catch (DukeException exception) {
+            output = exception.getExceptionMessage();
+        }
+        return output;
     }
 }

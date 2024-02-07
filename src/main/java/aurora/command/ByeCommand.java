@@ -37,6 +37,11 @@ public class ByeCommand extends Command {
     }
 
     @Override
+    public String handleGui() {
+        return this.ui.getExitMessage();
+    }
+
+    @Override
     public boolean isBye() {
         return true;
     }

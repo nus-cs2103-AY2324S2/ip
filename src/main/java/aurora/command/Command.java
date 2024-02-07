@@ -22,4 +22,11 @@ public class Command {
     public boolean isBye() {
         return false;
     };
+
+    /**
+     * Method to allow the program to handle a command with GUI integration
+     */
+    public String handleGui() throws DukeException {
+        return "This is a placeholder and should never be returned.";
+    }
 }
