@@ -15,7 +15,7 @@ public class Ui {
      * Prints the greeting message of the chatbot.
      */
     public void greet() {
-        System.out.print("Hello! I'm Scribbles :) What can I do for you? \n");
+        System.out.print("Hello! I'm Scribbles :) What can I do for you?\n");
     }
 
     /**
@@ -51,6 +51,7 @@ public class Ui {
             numOfTasks--;
             index++;
         }
+        System.out.println("");
     }
 
     /**
@@ -171,6 +172,7 @@ public class Ui {
             }
             taskNumber++;
         }
+        System.out.println("");
     }
 
     /**
