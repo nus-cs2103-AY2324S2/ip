@@ -3,7 +3,7 @@ package command;
 import task.Task;
 import task.TaskList;
 import utilities.Storage;
-import utilities.Ui;
+import ui.Ui;
 
 /**
  * Controls what happens when a task is added.
@@ -28,11 +28,14 @@ public class AddCommand extends Command {
      * @param taskList The task list that the task is added to.
      * @param storage The storage that the task list is stored in after the task is added.
      * @param ui Provides corresponding user output based on whether the process is successful or not.
+     * @return The response expected from the chatbot.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage, Ui ui) {
         taskList.addTask(this.taskToAdd);
         storage.save(taskList);
-        ui.showTaskListLength(taskList);
+        String s = String.format("Got it. I've added this task:\n%s\n%s",
+                this.taskToAdd.toString(), taskList.numTaskToString());
+        return s;
     }
 }

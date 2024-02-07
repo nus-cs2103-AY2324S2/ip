@@ -2,7 +2,7 @@ package command;
 
 import task.TaskList;
 import utilities.Storage;
-import utilities.Ui;
+import ui.Ui;
 
 /**
  * Controls what to do when user wants to list all tasks.
@@ -20,9 +20,10 @@ public class ListCommand extends Command {
      * @param taskList The task list that the command is applied to.
      * @param storage The storage that the task list is stored in after the command is applied.
      * @param ui Provides corresponding user output based on whether the process is successful or not.
+     * @return The response expected from the chatbot.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, Ui ui) {
-        ui.showList(taskList);
+    public String execute(TaskList taskList, Storage storage, Ui ui) {
+        return taskList.listToString() + taskList.numTaskToString();
     }
 }
