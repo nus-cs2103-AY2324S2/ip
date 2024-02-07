@@ -26,4 +26,15 @@ public class Event extends Task {
         return "E | " + super.toFile() + " | " + this.from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
                 + " | " + this.to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event other = (Event) obj;
+            if(super.equals(other)) {
+                return this.from.equals(other.from) && this.to.equals(other.to);
+            }
+        }
+        return false;
+    }
 }

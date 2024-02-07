@@ -22,5 +22,16 @@ public class Deadline extends Task {
     public String toFile() {
         return "D | " + super.toFile() + " | " + this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline other = (Deadline) obj;
+            if(super.equals(other)) {
+                return this.by.equals(other.by);
+            }
+        }
+        return false;
+    }
 }
 
