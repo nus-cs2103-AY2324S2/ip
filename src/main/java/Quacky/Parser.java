@@ -4,49 +4,42 @@ import java.time.LocalDate;
 
 public class Parser {
 
-    public static void parseCommand(String command, TaskList tasks, UI ui) throws QuackyException {
+    public static String parseCommand(String command, TaskList tasks, UI ui) throws QuackyException {
         String[] keywords = command.split(" ", 2);
         String commandWord = keywords[0];
         switch (commandWord.toLowerCase()) {
         case "list": {
-            ui.showList(tasks);
-            break;
+            return ui.showList(tasks);
         }
         case "find": {
             String keyword = keywords[1];
             TaskList foundTasks = tasks.findTasksByKeyword(keyword);
             if (foundTasks.taskNumber() == 0) {
-                ui.say("No tasks found with the keyword: " + keyword);
+                return ui.say("No tasks found with the keyword: " + keyword);
             } else {
-                ui.showList(foundTasks);
+                return ui.showList(foundTasks);
             }
-            break;
         }
         case "mark": {
             int taskNumber = Integer.parseInt(keywords[1]) - 1;
             try {
                 tasks.markCompleteTask(taskNumber);
-                ui.showMarkDone(tasks.printTask(taskNumber));
+                return ui.showMarkDone(tasks.printTask(taskNumber));
             } catch (QuackyException e) {
-                ui.showErrorMessage(e);
-            } finally {
-                break;
+                return ui.showErrorMessage(e);
             }
-
         }
 
         case "unmark": {
             int taskNumber = Integer.parseInt(keywords[1]) - 1;
             tasks.unmarkCompleteTask(taskNumber);
-            ui.showUnmarkDone(tasks.printTask(taskNumber));
-            break;
+            return ui.showUnmarkDone(tasks.printTask(taskNumber));
         }
 
         case "delete": {
             int taskNumber = Integer.parseInt(keywords[1]) - 1;
             tasks.deleteTask(taskNumber);
-            ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
-            break;
+            return ui.showDeleteTask(tasks.taskNumber(), tasks.printTask(taskNumber));
         }
 
         case "todo": {
@@ -56,12 +49,11 @@ public class Parser {
                 }
                 Task newTask = new Todo(keywords[1]);
                 tasks.addTask(newTask);
-                ui.showAddTask(tasks.taskNumber(), newTask.toString());
+                return ui.showAddTask(tasks.taskNumber(), newTask.toString());
 
             } catch (QuackyException e) {
-                ui.showErrorMessage(e);
+                return ui.showErrorMessage(e);
             }
-            break;
         }
 
         case "deadline": {
@@ -72,12 +64,11 @@ public class Parser {
                 String[] parts = command.substring(9).split(" /by ");
                 Task newTask = new Deadline(parts[0], LocalDate.parse(parts[1]));
                 tasks.addTask(newTask);
-                ui.showAddTask(tasks.taskNumber(), newTask.toString());
+                return ui.showAddTask(tasks.taskNumber(), newTask.toString());
 
             } catch (QuackyException e) {
-                ui.showErrorMessage(e);
+                return ui.showErrorMessage(e);
             }
-            break;
         }
         case "event": {
             try {
@@ -87,16 +78,14 @@ public class Parser {
                 String[] parts = keywords[1].split(" /from | /to ");
                 Task newTask = new Event(parts[0], LocalDate.parse(parts[1]), LocalDate.parse(parts[2]));
                 tasks.addTask(newTask);
-                ui.showAddTask(tasks.taskNumber(), newTask.toString());
+                return ui.showAddTask(tasks.taskNumber(), newTask.toString());
 
             } catch (QuackyException e) {
-                ui.showErrorMessage(e);
+                return ui.showErrorMessage(e);
             }
-            break;
         }
         case "bye": {
-            ui.showFarewell();
-            break;
+            return ui.showFarewell();
         }
         default: {
             throw new QuackyException("Quack? (In confusion)");

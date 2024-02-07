@@ -1,5 +1,6 @@
 package quacky;
 
+
 /**
  * The main class for the Quacky application.
  * Initializes the application's user interface, storage system, and task list,
@@ -10,6 +11,9 @@ public class Quacky {
 
     private Storage storage;
     private UI ui;
+
+    private static final String DEFAULT_PATH = "./data/data.txt";
+
 
     /**
      * Constructs a new Quacky application instance.
@@ -30,6 +34,9 @@ public class Quacky {
         }
     }
 
+    public Quacky() {
+        this(DEFAULT_PATH);
+    }
     /**
      * Starts the main application loop, processing user commands until termination.
      * Handles command parsing, execution, and any resulting exceptions.
@@ -51,6 +58,23 @@ public class Quacky {
         }
     }
 
+
+    protected String getResponse(String command) {
+       try {
+           return Parser.parseCommand(command, tasks, ui);
+       } catch (QuackyException e){
+           return ui.showErrorMessage(e);
+        }
+    }
+
+    protected String endQuacky() {
+        try {
+            storage.save(tasks);
+        } catch (Storage.StorageOperationException e) {
+            ui.showErrorMessage(e);
+        }
+        return ui.showFarewell();
+    }
     public static void main(String[] args) {
         new Quacky("./data/data.txt").run();
     }

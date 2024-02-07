@@ -36,45 +36,46 @@ public class UI {
         return sb.toString();
     }
 
-    public void say(String response) {
+    public String say(String response) {
         System.out.println(format(response));
+        return response;
     }
 
-    public void showGreeting() {
-        this.say("Quack! how u doing, Im Quacky How can I help you?");
+    public String showGreeting() {
+        return this.say("Quack! how u doing, Im Quacky How can I help you?");
     }
 
-    public void showFarewell() {
+    public String showFarewell() {
         this.isRunning = false;
-        this.say("Quack Quack");
+        return this.say("Quack Quack");
     }
 
-    public void showList(TaskList tasks) {
-        this.say(tasks.toString());
+    public String showList(TaskList tasks) {
+        return this.say(tasks.toString());
     }
 
-    public void showMarkDone(String task) {
-        this.say("Quack! I marked this task as done \n\t" + task);
+    public String showMarkDone(String task) {
+        return this.say("Quack! I marked this task as done \n\t" + task);
     }
 
-    public void showUnmarkDone(String task) {
-        this.say("Quack! I marked this task as not done \n\t" + task);
+    public String showUnmarkDone(String task) {
+        return this.say("Quack! I marked this task as not done \n\t" + task);
     }
 
-    public void showDeleteTask(int taskNumber, String task) {
+    public String showDeleteTask(int taskNumber, String task) {
         String message = "Quack! I removed this task:  \n\t" + task
                 + "\nNow you have " + taskNumber + " tasks in the list.";
-        this.say(message);
+        return this.say(message);
     }
 
-    public void showAddTask(int taskNumber, String task) {
+    public String showAddTask(int taskNumber, String task) {
         String message = "Got it. I've added this task:\n\t" + task +
                 "\nNow you have " + taskNumber + " tasks in the list.";
-        this.say(message);
+        return this.say(message);
     }
 
-    void showErrorMessage(Exception e) {
-        this.say(e.getMessage());
+    public String showErrorMessage(Exception e) {
+        return this.say(e.getMessage());
     }
 
 }
