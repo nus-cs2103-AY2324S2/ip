@@ -88,5 +88,24 @@
 	3. [E][ ] CS2103T tutorial (from: 9am to: 11am)
 	-----------------------------------
 	-----------------------------------
+	Noted. I've removed this task:
+	  [T][ ] Do CS2103T ip work
+	Now you have 2 tasks in the list.
+	-----------------------------------
+	-----------------------------------
+	1. [D][ ] CS2101 CA1 (by: Monday)
+	2. [E][ ] CS2103T tutorial (from: 9am to: 11am)
+	-----------------------------------
+	-----------------------------------
+	Please provide a valid task ID. Has to be an integer.
+	-----------------------------------
+	-----------------------------------
+	Please provide a valid task ID. Has to be an integer.
+	-----------------------------------
+	-----------------------------------
+	1. [D][ ] CS2101 CA1 (by: Monday)
+	2. [E][ ] CS2103T tutorial (from: 9am to: 11am)
+	-----------------------------------
+	-----------------------------------
 	Bye. Hope to see you again soon!
 	-----------------------------------

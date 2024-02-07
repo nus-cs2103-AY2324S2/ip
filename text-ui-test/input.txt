@@ -20,5 +20,9 @@ list
 event
 list
 delete 1
+list
+delete
+delete x
+list
 bye
 ```
