@@ -24,7 +24,6 @@ public class Duke {
 
     public Duke() {
         ui = new Ui();
-        //list = new ArrayList<>();
         tlist = new TaskList();
     }
 
