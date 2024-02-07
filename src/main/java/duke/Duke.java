@@ -3,13 +3,16 @@ package duke;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Class that represents the main instance of the app.
+ */
 public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello it's a-me! Mario!\nWhat-a can I do fo' ya!");
         Scanner scanner = new Scanner(System.in);
         Ui ui = new Ui();
         State state = Storage.load();
-        while(true) {
+        while (true) {
             String line = scanner.nextLine();
             if (line.equals("bye")) {
                 break;
@@ -24,5 +27,6 @@ public class Duke {
                 ui.say("Uh Oh! Format your date as yyyy-mm-dd!");
             }
         }
+        scanner.close();
     }
 }

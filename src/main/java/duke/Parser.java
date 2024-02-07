@@ -5,7 +5,19 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that represents the parser.
+ */
 public class Parser {
+
+    /**
+     * Parses the given text and returns the corresponding command.
+     *
+     * @param text  The text to be parsed.
+     * @param state The state of the app.
+     * @return The corresponding command.
+     * @throws DukeException If any parsing related arguments is encountered.
+     */
     public static Command parse(String text, State state) throws DukeException, DateTimeParseException {
         if (text.contains("|")) {
             throw new DukeException("No | pleaserin-o!");
@@ -16,7 +28,7 @@ public class Parser {
         }
         String header = parts.get(0);
         Command command;
-        switch(header) {
+        switch (header) {
             case "list":
                 command = new ListCommand();
                 break;
@@ -27,7 +39,7 @@ public class Parser {
                 if (parts.size() <= 1) {
                     throw new DukeException("Mamma-Mia where's ur description!");
                 }
-                command = new AddTodoCommand(String.join(" ", parts.subList(1,parts.size())));
+                command = new AddTodoCommand(String.join(" ", parts.subList(1, parts.size())));
                 break;
             case "deadline":
                 int byIndex = parts.indexOf("/by");
@@ -69,8 +81,7 @@ public class Parser {
                 command = new AddEventCommand(
                         desc,
                         LocalDate.parse(start),
-                        LocalDate.parse(end)
-                );
+                        LocalDate.parse(end));
                 break;
             case "delete":
                 if (parts.size() < 2) {

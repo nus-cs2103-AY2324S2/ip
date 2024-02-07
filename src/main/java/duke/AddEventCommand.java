@@ -2,23 +2,39 @@ package duke;
 
 import java.time.LocalDate;
 
+/**
+ * Class that represents the command to add an event.
+ */
 public class AddEventCommand extends Command {
     LocalDate start, deadline;
-    public AddEventCommand(String description,  LocalDate start, LocalDate deadline) {
+
+    /**
+     * Constructor for the add event command.
+     *
+     * @param description The description of the event.
+     * @param start       The start date of the event.
+     * @param deadline    The end date of the event.
+     */
+    public AddEventCommand(String description, LocalDate start, LocalDate deadline) {
         super(description, CommandType.ADD);
         this.start = start;
         this.deadline = deadline;
     }
 
+    /**
+     * Adds an event to the state.
+     *
+     * @param state The state of the app.
+     * @param ui    The user interface of the app.
+     */
     @Override
     public void execute(State state, Ui ui) {
         Task newEvent = new Event(
                 getText(),
                 start,
                 deadline,
-                false
-        );
+                false);
         state.addTask(newEvent);
-        ui.say("I added!–\n" + newEvent +  "\n–Mamma-mia!");
+        ui.say("I added!–\n" + newEvent + "\n–Mamma-mia!");
     }
 }
