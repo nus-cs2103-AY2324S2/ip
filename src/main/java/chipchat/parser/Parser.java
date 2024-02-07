@@ -44,19 +44,19 @@ public class Parser {
         switch(command) {
             case TODO:
                 description = userInput.trim();
-                return AddTask.add(description, false);
+                return AddTask.addTodo(description, false);
             case DEADLINE:
                 args = userInput.split("/by", 2);
                 description = args[0].trim();
                 LocalDate dueBy = parseDate(args[1].trim());
-                return AddTask.add(description, false, dueBy);
+                return AddTask.addDeadline(description, false, dueBy);
             case EVENT:
                 args = userInput.split("/from");
                 description = args[0].trim();
                 String[] dateArgs = args[1].split("/to");
                 LocalDate dateFrom = parseDate(dateArgs[0].trim());
                 LocalDate dateTo = parseDate(dateArgs[1].trim());
-                return AddTask.add(description, false, dateFrom, dateTo);
+                return AddTask.addEvent(description, false, dateFrom, dateTo);
             default:
                 return null;
         }

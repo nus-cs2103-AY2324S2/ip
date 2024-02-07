@@ -22,15 +22,15 @@ public class AddTask extends Action {
         this.taskType = taskType;
     }
 
-    public static Action add(String description, boolean isDone) {
+    public static Action addTodo(String description, boolean isDone) {
         return new AddTask(new Todo(description, isDone), CommandType.TODO);
     }
 
-    public static Action add(String description, boolean isDone, LocalDate dueBy) {
+    public static Action addDeadline(String description, boolean isDone, LocalDate dueBy) {
         return new AddTask(new Deadline(description, isDone, dueBy), CommandType.DEADLINE);
     }
 
-    public static Action add(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo) {
+    public static Action addEvent(String description, boolean isDone, LocalDate dateFrom, LocalDate dateTo) {
         return new AddTask(new Event(description, isDone, dateFrom, dateTo), CommandType.EVENT);
     }
 
