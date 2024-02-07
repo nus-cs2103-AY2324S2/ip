@@ -1,6 +1,5 @@
 import action.Action;
 import handler.DataHandler;
-import handler.DateTimeHandler;
 import handler.InputHandler;
 import handler.PrintHandler;
 
@@ -47,7 +46,7 @@ public final class Nihao {
             }
             scanner.close();
 //        } catch (FileNotFoundException e) {
-//            printHandler.printWithDivider("File not found");
+//            PrintHandler.printWithDivider("File not found");
 //        }
     }
 }
