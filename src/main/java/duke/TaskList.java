@@ -233,7 +233,7 @@ public class TaskList {
  * Prints outro.
  */
     public String bye() throws DukeException{
-        return "Bye. Hope to see you again soon!\n";
+        return "Bye. Bingus hopes to see you again soon!\n";
 
         // if keyword is bye, exit the program
     }
