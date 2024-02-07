@@ -8,7 +8,7 @@ public class TaskListTest {
 
     @Test
     public void listTest() {
-        TaskList testList = new TaskList();
+        TaskList testList = new TaskList(new Duke());
         String[] words = new String[] {"todo", "test", "123"};
         testList.addToDo(words, true, false);
         String actual = testList.list();

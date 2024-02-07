@@ -33,24 +33,24 @@ public class Storage {
      *
      * @param taskList the task list to be placed into.
      */
-    public static void read(TaskList taskList) {
+    public static void read(TaskList taskList, Duke duke) {
         File f = new File("save.txt");
         if(!f.isFile()) {
             try {
                 f.createNewFile();
             } catch (java.io.IOException e) {
-                System.out.println("Could not create save file :(");
+                duke.output("Could not create save file :(");
             }
         } else {
             try {
                 Scanner s = new Scanner(f); // create a Scanner using the File as the source
                 while (s.hasNext()) {
                     String input = s.nextLine();
-                    Parser.commands(taskList, input, true, false);
+                    Parser.commands(taskList, input, true, false, duke);
                 }
-                System.out.println("Save loaded!");
+                duke.output("Save loaded!");
             } catch (FileNotFoundException e2) {
-                System.out.println("File Not Found :(");
+                duke.output("File Not Found :(");
             }
         }
     }

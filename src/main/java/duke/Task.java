@@ -34,19 +34,20 @@ public abstract class Task {
     /**
      * Marks a task as completed
      */
-    public void mark() {
+    public String mark() {
         isDone = true;
-        System.out.println("Good job! You have completed this task:");
-        System.out.println(toString());
+        String announce = "Good job! You have completed this task:\n" +
+                toString();
+        return announce;
     }
 
     /**
      * Marks a task as not completed
      */
-    public void unmark() {
+    public String unmark() {
         isDone = false;
-        System.out.println("Alright. This task has been unmarked");
-        System.out.println(toString());
+        String announce = "Alright. This task has been unmarked\n" + toString();
+        return announce;
     }
 
     /**

@@ -11,12 +11,14 @@ public class TaskList {
      * The ArrayList that stores the task objects.
      */
     private ArrayList<Task> tasks;
+    private Duke duke;
 
     /**
      * Creates the task list as an ArrayList of tasks.
      */
-    public TaskList() {
+    public TaskList(Duke duke) {
         this.tasks = new ArrayList<Task>();
+        this.duke = duke;
     }
 
     /**
@@ -56,7 +58,7 @@ public class TaskList {
     public String list() {
         StringBuilder str = new StringBuilder();
         if (tasks.size() == 0) {
-            System.out.println("Your task list is empty! Congratulations!");
+            duke.output("Your task list is empty! Congratulations!");
         } else {
             for(int i = 0; i < tasks.size(); i++) {
                 str.append(String.format("%s: %s \n", i + 1, tasks.get(i)));
@@ -79,7 +81,7 @@ public class TaskList {
         int wordsIndex = 1;
 
         if (length < 2) {
-            System.out.println("The name cannot be empty!");
+            duke.output("The name cannot be empty!");
         } else {
             StringBuilder nameBuilder = new StringBuilder();
             while(wordsIndex < length) {
@@ -112,7 +114,7 @@ public class TaskList {
         int wordsIndex = 1;
 
         if (length < 2) {
-            System.out.println("The name cannot be empty!");
+            duke.output("The name cannot be empty!");
         } else {
             StringBuilder nameBuilder = new StringBuilder();
             while(wordsIndex < length) {
@@ -127,7 +129,7 @@ public class TaskList {
             String name = nameBuilder.substring(1);
 
             if (wordsIndex >= length) {
-                System.out.println("The deadline cannot be empty!");
+                duke.output("The deadline cannot be empty!");
             } else {
                 StringBuilder deadlineBuilder = new StringBuilder();
                 while (wordsIndex < length) {
@@ -161,7 +163,7 @@ public class TaskList {
         int wordsIndex = 1;
 
         if (length < 2) {
-            System.out.println("The name cannot be empty!");
+            duke.output("The name cannot be empty!");
         } else {
             StringBuilder nameBuilder = new StringBuilder();
             while(wordsIndex < length) {
@@ -176,7 +178,7 @@ public class TaskList {
             String name = nameBuilder.substring(1);
 
             if (wordsIndex >= length) {
-                System.out.println("The start date cannot be empty!");
+                duke.output("The start date cannot be empty!");
             } else {
                 StringBuilder startDateBuilder = new StringBuilder();
                 while (wordsIndex < length) {
@@ -191,7 +193,7 @@ public class TaskList {
                 String startDate = startDateBuilder.substring(1);
 
                 if (wordsIndex >= length) {
-                    System.out.println("The end date cannot be empty!");
+                    duke.output("The end date cannot be empty!");
                 } else {
                     StringBuilder endDateBuilder = new StringBuilder();
                     while (wordsIndex < length) {
@@ -219,11 +221,13 @@ public class TaskList {
      * @param task the task being added
      */
     public void announceAddition(Task task) {
-        System.out.println("Alright. Adding this task:");
-        System.out.println(task);
+        StringBuilder announce = new StringBuilder();
+        announce.append("Alright. Adding this task:\n");
+        announce.append(task.toString()).append("\n");
         String str = "";
         str = String.format("You now have %s tasks", tasks.size());
-        System.out.println(str);
+        announce.append(str);
+        duke.output(announce.toString());
     }
 
     /**
@@ -233,13 +237,15 @@ public class TaskList {
      */
     public void delete(int index) {
         if(index > tasks.size() - 1 || index < 0) {
-            System.out.println("Invalid index!");
+            duke.output("Invalid index!");
         } else {
             Task task = tasks.get(index);
-            System.out.println("Alright, removing this task");
-            System.out.println(task.toString());
+            StringBuilder toPrint = new StringBuilder();
+            toPrint.append("Alright, removing this task\n");
+            toPrint.append(task.toString());
             tasks.remove(index);
-            System.out.println(String.format("You now have %s tasks left", tasks.size()));
+            toPrint.append(String.format("\nYou now have %s tasks left", tasks.size()));
+            duke.output(toPrint.toString());
         }
     }
 
@@ -250,16 +256,19 @@ public class TaskList {
      */
     public void find(String searchTerm) {
         boolean foundSomething = false;
+        StringBuilder listOfTasks = new StringBuilder();
         for (Task task : tasks) {
             String taskName = task.getName();
             if (taskName.contains(searchTerm)) {
-                System.out.println(task);
+                listOfTasks.append(task).append("\n");
                 foundSomething = true;
             }
         }
 
         if(!foundSomething) {
-            System.out.println("No tasks found :(");
+            duke.output("No tasks found :(");
+        } else {
+            duke.output(listOfTasks.toString());
         }
     }
 }

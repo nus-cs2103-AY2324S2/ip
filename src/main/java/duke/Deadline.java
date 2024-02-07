@@ -34,7 +34,7 @@ public class Deadline extends Task {
     @Override
     public String convertToText() {
         String str = "";
-        str = String.format("%s event %s /by %s", isDone, name, deadline);
+        str = String.format("%s deadline %s /by %s", isDone, name, deadline);
         return str;
     }
 }
