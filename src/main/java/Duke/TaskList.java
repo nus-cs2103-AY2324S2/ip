@@ -17,6 +17,9 @@ public class TaskList {
         this.storage = storage;
         loadTasksFromFile();
     }
+
+
+    // ---------------------------CLI LOGIC HERE (antiquated, kept for testing)-----------------------------------------
     enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, BYE;
         static CommandType getCommandType(String command) {
@@ -191,6 +194,7 @@ public class TaskList {
         ui.exit();
     }
 
+// -------------------------------------- GUI LOGIC THIS POINT AND BELOW.---------------------------------------
 
 
     public String runCommand(String input) {
@@ -246,6 +250,33 @@ public class TaskList {
                 response = "Deleted task: " + taskToDelete.toString();
                 break;
             // Implement other cases as needed
+            case FIND:
+//                String[] commandParts = input.split(" ", 2);
+//                CommandType commandType = CommandType.getCommandType(commandParts[0]);
+//                String response;
+                try {
+                    switch (commandType) {
+                    // Other cases remain unchanged...
+
+                    case FIND:
+                        if (commandParts.length < 2) {
+                            return "Error: Missing search keyword for FIND command.";
+                        }
+                        String keyword = commandParts[1];
+                        response = findTasksByKeyword(keyword);
+                        break;
+
+                    // The rest of your switch cases...
+
+                    default:
+                        response = "Unknown command.";
+                        break;
+                    }
+                } catch (Exception e) {
+                    response = "Error processing command: " + e.getMessage();
+                }
+                return response;
+
             case BYE:
                 return "Bye. Hope to see you again soon!";
             default:
@@ -290,5 +321,22 @@ public class TaskList {
 
     enum TaskType {
         TODO, DEADLINE, EVENT
+    }
+    private String findTasksByKeyword(String keyword) {
+        StringBuilder foundTasksBuilder = new StringBuilder();
+        boolean found = false;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                // Task found, append it to the result string
+                foundTasksBuilder.append(i + 1).append(". ").append(task).append("\n");
+                found = true;
+            }
+        }
+        if (found) {
+            return "Here are the matching tasks in your list:\n" + foundTasksBuilder.toString();
+        } else {
+            return "No tasks found matching: " + keyword;
+        }
     }
 }

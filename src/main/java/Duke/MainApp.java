@@ -1,5 +1,6 @@
 package Duke;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -124,7 +125,7 @@ public class MainApp extends Application{
      */
 
     /** Functions Status
-     * 7/9 complete
+     * 9/9 complete  hell yea        - retest whenever big changes are made
      * LIST           WORKING
      * MARK           WORKING
      * UNMARK         WORKING
@@ -132,40 +133,97 @@ public class MainApp extends Application{
      * DEADLINE       WORKING
      * EVENT          WORKING
      * DELETE         WORKING
-     * FIND
-     * BYE
-     *
+     * FIND           WORKING
+     * BYE            WORKING
      */
     private void handleUserInput() {
-//        Label userText = new Label(userInput.getText());
-//        Label dukeText = new Label(getResponse(userInput.getText()));
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(userText, new ImageView(user)),
-//                DialogBox.getDukeDialog(dukeText, new ImageView(min))
-//        );
-//        userInput.clear();
         String input = userInput.getText();
 
         if (!input.isEmpty()) {
-            // Display user input with user image
-            Label userText = new Label(input);
-            ImageView userImageView = new ImageView(user); // Assuming 'user' is the Image for the user
-            userImageView.setFitHeight(50); // Adjust size as needed
-            userImageView.setFitWidth(50);
-            DialogBox userInputBox = new DialogBox(userText, userImageView);
+            // Special case for "bye" command to exit the application
+            if (input.trim().equalsIgnoreCase("bye")) {
+                // Optionally, display a goodbye message or perform other cleanup before exiting
+                Label goodbyeText = new Label("Goodbye! See you again!");
+                ImageView dukeImageView = new ImageView(min); // Assuming 'min' is the image for Duke
+                dukeImageView.setFitHeight(50);
+                dukeImageView.setFitWidth(50);
+                DialogBox goodbyeBox = new DialogBox(goodbyeText, dukeImageView);
+                dialogContainer.getChildren().add(goodbyeBox);
 
-            // Get Duke's response and display it with Duke's image
-            String response = duke.runCommand(input); // Use Duke to process the command and get the response
-            Label dukeText = new Label(response);
-            ImageView dukeImageView = new ImageView(min); // Assuming 'min' is the Image for Duke
-            dukeImageView.setFitHeight(50); // Adjust size as needed
-            dukeImageView.setFitWidth(50);
-            DialogBox dukeResponseBox = new DialogBox(dukeText, dukeImageView);
+                // Use Platform.runLater if you want to allow the UI to update/show the message before exiting
+                Platform.runLater(() -> {
+                    try {
+                        // Wait a bit for the user to see the message
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                    }
+                    Platform.exit();
+                });
+            } else {
+                // Handle other inputs as before
+                handleOtherInputs(input);
+            }
 
-            dialogContainer.getChildren().addAll(userInputBox, dukeResponseBox); // Add both DialogBoxes to the container
             userInput.clear(); // Clear the input field after processing
         }
     }
+
+    /**
+     * Handles non-bye inputs, encapsulating the previous logic for handling user inputs.
+     * @param input The user input to handle.
+     */
+    private void handleOtherInputs(String input) {
+        // Display user input with user image
+        Label userText = new Label(input);
+        ImageView userImageView = new ImageView(user); // Assuming 'user' is the Image for the user
+        userImageView.setFitHeight(50); // Adjust size as needed
+        userImageView.setFitWidth(50);
+        DialogBox userInputBox = new DialogBox(userText, userImageView);
+
+        // Get Duke's response and display it with Duke's image
+        String response = duke.runCommand(input); // Use Duke to process the command and get the response
+        Label dukeText = new Label(response);
+        ImageView dukeImageView = new ImageView(min); // Assuming 'min' is the Image for Duke
+        dukeImageView.setFitHeight(50); // Adjust size as needed
+        dukeImageView.setFitWidth(50);
+        DialogBox dukeResponseBox = new DialogBox(dukeText, dukeImageView);
+
+        dialogContainer.getChildren().addAll(userInputBox, dukeResponseBox); // Add both DialogBoxes to the container
+    }
+
+
+    // previous implementation
+//    private void handleUserInput() {
+////        Label userText = new Label(userInput.getText());
+////        Label dukeText = new Label(getResponse(userInput.getText()));
+////        dialogContainer.getChildren().addAll(
+////                DialogBox.getUserDialog(userText, new ImageView(user)),
+////                DialogBox.getDukeDialog(dukeText, new ImageView(min))
+////        );
+////        userInput.clear();
+//        String input = userInput.getText();
+//
+//        if (!input.isEmpty()) {
+//            // Display user input with user image
+//            Label userText = new Label(input);
+//            ImageView userImageView = new ImageView(user); // Assuming 'user' is the Image for the user
+//            userImageView.setFitHeight(50); // Adjust size as needed
+//            userImageView.setFitWidth(50);
+//            DialogBox userInputBox = new DialogBox(userText, userImageView);
+//
+//            // Get Duke's response and display it with Duke's image
+//            String response = duke.runCommand(input); // Use Duke to process the command and get the response
+//            Label dukeText = new Label(response);
+//            ImageView dukeImageView = new ImageView(min); // Assuming 'min' is the Image for Duke
+//            dukeImageView.setFitHeight(50); // Adjust size as needed
+//            dukeImageView.setFitWidth(50);
+//            DialogBox dukeResponseBox = new DialogBox(dukeText, dukeImageView);
+//
+//            dialogContainer.getChildren().addAll(userInputBox, dukeResponseBox); // Add both DialogBoxes to the container
+//            userInput.clear(); // Clear the input field after processing
+//        }
+//    }
 
     /**
      * You should have your own function to generate a response to user input.
