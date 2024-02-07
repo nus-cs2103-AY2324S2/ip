@@ -86,18 +86,19 @@ public class TaskList {
      * @param ui The Ui object for displaying messages.
      */
     public String listTasks(Ui ui) {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         if (tasks.isEmpty()) {
-            res += ui.showMessage("There are no tasks in the list.");
+            res.append(ui.showMessage("There are no tasks in the list."));
         } else {
-            res += ui.showMessage("Here are the tasks in your list:");
+            res.append(ui.showMessage("Here are the tasks in your list:"));
             for (int i = 0; i < tasks.size(); i++) {
-                res += "/n";
-                res += ui.showMessage((i + 1) + ". " + tasks.get(i).toString());
+                res.append("\n"); // Add a newline character
+                res.append(ui.showMessage((i + 1) + ". " + tasks.get(i).toString()));
             }
         }
-        return res;
+        return res.toString();
     }
+
 
     /**
      * Searches for tasks containing a specified keyword in their descriptions.

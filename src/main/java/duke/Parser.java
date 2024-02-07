@@ -208,14 +208,27 @@ public class Parser {
             }
         }
 
-        try {
-            // Attempt to create a Deadline with the provided description and time
-            tasks.addTasks(new Deadline(words[1], words[3]));
-        } catch (DateTimeParseException e) {
-            // Handle the case where the date format is incorrect
-            System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
-            //return;
+        StringBuilder descriptionBuilder = new StringBuilder();
+        for (int i = 1; i < words.length; i++) {
+            if (words[i].equals("/by")) {
+                break;
+            }
+            descriptionBuilder.append(words[i]).append(" ");
         }
+        String description = descriptionBuilder.toString().trim();
+
+        StringBuilder timeBuilder = new StringBuilder();
+        boolean isDeadline = false;
+        for (int i = 1; i < words.length; i++) {
+            if (isDeadline) {
+                timeBuilder.append(words[i]).append(" ");
+            }
+            if (words[i].equals("/by")) {
+                isDeadline = true;
+            }
+        }
+        String time = timeBuilder.toString().trim();
+        tasks.addTasks(new Deadline(description, time));
         return "added deadline";
 
     }
@@ -302,29 +315,52 @@ public class Parser {
         if (words.length < 6) {
             throw new DukeException("Insufficient information for creating a event task.");
         }
-        String description = words[1];
-        String fromKeyword = words[2];
-        String fromTime = words[3];
-        String toKeyword = words[4];
-        String toTime = words[5];
 
-        if (!fromKeyword.equals("/from") || !toKeyword.equals("/to")
-                || description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-            try {
-                throw new DukeException("OOPS!!! The description and event time cannot be empty.");
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-
+        // Check if '/from' and '/to' are present
+        boolean hasFrom = false;
+        boolean hasTo = false;
+        for (String word : words) {
+            if (word.equals("/from")) {
+                hasFrom = true;
+            }
+            if (word.equals("/to")) {
+                hasTo = true;
             }
         }
-        try {
-            // Attempt to create a Deadline with the provided description and time
-            tasks.addTasks(new Event(description, fromTime, toTime));
-        } catch (DateTimeParseException e) {
-            // Handle the case where the date format is incorrect
-            //System.out.println("OOPS!!! Incorrect date format. Please enter the date in the format yyyy-MM-dd.");
 
+        if (!hasFrom || !hasTo) {
+            throw new DukeException("Event timing information is missing. Please provide event timing using '/from' and '/to'.");
         }
+        StringBuilder descriptionBuilder = new StringBuilder();
+        for (int i = 1; i < words.length; i++) {
+            if (words[i].equals("/from")) {
+                break;
+            }
+            descriptionBuilder.append(words[i]).append(" ");
+        }
+        String description = descriptionBuilder.toString().trim();
+
+        StringBuilder fromTimeBuilder = new StringBuilder();
+        StringBuilder toTimeBuilder = new StringBuilder();
+        boolean isFromTime = false;
+        boolean isToTime = false;
+        for (int i = 1; i < words.length; i++) {
+            if (isFromTime && !isToTime) {
+                if (words[i].equals("/to")) {
+                    isToTime = true;
+                    continue;
+                }
+                fromTimeBuilder.append(words[i]).append(" ");
+            } else if (isToTime) {
+                toTimeBuilder.append(words[i]).append(" ");
+            }
+            if (words[i].equals("/from")) {
+                isFromTime = true;
+            }
+        }
+        String fromTime = fromTimeBuilder.toString().trim();
+        String toTime = toTimeBuilder.toString().trim();
+        tasks.addTasks(new Event(description, fromTime, toTime));
         return "added event";
 
     }
@@ -371,7 +407,14 @@ public class Parser {
                 //return;
             }
         }
-        tasks.addTasks(new Todo(words[1]));
+
+        StringBuilder descriptionBuilder = new StringBuilder();
+        for (int i = 1; i < words.length; i++) {
+            descriptionBuilder.append(words[i]).append(" ");
+        }
+        String description = descriptionBuilder.toString().trim();
+        tasks.addTasks(new Todo(description));
+
         res += "added todo";
         return res;
 
