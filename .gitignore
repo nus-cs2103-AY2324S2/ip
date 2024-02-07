@@ -17,4 +17,4 @@ bin/
 text-ui-test/ACTUAL.TXT
 
 # Local task storage
-data/nollid.json
+data/*.json
