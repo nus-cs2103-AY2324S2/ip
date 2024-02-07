@@ -19,14 +19,13 @@ public class Duke {
         System.out.println(logo);
         System.out.println("Hello! I'm " + name + "\r\nWhat can I do for you? \r\n" + line);
 
-        String action = br.readLine();
-        StringTokenizer st = new StringTokenizer(action, " ");
-        String temp = st.nextToken();
+        String readIn = br.readLine() + " ";
+        String[] command = readIn.split(" ", 2);
 
-        while(!temp.equalsIgnoreCase("bye")) {
+        while(!command[0].equalsIgnoreCase("bye")) {
             System.out.println(line);
 
-            switch (temp.toLowerCase()) {
+            switch (command[0].toLowerCase()) {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
 
@@ -37,11 +36,11 @@ public class Duke {
 
                 case "mark":
                     try {
-                        if (!st.hasMoreTokens()) {
+                        if (command[1].matches("")) {
                             throw new DukeException();
                         }
 
-                        int m = Integer.parseInt(st.nextToken());
+                        int m = Integer.parseInt(command[1]);
                         if (((m - 1) < 0) || (m > tasks.size())) {
                             throw new DukeException();
                         }
@@ -60,11 +59,11 @@ public class Duke {
 
                 case "unmark":
                     try {
-                        if (!st.hasMoreTokens()) {
+                        if (command[1].matches("")) {
                             throw new DukeException();
                         }
 
-                        int u = Integer.parseInt(st.nextToken());
+                        int u = Integer.parseInt(command[1]);
                         if (((u - 1) < 0) || (u > tasks.size())) {
                             throw new DukeException();
                         }
@@ -81,13 +80,12 @@ public class Duke {
                     break;
 
                 case "todo":
-                    String[] t = action.split(" ", 2);
                     try {
-                        if (t.length == 1) {
+                        if (command[1].matches("")) {
                             throw new DukeException();
                         }
 
-                        Task task = new ToDo(t[1]);
+                        Task task = new ToDo(command[1]);
                         tasks.add(task);
                         save.addNewTask(task);
                         System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
@@ -100,20 +98,17 @@ public class Duke {
                     break;
 
                 case "event":
-                    String[] e = action.split(" ", 2);
                     try {
-                        if (e.length == 1) {
+                        if (command[1].matches("")) {
                             throw new DukeException();
                         }
 
-                        st = new StringTokenizer(e[1], "/");
-                        if (st.countTokens() < 3) {
+                        String[] e = command[1].split("/to | /from");
+                        if (e.length < 3) {
                             throw new DukeException();
                         }
 
-                        Task task = new Event(st.nextToken().strip(),
-                                        st.nextToken().substring(5).strip(),
-                                        st.nextToken().substring(3));
+                        Task task = new Event(e[0].strip(), e[1].strip(), e[2].strip());
                         tasks.add(task);
                         save.addNewTask(task);
 
@@ -128,18 +123,18 @@ public class Duke {
                     break;
 
                 case "deadline":
-                    String[] d = action.split(" ", 2);
                     try {
+                        if (command[1].matches("")) {
+                            throw new DukeException();
+                        }
+
+                        String[] d = command[1].split("/by");
+
                         if (d.length < 2) {
                             throw new DukeException();
                         }
 
-                        st = new StringTokenizer(d[1], "/");
-                        if (st.countTokens() < 2) {
-                            throw new DukeException();
-                        }
-
-                        Task task = new Deadline(st.nextToken().strip(), st.nextToken().substring(3));
+                        Task task = new Deadline(d[0].strip(), d[1].strip());
                         tasks.add(task);
                         save.addNewTask(task);
                         System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
@@ -153,11 +148,11 @@ public class Duke {
 
                 case "delete":
                     try {
-                        if (!st.hasMoreTokens()) {
+                        if (command[1].matches("")) {
                             throw new DukeException();
                         }
 
-                        int del = Integer.parseInt(st.nextToken());
+                        int del = Integer.parseInt(command[1]);
                         if (((del - 1) < 0) || (del > tasks.size())) {
                             throw new DukeException();
                         }
@@ -177,14 +172,13 @@ public class Duke {
                     break;
 
                 default:
-                    System.out.println("Are you as clueless about \"" + temp + "\" as I am?");
+                    System.out.println("Are you as clueless about \"" + command[0] + "\" as I am?");
                     break;
             }
 
             System.out.println(line);
-            action = br.readLine();
-            st = new StringTokenizer(action, " ");
-            temp = st.nextToken();
+            readIn = br.readLine() + " ";
+            command = readIn.split(" ", 2);
         }
 
         System.out.println(line + "\r\nBye. Hope to see you again soon!\r\n" + line);
