@@ -1,8 +1,8 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -17,9 +17,9 @@ public class DeadlineTest {
             assertEquals("29/10/2024 1234", new Deadline("test",
                     "33/13/2024 4567").getBy());
         } catch (DukeException e) {
-            assertEquals("Something went wrong...\n" +
-                    "Please enter the date and time in the following format:\n" +
-                    "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234", e.getMessage());
+            assertEquals("Something went wrong...\n"
+                    + "Please enter the date and time in the following format:\n"
+                    + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234", e.getMessage());
         }
     }
 }

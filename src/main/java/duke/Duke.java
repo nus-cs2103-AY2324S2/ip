@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,17 +18,6 @@ public class Duke {
             + "\nBye. Hope to see you again soon!\n"
             + horzLine;
 
-    /**
-     * Helper function that prints a horizontal line above and below the given message.
-     *
-     * @param message The message to be printed.
-     */
-    private static void printWithLines(String message) {
-        System.out.println(horzLine);
-        System.out.println(message);
-        System.out.println(horzLine);
-    }
-
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
@@ -43,6 +31,17 @@ public class Duke {
         storage = new Storage();
         tasks = new TaskList(storage.loadData());
         parser = new Parser();
+    }
+
+    /**
+     * Helper function that prints a horizontal line above and below the given message.
+     *
+     * @param message The message to be printed.
+     */
+    private static void printWithLines(String message) {
+        System.out.println(horzLine);
+        System.out.println(message);
+        System.out.println(horzLine);
     }
 
     /**
@@ -81,8 +80,8 @@ public class Duke {
                 } catch (DukeException e) {
                     printWithLines(e.getMessage());
                 }
-            } else if (userCmd.equalsIgnoreCase("mark") ||
-                    userCmd.equalsIgnoreCase("unmark")) {
+            } else if (userCmd.equalsIgnoreCase("mark")
+                    || userCmd.equalsIgnoreCase("unmark")) {
                 try {
                     String possInteger = parser.getCmdDetails(userCmd, cmdDetails);
                     int taskIndex = Integer.valueOf(possInteger);

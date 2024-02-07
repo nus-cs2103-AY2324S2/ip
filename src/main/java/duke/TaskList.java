@@ -6,22 +6,8 @@ import java.util.ArrayList;
  * Used to store and manage the list of tasks.
  */
 public class TaskList {
-<<<<<<< HEAD
     private String horzLine = "____________________________________________________________";
-=======
-    static String horzLine = "____________________________________________________________";
 
-    /**
-     * Helper function that prints a horizontal line above and below the given message.
-     *
-     * @param message The message to be printed.
-     */
-    static void printWithLines(String message) {
-        System.out.println(horzLine);
-        System.out.println(message);
-        System.out.println(horzLine);
-    }
->>>>>>> branch-A-JavaDoc
     private ArrayList<Task> taskList = new ArrayList<>(100);
 
     /**
@@ -33,21 +19,24 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-<<<<<<< HEAD
+    /**
+     * Helper function that prints a horizontal line above and below the given message.
+     *
+     * @param message The message to be printed.
+     */
     private void printWithLines(String message) {
         System.out.println(horzLine);
         System.out.println(message);
         System.out.println(horzLine);
     }
 
-=======
     /**
      * Returns task based on index.
      *
      * @param i index of the given task.
      * @return Specified task.
      */
->>>>>>> branch-A-JavaDoc
+
     public Task get(int i) {
         return taskList.get(i);
     }

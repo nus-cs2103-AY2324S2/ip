@@ -1,8 +1,9 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EventTest {
     @Test
     public void getFrom_validInput_properDates() throws DukeException {
@@ -22,9 +23,9 @@ public class EventTest {
             assertEquals("32/13/2024 4567", new Event("test",
                     "32/13/2024 4567", "32/14/2024 4567").getFrom());
         } catch (DukeException e) {
-            assertEquals("Something went wrong...\n" + "The time format in \"from\" or \"to\" is wrong\n" +
-                    "Please enter the date and time in the following format:\n"+
-                    "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234)", e.getMessage());
+            assertEquals("Something went wrong...\n" + "The time format in \"from\" or \"to\" is wrong\n"
+                    + "Please enter the date and time in the following format:\n"
+                    + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234)", e.getMessage());
         }
     }
 }
