@@ -1,20 +1,26 @@
 package pyrite;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import pyrite.command.*;
-import pyrite.task.Task;
+import org.junit.jupiter.api.Test;
+
+import pyrite.command.AddCommand;
+import pyrite.command.Command;
+import pyrite.command.DeleteCommand;
+import pyrite.command.ExitCommand;
+import pyrite.command.ListCommand;
+import pyrite.command.StatusCommand;
+import pyrite.command.UnknownCommand;
+
 
 public class ParserTest {
     @Test
-    public void parse_bye_success(){
+    public void parse_bye_success() {
         Command command = Parser.parse("bye");
         assertTrue(command instanceof ExitCommand);
     }
     @Test
-    public void parse_list_success(){
+    public void parse_list_success() {
         Command command = Parser.parse("list");
         assertTrue(command instanceof ListCommand);
     }

@@ -6,7 +6,7 @@ import pyrite.TaskList;
 /**
  * Command that represents an unknown command.
  */
-public class UnknownCommand extends Command{
+public class UnknownCommand extends Command {
     private String command;
     private String reason;
 

@@ -1,14 +1,14 @@
 package pyrite.command;
 
 import pyrite.StateFile;
-import pyrite.task.Task;
 import pyrite.TaskList;
+import pyrite.task.Task;
 
 /**
  * Command to change the status of a task.
  */
-public class StatusCommand extends Command{
-    int id;
+public class StatusCommand extends Command {
+    private int id;
     private Task.Status targetStatus;
 
     /**
@@ -27,7 +27,7 @@ public class StatusCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, StateFile file) {
-        if (!tasks.isValidId(this.id)){
+        if (!tasks.isValidId(this.id)) {
             return "pyrite.task.Task to mark/unmark does not exist.";
         }
         tasks.setStatus(this.id, this.targetStatus);

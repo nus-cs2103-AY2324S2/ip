@@ -3,11 +3,14 @@ package pyrite;
 import pyrite.command.Command;
 import pyrite.command.ExitCommand;
 
+/**
+ * The Pyrite chatbot.
+ */
 public class Pyrite {
     private static final String NAME = "Pyrite";
 
-    TaskList tasks = new TaskList();
-    StateFile file = new StateFile();
+    private TaskList tasks = new TaskList();
+    private StateFile file = new StateFile();
     public Pyrite() {
         this.tasks = file.loadState(this.tasks);
     }

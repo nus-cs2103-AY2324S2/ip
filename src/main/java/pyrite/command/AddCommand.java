@@ -1,13 +1,13 @@
 package pyrite.command;
 
 import pyrite.StateFile;
-import pyrite.task.Task;
 import pyrite.TaskList;
+import pyrite.task.Task;
 
 /**
  * Command to add a task to the list.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private Task task;
 
     /**

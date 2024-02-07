@@ -6,7 +6,7 @@ import pyrite.TaskList;
 /**
  * Command to delete a task from the list.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int id;
 
     /**
@@ -23,7 +23,7 @@ public class DeleteCommand extends Command{
      */
     @Override
     public String execute(TaskList tasks, StateFile file) {
-        if (!tasks.isValidId(this.id)){
+        if (!tasks.isValidId(this.id)) {
             return "pyrite.task.Task to delete does not exist.";
         }
         String taskString = tasks.toString(this.id);

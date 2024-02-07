@@ -1,9 +1,9 @@
 package pyrite;
 
-import pyrite.task.Task;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import pyrite.task.Task;
 
 /**
  * Stores a list of tasks.
@@ -37,7 +37,7 @@ public class TaskList implements Serializable {
      *
      * @return String representation of the whole list.
      */
-    public String toString(){
+    public String toString() {
         String output = "";
         for (Task t : this.tasks) {
             output += (this.tasks.indexOf(t) + 1) + ". " + t.toString();
@@ -45,21 +45,6 @@ public class TaskList implements Serializable {
                 break;
             }
             output += "\n";
-        }
-        return output;
-    }
-
-
-    public String filteredString(String keyword) {
-        String output = "";
-        for (Task t : this.list) {
-            if (t.toString().contains(keyword)) {
-                output += (this.list.indexOf(t) + 1) + ". " + t.toString();
-                if (this.list.indexOf(t) == this.list.size() - 1) {
-                    break;
-                }
-                output += "\n";
-            }
         }
         return output;
     }
@@ -72,6 +57,26 @@ public class TaskList implements Serializable {
      */
     public String toString(int id) {
         return this.tasks.get(id).toString();
+    }
+
+    /**
+     * Returns string representation of a filtered task list.
+     *
+     * @param keyword Keyword to filter by.
+     * @return String representation of filtered task list.
+     */
+    public String filteredString(String keyword) {
+        String output = "";
+        for (Task t : this.list) {
+            if (t.toString().contains(keyword)) {
+                output += (this.list.indexOf(t) + 1) + ". " + t.toString();
+                if (this.list.indexOf(t) == this.list.size() - 1) {
+                    break;
+                }
+                output += "\n";
+            }
+        }
+        return output;
     }
 
     /**

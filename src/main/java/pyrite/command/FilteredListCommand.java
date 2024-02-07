@@ -3,6 +3,9 @@ package pyrite.command;
 import pyrite.StateFile;
 import pyrite.TaskList;
 
+/**
+ * Command to filter the list of tasks.
+ */
 public class FilteredListCommand extends Command {
     private String keyword;
     public FilteredListCommand(String keyword) {
