@@ -37,11 +37,8 @@ public class Ui {
     /**
      * Prints a greeting message.
      */
-    public void greet() {
-        addDivider();
-        System.out.println("Hello! I'm Jivox");
-        System.out.println("What can I do for you?");
-        addDivider();
+    public String greet() {
+        return String.format("Hello! I'm Jivox \n What can I do for you?");
     }
 
     /**
@@ -49,10 +46,8 @@ public class Ui {
      *
      * @param t The task that was marked.
      */
-    public void showMark(Task t) {
-        addDivider();
-        System.out.println("Nice! , I've marked this task :\n" + t);
-        addDivider();
+    public String showMark(Task t) {
+        return String.format("Nice! , I've marked this task :\n %s \n", t.toString());
     }
 
     /**
@@ -61,11 +56,8 @@ public class Ui {
      * @param t The deleted task.
      * @param tasksLeft The number of tasks remaining.
      */
-    public void showDelete(Task t, int tasksLeft) {
-        addDivider();
-        System.out.println("Noted. I've removed this task:\n" + t);
-        System.out.println("Now you have " + tasksLeft + " Tasks in the List");
-        addDivider();
+    public String showDelete(Task t, int tasksLeft) {
+        return String.format("Noted. I've removed this task:\n %s \n Now you have %d Tasks in the List\n", t.toString(), tasksLeft);
     }
 
     /**
@@ -73,10 +65,9 @@ public class Ui {
      *
      * @param t The task that was unmarked.
      */
-    public void showUnmark(Task t) {
-        addDivider();
-        System.out.println("OK, I've Unmarked this task :\n" + t);
-        addDivider();
+    public String showUnmark(Task t) {
+        return String.format("OK, I've Unmarked this task :\n %s \n",
+                t.toString());
     }
 
     /**
@@ -85,11 +76,9 @@ public class Ui {
      * @param t The new task.
      * @param numOfTasks The new number of tasks.
      */
-    public void showAdd(Task t, int numOfTasks) {
-        addDivider();
-        System.out.println("Got it. I've added this task:\n" + t);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        addDivider();
+    public String showAdd(Task t, int numOfTasks) {
+        return String.format("Got it. I've added this task:\n %s \n Now you have %d tasks in the list\n",
+                t.toString(), numOfTasks);
     }
 
     /**
@@ -97,16 +86,16 @@ public class Ui {
      *
      * @param list The task list.
      */
-    public void showTasks(TaskList list) {
+    public String showTasks(TaskList list) {
         if (list.getLength() == 0) {
-            System.out.println("You've No task in the List!");
+            return "You've No task in the List!";
         } else {
-            System.out.println("You have Following tasks in your List:- ");
-            addDivider();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.getLength(); i++) {
-                System.out.println((i + 1) + ". " + list.getTask(i));
+                sb.append(String.format("%d. %s\n", (i + 1), list.getTask(i)));
             }
             addDivider();
+            return "You have Following tasks in your List:- \n" + sb;
         }
     }
 
@@ -117,10 +106,11 @@ public class Ui {
      * @param input input by the user to query in tasks.
      */
 
-    public void showFind(TaskList list, String input) {
+    public String showFind(TaskList list, String input) {
+        StringBuilder str = new StringBuilder();
         addDivider();
         if (list.getLength() == 0) {
-            System.out.println("You have No Task in your list");
+            return "You have No Task in your list";
         } else {
             TaskList matchedTask = new TaskList(new ArrayList<>());
             for (int i = 0; i < list.getLength(); i++) {
@@ -131,32 +121,30 @@ public class Ui {
             }
 
             if (matchedTask.getLength() == 0) {
-                System.out.println("No Matching tasks found in the list!");
+                return "No Matching tasks found in the list!";
             } else {
-                System.out.println("Following are Matching tasks in your list:-");
                 for (int i = 0; i < matchedTask.getLength(); i++) {
-                    System.out.println(matchedTask.getTask(i));
+                    str.append(String.format("%s \n", matchedTask.getTask(i)));
                 }
             }
         }
-        addDivider();
-
+        return "Following are Matching tasks in your list:-\n" + str;
     }
 
     /**
      * Shows a divider.
+     *
+     * @return
      */
-    public void addDivider() {
-        System.out.println("============================================================");
+    public String addDivider() {
+        return "============================================================";
     }
 
     /**
      * Prints an exit message.
      */
-    public void exit() {
-        addDivider();
-        System.out.println("Bye. Hope to see you again soon!");
-        addDivider();
+    public String exit() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -165,20 +153,21 @@ public class Ui {
      * @param list The task list.
      * @param time The date to check for due tasks.
      */
-    public void showDeadline(TaskList list, LocalDate time) {
-        System.out.println("You have following Task due on "
-              + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-");
+    public String showDeadline(TaskList list, LocalDate time) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.getLength(); i++) {
             LocalDateTime deadline = list.getTask(i).getDeadline();
             if (deadline != null) {
                 if (deadline.getMonth() == time.getMonth() && deadline.getYear() == time.getYear()
                         && deadline.getDayOfMonth() == time.getDayOfMonth()) {
-                    addDivider();
-                    System.out.println(list.getTask(i));
+                    sb.append(String.format("%s \n", list.getTask(i)));
                 }
             }
         }
         addDivider();
+
+        return "You have following Task due on "
+                + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-\n" + sb;
     }
 
     /**
@@ -186,7 +175,7 @@ public class Ui {
      *
      * @param e The exception to print.
      */
-    public void showException(Exception e) {
-        System.out.println(e.getMessage());
+    public String showException(Exception e) {
+        return e.getMessage();
     }
 }

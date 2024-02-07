@@ -22,6 +22,7 @@ public class Jivox {
     private final Ui ui;
     private final TaskList tasks;
     private final Parser parser;
+    private boolean isRunning = true;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
@@ -43,15 +44,14 @@ public class Jivox {
      * @param i The index of the task to mark.
      * @throws JivoxException If index is invalid.
      */
-    private void mark(int i) throws JivoxException {
+    private String mark(int i) throws JivoxException {
         if (i > this.tasks.getLength() || i < 0) {
             throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
         }
         Task t = this.tasks.getTask(i - 1);
         t.mark();
         dbHandler.save(this.tasks);
-        this.ui.showMark(t);
-
+        return this.ui.showMark(t);
     }
 
     /**
@@ -60,14 +60,14 @@ public class Jivox {
      * @param i The index of the task to unmark.
      * @throws JivoxException If index is invalid.
      */
-    private void unmark(int i) throws JivoxException {
+    private String unmark(int i) throws JivoxException {
         if (i > this.tasks.getLength() || i < 0) {
             throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
         }
         Task t = this.tasks.getTask(i - 1);
         t.unmark();
         dbHandler.save(this.tasks);
-        this.ui.showUnmark(t);
+        return this.ui.showUnmark(t);
     }
 
     private void addEvent(String content) throws JivoxException {
@@ -109,11 +109,11 @@ public class Jivox {
     /**
      * Adds a new task of the given type and description.
      *
-     * @param type The type of task (todo, deadline, event).
+     * @param type        The type of task (todo, deadline, event).
      * @param description The task description.
      * @throws JivoxException If unable to add the task.
      */
-    public void add(String type, String description) throws JivoxException {
+    public String add(String type, String description) throws JivoxException {
         switch (type) {
         case "todo":
             addTodo(description);
@@ -127,7 +127,7 @@ public class Jivox {
         default:
             throw new JivoxException("Can't identify the Task type!");
         }
-        this.ui.showAdd(this.tasks.getTask(this.tasks.getLength() - 1), this.tasks.getLength());
+        return this.ui.showAdd(this.tasks.getTask(this.tasks.getLength() - 1), this.tasks.getLength());
     }
 
     /**
@@ -136,14 +136,14 @@ public class Jivox {
      * @param i The index of the task to delete.
      * @throws JivoxException If index is invalid.
      */
-    public void delete(int i) throws JivoxException {
+    public String delete(int i) throws JivoxException {
         if (i > this.tasks.getLength() || i < 0) {
             throw new JivoxException("Oops! There are only " + this.tasks.getLength() + " Tasks!");
         }
         Task t = this.tasks.getTask(i - 1);
         this.tasks.delete(i - 1);
         this.dbHandler.save(this.tasks);
-        this.ui.showDelete(t, this.tasks.getLength());
+        return this.ui.showDelete(t, this.tasks.getLength());
     }
 
     /**
@@ -151,14 +151,67 @@ public class Jivox {
      *
      * @param input The date to show tasks for.
      */
-    public void show(String input) {
+    public String show(String input) {
         String[] split = this.parser.split(input, "/on ");
         LocalDate time = LocalDate.parse(split[1].replaceFirst(" ", ""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
-        this.ui.showDeadline(this.tasks, time);
+        return this.ui.showDeadline(this.tasks, time);
     }
 
-    public void find(String input) {
-        this.ui.showFind(this.tasks, input);
+    public String find(String input) {
+        return this.ui.showFind(this.tasks, input);
+    }
+
+
+    public String getResponse(String rawInput) {
+        Commands type = null;
+        String[] input;
+        try {
+            type = parser.parseCommand(rawInput);
+            input = parser.parseInput(rawInput);
+            switch (type) {
+            case BYE:
+                this.isRunning = false;
+                this.ui.close();
+                return this.ui.exit();
+            case DEADLINE:
+                return this.add("deadline", input[1]);
+            case EVENT:
+                if (input.length == 1) {
+                    throw new JivoxException("Ooops! Please provide a description!");
+                }
+                return this.add("event", input[1]);
+            case TODO:
+                if (input.length == 1) {
+                    throw new JivoxException("Ooops! Please provide a description!");
+                }
+                return this.add("todo", input[1]);
+            case MARK:
+                if (input.length == 1) {
+                    throw new JivoxException("Please, provide a task number to mark");
+                }
+                return this.mark(Integer.parseInt(input[1]));
+            case UNMARK:
+                if (input.length == 1) {
+                    throw new JivoxException("Please, provide a task number to mark");
+                }
+                return this.unmark(Integer.parseInt(input[1]));
+            case DELETE:
+                if (input.length == 1) {
+                    throw new JivoxException("Please, provide a task number to delete");
+                }
+                return this.delete(Integer.parseInt(input[1]));
+            case LIST:
+                return this.ui.showTasks(this.tasks);
+            case SHOW:
+                return this.show(input[1]);
+            case FIND:
+                return this.find(input[1]);
+            default:
+                throw new JivoxException("Sorry ! , I can't Understand your Command");
+            }
+        } catch (JivoxException e) {
+            return this.ui.showException(e);
+        }
     }
 
     /**
@@ -166,93 +219,15 @@ public class Jivox {
      */
     public void run() {
         this.ui.greet();
-        boolean isRunning = true;
-        do {
+        while (isRunning) {
             String rawInput = this.ui.input();
-            Commands type;
-            String[] input = this.parser.parseInput(rawInput);
-            try {
-                type = parser.parseCommand(rawInput);
-            } catch (JivoxException e) {
-                this.ui.showException(e);
-                continue;
-            }
-            switch (type) {
-            case BYE:
-                isRunning = false;
-                this.ui.close();
-                this.ui.exit();
-                break;
-            case DEADLINE:
-                try {
-                    this.add("deadline", input[1]);
-                } catch (JivoxException e) {
-                    this.ui.showException(e);
-                }
-                break;
-            case EVENT:
-                try {
-                    if (input.length == 1) {
-                        throw new JivoxException("Ooops! Please provide a description!");
-                    }
-                    this.add("event", input[1]);
-                } catch (JivoxException e) {
-                    this.ui.showException(e);
-                }
-                break;
-            case TODO:
-                try {
-                    if (input.length == 1) {
-                        throw new JivoxException("Ooops! Please provide a description!");
-                    }
-                    this.add("todo", input[1]);
-                } catch (JivoxException e) {
-                    this.ui.showException(e);
-                }
-                break;
-            case MARK:
-                try {
-                    if (input.length == 1) {
-                        throw new JivoxException("Please, provide a task number to mark");
-                    }
-                    this.mark(Integer.parseInt(input[1]));
-                } catch (JivoxException e) {
-                    this.ui.showException(e);
-                }
-                break;
-            case UNMARK:
-                try {
-                    if (input.length == 1) {
-                        throw new JivoxException("Please, provide a task number to mark");
-                    }
-                    this.unmark(Integer.parseInt(input[1]));
-                } catch (JivoxException e) {
-                    this.ui.showException(e);
-                }
-                break;
-            case DELETE:
-                try {
-                    if (input.length == 1) {
-                        throw new JivoxException("Please, provide a task number to delete");
-                    }
-                    this.delete(Integer.parseInt(input[1]));
-                } catch (JivoxException e) {
-                    this.ui.showException(e);
-                }
-                break;
-            case LIST:
-                this.ui.showTasks(this.tasks);
-                break;
-            case SHOW:
-                this.show(input[1]);
-                break;
-            case FIND:
-                this.find(input[1]);
-                break;
-            default:
-                System.out.println("Invalid Input");
-            }
-        } while (isRunning);
+            System.out.println(this.getResponse(rawInput));
+        }
+    }
+
+    public static void main(String[] args) {
+        Jivox jivox = new Jivox("./data/jivox.txt");
+        jivox.run();
     }
 
 }
