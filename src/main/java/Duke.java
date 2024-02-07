@@ -8,31 +8,39 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
     private static final String FILE_PATH = "./data/duke.txt";
-    public static  void main(String[] args) {
+    public Duke(String filePath) {
+        ui = new Ui();
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
+    }
+    public void run() {
         ArrayList<Task> list = new ArrayList<>();
         loadTasks(list);
-        String line = "__________________________________________________";
-        System.out.println(line);
-        System.out.println("Hello! I'm Floofy");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
+        ui.showWelcomeMsg();
         Scanner scanner = new Scanner(System.in);
         loop:
         while (true) {
             String userInput = scanner.nextLine();
             if (userInput.startsWith("mark")) {
-                System.out.println(line);
                 int idx = Integer.parseInt(userInput.substring(5));
-                list.get(idx - 1).markTask();
-                System.out.println(line);
+                Task taskToMark = list.get(idx - 1);
+                taskToMark.markTask(); // method currently has both internal + ui, will extract ui first
+                ui.showMarkedTask(taskToMark);
                 saveTasks(list);
             } else if (userInput.startsWith("unmark")) {
-                System.out.println(line);
                 int idx = Integer.parseInt(userInput.substring(7));
-                list.get(idx - 1).unmarkTask();
-                System.out.println(line);
+                Task taskToUnmark = list.get(idx - 1);
+                taskToUnmark.unmarkTask();
+                ui.showUnmarkedTask(taskToUnmark);
                 saveTasks(list);
             } else if (userInput.startsWith("todo")) {
                 try {
@@ -43,12 +51,10 @@ public class Duke {
                     System.err.println(e.getMessage());
                     continue;
                 }
-                System.out.println(line);
                 String todoTask = userInput.substring(5);
                 ToDos newTodo = new ToDos(todoTask);
                 list.add(newTodo);
-                newTodo.addTask(list.size());
-                System.out.println(line);
+                ui.showAddedTask(newTodo, list.size());
                 saveTasks(list);
             } else if (userInput.startsWith("deadline")) {
                 try {
@@ -63,7 +69,6 @@ public class Duke {
                     System.err.println(e.getMessage());
                     continue;
                 }
-                System.out.println(line);
                 int preIdx = userInput.indexOf("/by");
                 int idx = preIdx + 4;
                 String deadlineTask = userInput.substring(9, preIdx - 1);
@@ -71,8 +76,7 @@ public class Duke {
                 LocalDate deadlineDate = LocalDate.parse(deadlineBy);
                 Deadline newDeadline = new Deadline(deadlineTask, deadlineDate);
                 list.add(newDeadline);
-                newDeadline.addTask(list.size());
-                System.out.println(line);
+                ui.showAddedTask(newDeadline, list.size());
                 saveTasks(list);
             } else if (userInput.startsWith("event")) {
                 try {
@@ -90,7 +94,6 @@ public class Duke {
                     System.err.println(e.getMessage());
                     continue;
                 }
-                System.out.println(line);
                 int preIdxFrom = userInput.indexOf("/from");
                 int preIdxTo = userInput.indexOf("/to");
                 int timeFromStart = preIdxFrom + 6;
@@ -103,30 +106,20 @@ public class Duke {
                 LocalDate eventDateTo = LocalDate.parse(eventTo);
                 Event newEvent = new Event(eventTask, eventDateFrom, eventDateTo);
                 list.add(newEvent);
-                newEvent.addTask(list.size());
-                System.out.println(line);
+                ui.showAddedTask(newEvent, list.size());
                 saveTasks(list);
             } else if (userInput.startsWith("delete")) {
-                System.out.println(line);
                 int idx = Integer.parseInt(userInput.substring(7));
                 Task removed = list.get(idx - 1);
                 list.remove(idx - 1);
-                removed.deleteTask(list.size());
-                System.out.println(line);
+                ui.showDeletedTask(removed, list.size());
                 saveTasks(list);
             } else if (userInput.startsWith("bye")) {
-                System.out.println(line);
-                System.out.println("BYE BYE! Come back soon~~ YOUR WISH IS MY COMMAND <33");
-                System.out.println(line);
+                ui.showGoodbyeMsg();
                 scanner.close();
                 break loop;
             } else if (userInput.startsWith("list")) {
-                System.out.println(line);
-                for (int i = 0; i < list.size(); i++) {
-                    String numberedOutput = String.format("%d. %s", i + 1, list.get(i).toString());
-                    System.out.println(numberedOutput);
-                }
-                System.out.println(line);
+                ui.showTaskList(list);
             } else {
                 try {
                     throw new DukeException("To add a task, please start with any of these commands: 'todo', 'deadline' or 'event'!");
@@ -218,7 +211,10 @@ public class Duke {
 
     public static LocalDate convertDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
-        LocalDate localDate = LocalDate.parse(date, formatter);
-        return localDate;
+        return LocalDate.parse(date, formatter);
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data/duke.txt").run();
     }
 }
