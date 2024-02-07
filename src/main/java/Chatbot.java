@@ -3,13 +3,13 @@ import java.util.Scanner;
 public class Chatbot {
     private Scanner scanner = new Scanner(System.in);
     private String currentInput;
-    private String[] list;
+    private Task[] list;
     private int numOfItems;
 
 
     public Chatbot() {
         this.currentInput = "";
-        this.list = new String[100];
+        this.list = new Task[100];
         this.numOfItems = 0;
     }
 
@@ -26,10 +26,32 @@ public class Chatbot {
     private void parseInput() {
         if (this.currentInput.equals("list")) {
             outputList();
-        } else {
-            addToList();
-            echo();
+            return;
         }
+        String instruction[] = this.currentInput.split(" ");
+        if (instruction.length == 2) {
+            int index = Integer.parseInt(instruction[1]) - 1;
+            if (instruction[0].equals("mark")) {
+                this.mark(index);
+            } else {
+                this.unmark(index);
+            }
+            return;
+        }
+        addToList();
+        echo();
+    }
+
+    private void unmark(int index) {
+        printHorizontalLine();
+        System.out.println(this.list[index].unmark());
+        printHorizontalLine();
+    }
+
+    private void mark(int index) {
+        printHorizontalLine();
+        System.out.println(this.list[index].mark());
+        printHorizontalLine();
     }
 
     private void outputList() {
@@ -41,7 +63,7 @@ public class Chatbot {
     }
 
     private void addToList() {
-        this.list[this.numOfItems] = this.currentInput;
+        this.list[this.numOfItems] = new Task(this.currentInput);
         this.numOfItems++;
     }
 
