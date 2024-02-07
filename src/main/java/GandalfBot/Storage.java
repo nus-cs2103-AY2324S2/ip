@@ -1,3 +1,5 @@
+package GandalfBot;
+
 import java.io.*;
 import java.util.ArrayList;
 

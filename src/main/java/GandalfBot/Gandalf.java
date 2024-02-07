@@ -1,3 +1,5 @@
+package GandalfBot;
+
 import java.util.Scanner;
 
 public class Gandalf {

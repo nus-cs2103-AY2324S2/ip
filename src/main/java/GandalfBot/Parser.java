@@ -1,3 +1,5 @@
+package GandalfBot;
+
 public class Parser {
     String userInput;
 
