@@ -1,17 +1,17 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT,
-    }
     public static void save(State state) {
         StringBuilder sb = new StringBuilder();
         for (Task t : state.getTasks()) {
@@ -81,7 +81,7 @@ public class Storage {
                 s.getTasks().add(t);
 
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException ignored) {
 
         }
         return s;
