@@ -1,5 +1,7 @@
 import java.io.IOException;
 
+import gui.MainWindow;
+import howie.Howie;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
