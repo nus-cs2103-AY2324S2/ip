@@ -12,6 +12,10 @@ public class Task {
         this.id = nextId++;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getTaskId() {
         return id;
     }
@@ -34,10 +38,6 @@ public class Task {
 
     public void markUndone() {
         this.isDone = false;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     @Override

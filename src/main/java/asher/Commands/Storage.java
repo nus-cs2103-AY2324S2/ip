@@ -42,12 +42,10 @@ public class Storage {
         }
     }
 
-    // from the data we have, break it down to get the task listed
     private Task createTask(String list) {
         Task task;
         String[] splitParts = list.split(" \\| ");
 
-        // invalid format
         if (splitParts.length < 3) {
             return null;
         }
