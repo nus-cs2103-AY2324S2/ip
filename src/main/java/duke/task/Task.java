@@ -1,7 +1,7 @@
 package duke.task;
 
 /**
- * Represents a tasks in available in Duke chat-bot.
+ * Represents a tasks in available in duke.Duke chat-bot.
  * A task can be of three types: Todo (T), Deadline (D), or Event (E).
  * Each task has a name and a completion status.
  */

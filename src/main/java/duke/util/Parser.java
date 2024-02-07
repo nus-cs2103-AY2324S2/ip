@@ -102,43 +102,43 @@ public class Parser {
      *
      * @param current The user's input command.
      */
-    public void read(String current) throws TaskException {
+    public String read(String current) throws TaskException {
         if(current.equals("bye")) {
-            ui.bye();
             this.isExit = true;
+            return ui.bye();
         } else if(current.equals("list")) {
-            this.ui.showList(tasks.showList());
+            return this.ui.showList(tasks.showList());
         } else if (current.startsWith("mark")) {
             String[] marking = current.split(" ");
             int position = Integer.parseInt(marking[1]) - 1;
             Task curr = tasks.getTask(position);
             curr.makeDone();
-            ui.markTask(curr);
+            return ui.markTask(curr);
         } else if (current.startsWith("unmark")) {
             String[] marking = current.split(" ");
             int position = Integer.parseInt(marking[1]) - 1;
             Task curr = tasks.getTask(position);
             curr.makeUndone();
-            ui.unmarkTask(curr);
+            return ui.unmarkTask(curr);
         } else if (current.startsWith("delete")){
             String[] marking = current.split(" ");
             int position = Integer.parseInt(marking[1]) - 1;
-            ui.delete(position, tasks);
+            return ui.delete(position, tasks);
         } else if (current.startsWith("find")) {
             String[] reqList = current.split(" ");
             if (reqList.length < 2) {
                 throw new TaskException("What do you want me to find? Please specify");
             }
             String keyword = String.join(" ", Arrays.copyOfRange(reqList, 1, reqList.length));
-            ui.showFilteredList(keyword, tasks);
+            return ui.showFilteredList(keyword, tasks);
 
         } else {
             try {
                 Task newTask = identify(current);
                 tasks.addTask(newTask);
-                ui.addTask(newTask, tasks);
+                return ui.addTask(newTask, tasks);
             } catch (TaskException e) {
-                ui.showError(e.getMessage());
+                return ui.showError(e.getMessage());
             }
         }
     }
