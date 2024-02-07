@@ -1,19 +1,20 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
 
+import duke.task.Task;
+
 /**
  * The Ui class is responsible for handling user interface interactions and displaying messages to the user.
- * It provides methods for displaying welcome messages, reading user input, showing task-related messages, and handling errors.
+ * It provides methods for displaying welcome messages, reading user input, showing task-related messages,
+ * and handling errors.
  */
 public class Ui {
     private final Scanner scanner;
 
     /**
-     * Constructs a Ui object and initializes the scanner for user input.
+     * Constructs an Ui object and initializes the scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);

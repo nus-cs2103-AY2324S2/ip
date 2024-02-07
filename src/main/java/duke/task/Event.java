@@ -31,9 +31,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + getStatusNumber() + " | " + description + " | " +
-                from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + " - " +
-                to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+        return "E | " + getStatusNumber() + " | " + description + " | "
+                + from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + " - "
+                + to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
 
     /**

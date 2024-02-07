@@ -1,14 +1,14 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Handles parsing of user input into commands, tasks, and task details for the Duke application.
@@ -47,24 +47,24 @@ public class Parser {
             CommandType command = Parser.parseCommand(userInput);
 
             switch (command) {
-                case LIST:
-                    return new ListCommand();
-                case MARK:
-                    return new MarkCommand();
-                case UNMARK:
-                    return new UnmarkCommand();
-                case DELETE:
-                    return new DeleteCommand();
-                case BYE:
-                    return new ExitCommand();
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    return new AddCommand();
-                case FIND:
-                    return new FindCommand();
-                default:
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            case LIST:
+                return new ListCommand();
+            case MARK:
+                return new MarkCommand();
+            case UNMARK:
+                return new UnmarkCommand();
+            case DELETE:
+                return new DeleteCommand();
+            case BYE:
+                return new ExitCommand();
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                return new AddCommand();
+            case FIND:
+                return new FindCommand();
+            default:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (IllegalArgumentException e) {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -88,14 +88,14 @@ public class Parser {
         String taskDetails = parts[1];
 
         switch (taskType) {
-            case "todo":
-                return new Todo(taskDetails);
-            case "deadline":
-                return parseDeadline(taskDetails);
-            case "event":
-                return parseEvent(taskDetails);
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        case "todo":
+            return new Todo(taskDetails);
+        case "deadline":
+            return parseDeadline(taskDetails);
+        case "event":
+            return parseEvent(taskDetails);
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -130,13 +130,15 @@ public class Parser {
     private static Event parseEvent(String taskDetails) throws DukeException {
         String[] parts = taskDetails.split("/from", 2);
         if (parts.length < 2) {
-            throw new DukeException("Invalid event format. Please include '/from' followed by start time and '/to' followed by end time.");
+            throw new DukeException("Invalid event format. Please include '/from' "
+                    + "followed by start time and '/to' followed by end time.");
         }
 
         String description = parts[0].trim();
         String[] dateAndTime = parts[1].split("/to", 2);
         if (dateAndTime.length < 2) {
-            throw new DukeException("Invalid event format. Please include '/from' followed by start time and '/to' followed by end time.");
+            throw new DukeException("Invalid event format. Please include '/from' "
+                    + "followed by start time and '/to' followed by end time.");
         }
 
         String start = dateAndTime[0].trim();
@@ -173,7 +175,8 @@ public class Parser {
                 return date.atStartOfDay();
             }
         } catch (Exception e) {
-            throw new DukeException("Invalid date/time format. Please use 'yyyy/MM/dd HHmm', 'yyyy/MM/dd', 'today', or 'tomorrow'.");
+            throw new DukeException("Invalid date/time format. Please use "
+                    + "'yyyy/MM/dd HHmm', 'yyyy/MM/dd', 'today', or 'tomorrow'.");
         }
     }
 

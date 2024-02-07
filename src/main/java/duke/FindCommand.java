@@ -1,11 +1,10 @@
 package duke;
 
-import duke.task.Task;
-import duke.task.TaskList;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents a command to search for tasks based on a provided keyword or query.

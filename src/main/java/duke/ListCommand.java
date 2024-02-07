@@ -16,7 +16,8 @@ public class ListCommand extends Command {
      *
      * @param taskList  The TaskList from which to retrieve and display tasks.
      * @param ui        The Ui interface used for displaying the list of tasks to the user.
-     * @param userInput The user input that triggered this command (not used here, but required by the method signature).
+     * @param userInput The user input that triggered this command.
+     *                  It is not used here, but required by the method signature).
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String userInput) {
