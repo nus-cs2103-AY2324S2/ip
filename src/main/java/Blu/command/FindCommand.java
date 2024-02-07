@@ -31,11 +31,12 @@ public class FindCommand extends Command {
      * @param taskList The TaskList to search for matching tasks.
      * @param storage The Storage (not applicable for FindCommand).
      * @param ui The UI responsible for displaying the found tasks to the user.
+     * @return The result of the find command to be displayed to the user.
      * @throws BluException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         List<Task> tasks = taskList.searhForTasksContaining(searchString);
-        ui.showTasksFound(tasks, searchString);
+        return ui.showTasksFound(tasks, searchString);
     }
 }

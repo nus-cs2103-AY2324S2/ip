@@ -1,66 +1,110 @@
 package blu;
 
+import java.io.IOException;
+
 import blu.command.ByeCommand;
 import blu.command.Command;
 import blu.exception.BluException;
+import blu.exception.StorageException;
 import blu.parser.InputParser;
 import blu.storage.Storage;
 import blu.task.TaskList;
+import blu.ui.MainWindow;
 import blu.ui.UI;
+import blu.utils.BluLogger;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
- * The main class for the Blu application, which manages tasks for users.
- * It initializes the application, processes user input in a loop until the exit command,
- * and manages the application's shutdown process.
+ * The main class for the Blu application, which extends the JavaFX framework.
+ * It provides methods to start and initialize the GUI,
+ * process user input commands, and manage the application's lifecycle.
  */
-public class Blu {
+public class Blu extends Application {
     private static final String STORAGE_PATH = "../data/data.csv";
     private TaskList taskList;
     private Storage storage;
     private UI ui;
+    private boolean isExit;
 
-    public static void main(String[] args) {
-        new Blu().run();
-    }
-
-    private void run() {
-        init();
-        userInputLoop();
-        exit();
-    }
-
-    private void init() {
+    /**
+     * This method is called when the application should initialize itself,
+     * prior to being made visible to the user. It initializes the UI, storage, and task list.
+    */
+    @Override
+    public void init() {
         this.ui = new UI();
+        isExit = false;
         try {
             this.storage = new Storage(STORAGE_PATH);
             this.taskList = storage.loadTasks();
-            ui.showWelcomeMessage(STORAGE_PATH);
         } catch (BluException e) {
-            ui.showErrorMessage(e.getMessage());
+            BluLogger.severe(e.getMessage());
             System.exit(1);
         }
     }
 
-    private void userInputLoop() {
-        boolean isBye = false;
-        do {
-            String userInput = ui.getUserInput();
-            if (userInput.isEmpty()) {
-                continue;
-            }
-            try {
-                Command command = new InputParser().parseInput(userInput);
-                command.execute(taskList, storage, ui);
-                if (command instanceof ByeCommand) {
-                    isBye = true;
-                }
-            } catch (BluException e) {
-                ui.showErrorMessage(e.getMessage());
-            }
-        } while(!isBye);
+    /**
+     * The main entry point for all JavaFX applications. The start method is called after the init method has returned,
+     * and after the system is ready for the application to begin running.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Blu.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            Scene scene = new Scene(anchorPane);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setBlu(this);
+            stage.show();
+        } catch (IOException e) {
+            BluLogger.severe(e.getMessage());
+        }
     }
 
-    private void exit() {
-        ui.exit();
+    /**
+     * Checks if the application is set to exit.
+     *
+     * @return true if the application is exiting, false otherwise.
+     */
+    public boolean isExit() {
+        return isExit;
+    }
+
+    /**
+     * Processes the user input string and executes the corresponding command.
+     *
+     * @param userInput The string input by the user.
+     * @return The response from executing the user command.
+     */
+    public String getResponse(String userInput) {
+        try {
+            Command command = new InputParser().parseInput(userInput);
+            if (command instanceof ByeCommand) {
+                isExit = true;
+            }
+            return command.execute(taskList, storage, ui);
+        } catch (BluException e) {
+            BluLogger.severe(e.getMessage());
+            return ui.showErrorMessage(e.getMessage());
+        }
+    }
+
+    /**
+     * This method is called when the application should stop,
+     * and provides a convenient place to prepare for application exit and save state.
+     */
+    @Override
+    public void stop() {
+        try {
+            storage.close();
+        } catch (StorageException e) {
+            BluLogger.severe(e.getMessage());
+        }
     }
 }

@@ -29,13 +29,14 @@ public class ToDoCommand extends Command {
      * @param taskList The TaskList to which the new task is to be added.
      * @param storage The Storage where the updated task list is to be saved.
      * @param ui The UI responsible for user interactions.
+     * @return The message to be displayed to the user after adding a ToDo task.
      * @throws StorageException If an error occurs during saving to storage.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws StorageException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws StorageException {
         ToDo toDo = new ToDo(description);
         taskList.addTask(toDo);
-        ui.showTaskAdded(toDo, taskList);
         storage.saveTasks(taskList);
+        return ui.showTaskAdded(toDo, taskList);
     }
 }

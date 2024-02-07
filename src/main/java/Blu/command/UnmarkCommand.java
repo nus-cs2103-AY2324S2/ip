@@ -29,17 +29,17 @@ public class UnmarkCommand extends Command {
      * @param taskList The TaskList from which the task's status will be changed.
      * @param storage The Storage where the updated task list is to be saved.
      * @param ui The UI responsible for user interactions.
+     * @return The message to be displayed to the user after unmarking a task.
      * @throws BluException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         Task task = taskList.getTask(taskIdx);
-        if (task.isCompleted()) {
-            task.setUnmarked();
-            ui.showTaskUnmarked(task);
-        } else {
-            ui.showTaskAlreadyUnmarked(taskIdx);
+        if (!task.isCompleted()) {
+            return ui.showTaskAlreadyUnmarked(taskIdx);
         }
+        task.setUnmarked();
         storage.saveTasks(taskList);
+        return ui.showTaskUnmarked(task);
     }
 }
