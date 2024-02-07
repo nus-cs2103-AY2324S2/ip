@@ -58,11 +58,17 @@ public class LukeIO {
             }
 
         } catch (FileNotFoundException e) {
-            // create new file
-
+            throw new FileException("Sorry! File not found! :'(");
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FileException("Sorry! File is corrupted! :'(");
+            throw new FileException("Sorry! File is corrupted! :'(\nWill not be able to read tasks from file! :'(");
+
+        } catch (DateException e) {
+            System.out.println("________________________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("Please enter the date in proper format such as dd/MM/yyyy or yyyy-MM-dd");
+            System.out.println("________________________________________________________________________");
+
         }
 
         return tasks;

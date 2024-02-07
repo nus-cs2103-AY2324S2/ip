@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Luke {
@@ -227,6 +228,12 @@ public class Luke {
                     System.out.println("________________________________________________________________________");
                     System.out.println("Sorry! There was an error editing the file! :'(");
                     e.printStackTrace();
+                    System.out.println("________________________________________________________________________");
+                } catch (DateException e) {
+                    System.out.println("________________________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("Please enter the date in proper format such as dd/MM/yyyy or yyyy-MM-dd");
+                    System.out.println("You can also enter the time in 24-hour format such as HH[:MM] after the date");
                     System.out.println("________________________________________________________________________");
                 }
             }
