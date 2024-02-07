@@ -1,6 +1,9 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String done;
-    private String msg;
+    private final String msg;
 
     public Task (String msg) {
         this.msg = msg;
@@ -13,6 +16,10 @@ public class Task {
 
     public void unmarkTask() {
         this.done = "[ ]";
+    }
+
+    public String formatDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
