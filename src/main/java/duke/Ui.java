@@ -1,3 +1,4 @@
+package duke;
 import exceptions.DukeException;
 import exceptions.DukeTaskNoDescException;
 
@@ -15,7 +16,7 @@ public class Ui {
         System.out.println("-----------------------------------------------------------------------");
     }
 
-    public void printList(TaskList tl) {
+    public void printList(duke.TaskList tl) {
         System.out.println("Here are the tasks in your list:");
         for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
             String task = j + 1 + ". " + tl.get(j);
@@ -23,7 +24,7 @@ public class Ui {
         }
     }
 
-    public void printMark(TaskList tl, String cmd) throws DukeException {
+    public void printMark(duke.TaskList tl, String cmd) throws DukeException {
         try {
             int taskNum = Parser.parseMark(cmd);
             tl.setDone(taskNum);
@@ -34,7 +35,7 @@ public class Ui {
         }
     }
 
-    public void printUnmark(TaskList tl, String cmd) throws DukeException {
+    public void printUnmark(duke.TaskList tl, String cmd) throws DukeException {
         try {
             int taskNum = Parser.parseUnmark(cmd);
             tl.setUndone(taskNum);
@@ -45,7 +46,7 @@ public class Ui {
         }
     }
 
-    public void printDelete(TaskList tl, String cmd) throws DukeException {
+    public void printDelete(duke.TaskList tl, String cmd) throws DukeException {
         int taskNum = Parser.parseDelete(cmd);
         if (taskNum >= tl.size()) {
             throw new DukeException("Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3");

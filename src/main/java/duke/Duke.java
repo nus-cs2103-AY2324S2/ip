@@ -1,21 +1,21 @@
+package duke;
 import exceptions.DukeException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private duke.TaskList tasks;
+    private duke.Ui ui;
 
     public Duke(String filePath) {
-        ui = new Ui();
+        ui = new duke.Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new duke.TaskList(storage.load());
         } catch (DukeException e) {
             this.ui.showLoadingError();
-            tasks = new TaskList(new ArrayList<>());
+            tasks = new duke.TaskList(new ArrayList<>());
         }
     }
 

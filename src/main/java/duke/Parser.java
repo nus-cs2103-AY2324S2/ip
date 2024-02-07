@@ -1,3 +1,5 @@
+package duke;
+
 import exceptions.DukeException;
 import exceptions.DukeUnknownTaskException;
 

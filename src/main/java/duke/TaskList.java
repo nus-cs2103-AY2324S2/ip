@@ -1,9 +1,10 @@
+package duke;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> listArr;
+    private ArrayList<duke.Task> listArr;
 
-    public TaskList(ArrayList<Task> listArr) {
+    public TaskList(ArrayList<duke.Task> listArr) {
         this.listArr = listArr;
     }
 
@@ -11,7 +12,7 @@ public class TaskList {
         return this.listArr.size();
     }
 
-    public Task get(int idx) {
+    public duke.Task get(int idx) {
         return this.listArr.get(idx);
     }
 
