@@ -12,7 +12,7 @@ public class Deadline extends Task {
     public Deadline (String description, boolean done, String by) {
         super(description);
         super.updateIsDone(done);
-        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.by = parseDate(by);
     }
 
     @Override

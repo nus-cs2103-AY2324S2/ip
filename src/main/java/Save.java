@@ -24,6 +24,7 @@ public class Save {
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             StringTokenizer st = new StringTokenizer(s, "|");
+
             String t = st.nextToken().strip();
             boolean done = st.nextToken().strip().equalsIgnoreCase("1");
             String description = st.nextToken().strip();
@@ -32,7 +33,8 @@ public class Save {
                 tasks.add(new ToDo(description, done));
 
             } else if (t.equalsIgnoreCase("e")) {
-                tasks.add(new Event(description, done, st.nextToken().strip(), st.nextToken().strip()));
+                String[] dates = st.nextToken().split("-");
+                tasks.add(new Event(description, done, dates[0].strip(), dates[1].strip()));
 
             } else if (t.equalsIgnoreCase("d")) {
                 tasks.add(new Deadline(description, done, st.nextToken().strip()));
@@ -50,7 +52,13 @@ public class Save {
         }
 
         FileWriter fw = new FileWriter(file, true);
-        fw.write(task.getSaveTask() + System.lineSeparator());
+
+        if (file.length() == 0) {
+            fw.write(task.getSaveTask());
+        } else {
+            fw.write(System.lineSeparator() + task.getSaveTask());
+        }
+
         fw.close();
     }
 
