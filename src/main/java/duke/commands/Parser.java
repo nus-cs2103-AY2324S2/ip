@@ -42,7 +42,7 @@ public class Parser {
         return null;
     }
 
-/**
+    /**
      * The function converts a string input into an Instruction enum value, throwing a DukeException if the input is
      * not a valid instruction.
      * 
@@ -57,6 +57,7 @@ public class Parser {
                     + "\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
         }
     }
+
 
     enum Instruction {
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE

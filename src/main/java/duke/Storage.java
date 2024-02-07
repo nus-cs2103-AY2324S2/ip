@@ -17,6 +17,7 @@ import java.nio.file.Path;
 public class Storage {
     private final Path path;
 
+
     public Storage(String path) {
         this.path = Path.of(path);
     }

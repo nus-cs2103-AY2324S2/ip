@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private final LocalDateTime deadline;
 
+
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
@@ -16,7 +17,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + (isDone ? "X" : " ") + "] " + description + "(by: "
+        return "[D]" + "[" + (getIsDone() ? "X" : " ") + "] " + getDescription() + "(by: "
                 + deadline.format(DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy")) + ")";
     }
 }

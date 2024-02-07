@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.DukeException.DukeException;
 import duke.tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,8 @@ import java.util.List;
  */
 public class MarkCommand extends Command {
     private final String details;
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+
 
     public MarkCommand(String details) {
         this.details = details;
@@ -25,6 +25,7 @@ public class MarkCommand extends Command {
      * @param tasks A TaskList object that contains a list of tasks.
      * @return List of Strings or messages.
      */
+
     public List<String> execute(TaskList tasks) throws DukeException {
         if(details.length() < 1) { throw new DukeException(
                 "Please enter the tasks number that you want to mark as incomplete: ex. mark 2"); }

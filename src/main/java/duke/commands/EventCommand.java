@@ -14,12 +14,14 @@ import java.util.List;
 public class EventCommand extends Command {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String details;
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+
 
     public EventCommand(String details) {
+
         this.details = details;
     }
-    
+
     /**
      * The function takes in a task list and a string input, parses the input to extract event details and dates,
      * adds the event to the task list, and returns a list of messages.
@@ -42,7 +44,6 @@ public class EventCommand extends Command {
                     + "\ncorrect format: event *event name* /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm");
         }
 
-
         try {
             tasks.add(
                     new Event(parsedInput[0], LocalDateTime.parse(parsedDates[0], dateTimeFormatter)
@@ -54,7 +55,7 @@ public class EventCommand extends Command {
             throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
                     + "\ncorrect format: dd/MM/yyyy HHmm");
         }
+
         return messages;
     }
-
 }

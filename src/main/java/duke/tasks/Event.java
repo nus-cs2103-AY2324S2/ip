@@ -8,9 +8,10 @@ import java.io.Serializable;
  * The Event class extends the Task class and represents an event with a start and end time.
  */
 public class Event extends Task implements Serializable {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
     private static final long serialVersionUID = 4L;
+
 
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
@@ -20,8 +21,8 @@ public class Event extends Task implements Serializable {
 
     @Override
     public String toString() {
-        return "[E]" + "[" + (isDone ? "X" : " ") + "] " + description
-                + "(from: " + start.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY"))
-                + " to: "+ end.format(DateTimeFormatter.ofPattern("HH:mm MMM dd YYYY")) + ")";
+        return "[E]" + "[" + (getIsDone() ? "X" : " ") + "] " + getDescription()
+                + "(from: " + start.format(DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy"))
+                + " to: "+ end.format(DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy")) + ")";
     }
 }

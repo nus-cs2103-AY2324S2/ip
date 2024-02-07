@@ -1,13 +1,13 @@
 package duke.commands;
 
 import duke.DukeException.DukeException;
-import duke.tasks.TaskList;
 import duke.tasks.Deadline;
+import duke.tasks.TaskList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The `DeadlineCommand` class is a subclass of the `Command` class in Java that represents a command to add a
@@ -16,7 +16,8 @@ import java.util.ArrayList;
 public class DeadlineCommand extends Command {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String details;
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+
 
     public DeadlineCommand(String details) {
         this.details = details;
@@ -44,6 +45,7 @@ public class DeadlineCommand extends Command {
             throw new DukeException("Invalid Date/Time or Date/Time is in wrong format"
                     + "\ncorrect format: dd/MM/yyyy HHmm");
         }
+
         messages.add("Got it. I've added this tasks:");
         messages.add("added: " + tasks.get(tasks.size() - 1).toString());
         messages.add("Now you have " + tasks.size() + " tasks in the list.");

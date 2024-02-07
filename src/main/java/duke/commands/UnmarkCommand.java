@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.DukeException.DukeException;
 import duke.tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,8 @@ import java.util.List;
  */
 public class UnmarkCommand extends Command {
     private final String details;
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+
 
     public UnmarkCommand(String details) {
         this.details = details;

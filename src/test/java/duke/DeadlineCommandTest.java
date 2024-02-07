@@ -1,8 +1,8 @@
 package duke;
 
+import duke.DukeException.DukeException;
 import duke.tasks.TaskList;
 import duke.commands.DeadlineCommand;
-import duke.DukeException.DukeException;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class DeadlineCommandTest {
             assertEquals("Now you have 1 tasks in the list.", messages.get(2));
             assertEquals(1, tasks.size());
         } catch (Exception e) {
-            assertTrue(false);
+            fail();
         }
     }
 

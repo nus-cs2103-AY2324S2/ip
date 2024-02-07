@@ -3,7 +3,6 @@ package duke.commands;
 import duke.DukeException.DukeException;
 import duke.tasks.TaskList;
 import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,8 @@ import java.util.List;
  */
 public class DeleteCommand extends Command {
     private final String details;
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages = new ArrayList<>();
+
 
     public DeleteCommand(String details) {
         this.details = details;

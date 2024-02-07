@@ -2,7 +2,6 @@ package duke.commands;
 
 import duke.DukeException.DukeException;
 import duke.tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,9 @@ import java.util.List;
  * messages containing the tasks in the list.
  */
 public class ListCommand extends Command {
+
     private List<String> messages = new ArrayList<>();
+    
 
     public ListCommand() {};
 
@@ -26,6 +27,7 @@ public class ListCommand extends Command {
         for (int i = 0; i < tasks.size(); i++) {
             messages.add("  " + (i + 1) + "." + tasks.get(i).toString());
         }
+
         return messages;
     }
 }
