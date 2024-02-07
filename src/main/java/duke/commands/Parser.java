@@ -34,6 +34,8 @@ public class Parser {
                     return new EventCommand(details);
                 case DELETE:
                     return new DeleteCommand(details);
+                case FIND:
+                    return new FindCommand(details);
             }
         } catch (IllegalArgumentException e) {
             throw new DukeException("Please enter instruction in the correct format"
@@ -60,6 +62,6 @@ public class Parser {
 
 
     enum Instruction {
-        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND
     }
 }
