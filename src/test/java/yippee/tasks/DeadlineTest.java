@@ -1,13 +1,14 @@
 package yippee.tasks;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import yippee.exceptions.YippeeException;
 
 public class DeadlineTest {
     @Test
-    public void createCorrectTest(){
+    public void createCorrectTest() {
         String taskName = "a task";
         try {
             Deadline testDeadline = new Deadline(taskName, "2022-12-31");
@@ -18,7 +19,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void createWrongTest(){
+    public void createWrongTest() {
         String taskName = "a task";
         try {
             Deadline testDeadline = new Deadline(taskName, "huh");

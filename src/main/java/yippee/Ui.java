@@ -98,6 +98,10 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints content of list provided.
+     * @param taskList List of Tasks to print.
+     */
     public void printList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getList();
         int count = 1;

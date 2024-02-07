@@ -1,19 +1,19 @@
 package yippee;
 
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import yippee.exceptions.YippeeException;
 import yippee.exceptions.YippeeFileException;
 import yippee.tasks.Deadline;
 import yippee.tasks.Event;
 import yippee.tasks.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test
