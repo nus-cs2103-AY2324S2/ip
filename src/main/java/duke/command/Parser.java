@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.tasks.Task;
+
 import java.io.IOException;
 
 public class Parser {

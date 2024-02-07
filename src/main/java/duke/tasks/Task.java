@@ -1,4 +1,4 @@
-//Solution adapted from Week 2 A-classes partial solution provided
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
