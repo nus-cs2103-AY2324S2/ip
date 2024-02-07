@@ -1,4 +1,4 @@
-package storage;
+package tool;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-import task.TaskList;
+import tool.TaskList;
 
 public class Storage {
 

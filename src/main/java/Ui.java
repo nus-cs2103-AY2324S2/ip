@@ -1,9 +1,9 @@
-package ui;
+package tool;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import task.TaskList;
+import tool.TaskList;
 
 public class Ui {
     private static final String DIVIDER = "        ------------------------------------------------------------";

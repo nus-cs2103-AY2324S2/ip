@@ -1,11 +1,11 @@
-import java.util.Scanner;
 import java.io.IOException;
+import java.util.Scanner;
 
-import ui.Ui;
-import storage.Storage;
-import parser.Parser;
-import task.TaskList;
 import exception.ChronosException;
+import tool.Parser;
+import tool.Storage;
+import tool.TaskList;
+import tool.Ui;
 
 /**
  * Represents the main class of the Chronos Task Management System.
@@ -16,6 +16,11 @@ public class Chronos {
     private static Storage storage;
     private static TaskList tasks;
 
+    /**
+     * Constructs a Chronos object with the given file path.
+     *
+     * @param filePath File path of the saved tasks.
+     */
     public Chronos(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,6 +32,12 @@ public class Chronos {
         }
     }
 
+    /**
+     * Initialises program and processes user input.
+     *
+     * @throws IOException If there is an exception when processing input/output.
+     * @throws ChronosException If there are invalid commands provided.
+     */
     public void run() throws IOException, ChronosException {
         ui.greetUser();
         Scanner sc = new Scanner(System.in);
@@ -41,9 +52,10 @@ public class Chronos {
     }
 
     /**
-     * Initialises text file to store task list and processes user commands.
+     * Represents the main function to run the Chronos Task Management System.
      *
-     * @throws @IOException If directory or file is not found.
+     * @throws IOException If there is an exception when processing input/output.
+     * @throws ChronosException If there are invalid commands provided.
      */
     public static void main(String[] args) throws IOException, ChronosException {
         new Chronos(FILE_PATH).run();

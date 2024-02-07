@@ -1,12 +1,12 @@
-package parser;
+package tool;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import ui.Ui;
-import storage.Storage;
-import task.TaskList;
+import tool.Storage;
+import tool.TaskList;
+import tool.Ui;
 import task.Task;
 import exception.ChronosException;
 

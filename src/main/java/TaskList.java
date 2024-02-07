@@ -1,11 +1,11 @@
-package task;
+package tool;
 
 import java.util.ArrayList;
 import task.Task;
 import task.Todo;
 import task.Deadline;
 import task.Event;
-import ui.Ui;
+import tool.Ui;
 
 public class TaskList {
     private ArrayList<Task> tasks;
