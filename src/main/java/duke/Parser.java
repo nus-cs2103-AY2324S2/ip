@@ -94,7 +94,7 @@ public class Parser {
                     result = io.displaySearchResults(temp);
                     break;
                 default:
-                    throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException(" Oopsie doodle! I can not understand what you mean.");
             }
         } catch (DukeException | IllegalDateFormatException | FileIOException e) {
             result = "ERROR : " + e.getMessage();

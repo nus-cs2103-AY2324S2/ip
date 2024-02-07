@@ -1,7 +1,10 @@
+
+/**
+ * Controller for MainWindow. Provides the layout for the other controls.
+ */
 package duke.Ui;
 
 import duke.Duke;
-import duke.exceptions.FileIOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,16 +34,38 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duckbot.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/shaunbot.jpeg"));
 
     @FXML
     public void initialize() {
+        dialogContainer.setStyle("-fx-background-color: #FFE4C9;");
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String result = "Hello! I'm Duckbot\n\n";
-        result += "What can I do for you?";
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(result, dukeImage)
-        );
+        String result = "Hello! I'm Shaunbot\n\nWhat can I do for you?";
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(result, dukeImage));
+
+        setupSendButtonAnimation();
+    }
+
+    private void setupSendButtonAnimation() {
+        // Fade in animation for the send button
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), sendButton);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        // Scale animation for hover effect
+        sendButton.setOnMouseEntered(e -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), sendButton);
+            scaleTransition.setToX(1.1);
+            scaleTransition.setToY(1.1);
+            scaleTransition.play();
+        });
+        sendButton.setOnMouseExited(e -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), sendButton);
+            scaleTransition.setToX(1.0);
+            scaleTransition.setToY(1.0);
+            scaleTransition.play();
+        });
     }
 
     public void setDuke(Duke d) {
@@ -53,16 +82,14 @@ public class MainWindow extends AnchorPane {
         if (input.isBlank()) {
             return;
         }
-        String response = null;
-
-        response = duke.getResponse(input);
+        String response = duke.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if (input.split(" ")[0].equals("bye")) {
+        if (input.equals("bye")) {
             Thread delayThread = new Thread(() -> {
                 try {
                     Thread.sleep(1000);

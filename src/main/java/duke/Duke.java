@@ -2,7 +2,6 @@ package duke;
 
 
 import duke.Ui.DialogBox;
-import duke.exceptions.FileIOException;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -15,9 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import duke.task.TaskList;
 import duke.Ui.Ui;
+import javafx.stage.Stage;
+
 
 /**
  * This class is command-line application responsible for managing tasks.
@@ -37,7 +37,7 @@ public class Duke extends Application {
     private final String FILE_PATH = "data/duck.txt";
     private final Storage storage;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duckbot = new Image(this.getClass().getResourceAsStream("/images/duckbot.jpeg"));
+    private Image duckbot = new Image(this.getClass().getResourceAsStream("/images/shaunbot.jpeg"));
     /**
      * Constructs a simple Duck Object..
      */
