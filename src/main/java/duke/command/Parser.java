@@ -4,7 +4,21 @@ import duke.DukeException;
 
 import java.time.LocalDate;
 
+/**
+ * The Parser class is responsible for parsing user input commands and it returns an array of
+ * objects based on the command type. This returned array contains the relevant fields for the
+ * particular command type and can be accessed to determine what is to be executed next.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input of String format and returns an array of Objects based on
+     * the command type.
+     *
+     * @param input the user input command to be parsed
+     * @return an array of Objects corresponding to the parsed command
+     * @throws DukeException if the input command is invalid or cannot be parsed
+     */
     public static Object[] parseCommand(String input) throws DukeException {
         if (input.equals("bye")) {
             return new Object[] { "bye" };

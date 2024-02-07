@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for storing tasks in a file in the hard disk before the
+ * program exits, and retrieving the tasks from the file when the program is subsequently
+ * ran again.
+ */
 public class Storage {
     protected String filePath;
 
@@ -15,6 +20,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Retrieves the tasks from previous runs stored in the file, before parsing, creating and
+     * adding these tasks to tasks.
+     *
+     * @param tasks the array to add created tasks to
+     */
     public void getFileContents(TaskList tasks) {
         try {
             File f = new File(filePath);
@@ -77,6 +88,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to the file in the hard disk the list of tasks to store before the program terminates.
+     *
+     * @param tasks the list of tasks to store
+     */
     public void writeToFile(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
