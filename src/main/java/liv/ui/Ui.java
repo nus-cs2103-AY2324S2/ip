@@ -13,7 +13,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
     public void displayGreetCommand() {
-        System.out.println("liv.Liv, under your instructions!");
+        System.out.println("Liv, under your instructions!");
         System.out.println("What is your command?\n");
     }
 
