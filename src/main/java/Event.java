@@ -16,8 +16,8 @@ public class Event extends Task{
 
     @Override
     public String toDataString() {
-        return "E|" + super.toDataString() + "|" + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                + "|" + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return "E:" + super.toDataString() + ":" + this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                + ":" + this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     private String formatDateTime(LocalDateTime date) {

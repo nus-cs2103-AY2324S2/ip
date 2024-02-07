@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
     @Override
     public String toDataString() {
-        return "D|" + super.toDataString() + "|" + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return "D:" + super.toDataString() + ":" + this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     private String formatDateTime(LocalDateTime date) {

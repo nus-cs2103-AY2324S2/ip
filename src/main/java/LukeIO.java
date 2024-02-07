@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {
+public class LukeIO {
     private File file;
-    private Ui ui;
-    public Storage(String path) {
+    public LukeIO(String path) {
         this.file = new File(path);
 
         if (!this.file.exists()) {
@@ -20,7 +19,6 @@ public class Storage {
                 e.printStackTrace();
             }
         }
-        this.ui = new Ui();
 
     }
     public ArrayList<Task> readTask() throws FileException {
@@ -29,12 +27,11 @@ public class Storage {
         try (Scanner sc = new Scanner(this.file)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] parts = line.split("\\|");
+                String[] parts = line.split(":");
 
                 String type = parts[0];
                 String markOrUnmark = parts[1];
                 String description = parts[2];
-
                 if (type.equals("T")) {
                     Task task = new Todo(description);
                     if (markOrUnmark.equals("X")) {
@@ -67,22 +64,25 @@ public class Storage {
             throw new FileException("Sorry! File is corrupted! :'(\nWill not be able to read tasks from file! :'(");
 
         } catch (DateException e) {
-            ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as dd/MM/yyyy or " +
-                    "yyyy-MM-dd\nYou can also enter the time in 24-hour format such as HH[:mm] after the date");
+            System.out.println("________________________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("Please enter the date in proper format such as dd/MM/yyyy or yyyy-MM-dd");
+            System.out.println("________________________________________________________________________");
 
         }
 
         return tasks;
     }
 
-    public void writeTask(TaskList tasks) throws FileException {
+    public void writeTask(ArrayList<Task> tasks) throws FileException {
         try (FileWriter fw = new FileWriter(this.file, false)) {
-            for (int i = 0; i < tasks.size(); i++) {
-                fw.write(tasks.get(i).toDataString() + "\n");
+            for (Task task : tasks) {
+                fw.write(task.toDataString() + "\n");
             }
 
+
         } catch (IOException e) {
-            throw new FileException("Sorry! There was an error editing the file! :'(");
+            throw new FileException("Sorry! File not found! :'(");
         }
 
 
