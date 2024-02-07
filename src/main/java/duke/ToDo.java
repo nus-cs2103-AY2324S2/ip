@@ -1,8 +1,16 @@
 package duke;
 
-import duke.Task;
-
+/**
+ * Handles ToDo tasks, that only have a name.
+ */
 public class ToDo extends Task {
+
+    /**
+     * Creates a ToDo task
+     *
+     * @param name the name of the task
+     * @param isDone whether the task is done
+     */
     public ToDo(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;

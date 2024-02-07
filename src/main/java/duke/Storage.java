@@ -1,17 +1,19 @@
 package duke;
-
-import duke.Parser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+/**
+ * Handles the saving and reading of the save file.
+ */
 public class Storage {
 
-    public Storage() {
-
-    }
+    /**
+     * Saves the tasks in the task list into the save file
+     *
+     * @param taskList the current list of tasks to be saved
+     */
     public static void save(TaskList taskList) {
         try {
             FileWriter f = new FileWriter("save.txt");
@@ -26,6 +28,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the save file and places the tasks into the taskList.
+     *
+     * @param taskList the task list to be placed into.
+     */
     public static void read(TaskList taskList) {
         File f = new File("save.txt");
         if(!f.isFile()) {
