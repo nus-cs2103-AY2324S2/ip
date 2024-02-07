@@ -105,11 +105,4 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from_time + " to: " + to_time + ")";
     }
-
-    private static void print_string_array(String[] arr){
-        for (String s: arr){
-            System.out.println(s);
-        }
-    }
-
 }
