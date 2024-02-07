@@ -30,13 +30,15 @@ public class SaveCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+        String msg;
         try {
-            ui.printSaveOngoingMsg(saveFile.getFileName());
+            msg = ui.getSaveOngoingMsg(saveFile.getFileName());
             saveFile.saveTasksToFile(tasks);
-            ui.printSaveDoneMsg();
+            msg += ui.getSaveDoneMsg();
         } catch (TalkingBotException e) {
-            ui.printGenericError(e);
+            msg = ui.getGenericErrorMsg(e);
         }
+        return msg;
     }
 }

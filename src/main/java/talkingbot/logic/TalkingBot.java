@@ -1,4 +1,4 @@
-package talkingbot;
+package talkingbot.logic;
 
 import talkingbot.command.Command;
 import talkingbot.exception.TalkingBotException;
@@ -7,14 +7,15 @@ import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+
 /**
  * Class serving as the entry point of the application.
  */
 public class TalkingBot {
     private static final String FILE_PATH = "./data/taskList.txt";
-    private SaveFile saveFile;
+    private final SaveFile saveFile;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructor for the TalkingBot class.
@@ -27,29 +28,28 @@ public class TalkingBot {
         try {
             this.tasks = this.saveFile.getTasksFromFile();
         } catch (TalkingBotException e) {
-            this.ui.printLoadingError(e);
+            this.ui.getLoadingErrorMsg(e);
             this.tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the application.
+     * Zero-argument constructor for TalkingBot.
      */
-    public void runTalkingBot() {
-        this.ui.printWelcomeMsg();
-        Parser parser = new Parser();
-        while (this.ui.getContinueIter()) {
-            Command curCommand = parser.parseCommand();
-            this.ui.printLine();
-            curCommand.runCommand(this.tasks, this.saveFile, this.ui);
-            this.ui.printLine();
-        }
+    public TalkingBot() {
+        this(FILE_PATH);
     }
 
     /**
-     * Main method.
+     * Processes the input text according and returns a formatted String.
+     * @param text String to be processed by the application logic.
+     * @return A formatted String.
      */
-    public static void main(String[] args) {
-        new TalkingBot(FILE_PATH).runTalkingBot();
+    public String process(String text) {
+        Parser parser = new Parser();
+        Command curCommand = parser.parseCommand(text);
+        String response = curCommand.runCommand(this.tasks, this.saveFile, this.ui);
+        String hLine = this.ui.getHLine();
+        return String.format("%s%s%s", hLine, response, hLine);
     }
 }

@@ -19,7 +19,8 @@ public class Ui {
     private static final String SAVE_ONGOING_MSG = "\tSaving tasks to file: ";
     private static final String SAVE_DONE_MSG = "\tSave done!";
     private static final String ADD_TASK_MSG = "\tAlright, I've added this task to your list:";
-    private static final String TASK_NUM_MSG = "\tYou now have %d tasks in the list.";
+    private static final String TASK_NUM_MSG_1 = "\tYou now have";
+    private static final String TASK_NUM_MSG_2 = "tasks in the list.";
     private static final String REMOVE_TASK_MSG = "\tRemoving task:";
 
     private boolean continueIter = true;
@@ -34,47 +35,44 @@ public class Ui {
      * Prints a loading error and the exception that caused it.
      *
      * @param e The exception causing the loading error.
+     * @return The loading error string.
      */
-    public void printLoadingError(TalkingBotException e) {
-        System.out.println("\t" + e);
-        System.out.println(LOADING_ERR_MSG);
-        System.out.println(H_LINE);
+    public String getLoadingErrorMsg(TalkingBotException e) {
+        return String.format("\t%s\n%s\n%s\n", e, LOADING_ERR_MSG, H_LINE);
     }
 
     /**
      * Prints a message when a task is marked as done.
      *
      * @param modifiedTask Task that has been modified.
+     * @return String indicating the task is set as done.
      */
-    public void printTaskSetDone(Task modifiedTask) {
-        System.out.println(TASK_SET_DONE_MSG);
-        System.out.println("\t" + modifiedTask);
+    public String getTaskDoneMsg(Task modifiedTask) {
+        return String.format("%s\n\t%s\n", TASK_SET_DONE_MSG, modifiedTask);
     }
 
     /**
      * Prints a message when a task is marked as undone.
      *
      * @param modifiedTask Task that has been modified.
+     * @return String indicating the task is set as undone.
      */
-    public void printTaskSetUndone(Task modifiedTask) {
-        System.out.println(TASK_SET_UNDONE_MSG);
-        System.out.println("\t" + modifiedTask);
+    public String getTaskSetUndoneMsg(Task modifiedTask) {
+        return String.format("%s\n\t%s\n", TASK_SET_UNDONE_MSG, modifiedTask);
     }
 
     /**
      * Prints a message when an invalid command is entered.
      */
-    public void printInvalidCmdMsg() {
-        System.out.println(INVALID_CMD_MSG);
+    public String getInvalidCmdMsg() {
+        return String.format("%s\n", INVALID_CMD_MSG);
     }
 
     /**
      * Prints a welcome message when the application starts.
      */
-    public void printWelcomeMsg() {
-        System.out.println(H_LINE);
-        System.out.println(WELCOME);
-        System.out.println(H_LINE);
+    public String getWelcomeMsg() {
+        return String.format("%s\n%s\n%s\n", H_LINE, WELCOME, H_LINE);
     }
 
     /**
@@ -82,15 +80,15 @@ public class Ui {
      *
      * @param e Exception to be printed.
      */
-    public void printGenericError(TalkingBotException e) {
-        System.out.println("\t" + e);
+    public String getGenericErrorMsg(TalkingBotException e) {
+        return String.format("\t%s\n", e);
     }
 
     /**
      * Prints a horizontal line.
      */
-    public void printLine() {
-        System.out.println(H_LINE);
+    public String getHLine() {
+        return String.format("%s\n", H_LINE);
     }
 
     /**
@@ -98,15 +96,15 @@ public class Ui {
      *
      * @param filePath File path of the save file.
      */
-    public void printSaveOngoingMsg(String filePath) {
-        System.out.println(SAVE_ONGOING_MSG + filePath);
+    public String getSaveOngoingMsg(String filePath) {
+        return String.format("%s%s\n", SAVE_ONGOING_MSG, filePath);
     }
 
     /**
      * Prints a message indicating that the saving has been done.
      */
-    public void printSaveDoneMsg() {
-        System.out.println(SAVE_DONE_MSG);
+    public String getSaveDoneMsg() {
+        return String.format("%s\n", SAVE_DONE_MSG);
     }
 
     /**
@@ -115,10 +113,9 @@ public class Ui {
      * @param curTask Task that is added.
      * @param numTasks Current size of the task list.
      */
-    public void printAddTask(Task curTask, int numTasks) {
-        System.out.println(ADD_TASK_MSG);
-        System.out.println("\t\t" + curTask);
-        System.out.println(String.format(TASK_NUM_MSG, numTasks));
+    public String getAddTaskMsg(Task curTask, int numTasks) {
+        return String.format("%s\n\t\t%s\n%s %d %s\n",
+                ADD_TASK_MSG, curTask, TASK_NUM_MSG_1, numTasks, TASK_NUM_MSG_2);
     }
 
     /**
@@ -127,17 +124,17 @@ public class Ui {
      * @param removedTask Task that is removed.
      * @param numTasks Current size of the task list.
      */
-    public void printDeleteTask(Task removedTask, int numTasks) {
-        System.out.println(REMOVE_TASK_MSG);
-        System.out.println("\t\t" + removedTask);
-        System.out.println(String.format(TASK_NUM_MSG, numTasks));
+    public String getDeleteTaskMsg(Task removedTask, int numTasks) {
+        return String.format("%s\n\t\t%s\n%s %d %s\n",
+                REMOVE_TASK_MSG, removedTask, TASK_NUM_MSG_1, numTasks,
+                TASK_NUM_MSG_2);
     }
 
     /**
      * Prints a goodbye message.
      */
-    public void printGoodbyeMsg() {
-        System.out.println(GOODBYE);
+    public String getGoodbyeMsg() {
+        return String.format("%s\n", GOODBYE);
     }
 
     /**

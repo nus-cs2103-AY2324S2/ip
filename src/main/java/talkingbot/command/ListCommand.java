@@ -27,7 +27,7 @@ public class ListCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
-        System.out.println(tasks);
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+        return tasks.toString();
     }
 }

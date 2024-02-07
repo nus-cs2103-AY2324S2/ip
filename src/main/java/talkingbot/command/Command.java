@@ -35,5 +35,5 @@ public abstract class Command {
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
-    public abstract void runCommand(TaskList tasks, SaveFile saveFile, Ui ui);
+    public abstract String runCommand(TaskList tasks, SaveFile saveFile, Ui ui);
 }

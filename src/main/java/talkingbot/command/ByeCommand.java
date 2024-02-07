@@ -29,13 +29,15 @@ public class ByeCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+        String msg;
         try {
-            ui.printGoodbyeMsg();
+            msg = ui.getGoodbyeMsg();
             saveFile.saveTasksToFile(tasks);
             ui.setContinueIter(false);
         } catch (TalkingBotException e) {
-            ui.printGenericError(e);
+            msg = ui.getGenericErrorMsg(e);
         }
+        return msg;
     }
 }
