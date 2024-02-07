@@ -5,7 +5,7 @@ public class  Dude {
 
     static TaskList taskList = new TaskList();
 
-    static final String[] supported_commands = {"bye", "list", "mark", "unmark", "todo", "event", "deadline"};
+    static final String[] supported_commands = {"bye", "list", "mark", "unmark", "todo", "event", "deadline", "delete"};
 
     public static void main(String[] args) {
 
@@ -65,6 +65,9 @@ public class  Dude {
                 case "deadline":
                     System.out.println(handle_deadline_command(msg));
                     break;
+                case "delete":
+                    System.out.println(handle_delete_command(msg));
+                    break;
             }
         }
 
@@ -96,7 +99,7 @@ public class  Dude {
         int index = 0;
         try{
             index = Integer.parseInt(msg.split(" ")[1]);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return "\t-----------------------------------\n" +
                     "\tPlease provide a valid task ID. Has to be an integer.\n" +
                     "\t-----------------------------------";
@@ -118,7 +121,7 @@ public class  Dude {
         int index = 0;
         try{
             index = Integer.parseInt(msg.split(" ")[1]);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return "\t-----------------------------------\n" +
                     "\tPlease provide a valid task ID. Has to be an integer.\n" +
                     "\t-----------------------------------";
@@ -165,6 +168,25 @@ public class  Dude {
             return taskList.add_task(task);
         }catch (InvalidFormatException | InvalidArgumentException | InvalidDescriptionException | TaskListFullException e) {
             return echo(e.getMessage());
+        }
+    }
+
+    private static String handle_delete_command(String msg){
+        int index = 0;
+        try{
+            index = Integer.parseInt(msg.split(" ")[1]);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return "\t-----------------------------------\n" +
+                    "\tPlease provide a valid task ID. Has to be an integer.\n" +
+                    "\t-----------------------------------";
+        }
+
+        try {
+            return taskList.remove_task(index);
+        } catch (IndexOutOfBoundsException e) {
+            return "\t-----------------------------------\n" +
+                    "\t" + e.getMessage() +"\n" +
+                    "\t-----------------------------------";
         }
     }
 

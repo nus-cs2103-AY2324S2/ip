@@ -24,6 +24,18 @@ public class TaskList {
                 "\t-----------------------------------";
     }
 
+    public String remove_task(int index) throws IndexOutOfBoundsException {
+        if (index > list.size() || index < 1) {
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
+        }
+        Task removed = list.remove(index - 1);
+        return "\t-----------------------------------\n" +
+                "\tNoted. I've removed this task:\n" +
+                "\t  " + removed.toString() + "\n" +
+                "\tNow you have " + list.size() + " tasks in the list.\n" +
+                "\t-----------------------------------";
+    }
+
     public String mark_as_done(int index) throws IndexOutOfBoundsException{
         if (index > list.size() || index < 1) {
             throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");

@@ -19,5 +19,6 @@ event CS2103T tutorial
 list
 event
 list
+delete 1
 bye
 ```
