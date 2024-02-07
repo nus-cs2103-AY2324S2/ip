@@ -1,3 +1,8 @@
+package command;
+
+import cro.Cro;
+import cro.CroException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,39 +52,49 @@ public class Parser {
         List<String> splitStr = new ArrayList<>(Arrays.asList(inText.trim().split("\\s+")));
         String command = splitStr.remove(0);
         try {
-            if (command.equals("bye")) {
-                System.out.println("-----------------------------------");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("-----------------------------------");
-                return false;
-            } else if (command.equals("list")) {
-                cro.taskList.displayTasks();
-            } else if (command.equals("mark")) {
-                cro.taskList.markTaskAsDone(splitStr);
-            } else if (command.equals("unmark")) {
-                cro.taskList.markTaskAsUndone(splitStr);
-            } else if (command.equals("todo")) {
-                List<String> res = new ArrayList<>(Arrays.asList("T","0"));
-                res.addAll(splitStr);
-                cro.taskList.addToDo(res);
-            } else if (command.equals("deadline")) {
-                List<String> res = new ArrayList<>(Arrays.asList("D","0"));
-                splitStr = convertDateDeadline(splitStr);
-                res.addAll(splitStr);
-                cro.taskList.addDeadline(res);
-            } else if (command.equals("event")) {
-                List<String> res = new ArrayList<>(Arrays.asList("E","0"));
-                splitStr = convertDateEvent(splitStr);
-                res.addAll(splitStr);
-                cro.taskList.addEvent(res);
-            } else if (command.equals("delete")) {
-                cro.taskList.deleteEvent(splitStr);
-            } else {
-                throw new CroException("Unknown command. Please try again.");
+            switch (command) {
+                case "bye":
+                    System.out.println("-----------------------------------");
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println("-----------------------------------");
+                    return false;
+                case "list":
+                    cro.taskList.displayTasks();
+                    break;
+                case "mark":
+                    cro.taskList.markTaskAsDone(splitStr);
+                    break;
+                case "unmark":
+                    cro.taskList.markTaskAsUndone(splitStr);
+                    break;
+                case "todo": {
+                    List<String> res = new ArrayList<>(Arrays.asList("T", "0"));
+                    res.addAll(splitStr);
+                    cro.taskList.addToDo(res);
+                    break;
+                }
+                case "deadline": {
+                    List<String> res = new ArrayList<>(Arrays.asList("D", "0"));
+                    splitStr = convertDateDeadline(splitStr);
+                    res.addAll(splitStr);
+                    cro.taskList.addDeadline(res);
+                    break;
+                }
+                case "event": {
+                    List<String> res = new ArrayList<>(Arrays.asList("E", "0"));
+                    splitStr = convertDateEvent(splitStr);
+                    res.addAll(splitStr);
+                    cro.taskList.addEvent(res);
+                    break;
+                }
+                case "delete":
+                    cro.taskList.deleteEvent(splitStr);
+                    break;
+                default:
+                    throw new CroException("Unknown command. Please try again.");
             }
         } catch (Exception e){
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
         return true;
     }

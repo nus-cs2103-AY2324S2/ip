@@ -1,4 +1,7 @@
-import java.time.LocalDate;
+package tasks;
+
+import cro.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class Deadline extends Task {
         } catch (Exception e) {
             throw new CroException("deadline must be in the format YYYY MM DD HH MM");
         }
-        if (description.equals("") || deadline.equals("")) {
+        if (description.equals("")) {
             throw new CroException("description or deadline cannot be empty!");
         }
         this.description = description;

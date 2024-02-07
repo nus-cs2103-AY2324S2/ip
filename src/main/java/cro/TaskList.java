@@ -1,12 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.*;
-import java.util.stream.Collectors;
+package cro;
+
+import tasks.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     public List<Task> taskList = new ArrayList<>();
@@ -17,6 +14,7 @@ public class TaskList {
 
     public TaskList() {
     }
+
 
     public void addToTaskList(Task newTask) {
         taskList.add(newTask);
@@ -47,7 +45,7 @@ public class TaskList {
             String output = String.format("%d. %s", i+1, taskList.get(i));
             System.out.println(output);
         }
-        System.out.println(String.format("Now you have %d tasks in the list", taskList.size()));
+        System.out.printf("Now you have %d tasks in the list%n", taskList.size());
     }
 
     public void markTaskAsDone(List<String> splitStr) throws CroException {
@@ -100,7 +98,7 @@ public class TaskList {
             System.out.println("-----------------------------------");
             System.out.println("OK, I've removed this task.");
             System.out.println(removedTask);
-            System.out.println(String.format("Now you have %d tasks in the list", taskList.size()));
+            System.out.printf("Now you have %d tasks in the list%n", taskList.size());
             System.out.println("-----------------------------------");
         }
     }
