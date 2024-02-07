@@ -5,9 +5,9 @@ public class Gandalf {
     private TaskList tasks;
     private Ui ui;
 
-    public Gandalf(String filepath){
+    public Gandalf(String filePathMeta, String filePathRead){
         ui = new Ui();
-        storage = new Storage(filepath);
+        storage = new Storage(filePathMeta, filePathRead);
         try {
             tasks = new TaskList(storage.load());
         } catch (GandalfException e) {
@@ -59,7 +59,6 @@ public class Gandalf {
                 storage.store(tasks.getList());
             }
             else{
-                System.out.println("OVER HERREEE");
                 tasks.add(parsedInput[0].toString().trim(), parsedInput[1].toString().trim(), parsedInput[2].toString().trim(), parsedInput[3].toString().trim());
                 storage.store(tasks.getList());
                 System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
@@ -68,6 +67,6 @@ public class Gandalf {
     }
 
     public static void main(String[] args) {
-        new Gandalf("docs/gandalfData.txt").run();
+        new Gandalf("docs/gandalfMeta.txt", "docs/gandalfRead.txt").run();
     }
 }

@@ -1,21 +1,22 @@
-import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Stores two files: 1 stored as input streams not meant to be read but for easier loading, the other is stored
+ * in readable format
+ */
 public class Storage {
-    String filepath;
+    String filePathMeta;
+    String filePathRead;
 
-    public Storage(String filepath){
-        this.filepath = filepath;
+    public Storage(String filePathMeta, String filePathRead){
+        this.filePathMeta = filePathMeta;
+        this.filePathRead = filePathRead;
     }
 
     public ArrayList<Task> load() throws GandalfException{
         ArrayList<Task> data = new ArrayList<>();
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filepath))){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))){
             data = (ArrayList<Task>) ois.readObject();
         }
         catch(FileNotFoundException e){
@@ -27,24 +28,10 @@ public class Storage {
         return data;
     }
     public void store(ArrayList<Task> arrayList) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filepath, false))) {
-            oos.writeObject(arrayList);
-        } catch (IOException e) {
-            e.getMessage();
-        }
-    }
-}
-/**
-    public static void writeToFile(ArrayList<Task> list){
-        File docsFolder = new File("docs");
-        if (!docsFolder.exists()) {
-            docsFolder.mkdir();
-        }
-        String filePath = "docs/gandalfData.txt";
-        File file = new File(filePath);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
-            for(int i = 0; i < list.size(); i++){
-                Task action = list.get(i);
+        //store as readable format
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePathRead))){
+            for(int i = 0; i < arrayList.size(); i++) {
+                Task action = arrayList.get(i);
                 writer.write((i + 1) + ". " + action);
                 writer.newLine();
             }
@@ -52,5 +39,10 @@ public class Storage {
         catch(IOException e){
             e.printStackTrace();
         }
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePathMeta, false))) {
+            oos.writeObject(arrayList);
+        } catch (IOException e) {
+            e.getMessage();
+        }
     }
-*/
+}

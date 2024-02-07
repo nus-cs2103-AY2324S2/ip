@@ -4,11 +4,12 @@ import java.time.temporal.ChronoUnit;
 public class Events extends Task{
     String startDate;
     String endDate;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    transient DateTimeFormatter formatter;
     LocalDateTime formattedStartDate;
     LocalDateTime formattedEndDate;
     public Events(String nameOfTask, String startDate, String endDate){
         super(nameOfTask);
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.startDate = startDate;
         this.endDate = endDate;
         this.formattedStartDate = LocalDateTime.parse(startDate.trim(), formatter);

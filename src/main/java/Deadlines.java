@@ -5,9 +5,10 @@ import java.time.temporal.ChronoUnit;
 public class Deadlines extends Task{
     String deadlineDate;
     LocalDateTime formattedDate;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    transient DateTimeFormatter formatter;
     public Deadlines(String nameOfTask, String deadlineDate){
         super(nameOfTask);
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.deadlineDate = deadlineDate;
         this.formattedDate = LocalDateTime.parse(deadlineDate, formatter);
     }
