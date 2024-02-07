@@ -24,7 +24,7 @@ public class Duke {
      * Handles displaying the ui and loading and storing the task list on the local storage.
      */
     private void run() {
-        ui.introduction("riri");
+        ui.introduce("riri");
         try {
             ui.chat(tasks);
             storage.writeToFile(tasks.toString());

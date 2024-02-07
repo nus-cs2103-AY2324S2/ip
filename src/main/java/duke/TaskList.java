@@ -10,9 +10,8 @@ public class TaskList {
      * @param contents tasks to be added to task list
      */
     public TaskList(ArrayList<String> contents) {
-        for (String c : contents) {
-            System.out.println(c);
-            addTask(parser(c));
+        for (String content : contents) {
+            addTask(parser(content));
         }
     }
     /**

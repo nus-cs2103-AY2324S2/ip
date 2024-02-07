@@ -35,7 +35,7 @@ public class Task {
      * Function to help check if a task is done
      * @return true if task is done, false otherwise
      */
-    public boolean done() {
+    public boolean getIsDone() {
         return this.isDone;
     }
     /**
@@ -43,7 +43,7 @@ public class Task {
      * @return X if task is done, otherwise " "
      */
     public String getStatus() {
-        return (this.isDone) ? "X" : " ";
+        return (this.getIsDone()) ? "X" : " ";
     }
     /**
      * Function takes a String and parses it into a LocalDate format
