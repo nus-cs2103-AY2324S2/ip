@@ -4,7 +4,6 @@ public class Event extends Task {
 
     public Event(String description, String start, String end, boolean isDone) {
         super(description, isDone);
-        isEvent = true;
         this.start = start;
         this.end = end;
     }
@@ -15,5 +14,11 @@ public class Event extends Task {
 
     public String getEnd() {
         return end;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription() +
+                " (from: " + start + " to: " + end + ")";
     }
 }

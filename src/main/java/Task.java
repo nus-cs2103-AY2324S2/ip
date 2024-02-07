@@ -1,13 +1,10 @@
 public class Task {
     String description;
     boolean isDone;
-    boolean isTodo;
-    boolean isDeadline;
-    boolean isEvent;
 
     public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
@@ -19,12 +16,14 @@ public class Task {
     }
 
     public String getTaskIcon() {
-        if (isTodo) {
+        if (this instanceof Todo) {
             return "T";
-        } else if (isDeadline) {
+        } else if (this instanceof Deadline) {
             return "D";
-        } else {
+        } else if (this instanceof Event) {
             return "E";
+        } else {
+            return "";
         }
     }
 
@@ -38,6 +37,11 @@ public class Task {
 
     public boolean isDone() {
         return isDone;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + description;
     }
 }
 
