@@ -15,8 +15,6 @@ public class Event extends Task{
 
         int from_occurences = utils.countOccurrences(arr, "/from");
 
-        System.out.println("From occurences: " + from_occurences);
-
         if (from_occurences == 0 || from_occurences > 1){
             throw new IllegalArgumentException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/from'.");
         }
@@ -64,35 +62,6 @@ public class Event extends Task{
         }
 
         return new Event(description, from_time, to_time);
-
-
-//        String[] arr = rest.split(" /from ");
-//        if (arr.length != 2) {
-//            throw new IllegalArgumentException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/from'.");
-//        }
-//
-//        String description = arr[0].trim();
-//        if (description.isEmpty()){
-//            throw new IllegalArgumentException("The description of an event cannot be empty.");
-//        }
-//
-//        System.out.println("Description is: " + description);
-//
-//        // <from time> /to <to time>
-//        rest = arr[1].trim();
-//        arr = rest.split(" /to ");
-//        if (arr.length != 2) {
-//            throw new IllegalArgumentException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/to'.");
-//        }
-//
-//        String from_time = arr[0].trim();
-//        String to_time = arr[1].trim();
-//
-//        if (!description.isEmpty() && !from_time.isEmpty() && !to_time.isEmpty()){
-//            return new Event(description, from_time, to_time);
-//        }else {
-//            throw new IllegalArgumentException("The description, from_time and to_time of an event cannot be empty.");
-//        }
     }
 
     public Event(String description, String from_time, String to_time){
