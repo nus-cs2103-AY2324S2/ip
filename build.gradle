@@ -23,6 +23,7 @@ application {
 
 shadowJar {
     archiveBaseName = "TalkingJohn"
+    archiveFileName = 'TalkingJohn.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
