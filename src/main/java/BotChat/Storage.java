@@ -11,10 +11,6 @@ import java.util.Scanner;
  * Handles the loading and saving of task data from/to the hard disk in the botChat application.
  */
 public class Storage {
-
-    /**
-     * The file path where the task data is stored.
-     */
     private static String filePath;
 
     /**

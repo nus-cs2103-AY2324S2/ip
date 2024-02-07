@@ -9,15 +9,7 @@ import java.time.format.DateTimeFormatter;
  * Extends the base Task class.
  */
 public class Event extends Task {
-
-    /**
-     * The starting date/time of the event in its original format.
-     */
     protected String from;
-
-    /**
-     * The ending date/time of the event in its original format.
-     */
     protected String to;
 
     /**
@@ -38,25 +30,19 @@ public class Event extends Task {
             this.to = convertDate(to);
         }
     }
-
-    /**
-     * Gets the starting date/time of the event in its original format.
-     *
-     * @return The starting date/time of the event.
-     */
     public String getFrom() {
         return from;
     }
-
-    /**
-     * Gets the ending date/time of the event in its original format.
-     *
-     * @return The ending date/time of the event.
-     */
     public String getTo() {
         return to;
     }
 
+    /**
+     * Checks if the provided date is in a valid format.
+     *
+     * @param by The date to be checked.
+     * @return True if the date is in a valid format, false otherwise.
+     */
     private boolean isValidDateFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {
@@ -68,6 +54,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Converts the date to a standard format.
+     *
+     * @param by The date to be converted.
+     * @return The date in a standard format.
+     */
     private String convertDate(String by) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
@@ -82,12 +74,6 @@ public class Event extends Task {
             }
         }
     }
-
-    /**
-     * Overrides the toString method to provide a string representation of the Event object.
-     *
-     * @return A string representation of the Event object.
-     */
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + from + " to: " + to + ")";

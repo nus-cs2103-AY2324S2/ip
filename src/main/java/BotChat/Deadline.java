@@ -9,10 +9,6 @@ import java.time.format.DateTimeFormatter;
  * Extends the base Task class.
  */
 public class Deadline extends Task {
-
-    /**
-     * The deadline string in its original format.
-     */
     protected String by;
 
     /**
@@ -30,16 +26,16 @@ public class Deadline extends Task {
             this.by = convertDate(by);
         }
     }
-
-    /**
-     * Gets the deadline in its original format.
-     *
-     * @return The deadline in its original format.
-     */
     public String getBy() {
         return by;
     }
 
+    /**
+     * Checks if the provided deadline is in a valid format.
+     *
+     * @param by The deadline to be checked.
+     * @return True if the deadline is in a valid format, false otherwise.
+     */
     private boolean isValidDateFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {
@@ -51,6 +47,12 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Converts the deadline to a standard format.
+     *
+     * @param by The deadline to be converted.
+     * @return The deadline in a standard format.
+     */
     private String convertDate(String by) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -66,12 +68,6 @@ public class Deadline extends Task {
             }
         }
     }
-
-    /**
-     * Overrides the toString method to provide a string representation of the Deadline object.
-     *
-     * @return A string representation of the Deadline object.
-     */
     @Override
     public String toString() {
         return "[D] " + super.toString() + " (by: " + by + ")";

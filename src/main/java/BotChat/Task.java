@@ -4,15 +4,7 @@ package BotChat;
  * Represents a generic task in the botChat application.
  */
 public class Task {
-
-    /**
-     * The description of the task.
-     */
     protected String description;
-
-    /**
-     * Indicates whether the task is marked as done.
-     */
     protected boolean isDone;
 
     /**
@@ -33,12 +25,6 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-
-    /**
-     * Gets the description of the task.
-     *
-     * @return The description of the task.
-     */
     public String getDescription() {
         return description;
     }

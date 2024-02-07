@@ -10,10 +10,6 @@ import java.util.ArrayList;
  * Represents a collection of tasks in the botChat application.
  */
 public class TaskList {
-
-    /**
-     * The list of tasks.
-     */
     private ArrayList<Task> tasks;
 
     /**
@@ -22,12 +18,6 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-
-    /**
-     * Gets the list of tasks.
-     *
-     * @return The list of tasks.
-     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
@@ -238,9 +228,9 @@ public class TaskList {
     }
 
     /**
-     * Adds a todo task to the task list based on the user input.
+     * Adds a tod0 task to the task list based on the user input.
      *
-     * @param input The user input containing the todo task details.
+     * @param input The user input containing the tod0 task details.
      * @return A response message or status.
      * @throws BotChatException If there's an error during the addition process.
      */

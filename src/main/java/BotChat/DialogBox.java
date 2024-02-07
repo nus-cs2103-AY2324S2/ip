@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a new DialogBox with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -48,14 +54,27 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates and returns a dialog box representing user input.
+     *
+     * @param text The text entered by the user.
+     * @param img  The image representing the user.
+     * @return A DialogBox representing the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a dialog box representing the bot's response.
+     *
+     * @param text The text of the bot's response.
+     * @param img  The image representing the bot.
+     * @return A DialogBox representing the bot's response.
+     */
     public static DialogBox getBotChatDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
 }
-
