@@ -9,8 +9,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-public class Luke {
+public class Luke extends Application {
 
     //Logo created using https://patorjk.com/software/taag/#p=display&f=Varsity&t=Luke
     private static String logo = "  _____             __             \n"
@@ -72,6 +76,11 @@ public class Luke {
 
         //goodbye message
         ui.bye();
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
     }
 }
 
