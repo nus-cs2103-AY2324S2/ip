@@ -1,6 +1,6 @@
-package baron.Models;
+package baron.models;
 
-import baron.Utils.DateUtils;
+import baron.utils.DateUtils;
 
 import java.time.LocalDateTime;
 

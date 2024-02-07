@@ -1,4 +1,4 @@
-package baron.Utils;
+package baron.utils;
 
 /**
  * Handles most String-related functions, such as parsing of input and extraction of values from

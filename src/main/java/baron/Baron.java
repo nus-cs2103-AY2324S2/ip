@@ -1,17 +1,6 @@
 package baron;
 
-import baron.Managers.TaskManager;
-import baron.Models.Task;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Scanner;
+import baron.managers.TaskManager;
 
 public class Baron {
 

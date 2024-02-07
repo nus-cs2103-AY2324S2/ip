@@ -1,9 +1,9 @@
-package baron.Dao;
+package baron.dao;
 
-import baron.Database.Database;
-import baron.Enums.TaskType;
-import baron.Models.Todo;
-import baron.Utils.StringUtils;
+import baron.database.Database;
+import baron.enums.TaskType;
+import baron.models.Todo;
+import baron.utils.StringUtils;
 
 import java.io.File;
 import java.io.IOException;

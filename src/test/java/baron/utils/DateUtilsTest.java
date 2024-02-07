@@ -1,4 +1,4 @@
-package baron.Utils;
+package baron.utils;
 
 import org.junit.jupiter.api.Test;
 

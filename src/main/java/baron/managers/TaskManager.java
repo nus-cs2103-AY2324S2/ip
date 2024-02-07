@@ -1,16 +1,16 @@
-package baron.Managers;
+package baron.managers;
 
-import baron.Dao.DeadlineDao;
-import baron.Dao.EventDao;
-import baron.Dao.TaskDao;
-import baron.Dao.TodoDao;
-import baron.Enums.Commands;
-import baron.Enums.TaskType;
-import baron.Models.Deadline;
-import baron.Models.Event;
-import baron.Models.Task;
-import baron.Models.Todo;
-import baron.Utils.StringUtils;
+import baron.dao.DeadlineDao;
+import baron.dao.EventDao;
+import baron.dao.TaskDao;
+import baron.dao.TodoDao;
+import baron.enums.Commands;
+import baron.enums.TaskType;
+import baron.models.Deadline;
+import baron.models.Event;
+import baron.models.Task;
+import baron.models.Todo;
+import baron.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class TaskManager {
             } else if (command.equals(EventDao.NAME)) {
                 return addEvent(input);
             } else if (command.equals(Commands.LIST.getCommand())) {
-                return UIManager.list(this.tasks);
+                return UiManager.list(this.tasks);
             } else if (command.equals(Commands.MARK.getCommand())) {
                 return mark(input, true);
             } else if (command.equals(Commands.UNMARK.getCommand())) {
@@ -104,7 +104,7 @@ public class TaskManager {
         Task task = this.get(taskIndex);
         TaskType type = getTaskType(task.toString());
         task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
-        return UIManager.mark(task, isDone);
+        return UiManager.mark(task, isDone);
     }
 
     protected String delete(String input) {
@@ -112,7 +112,7 @@ public class TaskManager {
         Task task = this.tasks.remove(i);
         TaskType type = getTaskType(task.toString());
         TaskDao.delete(type.getCommand(), task.getId());
-        return UIManager.delete(task, this.tasks.size());
+        return UiManager.delete(task, this.tasks.size());
     }
 
     /**
@@ -129,12 +129,12 @@ public class TaskManager {
                 filteredTasks.add(task);
             }
         }
-        return UIManager.find(filteredTasks);
+        return UiManager.find(filteredTasks);
     }
 
     protected String add(Task task) {
         tasks.add(task);
-        return UIManager.add(task, tasks.size());
+        return UiManager.add(task, tasks.size());
     }
 
     private Task get(int i) {

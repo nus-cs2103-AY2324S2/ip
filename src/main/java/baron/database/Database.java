@@ -1,7 +1,7 @@
-package baron.Database;
+package baron.database;
 
-import baron.Utils.FileUtils;
-import baron.Utils.StringUtils;
+import baron.utils.FileUtils;
+import baron.utils.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;

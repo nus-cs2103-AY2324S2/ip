@@ -1,4 +1,4 @@
-package baron.Models;
+package baron.models;
 
 public class Todo extends Task {
 

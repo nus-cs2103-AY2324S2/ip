@@ -1,20 +1,16 @@
-package baron.Managers;
-
-import baron.Models.Task;
+package baron.managers;
 
 import java.util.List;
 
-public class UIManager {
-
-    private static String SEPARATOR = "--------------------";
+import baron.models.Task;
+/**
+ * Manages all output by the bot
+ */
+public class UiManager {
 
     private static String formatOutput(String input) {
         StringBuilder sb = new StringBuilder();
-//        sb.append(SEPARATOR);
-//        sb.append("\n");
         sb.append(input);
-//        sb.append("\n");
-//        sb.append(SEPARATOR);
         return sb.toString();
     }
     /**
