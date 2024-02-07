@@ -4,7 +4,7 @@ public class Event extends Task{
     private final String to_time;
 
 
-    public static Event from(String s){
+    public static Event from(String s) throws InvalidArgumentException, InvalidFormatException, InvalidDescriptionException {
         //Expects a string in the format "event <description> /at <from_time> to <to_time>"
 
         //get rid of the command
@@ -16,13 +16,13 @@ public class Event extends Task{
         int from_occurences = utils.countOccurrences(arr, "/from");
 
         if (from_occurences == 0 || from_occurences > 1){
-            throw new IllegalArgumentException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/from'.");
+            throw new InvalidFormatException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/from'.");
         }
 
         int to_occurences = utils.countOccurrences(arr, "/to");
 
         if (to_occurences == 0 || to_occurences > 1){
-            throw new IllegalArgumentException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/to'.");
+            throw new InvalidFormatException("Invalid format. Follow this format: event <description> /from <from time> /to <to time>. Provide one and only one '/to'.");
         }
 
         //they will not be -1 as I have already checked for their occurences
@@ -30,7 +30,7 @@ public class Event extends Task{
         int to_index = utils.findIndex(arr, "/to");
 
         if (from_index > to_index){
-            throw new IllegalArgumentException("The 'from time' of an event cannot be after the 'to time'.");
+            throw new InvalidFormatException("The 'from time' of an event cannot be after the 'to time'.");
         }
 
         //description is from 0 to from_index
@@ -40,7 +40,7 @@ public class Event extends Task{
         }
         description = description.trim();
         if (description.isEmpty()){
-            throw new IllegalArgumentException("The description of an event cannot be empty.");
+            throw new InvalidDescriptionException("The description of an event cannot be empty.");
         }
 
         String from_time = "";
@@ -49,7 +49,7 @@ public class Event extends Task{
         }
         from_time = from_time.trim();
         if (from_time.isEmpty()){
-            throw new IllegalArgumentException("The 'from_time' of an event cannot be empty.");
+            throw new InvalidArgumentException("The 'from_time' of an event cannot be empty.");
         }
 
         String to_time = "";
@@ -58,7 +58,7 @@ public class Event extends Task{
         }
         to_time = to_time.trim();
         if (to_time.isEmpty()){
-            throw new IllegalArgumentException("The 'to_time' of an event cannot be empty.");
+            throw new InvalidArgumentException("The 'to_time' of an event cannot be empty.");
         }
 
         return new Event(description, from_time, to_time);
