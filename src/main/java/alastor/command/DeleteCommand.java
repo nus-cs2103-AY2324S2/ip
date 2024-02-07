@@ -7,6 +7,7 @@ import alastor.Ui;
 import alastor.task.Task;
 
 public class DeleteCommand extends Command {
+
     private final int index;
 
     public DeleteCommand(int index) {

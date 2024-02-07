@@ -27,7 +27,7 @@ public class Deadline extends Task {
     public boolean equals(Object obj) {
         if (obj instanceof Deadline) {
             Deadline other = (Deadline) obj;
-            if(super.equals(other)) {
+            if (super.equals(other)) {
                 return this.by.equals(other.by);
             }
         }

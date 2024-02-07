@@ -7,6 +7,7 @@ import alastor.Ui;
 import alastor.task.Task;
 
 public class MarkCommand extends Command {
+
     private final int index;
     private final boolean isMark;
 

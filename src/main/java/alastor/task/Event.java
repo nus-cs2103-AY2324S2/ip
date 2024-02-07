@@ -31,7 +31,7 @@ public class Event extends Task {
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
             Event other = (Event) obj;
-            if(super.equals(other)) {
+            if (super.equals(other)) {
                 return this.from.equals(other.from) && this.to.equals(other.to);
             }
         }
