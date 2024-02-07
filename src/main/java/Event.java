@@ -1,6 +1,10 @@
 public class Event extends Task{
+
+
+
     public Event(String input, String start, String end) {
         super(input, start, end);
+
     }
 
     @Override

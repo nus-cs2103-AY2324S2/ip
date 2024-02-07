@@ -1,13 +1,13 @@
 import java.util.Scanner;
 public class Task {
-    private String taskName;
-    private boolean done;
+    protected String taskName;
+    protected boolean isDone;
     private String start;
     private String end;
 
     private String deadline;
 
-    private char taskType;
+    protected char taskType;
 
 
     // we need to use different constructors for the different classes
@@ -22,14 +22,14 @@ public class Task {
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
         this.taskType = 'T';
     }
 
     public Task(String taskName, String deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
-        this.done = false;
+        this.isDone = false;
         this.taskType = 'D';
     }
 
@@ -37,12 +37,12 @@ public class Task {
         this.taskName = taskName;
         this.start = start;
         this.end = end;
-        this.done = false;
+        this.isDone = false;
         this.taskType = 'E';
     }
 
     public String getStatusIcon() {
-        return (this.done ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     public String getStart() {
@@ -58,7 +58,11 @@ public class Task {
     }
 
     public void setDone(boolean isDone) {
-        this.done = isDone;
+        this.isDone = isDone;
+    }
+
+    public boolean getDone() {
+        return this.isDone;
     }
 
     @Override
