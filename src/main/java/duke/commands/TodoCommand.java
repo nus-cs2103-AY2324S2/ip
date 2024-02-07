@@ -7,6 +7,10 @@ import duke.tasks.Todo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The `TodoCommand` class is a subclass of the `Command` class that represents a command to add a new todo task
+ * to a task list.
+ */
 public class TodoCommand extends Command {
     private final String details;
     private List<String> messages = new ArrayList<>();
@@ -15,6 +19,13 @@ public class TodoCommand extends Command {
         this.details = details;
     }
 
+    /**
+     * The function adds a new task to a task list and returns a list of messages indicating the success of the
+     * operation.
+     * 
+     * @param tasks A TaskList object that represents a list of tasks.
+     * @return List of Strings messages which will be printed to user later.
+     */
     public List<String> execute(TaskList tasks) throws DukeException {
         if (details.isEmpty()) {
             throw new DukeException("Please enter tasks description");

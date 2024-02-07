@@ -7,6 +7,10 @@ import duke.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The `DeleteCommand` class is used to delete a task from a task list and returns a list of messages indicating
+ * the success of the operation.
+ */
 public class DeleteCommand extends Command {
     private final String details;
     private List<String> messages = new ArrayList<>();
@@ -14,6 +18,14 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String details) {
         this.details = details;
     }
+
+    /**
+     * This Java function deletes a task from a task list and returns a list of messages indicating the success of
+     * the operation.
+     * 
+     * @param tasks A TaskList object that contains a list of tasks.
+     * @return List of Strings messages which will be printed to user later.
+     */
     public List<String> execute(TaskList tasks) throws DukeException {
         if (details.length() < 1) {
             throw new DukeException("Please enter the tasks number that you want to delete: ex. delete 2");

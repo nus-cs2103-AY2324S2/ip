@@ -11,6 +11,9 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * The `Storage` class is responsible for loading and saving a `TaskList` object to a specified file path.
+ */
 public class Storage {
     private final Path path;
 
@@ -18,6 +21,12 @@ public class Storage {
         this.path = Path.of(path);
     }
 
+    /**
+     * The function loads a TaskList object from a file, and if the file does not exist, it returns a new TaskList
+     * object.
+     * 
+     * @return a TaskList with all the tasks form cache.
+     */
     public TaskList load() throws DukeException {
         if (Files.notExists(path)) {
             System.out.println("No cache found");
@@ -42,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * The function saves a TaskList object to a file using Java's ObjectOutputStream.
+     * 
+     * @param tasks The `tasks` parameter is an instance of the `TaskList` class. It represents a collection of tasks
+     * that need to be saved.
+     */
     public void save(TaskList tasks) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(path.toString());

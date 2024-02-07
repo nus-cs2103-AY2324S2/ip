@@ -9,6 +9,10 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The `DeadlineCommand` class is a subclass of the `Command` class in Java that represents a command to add a
+ * deadline task to a task list.
+ */
 public class DeadlineCommand extends Command {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String details;
@@ -18,6 +22,14 @@ public class DeadlineCommand extends Command {
         this.details = details;
     }
 
+    /**
+     * The function takes in a task list and a string input, parses the input to extract the task description and
+     * deadline, adds a new Deadline task to the task list with the parsed details, and returns a list of messages
+     * indicating the success of the operation.
+     * 
+     * @param tasks A TaskList object that represents a list of tasks.
+     * @return List of Strings messages whihc will be printed to user later.
+     */
     public List<String> execute(TaskList tasks) throws DukeException {
         String[] parsedInput = details.split("/by ", 2);
         if (parsedInput.length != 2) {

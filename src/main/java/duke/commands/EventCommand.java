@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The `EventCommand` class is used to create and execute commands for adding event tasks to a task list.
+ */
 public class EventCommand extends Command {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private final String details;
@@ -16,6 +19,14 @@ public class EventCommand extends Command {
     public EventCommand(String details) {
         this.details = details;
     }
+    
+    /**
+     * The function takes in a task list and a string input, parses the input to extract event details and dates,
+     * adds the event to the task list, and returns a list of messages.
+     * 
+     * @param tasks A TaskList object that represents a list of tasks.
+     * @return List of Strings messages which will be printed to user later.
+     */
     public List<String> execute(TaskList tasks) throws DukeException {
         String[] parsedInput = details.split("/from ", 2);
 

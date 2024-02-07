@@ -46,6 +46,13 @@ public class Duke {
         scanner.close();
     }
 
+    /**
+     * The function takes an input, processes it using a parser, executes a command on a list of tasks, saves the
+     * tasks to storage, and returns a string representation of any messages generated during the process.
+     * 
+     * @param input A string representing the user's input command.
+     * @return string message to be print out later.
+     */
     public static String getResponse(String input) {
         try {
             Command command = Parser.processInput(input);
