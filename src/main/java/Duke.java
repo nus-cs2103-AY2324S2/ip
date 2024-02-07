@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javafx.scene.shape.Line;
+
 public class Duke {
     private static final String LINE = "    ___________________________________________________________\n";
 
@@ -14,22 +16,23 @@ public class Duke {
 
         greet(botName);
         while (!(hasEnded)) {
-            String input = reader.readLine();
-            if (input.equals("bye")) {
-                bye();
-                hasEnded = true;
-            } else if (input.equals("list")) {
-                printList(listOfTasks);
-            } else if (input.contains("mark")) {
-                String[] parts = input.split(" ");
-                int index = Integer.parseInt(parts[1]);
-                if (input.contains("unmark")) {
-                    unmark(listOfTasks.get(index - 1));
-                } else {
-                    mark(listOfTasks.get(index - 1));
-                }
-            } else {
-                if (input.contains("todo")) {
+            try {
+                String input = reader.readLine();
+                if (input.equals("bye")) {
+                    bye();
+                    hasEnded = true;
+                } else if (input.equals("list")) {
+                    printList(listOfTasks);
+                } else if (input.contains("mark")) {
+                    String[] parts = input.split(" ");
+                    int index = Integer.parseInt(parts[1]);
+                    if (input.contains("unmark")) {
+                        unmark(listOfTasks.get(index - 1));
+                    } else {
+                        mark(listOfTasks.get(index - 1));
+                    }
+
+                } else if (input.contains("todo")) {
                     Task newTask = new Todo(input.substring(5));
                     listOfTasks.add(newTask);
                     repeatFunction(newTask, listOfTasks);
@@ -43,7 +46,13 @@ public class Duke {
                     Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
                     listOfTasks.add(newTask);
                     repeatFunction(newTask, listOfTasks);
+                } else {
+                    throw new DukeException("Unable to read input");
                 }
+            } catch (DukeException e) {
+                System.out.print(LINE);
+                System.out.println("     " + e);
+                System.out.println(LINE);
             }
         }
 
