@@ -1,5 +1,8 @@
 package baron.managers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import baron.dao.DeadlineDao;
 import baron.dao.EventDao;
 import baron.dao.TaskDao;
@@ -12,10 +15,11 @@ import baron.models.Task;
 import baron.models.Todo;
 import baron.utils.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
+
+/**
+ * Manages response handling given user's input
+ */
 public class TaskManager {
 
     private final List<Task> tasks = new ArrayList<>();
@@ -33,7 +37,9 @@ public class TaskManager {
     }
 
     protected static String getValue(String input) {
-        if (input.split(" ").length <= 1) throw new IllegalArgumentException("Value expected but not found");
+        if (input.split(" ").length <= 1) {
+            throw new IllegalArgumentException("Value expected but not found");
+        }
         return input.split(" ")[1];
     }
 
@@ -46,8 +52,8 @@ public class TaskManager {
         try {
             input = input.trim();
             String command = getCommand(input);
-            // Decided to pass the entire input instead because otherwise we would have to parse the input into command and value
-            // which would not be appropriate here since it includes a list() function too
+            // Decided to pass the entire input instead because otherwise we would have to parse the input into
+            // command and value which would not be appropriate here since it includes a list() function too
             if (command.equals(TodoDao.NAME)) {
                 return addTodo(input);
             } else if (command.equals(DeadlineDao.NAME)) {

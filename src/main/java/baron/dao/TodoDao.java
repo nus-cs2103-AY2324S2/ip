@@ -1,16 +1,19 @@
 package baron.dao;
 
-import baron.database.Database;
-import baron.enums.TaskType;
-import baron.models.Todo;
-import baron.utils.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import baron.database.Database;
+import baron.enums.TaskType;
+import baron.models.Todo;
+import baron.utils.StringUtils;
+
+/**
+ * Manages all DB operations for Todos
+ */
 public class TodoDao extends TaskDao {
     public static final String NAME = TaskType.TODO.getCommand();
 

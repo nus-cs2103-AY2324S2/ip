@@ -1,8 +1,5 @@
 package baron.database;
 
-import baron.utils.FileUtils;
-import baron.utils.StringUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import baron.utils.FileUtils;
+import baron.utils.StringUtils;
 
 /**
  * Handles CRUD operations for a given file path, create, read, update and delete
@@ -69,7 +69,8 @@ public class Database {
      * TODO: Currenlty unused, but will be used in Level-9
      *
      * @param filePath file name of the file
-     * @param id       the id to find. Does not refer to line number, but the actual id, which is the first number of each line
+     * @param id       the id to find. Does not refer to line number, but the actual id,
+     *                 which is the first number of each line
      * @return Returns the line if it exists, or null otherwise
      */
     public static String findById(String filePath, int id) {
@@ -78,7 +79,9 @@ public class Database {
             String line = reader.readLine();
             do {
                 int lineId = findId(line);
-                if (lineId == id) return line;
+                if (lineId == id) {
+                    return line;
+                }
                 line = reader.readLine();
             } while (line != null);
         } catch (IOException ex) {

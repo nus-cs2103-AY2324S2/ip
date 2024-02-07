@@ -1,11 +1,5 @@
 package baron.dao;
 
-import baron.database.Database;
-import baron.enums.TaskType;
-import baron.models.Deadline;
-import baron.utils.DateUtils;
-import baron.utils.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +7,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import baron.database.Database;
+import baron.enums.TaskType;
+import baron.models.Deadline;
+import baron.utils.DateUtils;
+import baron.utils.StringUtils;
+
+/**
+ * Manages all DB operations for deadlines.
+ */
 public class DeadlineDao extends TaskDao {
     public static final String NAME = TaskType.DEADLINE.getCommand();
     private static final String byString = "/by";

@@ -13,11 +13,18 @@ public class DateUtils {
     public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d/MM/yyyy, ha");
 
+    /**
+     * Parses String and outputs a local datetime
+     * @param dateString Takes in a datetime string with a format of d/M/yyy HHmm, e.g. 6/10/1999 2100
+     * @return the parsed local datetime
+     * @throws Exception when an invalid date string was given
+     */
     public static LocalDateTime parseDate(String dateString) {
         try {
             return LocalDateTime.parse(dateString, INPUT_FORMATTER);
         } catch (DateTimeParseException ex) {
-            throw new IllegalArgumentException("Invalid date string given. Expected format is d/M/yyyy HHmm (e.g. 21/10/1999 1600)");
+            throw new IllegalArgumentException("Invalid date string given. Expected format is "
+                                                + "d/M/yyyy HHmm (e.g. 21/10/1999 1600)");
         }
     }
 
@@ -32,7 +39,8 @@ public class DateUtils {
         try {
             return dateTime.format(OUTPUT_FORMATTER);
         } catch (DateTimeParseException ex) {
-            throw new IllegalArgumentException("Invalid date string given. Expected format is d/M/yyyy HHmm (e.g. 21/10/1999 1600)");
+            throw new IllegalArgumentException("Invalid date string given. Expected format is "
+                                               + "d/M/yyyy HHmm (e.g. 21/10/1999 1600)");
         }
     }
 }

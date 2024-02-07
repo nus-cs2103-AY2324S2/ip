@@ -1,21 +1,29 @@
 package baron.models;
 
+/**
+ * An abstraction class for todos, deadlines and events
+ */
 public class Task {
 
     private final String name;
     private long id;
     private boolean isDone;
 
+    /**
+     * Creates a task with a name and false for isDone
+     * @param name Name of task
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
-    public Task(String name, boolean isDone) {
-        this.name = name;
-        this.isDone = isDone;
-    }
-
+    /**
+     * Creates a task with fully-customised attributes. Usually used when loading tassk from database
+     * @param id id of the task
+     * @param name name of task
+     * @param isDone whether task is done
+     */
     public Task(int id, String name, boolean isDone) {
         this.id = id;
         this.name = name;

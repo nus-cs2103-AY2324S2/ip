@@ -1,5 +1,8 @@
 package baron.enums;
 
+/**
+ * Handles different types of user commands and input.
+ */
 public enum Commands {
     LIST("list"),
     FIND("find"),

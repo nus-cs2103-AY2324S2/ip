@@ -1,5 +1,9 @@
 package baron.enums;
 
+/**
+ * Enum for the different task types, which is used for determining user input commands
+ * as well as datbaase file names.
+ */
 public enum TaskType {
 
     TODO("todo"),

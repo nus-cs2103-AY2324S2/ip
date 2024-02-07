@@ -1,18 +1,34 @@
 package baron.models;
 
-import baron.utils.DateUtils;
-
 import java.time.LocalDateTime;
 
+import baron.utils.DateUtils;
+
+/**
+ * Deadline takes in a name and a deadline
+ * This class has date formatting.
+ */
 public class Deadline extends Task {
 
     private final LocalDateTime deadline;
 
+    /**
+     * Creates a deadline. isDone defaults to false
+     * @param name name of deadline
+     * @param deadline deadline of deadline
+     */
     public Deadline(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
 
+    /**
+     * Creates a deadline from scratch.
+     * @param id id of deadline
+     * @param name name of deadline
+     * @param isDone whether deadline is done or not
+     * @param deadline deadline of deadline
+     */
     public Deadline(int id, String name, boolean isDone, LocalDateTime deadline) {
         super(id, name, isDone);
         this.deadline = deadline;
