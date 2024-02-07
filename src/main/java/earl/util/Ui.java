@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String PADDING = " ".repeat(4);
-    private static final String DIVIDER = "_".repeat(50);
+    private static final String DIVIDER = "_".repeat(60);
 
     private final Scanner sc;
 

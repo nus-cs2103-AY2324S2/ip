@@ -21,11 +21,18 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Earl");
+            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setEarl(earl);
             fxmlLoader.<MainWindow>getController().init();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void stop() {
+        earl.getResponse("bye");
     }
 }
