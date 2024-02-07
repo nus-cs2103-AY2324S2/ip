@@ -4,9 +4,6 @@ import handler.PrintHandler;
 import handler.DataHandler;
 public class TaskAction implements Action{
     private Task task;
-    public TaskAction(String text) {
-        this.task = new Task(text);
-    }
 
     public TaskAction(Task task) {
         this.task = task;

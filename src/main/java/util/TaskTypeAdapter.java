@@ -8,8 +8,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import handler.DateTimeHandler;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class TaskTypeAdapter extends TypeAdapter<Task> {
     @Override
@@ -30,12 +32,12 @@ public class TaskTypeAdapter extends TypeAdapter<Task> {
         if (task instanceof TodoTask) {
         } else if (task instanceof DeadlineTask) {
             jsonWriter.name("by");
-            jsonWriter.value(((DeadlineTask) task).getBy());
+            jsonWriter.value(((DeadlineTask) task).getByString());
         } else if (task instanceof EventTask) {
             jsonWriter.name("from");
-            jsonWriter.value(((EventTask) task).getFrom());
+            jsonWriter.value(((EventTask) task).getFromString());
             jsonWriter.name("to");
-            jsonWriter.value(((EventTask) task).getTo());
+            jsonWriter.value(((EventTask) task).getToString());
         }
         jsonWriter.endObject();
     }
@@ -71,7 +73,7 @@ public class TaskTypeAdapter extends TypeAdapter<Task> {
                 fieldName = jsonReader.nextName();
             }
             token = jsonReader.peek();
-            String by = jsonReader.nextString();
+            LocalDateTime by = DateTimeHandler.deserialize(jsonReader.nextString());
             ret = new DeadlineTask(taskName, by);
             ret.setIsCompleted(isCompleted);
             break;
@@ -79,11 +81,11 @@ public class TaskTypeAdapter extends TypeAdapter<Task> {
             token = jsonReader.peek();
             fieldName = jsonReader.nextName();
             token = jsonReader.peek();
-            String from = jsonReader.nextString();
+            LocalDateTime from = DateTimeHandler.deserialize(jsonReader.nextString());
             token = jsonReader.peek();
             fieldName = jsonReader.nextName();
             token = jsonReader.peek();
-            String to = jsonReader.nextString();
+            LocalDateTime to = DateTimeHandler.deserialize(jsonReader.nextString());
             ret = new EventTask(taskName, from, to);
             ret.setIsCompleted(isCompleted);
             break;

@@ -13,9 +13,11 @@ import enums.Command;
 import exception.IllegalArgumentException;
 import exception.UnknownCommandException;
 
+import java.time.LocalDateTime;
+
 public class InputHandler {
     private InputHandler() {}
-    public static Action handleInput(String input) throws Exception{
+    public static Action handleInput(String input) throws Exception {
         String[] parsedInput = input.split(" ");
         String commandName = parsedInput[0];
         Command command = Command.getEnum(commandName);
@@ -54,7 +56,7 @@ public class InputHandler {
                 throw new IllegalArgumentException("illegal use of /by flag");
             }
             taskName = input.substring(9, flagIndex);
-            String by = input.substring(flagIndex + 5);
+            LocalDateTime by = DateTimeHandler.handleInput(input.substring(flagIndex + 5));
             DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
             return new TaskAction(deadlineTask);
         case EVENT:
@@ -67,8 +69,8 @@ public class InputHandler {
                 throw new IllegalArgumentException("illegal use of flags");
             }
             taskName = input.substring(6, fromIndex);
-            String from = input.substring(fromIndex + 7, toIndex);
-            String to = input.substring(toIndex + 5);
+            LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + 7, toIndex));
+            LocalDateTime to = DateTimeHandler.handleInput(input.substring(toIndex + 5));
             EventTask eventTask = new EventTask(taskName, from, to);
             return new TaskAction(eventTask);
         default:
