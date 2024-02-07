@@ -44,6 +44,7 @@ public class SaveAndLoad {
             }
         } catch (IOException e) {
             System.out.println(e);
+            return;
         }
 
         int counter = 1;
