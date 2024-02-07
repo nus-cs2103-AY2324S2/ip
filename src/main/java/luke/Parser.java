@@ -27,57 +27,56 @@ public class Parser {
      * Parses a command given a string input. Returns false if there is a next command, else true.
      *
      * @param input String input as given by the user.
-     * @return False if there is a next command, else true.
+     * @return The output of the command, if any.
      */
-    public boolean parseCommand(String input) {
+    public String parseCommand(String input) throws ParseCommandException, TasklistException {
+        String returnMessage = "uninitialized";
+        String errorMessage;
         String trimmedLowercase = input.trim().toLowerCase();
+        //System.out.println(trimmedLowercase);
         if (trimmedLowercase.equals("bye")) {
             storage.saveHistory(saveFile, taskList.getTasks());
-            return true;
+                return "QUIT";
         } else if (trimmedLowercase.equals("list")) {
-            taskList.listTasks();
-            return false;
+            return taskList.listTasks();
         } else if (trimmedLowercase.split(" ")[0].trim().equals("delete")) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-                taskList.deleteTask(index);
-                return false;
+                return taskList.deleteTask(index);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
-                System.out.println("[Missing delete parameter(s)]\n");
-                return false;
+                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
+                        + "[Missing delete parameter(s)]\n";
+                throw new ParseCommandException(errorMessage);
             }
         } else if (trimmedLowercase.split(" ")[0].trim().equals("mark")) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-                taskList.markTask(index);
-                return false;
+                return taskList.markTask(index);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
-                System.out.println("[Missing mark parameter(s)]\n");
-                return false;
+                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
+                        + "[Missing mark parameter(s)]\n";
+                throw new ParseCommandException(errorMessage);
             }
         } else if (trimmedLowercase.split(" ")[0].trim().equals("find")) {
             try {
                 String keyword = input.split(" ")[1].strip();
-                taskList.findTask(keyword);
-                return false;
+                return taskList.findTask(keyword);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
-                System.out.println("[Missing search phrase]\n");
-                return false;
+                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
+                        + "[Missing search phrase]\n";
+                throw new ParseCommandException(errorMessage);
             }
         }
 
         //tasks
-        Task task = makeTask(input);
-
-        if (task != null) {
-            taskList.addTask(task);
-            return false;
+        try {
+            Task task = makeTask(input);
+            returnMessage = taskList.addTask(task);
+        } catch (MakeTaskException e) {
+            returnMessage = e.getMessage();
         }
 
-        return false;
+        return returnMessage;
     }
 
     /**
@@ -85,8 +84,9 @@ public class Parser {
      *
      * @param input String input given by user
      * @return The task if the input is valid, else null.
+     * @throws MakeTaskException
      */
-    protected static Task makeTask(String input) {
+    protected Task makeTask(String input) throws MakeTaskException {
         Task task;
         String trimmedLowercase = input.trim().toLowerCase();
         String taskType = trimmedLowercase.split(" ")[0];
@@ -95,13 +95,14 @@ public class Parser {
         String todoString = TaskType.TODO.toString();
         String deadlineString = TaskType.DEADLINE.toString();
         String eventString = TaskType.EVENT.toString();
+        String errorMessage;
 
         if (taskType.equals(todoString)) {
             task = new Todo(trimmedLowercase.substring(todoString.length()).trim());
             if (input.split(" ").length < 2) {
-                System.out.println("You have eyes for a reason, don't you?");
-                System.out.println("[Missing todo description]\n");
-                return null;
+                 errorMessage = "You have eyes for a reason, don't you?\n" +
+                        "[Missing todo description]\n";
+                throw new MakeTaskException(errorMessage);
             }
         } else if (taskType.equals(deadlineString)) {
             try {
@@ -109,13 +110,13 @@ public class Parser {
                 LocalDate by = LocalDate.parse(input.split("/")[1].replace("by", "").trim(), formatter);
                 task = new Deadline(taskName, by);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
-                System.out.println("[Missing deadline parameter(s)]\n");
-                return null;
+                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
+                        + "[Missing deadline parameter(s)]\n";
+                throw new MakeTaskException(errorMessage);
             } catch (DateTimeParseException e) {
-                System.out.println("Hey! What are you even talking about?!");
-                System.out.println("[Input date in format dd-mm-yyyy]\n");
-                return null;
+                errorMessage = "Hey! What are you even talking about?!\n"
+                        + "[Input date in format dd-mm-yyyy]\n";
+                throw new MakeTaskException(errorMessage);
             }
         } else if (taskType.equals(eventString)) {
             try {
@@ -124,18 +125,18 @@ public class Parser {
                 LocalDate end = LocalDate.parse(input.split("/")[2].replace("to", "").trim(), formatter);
                 task = new Event(taskName, start, end);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("/// I don't know when you are free... ///");
-                System.out.println("[Missing event parameter(s)]\n");
-                return null;
+                errorMessage = "/// I don't know when you are free... ///\n"
+                        + "[Missing event parameter(s)]\n";
+                throw new MakeTaskException(errorMessage);
             } catch (DateTimeParseException e) {
-                System.out.println("Hey! What are you even talking about?!");
-                System.out.println("[Input date in format dd-mm-yyyy]\n");
-                return null;
+                errorMessage = "Hey! What are you even talking about?!\n"
+                        + "[Input date in format dd-mm-yyyy]\n";
+                throw new MakeTaskException(errorMessage);
             }
         } else {
-            System.out.println("/// What on earth are you saying! ///");
-            System.out.println("[Command not found]\n");
-            return null;
+            errorMessage = "/// What on earth are you saying! ///\n"
+                    + "[Command not found]\n";
+            throw new MakeTaskException(errorMessage);
         }
         return task;
     }

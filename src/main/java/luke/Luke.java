@@ -10,24 +10,42 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 public class Luke extends Application {
 
-    //Logo created using https://patorjk.com/software/taag/#p=display&f=Varsity&t=Luke
-    private static String logo = "  _____             __             \n"
-            + " |_   _|           [  |  _         \n"
-            + "   | |     __   _   | | / ] .---.  \n"
-            + "   | |   _[  | | |  | '' < / /__\\\\ \n"
-            + "  _| |__/ || \\_/ |, | |`\\ \\| \\__., \n"
-            + " |________|'.__.'_/[__|  \\_]'.__.' ";
+    //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public static void main(String[] args) throws LukeException {
+    public static void main(String[] args) {
         Storage storage;
         UI ui = new UI();
-        ui.greet();
 
         String wd = System.getProperty("user.dir");
         Path directoryPath = Paths.get(wd,  "data");
@@ -68,20 +86,108 @@ public class Luke extends Application {
         Scanner sc = new Scanner(System.in);
         boolean isFinished = false;
 
+//        //TODO:
+        launch();
+
         //main loop
         while (!isFinished) {
             String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
-            isFinished = parser.parseCommand(input);
+            String output;
+            try {
+                output = parser.parseCommand(input);
+            } catch (TasklistException e) {
+                output = e.getMessage();
+            } catch (ParseCommandException e) {
+                output = e.getMessage();
+            }
+            //System.out.println(output);
+            if (output.equals("QUIT")){
+                break;
+            }
+            System.out.println(output);
         }
 
         //goodbye message
         ui.bye();
     }
 
+    //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+
+        stage.setTitle("Luke");
+        double minHeight = 800;
+        double minWidth = 600;
+        stage.setMinHeight(minHeight);
+        stage.setMinWidth(minWidth);
+        stage.setResizable(false);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setPrefSize(0.95 * minWidth, 0.8 * minHeight);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        lukeSpeaks(UI.greet());
+
+        //makes it such that we handle user input upon clicking.
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        //makes it such that we handle user input upon pressing enter.
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
     }
+
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
+    }
+
+    private void lukeSpeaks(String input) {
+        Label lukeText = new Label(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(lukeText, new ImageView(duke))
+        );
+    }
+
 }
 
 
