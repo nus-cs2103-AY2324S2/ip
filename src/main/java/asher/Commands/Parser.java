@@ -1,5 +1,16 @@
+package asher.Commands;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import asher.BotException;
+import asher.Tasks.Deadline;
+import asher.Tasks.Event;
+import asher.Tasks.Task;
+import asher.Tasks.TaskList;
+import asher.Tasks.Todo;
+import asher.Ui.Ui;
+
 public class Parser {
     private final Ui ui;
     private final TaskList taskList;
@@ -122,7 +133,7 @@ public class Parser {
         String endTimeInString = endParts[1].trim();
         LocalTime endTime = LocalTime.parse(endTimeInString);
 
-        if ((endDate.isBefore(startDate)) || (endTime.isBefore(startTime))) {
+        if ((endDate.isBefore(startDate)) || ((endDate.isEqual(startDate)) && (endTime.isBefore(startTime)))) {
             throw new BotException("Start Date/Time is after End Date/Time!");
         }
 

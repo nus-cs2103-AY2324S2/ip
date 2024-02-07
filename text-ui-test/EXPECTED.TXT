@@ -1,4 +1,4 @@
-Hello! I'm Asher. What can I do for you?
+Hello! I'm asher. What can I do for you?
 Got it. I've added this task:
  [T][ ] read book
 Now you have 1 tasks in the list.
