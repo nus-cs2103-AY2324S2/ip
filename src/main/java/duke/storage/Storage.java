@@ -2,6 +2,7 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.task.*;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +26,8 @@ public class Storage {
     static final String FILE_PATH = "./data/duke.txt";
 
     /** The TaskList used to store tasks during the program's execution. */
-    private TaskList taskList = new TaskList(new ArrayList < Task > ());
+    Ui ui = new Ui();
+    private TaskList taskList = new TaskList(new ArrayList < Task > (), this.ui);
 
     /**
      * Saves the tasks from the given TaskList to the data file specified by FILE_PATH.
@@ -111,12 +113,12 @@ public class Storage {
                 Task task = new Task(null, null);
 
                 if (taskType == TaskType.T) {
-                    task = new ToDo(description);
+                    task = new ToDo(description, ui);
                 } else if (taskType == TaskType.D) {
-                    task = new Deadline(description, additionalInfo);
+                    task = new Deadline(description, additionalInfo, ui);
                 } else if (taskType == TaskType.E) {
                     String[] p = additionalInfo.split("-");
-                    task = new Event(description, p[0].trim(), p[1].trim());
+                    task = new Event(description, p[0].trim(), p[1].trim(), ui);
                 }
 
                 loadedTasks.add(task);

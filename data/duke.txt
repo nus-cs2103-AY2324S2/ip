@@ -1,0 +1,7 @@
+E | 0 | project meeting | sunday - monday
+E | 0 | meeting | Dec 12 2023 16:00 - Dec 12 2023 18:00
+T | 0 | work
+D | 0 | work | tmw
+E | 0 | proj meeting | sun - mon
+T | 0 | work
+E | 0 | go to gym | 6pm - 7pm

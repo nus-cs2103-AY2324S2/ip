@@ -24,6 +24,7 @@ public class Parser {
     protected Storage storage;
     protected Scanner scanner;
     protected boolean isRunning;
+    private String response;
     /**
      * Constructs a Parser instance with the specified TaskList, Storage, Scanner, and running status.
      *
@@ -70,23 +71,24 @@ public class Parser {
             ui.printDashes();
             switch (words[0].toLowerCase()) {
                 case "bye":
-                    ui.showGoodbyeMessage();
+                    this.response = ui.showGoodbyeMessage();
                     this.isRunning = false;
                     break;
                 case "list":
-                    Ui.showTaskList(tasks);
-                    TaskList.getList(tasks);
+                    this.response = Ui.showTaskList(tasks) + "\n" + TaskList.getList(tasks);
                     break;
                 case "mark":
                     if (words.length > 1) {
                         int index = Integer.parseInt(words[1]) - 1;
                         if (index >= 0 && index < tasks.size()) {
                             Task task = tasks.getTask(index);
-                            tasks.markStatus(task);
+                            this.response = tasks.markStatus(task);
                             storage.saveTasks(tasks);
                             hasChanged = true; //flag, no need to change
                         } else {
-                            Ui.showError("You have not created a task " + words[1] + " yet!");
+                            String reply = "You have not created a task " + words[1] + " yet!";
+                            Ui.showError(reply);
+                            this.response = reply;
                         }
                     }
                     break;
@@ -95,29 +97,33 @@ public class Parser {
                         int index = Integer.parseInt(words[1]) - 1;
                         if (index >= 0 && index < tasks.size()) {
                             Task task = tasks.getTask(index);
-                            tasks.unmarkStatus(task);
+                            this.response = tasks.unmarkStatus(task);
                             storage.saveTasks(tasks);
                             hasChanged = true; //flag, no need to change
                         } else {
-                            Ui.showError("You have not created a task " + words[1] + " yet!");
-                        }
+                            String reply = "You have not created a task " + words[1] + " yet!";
+                            Ui.showError(reply);
+                            this.response = reply;                        }
                     }
                     break;
                 case "delete":
                     if (words.length > 1) {
-                        tasks.deleteTask(Integer.parseInt(words[1]) - 1);
-                        Ui.printNumberOfTasks(tasks);
+                        this.response = tasks.deleteTask(Integer.parseInt(words[1]) - 1)
+                    + "\n" + Ui.printNumberOfTasks(tasks);
                         storage.saveTasks(tasks);
                         hasChanged = true; //flag, no need to change
                     }
                     break;
                 case "todo":
                     if (command.length() <= 5) {
-                        ui.showError("You gotta enter some task TO DO!");
+                        String reply = "You gotta enter some task TO DO!";
+                        ui.showError(reply);
+                        this.response = reply;
                     } else {
-                        tasks.addToDoTask(new ToDo(command.substring(5).trim()));
+                        ToDo work = new ToDo(command.substring(5).trim(), ui);
+                        tasks.addToDoTask(work);
                         storage.saveTasks(tasks);
-                        ui.printNumberOfTasks(tasks);
+                        this.response = work.getMessage() + "\n" + ui.printNumberOfTasks(tasks);
                         hasChanged = true;
                     }
                     break;
@@ -130,13 +136,16 @@ public class Parser {
                             deadlineDescription = deadlineDescMatcher.group(1).trim();
                         }
                     } else {
-                        ui.showError("Please include both task description and deadline correctly!");
+                        String reply = "Please include both task description and deadline correctly!";
+                        ui.showError(reply);
+                        this.response = reply;
                         break;
                     }
                     String by = byMatcher.find() ? byMatcher.group(1).trim() : "";
-                    tasks.addDeadlineTask(new Deadline(deadlineDescription, by));
+                    Deadline work = new Deadline(deadlineDescription, by, ui);
+                    tasks.addDeadlineTask(work);
                     storage.saveTasks(tasks);
-                    Ui.printNumberOfTasks(tasks);
+                    this.response = work.getMessage() + "\n" + Ui.printNumberOfTasks(tasks);
                     hasChanged = true;
                     break;
                 case "event":
@@ -149,34 +158,44 @@ public class Parser {
                             eventDescription = descriptionMatcher.group(1).trim();
                         }
                     } else {
-                        Ui.showError("You didn't enter the details or duration!");
+                        String reply = "You didn't enter the details or duration!";
+                        Ui.showError(reply);
+                        this.response = reply;
                         break;
                     }
                     String from = fromMatcher.find() ? fromMatcher.group(1).trim() : "";
                     String to = toMatcher.find() ? toMatcher.group(1).trim() : "";
-                    tasks.addEventTask(new Event(eventDescription, from, to));
+                    Event job = new Event(eventDescription, from, to, ui);
+                    tasks.addEventTask(job);
                     storage.saveTasks(tasks);
-                    Ui.printNumberOfTasks(tasks);
+                    this.response = job.getMessage() + "\n" + Ui.printNumberOfTasks(tasks);
                     hasChanged = true;
                     break;
                 case "find":
                     String taskToFind = command.substring(5).trim();
                     TaskList foundTasks = tasks.findTask(taskToFind);
                     if (foundTasks.size() > 0) {
-                        ui.showFoundTasks(taskToFind);
+                        this.response = ui.showFoundTasks(taskToFind) + "\n" +
                         tasks.getList(foundTasks);
                     } else {
-                        ui.showNoTasksFound(taskToFind);
+                        this.response = ui.showNoTasksFound(taskToFind);
                     }
                     break;
                 default:
-                    ui.showError("I don't know what you are saying :(");
+                    String reply = "I don't know what you are saying :(";
+                    ui.showError(reply);
+                    this.response = reply;
                     break;
             }
         } catch (DukeException | IOException e) {
             ui.showError(e.getMessage());
+            this.response = e.getMessage();
         } finally {
             ui.printDashes();
         }
+    }
+
+    public String getResponse() {
+        return this.response;
     }
 }

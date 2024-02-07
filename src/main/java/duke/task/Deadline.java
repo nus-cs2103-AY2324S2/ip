@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +17,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
     /** The string representation of the deadline (used when parsing or if LocalDateTime parsing fails). */
     protected String byString;
+    private Ui ui;
 
     /**
      * Constructs a Deadline object with the specified description and deadline string.
@@ -24,9 +26,10 @@ public class Deadline extends Task {
      * @param byString    The string representation of the deadline.
      * @throws DukeException If there are issues with the provided description or deadline.
      */
-    public Deadline(String description, String byString) throws DukeException {
+    public Deadline(String description, String byString, Ui ui) throws DukeException {
         super(TaskType.D, description);
         this.byString = byString.trim();
+        this.ui = ui;
 
         try {
             if (!this.byString.isEmpty()) {
@@ -74,12 +77,11 @@ public class Deadline extends Task {
      *
      * @return Formatted string representation of the Deadline task.
      */
-    @Override
-    public String toString() {
+    public String getMessage() {
         String byStringFormatted = (by != null) ?
                 " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" :
                 (this.byString != null ? " (by: " + this.byString + ")" : "");
 
-        return "Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription() + byStringFormatted; // + by.getClass();
+        return ui.printMessage("Got it. I've added this task:\n [D][" + getStatusIcon() + "] " + getDescription() + byStringFormatted); // + by.getClass();
     }
 }

@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +21,8 @@ public class Event extends Task {
     /** The string representation of the end time (used when parsing or if LocalDateTime parsing fails). */
     protected String toString;
 
+    private Ui ui;
+
     /**
      * Constructs an Event object with the specified description, start time string, and end time string.
      *
@@ -28,11 +31,12 @@ public class Event extends Task {
      * @param toString     The string representation of the end time.
      * @throws DukeException If there are issues with the provided description or duration.
      */
-    public Event(String description, String fromString, String toString) throws DukeException {
+    public Event(String description, String fromString, String toString, Ui ui) throws DukeException {
         super(TaskType.E, description);
 
         this.fromString = fromString.trim();
         this.toString = toString.trim();
+        this.ui = ui;
 
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -122,8 +126,7 @@ public class Event extends Task {
      *
      * @return Formatted string representation of the Event task.
      */
-    @Override
-    public String toString() {
+    public String getMessage() {
         String fromStringFormatted = (from != null) ?
                 " from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) :
                 (this.fromString != null ? " from: " + this.fromString : "");
@@ -132,7 +135,7 @@ public class Event extends Task {
                 " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) :
                 (this.toString != null ? " to: " + this.toString : "");
 
-        return "Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription() +
-                fromStringFormatted + toStringFormatted; //+ from.getClass() + to.getClass();
+        return ui.printMessage("Got it. I've added this task:\n [E][" + getStatusIcon() + "] " + getDescription() +
+                fromStringFormatted + toStringFormatted); //+ from.getClass() + to.getClass();
     }
 }

@@ -21,8 +21,9 @@ public class TaskList {
      *
      * @param tasks The list of tasks.
      */
-    public TaskList(ArrayList < Task > tasks) {
+    public TaskList(ArrayList < Task > tasks, Ui ui) {
         this.tasks = tasks;
+        this.ui = ui;
     }
 
     /**
@@ -95,12 +96,12 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @throws DukeException If the index is out of bounds.
      */
-    public void deleteTask(int index) throws DukeException {
+    public String deleteTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            throw new DukeException("You have not created task " + (index + 1) + " for me to delete!");
+            Ui.showError("You have not created task " + (index + 1) + " for me to delete!");
         }
         Task removedTask = tasks.remove(index);
-        ui.printDeletedTaskMessage(removedTask);
+        return this.ui.printDeletedTaskMessage(removedTask);
     }
 
     /**
@@ -109,12 +110,12 @@ public class TaskList {
      * @param job The task to be marked as done.
      * @throws DukeException If the task is already marked as done.
      */
-    public void markStatus(Task job) throws DukeException {
+    public String markStatus(Task job) throws DukeException {
         if (job.isDone) {
-            throw new DukeException("This task is already marked as done.");
+            return Ui.showError("This task is already marked as done.");
         }
         job.isDone = true;
-        ui.markTask(job);
+        return this.ui.markTask(job);
     }
 
     /**
@@ -123,12 +124,12 @@ public class TaskList {
      * @param job The task to be unmarked.
      * @throws DukeException If the task is already marked as not done.
      */
-    public void unmarkStatus(Task job) throws DukeException {
+    public String unmarkStatus(Task job) throws DukeException {
         if (!job.isDone) {
-            throw new DukeException("This task is already marked as not done.");
+            return Ui.showError("This task is already marked as not done.");
         }
         job.isDone = false;
-        ui.unmarkTask(job);
+        return this.ui.unmarkTask(job);
     }
 
     /**
@@ -137,10 +138,11 @@ public class TaskList {
      * @param taskList The TaskList to be displayed.
      * @throws DukeException If there is an issue displaying the task list.
      */
-    public static void getList(TaskList taskList) throws DukeException { //need to put in UI class?
+    public static String getList(TaskList taskList) throws DukeException { //need to put in UI class?
+        String taskDetails = "";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
-            String taskDetails = (i + 1) + ".[" + task.type + "][" + (task != null ? task.getStatusIcon() : "") + "] " + task.description;
+             taskDetails += (i + 1) + ".[" + task.type + "][" + (task != null ? task.getStatusIcon() : "") + "] " + task.description;
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
                 taskDetails += " (by: " + (deadlineTask.by == null ? deadlineTask.byString : deadlineTask.by) + ")";
@@ -149,8 +151,9 @@ public class TaskList {
                 taskDetails += " (from: " + (eventTask.from == null ? eventTask.fromString : eventTask.from) + " to: " +
                         (eventTask.to == null ? eventTask.toString : eventTask.to) + ")";
             }
-            System.out.println(taskDetails);
+            taskDetails += "\n";
         }
+        return Ui.printMessage(taskDetails);
     }
 
     /**
