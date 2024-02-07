@@ -1,10 +1,18 @@
 package yippee.tasks;
 import java.io.FileWriter;
 import java.io.IOException;
+
+/**
+ * Represents tasks instantiated by user.
+ */
 public class Task {
     private boolean isDone;
     private String name;
 
+    /**
+     * Instantiates a new task.
+     * @param name String representation of name of the new task.
+     */
     public Task(String name) {
         this.isDone = false;
         this.name = name;
@@ -28,6 +36,11 @@ public class Task {
         return String.format("%s|%s", this.isDone, this.name);
     }
 
+    /**
+     * Writes current task details to storage file.
+     * @param filePath
+     * @throws IOException
+     */
     public void writeToData(String filePath) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, true);
         String writeData = dataString();

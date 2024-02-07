@@ -15,13 +15,25 @@ import yippee.tasks.Event;
 import yippee.tasks.Task;
 import yippee.tasks.ToDo;
 
+/**
+ * Represents the element for retrieval and edit of storage data.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Instantiates Storage instance and assigns filePath.
+     * @param filePath String representation of file path for storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads existing data from storage file into a TaskList.
+     * @return TaskList instance containing all stored tasks.
+     * @throws YippeeException If errors occur setting up storage file or scanner.
+     */
     public TaskList load() throws YippeeException {
         TaskList list = new TaskList();
         //load previous tasks
@@ -49,6 +61,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Parses the data stored to instantiate Tasks of their respective types.
+     * @param scanner Scanner to read tasks stored.
+     * @param list TaskList to store instantiated Tasks into.
+     * @throws InvalidCommandException If stored data is in invalid format.
+     */
     private static void loadTasks(Scanner scanner, TaskList list) throws InvalidCommandException {
         while (scanner.hasNext()) {
             String currentTask = scanner.nextLine();
@@ -77,6 +95,10 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Resets saved data to make way for new data.
+     */
     public void resetSave() {
         try {
             Files.delete(Paths.get(this.filePath));
@@ -84,6 +106,11 @@ public class Storage {
             System.err.println("Error deleting last saved file: " + e.getMessage());
         }
     }
+
+    /**
+     * Stores data from active TaskList to storage file.
+     * @param taskList TaskList of active tasks.
+     */
     public void storeData(TaskList taskList) {
         ArrayList<Task> list = taskList.getList();
         for (Task task : list) {

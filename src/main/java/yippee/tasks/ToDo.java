@@ -1,6 +1,13 @@
 package yippee.tasks;
 
+/**
+ * Represents tasks of type ToDo.
+ */
 public class ToDo extends Task {
+    /**
+     * Instantiates new ToDo task.
+     * @param name String representation of name of the new task.
+     */
     public ToDo(String name) {
         super(name);
     }
