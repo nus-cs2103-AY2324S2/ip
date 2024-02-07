@@ -17,6 +17,14 @@ public class Task {
     }
 
     /**
+     * Get the description of the task.
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Retrieves the TaskId of the task.
      * @return The TaskId of the task.
      */
@@ -60,14 +68,6 @@ public class Task {
      */
     public void markUndone() {
         this.isDone = false;
-    }
-
-    /**
-     * Get the description of the task.
-     * @return The description of the task.
-     */
-    public String getDescription() {
-        return description;
     }
 
     @Override

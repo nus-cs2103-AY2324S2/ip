@@ -57,7 +57,6 @@ public class Storage {
         Task task;
         String[] splitParts = list.split(" \\| ");
 
-        // invalid format
         if (splitParts.length < 3) {
             return null;
         }
