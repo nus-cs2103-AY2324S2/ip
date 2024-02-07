@@ -7,12 +7,22 @@ import java.util.Locale;
 
 import oop.Ui;
 
+/**
+ * Represents a task with a deadline in the task manager application.
+ * A deadline task has a description and a due date.
+ */
 public class Deadline extends Task{
     private LocalDateTime dueDate;
     private static final String line = "\t______________________________________________________";
     private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
+    /**
+     * Constructs a Deadline task with the specified description and due date.
+     *
+     * @param description The description of the deadline task.
+     * @param dueDate The due date of the deadline task in the format "dd/MM/yyyy HHmm".
+     */
     public Deadline(String description, String dueDate) {
         super(description);
         this.dueDate = LocalDateTime.parse(dueDate, inputFormat);
