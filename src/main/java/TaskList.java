@@ -1,19 +1,29 @@
 package tool;
 
 import java.util.ArrayList;
-import task.Task;
-import task.Todo;
+
 import task.Deadline;
 import task.Event;
+import task.Task;
+import task.Todo;
 import tool.Ui;
 
+/**
+ * Represents the list of tasks specified by the user.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList object.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList object with the list of saved tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -115,14 +125,30 @@ public class TaskList {
         tasks.remove(selectedTaskNumberToBeDeleted - 1);
     }
 
+    /**
+     * Retrieves a task from task list.
+     *
+     * @param taskNumber Task number to be retrieved.
+     * @return Retrieved task.
+     */
     public Task getTask(int taskNumber) {
         return tasks.get(taskNumber);
     }
 
+    /**
+     * Checks if the list of tasks is empty.
+     *
+     * @return True if list of tasks is empty, else False.
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return Number of tasks in the list.
+     */
     public int size() {
         return tasks.size();
     }

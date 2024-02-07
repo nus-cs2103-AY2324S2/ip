@@ -5,15 +5,20 @@ import java.util.Scanner;
 
 import tool.TaskList;
 
+/**
+ * Represents the tool to deal with user interactions.
+ */
 public class Ui {
     private static final String DIVIDER = "        ------------------------------------------------------------";
 
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n" +
-            "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n" +
-            "        EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]" ;
+                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n" +
+                                                    "        EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]" ;
 
+    /**
+     * Constructs a Ui object.
+     */
     public Ui() {
-
     }
 
     /**
@@ -37,6 +42,9 @@ public class Ui {
 
     /**
      * Prints task list.
+     *
+     * @param noOfTasks Number of tasks in list.
+     * @param tasks List of tasks.
      */
     public void printTasks(int noOfTasks, TaskList tasks) {
         System.out.println(DIVIDER);
@@ -58,16 +66,24 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints divider.
+     */
     public void showDivider() {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Reads the next line received by the Scanner object.
+     *
+     * @return String representation of the next line.
+     */
     public String readCommand(Scanner sc) {
         return sc.nextLine();
     }
 
     /**
-     * Prints error message for NumberFormatException.
+     * Prints custom error message for NumberFormatException.
      */
     public void printNumberFormatException() {
         System.out.println(DIVIDER);
@@ -76,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Prints error message for IndexOutOfBoundsException.
+     * Prints custom error message for IndexOutOfBoundsException.
      */
     public void printIndexOutOfBoundsException() {
         System.out.println(DIVIDER);

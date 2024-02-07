@@ -1,11 +1,13 @@
 package tool;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import task.Deadline;
 import task.Event;
@@ -13,14 +15,27 @@ import task.Task;
 import task.Todo;
 import tool.TaskList;
 
+/**
+ * Represents the hard drive storage for tasks.
+ */
 public class Storage {
-
     protected String filePath;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filePath File path of the saved tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Converts the saved tasks to Task objects.
+     *
+     * @param taskDetails Task details stored in String format.
+     * @return Task object converted from task details stored.
+     */
     public Task convertSaveToTask(String taskDetails) {
         String[] taskDetailsSplit = taskDetails.split("\\|");
         String taskCode = taskDetailsSplit[0].trim();
@@ -44,6 +59,12 @@ public class Storage {
         return convertedTask;
     }
 
+    /**
+     * Loads the saved tasks from the text file.
+     *
+     * @return ArrayList of Task objects converted from task details stored.
+     * @throws IOException If there is an exception when processing input/output.
+     */
     public ArrayList<Task> loadTasksFromFile() throws IOException {
         Path retrievedFilePath = Paths.get(filePath);
         Files.createDirectories(retrievedFilePath.getParent());
@@ -72,7 +93,8 @@ public class Storage {
     /**
      * Saves task list to text file upon each change.
      *
-     * @param tasks List of tasks.
+     * @param tasks List of tasks to be stored.
+     * @throws IOException If there is an exception when processing input/output.
      */
     public void saveTasksToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
