@@ -18,7 +18,7 @@ public class Judy {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         if (storage.isFileExists()) {
-            this.taskList = new TaskList(storage.loadTasks());
+            this.taskList = new TaskList(storage.load());
         } else {
             storage.createNewFile();
             this.taskList = new TaskList();
