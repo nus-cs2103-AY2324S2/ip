@@ -21,7 +21,6 @@ public class Bit {
         scanner = new Scanner(System.in);
         store = new Storage();
         store.loadFile(tasklist);
-        store.cleanList();
         parser = new Parser();
     }
     public static void main(String[] args) {
@@ -64,7 +63,7 @@ public class Bit {
         String addInput = input;
         input = parser.parse(input);
         if (input.equals("bye")) {
-            return "Bye!";
+            System.exit(0);
         } else if (input.equals("list")) {
             return UI.listOut(tasklist);
         } else if (input.equals("mark")) {

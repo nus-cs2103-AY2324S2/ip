@@ -27,7 +27,7 @@ public class Ui {
             if (tasklist.getTask(i) == null) {
                 break;
             }
-            s = (i + 1) + "." + tasklist.getTask(i).toString() + "\n";
+            s += (i + 1) + "." + tasklist.getTask(i).toString() + "\n";
         }
         return s;
     }
@@ -113,7 +113,7 @@ public class Ui {
             }
             Task task = tasklist.getTask(i);
             if (task.containsKeyword(key)) {
-                s = (j) + "." + tasklist.getTask(i).toString();
+                s += (j) + "." + tasklist.getTask(i).toString() + "\n";
                 j++;
             }
 

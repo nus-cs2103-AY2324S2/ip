@@ -55,7 +55,8 @@ public class Tasklist {
                 taskList.add(new Todo(parts[1]));
                 int i = taskList.size();
                 Task t = taskList.get(i - 1);
-                storage.saveToFile(t.isDone, t.DESCRIPTION);
+                storage.cleanList();
+                storage.saveAll(this);
                 return UI.sayAdded(i, "todo", t);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Hmmm, that todo is empty!");
@@ -76,7 +77,8 @@ public class Tasklist {
                 taskList.add(new Event(compo[0], start, end));
                 int i = taskList.size();
                 Event e = (Event) taskList.get(i - 1);
-                storage.saveToFile(taskList.get(i - 1).isDone, e.getStart(), e.getEnd());
+                storage.cleanList();
+                storage.saveAll(this);
                 return UI.sayAdded(i, "event", taskList.get(i - 1));
 
 
@@ -103,7 +105,8 @@ public class Tasklist {
                     }
                     taskList.add(d);
                     int i = taskList.size();
-                    storage.saveToFile(d.isDone, d.DESCRIPTION, d.getDeadline());
+                    storage.cleanList();
+                    storage.saveAll(this);
                     return UI.sayAdded(i, "deadline", taskList.get(i - 1));
                 }
             } catch (ArrayIndexOutOfBoundsException x) {
@@ -125,6 +128,8 @@ public class Tasklist {
             i -= 1;
             String s = taskList.get(i).toString();
             taskList.remove(i);
+            storage.cleanList();
+            storage.saveAll(this);
             return UI.sayDeleted(s);
         } catch (IndexOutOfBoundsException x) {
             return UI.handleErrorMessage("absent");
@@ -139,6 +144,8 @@ public class Tasklist {
         i -= 1;
         try {
             taskList.get(i).complete();
+            storage.cleanList();
+            storage.saveAll(this);
             return UI.sayMarked(taskList.get(i));
         } catch (IndexOutOfBoundsException x) {
             return UI.handleErrorMessage("absent");
@@ -153,6 +160,8 @@ public class Tasklist {
         i -= 1;
         try {
             taskList.get(i).incomplete();
+            storage.cleanList();
+            storage.saveAll(this);
             return UI.sayUnmarked(taskList.get(i));
         } catch (IndexOutOfBoundsException x) {
             return UI.handleErrorMessage("absent");
