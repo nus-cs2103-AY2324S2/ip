@@ -18,24 +18,26 @@ public class Finder {
     /**
      * Finds specified String in current list of tasks
      * @param s String to be found
-     * @return boolean found flag
+     * @return String response from Duke
      */
-    void find(String s) {
+    String find(String s) {
         boolean found  = false;
+        StringBuilder sb = new StringBuilder();
         int ctr = 1;
         TaskList resultList = new TaskList();
         for (Task t : this.lst) {
             if (t.toString().contains(s)) {
-                System.out.println(ctr + ": " + t.toString());
+                sb.append(ctr + ": " + t.toString());
                 found = true;
             }
             ctr++;
         }
         if (!found) {
-            System.out.println("No results found.");
+            sb.append("No results found.");
         } else {
-            System.out.println("All results shown.");
+            sb.append("All results shown.");
         }
+        return sb.toString();
     }
 
 }

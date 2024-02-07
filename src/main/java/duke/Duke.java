@@ -3,9 +3,10 @@ package duke;
 import duke.exception.AllyException;
 import duke.parser.Parser;
 import duke.task.Deadline;
-import duke.task.Task;
+import duke.task.Event;
 import duke.task.Todo;
 import duke.ui.UI;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -29,73 +30,64 @@ public class Duke {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private MainWindow mainWindow;
 
     protected static TaskList lst = new TaskList();
     protected static Storage storage = new Storage();
 
     public Duke() {
+        lst = storage.loadTasks();
     }
 
+    protected void linkMainWindow(MainWindow mw) {
+        this.mainWindow = mw;
+        mw.addDukeMessage("How can I help you today?");
+    }
     /**
      * Main Function that controls the ChatBot
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         UI ui = new UI(sc);
-        Finder finder;
         ui.showWelcome();
         lst = storage.loadTasks();
-        while (ui.hasNextCommand()) {
+    }
+
+    protected String getResponse(String s) {
             try {
-                String s = ui.readCommand();
                 Parser.Command command = Parser.parseCommand(s);
                 String taskDetail = Parser.parseTaskDetail(s);
                 switch (command) {
                     case LIST:
-                        lst.displayList();
-                        break;
+                        return lst.getTasks();
                     case BYE:
-                        ui.showGoodbye();
                         Storage.saveTasks();
-                        return;
+                        mainWindow.addDukeMessage("Bye. Hope to see you again soon!");
+                        Platform.exit();
                     case MARK:
-                        lst.markComplete(Integer.parseInt(taskDetail.trim()));
-                        break;
+                        return lst.markComplete(Integer.parseInt(taskDetail.trim()));
                     case UNMARK:
-                        lst.unmarkComplete(Integer.parseInt(taskDetail.trim()));
-                        break;
+                        return lst.unmarkComplete(Integer.parseInt(taskDetail.trim()));
                     case TODO:
-                        lst.addToList(new Todo(taskDetail));
-                        break;
+                        return lst.addToList(new Todo(taskDetail));
                     case DEADLINE:
-                        lst.addToList(new Deadline(taskDetail));
-                        break;
+                        return lst.addToList(new Deadline(taskDetail));
+
                     case EVENT:
-                        lst.addToList(new Event(taskDetail));
-                        break;
+                        return lst.addToList(new Event(taskDetail));
+
                     case DELETE:
-                        lst.deleteTask(Integer.parseInt(taskDetail.trim()));
-                        break;
+                        return lst.deleteTask(Integer.parseInt(taskDetail.trim()));
+
                     case FIND:
-                        ui.startFind();
-                        finder = new Finder(lst);
-                        finder.find(taskDetail);
-                        break;
+                        Finder finder = new Finder(lst);
+                        return finder.find(taskDetail);
+
                     case UNKNOWN:
                         throw new AllyException();
                 }
             } catch (AllyException e) {
-                ui.showError();
             }
-        }
-    }
-
-    protected String getResponse(String input) {
-        return input + " too";
-    }
-
-    private static class Event extends Task {
-        public Event(String taskDetail) {
-        }
+        return "don't understand u bodoh";
     }
 }

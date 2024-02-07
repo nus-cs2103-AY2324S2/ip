@@ -4,21 +4,17 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 public class TaskList extends ArrayList<Task> {
-    void addToList(String s) {
-        this.add(new Task(s));
-        System.out.println("added: " + s);
-    }
 
     /**
      * Adds a Task to the TaskList.
      *
      * @param t Task to be added.
+     * @return String
      */
-    void addToList(Task t) {
+    String addToList(Task t) {
         this.add(t);
-        System.out.println("Got it. I've added this duke.task:");
-        System.out.println(t);
-        countTasks();
+        return "Got it. I've added this duke.task:" + "\n" + t + "\n" + countTasks();
+
     }
 
     /**
@@ -33,43 +29,60 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
+     * Returns the tasks in the task list as a String.
+     * Tasks are numbered and each begin on a new line
+     *
+     * @return String
+     */
+    String getTasks() {
+        if (this.isEmpty()) {
+            return "There are no tasks in your list.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < this.size(); i++) {
+            sb.append(i+1 + ":" + this.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
+    /**
      * Marks a Task on the TaskList as complete.
      *
      * @param i index of the task to be marked as complete.
+     * @return String
      */
-    void markComplete(int i) {
-        System.out.println("Nice! I've marked this duke.task as done:");
+    String markComplete(int i) {
         this.get(i-1).markComplete();
-        System.out.println(this.get(i-1));
+        return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i-1);
     }
 
     /**
      * Marks a Task on the TaskList as incomplete.
      *
      * @param i index of the task to be marked as incomplete.
+     * @return String
      */
-    void unmarkComplete(int i) {
-        System.out.println("OK, I've marked this duke.task as not done yet:");
+    String unmarkComplete(int i) {
         this.get(i-1).unmarkComplete();
-        System.out.println(this.get(i-1));
+        return "OK, I've marked this duke.task as not done yet:" + "\n" + this.get(i-1);
     }
 
     /**
      * Deletes a Task on the TaskList.
      *
      * @param i index of the task to be deleted.
+     * @return String
      */
-    void deleteTask(int i) {
+    String deleteTask(int i) {
         Task t = this.remove(i-1);
-        System.out.println("Noted. I've removed this duke.task:");
-        System.out.println(t);
-        countTasks();
+        return "Noted. I've removed this duke.task:" + "\n" + t + "\n" + countTasks();
     }
 
     /**
      * Counts the number of Tasks on the TaskList.
+     * @return String
      */
-    void countTasks() {
-        System.out.println("Now you have " + this.size() + " tasks in the list.");
+    String countTasks() {
+        return "Now you have " + this.size() + " tasks in the list.";
     }
 }
