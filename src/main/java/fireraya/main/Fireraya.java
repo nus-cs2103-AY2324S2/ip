@@ -13,7 +13,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 
-
+/**
+ * @author Dexter-Wong
+ *
+ * A class which serves as an emtry point into the program.
+ */
 public class Fireraya {
     private TaskList tasks;
     private Storage storage;
