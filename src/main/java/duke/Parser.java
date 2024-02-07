@@ -1,6 +1,18 @@
 package duke;
 
+/**
+ * Handles the parsing of inputs from the user.
+ */
 public class Parser {
+    /**
+     * Handles the parsing of inputs from the user
+     * Runs another function based on the input
+     *
+     * @param taskList the current list of tasks the user has
+     * @param request the input from the user
+     * @param reading true if this method is used to read the save file, else false
+     * @param isDone whether to mark tasks created by this method to be done or not
+     */
     public static void commands(TaskList taskList, String request, boolean reading, boolean isDone) {
         String[] words = request.split(" ", 0);
         int length = words.length;

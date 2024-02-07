@@ -1,27 +1,58 @@
 package duke;
-
-import duke.Event;
-import duke.Task;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Handles the list of tasks and related methods.
+ */
 public class TaskList {
+
+    /**
+     * The ArrayList that stores the task objects.
+     */
     private ArrayList<Task> tasks;
+
+    /**
+     * Creates the task list as an ArrayList of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Gets the ArrayList itself
+     *
+     * @return the ArrayList of tasks that the tasks are stored in
+     */
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
 
+    /**
+     * Returns the task with the specified index from the list
+     *
+     * @param index the index of the list to be retrieved
+     * @return the task with that index
+     */
     public Task get(int index) {
         return tasks.get(index);
     }
+
+    /**
+     * Returns the size of the list
+     *
+     * @return the size of the list
+     */
     public int getSize() {
         return tasks.size();
     }
+
+    /**
+     * Creates a string representation of the task list.
+     * If empty, returns an empty message.
+     *
+     * @return the string representation of the task list.
+     */
     public String list() {
         StringBuilder str = new StringBuilder();
         if (tasks.size() == 0) {
@@ -34,6 +65,14 @@ public class TaskList {
         return str.toString();
     }
 
+    /**
+     * Adds a ToDo task to the taskList.
+     *
+     * @param words the input broken down into individual words
+     * @param announce whether to announce the addition of the task
+     * @param isDone whether to set the task as done
+     * @return true if the addition was successful, false otherwise
+     */
     public boolean addToDo(String[] words, boolean announce, boolean isDone) {
         boolean successful = false;
         int length = words.length;
@@ -59,6 +98,14 @@ public class TaskList {
         return successful;
     }
 
+    /**
+     * Adds a deadline task to the taskList.
+     *
+     * @param words the input broken down into individual words
+     * @param announce whether to announce the addition of the task
+     * @param isDone whether to set the task as done
+     * @return true if the addition was successful, false otherwise
+     */
     public boolean addDeadline(String[] words, boolean announce, boolean isDone) {
         boolean successful = false;
         int length = words.length;
@@ -100,6 +147,14 @@ public class TaskList {
         return successful;
     }
 
+    /**
+     * Adds an event task to the taskList.
+     *
+     * @param words the input broken down into individual words
+     * @param announce whether to announce the addition of the task
+     * @param isDone whether to set the task as done
+     * @return true if the addition was successful, false otherwise
+     */
     public boolean addEvent(String[] words, boolean announce, boolean isDone) {
         boolean successful = false;
         int length = words.length;
@@ -157,6 +212,12 @@ public class TaskList {
         }
         return successful;
     }
+
+    /**
+     * Announces the addition of a task
+     *
+     * @param task the task being added
+     */
     public void announceAddition(Task task) {
         System.out.println("Alright. Adding this task:");
         System.out.println(task);
@@ -164,6 +225,12 @@ public class TaskList {
         str = String.format("You now have %s tasks", tasks.size());
         System.out.println(str);
     }
+
+    /**
+     * Deletes the task with the specified index from the task list
+     *
+     * @param index the index of the task to be deleted
+     */
     public void delete(int index) {
         if(index > tasks.size() - 1 || index < 0) {
             System.out.println("Invalid index!");
