@@ -2,12 +2,14 @@ package aurora.gui;
 
 import aurora.Duke;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main application window.
@@ -75,10 +77,16 @@ public class Window extends AnchorPane {
     private void handleUserInput() {
         String userText = userInput.getText();
         String response = getResponse(userInput.getText());
+        String exitString = "Thank you for consulting with me, have a good day. Exiting application in 3 seconds.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getAuroraResponse(response, auroraImage)
         );
+        if(exitString.equals(response)) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(event -> System.exit(0));
+            delay.play();
+        }
         userInput.clear();
     }
 

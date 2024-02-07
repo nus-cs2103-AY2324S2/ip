@@ -124,7 +124,7 @@ public class Ui {
      * @return A string containing the exit message.
      */
     public String getExitMessage() {
-        return "Thank you for consulting with me, have a good day.";
+        return "Thank you for consulting with me, have a good day. Exiting application in 3 seconds.";
     }
 
 
