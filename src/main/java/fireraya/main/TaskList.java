@@ -45,4 +45,14 @@ public class TaskList {
         tasks.remove(i);
     }
 
+    public ArrayList<Task> filter(String key) {
+        ArrayList<Task> filtered = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTask().contains(key)) {
+                filtered.add(task);
+            }
+        }
+        return filtered;
+    }
+
 }
