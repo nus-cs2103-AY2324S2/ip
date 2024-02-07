@@ -8,15 +8,32 @@ import luke.exception.TaskException;
 import luke.task.*;
 import luke.ui.Ui;
 
+/**
+ * Represents a parser that parses the user input and executes the corresponding command.
+ */
 public class Parser {
     private String input;
     private Ui ui;
     private Storage storage;
+
+    /**
+     * Constructor for the parser.
+     *
+     * @param input The user input.
+     */
     public Parser(String input) {
         this.input = input;
 
     }
 
+    /**
+     * Parses the user input and executes the corresponding command to add, delete, mark, unmark or list the tasks
+     * as well as to exit the program.
+     *
+     * @param list The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage of the tasks.
+     */
     public void parse(TaskList list, Ui ui, Storage storage) {
         if (isExit()) {
             return;
@@ -172,6 +189,11 @@ public class Parser {
         this.input = input;
     }
 
+    /**
+     * Checks if the user input is "bye".
+     *
+     * @return True if the user input is "bye", false otherwise.
+     */
     public boolean isExit() {
         return input.equals("bye");
     }
