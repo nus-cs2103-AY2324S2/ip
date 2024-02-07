@@ -9,14 +9,16 @@ public class Deadline extends Task {
     String DATE_FORMAT = "MMM d yyyy";
     String DIVIDER = " | ";
 
+
     public Deadline(boolean isDone, String description, String by) {
-        super(description);
+        this.isDone = isDone;
+        this.description = description;
         this.by = LocalDate.parse(by);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern(DATE_FORMAT)) + ")";
+        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + by.format(DateTimeFormatter.ofPattern(DATE_FORMAT)) + ")";
     }
 
     @Override

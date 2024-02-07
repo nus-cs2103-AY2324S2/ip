@@ -11,14 +11,16 @@ public class Event extends Task {
     String DIVIDER = " | ";
 
     public Event(boolean isDone, String description, String deadlineFrom, String deadlineTo) {
-        super(description);
+        this.isDone = isDone;
+        this.description = description;
         this.deadlineFrom = LocalDate.parse(deadlineFrom);
         this.deadlineTo = LocalDate.parse(deadlineTo);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + deadlineFrom.format(DateTimeFormatter.ofPattern(DATE_FORMAT))
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " +
+                deadlineFrom.format(DateTimeFormatter.ofPattern(DATE_FORMAT))
                 + " to: " + deadlineTo.format(DateTimeFormatter.ofPattern(DATE_FORMAT)) + ")";
     }
 
