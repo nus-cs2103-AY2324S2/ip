@@ -1,4 +1,4 @@
-package yapchit.tasks;
+package yapchit.yapchitbackend.tasks;
 
 /**
  * ToDo class representing a ToDo object.

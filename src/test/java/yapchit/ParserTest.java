@@ -1,8 +1,11 @@
 package yapchit;
 
+import yapchit.yapchitbackend.YapchitBackend;
+import yapchit.yapchitbackend.Parser;
 import yapchit.yapchitexceptions.InvalidKeywordException;
 import yapchit.yapchitexceptions.YapchitException;
 import org.junit.jupiter.api.Test;
+import yapchit.yapchitui.Yapchit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,43 +22,43 @@ public class ParserTest {
     @Test
     void testParseInputOperationSuccess() throws YapchitException {
         String input = "deadline";
-        Yapchit.Operations op = Yapchit.Operations.DEADLINE;
+        YapchitBackend.Operations op = YapchitBackend.Operations.DEADLINE;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "todo";
-        op = Yapchit.Operations.TODO;
+        op = YapchitBackend.Operations.TODO;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "event";
-        op = Yapchit.Operations.EVENT;
+        op = YapchitBackend.Operations.EVENT;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "mark";
-        op = Yapchit.Operations.MARK;
+        op = YapchitBackend.Operations.MARK;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "unmark";
-        op = Yapchit.Operations.UNMARK;
+        op = YapchitBackend.Operations.UNMARK;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "list";
-        op = Yapchit.Operations.LIST;
+        op = YapchitBackend.Operations.LIST;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "delete";
-        op = Yapchit.Operations.DELETE;
+        op = YapchitBackend.Operations.DELETE;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "Delete";
-        op = Yapchit.Operations.DELETE;
+        op = YapchitBackend.Operations.DELETE;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "toDo";
-        op = Yapchit.Operations.TODO;
+        op = YapchitBackend.Operations.TODO;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "MARK";
-        op = Yapchit.Operations.MARK;
+        op = YapchitBackend.Operations.MARK;
         assertEquals(op, parser.parseInputOperation(input));
     }
 

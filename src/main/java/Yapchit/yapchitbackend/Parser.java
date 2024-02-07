@@ -1,5 +1,6 @@
-package yapchit;
+package yapchit.yapchitbackend;
 
+import yapchit.yapchitui.Yapchit;
 import yapchit.yapchitexceptions.InvalidDetailException;
 import yapchit.yapchitexceptions.InvalidKeywordException;
 import yapchit.yapchitexceptions.YapchitException;
@@ -24,15 +25,15 @@ public class Parser {
      * the Operations enum.
      *
      * @param input user input to be parsed
-     * @return Yapchit.Operations object representing the operation to be performed
+     * @return YapchitBackend.Operations object representing the operation to be performed
      * @throws YapchitException if the user input cannot be parsed into one of the existing operations.
      */
-    public Yapchit.Operations parseInputOperation(String input) throws YapchitException {
+    public YapchitBackend.Operations parseInputOperation(String input) throws YapchitException {
         String[] parts = this.parseInputParts(input);
 
-        Yapchit.Operations k;
+        YapchitBackend.Operations k;
         try {
-            k = Yapchit.Operations.valueOf(parts[0].toUpperCase());
+            k = YapchitBackend.Operations.valueOf(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new InvalidKeywordException("You have entered an invalid keyword. " +
                     "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");

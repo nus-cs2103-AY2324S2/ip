@@ -1,6 +1,6 @@
-package yapchit;
+package yapchit.yapchitbackend;
 
-import yapchit.tasks.Task;
+import yapchit.yapchitbackend.tasks.Task;
 import yapchit.yapchitexceptions.InvalidDetailException;
 
 import java.util.ArrayList;
