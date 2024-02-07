@@ -4,25 +4,37 @@ package ChatBro;
  * Represents the user interface of the ChatBro.ChatBro.
  */
 public class Ui {
-    public static void printWelcome() {
-        System.out.println("_________________________\n"
-                + " __  __       __\n"
-                + " \\ \\/ /__    / /\n"
-                + "  \\  / _ \\  /_/ \n"
-                + "  /_/\\___/ (_)\n\n"
-                + "I'm ChatBro.ChatBro!\n"
-                + "What can I do for you bro?\n"
-                + "Use the available commands: list, bye, mark, unmark, delete, OR\n"
-                + "create a new task (todo, deadline, event) to store in your list bro.\n"
-                + "_________________________\n");
-    }
-    public static void printLine() {
-        System.out.println("_________________________");
-    }
     public static void printMessage(String message) {
         printLine();
         System.out.println(message);
         printLine();
+    }
+    public static void printWelcome() {
+        printMessage(" __  __       __\n"
+                + " \\ \\/ /__    / /\n"
+                + "  \\  / _ \\  /_/ \n"
+                + "  /_/\\___/ (_)\n\n"
+                + "I'm ChatBro! What can I do for you bro?\n"
+                + "Type 'help' to see the list of available commands!");
+    }
+    public static void printLine() {
+        System.out.println("_________________________");
+    }
+
+    public static void printHelp() {
+        printMessage("Here are the available commands bro:\n"
+                + "1. list (view your list of tasks)\n"
+                + "2. bye (saves your task list and ends the program)\n"
+                + "(Tasks *will not be saved* if you exit the program without 'bye')\n"
+                + "3. mark <task number> (marks a task as done)\n"
+                + "4. unmark <task number> (marks a task as undone)\n"
+                + "5. delete <task number> (delete a task from your list)\n"
+                + "You may add tasks to your list using:\n"
+                + "6. todo <description>\n"
+                + "7. deadline <description> /by <deadline time>\n"
+                + "8. event <description> /from <start time> /to <end time>\n"
+                + "Deadline and start/end times must follow the format:\n"
+                + "'DD-MM-YYYY HHmm' (HHmm is *optional* and in 24hr format)");
     }
     public static void printBye() {
         printMessage("I have saved your tasks. Hasta la vista bro!");

@@ -15,7 +15,7 @@ public class Parser {
     }
     public static void parseCommand() {
         String input = readInput();
-        String command = input.split(" ")[0];
+        String command = input.split(" ")[0].toLowerCase();
         switch (command) {
         case "bye":
             Command.BYE.execute(input);
@@ -40,6 +40,9 @@ public class Parser {
             break;
         case "event":
             Command.ADD_EVENT.execute(input);
+            break;
+        case "help":
+            Command.HELP.execute(input);
             break;
         default:
             Ui.printMessage("Sorry bro, I don't understand that command.");
