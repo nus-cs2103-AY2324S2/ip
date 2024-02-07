@@ -34,6 +34,16 @@ public class TermUi {
             System.out.println(tasks.get(i));
         }
     }
+    public void listSearchedTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks were found matching your search.");
+        }
+        System.out.println("Here are the tasks that matched your search:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.print(i + 1 + ". ");
+            System.out.println(tasks.get(i));
+        }
+    }
     public void printMsg(String s) {
         System.out.println(s);
     }

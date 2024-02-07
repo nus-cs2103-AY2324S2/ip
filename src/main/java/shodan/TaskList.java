@@ -3,6 +3,7 @@ package shodan;
 import shodan.tasks.Task;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private List<Task> tasks;
@@ -28,6 +29,12 @@ public class TaskList {
             task.undone();
         }
         return task;
+    }
+
+    public List<Task> findTasks(List<String> keywords) {
+        return tasks.stream()
+                .filter(task -> keywords.stream().anyMatch(keyword -> task.getName().contains(keyword)))
+                .collect(Collectors.toList());
     }
 
     public List<Task> getTasks() {
