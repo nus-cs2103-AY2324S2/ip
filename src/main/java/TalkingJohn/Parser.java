@@ -13,7 +13,7 @@ public class Parser {
      * List of invalid inputs that do not trigger any action.
      */
     private final List<String> invalidInputs = Arrays.asList("todo", "deadline",
-            "event", "mark", "unmark", "delete");
+            "event", "mark", "unmark", "delete", "find");
 
     private final Ui ui;
 

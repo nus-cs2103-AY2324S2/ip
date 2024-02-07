@@ -39,7 +39,7 @@ public class TaskList {
      */
     public void action(String input) {
         if (Objects.equals(input, "list")) {
-            if (taskArr.size() > 0) {
+            if (!taskArr.isEmpty()) {
                 for (int i = 0; i < taskArr.size(); i++) {
                     System.out.println((i + 1) + ". " + taskArr.get(i) + "\n");
                 }
@@ -99,6 +99,21 @@ public class TaskList {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("OH NO! It seems like the format is wrong. Did you include at least 2 '/' in the description?");
             }
+        } else if (input.startsWith("find") && input.length() > 4) {
+            try {
+                String[] parts = input.split(" ", 2);
+                String toFind = parts[1];
+                int i = 1;
+                for (Task task : taskArr) {
+                    if (task.toString().contains(toFind)) {
+                        System.out.println((i) + ". " + task + "\n");
+                        i++;
+                    }
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("OH NO! It seems like the format is wrong.");
+            }
+
         } else {
             ui.invalidInput();
         }

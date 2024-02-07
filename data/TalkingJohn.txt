@@ -1,2 +1,3 @@
-[T][ ] play
+[T][X] play
 [E][X] qijbd(from: efweto: af)
+[T][ ] play with dogs
