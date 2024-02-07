@@ -1,6 +1,5 @@
 package Gluti.Gui;
 
-import Gluti.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToggleButton;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -20,6 +20,9 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    @FXML
+    private ToggleButton themeToggleButton;
 
     private DialogBox(String text, Image img) {
         try {
@@ -46,11 +49,16 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: " + "#8bbcd9" + "; "
+                + "-fx-background-radius: 10;");
+        return db;
     }
 
     public static DialogBox getGlutiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.setStyle("-fx-background-color: " + "#a3d4c5" + "; "
+                + "-fx-background-radius: 10;");
         db.flip();
         return db;
     }

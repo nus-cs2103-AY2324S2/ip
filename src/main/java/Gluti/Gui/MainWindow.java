@@ -1,9 +1,12 @@
-package Gluti;
+package Gluti.Gui;
 
+import Gluti.Gluti;
 import Gluti.Gui.DialogBox;
 import Gluti.helpers.Ui;
 import Gluti.utils.GlutiException;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,6 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -22,8 +30,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Gluti gluti;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/data/usericon.jpg"));
-    private Image gluticon = new Image(this.getClass().getResourceAsStream("/data/Gluticon.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/data/user.png"));
+    private Image gluticon = new Image(this.getClass().getResourceAsStream("/data/gluticon.png"));
 
     @FXML
     public void initialize(Gluti gluti, Ui ui) {
@@ -48,7 +56,9 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (input.equals("bye")) {
-            Platform.exit();
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.schedule(Platform::exit, 3, TimeUnit.SECONDS);
+            scheduler.shutdown();
         }
     }
 }

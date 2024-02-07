@@ -1,4 +1,4 @@
 [D][X] meeting (by: Nov 11 2013)
-[D][X] meeting (by: Dec 29 2023)
-[T][ ] test GUI
 [D][ ] submit GUI (by: Monday)
+[E][ ] Show GUI (from: 23/05/2023 to: 24/05/2023)
+[D][ ] Test date (by: May 23 2023)

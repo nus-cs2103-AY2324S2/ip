@@ -39,10 +39,11 @@ public class Parser {
                     int num = 1;
                     if (!storage.isEmpty()) {
                         StringBuilder sb = new StringBuilder();
-                        for (Task x : storage) {
-                            sb.append(num).append(".").append(x.toString());
+                        for (int i = 0; i < storage.size(); i++) {
+                            sb.append(i + 1).append(".").append(storage.get(i).toString());
+                            if (i != storage.size() - 1) {
                                 sb.append("\n");
-                                num++;
+                            }
                         }
                         return sb.toString();
                     } else {
