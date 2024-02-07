@@ -92,6 +92,7 @@ public class Luke extends Application {
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
+        stage.getIcons().addAll(luke);
         stage.setX(300);
         stage.setY(100);
         stage.show();
