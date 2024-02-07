@@ -48,15 +48,15 @@ public class TaskList {
         if (tasks.size() == 0) {
             throw new DukeException("Add tasks to list first! Type something other than List/list or Bye/bye.\n");
         } else {
-            System.out.println("Here are the tasks in your list:\n");
+            //System.out.println("Here are the tasks in your list:\n");
             sb.append("Here are the tasks in your list:\n\n");
 
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(i + 1 + "." + tasks.get(i).toString());
+                //System.out.println(i + 1 + "." + tasks.get(i).toString());
                 sb.append(i + 1 + "." + tasks.get(i).toString() + "\n");
             }
 
-            System.out.println();
+            //System.out.println();
             sb.append("\n");
         }
         return sb.toString();
@@ -69,9 +69,9 @@ public class TaskList {
      * @param num index of Task in taskList to mark
      * @throws DukeException when invalid Task number is given
      */
-    public void markMechanism(int num) throws DukeException {
+    public String markMechanism(int num) throws DukeException {
         if (num <= tasks.size() && num > 0) {
-            System.out.println(tasks.get(num - 1).markAsDone());
+            return tasks.get(num - 1).markAsDone();
         } else {
             throw new DukeException("Please mark a valid task!\n");
         }
@@ -84,9 +84,9 @@ public class TaskList {
      * @param num index of Task in taskList to unmark
      * @throws DukeException when invalid Task number is given
      */
-    public void unmarkMechanism(int num) throws DukeException {
+    public String unmarkMechanism(int num) throws DukeException {
         if (num <= tasks.size() && num > 0) {
-            System.out.println(tasks.get(num - 1).unMarkTask());
+            return tasks.get(num - 1).unMarkTask();
         } else {
             throw new DukeException("Please mark a valid task!\n");
         }
@@ -97,14 +97,14 @@ public class TaskList {
      *
      * @param taskToAdd Task to be added into taskList
      */
-    public void taskMechanism(Task taskToAdd) {
+    public String taskMechanism(Task taskToAdd) {
         tasks.add(taskToAdd);
 
-        System.out.println("Understood. I've added this task:\n "
+        return "Understood. I've added this task:\n "
                 + tasks.size() + "."
                 + tasks.get(tasks.size() - 1)
                 + "\nNow you have " + tasks.size()
-                + " task(s) in the list.\n");
+                + " task(s) in the list.\n";
 
     }
 
@@ -115,7 +115,7 @@ public class TaskList {
      * @return an ArrayList of Tasks of the matching Tasks
      * @throws DukeException when current taskList is empty
      */
-    public ArrayList<Task> findMechanism(String keyword) throws DukeException {
+    public String findMechanism(String keyword) throws DukeException {
         ArrayList<Task> searchResults = new ArrayList<Task>();
         if (tasks.size() == 0) {
             throw new DukeException("Add tasks to list first before finding tasks\n");
@@ -127,17 +127,17 @@ public class TaskList {
             }
 
             if (searchResults.size() == 0) {
-                System.out.println("Unfortunately, there are no keywords matching your search.\n");
-                return searchResults;
+                return "Unfortunately, there are no keywords matching your search.\n";
             }
 
-            System.out.println("Here are the tasks matching your keyword:\n");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the tasks matching your keyword:\n");
             for (int i = 0; i < searchResults.size(); i++) {
-                System.out.println(i + 1 + "." + searchResults.get(i).toString());
-                System.out.println();
+                sb.append(i + 1 + "." + searchResults.get(i).toString() + "\n");
+                //System.out.println();
             }
+            return sb.toString();
         }
-        return searchResults;
     }
 
     /**
@@ -147,15 +147,12 @@ public class TaskList {
      * @return Task that was deleted for storage to settle
      * @throws IndexOutOfBoundsException when user gives an invalid value
      */
-    public Task deleteMechanism(int num) throws IndexOutOfBoundsException {
-        Task removed = new Task("Task to be deleted");
-        removed = tasks.remove(num - 1);
+    public String deleteMechanism(int num) throws IndexOutOfBoundsException {
+        Task removed = tasks.remove(num - 1);
 
-        System.out.println("Very well. I have removed this task.\n"
+        return "Very well. I have removed this task.\n"
                 + removed
                 + "\nNow you have " + tasks.size()
-                + " task(s) in the list.\n");
-
-        return removed;
+                + " task(s) in the list.\n";
     }
 }
