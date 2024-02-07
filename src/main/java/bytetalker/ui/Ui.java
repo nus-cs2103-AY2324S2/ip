@@ -5,7 +5,18 @@ import bytetalker.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user. Mainly the print statements are included in this class to control the
+ * messages.
+ *
+ * @author Junseo Kim
+ * @version 0.1
+ * @since 2024-02-06
+ */
 public class Ui {
+    /**
+     * Prints out welcome message and command format the user can use to enter the task.
+     */
     public void showWelcome() {
         System.out.println("    -----------------------------------");
         System.out.println("    Hello! I'm bytetalker.ByteTalker");
@@ -18,12 +29,18 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out bye message.
+     */
     public void showBye() {
         System.out.println("    -----------------------------------");
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out error message if there is an error while changing the task list.
+     */
     public void showErrorMsgStoreTasks() {
         System.out.println("    -----------------------------------");
         System.out.println("    Error while changing the task list");
@@ -31,11 +48,21 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Accepts user input and returns it.
+     *
+     * @return String User input.
+     */
     public String storeUserInput() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
+    /**
+     * Prints out the message that the task user wants is marked as done.
+     *
+     * @param task Task that user wants to mark as done.
+     */
     public void markTaskMsg(Task task) {
         System.out.println("    -----------------------------------");
         System.out.println("    Nice! I've marked this task as done:");
@@ -43,6 +70,11 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out the message that the task user wants is marked as undone.
+     *
+     * @param task Task the user wants to mark as undone.
+     */
     public void unmarkTaskMsg(Task task) {
         System.out.println("    -----------------------------------");
         System.out.println("    OK, I've marked this task as not done yet:");
@@ -50,6 +82,13 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out the message that the task user wants is deleted and prints out the length of the task
+     * list.
+     *
+     * @param task Task the user wants to delete from the task list.
+     * @param length Length of the task list after deleting the task.
+     */
     public void deleteTaskMsg(Task task, int length) {
         System.out.println("    -----------------------------------");
         System.out.println("    Got it. I've removed this task:");
@@ -58,6 +97,13 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out the message that the task user wants it added to the task list and prints out the length of the
+     * task list.
+     *
+     * @param task Task that the user wants to add to the lsit.
+     * @param length Length of the task list after adding the task.
+     */
     public void addTaskMsg(Task task, int length) {
         System.out.println("    -----------------------------------");
         System.out.println("    Got it. I've added this task:");
@@ -66,10 +112,18 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out the message when a file is not found in the system.
+     */
     public void showFileNotFoundErrorMsg() {
         System.out.println("File is not found");
     }
 
+    /**
+     * Prints out the whole list of tasks in the list.
+     *
+     * @param tasks Task list that contains all the tasks added.
+     */
     public void returnList(ArrayList<Task> tasks) {
         System.out.println("    -----------------------------------");
         System.out.println("    Here are the tasks in your list:");
@@ -79,6 +133,11 @@ public class Ui {
         System.out.println("    -----------------------------------");
     }
 
+    /**
+     * Prints out the error message when date and time parse cannot be done.
+     *
+     * @param e Error occured while parsing date and time.
+     */
     public static void showDateTimeParseErrorMsg(Exception e) {
         System.err.println("Unable to parse the date and time string: " + e.getMessage());
     }
