@@ -1,3 +1,5 @@
+package duke;
+
 class ListCommand implements Command {
 
     public void execute(TaskList tasks, Ui ui) throws DukeException {

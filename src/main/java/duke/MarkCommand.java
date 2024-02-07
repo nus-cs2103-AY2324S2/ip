@@ -1,8 +1,12 @@
-public class DeleteCommand implements Command {
-    int index;
+package duke;
 
-    DeleteCommand(int index) {
+public class MarkCommand implements Command {
+    int index;
+    boolean isDone;
+
+    MarkCommand(int index, boolean isDone) {
         this.index = index;
+        this.isDone = isDone;
     }
 
     public void execute(TaskList tasks, Ui ui) throws DukeException {
@@ -10,8 +14,13 @@ public class DeleteCommand implements Command {
             throw new DukeException("You only have " + tasks.size() + " tasks in the list.");
         }
         Task task = tasks.get(index);
-        tasks.remove(index);
-        ui.deleteMessage(task.toString(), tasks.size());
+        if (isDone) {
+            task.mark();
+            ui.markMessage(task.toString());
+        } else {
+            task.unmark();
+            ui.unmarkMessage(task.toString());
+        }
     }
 
     public boolean isExit() {

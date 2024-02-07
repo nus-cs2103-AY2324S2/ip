@@ -1,10 +1,10 @@
-public class MarkCommand implements Command {
-    int index;
-    boolean isDone;
+package duke;
 
-    MarkCommand(int index, boolean isDone) {
+public class DeleteCommand implements Command {
+    int index;
+
+    DeleteCommand(int index) {
         this.index = index;
-        this.isDone = isDone;
     }
 
     public void execute(TaskList tasks, Ui ui) throws DukeException {
@@ -12,13 +12,8 @@ public class MarkCommand implements Command {
             throw new DukeException("You only have " + tasks.size() + " tasks in the list.");
         }
         Task task = tasks.get(index);
-        if (isDone) {
-            task.mark();
-            ui.markMessage(task.toString());
-        } else {
-            task.unmark();
-            ui.unmarkMessage(task.toString());
-        }
+        tasks.remove(index);
+        ui.deleteMessage(task.toString(), tasks.size());
     }
 
     public boolean isExit() {
