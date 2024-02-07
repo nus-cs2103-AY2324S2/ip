@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 
-public class Dook extends Application {
+public class Dook {
 
     private static final ArrayList<String> FILE_PATH = new ArrayList<>(List.of("data", "dook.txt"));
     private TaskList tasks;
@@ -63,13 +63,17 @@ public class Dook extends Application {
     }
 
 
+    public static void main(String[] args) {
+        Dook d = new Dook();
+        d.run();
+    }
 
-    @Override
+    /*@Override
     public void start(Stage stage) {
         Label helloWorld = new Label("Hello World!"); // Creating a new Label control
         Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
 
         stage.setScene(scene); // Setting the stage to show our screen
         stage.show(); // Render the stage.
-    }
+    }*/
 }
