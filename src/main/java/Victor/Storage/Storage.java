@@ -45,9 +45,10 @@ public class Storage {
 
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             try {
                 boolean isCreated = dataFile.createNewFile();
+                System.out.println("Error: Data File not found. Creating new Data File");
             } catch (IOException e2) {
                 System.out.println("Error: Cannot create hard drive file.");
                 System.out.println("Data will not be saved after session end.");

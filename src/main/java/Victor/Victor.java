@@ -25,17 +25,11 @@ public class Victor {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
+        ui.showIntro();
         tasks = new TaskList(storage.load());
-//        try {
-//
-//        }
-//        catch (FileNotFoundException e) {
-//
-//        }
     }
 
     public void run() throws IOException {
-        ui.showIntro();
         String userInput = "";
         while (!userInput.equals("bye")) {
             userInput = ui.readCommand();
