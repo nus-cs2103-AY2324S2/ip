@@ -174,6 +174,17 @@ public class Parser {
                 Storage.saveTaskList(existingTaskList);
                 return 1;
 
+            case "find":
+                try {
+                    String keyword = splitInput[1];
+                    existingTaskList.findAndPrintTasks(keyword);
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+                return 1;
+
             case "help":
                 System.out.print("LIST OF COMMANDS\n");
                 System.out.print("Create todo: todo [task name] (eg: todo borrow book)\n");

@@ -2,6 +2,8 @@ package tasks;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class TaskList {
 
@@ -141,6 +143,46 @@ public class TaskList {
         String taskText = "    " + thisTask.getTaskDetails() + "\n";
         System.out.print(markedUndoneText);
         System.out.print(taskText);
+        System.out.print(dividerText);
+    }
+
+    /**
+     * Returns TreeMap of tasks corresponding with the input keyword
+     * as well as the index of the task in the list
+     *
+     * @param keyword Keyword to filter tasks
+     * @return TreeMap of filtered tasks
+     */
+    public void findAndPrintTasks(String keyword) {
+        String lowerCaseKeyword = keyword.toLowerCase();
+        TreeMap<Integer, Task> filteredTasksList = new TreeMap<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task taskInList = taskList.get(i);
+            if (taskInList.getDescription().toLowerCase().contains(lowerCaseKeyword)) {
+                filteredTasksList.put(i + 1, taskInList);
+            }
+        }
+        printFoundTasks(filteredTasksList);
+    }
+
+    /**
+     * Prints details of tasks in treemap of filtered tasks
+     *
+     * @param taskTreeMap Treemap containing tasks to be printed
+     */
+    public void printFoundTasks(TreeMap<Integer, Task> taskTreeMap) {
+        if (taskTreeMap.isEmpty()) {
+            System.out.println("No tasks associated with keyword found.");
+            System.out.print(dividerText);
+            return;
+        }
+
+        System.out.println("Here are the matching tasks in your list: ");
+        for (Map.Entry<Integer, Task> filteredTask : taskTreeMap.entrySet()) {
+            int taskIndex = filteredTask.getKey();
+            String taskDetails = filteredTask.getValue().getTaskDetails();
+            System.out.println(taskIndex + ". " + taskDetails);
+        }
         System.out.print(dividerText);
     }
 }
