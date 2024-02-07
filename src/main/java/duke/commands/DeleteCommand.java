@@ -28,6 +28,26 @@ public class DeleteCommand extends Command {
     }
 
     /**
+     * Executes the command
+     *
+     * @param taskList Tasklist used for the command
+     *
+     * @return String containing the output of the command
+     */
+    @Override
+    public String execute(TaskList taskList) throws DukeException {
+        // Delete the task
+        Task deletedTask = taskList.deleteTask(this.index);
+
+        // Save to file
+        taskList.saveTasks();
+
+        return "Noted. I've removed this task:\n" +
+                String.format("  %s\n", deletedTask.toString()) +
+                String.format("Now you have %d tasks in the list.\n", taskList.size());
+    }
+
+    /**
      * Executes the delete command
      *
      * @param taskList Tasklist used for the command
@@ -35,13 +55,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui) throws DukeException {
-        // Delete the task
-        Task deletedTask = taskList.deleteTask(this.index);
+        String successMessage = this.execute(taskList);
 
         // Print success message
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(String.format("  %s", deletedTask.toString()));
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
+        System.out.print(successMessage);
     }
 
     /**

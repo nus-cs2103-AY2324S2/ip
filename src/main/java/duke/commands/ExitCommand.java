@@ -18,6 +18,19 @@ public class ExitCommand extends Command {
     }
 
     /**
+     * Executes the command
+     *
+     * @param taskList Tasklist used for the command
+     *
+     * @return String containing the output of the command
+     */
+    @Override
+    public String execute(TaskList taskList) {
+        // Goodbye message
+        return "Bye. Hope to see you again soon!\n";
+    }
+
+    /**
      * Executes the exit command
      *
      * @param taskList Tasklist used for the command
@@ -25,11 +38,10 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui) {
-        // Goodbye message
-        String goodbye = "Bye. Hope to see you again soon!";
+        String successMessage = this.execute(taskList);
 
         // Print exit message
-        System.out.println(goodbye);
+        System.out.print(successMessage);
     }
 
     /**

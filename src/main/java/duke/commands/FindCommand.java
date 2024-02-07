@@ -34,13 +34,14 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the find command
+     * Executes the command
      *
      * @param taskList Tasklist used for the command
-     * @param ui       UI used for the command
+     *
+     * @return String containing the output of the command
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList) {
         String tasks;
         if (this.keyword.equals("")) {
             tasks = taskList.getTasks();
@@ -48,8 +49,21 @@ public class FindCommand extends Command {
             tasks = taskList.getTasks(keyword);
         }
 
+        return tasks;
+    }
+
+    /**
+     * Executes the find command
+     *
+     * @param taskList Tasklist used for the command
+     * @param ui       UI used for the command
+     */
+    @Override
+    public void execute(TaskList taskList, Ui ui) {
+        String successMessage = this.execute(taskList);
+
         // Print tasks
-        System.out.println(tasks);
+        System.out.println(successMessage);
     }
 
     /**

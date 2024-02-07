@@ -42,6 +42,15 @@ public abstract class Command {
     public abstract void execute(TaskList taskList, Ui ui) throws DukeException;
 
     /**
+     * Executes the command
+     *
+     * @param taskList Tasklist used for the command
+     *
+     * @return String containing the output of the command
+     */
+    public abstract String execute(TaskList taskList) throws DukeException;
+
+    /**
      * Indicates whether some other object is "equal to" this command
      *
      * @param obj Object to be checked against

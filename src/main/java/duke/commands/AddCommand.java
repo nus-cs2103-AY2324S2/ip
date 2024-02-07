@@ -28,6 +28,26 @@ public class AddCommand extends Command {
     }
 
     /**
+     * Executes the command
+     *
+     * @param taskList Tasklist used for the command
+     *
+     * @return String containing the output of the command
+     */
+    @Override
+    public String execute(TaskList taskList) throws DukeException {
+        // Add task
+        taskList.addTask(task);
+
+        // Save to file
+        taskList.saveTasks();
+
+        return "Got it. I've added this task:\n" +
+                String.format("  %s\n", task.toString()) +
+                String.format("Now you have %d tasks in the list.\n", taskList.size());
+    }
+
+    /**
      * Executes the add command
      *
      * @param taskList Tasklist used for the command
@@ -35,16 +55,10 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui) throws DukeException {
-        // Add task
-        taskList.addTask(task);
-
-        // Save to file
-        taskList.saveTasks();
+        String successMessage = this.execute(taskList);
 
         // Print success message
-        System.out.println("Got it. I've added this task:");
-        System.out.println(String.format("  %s", task.toString()));
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
+        System.out.print(successMessage);
     }
 
     /**
