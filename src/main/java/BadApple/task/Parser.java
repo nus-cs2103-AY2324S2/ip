@@ -92,6 +92,13 @@ public class Parser {
                     System.out.println("welcome to BLACK SPACE, you keyed in a non-existent task!");
                 }
                 break;
+            case "find":
+                if (tokens.length <= 1) {
+                    System.out.println("There is nothing here... to find");
+                    break;
+                }
+                TaskList.filterTasks(s.substring(5).trim());
+                break;
             default:
                 System.out.println("Whatcha sayin? scream 'help!' for list of my services");
                 return;
