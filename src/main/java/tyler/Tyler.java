@@ -11,6 +11,7 @@ import java.io.IOException;
 
 
 public class Tyler {
+    
     private static final String FILE_PATH = Paths.get(".",  "data", "Tyler.txt").toString();
     private Ui ui;
     private Storage storage;
