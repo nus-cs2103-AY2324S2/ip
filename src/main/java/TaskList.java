@@ -4,31 +4,28 @@ import java.util.ArrayList;
 public class TaskList {
 
     private final ArrayList<Task> list;
-    private int count;
 
     public TaskList(){
-        list = new ArrayList<>(100);
-        count = 0;
+        list = new ArrayList<>();
     }
 
     public String add_task(Task task) throws TaskListFullException {
 
-        if (this.count >= 100) {
+        if ( list.size() >= 100) {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
 
         list.add(task);
-        count++;
 
         return "\t-----------------------------------\n" +
                 "\tGot it. I've added this task:\n" +
                 "\t\t" + task.toString() + "\n" +
-                "\tNow you have " + count + " tasks in the list.\n" +
+                "\tNow you have " + list.size() + " tasks in the list.\n" +
                 "\t-----------------------------------";
     }
 
     public String mark_as_done(int index) throws IndexOutOfBoundsException{
-        if (index > count || index < 1) {
+        if (index > list.size() || index < 1) {
             throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
         list.get(index - 1).markAsDone();
@@ -39,7 +36,7 @@ public class TaskList {
     }
 
     public String mark_as_undone(int index) throws IndexOutOfBoundsException {
-        if (index > count || index < 1) {
+        if (index > list.size() || index < 1) {
             throw new IndexOutOfBoundsException("Sorry, the provided id is invalid.");
         }
         list.get(index - 1).markAsUndone();
@@ -53,7 +50,7 @@ public class TaskList {
     @Override
     public String toString() {
         String result = "\t-----------------------------------\n";
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < list.size(); i++) {
             result += "\t" + (i + 1) + ". " + list.get(i).toString() + "\n";
         }
         result += "\t-----------------------------------";
