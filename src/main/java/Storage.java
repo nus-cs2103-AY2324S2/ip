@@ -70,29 +70,33 @@ public class Storage {
         fw.close();
     }
 
-    public void deleteTask(Task task) throws IOException{
-        String condition = task.getSaveTask();
+    public void deleteTask(int index, int numOfTasks) throws IOException{
         File oldFile = file;
         File temp = new File("./data/temp.txt");
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         BufferedWriter bw = new BufferedWriter(new FileWriter(temp, true));
-        String currentLine = br.readLine();
 
-        while (currentLine != null) {
+        for (int i = 0; i < numOfTasks; ++i) {
+            String currentLine = br.readLine();
 
-            if (!currentLine.equalsIgnoreCase(condition)) {
-                bw.write(currentLine + System.lineSeparator());
+            if (i != index) {
+                System.out.println(currentLine);
+
+                if (i < numOfTasks - 1) {
+                    bw.write(currentLine + System.lineSeparator());
+                } else {
+                    bw.write(currentLine);
+                }
             }
 
-            currentLine = br.readLine();
         }
 
         bw.close();
         br.close();
 
         oldFile.delete();
-        temp.renameTo(new File("./data/duke.txt"));
+        temp.renameTo(new File(filePath));
     }
 
     public void updateTask(Task task, int num, int size) throws IOException {

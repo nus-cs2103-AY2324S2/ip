@@ -25,8 +25,6 @@ public class Parser {
 
                     int index = Integer.parseInt(command[1].strip());
                     int numOfTasks = taskList.getNumOfTasks();
-                    System.out.println(index);
-
                     if (((index - 1) < 0) || (index > numOfTasks)) {
                         throw new DukeException("Index out of bounds, no task found.");
                     }
@@ -106,7 +104,6 @@ public class Parser {
                     }
 
                     String[] d = command[1].split("/by");
-
                     if (d.length < 2) {
                         throw new DukeException("To survive is to procrastinate death, when is this due?");
                     }
@@ -130,11 +127,11 @@ public class Parser {
                     int index = Integer.parseInt(command[1].strip());
                     int numOfTasks = taskList.getNumOfTasks();
                     if (((index - 1) < 0) || (index > numOfTasks)) {
-                        throw new DukeException();
+                        throw new DukeException("Index out of bounds.");
                     }
 
                     Task task = taskList.deleteTask(index - 1);
-                    storage.deleteTask(task);
+                    storage.deleteTask(index - 1, numOfTasks);
                     ui.printDeleteTask(task.toString(), taskList.getNumOfTasks());
 
                 } catch (DukeException de) {
