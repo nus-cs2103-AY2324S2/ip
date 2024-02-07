@@ -1,16 +1,16 @@
+import java.sql.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Chatbot {
     private Scanner scanner = new Scanner(System.in);
     private String currentInput;
-    private Task[] list;
-    private int numOfItems;
+    private ArrayList<Task> list;
 
 
     public Chatbot() {
         this.currentInput = "";
-        this.list = new Task[100];
-        this.numOfItems = 0;
+        this.list = new ArrayList<Task>();
     }
 
     public void start() {
@@ -37,6 +37,7 @@ public class Chatbot {
             outputList();
             return;
         }
+
         String instruction[] = this.currentInput.split(" ", 2); // It only splits the first " "
         if (instruction[0].equals("mark")) {
             this.mark(instruction);
@@ -45,6 +46,11 @@ public class Chatbot {
 
         if (instruction[0].equals("unmark")){
             this.unmark(instruction);
+            return;
+        }
+
+        if (instruction[0].equals("delete")) {
+            this.delete(instruction);
             return;
         }
 
@@ -67,16 +73,32 @@ public class Chatbot {
         LiteException.InvalidInput();
     }
 
+    private void delete(String instruction[]) {
+        try {
+            int index = Integer.parseInt(instruction[1]) - 1;
+            printHorizontalLine();
+            System.out.println("Noted. I've removed this task:\n" +
+                    this.list.get(index) + "\n" +
+                    "Now you have " + (this.list.size() - 1) + " tasks in the list.");
+            list.remove(index);
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e){
+            printHorizontalLine();
+            System.out.println("Please input a valid index. \n"
+                    + "The correct format is delete <index>. \n"
+                    + "The minimum index is 1 and the maximum index is " + this.list.size());
+            printHorizontalLine();
+        }
+    }
+
     private void addToDo(String instruction[]) {
         try {
             String description = instruction[1];
             printHorizontalLine();
             System.out.println("Got it. I've added this task: ");
             Task todo = new Todo(description);
-            this.list[this.numOfItems] = todo;
+            this.list.add(todo);
             System.out.println(todo);
-            this.numOfItems++;
-            System.out.println("Now you have " + this.numOfItems + " tasks in the list");
+            System.out.println("Now you have " + this.list.size() + " tasks in the list");
             printHorizontalLine();
         } catch (ArrayIndexOutOfBoundsException e) {
             printHorizontalLine();
@@ -94,10 +116,9 @@ public class Chatbot {
             printHorizontalLine();
             System.out.println("Got it. I've added this task: ");
             Task deadline = new Deadline(description, due);
-            this.list[this.numOfItems] = deadline;
+            this.list.add(deadline);
             System.out.println(deadline);
-            this.numOfItems++;
-            System.out.println("Now you have " + this.numOfItems + " tasks in the list");
+            System.out.println("Now you have " + this.list.size() + " tasks in the list");
             printHorizontalLine();
         } catch (ArrayIndexOutOfBoundsException e) {
             printHorizontalLine();
@@ -116,10 +137,9 @@ public class Chatbot {
             printHorizontalLine();
             System.out.println("Got it. I've added this task: ");
             Task event = new Event(description, start, end);
-            this.list[this.numOfItems] = event;
+            this.list.add(event);
             System.out.println(event);
-            this.numOfItems++;
-            System.out.println("Now you have " + this.numOfItems + " tasks in the list");
+            System.out.println("Now you have " + this.list.size() + " tasks in the list");
             printHorizontalLine();
         } catch (ArrayIndexOutOfBoundsException e) {
             printHorizontalLine();
@@ -132,13 +152,14 @@ public class Chatbot {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             printHorizontalLine();
-            System.out.println(this.list[index].unmark());
+            System.out.println(this.list.get(index).unmark());
             printHorizontalLine();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             printHorizontalLine();
             System.out.println("Please input a valid index. \n"
                 + "The correct format is unmark <index>. \n"
-                + "The minimum index is 1 and the maximum index is " + list.length);
+                + "The minimum index is 1 and the maximum index is " + list.size());
+            printHorizontalLine();
         }
     }
 
@@ -146,21 +167,22 @@ public class Chatbot {
         try {
             int index = Integer.parseInt(instruction[1]) - 1;
             printHorizontalLine();
-            System.out.println(this.list[index].mark());
+            System.out.println(this.list.get(index).mark());
             printHorizontalLine();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             printHorizontalLine();
             System.out.println("Please input a valid index. \n"
                     + "The correct format is mark <index>. \n"
-                    + "The minimum index is 1 and the maximum index is " + list.length);
+                    + "The minimum index is 1 and the maximum index is " + list.size());
+            printHorizontalLine();
         }
     }
 
     private void outputList() {
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.numOfItems; i++) {
-            System.out.println((i+1) + ". " + this.list[i]);
+        for (int i = 0; i < this.list.size(); i++) {
+            System.out.println((i+1) + ". " + this.list.get(i));
         }
         printHorizontalLine();
     }
