@@ -20,6 +20,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String saveToFileString() {
+        return "E | " + super.saveToFileString() + " | " + this.start.format(OUTPUT_DATE_FORMAT) + " | " + this.end.format(OUTPUT_DATE_FORMAT);
+    }
+
+    @Override
     public String toString() {
         String str = super.toString();
         return "[E]" + str + " (from: " + this.start.format(OUTPUT_DATE_FORMAT) + " to: " + this.end.format(OUTPUT_DATE_FORMAT) + ")";

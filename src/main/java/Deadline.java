@@ -17,6 +17,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String saveToFileString() {
+        return "D | " + super.saveToFileString() + " | " +  this.end.format(OUTPUT_DATE_FORMAT);
+    }
+
+    @Override
     public String toString() {
         String str = super.toString();
         return "[D]" + str + " (by: " + this.end.format(OUTPUT_DATE_FORMAT) + ")";
