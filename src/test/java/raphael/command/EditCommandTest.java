@@ -1,8 +1,10 @@
 package raphael.command;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-public class EditCommandTest  {
+
+import org.junit.jupiter.api.Test;
+public class EditCommandTest {
     @Test
     public void editCommand_validTaskIndex() {
         try {
