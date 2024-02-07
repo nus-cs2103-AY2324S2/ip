@@ -50,7 +50,6 @@ public abstract class Task {
     }
 
     /**
-<<<<<<< HEAD
      * Gets the name of the task
      *
      * @return the name of the task
@@ -59,14 +58,13 @@ public abstract class Task {
         return this.name;
     }
 
-=======
+    /**
      * Converts a task into its text representation in the save file.
      * The parent function for all convertToText methods in the 3 subclasses.
      * This specific method is never called, only the child methods.
      *
      * @return the text representation of the task
      */
->>>>>>> branch-A-JavaDoc
     public String convertToText() {
         return "";
     }
