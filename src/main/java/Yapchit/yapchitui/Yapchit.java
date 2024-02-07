@@ -1,7 +1,6 @@
 package yapchit.yapchitui;
 
-import yapchit.yapchitbackend.*;
-import yapchit.yapchitexceptions.YapchitException;
+import yapchit.yapchitbackend.YapchitBackend;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
