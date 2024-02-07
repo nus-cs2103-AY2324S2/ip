@@ -1,21 +1,21 @@
 package storage;
 
-import task.Task;
-import tasklist.TaskList;
-import task.Todo;
-import task.Deadline;
-import task.Event;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+import tasklist.TaskList;
 
 /**
  * This class deals with loading tasks from the file and saving task to the file.
@@ -41,7 +41,7 @@ public class Storage {
             String line = reader.readLine();
             String delimiter = "\\s*\\|\\s*";
 
-            while(line != null) {
+            while (line != null) {
                 String[] tokens = line.split(delimiter);
                 String typeOfTask = tokens[0].trim();
                 int completed = Integer.parseInt(tokens[1].trim());
@@ -49,44 +49,44 @@ public class Storage {
                 String description = tokens[2].trim();
 
                 switch(typeOfTask) {
-                    case "T":
-                        taskList.addTask(new Todo(description, isCompleted));
-                        break;
-                    case "D":
-                        String deadlineString = tokens[3].trim();
-                        try {
-                            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                            LocalDateTime deadline = LocalDateTime.parse(deadlineString, dateTimeFormat);
-                            taskList.addTask(new Deadline(description, isCompleted, deadline));
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Your deadline, \"" + description + "\" stored in file has incorrect " +
-                                    "date/time format and cannot be loaded into task list. ");
-                        }
-                        break;
-                    case "E":
-                        String startString = tokens[3].trim();
-                        String endString = tokens[4].trim();
-                        try {
-                            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                            LocalDateTime start = LocalDateTime.parse(startString, dateTimeFormat);
-                            LocalDateTime end = LocalDateTime.parse(endString, dateTimeFormat);
-                            taskList.addTask(new Event(description, isCompleted, start, end));
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Your event, \"" + description + "\" stored in file has incorrect " +
-                                    "date/time format and cannot be loaded into task list. ");
-                        }
-                        break;
-                    default:
-                        System.out.println("Invalid task type \"" + typeOfTask + "\" was found in file.");
+                case "T":
+                    taskList.addTask(new Todo(description, isCompleted));
+                    break;
+                case "D":
+                    String deadlineString = tokens[3].trim();
+                    try {
+                        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                        LocalDateTime deadline = LocalDateTime.parse(deadlineString, dateTimeFormat);
+                        taskList.addTask(new Deadline(description, isCompleted, deadline));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Your deadline, \"" + description + "\" stored in file has incorrect "
+                                + "date/time format and cannot be loaded into task list. ");
+                    }
+                    break;
+                case "E":
+                    String startString = tokens[3].trim();
+                    String endString = tokens[4].trim();
+                    try {
+                        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                        LocalDateTime start = LocalDateTime.parse(startString, dateTimeFormat);
+                        LocalDateTime end = LocalDateTime.parse(endString, dateTimeFormat);
+                        taskList.addTask(new Event(description, isCompleted, start, end));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Your event, \"" + description + "\" stored in file has incorrect "
+                                + "date/time format and cannot be loaded into task list. ");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid task type \"" + typeOfTask + "\" was found in file.");
                 }
                 line = reader.readLine();
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! looks like the data in your file is corrupted and cannot be read! " +
-                    "Please verify data in the file to proceed. Proceeding without verification may cause " +
-                    "current data to disappear. \n");
+            System.out.println("Uh oh! looks like the data in your file is corrupted and cannot be read! "
+                    + "Please verify data in the file to proceed. Proceeding without verification may cause "
+                    + "current data to disappear. \n");
         }
     }
 
@@ -106,12 +106,12 @@ public class Storage {
                     writer.write("T | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription());
                 }
                 if (task instanceof Deadline) {
-                    writer.write("D | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription() +
-                            " | " + ((Deadline) task).getByString());
+                    writer.write("D | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription()
+                            + " | " + ((Deadline) task).getByString());
                 }
                 if (task instanceof Event) {
-                    writer.write("E | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription() +
-                            " | " + ((Event) task).getStartString() + " | " + ((Event) task).getEndString());
+                    writer.write("E | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription()
+                            + " | " + ((Event) task).getStartString() + " | " + ((Event) task).getEndString());
                 }
                 writer.newLine();
             }

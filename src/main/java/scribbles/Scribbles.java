@@ -1,5 +1,12 @@
 package scribbles;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import parser.Parser;
 import storage.Storage;
 import task.Deadline;
@@ -7,13 +14,6 @@ import task.Event;
 import task.Todo;
 import tasklist.TaskList;
 import ui.Ui;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * This class implements the chatbot Scribbles.
@@ -28,6 +28,11 @@ public class Scribbles {
     private String filePath;
     private Scanner scanner;
 
+    /**
+     * Constructs a new Scribbles object with the specified file path.
+     *
+     * @param filePath the file path to be used to store and retrieve tasks from.
+     */
     public Scribbles(String filePath) {
         this.filePath = filePath;
         ui = new Ui();
