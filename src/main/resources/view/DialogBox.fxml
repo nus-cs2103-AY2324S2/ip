@@ -9,7 +9,7 @@
     <children>
         <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity">
             <HBox.margin>
-                <Insets left="10.0" right="10.0" />
+                <Insets left="11.0" right="11.0" />
             </HBox.margin>
         </Label>
 
