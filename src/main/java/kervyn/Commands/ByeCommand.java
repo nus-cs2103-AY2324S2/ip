@@ -9,6 +9,7 @@ import kervyn.Tasks.TaskList;
  */
 public class ByeCommand extends Command {
     private Storage storage;
+    private Image kervynImage;
 
     /**
      * Constructs a ByeCommand with the specified TaskList and Storage.
@@ -19,6 +20,7 @@ public class ByeCommand extends Command {
     public ByeCommand(TaskList taskList, Storage storage, Image kervynImage) {
         super("Bye", taskList, kervynImage);
         this.storage = storage;
+        this.kervynImage = kervynImage;
     }
 
 

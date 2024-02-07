@@ -9,6 +9,7 @@ import kervyn.Tasks.TaskList;
 public class FindCommand extends Command {
 
     private String userInput;
+    private Image kervynImage;
     /**
      * Constructs a DeleteCommand with the specified TaskList and user input.
      *
@@ -18,6 +19,7 @@ public class FindCommand extends Command {
     public FindCommand(TaskList taskList, String userInput, Image kervynImage) {
         super("Find", taskList, kervynImage);
         this.userInput = userInput;
+        this.kervynImage = kervynImage;
     }
 
 
@@ -27,6 +29,6 @@ public class FindCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        taskList.findTask(taskList.getTaskList(), this.userInput);
+        taskList.findTask(taskList.getTaskList(), this.userInput, kervynImage);
     }
 }

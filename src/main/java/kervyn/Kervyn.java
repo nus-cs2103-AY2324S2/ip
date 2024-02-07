@@ -26,7 +26,7 @@ import kervyn.FXControls.DialogBox;
  */
 public class Kervyn extends Application {
 
-    private Storage storage = new Storage("../data/tasks.txt");
+    private Storage storage = new Storage("data/tasks.txt");
     private TaskList taskList;
     private Ui ui;
 
@@ -46,25 +46,25 @@ public class Kervyn extends Application {
      * @param filePath The path to the file where tasks are stored.
      * @throws RuntimeException If an I/O error occurs when reading tasks from storage.
      */
-    public Kervyn(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            taskList = new TaskList(storage.readTasks());
-        } catch (IOException e) {
-            taskList = new TaskList();
-            throw new RuntimeException(e);
-        }
-    }
+//    public Kervyn(String filePath) {
+//        ui = new Ui();
+//        storage = new Storage(filePath);
+//        try {
+//            taskList = new TaskList(storage.readTasks());
+//        } catch (IOException e) {
+//            taskList = new TaskList();
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     /**
      * Starts the Kervyn application. Initializes the chatbot interface and begins interaction.
      *
      * @throws IOException If an I/O error occurs during the interaction.
      */
-    public void run() throws IOException {
-        ui.startChatBot(this.taskList, this.storage);
-    }
+//    public void run() throws IOException {
+//        ui.startChatBot(this.taskList, this.storage);
+//    }
 
     /**
      * The entry point for the Kervyn application.
@@ -149,14 +149,8 @@ public class Kervyn extends Application {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user)
         );
-        String kervynText = getResponse(userInput.getText());
-        parser.deduceCommand(userInput.getText(), taskList, kervyn);
-        Platform.exit();
-
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(userText, user),
-//                DialogBox.getKervynDialog(kervynText, kervyn)
-//        );
+        parser.deduceCommand(userInput.getText(), taskList, kervyn, dialogContainer);
+//        Platform.exit();
         userInput.clear();
     }
 

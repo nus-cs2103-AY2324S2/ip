@@ -32,9 +32,9 @@ public class Ui {
         System.out.println("\tWhat can I do for you?");
         String userInput;
 
-        do {
-            userInput = scanner.nextLine();
-            parser.deduceCommand(userInput, taskList);
-        } while (!Objects.equals(userInput, "bye"));
+//        do {
+//            userInput = scanner.nextLine();
+//            parser.deduceCommand(userInput, taskList);
+//        } while (!Objects.equals(userInput, "bye"));
     }
 }

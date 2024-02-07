@@ -13,6 +13,7 @@ import java.util.Objects;
  */
 public class ToDoCommand extends Command {
     private String userInput;
+    private Image kervynImage;
 
     /**
      * Constructs a ToDoCommand with the specified TaskList and user input.
@@ -23,6 +24,7 @@ public class ToDoCommand extends Command {
     public ToDoCommand(TaskList taskList, String userInput, Image kervynImage) {
         super("ToDo", taskList, kervynImage);
         this.userInput = userInput;
+        this.kervynImage = kervynImage;
     }
 
     /**
@@ -63,7 +65,7 @@ public class ToDoCommand extends Command {
      * @param toDo The ToDo task that was added.
      * @param userTasks The current list of tasks, including the newly added ToDo task.
      */
-    private void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks) {
+    private void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks, Image kervynImage) {
         System.out.println(toDo.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
@@ -77,7 +79,7 @@ public class ToDoCommand extends Command {
         ToDo newToDo = getProcessedToDo(this.userInput);
         if (newToDo != null) {
             this.taskList.addTask(newToDo);
-            toDoTaskTextDisplay(newToDo, this.taskList.getTaskList());
+            toDoTaskTextDisplay(newToDo, this.taskList.getTaskList(), this.kervynImage);
         }
     }
 }

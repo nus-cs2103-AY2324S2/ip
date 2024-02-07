@@ -14,6 +14,7 @@ import java.util.Objects;
  */
 public class EventCommand extends Command {
     private String userInput;
+    private Image kervynImage;
 
     /**
      * Constructs an EventCommand with the specified TaskList and user input.
@@ -24,6 +25,7 @@ public class EventCommand extends Command {
     public EventCommand(TaskList taskList, String userInput, Image kervynImage) {
         super("Event", taskList, kervynImage);
         this.userInput = userInput;
+        this.kervynImage = kervynImage;
     }
 
     /**
@@ -75,7 +77,7 @@ public class EventCommand extends Command {
      * @param event The Event task that was added.
      * @param userTasks The current list of tasks, including the newly added event task.
      */
-    private void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks) {
+    private void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks, Image kervynImage) {
         System.out.println(event.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
@@ -89,7 +91,7 @@ public class EventCommand extends Command {
         Event newEvent = getProcessedEvent(this.userInput);
         if (newEvent != null) {
             this.taskList.addTask(newEvent);
-            eventTaskTextDisplay(newEvent, this.taskList.getTaskList());
+            eventTaskTextDisplay(newEvent, this.taskList.getTaskList(), this.kervynImage);
         }
     }
 }

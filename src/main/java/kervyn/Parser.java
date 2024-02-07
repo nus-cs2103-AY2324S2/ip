@@ -1,6 +1,7 @@
 package kervyn;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kervyn.Commands.*;
 import kervyn.Tasks.TaskList;
 
@@ -28,14 +29,14 @@ public class Parser {
      * @param taskList  The current list of tasks which may be modified or used by the commands.
      * @return
      */
-    public String deduceCommand(String userInput, TaskList taskList, Image kervynImage) {
+    public String deduceCommand(String userInput, TaskList taskList, Image kervynImage, VBox dialogContainer) {
         String[] processedUserInput = userInput.split(" ");
         switch (processedUserInput[0]) {
             case "bye":
                 new ByeCommand(taskList, this.storage, kervynImage).executeCommand();
                 break;
             case "list":
-                new ListCommand(taskList, kervynImage).executeCommand();
+                new ListCommand(taskList, kervynImage, dialogContainer).executeCommand();
                 break;
             case "mark":
                 new MarkCommand(taskList, processedUserInput, kervynImage).executeCommand();

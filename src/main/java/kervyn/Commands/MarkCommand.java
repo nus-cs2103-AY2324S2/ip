@@ -8,6 +8,7 @@ import kervyn.Tasks.TaskList;
  */
 public class MarkCommand extends Command {
     private String[] userInput;
+    private Image kervynImage;
 
     /**
      * Constructs a MarkCommand with the specified TaskList and user input.
@@ -18,6 +19,7 @@ public class MarkCommand extends Command {
     public MarkCommand(TaskList taskList, String[] userInput, Image kervynImage) {
         super("Mark", taskList, kervynImage);
         this.userInput = userInput;
+        this.kervynImage = kervynImage;
     }
 
     /**
@@ -26,10 +28,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        taskList.markTask(taskList.getTaskList(), this.userInput);
+        taskList.markTask(taskList.getTaskList(), this.userInput, this.kervynImage);
     }
 
-    public String execute() {
-        return taskList.markTask(taskList.getTaskList(), this.userInput);
-    }
 }

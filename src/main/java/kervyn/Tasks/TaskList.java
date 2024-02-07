@@ -1,5 +1,9 @@
 package kervyn.Tasks;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import kervyn.FXControls.DialogBox;
+
 import java.util.ArrayList;
 
 
@@ -51,29 +55,47 @@ public class TaskList {
      * @param userTasks The ArrayList of Task objects to be listed.
      * @return Returns 1 if the list operation was successful, 0 otherwise.
      */
-    public short listTasks(ArrayList<Task> userTasks) {
-        System.out.println("\tHere are the tasks on your list:");
+    public short listTasks(ArrayList<Task> userTasks, Image kervynImage, VBox dialogContainer) {
+        dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tHere are the tasks on your list:", kervynImage)
+        );
+        String textToOutput = "";
         for (int i = 0; i < userTasks.size(); i++) {
             Task task = userTasks.get(i);
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
             switch (type) {
                 case 'T':
-                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription());
+                    textToOutput = "\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription();
+                    dialogContainer.getChildren().add(
+                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                    );
                     break;
                 case 'D':
                     Deadline deadlineTask = (Deadline) task;
                     if (deadlineTask == null) {
                         return 0;
                     }
-                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")");
+                    textToOutput = "\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")";
+                    dialogContainer.getChildren().add(
+                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                    );
                     break;
                 case 'E':
                     Event eventTask = (Event) task;
                     if (eventTask == null) {
                         return 0;
                     }
-                    System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")");
+                    textToOutput = "\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")";
+                    dialogContainer.getChildren().add(
+                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                    );
+                    break;
+                default:
+                    textToOutput = "\tNo tasks to display :(";
+                    dialogContainer.getChildren().add(
+                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                    );
                     break;
             }
         }
@@ -87,7 +109,7 @@ public class TaskList {
      * @param processedUserInput The user input processed into an array of Strings.
      * @return Returns 1 if the mark operation was successful, 0 otherwise.
      */
-    public String markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+    public String markTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (task.getStatus()) {
@@ -117,7 +139,7 @@ public class TaskList {
      * @param processedUserInput The user input processed into an array of Strings.
      * @return Returns 1 if the unmark operation was successful, 0 otherwise.
      */
-    public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+    public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (!task.getStatus()) {
@@ -157,7 +179,7 @@ public class TaskList {
      * @param userTasks The ArrayList of Task objects.
      * @param processedUserInput The user input processed into an array of Strings.
      */
-    public void removeTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+    public void removeTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             System.out.println("\tOK, I've removed this task as per your request:");
@@ -170,7 +192,7 @@ public class TaskList {
         }
     }
 
-    public void findTask(ArrayList<Task> userTasks, String userInput) {
+    public void findTask(ArrayList<Task> userTasks, String userInput, Image kervynImage) {
         String[] processedUserInput = userInput.split(" ");
         StringBuilder userKeywords = new StringBuilder();
         ArrayList<Task> results = new ArrayList<>();

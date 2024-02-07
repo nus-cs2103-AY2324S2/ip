@@ -8,6 +8,7 @@ import kervyn.Tasks.TaskList;
  */
 public class DeleteCommand extends Command {
     private String[] userInput;
+    private Image kervynImage;
 
     /**
      * Constructs a DeleteCommand with the specified TaskList and user input.
@@ -18,6 +19,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(TaskList taskList, String[] userInput, Image kervynImage) {
         super("Delete", taskList, kervynImage);
         this.userInput = userInput;
+        this.kervynImage = kervynImage;
     }
 
     /**
@@ -26,6 +28,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        taskList.removeTask(taskList.getTaskList(), this.userInput);
+        taskList.removeTask(taskList.getTaskList(), this.userInput, this.kervynImage);
     }
 }

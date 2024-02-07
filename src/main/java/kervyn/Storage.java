@@ -52,7 +52,6 @@ public class Storage {
             }
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
-//            BufferedWriter bw = new BufferedWriter(fw);
             fw.write(content);
 
             fw.close();

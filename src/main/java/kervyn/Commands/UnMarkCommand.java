@@ -8,6 +8,7 @@ import kervyn.Tasks.TaskList;
  */
 public class UnMarkCommand extends Command {
     private String[] userInput;
+    private Image kervynImage;
 
     /**
      * Constructs an UnMarkCommand with the specified TaskList and user input.
@@ -18,6 +19,7 @@ public class UnMarkCommand extends Command {
     public UnMarkCommand(TaskList taskList, String[] userInput, Image kervynImage) {
         super("UnMark", taskList, kervynImage);
         this.userInput = userInput;
+        this.kervynImage = kervynImage;
     }
 
     /**
@@ -26,6 +28,6 @@ public class UnMarkCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        taskList.unMarkTask(taskList.getTaskList(), this.userInput);
+        taskList.unMarkTask(taskList.getTaskList(), this.userInput, this.kervynImage);
     }
 }
