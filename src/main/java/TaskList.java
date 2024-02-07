@@ -27,8 +27,8 @@ public class TaskList {
         list.get(index).markAsUndone();
     }
 
-    public void addTodo(Todo todo) {
-        list.add(todo);
+    public void addTask(Task task) {
+        list.add(task);
     }
 
     public void deleteTask(int index) {

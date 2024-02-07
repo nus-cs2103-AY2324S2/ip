@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
@@ -36,5 +33,13 @@ public class Storage {
             System.out.println("Could not load tasks from file: " + e.getMessage());
         }
         return list;
+    }
+
+    public void saveList(ArrayList<Task> list) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath))) {
+            oos.writeObject(list);
+        } catch (IOException e) {
+            System.out.println("Could not save tasks to file: " + e.getMessage());
+        }
     }
 }

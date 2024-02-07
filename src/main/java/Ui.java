@@ -5,6 +5,9 @@ public class Ui {
 
     }
 
+
+
+
     public void printError(DukeException dukeException) {
         printBreak();
         System.out.println(dukeException.getMessage());
@@ -48,6 +51,22 @@ public class Ui {
         printBreak();
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + todo);
+        System.out.println("Now you have " + size + " tasks in the list.");
+        printBreak();
+    }
+
+    public void showDeadlineAdded(Deadline deadline, int size) {
+        printBreak();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + deadline);
+        System.out.println("Now you have " + size + " tasks in the list.");
+        printBreak();
+    }
+
+    public void showEventAdded(Event event, int size) {
+        printBreak();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" " + event);
         System.out.println("Now you have " + size + " tasks in the list.");
         printBreak();
     }
