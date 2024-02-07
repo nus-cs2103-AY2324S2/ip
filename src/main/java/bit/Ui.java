@@ -1,30 +1,26 @@
 package bit;
 
-import bit.Tasklist;
-
+/**
+ * This class deals with returning strings to user
+ */
 public class Ui {
-    public static String lineBreak = "---------------------------------------------------------";
-
-    public void printLineBreak() {
-        System.out.println(lineBreak);
-    }
-    public void greet() {
-        System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
+    public String greet() {
+        return "Hi! This is Bit!\nWhat shall we do today?");
     }
 
-    public void sayBye() {
-        System.out.println("Alright. See you soon!!");
+    public String sayBye() {
+        return "Alright. See you soon!!";
     }
 
-    public void fileError() {
-        System.out.println("Error! Something went wrong while creating your file!");
+    public String fileError() {
+        return "Error! Something went wrong while creating your file!";
     }
 
     /**
      * Print out all tasks in task list.
      * @param tasklist list to be printed out.
      */
-    public void listOut(Tasklist tasklist) {
+    public String listOut(Tasklist tasklist) {
         System.out.println("Sure! Here is the list:\n");
         for (int i = 0; i < tasklist.getSize(); i++) {
             if (tasklist.getTask(i) == null) {

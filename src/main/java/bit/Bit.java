@@ -9,7 +9,21 @@ import java.util.Scanner;
 public class Bit {
 
     private static final Ui UI = new Ui();
-
+    private Tasklist tasklist;
+    private Scanner scanner;
+    private Parser parser;
+    private Storage store;
+    /**
+     * Constructor for bit
+     */
+    public Bit() {
+        tasklist = new Tasklist();
+        scanner = new Scanner(System.in);
+        store = new Storage();
+        store.loadFile(tasklist);
+        store.cleanList();
+        parser = new Parser();
+    }
     public static void main(String[] args) {
 
         UI.greet();
@@ -46,6 +60,8 @@ public class Bit {
         }
         store.saveAll(tasklist);
         UI.sayBye();
-
+    }
+    public String getResponse(String input) {
+        return "stub";
     }
 }
