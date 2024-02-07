@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -40,90 +39,22 @@ public class TaskList {
     }
 
     /**
-     * Lists all tasks in the task list.
-     *
-     * @throws IOException If an I/O error occurs.
-     */
-    public void listTasks() throws IOException {
-        l = storage.readFromFile();
-        ui.divider();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < l.size(); i++) {
-            ui.showTask((i + 1) + ". " + l.get(i));
-        }
-        ui.divider();
-    }
-
-    /**
-     * Marks a task as done.
-     * @param index The index of the task to mark as done, starting from 0.
-     * @throws IOException If there is an error saving the updated task list to storage.
-     */
-    public void markTask(int index) throws IOException {
-        if (index >= 0 && index < l.size()) {
-            Task task = l.get(index);
-            task.markDone();
-            System.out.println("Nice! I've marked this task as done:");
-            ui.showTask(task.toString());
-            storage.saveToFile(l);
-        } else {
-            System.out.println("Invalid task index");
-        }
-        ui.divider();
-    }
-
-    /**
-     * Marks a task as not done.
-     * @param index The index of the task to mark as not done, starting from 0.
-     * @throws IOException If there is an error saving the updated task list to storage.
-     */
-    public void unmarkTask(int index) throws IOException {
-        if (index >= 0 && index < l.size()) {
-            Task task = l.get(index);
-            task.mark_not_done();
-            System.out.println("OK, I've marked this task as not done yet:");
-            ui.showTask(task.toString());
-            storage.saveToFile(l);
-        } else {
-            System.out.println("Invalid task index");
-        }
-        ui.divider();
-    }
-
-    /**
-     * Adds a new task to the task list.
-     * @param task The task to be added.
-     * @throws IOException If there is an error saving the updated task list to storage.
-     */
-    public void addTask(Task task) throws IOException {
-        l.add(task);
-        System.out.println("Got it. I've added this task:");
-        ui.showTask(task.toString());
-        storage.saveToFile(l);
-        System.out.println("Now you have " + l.size() + " tasks in the list.");
-        ui.divider();
-    }
-
-    /**
      * Deletes a task from the task list.
-     * @param deleted_index The index of the task to delete, starting from 0.
+     *
+     * @param deletedIndex The index of the task to delete, starting from 0.
+     * @return
      * @throws IOException If there is an error saving the updated task list to storage.
      */
-    public void deleteTask(int deleted_index) throws IOException {
-        System.out.println("______________________________________________________");
-        int actual_index = deleted_index - 1;
-        Task removed_task = l.remove(actual_index);
-        System.out.println("Noted. I've removed this task:");
-        //System.out.println(" " + removed_task);
-        ui.showTask(removed_task.toString());
-        if (l.size() == 1) {
-            System.out.println("Now you have " + l.size() + " task in the list.");
+    public String deleteTask(int deletedIndex) throws IOException {
+        if (deletedIndex >= 0 && deletedIndex < l.size()) {
+            Task removedTask = l.remove(deletedIndex);
+            storage.saveToFile(l);
+            return "Noted. I've removed this task: \n  " + removedTask + "\nNow you have " + l.size() + " tasks in the list.";
         } else {
-            System.out.println("Now you have " + l.size() + " tasks in the list.");
+            return "Invalid task index. Please enter a valid number between 1 and " + l.size();
         }
-        System.out.println("______________________________________________________");
-        storage.saveToFile(l);
     }
+
 
     /**
      * Adds a new Event task to the task list.
@@ -150,39 +81,28 @@ public class TaskList {
      * @param task The ToDo task to be added.
      * @throws IOException If there is an error saving the updated task list to storage.
      */
-    public void addTodoTask(Task task) throws IOException {
-        System.out.println("______________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        //System.out.println(" " + task);
-        ui.showTask(task.toString());
+    public String addTodoTask(Task task) throws IOException {
         l.add(task);
         storage.saveToFile(l);
-        if (l.size() == 1) {
-            System.out.println("Now you have " + l.size() + " task in the list.");
-        } else {
-            System.out.println("Now you have " + l.size() + " tasks in the list.");
-        }
-        System.out.println("______________________________________________________");
+        String response = "Got it. I've added this task:\n" + task.toString() +
+                "\nNow you have " + l.size() + " tasks in the list.";
+        return response;
     }
+
 
     /**
      * Adds a new Deadline task to the task list.
      * @param task The Deadline task to be added.
      * @throws IOException If there is an error saving the updated task list to storage.
      */
-    public void addDeadlineTask(Task task) throws IOException {
-        System.out.println("______________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        ui.showTask(task.toString());
+    public String addDeadlineTask(Task task) throws IOException {
         l.add(task);
         storage.saveToFile(l);
-        if (l.size() == 1) {
-            System.out.println("Now you have " + l.size() + " task in the list.");
-        } else {
-            System.out.println("Now you have " + l.size() + " tasks in the list.");
-        }
-        System.out.println("______________________________________________________");
+        String response = "Got it. I've added this task:\n" + task.toString() +
+                "\nNow you have " + l.size() + " tasks in the list.";
+        return response;
     }
+
 
     /**
      * Gets the size of the task list.
@@ -207,33 +127,74 @@ public class TaskList {
      * Finds tasks that contain the given keyword in their description.
      *
      * @param user_keyword The keyword to search for in the task descriptions.
+     * @return
      */
-    public void findTask(String user_keyword) {
+    public String findTask(String user_keyword) {
+        StringBuilder response = new StringBuilder();
         List<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < l.size(); i++) {
-            Task task = l.get(i);
+        for (Task task : l) {
             if (task.description.contains(user_keyword)) {
                 matchingTasks.add(task);
             }
         }
-        displayMatchingTasks(matchingTasks);
+        if (matchingTasks.isEmpty()) {
+            response.append("No matching tasks found.");
+        } else {
+            response.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
+            }
+        }
+        return response.toString();
     }
 
     /**
-     * Displays the tasks that match the search criteria.
+     * Lists all tasks in the task list.
      *
-     * @param task_match The list of tasks that match the search criteria.
+     * @return
+     * @throws IOException If an I/O error occurs.
      */
-    private void displayMatchingTasks(List<Task> task_match) {
-        if (task_match.isEmpty()) {
-            ui.showTask("No matching tasks found.");
+    public String listTasks() {
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < l.size(); i++) {
+            response.append(i + 1).append(". ").append(l.get(i)).append("\n");
+        }
+        return response.toString();
+    }
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to mark as done, starting from 0.
+     * @return
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
+    public String markTask(int index) throws IOException {
+        if (index >= 0 && index < l.size()) {
+            Task task = l.get(index);
+            task.markDone();
+            storage.saveToFile(l);
+            return "Nice! I've marked this task as done:\n  " + task;
         } else {
-            ui.divider();
-            System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < task_match.size(); i++) {
-                ui.showTask((i + 1) + ". " + task_match.get(i));
-            }
-            ui.divider();
+            return "Invalid task index";
         }
     }
+    /**
+     * Marks a task as not done.
+     *
+     * @param index The index of the task to mark as not done, starting from 0.
+     * @return
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
+    public String unmarkTask(int index) throws IOException {
+        if (index >= 0 && index < l.size()) {
+            Task task = l.get(index);
+            task.mark_not_done();
+            storage.saveToFile(l);
+            return "OK, I've marked this task as not done yet:\n  " + task;
+        } else {
+            return "Invalid task index";
+        }
+    }
+
+
 }
