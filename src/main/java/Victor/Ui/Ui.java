@@ -1,4 +1,4 @@
-package Victor.Ui;
+package victor.ui;
 
 import java.util.Scanner;
 

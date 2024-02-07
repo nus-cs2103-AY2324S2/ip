@@ -1,12 +1,11 @@
-package Victor.Storage;
+package victor.storage;
 
-import Victor.TaskType.Deadline;
-import Victor.TaskType.Event;
-import Victor.TaskType.Task;
-import Victor.TaskType.Todo;
+import victor.tasktype.Deadline;
+import victor.tasktype.Event;
+import victor.tasktype.Task;
+import victor.tasktype.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class Storage {
                         + System.lineSeparator());
                 i++;
             }
-            Task finalTask = updatedArray.getLast();
+            Task finalTask = updatedArray.get(updatedArray.size()-1);
             writeToFile.write(finalTask.saveInput());
             writeToFile.close();
         } catch (IOException e) {

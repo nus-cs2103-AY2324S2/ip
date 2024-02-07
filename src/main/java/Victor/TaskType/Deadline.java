@@ -1,4 +1,4 @@
-package Victor.TaskType;
+package victor.tasktype;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

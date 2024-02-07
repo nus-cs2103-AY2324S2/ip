@@ -1,11 +1,11 @@
-package Victor.Parser;
+package victor.parser;
 
-import Victor.TaskList.TaskList;
-import Victor.TaskType.Deadline;
-import Victor.TaskType.Event;
-import Victor.TaskType.Task;
-import Victor.TaskType.Todo;
-import Victor.Ui.Ui;
+import victor.tasklist.TaskList;
+import victor.tasktype.Deadline;
+import victor.tasktype.Event;
+import victor.tasktype.Task;
+import victor.tasktype.Todo;
+import victor.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

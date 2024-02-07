@@ -1,8 +1,8 @@
-package Victor;
-import Victor.Parser.Parser;
-import Victor.Storage.Storage;
-import Victor.TaskList.TaskList;
-import Victor.Ui.Ui;
+package victor;
+import victor.parser.Parser;
+import victor.storage.Storage;
+import victor.tasklist.TaskList;
+import victor.ui.Ui;
 
 import java.io.IOException;
 

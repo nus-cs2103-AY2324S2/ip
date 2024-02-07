@@ -1,4 +1,4 @@
-package Victor.TaskType;
+package victor.tasktype;
 public class Task {
         protected String description;
         protected boolean isDone;

@@ -1,4 +1,4 @@
-package Victor.Command;
+package victor.command;
 
 abstract class Command {
     String taskType;
