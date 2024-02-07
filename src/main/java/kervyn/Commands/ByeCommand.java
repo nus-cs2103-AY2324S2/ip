@@ -16,8 +16,8 @@ public class ByeCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param storage The Storage object used for saving tasks.
      */
-    public ByeCommand(TaskList taskList, Storage storage, Image userImage) {
-        super("Bye", taskList, userImage);
+    public ByeCommand(TaskList taskList, Storage storage, Image kervynImage) {
+        super("Bye", taskList, kervynImage);
         this.storage = storage;
     }
 

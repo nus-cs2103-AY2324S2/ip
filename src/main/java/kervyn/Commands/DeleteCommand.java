@@ -15,8 +15,8 @@ public class DeleteCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input array containing details for the deletion command.
      */
-    public DeleteCommand(TaskList taskList, String[] userInput, Image userImage) {
-        super("Delete", taskList, userImage);
+    public DeleteCommand(TaskList taskList, String[] userInput, Image kervynImage) {
+        super("Delete", taskList, kervynImage);
         this.userInput = userInput;
     }
 

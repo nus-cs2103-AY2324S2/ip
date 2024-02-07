@@ -20,8 +20,8 @@ public class ToDoCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the ToDo task details.
      */
-    public ToDoCommand(TaskList taskList, String userInput, Image userImage) {
-        super("ToDo", taskList, userImage);
+    public ToDoCommand(TaskList taskList, String userInput, Image kervynImage) {
+        super("ToDo", taskList, kervynImage);
         this.userInput = userInput;
     }
 

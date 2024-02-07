@@ -150,7 +150,7 @@ public class Kervyn extends Application {
                 DialogBox.getUserDialog(userText, user)
         );
         String kervynText = getResponse(userInput.getText());
-        parser.deduceCommand(userInput.getText(), taskList);
+        parser.deduceCommand(userInput.getText(), taskList, kervyn);
         Platform.exit();
 
 //        dialogContainer.getChildren().addAll(

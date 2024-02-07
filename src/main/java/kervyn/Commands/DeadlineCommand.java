@@ -23,8 +23,8 @@ public class DeadlineCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the deadline details.
      */
-    public DeadlineCommand(TaskList taskList, String userInput, Image userImage) {
-        super("Deadline", taskList, userImage);
+    public DeadlineCommand(TaskList taskList, String userInput, Image kervynImage) {
+        super("Deadline", taskList, kervynImage);
         this.userInput = userInput;
     }
 

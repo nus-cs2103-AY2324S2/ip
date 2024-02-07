@@ -15,8 +15,8 @@ public class FindCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input array containing details for the deletion command.
      */
-    public FindCommand(TaskList taskList, String userInput, Image userImage) {
-        super("Find", taskList, userImage);
+    public FindCommand(TaskList taskList, String userInput, Image kervynImage) {
+        super("Find", taskList, kervynImage);
         this.userInput = userInput;
     }
 

@@ -21,8 +21,8 @@ public class EventCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the event details.
      */
-    public EventCommand(TaskList taskList, String userInput, Image userImage) {
-        super("Event", taskList, userImage);
+    public EventCommand(TaskList taskList, String userInput, Image kervynImage) {
+        super("Event", taskList, kervynImage);
         this.userInput = userInput;
     }
 

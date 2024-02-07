@@ -15,8 +15,8 @@ public class MarkCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input array containing the index of the task to be marked.
      */
-    public MarkCommand(TaskList taskList, String[] userInput, Image userImage) {
-        super("Mark", taskList, userImage);
+    public MarkCommand(TaskList taskList, String[] userInput, Image kervynImage) {
+        super("Mark", taskList, kervynImage);
         this.userInput = userInput;
     }
 

@@ -13,8 +13,8 @@ public class ListCommand extends Command {
      *
      * @param taskList The TaskList associated with this command.
      */
-    public ListCommand(TaskList taskList, Image userImage) {
-        super("List", taskList, userImage);
+    public ListCommand(TaskList taskList, Image kervynImage) {
+        super("List", taskList, kervynImage);
     }
 
     /**
