@@ -3,19 +3,40 @@ package TalkingJohn;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Provides methods to perform various actions on the tasks.
+ * It interacts with the user interface to display messages and handles user inputs.
+ */
 public class TaskList {
     private final List<Task> taskArr;
     private final Ui ui;
 
+    /**
+     * Constructs a TaskList object with the specified list of tasks and user interface.
+     *
+     * @param taskArr The list of tasks.
+     * @param ui      The user interface.
+     */
     public TaskList(List<Task> taskArr, Ui ui) {
         this.taskArr = taskArr;
         this.ui = ui;
     }
 
+    /**
+     * Converts a string input to an integer.
+     *
+     * @param input The input string.
+     * @return The integer value parsed from the input.
+     */
     public int convertInt(String input) {
         return Integer.parseInt(input.split(" ", 2)[1]);
     }
 
+    /**
+     * Handles the user input by performing corresponding actions on the task list.
+     *
+     * @param input The user input.
+     */
     public void action(String input) {
         if (Objects.equals(input, "list")) {
             if (taskArr.size() > 0) {
@@ -82,5 +103,4 @@ public class TaskList {
             ui.invalidInput();
         }
     }
-
 }
