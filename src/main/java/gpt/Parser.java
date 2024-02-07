@@ -84,7 +84,8 @@ public class Parser {
         tl.addTask(todoTask);
         System.out.println("  " + todoTask.toString());
         System.out.println("Now you have " + tl.size() + " tasks in the list.");
-        return "Got it. I've added this task:" + "  " + todoTask.toString() + "\nNow you have " + tl.size() + " tasks in the list.";
+        return "Got it. I've added this task:" + "  " + todoTask.toString() + "\nNow you have "
+                + tl.size() + " tasks in the list.";
 
     }
 
@@ -113,7 +114,8 @@ public class Parser {
         System.out.println("  " + deadlineTask.toString());
         System.out.println("Now you have " + tl.size() + " tasks in the list.");
         tl.addTask(deadlineTask);
-        return "Got it. I've added this task:" + "  " + deadlineTask.toString() + "\nNow you have " + tl.size() + " tasks in the list.";
+        return "Got it. I've added this task:" + "  " + deadlineTask.toString()
+                + "\nNow you have " + tl.size() + " tasks in the list.";
 
     }
 
@@ -134,7 +136,8 @@ public class Parser {
         String eventEndDate = splitInput[2].trim();
         Task eventTask = new Task(eventName, TaskType.E, false, eventStartDate, eventEndDate);
         tl.addTask(eventTask);
-        return "Got it. I've added this task:" + "  " + eventTask.toString() + "\nNow you have " + tl.size() + " tasks in the list.";
+        return "Got it. I've added this task:" + "  " + eventTask.toString()
+                + "\nNow you have " + tl.size() + " tasks in the list.";
     }
 
     /**

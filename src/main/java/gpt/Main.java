@@ -1,7 +1,6 @@
 package gpt;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,13 +13,14 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
+/**
+ * The main entry-point for the Duke application.
+ */
 public class Main extends Application {
 
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaGpt.png"));
     private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-
+    private final Gpt chadGpt = new Gpt();
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -30,8 +30,6 @@ public class Main extends Application {
     public Main() {
         // ...
     }
-
-    private final Gpt chadGpt = new Gpt();
 
     @Override
     public void start(Stage stage) {
@@ -99,13 +97,13 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-            Label userText = new Label(userInput.getText());
-            Label dukeText = new Label(chadGpt.getResponse(userInput.getText()));
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-            );
-            userInput.clear();
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(chadGpt.getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+        );
+        userInput.clear();
 
 
     }

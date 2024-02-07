@@ -8,10 +8,32 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A custom control using HBox. The control represents a dialog box consisting of an ImageView to represent the
+ * speaker's face and a label containing text from the speaker.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
+
+    /**
+     * Constructor for DialogBox.
+     *
+     * @param l The label containing text from the speaker.
+     * @param iv The ImageView to represent the speaker's face.
+     */
+    public DialogBox(Label l, ImageView iv) {
+        text = l;
+        displayPicture = iv;
+
+        text.setWrapText(true);
+        displayPicture.setFitWidth(100.0);
+        displayPicture.setFitHeight(100.0);
+
+        this.setAlignment(Pos.TOP_RIGHT);
+        this.getChildren().addAll(text, displayPicture);
+    }
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
@@ -31,17 +53,5 @@ public class DialogBox extends HBox {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;
-    }
-
-    public DialogBox(Label l, ImageView iv) {
-        text = l;
-        displayPicture = iv;
-
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-
-        this.setAlignment(Pos.TOP_RIGHT);
-        this.getChildren().addAll(text, displayPicture);
     }
 }

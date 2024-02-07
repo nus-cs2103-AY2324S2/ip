@@ -1,8 +1,10 @@
 package gpt;
 
+import java.util.Scanner;
+
 import javafx.fxml.FXML;
 
-import java.util.Scanner;
+
 
 /**
  * The main entry-point for the java.duke.Duke application.
@@ -13,10 +15,13 @@ public class Gpt {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     private Boolean isExit = false;
+
+    /**
+     * Constructor for the Gpt class.
+     */
     public Gpt() {
-         ui = new Ui();
+        ui = new Ui();
         storage = new Storage(FILE_PATH);
         tasks = storage.loadTasks();
         isExit = false;
