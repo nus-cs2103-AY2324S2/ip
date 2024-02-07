@@ -9,6 +9,12 @@ public class Tam {
     private static TaskList taskListObj;
     private static Scanner scannerObj = new Scanner(System.in);
 
+    /**
+     * Launches Tam and repeatedly waits for and reads input commands until a
+     * termination command ('bye') is read
+     *
+     * @param args String arguments
+     */
     public static void main(String[] args) {
         taskListObj = Storage.getSavedTasks();
         Ui.greet();

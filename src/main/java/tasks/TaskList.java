@@ -11,10 +11,19 @@ public class TaskList {
     private static String dividerText = "____________________________________________________________\n";
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructor for a TaskList object
+     */
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 
+    /**
+     * Constructor for a TaskList object, using existing list of tasks
+     *
+     * @param existingTaskList Existing ArrayList of Tasks
+     * @return TaskList object created from existing ArrayList of Tasks
+     */
     public TaskList(ArrayList<Task> existingTaskList) {
         this.taskList = existingTaskList;
     }
@@ -23,6 +32,11 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Adds Todo task to this TaskList object
+     *
+     * @param description Description of Todo task
+     */
     public void addTodo(String description) {
         Todo newTodo = new Todo(description);
         taskList.add(newTodo);
@@ -32,6 +46,12 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    /**
+     * Adds Deadline task to this TaskList object
+     *
+     * @param description Description of Deadline task
+     * @param dueDate Due date of Deadline task as a LocalDate object
+     */
     public void addDeadline(String description, LocalDate dueDate) {
         Deadline newDeadline = new Deadline(description, dueDate);
         taskList.add(newDeadline);
@@ -41,6 +61,13 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    /**
+     * Adds Event task to this TaskList object
+     *
+     * @param description Description of Event task
+     * @param fromDate Beginning date of Event task as a LocalDate object
+     * @param toDate End date of Event task as a LocalDate object
+     */
     public void addEvent(String description, LocalDate fromDate, LocalDate toDate) {
         Event newEvent = new Event(description, fromDate, toDate);
         taskList.add(newEvent);
@@ -50,6 +77,11 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    /**
+     * Deletes task from this TaskList object's ArrayList of Tasks
+     *
+     * @param taskNum Index of task on list
+     */
     public void deleteTask(int taskNum) {
         Task taskToBeRemoved = taskList.get(taskNum-1);
         taskList.remove(taskToBeRemoved);
@@ -59,6 +91,9 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    /**
+     * Deletes all tasks from this TaskList object's ArrayList of Tasks
+     */
     public void deleteAllTasks() {
         taskList.clear();
         System.out.print("All tasks deleted.\n");
@@ -66,6 +101,9 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    /**
+     * Prints this TaskList object's current ArrayList of Tasks
+     */
     public void listTasks() {
         if (!this.taskList.isEmpty()) {
             for (int i = 0; i < this.taskList.size(); i++) {
@@ -79,7 +117,11 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
-
+    /**
+     * Marks specified task as complete
+     *
+     * @param taskNum Index of task on list
+     */
     public void markTaskDone(int taskNum) {
         Task thisTask = taskList.get(taskNum-1);
         thisTask.markDone();
@@ -90,6 +132,11 @@ public class TaskList {
         System.out.print(dividerText);
     }
 
+    /**
+     * Marks specified task as incomplete
+     *
+     * @param taskNum Index of task on list
+     */
     public void markTaskUndone(int taskNum) {
         Task thisTask = taskList.get(taskNum-1);
         thisTask.markUndone();

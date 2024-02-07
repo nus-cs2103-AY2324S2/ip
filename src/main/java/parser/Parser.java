@@ -10,8 +10,17 @@ public class Parser {
 
     private static String dividerText = "____________________________________________________________\n";
 
-    //private static Scanner scannerObj = new Scanner(System.in);
-
+    /**
+     * Takes the command as a string and the existing TaskList object
+     * Processes the command and executes it on TaskList object
+     * Returns an integer (0 or 1) to indicate if it is a terminating command
+     *
+     * @param input Command entered by user
+     * @param existingTaskList User's current TaskList object
+     * @return 0 or 1
+     * @throws NumberFormatException If number cannot be parsed (a non-number is entered)
+     * @throws IndexOutOfBoundsException If task number does not exist in list
+     */
     public static int processCommand(String input, TaskList existingTaskList) {
         //String input = scannerObj.nextLine();
         String[] splitInput = input.split(" ");
@@ -195,29 +204,5 @@ public class Parser {
             System.out.println(e.getMessage());
             return 0;
         }
-    }
-
-    public boolean isValidMark(String commandEntered) {
-        return true;
-    }
-
-    public boolean isValidUnmark(String commandEntered) {
-        return true;
-    }
-
-    public boolean isValidDelete(String commandEntered) {
-        return true;
-    }
-
-    public boolean isValidTodo(String commandEntered) {
-        return true;
-    }
-
-    public boolean isValidDeadline(String commandEntered) {
-        return true;
-    }
-
-    public boolean isValidEvent(String commandEntered) {
-        return true;
     }
 }

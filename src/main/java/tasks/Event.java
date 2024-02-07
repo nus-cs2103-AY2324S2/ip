@@ -4,21 +4,36 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    //String fromDate = "";
     LocalDate fromDate;
-    //String toDate = "";
     LocalDate toDate;
 
+    /**
+     * Constructor for an empty Event task
+     */
     public Event() {
         super();
     }
 
+    /**
+     * Constructor for an Event task
+     *
+     * @param description Description of Event task
+     * @param fromDate Beginning date of Event task as a LocalDate object
+     * @param toDate End date of Event task as a LocalDate object
+     */
     public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description, "E");
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
 
+    /**
+     * Constructor for an Event task
+     * @param description Description of Event task
+     * @param fromDate Beginning date of Event task as a LocalDate object
+     * @param toDate End date of Event task as a LocalDate object
+     * @param isDone Completion status of the Event task
+     */
     public Event(String description, LocalDate fromDate, LocalDate toDate, boolean isDone) {
         super(description, "E", isDone);
         this.fromDate = fromDate;
@@ -56,6 +71,12 @@ public class Event extends Task {
         return codeBox + statusBox + " " + description + " " + fromTo;
     }
 
+    /**
+     * Converts an Event task from a string to Event object
+     *
+     * @param saveString Event task in string format
+     * @return Event task as an Event object
+     */
     public Task convertSaveToTask(String saveString) {
         //T|1|READ BOOK|dueDate
         String[] saveDetails = saveString.split("\\|");
@@ -77,6 +98,11 @@ public class Event extends Task {
         return new Event(taskDescription,eventFromDateLocal, eventToDateLocal, isDone);
     }
 
+    /**
+     * Converts an Event task from Event object to string (for saving)
+     *
+     * @return Event task as a string
+     */
     public String convertTaskToSave() {
         String taskCode = this.getTaskCode();
         String taskStatus = "0";

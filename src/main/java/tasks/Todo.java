@@ -1,13 +1,29 @@
 package tasks;
 
 public class Todo extends Task {
+
+    /**
+     * Constructor for an empty Todo task
+     */
     public Todo() {
         super();
     }
+
+    /**
+     * Constructor for a Todo task
+     *
+     * @param description Description of Todo task
+     */
     public Todo(String description) {
         super(description, "T");
     }
 
+    /**
+     * Constructor for a Todo task
+     *
+     * @param description Description of Todo task
+     * @param isDone Completion status of the Todo task
+     */
     public Todo(String description, boolean isDone) {
         super(description, "T", isDone);
     }
@@ -19,6 +35,12 @@ public class Todo extends Task {
         return codeBox + statusBox + " " + description;
     }
 
+    /**
+     * Converts a Todo task from a string to a Todo object
+     *
+     * @param saveString Todo task in string format
+     * @return Todo task as a Todo object
+     */
     public Task convertSaveToTask(String saveString) {
         //T|1|READ BOOK
         String[] saveDetails = saveString.split("\\|");
@@ -28,6 +50,11 @@ public class Todo extends Task {
         return new Todo(taskDescription, isDone);
     }
 
+    /**
+     * Converts a Todo task from Todo object to string (for saving)
+     *
+     * @return Todo task as a string
+     */
     public String convertTaskToSave() {
         String taskCode = this.getTaskCode();
         String taskStatus = "0";

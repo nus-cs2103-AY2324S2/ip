@@ -16,6 +16,13 @@ public class Storage {
     private static String workingDirectory = System.getProperty("user.dir");
     private static String dataDirectory = workingDirectory + "\\src\\main\\data";
     private static String saveFilePath = workingDirectory + "\\src\\main\\data\\SavedList.txt";
+
+    /**
+     * Returns a TaskList object containing details of the saved task list (if any)
+     * If no saved list is found, a TaskList object with an empty list is created
+     *
+     * @return TaskList object
+     */
     public static TaskList getSavedTasks () {
 
         File saveFile = new File(saveFilePath);
@@ -43,21 +50,29 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current list of tasks in the TaskList object
+     *
+     * @param taskListObj The TaskList object with details to be saved
+     */
     public static void saveTaskList(TaskList taskListObj) throws Exception {
         File saveFile = new File(saveFilePath);
         ArrayList<Task> taskList = taskListObj.getTaskList();
         BufferedWriter writerObj = new BufferedWriter(new FileWriter(saveFile, false));
-        // save new
+        // re-save entire list
         for (Task task : taskList) {
-            //System.out.println(task.getTaskDetails());
             String taskStringToSave = task.convertTaskToSave();
-            //System.out.println(taskStringToSave);
             writerObj.write(taskStringToSave + "\n");
         }
         writerObj.close();
-        //System.out.println("Task list changes saved");
     }
 
+    /**
+     * Returns true or false depending on whether the directory exists
+     *
+     * @param directoryPath Path of directory to be checked
+     * @return existence status of directory at path
+     */
     public static boolean directoryExists(String directoryPath) throws Exception {
         boolean isExistent;
         File folderDirectory = new File(directoryPath);
@@ -65,11 +80,23 @@ public class Storage {
         return isExistent;
     }
 
+    /**
+     * Creates directory at path and returns the File of directory created
+     *
+     * @param directoryPath Directory path to be checked
+     * @return File object of directory created at directoryPath
+     */
     public static File createDirectory(String directoryPath) throws Exception {
         Files.createDirectories(Paths.get(directoryPath));
         return new File(directoryPath);
     }
 
+    /**
+     * Returns true or false depending on whether the file exists
+     *
+     * @param filePath Path of file to be checked
+     * @return existence status of file at path
+     */
     public static boolean fileExists(String filePath) throws Exception {
         boolean isExistent;
         File file = new File(filePath);
@@ -77,6 +104,12 @@ public class Storage {
         return isExistent;
     }
 
+    /**
+     * Converts list of tasks in saved text file to ArrayList of Task objects
+     *
+     * @param saveFile Saved file
+     * @return ArrayList of Task objects from saved file
+     */
     public static ArrayList<Task> getListOfTasks(File saveFile) throws Exception {
         ArrayList<Task> taskList = new ArrayList<>();
         BufferedReader readerObj = new BufferedReader(new FileReader(saveFile));

@@ -4,6 +4,9 @@ public class Ui {
 
     private static String dividerText = "____________________________________________________________\n";
 
+    /**
+     * Prints greeting message upon launching of Tam
+     */
     public static void greet() {
         String greetText = "Hello! I'm Tam the Task Manager!\nWhat can I do for you?\n";
         System.out.print(dividerText);
@@ -11,6 +14,9 @@ public class Ui {
         System.out.print(dividerText);
     }
 
+    /**
+     * Prints exit message upon termination of Tam
+     */
     public static void exit() {
         String exitText = "Bye. Hope to see you again soon!\n";
         System.out.print(exitText);
