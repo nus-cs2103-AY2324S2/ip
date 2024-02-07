@@ -15,20 +15,12 @@ public class Task {
         return (this.isDone ? "1" : "0"); // mark done task with X
     }
 
-    public void silentSetDone() {
-        this.isDone = true;
-    }
-
     public void setDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
     }
 
     public void setUndone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.toString());
     }
 
     public String simpleToString() {

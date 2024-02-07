@@ -9,26 +9,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Save {
+public class Storage {
     private String filePath;
 
-    public Save(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String storeList(ArrayList<Task> listArr) {
+    public String storeList(TaskList tl) {
         StringBuilder listItems = new StringBuilder();
-        for (int j = 0; j < listArr.size(); j++) {
+        for (int j = 0; j < tl.size(); j++) {
             if (j > 0) {
                 listItems.append(System.getProperty("line.separator")); // Add newline before each task except the first one
             }
-            String task = listArr.get(j).simpleToString();
+            String task = tl.get(j).simpleToString();
             listItems.append(task);
         }
         return listItems.toString();
     }
 
-    public void writeList(String ls) throws DukeException {
+    public void save(String ls) throws DukeException {
         Path path = Paths.get(this.filePath);
         try {
             if (!Files.exists(path)) {
@@ -41,10 +41,10 @@ public class Save {
     }
 
     public void printList() throws DukeException {
+        System.out.println("Here are the tasks in your list:");
         BufferedReader br = null;
         Path path = Paths.get(this.filePath);
         try {
-
             if (!Files.exists(path)) {
                 Files.createFile(path); // Create the file if it doesn't exist
             }
@@ -70,7 +70,7 @@ public class Save {
         }
     }
 
-    public ArrayList<Task> setList() throws DukeException {
+    public ArrayList<Task> load() throws DukeException {
         BufferedReader br = null;
         ArrayList<Task> taskArr = new ArrayList<>();
         try {
@@ -99,7 +99,7 @@ public class Save {
                         throw new DukeException("Sorry! There was an error parsing the file.");
                 }
                 if (splitStr[1].equals("1")) {
-                    task.silentSetDone();
+                    task.setDone();
                 }
                 taskArr.add(task);
             }
@@ -116,7 +116,6 @@ public class Save {
                 throw new DukeException("Error closing file reader: " + e.getMessage());
             }
         }
-
         return taskArr;
     }
 }
