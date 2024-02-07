@@ -31,17 +31,19 @@ public class ModifyMarkCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
         int markIdxInt = Integer.valueOf(curCommand[1]);
         Task modifiedTask = tasks.getTask(markIdxInt - 1);
+        String msg;
         if (curCommand[0].equals("mark")) {
             modifiedTask.setDone(true);
-            ui.printTaskSetDone(modifiedTask);
+            msg = ui.getTaskDoneMsg(modifiedTask);
         } else {
             modifiedTask.setDone(false);
-            ui.printTaskSetUndone(modifiedTask);
+            msg = ui.getTaskSetUndoneMsg(modifiedTask);
         }
         tasks.setTask(markIdxInt - 1, modifiedTask);
+        return msg;
     }
 }

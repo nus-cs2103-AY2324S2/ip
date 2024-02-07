@@ -67,7 +67,8 @@ public class Window extends AnchorPane {
 
     private void handleUserInput() {
         Label text = new Label(this.textInput.getText());
-        Label botResponse
+        Label botResponse = new Label(this.talkingBot.process(this.textInput.getText()));
+
     }
 
     @FXML

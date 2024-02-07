@@ -27,7 +27,7 @@ public class InvalidCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
-        ui.printInvalidCmdMsg();
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+        return ui.getInvalidCmdMsg();
     }
 }

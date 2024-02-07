@@ -27,8 +27,8 @@ public class FindCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] commandArr = super.getCommandArr();
-        System.out.println(tasks.filterList(commandArr[1]));
+        return tasks.filterList(commandArr[1]);
     }
 }

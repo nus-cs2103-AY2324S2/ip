@@ -29,10 +29,10 @@ public class DeleteCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
         int deleteIdxInt = Integer.valueOf(curCommand[1]);
         Task removedTask = tasks.removeTask(deleteIdxInt - 1);
-        ui.printDeleteTask(removedTask, tasks.getSize());
+        return ui.getDeleteTaskMsg(removedTask, tasks.getSize());
     }
 }

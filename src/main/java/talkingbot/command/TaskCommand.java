@@ -34,7 +34,7 @@ public class TaskCommand extends Command {
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+    public String runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
         StringBuilder sbDescription = new StringBuilder();
         for (int idx = 1; idx < curCommand.length; idx++) {
@@ -44,12 +44,14 @@ public class TaskCommand extends Command {
             }
         }
         String fullDescription = sbDescription.toString();
+        String msg;
         try {
             Task curTask = Task.generateTask(fullDescription, curCommand[0]);
             tasks.addTask(curTask);
-            ui.printAddTask(curTask, tasks.getSize());
+            msg = ui.getAddTaskMsg(curTask, tasks.getSize());
         } catch (TalkingBotException e) {
-            ui.printGenericError(e);
+            msg = ui.getGenericErrorMsg(e);
         }
+        return msg;
     }
 }
