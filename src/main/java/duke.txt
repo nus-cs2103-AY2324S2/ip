@@ -1,5 +1,0 @@
-T | 0 | e
-T | 0 | f
-T | 0 | g
-D | 0 | sun clothes | Sat
-E | 1 | project meeting | Mon 2pm  - 4pm
