@@ -1,5 +1,7 @@
 package duke.utility;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,12 +12,34 @@ import duke.task.Task;
  */
 public class Ui {
     private Scanner sc = new Scanner(System.in);
+    private ByteArrayOutputStream baos;
+    private PrintStream ps;
+    private PrintStream old;
+
+    public Ui() {
+        resetOutputStream();
+    }
+
+    private void resetOutputStream() {
+        this.baos = new ByteArrayOutputStream();
+        this.ps = new PrintStream(this.baos);
+        this.old = System.out;
+        System.setOut(this.ps);
+    }
+
+    public String craftResponse() {
+        System.out.flush();
+        String response = baos.toString();
+        System.setOut(old);
+        resetOutputStream();
+        return response;
+    }
 
     /**
      * Greets the user.
      */
     public void greet() {
-        System.out.println("Hello! I'm Friendy.");
+        System.out.println("Hello! I'm Gigachad.");
         System.out.println("What can I do for you?");
     }
 
