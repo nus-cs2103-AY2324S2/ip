@@ -21,7 +21,7 @@ public class Parser {
             throw new MissingArgumentException("Error: Please enter something");
         }
 
-        CommandType command = parseCommand(tokens);
+        CommandType command = parseCommand(tokens[0]);
         switch(command) {
         case BYE:
             return new Bye();
@@ -39,37 +39,54 @@ public class Parser {
         return null;
     }
 
-    private static Action parseEditAction(CommandType command, String[] tokens) {
-        if (tokens.length < 2) {
-            throw new MissingArgumentException("Error: Missing Index\nPlease enter the index (number) of the task to edit");
-        }
-
-        int index = parseIndex(tokens);
-        switch(command) {
-        case DELETE:
-            return new Delete(index);
-        case MARK:
-            return new Mark(index);
-        case UNMARK:
-            return new Unmark(index);
-        }
-        return null;
-    }
-
-    private static CommandType parseCommand(String[] tokens) throws InvalidArgumentException {
+    private static CommandType parseCommand(String command) throws InvalidArgumentException {
         try {
-            return CommandType.valueOf(tokens[0].toUpperCase());
+            return CommandType.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException exc) {
             throw new InvalidArgumentException("Error: Sorry. I don't know what that means");
         }
     }
 
-    private static int parseIndex(String[] tokens) throws InvalidArgumentException {
+    private static int parseIndex(String index) throws InvalidArgumentException {
         try {
-            return Integer.parseInt(tokens[1]);
+            return Integer.parseInt(index);
         } catch (NumberFormatException exc) {
             throw new InvalidArgumentException("Error: Please enter the index (number) of the task you would like to edit");
         }
+    }
+
+    private static ArrayList<String> parseArguments(String[] tokens) {
+        ArrayList<String> args = new ArrayList<>();
+        StringBuilder currArg = new StringBuilder();
+        for (String token : tokens) {
+            if (!token.startsWith("/")) {
+                currArg.append(token)
+                        .append(" ");
+            } else if (currArg.length() > 0) {
+                args.add(currArg.toString().trim());
+                currArg.setLength(0);
+            }
+        }
+        // Add remaining currArg to args list
+        args.add(currArg.toString().trim());
+        return args;
+    }
+
+    private static Action parseEditAction(CommandType command, String[] tokens) {
+        if (tokens.length < 2) {
+            throw new MissingArgumentException("Error: Missing Index\nPlease enter the index (number) of the task to edit");
+        }
+
+        int index = parseIndex(tokens[1]);
+        switch(command) {
+            case DELETE:
+                return new Delete(index);
+            case MARK:
+                return new Mark(index);
+            case UNMARK:
+                return new Unmark(index);
+        }
+        return null;
     }
 
     private static Action parseTask(CommandType command, String[] tokens) {
@@ -79,65 +96,41 @@ public class Parser {
             tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
         }
 
-        ArrayList<String> args = new ArrayList<>();
-        StringBuilder currArg = new StringBuilder();
-        for (String token : tokens) {
-            if (token.startsWith("/")) {
-                args.add(currArg.toString().trim());
-                currArg.setLength(0);
-            } else {
-                currArg.append(token).append(" ");
-            }
-        }
-        // Add remaining currArg to args list
-        args.add(currArg.toString().trim());
-
+        ArrayList<String> args = parseArguments(tokens);
         String description = args.get(0);
         switch(command) {
-        case TODO:
-            return AddTask.addTodo(description, false);
-        case DEADLINE:
-            LocalDate dueBy = parseDate(args.get(1));
-            return AddTask.addDeadline(description, false, dueBy);
-        case EVENT:
-            LocalDate dateFrom = parseDate(args.get(1));
-            LocalDate dateTo = parseDate(args.get(2));
-            return AddTask.addEvent(description, false, dateFrom, dateTo);
+            case TODO:
+                return AddTask.addTodo(description, false);
+            case DEADLINE:
+                LocalDate dueBy = parseDate(args.get(1));
+                return AddTask.addDeadline(description, false, dueBy);
+            case EVENT:
+                LocalDate dateFrom = parseDate(args.get(1));
+                LocalDate dateTo = parseDate(args.get(2));
+                return AddTask.addEvent(description, false, dateFrom, dateTo);
         }
         return null;
     }
 
     public static Task parseLoadedTask(String line) {
-        String taskStr = line.split("[.] \\[", 2)[1];
+        String[] tokens = line.split(" ");
+        CommandType taskType = parseCommand(tokens[1]);
+        ArrayList<String> args = parseArguments(Arrays.copyOfRange(tokens, 2, tokens.length));
+        boolean isDone = args.get(0).equals("true");
+        String description = args.get(1);
 
-        String[] tokensTaskType = taskStr.split("\\]\\[", 2);
-        String taskChar = tokensTaskType[0];
-        CommandType taskType = CommandType.matchTaskType(taskChar);
-
-        String[] tokensIsDone = tokensTaskType[1].split("\\] ", 2);
-        boolean isDone = tokensIsDone[0].equals("X");
-
-        String description;
-        String[] tokensDate;
         switch (taskType) {
         case TODO:
-            description = tokensIsDone[1].trim();
             return new Todo(description, isDone);
         case DEADLINE:
-            tokensDate = tokensIsDone[1].split("\\(by:", 2);
-            description = tokensDate[0].trim();
-            LocalDate dueBy = parseDate(tokensDate[1].replaceAll("[\\)]", " ").trim());
+            LocalDate dueBy = parseDate(args.get(2));
             return new Deadline(description, isDone, dueBy);
         case EVENT:
-            tokensDate = tokensIsDone[1].split("\\(from:", 2);
-            description = tokensDate[0].trim();
-            String[] tokensEvent = tokensDate[1].split("to:");
-            LocalDate dateFrom = parseDate(tokensEvent[0].trim());
-            LocalDate dateTo = parseDate(tokensEvent[1].replaceAll("[\\)]", " ").trim());
+            LocalDate dateFrom = parseDate(args.get(2));
+            LocalDate dateTo = parseDate(args.get(3));
             return new Event(description, isDone, dateFrom, dateTo);
-        default:
-            return null;
         }
+        return null;
     }
 
     public static LocalDate parseDate(String date) {

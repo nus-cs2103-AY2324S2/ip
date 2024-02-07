@@ -42,7 +42,7 @@ public class Storage {
         }
 
         try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8)) {
-            writer.write(tasks.toString());
+            writer.write(tasks.dataString());
         } catch (IOException x) {
             System.err.format("File write, IOException: %s\n", x);
         }

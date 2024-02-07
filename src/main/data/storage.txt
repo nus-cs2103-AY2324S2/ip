@@ -1,4 +1,3 @@
-0. [D][ ] return (by: 2024-01-01)
-1. [E][ ] class (from: 2024-01-01 to: 2024-01-02)
-2. [T][ ] homework
-3. [D][ ] quiz (by: 2023-01-01)
+0. TODO /isDone false /description work
+1. DEADLINE /isDone false /description quiz /dueBy 2023-01-01
+2. EVENT /isDone false /description class /from 2023-01-01 /to 2023-01-02

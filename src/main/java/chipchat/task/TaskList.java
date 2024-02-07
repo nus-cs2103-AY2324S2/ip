@@ -43,4 +43,12 @@ public class TaskList {
         }
         return str.toString();
     }
+
+    public String dataString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            str.append(String.format("%d. %s\n", i, tasks.get(i).dataString()));
+        }
+        return str.toString();
+    }
 }
