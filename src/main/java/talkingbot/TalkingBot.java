@@ -1,20 +1,26 @@
 package talkingbot;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import talkingbot.command.Command;
 import talkingbot.exception.TalkingBotException;
+import talkingbot.layout.Layout;
 import talkingbot.util.Parser;
 import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
 import talkingbot.util.Ui;
 
+
 /**
  * Class serving as the entry point of the application.
  */
-public class TalkingBot {
+public class TalkingBot extends Application {
     private static final String FILE_PATH = "./data/taskList.txt";
     private SaveFile saveFile;
     private TaskList tasks;
     private Ui ui;
+    private Layout layout;
 
     /**
      * Constructor for the TalkingBot class.
@@ -24,6 +30,7 @@ public class TalkingBot {
     public TalkingBot(String fileName) {
         this.ui = new Ui();
         this.saveFile = new SaveFile(fileName);
+        this.layout = new Layout();
         try {
             this.tasks = this.saveFile.getTasksFromFile();
         } catch (TalkingBotException e) {
@@ -47,9 +54,10 @@ public class TalkingBot {
     }
 
     /**
-     * Main method.
+     * Starts the GUI.
+     * @param stage Stage for JavaFX.
      */
-    public static void main(String[] args) {
-        new TalkingBot(FILE_PATH).runTalkingBot();
+    public void start(Stage stage) {
+
     }
 }
