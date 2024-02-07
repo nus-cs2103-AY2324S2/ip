@@ -1,21 +1,26 @@
 package duke.command;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.exception.DescriptionFormatException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.ToDos;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.DescriptionFormatException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDos;
+
+/**
+ * Class for "add" command.
+ *
+ */
 public class AddCommand extends Command {
-    private String com;
     private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
     private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private String com;
 
     /**
      * Constructor for AddCommand.
@@ -53,7 +58,7 @@ public class AddCommand extends Command {
                 }
                 break;
             case "todo":
-                if((inputs.length == 1)){
+                if ((inputs.length == 1)) {
                     throw new DescriptionFormatException("Wrong format!, please use this format: "
                             + ToDos.getFormat());
                 } else {
@@ -63,7 +68,7 @@ public class AddCommand extends Command {
                                 + ToDos.getFormat());
                     } else {
                         name = com.split("todo ");
-                        if(name.length != 2){
+                        if (name.length != 2) {
                             throw new DescriptionFormatException("Wrong format!, please use this format: "
                                     + ToDos.getFormat());
                         }
@@ -74,7 +79,7 @@ public class AddCommand extends Command {
                 }
                 break;
             case "deadline":
-                if(inputs.length == 1){
+                if (inputs.length == 1) {
                     throw new DescriptionFormatException("Wrong format!, please use this format: "
                             + Deadline.getFormat());
                 } else {
@@ -90,6 +95,7 @@ public class AddCommand extends Command {
                     st.write(tL.getList());
                 }
                 break;
+            default:
             }
         } catch (DescriptionFormatException e) {
             ui.showMessage(e.getMessage());
@@ -105,7 +111,7 @@ public class AddCommand extends Command {
      *
      * @return command in String format.
      */
-    public String getCom(){
+    public String getCom() {
         return com;
     }
 }

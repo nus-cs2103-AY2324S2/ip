@@ -2,6 +2,10 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Class used to handle all things relate to input and output.
+ *
+ */
 public class Ui {
     private static String name = "GanAnWo";
 
@@ -11,7 +15,7 @@ public class Ui {
      * Constructor for Ui.
      *
      */
-    public Ui(){
+    public Ui() {
         sc = new Scanner(System.in);
     }
 
@@ -29,7 +33,7 @@ public class Ui {
      *
      * @param m a string
      */
-    public void showMessage(String m){
+    public void showMessage(String m) {
         System.out.println(m);
     }
 
@@ -37,7 +41,7 @@ public class Ui {
      * Prints a bye message.
      *
      */
-    public void showBye(){
+    public void showBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -46,7 +50,7 @@ public class Ui {
      *
      * @return a string
      */
-    public String readCommand(){
+    public String readCommand() {
         return sc.nextLine();
     }
 }

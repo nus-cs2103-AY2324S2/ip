@@ -1,6 +1,10 @@
 package duke.task;
 
-public class ToDos extends Task{
+/**
+ * Class for task type deadline.
+ *
+ */
+public class ToDos extends Task {
 
     private static final String SYMBOL = "T";
 
@@ -73,7 +77,7 @@ public class ToDos extends Task{
      *
      * @return format for todos command.
      */
-    public static String getFormat(){
+    public static String getFormat() {
         return "todo Description";
     }
 }

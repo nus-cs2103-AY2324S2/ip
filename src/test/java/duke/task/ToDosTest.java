@@ -1,10 +1,11 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class ToDosTest {
-    ToDos t = new ToDos("return book");
+    private ToDos t = new ToDos("return book");
 
 
 
@@ -14,8 +15,8 @@ public class ToDosTest {
      *
      */
     @Test
-    public void stringTest(){
-        assertEquals("[T][ ] return book",t.toString());
+    public void stringTest() {
+        assertEquals("[T][ ] return book", t.toString());
     }
 
     /**
@@ -24,7 +25,7 @@ public class ToDosTest {
      *
      */
     @Test
-    public void writeTest(){
-        assertEquals("T/false/return book",t.toWrite());
+    public void writeTest() {
+        assertEquals("T/false/return book", t.toWrite());
     }
 }

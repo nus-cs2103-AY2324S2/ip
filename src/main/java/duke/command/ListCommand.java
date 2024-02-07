@@ -4,13 +4,17 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-public class ListCommand extends Command{
+/**
+ * Class for "list" command.
+ *
+ */
+public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
      *
      */
-    public ListCommand(){
+    public ListCommand() {
         super(0);
     }
 

@@ -1,16 +1,19 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.Command;
-import duke.command.UnmarkCommand;
-import duke.command.DeleteCommand;
-import duke.exception.CommandInvalidException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.exception.CommandInvalidException;
+
 
 public class ParserTest {
     private String dummyCommandA = "todo return book";
@@ -32,32 +35,32 @@ public class ParserTest {
         AddCommand expectedA = new AddCommand(dummyCommandA);
         AddCommand cA = (AddCommand) Parser.parse(dummyCommandA);
 
-        assertEquals(expectedA.getCom(),cA.getCom());
+        assertEquals(expectedA.getCom(), cA.getCom());
 
         Command expectedB = new ListCommand();
         Command cB = Parser.parse(dummyCommandB);
 
-        assertEquals(expectedB.isExit(),cB.isExit());
+        assertEquals(expectedB.isExit(), cB.isExit());
 
         MarkCommand expectedC = new MarkCommand(dummyCommandC);
         MarkCommand cC = (MarkCommand) Parser.parse(dummyCommandC);
 
-        assertEquals(expectedC.getCom(),cC.getCom());
+        assertEquals(expectedC.getCom(), cC.getCom());
 
         UnmarkCommand expectedD = new UnmarkCommand(dummyCommandD);
         UnmarkCommand cD = (UnmarkCommand) Parser.parse(dummyCommandD);
 
-        assertEquals(expectedD.getCom(),cD.getCom());
+        assertEquals(expectedD.getCom(), cD.getCom());
 
         DeleteCommand expectedE = new DeleteCommand(dummyCommandE);
         DeleteCommand cE = (DeleteCommand) Parser.parse(dummyCommandE);
 
-        assertEquals(expectedE.getCom(),cE.getCom());
+        assertEquals(expectedE.getCom(), cE.getCom());
 
         Command expectedF = new ByeCommand();
         Command cF = Parser.parse(dummyCommandF);
 
-        assertEquals(expectedF.isExit(),cF.isExit());
+        assertEquals(expectedF.isExit(), cF.isExit());
 
     }
 
@@ -72,7 +75,7 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse(dummyCommandG));
             fail();
         } catch (CommandInvalidException e) {
-            assertEquals("Invalid command -_-, please use the available commands!!",e.getMessage());
+            assertEquals("Invalid command -_-, please use the available commands!!", e.getMessage());
         }
     }
 

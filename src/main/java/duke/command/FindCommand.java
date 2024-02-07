@@ -5,9 +5,11 @@ import duke.TaskList;
 import duke.Ui;
 import duke.exception.CommandFormatException;
 
-import java.io.IOException;
-
-public class FindCommand extends Command{
+/**
+ * Class for "find" command.
+ *
+ */
+public class FindCommand extends Command {
 
     private String com;
 
@@ -42,7 +44,7 @@ public class FindCommand extends Command{
      *
      * @return the command initialised.
      */
-    public String getCom(){
+    public String getCom() {
         return com;
     }
 }

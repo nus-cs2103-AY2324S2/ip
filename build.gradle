@@ -20,6 +20,15 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << '-target' << '11' // Set the target Java version
 }
 
+plugins {
+    id 'checkstyle'
+    // other plugins
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
 test {
     useJUnitPlatform()
 

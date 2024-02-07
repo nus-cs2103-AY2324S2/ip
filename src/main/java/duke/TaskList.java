@@ -1,9 +1,13 @@
 package duke;
 
-import duke.exception.CommandInvalidException;
-import duke.task.Task;
 import java.util.ArrayList;
 
+import duke.task.Task;
+
+/**
+ * Class used to store tasks.
+ *
+ */
 public class TaskList {
 
     /**
@@ -11,7 +15,7 @@ public class TaskList {
      *
      */
     private ArrayList<Task> tasks;
-    public TaskList(){
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 
@@ -20,7 +24,7 @@ public class TaskList {
      *
      * @param t An ArrayList of task.
      */
-    public TaskList(ArrayList<Task> t){
+    public TaskList(ArrayList<Task> t) {
         tasks = t;
     }
 
@@ -34,7 +38,7 @@ public class TaskList {
     public String addTask(Task t) {
         tasks.add(t);
         String a = "Got it. I've added this task:\n";
-        String b = tasks.get(tasks.size()-1).toString() + "\n";
+        String b = tasks.get(tasks.size() - 1).toString() + "\n";
         String c = "Now you have " + tasks.size() + " tasks in the list.";
         return a + b + c;
     }
@@ -88,7 +92,7 @@ public class TaskList {
      *
      * @return an ArrayList of task.
      */
-    public ArrayList<Task> getList(){
+    public ArrayList<Task> getList() {
         return tasks;
     }
 
@@ -99,7 +103,7 @@ public class TaskList {
     public String showList() {
         String sl = "";
         for (int i = 0; i < tasks.size(); i++) {
-            sl = sl + (i+1) + "." + tasks.get(i).toString() + "\n";
+            sl = sl + (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
         return sl;
     }
@@ -114,7 +118,7 @@ public class TaskList {
     public String findList(String key) {
         String sl = "";
         int no = 1;
-        for (int i = 0 ; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).hasFind(key)) {
                 sl = sl + no + "." + tasks.get(i).toString() + "\n";
                 no++;

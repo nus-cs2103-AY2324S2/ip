@@ -1,10 +1,5 @@
 package duke;
 
-import duke.exception.CommandInvalidException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDos;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,10 +9,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDos;
+
+
+/**
+ * Class used to do all methods related to save & load.
+ *
+ *
+ */
 public class Storage {
-    private String path;
     private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
     private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private String path;
     private File data;
 
     /**
@@ -53,6 +59,8 @@ public class Storage {
                 case "E":
                     taskF.add(new Event(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP),
                             LocalDateTime.parse(dtl[4], DATE_FORMAT_INP)));
+                    break;
+                default:
                 }
             }
         } else {

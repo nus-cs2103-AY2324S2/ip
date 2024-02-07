@@ -3,13 +3,15 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
-
+/**
+ * Class for task type deadline.
+ *
+ */
+public class Deadline extends Task {
+    private static final String SYMBOL = "D";
     private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
     private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private LocalDateTime deadline;
-
-    private static final String SYMBOL = "D";
 
     /**
      * Constructor for Deadline.
@@ -33,7 +35,7 @@ public class Deadline extends Task{
      * @param des description for the task.
      * @param dl deadline date.
      */
-public Deadline(String st, String des, LocalDateTime dl) {
+    public Deadline(String st, String des, LocalDateTime dl) {
         super(des);
         deadline = dl;
         if (st.equals("true")) {
@@ -85,7 +87,7 @@ public Deadline(String st, String des, LocalDateTime dl) {
      *
      * @return format for deadline command.
      */
-    public static String getFormat(){
+    public static String getFormat() {
         return "deadline Description /by " + "yyyy-MM-dd HH:mm";
     }
 }

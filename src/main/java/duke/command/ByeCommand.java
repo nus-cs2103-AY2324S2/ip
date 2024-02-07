@@ -4,13 +4,17 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-public class ByeCommand extends Command{
+/**
+ * Class for "bye" command.
+ *
+ */
+public class ByeCommand extends Command {
 
     /**
      * Constructor for ByeCommand.
      *
      */
-    public ByeCommand(){
+    public ByeCommand() {
         super(1);
     }
 

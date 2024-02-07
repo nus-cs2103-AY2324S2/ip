@@ -1,12 +1,18 @@
 package duke.command;
 
-import duke.exception.CommandFormatException;
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import java.io.IOException;
+import duke.exception.CommandFormatException;
 
-public class DeleteCommand extends Command{
+
+/**
+ * Class for "delete" command.
+ *
+ */
+public class DeleteCommand extends Command {
     private String com;
     /**
      * Constructor for DeleteCommand.
@@ -27,7 +33,7 @@ public class DeleteCommand extends Command{
             if (!(inputs.length == 2)) {
                 throw new CommandFormatException();
             }
-            noArr = Integer.parseInt(inputs[1])-1;
+            noArr = Integer.parseInt(inputs[1]) - 1;
             String out = tL.delete(noArr);
             ui.showMessage(out);
             st.write(tL.getList());
