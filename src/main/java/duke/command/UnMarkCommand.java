@@ -40,7 +40,7 @@ public class UnMarkCommand extends Command {
             throw new DukeException("Error! duke.task.Task number '" + oneItem + "' does not exist.");
         }
         tasks.unMarkAsDone(zeroItem);
-        System.out.println("\nOK, I've marked this task as not done yet:\n\t" + tasks.get(zeroItem) + "\n");
+        ui.printToScreen("\nOK, I've marked this task as not done yet:\n\t" + tasks.get(zeroItem) + "\n");
         storage.saveList(tasks.getTasks());
     }
 }

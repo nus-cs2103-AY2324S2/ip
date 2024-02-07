@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
             throw new DukeException("Error! duke.task.Task number '" + oneItem + "' does not exist.");
         }
         tasks.markAsDone(zeroItem);
-        System.out.println("\nNice! I've marked this task as done:\n" +
+        ui.printToScreen("\nNice! I've marked this task as done:\n" +
                 tasks.get(zeroItem) + "\n");
         storage.saveList(tasks.getTasks());
     }

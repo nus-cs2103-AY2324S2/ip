@@ -15,27 +15,30 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private Scanner sc;
+    //private Scanner sc;
+    private StringBuilder answer;
 
     /**
      * Constructs a Ui instance with a Scanner for user input.
      */
     public Ui() {
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
+        answer = new StringBuilder();
     }
 
-    /**
-     * Displays a starting message to greet the user.
-     */
-     void sayHi() {
-        System.out.println("Hello! I'm myChats\n" + "What can I do for you?\n");
+    void repeat() {
+        answer.setLength(0);
+    }
+
+    String getAnswer() {
+        return answer.toString();
     }
 
     /**
      * Displays an exit message.
      */
     public void sayBye() {
-        System.out.println("\nBye. Hope to see you again soon!");
+        answer.append("\nBye. Hope to see you again soon!");
     }
 
     /**
@@ -45,13 +48,14 @@ public class Ui {
      * @param tasks ArrayList of tasks to be displayed.
      */
     public void displayList(ArrayList<Task> tasks) {
-        System.out.println();
+        answer.append("\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
-                System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+                String task = String.format("%d. %s\n", i + 1, tasks.get(i));
+                answer.append(task);
             }
         }
-        System.out.println();
+        answer.append("\n");
     }
 
     /**
@@ -63,16 +67,16 @@ public class Ui {
      */
     public void taskResponse(Task task, TaskList tasks) {
          int numTasks = tasks.getSize();
-         System.out.println();
-         System.out.println("Got it. I've added this task:");
-         System.out.println(task);
+         answer.append("\n");
+         answer.append("Got it. I've added this task:");
+         answer.append(task);
          if (numTasks == 1) {
-             System.out.println("Now you have " + numTasks + " task in the list.");
+             answer.append("Now you have " + numTasks + " task in the list.");
          }
          if (numTasks != 1) {
-             System.out.println("Now you have " + numTasks + " tasks in the list.");
+             answer.append("Now you have " + numTasks + " tasks in the list.");
          }
-         System.out.println();
+         answer.append("\n");
     }
 
     /**
@@ -83,16 +87,16 @@ public class Ui {
      */
     public void deleteResponse(Task task, TaskList tasks) {
         int numTasks = tasks.getSize();
-        System.out.println();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
+        answer.append("\n");
+        answer.append("Noted. I've removed this task:");
+        answer.append(task);
         if (numTasks == 1) {
-            System.out.println("Now you have " + numTasks + " task in the list.");
+            answer.append("Now you have " + numTasks + " task in the list.");
         }
         if (numTasks != 1) {
-            System.out.println("Now you have " + numTasks + " tasks in the list.");
+            answer.append("Now you have " + numTasks + " tasks in the list.");
         }
-        System.out.println();
+        answer.append("\n");
     }
 
     /**
@@ -104,12 +108,12 @@ public class Ui {
      */
     public void displayTasksOn(LocalDate targetDate, ArrayList<Task> tasks) {
         try {
-            System.out.println("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            answer.append("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
             for (Task task : tasks) {
                 if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
                     if (deadline.getBy().toLocalDate().equals(targetDate)) {
-                        System.out.println(deadline);
+                        answer.append(deadline);
                     }
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
@@ -117,13 +121,13 @@ public class Ui {
                             || event.getEndTime().toLocalDate().equals(targetDate)
                             || (targetDate.isAfter(event.getStartTime().toLocalDate())
                             && targetDate.isBefore(event.getEndTime().toLocalDate()))) {
-                        System.out.println(event);
+                        answer.append(event);
                     }
                 }
             }
-            System.out.println();
+            answer.append("\n");
         } catch (DateTimeParseException e) {
-            System.out.println("\nError! Please provide a valid date format (MMM dd yyyy).\n");
+            answer.append("\nError! Please provide a valid date format (MMM dd yyyy).\n");
         }
     }
 
@@ -140,13 +144,14 @@ public class Ui {
                 foundTasks.add(task);
             }
         }
-        System.out.println("\nHere are the matching tasks in your list:");
+        answer.append("\nHere are the matching tasks in your list:");
         for (int i = 0; i < foundTasks.size(); i++) {
             if (foundTasks.get(i) != null) {
-                System.out.printf("%d. %s\n", i + 1, foundTasks.get(i));
+                String foundTask = String.format("%d. %s\n", i + 1, foundTasks.get(i));
+                answer.append(foundTask);
             }
         }
-        System.out.println();
+        answer.append("\n");
     }
 
     /**
@@ -155,26 +160,10 @@ public class Ui {
      * @param error Error message to display.
      */
     void showLoadingError(String error) {
-        System.out.println("\nLoading error: " + error + "\n");
+        answer.append("\nLoading error: " + error + "\n");
     }
 
-    /**
-     * Reads and returns user command input.
-     *
-     * @return User command input.
-     */
-    String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
-     * Displays an error message.
-     *
-     * @param message Error message to display.
-     */
-    void showError(String message) {
-        System.out.println();
-        System.out.println(message);
-        System.out.println();
+    public void printToScreen(String message) {
+        answer.append(message);
     }
 }
