@@ -9,17 +9,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class Save {
-    File file = new File("data/duke.txt");
+public class Storage {
+    private File file;
+    private String filePath;
 
-    public Save() {}
+    public Storage(String filePath) {
+        this.file = new File(filePath);
+        this.filePath = filePath;
+    }
 
-    public void loadTasks(ArrayList<Task> tasks) throws IOException {
+    public ArrayList<Task> loadTasks() throws IOException {
         if (!file.exists()) {
             handleFileAccessErrors();
         }
 
         Scanner scanner = new Scanner(file);
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
@@ -33,8 +38,8 @@ public class Save {
                 tasks.add(new ToDo(description, done));
 
             } else if (t.equalsIgnoreCase("e")) {
-                String[] dates = st.nextToken().split("-");
-                tasks.add(new Event(description, done, dates[0].strip(), dates[1].strip()));
+                String from = st.nextToken().strip();
+                tasks.add(new Event(description, done, from, st.nextToken().strip()));
 
             } else if (t.equalsIgnoreCase("d")) {
                 tasks.add(new Deadline(description, done, st.nextToken().strip()));
@@ -44,6 +49,8 @@ public class Save {
             }
         }
         scanner.close();
+
+        return tasks;
     }
 
     public void addNewTask(Task task) throws IOException {
@@ -62,29 +69,33 @@ public class Save {
         fw.close();
     }
 
-    public void deleteTask(Task task) throws IOException{
-        String condition = task.getSaveTask();
+    public void deleteTask(int index, int numOfTasks) throws IOException{
         File oldFile = file;
         File temp = new File("./data/temp.txt");
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         BufferedWriter bw = new BufferedWriter(new FileWriter(temp, true));
-        String currentLine = br.readLine();
 
-        while (currentLine != null) {
+        for (int i = 0; i < numOfTasks; ++i) {
+            String currentLine = br.readLine();
 
-            if (!currentLine.equalsIgnoreCase(condition)) {
-                bw.write(currentLine + System.lineSeparator());
+            if (i != index) {
+                System.out.println(currentLine);
+
+                if (i < numOfTasks - 1) {
+                    bw.write(currentLine + System.lineSeparator());
+                } else {
+                    bw.write(currentLine);
+                }
             }
 
-            currentLine = br.readLine();
         }
 
         bw.close();
         br.close();
 
         oldFile.delete();
-        temp.renameTo(new File("./data/duke.txt"));
+        temp.renameTo(new File(filePath));
     }
 
     public void updateTask(Task task, int num, int size) throws IOException {

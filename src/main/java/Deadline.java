@@ -6,13 +6,13 @@ public class Deadline extends Task {
 
     public Deadline (String description, String by) {
         super(description);
-        this.by = parseDate(by);
+        this.by = parseDateTime(by);
     }
 
     public Deadline (String description, boolean done, String by) {
         super(description);
         super.updateIsDone(done);
-        this.by = parseDate(by);
+        this.by = parseDateTime(by);
     }
 
     @Override
