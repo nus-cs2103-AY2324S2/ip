@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * Represents the main class for the Martin application.
+ * Martin is a chatbot that helps manage a todo list.
+ */
 public class Martin {
     protected static ArrayList<Task> todoList = new ArrayList<>();
     private static String FILEPATH = "./data/martin.txt";
@@ -14,12 +18,21 @@ public class Martin {
     private Parser parser;
     private Command command;
 
+    /**
+     * Constructs a new Martin object.
+     * Initializes storage with a fixed file path, a new Ui object, and a new Parser object.
+     */
     public Martin() {
         this.storage = new Storage(FILEPATH); // fixed file path for now
         this.ui = new Ui();
         this.parser = new Parser();
     }
 
+    /**
+     * Runs the chatbot application.
+     * This method initializes the necessary components, such as the user interface, storage, and parser.
+     * It then enters a loop to continuously read user input and handle commands until the user exits.
+     */
     public void run() {
         ui.sayGreeting();
         Scanner sc = new Scanner(System.in);
@@ -42,6 +55,12 @@ public class Martin {
         sc.close();
     }
 
+    /**
+     * The entry point of the program.
+     * Initializes an instance of the Martin class and calls its run method.
+     *
+     * @param args The command-line arguments passed to the program.
+     */
     public static void main(String[] args) {
         Martin martin = new Martin();
         martin.run();
