@@ -26,7 +26,23 @@ public class Duke {
                 System.out.println(exit);
                 break;
             }
-            TaskHandler.addTasks(input, storage, writeToFile);
+            if (input.equals("check dates")) {
+                System.out.println("__________________________________\n" +
+                        "Input dates in the form dd/mm/yyyy:\n" +
+                        "Start: ");
+                String fromDate = scan.nextLine();
+                System.out.println("End: ");
+                String toDate = scan.nextLine();
+                ArrayList<Task> taskList = TaskHandler.checkSchedule(fromDate, toDate, storage);
+                System.out.println("__________________________________\n" +
+                        "This are the tasks within the period you stated:");
+                for (Task task : taskList) {
+                    System.out.println(task.toString());
+                }
+                System.out.println("__________________________________\n");
+            } else {
+                TaskHandler.addTasks(input, storage, writeToFile);
+            }
             input = scan.nextLine();
 
         }

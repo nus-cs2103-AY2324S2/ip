@@ -2,7 +2,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,15 +120,19 @@ public class TaskHandler{
                             "So where is the deadline task????");
                 }
                 String msg = input.substring(9);
-                Pattern p = Pattern.compile("(.+) /by (.+)");
+                Pattern p = Pattern.compile("(.+) /by (\\d+/\\d+/\\d+)(.*)");
                 Matcher m = p.matcher(msg);
-                String taskMsg;
-                if (m.find()) {
-                    taskMsg = m.group(1) + " | By: " + m.group(2);
+                Deadline task;
+                if (m.matches()) {
+                    System.out.println(m.group(2));
+                    LocalDate date = getDate(m.group(2));
+                    task = new Deadline(m.group(1), date);
                 } else {
-                    taskMsg = msg;
+                    System.out.println("__________________________________\n" +
+                            "Need a deadline!!\n" +
+                            "__________________________________\n");
+                    return;
                 }
-                Deadline task = new Deadline(taskMsg);
                 String output = "__________________________________\n" +
                         "Ok, I have added this task:\n" +
                         "   " + task.toString() +
@@ -139,18 +148,22 @@ public class TaskHandler{
                 String[] test = input.split(" ");
                 if (test.length <= 1) {
                     throw new DukeException("__________________________________\n" +
-                            "SO where is the event????");
+                            "So where is the event???");
                 }
                 String msg = input.substring(6);
-                Pattern p = Pattern.compile("(.+) /from (.+) /to (.+)");
+                Pattern p = Pattern.compile("(.+) /from (\\d+/\\d+/\\d+)(.*) /to (\\d+/\\d+/\\d+)(.*)");
                 Matcher m = p.matcher(msg);
-                String taskMsg;
-                if (m.find()) {
-                    taskMsg = m.group(1) + " | From: " + m.group(2) + " To: " + m.group(3);
+                Event task;
+                if (m.matches()) {
+                    LocalDate fromDate = getDate(m.group(2));
+                    LocalDate toDate = getDate(m.group(4));
+                    task = new Event(m.group(1), fromDate, toDate);
                 } else {
-                    taskMsg = msg;
+                    System.out.println("__________________________________\n" +
+                            "Need a period for the event!!\n" +
+                            "__________________________________\n");
+                    return;
                 }
-                Event task = new Event(taskMsg);
                 String output = "__________________________________\n" +
                         "Ok, I have added this task:\n" +
                         "   " + task.toString() +
@@ -181,6 +194,39 @@ public class TaskHandler{
         }
 
 
+    }
+
+    public static ArrayList<Task> checkSchedule(String start, String end, ArrayList<Task> storage) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            LocalDate fromDate = getDate(start);
+            LocalDate toDate = getDate(end);
+            for (Task task : storage) {
+                if (task instanceof Deadline || task instanceof Event) {
+                    SpecialTask specialTask = (SpecialTask) task;
+                    if (specialTask.inRange(fromDate, toDate)) {
+                        tasks.add(specialTask);
+                    }
+                }
+            }
+            return tasks;
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
+        return tasks;
+    }
+
+    private static LocalDate getDate(String msg) throws DukeException {
+        Pattern p = Pattern.compile("(\\d+)/(\\d+)/(\\d+)");
+        Matcher m = p.matcher(msg);
+        if (m.matches()) { //Never check for match because i already check in the main code
+            String month = String.format("%02d", Integer.parseInt(m.group(2)));
+            String day = String.format("%02d", Integer.parseInt(m.group(1)));
+            String dateString = m.group(3) + "-" + month + "-" + day;
+            return LocalDate.parse(dateString);
+        } else {
+            throw new DukeException("Date format is wrong!!");
+        }
+    }
 
 }
