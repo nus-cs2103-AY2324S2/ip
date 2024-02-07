@@ -1,3 +1,4 @@
+package alpaca;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -13,27 +14,27 @@ import Actions.Unmark;
 import Exceptions.InvalidInput;
 import Exceptions.ValueNotFound;
 
-public class Alpaca {
-    static String name = "Alpaca";
-    static Scanner scanner;
-    static ArrayList<Task> list = new ArrayList<Task>();
+public class Ui {
+    final static String name = "Alpaca";
+    Scanner scanner;
+    ArrayList<Task> list = new ArrayList<Task>();
 
-    private static void divider() {
+    private void divider() {
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void greeting() {
+    private void greeting() {
         divider();
-        System.out.println("Hihi! I'm " + Alpaca.name + "\nWhat can I do for you?");
+        System.out.println("Hihi! I'm " + Ui.name + "\nWhat can I do for you?");
         divider();
     }
 
-    private static void bye() {
+    private void bye() {
         System.out.println("cucu");
         divider();
     }
 
-    private static void list() {
+    private void list() {
         if (list.size() == 0) {
             System.out.println("Sorry, you haven't created any tasks yet :(");
             return;
@@ -47,7 +48,7 @@ public class Alpaca {
         }
     }
 
-    private static void processInput() {
+    private void processInput() {
         String input = scanner.nextLine();
         divider();
         if (input.toLowerCase().equals("bye")) {
@@ -71,12 +72,15 @@ public class Alpaca {
         processInput();
     }
     
-    public static void main(String[] args) {
+    public void run() {
         greeting();
         scanner = new Scanner(System.in);
         ReadData.read(list);
         processInput();
         ReadData.write(list);
         scanner.close();
+    }
+    
+    public static void main(String[] args) {
     }
 }

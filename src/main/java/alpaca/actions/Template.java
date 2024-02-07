@@ -1,12 +1,12 @@
-package Actions;
+package alpaca.actions;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Exceptions.InvalidInput;
-import Exceptions.ValueNotFound;
-import Tasks.Task;
+import alpaca.tasks.Task;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.exceptions.InvalidInput;
 
 public abstract class Template {
     protected static Boolean isTrigger(String input, String trigger) {

@@ -1,3 +1,4 @@
+package alpaca;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedWriter;
@@ -6,10 +7,10 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import Tasks.Task;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.ToDo;
+import alpaca.tasks.Task;
+import alpaca.tasks.Deadline;
+import alpaca.tasks.Event;
+import alpaca.tasks.ToDo;
 
 public abstract class ReadData {
     private static final String dataPath = "data/tasks.txt";

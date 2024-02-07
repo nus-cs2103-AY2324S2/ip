@@ -1,8 +1,9 @@
-package Actions;
+package alpaca.actions;
 
 import java.util.ArrayList;
-import Tasks.Task;
-import Exceptions.*;
+import alpaca.tasks.Task;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.exceptions.InvalidInput;
 
 public abstract class Event extends Template {
     protected static String trigger = "event";
@@ -14,7 +15,7 @@ public abstract class Event extends Template {
     public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) throw new ValueNotFound("You need to provide a value for event");
         if (!isTriggerPrefix(input, trigger)) return false;
-        Task task = new Tasks.Event(removePrefix(input, trigger));
+        Task task = new alpaca.tasks.Event(removePrefix(input, trigger));
         list.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("added: " + task.toString());
