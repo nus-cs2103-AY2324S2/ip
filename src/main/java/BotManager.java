@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -223,6 +224,24 @@ public class BotManager {
         }
     }
 
+    void searchDate(String date) throws DukeException {
+        LocalDate localDate = Task.parseDate(date);
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.matchDate(localDate)) {
+                result.add(task);
+            }
+        }
+        if (result.isEmpty()) {
+            System.out.println("    Sorry! No tasks can satisfy your query conditions...");
+        } else {
+            System.out.println("    OK! The search results are as follows:");
+            for (int i = 1; i <= result.size(); i++) {
+                System.out.printf("    %d. %s\n", i, result.get(i - 1));
+            }
+        }
+    }
+
     void answer(String prompt) {
         String[] order = prompt.split(" ");
         try {
@@ -238,6 +257,9 @@ public class BotManager {
                 break;
             case "delete":
                 deleteTask(Integer.parseInt(order[1]));
+                break;
+            case "search":
+                searchDate(order[1]);
                 break;
             default:
                 addTask(prompt);
