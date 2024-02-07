@@ -15,20 +15,21 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> found = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).hasSubstring(target)) {
                 found.add(tasks.get(i));
             }
         }
-        if (found.size() == 0) {
-            ui.println("No tasks foundd :(( meoww");
-            return;
+        if (found.isEmpty()) {
+            return "No tasks foundd :(( meoww";
         }
-        ui.println("Okay! here are the tasks I found! :3");
+        String toReturn = "";
+        toReturn += "Okay! here are the tasks I found! :3\n";
         for (int i = 0; i < found.size(); i++) {
-            ui.println(String.format("%d. %s", i + 1, found.get(i).toString()));
+            toReturn += String.format("%d. %s \n", i + 1, found.get(i).toString());
         }
+        return toReturn;
     }
 }

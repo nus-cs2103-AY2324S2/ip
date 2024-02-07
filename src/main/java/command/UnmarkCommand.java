@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
      * @throws DookException If TaskList is empty or indexed out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toUnmark;
         try {
             toUnmark = tasks.get(positionToUnmark - 1);
@@ -39,8 +39,9 @@ public class UnmarkCommand extends Command {
             throw err;
         }
         toUnmark.markAsNotDone();
-        ui.println("Lazy bum. >:( I've marked this task as done:");
-        ui.println(toUnmark.toString());
+        String toReturn = "Lazy bum. >:( I've marked this task as done:\n";
+        toReturn += toUnmark.toString() + "\n";
         storage.write(tasks);
+        return toReturn;
     }
 }

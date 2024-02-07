@@ -21,7 +21,8 @@ public class DeleteCommand extends Command {
      * @param storage The storage interface.
      * @throws DookException If TaskList is empty or indexed out of bounds.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+        String toReturn;
         Task toDelete;
         try {
             toDelete = tasks.get(positionToDelete - 1);
@@ -37,10 +38,11 @@ public class DeleteCommand extends Command {
             }
             throw err;
         }
-        ui.println("Oki! Bye Bye task!");
+        toReturn = "Oki! Bye Bye task!\n";
         tasks.remove(positionToDelete - 1);
-        ui.println("You deleted this task :(");
-        ui.println(toDelete.toString());
+        toReturn += "You deleted this task :(\n";
+        toReturn += toDelete.toString() + "\n";
         storage.write(tasks);
+        return toReturn;
     }
 }

@@ -20,5 +20,5 @@ public abstract class Command {
      * @param ui The user interface.
      * @param storage The storage interface.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DookException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DookException;
 }

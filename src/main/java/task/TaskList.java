@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    private static int count = 0;
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
@@ -12,7 +11,6 @@ public class TaskList {
 
     public void addTask(Task t) {
         tasks.add(t);
-        count++;
     }
 
     public void remove(int i) {
@@ -27,13 +25,13 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public void printStatus() {
-        if (count == 0) {
-            System.out.println("Now you have no tasks on the list :(((");
-        } else if (count == 1) {
-            System.out.println("You have 1 task on the list!");
+    public String getStatus() {
+        if (this.tasks.size() == 0) {
+            return "Now you have no tasks on the list :(((";
+        } else if (this.tasks.size() == 1) {
+            return "You have 1 task on the list!";
         } else {
-            System.out.printf("You have %d tasks on the list!%n", count);
+            return String.format("You have %d tasks on the list!%n", this.tasks.size());
         }
     }
 

@@ -22,11 +22,13 @@ public class AddCommand extends Command {
      * @param storage The storage interface.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+        String toReturn = "";
         tasks.addTask(task);
-        ui.println("Oki! I've added this task:");
-        ui.println(task.toString());
-        tasks.printStatus();
+        toReturn = "Oki! I've added this task:\n";
+        toReturn += task.toString() + "\n";
+        toReturn += tasks.getStatus();
         storage.write(tasks);
+        return toReturn;
     }
 }
