@@ -35,6 +35,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(Ui.start(), dukeImage)
         );
+        sendButton = new Button("Send");
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
     }
 
     public void setDuke(Duke d) {
