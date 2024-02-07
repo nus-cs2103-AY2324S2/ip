@@ -180,7 +180,7 @@ public class Duke extends Application {
             String commandResult = command.execute(tasks, ui, storage);
 
             // Display the parsed command and its output in the conversation area
-            dialogContainer.getChildren().add(new Label("Command: " + userInputText));
+            //dialogContainer.getChildren().add(new Label("Command: " + userInputText));
             dialogContainer.getChildren().add(new Label(commandResult));
 
             storage.saveTasksToFile(tasks);
