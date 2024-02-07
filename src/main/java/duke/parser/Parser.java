@@ -46,6 +46,12 @@ public class Parser {
             case "event":
                 handleTaskCreation(command, parts, tasks, ui);
                 break;
+            case "find":
+                if (parts.length < 2 || parts[1].isEmpty()) {
+                    throw new DukeException("The keyword for find cannot be empty.");
+                }
+                tasks.findTask(parts[1]);
+                break;
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }

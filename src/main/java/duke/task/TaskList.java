@@ -95,6 +95,26 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Finds and displays tasks containing the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
+    public void findTask(String keyword) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+
+        int taskNumber = 1;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(taskNumber++ + "." + task);
+            }
+        }
+
+        System.out.println("____________________________________________________________");
+    }
+
     /**
      * Gets the list of tasks.
      *

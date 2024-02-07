@@ -14,7 +14,6 @@ public abstract class Task {
         this.isComplete = false;
     }
 
-
     /**
      * Marks the task as done.
      */
@@ -45,6 +44,15 @@ public abstract class Task {
      * @return The Task object formatted as a string for file storage.
      */
     public abstract String toFileFormat();
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
 
     /**
      * Returns a string representation of the Task object.
