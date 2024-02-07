@@ -1,5 +1,6 @@
 package grumblebug;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,11 +8,6 @@ public class TaskList {
 
     TaskList() {
         this.list = new ArrayList<>();
-    }
-    public void printList() {
-        for (int i = 0; i < this.list.size(); i++) {
-            System.out.println(i+1 + this.list.get(i).getFullStatus());
-        }
     }
     public ArrayList<Task> getList() {
         return this.list;
@@ -23,6 +19,14 @@ public class TaskList {
         return this.list.size();
     }
 
+    public String getTasks() {
+        StringBuilder builder = new StringBuilder("Okay, here... \n");
+        for (int i = 1; i <= this.size(); i++) {
+            builder.append(this.get(i).description + "\n");
+        }
+        return builder.toString();
+    }
+
     public Task get(int i) {
         try {
             return this.list.get(i - 1);
@@ -32,11 +36,51 @@ public class TaskList {
         return null;
     }
 
-    public void delete(int i) {
+    public void mark(int i) {
         try {
-            this.list.remove(i - 1);
+            this.get(i).setDone(true);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("List Index out of bounds!");
         }
     }
+
+    public void unmark(int i) {
+        try {
+            this.get(i).setDone(false);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("List Index out of bounds!");
+        }
+    }
+
+    public void delete(int i) {
+        try {
+            this.getList().remove(i - 1);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("List Index out of bounds!");
+        }
+    }
+
+    public String findMatches(String key) {
+        StringBuilder builder = new StringBuilder("Okay, here... \n");
+        for (int i = 1; i <= this.size(); i++) {
+            if (this.get(i).description.contains(key)) {
+                builder.append(this.get(i).description + "\n");
+            }
+        }
+        return builder.toString();
+    }
+
+    public void addToDo(String desc) {
+        Task t = new Task(false, desc);
+        this.add(t);
+    }
+    public void addDeadline(String desc, LocalDate deadline) {
+        Task t = new Task(false, desc, deadline);
+        this.add(t);
+    }
+    public void addEvent(String desc, LocalDate start, LocalDate end) {
+        Task t = new Task(false, desc, start, end);
+        this.add(t);
+    }
+
 }
