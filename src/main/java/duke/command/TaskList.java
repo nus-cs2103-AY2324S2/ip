@@ -61,6 +61,14 @@ public class TaskList {
         return task;
     }
 
+    public void findMatchingTasks(String match) {
+        for (Task t : tasks) {
+            if (t.isMatchingDescription(match)) {
+                System.out.println(t.toString());
+            }
+        }
+    }
+
     public int getNumOfTasks() {
         return tasks.size();
     }

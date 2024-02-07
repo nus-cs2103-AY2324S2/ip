@@ -73,6 +73,11 @@ public class Ui {
         System.out.println("Now you have " + numOfTasks + " tasks in the list.");
     }
 
+    public void printFindTask() {
+        System.out.println(line);
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
     public void printUnknowCommandError(String command) {
         System.out.println(line);
         System.out.println("Are you as clueless about \"" + command + "\" as I am?");
