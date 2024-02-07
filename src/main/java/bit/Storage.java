@@ -1,14 +1,25 @@
 package bit;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ * This class handles the storage of tasks to files in harddisk
+ */
 
 public class Storage {
 
-    private final String FILE_PATH = "./data/bit.txt";
-    private final File FILE = new File(FILE_PATH);
+    private final String filePath = "./data/bit.txt";
+    private final File file = new File(filePath);
 
+    /**
+     * Initialize storage according to file path
+     */
     public Storage() {
-        boolean isCreated = createFile(FILE);
+        boolean isCreated = createFile(file);
 
     }
 
@@ -38,7 +49,7 @@ public class Storage {
      */
     public void loadFile(Tasklist list) {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String next;
             while ((next = br.readLine()) != null) {
                 String[] parts = next.split("/");
@@ -76,7 +87,7 @@ public class Storage {
      * Save all tasks in the list to a text file.
      * @param tasklist the tasks to be stored.
      */
-    public   void saveAll(Tasklist tasklist) {
+    public void saveAll(Tasklist tasklist) {
 
         for (int i = 0; i < tasklist.getSize(); i++) {
             Task t = tasklist.getTask(i);
@@ -96,9 +107,9 @@ public class Storage {
      * @param marked completion status of todo
      * @param description the description of the task
      */
-    public void  saveToFile(boolean marked, String description) {
+    public void saveToFile(boolean marked, String description) {
         try {
-            FileWriter myWriter = new FileWriter(FILE_PATH, true);
+            FileWriter myWriter = new FileWriter(filePath, true);
             myWriter.write("T/" + description);
             if (marked) {
                 myWriter.write("/M\n");
@@ -119,7 +130,7 @@ public class Storage {
      */
     public void saveToFile(boolean marked, String description, String deadline) {
         try {
-            FileWriter myWriter = new FileWriter(FILE_PATH, true);
+            FileWriter myWriter = new FileWriter(filePath, true);
             myWriter.write(("D/" + description + "/" + deadline));
             if (marked) {
                 myWriter.write("/M\n");
@@ -139,9 +150,9 @@ public class Storage {
      * @param start Start time of event
      * @param end Ending time of event
      */
-    public  void saveToFile(boolean marked, String description, String start, String end) {
+    public void saveToFile(boolean marked, String description, String start, String end) {
         try {
-            FileWriter myWriter = new FileWriter(FILE_PATH, true);
+            FileWriter myWriter = new FileWriter(filePath, true);
             myWriter.write("E/" + description + "/" + start + "/" + end);
             if (marked) {
                 myWriter.write("/M\n");
@@ -157,9 +168,9 @@ public class Storage {
     /**
      * Clear file after extracting tasks.
      */
-    public  void cleanList() {
+    public void cleanList() {
         try {
-            FileWriter myCleaner = new FileWriter(FILE_PATH);
+            FileWriter myCleaner = new FileWriter(filePath);
             myCleaner.write("");
             myCleaner.close();
         } catch (IOException e) {

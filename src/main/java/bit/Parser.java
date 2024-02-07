@@ -1,8 +1,12 @@
 package bit;
 
-import bit.Ui;
 
-import  java.util.Scanner;
+import java.util.Scanner;
+
+/**
+ * This class parses through inputs of users and
+ * translate them to string instructions for chatbot
+ */
 public class Parser {
 
     private Scanner scanner = new Scanner(System.in);
@@ -10,7 +14,7 @@ public class Parser {
     private int index = 0;
 
     private String word = "";
-    private Ui UI = new Ui();
+    private Ui ui = new Ui();
 
     public Parser() {
 
@@ -61,13 +65,13 @@ public class Parser {
                 index = i;
                 return "delete";
             } catch (NumberFormatException x) {
-                UI.handleErrorMessage("Not a number");
+                ui.handleErrorMessage("Not a number");
             } catch (ArrayIndexOutOfBoundsException e) {
-                UI.handleErrorMessage("forget");
+                ui.handleErrorMessage("forget");
             }
         } else if (input.startsWith("find ")) {
             if (input.trim().equals("find")) {
-                UI.handleErrorMessage("forget");
+                ui.handleErrorMessage("forget");
             } else {
                 String[] parts = input.split(" ", 2);
                 word = parts[1];
