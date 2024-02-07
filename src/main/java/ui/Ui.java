@@ -1,5 +1,4 @@
 package ui;
-
 public class Ui {
 
     private static String dividerText = "____________________________________________________________\n";
