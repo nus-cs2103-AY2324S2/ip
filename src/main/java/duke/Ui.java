@@ -57,6 +57,10 @@ public class Ui {
         System.out.println(LIST_ANNOUNCEMENT);
     }
 
+    public void announceFinding() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
     public void markedDone(Task task) {
         System.out.println("Nice! I've marked this task as done:\n" +
                 "\t" + task.toString());

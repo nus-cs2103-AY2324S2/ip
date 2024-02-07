@@ -43,6 +43,15 @@ public class Task {
      * Returns String of task detail with description of the task and whether it is done
      * @return
      */
+
+    public boolean findingKeyword(String keyword) {
+        if (description.contains(keyword)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() +"] " + this.description;

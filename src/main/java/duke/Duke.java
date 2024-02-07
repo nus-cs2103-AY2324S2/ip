@@ -3,8 +3,6 @@ package duke;
 import duke.command.Command;
 import java.io.IOException;
 
-//Got the Jar file
-
 
 /**
  * Class Duke that is the main class that helps to run the program

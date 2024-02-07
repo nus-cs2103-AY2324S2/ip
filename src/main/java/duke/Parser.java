@@ -34,6 +34,8 @@ public class Parser {
                 return new AddCommand(firstWord, furtherDetails);
             } else if (firstWord.equals("delete")) {
                 return new DeleteCommand(furtherDetails);
+            } else if (firstWord.equals("find")) {
+                return new FindCommand(furtherDetails);
             } else {
                 throw new NoCmdException("Please tell me what you want me to do.");
             }
