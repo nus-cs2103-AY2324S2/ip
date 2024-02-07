@@ -1,9 +1,9 @@
 package yippee.tasks;
 
-import yippee.exceptions.YippeeException;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import yippee.exceptions.YippeeException;
 
 public class EventTest {
     @Test

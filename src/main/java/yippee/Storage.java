@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import yippee.exceptions.InvalidCommandException;
 import yippee.exceptions.YippeeException;
 import yippee.exceptions.YippeeFileException;
-import yippee.exceptions.InvalidCommandException;
 import yippee.tasks.Deadline;
 import yippee.tasks.Event;
 import yippee.tasks.Task;
