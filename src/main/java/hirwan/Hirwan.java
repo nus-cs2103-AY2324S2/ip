@@ -6,26 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 
 /**
  * The chatbots main class which simulates talking to a virtual assistant
@@ -41,7 +22,7 @@ public class Hirwan {
      */
     @FXML
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return this.parseInput(input);
     }
 
     static final String FILE_PATH =
@@ -176,6 +157,133 @@ public class Hirwan {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    public static String parseInput(String text) {
+//        String logo = "I'm hirwan \n"
+//                + "_________________________________\n"
+//                + "what can I do for you? \n"
+//                + "_________________________________\n";
+//
+//        Ui.output("Hello! " + logo);
+
+        String output = "";
+
+        Tasklist tasks = new Tasklist(Storage.read());
+
+        try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            int input = Parser.translate(text);
+
+            if (input == 8) {
+            } else if (input == 1) {
+                for (String i : tasks.getList()) {
+                    output += i + "\n";
+                };
+            } else if (input == 2) {
+                try {
+                    output = output + "Got it. I've added this task: \n  " + "[T][ ] "
+                            + text.substring(5);
+                    tasks.add(". " + "[T][ ] " + text.substring(5));
+                    output = output + "Now you have " + tasks.size() + " tasks in the list.";
+                    Storage.writeTask(tasks.getList());
+                } catch (StringIndexOutOfBoundsException e) {
+                    output = output + "Error: Please enter a description for your todo command";
+                }
+            } else if (input == 3) {
+                try {
+                    String delimiter = " /by";
+                    int index = text.indexOf(delimiter);
+                    String Day = text.substring(index + 5);
+                    String item = text.substring(9, index);
+
+                    LocalDateTime dayDate = translateDate(Day);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
+
+                    tasks.add(". " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
+                    output = output + "Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: "
+                            + dayDate.format(formatter) + ")";
+                    output = output + "Now you have " + tasks.size() + " tasks in the list.";
+                } catch (StringIndexOutOfBoundsException e) {
+                    output = output + "Error: Please enter a description or date for your deadline command";
+                }
+            } else if (input == 4) {
+                try {
+                    String delimiterstart = " /from";
+                    String delimiterend = " /to";
+                    int indexStart = text.indexOf(delimiterstart);
+                    int indexEnd = text.indexOf(delimiterend);
+                    String start = text.substring(indexStart + 7, indexEnd);
+                    String end = text.substring(indexEnd + 5);
+                    String item = text.substring(6, indexStart);
+
+                    LocalDateTime startDate = translateDate(start);
+                    LocalDateTime endDate = translateDate(end);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
+
+                    tasks.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: "
+                            + endDate.format(formatter) + ")");
+                    output = output + "Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: "
+                            + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")";
+                    output = output + "Now you have " + tasks.size() + " tasks in the list.";
+                    Storage.writeTask(tasks.getList());
+                } catch (StringIndexOutOfBoundsException e) {
+                    output = output + "Error: Please enter a description or date for your event to command";
+                }
+            } else if (input == 5) {
+                try {
+                    String number = text.substring(5);
+                    int numberint = Integer.parseInt(number);
+                    String temp = tasks.get(numberint - 1).substring(9);
+                    String type = tasks.get(numberint - 1).substring(2, 5);
+
+                    tasks.set(numberint - 1, ". " + type + "[X] " + temp);
+                    output = output + "Nice! I've marked this task as done: \n" + "[X] " + temp;
+                    Storage.writeTask(tasks.getList());
+                } catch (IndexOutOfBoundsException e) {
+                    output = output + "Error: Please enter a valid index for marking!";
+                } catch (NumberFormatException e) {
+                    output = output + "Error: Please enter a numerical index to mark!";
+                }
+            } else if (input == 6) {
+                try {
+                    String number = text.substring(7);
+                    int numberInt = Integer.parseInt(number);
+                    String temp = tasks.get(numberInt - 1).substring(9);
+                    String type = tasks.get(numberInt - 1).substring(2, 5);
+
+                    tasks.set(numberInt - 1, ". " + type + "[ ] " + temp);
+                    output = output + "OK, I've marked this task as not done yet: \n" + "[ ] " + temp;
+                    Storage.writeTask(tasks.getList());
+                } catch (IndexOutOfBoundsException e) {
+                    output = output + "Error: Please enter a valid index for unmarking!";
+                } catch (NumberFormatException e) {
+                    output = output + "Error: Please enter a numerical index to unmark!";
+                }
+            } else if (input == 7) {
+                try {
+                    int numberInt = Integer.parseInt(text.substring(7)) - 1;
+                    output = output + "Noted. I've removed this task:\n"
+                            + "  " + tasks.get(numberInt).substring(2) + "\n"
+                            + "Now you have " + (tasks.size() - 1) + " tasks in the list.";
+                    tasks.delete(numberInt);
+                    Storage.writeTask(tasks.getList());
+                } catch (IndexOutOfBoundsException e) {
+                    output = output + "Error: Please enter a valid index for deletion!";
+                } catch (NumberFormatException e) {
+                    output = output + "Error: Please enter a numerical index to delete!";
+                }
+            } else if (input == 10) {
+                List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
+                Hirwan.printSearchResults(indexes, tasks.getList());
+            } else if (input == 9) {
+                output = output + "Error: I am sorry but I do not recognise this command";
+            } else {
+                output = output + "Bye. Hope to see you again soon!";
+            }
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+        return output;
     }
 
     /**
