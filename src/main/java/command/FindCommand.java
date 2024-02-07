@@ -21,12 +21,13 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the command to find tasks in the task list that match a keyword.
-     * @param tasks The task list.
-     * @param ui The user interface.
+     * Finds tasks in the task list that match the keyword and shows the user the matching tasks.
+     * @param tasks Task list to find the tasks from.
+     * @param ui Ui to display the matching tasks to the user.
+     * @return String to be displayed to the user.
      */
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
-        ui.showFindTasks(matchingTasks);
+        return ui.showFindTasks(matchingTasks);
     }
 }

@@ -21,10 +21,11 @@ public class UnMarkCommand extends Command {
      * Unmarks a task as done in the task list and shows the user the unmarked task.
      * @param tasks Task list to unmark the task as done in.
      * @param ui Ui to display the unmarked task to the user.
+     * @return String to be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task task = tasks.unMark(index);
-        ui.showUnmarkTask(task);
+        return ui.showUnmarkTask(task);
     }
 }

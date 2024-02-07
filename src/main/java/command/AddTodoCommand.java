@@ -22,11 +22,12 @@ public class AddTodoCommand extends Command {
      * Adds a todo task to the task list and shows the user the added task.
      * @param tasks Task list to add the todo task to.
      * @param ui Ui to display the added task to the user.
+     * @return String to be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Todo todo = new Todo(description);
         tasks.add(todo);
-        ui.showAddTask(todo, tasks.size());
+        return ui.showAddTask(todo, tasks.size());
     }
 }
