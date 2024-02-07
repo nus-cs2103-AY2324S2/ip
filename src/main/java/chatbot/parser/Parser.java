@@ -46,6 +46,7 @@ public class Parser {
         case "bye":
             Ui.printByeMessage();
             return true;
+            //Fallthrough
         case "list":
             Ui.printListTasks(tasks);
             break;
@@ -127,6 +128,7 @@ public class Parser {
             break;
         default:
             Ui.printUnknownCommand();
+            //Fallthrough
         }
         return false;
     }
