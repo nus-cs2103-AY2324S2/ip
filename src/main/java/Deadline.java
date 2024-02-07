@@ -11,7 +11,7 @@ public class Deadline extends Task{
         int by_occurences = utils.countOccurrences(arr, "/by");
 
         if (by_occurences == 0 || by_occurences > 1){
-            throw new IllegalArgumentException("Invalid format. Follow this format: deadline <description> /by <deadline date>. Provide one and only one '/by'.");
+            throw new InvalidFormatException("Invalid format. Follow this format: deadline <description> /by <deadline date>. Provide one and only one '/by'.");
         }
 
         //they will not be -1 as I have already checked for their occurences
@@ -24,7 +24,7 @@ public class Deadline extends Task{
         }
         description = description.trim();
         if (description.isEmpty()){
-            throw new IllegalArgumentException("The description of a deadline cannot be empty.");
+            throw new InvalidDescriptionException("The description of a deadline cannot be empty.");
         }
 
         String by = "";
@@ -33,7 +33,7 @@ public class Deadline extends Task{
         }
         by = by.trim();
         if (by.isEmpty()){
-            throw new IllegalArgumentException("The 'by' of a deadline cannot be empty. Follow this format: deadline <description> /by <deadline date>");
+            throw new InvalidArgumentException("The 'by' of a deadline cannot be empty. Follow this format: deadline <description> /by <deadline date>");
         }
 
         return new Deadline(description, by);
