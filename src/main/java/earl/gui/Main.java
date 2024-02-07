@@ -20,6 +20,8 @@ public class Main extends Application {
                     Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(getClass().getResource(
+                    "/stylesheets/fontstyle.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Earl");
             stage.setResizable(false);
