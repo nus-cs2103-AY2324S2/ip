@@ -59,6 +59,10 @@ public class Parser {
         return cmd.substring(8);
     }
 
+    public static String parseDeadline(String cmd) {
+        return cmd.substring(9);
+    }
+
     public static String parseDeadlineDesc(String cmd) {
         String[] splitStr = cmd.split(" /by ");
         return splitStr[0];
@@ -69,8 +73,9 @@ public class Parser {
     }
 
     public static String[] parseEvent(String cmd) {
+        String s = cmd.substring(6);
         String[] ans = new String[3];
-        String[] splitStr = cmd.split(" /from ");
+        String[] splitStr = s.split(" /from ");
         String[] splitStr2 = splitStr[1].split(" /to ");
         ans[0] = splitStr[0];
         ans[1] = splitStr2[0];

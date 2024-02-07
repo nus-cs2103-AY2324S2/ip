@@ -76,7 +76,8 @@ public class Ui {
         if (test.strip().equals("")) {
             throw new DukeTaskNoDescException();
         } else {
-            Task t = new Deadline(Parser.parseDeadlineDesc(cmd), Parser.parseDeadlineBy(cmd));
+            String s = Parser.parseDeadline(cmd);
+            Task t = new Deadline(Parser.parseDeadlineDesc(s), Parser.parseDeadlineBy(s));
             tl.addTask(t); // add task to list
             System.out.println("Got it. I've added this task:");
             System.out.println(t);
@@ -89,7 +90,7 @@ public class Ui {
         if (test.strip().equals("")) {
             throw new DukeTaskNoDescException();
         } else {
-            String[] ans = Parser.parseEvent(cmd);
+            String[] ans = Parser.parseEvent(test);
             Task t = new Event(ans[0], ans[1], ans[2]);
             tl.addTask(t); // add task to list
             System.out.println("Got it. I've added this task:");

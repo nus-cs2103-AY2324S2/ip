@@ -1,5 +1,7 @@
 package duke;
+
 import exceptions.DukeException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +11,7 @@ public class Duke {
     private duke.Ui ui;
 
     public Duke(String filePath) {
+        ui = new duke.Ui();
         ui = new duke.Ui();
         storage = new Storage(filePath);
         try {

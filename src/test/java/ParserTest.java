@@ -1,70 +1,38 @@
-import duke.Deadline;
-import duke.Task;
+import duke.Parser;
+import duke.Storage;
 import duke.TaskList;
-import duke.ToDo;
+import duke.Ui;
+import exceptions.DukeUnknownTaskException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class TaskListTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public class ParserTest {
     @Test
-    public void testAddTask() {
-        // Given
-        TaskList taskList = new TaskList(new ArrayList<>());
-        Task task = new Event("CS2103T tutorial", "Mon 4pm", "6pm");
-
-        // When
-        taskList.addTask(task);
-
-        // Then
-        assertEquals(1, taskList.size());
-        assertEquals(task, taskList.get(0));
+    public void testParseEvent() {
+        String cmd = "event Birthday party /from 2024-03-22 12:00 /to 2024-03-22 14:00";
+        String[] eventDetails = Parser.parseEvent(cmd);
+        assertEquals("Birthday party", eventDetails[0]);
+        assertEquals("2024-03-22 12:00", eventDetails[1]);
+        assertEquals("2024-03-22 14:00", eventDetails[2]);
     }
 
     @Test
-    public void testSetDone() {
-        // Given
-        TaskList taskList = new TaskList(new ArrayList<>());
-        Task task = new ToDo("Buy groceries");
-        taskList.addTask(task);
-
-        // When
-        taskList.setDone(0);
-
-        // Then
-        assertTrue(task.isDone());
+    public void testparseDeadlineBy() {
+        String cmd = "CS2103T ip /by 09-08-2024 23:59";
+        LocalDateTime ldt = Parser.parseDeadlineBy(cmd);
+        assertEquals(LocalDateTime.of(2024, 8, 9, 23, 59), ldt);
     }
 
     @Test
-    public void testSetUndone() {
-        // Given
-        TaskList taskList = new TaskList(new ArrayList<>());
-        Task task = new ToDo("Buy groceries");
-        task.setDone();
-        taskList.addTask(task);
-
-        // When
-        taskList.setUndone(0);
-
-        // Then
-        assertFalse(task.isDone());
+    public void testParseUnknownTask() {
+        String cmd = "unknown-task";
+        assertThrows(DukeUnknownTaskException.class, () -> Parser.parse(new Scanner(cmd), new Ui(), new TaskList(new ArrayList<>()), new Storage("")));
     }
 
-    @Test
-    public void testDeleteTask() {
-        // Given
-        TaskList taskList = new TaskList(new ArrayList<>());
-        Task task1 = new ToDo("Buy groceries");
-        Task task2 = new Deadline("Finish report", LocalDateTime.now());
-        taskList.addTask(task1);
-        taskList.addTask(task2);
-
-        // When
-        taskList.deleteTask(0);
-
-        // Then
-        assertEquals(1, taskList.size());
-        assertEquals(task2, taskList.get(0));
-    }
 }

@@ -9,38 +9,38 @@ Now you have 1 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Got it. I've added this task:
-[D][ ] deadline do assignment (by: Dec 02 2025 23:59)
+[D][ ] do assignment (by: Dec 02 2025 23:59)
 Now you have 2 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Got it. I've added this task:
-[E][ ] event meeting (from: Tues 5pm to: 8pm)
+[E][ ] meeting (from: Tues 5pm to: 8pm)
 Now you have 3 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] iron clothes
-2. [D][ ] deadline do assignment (by: Dec 02 2025 23:59)
-3. [E][ ] event meeting (from: Tues 5pm to: 8pm)
+2. [D][ ] do assignment (by: Dec 02 2025 23:59)
+3. [E][ ] meeting (from: Tues 5pm to: 8pm)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Nice! I've marked this task as done:
-[D][X] deadline do assignment (by: Dec 02 2025 23:59)
+[D][X] do assignment (by: Dec 02 2025 23:59)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] iron clothes
-2. [D][X] deadline do assignment (by: Dec 02 2025 23:59)
-3. [E][ ] event meeting (from: Tues 5pm to: 8pm)
+2. [D][X] do assignment (by: Dec 02 2025 23:59)
+3. [E][ ] meeting (from: Tues 5pm to: 8pm)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Noted. I've removed this task:
-[E][ ] event meeting (from: Tues 5pm to: 8pm)
+[E][ ] meeting (from: Tues 5pm to: 8pm)
 Now you have 2 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 OK, I've marked this task as not done yet:
-[D][ ] deadline do assignment (by: Dec 02 2025 23:59)
+[D][ ] do assignment (by: Dec 02 2025 23:59)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Bye. Hope to see you again soon!
