@@ -1,9 +1,21 @@
 package Martin;
 
 public class Parser {
+    /**
+     * This class represents a Parser object.
+     * It is responsible for parsing user input and converting it into commands
+     * that can be executed by the program.
+     */
     public Parser() {
     }
 
+    /**
+     * Parses the input string and returns the corresponding ChatbotKeyword.
+     *
+     * @param input the input string
+     * @return the corresponding ChatbotKeyword
+     * @throws IllegalArgumentException if the command is not recognized
+     */
     public ChatbotKeyword parse(String input) {
         String[] inputArray = input.split(" ");
         String command = inputArray[0].toLowerCase();
@@ -29,6 +41,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string for a deadline task and returns an array containing the task description and deadline.
+     *
+     * @param input the input string
+     * @return an array where the first element is the task description and the second element is the deadline
+     */
     public String[] deadlineParse(String input) {
         String[] deadlineArray = input.split(" /by ");
         String deadlineDescription = deadlineArray[0];
@@ -36,6 +54,12 @@ public class Parser {
         return new String[] { deadlineDescription, deadlineArray[1] };
     }
 
+    /**
+     * Parses the input string for an event task and returns an array containing the task description, start time, and end time.
+     *
+     * @param input the input string
+     * @return an array where the first element is the task description, the second element is the start time, and the third element is the end time
+     */
     public String[] eventParse(String input) {
         String[] eventArray = input.split(" /at ");
         String eventDescription = eventArray[0];
@@ -46,6 +70,12 @@ public class Parser {
         return new String[] { eventDescription, startTime, endTime };
     }
 
+    /**
+     * Removes the first word from the input string and returns the remaining words.
+     *
+     * @param input the input string
+     * @return the input string without the first word
+     */
     public String getRemainingWords(String input) {
         String[] inputArray = input.split(" ");
         return input.substring(inputArray[0].length()).strip();
