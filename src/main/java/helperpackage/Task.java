@@ -19,6 +19,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(boolean isDone, String description) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Returns the status of the task.
      * 
@@ -45,6 +50,10 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + description;
+    }
+
+    public String toData() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
 

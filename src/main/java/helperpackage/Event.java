@@ -4,7 +4,7 @@ public class Event extends Task {
     protected String startAndEndTime;
     
     public Event(String description) throws DukeException {
-        super(description.substring(0, description.indexOf("/")));
+        super(description.substring(0, description.indexOf("/") - 1));
         String time = description.substring(description.indexOf("/")).replace("/from", 
                 "from:").replace("/to", "to:");
 
@@ -15,8 +15,18 @@ public class Event extends Task {
         this.startAndEndTime = time;
     }
 
+    public Event(boolean isDone, String description, String time) {
+        super(isDone, description);
+        startAndEndTime = time;
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(" +  startAndEndTime + ")";
+        return "[E]" + super.toString() + " (" +  startAndEndTime + ")";
+    }
+
+    @Override
+    public String toData() {
+        return "E | " + super.toData() + " | " + startAndEndTime; 
     }
 }
