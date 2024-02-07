@@ -52,6 +52,7 @@ public class Duke {
                 String input = scanner.nextLine();
 
                 ui.showMessage(input);
+
                 Object[] parseRes = Parser.parseCommand(input);
                 String type = (String) parseRes[0];
 
@@ -72,9 +73,11 @@ public class Duke {
                         int taskNumber = (int) parseRes[1];
                         if (taskNumber >= 1 && taskNumber <= counter) {
                             tasks.markTaskAsDone(taskNumber);
+
                             ui.showMarkTaskDoneMessage(taskArr[taskNumber]);
                         } else {
-                            ui.showMessage("UH OH! Invalid task number, please provide a valid task number!");
+                            ui.showMessage("UH OH! Invalid task number, " +
+                                    "please provide a valid task number!");
                         }
                         continue;
                     }
@@ -83,9 +86,11 @@ public class Duke {
                         int taskNumber = (int) parseRes[1];
                         if (taskNumber >= 1 && taskNumber <= counter) {
                             ui.showRemoveTaskMessage(taskArr[taskNumber - 1], counter);
+
                             tasks.deleteTask(counter - 1);
                         } else {
-                            throw new DukeException("UH OH! Invalid task number, please provide a valid task number!");
+                            throw new DukeException("UH OH! Invalid task number, " +
+                                    "please provide a valid task number!");
                         }
                         continue;
                     }
@@ -93,27 +98,35 @@ public class Duke {
                     if (Objects.equals(type, "todo")) {
                         String taskDesc = (String) parseRes[1];
 
+                        // create new to do task and add to list of tasks
                         Task t = new Todo(taskDesc);
                         tasks.addTask(t);
+
                         ui.showAddTaskMessage(t, counter);
 
                     } else if (Objects.equals(type, "deadline")) {
                         String taskDesc = (String) parseRes[1];
                         LocalDate by = (LocalDate) parseRes[2];
 
+                        // create new deadline task and add to list of tasks
                         Task t = new Deadline(taskDesc, by);
                         tasks.addTask(t);
+
                         ui.showAddTaskMessage(t, counter);
 
                     } else if (Objects.equals(type, "event")) {
                         String taskDesc = (String) parseRes[1];
+
                         LocalDate fromDate = (LocalDate) parseRes[2];
                         String fromTime = (String) parseRes[3];
+
                         LocalDate toDate = (LocalDate) parseRes[4];
                         String toTime = (String) parseRes[5];
 
+                        // create new event task and add to list of tasks
                         Task t = new Event(taskDesc, fromDate, fromTime, toDate, toTime);
                         tasks.addTask(t);
+
                         ui.showAddTaskMessage(t, counter);
 
                     } else {
@@ -127,6 +140,7 @@ public class Duke {
 
         }
 
+        // store tasks for this run into file in hard disk
         storage.writeToFile(tasks);
     }
 
