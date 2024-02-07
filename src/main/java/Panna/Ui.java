@@ -1,3 +1,5 @@
+package Panna;
+
 import java.util.Scanner;
 import java.time.LocalDate;
 public class Ui {
