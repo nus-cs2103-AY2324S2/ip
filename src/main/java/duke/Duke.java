@@ -95,6 +95,17 @@ public class Duke {
                         continue;
                     }
 
+                    if (Objects.equals(type, "find")) {
+                        String keyword = (String) parseRes[1];
+                        Task[] tasksToPrint = tasks.searchKeyWord(keyword);
+                        if (tasksToPrint[0] != null) {
+                            ui.showTasksContainingKeyword(tasksToPrint);
+                        } else {
+                            throw new DukeException("UH OH! No tasks containing this keyword!");
+                        }
+                        continue;
+                    }
+
                     if (Objects.equals(type, "todo")) {
                         String taskDesc = (String) parseRes[1];
 

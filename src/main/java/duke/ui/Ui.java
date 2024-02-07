@@ -89,4 +89,16 @@ public class Ui {
             System.out.println(i + "." + taskDesc);
         }
     }
+
+    public void showTasksContainingKeyword(Task[] tasks) {
+        System.out.println("Here are the matching tasks in your list: ");
+        int counter = 0;
+        Task t = tasks[counter];
+        while(t != null) {
+            String taskDesc = t.toString();
+            System.out.println((counter + 1) + "." + taskDesc);
+            counter++;
+            t = tasks[counter];
+        }
+    }
 }

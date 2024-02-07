@@ -58,6 +58,21 @@ public class TaskList {
         tasks[taskNumber].markAsDone( );
     }
 
+    public Task[] searchKeyWord(String keyword) {
+        int count = 0;
+        Task[] containsKeywords = new Task[100];
+
+        for (int i = 0; i < counter; i++) {
+            String taskDesc = tasks[i].description;
+            if (taskDesc.contains(keyword)) {
+                containsKeywords[count] = tasks[i];
+                count++;
+            }
+        }
+
+        return containsKeywords;
+    }
+
     /**
      * Retrieves tasks stored in the task list.
      *
