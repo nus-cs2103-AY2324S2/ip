@@ -5,7 +5,7 @@ package bit;
  */
 public class Ui {
     public String greet() {
-        return "Hi! This is Bit!\nWhat shall we do today?");
+        return "Hi! This is Bit!\nWhat shall we do today?";
     }
 
     public String sayBye() {
@@ -21,29 +21,31 @@ public class Ui {
      * @param tasklist list to be printed out.
      */
     public String listOut(Tasklist tasklist) {
-        System.out.println("Sure! Here is the list:\n");
+        String s;
+        s = "Sure! Here is the list:\n";
         for (int i = 0; i < tasklist.getSize(); i++) {
             if (tasklist.getTask(i) == null) {
                 break;
             }
-            System.out.println((i + 1) + "." + tasklist.getTask(i).toString());
+            s = (i + 1) + "." + tasklist.getTask(i).toString() + "\n";
         }
+        return s;
     }
 
     /**
      * Used to acknowledge that mark command was successful.
      * @param task task that was marked.
      */
-    public void  sayMarked(Task task) {
-        System.out.println("Done and dusted: " + task.toString());
+    public String sayMarked(Task task) {
+        return "Done and dusted: " + task.toString();
     }
 
     /**
      * Used to acknowledge that unmark command was successful.
      * @param task task that was unmarked
      */
-    public void sayUnmarked(Task task) {
-        System.out.println("Alright, let me uncheck that for you: " + task.toString());
+    public String sayUnmarked(Task task) {
+        return "Alright, let me uncheck that for you: " + task.toString();
     }
 
     /**
@@ -52,18 +54,16 @@ public class Ui {
      * @param string type of task
      * @param task the task itself
      */
-    public void sayAdded(int i, String string, Task task) {
+    public String sayAdded(int i, String string, Task task) {
         switch (string) {
         case "todo":
-            System.out.println("I have added this todo: " + i + '.' + task.toString());
-            break;
+            return "I have added this todo: " + i + '.' + task.toString();
         case "event":
-            System.out.println("I have added this event: " + (i) + " " + task.toString());
-            break;
+            return "I have added this event: " + (i) + " " + task.toString();
         case "deadline":
-            System.out.println("Done! I have added this deadline" + task.toString());
+            return "Done! I have added this deadline" + task.toString();
         default:
-            break;
+            return "";
         }
     }
 
@@ -71,37 +71,32 @@ public class Ui {
      * Acknowledge that task was deleted
      * @param s Deleted task in string format.
      */
-    public void sayDeleted(String s) {
-        System.out.println("Got it! I have deleted this item: " + s);
+    public String sayDeleted(String s) {
+        return "Got it! I have deleted this item: " + s;
     }
 
     /**
      * Print out error messages for error handling.
      * @param string Type of error to be handled.
      */
-    public void handleErrorMessage(String string) {
+    public String handleErrorMessage(String string) {
         switch (string) {
         case "absent":
-            System.out.println("Hey, I don't think you have added that yet!");
-            break;
+            return "Hey, I don't think you have added that yet!";
         case "Not a number":
-            System.out.println("Woah! That is not a number!");
-            break;
+            return "Woah! That is not a number!";
         case "forget":
-            System.out.println("Did you forget something?");
-            break;
+            return "Did you forget something?";
         case "NotaDate":
-            System.out.println("The date you entered is invalid.");
-            break;
+            return "The date you entered is invalid.";
         default:
-            System.out.println("Sorry, I don't understand what you mean\n");
-            break;
+            return "Sorry, I don't understand what you mean\n";
         }
     }
 
 
-    public void printException(Exception e) {
-        System.out.println(e.getMessage());
+    public String printException(Exception e) {
+        return e.getMessage();
     }
 
     /**
@@ -109,8 +104,8 @@ public class Ui {
      * @param key the keyword for the search.
      * @param tasklist the tasklist being searched.
      */
-    public void listHits(String key, Tasklist tasklist) {
-        System.out.println("Sure! Here are the matches:\n");
+    public String listHits(String key, Tasklist tasklist) {
+        String s = "Sure! Here are the matches:\n";
         int j = 1;
         for (int i = 0; i < tasklist.getSize(); i++) {
             if (tasklist.getTask(i) == null) {
@@ -118,10 +113,11 @@ public class Ui {
             }
             Task task = tasklist.getTask(i);
             if (task.containsKeyword(key)) {
-                System.out.println((j) + "." + tasklist.getTask(i).toString());
+                s = (j) + "." + tasklist.getTask(i).toString();
                 j++;
             }
 
         }
+        return s;
     }
 }

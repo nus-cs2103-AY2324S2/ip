@@ -1,13 +1,20 @@
 package bit;
 
 import java.util.ArrayList;
+
+/**
+ * The list containing all tasks
+ */
 public class Tasklist {
     private ArrayList<Task> taskList = new ArrayList<>();
     private Ui UI;
-
-
+    private Storage storage;
+    /**
+     * Initialize a tasklist
+     */
     public Tasklist() {
         this.UI = new Ui();
+        storage = new Storage();
     }
 
     /**
@@ -34,8 +41,8 @@ public class Tasklist {
      * @param input String commmand from user
      * @throws DukeException
      */
-    public  void addTo(String input) throws DukeException {
-        if(input.startsWith("todo")) {
+    public String addTo(String input) throws DukeException {
+        if (input.startsWith("todo")) {
 
             try {
                 String[] parts = input.split(" ", 2);
@@ -48,14 +55,11 @@ public class Tasklist {
                 taskList.add(new Todo(parts[1]));
                 int i = taskList.size();
                 Task t = taskList.get(i - 1);
-                UI.sayAdded(i,"todo", t);
-
-
-            } catch(ArrayIndexOutOfBoundsException e) {
+                storage.saveToFile(t.isDone, t.DESCRIPTION);
+                return UI.sayAdded(i, "todo", t);
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Hmmm, that todo is empty!");
             }
-
-
         } else if (input.contains("event ")) {
             try {
                 String[] parts = input.split(" ", 2);
@@ -71,7 +75,9 @@ public class Tasklist {
                 }
                 taskList.add(new Event(compo[0], start, end));
                 int i = taskList.size();
-                UI.sayAdded(i, "event", taskList.get(i - 1));
+                Event e = (Event) taskList.get(i - 1);
+                storage.saveToFile(taskList.get(i - 1).isDone, e.getStart(), e.getEnd());
+                return UI.sayAdded(i, "event", taskList.get(i - 1));
 
 
 
@@ -93,39 +99,35 @@ public class Tasklist {
                     }
                     Deadline d = new Deadline(compo[0], compo[1]);
                     if (!d.getValid()) {
-                        UI.handleErrorMessage("NotaDate");
-                        return;
+                        return UI.handleErrorMessage("NotaDate");
                     }
                     taskList.add(d);
                     int i = taskList.size();
-                    UI.sayAdded(i, "deadline", taskList.get(i - 1));
+                    storage.saveToFile(d.isDone, d.DESCRIPTION, d.getDeadline());
+                    return UI.sayAdded(i, "deadline", taskList.get(i - 1));
                 }
             } catch (ArrayIndexOutOfBoundsException x) {
                 throw new DukeException("Did you miss something?");
             }
 
         } else {
-            UI.handleErrorMessage("");
-            return;
+            return UI.handleErrorMessage("");
         }
-
-
-
-
+        return UI.handleErrorMessage("");
     }
 
     /**
      * Deletes task found at i - 1. This means the very first task is deleted when i = 1.
      * @param i index number of task to be deleted.
      */
-    public  void delete(int i) {
+    public String delete(int i) {
         try {
             i -= 1;
             String s = taskList.get(i).toString();
             taskList.remove(i);
-            UI.sayDeleted(s);
+            return UI.sayDeleted(s);
         } catch (IndexOutOfBoundsException x) {
-            UI.handleErrorMessage("absent");
+            return UI.handleErrorMessage("absent");
         }
     }
 
@@ -133,27 +135,27 @@ public class Tasklist {
      * Mark task found at i - 1 as complete.
      * @param i index of task to be marked.
      */
-    public void mark(int i) {
+    public String mark(int i) {
         i -= 1;
         try {
             taskList.get(i).complete();
-            UI.sayMarked(taskList.get(i));
+            return UI.sayMarked(taskList.get(i));
         } catch (IndexOutOfBoundsException x) {
-            UI.handleErrorMessage("absent");
+            return UI.handleErrorMessage("absent");
         }
     }
 
     /**
-     *Remove mark from task found at i - 1
+     * Remove mark from task found at i - 1
      * @param i index of task to be unmarked.
      */
-    public  void unmark(int i) {
+    public String unmark(int i) {
         i -= 1;
         try {
             taskList.get(i).incomplete();
-            UI.sayUnmarked(taskList.get(i));
+            return UI.sayUnmarked(taskList.get(i));
         } catch (IndexOutOfBoundsException x) {
-            UI.handleErrorMessage("absent");
+            return UI.handleErrorMessage("absent");
         }
     }
 
@@ -161,7 +163,7 @@ public class Tasklist {
      * Used by main to add tasks from harddisk to this list
      * @param task The task being added from harddisk.
      */
-    public void  addFromStorage(Task task) {
+    public void addFromStorage(Task task) {
         taskList.add(task);
     }
 

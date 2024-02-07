@@ -35,7 +35,6 @@ public class Bit {
         Parser parser = new Parser();
 
         while (true) {
-            UI.printLineBreak();
             String input = scanner.nextLine();
             String s = parser.parse(input);
             if (s.equals("bye")) {
@@ -62,6 +61,27 @@ public class Bit {
         UI.sayBye();
     }
     public String getResponse(String input) {
-        return "stub";
+        String addInput = input;
+        input = parser.parse(input);
+        if (input.equals("bye")) {
+            return "Bye!";
+        } else if (input.equals("list")) {
+            return UI.listOut(tasklist);
+        } else if (input.equals("mark")) {
+            return tasklist.mark(parser.getIndex());
+        } else if (input.equals("unmark")) {
+            return tasklist.unmark(parser.getIndex());
+        } else if (input.equals("delete")) {
+            return tasklist.delete(parser.getIndex());
+        } else if (input.equals("find")) {
+            return UI.listHits(parser.getWord(), tasklist);
+        } else if (input.equals("add")) {
+            try {
+                return tasklist.addTo(addInput);
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
+        }
+        return "";
     }
 }
