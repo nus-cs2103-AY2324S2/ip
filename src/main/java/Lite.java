@@ -9,5 +9,7 @@ public class Lite {
                 "  LLLLLLLLL  IIIIIIIII      TTT     EEEEEEEEEE  \n";
 
         System.out.println("Hello from\n" + logo);
+        Chatbot chatbot = new Chatbot();
+        chatbot.start();
     }
 }
