@@ -4,12 +4,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Extension of task that saves the timeline of that task.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
 
+    /**
+     * Base constructor used by Duke to generate an Event object.
+     *
+     * @param description Title of the task.
+     * @param fromTime The start date of this Deadline task.
+     * @param toTime The end date of this Deadline task.
+     * @throws DukeException If description is empty or either fromTime or toTime is not given in the correct format.
+     */
     public Event(String description, String fromTime, String toTime) throws DukeException {
         super(description);
         fromTime = fromTime.trim();
@@ -42,6 +53,16 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(toTime, inputFormatter);
     }
 
+
+    /**
+     * Secondary constructor used by Duke to generate an Event object from a data txt file.
+     *
+     * @param logic Indicates if this task should be marked.
+     * @param description Title of the task.
+     * @param fromTime The start date of this Deadline task.
+     * @param toTime The end date of this Deadline task.
+     * @throws DukeException If description is empty or either fromTime or toTime is not given in the correct format.
+     */
     public Event(String logic, String description, String fromTime, String toTime) throws DukeException {
         super(description);
         fromTime = fromTime.trim();
@@ -83,10 +104,18 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Getter for from time in the input format, used to store the time in the duke.txt data file.
+     * @return Reformatted string of from time.
+     */
     public String getFrom() {
         return from.format(inputFormatter);
     }
 
+    /**
+     * Getter for to time in the input format, used to store the time in the duke.txt data file.
+     * @return Reformatted string of to time.
+     */
     public String getTo() {
         return to.format(inputFormatter);
     }

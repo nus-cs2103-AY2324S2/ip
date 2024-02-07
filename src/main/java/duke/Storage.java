@@ -7,10 +7,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Used to load/store TaskList from/to a duke.txt data file.
+ */
 public class Storage {
 
     final static String dataPath = System.getProperty("user.dir") + "/data";
     final static String fileName = "duke.txt";
+
+    /**
+     * Attempts to load data from a duke.txt file that would contain the previously saved TaskList.
+     * Creates a new .txt file if it is not found.
+     *
+     * @return ArrayList of tasks that will be loaded into the Tasklist.
+     */
     public ArrayList<Task> loadData() {
         File directory = new File(dataPath);
         File file = new File(dataPath + "/" + fileName);
@@ -70,6 +80,11 @@ public class Storage {
         return new ArrayList<>(100);
     }
 
+    /**
+     * Saves the TaskList given into the duke.txt data file.
+     *
+     * @param tasks The TaskList containing all tasks currently saved by Duke.
+     */
     public void saveData(TaskList tasks) {
         File directory = new File(dataPath);
         File file = new File(dataPath + "/" + fileName);

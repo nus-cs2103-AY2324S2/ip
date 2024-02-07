@@ -4,13 +4,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Extension of task that saves the deadline date of that task.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
 
-
+    /**
+     * Base constructor used by Duke to generate a Deadline object.
+     *
+     * @param description Title of the task.
+     * @param time The deadline of this Deadline task.
+     * @throws DukeException If description is empty or time is not given in the correct format.
+     */
     public Deadline(String description, String time) throws DukeException {
         super(description);
         time = time.trim();
@@ -33,6 +42,14 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Secondary constructor used by Duke to generate a deadline object from a data txt file.
+     *
+     * @param logic Indicates if this task should be marked.
+     * @param description Title of the task.
+     * @param time The deadline of this Deadline task.
+     * @throws DukeException If description is empty or time is not given in the correct format.
+     */
     public Deadline(String logic, String description, String time) throws DukeException {
         super(description);
         time = time.trim();

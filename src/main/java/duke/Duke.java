@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Arrays;
 
+/**
+ * The main class that contains functions involved with running the chatbot.
+ */
 public class Duke {
 
     static String horzLine = "____________________________________________________________";
@@ -13,6 +16,11 @@ public class Duke {
             "\nBye. Hope to see you again soon!\n"
             + horzLine;
 
+    /**
+     * Helper function that prints a horizontal line above and below the given message.
+     *
+     * @param message The message to be printed.
+     */
     public static void printWithLines(String message) {
         System.out.println(horzLine);
         System.out.println(message);
@@ -24,6 +32,9 @@ public class Duke {
     private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Initializes the instance variables of the Duke class.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -31,6 +42,9 @@ public class Duke {
         parser = new Parser();
     }
 
+    /**
+     * Main code for the running of the Duke chatbot.
+     */
     public void run() {
         System.out.println(greetingMessage);
 
@@ -137,10 +151,9 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-
-
-
-
+    /**
+     * Lists out each task in the TaskList 'tasks'.
+     */
     public void list() {
         if (tasks.size() == 0) {
             printWithLines("There's nothing in your list so far");
@@ -156,7 +169,12 @@ public class Duke {
     }
 
 
-
+    /**
+     * Marks the indicated task as done.
+     *
+     * @param index The task number displayed by the list.
+     * @throws DukeException If 0 < index < tasks.size().
+     */
     public void markDone(int index) throws DukeException {
         if (tasks.size() == 0) {
             throw new DukeException("Nothing is in the list yet");
@@ -168,6 +186,11 @@ public class Duke {
         printWithLines("Nice! I've marked this task as done:\n  " + tasks.get(index - 1).toString());
     }
 
+    /**
+     * Marks the indicated task as not done.
+     * @param index The task number displayed by the list.
+     * @throws DukeException If 0 < index < tasks.size().
+     */
     public void markNotDone(int index) throws DukeException {
         if (tasks.size() == 0) {
             throw new DukeException("Nothing is in the list yet");
