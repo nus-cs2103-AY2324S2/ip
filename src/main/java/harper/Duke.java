@@ -1,9 +1,7 @@
 package harper;
 
 import harper.commands.Command;
-
 import harper.exceptions.HarperException;
-
 import harper.utils.Parser;
 import harper.utils.Storage;
 import harper.utils.TaskList;
@@ -13,10 +11,12 @@ import harper.utils.Ui;
  * A chatbot called Harper.
  */
 public class Duke {
+
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public Duke(String folderName, String fileName) {
         this.ui = new Ui();
         try {

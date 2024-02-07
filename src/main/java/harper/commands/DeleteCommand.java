@@ -1,10 +1,9 @@
 package harper.commands;
 
+import harper.tasks.Task;
+import harper.utils.Storage;
 import harper.utils.TaskList;
 import harper.utils.Ui;
-import harper.utils.Storage;
-
-import harper.tasks.Task;
 
 /**
  * Represents a delete command.
@@ -12,6 +11,7 @@ import harper.tasks.Task;
 public class DeleteCommand extends Command {
     private int taskIndex;
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public DeleteCommand(int taskIndex) {
         super(false);
         this.taskIndex = taskIndex;

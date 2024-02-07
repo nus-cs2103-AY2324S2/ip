@@ -1,9 +1,10 @@
 package harper.commands;
 
+import harper.utils.Storage;
 import harper.utils.TaskList;
 import harper.utils.Ui;
-import harper.utils.Storage;
 
+//CHECKSTYLE.OFF: MissingJavadocType
 public abstract class Command {
     private boolean isExit;
 

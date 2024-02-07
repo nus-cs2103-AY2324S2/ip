@@ -4,6 +4,7 @@ package harper.exceptions;
  * Exception that indicates an error is occurring during loading from the file.
  */
 public class HarperFileLoadingException extends HarperException {
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public HarperFileLoadingException() {
         super("Error occurs during loading!\n"
                 + "Please make sure the content of the file harper.txt follows the expected format:\n"

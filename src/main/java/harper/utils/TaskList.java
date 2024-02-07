@@ -1,10 +1,9 @@
 package harper.utils;
 
-import harper.exceptions.HarperInvalidIndexException;
-
-import harper.tasks.Task;
-
 import java.util.ArrayList;
+
+import harper.exceptions.HarperInvalidIndexException;
+import harper.tasks.Task;
 
 /**
  * The TaskList class handles operations on the task list, such as add task, delete task
