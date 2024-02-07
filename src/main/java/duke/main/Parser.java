@@ -6,9 +6,9 @@ import java.util.Date;
 
 public class Parser {
     private TaskList taskList;
-    private UI ui;
+    private Ui ui;
 
-    public Parser(TaskList taskList, UI ui) {
+    public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
     }

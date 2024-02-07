@@ -1,15 +1,12 @@
 package duke.main;
 
-import duke.task.Task;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UI {
+public class Ui {
     private TaskList taskList;
     private Scanner scanner;
 
-    public UI(TaskList taskList) {
+    public Ui(TaskList taskList) {
         this.taskList = taskList;
         this.scanner = new Scanner(System.in);
     }

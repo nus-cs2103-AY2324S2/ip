@@ -6,12 +6,12 @@ import java.io.IOException;
 public class TalkingBox {
     private Storage storage;
     private TaskList taskList;
-    private UI ui;
+    private Ui ui;
     private Parser parser;
 
     public TalkingBox(String path) throws IOException {
         taskList = new TaskList();
-        ui = new UI(taskList);
+        ui = new Ui(taskList);
         parser = new Parser(taskList, ui);
         try {
             storage = new Storage(taskList, path);
