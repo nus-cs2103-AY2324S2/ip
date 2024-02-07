@@ -9,9 +9,11 @@ public class HelpCommand extends Command {
 
     /**
      * Prints out the help tool.
+     *
+     * @return
      */
     @Override
-    public void execute() {
-        Ui.helpMessage();
+    public String execute() {
+        return Ui.helpMessage();
     }
 }

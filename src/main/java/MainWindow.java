@@ -1,0 +1,87 @@
+import commands.Command;
+import exceptions.DukeException;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import parser.Parser;
+import storage.Storage;
+import tasklists.TaskList;
+
+import java.io.IOException;
+
+/**
+ * Controller for MainWindow. Provides the layout for the other controls.
+ */
+public class MainWindow extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private Howie howie;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ernie.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bert.png"));
+
+    public MainWindow() throws DukeException {
+    }
+
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    public void setHowie(Howie h) {
+        howie = h;
+    }
+
+    Storage storage = new Storage();
+    TaskList taskList = storage.readFile();
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() throws DukeException, IOException {
+        String input = userInput.getText();
+        Command command;
+        try {
+            command = new Parser().parseCommand(input.split(" "));
+            command.setData(taskList);
+            String response =  command.execute();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog("Me: " + input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+        } catch (DukeException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog("Me: " + input, userImage),
+                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
+            );
+        } finally {
+            if (input.equals("bye")) {
+                System.exit(0);
+            }
+
+            userInput.clear();
+        }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    private String getResponse(String input) {
+        return "Howie: " + input;
+    }
+}

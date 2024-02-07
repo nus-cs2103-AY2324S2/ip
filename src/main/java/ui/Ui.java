@@ -48,44 +48,51 @@ public class Ui {
      * Prints the list of tasks that is currently stored by Howie.
      * @param tasks The collection of tasks.
      */
-    public static void printAllTask(List<Task> tasks) {
+    public static String printAllTask(List<Task> tasks) {
         printVLine();
+        String result = "";
         if (tasks.isEmpty()) {
             System.out.println("Your list is now EMPTY! Time for you to have a break!");
             printVLine();
-            return;
+            return "Your list is now EMPTY! Time for you to have a break!";
         }
+        result = "You have " + tasks.size() + " left. There are:\n";
         System.out.println("You have " + tasks.size() + " left. There are:");
         for (int i = 1; i <= tasks.size(); i++) {
             Task t = tasks.get(i-1);
             System.out.println(i +"." + t);
+            result += i + "." + t + "\n";
         }
         printVLine();
+        return result;
     }
 
     /**
      * Exits the program when exit command is entered.
      */
-    public static void exit() {
-        printVLine();
-        System.out.println("Bye! I'll see you when I see you :)");
-        printVLine();
-        System.exit(0);
+    public static String exit() {
+//        printVLine();
+//        System.out.println("Bye! I'll see you when I see you :)");
+//        printVLine();
+//        System.exit(0);
+        return "Bye! I'll see you when I see you :)";
     }
 
     /**
      * Prints the list of commands available to Howie.
      */
-    public static void helpMessage() {
+    public static String helpMessage() {
         printVLine();
-        System.out.println("Below is a list of available commands for me:\n"
-               + "   todo [task_name]\n"
-               + "   event [task_name] /from [date] /to [date]\n"
-               + "   deadline [task_name] /by [date]\n"
-               + "   list - to see all tasks\n"
-               + "   mark/unmark [index]\n"
-               + "   bye - to exit the programme");
+        String helpMessage = "Below is a list of available commands for me:\n"
+                + "   todo [task_name]\n"
+                + "   event [task_name] /from [date] /to [date]\n"
+                + "   deadline [task_name] /by [date]\n"
+                + "   list - to see all tasks\n"
+                + "   mark/unmark [index]\n"
+                + "   bye - to exit the programme";
+        System.out.println(helpMessage);
         printVLine();
+        return helpMessage;
     }
 
     /**

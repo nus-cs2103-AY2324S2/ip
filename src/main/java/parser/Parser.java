@@ -102,6 +102,9 @@ public class Parser {
                 return new EventCommand(name.toString(), from.toString(), to.toString());
             }
         case DeleteCommand.COMMAND:
+            if (input.length != 2) {
+                throw new DukeException("Invalid arguments detected! Hint: delete [index]");
+            }
             return new DeleteCommand(Integer.parseInt(input[1]));
         case FindCommand.COMMAND:
             if (input.length != 2) {

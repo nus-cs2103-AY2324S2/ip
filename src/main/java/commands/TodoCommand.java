@@ -17,15 +17,19 @@ public class TodoCommand extends Command {
 
     /**
      * Adds a Task into TaskList.
+     *
+     * @return
      */
     @Override
-    public void execute() {
+    public String execute() {
         Task task = new Task(name.trim());
-        tasks.add(task);
+        taskList.add(task);
         Ui.printVLine();
-        System.out.println("Got it! task.Task has been added:\n" + task+ "\nNow you have "
-                + tasks.getList().size() + " tasks in the list.");
+        String addedMessage = "Got it! task.Task has been added:\n" + task+ "\nNow you have "
+                + taskList.getList().size() + " tasks in the list.";
+        System.out.println(addedMessage);
         Ui.printVLine();
 
+        return addedMessage;
     }
 }

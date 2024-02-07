@@ -16,18 +16,23 @@ public class UnmarkCommand extends Command {
 
     /**
      * Sets the task to incomplete status.
+     *
+     * @return
      */
     @Override
-    public void execute() {
+    public String execute() {
         try {
-            Task toMark = tasks.get(index - 1);
+            Task toMark = taskList.get(index - 1);
             Ui.printVLine();
             System.out.println("Acknowledged!\n" + toMark.setUndone());
             Ui.printVLine();
+            return "Acknowledged!\n" + toMark.setUndone();
         } catch (IndexOutOfBoundsException e) {
+            String errorMessage = "Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!";
             Ui.printVLine();
-            System.out.println("Oppss...I can't seem to find the task you're looking for. Type 'list' to see the the tasks that you have!");
+            System.out.println(errorMessage);
             Ui.printVLine();
+            return errorMessage;
         }
     }
 }

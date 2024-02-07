@@ -16,16 +16,22 @@ public class FindCommand extends Command {
 
     /**
      * Searches TaskList and return list of tasks based on supplied keyword.
+     *
+     * @return
      */
     @Override
-    public void execute() {
+    public String execute() {
         int count = 1;
+        String result = "Here are the list of tasks that matches your keyword: [" + keyword + "]\n";
         System.out.println("Here are the list of tasks that matches your keyword: [" + keyword + "]");
-        for (Task t : tasks.getList()) {
+        for (Task t : taskList.getList()) {
             if (t.getTask().contains(keyword)) {
                 System.out.println(count + ". " + t);
+                result += count + ". " + t + "\n";
                 count++;
             }
         }
+
+        return result;
     }
 }

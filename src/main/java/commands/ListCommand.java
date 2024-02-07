@@ -11,10 +11,12 @@ public class ListCommand extends Command {
 
     /**
      * Prints out the list of tasks in ListTask.
+     *
+     * @return
      */
     @Override
-    public void execute() {
-        Ui.printAllTask(tasks.getList());
+    public String execute() {
+        return  Ui.printAllTask(taskList.getList());
     }
 
 }

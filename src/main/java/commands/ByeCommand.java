@@ -15,9 +15,10 @@ public class ByeCommand extends  Command {
     public static final String COMMAND = "bye";
 
     @Override
-    public void execute() throws IOException, DukeException {
+    public String execute() throws IOException, DukeException {
         Storage storage = new Storage();
-        storage.saveFile(tasks);
-        Ui.exit();
+        storage.saveFile(taskList);
+
+        return Ui.exit();
     }
 }

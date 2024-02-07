@@ -19,18 +19,20 @@ public class DeleteCommand extends Command {
     /**
      * Deletes the particular task from TaskList based on the given index.
      *
+     * @return
      * @throws DukeException Throws an exception when index is out of range.
      */
     @Override
-    public void execute() throws DukeException {
-        if (i > tasks.getList().size() || i <= 0) {
+    public String execute() throws DukeException {
+        if (i > taskList.getList().size() || i <= 0) {
             Ui.printVLine();
             throw new DukeException("Hmm...I can't delete something that isn't there :O");
         } else {
-            Task t = tasks.remove(i-1);
+            Task t = taskList.remove(i-1);
             Ui.printVLine();
             System.out.println("Okay! The following task has been removed:\n" + t);
-            Ui.printAllTask(tasks.getList());
+            Ui.printAllTask(taskList.getList());
+            return "Okay! The following task has been removed:\n" + t;
         }
     }
 }

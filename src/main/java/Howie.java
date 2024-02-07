@@ -2,11 +2,8 @@ import commands.Command;
 import exceptions.DukeException;
 import parser.Parser;
 import storage.Storage;
-import task.Task;
 import tasklists.TaskList;
 import ui.Ui;
-
-import java.util.List;
 
 /**
  * The chat-bot To-Do program named Howie which keeps tracks of major major tasks such as
@@ -15,6 +12,9 @@ import java.util.List;
  */
 public class Howie {
 
+    public Howie() {
+
+    }
     /**
      * Initialises the program.
      * @param args Input arguments.
@@ -37,4 +37,7 @@ public class Howie {
             }
         }
     }
+
 }
+
+
