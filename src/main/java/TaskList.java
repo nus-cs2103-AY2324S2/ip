@@ -20,7 +20,9 @@ public class TaskList {
         count++;
 
         return "\t-----------------------------------\n" +
-                "\tadded: " + task.getDescription() + "\n" +
+                "\tGot it. I've added this task:\n" +
+                "\t\t" + task.toString() + "\n" +
+                "\tNow you have " + count + " tasks in the list.\n" +
                 "\t-----------------------------------";
     }
 
