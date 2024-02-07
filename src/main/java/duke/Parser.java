@@ -1,16 +1,20 @@
 package duke;
 
 import duke.command.AddCommand;
+import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.Commands;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.command.ListCommand;
-import duke.command.DeleteCommand;
-import duke.command.ByeCommand;
-import duke.command.FindCommand;
 import duke.exception.CommandInvalidException;
 
+/**
+ * Class to convert text to command.
+ *
+ */
 public class Parser {
 
     /**

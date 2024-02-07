@@ -1,12 +1,17 @@
 package duke.command;
 
-import duke.exception.CommandFormatException;
+import java.io.IOException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import java.io.IOException;
+import duke.exception.CommandFormatException;
 
-public class MarkCommand extends Command{
+/**
+ * Class for "mark" command.
+ *
+ */
+public class MarkCommand extends Command {
     private String com;
 
     /**
@@ -28,7 +33,7 @@ public class MarkCommand extends Command{
             if (!(inputs.length == 2)) {
                 throw new CommandFormatException();
             }
-            noArr = Integer.parseInt(inputs[1])-1;
+            noArr = Integer.parseInt(inputs[1]) - 1;
             String out = tL.mark(noArr);
             ui.showMessage(out);
             st.write(tL.getList());

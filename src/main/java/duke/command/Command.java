@@ -4,6 +4,10 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Abstact class for command.
+ *
+ */
 public abstract class Command {
 
     private boolean isExit;
@@ -13,7 +17,7 @@ public abstract class Command {
      * @param i exit status in int format.
      */
     public Command(int i) {
-        if(i == 1) {
+        if (i == 1) {
             isExit = true;
         } else {
             isExit = false;
@@ -24,7 +28,7 @@ public abstract class Command {
      * Executes the command using TaskList,
      * Ui, and Storage given.
      *
-     * @param tl TaskList for executing command.
+     * @param tL TaskList for executing command.
      * @param ui Ui for printing string.
      * @param st Storage for saving/loading in file.
      */
@@ -35,7 +39,7 @@ public abstract class Command {
      *
      * @return boolean for exit status
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return isExit;
     }
 }

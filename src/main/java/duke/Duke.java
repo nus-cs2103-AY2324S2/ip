@@ -1,17 +1,23 @@
 package duke;
 
+import java.io.FileNotFoundException;
+
 import duke.command.Command;
 import duke.exception.CommandInvalidException;
 
-import java.io.FileNotFoundException;
 
+/**
+ * Main code to run program.
+ *
+ *
+ */
 public class Duke {
+
+    private static final String CURRENT_WORKING_DIRECTORY = System.getProperty("user.dir");
+    private static final String PATH = "/list.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String CURRENT_WORKING_DIRECTORY = System.getProperty("user.dir");
-    private static final String PATH = "/list.txt";
-
 
     /**
      * Constructor for Duke

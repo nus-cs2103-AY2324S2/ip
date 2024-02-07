@@ -3,13 +3,17 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
-
+/**
+ * Class for task type event.
+ *
+ */
+public class Event extends Task {
+    private static final String SYMBOL = "E";
     private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
     private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private LocalDateTime from;
     private LocalDateTime to;
-    private static final String SYMBOL = "E";
+
 
     /**
      * Constructor for Event.
@@ -91,7 +95,7 @@ public class Event extends Task{
      *
      * @return format for event command.
      */
-    public static String getFormat(){
+    public static String getFormat() {
         return "event Description /from " + "yyyy-MM-dd HH:mm" + " /to " + "yyyy-MM-dd HH:mm";
     }
 }
