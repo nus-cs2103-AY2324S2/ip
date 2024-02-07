@@ -39,12 +39,14 @@ public class Ui {
         if (tasks.size() == 0) {
             return "Sorry, there are no tasks in your list. Start adding them :)";
         } else {
-            String toReturn = "Here are the tasks in your list:\n";
+            StringBuilder reply = new StringBuilder("Here are the tasks in your list: ");
             for (int i = 0; i < tasks.size(); i++) {
-                toReturn = toReturn + counter + ". " + taskList.getTask(i).toString() + "\n";
-                counter++;
+                reply.append("\n")
+                        .append((i + 1))
+                        .append(". ")
+                        .append(tasks.get(i));
             }
-            return toReturn;
+            return reply.toString();
         }
     }
 }
