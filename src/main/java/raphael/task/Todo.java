@@ -1,4 +1,8 @@
 package raphael.task;
+
+/**
+ * The todo task class.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

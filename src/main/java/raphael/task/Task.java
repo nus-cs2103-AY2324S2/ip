@@ -1,13 +1,29 @@
 package raphael.task;
 import raphael.format.FileFormattable;
+
+/**
+ * The task class.
+ */
 public class Task implements FileFormattable {
     private final String description;
     private boolean isDone;
-    public Task (String description, boolean isDone) {
+
+    /**
+     * The overloaded constructor of the task.
+     *
+     * @param description the description of the task.
+     * @param isDone the status of the task.
+     */
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
+    /**
+     * The constructor of the task.
+     *
+     * @param description the description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

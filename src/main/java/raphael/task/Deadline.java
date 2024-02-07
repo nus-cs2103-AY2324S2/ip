@@ -1,29 +1,49 @@
 package raphael.task;
 
-import raphael.command.Command;
-import raphael.exception.RaphaelException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import raphael.command.Command;
+import raphael.exception.RaphaelException;
+
+/**
+ * The deadline task class.
+ */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
     private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+
+    /**
+     * The constructor of the deadline task.
+     *
+     * @param description the description of the deadline task.
+     * @param deadline the deadline of this deadline task.
+     * @throws RaphaelException exception exclusive to Raphael.
+     */
     public Deadline(String description, String deadline) throws RaphaelException {
         super(description);
         try {
             this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.DEADLINE));
+            throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.DEADLINE));
         }
     }
+
+    /**
+     * Overridden constructor of the deadline class for reading from file.
+     * @param description the description of the deadline task.
+     * @param deadline the deadline of the deadline task.
+     * @param isDone the status of the deadline task.
+     * @throws RaphaelException exception exclusive to Raphael.
+     */
     public Deadline(String description, String deadline, boolean isDone) throws RaphaelException {
         super(description, isDone);
         try {
             this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new RaphaelException(RaphaelException.invalidFormat(Command.TYPE.DEADLINE));
+            throw new RaphaelException(RaphaelException.invalidFormat(Command.Type.DEADLINE));
         }
     }
 

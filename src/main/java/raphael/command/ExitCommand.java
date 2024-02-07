@@ -1,7 +1,8 @@
 package raphael.command;
+
+import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.storage.Storage;
 
 /**
  * Terminates the bot.
@@ -16,9 +17,7 @@ public class ExitCommand extends Command {
      * @param storage the file I/O object
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        return ;
-    }
+    public void execute(TaskList tasks, Ui ui, Storage storage) {}
 
     /**
      * Returns a boolean value indicating if the current command terminates the bot.

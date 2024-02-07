@@ -1,12 +1,18 @@
 package raphael.command;
 
 import raphael.exception.RaphaelException;
+import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.storage.Storage;
 
+/**
+ * The abstract for commands.
+ */
 public abstract class Command {
-    public enum TYPE {
+    /**
+     * The enumeration used to identify different commands.
+     */
+    public enum Type {
         BYE("bye"),
         TODO("todo [task]"),
         DEADLINE("deadline [task] /by [dd/MM/yyyy HHmm]"),
@@ -18,7 +24,7 @@ public abstract class Command {
         CHECK("check [dd/MM/yyyy HHmm]"),
         FIND("find [word]");
         private final String format;
-        private TYPE(String format) {
+        private Type(String format) {
             this.format = format;
         }
         public String getFormat() {

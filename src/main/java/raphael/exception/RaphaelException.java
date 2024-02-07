@@ -1,13 +1,20 @@
 package raphael.exception;
 
 import raphael.command.Command;
+
+/**
+ * The exception class for Raphael.
+ */
 public class RaphaelException extends Exception {
-    public enum TYPE {
+    /**
+     * The enumeration used to identify type of exception.
+     */
+    public enum Type {
         INVALID_TASK_INDEX("Invalid task index!"),
         READ_IO_EXCEPTION("Failed to read from the task file!"),
         WRITE_IO_EXCEPTION("Failed to write to the task file!");
         private final String errorMessage;
-        private TYPE(String errorMessage) {
+        private Type(String errorMessage) {
             this.errorMessage = errorMessage;
         }
     }
@@ -17,7 +24,7 @@ public class RaphaelException extends Exception {
         super(message);
     }
 
-    public RaphaelException(RaphaelException.TYPE exceptionType) {
+    public RaphaelException(Type exceptionType) {
         super(exceptionType.errorMessage);
     }
     /**
@@ -26,7 +33,7 @@ public class RaphaelException extends Exception {
      * @param commandType the type of command.
      * @return the error message.
      */
-    public static String invalidFormat(Command.TYPE commandType) {
+    public static String invalidFormat(Command.Type commandType) {
         return String.format("Please follow the format!:\n\t%s", commandType.getFormat());
     }
 }
