@@ -85,6 +85,14 @@ public class Parser {
                 return new DeadlineCommand(description, deadline);
             }
 
+            if (keyword.equals("find")) {
+                if (all.length > 2) {
+                    throw new InvalidNumOfArgsException();
+                }
+                String key = all[1];
+                return new FindCommand(key);
+            }
+
 
             if (keyword.equals("event")) {
                 int indexf = -1;
