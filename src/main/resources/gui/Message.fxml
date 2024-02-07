@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root type="HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="displayName" prefHeight="17.0" prefWidth="43.0" text="Label" />
+      <ImageView fx:id="displayPicture" fitHeight="112.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="displayText" prefHeight="112.0" prefWidth="419.0" style="-fx-background-radius: 1000; -fx-background-color: lightgreen; -fx-label-padding: 10;" text="Label" wrapText="true">
+         <effect>
+            <DropShadow height="13.63" radius="4.4725" width="6.26" />
+         </effect>
+      </Label>
+   </children>
+</fx:root>

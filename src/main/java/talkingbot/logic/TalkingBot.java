@@ -1,11 +1,11 @@
-package talkingbot;
+package talkingbot.logic;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import talkingbot.command.Command;
 import talkingbot.exception.TalkingBotException;
-import talkingbot.layout.Layout;
+import talkingbot.gui.Layout;
 import talkingbot.util.Parser;
 import talkingbot.util.SaveFile;
 import talkingbot.util.TaskList;
@@ -42,22 +42,29 @@ public class TalkingBot extends Application {
     /**
      * Runs the application.
      */
-    public void runTalkingBot() {
-        this.ui.printWelcomeMsg();
+//    public void runTalkingBot() {
+//        this.ui.printWelcomeMsg();
+//        Parser parser = new Parser();
+//        while (this.ui.getContinueIter()) {
+//            Command curCommand = parser.parseCommand();
+//            this.ui.printLine();
+//            curCommand.runCommand(this.tasks, this.saveFile, this.ui);
+//            this.ui.printLine();
+//        }
+//    }
+
+    public String process(String text) {
         Parser parser = new Parser();
-        while (this.ui.getContinueIter()) {
-            Command curCommand = parser.parseCommand();
-            this.ui.printLine();
-            curCommand.runCommand(this.tasks, this.saveFile, this.ui);
-            this.ui.printLine();
-        }
+        Command curCommand = parser.parseCommand(text);
+        String response = curCommand.runCommand(this.tasks, this.saveFile, this.ui);
     }
 
     /**
-     * Starts the GUI.
+     * Starts and shows the GUI.
      * @param stage Stage for JavaFX.
      */
     public void start(Stage stage) {
-
+        stage.setScene(this.layout.getScene());
+        stage.show();
     }
 }

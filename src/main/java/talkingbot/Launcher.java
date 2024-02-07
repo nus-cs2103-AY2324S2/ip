@@ -1,6 +1,7 @@
 package talkingbot;
 
 import javafx.application.Application;
+import talkingbot.logic.TalkingBot;
 
 /**
  * Launcher class for the GUI.

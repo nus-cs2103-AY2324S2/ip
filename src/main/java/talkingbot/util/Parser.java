@@ -1,7 +1,5 @@
 package talkingbot.util;
 
-import java.util.Scanner;
-
 import talkingbot.command.ByeCommand;
 import talkingbot.command.Command;
 import talkingbot.command.DeleteCommand;
@@ -12,19 +10,15 @@ import talkingbot.command.ModifyMarkCommand;
 import talkingbot.command.SaveCommand;
 import talkingbot.command.TaskCommand;
 
-
 /**
  * Class representing the parser to process user commands.
  */
 public class Parser {
-    private Scanner scanner;
 
     /**
      * Constructor for the Parser class.
      */
-    public Parser() {
-        this.scanner = new Scanner(System.in);
-    }
+    public Parser() {}
 
     /**
      * Parses the current command and returns the appropriate
@@ -32,9 +26,8 @@ public class Parser {
      *
      * @return A Command corresponding to the user input.
      */
-    public Command parseCommand() {
-        String line = this.scanner.nextLine();
-        String[] curCommand = line.split(" ");
+    public Command parseCommand(String text) {
+        String[] curCommand = text.split(" ");
         switch (curCommand[0]) {
         case "list":
             return new ListCommand(curCommand);
