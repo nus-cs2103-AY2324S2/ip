@@ -60,7 +60,6 @@ public class Storage {
                     String type = divided[0];
                     data = divided[1];
                     divided = data.split("\\|", 2);
-                    System.out.println(data);
                     String status = divided[0];
                     if (status == "1") {
                         isDone = true;
@@ -72,7 +71,6 @@ public class Storage {
                     divided = data.split("\\|", 2);
                     String D = divided[0];
                     String by = divided[1].trim();
-                    System.out.println(by);
                     Task new_task = new Deadline(D, by);
                     if (isDone) {
                         new_task.markAsDone();
@@ -98,8 +96,6 @@ public class Storage {
                     divided = data.split("\\|", 2);
                     String from = divided[0].trim();
                     String to = divided[1].trim();
-                    System.out.println(from);
-                    System.out.println(to);
                     Task new_task = new Events(D, from, to);
                     if (isDone) {
                         new_task.markAsDone();
