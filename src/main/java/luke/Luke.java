@@ -44,6 +44,37 @@ public class Luke extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     public static void main(String[] args) {
+
+
+
+
+//        //TODO:
+        launch();
+
+        //main loop
+//        while (!isFinished) {
+//            String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
+//            String output;
+//            try {
+//                output = parser.parseCommand(input);
+//            } catch (TasklistException e) {
+//                output = e.getMessage();
+//            } catch (ParseCommandException e) {
+//                output = e.getMessage();
+//            }
+//            //System.out.println(output);
+//            if (output.equals("QUIT")){
+//                break;
+//            }
+//            System.out.println(output);
+//        }
+
+        //goodbye message
+    }
+
+    //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
+    @Override
+    public void start(Stage stage) throws Exception {
         Storage storage;
         UI ui = new UI();
 
@@ -86,34 +117,6 @@ public class Luke extends Application {
         Scanner sc = new Scanner(System.in);
         boolean isFinished = false;
 
-//        //TODO:
-        launch();
-
-        //main loop
-        while (!isFinished) {
-            String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
-            String output;
-            try {
-                output = parser.parseCommand(input);
-            } catch (TasklistException e) {
-                output = e.getMessage();
-            } catch (ParseCommandException e) {
-                output = e.getMessage();
-            }
-            //System.out.println(output);
-            if (output.equals("QUIT")){
-                break;
-            }
-            System.out.println(output);
-        }
-
-        //goodbye message
-        ui.bye();
-    }
-
-    //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
-    @Override
-    public void start(Stage stage) throws Exception {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -159,21 +162,39 @@ public class Luke extends Application {
 
         //makes it such that we handle user input upon clicking.
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            handleUserInput(parser, ui, stage);
         });
 
         //makes it such that we handle user input upon pressing enter.
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            handleUserInput(parser, ui, stage);
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
     }
 
-    private void handleUserInput() {
+    private void handleUserInput(Parser parser, UI ui, Stage stage) {
+        String formattedInput = userInput.getText();
+        String lukeReply;
+        Label dukeText;
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(userInput.getText());
+        try {
+            lukeReply = parser.parseCommand(formattedInput);
+        } catch (TasklistException e) {
+            lukeReply = e.getMessage();
+        } catch (ParseCommandException e) {
+            lukeReply = e.getMessage();
+        }
+        if (lukeReply.equals("QUIT")) {
+            dukeText = new Label(ui.bye());
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, new ImageView(user)),
+                    DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+            );
+            stage.close();
+        }
+        dukeText = new Label(lukeReply);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))

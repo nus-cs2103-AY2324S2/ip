@@ -47,6 +47,9 @@ public class Parser {
                 errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
                         + "[Missing delete parameter(s)]\n";
                 throw new ParseCommandException(errorMessage);
+            } catch (NumberFormatException e) {
+                errorMessage = "Not a number";
+                throw new ParseCommandException(errorMessage);
             }
         } else if (trimmedLowercase.split(" ")[0].trim().equals("mark")) {
             try {
@@ -56,6 +59,9 @@ public class Parser {
                 errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
                         + "[Missing mark parameter(s)]\n";
                 throw new ParseCommandException(errorMessage);
+            } catch (NumberFormatException e) {
+                errorMessage = "Not a number";
+                throw new ParseCommandException(errorMessage);
             }
         } else if (trimmedLowercase.split(" ")[0].trim().equals("find")) {
             try {
@@ -64,6 +70,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
                         + "[Missing search phrase]\n";
+                throw new ParseCommandException(errorMessage);
+            } catch (NumberFormatException e) {
+                errorMessage = "Not a number";
                 throw new ParseCommandException(errorMessage);
             }
         }
