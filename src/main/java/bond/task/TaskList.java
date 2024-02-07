@@ -1,22 +1,22 @@
-/**
- * Stores and provides operations for the list of tasks in the Bond task
- * management program.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.task;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+/**
+ * Stores and provides operations for the list of tasks in the Bond task
+ * management program.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class TaskList {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructor for the TaskList class.
-     * 
+     *
      * @param taskList The list of tasks to be stored in the TaskList.
      */
     public TaskList(ArrayList<Task> taskList) {
@@ -53,12 +53,12 @@ public class TaskList {
     /**
      * Finds tasks in the task list that contain the keyword.
      * Returns a new TaskList containing the found tasks.
-     * 
+     *
      * @param keyword The keyword to search for in the task names.
      */
     public TaskList findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
-        
+
         for (Task task : this.tasks) {
             if (task.name.contains(keyword)) {
                 foundTasks.add(task);

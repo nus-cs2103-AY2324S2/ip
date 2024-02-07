@@ -1,10 +1,3 @@
-/**
- * The AddToDoCommand class is used to encapsulate an add todo task
- * command, which is executed upon invoking the execute() method.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.command;
 
 import bond.main.BondException;
@@ -14,11 +7,18 @@ import bond.task.Task;
 import bond.task.TaskList;
 import bond.task.ToDoTask;
 
+/**
+ * The AddToDoCommand class is used to encapsulate an add todo task
+ * command, which is executed upon invoking the execute() method.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class AddToDoCommand extends AddCommand {
 
     /**
      * Constructor for the AddToDoCommand class.
-     * 
+     *
      * @param taskName The name of the todo task.
      */
     public AddToDoCommand(String taskName) {
@@ -27,7 +27,7 @@ public class AddToDoCommand extends AddCommand {
 
     /**
      * Executes the add todo task command.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage object.
@@ -35,10 +35,10 @@ public class AddToDoCommand extends AddCommand {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
-        Task newTask = new ToDoTask(super.taskName);
+        Task newTask = new ToDoTask(super.getTaskName());
         tasks.addTask(newTask);
         ui.taskAdded(newTask, tasks);
-        storage.storeTask(newTask, tasks);
+        storage.storeTask(newTask);
     }
 
 }

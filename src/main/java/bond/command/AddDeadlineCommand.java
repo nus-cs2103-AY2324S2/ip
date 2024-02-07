@@ -1,10 +1,3 @@
-/**
- * The AddDeadlineCommand class is used to encapsulate an add deadline task
- * command, which is executed upon invoking the execute() method.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.command;
 
 import bond.main.BondException;
@@ -14,13 +7,20 @@ import bond.task.DeadlineTask;
 import bond.task.Task;
 import bond.task.TaskList;
 
+/**
+ * The AddDeadlineCommand class is used to encapsulate an add deadline task
+ * command, which is executed upon invoking the execute() method.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class AddDeadlineCommand extends AddCommand {
 
     private String deadline;
 
     /**
      * Constructor for the AddDeadlineCommand class.
-     * 
+     *
      * @param taskName The name of the deadline task.
      * @param deadline The end datetime of the task.
      */
@@ -31,7 +31,7 @@ public class AddDeadlineCommand extends AddCommand {
 
     /**
      * Executes the add deadline task command.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage object.
@@ -39,10 +39,10 @@ public class AddDeadlineCommand extends AddCommand {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
-        Task newTask = new DeadlineTask(super.taskName, this.deadline);
+        Task newTask = new DeadlineTask(super.getTaskName(), this.deadline);
         tasks.addTask(newTask);
         ui.taskAdded(newTask, tasks);
-        storage.storeTask(newTask, tasks);
+        storage.storeTask(newTask);
     }
 
 }

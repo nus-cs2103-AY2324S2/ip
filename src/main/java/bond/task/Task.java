@@ -1,19 +1,19 @@
+package bond.task;
+
 /**
  * Represents a task in the Bond task management program.
- * 
+ *
  * @author Benny Loh
  * @version 0.1
  */
-package bond.task;
-
 public abstract class Task {
 
-    private Boolean isCompleted;
     protected String name;
+    private Boolean isCompleted;
 
     /**
      * Constructor for the Task class.
-     * 
+     *
      * @param name The name of the task.
      */
     public Task(String name) {

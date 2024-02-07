@@ -1,10 +1,3 @@
-/**
- * The Storage class is used to handle the loading and storing of tasks in the
- * Bond task management program.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.main;
 
 import java.io.File;
@@ -15,15 +8,26 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-import bond.task.*;
+import bond.task.DeadlineTask;
+import bond.task.EventTask;
+import bond.task.Task;
+import bond.task.TaskList;
+import bond.task.ToDoTask;
 
+/**
+ * The Parser class is used to parse user input and create the appropriate
+ * Command object.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class Storage {
 
-    private String pathToFile;
+    private final String pathToFile;
 
     /**
      * Constructor for the Storage class.
-     * 
+     *
      * @param filePath The file path to the file where the tasks are stored.
      */
     public Storage(String filePath) {
@@ -32,7 +36,7 @@ public class Storage {
 
     /**
      * Parses the task and adds it to the task list.
-     * 
+     *
      * @param task  The task to be parsed and added to the task list.
      * @param tasks The task list to add the parsed task to.
      * @throws BondException If the task cannot be parsed and added to the task
@@ -40,7 +44,7 @@ public class Storage {
      */
     public void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
         String remainder = task.substring(4);
-        String taskName = "";
+        String taskName;
         boolean isMarked = false;
         Task newTask;
 
@@ -51,7 +55,7 @@ public class Storage {
         remainder = remainder.substring(4);
 
         // Determine task name
-        if (remainder.indexOf("(") == -1) {
+        if (!remainder.contains("(")) {
             taskName = remainder;
             remainder = "";
         } else {
@@ -81,7 +85,7 @@ public class Storage {
             String[] components = remainder.split(" ");
 
             for (int i = 0; i < components.length; i++) {
-                
+
                 if (components[i].equals("from:")) {
 
                     for (int j = i + 1; j < components.length; j++) {
@@ -102,10 +106,10 @@ public class Storage {
             }
 
             String[] startComponents = start.split(" ");
-            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) 
+            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2])
                     + " " + startComponents[3];
             String[] endComponents = end.split(" ");
-            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) 
+            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2])
                     + " " + endComponents[3];
 
             newTask = new EventTask(taskName, start, end);
@@ -124,7 +128,7 @@ public class Storage {
 
     /**
      * Loads the tasks from the file and returns the tasks as an ArrayList.
-     * 
+     *
      * @return The tasks loaded from the file as an ArrayList.
      * @throws BondException If the tasks cannot be loaded from the file.
      */
@@ -173,12 +177,11 @@ public class Storage {
 
     /**
      * Stores the new task in the file.
-     * 
+     *
      * @param newTask  The new task to be stored in the file.
-     * @param taskList The task list to store the new task in.
      * @throws BondException If the new task cannot be stored in the file.
      */
-    public void storeTask(Task newTask, TaskList taskList) throws BondException {
+    public void storeTask(Task newTask) throws BondException {
         try {
             FileWriter fw = new FileWriter(this.pathToFile, true); // create a FileWriter in append mode
             fw.write(newTask.toString());
@@ -191,7 +194,7 @@ public class Storage {
 
     /**
      * Overwrites the previous save in the file with the new task list.
-     * 
+     *
      * @param taskList The new task list to overwrite the previous save in the file.
      * @throws BondException If the new task list cannot overwrite the previous save
      *                       in the file.

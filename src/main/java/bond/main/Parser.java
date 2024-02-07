@@ -1,29 +1,39 @@
+package bond.main;
+
+import bond.command.AddDeadlineCommand;
+import bond.command.AddEventCommand;
+import bond.command.AddToDoCommand;
+import bond.command.Command;
+import bond.command.DeleteCommand;
+import bond.command.ExitCommand;
+import bond.command.FindCommand;
+import bond.command.InvalidCommand;
+import bond.command.ListCommand;
+import bond.command.MarkCommand;
+import bond.command.UnmarkCommand;
+
 /**
  * The Parser class is used to parse user input and create the appropriate
  * Command object.
- * 
+ *
  * @author Benny Loh
  * @version 0.1
  */
-package bond.main;
-
-import bond.command.*;
-
 public abstract class Parser {
 
     /**
      * Checks if the user input is a valid command.
-     * 
+     *
      * @param input The user input to be checked.
      * @return True if the user input is a valid command, false otherwise.
      */
     public static boolean isValidCommand(String input) {
-        return Command.Commands.contains(input.toLowerCase());
+        return Command.COMMANDS.contains(input.toLowerCase());
     }
 
     /**
      * Checks if the input is a number.
-     * 
+     *
      * @param input The input to be checked.
      * @return True if the input is a number, false otherwise.
      */
@@ -43,7 +53,7 @@ public abstract class Parser {
 
     /**
      * Changes the date format from "MMM dd yyyy" to "yyyy-MM-dd".
-     * 
+     *
      * @param month The month in the date.
      * @param day   The day in the date.
      * @param year  The year in the date.
@@ -105,7 +115,7 @@ public abstract class Parser {
 
     /**
      * Parses the user input and creates the appropriate Command object.
-     * 
+     *
      * @param userCommand The user input to be parsed.
      * @return The Command object that is created based on the user input.
      * @throws BondException The exception that is raised if the user input is
@@ -184,24 +194,24 @@ public abstract class Parser {
 
                 switch (state) {
 
-                    case 0:
-                        taskName += components[i] + " ";
-                        break;
+                case 0:
+                    taskName += components[i] + " ";
+                    break;
 
-                    case 1:
-                        if (!components[i].equals("/from")) {
-                            start += components[i] + " ";
-                        }
-                        break;
+                case 1:
+                    if (!components[i].equals("/from")) {
+                        start += components[i] + " ";
+                    }
+                    break;
 
-                    case 2:
-                        if (!components[i].equals("/to")) {
-                            end += components[i] + " ";
-                        }
-                        break;
+                case 2:
+                    if (!components[i].equals("/to")) {
+                        end += components[i] + " ";
+                    }
+                    break;
 
-                    default:
-                        break;
+                default:
+                    break;
                 }
             }
 
@@ -271,7 +281,7 @@ public abstract class Parser {
                 BondException.raiseException("find", "EXTRA_DETAILS");
             } else if (Parser.isNumber(components[1])) {
                 BondException.raiseException("find", "INVALID_KEYWORD");
-            } 
+            }
 
             String keyword = components[1];
             return new FindCommand(keyword);
