@@ -12,8 +12,21 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is responsible for parsing commands entered by the user.
+ */
 public class CommandParser {
-    public static Command parse(String line) throws IllegalArgumentException, ShodanException {
+    /**
+     * Parse command entered by the user. Some input validation is done
+     * at this stage, including checking if the number of arguments passed
+     * in is correct, and checking whether the user correctly entered a
+     * number if the command requires it.
+     *
+     * @param line the command from the user
+     * @return the parsed command
+     * @throws ShodanException if there was an error parsing the command
+     */
+    public static Command parse(String line) throws ShodanException {
         line = line.stripLeading();
         if (line.isEmpty()) {
             throw new IllegalArgumentException();

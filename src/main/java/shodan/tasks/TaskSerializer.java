@@ -11,9 +11,19 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * This class contains static methods that are responsible for serializing
+ * Tasks into their string representation, and vice versa.
+ */
 public class TaskSerializer {
     private final static String DELIMITER = ";";
 
+    /**
+     * Serialize a Task into its string format.
+     *
+     * @param tasks the list of tasks to serialize.
+     * @return a string containing the serialized list of tasks.
+     */
     public static String serialize(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         for (Task t : tasks) {
@@ -51,6 +61,12 @@ public class TaskSerializer {
         return sb.toString();
     }
 
+    /**
+     * Convert serialized tasks back into their original form.
+     *
+     * @param text a stream of Strings, where each String represents a serialized task.
+     * @return a list of parsed Tasks.
+     */
     public static List<Task> parseText(Stream<String> text) {
         return text.filter(Predicate.not(String::isBlank)).map((String t) -> {
             String[] fields = t.split(DELIMITER);

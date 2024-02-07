@@ -6,6 +6,9 @@ import shodan.command.Command;
 import shodan.storage.StorageManager;
 import shodan.ui.TermUi;
 
+/**
+ * List the current tasks.
+ */
 public class ListCommand extends Command {
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) throws ShodanException {
         ui.listTasks(tasks.getTasks());

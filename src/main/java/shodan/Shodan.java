@@ -18,21 +18,36 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
+/**
+ * Shodan is a chatbot that is able to manage tasks.
+ */
 public class Shodan {
     private TaskList tasks;
     private static StorageManager storageManager;
     private TermUi ui;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         new Shodan().run();
     }
 
+    /**
+     * Instantiates a new Shodan instance.
+     */
     public Shodan() {
         storageManager = new StorageManager();
         tasks = new TaskList(storageManager.loadTasks());
         ui = new TermUi();
     }
 
+    /**
+     * Starts the chatbot. Shodan will process each command until the 'bye'
+     * command is entered.
+     */
     public void run() {
         ui.showGreeting();
         Scanner sc = new Scanner(System.in);

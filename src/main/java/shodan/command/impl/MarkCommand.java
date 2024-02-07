@@ -9,9 +9,19 @@ import shodan.ui.TermUi;
 
 import java.util.List;
 
+/**
+ * Marks the specified task as done or not done.
+ */
 public class MarkCommand extends Command {
-    boolean toMark;
-    int index;
+    private boolean toMark;
+    private int index;
+
+    /**
+     * Instantiates a new Mark command.
+     *
+     * @param index  the index of the task to mark
+     * @param toMark whether to mark the task as done, or not done.
+     */
     public MarkCommand(int index, boolean toMark) {
         this.index = index;
         this.toMark = toMark;

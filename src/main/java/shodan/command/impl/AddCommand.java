@@ -11,9 +11,19 @@ import shodan.ui.TermUi;
 
 import java.util.List;
 
+/**
+ * Adds a new task to the current list.
+ */
 public class AddCommand extends Command {
-    List<String> args;
-    TaskType type;
+    private List<String> args;
+    private TaskType type;
+
+    /**
+     * Instantiates a new Add command.
+     *
+     * @param args     the list of arguments passed in
+     * @param taskType the type of the task to add.
+     */
     public AddCommand(List<String> args, String taskType) {
         this.args = args;
         this.type = TaskType.valueOf(taskType);

@@ -9,8 +9,17 @@ import shodan.ui.TermUi;
 
 import java.util.List;
 
+/**
+ * Deletes the specified task from the current list.
+ */
 public class DeleteCommand extends Command {
-    int index;
+    private int index;
+
+    /**
+     * Instantiates a new Delete command.
+     *
+     * @param index the index of the task to delete.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
