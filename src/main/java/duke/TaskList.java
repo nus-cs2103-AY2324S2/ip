@@ -3,16 +3,17 @@ package duke;
 import java.util.ArrayList;
 
 public class TaskList {
-    static String horzLine = "____________________________________________________________";
-    static void printWithLines(String message) {
-        System.out.println(horzLine);
-        System.out.println(message);
-        System.out.println(horzLine);
-    }
+    private String horzLine = "____________________________________________________________";
     private ArrayList<Task> taskList = new ArrayList<>(100);
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    private void printWithLines(String message) {
+        System.out.println(horzLine);
+        System.out.println(message);
+        System.out.println(horzLine);
     }
 
     public Task get(int i) {
@@ -29,9 +30,9 @@ public class TaskList {
 
     public void addTask(Task newTask) {
         taskList.add(newTask);
-        printWithLines("Got it. I've added this task:\n   " + newTask.toString() +
-                "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks ": " task ") +
-                "in the list.");
+        printWithLines("Got it. I've added this task:\n   " + newTask.toString()
+                + "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks " : " task ")
+                + "in the list.");
     }
 
     public void delete(int index) throws DukeException {
@@ -43,8 +44,8 @@ public class TaskList {
         }
         Task tempTask = taskList.get(index - 1);
         taskList.remove(index - 1);
-        printWithLines("Noted. I've removed this task:\n   " + tempTask.toString() +
-                "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks ": " task ") +
-                "in the list.");
+        printWithLines("Noted. I've removed this task:\n   " + tempTask.toString()
+                + "\nNow you have " + taskList.size() + (taskList.size() > 1 ? " tasks " : " task ")
+                + "in the list.");
     }
 }

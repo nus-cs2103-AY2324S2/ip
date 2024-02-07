@@ -28,8 +28,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(time, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter the date and time in the following format:\n"+
-                    "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234");
+            throw new DukeException("Please enter the date and time in the following format:\n"
+                    + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234");
         }
     }
 
@@ -50,8 +50,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(time, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter the date and time in the following format:\n"+
-                    "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234");
+            throw new DukeException("Please enter the date and time in the following format:\n"
+                    + "dd/mm/yyyy hhmm (e.g. 30/01/2024 1234");
         }
 
         switch (logic) {

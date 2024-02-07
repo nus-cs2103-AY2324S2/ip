@@ -9,15 +9,15 @@ import java.util.Scanner;
 
 public class Storage {
 
-    final static String dataPath = System.getProperty("user.dir") + "/data";
-    final static String fileName = "duke.txt";
+    private final String dataPath = System.getProperty("user.dir") + "/data";
+    private final String fileName = "duke.txt";
     public ArrayList<Task> loadData() {
         File directory = new File(dataPath);
         File file = new File(dataPath + "/" + fileName);
         ArrayList<Task> tempTaskStorage = new ArrayList<>(100);
 
         // check if data directory and file exist already
-        if (!directory.exists()){
+        if (!directory.exists()) {
             directory.mkdir();
             try {
                 file.createNewFile();
@@ -40,18 +40,20 @@ public class Storage {
                     String[] entryDetails = newEntry.split(" \\| ");
                     Task newTask;
                     switch (entryDetails[0]) {
-                        case "T":
-                            newTask = new ToDo(entryDetails[1], entryDetails[2]);
-                            tempTaskStorage.add(newTask);
-                            break;
-                        case "D":
-                            newTask = new Deadline(entryDetails[1], entryDetails[2], entryDetails[3]);
-                            tempTaskStorage.add(newTask);
-                            break;
-                        case "E":
-                            newTask = new Event(entryDetails[1], entryDetails[2], entryDetails[3], entryDetails[4]);
-                            tempTaskStorage.add(newTask);
-                            break;
+                    case "T":
+                        newTask = new ToDo(entryDetails[1], entryDetails[2]);
+                        tempTaskStorage.add(newTask);
+                        break;
+                    case "D":
+                        newTask = new Deadline(entryDetails[1], entryDetails[2], entryDetails[3]);
+                        tempTaskStorage.add(newTask);
+                        break;
+                    case "E":
+                        newTask = new Event(entryDetails[1], entryDetails[2], entryDetails[3], entryDetails[4]);
+                        tempTaskStorage.add(newTask);
+                        break;
+                    default:
+                        // ignores corrupted line in data file
                     }
                 }
                 return tempTaskStorage;
