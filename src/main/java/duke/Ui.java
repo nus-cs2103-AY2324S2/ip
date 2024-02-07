@@ -12,13 +12,32 @@ public class Ui {
 
     }
 
-    /**
-     * Print a divider.
-     */
-    public void divider() {
-        String d = "_____________________________________________";
-        System.out.println(d);
+    public String listTask(TaskList ls) {
+        StringBuilder s = new StringBuilder("Here're the tasks in ur list: \n");
+        int counter = 0;
+        for (int i = 0; i < ls.getSize(); i++) {
+            counter++;
+            Task tk = ls.get(i);
+            s.append(counter+ ". "
+                    + tk.toString()
+                    + "\n");
+        }
+        return s.toString();
     }
+
+    public String findMatchingTask(String keyWord, TaskList ls) {
+        StringBuilder s = new StringBuilder("Here're the matching tasks in ur list: \n");
+        int counter = 0;
+        for (int i = 0; i < ls.getSize(); i++) {
+            Task tk = ls.get(i);
+            if (tk.getDescription().contains(keyWord)) {
+                counter++;
+                s.append(counter + ". " + tk.toString() + "\n");
+            }
+        }
+        return s.toString();
+    }
+
 
     /**
      * Greet users.
@@ -26,15 +45,14 @@ public class Ui {
     public void sayHi() {
         String hi = "Helloo! I'm LilyBot ;)\nWhat's up'?\n";
         System.out.print(hi);
-        divider();
     }
 
     /**
      * Say goodbye to users.
      */
-    public void sayBye() {
-        System.out.println("Bye Bye. See u later!");
-        divider();
+    public String sayBye() {
+        String s = "Bye Bye. See u later! \n" ;
+        return s;
     }
 
     /**
@@ -42,10 +60,10 @@ public class Ui {
      *
      * @param task Specifics of the task to be marked done.
      */
-    public void printMarkDone(String task) {
-        System.out.println("Good job! I've marked this task as done:");
-        System.out.println("  " + task);
-        divider();
+    public String printMarkDone(String task) {
+        return "Good job! I've marked this task as done: \n"
+                + "  "
+                + task;
     }
 
     /**
@@ -53,10 +71,10 @@ public class Ui {
      *
      * @param task Specifics of the task to be marked undone.
      */
-    public void printMarkNotDone(String task) {
-        System.out.println("Okie, Marked this task as not done yet:");
-        System.out.println("  " + task);
-        divider();
+    public String printMarkNotDone(String task) {
+       return "Okie, Marked this task as not done yet:"
+               + "  "
+               + task;
     }
 
     /**
@@ -64,9 +82,11 @@ public class Ui {
      *
      * @param task Specifics of the task to be added.
      */
-    public void printAdded(String task) {
-        System.out.println("  Got it. I've added this task:");
-        System.out.println("  " + task);
+    public String printAdded(String task, TaskList taskList) {
+        return "  Got it. I've added this task:"+ "\n"
+                + "  " + task + "\n"
+                + "  Now u have " + taskList.getSize() +
+                " tasks in the list.";
     }
 
     /**
@@ -74,75 +94,63 @@ public class Ui {
      *
      * @param task Specifics of the task to be removed.
      */
-    public void printRemoved(String task) {
-        System.out.println("Noted. Task Removed:"+"\n"+ "  " + task);
+    public String printRemoved(String task, TaskList taskList) {
+        return "Noted. Task Removed:" + "\n"
+                + "  " + task + "\n"
+                + "  Now u have " + taskList.getSize() +
+                " tasks in the list.";
     }
 
-    /**
-     * Inform users the amount of tasks in the list.
-     *
-     * @param taskList The list of all tasks.
-     */
-    public void printTaskAmount(TaskList taskList) {
-        System.out.println("  Now u have " + taskList.getSize() +
-                " tasks in the list." + "\n");
-        divider();
-    }
+
 
     /**
      * Inform users that the description entered is invalid.
      */
-    public void invalidDescription() {
-        System.out.println("Oops! Sorry, I don't know what that means. Description is empty");
-        divider();
+    public String invalidDescription() {
+        return "Oops! Sorry, I don't know what that means. Description is empty";
     }
 
     /**
      * Inform users that the input entered is invalid.
      */
-    public void invalidInput() {
-        System.out.println("Oops! I don't understand the instruction.");
-        divider();
+    public String invalidInput() {
+        return "Oops! I don't understand the instruction.";
     }
 
     /**
      * Inform users that the number entered is invalid.
      */
-    public void invalidInputNumber() {
-        System.out.println("Plz tell me which task." + "\n");
-        divider();
+    public String invalidInputNumber() {
+        return "Plz tell me which task." + "\n";
     }
 
     /**
      * Inform users that the ddl for Deadline task entered is invalid.
      */
-    public void invalidDdlFormat() {
-        System.out.println("Plz enter a date for the deadline using '/by'");
-        System.out.println("Also notice the format should be like this: yyyy-mm-dd'");
-        divider();
+    public String invalidDdlFormat() {
+        return "Plz enter a date for the deadline using '/by' \n"
+                + "Also notice the format should be like this: yyyy-mm-dd'";
     }
 
     /**
      * Inform users that the date format for
      * the event entered is invalid.
      */
-    public void invalidEventFormat() {
-        System.out.println("Plz enter a date for the event using '/from' and '/to'" );
-        divider();
+    public String invalidEventFormat() {
+        return "Plz enter a date for the event using '/from' and '/to'";
     }
 
-    public void invalidKeyWord() {
-        System.out.println("Plz enter a valid keyword");
-        divider();
+    public String invalidKeyWord() {
+        return "Plz enter a valid keyword";
     }
 
     /**
      * Inform users that there is unknown file format.
      */
-    public static void botUnknownFormat(int i) {
-        System.out.println("Oops, I don't understand the file format");
+    public static String botUnknownFormat(int i) {
         i = i + 1;
-        System.out.println("Line " + i + " in the given file will be ignored");
+        return "Oops, I don't understand the file format \n"
+                + "Line " + i + " in the given file will be ignored";
     }
 
 

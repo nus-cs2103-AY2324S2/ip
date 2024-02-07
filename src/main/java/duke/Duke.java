@@ -14,11 +14,16 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.stage.Stage;
+
+
+
 public class Duke {
 
     private Storage storage;
     private TaskList ls;
     private Ui ui;
+
 
     /**
      * Constructor for Duke
@@ -32,28 +37,19 @@ public class Duke {
         ls = new TaskList(storage.loadFile());
     }
 
+
     /**
      * Initialize Duke
      *
      * @throws IOException For input error.
      */
-    public void run() throws IOException{
+    public String getResponse(String command) throws IOException{
         ui.sayHi();
-        Scanner myCom = new Scanner(System.in);
-        String command = myCom.nextLine();
+
 
         while (!command.equals("bye")) {
             if (command.equals("list")) {
-                System.out.println("Here're the tasks in ur list:");
-                int counter = 0;
-                for (int i = 0; i < ls.getSize(); i++) {
-                    counter++;
-                    Task tk = ls.get(i);
-                    System.out.println(counter + ". "
-                            + tk.toString());
-                }
-                ui.divider();
-                command = myCom.nextLine();
+                return ui.listTask(ls);
             } else if (command.startsWith("unmark")) {
                 try {
                     int taskNum = Parser.parseInt(command);
@@ -61,11 +57,11 @@ public class Duke {
 
                     tk.unmark();
                     String taskString = tk.toString();
-                    ui.printMarkNotDone(taskString);
-                    command = myCom.nextLine();
+                    return ui.printMarkNotDone(taskString);
+
                 } catch (Exception exc) {
-                    ui.invalidInputNumber();
-                    command = myCom.nextLine();
+                    return ui.invalidInputNumber();
+
                 }
 
             } else if (command.startsWith("mark")) {
@@ -75,11 +71,11 @@ public class Duke {
 
                     tk.mark();
                     String taskString = tk.toString();
-                    ui.printMarkDone(taskString);
-                    command = myCom.nextLine();
+                    return ui.printMarkDone(taskString);
+
                 } catch (Exception exc) {
-                    ui.invalidInputNumber();
-                    command = myCom.nextLine();
+                    return ui.invalidInputNumber();
+
                 }
 
             } else if (command.startsWith("delete")) {
@@ -87,16 +83,12 @@ public class Duke {
                     int taskNum = Parser.parseInt(command);
                     Task tk = ls.get(taskNum - 1);
                     String taskString = tk.toString();
-                    ui.printRemoved(taskString);
                     ls.remove(taskNum - 1);
+                    return ui.printRemoved(taskString, ls);
 
-                    ui.printTaskAmount(ls);
-                    command = myCom.nextLine();
                 } catch (Exception exc) {
-                    ui.invalidInputNumber();
-                    command = myCom.nextLine();
+                    return ui.invalidInputNumber();
                 }
-
             } else {
                 String[] cmd = Parser.parseCommand(command);
                 if (cmd[0].equals("todo")) {
@@ -105,13 +97,11 @@ public class Duke {
                         ls.add(t);
 
                         String taskString = t.toString();
-                        ui.printAdded(taskString);
-                        ui.printTaskAmount(ls);
+                        return ui.printAdded(taskString, ls);
 
-                        command = myCom.nextLine();
                     } catch (Exception exc) {
-                        ui.invalidDescription();
-                        command = myCom.nextLine();
+                        return ui.invalidDescription();
+
                     }
                 }
                 else if (cmd[0].equals("deadline")) {
@@ -123,17 +113,16 @@ public class Duke {
                             Task t = new Deadline(date[0], d);
                             ls.add(t);
                             String taskString = t.toString();
-                            ui.printAdded(taskString);
-                            ui.printTaskAmount(ls);
-                            command = myCom.nextLine();
+                            return ui.printAdded(taskString, ls);
+
                         }
                         catch (Exception exc) {
-                            ui.invalidDdlFormat();
-                            command = myCom.nextLine();
+                           return ui.invalidDdlFormat();
+
                         }
                     } catch (Exception exc) {
-                        ui.invalidDescription();
-                        command = myCom.nextLine();
+                       return ui.invalidDescription();
+
                     }
                 } else if (cmd[0].equals("event")) {
                     try {
@@ -144,65 +133,47 @@ public class Duke {
                                     date[2]);
                             ls.add(t);
                             String taskString = t.toString();
-                            ui.printAdded(taskString);
-                            ui.printTaskAmount(ls);
-                            command = myCom.nextLine();
+                            return ui.printAdded(taskString, ls);
+
                         } catch (Exception exc) {
-                            ui.invalidEventFormat();
-                            command = myCom.nextLine();
+                            return ui.invalidEventFormat();
+
                         }
                     } catch (Exception exc) {
-                        ui.invalidDescription();
-                        command = myCom.nextLine();
+                        return ui.invalidDescription();
+
                     }
                 } else if (command.startsWith("find")) {
                     try {
                         String keyWord = cmd[1];
-                        System.out.println("Here're the matching tasks in ur list:");
-                        int counter = 0;
-                        for (int i = 0; i < ls.getSize(); i++) {
-                            Task tk = ls.get(i);
-                            if (tk.getDescription().contains(keyWord)) {
-                                counter++;
-                                System.out.println(counter + ". " + tk.toString());
-                            }
-                        }
-                        ui.divider();
-                        command = myCom.nextLine();
+                        return ui.findMatchingTask(keyWord, ls);
+
                     } catch (Exception exc) {
-                        ui.invalidKeyWord();
-                        command = myCom.nextLine();
+                        return ui.invalidKeyWord();
+
                     }
                 }
                  else {
-                    ui.invalidInput();
-                    command = myCom.nextLine();
+                    return ui.invalidInput();
+
                 }
 
             }
         }
 
         if (command.equals("bye")) {
-            ui.sayBye();
-
             //Update the file
             Storage.saveFile(storage.getFile(), ls);
+
+            return ui.sayBye();
         }
-
+        return "";
     }
 
 
-    /**
-     * Create a Duke instance when the main method
-     * is called.
-     *
-     * @param args
-     * @throws IOException For input error.
-     */
-    public static void main(String[] args) throws IOException {
-        new Duke(Storage
-                .getFilePathToDukeTxt())
-                .run();
 
-    }
+
+
+
+
 }
