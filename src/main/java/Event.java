@@ -1,15 +1,20 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 public class Event extends Task{
+    DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
 
 
-    public Event(String input, String start, String end) {
+    public Event(String input, LocalDate start, LocalDate end) {
         super(input, start, end);
 
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + this.getStart() +  " to " + this.getEnd() + ")";
+        return super.toString() + " (from: " + this.getStart().format(df) +  " to " + this.getEnd().format(df) + ")";
     }
 
 }

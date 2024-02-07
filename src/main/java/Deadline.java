@@ -1,15 +1,19 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
+    DateTimeFormatter df = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
 
-
-    public Deadline(String input, String deadline) {
-        super(input, deadline);
+    public Deadline(String input, LocalDate dt) {
+        super(input, dt);
+      
 
 
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (By: " + this.getDeadline() + ")";
+        return super.toString() + " (By: " + this.getDeadline().format(df) + ")";
     }
 }
