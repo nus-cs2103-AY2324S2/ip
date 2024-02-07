@@ -10,13 +10,28 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Handles the storage of tasks in a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath the file path
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Starts up the storage sequence.
+     * If the file does not exist, a new file is created.
+     * The tasks are then loaded from the file.
+     *
+     * @return the list of tasks loaded from the file
+     */
     public ArrayList<Task> startUpSequence() {
         File martinFile;
         try {
@@ -39,6 +54,12 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Loads the tasks from the specified file.
+     *
+     * @param martinTxt the file
+     * @return the list of tasks loaded from the file
+     */
     private ArrayList<Task> loadFromFile(File martinTxt) {
         ArrayList<Task> todoList = new ArrayList<>();
 
