@@ -42,7 +42,8 @@ public class Duke {
         while (!Objects.equals(userInput.toLowerCase(), "bye")) {
             try {
                 DukeException.validateInstn(userInput);
-                Parser.parseUserInput(userInput, taskList);
+                String response = Parser.parseUserInput(userInput, taskList);
+                System.out.println(response);
                 if (userInput.contains("delete")) {
                     taskList.reOrder();
                 }
