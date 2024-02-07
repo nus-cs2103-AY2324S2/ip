@@ -74,7 +74,7 @@ public class Parser {
                         Todo toDo = new Todo(tempinput[1]);
                         storage.add(toDo);
                         StringBuilder sb = new StringBuilder();
-                        sb.append("Got it. I've added this task:\n").append(toDo);
+                        sb.append("Got it. I've added this task:\n").append(toDo).append("\n");
                         sb.append("Now you have ").append(storage.size()).append(" tasks in the list.");
                         return sb.toString();
                     } catch (ArrayIndexOutOfBoundsException e) {
