@@ -5,6 +5,7 @@ import aurora.objects.Task;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+
 import java.util.ArrayList;
 
 /**
@@ -60,8 +61,27 @@ public class FindCommand extends Command {
             this.ui.printFoundList(this.foundList);
         }
     }
-
     @Override
+    public String handleGui() throws DukeException {
+        String message = "Command not executed.";
+        if (this.splitCommands.length != 2) {
+            throw new DukeException("Invalid number of arguments!\n" +
+                    "Make sure to enter find, then the keyword you wish to search for in the task list.");
+        } else {
+            String keyword = this.splitCommands[1].toLowerCase();
+            ArrayList<Task> tasks = this.taskList.getTaskList();
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                String description = task.getDescription().toLowerCase();
+                if (description.contains(keyword)) {
+                    this.foundList.add(task);
+                }
+            }
+            message = this.ui.getFoundListString(this.foundList);
+        }
+        return message;
+    }
+
     public boolean isBye() {
         return false;
     }

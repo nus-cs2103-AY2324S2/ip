@@ -20,6 +20,11 @@ public class InvalidCommand extends Command {
     }
 
     @Override
+    public String handleGui() throws DukeException {
+        throw new DukeException("I am unable to understand this command, please kindly try again.");
+    }
+
+    @Override
     public boolean isBye() {
         return false;
     }
