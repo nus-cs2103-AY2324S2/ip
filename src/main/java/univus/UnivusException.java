@@ -1,4 +1,5 @@
-public class UnivusException extends Throwable{
+package univus;
+public class UnivusException extends Throwable {
     public UnivusException(String Message) {
         super(Message);
     }

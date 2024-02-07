@@ -1,5 +1,12 @@
+package univus;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import univus.task.TaskList;
+import univus.task.Task;
+import univus.task.ToDo;
+import univus.task.Deadline;
+import univus.task.Event;
 
 public class Parser {
     public static void parse(TaskList taskList, String message) throws UnivusException {
@@ -56,7 +63,7 @@ public class Parser {
                 if (message.equals("todo")) {
                     throw new UnivusException("OOPS!!! The description of a todo cannot be empty.");
                 } else {
-                    ToDos todo = new ToDos(message);
+                    ToDo todo = new ToDo(message);
                     taskList.add(todo);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -81,7 +88,7 @@ public class Parser {
                     Pattern regex1 = Pattern.compile(pattern1);
                     Matcher matcher1 = regex1.matcher(dueDate);
                     if (matcher1.matches()) {
-                        Deadlines deadline = new Deadlines(description, dueDate);
+                        Deadline deadline = new Deadline(description, dueDate);
                         taskList.add(deadline);
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
@@ -105,7 +112,7 @@ public class Parser {
                     String description = message.split("/")[0];
                     String start = message.split("/")[1];
                     String end = message.split("/")[2];
-                    Events event = new Events(description, start, end);
+                    Event event = new Event(description, start, end);
                     taskList.add(event);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");

@@ -1,5 +1,12 @@
+package univus;
+
 import java.io.*;
 import java.util.ArrayList;
+import univus.task.TaskList;
+import univus.task.Task;
+import univus.task.ToDo;
+import univus.task.Deadline;
+import univus.task.Event;
 
 
 public class Storage {
@@ -26,7 +33,7 @@ public class Storage {
                 if (message.startsWith("[T]")) {
                     int index = message.lastIndexOf("]");
                     String description = "todo" + message.substring(index + 1);
-                    ToDos todo = new ToDos(description);
+                    ToDo todo = new ToDo(description);
                     store.add(todo);
                 } else if (message.startsWith("[D]")) {
                     int startIndex = message.lastIndexOf("]");
@@ -34,7 +41,7 @@ public class Storage {
                     int timeIndex = message.lastIndexOf(":");
                     String dueDate = "by " + message.substring(timeIndex + 1, message.length() - 1);
                     String description = message.substring(startIndex + 2, endIndex);
-                    Deadlines deadline = new Deadlines(description, dueDate);
+                    Deadline deadline = new Deadline(description, dueDate);
                     store.add(deadline);
                 } else if (message.startsWith("[E]")) {
                     int startIndex = message.lastIndexOf("]");
@@ -44,7 +51,7 @@ public class Storage {
                     String description = message.substring(startIndex + 2, endIndex);
                     String start = "from" + message.substring(startIdx + 1, endIdx - 2);
                     String end = "to" + message.substring(endIdx + 1, message.length() - 1);
-                    Events event = new Events(description, start, end);
+                    Event event = new Event(description, start, end);
                     store.add(event);
                 }
             }
