@@ -29,17 +29,17 @@ public class MarkCommand extends Command {
      * @param taskList The TaskList from which the task's status will be changed.
      * @param storage The Storage where the updated task list is to be saved.
      * @param ui The UI responsible for user interactions.
+     * @return The message to be displayed to the user after marking a task.
      * @throws BluException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         Task task = taskList.getTask(taskIdx);
         if (task.isCompleted()) {
-            ui.showTaskAlreadyMarked(taskIdx);
-        } else {
-            task.setMarked();
-            ui.showTaskMarked(task, taskIdx);
+            return ui.showTaskAlreadyMarked(taskIdx);
         }
+        task.setMarked();
         storage.saveTasks(taskList);
+        return ui.showTaskMarked(task, taskIdx);
     }
 }

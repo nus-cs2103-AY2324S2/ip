@@ -30,10 +30,11 @@ public class InvalidCommand extends Command {
      * @param taskList The TaskList, not used in this command but required by the method signature.
      * @param storage The Storage, not used in this command but required by the method signature.
      * @param ui The UI, not used in this command but required by the method signature.
+     * @return The message to be displayed to the user. (Not applicable in InvalidCommand)
      * @throws BluException Throws an InvalidCommandException with the invalid command string.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         throw new InvalidCommandException(invalidCmd);
     }
 }

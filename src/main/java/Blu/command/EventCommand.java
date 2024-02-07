@@ -37,13 +37,14 @@ public class EventCommand extends Command {
      * @param taskList The TaskList to which the new task is to be added.
      * @param storage The Storage where the updated task list is to be saved.
      * @param ui The UI responsible for user interactions.
+     * @return The message to be displayed to the user after adding a event.
      * @throws StorageException If an error occurs during saving to storage.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws StorageException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws StorageException {
         Event event = new Event(description, fromDateTime, toDateTime);
         taskList.addTask(event);
-        ui.showTaskAdded(event, taskList);
         storage.saveTasks(taskList);
+        return ui.showTaskAdded(event, taskList);
     }
 }

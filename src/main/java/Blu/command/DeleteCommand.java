@@ -29,13 +29,14 @@ public class DeleteCommand extends Command {
      * @param taskList The TaskList from which the task will be deleted.
      * @param storage The Storage where the updated task list is to be saved.
      * @param ui The UI responsible for user interactions.
+     * @return The message to be displayed to the user after deleting a task.
      * @throws BluException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         Task task = taskList.getTask(taskIdx);
         taskList.deleteTask(taskIdx);
-        ui.showTaskDeleted(task, taskList);
         storage.saveTasks(taskList);
+        return ui.showTaskDeleted(task, taskList);
     }
 }

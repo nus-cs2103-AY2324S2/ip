@@ -17,7 +17,8 @@ public abstract class Command {
      * @param taskList The list of tasks on which the command operates.
      * @param storage The storage system used for persisting tasks.
      * @param ui The user interface used for interaction with the user.
+     * @return The message to be displayed to the user.
      * @throws BluException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList taskList, Storage storage, UI ui) throws BluException;
+    public abstract String execute(TaskList taskList, Storage storage, UI ui) throws BluException;
 }

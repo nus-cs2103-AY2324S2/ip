@@ -1,14 +1,11 @@
 package blu.ui;
 
-import static blu.utils.Messages.MESSAGE_DIVIDER;
 import static blu.utils.Messages.MESSAGE_EXIT;
 import static blu.utils.Messages.MESSAGE_GREET;
 import static blu.utils.Messages.MESSAGE_STORAGE_PATH;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import blu.task.Task;
 import blu.task.TaskList;
@@ -17,35 +14,12 @@ import blu.task.TaskList;
  * Handles all user input/output operations for the Blu application.
  */
 public class UI {
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String PROMPT = "> ";
-    private final Scanner in;
-    private final PrintWriter out;
-
-    /**
-     * Constructs a UI object. Initializes the Scanner for handling user input
-     * and PrintWriter handling user output.
-     */
-    public UI() {
-        this.in = new Scanner(System.in);
-        this.out = new PrintWriter(System.out);
+    private String showToUser(String message) {
+        return message;
     }
 
-    private void showToUser(String message) {
-        out.println(MESSAGE_DIVIDER);
-        out.println(message);
-        out.println(MESSAGE_DIVIDER);
-        out.flush();
-    }
-
-    private void showToUser(String[] messages) {
-        out.println(MESSAGE_DIVIDER);
-        for (String message : messages) {
-            out.println(message);
-        }
-        out.println(MESSAGE_DIVIDER);
-        out.flush();
+    private String showToUser(String[] messages) {
+        return String.join("\n", messages);
     }
 
     /**
@@ -53,22 +27,10 @@ public class UI {
      *
      * @param storageFilePath The file path of the storage used.
      */
-    public void showWelcomeMessage(String storageFilePath) {
+    public String showWelcomeMessage(String storageFilePath) {
         String storagePathString = String.format(MESSAGE_STORAGE_PATH, storageFilePath);
         String[] messages = {storagePathString, MESSAGE_GREET};
-        showToUser(messages);
-    }
-
-    /**
-     * Prompts the user and reads the input provided.
-     *
-     * @return The user input as a String.
-     */
-    public String getUserInput() {
-        out.print(PROMPT);
-        out.flush();
-        String userInput = in.nextLine();
-        return userInput;
+        return showToUser(messages);
     }
 
     /**
@@ -76,8 +38,8 @@ public class UI {
      *
      * @param taskList The TaskList to be displayed.
      */
-    public void showTaskList(TaskList taskList) {
-        showToUser(taskList.toString());
+    public String showTaskList(TaskList taskList) {
+        return showToUser(taskList.toString());
     }
 
     /**
@@ -86,13 +48,13 @@ public class UI {
      * @param task The task that was added.
      * @param taskList The TaskList after adding the new task.
      */
-    public void showTaskAdded(Task task, TaskList taskList) {
+    public String showTaskAdded(Task task, TaskList taskList) {
         String[] messages = {
             "Added task to the list:",
             task.toString(),
             "You have " + taskList.getNumberOfTasks() + " tasks currently."
         };
-        showToUser(messages);
+        return showToUser(messages);
     }
 
     /**
@@ -101,13 +63,13 @@ public class UI {
      * @param task The task that was deleted.
      * @param taskList The TaskList after deleting the task.
      */
-    public void showTaskDeleted(Task task, TaskList taskList) {
+    public String showTaskDeleted(Task task, TaskList taskList) {
         String[] messages = {
             "Deleted task from list:",
             task.toString(),
             "You have " + taskList.getNumberOfTasks() + " tasks currently"
         };
-        showToUser(messages);
+        return showToUser(messages);
     }
 
     /**
@@ -116,9 +78,9 @@ public class UI {
      * @param task The task that was marked.
      * @param taskIdx The index of the marked task.
      */
-    public void showTaskMarked(Task task, int taskIdx) {
+    public String showTaskMarked(Task task, int taskIdx) {
         String[] messages = {"Marked task as done:", task.toString()};
-        showToUser(messages);
+        return showToUser(messages);
     }
 
     /**
@@ -126,8 +88,8 @@ public class UI {
      *
      * @param taskIdx The index of the marked task.
      */
-    public void showTaskAlreadyMarked(int taskIdx) {
-        showToUser("Task number " + taskIdx + " is already marked as done");
+    public String showTaskAlreadyMarked(int taskIdx) {
+        return showToUser("Task number " + taskIdx + " is already marked as done");
     }
 
     /**
@@ -135,8 +97,8 @@ public class UI {
      *
      * @param taskIdx The index of the unmarked task.
      */
-    public void showTaskAlreadyUnmarked(int taskIdx) {
-        showToUser("Task number " + taskIdx + " is already unmarked as not done");
+    public String showTaskAlreadyUnmarked(int taskIdx) {
+        return showToUser("Task number " + taskIdx + " is already unmarked as not done");
     }
 
     /**
@@ -144,9 +106,9 @@ public class UI {
      *
      * @param task The task that was unmarked.
      */
-    public void showTaskUnmarked(Task task) {
+    public String showTaskUnmarked(Task task) {
         String[] messages = {"Unmarked task as not done:", task.toString()};
-        showToUser(messages);
+        return showToUser(messages);
     }
 
     /**
@@ -155,21 +117,20 @@ public class UI {
      * @param tasks The tasks that contain search string inside the task list.
      * @param searchString The search string specified by the user.
      */
-    public void showTasksFound(List<Task> tasks, String searchString) {
+    public String showTasksFound(List<Task> tasks, String searchString) {
         if (tasks.isEmpty()) {
-            showToUser("No tasks found containing " + searchString);
-        } else {
-            List<String> messagesList = new ArrayList<>();
-            messagesList.add("There are " + tasks.size() + " tasks that contains " + searchString);
-            int count = 1;
-            for (Task task : tasks) {
-                messagesList.add(count + ". " + task.toString());
-                count++;
-            }
-            String[] messages = new String[messagesList.size()];
-            messages = messagesList.toArray(messages);
-            showToUser(messages);
+            return showToUser("No tasks found containing " + searchString);
         }
+        List<String> messagesList = new ArrayList<>();
+        messagesList.add("There are " + tasks.size() + " tasks that contains " + searchString);
+        int count = 1;
+        for (Task task : tasks) {
+            messagesList.add(count + ". " + task.toString());
+            count++;
+        }
+        String[] messages = new String[messagesList.size()];
+        messages = messagesList.toArray(messages);
+        return showToUser(messages);
     }
 
     /**
@@ -177,23 +138,14 @@ public class UI {
      *
      * @param errorMsg The error message to be displayed.
      */
-    public void showErrorMessage(String errorMsg) {
-        out.println(ANSI_RED + errorMsg + ANSI_RESET);
-        out.flush();
+    public String showErrorMessage(String errorMsg) {
+        return showToUser(errorMsg);
     }
 
     /**
      * Displays the exit message to the user.
      */
-    public void showExitMessage() {
-        showToUser(MESSAGE_EXIT);
-    }
-
-    /**
-     * Closes the input and output streams associated with this UI.
-     */
-    public void exit() {
-        in.close();
-        out.close();
+    public String showExitMessage() {
+        return showToUser(MESSAGE_EXIT);
     }
 }

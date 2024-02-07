@@ -34,13 +34,14 @@ public class DeadlineCommand extends Command {
      * @param taskList The TaskList to which the new task is to be added.
      * @param storage The Storage where the updated task list is to be saved.
      * @param ui The UI responsible for user interactions.
+     * @return The message to be displayed to the user after adding a deadline.
      * @throws StorageException If an error occurs during saving to storage.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws StorageException {
+    public String execute(TaskList taskList, Storage storage, UI ui) throws StorageException {
         Deadline deadline = new Deadline(description, byDateTime);
         taskList.addTask(deadline);
-        ui.showTaskAdded(deadline, taskList);
         storage.saveTasks(taskList);
+        return ui.showTaskAdded(deadline, taskList);
     }
 }

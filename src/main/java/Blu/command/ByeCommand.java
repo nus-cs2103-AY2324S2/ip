@@ -17,10 +17,11 @@ public class ByeCommand extends Command {
      * @param taskList The current TaskList (not applicable for ByeCommand).
      * @param storage The Storage (not applicable for ByeCommand).
      * @param ui The UI responsible for user interactions.
+     * @return The exit message to be displayed to the user.
      * @throws BluException If an error occurs during execution (not applicable for ByeCommand).
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
-        ui.showExitMessage();
+    public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
+        return ui.showExitMessage();
     }
 }
