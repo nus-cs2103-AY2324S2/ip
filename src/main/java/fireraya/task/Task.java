@@ -1,3 +1,5 @@
+package fireraya.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -22,6 +24,8 @@ public class Task {
     public String getTask() {
         return description;
     }
+
+    public String saveFormat() { return String.format("X|%d|%s", isDone ? 1 : 0, description);}
 
     @Override
     public String toString() {

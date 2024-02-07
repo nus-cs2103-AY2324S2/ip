@@ -1,11 +1,21 @@
+package fireraya.main;
+
+import fireraya.exception.FirerayaException;
+import fireraya.exception.InvalidNumOfArgsException;
+import fireraya.task.Deadline;
+import fireraya.task.Event;
+import fireraya.task.Task;
+import fireraya.task.Todo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 public class Fireraya {
-    public static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static Storage storage = new Storage("current_list.txt");
 
     public static void start() {
         System.out.println("--------------------------------");
@@ -14,12 +24,13 @@ public class Fireraya {
         System.out.println("--------------------------------");
     }
 
-    public static void addTodo(String a) {
+    public static void addTodo(String a) throws FirerayaException {
         tasks.add(new Todo(a));
-        System.out.println("I've added this Todo:");
+        System.out.println("I've added this duke.task.Todo:");
         Task last = tasks.get(tasks.size() - 1);
         System.out.println(last.toString());
         taskCount();
+        storage.saveToFile(tasks);
     }
 
     public static void taskCount() {
@@ -27,23 +38,25 @@ public class Fireraya {
         System.out.println("Now you have " + number + " tasks in the list");
     }
 
-    public static void addDeadline(String task, String deadline) {
+    public static void addDeadline(String task, String deadline) throws FirerayaException {
         tasks.add(new Deadline(task, deadline));
-        System.out.println("I've added this Deadline:");
+        System.out.println("I've added this duke.Deadline:");
         Task last = tasks.get(tasks.size() - 1);
         System.out.println(last.toString());
         taskCount();
+        storage.saveToFile(tasks);
     }
 
-    public static void addEvent(String task, String from, String to) {
+    public static void addEvent(String task, String from, String to) throws FirerayaException {
         tasks.add(new Event(task, from, to));
-        System.out.println("I've added this Event:");
+        System.out.println("I've added this duke.task.Event:");
         Task last = tasks.get(tasks.size() - 1);
         System.out.println(last.toString());
         taskCount();
+        storage.saveToFile(tasks);
     }
 
-    public static void listTasks() {
+    public static void listTasks() throws IOException {
         System.out.println("Here is a list of your tasks!");
     for (int i = 0; i < tasks.size(); i++) {
         Task current = tasks.get(i);
@@ -62,7 +75,15 @@ public class Fireraya {
         System.out.println("Bye, hope to see you soon!");
     };
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+
+
     public static void main(String[] args) throws FirerayaException {
+
+
 
         start();
 
@@ -110,7 +131,7 @@ public class Fireraya {
                         throw new FirerayaException("That task does not exist!");
                     }
                     tasks.get(curr).markAsUndone();
-                    System.out.println("Oh no :<. Task Undone.");
+                    System.out.println("Oh no :<. duke.task.Task Undone.");
                     listTask(curr);
                     continue;
                 }
@@ -201,7 +222,7 @@ public class Fireraya {
 
             scanner.close();
 
-        } catch (FirerayaException e) {
+        } catch (FirerayaException | IOException e) {
             System.out.println(e.getMessage());
         }
     }

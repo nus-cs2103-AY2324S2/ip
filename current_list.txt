@@ -1,0 +1,6 @@
+T|1|a
+T|0|b
+D|1|c|5
+E|0|d|pp|uu
+T|0|e at work
+E|0|5|4|5

@@ -1,3 +1,5 @@
+package fireraya.task;
+
 public class Event extends Task{
 
     protected String from;
@@ -6,6 +8,11 @@ public class Event extends Task{
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String saveFormat() {
+        return String.format("E | %d | %s", isDone ? 1 : 0, description);
     }
 
     @Override
