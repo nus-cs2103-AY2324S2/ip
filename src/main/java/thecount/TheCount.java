@@ -1,26 +1,6 @@
 package thecount;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
+import thecount.exception.TheCountException;
 import thecount.storage.Storage;
 import thecount.task.TaskList;
 import thecount.ui.Ui;
@@ -42,7 +22,20 @@ public class TheCount {
     public TheCount() {
         this.tasks = new TaskList();
         this.loader = new Storage(this.tasks);
-        this.ui = new Ui(this.tasks, this.loader);
+//        this.ui = new Ui(this.tasks, this.loader);
+    }
+
+//    public String getResponse(String input) {
+//        try {
+//            Command c = Parser.parse(input);
+//            return c.execute(tasks, storage);
+//        } catch (TheCountException e) {
+//            return e.getMessage();
+//        }
+//    }
+
+    public String getResponse(String input) {
+        return "Duke heard " + input;
     }
 
     /**

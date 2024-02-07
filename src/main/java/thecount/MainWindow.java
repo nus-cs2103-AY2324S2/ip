@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
@@ -32,8 +30,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setTheCount(TheCount d) {
-        theCount = d;
+    public void setTheCount(TheCount tc) {
+        theCount = tc;
     }
 
     /**
@@ -42,16 +40,12 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String userText = userInput.getText();
-        String countText = getResponse(userInput.getText());
+        String input = userInput.getText();
+        String response = theCount.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getCountDialog(countText, theCountImage)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getCountDialog(response, theCountImage)
         );
         userInput.clear();
-    }
-
-    public String getResponse(String input) {
-        return "Count heard: " + input;
     }
 }
