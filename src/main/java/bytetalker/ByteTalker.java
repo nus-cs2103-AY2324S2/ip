@@ -1,17 +1,11 @@
 package bytetalker;
 
-import bytetalker.task.Task;
-import bytetalker.task.Todo;
-import bytetalker.task.Deadline;
-import bytetalker.task.Event;
 import bytetalker.task.TaskList;
 import bytetalker.ui.Ui;
 import bytetalker.storage.Storage;
 import bytetalker.parser.Parser;
-import bytetalker.exception.ByteTalkerException;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class ByteTalker {
     private TaskList tasks;

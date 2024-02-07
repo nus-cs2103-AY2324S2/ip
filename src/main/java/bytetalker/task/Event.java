@@ -22,7 +22,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getTaskType().getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (from: " + convertFromToString() + " to:" + convertToToString() + ")";
+        return "[" + getTaskType().getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (from: " + convertFromToString() + " to: " + convertToToString() + ")";
     }
 
     public LocalDateTime getFrom() {

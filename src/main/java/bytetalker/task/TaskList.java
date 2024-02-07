@@ -52,7 +52,7 @@ public class TaskList {
             if (isTodo) {
                 task = addTodo(splitMessage);
             } else if (isDeadline) {
-                task = addDescription(splitMessage);
+                task = addDeadline(splitMessage);
             } else if (isEvent) {
                 task = addEvent(splitMessage);
             } else {
@@ -61,9 +61,11 @@ public class TaskList {
             try {
                 if (task != null) {
                     this.tasks.add(task);
+                    storage.storeTasks(this.tasks);
+                    ui.addTaskMsg(task, this.tasks.size());
+                } else {
+                    System.out.println("    No task added");
                 }
-                storage.storeTasks(this.tasks);
-                ui.addTaskMsg(task, this.tasks.size());
             } catch (IOException e) {
                 ui.showErrorMsgStoreTasks();
                 this.tasks.remove(this.tasks.size() - 1);
@@ -74,57 +76,53 @@ public class TaskList {
     }
 
     public Todo addTodo(String[] splitMessage) {
+        Todo task = null;
         try {
-            if (splitMessage.length == 1) {
-                throw new ByteTalkerException.TodoNoTaskException("No bytetalker.task.Task");
+            ArrayList<String> parsedTodoInputs = Parser.parseTodoInput(splitMessage);
+            if (parsedTodoInputs.get(0).isEmpty()) {
+                throw new ByteTalkerException.TodoNoTaskException("No Task");
             }
-            String content = " ";
-            for (int i = 1; i < splitMessage.length; i++) {
-                content = content + splitMessage[i] + " ";
-            }
-            content = content.strip();
-            return new Todo(content);
+            task = new Todo(parsedTodoInputs.get(0));
         } catch (ByteTalkerException.TodoNoTaskException ex) {
             System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
-            return null;
+        } catch (ByteTalkerException.TodoUnsupportedFormatException e) {
+            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task.");
         }
+        return task;
     }
 
-    public Deadline addDescription(String[] splitMessage) {
-        String content = " ";
-        String deadline = "";
-        for (int i = 1; i < splitMessage.length; i++) {
-            boolean isContentFilled = splitMessage[i].equals("/by");
-            if (isContentFilled) {
-                content = deadline.strip();
-                deadline = "";
-            } else {
-                deadline = deadline + splitMessage[i] + " ";
+    public Deadline addDeadline(String[] splitMessage) {
+        Deadline task = null;
+        try {
+            ArrayList<String> parsedDeadlineInput = Parser.parseDeadlineInput(splitMessage);
+            System.out.println(parsedDeadlineInput);
+            if (parsedDeadlineInput.get(0).isEmpty() || parsedDeadlineInput.size() != 2) {
+                throw new ByteTalkerException.DeadlineWrongFormatException("This is wrong format for deadline");
             }
+            task = new Deadline(parsedDeadlineInput.get(0), Parser.parseDateTime(parsedDeadlineInput.get(1)));
+        } catch (ByteTalkerException.DeadlineUnsupportedFormatException e) {
+            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
+        } catch (ByteTalkerException.DeadlineWrongFormatException e) {
+            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
         }
-        deadline = deadline.strip();
-        return new Deadline(content, Parser.parseDateTime(deadline));
+        return task;
     }
 
     public Event addEvent(String[] splitMessage) {
-        String content = " ";
-        String from = "";
-        String to = "";
-        for (int i = 1; i < splitMessage.length; i++) {
-            boolean isContentFilled = splitMessage[i].equals("/from");
-            boolean isFromFilled = splitMessage[i].equals("/to");
-            if (isContentFilled) {
-                content = to.strip();
-                to = "";
-            } else if (isFromFilled) {
-                from = to.strip();
-                to = "";
-            } else {
-                to += splitMessage[i] + " ";
+        Event task = null;
+        try {
+            ArrayList<String> parsedEventInput = Parser.parseEventInput(splitMessage);
+            if (parsedEventInput.size() != 3 || parsedEventInput.get(0).isEmpty()
+                    || parsedEventInput.get(1).isEmpty()
+                    || parsedEventInput.get(2).isEmpty()) {
+                throw new ByteTalkerException.EventWrongFormatException("This is wrong format for event");
             }
+            task = new Event(parsedEventInput.get(0), Parser.parseDateTime(parsedEventInput.get(1)),
+                    Parser.parseDateTime(parsedEventInput.get(2)));
+        } catch (ByteTalkerException.EventWrongFormatException e) {
+            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
         }
-        to = to.strip();
-        return new Event(content, Parser.parseDateTime(from), Parser.parseDateTime(to));
+        return task;
     }
 
     public void deleteTask(int position, Storage storage, Ui ui) {

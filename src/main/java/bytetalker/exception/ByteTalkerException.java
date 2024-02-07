@@ -7,9 +7,27 @@ public class ByteTalkerException {
         }
     }
 
-    public static class DeadlineException extends Exception {
-        public DeadlineException(String errorMessage) {
+    public static class TodoUnsupportedFormatException extends Exception {
+        public TodoUnsupportedFormatException(String errorMessage) {
             super(errorMessage);
+        }
+    }
+
+    public static class DeadlineWrongFormatException extends Exception {
+        public DeadlineWrongFormatException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
+    public static class DeadlineUnsupportedFormatException extends Exception {
+        public DeadlineUnsupportedFormatException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
+    public static class EventWrongFormatException extends  Exception {
+        public EventWrongFormatException(String errorMessages) {
+            super(errorMessages);
         }
     }
 
