@@ -22,10 +22,12 @@ public class AddCommand extends Command {
      * @inheritDoc This implementation prints an add message after the task is added.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
-        ui.printMessage(String.format("\tGot it. I've added this task:\n\t %s\n\t"
-                + "Now you have %d task(s) in the list.", task, tasks.size()));
+        String result = String.format("Got it. I've added this task:\n\t %s\n"
+                + "Now you have %d task(s) in the list.", task, tasks.size());
+        ui.printMessage(result);
+        return result;
     }
 
     /**

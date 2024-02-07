@@ -23,7 +23,7 @@ public class FindCommand extends Command {
      * @inheritDoc This implementation prints all tasks that contain the keyword.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
         int count = 0; // track the number of matching tasks found
         for (int i = 0; i < tasks.size(); i++) {
@@ -32,7 +32,9 @@ public class FindCommand extends Command {
                 sb.append(String.format("\t%d. %s\n", count, tasks.get(i)));
             }
         }
-        ui.printMessage(String.format("\tHere are the matching tasks in your list:\n%s", sb));
+        String result = String.format("Here are the matching tasks in your list:\n%s", sb);
+        ui.printMessage(result);
+        return result;
     }
 
     /**

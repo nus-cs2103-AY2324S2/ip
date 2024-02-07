@@ -22,13 +22,15 @@ public class UnmarkCommand extends Command {
      * @inheritDoc This implementation prints an unmark message after the task is unmarked.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
         if (index <= 0 || index > taskList.size()) {
             throw new JadeException("\tPlease input a valid number to unmark done.");
         }
         taskList.unmark(index - 1);
-        ui.printMessage(String.format("\tNice, I've marked this task "
-                + "as not done yet:\n\t  %s", taskList.get(index - 1)));
+        String result = String.format("Nice, I've marked this task "
+                + "as not done yet:\n\t  %s", taskList.get(index - 1));
+        ui.printMessage(result);
+        return result;
     }
 
     /**

@@ -16,17 +16,17 @@ import jade.ui.Ui;
  * @since 2024-01-23
  */
 public class Jade {
+    private static final String USER_TAKSKS_File_PATH = "data/jadeList.txt";
     private TaskList taskList; // list that stores all user tasks
     private final Storage storage; // storage object to load from and save to local file
     private final Ui ui; // user interface for reading input and printing output
-
     /**
-     * Class constructor specifying the local filepath that stores user tasks.
+     * Class constructor.
      */
-    public Jade(String filePath) {
+    public Jade() {
         this.ui = new Ui();
         this.taskList = new TaskList();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(USER_TAKSKS_File_PATH);
         try {
             this.taskList = new TaskList(storage.load());
         } catch (JadeException e) {
@@ -34,12 +34,19 @@ public class Jade {
             this.taskList = new TaskList();
         }
     }
-
-    public static void main(String[] args) {
-        Jade myJade = new Jade("data/jadeList.txt");
-        myJade.run();
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(taskList, ui, storage);
+        } catch (JadeException e) {
+            ui.showError(e.getMessage());
+            return e.getMessage();
+        }
     }
-
     /**
      * Receives user input to run the jade object.
      * When user enters the exit command, the program terminates.

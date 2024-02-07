@@ -22,8 +22,10 @@ public class InvalidCommand extends Command {
      * @inheritDoc This implementation prints an error message to user
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printMessage("\tInput is invalid, please retry.");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String result = "Input is invalid, please retry.";
+        ui.printMessage(result);
+        return result;
     }
 
     /**

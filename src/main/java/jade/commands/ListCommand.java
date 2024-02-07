@@ -33,16 +33,17 @@ public class ListCommand extends Command {
      * @inheritDoc This implementation prints all tasks with an option to specify a date.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
             // Show user that there are no tasks now
-            ui.printMessage("\tYou have no tasks now :-|");
-            return;
+            String result = "\tYou have no tasks now :-|";
+            ui.printMessage(result);
+            return result;
         }
         int count = 0; // to track the number of tasks to be printed
         StringBuilder sb = new StringBuilder();
         String dateString = selectedDate == null ? "" : " on " + selectedDate;
-        sb.append(String.format("\tHere are the task(s) in your list%s:\n", dateString));
+        sb.append(String.format("Here are the task(s) in your list%s:\n", dateString));
         for (int i = 1; i <= tasks.size(); i++) {
             // case when user has specified a date for listing the tasks
             if (selectedDate != null) { // print tasks on a specific date
@@ -57,10 +58,13 @@ public class ListCommand extends Command {
             }
         }
         if (selectedDate != null && count == 0) {
-            ui.printMessage(String.format("\tThere are no tasks on %s", selectedDate
-                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
+            String result = String.format("There are no tasks on %s", selectedDate
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+            ui.printMessage(result);
+            return result;
         } else {
             ui.printMessage((sb.toString()));
+            return sb.toString();
         }
     }
 

@@ -11,9 +11,10 @@ import jade.ui.Ui;
 public abstract class Command {
 
     /**
-     * Executes the command with all the tasks, the program's ui, and the storage object.
+     * Returns the result string, i.e. the response from Jade by executing
+     * the command with all the tasks, the program's ui, and the storage object.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws JadeException;
 
     /**
      * Checks whether the program should exit.
