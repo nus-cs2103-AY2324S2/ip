@@ -1,18 +1,17 @@
 package duke.main;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UI {
+public class Ui {
     private TaskList taskList;
     private Scanner scanner;
 
-    public UI(TaskList taskList) {
+    public Ui(TaskList taskList) {
         this.taskList = taskList;
         this.scanner = new Scanner(System.in);
     }
 
-    public void welcomeMessage() {
+    public void printWelcomeMessage() {
         System.out.println("Hello! What tasks do you have?");
     }
 
@@ -28,7 +27,7 @@ public class UI {
 
     public void printOnAdd() {
         System.out.println("Added new task: ");
-        System.out.println(taskList.get(taskList.size() - 1).toString());
+        System.out.println(taskList.get(taskList.getSize() - 1).toString());
         printTotal();
     }
 
@@ -38,16 +37,16 @@ public class UI {
     }
 
     public void printList() {
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             System.out.println((i + 1) + ": " + taskList.get(i).toString());
         }
     }
 
     public void printTotal() {
-        System.out.println("current number of tasks: " + taskList.size());
+        System.out.println("current number of tasks: " + taskList.getSize());
     }
 
-    public void exitMessage() {
+    public void printExitMessage() {
         System.out.println("Goodbye!");
     }
 

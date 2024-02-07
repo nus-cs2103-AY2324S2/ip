@@ -23,7 +23,7 @@ public class Deadline extends Task {
         }
     }
     public String toString() {
-        String status = this.complete ? "[x]" : "[ ]";
+        String status = this.isComplete ? "[x]" : "[ ]";
         DateTimeFormatter returnFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         return "[D] " + status + " " + this.name + " (" + returnFormat.format(this.dueDate) + ")";
     }

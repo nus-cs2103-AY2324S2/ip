@@ -19,18 +19,18 @@ public class TaskList {
     }
 
     public void mark(int index) {
-        this.taskList.get(index).mark();
+        this.taskList.get(index).setComplete();
     }
 
     public void unmark(int index) {
-        this.taskList.get(index).unmark();
+        this.taskList.get(index).setInComplete();
     }
 
     public Task get(int index) {
         return this.taskList.get(index);
     }
 
-    public int size() {
+    public int getSize() {
         return this.taskList.size();
     }
 }

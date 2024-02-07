@@ -29,7 +29,7 @@ public class Event extends Task {
         }
     }
     public String toString() {
-        String status = this.complete ? "[x]" : "[ ]";
+        String status = this.isComplete ? "[x]" : "[ ]";
         DateTimeFormatter returnFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         return "[E] " + status + " " + this.name + " (" + returnFormat.format(this.startTime) + " to "
                  + returnFormat.format(this.endTime) + ")";

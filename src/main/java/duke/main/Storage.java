@@ -10,7 +10,7 @@ public class Storage {
     private TaskList taskList;
     private String path;
 
-    public Storage(TaskList taskList, String path) throws IOException, FileNotFoundException {
+    public Storage(TaskList taskList, String path) throws FileNotFoundException {
         this.taskList = taskList;
         this.path = path;
         if (!(new File(path).exists())) {
@@ -20,7 +20,7 @@ public class Storage {
 
     public void store() throws IOException {
         FileWriter writer = new FileWriter(path);
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             writer.write(i == 0 ? (i + 1) + ": " + taskList.get(i).toString()
                     : System.lineSeparator() + (i + 1) + ": " + taskList.get(i).toString());
         }
