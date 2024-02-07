@@ -26,8 +26,7 @@ public class Event extends Task {
         String fromTime = dateTimeFrom.format(timeFormat);
         String toDate = dateTimeTo.format(formatter);
         String toTime = dateTimeTo.format(timeFormat);
-        return "[E]"
-                + description
+        return "[E]" + description
                 + " (from: " + fromDate + " " + fromTime + " to: " + toDate + " " + toTime + ")";
     }
 }

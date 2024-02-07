@@ -125,7 +125,7 @@ public class Command {
         Deadline itemDeadline = new Deadline(description, dateTime);
         tasks.getTaskList().add(itemDeadline);
         String stringToSave = "D | " + (itemDeadline.getStatusIcon().equals("X") ? "1" : "0")
-                            + " | " + description + " | " + by + "\n";
+                + " | " + description + " | " + by + "\n";
 
         // May produce IOException
         storage.writeToFile(stringToSave);
@@ -210,8 +210,8 @@ public class Command {
         Event item_event = new Event(description, dateTimeFrom, dateTimeTo);
         tasks.getTaskList().add(item_event);
         String stringToSave = "E | "
-                        + (item_event.getStatusIcon().equals("X") ? "1" : "0")
-                        + " | " + description + " | " + from + " | " + to + "\n";
+                + (item_event.getStatusIcon().equals("X") ? "1" : "0")
+                + " | " + description + " | " + from + " | " + to + "\n";
         // May produce IOException
         storage.writeToFile(stringToSave);
         Ui.printDivider();
