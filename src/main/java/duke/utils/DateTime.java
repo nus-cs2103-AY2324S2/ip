@@ -1,16 +1,19 @@
 package duke.utils;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
+import duke.DukeException;
+
+/**
+ * The DateTime class handles parsing date time formats.
+ */
 public class DateTime {
-    private final static String PRINT_DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
-    private final static String PRINT_DATE_FORMAT = "MMM dd yyyy";
+    private static final String PRINT_DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
+    private static final String PRINT_DATE_FORMAT = "MMM dd yyyy";
 
     private static DateTimeFormatterBuilder acceptedDateTimeFormats =
             new DateTimeFormatterBuilder().append(
@@ -19,8 +22,8 @@ public class DateTime {
                             + "[yyyy-MM-dd HHmm]" + "[MMM dd yyyy HHmm]"
                     ));
 
-    private static DateTimeFormatterBuilder acceptedDateFormats
-            = new DateTimeFormatterBuilder().append(
+    private static DateTimeFormatterBuilder acceptedDateFormats =
+            new DateTimeFormatterBuilder().append(
             DateTimeFormatter.ofPattern("[dd/MM/yyyy]"
                     + "[yyyy/MM/dd]" + "[dd-MM-yyyy]"
                     + "[yyyy-MM-dd]" + "[MMM dd yyyy]"
@@ -29,6 +32,11 @@ public class DateTime {
     protected LocalDateTime datetime;
     protected LocalDate date;
 
+    /**
+     * Constructs a Datetime instance.
+     *
+     * @param datetime The datetime to be parsed.
+     */
     public DateTime(String datetime) {
         String[] currInput = datetime.split(" ", 4);
 

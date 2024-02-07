@@ -1,17 +1,16 @@
 package duke;
 
-import duke.utils.Ui;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
-import java.util.*;
+import duke.utils.Ui;
 
 /**
  * The main class for the Duke chatbot application.
  * Duke is a simple chatbot designed to manage tasks.
  */
 public class Duke {
-    private Storage storage;
-    private TaskList tasks;
-
     /**
      * Keywords to terminate the Duke chatbot.
      */
@@ -21,6 +20,9 @@ public class Duke {
      * List of keywords that trigger the termination of the Duke chatbot.
      */
     private static final List<String> exitProgramme = Arrays.asList(terminateKeywords);
+
+    private Storage storage;
+    private TaskList tasks;
 
 
     /**

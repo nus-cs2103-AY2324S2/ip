@@ -1,11 +1,15 @@
 package duke;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
-
-import java.io.*;
-import java.util.Scanner;
 
 /**
  * The Storage class handles the loading and saving of task data for the Duke chatbot.
@@ -27,8 +31,12 @@ public class Storage {
         // set-up infrastructure
         try {
             File dir = new File(file.getParent());
-            if (!dir.exists()) { dir.mkdir(); }
-            if (!file.exists()) { file.createNewFile(); }
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
         } catch (IOException e) {
             throw new DukeException("File unable to be created in specified directory");
         }
@@ -51,15 +59,21 @@ public class Storage {
 
                 if (cmd.equals("D")) {
                     Deadline dl = new Deadline(taskInput[2], taskInput[3]);
-                    if (taskInput[1].equals("1")) {dl.markAsDone();}
+                    if (taskInput[1].equals("1")) {
+                        dl.markAsDone();
+                    }
                     tasks.addTask(dl);
                 } else if (cmd.equals("E")) {
                     Event evt = new Event(taskInput[2], taskInput[3], taskInput[4]);
-                    if (taskInput[1].equals("1")) {evt.markAsDone();}
+                    if (taskInput[1].equals("1")) {
+                        evt.markAsDone();
+                    }
                     tasks.addTask(evt);
                 } else if (cmd.equals("T")) {
                     Todo td = new Todo(taskInput[2]);
-                    if (taskInput[1].equals("1")) {td.markAsDone();}
+                    if (taskInput[1].equals("1")) {
+                        td.markAsDone();
+                    }
                     tasks.addTask(td);
                 }
             }
@@ -77,11 +91,11 @@ public class Storage {
      * @param tasks The TaskList containing the tasks to be written.
      */
     public void writeTasks(TaskList tasks) {
-        try (BufferedWriter reset = new BufferedWriter(new FileWriter(this.path))){
+        try (BufferedWriter reset = new BufferedWriter(new FileWriter(this.path))) {
             reset.write("");
             tasks.getTasks().forEach((task) -> {
                 try (BufferedWriter out = new BufferedWriter(
-                        new FileWriter(this.path, true))){
+                        new FileWriter(this.path, true))) {
                     out.write(task.writeContent());
                     out.newLine();
                 } catch (IOException e) {
