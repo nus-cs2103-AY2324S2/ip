@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import runner.Duke;
 import runner.Ui;
+import javafx.scene.layout.Region;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
