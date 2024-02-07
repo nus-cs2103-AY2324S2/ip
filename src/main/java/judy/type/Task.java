@@ -1,3 +1,5 @@
+package judy.type;
+
 import java.io.Serializable;
 
 public class Task implements Serializable {
@@ -8,8 +10,13 @@ public class Task implements Serializable {
         this.description = description;
         this.isDone = false;
     }
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    private String getStatusIcon() {
+        return (isDone() ? "X" : " ");
     }
 
     public void markAsDone() {
@@ -25,7 +32,4 @@ public class Task implements Serializable {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
-    public String toFileString() {
-        return  (isDone ? 1 : 0) + " | " + description;
-    }
 }

@@ -1,3 +1,8 @@
+package judy.type;
+
+/**
+ * This class represents a todo task
+ */
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -9,7 +14,4 @@ public class Todo extends Task {
         return " [T]" + super.toString();
     }
 
-    public String toFileString() {
-        return " T | " + super.toFileString();
-    }
 }
