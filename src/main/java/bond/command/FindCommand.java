@@ -1,10 +1,3 @@
-/**
- * The FindCommand class is used to encapsulate a find task command, which is
- * executed upon invoking the execute() method.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.command;
 
 import bond.main.BondException;
@@ -12,14 +5,21 @@ import bond.main.Storage;
 import bond.main.Ui;
 import bond.task.TaskList;
 
+/**
+ * The FindCommand class is used to encapsulate a find task command, which is
+ * executed upon invoking the execute() method.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructor for the FindCommand class.
-     * 
-     * @param keyWord The key word used to search for name of task.
+     *
+     * @param keyword The key word used to search for name of task.
      */
     public FindCommand(String keyword) {
         super("find");
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
 
     /**
      * Executes the find task command.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage.

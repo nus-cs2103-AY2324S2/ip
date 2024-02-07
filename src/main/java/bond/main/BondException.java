@@ -1,12 +1,12 @@
+package bond.main;
+
 /**
  * The BondException class is used to handle exceptions in the Bond task
  * management program.
- * 
+ *
  * @author Benny Loh
  * @version 0.1
  */
-package bond.main;
-
 public class BondException extends Exception {
 
     private enum ExceptionType {
@@ -17,7 +17,7 @@ public class BondException extends Exception {
 
     /**
      * Constructor for the BondException class.
-     * 
+     *
      * @param message The message to be displayed when the exception is raised.
      */
     private BondException(String message) {
@@ -26,7 +26,7 @@ public class BondException extends Exception {
 
     /**
      * Raises an exception based on the task name and the exception type.
-     * 
+     *
      * @param taskName      The name of the task that the exception is raised for.
      * @param exceptionType The reason why the exception that is raised.
      * @throws BondException The exception that is raised.

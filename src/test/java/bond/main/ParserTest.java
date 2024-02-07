@@ -1,16 +1,17 @@
-/**
- * Tests for the Parser class.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.main;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import bond.command.Command;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * Tests for the Parser class.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class ParserTest {
 
     @Test
@@ -163,7 +164,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "todo");
+            assertEquals(c.getCommandType(), "todo");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -176,7 +177,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "deadline");
+            assertEquals(c.getCommandType(), "deadline");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -189,7 +190,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "event");
+            assertEquals(c.getCommandType(), "event");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -202,7 +203,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "list");
+            assertEquals(c.getCommandType(), "list");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -215,7 +216,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "mark");
+            assertEquals(c.getCommandType(), "mark");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -228,7 +229,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "unmark");
+            assertEquals(c.getCommandType(), "unmark");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -241,7 +242,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "bye");
+            assertEquals(c.getCommandType(), "bye");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;
@@ -254,7 +255,7 @@ public class ParserTest {
 
         try {
             Command c = Parser.parse(testUserCommand);
-            assertEquals(c.commandType, "delete");
+            assertEquals(c.getCommandType(), "delete");
         } catch (Exception e) {
             e.printStackTrace();
             assert false;

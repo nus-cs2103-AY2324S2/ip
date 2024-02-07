@@ -1,16 +1,16 @@
-/**
- * The ExitCommand class is used to encapsulate a exit command, which is
- * executed upon invoking the execute() method.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.command;
 
 import bond.main.Storage;
 import bond.main.Ui;
 import bond.task.TaskList;
 
+/**
+ * The ExitCommand class is used to encapsulate a exit command, which is
+ * executed upon invoking the execute() method.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class ExitCommand extends Command {
 
     /**
@@ -18,13 +18,13 @@ public class ExitCommand extends Command {
      */
     public ExitCommand() {
         super("bye");
-        super.isExit = true;
+        super.setExit();
     }
 
     /**
      * Executes the exit command.
      * Displays the goodbye message and closes scanner for user input.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage.

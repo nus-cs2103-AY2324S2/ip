@@ -1,10 +1,3 @@
-/**
- * The AddEventCommand class is used to encapsulate an add event task
- * command, which is executed upon invoking the execute() method.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.command;
 
 import bond.main.BondException;
@@ -14,6 +7,13 @@ import bond.task.EventTask;
 import bond.task.Task;
 import bond.task.TaskList;
 
+/**
+ * The AddEventCommand class is used to encapsulate an add event task
+ * command, which is executed upon invoking the execute() method.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class AddEventCommand extends AddCommand {
 
     private String start;
@@ -21,7 +21,7 @@ public class AddEventCommand extends AddCommand {
 
     /**
      * Constructor for the AddEventCommand class.
-     * 
+     *
      * @param taskName The name of the event task.
      * @param start    The start datetime of the event.
      * @param end      The end datetime of the event.
@@ -34,7 +34,7 @@ public class AddEventCommand extends AddCommand {
 
     /**
      * Executes the add event task command.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage object.
@@ -42,10 +42,10 @@ public class AddEventCommand extends AddCommand {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
-        Task newTask = new EventTask(super.taskName, this.start, this.end);
+        Task newTask = new EventTask(super.getTaskName(), this.start, this.end);
         tasks.addTask(newTask);
         ui.taskAdded(newTask, tasks);
-        storage.storeTask(newTask, tasks);
+        storage.storeTask(newTask);
     }
 
 }

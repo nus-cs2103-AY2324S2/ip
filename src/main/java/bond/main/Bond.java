@@ -1,14 +1,14 @@
-/**
- * The main class for the Bond task management program.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.main;
 
 import bond.command.Command;
 import bond.task.TaskList;
 
+/**
+ * The main class for the Bond task management program.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public final class Bond {
 
     private Ui ui;
@@ -19,7 +19,7 @@ public final class Bond {
 
     /**
      * Constructor for the Bond class.
-     * 
+     *
      * @param filePath The file path to the file where the tasks are stored.
      */
     public Bond(String filePath) {
@@ -56,7 +56,7 @@ public final class Bond {
 
     /**
      * Serves as main entry point method to start the Bond task management program.
-     * 
+     *
      * @param args The arguments passed in to the program, not used.
      */
     public static void main(String[] args) {

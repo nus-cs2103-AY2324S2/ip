@@ -1,10 +1,3 @@
-/**
- * The DeleteCommand class is used to encapsulate a delete task
- * command, which is executed upon invoking the execute() method.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.command;
 
 import bond.main.BondException;
@@ -13,13 +6,20 @@ import bond.main.Ui;
 import bond.task.Task;
 import bond.task.TaskList;
 
+/**
+ * The DeleteCommand class is used to encapsulate a delete task
+ * command, which is executed upon invoking the execute() method.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class DeleteCommand extends Command {
 
-    private int index;
+    private final int index;
 
     /**
      * Constructor for the DeleteCommand class.
-     * 
+     *
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the delete task command.
-     * 
+     *
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage.

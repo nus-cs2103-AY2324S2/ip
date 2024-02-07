@@ -1,10 +1,3 @@
-/**
- * The Ui class is used to handle the user interface of the Bond task management
- * program.
- * 
- * @author Benny Loh
- * @version 0.1
- */
 package bond.main;
 
 import java.util.ListIterator;
@@ -13,8 +6,16 @@ import java.util.Scanner;
 import bond.task.Task;
 import bond.task.TaskList;
 
+/**
+ * The Ui class is used to handle the user interface of the Bond task management
+ * program.
+ *
+ * @author Benny Loh
+ * @version 0.1
+ */
 public class Ui {
 
+    private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
 
     /**
@@ -23,8 +24,6 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-
-    private static final String LINE = "____________________________________________________________";
 
     public void showLine() {
         System.out.println(Ui.LINE);
@@ -43,6 +42,9 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows the taskList is empty message.
+     */
     public void showTasklistEmpty() {
         this.showLine();
         System.out.println("\n    There are no tasks in the list.");
@@ -52,7 +54,7 @@ public class Ui {
 
     /**
      * Reads the user input.
-     * 
+     *
      * @return The user input.
      */
     public String readCommand() {
@@ -67,7 +69,7 @@ public class Ui {
 
     /**
      * Shows the message when a task is added.
-     * 
+     *
      * @param newTask  The task that is added.
      * @param taskList The task list that the task is added to.
      */
@@ -82,7 +84,7 @@ public class Ui {
 
     /**
      * Shows the message when a task is deleted.
-     * 
+     *
      * @param deletedTask The task that is deleted.
      * @param taskList    The task list that the task is deleted from.
      */
@@ -97,7 +99,7 @@ public class Ui {
 
     /**
      * Shows the message when a task is marked as done.
-     * 
+     *
      * @param markedTask The task that is marked as done.
      * @param taskList   The task list that the task is marked as done in.
      */
@@ -113,7 +115,7 @@ public class Ui {
 
     /**
      * Shows the message when a task is marked as not done.
-     * 
+     *
      * @param unmarkedTask The task that is marked as not done.
      * @param taskList     The task list that the task is marked as not done in.
      */
@@ -129,7 +131,7 @@ public class Ui {
 
     /**
      * Shows all tasks found.
-     * 
+     *
      * @param taskList The task list containing all tasks found.
      */
     public void showFoundTasks(TaskList taskList) {
@@ -149,7 +151,7 @@ public class Ui {
 
     /**
      * Shows all tasks in the task list.
-     * 
+     *
      * @param taskList The task list to read from.
      */
     public void showList(TaskList taskList) {
@@ -169,7 +171,7 @@ public class Ui {
 
     /**
      * Shows the formatted error message of an exception.
-     * 
+     *
      * @param e The exception to be shown.
      */
     public void showError(Exception e) {
