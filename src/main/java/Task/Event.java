@@ -3,13 +3,14 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 public class Event extends Task{
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private static final String line = "\t______________________________________________________";
     private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    private DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
     public Event(String description, String startTime, String endTime) {
         super(description);
@@ -47,7 +48,7 @@ public class Event extends Task{
     public String getTaskInfo() {
         String start = startTime.format(outputFormat);
         String end = endTime.format(outputFormat);
-        return "[E] " + "/ [" + super.getStatusIcon() + "]/ " + super.getTaskInfo() + "/ " + start
+        return "[E] " + "/ [" + super.getStatusIcon() + "] / " + super.getTaskInfo() + "/ " + start
                 + "/ " + end;
     }
 }

@@ -66,8 +66,4 @@ public class Lemona {
             }
         }
     }
-
-    public static void main(String[] args) {
-        new Lemona("data/lemona.txt").run();
-    }
 }

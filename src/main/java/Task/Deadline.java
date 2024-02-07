@@ -3,13 +3,15 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
+
 import oop.Ui;
 
 public class Deadline extends Task{
     private LocalDateTime dueDate;
     private static final String line = "\t______________________________________________________";
     private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    private DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
     public Deadline(String description, String dueDate) {
         super(description);
