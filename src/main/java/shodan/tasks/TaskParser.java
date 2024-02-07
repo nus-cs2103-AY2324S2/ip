@@ -11,7 +11,19 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.StringJoiner;
 
+/**
+ * This class contains static methods that are responsible for
+ * parsing new tasks entered by the user.
+ */
 public class TaskParser {
+    /**
+     * Parse task.
+     *
+     * @param tokens the input string, split into words
+     * @param type   the type of task to try to parse.
+     * @return a new Task.
+     * @throws ShodanException if any errors occurred during parsing.
+     */
     public static Task parse(List<String> tokens, TaskType type) throws ShodanException {
         Task newTask = null;
         StringJoiner taskName = new StringJoiner(" ");

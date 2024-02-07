@@ -13,12 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This class is responsible for saving and loading
+ * the state of the chatbot.
+ */
 public class StorageManager {
     private String taskSaveLocation;
 
+    /**
+     * Instantiates a new StorageManager. It reads config variables
+     * stored in resources/config.properties to retrieve the paths
+     * for the save directory and the savefile. Additionally, it
+     * automatically creates the save directory in the current path
+     * if it doesn't exist.
+     */
     public StorageManager() {
         ResourceBundle rb = ResourceBundle.getBundle("config");
-        /* Ensure that the shodan.storage folder exists. Otherwise, some file writing operations might fail. */
+        // Ensure that the shodan.storage folder exists. Otherwise,
+        // some file writing operations might fail.
         File dataDir = new File(rb.getString("DATA_DIR_PATH"));
         if (!dataDir.exists()) {
             try {
@@ -30,6 +42,11 @@ public class StorageManager {
         this.taskSaveLocation = rb.getString("TASK_SAVE_PATH");
     }
 
+    /**
+     * Save a list of tasks to the filesystem.
+     *
+     * @param tasks the tasks to save.
+     */
     public void saveTasks(List<Task> tasks) {
         String tasksSerialized = TaskSerializer.serialize(tasks);
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
@@ -39,6 +56,11 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Load the list of tasks from the filesystem.
+     *
+     * @return the list of tasks.
+     */
     public List<Task> loadTasks() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.taskSaveLocation))) {
             return TaskSerializer.parseText(reader.lines());
