@@ -31,6 +31,17 @@ public class Duke {
     }
 
     /**
+     * Default constructor to launch from JavaFX.
+     */
+    public Duke() {
+        this(FILE_NAME);
+    }
+
+    public String getResponse(String input) {
+        return "Duke said: " + input;
+    }
+
+    /**
      * The read-eval-print loop of the program.
      */
     // Solution below adapted from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
@@ -60,7 +71,7 @@ public class Duke {
      * @param args program parameters
      */
     public static void main(String[] args) {
-        Duke duke = new Duke(FILE_NAME);
+        Duke duke = new Duke();
         boolean successful = false;
         try {
             duke.tasks = duke.storage.readTaskList();
