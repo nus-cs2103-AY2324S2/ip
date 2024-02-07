@@ -19,7 +19,6 @@ public final class Nihao {
 
     private final String GREETINGS = "Hello! I'm Nihao.\nI'm lazy and I don't want to do anything for you.";
     private final String GOODBYE = "Hope to never see you again. Goodbye!";
-    private final InputHandler inputHandler = InputHandler.instance;
     private Nihao() {}
 
     public void run() {
@@ -39,7 +38,7 @@ public final class Nihao {
                 }
 
                 try {
-                    Action action = inputHandler.handleInput(input);
+                    Action action = InputHandler.handleInput(input);
                     action.execute();
                 } catch (Exception e) {
                     PrintHandler.printException(e);
@@ -47,7 +46,7 @@ public final class Nihao {
             }
             scanner.close();
 //        } catch (FileNotFoundException e) {
-//            printHandler.printWithDivider("File not found");
+//            PrintHandler.printWithDivider("File not found");
 //        }
     }
 }

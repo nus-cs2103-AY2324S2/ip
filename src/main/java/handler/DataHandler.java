@@ -88,6 +88,10 @@ public class DataHandler {
         tasks.remove(index - 1);
     }
 
+    public static void deleteAll() {
+        tasks = new ArrayList<>();
+    }
+
     public static int size() {
         return tasks.size();
     }

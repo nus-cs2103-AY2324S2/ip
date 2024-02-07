@@ -1,15 +1,19 @@
 package action.task;
 
+import handler.DateTimeHandler;
+
+import java.time.LocalDateTime;
+
 public class EventTask extends Task{
-    private String from;
-    public String getFrom() {
-        return from;
+    private LocalDateTime from;
+    public String getFromString() {
+        return DateTimeHandler.formatOutput(from);
     }
-    private String to;
-    public String getTo() {
-        return to;
+    private LocalDateTime to;
+    public String getToString() {
+        return DateTimeHandler.formatOutput(to);
     }
-    public EventTask(String taskName, String from, String to) {
+    public EventTask(String taskName, LocalDateTime from, LocalDateTime to) {
         super(taskName);
         this.from = from;
         this.to = to;
@@ -18,7 +22,7 @@ public class EventTask extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + from +
-                " to: " + to + ")";
+                " (from: " + getFromString() +
+                " to: " + getToString() + ")";
     }
 }

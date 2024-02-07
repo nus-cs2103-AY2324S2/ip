@@ -13,10 +13,11 @@ import enums.Command;
 import exception.IllegalArgumentException;
 import exception.UnknownCommandException;
 
+import java.time.LocalDateTime;
+
 public class InputHandler {
-    public static final InputHandler instance = new InputHandler();
     private InputHandler() {}
-    public Action handleInput(String input) throws Exception{
+    public static Action handleInput(String input) throws Exception {
         String[] parsedInput = input.split(" ");
         String commandName = parsedInput[0];
         Command command = Command.getEnum(commandName);
@@ -55,7 +56,7 @@ public class InputHandler {
                 throw new IllegalArgumentException("illegal use of /by flag");
             }
             taskName = input.substring(9, flagIndex);
-            String by = input.substring(flagIndex + 5);
+            LocalDateTime by = DateTimeHandler.handleInput(input.substring(flagIndex + 5));
             DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
             return new TaskAction(deadlineTask);
         case EVENT:
@@ -68,8 +69,8 @@ public class InputHandler {
                 throw new IllegalArgumentException("illegal use of flags");
             }
             taskName = input.substring(6, fromIndex);
-            String from = input.substring(fromIndex + 7, toIndex);
-            String to = input.substring(toIndex + 5);
+            LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + 7, toIndex));
+            LocalDateTime to = DateTimeHandler.handleInput(input.substring(toIndex + 5));
             EventTask eventTask = new EventTask(taskName, from, to);
             return new TaskAction(eventTask);
         default:
@@ -77,7 +78,7 @@ public class InputHandler {
         }
     }
 
-    private int countByFlag(String[] parsedInput) {
+    private static int countByFlag(String[] parsedInput) {
         int counter = 0;
         for (int i = 0; i < parsedInput.length; i++) {
             if (parsedInput[i].equals("/by")) {
@@ -87,7 +88,7 @@ public class InputHandler {
         return counter;
     }
 
-    private int countFromFlag(String[] parsedInput) {
+    private static int countFromFlag(String[] parsedInput) {
         int counter = 0;
         for (int i = 0; i < parsedInput.length; i++) {
             if (parsedInput[i].equals("/from")) {
@@ -97,7 +98,7 @@ public class InputHandler {
         return counter;
     }
 
-    private int countToFlag(String[] parsedInput) {
+    private static int countToFlag(String[] parsedInput) {
         int counter = 0;
         for (int i = 0; i < parsedInput.length; i++) {
             if (parsedInput[i].equals("/to")) {
