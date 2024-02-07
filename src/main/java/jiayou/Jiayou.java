@@ -2,7 +2,8 @@ package jiayou;
 
 import jiayou.task.TaskList;
 
-/** Represents a chatbot named Jiayou.
+/**
+ * Represents a chatbot named Jiayou.
  * @author Liu Jiayao
  */
 public class Jiayou {

@@ -1,9 +1,11 @@
 package jiayou;
 
 import java.util.Scanner;
+
 import jiayou.task.TaskList;
 
-/** Represents the user interface for the chatbot.
+/**
+ * Represents the user interface for the chatbot.
  * @author Liu Jiayao
  */
 public class Ui {
@@ -55,7 +57,9 @@ public class Ui {
         while (true) {
             String input = sc.nextLine();
             System.out.println(Ui.LINE);
-            if (input.equals("bye")) { break;}
+            if (input.equals("bye")) {
+                break;
+            }
             if (input.equals("help")) {
                 guide();
                 continue;

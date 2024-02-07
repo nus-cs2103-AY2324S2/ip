@@ -1,15 +1,20 @@
 package jiayou;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.nio.file.*;
-import java.io.*;
-import jiayou.task.TaskList;
-import jiayou.task.Task;
-import jiayou.task.ToDo;
-import jiayou.task.Event;
-import jiayou.task.Deadline;
 
-/** Represents the storage to link the text file with the task list of the chatbot.
+import jiayou.task.Deadline;
+import jiayou.task.Event;
+import jiayou.task.Task;
+import jiayou.task.TaskList;
+import jiayou.task.ToDo;
+
+/**
+ * Represents the storage to link the text file with the task list of the chatbot.
  * @author Liu Jiayao
  */
 public class Storage {
@@ -89,6 +94,8 @@ public class Storage {
         case "D":
             String[] deadlineParts = content.split(" \\| by");
             newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+            break;
+        default:
             break;
         }
 

@@ -1,6 +1,7 @@
 package jiayou;
 
-/** Represents a customized exception for the chatbot jiayou.
+/**
+ * Represents a customized exception for the chatbot jiayou.
  * @author Liu Jiayao
  */
 public class JiayouException extends Exception {

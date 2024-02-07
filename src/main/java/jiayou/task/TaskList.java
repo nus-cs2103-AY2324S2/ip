@@ -2,8 +2,10 @@ package jiayou.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import jiayou.Storage;
+
 import jiayou.JiayouException;
+import jiayou.Storage;
+
 
 /**
  * Represents a task list to store all the tasks of the chatbot.
@@ -34,8 +36,8 @@ public class TaskList {
      * @param task the task to be added.
      */
     public void addTask(Task task) {
-         this.tasks.add(task);
-         updateStorage();
+        this.tasks.add(task);
+        updateStorage();
     }
 
     /**
@@ -47,7 +49,8 @@ public class TaskList {
         try {
             int taskId = Integer.parseInt(input) - 1;
             if (taskId < 0 || taskId >= tasks.size()) {
-                throw new JiayouException("OOPS!!! The task you wanna delete doesn't exist. Please input a valid number!");
+                throw new JiayouException("OOPS!!! The task you wanna delete doesn't exist. "
+                        + "Please input a valid number!");
             }
 
             Task removedTask = tasks.remove(taskId);
@@ -100,7 +103,9 @@ public class TaskList {
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task instanceof Event) {
-                if (date.equals(((Event) task).getFrom()) | date.equals((((Event) task).getTo())) | (date.isAfter((((Event) task).getFrom())) & date.isBefore(((Event) task).getTo()))) {
+                if (date.equals(((Event) task).getFrom())
+                        | date.equals((((Event) task).getTo()))
+                        | (date.isAfter((((Event) task).getFrom())) & date.isBefore(((Event) task).getTo()))) {
                     System.out.println((i + 1) + "." + task.toString());
                 }
             } else if (task instanceof Deadline) {

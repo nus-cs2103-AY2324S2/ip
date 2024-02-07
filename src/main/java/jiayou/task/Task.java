@@ -1,6 +1,7 @@
 package jiayou.task;
 
-/** Represents a task in the task list.
+/**
+ * Represents a task in the task list.
  * @author Liu Jiayao
  */
 public class Task {
