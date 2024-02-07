@@ -22,10 +22,11 @@ public class MarkCommand extends Command {
      * Marks a task as done in the task list and shows the user the marked task.
      * @param tasks Task list to mark the task as done in.
      * @param ui Ui to display the marked task to the user.
+     * @return String to be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task task = tasks.mark(index);
-        ui.showMarkTask(task);
+        return ui.showMarkTask(task);
     }
 }

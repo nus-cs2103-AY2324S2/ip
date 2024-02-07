@@ -22,10 +22,11 @@ public class DeleteCommand extends Command {
      * Deletes a task from the task list and shows the user the deleted task.
      * @param tasks Task list to delete the task from.
      * @param ui Ui to display the deleted task to the user.
+     * @return String to be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task removedTask = tasks.delete(index);
-        ui.showDeleteTask(removedTask, tasks.size());
+        return ui.showDeleteTask(removedTask, tasks.size());
     }
 }

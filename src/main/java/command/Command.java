@@ -7,12 +7,14 @@ import task.TaskList;
  */
 public abstract class Command {
     /**
-     * Executes the command.
+     * Executes the command and returns the result.
      * @param tasks Task list to execute the command on.
      * @param ui Ui to display the result of the command.
+     * @return Result of the command.
      * @throws Exception If an error occurs during the execution of the command.
      */
-    public void execute(TaskList tasks, Ui ui) throws Exception {
+    public String execute(TaskList tasks, Ui ui) throws Exception {
+        return "";
     }
 
     /**

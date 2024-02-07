@@ -8,12 +8,13 @@ import task.TaskList;
 public class ExitCommand extends Command {
     /**
      * Exits the program.
-     * @param tasks Task list to execute the command on.
-     * @param ui Ui to display the result of the command.
+     * @param tasks Task list to exit the program from.
+     * @param ui Ui to display the exit message to the user.
+     * @return Exit message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.sayBye();
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.sayBye();
     }
 
     /**

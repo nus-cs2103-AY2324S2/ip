@@ -26,11 +26,12 @@ public class AddDeadlineCommand extends Command {
      *
      * @param tasks The list of tasks.
      * @param ui The user interface.
+     * @return The response to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
-        ui.showAddTask(deadline, tasks.size());
+        return ui.showAddTask(deadline, tasks.size());
     }
 }

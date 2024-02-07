@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -36,7 +35,7 @@ public class Duke extends Application {
                                 + "| |_| | |_| |   <  __/\n"
                                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static final Ui ui = new Ui();
+    public static final Ui UI = new Ui();
     private TaskList taskList = new TaskList();
     private Storage storage;
 
@@ -49,7 +48,7 @@ public class Duke extends Application {
         try {
             this.storage.loadData(this.taskList);
         } catch (Exception e) {
-            ui.showErrorMessage(e);
+            UI.showErrorMessage(e);
         }
     }
 
@@ -59,28 +58,28 @@ public class Duke extends Application {
      */
     public static void main(String[] args) {
         Duke duke = new Duke();
-        ui.sayGreetings();
+        UI.sayGreetings();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String userInput = ui.readCommand();
+                String userInput = UI.readCommand();
                 Command command = Parser.parseCommand(userInput);
-                command.execute(duke.taskList, ui);
+                command.execute(duke.taskList, UI);
                 isExit = command.isExit();
             } catch (IllegalArgumentException e) {
                 if (e.getMessage().contains("No enum constant Duke.Command.")) {
-                    ui.showErrorMessage(new UnknownCommandException());
+                    UI.showErrorMessage(new UnknownCommandException());
                 } else {
-                    ui.showErrorMessage(e);
+                    UI.showErrorMessage(e);
                 }
             } catch (Exception e) {
-                ui.showErrorMessage(e);
+                UI.showErrorMessage(e);
             }
         }
         try {
             duke.storage.saveData(duke.taskList);
         } catch (Exception e) {
-            ui.showErrorMessage(e);
+            UI.showErrorMessage(e);
         }
     }
 
@@ -148,39 +147,30 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Gets the response from the chat bot.
+     * @param input User input.
+     * @return Response from the chat bot.
      */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.execute(this.taskList, UI);
+        } catch (Exception e) {
+            String output = e.getMessage();
+            return output == null
+                    ? "OOPS!!! I'm sorry, but I don't know what that means :-("
+                    : output;
+        }
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Exits the chat bot.
      */
-    // private void handleUserInput() {
-    //     Label userText = new Label(userInput.getText());
-    //     Label dukeText = new Label(getResponse(userInput.getText()));
-    //     dialogContainer.getChildren().addAll(
-    //             DialogBox.getUserDialog(userText, new ImageView(user)),
-    //             DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-    //     );
-    //     userInput.clear();
-    // }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public void saveData() {
+        try {
+            this.storage.saveData(this.taskList);
+        } catch (Exception e) {
+            UI.showErrorMessage(e);
+        }
     }
 }

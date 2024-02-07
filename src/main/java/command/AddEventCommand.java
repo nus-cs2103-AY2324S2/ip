@@ -27,11 +27,12 @@ public class AddEventCommand extends Command {
      * Adds an event task to the task list and shows the user the added task.
      * @param tasks Task list to add the event task to.
      * @param ui Ui to display the added task to the user.
+     * @return String to be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Event event = new Event(description, start, end);
         tasks.add(event);
-        ui.showAddTask(event, tasks.size());
+        return ui.showAddTask(event, tasks.size());
     }
 }

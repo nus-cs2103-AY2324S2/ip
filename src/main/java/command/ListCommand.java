@@ -8,11 +8,12 @@ import task.TaskList;
 public class ListCommand extends Command {
     /**
      * Lists all tasks in the task list.
-     * @param tasks Task list to list the tasks from.
-     * @param ui Ui to display the tasks to the user.
+     * @param tasks Task list to list all tasks from.
+     * @param ui Ui to display the list of tasks to the user.
+     * @return List of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.showList(tasks.getList());
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.showList(tasks.getList());
     }
 }
