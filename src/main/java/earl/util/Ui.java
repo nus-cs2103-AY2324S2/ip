@@ -8,17 +8,21 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String PADDING = " ".repeat(4);
+    private static final String DIVIDER = "_".repeat(60);
 
     private final Scanner sc;
+
+    private String[] prevResponse;
 
     /** Class constructor. */
     public Ui() {
         sc = new Scanner(System.in);
+        prevResponse = new String[0];
     }
 
     /** Displays horizontal divider. */
     private static void printDivider() {
-        System.out.println(PADDING + "_".repeat(50));
+        System.out.println(PADDING + DIVIDER);
     }
 
     /**
@@ -31,6 +35,7 @@ public class Ui {
      * @param arr  a vararg of strings to print
      */
     public void makeResponse(String... arr) {
+        prevResponse = arr;
         printDivider();
         for (String s : arr) {
             System.out.println(PADDING + s);
@@ -48,5 +53,14 @@ public class Ui {
 
     public void showGoodbye() {
         makeResponse("Goodbye! See you soon.");
+    }
+
+    public String getResponse() {
+        StringBuilder res = new StringBuilder(PADDING + DIVIDER + "\n");
+        for (String line: prevResponse) {
+            res.append(PADDING).append(line).append("\n");
+        }
+        res.append(PADDING).append(DIVIDER).append("\n");
+        return res.toString();
     }
 }

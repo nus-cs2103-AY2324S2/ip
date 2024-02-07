@@ -27,6 +27,7 @@ public class Earl {
         TaskList temp;
         try {
             temp = new TaskList(storage.load());
+            ui.showGreeting();
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
             temp = new TaskList(); // empty list when fail to read
@@ -41,7 +42,6 @@ public class Earl {
      * and goodbye messages. Attempts to save to storage on exit.
      */
     public void run() {
-        ui.showGreeting();
         // main loop
         String input = ui.getUserInput();
         String[] command;
@@ -62,6 +62,27 @@ public class Earl {
             ui.makeResponse(e.getMessage());
         }
         ui.showGoodbye();
+    }
+
+    /** Returns greeting for GUI startup. */
+    public String getResponse() {
+        return ui.getResponse();
+    }
+
+    /** Returns response to interaction with the GUI. */
+    public String getResponse(String input) {
+        try {
+            if (!input.equals("bye")) {
+                String[] command = Parser.parseUserInput(input);
+                HandlerFactory.of(command).handle(tasks, ui);
+            } else {
+                storage.save(tasks.getList());
+                ui.showGoodbye();
+            }
+        } catch (EarlException e) {
+            ui.makeResponse(e.getMessage());
+        }
+        return ui.getResponse();
     }
 
     /**
