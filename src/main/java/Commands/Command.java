@@ -13,5 +13,5 @@ public abstract class Command {
      * @param taskList The TaskList object containing the tasks.
      * @param ui       The Ui object for displaying messages.
      */
-    public abstract void execute(TaskList taskList, Ui ui);
+    public abstract String execute(TaskList taskList, Ui ui);
 }

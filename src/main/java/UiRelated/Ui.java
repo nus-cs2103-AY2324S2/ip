@@ -6,20 +6,23 @@ import java.util.Scanner;
  * The Ui class handles user interactions by displaying messages and getting user input.
  */
 public class Ui {
-    private static final String AVAILABLE_COMMAND = "Now there are 3 ways to add a Task to list "
-                                                  + "(Replace your <task> with your task name:"
+    private static final String AVAILABLE_COMMAND = "Notes: \n"
+                                                  + "-Replace your <task> with your task name\n"
+                                                  + "-mm is minute and MM is month\n\n"
+                                                  + "Now there are 3 ways to add a Task to list"
                                                   + "\n\t1.todo <task>\n\t"
                                                   + "2.deadline <task> by <MM-dd hh:mm am/pm or MM-dd> "
-                                                  + "(where mm is minute and MM is month)"
-                                                  + "\n\t3.event <task>\n\t\t"
-                                                  + "3.1event <task> <mm:hh am/pm> to <mm:hh am/pm> "
-                                                  + "\n\t\t3.2event <task> <MM/dd> <mm:hh am/pm> to <mm:hh am/pm>";
+                                                  + "\n\t3.event <task> followed by \n\t\t"
+                                                  + "3.1 hh:mm am/pm to hh:mm am/pm\n\t\t"
+                                                  + "3.2 MM/dd hh:mm am/pm to hh:mm am/pm\n";
     private static final String AVAILABLE_LIST_OPERATION = "Here is what you can do with the tasks "
                                                          + "once added to the list:"
                                                          + "\n\t 1.mark <the number of task on the list>\n\t "
                                                          + "2.unmark <the number of task on the list>\n\t "
                                                          + "3.remove <the number of task on the list>\n\t "
-                                                         + "4.list (to show the current list)";
+                                                         + "4.list (to show the current list)\n\t"
+                                                         + "5.find <keyword>\n\t"
+                                                         + "6.clearl (to clear the list)";
     @SuppressWarnings("checkstyle:SingleSpaceSeparator")
     private static final String WELCOME_MESSAGE = "HASSNT:\n"
                                                 + "Hello! I'm App.HASSTNT "
@@ -66,33 +69,24 @@ public class Ui {
         System.out.println(errorMessage);
     }
 
-    /**
-     * Displays a message.
-     *
-     * @param s The message to be displayed.
-     */
-    public void display(String s) {
-
-        System.out.println(s);
-    }
 
     /**
      * Gets user input from the console.
      *
      * @return The user input as a trimmed and lowercased string.
      */
-    public String getUserInput() {
-        // Prompt the user to enter input
-        System.out.print("Your input: ");
-        // Read the user input as a line of text
-        return scanner.nextLine().trim().toLowerCase();
+
+    public String showMessages(String input) {
+        return input;
     }
 
     /**
      * Displays available commands and list operations.
      */
-    public void displayCommand() {
+
+    public String displayCommand() {
         System.out.println(AVAILABLE_COMMAND);
         System.out.println(AVAILABLE_LIST_OPERATION);
+        return AVAILABLE_COMMAND + "\n" + AVAILABLE_LIST_OPERATION;
     }
 }

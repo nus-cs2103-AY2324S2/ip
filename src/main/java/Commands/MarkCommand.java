@@ -25,8 +25,8 @@ public class MarkCommand extends Command {
      * @param ui       The Ui object for displaying messages.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         String task = taskList.showMark(index);
-        ui.display("HASSNT:\n" + "Nice! I've marked this task as done: " + task);
+        return ui.showMessages("marked:\n " + task);
     }
 }

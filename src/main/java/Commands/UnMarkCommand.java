@@ -25,8 +25,8 @@ public class UnMarkCommand extends Command {
      * @param ui       The Ui object for displaying messages.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         String task = taskList.showUnmark(index);
-        ui.display("HASSNT:\n" + "Noted. I've removed this task: " + task);
+        return ui.showMessages("removed:\n " + task);
     }
 }

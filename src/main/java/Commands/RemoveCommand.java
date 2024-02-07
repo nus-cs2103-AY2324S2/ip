@@ -25,8 +25,8 @@ public class RemoveCommand extends Command {
      * @param ui       The Ui object for displaying messaages.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         String task = taskList.removeTask(index);
-        ui.display("HASSNT:\n" + "Noted. I've removed this task: " + task);
+        return ui.showMessages("HASSNT\n\n" + "Noted. I've removed this task: " + task);
     }
 }

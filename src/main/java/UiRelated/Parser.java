@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import Commands.AddToListCommand;
+import Commands.ClearListCommand;
 import Commands.Command;
 import Commands.FindCommand;
 import Commands.MarkCommand;
@@ -27,9 +28,8 @@ public class Parser {
      * @param input The user input string to be parsed.
      * @return A Command object representing the parsed input.
      * @throws IllegalArgumentException If the input is empty or does not follow the specific pattern.
-     * @throws DateTimeParseException   If the input has invalid time format.
      */
-    public static Command parseInput(String input) throws IllegalArgumentException, DateTimeParseException {
+    public static Command parseInput(String input) throws IllegalArgumentException {
         input = input.trim();
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Task cannot be empty. Please enter a valid task.");
@@ -41,6 +41,9 @@ public class Parser {
             return commandWithNoIndex(command);
         }
         String possibleIndexOrTask = parts[1].toLowerCase();
+        if (isFindCommand(command)) {
+            return findCommand(possibleIndexOrTask);
+        }
         boolean followedByInteger = isFollowedByInteger(possibleIndexOrTask);
         if (followedByInteger && !command.equals("todo")) {
             int index = Integer.parseInt(possibleIndexOrTask);
@@ -70,14 +73,22 @@ public class Parser {
 
         return s.trim().toLowerCase().equals("bye");
     }
+    private static Command findCommand(String command) {
+        return new FindCommand(command);
+    }
 
     private static Command commandWithNoIndex(String command) {
         switch (command) {
         case "list":
             return new ShowListCommand();
+        case "clearl":
+            return new ClearListCommand();
         default:
-            throw new IllegalArgumentException("Please input valid commands: ");
+            throw new IllegalArgumentException("Please input valid commands. Type --commands for list of commands");
         }
+    }
+    private static boolean isFindCommand(String input) {
+        return input.equals(("find"));
     }
 
     private static Command indexRelatedCommand(String command, int index) {
@@ -89,7 +100,7 @@ public class Parser {
         case "mark":
             return new MarkCommand(index);
         default:
-            throw new IllegalArgumentException("Please input valid commands");
+            throw new IllegalArgumentException("Please input valid commands. Type --commands for list of commands");
         }
     }
 
@@ -98,10 +109,8 @@ public class Parser {
     }
 
     private static Command addCommand(
-            String command, String possibleTask) throws IllegalArgumentException, DateTimeParseException {
+            String command, String possibleTask) throws IllegalArgumentException {
         switch (command) {
-        case "find":
-            return new FindCommand(possibleTask);
         case "todo":
             return new AddToListCommand(new ToDoTask(possibleTask));
         case "deadline":
@@ -110,26 +119,20 @@ public class Parser {
             String pattern2 = "(?i)\\d{2}-\\d{2} \\d{2}:\\d{2} [ap]m";
 
             if (index == -1) {
-                throw new IllegalArgumentException("Invalid deadline format. "
-                                                 + "Please specify the task following by its deadline using "
-                                                 + "'by mm-dd or mm-dd hh:mm am/pm' "
-                                                 + "eg. task1 by 01-14 01:00 pm  or just task1 by 01-14");
+                throw new IllegalArgumentException("Invalid time format for deadline command\n"
+                                                    + "type --commands to see valid format");
             }
             String deadlineInfo = possibleTask.substring(index + 3);
             String taskName = possibleTask.substring(0, index);
             if (!deadlineInfo.trim().matches(pattern1) && !deadlineInfo.trim().matches(pattern2)) {
-                throw new IllegalArgumentException("Invalid deadline format. "
-                                                 + "Please specify the deadline using  these formats: "
-                                                 + "'by mm-dd or mm-dd hh:mm am/pm' "
-                                                 + "eg. task1 by 01-14 01:00 pm  or task1 by 01-14");
+                throw new IllegalArgumentException("Invalid time format for deadline command\n"
+                                                    + " type --commands to see valid format");
             }
             Command c;
             try {
                 c = new AddToListCommand(new DeadLineTask(deadlineInfo, taskName));
             } catch (DateTimeParseException e) {
-                throw new DateTimeParseException("Please input a valid time format in am or pm. "
-                                               + "the given input is invalid: ",
-                                                  e.getParsedString(), e.getErrorIndex());
+                throw new IllegalArgumentException("Please input a valid time format in am or pm.");
             }
             return c;
         case "event":
@@ -146,25 +149,19 @@ public class Parser {
                 taskN = possibleTask.substring(0, posPattern1);
                 eventDetail = possibleTask.substring(posPattern1);
             } else {
-                throw new IllegalArgumentException("Invalid event format."
-                                                 + " Please specify the event using event followed by task name "
-                                                 + "and its time in the following format <hh:mm am/pm to hh:mm am/pm "
-                                                 + "or MM-dd hh:mm am/pm to hh:mm am/pm> "
-                                                 + "eg1. event task1 10:00 am to 12:00 am "
-                                                 + "eg.2 event task1 01-01 10:00 am to 12:00 pm");
+                throw new IllegalArgumentException("Invalid time format for event command\n"
+                                                    + " type --commands to see valid format");
             }
             String[] timingDetails = eventDetail.split("to");
             Command c2;
             try {
                 c2 = new AddToListCommand(new EventTask(timingDetails[0], timingDetails[1], taskN));
             } catch (DateTimeParseException e) {
-                throw new DateTimeParseException("Please input a valid time format in am or pm.",
-                                                  e.getParsedString(),
-                                                  e.getErrorIndex());
+                throw new IllegalArgumentException("Please input a valid time format in am or pm.");
             }
             return c2;
         default:
-            throw new IllegalArgumentException("Please input valid commands");
+            throw new IllegalArgumentException("Please input valid commands. Type --commands for list of commands");
         }
     }
 

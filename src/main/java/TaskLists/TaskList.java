@@ -2,10 +2,8 @@ package TaskLists;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import Tasks.Task;
-
 
 
 /**
@@ -65,7 +63,7 @@ public class TaskList implements Iterable<Task> {
      * @param keyWord the keyword to be found
      * @return A string representation of such tasks.
      */
-    public String find(String keyWord) throws NoSuchElementException {
+    public String find(String keyWord) throws IllegalArgumentException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
         for (Task t : tasks) {
@@ -75,7 +73,7 @@ public class TaskList implements Iterable<Task> {
             }
         }
         if (sb.toString().isEmpty()) {
-            throw new NoSuchElementException("There is no such keyword found in the list");
+            throw new IllegalArgumentException("There is no such keyword found in the list");
         }
         return sb.toString();
     }
@@ -151,5 +149,9 @@ public class TaskList implements Iterable<Task> {
      */
     public Iterator<Task> iterator() {
         return tasks.iterator();
+    }
+
+    public void clearTask() {
+        tasks.clear();
     }
 }

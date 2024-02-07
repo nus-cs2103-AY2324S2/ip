@@ -27,9 +27,8 @@ public class AddToListCommand extends Command {
      * @param ui       The Ui object for displaying messages.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         taskList.addToList(task);
-        ui.display("HASSNT:\n" + "Got it. I've added this task:  " + task);
-        ui.display("\nNow you have " + taskList.size() + " tasks in the list.");
+        return ui.showMessages("added:\n\t " + task.toString());
     }
 }

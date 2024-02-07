@@ -14,12 +14,13 @@ public class ShowListCommand extends Command {
      * @param ui       The Ui object for displaying messages.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) {
+    public String execute(TaskList taskList, Ui ui) {
         String s = taskList.showLists();
         if (s.isEmpty()) {
-            ui.display("HASSNT:\n" + "NO TASKS IN TO DO LIST 🎉");
+            return ui.showMessages("NO TASKS IN TO DO LIST 🎉");
         } else {
-            ui.display(s);
+            return ui.showMessages("Here is the task(s) in your list:\n " + s);
         }
+
     }
 }
