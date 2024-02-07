@@ -15,9 +15,9 @@ public class Parser {
      * Parses the user input of String format and returns an array of Objects based on
      * the command type.
      *
-     * @param input the user input command to be parsed
-     * @return an array of Objects corresponding to the parsed command
-     * @throws DukeException if the input command is invalid or cannot be parsed
+     * @param input The user input command to be parsed.
+     * @return An array of Objects corresponding to the parsed command.
+     * @throws DukeException If the input command is invalid or cannot be parsed.
      */
     public static Object[] parseCommand(String input) throws DukeException {
         if (input.equals("bye")) {

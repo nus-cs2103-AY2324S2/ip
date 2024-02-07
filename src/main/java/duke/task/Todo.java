@@ -2,8 +2,16 @@ package duke.task;
 
 import duke.task.Task;
 
+/**
+ * Represents a Todo task.
+ */
 public class Todo extends Task {
 
+    /**
+     * Constructs a Todo object with the given description.
+     *
+     * @param description The description of the todo task.
+     */
     public Todo(String description) {
         super(description);
     }

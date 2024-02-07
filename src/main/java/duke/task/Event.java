@@ -3,6 +3,9 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task {
 
     protected LocalDate fromDate;
@@ -10,6 +13,15 @@ public class Event extends Task {
     protected LocalDate toDate;
     protected String toTime;
 
+    /**
+     * Constructs a Deadline object with the given description and deadline date.
+     *
+     * @param description The description of the event task.
+     * @param fromDate The start date of the event task.
+     * @param fromTime The time at which the event task starts,
+     * @param toDate The end date of the event task.
+     * @param toTime The time at which the event task ends.
+     */
     public Event(String description, LocalDate fromDate, String fromTime, LocalDate toDate, String toTime) {
         super(description);
         this.fromDate = fromDate;

@@ -1,21 +1,37 @@
 package duke.task;
 
-import duke.task.Task;
-
+/**
+ * Represents a list of tasks in the Duke application.
+ */
 public class TaskList {
     private Task[] tasks;
     private int counter;
 
+    /**
+     * Constructs a TaskList object with an initial capacity of 100 tasks.
+     * Initializes the counter to 0.
+     */
     public TaskList() {
         tasks = new Task[100]; // Or any initial size you prefer
         counter = 0;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to be added
+     */
     public void addTask(Task task) {
         tasks[counter] = task;
         counter++;
     }
 
+    /**
+     * Deletes a task from the task list based on its task number.
+     *
+     * @param taskNumber The task number of the task to be deleted.
+     * @throws IllegalArgumentException If the task number is invalid.
+     */
     public void deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > counter) {
             throw new IllegalArgumentException("Invalid task number");
@@ -28,6 +44,12 @@ public class TaskList {
         counter--;
     }
 
+    /**
+     * Marks a task as done based on its task number.
+     *
+     * @param taskNumber The task number of the task to be marked as done.
+     * @throws IllegalArgumentException If the task number is invalid.
+     */
     public void markTaskAsDone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > counter) {
             throw new IllegalArgumentException("Invalid task number");
@@ -36,10 +58,20 @@ public class TaskList {
         tasks[taskNumber].markAsDone( );
     }
 
+    /**
+     * Retrieves tasks stored in the task list.
+     *
+     * @return An array of tasks.
+     */
     public Task[] getTasks() {
         return tasks;
     }
 
+    /**
+     * Retrieves the current count of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
     public int getCounter() {
         return counter;
     }

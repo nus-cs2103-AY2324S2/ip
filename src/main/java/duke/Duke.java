@@ -14,17 +14,28 @@ import java.util.Scanner;
 
 import java.time.LocalDate;
 
+/**
+ * Represents the main Duke application class responsible for running the program.
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList();
     }
 
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
 
         storage.getFileContents(tasks);
@@ -119,6 +130,11 @@ public class Duke {
         storage.writeToFile(tasks);
     }
 
+    /**
+     * The entry point for running the Duke application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./tasks.txt").run();
     }

@@ -24,7 +24,7 @@ public class Storage {
      * Retrieves the tasks from previous runs stored in the file, before parsing, creating and
      * adding these tasks to tasks.
      *
-     * @param tasks the array to add created tasks to
+     * @param tasks The array to add created tasks to.
      */
     public void getFileContents(TaskList tasks) {
         try {
@@ -91,7 +91,7 @@ public class Storage {
     /**
      * Writes to the file in the hard disk the list of tasks to store before the program terminates.
      *
-     * @param tasks the list of tasks to store
+     * @param tasks The list of tasks to store.
      */
     public void writeToFile(TaskList tasks) {
         try {
