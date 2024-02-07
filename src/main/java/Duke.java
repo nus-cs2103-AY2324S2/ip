@@ -1,19 +1,38 @@
 import java.util.Scanner;
 
-public class Duke {
-    public static void main(String[] args) {
-        BotManager manager = new BotManager("./data", "duke.txt", "Jerry");
-        Scanner sc = new Scanner(System.in);
-        manager.greeting();
-        while (true) {
-            String prompt = sc.nextLine();
-            if (prompt.equals("bye")) {
-                break;
-            } else {
-                manager.answer(prompt);
+class Duke {
+    private final Ui ui;
+    private final Storage storage;
+    private final TaskList taskList;
+
+    Duke(String name, String fileFolder, String fileName) throws DukeException {
+        ui = new Ui(name);
+        storage = new Storage(fileFolder, fileName);
+        taskList = new TaskList(storage.load());
+    }
+
+    void run() {
+        boolean isDone = false;
+        ui.greeting();
+        while (!isDone) {
+            try {
+                String prompt = ui.readCommand();
+                Command command = Parser.parse(prompt);
+                command.execute(storage, taskList);
+                ui.separatePrompt();
+                isDone = command.isExit();
+            } catch (DukeException e) {
+                System.out.println(e);
+                ui.separatePrompt();
             }
         }
-        manager.exit();
-        sc.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            new Duke("Jerry", "./data", "duke.txt").run();
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
     }
 }
