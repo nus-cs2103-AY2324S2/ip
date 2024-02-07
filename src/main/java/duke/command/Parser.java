@@ -40,6 +40,7 @@ public class Parser {
         String taskDesc = parts[0].trim();
         String deadline = parts[1].trim();
 
+        // if there was no task description or deadline specified, throw exception
         if (taskDesc.isEmpty() || deadline.isEmpty()) {
             throw new DukeException("UH OH! Description and deadline cannot be empty!");
         }
@@ -56,6 +57,7 @@ public class Parser {
         String taskDesc = parts[0].trim();
         String[] timeParts = parts[1].split("/to");
 
+        // if format the to/from dates were not keyed in properly, throw exception
         if (timeParts.length != 2) {
             throw new DukeException("UH OH! Invalid format for event task!");
         }
@@ -63,15 +65,18 @@ public class Parser {
         String from = timeParts[0].trim();
         String to = timeParts[1].trim();
 
+        // if there was no task description or to/from dates specified, throw exception
         if (taskDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new DukeException("UH OH! Description/start time/end time cannot be empty!");
         }
 
+        // retrieve date and time for "from"
         String[] fromParts = from.split(" ", 2);
         String fDate = fromParts[0].trim();
         LocalDate fromDate = LocalDate.parse(fDate);
         String fromTime = fromParts[1].trim();
 
+        // retrieve date and time for "to"
         String[] toParts = to.split(" ", 2);
         String tDate = toParts[0].trim();
         LocalDate toDate = LocalDate.parse(tDate);
