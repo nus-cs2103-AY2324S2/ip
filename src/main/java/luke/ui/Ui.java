@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package luke.ui;
+
+import luke.task.Task;
+import luke.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +13,7 @@ public class Ui {
     }
     public void welcome() {
         System.out.println("________________________________________________________________________");
-        System.out.println("Hello! I'm Luke");
+        System.out.println("Hello! I'm Luke.Luke");
         System.out.println("What can I do for you?");
         System.out.println("________________________________________________________________________");
 
@@ -42,7 +46,7 @@ public class Ui {
 
     public void printTaskMarked(Task task) {
         String status = "";
-        if (task.isDone) {
+        if (task.getIsDone()) {
             status = "done:";
         } else {
             status = "not done yet:";

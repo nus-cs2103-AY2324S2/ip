@@ -1,5 +1,10 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package luke;
+
+import luke.exception.FileException;
+import luke.exception.LukeException;
+import luke.parser.Parser;
+import luke.task.TaskList;
+import luke.ui.Ui;
 
 public class Luke {
     private Storage storage;
@@ -42,10 +47,6 @@ public class Luke {
 
     public static void main(String[] args) throws LukeException {
         new Luke(FILE_PATH).run();
-        ArrayList<Task> list = new ArrayList<>();
-        Ui ui = new Ui();
-        Storage storage = new Storage(FILE_PATH);
-
 
     }
 }
