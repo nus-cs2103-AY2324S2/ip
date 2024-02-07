@@ -64,8 +64,6 @@ public class TaskList {
      */
     public void addTask(Task newTask) {
         this.taskList.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask.toString());
     }
 
     /**
@@ -103,5 +101,48 @@ public class TaskList {
         }
         TaskList foundTasks = new TaskList(arr);
         return foundTasks;
+    }
+
+    /**
+     * Converts the list of tasks into a string.
+     * @return The list of tasks in string form.
+     */
+    public String listToString() {
+        if (taskList.isEmpty()) {
+            return "Your task list is empty.";
+        } else {
+            String s = "Here are the tasks in your list\n";
+            for (int i = 0; i < this.taskList.size(); i++) {
+                s = s + (i + 1) + ". " + this.taskList.get(i).toString() + "\n";
+            }
+            return s;
+        }
+    }
+
+    /**
+     * Converts the list of found tasks into a string.
+     * @param keyword The keyword that is being filtered.
+     * @return The list of found tasks in string form.
+     */
+    public String findToString(String keyword) {
+        TaskList foundTasks = find(keyword);
+        if (foundTasks.isEmpty()) {
+            return "You have no matching tasks.";
+        } else {
+            String s = "Here are the matching tasks in your list:\n";
+            for (int i = 0; i < foundTasks.length(); i++) {
+                s = s + (i + 1) + ". " + foundTasks.getTask(i).toString() + "\n";
+            }
+            return s;
+        }
+    }
+
+    /**
+     * Converts the number of tasks in the list into a string.
+     * @return The number of tasks in string form.
+     */
+    public String numTaskToString() {
+        String s = String.format("Now you have %d task(s) in the list", this.taskList.size());
+        return s;
     }
 }

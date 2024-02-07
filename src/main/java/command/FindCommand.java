@@ -3,7 +3,7 @@ package command;
 import exceptions.DukeException;
 import task.TaskList;
 import utilities.Storage;
-import utilities.Ui;
+import ui.Ui;
 
 /**
  * Controls what to do when user wants to find keyword.
@@ -28,10 +28,11 @@ public class FindCommand extends Command {
      * @param taskList The task list that the task is filtered from.
      * @param storage The storage that the task list is stored in.
      * @param ui Provides corresponding user output based on whether the process is successful or not.
+     * @return The response expected from the chatbot.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         TaskList foundTasks = taskList.find(this.keyword);
-        ui.showFoundTasks(foundTasks);
+        return taskList.findToString(this.keyword);
     }
 }

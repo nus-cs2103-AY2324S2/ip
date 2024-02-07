@@ -10,7 +10,7 @@ import command.Command;
 import exceptions.DukeException;
 
 import utilities.Parser;
-import utilities.Ui;
+import ui.Ui;
 import utilities.Storage;
 
 
