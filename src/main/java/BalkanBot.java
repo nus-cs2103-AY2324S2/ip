@@ -22,7 +22,9 @@ public class BalkanBot {
 
     public static void main(String[] args) {
         String line = "------------------------------------------";
-        Task[] listOfInputs = new Task[100];
+        Task[] listOfTasks = new Task[100];
+        SaveAndLoad.load(listOfTasks);
+
         int current = 0;
         String state = "Now you have " + current + 1 + " tasks in the list.";
 
@@ -33,20 +35,23 @@ public class BalkanBot {
         System.out.println(line);
 
 
+
+
         while (true) {
             String command = input.nextLine();
             if (command.equals("bye")) {
                 System.out.println(line);
                 System.out.println("Јебаћу ти бабицу");
                 System.out.println(line);
+                SaveAndLoad.save(listOfTasks);
                 break;
             } else if (command.equals("list")) {
                 StringBuilder listOutput = new StringBuilder();
-                for (int i = 0; i < listOfInputs.length; i++) {
-                    if (listOfInputs[i] == null) {
+                for (int i = 0; i < listOfTasks.length; i++) {
+                    if (listOfTasks[i] == null) {
                         break;
                     } else {
-                        listOutput.append(i + 1).append(". ").append(listOfInputs[i].toString())
+                        listOutput.append(i + 1).append(". ").append(listOfTasks[i].toString())
                                 .append("\n");
                     }
                 }
@@ -65,9 +70,9 @@ public class BalkanBot {
                         } else {
                             try {
                                 int index = Integer.parseInt(brokenCommand[1]) - 1;
-                                listOfInputs[index].mark();
+                                listOfTasks[index].mark();
                                 System.out.println("Dje si pizda materina! I've marked this task as done:" + "\n" +
-                                        listOfInputs[index].toString());
+                                        listOfTasks[index].toString());
                             } catch (NumberFormatException e) {
                                 System.out.println("OOPS!!! The input after the mark command has to be an integer.");
                             }
@@ -80,9 +85,9 @@ public class BalkanBot {
                         } else {
                             try {
                                 int index = Integer.parseInt(brokenCommand[1]) - 1;
-                                listOfInputs[index].unmark();
+                                listOfTasks[index].unmark();
                                 System.out.println("Baga-mi-as pula, it's been undone" + "\n" +
-                                        listOfInputs[index].toString());
+                                        listOfTasks[index].toString());
                             } catch (NumberFormatException e) {
                                 System.out.println("OOPS!!! The input after the unmark command has to be an integer.");
                             }
@@ -92,9 +97,9 @@ public class BalkanBot {
                     case "todo": {
                         String taskDescription = String.join(" ", details);
                         try {
-                            listOfInputs[current] = new ToDo(taskDescription);
+                            listOfTasks[current] = new ToDo(taskDescription);
                             current++;
-                            printComplexTask(listOfInputs, current);
+                            printComplexTask(listOfTasks, current);
                             break;
                         } catch (InvalidInputException e) {
                             System.out.println(e);
@@ -107,7 +112,7 @@ public class BalkanBot {
                         boolean foundDeadline = false;
                         for (String currentString : details) {
                             if (foundDeadline) {
-                                deadline.append(currentString).append(" ");
+                                deadline.append(currentString);
                             } else if (currentString.equals("/by")) {
                                 foundDeadline = true;
                             } else {
@@ -115,9 +120,9 @@ public class BalkanBot {
                             }
                         }
                         try {
-                            listOfInputs[current] = new Deadline(taskDescription.toString(), deadline.toString());
+                            listOfTasks[current] = new Deadline(taskDescription.toString(), deadline.toString());
                             current++;
-                            printComplexTask(listOfInputs, current);
+                            printComplexTask(listOfTasks, current);
                             break;
                         } catch (InvalidInputException e) {
                             System.out.println(e);
@@ -132,7 +137,7 @@ public class BalkanBot {
                         boolean foundTo = false;
                         for (String currentString : details) {
                             if (foundTo) {
-                                to.append(currentString).append(" ");
+                                to.append(currentString);
                             } else if (foundFrom) {
                                 if (currentString.equals("/to")) {
                                     foundTo = true;
@@ -146,9 +151,9 @@ public class BalkanBot {
                             }
                         }
                         try {
-                            listOfInputs[current] = new Event(taskDescription.toString(), from.toString(), to.toString());
+                            listOfTasks[current] = new Event(taskDescription.toString(), from.toString(), to.toString());
                             current++;
-                            printComplexTask(listOfInputs, current);
+                            printComplexTask(listOfTasks, current);
                             break;
                         } catch (InvalidInputException e) {
                             System.out.println(e);
@@ -162,8 +167,8 @@ public class BalkanBot {
                             try {
                                 Task deletedTask = null;
                                 int index = Integer.parseInt(brokenCommand[1]) - 1;
-                                for (int i = 0; i < listOfInputs.length; i++) {
-                                    Task currentTask = listOfInputs[i];
+                                for (int i = 0; i < listOfTasks.length; i++) {
+                                    Task currentTask = listOfTasks[i];
                                     if (currentTask == null) {
                                         if (i <= index) {
                                             throw new ArrayIndexOutOfBoundsException();
@@ -173,7 +178,7 @@ public class BalkanBot {
                                         if (i == index) {
                                             deletedTask = currentTask;
                                         }
-                                        listOfInputs[i] = listOfInputs[i + 1];
+                                        listOfTasks[i] = listOfTasks[i + 1];
                                     }
                                 }
                                 current--;
