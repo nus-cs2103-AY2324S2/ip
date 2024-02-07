@@ -50,4 +50,8 @@ public class Task {
 
         return null;
     }
+
+    public boolean isMatchingDescription(String match) {
+        return this.description.contains(match);
+    }
 }
