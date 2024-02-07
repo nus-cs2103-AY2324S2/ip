@@ -43,10 +43,10 @@ public class TaskList {
      *
      * @param number The index of the task to be marked.
      */
-    public void markTask(int number) {
+    public String markTask(int number) {
         this.tasks.get(number).mark();
-        System.out.println("      " + this.tasks.get(number).toString());
         saveToFile();
+        return "      " + this.tasks.get(number).toString();
     }
 
     /**
@@ -54,10 +54,10 @@ public class TaskList {
      *
      * @param number The index of the task to be unmarked.
      */
-    public void unMarkTask(int number) {
+    public String unMarkTask(int number) {
         this.tasks.get(number).unMark();
-        System.out.println("      " + this.tasks.get(number).toString());
         saveToFile();
+        return "      " + this.tasks.get(number).toString();
     }
 
     /**
@@ -65,10 +65,13 @@ public class TaskList {
      *
      * @param number The index of the task to be removed.
      */
-    public void remove(int number) {
-        System.out.println("      " + this.tasks.get(number).toString());
+    public String remove(int number) {
+
+        String toPrint = "      " + this.tasks.get(number).toString();
         this.tasks.remove(number);
         saveToFile();
+
+        return toPrint;
     }
 
     /**
@@ -107,11 +110,9 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(lines).append("\n");
         for (int i = 1; i <= tasks.size(); i++) {
             result.append(String.format("    %d.", i)).append(this.tasks.get(i - 1).toString()).append("\n");
         }
-        result.append(lines);
         return result.toString();
     }
 

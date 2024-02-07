@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import duke.parser.Parser;
 import duke.parser.Token;
-import duke.ui.UI;
+import duke.responses.Responses;
 
 
 /**
@@ -38,11 +38,11 @@ public class Storage {
 
                     taskList.loadFromSave(output.getTask());
                 } catch (Exception e) {
-                    UI.error(e.getMessage());
+                    Responses.error(e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
-            UI.error("No save file");
+            Responses.error("No save file");
         }
     }
 
@@ -57,7 +57,7 @@ public class Storage {
             fw.write(input);
             fw.close();
         } catch (IOException e) {
-            UI.error("Missing save file");
+            Responses.error("Missing save file");
         }
     }
 }
