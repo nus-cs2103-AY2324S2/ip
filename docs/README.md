@@ -1,23 +1,23 @@
-# Duke User Guide
+# Woody User Guide
 
-// Update the title above to match the actual product name
+![img.png](woody_screenshot.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+Woody frees your mind of having to remember things you need to do. It helps you
+track tasks such as events, deadlines and todos - All in one place!
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+What if you want a reminder to start using Woody? Add a deadline!
 
-// Give examples of usage
+For example: `deadline start using woody /by 11-11-2024`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+This will produce the following printout to confirm that the task is successfully added
 
 ```
-expected output
+    Got it. I've added this task:
+        [D][ ] start using woody (by: Nov 11 2024)
+    Now you have 8 tasks in the list.
+_________________________________________________________________________
 ```
 
 ## Feature ABC

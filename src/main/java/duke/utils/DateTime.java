@@ -12,8 +12,8 @@ public class DateTime {
     private final static String PRINT_DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
     private final static String PRINT_DATE_FORMAT = "MMM dd yyyy";
 
-    private static DateTimeFormatterBuilder acceptedDateTimeFormats
-            = new DateTimeFormatterBuilder().append(
+    private static DateTimeFormatterBuilder acceptedDateTimeFormats =
+            new DateTimeFormatterBuilder().append(
                     DateTimeFormatter.ofPattern("[dd/MM/yyyy HHmm]"
                             + "[yyyy/MM/dd HHmm]" + "[dd-MM-yyyy HHmm]"
                             + "[yyyy-MM-dd HHmm]" + "[MMM dd yyyy HHmm]"
