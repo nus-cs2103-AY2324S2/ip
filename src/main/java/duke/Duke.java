@@ -4,12 +4,19 @@ import duke.command.Command;
 
 import java.io.IOException;
 
+/**
+ * Class Duke that is the main class that helps to run the program
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates an instance of Duke which contains Storage, Tasklist and UI
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +28,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Helps to run the Duke program
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

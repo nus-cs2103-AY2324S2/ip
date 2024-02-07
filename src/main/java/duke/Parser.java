@@ -2,8 +2,18 @@ package duke;
 
 import duke.command.*;
 
-public class Parser {
+/**
+ * The class Parser deals with understanding and recording the user command.
+ */
 
+public class Parser {
+    /**
+     * Returns Command that is sorted by the function
+     *
+     * @param fullCommand full command by the user in String
+     * @return Command
+     * @throws NoCmdException
+     */
     public static Command parse(String fullCommand) throws NoCmdException {
         String [] uCmd = fullCommand.split(" ", 2);
         if (uCmd.length < 2) {
@@ -32,3 +42,6 @@ public class Parser {
 
     }
 }
+
+
+

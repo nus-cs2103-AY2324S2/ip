@@ -10,14 +10,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class deals with loading tasks from saved file and
+ * saving tasks in the file after the job is done.
+ */
 public class Storage {
 
     public File store;
 
+    /**
+     * The constructor that creates an instance of Storage class.
+     * @param filePath where the file is located and the file where the tasks will be saved
+     */
     public Storage(String filePath) {
         this.store = new File(filePath);
     }
 
+    /**
+     * Loads the tasks saved in the file into the tasklist once the program start running.
+     * @return Arraylist<Task>
+     * @throws IOException
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> task = new ArrayList<Task>();
 
@@ -103,6 +116,10 @@ public class Storage {
 
     }
 
+    /**
+     * Saves the tasks in Tasklist in the file before the program ends.
+     * @param tasks
+     */
     public void save(TaskList tasks) {
         try {
             FileWriter data = new FileWriter("./data/list.txt");
