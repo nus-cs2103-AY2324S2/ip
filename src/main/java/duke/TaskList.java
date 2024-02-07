@@ -2,32 +2,79 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Used to store and manage the list of tasks.
+ */
 public class TaskList {
+<<<<<<< HEAD
     private String horzLine = "____________________________________________________________";
+=======
+    static String horzLine = "____________________________________________________________";
+
+    /**
+     * Helper function that prints a horizontal line above and below the given message.
+     *
+     * @param message The message to be printed.
+     */
+    static void printWithLines(String message) {
+        System.out.println(horzLine);
+        System.out.println(message);
+        System.out.println(horzLine);
+    }
+>>>>>>> branch-A-JavaDoc
     private ArrayList<Task> taskList = new ArrayList<>(100);
 
+    /**
+     * Loads given ArrayList of tasks into the tasklist.
+     *
+     * @param taskList List of tasks.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
+<<<<<<< HEAD
     private void printWithLines(String message) {
         System.out.println(horzLine);
         System.out.println(message);
         System.out.println(horzLine);
     }
 
+=======
+    /**
+     * Returns task based on index.
+     *
+     * @param i index of the given task.
+     * @return Specified task.
+     */
+>>>>>>> branch-A-JavaDoc
     public Task get(int i) {
         return taskList.get(i);
     }
 
+    /**
+     * Gets the TaskList.
+     *
+     * @return the TaskList as an ArrayList.
+     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
+    /**
+     * Retrieves the current size of the task list.
+     *
+     * @return Size of the task list.
+     */
     public int size() {
         return taskList.size();
     }
 
+    /**
+     * Adds given task into the task list like a stack.
+     *
+     * @param newTask Task that will be inserted into the TaskList.
+     */
     public void addTask(Task newTask) {
         taskList.add(newTask);
         printWithLines("Got it. I've added this task:\n   " + newTask.toString()
@@ -35,6 +82,12 @@ public class TaskList {
                 + "in the list.");
     }
 
+    /**
+     * Removes the specified task from the TaskList.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws DukeException If TaskList is empty, or the index is invalid.
+     */
     public void delete(int index) throws DukeException {
         if (taskList.size() == 0) {
             throw new DukeException("Nothing is in the list yet");

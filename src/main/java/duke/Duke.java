@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The main class that contains functions involved with running the chatbot.
+ */
 public class Duke {
 
     private static String horzLine = "____________________________________________________________";
@@ -16,11 +19,25 @@ public class Duke {
             + "\nBye. Hope to see you again soon!\n"
             + horzLine;
 
+    /**
+     * Helper function that prints a horizontal line above and below the given message.
+     *
+     * @param message The message to be printed.
+     */
+    private static void printWithLines(String message) {
+        System.out.println(horzLine);
+        System.out.println(message);
+        System.out.println(horzLine);
+    }
+
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Initializes the instance variables of the Duke class.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -28,12 +45,9 @@ public class Duke {
         parser = new Parser();
     }
 
-    public static void printWithLines(String message) {
-        System.out.println(horzLine);
-        System.out.println(message);
-        System.out.println(horzLine);
-    }
-
+    /**
+     * Main code for the running of the Duke chatbot.
+     */
     public void run() {
         System.out.println(greetingMessage);
 
@@ -147,6 +161,9 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
+    /**
+     * Lists out each task in the TaskList 'tasks'.
+     */
     public void list() {
         if (tasks.size() == 0) {
             printWithLines("There's nothing in your list so far");
@@ -172,7 +189,6 @@ public class Duke {
 
         if (tasks.size() == 0) {
             printWithLines("There's nothing in your list so far");
-            return;
         } else if (matches.size() == 0) {
             printWithLines("There's nothing in your list that matches your search");
             return;
@@ -187,9 +203,13 @@ public class Duke {
         System.out.println(horzLine);
     }
 
+    /**
+     * Marks the indicated task as done.
+     * @param index The task number displayed by the list.
+     * @throws DukeException If 0 < index < tasks.size().
+     */
     public void markDone(int index) throws DukeException {
         if (tasks.size() == 0) {
-            throw new DukeException("Nothing is in the list yet");
         }
         if (index < 1 || index > tasks.size()) {
             throw new DukeException("Please enter a number between 1 and " + tasks.size());
@@ -198,6 +218,11 @@ public class Duke {
         printWithLines("Nice! I've marked this task as done:\n  " + tasks.get(index - 1).toString());
     }
 
+    /**
+     * Marks the indicated task as not done.
+     * @param index The task number displayed by the list.
+     * @throws DukeException If 0 < index < tasks.size().
+     */
     public void markNotDone(int index) throws DukeException {
         if (tasks.size() == 0) {
             throw new DukeException("Nothing is in the list yet");
