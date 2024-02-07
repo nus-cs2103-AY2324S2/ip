@@ -9,13 +9,13 @@ public class taskTest {
     @Test
     public void testMarkDoneAndUndone() {
         Task task = new Task("Task");
-        assertFalse(task.isDone); // Task starts as not done
+        assertFalse(task.isDone);
 
         task.markDone();
-        assertTrue(task.isDone); // Task marked as done
+        assertTrue(task.isDone);
 
         task.markUndone();
-        assertFalse(task.isDone); // Task marked as undone again
+        assertFalse(task.isDone);
     }
 
     @Test
@@ -24,6 +24,4 @@ public class taskTest {
         assertEquals("Go for a run", task.description);
         assertFalse(task.isDone);
     }
-
-
 }
