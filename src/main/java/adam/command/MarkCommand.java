@@ -1,9 +1,9 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 /**
  * @inheritDoc
@@ -26,10 +26,11 @@ public class MarkCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
         String t = tasks.mark(this.taskNumber);
-        ui.showResult("Nice, I've marked this task as done:");
-        ui.showResult(t);
+        return  ui.showResult(
+                "Nice, I've marked this task as done:",
+                t);
     }
 
     /**

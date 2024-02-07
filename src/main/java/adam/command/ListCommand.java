@@ -1,10 +1,12 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.Task;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.Task;
+import adam.task.TaskList;
+import adam.ui.Ui;
+
+import java.util.ArrayList;
 
 /**
  * @inheritDoc
@@ -22,10 +24,13 @@ public class ListCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
-        for (Task t: tasks.getTasks()) {
-            ui.showResult(t.toString());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
+        ArrayList<String> taskStrings = new ArrayList<>();
+        taskStrings.add("Here are your tasks:");
+        for (Task t : tasks.getTasks()) {
+            taskStrings.add(t.toString());
         }
+        return ui.showResult(taskStrings.toArray(new String[0]));
     }
 
     /**

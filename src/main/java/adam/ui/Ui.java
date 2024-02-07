@@ -1,4 +1,4 @@
-package ada.ui;
+package adam.ui;
 
 import java.util.Scanner;
 
@@ -6,22 +6,25 @@ public class Ui {
     private Scanner scanner = new Scanner(System.in);
     public Ui() {
     }
-    public void showWelcome() {
-        System.out.println(
-                "Hello! I'm Ada\n" +
-                "What can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Adam\n" +
+                "What can I do for you?";
     }
     public String readCommand() {
         return scanner.nextLine();
     }
-    public void showResult(String result) {
-        System.out.println(result);
+    public String showResult(String... lines) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String line : lines) {
+            stringBuilder.append(line).append("\n");
+        }
+        return stringBuilder.toString();
     }
-    public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 }

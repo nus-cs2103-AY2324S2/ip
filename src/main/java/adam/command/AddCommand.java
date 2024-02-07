@@ -1,13 +1,13 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.Deadline;
-import ada.task.Event;
-import ada.task.Task;
-import ada.task.TaskList;
-import ada.task.Todo;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.Deadline;
+import adam.task.Event;
+import adam.task.Task;
+import adam.task.TaskList;
+import adam.task.Todo;
+import adam.ui.Ui;
 
 /**
  * @inheritDoc
@@ -37,7 +37,7 @@ public class AddCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
         Task t = null;
         switch (this.command) {
         case "todo":
@@ -53,10 +53,10 @@ public class AddCommand extends Command {
             tasks.add(t);
             break;
         }
-        ui.showResult("Got it. I've added this task:");
-        ui.showResult(t.toString());
-        ui.showResult("Now you have " + tasks.size() + " task(s) in the list.");
-
+        return ui.showResult(
+                "Got it. I've added this task:",
+                t.toString(),
+                "Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     /**

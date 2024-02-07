@@ -1,4 +1,4 @@
-package ada.task;
+package adam.task;
 
 /**
  * Represents a task to be stored in the list of tasks.

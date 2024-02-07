@@ -1,9 +1,9 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 /**
  * @inheritDoc
@@ -26,11 +26,12 @@ public class DeleteCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException {
         String t = tasks.delete(this.taskNumber);
-        ui.showResult("Ok, I've removed this task:");
-        ui.showResult(t);
-        ui.showResult("Now you have " + tasks.size() + " task(s) in the list.");
+        return ui.showResult(
+                "Ok, I've removed this task:",
+                t,
+                "Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     /**

@@ -1,9 +1,9 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 /**
  * Represents a command to be executed by the program.
@@ -15,9 +15,9 @@ abstract public class Command {
      * @param tasks Current TaskList of program.
      * @param ui Ui used by the program.
      * @param storage Storage used by the program.
-     * @throws AdaException If command cannot be executed.
+     * @throws AdamException If command cannot be executed.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws AdamException;
 
     /**
      * Returns true if the command executed exits the program.
