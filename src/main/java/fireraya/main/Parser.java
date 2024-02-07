@@ -78,7 +78,7 @@ public class Parser {
 
                 if (isDateCheck(deadline)) {
                     Date d = parseDate(deadline);
-                    System.out.println("Is Date!");
+                    //System.out.println("Is Date!");
                     return new DeadlineCommand(description, d);
 
                 }
