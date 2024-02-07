@@ -1,8 +1,25 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Luke {
+    private static final String FILE_PATH = "./src/main/data/luke.txt";
+
     public static void main(String[] args) throws LukeException {
+        ArrayList<Task> list = new ArrayList<>();
+        LukeIO lukeIO = new LukeIO(FILE_PATH);
+
+        try {
+            list = lukeIO.readTask();
+
+        } catch (FileException e) {
+            System.out.println("________________________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("________________________________________________________________________");
+        }
+
         // Greetings
         System.out.println("________________________________________________________________________");
         System.out.println("Hello! I'm Luke");
@@ -12,7 +29,7 @@ public class Luke {
         // User inputs
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
+
 
         // Conditions
         while (!input.equals("bye")) {
@@ -69,9 +86,16 @@ public class Luke {
                             throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
                         }
 
+                        lukeIO.writeTask(list);
+
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
                         throw new LukeException("Hold up!! Please enter a valid index after "
                                 + input.split(" ")[0] + ".");
+                    } catch (FileException e) {
+                        System.out.println("________________________________________________________________________");
+                        System.out.println("Sorry! There was an error editing the file! :'(");
+                        e.printStackTrace();
+                        System.out.println("________________________________________________________________________");
                     }
 
 
@@ -109,6 +133,8 @@ public class Luke {
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(removedTask);
 
+                        lukeIO.writeTask(list);
+
                         if (list.size() <= 1) {
                             System.out.println("Now you have " + list.size() + " task in the list.");
                         } else {
@@ -117,6 +143,11 @@ public class Luke {
                         System.out.println("________________________________________________________________________");
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
                         throw new LukeException("Hold up!! Please enter a valid index after delete.");
+                    } catch (FileException e) {
+                        System.out.println("________________________________________________________________________");
+                        System.out.println("Sorry! There was an error editing the file! :'(");
+                        e.printStackTrace();
+                        System.out.println("________________________________________________________________________");
                     }
 
                 } catch (LukeException e) {
@@ -177,6 +208,8 @@ public class Luke {
 
                     }
 
+                    lukeIO.writeTask(list);
+
                     System.out.println("________________________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + list.get(list.size() - 1));
@@ -189,6 +222,11 @@ public class Luke {
                 } catch (LukeException | TaskException e) {
                     System.out.println("________________________________________________________________________");
                     System.out.println(e.getMessage());
+                    System.out.println("________________________________________________________________________");
+                } catch (FileException e) {
+                    System.out.println("________________________________________________________________________");
+                    System.out.println("Sorry! There was an error editing the file! :'(");
+                    e.printStackTrace();
                     System.out.println("________________________________________________________________________");
                 }
             }
