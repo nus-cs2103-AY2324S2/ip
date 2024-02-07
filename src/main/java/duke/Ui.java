@@ -44,7 +44,7 @@ public class Ui {
 
     public void showTaskAdded(Task task, int size) {
         printBreak();
-        System.out.println("Got it. I've added this Duke.task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
         printBreak();
@@ -52,7 +52,7 @@ public class Ui {
 
     public void showTaskDeleted(Task task, int size) {
         printBreak();
-        System.out.println("Noted. I've removed this Duke.task:");
+        System.out.println("Noted. I've removed this task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
         printBreak();

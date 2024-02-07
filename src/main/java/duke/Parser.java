@@ -46,7 +46,7 @@ public class Parser {
     }
 
     public static void parseDeadline(String input, TaskList tasks, Ui ui) {
-        String[] split = input.split(" /by ", 2);
+        String[] split = input.split(" /by ");
         try {
             if (split.length < 2) {
                 throw new DukeException("Here's the format I require: deadline [name] /by [yyyy-mm-dd]");
