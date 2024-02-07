@@ -1,5 +1,6 @@
-import task.Task;
+package duke;
 
+import duke.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
@@ -29,21 +30,21 @@ public class Ui {
 
     public void showTaskDone(Task task) {
         printBreak();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this Duke.task as done:");
         System.out.println(task);
         printBreak();
     }
 
     public void showTaskUndone(Task task) {
         printBreak();
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("OK, I've marked this Duke.task as not done yet:");
         System.out.println(task);
         printBreak();
     }
 
     public void showTaskAdded(Task task, int size) {
         printBreak();
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this Duke.task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
         printBreak();
@@ -51,7 +52,7 @@ public class Ui {
 
     public void showTaskDeleted(Task task, int size) {
         printBreak();
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I've removed this Duke.task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
         printBreak();
