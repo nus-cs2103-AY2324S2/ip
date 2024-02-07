@@ -7,9 +7,9 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
-    public final Scanner in;
+    public final Scanner IN;
 
-    private final PrintStream out;
+    private final PrintStream OUT;
 
     private static final String LINE = "_________________________________________________________";
 
@@ -27,13 +27,13 @@ public class Ui {
     }
 
     public Ui(InputStream in, PrintStream out) {
-        this.in = new Scanner(in);
-        this.out = out;
+        this.IN = new Scanner(in);
+        this.OUT = out;
     }
 
 
     public String readCommand() {
-        String userCmd = in.nextLine();
+        String userCmd = IN.nextLine();
         return userCmd;
     }
 

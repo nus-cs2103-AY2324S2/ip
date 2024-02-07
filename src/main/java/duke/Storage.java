@@ -1,8 +1,5 @@
 package duke;
 
-import duke.Deadline;
-import duke.Events;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
