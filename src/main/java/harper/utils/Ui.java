@@ -1,10 +1,9 @@
 package harper.utils;
 
-import harper.exceptions.HarperException;
-
-import harper.tasks.Task;
-
 import java.util.Scanner;
+
+import harper.exceptions.HarperException;
+import harper.tasks.Task;
 
 /**
  * The Ui class interacts with user. It read user's input and show different messages to user.

@@ -1,10 +1,9 @@
 package harper.commands;
 
 import harper.tasks.Task;
-
+import harper.utils.Storage;
 import harper.utils.TaskList;
 import harper.utils.Ui;
-import harper.utils.Storage;
 
 /**
  * Represents an add command.
@@ -12,6 +11,7 @@ import harper.utils.Storage;
 public class AddCommand extends Command {
     private Task task;
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public AddCommand(Task task) {
         super(false);
         this.task = task;

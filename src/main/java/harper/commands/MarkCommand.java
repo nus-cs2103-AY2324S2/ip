@@ -1,10 +1,9 @@
 package harper.commands;
 
+import harper.tasks.Task;
+import harper.utils.Storage;
 import harper.utils.TaskList;
 import harper.utils.Ui;
-import harper.utils.Storage;
-
-import harper.tasks.Task;
 
 /**
  * Represents a mark or unmark command.
@@ -13,6 +12,7 @@ public class MarkCommand extends Command {
     private int taskIndex;
     private boolean isMarked;
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public MarkCommand(int taskIndex, boolean isMarked) {
         super(false);
         this.taskIndex = taskIndex;

@@ -1,21 +1,25 @@
 package harper.utils;
 
-import harper.commands.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-import harper.exceptions.HarperInvalidEventException;
-import harper.exceptions.HarperInvalidDeadlineException;
-import harper.exceptions.HarperInvalidIndexException;
-import harper.exceptions.HarperInvalidDateTimeException;
+import harper.commands.AddCommand;
+import harper.commands.Command;
+import harper.commands.DeleteCommand;
+import harper.commands.ExitCommand;
+import harper.commands.FindCommand;
+import harper.commands.ListCommand;
+import harper.commands.MarkCommand;
 import harper.exceptions.HarperInvalidCommandException;
-
+import harper.exceptions.HarperInvalidDateTimeException;
+import harper.exceptions.HarperInvalidDeadlineException;
+import harper.exceptions.HarperInvalidEventException;
+import harper.exceptions.HarperInvalidIndexException;
 import harper.tasks.Deadline;
 import harper.tasks.Event;
 import harper.tasks.Task;
 import harper.tasks.ToDo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is responsible for interpreting user's into corresponding command.

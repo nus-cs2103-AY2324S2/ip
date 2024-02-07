@@ -1,35 +1,33 @@
 package harper.utils;
 
-import harper.exceptions.HarperFileCreatingException;
-import harper.exceptions.HarperFileLoadingException;
-import harper.exceptions.HarperFileStoringException;
-
-import harper.tasks.Deadline;
-import harper.tasks.Event;
-import harper.tasks.Task;
-import harper.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import harper.exceptions.HarperFileCreatingException;
+import harper.exceptions.HarperFileLoadingException;
+import harper.exceptions.HarperFileStoringException;
+import harper.tasks.Deadline;
+import harper.tasks.Event;
+import harper.tasks.Task;
+import harper.tasks.ToDo;
 
 /**
  * The Storage class handles all interactions with the hard disk, including loading from
  * and storing into hard disk.
  */
 public class Storage {
-    private File file;
-    private static final String PROJECT_DIR = System.getProperty("user.dir");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy H:mm");
+    private static final String PROJECT_DIR = System.getProperty("user.dir");
+    private File file;
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public Storage(String folderName, String fileName) {
         File folder = new File(PROJECT_DIR, folderName);
         try {
@@ -61,7 +59,7 @@ public class Storage {
                 boolean isDone;
                 if (taskString[1].equals("1")) {
                     isDone = true;
-                } else if(taskString[1].equals("0")) {
+                } else if (taskString[1].equals("0")) {
                     isDone = false;
                 } else {
                     throw new HarperFileLoadingException();

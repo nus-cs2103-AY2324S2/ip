@@ -10,6 +10,7 @@ import harper.utils.Ui;
 public class FindCommand extends Command {
     private String keyword;
 
+    //CHECKSTYLE.OFF: MissingJavadocMethod
     public FindCommand(String keyword) {
         super(false);
         this.keyword = keyword;
