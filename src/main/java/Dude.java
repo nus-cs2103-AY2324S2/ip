@@ -43,6 +43,9 @@ public class  Dude {
                 case "todo":
                     System.out.println(handle_todo_command(msg));
                     break;
+                case "event":
+                    System.out.println(handle_event_command(msg));
+                    break;
                 default:
                     System.out.println("\t-----------------------------------\n" +
                             "\tI'm sorry, but I don't know what\n\tthat means :-(\n" +
@@ -126,6 +129,15 @@ public class  Dude {
     private static String handle_todo_command(String msg){
         try{
             Todo task = Todo.from(msg);
+            return taskList.add_task(task);
+        }catch (IllegalArgumentException | TaskListFullException e) {
+            return echo(e.getMessage());
+        }
+    }
+
+    private static String handle_event_command(String msg){
+        try{
+            Event task = Event.from(msg);
             return taskList.add_task(task);
         }catch (IllegalArgumentException | TaskListFullException e) {
             return echo(e.getMessage());

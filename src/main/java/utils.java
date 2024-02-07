@@ -15,5 +15,23 @@ public class utils {
         }
     }
 
+    public static int countOccurrences(String[] array, String target) {
+        int count = 0;
+        for (String str : array) {
+            if (str.equals(target)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int findIndex(String[] array, String target) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(target)) {
+                return i; // Return the index if the target string is found
+            }
+        }
+        return -1; // Return -1 if the target string is not found in the array
+    }
 
 }
