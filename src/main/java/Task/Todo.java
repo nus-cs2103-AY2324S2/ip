@@ -27,7 +27,6 @@ public class Todo extends Task{
         return str;
     }
 
-
     @Override
     public String getTaskInfo() {
         return "[T] " + "/ [" + super.getStatusIcon()

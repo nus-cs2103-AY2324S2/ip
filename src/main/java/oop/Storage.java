@@ -3,11 +3,14 @@ package oop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import task.Task;
 import task.Todo;
 import task.Deadline;
@@ -19,7 +22,7 @@ import task.Event;
  */
 public class Storage {
     private static String filePath;
-    private static final String line = "\t______________________________________________________";
+    private static final String LINE = "\t______________________________________________________";
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -92,12 +95,12 @@ public class Storage {
                 }
             }
         } catch (DateTimeParseException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("\t I think you haven't had enough vitamin C."
                     + "\n\t Your time format should be :"
                     + "\n\t\t { dd/MM/yyyy HHmm }"
                     + "\n\t I suggest you take some LEMONA.");
-            System.out.println(line);
+            System.out.println(LINE);
         }
         return tasks;
     }
@@ -144,7 +147,7 @@ public class Storage {
             System.out.println("\t Sorry, I think I haven't had enough vitamin C."
                     + "\n\t I am unable to save tasks into the file."
                     + "\n\t I will need to go have some LEMONA.");
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 }

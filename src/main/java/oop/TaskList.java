@@ -1,7 +1,9 @@
 package oop;
 
 import java.util.ArrayList;
+
 import task.Task;
+
 import exceptions.DuplicateInstructionException;
 import exceptions.OutOfIndexException;
 
@@ -11,8 +13,8 @@ import exceptions.OutOfIndexException;
  * TaskList manages the tasks, such as adding, marking, unmarking, and deleting tasks.
  */
 public class TaskList {
-    public ArrayList<Task> tasks;
-    public static final String line = "\t______________________________________________________";
+    private ArrayList<Task> tasks;
+    private static final String LINE = "\t______________________________________________________";
 
     /**
      * Constructs a TaskList with the specified list of tasks.
@@ -39,7 +41,6 @@ public class TaskList {
         return tasks.size();
     }
 
-
     public Task get(int index) {
         return tasks.get(index);
     }
@@ -58,18 +59,18 @@ public class TaskList {
                 throw new DuplicateInstructionException();
             }
             tasks.get(index - 1).markAsDone();
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("\t Nice! I've marked this task as done:" + "\n\t\t" +
                     tasks.get(index - 1).print());
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (OutOfIndexException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString(tasks.size()));
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (DuplicateInstructionException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString("mark"));
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 
@@ -87,18 +88,18 @@ public class TaskList {
                 throw new DuplicateInstructionException();
             }
             tasks.get(index - 1).unmarkAsDone();
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("\t OK, I've marked this task as not done yet:" + "\n\t\t" +
                     tasks.get(index - 1).print());
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (OutOfIndexException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString(tasks.size()));
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (DuplicateInstructionException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString("unmark"));
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 
@@ -113,16 +114,16 @@ public class TaskList {
             if (tasks.size() < index || index < 1) {
                 throw new OutOfIndexException();
             }
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("\t OK, I've removed this task:" + "\n\t\t" +
                     tasks.get(index - 1).print());
             tasks.remove(index - 1);
             System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (OutOfIndexException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString(tasks.size()));
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 
@@ -140,15 +141,15 @@ public class TaskList {
                 }
             }
             tasks.add(task);
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("\t Got it. I've added this task:");
             System.out.print("\t   " + task.print());
             System.out.println("\n\t Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (DuplicateInstructionException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString(""));
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 }

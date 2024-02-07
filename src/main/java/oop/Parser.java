@@ -1,6 +1,7 @@
 package oop;
 
 import java.util.Arrays;
+
 import exceptions.MissingIndexException;
 import exceptions.MissingDescriptionException;
 
@@ -9,7 +10,7 @@ import exceptions.MissingDescriptionException;
  * Parser parses the user input into meaningful parts for further processing.
  */
 public class Parser {
-    private static final String line = "\t______________________________________________________";
+    private static final String LINE = "\t______________________________________________________";
 
     /**
      * Trims the input string and splits it into parts.
@@ -82,21 +83,21 @@ public class Parser {
             default:
                 if (!parts[0].equals("list") && !parts[0].equals("bye") && !parts[0].equals("mark")
                         && !parts[0].equals("unmark") && !parts[0].equals("delete")) {
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("\t I think you haven't had enough vitamin C." +
                             "\n\t I can't understand what you want me to do!" +
                             "\n\t I suggest you take some LEMONA.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 }
             }
         } catch (MissingDescriptionException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString(parts[0]));
-            System.out.println(line);
+            System.out.println(LINE);
         } catch (MissingIndexException e) {
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println(e.toString(parts[0]));
-            System.out.println(line);
+            System.out.println(LINE);
         }
         return parts;
     }
