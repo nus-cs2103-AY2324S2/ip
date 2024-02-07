@@ -13,25 +13,26 @@ public class Parser {
      * @param inputCommand User input from terminal.
      * @param tasklist Current TaskList.
      */
-    public static void parse(String inputCommand, TaskList tasklist) {
+    public static String parse(String inputCommand, TaskList tasklist) {
+        String result= "";
         if (inputCommand.equals("list")) {
-            tasklist.listDownTask();
+            result = tasklist.listDownTask();
         } else if (inputCommand.startsWith("mark")) {
             char pos = inputCommand.charAt(5);
             int index = Integer.parseInt(String.valueOf(pos));
-            tasklist.markTask(index);
+            result = tasklist.markTask(index);
         } else if (inputCommand.startsWith("unmark")) {
             char pos = inputCommand.charAt(7);
             int index = Integer.parseInt(String.valueOf(pos));
-            tasklist.unmarkTask(index);
+            result = tasklist.unmarkTask(index);
         } else if (inputCommand.startsWith("todo")) {
             try {
                 String des = inputCommand.substring(5);
                 Task todo = new Todo(des);
-                tasklist.addTask(todo);
+                result = tasklist.addTask(todo);
             } catch (StringIndexOutOfBoundsException e) {
                 DukeException error = new DukeException(e);
-                System.out.println(error);
+                result = error.toString();
             }
         } else if (inputCommand.startsWith("deadline")) {
             String[] separate = inputCommand.substring(9).split("\\|");
@@ -39,23 +40,25 @@ public class Parser {
                 separate[i] = separate[i].trim();
             }
             Task deadline = new Deadline(separate[0], separate[1]);
-            tasklist.addTask(deadline);
+            result = tasklist.addTask(deadline);
         } else if (inputCommand.startsWith("event")) {
             String[] separate = inputCommand.substring(6).split("\\|");
             for (int i = 0; i < separate.length; i++) {
                 separate[i] = separate[i].trim();
             }
             Task event = new Event(separate[0], separate[1]);
-            tasklist.addTask(event);
+            result = tasklist.addTask(event);
         } else if (inputCommand.startsWith("delete")) {
             char pos = inputCommand.charAt(7);
             int index = Integer.parseInt(String.valueOf(pos));
-            tasklist.deleteTask(index);
+            result = tasklist.deleteTask(index);
         } else if (inputCommand.startsWith("find")) {
             String keyword = inputCommand.substring(5);
-            tasklist.findTask(keyword);
+            result = tasklist.findTask(keyword);
         } else {
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            result = "OOPS!!! I'm sorry, but I don't know what that means :-(";
         }
+
+        return result;
     }
 }
