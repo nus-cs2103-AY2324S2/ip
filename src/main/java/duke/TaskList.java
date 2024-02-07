@@ -1,9 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 
+import duke.task.Task;
 /**
  * The TaskList class represents a list of tasks in the Duke chatbot.
  */
@@ -120,5 +119,4 @@ public class TaskList {
             System.out.println("    " + listIdx + currTask);
         }
     }
-
 }
