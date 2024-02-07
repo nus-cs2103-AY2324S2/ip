@@ -88,7 +88,8 @@ public class Parser {
 
                     String[] event = command[1].split("/to | /from");
                     if (event.length < 3) {
-                        throw new DukeException();
+                        throw new DukeException("This event is the highlight of the social \"calen-darling.\"" +
+                                "\r\nGot all the details?");
                     }
 
                     Task task = taskList.addEvent(event[0].strip(), event[1].strip(), event[2].strip());
