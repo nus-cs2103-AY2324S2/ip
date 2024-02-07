@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * Task class
+ * Task class handles the tasks of the application
  */
 public class Task {
     protected String task;

@@ -1,6 +1,9 @@
 package duke;
 import java.util.ArrayList;
 
+/** 
+ * TaskList class contains the task list
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private Ui ui;
@@ -218,6 +221,26 @@ public class TaskList {
             ui.printInvalidTaskIndex();
         }
     }    
+
+    /**
+     * Find tasks that contain keyword
+     */
+    public void findTasks(String keyword) {
+        int count = 0;
+        for (Task task : this.taskList) {
+            if (task.toString().contains(keyword)) {
+                if (count == 0) {
+                    System.out.println("\t" + "Here are the matching tasks in your list:");
+                }
+                count++;
+                System.out.println("\t" + count + ". " + task);
+            }
+        }
+        if (count == 0) {
+            System.out.println("\t" + "No matching tasks found :(");
+        }
+        ui.printLine();
+    }
 
     /** 
      * Prints taskList

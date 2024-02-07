@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 
+/**
+ * Storage class deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
 
     private static final String FOLDER_PATH = "./tasklist";

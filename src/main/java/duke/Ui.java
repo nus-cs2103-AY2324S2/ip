@@ -1,6 +1,10 @@
 package duke;
 import java.util.Scanner;
 
+/**
+ * Ui class handles the user interactions of the application
+ */
+
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
@@ -75,5 +79,12 @@ public class Ui {
      */
     public void printInvalidTaskIndex() {
         System.out.println("\t" + "Oops, that wasn't a valid task index :P");
+    }
+
+    /**
+     * Invalid keyword message
+     */
+    public void printInvalidKeyword() {
+        System.out.println("\t" + "No tasks match that keyword :(");
     }
 }

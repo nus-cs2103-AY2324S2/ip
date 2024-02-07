@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Events class
+ * Events class handles the events tasks of the application
  */
 public class Events extends Task {
     protected LocalDate fromDate;

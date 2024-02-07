@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * This class is responsible for making sense of the user input
+ * Parser class deals with making sense of the user command
  */
 public class Parser {
     private Ui ui;
@@ -44,7 +44,14 @@ public class Parser {
             } catch (NumberFormatException e) {
                 ui.printInvalidTaskIndex();
             }
-        } else {
+        } else if (input.startsWith("find")) { // tasks that contain keyword
+            try {
+                String keyword = input.substring(5).trim();
+                taskList.findTasks(keyword);
+            } catch (StringIndexOutOfBoundsException e) {
+                ui.printInvalidKeyword();
+            }
+        } else { 
             taskList.addTask(input);
         }
         return true;

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Deadline class
+ * Deadline class handles the deadline tasks of the application
  */
 public class Deadline extends Task {
     protected LocalDate byDate;
