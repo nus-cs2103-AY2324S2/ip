@@ -1,4 +1,5 @@
 Hello! I'm Jojo :)
+Here are the tasks in your list:
 What can I do for you?
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -8,29 +9,29 @@ Now you have 1 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Got it. I've added this task:
-[D][ ] do assignment (by: Sunday 2359)
+[D][ ] deadline do assignment (by: Dec 02 2025 23:59)
 Now you have 2 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Got it. I've added this task:
-[E][ ] meeting (from: Tues 5pm to: 8pm)
+[E][ ] event meeting (from: Tues 5pm to: 8pm)
 Now you have 3 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] iron clothes
-2. [D][ ] do assignment (by: Sunday 2359)
-3. [E][ ] meeting (from: Tues 5pm to: 8pm)
+2. [D][ ] deadline do assignment (by: Dec 02 2025 23:59)
+3. [E][ ] event meeting (from: Tues 5pm to: 8pm)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Nice! I've marked this task as done:
-[D][X] do assignment (by: Sunday 2359)
+[D][X] deadline do assignment (by: Dec 02 2025 23:59)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] iron clothes
-2. [D][X] do assignment (by: Sunday 2359)
-3. [E][ ] meeting (from: Tues 5pm to: 8pm)
+2. [D][X] deadline do assignment (by: Dec 02 2025 23:59)
+3. [E][ ] event meeting (from: Tues 5pm to: 8pm)
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Sorry, but this task is unknown to me. Please try again using any of the following keywords: 'todo', 'deadline' or 'event'.
@@ -40,7 +41,7 @@ Hmm...the task description seems empty, please add some description :')
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 Noted. I've removed this task:
-[E][ ] meeting (from: Tues 5pm to: 8pm)
+[E][ ] event meeting (from: Tues 5pm to: 8pm)
 Now you have 2 tasks in the list.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------

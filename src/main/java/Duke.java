@@ -2,6 +2,8 @@ import exceptions.DukeException;
 import exceptions.DukeTaskNoDescException;
 import exceptions.DukeUnknownTaskException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,10 +40,15 @@ public class Duke {
             if (test.strip().equals("")) {
                 throw new DukeTaskNoDescException();
             } else {
-                int splitIdx = userTxt.lastIndexOf("/");
-                String desc = userTxt.substring(9, splitIdx - 1);
-                String by = userTxt.substring(splitIdx + 3);
-                Task t = new Deadline(desc, by);
+                String[] splitStr = userTxt.split(" /by ");
+                String desc = splitStr[0];
+                String unformattedBy = splitStr[1];
+                String reformattedBy = unformattedBy.replace("/", "-");
+                String[] splitDateTime = reformattedBy.split(" ");
+                String formattedTime = splitDateTime[1].replaceAll("(\\d{2})(\\d{2})", "$1:$2");
+                String formattedDeadline = splitDateTime[0] + " " + formattedTime;
+                LocalDateTime formattedBy = LocalDateTime.parse(formattedDeadline, DateTimeFormatter.ofPattern("d-M-uuuu HH:mm"));
+                Task t = new Deadline(desc, formattedBy);
                 listArr.add(t); // add task to list
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t);
@@ -58,11 +65,11 @@ public class Duke {
             if (test.strip().equals("")) {
                 throw new DukeTaskNoDescException();
             } else {
-                int frmIdx = userTxt.lastIndexOf(" /from");
-                int toIdx = userTxt.lastIndexOf("/to");
-                String desc = userTxt.substring(6, frmIdx);
-                String frm = userTxt.substring(frmIdx + 6, toIdx);
-                String to = userTxt.substring(toIdx + 3);
+                String[] splitStr = userTxt.split(" /from ");
+                String[] splitStr2 = splitStr[1].split(" /to ");
+                String desc = splitStr[0];
+                String frm = splitStr2[0];
+                String to = splitStr2[1];
                 Task t = new Event(desc, frm, to);
                 listArr.add(t); // add task to list
                 System.out.println("Got it. I've added this task:");
@@ -74,17 +81,26 @@ public class Duke {
         }
     }
 
-    public static void deleteTask(ArrayList<Task> listArr, int taskNum) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(listArr.get(taskNum));
-        listArr.remove(taskNum);
-        System.out.println("Now you have " + listArr.size() + " tasks in the list.");
+    public static void deleteTask(ArrayList<Task> listArr, int taskNum) throws DukeException{
+        try {
+            if (taskNum >= listArr.size()) {
+                throw new DukeException("Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3");
+            } else {
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(listArr.get(taskNum));
+                listArr.remove(taskNum);
+                System.out.println("Now you have " + listArr.size() + " tasks in the list.");
+            }
+        } catch (DukeException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     public static void main(String[] args) throws DukeException{
         System.out.println("Hello! I'm Jojo :)");
         System.out.println("Here are the tasks in your list:");
-        Save save = new Save("src/main/java/duke.txt");
+        Save save = new Save("duke.txt");
         save.printList();
         ArrayList<Task> listArr = save.setList();
         System.out.println("What can I do for you?");
@@ -110,12 +126,8 @@ public class Duke {
                     System.out.println("Hmm...seems like the task to unmark does not exist. To unmark a task, input the keyword followed by the task's no. in the list. E.g.: unmark 3");
                 }
             } else if (userTxt.startsWith("delete")) {
-                try {
-                    int taskNum = Integer.parseInt(userTxt.substring(7)) - 1;
-                    deleteTask(listArr, taskNum);
-                } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-                    System.out.println("Hmm...seems like the task to delete does not exist. To delete a task, input the keyword followed by the task's no. in the list. E.g.: delete 3");
-                }
+                int taskNum = Integer.parseInt(userTxt.substring(7)) - 1;
+                deleteTask(listArr, taskNum);
             } else if (userTxt.startsWith("todo")) {
                 createTodo(userTxt, listArr);
             } else if (userTxt.startsWith("deadline")) {
