@@ -124,16 +124,16 @@ public class MainApp extends Application{
      */
 
     /** Functions Status
-     *
+     * 7/9 complete
      * LIST           WORKING
      * MARK           WORKING
      * UNMARK         WORKING
-     * TODO
-     * DEADLINE
-     * EVENT
+     * TODO           WORKING
+     * DEADLINE       WORKING
+     * EVENT          WORKING
      * DELETE         WORKING
-     * FIND;
-     *
+     * FIND
+     * BYE
      *
      */
     private void handleUserInput() {
@@ -145,16 +145,7 @@ public class MainApp extends Application{
 //        );
 //        userInput.clear();
         String input = userInput.getText();
-//        if (!input.isEmpty()) {
-//            String response = duke.runCommand(input); // Use Duke to process the command and get the response
-//            // Now display the response in your GUI
-//            Label dukeResponse = getDialogLabel(response); // You might adjust getDialogLabel for better formatting
-//            dialogContainer.getChildren().add(dukeResponse);
-//            userInput.clear(); // Clear the input field after processing
-//        }
-//
-//
-//        String input = userInput.getText();
+
         if (!input.isEmpty()) {
             // Display user input with user image
             Label userText = new Label(input);

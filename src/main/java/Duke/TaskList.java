@@ -18,7 +18,7 @@ public class TaskList {
         loadTasksFromFile();
     }
     enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, BYE;
         static CommandType getCommandType(String command) {
             try {
                 return valueOf(command.toUpperCase());
@@ -224,18 +224,20 @@ public class TaskList {
                 response = "Marked as not done: " + taskToUnmark.toString();
                 break;
             case TODO:
-            case DEADLINE:
-            case EVENT:
-                // Handle adding tasks similarly, generate response string
-                Task newTask = parser.parseTask(input); // Assuming this method can directly handle the full input string
-                if (newTask != null) {
-                    taskList.add(newTask);
-                    storage.saveTaskToFile(newTask); // Save the new task
-                    response = "Added task: " + newTask.toString();
-                } else {
-                    response = "Error adding task.";
+                if (commandParts.length < 2) {
+                    return "Error: Missing TODO description.";
                 }
-                break;
+                return handleAddTask(commandParts[1], TaskType.TODO);
+            case DEADLINE:
+                if (commandParts.length < 2 || !commandParts[1].contains("/by")) {
+                    return "Error: Missing DEADLINE description or /by part.";
+                }
+                return handleAddTask(commandParts[1], TaskType.DEADLINE);
+            case EVENT:
+                if (commandParts.length < 2 || !commandParts[1].contains("/to")) {
+                    return "Error: Missing EVENT description or /at part.";
+                }
+                return handleAddTask(commandParts[1], TaskType.EVENT);
             case DELETE:
                 // Parse index for deletion and update response
                 int deleteIndex = Integer.parseInt(commandParts[1]) - 1;
@@ -244,13 +246,49 @@ public class TaskList {
                 response = "Deleted task: " + taskToDelete.toString();
                 break;
             // Implement other cases as needed
+            case BYE:
+                return "Bye. Hope to see you again soon!";
             default:
-                response = "Unknown command.";
+                response = "OH NO I'm not sure what that command is. You may use the commands, " +
+                        "todo, deadline, list, event, delete, mark, unmark and bye";
                 break;
             }
         } catch (Exception e) {
             response = "Error processing command: " + e.getMessage();
         }
         return response;
+    }
+
+    private String handleAddTask(String details, TaskType type) {
+        Task newTask = null;
+        switch (type) {
+        case TODO:
+            newTask = new Todo(details);
+            break;
+        case DEADLINE:
+            String[] parts = details.split(" /by ", 2);
+            if (parts.length < 2) return "Error: Incorrect DEADLINE format.";
+            newTask = new Deadline(parts[0], parts[1]);
+            break;
+        case EVENT:
+            String[] eventParts = details.split(" /from ", 2);
+            if (eventParts.length < 2 || !eventParts[1].contains(" /to ")) {
+                return "Error: Incorrect EVENT format. Use '/from [start date/time] /to [end date/time]'.";
+            }
+            String[] fromToParts = eventParts[1].split(" /to ", 2);
+            if (fromToParts.length < 2) return "Error: Missing EVENT end date/time.";
+            newTask = new Event(eventParts[0], fromToParts[0], fromToParts[1]);
+            break;
+        }
+        if (newTask == null) {
+            return "Error creating task.";
+        }
+        taskList.add(newTask);
+        storage.saveTaskToFile(newTask); // Assumes this method handles individual task saving
+        return "Added: " + newTask;
+    }
+
+    enum TaskType {
+        TODO, DEADLINE, EVENT
     }
 }
