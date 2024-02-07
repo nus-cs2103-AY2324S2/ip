@@ -10,13 +10,28 @@ import yippee.commands.ListCommand;
 import yippee.commands.MarkCommand;
 import yippee.exceptions.InvalidCommandException;
 
+/**
+ * Represents element to parse and unpack user command inputs.
+ */
 public class Parser {
+    /** All valid task command names */
     private static final List<String> VALID_TASKS = new ArrayList<>(List.of("todo", "deadline", "event"));
     private Ui ui;
+
+    /**
+     * Instantiates parser instance.
+     * Creates and assigns new ui instance to local variable.
+     */
     public Parser() {
         this.ui = new Ui();
     }
 
+    /**
+     * Parses given command and instantiates corresponding command type.
+     * @param command String representation of command from user.
+     * @return Command object instantiated based on user input.
+     * @throws InvalidCommandException If user input format is invalid.
+     */
     public Command parseCommand(String command) throws InvalidCommandException {
         String[] split = command.split("\\s+", 2);
         String commandName = split[0].toLowerCase().trim();
