@@ -15,7 +15,4 @@ public class Ui {
         System.out.println(text);
     }
 
-    public void printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
 }

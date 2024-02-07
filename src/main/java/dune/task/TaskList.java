@@ -1,9 +1,5 @@
 package dune.task;
 
-import dune.task.Deadline;
-import dune.task.Event;
-import dune.task.Task;
-import dune.task.ToDo;
 import dune.Storage;
 import dune.DuneException;
 
@@ -31,7 +27,7 @@ public class TaskList {
      *
      * @param string The string to search for.
      */
-    public void find(String string) {
+    public String find(String string) {
         List<Task> found = new ArrayList<>();
         for (Task t : this.tasks) {
             if (t.getDescription().contains(string)) {
@@ -39,12 +35,14 @@ public class TaskList {
             }
         }
         if (found.size() == 0) {
-            System.out.println("No tasks found with that description");
+            return "No tasks found with that description\n";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < found.size(); i++) {
-                System.out.println(i + 1 + "." + found.get(i));
+                sb.append(i + 1 + "." + found.get(i));
             }
+            return sb.toString();
         }
     }
 
@@ -64,7 +62,7 @@ public class TaskList {
      * @param text  Description of task.
      * @param storage  Storage object to save tasks.
      */
-    public void addTask(int i, String text, Storage storage) {
+    public String addTask(int i, String text, Storage storage) {
         Task x = null;
         if (i == 0) {
             x = new ToDo(text.trim());
@@ -80,15 +78,13 @@ public class TaskList {
                     x = new Deadline(parts[0].trim(), parts[1].trim());
                 } catch (DateTimeParseException d) {
                     if (d.getMessage().equals(before)) {
-                        System.out.println(before);
+                        return before;
                     } else {
-                        System.out.println("Enter date in the format yyyy-mm-ddTHH:MM");
+                        return "Enter date in the format yyyy-mm-ddTHH:MM";
                     }
-                    return;
                 }
             } catch (DuneException d) {
-                System.out.println(d);
-                return;
+                return d.toString();
             }
 
         } else if (i == 2) {
@@ -110,23 +106,24 @@ public class TaskList {
                     storage.saveTasks(this);
                 } catch (DateTimeParseException d) {
                     if (d.getMessage().equals(before)) {
-                        System.out.println(d.getMessage());
+                        return d.getMessage();
                     } else {
-                        System.out.println(before);
+                        return "Enter date in the format yyyy-mm-ddTHH:MM";
                     }
-                    return;
                 }
             } catch (DuneException d) {
                 System.out.println(d);
-                return;
+                return d.toString();
             }
 
         }
         this.tasks.add(x);
         storage.saveTasks(this);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(x);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in your list.");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append(x + "\n");
+        sb.append("Now you have " + this.tasks.size() + " tasks in your list.\n");
+        return sb.toString();
     }
 
     /**
@@ -144,7 +141,8 @@ public class TaskList {
      * @param indexStr Position of task to be deleted, as a string.
      * @param storage Storage object to save tasks.
      */
-    public void deleteTask(String indexStr, Storage storage) {
+    public String deleteTask(String indexStr, Storage storage) {
+        String response = "";
         try {
             if (indexStr.trim().equals("")) {
                 throw new DuneException("Give an index to remove");
@@ -152,17 +150,19 @@ public class TaskList {
             int index = Integer.parseInt(indexStr.trim());
             Task t = this.getTask(index - 1);
             this.deleteTask(index - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(t);
-            System.out.println("Now you have " + this.getSize() + " tasks in the list.");
+            response += "Noted. I've removed this task:\n";
+            response += t.toString() + "\n";
+            response += "Now you have " + this.getSize() + " tasks in the list.\n";
             storage.saveTasks(this);
 
         } catch (NumberFormatException n) {
-            System.out.println("Index to be removed needs to be an integer");
+            response = "Index to be removed needs to be an integer\n";
         } catch (IndexOutOfBoundsException i) {
-            System.out.println("Give a valid index to remove");
+            response = "Give a valid index to remove\n";
         } catch (DuneException d) {
-            System.out.println(d);
+            response = d.toString() + "\n";
+        } finally {
+            return response;
         }
     }
 
@@ -184,7 +184,4 @@ public class TaskList {
         return sb.toString();
     }
 
-    public void print() {
-        System.out.println(this);
-    }
 }

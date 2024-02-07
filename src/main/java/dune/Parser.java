@@ -22,16 +22,52 @@ public class Parser {
      */
     public boolean parse(Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
         String text = scanner.nextLine();  // Read user input
+        ui.print(response(text, taskList, storage));
         if (text.equals("bye")) {
-            ui.printGoodbye();
             return false;
+        }
+        return true;
+    }
+
+    public String createNewTaskAttempt(String text, TaskList taskList, Storage storage) {
+        // System.out.println(text);
+        boolean addedTask = false;
+        String check;
+        for (int i = 0; i < taskTypes.length; i++) {
+            check = taskTypes[i];
+            if (text.startsWith(check)) {
+                addedTask = true;
+                try {
+                    if (text.equals(check)) {
+                        throw new DuneException("The description of a to-do cannot be empty.");
+                    }
+                    return taskList.addTask(i, text.substring(check.length()).trim(), storage);
+                } catch (DuneException d) {
+                    return d.toString();
+                }
+            }
+        }
+        if (!addedTask) {
+            {
+                try {
+                    // make it more informative LOL
+                    throw new DuneException("Tasks can only be of types todo, deadline, or event.");
+                } catch (DuneException d) {
+                    return d.toString();
+                }
+            }
+        }
+        return "";
+    }
+
+    public String response(String text, TaskList taskList, Storage storage) {
+        if (text.equals("bye")) {
+            return "Bye. Hope to see you again soon!";
         } else if (text.startsWith("delete")) {
-            taskList.deleteTask(text.substring(6), storage);
-            storage.saveTasks(taskList);
-            return true;
+            String ans = taskList.deleteTask(text.substring(6), storage);
+            return ans;
         } else if (text.startsWith("list")) {
-            taskList.print();
-            return true;
+            return taskList.toString();
         } else if (text.startsWith("mark")) {
             // abstract this into a method
             try {
@@ -46,57 +82,21 @@ public class Parser {
                 // Index... exception
                 taskList.getTask(index - 1).mark();
                 storage.saveTasks(taskList);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(taskList.getTask(index - 1));
+                String ans = "Nice! I've marked this task as done:\n";
+                ans += taskList.getTask(index - 1) + "\n";
+                return ans;
 
             } catch (IndexOutOfBoundsException i) {
-                System.out.println("Give a valid index to mark");
+                return "Give a valid index to mark\n";
             } catch (NumberFormatException n) {
-                System.out.println("Remaining characters do not match an integer");
+                return "Remaining characters do not match an integer\n";
             } catch (DuneException d) {
-                System.out.println(d);
-            } finally {
-                return true;
+                return d.toString();
             }
         } else if (text.startsWith("find")) {
-            taskList.find(text.substring(4).trim());
-            return true;
-        }
-
-        createNewTaskAttempt(text, taskList, storage);
-        return true;
-    }
-
-    public void createNewTaskAttempt(String text, TaskList taskList, Storage storage) {
-        // System.out.println(text);
-        boolean addedTask = false;
-        String check;
-        for (int i = 0; i < taskTypes.length; i++) {
-            check = taskTypes[i];
-            if (text.startsWith(check)) {
-                addedTask = true;
-                try {
-                    if (text.equals(check)) {
-                        throw new DuneException("The description of a to-do cannot be empty.");
-                    }
-                    taskList.addTask(i, text.substring(check.length()).trim(), storage);
-                } catch (DuneException d) {
-                    System.out.println(d);
-                    continue;
-                }
-
-                break;
-            }
-        }
-        if (!addedTask) {
-            {
-                try {
-                    // make it more informative LOL
-                    throw new DuneException("Tasks can only be of types todo, deadline, or event.");
-                } catch (DuneException d) {
-                    System.out.println(d);
-                }
-            }
+            return taskList.find(text.substring(4).trim());
+        } else {
+            return createNewTaskAttempt(text, taskList, storage);
         }
     }
 }
