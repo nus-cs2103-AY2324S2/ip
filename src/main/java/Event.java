@@ -11,7 +11,7 @@ public class Event extends Task {
     public Event(String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         super(description);
         this.startDate = startDate;
-        this.startTime =startTime;
+        this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
     }
@@ -32,6 +32,4 @@ public class Event extends Task {
         String formattedEndTime = endTime.format(formattingTime);
         return "[E]" + super.toString() + " (from: " + formattedStartDate + "," + " " + formattedStartTime + " to: " + formattedEndDate + "," + " " + formattedEndTime + ")";
     }
-
-
 }
