@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 // to add: tag for A-Classes
 // to add: tag for A-Collections
@@ -15,6 +18,7 @@ public class Panna {
 
         try {
             FileWriter fw = new FileWriter(filePath);
+
 
             for (Task t : tasks) {
                 fw.write(t.taskType + "\n");
@@ -40,6 +44,7 @@ public class Panna {
 
 
         ArrayList<Task> tasks = new ArrayList<>();
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
             File f = new File(filePath);
@@ -58,12 +63,15 @@ public class Panna {
                     t.setDone(done);
                 } else if (task.equals("D")) {
                     String deadline = s.nextLine();
-                    t = new Deadline(desc, deadline);
+                    LocalDate dt =  LocalDate.parse(deadline, df);
+                    t = new Deadline(desc, dt);
                     t.setDone(done);
                 } else if (task.equals("E")) {
                     String start = s.nextLine();
                     String deadline = s.nextLine();
-                    t = new Event(desc, start, deadline);
+                    LocalDate start_date = LocalDate.parse(start, df);
+                    LocalDate end_date = LocalDate.parse(deadline, df);
+                    t = new Event(desc, start_date, end_date);
                     t.setDone(done);
                 } else {
                     throw new PannaException("Something went wrong in panna.txt! Please check and make sure everything is okay");
@@ -138,16 +146,18 @@ public class Panna {
                     String input = s.nextLine();
                     System.out.println("When does it start? ");
                     String start = s.nextLine();
+                    LocalDate st = LocalDate.parse(start, df);
                     System.out.println("When does it end? ");
                     String end = s.nextLine();
-                    Task t = new Event(input, start, end);
+                    LocalDate en = LocalDate.parse(end, df);
+                    Task t = new Event(input, st, en);
                     t.setDone(false);
                     tasks.add(t);
                     System.out.println("Got it! I've added the \n" + t + "\n event!");
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
                 }
                 catch (Exception e) {
-                    throw new PannaException("All inputs must be Strings! Please ensure it is not empty :D");
+                    throw new PannaException("Please ensure all your formats are correct! ");
                 }
 
             }
@@ -173,8 +183,9 @@ public class Panna {
                     String input = s.nextLine();
                     System.out.println("When is the deadline? ");
                     String deadline = s.nextLine();
+                    LocalDate dl = LocalDate.parse(deadline, df);
 
-                    Task t = new Deadline(input, deadline);
+                    Task t = new Deadline(input, dl);
                     t.setDone(false);
                     tasks.add(t);
 
@@ -182,7 +193,8 @@ public class Panna {
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list! ");
                 }
                 catch (Exception e) {
-                    throw new PannaException("All inputs must be Strings! Please ensure it is not empty :D");
+
+                    throw new PannaException("Please ensure all your formats are correct!");
                 }
 
             }

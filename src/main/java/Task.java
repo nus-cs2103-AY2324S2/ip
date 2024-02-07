@@ -1,11 +1,15 @@
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 public class Task {
     protected String taskName;
     protected boolean isDone;
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
-    private String deadline;
+    private LocalDate deadline;
 
     protected char taskType;
 
@@ -26,14 +30,14 @@ public class Task {
         this.taskType = 'T';
     }
 
-    public Task(String taskName, String deadline) {
+    public Task(String taskName, LocalDate deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
         this.isDone = false;
         this.taskType = 'D';
     }
 
-    public Task(String taskName, String start, String end) {
+    public Task(String taskName, LocalDate start, LocalDate end) {
         this.taskName = taskName;
         this.start = start;
         this.end = end;
@@ -45,15 +49,15 @@ public class Task {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getStart() {
+    public LocalDate getStart() {
         return this.start;
     }
 
-    public String getEnd() {
+    public LocalDate getEnd() {
         return this.end;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return this.deadline;
     }
 
