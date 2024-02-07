@@ -2,6 +2,8 @@ package gpt;
 
 class Ui {
 
+    private String welcomeMsg = "Hello!!!! I'm  CHAD GPT\nWhat can I do for you?\n";
+
     /**
      * Prints the welcome message.
      */
@@ -11,11 +13,29 @@ class Ui {
     }
 
     /**
+     * Returns the goodbye message.
+     *
+     * @return The goodbye message.
+     */
+    public String getByeMsg() {
+        return "ByeBye. Hope to see you soon";
+    }
+
+    /**
      * Prints the goodbye message.
      */
     public void printGoodbyeMessage() {
 
         System.out.println("ByeBye. Hope to see you soon");
+    }
+
+    /**
+     * Returns the welcome message.
+     *
+     * @return The welcome message.
+     */
+    public String getWelcomeMsg() {
+        return welcomeMsg;
     }
 
     /**
