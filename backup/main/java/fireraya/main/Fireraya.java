@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 
-
+//Outdated design up to lvl 6
 public class Fireraya {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static Storage storage = new Storage("current_list.txt");
