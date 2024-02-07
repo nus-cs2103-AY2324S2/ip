@@ -1,10 +1,14 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Dude {
     public static void main(String[] args) {
@@ -12,7 +16,7 @@ public class Dude {
         System.out.println("Loading tasks from file...");
         ArrayList<Task> tasks = TaskStorage.loadTasksFromFile();
         System.out.println("Loaded " + tasks.size() + " tasks from file.");
-        System.out.println("Hello! I'm Duddddde");
+        System.out.println("Hello! I'm Duddde");
         System.out.println("What can I do for you?");
 
         while (true) {
@@ -111,6 +115,7 @@ abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+
     }
 
     public void markAsDone() {
@@ -139,50 +144,68 @@ class ToDo extends Task {
 
 // Deadline subclass
 class Deadline extends Task {
-    String by;
+    LocalDate by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.by = LocalDate.parse(by, formatter);
+        // Parse the string to a LocalDate
     }
 
     @Override
     public String toString() {
-        return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + by + ")";
+        // Define a formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        // Format the LocalDate to the desired format
+        String formattedDate = by.format(formatter);
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + formattedDate + ")";
     }
+
+
 }
 
 // Event subclass
 class Event extends Task {
-    String start;
-    String end;
+    LocalDate start;
+    LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        // Parse the strings to LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.start = LocalDate.parse(start, formatter);
+        this.end = LocalDate.parse(end, formatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + start + " to: " + end + ")";
+        // Define a formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        // Format the LocalDate to the desired format
+        String formattedStart = start.format(formatter);
+        String formattedEnd = end.format(formatter);
+        return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + formattedStart + " to: " + formattedEnd
+                + ")";
     }
 }
+
 
 class TaskStorage {
     public static final String FILE_NAME = "tasks.txt";
 
     public static void saveTasksToFile(ArrayList<Task> tasks) {
-        try (FileWriter fileWriter = new FileWriter(FILE_NAME);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Task task : tasks) {
-                bufferedWriter.write(taskToFileString(task));
-                bufferedWriter.newLine();
+                String taskString = taskToFileString(task);
+                if (!taskString.isEmpty()) {
+                    bufferedWriter.write(taskString);
+                    bufferedWriter.newLine();
+                }
             }
         } catch (IOException e) {
             System.out.println("Error while saving tasks to file: " + e.getMessage());
         }
-        System.out.println("Saved " + tasks.size() + " tasks from file.");
     }
 
     public static ArrayList<Task> loadTasksFromFile() {
@@ -190,56 +213,63 @@ class TaskStorage {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                tasks.add(taskFromString(line));
+                Task task = taskFromString(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         } catch (IOException e) {
-            saveTasksToFile(tasks);
+            System.out.println("Could not load tasks from file: " + e.getMessage());
         }
-        System.out.println("Loaded " + tasks.size() + " tasks from file.");
         return tasks;
     }
 
-    public static String taskToFileString(Task task) {
-        // Convert a task to a string format suitable for saving to the file
+    private static String taskToFileString(Task task) {
+        StringBuilder sb = new StringBuilder();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (task instanceof ToDo) {
-            return "T|" + (task.isDone ? "1" : "0") + "|" + task.description;
+            sb.append("T|").append(task.isDone ? "1" : "0").append("|").append(task.description);
         } else if (task instanceof Deadline) {
-            Deadline deadlineTask = (Deadline) task;
-            return "D|" + (task.isDone ? "1" : "0") + "|" + task.description + "|" + deadlineTask.by;
+            Deadline deadline = (Deadline) task;
+            String byDate = deadline.by.format(formatter);
+            sb.append("D|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(byDate);
         } else if (task instanceof Event) {
-            Event eventTask = (Event) task;
-            return "E|" + (task.isDone ? "1" : "0") + "|" + task.description + "|" + eventTask.start + "|"
-                    + eventTask.end;
-        } else {
-            return ""; // Handle other task types if needed
+            Event event = (Event) task;
+            String startDate = event.start.format(formatter);
+            String endDate = event.end.format(formatter);
+            sb.append("E|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(startDate).append("|").append(endDate);
         }
+        return sb.toString();
     }
 
-    public static Task taskFromString(String line) {
-        // Convert a string from the file into a Task object
+    private static Task taskFromString(String line) {
         String[] parts = line.split("\\|");
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
+        boolean isDone = "1".equals(parts[1]);
         String description = parts[2];
-        Task task;
-
-        if (type.equals("T")) {
-            task = new ToDo(description);
-        } else if (type.equals("D")) {
-            String by = parts[3];
-            task = new Deadline(description, by);
-        } else if (type.equals("E")) {
-            String start = parts[3];
-            String end = parts[4];
-            task = new Event(description, start, end);
-        } else {
-            task = null; // Handle other task types if needed
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            switch (parts[0]) {
+                case "T":
+                    ToDo todo = new ToDo(description);
+                    if (isDone) todo.markAsDone();
+                    return todo;
+                case "D":
+                    LocalDate by = LocalDate.parse(parts[3], formatter);
+                    Deadline deadline = new Deadline(description, parts[3]);
+                    if (isDone) deadline.markAsDone();
+                    return deadline;
+                case "E":
+                    LocalDate start = LocalDate.parse(parts[3], formatter);
+                    LocalDate end = LocalDate.parse(parts[4], formatter);
+                    Event event = new Event(description, parts[3], parts[4]);
+                    if (isDone) event.markAsDone();
+                    return event;
+                default:
+                    return null;
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            return null;
         }
-
-        if (task != null && isDone) {
-            task.markAsDone();
-        }
-
-        return task;
     }
 }
