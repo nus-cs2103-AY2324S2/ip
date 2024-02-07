@@ -50,13 +50,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = userInput.getText();
+        String dukeText = duke.getResponse(userText);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getDukeDialog(dukeText, dukeImage)
         );
-//        userText.setPadding(new Insets(10, 10, 10, 10));
-//        dukeText.setPadding(new Insets(10, 10, 10, 10));
         dialogContainer.setPadding(new Insets(10));
         userInput.clear();
     }

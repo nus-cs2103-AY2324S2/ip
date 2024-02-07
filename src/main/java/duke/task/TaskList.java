@@ -26,12 +26,13 @@ public class TaskList {
     }
 
     /**
-     * Adds input task into storage.
+     * Return message and adds input task into storage.
      *
      * @param type Type of the task.
      * @param task The task to be done.
+     * @return message.
      */
-    public void addTask(String type, String task) throws DukeException {
+    public String addTask(String type, String task) throws DukeException {
         Task newTask;
 
         if (type.equals(CommandType.TODO.toString())) {
@@ -86,18 +87,20 @@ public class TaskList {
         storage.add(newTask);
 
         String temp = storage.size() > 1 ? " tasks" : " task";
-        ui.displayToScreen("Got it. I've added this task:\n" + newTask + "\n"
-                + "Now you have " + storage.size() + temp + " in the list.");
+
+        return "Got it. I've added this task:\n" + newTask + "\n"
+                + "Now you have " + storage.size() + temp + " in the list.";
     }
 
     /**
-     * Deletes a task.
+     * Returns string when deletes a task.
      *
      * @param input index of the task to be deleted.
      * @return length of storage after deleted the task.
      * @throws DukeException If input task number is not in storage range.
+     * @return String of actions.
      */
-    public int deleteTask(String input) throws DukeException {
+    public String deleteTask(String input) throws DukeException {
         try {
             int index = Integer.parseInt(input);
             if (index > storage.size() || index <= 0) {
@@ -109,9 +112,8 @@ public class TaskList {
             Task curr = storage.get(index - 1);
             storage.remove(index - 1);
             String temp = storage.size() > 1 ? " tasks" : " task";
-            ui.displayToScreen("Noted. I've removed this task:\n" + curr + "\nNow you have "
-                    + storage.size() + temp + " in the list.");
-            return this.storage.size();
+            return "Noted. I've removed this task:\n" + curr + "\nNow you have "
+                    + storage.size() + temp + " in the list.";
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: "
                     + CommandType.DELETE.getCommand());
@@ -132,6 +134,23 @@ public class TaskList {
             System.out.println((i + 1) + ". " + storage.get(i));
         }
         ui.drawLine();
+    }
+
+    /**
+     * Return string of all the task from the storage.
+     * @return String of all tasks.
+     */
+    public String getListTask() {
+        StringBuilder output = new StringBuilder();
+        if (storage.size() == 0) {
+            return "Your task list is empty. Create your first task now!";
+        } else {
+            output.append("Here are the tasks in your list:");
+        }
+        for (int i = 0; i < storage.size(); i++) {
+            output.append((i + 1) + ". " + storage.get(i) + "\n");
+        }
+        return output.toString();
     }
 
     /**
@@ -170,14 +189,34 @@ public class TaskList {
         ui.drawLine();
     }
 
+    /**
+     * Returns out the task matching to given word.
+     *
+     * @param word Matching word.
+     * @return String of tasks.
+     */
+    public String getListTask(String word) {
+        StringBuilder output = new StringBuilder();
+        if (storage.size() == 0) {
+            return "There is no matching task in your list.";
+        } else {
+            output.append("Here are the matching tasks in your list related to " + word + " :\n");
+        }
+        for (int i = 0; i < storage.size(); i++) {
+            output.append((i + 1) + ". " + storage.get(i) + "\n");
+        }
+        return output.toString();
+    }
+
 
     /**
-     * Marks a task as done.
+     * Returns string when marks a task as done.
      *
      * @param input index of the task to be marked as done.
      * @throws DukeException If input task number is not in storage range.
+     * @return String of action.
      */
-    public void markDone(String input) throws DukeException {
+    public String markDone(String input) throws DukeException {
         try {
             int index = Integer.parseInt(input);
             if (index > storage.size() || index <= 0) {
@@ -189,9 +228,7 @@ public class TaskList {
             }
 
             Task curr = storage.get(index - 1);
-            ui.drawLine();
-            curr.markDone();
-            ui.drawLine();
+            return curr.markDone();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: "
                     + CommandType.MARK.getCommand());
@@ -204,7 +241,7 @@ public class TaskList {
      * @param input index of the task to be unmarked.
      * @throws DukeException If input task number is not in storage range.
      */
-    public void markUndone(String input) throws DukeException {
+    public String markUndone(String input) throws DukeException {
         try {
             int index = Integer.parseInt(input);
             if (index > storage.size() || index <= 0) {
@@ -216,9 +253,7 @@ public class TaskList {
             }
 
             Task curr = storage.get(index - 1);
-            ui.drawLine();
-            curr.markUndone();
-            ui.drawLine();
+            return curr.markUndone();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: "
                     + CommandType.UNMARK.getCommand());
@@ -254,12 +289,12 @@ public class TaskList {
     }
 
     /**
-     * Prints out all task matching to the word given.
+     * Returns string of all task matching to the word given.
      *
      * @param word Matching word.
      * @throws DukeException If no input word.
      */
-    public void findTask(String word) throws DukeException {
+    public String findTask(String word) throws DukeException {
         if (word.equals("")) {
             throw new DukeException("Please insert the word that you are interested in. "
                     + "Write command using format: "
@@ -273,16 +308,17 @@ public class TaskList {
                 arr.add(item);
             }
         }
-        arr.listTask(word);
+        return arr.getListTask(word);
     }
 
 
     /**
-     * Prints out all event/deadline related to the date given.
+     * Returns out all event/deadline related to the date given.
      *
      * @param date date that user interested in.
+     * @return string of events.
      */
-    public void checkDate(String date) {
+    public String checkDate(String date) {
         try {
             LocalDate d = MyDateTime.convertDate(date);
             TaskList arr = new TaskList();
@@ -292,9 +328,9 @@ public class TaskList {
                     arr.add(curr);
                 }
             }
-            arr.listTask(d);
+            return arr.getListTask(d.toString());
         } catch (DukeException e) {
-            ui.displayToScreen(e.getMessage() + ". Please use format : " + CommandType.CHECKDATE.getCommand());
+            return e.getMessage() + ". Please use format : " + CommandType.CHECKDATE.getCommand();
         }
     }
 }

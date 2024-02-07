@@ -19,4 +19,16 @@ public class PrintCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printCommandList();
     }
+
+    /**
+     * Returns print command.
+     *
+     * @param tasks List of tasks.
+     * @param ui Ui of ai chatbot.
+     * @param storage External storage in hard disk.
+     */
+    @Override
+    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
+        return ui.getCommandList();
+    }
 }

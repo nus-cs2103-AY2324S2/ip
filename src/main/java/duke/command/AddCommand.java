@@ -43,4 +43,17 @@ public class AddCommand extends Command {
             ui.displayToScreen(e.getMessage());
         }
     }
+
+    @Override
+    public String getExecuteMessage(TaskList tasks, Ui ui, Storage storage) {
+        try {
+            String output = tasks.addTask(commandArr[0], commandArr.length > 1 ? commandArr[1] : "");
+            FileManaging.writeToFile(CommandType.FILEPATH.toString(), tasks);
+            return output;
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
 }
