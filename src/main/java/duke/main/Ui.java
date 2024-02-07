@@ -2,14 +2,14 @@ package duke.main;
 
 import java.util.Scanner;
 
-//<<<<<<< HEAD:src/main/java/duke/main/UI.java
 /**
  * Represents the user interface that outputs text to users and receives user text
  */
-//public class Ui {
-//=======
+
+
+
 public class Ui {
-//>>>>>>> branch-A-CodingStandard:src/main/java/duke/main/Ui.java
+
     private TaskList taskList;
     private Scanner scanner;
 
@@ -18,11 +18,10 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-//<<<<<<< HEAD:src/main/java/duke/main/UI.java
     /**
      * Prints out a welcome message to the user when the program is first launched
      */
-//    public void welcomeMessage() {
+
     public void printWelcomeMessage() {
 
         System.out.println("Hello! What tasks do you have?");
@@ -67,7 +66,6 @@ public class Ui {
         System.out.println("Removing task from list");
         System.out.println(taskList.get(index).toString());
     }
-
     /**
      * Iterates through the task list and prints out each task
      */
@@ -90,6 +88,17 @@ public class Ui {
 
     public void printExitMessage() {
         System.out.println("Goodbye!");
+    }
+
+    public void printList(TaskList list) {
+        for (int i = 0; i < list.getSize(); i++) {
+            System.out.println((i + 1) + ": " + list.get(i).toString());
+        }
+    }
+
+    public void printOnFind(TaskList list) {
+        System.out.println("Here are the matching tasks in your list: ");
+        this.printList(list);
     }
 
     /**

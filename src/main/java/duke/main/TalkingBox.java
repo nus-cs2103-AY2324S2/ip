@@ -34,6 +34,7 @@ public class TalkingBox {
                 isError = true;
             }
         }
+        
         this.storage.store();
         this.ui.printExitMessage();
     }

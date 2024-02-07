@@ -38,6 +38,10 @@ public enum TaskType {
         /**
          * append a new event task to task list 
          */
-        event /*,
+        event,
+
+        find
+
+        /*,
         exit */;
 }

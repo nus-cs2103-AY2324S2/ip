@@ -1,10 +1,8 @@
 package duke.task;
 
-
 /**
  * Superclass of all task types. Contains the constructor for defining a task's name and type
  */
-
 public class Task {
     String name;
     String type;
@@ -14,8 +12,10 @@ public class Task {
         this.type = type;
         this.isComplete = false;
     }
-//<<<<<<< HEAD
 
+    public String getName() {
+        return this.name;
+    }
     /**
      * Sets a task's completion status as true
      */
