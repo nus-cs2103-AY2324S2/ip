@@ -12,21 +12,24 @@ import exception.ChronosException;
  */
 public class Chronos {
     private static final String FILE_PATH = "./data/chronos.txt";
-    private static TaskList tasks;
     private static Ui ui;
     private static Storage storage;
+    private static TaskList tasks;
 
     public Chronos(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList();
+
+        try {
+            tasks = new TaskList(storage.loadTasksFromFile());
+        } catch (Exception e) {
+            tasks = new TaskList();
+        }
     }
 
     public void run() throws IOException, ChronosException {
         ui.greetUser();
-
         Scanner sc = new Scanner(System.in);
-
         while (sc.hasNextLine()) {
             String fullCommand = ui.readCommand(sc);
             int statusCode = Parser.processCommand(fullCommand, ui, storage, tasks);

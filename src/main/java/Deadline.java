@@ -7,6 +7,7 @@ import task.Task;
  */
 public class Deadline extends Task {
 
+    private static final String TASK_CODE = "D";
     protected String by;
 
     /**
@@ -16,8 +17,13 @@ public class Deadline extends Task {
      * @param by Deadline date and time.
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(TASK_CODE, description);
         this.by = by;
+    }
+
+    @Override
+    public String getDate() {
+        return this.by;
     }
 
     /**
@@ -27,6 +33,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[" + TASK_CODE + "]" + super.toString() + " (by: " + by + ")";
     }
 }

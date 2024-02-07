@@ -4,6 +4,8 @@ package task;
  * Represents a task.
  */
 public class Task {
+
+    protected String taskCode;
     protected String description;
     protected boolean isDone;
 
@@ -12,7 +14,8 @@ public class Task {
      *
      * @param description Description of the task.
      */
-    public Task(String description) {
+    public Task(String taskCode, String description) {
+        this.taskCode = taskCode;
         this.description = description;
         this.isDone = false;
     }
@@ -24,6 +27,22 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public int getStatusInt() {
+        return (isDone ? 1 : 0);
+    }
+
+    public String getTaskCode() {
+        return this.taskCode;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getDate() {
+        return "";
     }
 
     /**

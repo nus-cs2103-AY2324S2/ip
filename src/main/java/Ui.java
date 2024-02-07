@@ -42,7 +42,7 @@ public class Ui {
         System.out.println(DIVIDER);
         System.out.println("        Here are the tasks in your list:");
         for (int i = 1; i < noOfTasks + 1; i++) {
-            task.Task currentTask = tasks.get(i - 1);
+            task.Task currentTask = tasks.getTask(i - 1);
             System.out.println("        " + i + ". " + currentTask.toString());
         }
         System.out.println(DIVIDER);
