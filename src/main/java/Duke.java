@@ -29,8 +29,21 @@ public class Duke {
                     mark(listOfTasks.get(index - 1));
                 }
             } else {
-                repeatFunction(input);
-                listOfTasks.add(new Task(input));
+                if (input.contains("todo")) {
+                    Task newTask = new Todo(input.substring(5));
+                    listOfTasks.add(newTask);
+                    repeatFunction(newTask, listOfTasks);
+                } else if (input.contains("deadline")) {
+                    String[] parts = input.substring(9).split(" /");
+                    Task newTask = new Deadline(parts[0], parts[1].substring(3));
+                    listOfTasks.add(newTask);
+                    repeatFunction(newTask, listOfTasks);
+                } else if (input.contains("event")) {
+                    String[] parts = input.substring(6).split(" /");
+                    Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
+                    listOfTasks.add(newTask);
+                    repeatFunction(newTask, listOfTasks);
+                }
             }
         }
 
@@ -68,7 +81,7 @@ public class Duke {
         System.out.println(LINE);
         System.out.println("     OK, I've marked this task as not done yet:");
         task.setNotDone();
-        System.out.println("  " + task.toString());
+        System.out.println("       " + task.toString());
         System.out.println(LINE);
     }
 
@@ -81,12 +94,19 @@ public class Duke {
     }
 
     /**
-     * Displays a repeated message of the input by the user.
+     * Displays a repeated message of the input by the user and number of task in
+     * list.
      * 
-     * @param input User input.
+     * @param task        Task input
+     * @param listOfTasks List of all tasks
      */
-    public static void repeatFunction(String input) {
-        System.out.println(String.format("%s     added: %s\n%s", LINE, input, LINE));
+    public static void repeatFunction(Task task, ArrayList<? extends Task> listOfTasks) {
+        System.out.print(LINE);
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + task);
+        int len = listOfTasks.size();
+        System.out.println(String.format("     Now you have %d tasks in the list.", len));
+        System.out.println(LINE);
     }
 
     /**
@@ -94,11 +114,14 @@ public class Duke {
      * 
      * @param listOfStrings list of Strings.
      */
-    public static void printList(ArrayList<Task> listOfTasks) {
+    public static void printList(ArrayList<? extends Task> listOfTasks) {
         StringBuilder finalString = new StringBuilder();
         finalString.append(LINE);
+        finalString.append("     Here are the tasks in your list:\n");
+        int counter = 1;
         for (Task c : listOfTasks) {
-            finalString.append(c);
+            finalString.append(String.format("     %d. %s\n", counter, c));
+            counter++;
         }
         finalString.append(LINE);
         System.out.println(finalString.toString());
