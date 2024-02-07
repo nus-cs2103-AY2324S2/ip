@@ -10,7 +10,8 @@ public class Duke {
     public static void createList(ArrayList<Task> listArr) {
         System.out.println("Here are the tasks in your list:");
         for (int j = 0; j < listArr.size(); j++) { // printing out all items in the list
-            System.out.println(j + 1 + ". " + listArr.get(j));
+            String task = j + 1 + ". " + listArr.get(j);
+            System.out.println(task);
         }
     }
 
@@ -74,20 +75,22 @@ public class Duke {
     }
 
     public static void deleteTask(ArrayList<Task> listArr, int taskNum) {
-        listArr.get(taskNum);
         System.out.println("Noted. I've removed this task:");
         System.out.println(listArr.get(taskNum));
         listArr.remove(taskNum);
         System.out.println("Now you have " + listArr.size() + " tasks in the list.");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException{
         System.out.println("Hello! I'm Jojo :)");
+        System.out.println("Here are the tasks in your list:");
+        Save save = new Save("src/main/java/duke.txt");
+        save.printList();
+        ArrayList<Task> listArr = save.setList();
         System.out.println("What can I do for you?");
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------");
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> listArr = new ArrayList<>();
         String userTxt = sc.nextLine();
         while (!userTxt.equals("bye")) {
             if (userTxt.equals("list")) {
@@ -126,7 +129,8 @@ public class Duke {
                     System.out.println(ex.getMessage());
                 }
             }
-
+            String store_str = save.storeList(listArr);
+            save.writeList(store_str);
             System.out.println("-----------------------------------------------------------------------");
             System.out.println("-----------------------------------------------------------------------");
             userTxt = sc.nextLine();
