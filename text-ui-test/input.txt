@@ -4,10 +4,6 @@ event meeting /from Tues 5pm /to 8pm
 list
 mark 2
 list
-hello
-todo
 delete 3
-delete 5
-mark fry egg
-unmark
+unmark 2
 bye
