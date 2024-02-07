@@ -1,4 +1,4 @@
-package ada.task;
+package adam.task;
 
 /**
  * @inheritDoc

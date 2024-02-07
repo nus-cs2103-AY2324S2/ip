@@ -1,9 +1,9 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 /**
  * @inheritDoc
@@ -26,10 +26,11 @@ public class UnmarkCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
-        String t = tasks.unmark(this.taskNumber);
-        ui.showResult("Nice, I've marked this ada.task as done:");
-        ui.showResult(t);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        String t = taskList.unmark(this.taskNumber);
+        return ui.showResult(
+                "Nice, I've marked this task as not done:",
+                t);
     }
 
     /**

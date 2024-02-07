@@ -1,28 +1,29 @@
-package ada;
+package adam;
 
-import ada.command.Command;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.command.Command;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 /**
- * The Duke program implements a chatbot that keeps track of tasks for the user.
+ * The Duke program implements a chatBot that keeps track of tasks for the user.
  */
-public class Ada {
+public class Adam {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit;
 
     /**
      * Returns an instance of the program which loads the tasks from the file found at the provided filepath.
      *
      * @param filePath The filepath of the file to load/saves the tasks from/to.
      */
-    public Ada(String filePath) {
+    public Adam(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (AdaException e) {
+        } catch (AdamException e) {
             tasks = new TaskList();
         }
     }
@@ -39,18 +40,31 @@ public class Ada {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (AdaException e) {
+            } catch (AdamException e) {
                 ui.showError(e.getMessage());
             }
         }
     }
 
+    public String welcome() {
+        return ui.showWelcome();
+    }
+
     /**
-     * Main method to start the program.
-     *
-     * @param args Unused.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        new Ada("ada.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            isExit = c.isExit();
+            return c.execute(tasks, ui, storage);
+        } catch (AdamException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 }

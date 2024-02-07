@@ -1,6 +1,6 @@
-package ada.task;
+package adam.task;
 
-import ada.AdaException;
+import adam.AdamException;
 
 import java.util.ArrayList;
 
@@ -40,11 +40,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task to delete.
      * @return The task deleted.
-     * @throws AdaException If the index provided is greater than the list of tasks.
+     * @throws AdamException If the index provided is greater than the list of tasks.
      */
-    public String delete(int taskNumber) throws AdaException {
+    public String delete(int taskNumber) throws AdamException {
         if (taskNumber > tasks.size()) {
-            throw new AdaException("You do not have " + taskNumber + " tasks.");
+            throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
         Task t = tasks.remove(taskNumber - 1);
         return t.toString();
@@ -55,11 +55,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task to mark as done.
      * @return The task marked as done.
-     * @throws AdaException If the index provided is greater than the list of tasks.
+     * @throws AdamException If the index provided is greater than the list of tasks.
      */
-    public String mark(int taskNumber) throws AdaException {
+    public String mark(int taskNumber) throws AdamException {
         if (taskNumber > tasks.size()) {
-            throw new AdaException("You do not have " + taskNumber + " tasks.");
+            throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
         Task t = tasks.get(taskNumber - 1);
         t.mark();
@@ -71,11 +71,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task to mark as not done.
      * @return The task marked as not done.
-     * @throws AdaException If the index provided is greater than the list of tasks.
+     * @throws AdamException If the index provided is greater than the list of tasks.
      */
-    public String unmark(int taskNumber) throws AdaException {
+    public String unmark(int taskNumber) throws AdamException {
         if (taskNumber > tasks.size()) {
-            throw new AdaException("You do not have " + taskNumber + " tasks.");
+            throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
 
         Task t = tasks.get(taskNumber - 1);
@@ -83,7 +83,7 @@ public class TaskList {
         return t.toString();
     }
 
-    public ArrayList<String> find(String keyword) throws AdaException {
+    public ArrayList<String> find(String keyword) throws AdamException {
         ArrayList<String> found = new ArrayList<>();
         for (Task t : this.tasks) {
             if (t.canFind(keyword)) {

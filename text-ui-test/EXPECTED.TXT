@@ -1,6 +1,6 @@
 Hello! I'm Bob
 What can I do for you?
-Got it. I've added this ada.task:
+Got it. I've added this adam.task:
 [T][ ] borrow book
-Now you have 1 ada.task(s) in the list.
+Now you have 1 adam.task(s) in the list.
 Bye. Hope to see you again soon!

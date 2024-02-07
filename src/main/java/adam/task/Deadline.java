@@ -1,6 +1,6 @@
-package ada.task;
+package adam.task;
 
-import ada.AdaException;
+import adam.AdamException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,14 +18,14 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline.
      * @param by The date of the deadline.
-     * @throws AdaException If the date provided is in the wrong format.
+     * @throws AdamException If the date provided is in the wrong format.
      */
-    public Deadline(String description, String by) throws AdaException {
+    public Deadline(String description, String by) throws AdamException {
         super(description);
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new AdaException("Invalid date or date format");
+            throw new AdamException("Invalid date or date format");
         }
     }
 

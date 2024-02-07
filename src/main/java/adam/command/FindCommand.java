@@ -1,9 +1,9 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,10 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
-        ArrayList<String> matches = tasks.find(this.keyword);
-        ui.showResult("Here are the matching tasks in your list:");
-        for (String s: matches) {
-            ui.showResult(s);
-        }
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        ArrayList<String> matches = taskList.find(this.keyword);
+        matches.add(0, "Here are the matching tasks in your list:");
+        return ui.showResult(matches.toArray(new String[0]));
     }
 
     @Override

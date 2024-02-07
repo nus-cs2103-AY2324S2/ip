@@ -1,9 +1,9 @@
-package ada.command;
+package adam.command;
 
-import ada.AdaException;
-import ada.Storage;
-import ada.task.TaskList;
-import ada.ui.Ui;
+import adam.AdamException;
+import adam.Storage;
+import adam.task.TaskList;
+import adam.ui.Ui;
 
 /**
  * @inheritDoc
@@ -21,9 +21,9 @@ public class ExitCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
-        storage.save(tasks);
-        ui.showBye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
+        storage.save(taskList);
+        return ui.showBye();
     }
 
     /**
