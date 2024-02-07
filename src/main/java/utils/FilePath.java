@@ -8,7 +8,7 @@ public class FilePath {
     /**
      * The base folder path for graphics files.
      */
-    public static final String GRAPHICS_FOLDER = "./src/main/graphics/";
+    public static final String GRAPHICS_FOLDER = "./src/main/resources/graphics/";
 
     /**
      * The file path for the line graphic.

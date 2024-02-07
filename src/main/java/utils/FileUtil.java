@@ -22,11 +22,9 @@ public class FileUtil {
             }
 
             return Files.readString(Paths.get(path));
-
         } catch (IOException e) {
-            e.printStackTrace();
-
-            return null;
+            throw new RuntimeException(e);
         }
     }
+
 }

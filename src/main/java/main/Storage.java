@@ -16,7 +16,7 @@ import view.EncaseLines;
 public class Storage {
 
     /** The file path where the TaskList is stored. */
-    private static final String FILE_PATH = "./src/main/data/duke.txt";
+    private static final String FILE_PATH = "data.txt";
 
     /**
      * Checks if the file containing the TaskList exists.
