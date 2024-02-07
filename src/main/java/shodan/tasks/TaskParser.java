@@ -53,7 +53,8 @@ public class TaskParser {
                 }
             }
             if (sectionNum < 2) {
-                throw new ShodanException("Adding a deadline requires a end date specified with /by. For example:\n\tdeadline return books /by 1/1/2024 1200");
+                throw new ShodanException("Adding a deadline requires a end date specified with /by. "
+                        + "For example:\n\tdeadline return books /by 1/1/2024 1200");
             }
             if (endDate.toString().isBlank()) {
                 throw new ShodanException("The /by field cannot be empty. Please specify a end date/time.");
@@ -88,7 +89,8 @@ public class TaskParser {
                 }
             }
             if (sectionNum < 3) {
-                throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. For example:\n\tevent attend birthday party /from 1/1/2024 1200 /to 1/1/2024 1300");
+                throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. "
+                        + "For example:\n\tevent attend birthday party /from 1/1/2024 1200 /to 1/1/2024 1300");
             }
             if (startDate.toString().isBlank()) {
                 throw new ShodanException("The /from field cannot be empty. Please specify a end date/time.");
@@ -97,7 +99,9 @@ public class TaskParser {
                 throw new ShodanException("The /to field cannot be empty. Please specify a end date/time.");
             }
             try {
-                newTask = new Event(taskName.toString(), LocalDateTime.parse(startDate.toString(), dateTimeFormatter), LocalDateTime.parse(endDate.toString(), dateTimeFormatter));
+                newTask = new Event(taskName.toString(),
+                        LocalDateTime.parse(startDate.toString(), dateTimeFormatter),
+                        LocalDateTime.parse(endDate.toString(), dateTimeFormatter));
             } catch (DateTimeParseException e) {
                 throw new ShodanException("Failed to parse entered date. Please use the DD/MM/YYYY TTTT format.");
             }

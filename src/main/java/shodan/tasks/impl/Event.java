@@ -45,6 +45,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), this.startDate.format(Task.dtf), this.endDate.format(Task.dtf));
+                super.toString(),
+                this.startDate.format(shodan.tasks.Task.dtf),
+                this.endDate.format(shodan.tasks.Task.dtf));
     }
 }

@@ -51,7 +51,8 @@ public class TaskSerializer {
             }
             for (String field : taskFields) {
                 if (field.contains(DELIMITER)) {
-                    throw new IllegalArgumentException(String.format("Unable to serialize task: %s because one of its fields contains the delimiter used for serializing.", t));
+                    throw new IllegalArgumentException(String.format("Unable to serialize task: "
+                            + "%s because one of its fields contains the delimiter used for serializing.", t));
                 }
             }
             String serializedTask = String.join(DELIMITER, taskFields);
@@ -83,21 +84,15 @@ public class TaskSerializer {
                 switch (TaskType.valueOf(fields[0])) {
                 case TODO:
                     Todo todo = new Todo(fields[2]);
-                    if (isDone) {
-                        todo.done();
-                    }
+                    todo.setDone(isDone);
                     return todo;
                 case DEADLINE:
                     Deadline deadline = new Deadline(fields[2], LocalDateTime.parse(fields[4]));
-                    if (isDone) {
-                        deadline.done();
-                    }
+                    deadline.setDone(isDone);
                     return deadline;
                 case EVENT:
                     Event event = new Event(fields[2], LocalDateTime.parse(fields[3]), LocalDateTime.parse(fields[4]));
-                    if (isDone) {
-                        event.done();
-                    }
+                    event.setDone(isDone);
                     return event;
                 }
             } catch (IllegalArgumentException e) {

@@ -31,17 +31,13 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as done,
+     * Sets whether the task is done or not done.
+     *
+     * @param isDone the status to set the task to.
      */
-    public void done() {
-        this.isDone = true;
-    }
 
-    /**
-     * Marks the task as not done.
-     */
-    public void undone() {
-        this.isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**
