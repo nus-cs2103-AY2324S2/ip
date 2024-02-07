@@ -1,9 +1,73 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
+    private static String storedTasksPath = "./data/storedTasks.txt";
+
+    private static void storeTasks(ArrayList<Task> tasks) {
+        for (Task task : tasks) {
+            try {
+                task.writeToFile(storedTasksPath);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void loadTasks(Scanner sc, ArrayList<Task> tasks) {
+        while (sc.hasNext()) {
+            String current = sc.nextLine();
+            String[] taskInfo = current.split("/");
+            Task task = null;
+            switch (taskInfo[0]) {
+                case "T":
+                    task = new ToDo(taskInfo[2]);
+                    break;
+                case "D":
+                    task = new Deadline(taskInfo[2], taskInfo[3]);
+                    break;
+                case "E":
+                    task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                    break;
+            }
+            if (task != null) {
+                if (taskInfo[1].equals("X")) {
+                    task.setDone();
+                }
+                tasks.add(task);
+            }
+        }
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File file = new File(storedTasksPath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error while creating file: " + e.getMessage());
+            }
+        }
+
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Stored tasks file does not exists: " + e.getMessage());
+        }
+
+        if (fileScanner != null) {
+            loadTasks(fileScanner, tasks);
+        }
 
         System.out.println("Hello! I'm Blob.\nWhat can I do for you?\n");
         String message = sc.nextLine();
@@ -123,6 +187,7 @@ public class Duke {
             message = sc.nextLine();
         }
 
+        storeTasks(tasks);
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
