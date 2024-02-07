@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.utility.Ui;
-import duke.utility.TaskList;
 import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
 
 /**
  * Represents a command to show the current {@link TaskList}.

@@ -1,23 +1,22 @@
 package duke.utility;
 
-import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-import duke.exceptions.DukeException;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Todo;
-import duke.task.Task;
-
-import duke.command.Command;
 import duke.command.AddCommand;
+import duke.command.Command;
 import duke.command.DeleteCommand;
-import duke.command.MarkCommand;
 import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.UnmarkCommand;
 import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.exceptions.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * Parses inputs to Duke.
@@ -27,7 +26,8 @@ public class Parser {
         int fromIndex = s.indexOf("/from");
         int toIndex = s.indexOf("/to");
         if (fromIndex == -1 || toIndex == -1 || s.length() < 7) {
-            throw new DukeException("Format Error, Event must be in format: Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
+            throw new DukeException("Format Error, Event must be in format:"
+                    + "Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
         }
         String eventName = s.substring(6, fromIndex - 1);
         try {
@@ -35,7 +35,8 @@ public class Parser {
             String to = s.substring(toIndex + 4);
             return new Event(eventName, from, to);
         } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Format Error, Event must be in format: Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
+            throw new DukeException("Format Error, Event must be in format:"
+                    + "Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
         }
     }
 
@@ -134,12 +135,12 @@ public class Parser {
                 throw new DukeException("File is of wrong format.");
             }
             String deadlineName = s.substring(7, byIndex - 1);
-            String deadlineBy =  s.substring(byIndex + 5, s.length() - 1);
+            String deadlineBy = s.substring(byIndex + 5, s.length() - 1);
             t = new Deadline(deadlineName, formatDate(deadlineBy));
         } else if (s.charAt(1) == 'E') {
             int fromIndex = s.indexOf("(from:");
             int toIndex = s.indexOf("to:");
-            if (fromIndex == -1 || toIndex == -1 ) {
+            if (fromIndex == -1 || toIndex == -1) {
                 throw new DukeException("File is of wrong format.");
             }
             String eventName = s.substring(7, fromIndex - 1);

@@ -1,13 +1,12 @@
 package duke.command;
 
 import java.io.IOException;
+
 import duke.exceptions.DukeException;
-
-import duke.utility.Ui;
-import duke.utility.TaskList;
-import duke.utility.Storage;
-
 import duke.task.Task;
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
 
 /**
  * Represents a command to mark a {@link Task} in a {@link TaskList} as done.

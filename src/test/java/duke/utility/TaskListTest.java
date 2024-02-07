@@ -1,8 +1,10 @@
 package duke.utility;
 
-import duke.exceptions.DukeException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exceptions.DukeException;
 
 public class TaskListTest {
     @Test
