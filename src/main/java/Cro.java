@@ -12,8 +12,8 @@ public class Cro {
                             + "Hello! I'm Cro!\n"
                             + "What can I do for you?\n"
                             + "-----------------------------------\n";
-    public static void main(String[] args){
 
+    public static void initialiseTasks() {
         try {
             File saveData = new File("saveFile.txt");
             if (saveData.createNewFile()) {
@@ -26,8 +26,12 @@ public class Cro {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+    public static void main(String[] args){
 
+        initialiseTasks();
         System.out.println(welcomeMessage);
+        taskList.displayTasks();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -47,11 +51,11 @@ public class Cro {
                 } else if (command.equals("unmark")) {
                     taskList.markTaskAsUndone(splitStr);
                 } else if (command.equals("todo")) {
-                    taskList.addToDo(splitStr, 0);
+                    taskList.addToDo(splitStr, 0, false);
                 } else if (command.equals("deadline")) {
-                    taskList.addDeadline(splitStr, 0);
+                    taskList.addDeadline(splitStr, 0, false);
                 } else if (command.equals("event")) {
-                    taskList.addEvent(splitStr, 0);
+                    taskList.addEvent(splitStr, 0, false);
                 } else if (command.equals("delete")) {
                     taskList.deleteEvent(splitStr);
                 } else {
