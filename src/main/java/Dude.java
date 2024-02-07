@@ -65,10 +65,6 @@ public class  Dude {
                 case "deadline":
                     System.out.println(handle_deadline_command(msg));
                     break;
-                default:
-                    System.out.println("\t-----------------------------------\n" +
-                            "\tI'm sorry, but I don't know what\n\tthat means :-(\n" +
-                            "\t-----------------------------------");
             }
         }
 
