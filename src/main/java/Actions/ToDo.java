@@ -14,7 +14,7 @@ public abstract class ToDo extends Template {
     public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) throw new ValueNotFound("You need to provide a value for todo");
         if (!isTriggerPrefix(input, trigger)) return false;
-        Task task = new Tasks.ToDo(processParams(removePrefix(input, trigger)));
+        Task task = new Tasks.ToDo(removePrefix(input, trigger));
         list.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("added: " + task.toString());

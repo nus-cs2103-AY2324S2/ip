@@ -12,7 +12,7 @@ import Tasks.Event;
 import Tasks.ToDo;
 
 public abstract class ReadData {
-    private static final String dataPath = "../data/tasks.txt";
+    private static final String dataPath = "data/tasks.txt";
 
     protected static void read(ArrayList<Task> list) {
         File f = new File(dataPath);
@@ -43,6 +43,7 @@ public abstract class ReadData {
     }
 
     protected static void write(ArrayList<Task> list) {
+        if (list.isEmpty()) return;
         createFile();
         try {
             new FileOutputStream(dataPath).close();
@@ -58,7 +59,7 @@ public abstract class ReadData {
     }
 
     private static void createFile() {
-        File f = new File("../data");
+        File f = new File("data");
         if (!f.exists() || !f.isDirectory())
             f.mkdir();
         f = new File(dataPath);
