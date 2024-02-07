@@ -1,6 +1,5 @@
 package commands;
 
-import exceptions.DukeException;
 import task.Task;
 import ui.Ui;
 
@@ -18,19 +17,15 @@ public class TodoCommand extends Command {
 
     /**
      * Adds a Task into TaskList.
-     * @throws DukeException Throws an exception when invalid input is provided.
      */
     @Override
-    public void execute() throws DukeException {
-        if (name.isEmpty()) {
-            Ui.emptyTaskMessage();
-        } else {
-            Task task = new Task(name.trim());
-            tasks.add(task);
-            Ui.printVLine();
-            System.out.println("Got it! task.Task has been added:\n" + task+ "\nNow you have "
-                    + tasks.getList().size() + " tasks in the list.");
-            Ui.printVLine();
-        }
+    public void execute() {
+        Task task = new Task(name.trim());
+        tasks.add(task);
+        Ui.printVLine();
+        System.out.println("Got it! task.Task has been added:\n" + task+ "\nNow you have "
+                + tasks.getList().size() + " tasks in the list.");
+        Ui.printVLine();
+
     }
 }

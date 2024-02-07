@@ -90,7 +90,7 @@ public class Storage {
         }
     }
 
-    public void saveFile(TaskList taskLs) throws DukeException, IOException {
+    public void saveFile(TaskList taskLs) throws IOException {
         List<Task> tasks = taskLs.getList();
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(path.toString()));
@@ -100,11 +100,11 @@ public class Storage {
             }
             bw.flush();
             bw.close();
-        } catch (FileNotFoundException e) {
-           Files.createDirectories(Paths.get("data"));
-           saveFile(taskLs);
+        } catch (FileNotFoundException e) { //file not found
+           Files.createDirectories(Paths.get("data")); //create file
+           saveFile(taskLs); //run function again
         } catch (IOException e) {
-            throw new DukeException("I/O Exception Detected");
+            System.out.println(e.getMessage());
         }
     }
 

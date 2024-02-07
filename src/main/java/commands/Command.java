@@ -9,7 +9,7 @@ import java.io.IOException;
  * A superclass that represents all commands.
  */
 public class Command {
-    protected TaskList tasks;
+    protected TaskList taskList;
 
     /**
      * Excutes the command.
@@ -22,6 +22,6 @@ public class Command {
     };
 
     public void setData(TaskList tasks) {
-        this.tasks = tasks;
+        this.taskList = tasks;
     }
 }

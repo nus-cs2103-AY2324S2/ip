@@ -1,3 +1,4 @@
 T|0|read book
 T|0|return book
 T|1|swim
+D|0|do cs2103T quick |tmr

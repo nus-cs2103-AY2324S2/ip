@@ -24,12 +24,12 @@ public class Howie {
     public static void main(String[] args) throws Exception {
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TaskList taskLs = storage.readFile();
+        TaskList taskList = storage.readFile();
         while (true) {
             String[] input = ui.getUserCommand();
             try {
                 Command command = new Parser().parseCommand(input);
-                command.setData(taskLs);
+                command.setData(taskList);
                 command.execute();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

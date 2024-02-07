@@ -78,13 +78,13 @@ public class Ui {
      */
     public static void helpMessage() {
         printVLine();
-        System.out.println("Below is a list of available commands for me:\n" +
-                "   todo [task_name]\n" +
-                "   event [task_name] /from [date] /to [date]\n" +
-                "   deadline [task_name] /by [date]\n" +
-                "   list - to see all tasks\n" +
-                "   mark/unmark [index]\n" +
-                "   bye - to exit the programme");
+        System.out.println("Below is a list of available commands for me:\n"
+               + "   todo [task_name]\n"
+               + "   event [task_name] /from [date] /to [date]\n"
+               + "   deadline [task_name] /by [date]\n"
+               + "   list - to see all tasks\n"
+               + "   mark/unmark [index]\n"
+               + "   bye - to exit the programme");
         printVLine();
     }
 
