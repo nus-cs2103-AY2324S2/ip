@@ -27,6 +27,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBird(bird);
             fxmlLoader.<MainWindow>getController().setMain(this);
+            fxmlLoader.<MainWindow>getController().displayInitialMessage();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

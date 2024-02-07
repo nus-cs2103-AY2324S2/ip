@@ -31,10 +31,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // displayInitialMessage();
     }
 
-    private void displayInitialMessage() {
+     /**
+     * Creates the initial welcome message for user on startup
+     */
+    @FXML
+    public void displayInitialMessage() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(bird.greet(), dukeImage)
         );
