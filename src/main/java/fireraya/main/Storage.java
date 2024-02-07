@@ -74,7 +74,7 @@ public class Storage {
 
                 loaded.add(nextTask);
 
-                System.out.println(Arrays.toString(all));
+                //System.out.println(Arrays.toString(all));
 
             }
 

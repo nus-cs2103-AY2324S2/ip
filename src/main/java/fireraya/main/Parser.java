@@ -4,9 +4,15 @@ import fireraya.command.*;
 import fireraya.exception.FirerayaException;
 import fireraya.exception.InvalidNumOfArgsException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+
+
 
 public class Parser {
 
@@ -68,7 +74,14 @@ public class Parser {
 
                 String description = String.join(" ", Arrays.copyOfRange(all, 1, index));
                 String deadline = String.join(" ", Arrays.copyOfRange(all, index + 1, arrLen));
+                //System.out.println(deadline);
 
+                if (isDateCheck(deadline)) {
+                    Date d = parseDate(deadline);
+                    System.out.println("Is Date!");
+                    return new DeadlineCommand(description, d);
+
+                }
                 return new DeadlineCommand(description, deadline);
             }
 
@@ -122,6 +135,51 @@ public class Parser {
         } catch (FirerayaException e) {
             throw e;
         }
+    }
+
+    public static boolean isDateCheck(String str) {
+
+        String[] dates = str.split("/");
+        //String[] trimmed = trim(dates);
+        //System.out.println(Arrays.toString(dates));
+
+        if (!isNumber(dates[0]) || !isNumber(dates[1]) || dates.length != 3) {
+            System.out.println("Notdate 1");
+            return false;
+        }
+
+        String[] last = dates[2].split(" ");
+
+        if (!isNumber(last[0]) || !isNumber(last[1]) || last.length != 2) {
+            System.out.println("Notdate 2");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isNumber(String str) {
+        //System.out.println(str.matches("-?\\d+(\\.\\d+)?"));
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
+
+    private static Date parseDate(String date) throws FirerayaException {
+        try {
+            SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            return d.parse(date);
+        } catch (ParseException e) {
+            throw new FirerayaException(e.getMessage());
+        }
+    }
+
+    public static String[] trim(String[] s) {
+        String[] d = s.clone();
+        for (int i = 0; i < d.length; i++) {
+            d[i] = d[i].trim();
+        }
+        System.out.println("Trimmed array");
+        System.out.println(d[1].trim());
+        System.out.println(Arrays.toString(d));
+        return d;
     }
 }
 
