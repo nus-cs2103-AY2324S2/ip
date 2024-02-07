@@ -9,6 +9,7 @@ import duke.utility.Storage;
 import duke.utility.TaskList;
 import duke.utility.Ui;
 
+
 /**
  * Represents a chatbot of the name Duke.
  */
@@ -16,6 +17,18 @@ public class Duke {
     private TaskList list;
     private Ui ui;
     private Storage storage;
+
+
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("data/duke.txt");
+        try {
+            list = new TaskList(storage.load());
+        } catch (DukeException | IOException e) {
+            ui.showError(e.getMessage());
+            list = new TaskList();
+        }
+    }
 
     /**
      * Creates a Duke object that can run.
@@ -46,6 +59,29 @@ public class Duke {
                 ui.showError(e.getMessage());
             }
         }
+    }
+
+
+    /**
+     * Gets a response upon an input from the user.
+     *
+     * @param input the user input
+     * @return response to the user
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(list, ui, storage);
+            return ui.craftResponse();
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+            return ui.craftResponse();
+        }
+    }
+
+    public String greet() {
+        this.ui.greet();
+        return ui.craftResponse();
     }
 
     public static void main(String[] args) {
