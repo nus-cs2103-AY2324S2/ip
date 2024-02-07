@@ -21,7 +21,7 @@ public class Task {
     }
 
     public String toDataString() {
-        return (this.isDone ? "X" : "O") + ":" + this.description;
+        return (this.isDone ? "X" : "O") + "|" + this.description;
     }
 
     @Override
