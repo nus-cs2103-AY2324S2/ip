@@ -1,3 +1,9 @@
+package tyler.command;
+import tyler.task.Deadline;
+import tyler.ui.Ui;
+import tyler.task.TaskList;
+import tyler.storage.Storage;
+
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends AddCommand {

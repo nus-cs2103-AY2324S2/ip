@@ -1,6 +1,19 @@
-import java.io.*;
+package tyler.storage;
+import tyler.task.Todo;
+import tyler.task.TaskList;
+import tyler.task.Deadline;
+import tyler.task.Event;
+import tyler.task.Task;
+
+import java.io.IOException;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,7 +58,7 @@ public class Storage {
     public void saveTask(TaskList tasks) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-            for (Task task : tasks.taskList) {
+            for (Task task : tasks.getList()) {
                 bw.write(task.saveToFileString());
                 bw.newLine();
             }

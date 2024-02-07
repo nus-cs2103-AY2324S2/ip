@@ -1,5 +1,9 @@
-import java.util.ArrayList;
+package tyler.ui;
+import tyler.task.Task;
+import tyler.task.TaskList;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
     Scanner sc = new Scanner(System.in);
@@ -34,7 +38,7 @@ public class Ui {
     }
 
     public void list(TaskList tasks) {
-        ArrayList<Task> taskList = tasks.taskList;
+        ArrayList<Task> taskList = tasks.getList();
         for (int i = 1; i < taskList.size() + 1; i++) {
             if (taskList.get(i - 1) == null) {
                 break;

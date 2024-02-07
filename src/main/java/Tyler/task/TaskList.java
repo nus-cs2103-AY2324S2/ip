@@ -1,3 +1,5 @@
+package tyler.task;
+
 import java.util.ArrayList;
 public class TaskList {
     protected ArrayList<Task> taskList;
@@ -8,6 +10,10 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    public ArrayList<Task> getList() {
+        return this.taskList;
     }
 
     public void addTask(Task task) {

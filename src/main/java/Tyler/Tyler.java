@@ -1,5 +1,14 @@
-import java.io.IOException;
+package tyler;
+import tyler.task.TaskList;
+import tyler.storage.Storage;
+import tyler.ui.Ui;
+import tyler.command.Command;
+import tyler.parser.Parser;
+import tyler.exception.TylerException;
+
 import java.nio.file.Paths;
+import java.io.IOException;
+
 
 public class Tyler {
     private static final String FILE_PATH = Paths.get(".",  "data", "Tyler.txt").toString();
