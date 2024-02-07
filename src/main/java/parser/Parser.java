@@ -49,7 +49,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException If user leaves the description blank
      */
     public String getTodoDescription() throws IndexOutOfBoundsException {
-        String[] inputParts = this.input.split("\\s+, 2");
+        String[] inputParts = this.input.split("\\s+", 2);
         String description = inputParts[1].trim();
         return description;
     }
