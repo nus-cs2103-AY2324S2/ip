@@ -1,3 +1,8 @@
+package tasklist;
+import jux.JuxException;
+import parser.Parser;
+import ui.Ui;
+
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -46,7 +51,7 @@ public class TaskList {
 
         return size == 0;
     }
-    public void addTask(Ui ui, String typeOfTask, String task) throws DukeException {
+    public void addTask(Ui ui, String typeOfTask, String task) throws JuxException {
         if (typeOfTask.equals(Parser.TODO)) {
             addTodo(task);
         } else if (typeOfTask.equals(Parser.DEADLINE)) {
@@ -55,21 +60,21 @@ public class TaskList {
         } else if (typeOfTask.equals(Parser.EVENT)){
             addEvent(task);
         } else {
-            throw new DukeException("SORRY I DO NOT KNOW WHAT THAT MEANS, PLEASE TRY AGAIN!");
+            throw new JuxException("SORRY I DO NOT KNOW WHAT THAT MEANS, PLEASE TRY AGAIN!");
         }
         ui.printTaskAfterword(task);
         ui.printNumberOfTasks(getSize());
 
     }
-    public void addTodo(String task) throws DukeException {
+    public void addTodo(String task) throws JuxException {
         taskList.add(new Todo(Parser.parseTodo(task)));
 
     }
-    public void addDeadline(String task) throws DukeException{
+    public void addDeadline(String task) throws JuxException {
         String[] args = Parser.parseDeadline(task);
         taskList.add(new Deadline(args[0], args[1]));
     }
-    public void addEvent(String task) throws DukeException{
+    public void addEvent(String task) throws JuxException {
         String[] args = Parser.parseEvent(task);
         taskList.add(new Event(args[0],args[1],args[2]));
     }
