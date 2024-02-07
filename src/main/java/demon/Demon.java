@@ -1,11 +1,8 @@
 package demon;
 
 import java.nio.file.NoSuchFileException;
-
 import java.io.IOException;
-
 import java.util.Scanner;
-
 import java.time.format.DateTimeParseException;
 
 /**
