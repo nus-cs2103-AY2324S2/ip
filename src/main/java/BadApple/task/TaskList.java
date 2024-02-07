@@ -15,4 +15,12 @@ public class TaskList {
             System.out.println(bufferedReader.readLine());
         }
     }
+
+    public static void filterTasks(String filter) {
+        for (Task t : tasks) {
+            if (t.brief().toLowerCase().contains(filter.toLowerCase())) {
+                System.out.println(t);
+            }
+        }
+    }
 }
