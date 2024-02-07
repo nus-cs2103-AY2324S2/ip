@@ -52,17 +52,33 @@ public class BalkanBot {
                 String[] details = Arrays.copyOfRange(brokenCommand, 1, brokenCommand.length);
                 switch (advancedCommand) {
                     case "mark": {
-                        int index = Integer.parseInt(brokenCommand[1]) - 1;
-                        listOfInputs[index].mark();
-                        System.out.println("Dje si pizda materina! I've marked this task as done:" + "\n" +
-                                listOfInputs[index].toString());
+                        if (brokenCommand.length < 2) {
+                            System.out.println("OOPS!!! The number for the mark command cannot be empty.");
+                        } else {
+                            try {
+                                int index = Integer.parseInt(brokenCommand[1]) - 1;
+                                listOfInputs[index].mark();
+                                System.out.println("Dje si pizda materina! I've marked this task as done:" + "\n" +
+                                        listOfInputs[index].toString());
+                            } catch (NumberFormatException e){
+                                System.out.println("OOPS!!! The input after the mark command has to be an integer.");
+                            }
+                        }
                         break;
                     }
                     case "unmark": {
-                        int index = Integer.parseInt(brokenCommand[1]) - 1;
-                        listOfInputs[index].unmark();
-                        System.out.println("Baga-mi-as pula, it's been undone" + "\n" +
-                                listOfInputs[index].toString());
+                        if (brokenCommand.length < 2) {
+                            System.out.println("OOPS!!! The number for the unmark command cannot be empty.");
+                        } else {
+                            try {
+                                int index = Integer.parseInt(brokenCommand[1]) - 1;
+                                listOfInputs[index].unmark();
+                                System.out.println("Baga-mi-as pula, it's been undone" + "\n" +
+                                        listOfInputs[index].toString());
+                            } catch (NumberFormatException e) {
+                                System.out.println("OOPS!!! The input after the unmark command has to be an integer.");
+                            }
+                        }
                         break;
                     }
                     case "todo": {
@@ -131,9 +147,13 @@ public class BalkanBot {
                             break;
                         }
                     }
-                    default:
+                    case "delete": {
+
+                    }
+                    default: {
                         System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                         break;
+                    }
                 }
             }
         }
