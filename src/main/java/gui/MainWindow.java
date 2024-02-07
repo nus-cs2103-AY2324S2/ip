@@ -1,5 +1,9 @@
+package gui;
+
 import commands.Command;
 import exceptions.DukeException;
+import howie.Howie;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import parser.Parser;
 import storage.Storage;
 import tasklists.TaskList;
@@ -38,6 +43,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog("Hello! How can I help you today?", dukeImage));
     }
 
     public void setHowie(Howie h) {
@@ -52,9 +58,10 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException, IOException {
+    private void handleUserInput() throws IOException {
         String input = userInput.getText();
         Command command;
+
         try {
             command = new Parser().parseCommand(input.split(" "));
             command.setData(taskList);
@@ -77,11 +84,4 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
-        return "Howie: " + input;
-    }
 }

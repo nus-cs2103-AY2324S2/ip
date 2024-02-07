@@ -1,3 +1,5 @@
+package howie;
+
 import commands.Command;
 import exceptions.DukeException;
 import parser.Parser;
