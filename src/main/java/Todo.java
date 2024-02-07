@@ -6,7 +6,6 @@ import task.Task;
  * Represents a todo task.
  */
 public class Todo extends Task {
-
     private static final String TASK_CODE = "T";
 
     /**

@@ -6,7 +6,6 @@ import task.Task;
  * Represents an event with a start and end date.
  */
 public class Event extends Task {
-
     private static final String TASK_CODE = "E";
     protected String from;
     protected String to;
@@ -24,6 +23,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns a string representation of the start and end date of the Event object.
+     *
+     * @return String representation of the start and end date.
+     */
     @Override
     public String getDate() {
         return this.from + " | " + this.to;
