@@ -82,7 +82,7 @@ public class Parser {
                 break;
             default:
                 if (!parts[0].equals("list") && !parts[0].equals("bye") && !parts[0].equals("mark")
-                        && !parts[0].equals("unmark") && !parts[0].equals("delete")) {
+                        && !parts[0].equals("unmark") && !parts[0].equals("delete") && !parts[0].equals("find")) {
                     System.out.println(LINE);
                     System.out.println("\t I think you haven't had enough vitamin C." +
                             "\n\t I can't understand what you want me to do!" +

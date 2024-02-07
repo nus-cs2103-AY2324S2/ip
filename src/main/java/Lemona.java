@@ -82,6 +82,9 @@ public class Lemona {
                 tasks.add(task);
                 storage.save(tasks);
                 break;
+            case ("find"):
+                tasks.find(parsedInput[1]);
+                break;
             default:
                 break;
             }

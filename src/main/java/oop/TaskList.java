@@ -152,4 +152,25 @@ public class TaskList {
             System.out.println(LINE);
         }
     }
+
+    /**
+     * Searches for tasks that contain the given keyword.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     */
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        System.out.println(LINE);
+        System.out.println("\t These are the result of finding the keyword:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                System.out.println("\t" + (i + 1) + ". " + tasks.get(i).print());
+            }
+        }
+
+        System.out.println(LINE);
+
+        return matchingTasks;
+    }
 }
