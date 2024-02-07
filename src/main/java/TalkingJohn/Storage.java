@@ -46,8 +46,48 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Parse each line and create corresponding Task object
-                // Add the Task object to the taskArr list
+                String description = line.substring(7);
+                String letter = line.substring(1, 2);
+                String markCheck = line.substring(4, 5);
+
+                Task task = null;
+
+                if (letter.equals("T")) {
+                    task = new Todo(description);
+
+                    if (markCheck.equals("X")) {
+                        task.mark();
+                    }
+                } else if (letter.equals("D")) {
+                    int openingParenthesisIndex = description.indexOf('(');
+                    int endingParenthesisIndex = description.indexOf(')');
+
+                    String content = description.substring(0, openingParenthesisIndex);
+                    String timing = description.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
+
+                    task = new Deadline(content, timing);
+
+                    if (markCheck.equals("X")) {
+                        task.mark();
+                    }
+                } else if (letter.equals("E")) {
+                    int openingParenthesisIndex = description.indexOf('(');
+                    int endingParenthesisIndex = description.indexOf(')');
+
+                    String content = description.substring(0, openingParenthesisIndex);
+                    String timing = description.substring(openingParenthesisIndex + 2, endingParenthesisIndex);
+
+                    String[] timings = timing.split("to:", 2);
+
+                    task = new Event(content, timings[0], "  " + timings[1]);
+
+                    if (markCheck.equals("X")) {
+                        task.mark();
+                    }
+                } else {
+                    System.out.println("INVALID STORAGE DATA");
+                }
+                taskArr.add(task);
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
