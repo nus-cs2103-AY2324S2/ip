@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Stores the list of tasks assigned to the bot.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     /**
      * Creates a TaskList object when there are already tasks in the local file.
@@ -107,19 +107,6 @@ public class TaskList {
     }
 
     /**
-     * Prints out the list of tasks with an index number.
-     */
-    public void listTask() {
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i) == null) {
-                break;
-            }
-            int taskNumber = i + 1;
-            System.out.println(taskNumber + "." + tasks.get(i).toString());
-        }
-    }
-
-    /**
      * Returns a list of matching task according to the specified keyword.
      *
      * @param keyword Keyword specified by the user to find.
@@ -130,14 +117,5 @@ public class TaskList {
                 -> task.getDescription().contains(keyword)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    /**
-     * Prints out the list of matching task, if any, with a 1-based index.
-     *
-     * @param tasks The list of matching tasks, if any.
-     */
-    public void listMatchingTask(ArrayList<Task> tasks) {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
-        }
-    }
+
 }

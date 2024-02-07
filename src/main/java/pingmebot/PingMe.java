@@ -1,17 +1,15 @@
 package pingmebot;
 
-import pingmebot.task.ToDos;
-import pingmebot.task.Deadline;
-import pingmebot.task.Events;
-import pingmebot.task.Task;
-
-import java.util.ArrayList;
+import pingmebot.command.Command;
+import pingmebot.command.ExitCommand;
+import pingmebot.command.ListCommand;
 
 /**
  * A simple, interactive task management application.
  * It allows user to interact with it via command line interface.
  */
 public class PingMe {
+    protected static String filePath = "./data/dukeData.txt";
     private Storage storage;
     private TaskList tasks;
     private UI ui;
@@ -23,14 +21,18 @@ public class PingMe {
      * @param filePath The filePath to the storage of data locally.
      */
     public PingMe(String filePath) {
-        this.ui = new UI();
+        ui = new UI();
         try {
-            this.storage = new Storage(filePath);
-            this.tasks = new TaskList(storage.bootingUp());
+            storage = new Storage(filePath);
+            tasks = new TaskList(storage.bootingUp());
         } catch (PingMeException e) {
-            this.tasks = new TaskList();
+            tasks = new TaskList();
             ui.showError(e.getMessage());
         }
+    }
+
+    public PingMe() {
+        this(filePath);
     }
 
     /**
@@ -44,83 +46,75 @@ public class PingMe {
             parser = new Parser(userInput);
 
             if (userInput.equals("bye")) {
-                ui.sayGoodbye();
-                break;
+                try {
+                    Command c = new ExitCommand();
+                    c.execute(tasks, storage, ui);
+                    break;
+                } catch (PingMeException e) {
+                    ui.showError(e.getMessage());
+                }
+
             } else if (userInput.equals("list")) {
-                ui.listText();
-                tasks.listTask();
+                try {
+                    Command c = new ListCommand();
+                    c.execute(tasks, storage, ui);
+                } catch (PingMeException e) {
+                    ui.showError(e.getMessage());
+                }
 
             } else if (words[0].equals("mark")) {
                 try {
-                    int taskNumber = parser.parseMarkCommand(tasks.getTaskSize());
-                    tasks.updateTaskToStorage(this.storage);
-                    ui.markTaskText(taskNumber, this.tasks);
+                    Command c = parser.parseMarkCommand(tasks.getTaskSize());
+                    c.execute(tasks, storage, ui);
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
             } else if (words[0].equals("unmark")) {
                 try {
-                    int taskNum = parser.parseUnmarkCommand(tasks.getTaskSize());
-                    tasks.updateTaskToStorage(this.storage);
-                    ui.unmarkTaskText(taskNum, this.tasks);
+                    Command c = parser.parseUnmarkCommand(tasks.getTaskSize());
+                    c.execute(tasks, storage, ui);
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
             } else if (words[0].equals("todo")) {
                 try {
-                    ToDos todo = parser.parseToDoCommand();
-                    tasks.addTask(todo);
-                    tasks.updateTaskToStorage(this.storage);
-                    ui.additionToTasksText(todo, this.tasks);
+                    Command c = parser.parseToDoCommand();
+                    c.execute(tasks, storage, ui);
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
             } else if (words[0].equals("deadline")) {
                 try {
-                    Deadline deadlineTask = parser.parseDeadlineCommand();
-                    tasks.addTask(deadlineTask);
-                    tasks.updateTaskToStorage(this.storage);
-                    ui.additionToTasksText(deadlineTask, this.tasks);
+                    Command c = parser.parseDeadlineCommand();
+                    c.execute(tasks, storage, ui);
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
             } else if (words[0].equals("event")) {
                 try {
-                    Events events = parser.parseEventsCommand();
-                    tasks.addTask(events);
-                    tasks.updateTaskToStorage(this.storage);
-                    ui.additionToTasksText(events, this.tasks);
+                    Command c = parser.parseEventsCommand();
+                    c.execute(tasks, storage, ui);
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
             } else if (words[0].equals("delete")) {
                 try {
-                    int taskNumber = parser.parseDeleteCommand(tasks.getTaskSize());
-                    ui.deletionToTasksText(taskNumber, this.tasks);
-                    tasks.updateTaskToStorage(this.storage);
+                    Command c = parser.parseDeleteCommand(tasks.getTaskSize());
+                    c.execute(tasks, storage, ui);
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
             } else if (words[0].equals("find")) {
                 try {
-                    String keyword = parser.parseFindCommand();
-                    ArrayList<Task> matchingTasks = tasks.findMatchingTask(keyword);
-                    if (matchingTasks.isEmpty()) {
-                        ui.showError("No matching results found!");
-
-                    } else {
-                        ui.listMatchingText();
-                        tasks.listMatchingTask(matchingTasks);
-                    }
-                }
-
-                catch (PingMeException e) {
+                    Command c = parser.parseFindCommand();
+                    c.execute(tasks, storage, ui);
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
 
@@ -130,7 +124,110 @@ public class PingMe {
         }
     }
 
+    public String getResponse(String input) {
+        String[] splitInput = input.split(" ");
+        parser = new Parser(input);
+        String response = "";
+
+        if (input.equals("bye")) {
+            try {
+                Command c = new ExitCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (input.equals("list")) {
+            try {
+                Command c = new ListCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("mark")) {
+            try {
+                Command c = parser.parseMarkCommand(tasks.getTaskSize());
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("unmark")) {
+            try {
+                Command c = parser.parseUnmarkCommand(tasks.getTaskSize());
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("todo")) {
+            try {
+                Command c = parser.parseToDoCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("deadline")) {
+            try {
+                Command c = parser.parseDeadlineCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("event")) {
+            try {
+                Command c = parser.parseEventsCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("delete")) {
+            try {
+                Command c = parser.parseDeleteCommand(tasks.getTaskSize());
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else if (splitInput[0].equals("find")) {
+            try {
+                Command c = parser.parseFindCommand();
+                c.execute(tasks, storage, ui);
+                response += ui.givesBackResponse();
+            } catch (PingMeException e) {
+                ui.showError(e.getMessage());
+                response += ui.givesBackResponse();
+            }
+
+        } else {
+            ui.showError("OOPS! I'm sorry, but I don't know what that means :'(");
+            response += ui.givesBackResponse();
+        }
+
+        return response;
+    }
+
     public static void main(String[] args) {
-        new PingMe("./data/dukeData.txt").run();
+        new PingMe(filePath).run();
     }
 }

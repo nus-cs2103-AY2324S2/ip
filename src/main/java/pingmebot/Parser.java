@@ -1,5 +1,6 @@
 package pingmebot;
 
+import pingmebot.command.*;
 import pingmebot.task.ToDos;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
@@ -30,19 +31,19 @@ public class Parser {
     }
 
     /**
-     * Creates a ToDos object with a specified task description after parsing user's command with the ToDo command.
+     * Creates an AddCommand object with a task with specified task description.
      *
-     * @return A ToDos object with a specified task description.
+     * @return A AddCommand object with a task with specified task description.
      * @throws PingMeException If the user did not specify any task description or when the user command is not understood.
      */
-    public ToDos parseToDoCommand() throws PingMeException {
+    public AddCommand parseToDoCommand() throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 StringBuilder description = new StringBuilder(this.words.get(1));
                 for (int i = 2; i < words.size(); i++) {
                     description.append(" ").append(this.words.get(i));
                 }
-                return new ToDos(description.toString());
+                return new AddCommand(new ToDos(description.toString()));
 
             } else {
                 throw new IndexOutOfBoundsException();
@@ -55,12 +56,12 @@ public class Parser {
 
 
     /**
-     * Creates a Deadline object with a specified task description and a datetime to do the task by after parsing user's command with the Deadline command.
+     * Creates an AddCommand object a Deadline object with  specified task description and a datetime to do the task by.
      *
-     * @return A Deadline object with a specified task description and a datetime to compelte the task.
+     * @return An AddCommand object with a specified Deadline object.
      * @throws PingMeException If the user did not specify any task description or datetime to finish the task, or when the user command is not understood.
      */
-    public Deadline parseDeadlineCommand() throws PingMeException {
+    public AddCommand parseDeadlineCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
         StringBuilder by  = new StringBuilder();
         int index = this.words.indexOf("/by");
@@ -90,7 +91,7 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 throw new PingMeException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
             }
-            return new Deadline(description.toString(), parsedDateTime);
+            return new AddCommand(new Deadline(description.toString(), parsedDateTime));
 
         } else {
             throw new PingMeException("You have missing fields! You need a task description & a deadline to finish your task, try again!");
@@ -98,12 +99,12 @@ public class Parser {
     }
 
     /**
-     * Creates an Events object with a specified task description, start and end date or time of the event after parsing user's command with the Events command.
+     * Creates an AddCommand object with an Events with a task description, start and end date or time of the event.
      *
-     * @return An Events object with a specified task description, start and end date or time of the event.
+     * @return An AddCommand object with a specified Events object.
      * @throws PingMeException If the user did not specify any task description, start and end date or time of the event or when the user command is not understood.
      */
-    public Events parseEventsCommand() throws PingMeException {
+    public AddCommand parseEventsCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
@@ -135,25 +136,26 @@ public class Parser {
             throw new PingMeException("You having missing fields! You need a task description, start and end date/time for your task, try again!");
 
         } else {
-            return new Events(description.toString(), start.toString(), end.toString());
+            return new AddCommand(new Events(description.toString(), start.toString(), end.toString()));
         }
     }
 
     /**
-     * Returns a 0-based index of the task to be marked after parsing the user's comnmand with the mark command.
+     * Returns a MarkCommand object with the 0-based index of the task to be marked.
      *
      * @param currentNumOfTask The total number of task currently in the tasklist.
-     * @return A 0-based index of the task to be marked.
-     * @throws PingMeException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
+     * @return A MarkCommand object with the 0-based index of the task to be marked.
+     * @throws PingMeException If the index of the task in the tasklist is not specified or when it is higher or
+     *                         lower than the actual total number of tasks currently.
      */
-    public int parseMarkCommand(int currentNumOfTask) throws PingMeException {
+    public MarkCommand parseMarkCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
                     throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
 
                 } else {
-                    return Integer.parseInt(this.words.get(1)) - 1;
+                    return new MarkCommand(Integer.parseInt(this.words.get(1)) - 1);
                 }
 
             } else {
@@ -166,20 +168,21 @@ public class Parser {
     }
 
     /**
-     * Returns a 0-based index of the task to be un-marked after parsing the user's comnmand with the unmark command.
+     * Returns a UnmarkCommand object with the 0-based index of the task to be un-marked.
      *
      * @param currentNumOfTask The total number of task currently in the tasklist.
-     * @return A 0-based index of the task to be un-marked.
-     * @throws PingMeException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
+     * @return A UnmarkCommand object with the 0-based index of the task to be un-marked.
+     * @throws PingMeException If the index of the task in the tasklist is not specified or when it is higher or
+     *                         lower than the actual total number of tasks currently.
      */
-    public int parseUnmarkCommand(int currentNumOfTask) throws PingMeException {
+    public UnmarkCommand parseUnmarkCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
                     throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
 
                 } else {
-                    return Integer.parseInt(this.words.get(1)) - 1;
+                    return new UnmarkCommand(Integer.parseInt(this.words.get(1)) - 1);
                 }
 
             } else {
@@ -192,20 +195,21 @@ public class Parser {
     }
 
     /**
-     * Returns a 0-based index of the task to be deleted after parsing the user's comnmand with the delete command.
+     * Returns a DeleteCommand with a 0-based index of the task to be deleted.
      *
      * @param currentNumOfTask The total number of task currently in the tasklist.
-     * @return A 0-based index of the task to be marked.
-     * @throws PingMeException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
+     * @return A DeleteCommand object with a 0-based index of the task to be marked.
+     * @throws PingMeException If the index of the task in the tasklist is not specified or when it is higher or
+     *                         lower than the actual total number of tasks currently.
      */
-    public int parseDeleteCommand(int currentNumOfTask) throws PingMeException {
+    public DeleteCommand parseDeleteCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
                     throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
 
                 } else {
-                    return Integer.parseInt(this.words.get(1)) - 1;
+                    return new DeleteCommand(Integer.parseInt(this.words.get(1)) - 1);
                 }
 
             } else {
@@ -218,15 +222,15 @@ public class Parser {
     }
 
     /**
-     * Returns the keyword of what the user is trying to find in his/her tasklist.
+     * Returns the FindCommand object with the keyword of what the user is trying to find in his/her tasklist.
      *
-     * @return Keyword specified by the user.
+     * @return FindCommand object with the keyword specified by the user.
      * @throws PingMeException If the user forgets to input keyword to find.
      */
-    public String parseFindCommand() throws PingMeException {
+    public FindCommand parseFindCommand() throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
-                return this.words.get(1);
+                return new FindCommand(this.words.get(1));
             } else {
                 throw new IndexOutOfBoundsException();
             }

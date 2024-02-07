@@ -2,6 +2,7 @@ package pingmebot;
 
 import pingmebot.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -9,6 +10,8 @@ import java.util.Scanner;
  */
 public class UI {
     private final Scanner SC;
+
+    private ArrayList<String> response = new ArrayList<>();
 
     /**
      * Creates a UI object with the Scanner object intialised to read user's inputs.
@@ -29,23 +32,40 @@ public class UI {
      * Sends goodbye message to the user.
      */
     public void sayGoodbye() {
-        String exitMsg = "Bye. Hope to see you again soon!";
-        System.out.println("\n" + exitMsg);
+        String exitMsg = "\n" + "Bye. Hope to see you again soon!";
+        System.out.println(exitMsg);
+        response.add(exitMsg);
     }
 
     /**
      * Sends to user an overview message of the tasks the user has.
      */
-    public void listText() {
+    public void listText(TaskList t) {
+        String toUserUponListing = "Here are the tasks in your list:";
         System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < t.tasks.size(); i++) {
+            if (t.tasks.get(i) == null) {
+                break;
+            }
+            int taskNumber = i + 1;
+            System.out.println("\n" + taskNumber + "." + t.tasks.get(i).toString());
+            toUserUponListing += "\n" + taskNumber + "." + t.tasks.get(i).toString();
+        }
+        response.add(toUserUponListing);
     }
 
 
     /**
      * Prints an overview text of matching tasks found in the tasklist.
      */
-    public void listMatchingText() {
+    public void listMatchingText(TaskList t) {
+        String toUserUponMatching = "Here are the matching tasks in your list:";
         System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < t.tasks.size(); i++) {
+            System.out.println((i + 1) + "." + t.tasks.get(i).toString());
+            toUserUponMatching += (i + 1) + "." + t.tasks.get(i).toString();
+        }
+        response.add(toUserUponMatching);
     }
 
     /**
@@ -69,6 +89,7 @@ public class UI {
         toUserUponAddition += "\n"  + "  " + task.toString();
         toUserUponAddition += "\n" + "Now you have " + allTasks.getTaskSize() + " tasks in the list.";
         System.out.println(toUserUponAddition);
+        response.add(toUserUponAddition);
     }
 
     /**
@@ -84,6 +105,7 @@ public class UI {
         allTasks.removeTask(taskNumber);
         toUserUponDeletion += "\n" + "Now you have " + allTasks.getTaskSize() + " tasks in the list.";
         System.out.println(toUserUponDeletion);
+        response.add(toUserUponDeletion);
     }
 
     /**
@@ -103,6 +125,7 @@ public class UI {
         toUserUponMarkingTask += "Nice! I've marked this task as done:";
         toUserUponMarkingTask += "\n" + "  " + allTasks.taskToString(taskNum);
         System.out.println(toUserUponMarkingTask);
+        response.add(toUserUponMarkingTask);
     }
 
     /**
@@ -122,6 +145,7 @@ public class UI {
         toUserUponUnmarkingTask += "OK, I've marked this task as not done yet:";
         toUserUponUnmarkingTask += "\n" + "  " + allTasks.taskToString(taskNum);
         System.out.println(toUserUponUnmarkingTask);
+        response.add(toUserUponUnmarkingTask);
     }
 
     /**
@@ -131,6 +155,19 @@ public class UI {
      */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
+        response.add(errorMessage);
     }
 
+
+    /**
+     * Returns back the response stored in the response variable to be rendered on the GUI.
+     *
+     * @return The response to the user.
+     */
+    public String givesBackResponse() {
+        String messageWithNewLine = String.join("\n", response);
+        System.out.println("Response to UI:" + messageWithNewLine);
+        response.clear();
+        return messageWithNewLine;
+    }
 }
