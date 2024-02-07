@@ -1,24 +1,30 @@
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    private DateTimeFormatter printFormatter;
+    public Deadline(String description, LocalDateTime deadline, DateTimeFormatter printFormatter) {
         super(description);
         this.deadline = deadline;
+        this.printFormatter = printFormatter;
     }
 
-    public Deadline(String description, Boolean status, String deadline) {
+    public Deadline(String description, Boolean status, LocalDateTime deadline, DateTimeFormatter printFormatter) {
         super(description, status);
         this.deadline = deadline;
+        this.printFormatter = printFormatter;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.format(this.printFormatter) + ")";
     }
 
     @Override
-    public String convertToFileFormat() {
-        return "D | " + super.convertToFileFormat() + " | " + this.deadline;
+    public String convertToFileFormat(DateTimeFormatter storeFormatter) {
+        return "D | " + super.convertToFileFormat(storeFormatter) + " | " + this.deadline;
     }
 
 }

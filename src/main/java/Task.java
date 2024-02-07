@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -42,7 +44,7 @@ public class Task {
     public String toString() {
         return getStatusIcon() + " " + description;
     }
-    public String convertToFileFormat() {
+    public String convertToFileFormat(DateTimeFormatter storeFormatter) {
         return (isDone ? "1" : "0") + " | " + description;
     }
 }

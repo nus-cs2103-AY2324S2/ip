@@ -2,18 +2,20 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Duke {
+    public final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public final static DateTimeFormatter DATE_TIME_FORMATTER_FOR_PRINT = DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm");
     public static void main(String[] args) throws DukeException {
-        // String home = System.getProperty("user.home");
-        // Path path = Paths.get(home, "OneDrive","Documents", "NUS",
-        //         "Y2S2", "CS2103", "Individual Project", "duke.txt");
-        String relativePath = "data/duke.txt";
-        Path path = Paths.get(relativePath);
+        final String RELATIVE_PATH = "data/duke.txt";
+        Path path = Paths.get(RELATIVE_PATH);
         String logo =  " _____ _               _\n"
                 +       "/  __ (_)             | |\n"
                 +       "| /  \\/_  ___ __ _  __| | __ _\n"
@@ -22,17 +24,17 @@ public class Duke {
                 +       " \\____/_|\\___\\__,_|\\__,_|\\__,_|\n";
         System.out.println("Hello from\n" + logo);
         String horizontalLine = "-".repeat(60);
-        greeting("Cicada", horizontalLine);
+        printGreeting("Cicada", horizontalLine);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type your command and press Enter. Type 'bye' to quit.");
         List<Task> tasks = loadTasksFromFile(path);
         boolean exitLoop = false;
         while (!exitLoop) {
-            String command = scanner.next();
+            String command = scanner.next().toLowerCase();
             String input = scanner.nextLine();
             switch (command) {
             case "bye":
-                ending(horizontalLine);
+                print_Ending(horizontalLine);
                 exitLoop = true;
                 break;
             case "list":
@@ -76,6 +78,9 @@ public class Duke {
                     System.out.println(horizontalLine);
                 } catch (DukeException e) {
                     System.err.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.err.println("OPPS! The format for the inputted deadline is not accepted here. " +
+                            "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
                 }
                 break;
             case "event":
@@ -87,6 +92,9 @@ public class Duke {
                     System.out.println(horizontalLine);
                 } catch (DukeException e) {
                     System.err.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.err.println("OPPS! The format for the inputted start and end time is not accepted here. " +
+                            "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
                 }
                 break;
             case "delete":
@@ -125,10 +133,20 @@ public class Duke {
                                 tasks.add(convertToTodo(line));
                                 break;
                             case "D":
-                                tasks.add(convertToDeadline(line));
+                                try {
+                                    tasks.add(convertToDeadline(line));
+                                } catch (DateTimeParseException e) {
+                                    System.err.println("OPPS! The format for the inputted deadline is not accepted here. " +
+                                            "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+                                }
                                 break;
                             case "E":
-                                tasks.add(convertToEvent(line));
+                                try {
+                                    tasks.add(convertToEvent(line));
+                                } catch (DateTimeParseException e) {
+                                    System.err.println("OPPS! The format for the inputted start and end time is not accepted here. " +
+                                            "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+                                }
                                 break;
                             }
                         }
@@ -149,21 +167,24 @@ public class Duke {
         return new ToDo(description, status);
     }
 
-    public static Deadline convertToDeadline(String string) {
+    public static Deadline convertToDeadline(String string) throws DateTimeParseException{
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
         String description = parts[2].trim();
-        String deadline = parts[3].trim();
-        return new Deadline(description, status, deadline);
+        String deadlineStr = parts[3].trim();
+        LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
+        return new Deadline(description, status, deadline, DATE_TIME_FORMATTER_FOR_PRINT);
     }
 
-    public static Event convertToEvent(String string) {
+    public static Event convertToEvent(String string) throws DateTimeParseException{
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
         String description = parts[2].trim();
-        String start = parts[3].trim();
-        String end = parts[4].trim();
-        return new Event(description, status, start, end);
+        String startTimeStr = parts[3].trim();
+        String endTimeStr = parts[4].trim();
+        LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);
+        LocalDateTime endTime = LocalDateTime.parse(endTimeStr, DATE_TIME_FORMATTER);
+        return new Event(description, status, startTime, endTime, DATE_TIME_FORMATTER_FOR_PRINT);
     }
 
     public static void listTasks(List<Task> tasks, String horizontalLine) {
@@ -200,7 +221,7 @@ public class Duke {
         tasks.get(index).unmark(horizontalLine);
     }
 
-    public static Task createTask(String secondParts, String taskType) throws DukeException {
+    public static Task createTask(String secondParts, String taskType) throws DukeException, DateTimeParseException {
         Task newTask = null;
         if (secondParts.isBlank()) {
             throw new DukeException("OOPS! The description of a " + taskType + " cannot be empty.");
@@ -217,11 +238,19 @@ public class Duke {
             }
             String[] instruction = secondParts.split(" by ", 2);
             if (instruction.length < 2) {
+                if (secondParts.startsWith("by")) {
+                    throw new DukeException("OOPS! You forget to write the task description. " +
+                            "Please follow this format: '<task_description> by <deadline>' " +
+                            "in yyyy-mm-dd HHmm 24-hr format");
+                }
                 throw new DukeException("OOPS! You forget to write do the task by when");
             }
             String description = instruction[0];
-            String deadline = instruction[1];
-            newTask = new Deadline(description, deadline);
+            String deadlineStr = instruction[1];
+            // convert deadline from string to DateTime
+            // Accepted date time format is yyyy-MM-dd HHmm
+            LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
+            newTask = new Deadline(description, deadline, DATE_TIME_FORMATTER_FOR_PRINT);
             break;
         case "event":
             if (!secondParts.contains("from") || !secondParts.contains("to")) {
@@ -230,6 +259,13 @@ public class Duke {
             }
             String[] e_instruction = secondParts.split(" from ", 2);
             if (e_instruction.length < 2) {
+                if (secondParts.startsWith("from")) {
+                    throw new DukeException("OOPS! You forget to write the task description. " +
+                            "Please follow this format: '<task_description> from <start_time> to <end_time>' " +
+                            "in yyyy-mm-dd HHmm 24-hr format ");
+                }
+                System.out.println("inside");
+            } else if (e_instruction.length < 3 && e_instruction[1].startsWith("to")) {
                 throw new DukeException("OOPS! You forget to write the starting time of this event.");
             }
             String e_description = e_instruction[0];
@@ -237,11 +273,17 @@ public class Duke {
             if (subInstruction.length < 2) {
                 throw new DukeException("OOPS! You forget to write the ending time of this event.");
             }
-            String from = subInstruction[0];
-            String to = subInstruction[1];
-            newTask = new Event(e_description, from, to);
+            String startTimeStr = subInstruction[0];
+            String endTimeStr = subInstruction[1];
+            // convert start and end time from string to DateTime
+            // Accepted date time format is yyyy-MM-dd HHmm
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, DATE_TIME_FORMATTER);
+            if (!startTime.isBefore(endTime)) {
+                throw new DukeException("The start time of the event has to be before the end time.");
+            }
+            newTask = new Event(e_description, startTime, endTime, DATE_TIME_FORMATTER_FOR_PRINT);
             break;
-
         }
         return newTask;
     }
@@ -270,7 +312,7 @@ public class Duke {
                 Files.createFile(path);
             }
             for (Task task : tasks) {
-                String str = task.convertToFileFormat();
+                String str = task.convertToFileFormat(DATE_TIME_FORMATTER);
                 taskStrList.add(str);
             }
             String tasksStr = String.join("\n", taskStrList);
@@ -280,13 +322,13 @@ public class Duke {
             System.err.println("There are some error in saving. Try again");
         }
     }
-    public static void greeting(String chatbotName, String horizontalLine) {
+    public static void printGreeting(String chatbotName, String horizontalLine) {
         System.out.println(horizontalLine);
         System.out.println("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
         System.out.println(horizontalLine);
     }
 
-    public static void ending(String horizontalLine) {
+    public static void print_Ending(String horizontalLine) {
         System.out.println(horizontalLine);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(horizontalLine);
