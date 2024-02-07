@@ -5,7 +5,7 @@ package tasks;
  */
 public class Task {
     protected final String name;
-    protected boolean complete;
+    protected boolean isComplete;
 
     /**
      * Constructor for a Task
@@ -13,7 +13,7 @@ public class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.complete = false;
+        this.isComplete = false;
     }
 
     public String getName() {
@@ -21,7 +21,7 @@ public class Task {
     }
 
     public boolean getCompletionStatus() {
-        return this.complete;
+        return this.isComplete;
     }
 
     /**
@@ -30,15 +30,15 @@ public class Task {
      * Similarly, if it is unmarked, it will become marked
      */
     public void toggleCompletion() {
-        if (complete) {
-            complete = false;
+        if (isComplete) {
+            isComplete = false;
             return;
         }
-        complete = true;
+        isComplete = true;
     }
 
     protected String completionDisplay() {
-        if (complete) {
+        if (isComplete) {
             return "[X]";
         }
         return "[ ]";
@@ -56,7 +56,7 @@ public class Task {
      * @return The string containing the task formatted for the storage format
      */
     public String storeFormat() {
-        String completeFormat = complete ? "1" : "0";
+        String completeFormat = isComplete ? "1" : "0";
         return String.format("%s | %s | %s", "Err", completeFormat, name);
     }
 }

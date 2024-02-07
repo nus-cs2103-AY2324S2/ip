@@ -8,19 +8,19 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    protected LocalDate start;
-    protected LocalDate end;
+    protected LocalDate dateStart;
+    protected LocalDate dateEnd;
 
     /**
      * Constructor for the Event class
      * @param name Name of the task
-     * @param start Starting time of the event
-     * @param end Ending time of the event
+     * @param dateStart Starting time of the event
+     * @param dateEnd Ending time of the event
      */
-    public Event(String name, LocalDate start, LocalDate end) {
+    public Event(String name, LocalDate dateStart, LocalDate dateEnd) {
         super(name);
-        this.start = start;
-        this.end = end;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
     @Override
     protected String taskTypeDisplay() {
@@ -29,13 +29,13 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("%s%s %s (from: %s to: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name,
-                this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
-                this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+                this.dateStart.format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
+                this.dateEnd.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
     }
     @Override
     public String storeFormat() {
-        String completeFormat = complete ? "1" : "0";
+        String completeFormat = isComplete ? "1" : "0";
         return String.format("%s | %s | %s | %s | %s", "D", completeFormat, name,
-                start.format(DateTimeFormatter.ISO_DATE), end.format(DateTimeFormatter.ISO_DATE));
+                dateStart.format(DateTimeFormatter.ISO_DATE), dateEnd.format(DateTimeFormatter.ISO_DATE));
     }
 }

@@ -8,16 +8,16 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDate due;
+    protected LocalDate dateDue;
 
     /**
      * Constructor class for a Deadline class
      * @param name Name of the task
-     * @param due Date when the deadline is due
+     * @param dateDue Date when the deadline is due
      */
-    public Deadline(String name, LocalDate due) {
+    public Deadline(String name, LocalDate dateDue) {
         super(name);
-        this.due = due;
+        this.dateDue = dateDue;
     }
     @Override
     protected String taskTypeDisplay() {
@@ -26,11 +26,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("%s%s %s (by: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name,
-                this.due.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+                this.dateDue.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
     }
     @Override
     public String storeFormat() {
-        String completeFormat = complete ? "1" : "0";
-        return String.format("%s | %s | %s | %s", "D", completeFormat, name, due.format(DateTimeFormatter.ISO_DATE));
+        String completeFormat = isComplete ? "1" : "0";
+        return String.format("%s | %s | %s | %s", "D", completeFormat, name, dateDue.format(DateTimeFormatter.ISO_DATE));
     }
 }

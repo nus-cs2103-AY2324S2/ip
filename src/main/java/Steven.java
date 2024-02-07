@@ -2,18 +2,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import mainFiles.Parser;
-import mainFiles.Storage;
-import mainFiles.TaskList;
-import mainFiles.UserInput;
+import mainfiles.Parser;
+import mainfiles.Storage;
+import mainfiles.TaskList;
+import mainfiles.UserInput;
 
 /**
  * Main code for running Steven
  */
 public class Steven {
 
-    private static final String line = "========\n";
-    private static final String bootMsg = ("This is Steven!\nHow can I advise?\n");
+    private static final String LINE = "========\n";
+    private static final String MESSAGE_WHEN_BOOTING = ("This is Steven!\nHow can I advise?\n");
     private Storage storage;
     private TaskList tasks;
 
@@ -33,9 +33,9 @@ public class Steven {
             System.out.println("Whoops, looks like something went wrong, it really shouldn't!");
             e.printStackTrace();
         }
-        System.out.print(line + bootMsg + line);
+        System.out.print(LINE + MESSAGE_WHEN_BOOTING + LINE);
         System.out.println("Steven's advice: Don't know what commands I understand? Use \"help\"!");
-        System.out.print(line);
+        System.out.print(LINE);
     }
 
     /**
@@ -49,12 +49,12 @@ public class Steven {
                 UserInput command = new UserInput(input.nextLine());
                 exit = new Parser(command, this.tasks).processInput();
                 if (exit) {
-                    System.out.print(line);
+                    System.out.print(LINE);
                     break;
                 }
             }
         }
-        System.out.println("I'll see you soon then!\n" + line);
+        System.out.println("I'll see you soon then!\n" + LINE);
     }
     public static void main(String[] args) {
         new Steven().run();

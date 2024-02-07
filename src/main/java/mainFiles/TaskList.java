@@ -1,4 +1,4 @@
-package mainFiles;
+package mainfiles;
 
 import java.io.File;
 import java.io.FileNotFoundException;

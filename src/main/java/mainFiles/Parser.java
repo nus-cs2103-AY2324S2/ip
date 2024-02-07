@@ -1,4 +1,4 @@
-package mainFiles;
+package mainfiles;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -18,13 +18,13 @@ import tasks.Todo;
  * Mainly used to understand the input given by the user and interpreting what the user wants
  */
 public class Parser {
-    private static final String line = "========\n";
-    private static final String corrupted = "Oh dear, looks like the file used to handle the data "
+    private static final String LINE = "========\n";
+    private static final String CORRUPTED = "Oh dear, looks like the file used to handle the data "
             + "I'm supposed to store is corrupted..."
             + "\nSteven's Advice: You may need to re-create the file!";
-    private static final String formatError = "My, it would appear as though you didn't"
+    private static final String FORMAT_ERROR = "My, it would appear as though you didn't"
             + "format your instruction properly!\n";
-    private static final String dateErr = "Ah, this one might be slightly complicated - "
+    private static final String DATE_ERR = "Ah, this one might be slightly complicated - "
             + "I need your date in the format of \"yyyy-mm-dd\", "
             + "and I'm quite strict with this, unfortunately."
             + "\nSteven's advice: Follow the format, append your days/months with zero as necessary! "
@@ -64,7 +64,7 @@ public class Parser {
                 System.out.println("I see. In that case, the following task will be unmarked:");
                 System.out.println(taskList.get(index).toString());
             } catch (InsufficientArgException | ExcessiveArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"mark\" is as follows:"
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"mark\" is as follows:"
                         + "\nmark (x) - x is an number corresponding with the index of an item in the list.");
             } catch (NumberFormatException error) {
                 System.out.println("Hmm... Seems like you want me to mark, something, but you didn't provide a valid "
@@ -74,7 +74,7 @@ public class Parser {
                         + "Use a number which corresponds to a task number. If you need to know what number corresponds"
                         + " to what task, use \"list\".");
             } catch (IOException e) {
-                System.out.println(corrupted);
+                System.out.println(CORRUPTED);
             } catch (IncompatibleMarkException e) {
                 System.out.println("Ah, hold on. Seems like this one's still incomplete. I can't unmark this."
                         + "\nSteven's advice: You might have wanted to use\"mark\" instead!");
@@ -93,7 +93,7 @@ public class Parser {
                 System.out.println("As you wish, this task will be marked:");
                 System.out.println(taskList.get(index).toString());
             } catch (InsufficientArgException | ExcessiveArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"unmark\" is as follows:"
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"unmark\" is as follows:"
                         + "\nunmark (x) - x is an number corresponding with the index of an item in the list.");
             } catch (NumberFormatException error) {
                 System.out.println("Hmm... Seems like you want me to unmark something, but you didn't provide a "
@@ -103,7 +103,7 @@ public class Parser {
                         + "Use a number which corresponds to a task number. If you need to know what number "
                         + "corresponds to what task, use \"list\".");
             } catch (IOException e) {
-                System.out.println(corrupted);
+                System.out.println(CORRUPTED);
             } catch (IncompatibleMarkException e) {
                 System.out.println("Wait a moment, this one's already complete! I can't mark it as such again!."
                         + "\nSteven's advice: You might have wanted to use\"unmark\" instead!");
@@ -119,15 +119,15 @@ public class Parser {
                 }
                 String name = userInput.getArg1();
                 taskList.addToList(new Todo(name));
-                System.out.print(line);
+                System.out.print(LINE);
                 System.out.println("I see. I shall add the following to the list of tasks:");
                 System.out.println(taskList.get(taskList.size() - 1));
                 System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
             } catch (InsufficientArgException | ExcessiveArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"Todo\" is as follows:\nTodo (item) "
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"Todo\" is as follows:\nTodo (item) "
                         + "- item is the name of an item that you want to add to the list as a todo.");
             } catch (IOException e) {
-                System.out.println(corrupted);
+                System.out.println(CORRUPTED);
             }
             break;
         case "deadline":
@@ -140,18 +140,18 @@ public class Parser {
                 }
                 LocalDate due = LocalDate.parse(userInput.getArg2());
                 taskList.addToList(new Deadline(userInput.getArg1(), due));
-                System.out.print(line);
+                System.out.print(LINE);
                 System.out.println("I see. I shall add the following to the list of tasks:");
                 System.out.println(taskList.get(taskList.size() - 1));
                 System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
             } catch (InsufficientArgException | ExcessiveArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"Deadline\" is as follows:"
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"Deadline\" is as follows:"
                         + "\nDeadline (item) /by (date) - item is the name of an item that you want to add to the "
                         + "list as a deadline. date must be a date.");
             } catch (IOException e) {
-                System.out.println(corrupted);
+                System.out.println(CORRUPTED);
             } catch (DateTimeParseException error) {
-                System.out.println(dateErr);
+                System.out.println(DATE_ERR);
             }
             break;
         case "event":
@@ -165,18 +165,18 @@ public class Parser {
                     throw new IllogicalDateException();
                 }
                 taskList.addToList(new Event(userInput.getArg1(), start, end));
-                System.out.print(line);
+                System.out.print(LINE);
                 System.out.println("I see. I shall add the following to the list of tasks:");
                 System.out.println(taskList.get(taskList.size() - 1));
                 System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
             } catch (InsufficientArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"Event\" is as follows:\nDeadline "
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"Event\" is as follows:\nDeadline "
                         + "(item) /from (date1) /to (date2) - item is the name of an item that you want to add to the "
                         + "list as a deadline. date1 amd date2 must be a dates.");
             } catch (IOException e) {
-                System.out.println(corrupted);
+                System.out.println(CORRUPTED);
             } catch (DateTimeParseException error) {
-                System.out.println(dateErr);
+                System.out.println(DATE_ERR);
             } catch (IllogicalDateException error) {
                 System.out.println("Now hold on, this doesn't make sense! How can you have an event start earlier "
                         + "than it ends?\nSteven's advice: Make sure your first date is before the second!");
@@ -193,13 +193,13 @@ public class Parser {
                 int index = Integer.parseInt(userInput.getArg1());
                 Task removedItem = taskList.get(index - 1);
                 taskList.removeFromList(index - 1);
-                System.out.println(line + "Very well, the following item has been removed from the"
+                System.out.println(LINE + "Very well, the following item has been removed from the"
                         + "list:\n" + removedItem.toString() + "\n");
                 System.out.println("For the sake of completeness, this is the current list, do take note if any of "
                         + "your items have been moved around in order.");
                 taskList.printList();
             } catch (InsufficientArgException | ExcessiveArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"Delete\" is as follows:\n"
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"Delete\" is as follows:\n"
                         + "delete (x) - x is an number corresponding with the index of an item in the list.");
             } catch (NumberFormatException error) {
                 System.out.println("Oh, I can't  delete that - I need a number of an item in the list to delete it."
@@ -209,7 +209,7 @@ public class Parser {
                         + "\nSteven's advice: Use a number which corresponds to a task number. If you need to know"
                         + "what number corresponds to what task, use \"list\".");
             } catch (IOException e) {
-                System.out.println(corrupted);
+                System.out.println(CORRUPTED);
             }
             break;
         case "find":
@@ -221,11 +221,11 @@ public class Parser {
                     throw new ExcessiveArgException();
                 }
                 String matchingList = taskList.findTasks(userInput.getArg1());
-                System.out.println(String.format(line + "Ah, so you're looking for tasks with the word %s? Sure! "
-                        + "here they are!", userInput.getArg1()));
+                System.out.printf(LINE + "Ah, so you're looking for tasks with the word %s? Sure! "
+                        + "here they are!%n", userInput.getArg1());
                 System.out.println(matchingList);
             } catch (InsufficientArgException | ExcessiveArgException error) {
-                System.out.println(formatError + "Steven's advice: The format of \"find\" is as follows:\n"
+                System.out.println(FORMAT_ERROR + "Steven's advice: The format of \"find\" is as follows:\n"
                         + "find (item) - item is the name of the task, or part of the task");
             }
             break;
@@ -254,7 +254,7 @@ public class Parser {
                     + "\nSteven's advice: try typing \"help\" to see what user inputs are available.");
             break;
         }
-        System.out.print(line);
+        System.out.print(LINE);
         return false;
     }
 }

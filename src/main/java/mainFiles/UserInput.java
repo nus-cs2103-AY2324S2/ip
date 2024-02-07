@@ -1,4 +1,4 @@
-package mainFiles;
+package mainfiles;
 
 /**
  * Class for receiving user input and storing it as separate arguments.
