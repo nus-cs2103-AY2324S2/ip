@@ -18,7 +18,7 @@ public class TaskParser {
         StringJoiner startDate = new StringJoiner(" ");
         StringJoiner endDate = new StringJoiner(" ");
         int state = 0;
-        int sections = 1;
+        int sectionNum = 1;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yy HHmmg");
         switch (type) {
         case TODO:
@@ -28,7 +28,7 @@ public class TaskParser {
             for (String token : tokens) {
                 if (token.equals("/by")) {
                     state = 1;
-                    sections++;
+                    sectionNum++;
                     continue;
                 }
                 switch (state) {
@@ -40,7 +40,7 @@ public class TaskParser {
                     break;
                 }
             }
-            if (sections < 2) {
+            if (sectionNum < 2) {
                 throw new ShodanException("Adding a deadline requires a end date specified with /by. For example:\n\tdeadline return books /by 1/1/2024 1200");
             }
             if (endDate.toString().isBlank()) {
@@ -56,11 +56,11 @@ public class TaskParser {
             for (String token : tokens) {
                 if (token.equals("/to")) {
                     state = 1;
-                    sections++;
+                    sectionNum++;
                     continue;
                 } else if (token.equals("/from")) {
                     state = 2;
-                    sections++;
+                    sectionNum++;
                     continue;
                 }
                 switch (state) {
@@ -75,7 +75,7 @@ public class TaskParser {
                     break;
                 }
             }
-            if (sections < 3) {
+            if (sectionNum < 3) {
                 throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. For example:\n\tevent attend birthday party /from 1/1/2024 1200 /to 1/1/2024 1300");
             }
             if (startDate.toString().isBlank()) {
