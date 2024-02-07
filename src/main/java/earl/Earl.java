@@ -65,6 +65,19 @@ public class Earl {
     }
 
     /**
+     * Returns response to interaction with the GUI.
+     */
+    public String getResponse(String input) {
+        try {
+            String[] command = Parser.parseUserInput(input);
+            HandlerFactory.of(command).handle(tasks, ui);
+        } catch (EarlException e) {
+            ui.makeResponse(e.getMessage());
+        }
+        return ui.getResponse();
+    }
+
+    /**
      * Entry point of the Earl class. File path is decided here.
      */
     public static void main(String[] args) {

@@ -11,9 +11,12 @@ public class Ui {
 
     private final Scanner sc;
 
+    private String[] prevResponse;
+
     /** Class constructor. */
     public Ui() {
         sc = new Scanner(System.in);
+        prevResponse = new String[0];
     }
 
     /** Displays horizontal divider. */
@@ -31,6 +34,7 @@ public class Ui {
      * @param arr  a vararg of strings to print
      */
     public void makeResponse(String... arr) {
+        prevResponse = arr;
         printDivider();
         for (String s : arr) {
             System.out.println(PADDING + s);
@@ -48,5 +52,14 @@ public class Ui {
 
     public void showGoodbye() {
         makeResponse("Goodbye! See you soon.");
+    }
+
+    public String getResponse() {
+        StringBuilder res = new StringBuilder(PADDING + "\n");
+        for (String line: prevResponse) {
+            res.append(line).append("\n");
+        }
+        res.append(PADDING).append("\n");
+        return res.toString();
     }
 }
