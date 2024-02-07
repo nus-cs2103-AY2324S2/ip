@@ -42,25 +42,26 @@ public class TaskList {
     /**
      * Adds a ToDo task to TaskList.
      * @param toDoDescription The description of the ToDo task.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the description is black.
      */
-    public void addToDoTask(String toDoDescription) {
+    public String addToDoTask(String toDoDescription) {
         if (toDoDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task toDo = new ToDo(toDoDescription);
         taskList.add(toDo);
         updateStorage();
-        String output = String.format(ADD_TASK_MESSAGE, toDo, taskList.size());
-        System.out.println(output);
+        return String.format(ADD_TASK_MESSAGE, toDo, taskList.size());
     }
 
     /**
      * Adds a Deadline task to TaskList.
      * @param deadlineDescription The description of the Deadline task.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the description is blank.
      */
-    public void addDeadlineTask(String deadlineDescription) {
+    public String addDeadlineTask(String deadlineDescription) {
         if (deadlineDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
@@ -68,16 +69,16 @@ public class TaskList {
         Task deadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
         taskList.add(deadline);
         updateStorage();
-        String output = String.format(ADD_TASK_MESSAGE, deadline, taskList.size());
-        System.out.println(output);
+        return String.format(ADD_TASK_MESSAGE, deadline, taskList.size());
     }
 
     /**
      * Adds a Event task to TaskList.
      * @param eventDescription The description of the Event task.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the description is blank.
      */
-    public void addEventTask(String eventDescription) {
+    public String addEventTask(String eventDescription) {
         if (eventDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
@@ -88,64 +89,64 @@ public class TaskList {
         Task event = new Event(eventArgs[0], startTime, endTime);
         taskList.add(event);
         updateStorage();
-        String output = String.format(ADD_TASK_MESSAGE, event, taskList.size());
-        System.out.println(output);
+        return String.format(ADD_TASK_MESSAGE, event, taskList.size());
     }
 
     /**
      * Marks a task in TaskList as completed.
      * @param taskIndex The index of the task in TaskList.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the taskIndex is missing.
      */
-    public void markTask(String taskIndex) {
+    public String markTask(String taskIndex) {
         if (taskIndex.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsDone();
         updateStorage();
-        String output = String.format(MARK_DONE_MESSAGE, t);
-        System.out.println(output);
+        return String.format(MARK_DONE_MESSAGE, t);
     }
 
     /**
      * Unmarks a task in TaskList as not completed.
      * @param taskIndex The index of the task in TaskList.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the taskIndex is missing.
      */
-    public void unmarkTask(String taskIndex) {
+    public String unmarkTask(String taskIndex) {
         if (taskIndex.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsUndone();
         updateStorage();
-        String output = String.format(MARK_UNDONE_MESSAGE, t);
-        System.out.println(output);
+        return String.format(MARK_UNDONE_MESSAGE, t);
     }
 
     /**
      * Deletes a task in TaskList.
      * @param taskIndex The index of the task to be deleted in TaskList.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the taskIndex is missing.
      */
-    public void deleteTask(String taskIndex) {
+    public String deleteTask(String taskIndex) {
         if (taskIndex.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
         Task taskToRemove = taskList.get(Integer.parseInt(taskIndex) - 1);
         taskList.remove(Integer.parseInt(taskIndex) - 1);
         updateStorage();
-        String output = String.format(REMOVE_TASK_MESSAGE, taskToRemove, taskList.size());
-        System.out.println(output);
+        return String.format(REMOVE_TASK_MESSAGE, taskToRemove, taskList.size());
     }
 
     /**
      * Finds tasks that contains the keyword given.
      * @param keyword Keyword to find in the taskList.
+     * @return String with return message.
      * @throws DukeIllegalArgumentException If the keyword is missing.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         if (keyword.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
         }
@@ -157,8 +158,7 @@ public class TaskList {
                 count += 1;
             }
         }
-        String output = String.format(FIND_TASK_MESSAGE, sb);
-        System.out.println(output);
+        return String.format(FIND_TASK_MESSAGE, sb);
     }
 
     /**
@@ -172,9 +172,7 @@ public class TaskList {
             Task task = taskList.get(i);
             sb.append(String.format("%n%d.%s", i + 1, task));
         }
-        String output = String.format(LIST_TASK_MESSAGE, sb);
-        System.out.println(output);
-        return output;
+        return String.format(LIST_TASK_MESSAGE, sb);
     }
 
     private void updateList() {

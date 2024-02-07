@@ -6,6 +6,7 @@ import duke.exceptions.DukeException;
 import duke.exceptions.DukeUnknownCommandException;
 import duke.parser.Parser;
 import duke.tasks.TaskList;
+import duke.ui.Launcher;
 
 /**
  * Duke chatbot.
@@ -17,74 +18,85 @@ public class Duke {
     private static boolean isOpen = true;
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("user.dir"));
-        greet();
-        runWaffles();
+        Launcher.main(args);
     }
 
-    private static void runWaffles() {
-        Scanner sc = new Scanner(System.in);
+    private static String runWaffles(String userInput) {
 
-        while (isOpen) {
-            String userInput = sc.nextLine();
+        if (isOpen) {
             Parser p = new Parser(userInput);
             Parser.Command command = p.getCommand();
             String arguments = p.getArgument();
+            String output = "";
 
-            try {
-                switch (command) {
+            switch (command) {
                 case BYE:
-                    sayGoodbye();
+                    output = sayGoodbye();
                     isOpen = false;
                     break;
                 case LIST:
-                    taskList.toString();
+                    output = taskList.toString();
                     break;
                 case TODO:
-                    taskList.addToDoTask(arguments);
+                    output = taskList.addToDoTask(arguments);
                     break;
                 case MARK:
-                    taskList.markTask(arguments);
+                    output = taskList.markTask(arguments);
                     break;
                 case UNMARK:
-                    taskList.unmarkTask(arguments);
+                    output = taskList.unmarkTask(arguments);
                     break;
                 case DEADLINE:
-                    taskList.addDeadlineTask(arguments);
+                    output = taskList.addDeadlineTask(arguments);
                     break;
                 case EVENT:
-                    taskList.addEventTask(arguments);
+                    output = taskList.addEventTask(arguments);
                     break;
                 case DELETE:
-                    taskList.deleteTask(arguments);
+                    output = taskList.deleteTask(arguments);
                     break;
                 case FIND:
-                    taskList.findTask(arguments);
+                    output = taskList.findTask(arguments);
                     break;
                 case INVALID:
                     throw new DukeUnknownCommandException(
                             String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
                 default:
                     break;
-                }
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
             }
+
+            return output;
+
+        } else {
+            return "Chat has already ended!";
         }
-        sc.close();
+    }
+
+    /**
+     * Returns the response based on the input.
+     * @param input Input from user.
+     * @return String return message to user.
+     */
+    public String getResponse(String input) {
+        try {
+            return runWaffles(input);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
     /**
      * Greets the user when the chatbot is launched.
      */
-
-    public static void greet() {
-        String output = String.format("Hello! I'm Waffles!%nWhat can I do for you?");
-        System.out.println(output);
+    public String greet() {
+        return String.format("Hello! I'm Waffles!%nWhat can I do for you?");
     }
 
-    public static void sayGoodbye() {
-        System.out.println(GOODBYE_MESSAGE);
+    /**
+     * Says bye to the user when the chatbot is closed.
+     */
+    public static String sayGoodbye() {
+        return GOODBYE_MESSAGE;
     }
 
 }
