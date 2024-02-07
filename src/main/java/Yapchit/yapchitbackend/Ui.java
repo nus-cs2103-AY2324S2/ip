@@ -1,6 +1,6 @@
-package yapchit;
+package yapchit.yapchitbackend;
 
-import yapchit.tasks.Task;
+import yapchit.yapchitbackend.tasks.Task;
 
 import java.util.Scanner;
 
@@ -31,22 +31,22 @@ public class Ui {
     /**
      * Prints Yapchit intro message.
      */
-    public void printIntro() {
+    public String printIntro() {
         String intro = "\t--------------------------------------------------\n"
                 + "\tHello! I'm Yapchit\n"
                 + "\tWhat can I do for you?\n"
                 + "\t--------------------------------------------------";
-        print(intro);
+        return intro;
     }
 
     /**
      * Prints Yapchit outro message.
      */
-    public void printOutro() {
+    public String printOutro() {
         String outro = "\t--------------------------------------------------\n"
                 + "\tBye. Hope to see you again soon!\n"
                 + "\t--------------------------------------------------";
-        print(outro);
+        return outro;
     }
 
     /**
@@ -62,13 +62,16 @@ public class Ui {
      * @param t    The added task.
      * @param size Size of task list to be printed.
      */
-    public void printTaskAdd(Task t, int size) {
-        Ui.printLine();
-        print("\tGot it. I've added this task:");
-        print("\t\t"+ t.toString());
+    public String printTaskAdd(Task t, int size) {
         String temp = size == 1 ? "task" : "tasks";
-        print("\tNow you have " + size +" " + temp + " in the list");
-        Ui.printLine();
+
+        String output =  Ui.printLine() + "\n"
+        + "\tGot it. I've added this task:\n"
+        + "\t\t"+ t.toString() + "\n"
+        + "\tNow you have " + size +" " + temp + " in the list\n"
+        + Ui.printLine();
+
+        return output;
     }
 
     /**
@@ -77,13 +80,16 @@ public class Ui {
      * @param t    The deleted task.
      * @param size Size of task list to be printed.
      */
-    public void printTaskDelete(Task t, int size) {
-        Ui.printLine();
-        Ui.print("\tNoted. I've removed this task:");
-        Ui.print("\t\t" + t.toString());
+    public String printTaskDelete(Task t, int size) {
         String temp = size == 1 ? "task" : "tasks";
-        Ui.print("\tNow you have " + size +" " + temp + " in the list");
-        Ui.printLine();
+
+        String output = Ui.printLine() + "\n"
+        + "\tNoted. I've removed this task:\n"
+        + "\t\t" + t.toString() + "\n"
+        + "\tNow you have " + size +" " + temp + " in the list\n"
+        + Ui.printLine();
+
+        return output;
     }
 
     /**
@@ -92,18 +98,20 @@ public class Ui {
      * @param t    The task in question
      * @param isDone Boolean that indicates whether the task is completed or not.
      */
-    public void printTaskMark(Task t, boolean isDone) {
-        Ui.printLine();
+    public String printTaskMark(Task t, boolean isDone) {
+        String output = Ui.printLine() + "\n";
 
         if (isDone) {
-            Ui.print("\t" + "Nice! I've marked this task as done:");
-            Ui.print("\t\t" + t.toString());
+            output = output + "\t" + "Nice! I've marked this task as done:\n"
+            + "\t\t" + t.toString();
         } else {
-            Ui.print("\t" + "OK, I've marked this task as not done yet:");
-            Ui.print("\t\t" + t.toString());
+            output = output + "\t" + "OK, I've marked this task as not done yet:\n"
+            + "\t\t" + t.toString();
         }
 
-        Ui.printLine();
+        output = output + "\n" + Ui.printLine();
+
+        return output;
     }
 
     /**
@@ -112,19 +120,22 @@ public class Ui {
      * @param tasks The TaskList in question.
      * @param message the message to print above the list
      */
-    public void printList(TaskList tasks, String message) {
-        Ui.printLine();
-        Ui.print("\t" + message);
+    public String printList(TaskList tasks, String message) {
+        String output = Ui.printLine() + "\n"
+        + "\t" + message +"\n";
+
         for (int i = 0; i < tasks.getListSize(); i++) {
             int idx = i + 1;
             Task item = tasks.getItem(i);
-            Ui.print("\t" + idx + "." + item.toString());
+            output = output + "\t" + idx + "." + item.toString() + "\n";
         }
 
-        Ui.printLine();
+        output = output + Ui.printLine();
+
+        return output;
     }
-    public static void printLine() {
-        print("\t--------------------------------------------------");
+    public static String printLine() {
+        return "\t--------------------------------------------------";
     }
 
     /**

@@ -1,9 +1,10 @@
-package yapchit;
+package yapchit.yapchitbackend;
 
-import yapchit.tasks.Deadline;
-import yapchit.tasks.Event;
-import yapchit.tasks.Task;
-import yapchit.tasks.ToDo;
+import yapchit.yapchitui.Yapchit;
+import yapchit.yapchitbackend.tasks.Deadline;
+import yapchit.yapchitbackend.tasks.Event;
+import yapchit.yapchitbackend.tasks.Task;
+import yapchit.yapchitbackend.tasks.ToDo;
 import yapchit.yapchitexceptions.InvalidDetailException;
 import yapchit.yapchitexceptions.InvalidKeywordException;
 import yapchit.yapchitexceptions.YapchitException;
@@ -32,47 +33,49 @@ public class Handler {
      * @param parser the parser to perform additional parsing
      * @throws YapchitException if there is conflict in terms of user input and operation to perform
      */
-    public void handleOperation(
-            String input, Yapchit.Operations op, TaskList tasks, Ui ui, Parser parser) throws YapchitException {
+    public String handleOperation(
+            String input, YapchitBackend.Operations op, TaskList tasks, Ui ui, Parser parser) throws YapchitException {
         String[] parts = parser.parseInputParts(input);
-
+        String output = "";
         switch (op) {
         case LIST:
-            handleList(parts, tasks, ui);
+            output = handleList(parts, tasks, ui);
             break;
 
         case MARK:
-            handleMark(parts, tasks, ui);
+            output = handleMark(parts, tasks, ui);
             break;
 
         case UNMARK:
-            handleUnmark(parts, tasks, ui);
+            output = handleUnmark(parts, tasks, ui);
             break;
 
         case DELETE:
-            handleDelete(parts, tasks, ui);
+            output = handleDelete(parts, tasks, ui);
             break;
 
         case FIND:
-            handleFind(parts, tasks, ui);
+            output = handleFind(parts, tasks, ui);
             break;
 
         case DEADLINE:
-            handleDeadline(input, true, tasks, ui, parser);
+            output = handleDeadline(input, true, tasks, ui, parser);
             break;
 
         case EVENT:
-            handleEvent(input, true, tasks, ui);
+            output = handleEvent(input, true, tasks, ui);
             break;
 
         case TODO:
-            handleTodo(input, true, tasks, ui);
+            output = handleTodo(input, true, tasks, ui);
             break;
 
         default:
             throw new InvalidKeywordException("You have entered an invalid keyword. " +
                     "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");
         }
+
+        return output;
     }
 
     /**
@@ -87,7 +90,7 @@ public class Handler {
      * @throws YapchitException if there is conflict in terms of input and operation to perform
      */
     public void handleUpdateListFromFile(
-            String input, Yapchit.Operations op, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException {
+            String input, YapchitBackend.Operations op, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException {
         switch (op) {
         case EVENT:
             this.handleEvent(input, false, tasks, ui);
@@ -112,11 +115,13 @@ public class Handler {
      * @param ui ui object to interact with the user
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
      */
-    public void handleEvent(String input, boolean isNewTask, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public String handleEvent(String input, boolean isNewTask, TaskList tasks, Ui ui) throws InvalidDetailException {
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
 
         char isDone = '0';
+
+        String output = "";
 
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
@@ -139,12 +144,14 @@ public class Handler {
                 Task t = new Event(desc, from, to);
                 tasks.addTask(t);
                 if (isNewTask) {
-                    ui.printTaskAdd(t, tasks.getListSize());
+                    output = ui.printTaskAdd(t, tasks.getListSize());
                 } else {
                     t.setDone(isDone == '1' ? true : false);
                 }
             }
         }
+
+        return output;
     }
 
     /**
@@ -157,12 +164,14 @@ public class Handler {
      * @param parser parser object to parse input
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
      */
-    public void handleDeadline(
+    public String handleDeadline(
             String input, boolean isNewTask, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException {
 
         int byStart = input.indexOf("/by");
 
         char isDone = '0';
+
+        String output = "";
 
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
@@ -184,12 +193,14 @@ public class Handler {
                 Task t = new Deadline(desc, by);
                 tasks.addTask(t);
                 if (isNewTask) {
-                    ui.printTaskAdd(t, tasks.getListSize());
+                    output = ui.printTaskAdd(t, tasks.getListSize());
                 } else {
                     t.setDone(isDone == '1' ? true : false);
                 }
             }
         }
+
+        return output;
     }
 
     /**
@@ -201,9 +212,10 @@ public class Handler {
      * @param ui ui object to interact with the user
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
      */
-    public void handleTodo(String input, boolean isNewTask, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public String handleTodo(String input, boolean isNewTask, TaskList tasks, Ui ui) throws InvalidDetailException {
 
         char isDone = '0';
+        String output = "";
 
         if (!isNewTask) {
             isDone = input.charAt(input.length() - 1);
@@ -222,19 +234,24 @@ public class Handler {
             tasks.addTask(t);
 
             if (isNewTask) {
-                ui.printTaskAdd(t, tasks.getListSize());
+                output = ui.printTaskAdd(t, tasks.getListSize());
             } else {
                 t.setDone(isDone == '1' ? true : false);
             }
         }
+
+        return output;
     }
 
-    public void handleFind(String[] parts, TaskList tasks, Ui ui) throws  InvalidDetailException {
+    public String handleFind(String[] parts, TaskList tasks, Ui ui) throws  InvalidDetailException {
+        String output = "";
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
         } else {
-            ui.printList(tasks.findSublist(parts[1]), "Here are the matching tasks in your list:");
+            output = ui.printList(tasks.findSublist(parts[1]), "Here are the matching tasks in your list:");
         }
+
+        return output;
     }
 
     /**
@@ -245,12 +262,16 @@ public class Handler {
      * @param ui the ui object to interact with the user
      * @throws InvalidDetailException if the input does not provide the necessary details
      */
-    public void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
-            if(parts.length != 1){
-                throw new InvalidDetailException("Invalid detail after keyword. Please retry");
-            } else {
-                ui.printList(tasks, "Here are the tasks in your list:");
-            }
+    public String handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
+        String output = "";
+
+        if(parts.length != 1){
+            throw new InvalidDetailException("Invalid detail after keyword. Please retry");
+        } else {
+            output = ui.printList(tasks, "Here are the tasks in your list:");
+        }
+
+        return output;
     }
 
     /**
@@ -261,7 +282,8 @@ public class Handler {
      * @param ui the ui object to interact with the user
      * @throws InvalidDetailException if the input does not provide the necessary details
      */
-    public void handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public String handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+        String output = "";
         if (parts.length != 2) {
             throw new InvalidDetailException("Invalid detail after delete. Please retry");
         } else {
@@ -269,11 +291,13 @@ public class Handler {
                 int num = Integer.parseInt(parts[1]);
                 Task t = tasks.getItem(num - 1);
                 tasks.delete(num - 1);
-                ui.printTaskDelete(t, tasks.getListSize());
+                output = ui.printTaskDelete(t, tasks.getListSize());
             } catch (Exception e) {
                 throw new InvalidDetailException("Invalid detail after delete. Please retry");
             }
         }
+
+        return output;
     }
 
     /**
@@ -284,18 +308,22 @@ public class Handler {
      * @param ui the ui object to interact with the user
      * @throws InvalidDetailException if the input does not provide the necessary details
      */
-    public void handleMark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public String handleMark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+        String output = "";
+
         if (parts.length != 2) {
             throw new InvalidDetailException("Invalid detail after mark. Please retry");
         } else {
             try {
                 int idx = Integer.parseInt(parts[1]);
                 tasks.mark(idx - 1, true);
-                ui.printTaskMark(tasks.getItem(idx - 1), true);
+                output = ui.printTaskMark(tasks.getItem(idx - 1), true);
             } catch (Exception e) {
                 throw new InvalidDetailException("Invalid detail after mark. Please retry");
             }
         }
+
+        return output;
     }
 
     /**
@@ -306,18 +334,22 @@ public class Handler {
      * @param ui the ui object to interact with the user
      * @throws InvalidDetailException if the input does not provide the necessary details
      */
-    public void handleUnmark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public String handleUnmark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
+        String output = "";
+
         if (parts.length != 2) {
             throw new InvalidDetailException("Invalid detail after unmark. Please retry");
         } else {
             try {
                 int idx = Integer.parseInt(parts[1]);
                 tasks.mark(idx - 1, false);
-                ui.printTaskMark(tasks.getItem(idx - 1), false);
+                output = ui.printTaskMark(tasks.getItem(idx - 1), false);
             } catch (Exception e) {
                 throw new InvalidDetailException("Invalid detail after unmark. Please retry");
             }
         }
+
+        return output;
     }
 
     /**

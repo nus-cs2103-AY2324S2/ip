@@ -1,9 +1,10 @@
-package yapchit;
+package yapchit.yapchitbackend;
 
-import yapchit.tasks.Deadline;
-import yapchit.tasks.Event;
-import yapchit.tasks.Task;
-import yapchit.tasks.ToDo;
+import yapchit.yapchitui.Yapchit;
+import yapchit.yapchitbackend.tasks.Deadline;
+import yapchit.yapchitbackend.tasks.Event;
+import yapchit.yapchitbackend.tasks.Task;
+import yapchit.yapchitbackend.tasks.ToDo;
 import yapchit.yapchitexceptions.FileListParseException;
 import yapchit.yapchitexceptions.YapchitException;
 
@@ -56,7 +57,7 @@ public class Storage {
             String input = s.nextLine();
             String[] parts = parser.parseInputParts(input);
             try {
-                Yapchit.Operations k = Yapchit.Operations.valueOf(parts[0].toUpperCase());
+                YapchitBackend.Operations k = YapchitBackend.Operations.valueOf(parts[0].toUpperCase());
                 handler.handleUpdateListFromFile(input, k, tasks, ui, parser);
             } catch (YapchitException e) {
                 throw new FileListParseException("Error in parsing file. Some of the contents may be corrupted");

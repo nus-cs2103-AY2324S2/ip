@@ -1,6 +1,10 @@
 package yapchit;
 
-import yapchit.tasks.Deadline;
+import yapchit.yapchitbackend.Handler;
+import yapchit.yapchitbackend.Parser;
+import yapchit.yapchitbackend.TaskList;
+import yapchit.yapchitbackend.Ui;
+import yapchit.yapchitbackend.tasks.Deadline;
 import yapchit.yapchitexceptions.InvalidDetailException;
 import yapchit.yapchitexceptions.YapchitException;
 import org.junit.jupiter.api.Test;

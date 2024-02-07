@@ -1,4 +1,4 @@
-package yapchit.tasks;
+package yapchit.yapchitbackend.tasks;
 
 /**
  * Task class representing a general task in Yapchit/

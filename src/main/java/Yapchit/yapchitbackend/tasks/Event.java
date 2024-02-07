@@ -1,4 +1,4 @@
-package yapchit.tasks;
+package yapchit.yapchitbackend.tasks;
 
 /**
  * Event class representing a Event object.
