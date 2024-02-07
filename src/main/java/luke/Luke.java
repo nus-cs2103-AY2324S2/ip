@@ -138,6 +138,7 @@ public class Luke extends Application {
 
     }
 
+    //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
     private void handleUserInput(Parser parser, UI ui, Stage stage) {
         String formattedInput = userInput.getText();
         String lukeReply;

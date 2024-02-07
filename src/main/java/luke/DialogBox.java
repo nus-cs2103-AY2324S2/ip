@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+//Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
 public class DialogBox extends HBox {
 
     private Label text;
