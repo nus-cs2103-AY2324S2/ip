@@ -40,13 +40,13 @@ public class  Dude {
                 case "unmark":
                     System.out.println(mark_as_undone(msg));
                     break;
-                case "":
-                    System.out.println("\t-----------------------------------\n" +
-                            "\tTask description is empty. Not added.\n" +
-                            "\t-----------------------------------");
+                case "todo":
+                    System.out.println(handle_todo_command(msg));
                     break;
                 default:
-                    System.out.println(add_task(msg));
+                    System.out.println("\t-----------------------------------\n" +
+                            "\tI'm sorry, but I don't know what\n\tthat means :-(\n" +
+                            "\t-----------------------------------");
             }
         }
 
@@ -57,14 +57,6 @@ public class  Dude {
                 "\tHello! I'm Dude\n" +
                 "\tWhat can I do for you?\n" +
                 "\t-----------------------------------\n";
-    }
-
-    private static String add_task(String msg){
-        try {
-            return taskList.add_task(msg);
-        } catch (TaskListFullException e) {
-            return e.getMessage();
-        }
     }
 
     private static String list(){
@@ -124,10 +116,20 @@ public class  Dude {
         }
     }
 
-    private static String get_echo_msg(String msg){
+    private static String echo(String msg){
         return "\t-----------------------------------\n" +
                 "\t" + msg + "\n" +
                 "\t-----------------------------------";
+    }
+
+
+    private static String handle_todo_command(String msg){
+        try{
+            Todo task = Todo.from(msg);
+            return taskList.add_task(task);
+        }catch (IllegalArgumentException | TaskListFullException e) {
+            return echo(e.getMessage());
+        }
     }
 
 }

@@ -10,17 +10,17 @@ public class TaskList {
         count = 0;
     }
 
-    public String add_task(String msg) throws TaskListFullException {
+    public String add_task(Task task) throws TaskListFullException {
 
         if (this.count >= 100) {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
 
-        list[count] = new Task(msg);
+        list[count] = task;
         count++;
 
         return "\t-----------------------------------\n" +
-                "\tadded: " + msg + "\n" +
+                "\tadded: " + task.getDescription() + "\n" +
                 "\t-----------------------------------";
     }
 

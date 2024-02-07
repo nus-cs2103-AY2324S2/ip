@@ -4,7 +4,9 @@ public class Todo extends Task{
         //Expects a string in the format "todo <description>"
 
         //get rid of the command
-        String description = utils.discardFirstWord(s);
+        String description = utils.discardFirstWord(s.trim()).trim();
+
+        System.out.println("Description is: " + description);
 
         if (!description.isEmpty()){
             return new Todo(description);
