@@ -8,9 +8,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,18 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
 public class Luke extends Application {
 
@@ -40,36 +29,11 @@ public class Luke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/roblox.jpg"));
+    private Image luke = new Image(this.getClass().getResourceAsStream("/images/ltg.jpg"));
 
     public static void main(String[] args) {
-
-
-
-
-//        //TODO:
         launch();
-
-        //main loop
-//        while (!isFinished) {
-//            String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
-//            String output;
-//            try {
-//                output = parser.parseCommand(input);
-//            } catch (TasklistException e) {
-//                output = e.getMessage();
-//            } catch (ParseCommandException e) {
-//                output = e.getMessage();
-//            }
-//            //System.out.println(output);
-//            if (output.equals("QUIT")){
-//                break;
-//            }
-//            System.out.println(output);
-//        }
-
-        //goodbye message
     }
 
     //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
@@ -114,8 +78,6 @@ public class Luke extends Application {
         }
 
         Parser parser = new Parser(storage, historyFile);
-        Scanner sc = new Scanner(System.in);
-        boolean isFinished = false;
 
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -130,23 +92,25 @@ public class Luke extends Application {
         scene = new Scene(mainLayout);
 
         stage.setScene(scene);
+        stage.setX(300);
+        stage.setY(100);
         stage.show();
 
         stage.setTitle("Luke");
-        double minHeight = 800;
+        double minHeight = 600;
         double minWidth = 600;
         stage.setMinHeight(minHeight);
         stage.setMinWidth(minWidth);
         stage.setResizable(false);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setPrefSize(0.95 * minWidth, 0.8 * minHeight);
+        scrollPane.setPrefSize(0.97 * minWidth, 0.89 * minHeight);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(520);
 
         sendButton.setPrefWidth(55.0);
 
@@ -177,8 +141,11 @@ public class Luke extends Application {
     private void handleUserInput(Parser parser, UI ui, Stage stage) {
         String formattedInput = userInput.getText();
         String lukeReply;
-        Label dukeText;
+        Label lukeText;
         Label userText = new Label(userInput.getText());
+        if (parser.isLastCommand) {
+            stage.close();
+        }
         try {
             lukeReply = parser.parseCommand(formattedInput);
         } catch (TasklistException e) {
@@ -187,25 +154,26 @@ public class Luke extends Application {
             lukeReply = e.getMessage();
         }
         if (lukeReply.equals("QUIT")) {
-            dukeText = new Label(ui.bye());
+            lukeText = new Label(ui.bye());
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                    DialogBox.getLukeDialog(lukeText, new ImageView(luke))
             );
-            stage.close();
+            parser.isLastCommand = true;
+        } else {
+            lukeText = new Label(lukeReply);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, new ImageView(user)),
+                    DialogBox.getLukeDialog(lukeText, new ImageView(luke))
+            );
+            userInput.clear();
         }
-        dukeText = new Label(lukeReply);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
-        userInput.clear();
     }
 
     private void lukeSpeaks(String input) {
         Label lukeText = new Label(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(lukeText, new ImageView(duke))
+                DialogBox.getLukeDialog(lukeText, new ImageView(luke))
         );
     }
 

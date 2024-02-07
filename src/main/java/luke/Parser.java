@@ -9,6 +9,7 @@ public class Parser {
     private File saveFile;
     private TaskList taskList;
     private Storage storage;
+    boolean isLastCommand = false;
 
     /**
      * Creates a parser with the specified Storage and save file.

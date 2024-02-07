@@ -24,7 +24,8 @@ public class UI {
      */
     public static String bye() {
         String goodbyeMessage = "Don't be ridiculous!\n" +
-                "It's... it's not like I want to see you again or anything!\n";
+                "It's... it's not like I want to see you again or anything!\n"
+                + "[Press Enter to quit]";
         System.out.println(goodbyeMessage);
         return goodbyeMessage;
     }
