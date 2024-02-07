@@ -6,25 +6,50 @@ import exceptions.DuplicateInstructionException;
 import exceptions.OutOfIndexException;
 
 
+/**
+ * Represents a list of tasks in the task manager application.
+ * TaskList manages the tasks, such as adding, marking, unmarking, and deleting tasks.
+ */
 public class TaskList {
     public ArrayList<Task> tasks;
     public static final String line = "\t______________________________________________________";
 
+    /**
+     * Constructs a TaskList with the specified list of tasks.
+     *
+     * @param tasks The list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Gets the number of tasks in the task list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return tasks.size();
     }
 
+
     public Task get(int index) {
         return tasks.get(index);
     }
+
+    /**
+     * Marks the task at the specified index as done.
+     * If the index is out of range or the task is already marked as done, appropriate error messages are displayed.
+     *
+     * @param index The index of the task to mark as done.
+     */
     public void mark(int index) {
         try {
             if (tasks.size() < index) {
@@ -48,6 +73,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the specified index as not done yet (undone).
+     * If the index is out of range or the task is already marked as not done, appropriate error messages are displayed.
+     *
+     * @param index The index of the task to mark as not done yet.
+     */
     public void unmark(int index) {
         try {
             if (tasks.size() < index) {
@@ -71,6 +102,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the task at the specified index from the task list.
+     * If the index is out of range, appropriate error message is displayed.
+     *
+     * @param index The index of the task to delete.
+     */
     public void delete(int index) {
         try {
             if (tasks.size() < index || index < 1) {
@@ -89,6 +126,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the given task to the task list.
+     * If the task description already exists in the list, appropriate error message is displayed.
+     *
+     * @param task The task to be added to the list.
+     */
     public void add(Task task){
         try {
             for (Task value : tasks) {

@@ -4,8 +4,19 @@ import java.util.Arrays;
 import exceptions.MissingIndexException;
 import exceptions.MissingDescriptionException;
 
+/**
+ * Represents a parser utility for parsing user input.
+ * Parser parses the user input into meaningful parts for further processing.
+ */
 public class Parser {
     private static final String line = "\t______________________________________________________";
+
+    /**
+     * Trims the input string and splits it into parts.
+     *
+     * @param input The input string to be trimmed and split.
+     * @return An array containing the trimmed and non-empty parts of the input string.
+     */
     public static String[] trim(String input) {
         String[] untrimmedParts = input.split(" ", 2);
         String[] parts = Arrays.stream(untrimmedParts)
@@ -15,6 +26,12 @@ public class Parser {
         return parts;
     }
 
+    /**
+     * Parses the input string into meaningful parts.
+     *
+     * @param input The input string to be parsed.
+     * @return An array containing the parsed parts of the input string.
+     */
     public static String[] parse(String input) {
         String[] parts = trim(input);
         int size = parts.length;

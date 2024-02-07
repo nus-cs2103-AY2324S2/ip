@@ -1,21 +1,35 @@
 package oop;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the Lemona task manager application.
+ * Ui handles user interactions and displays messages to the user.
+ */
 public class Ui {
     private TaskList taskList;
     private Scanner scanner;
     private static final String line = "\t______________________________________________________";
 
+    /**
+     * Constructs a Ui object and initializes the scanner for user input.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads user input from the console.
+     *
+     * @return The user input as a string.
+     */
     public String readInput() {
         return scanner.nextLine();
     }
 
+    /**
+     * Displays a greeting message to the user.
+     */
     public void greet() {
         System.out.println(line);
         System.out.println("\t Hello! I'm Lemona" +
@@ -23,6 +37,10 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Displays a goodbye message to the user.
+     * Closes the scanner after displaying the message.
+     */
     public void bye() {
         System.out.println(line);
         System.out.println("\t Bye. Don't forget to take a LEMONA!");
@@ -30,6 +48,11 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param list The task list to be displayed.
+     */
     public void list(TaskList list) {
         if (list.size() == 0) {
             System.out.println(line);
@@ -47,6 +70,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays an error message when there's an issue loading tasks from a file.
+     */
     public void showLoadingError() {
         System.out.println(line);
         System.out.println("\t Sorry, I think I haven't had enough vitamin C."

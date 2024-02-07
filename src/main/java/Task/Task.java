@@ -38,18 +38,35 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Gets the detailed information about the task.
+     * This method is intended to be overridden by subclasses.
+     *
+     * @return The detailed information about the task.
+     */
     public String getTaskInfo() {
         return this.description;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as undone.
+     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
+    /**
+     * Prints the formatted string representation of the task.
+     *
+     * @return The formatted string representation of the task.
+     */
     public String print() {
         String str = "[" + this.getStatusIcon() + "] " + this.description;
         return str;
