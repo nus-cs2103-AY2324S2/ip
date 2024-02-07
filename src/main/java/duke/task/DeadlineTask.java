@@ -10,17 +10,17 @@ import duke.exceptions.DukeException;
  */
 public class DeadlineTask extends Task {
 
-    protected LocalDateTime end_time;
+    protected LocalDateTime endTime;
     /**
      * Constructor for DeadlineTask
      *
      * @param name Name of the DeadlineTask
-     * @param end_time Deadline for the task
+     * @param endTime Deadline for the task
      * @param file_format File format for the task
      */
-    public DeadlineTask(String name, LocalDateTime end_time, String file_format) {
+    public DeadlineTask(String name, LocalDateTime endTime, String file_format) {
         super(name, Task.Type.D, file_format);
-        this.end_time = end_time;
+        this.endTime = endTime;
     }
 
     /**
@@ -33,9 +33,9 @@ public class DeadlineTask extends Task {
         String output;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (done) {
-            output = "[" + this.type + "]" + "[X] " + this.name + " (by: " + this.end_time.format(formatter) + ")\n";
+            output = "[" + this.type + "]" + "[X] " + this.name + " (by: " + this.endTime.format(formatter) + ")\n";
         } else {
-            output = "[" + this.type + "]" + "[ ] " + this.name + " (by: " + this.end_time.format(formatter) + ")\n";
+            output = "[" + this.type + "]" + "[ ] " + this.name + " (by: " + this.endTime.format(formatter) + ")\n";
         }
         return output;
     }

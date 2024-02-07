@@ -8,7 +8,7 @@ public abstract class Task {
     protected Boolean done;
     protected final String name;
     protected Type type;
-    protected String file_format;
+    protected String fileFormat;
 
     /**
      * Enum for type of task
@@ -34,11 +34,11 @@ public abstract class Task {
      * @param type Type of task
      * @param file_format File format for the task
      */
-    Task(String name, Type type, String file_format) {
+    Task(String name, Type type, String fileFormat) {
         this.done = false;
         this.name = name;
         this.type = type;
-        this.file_format = file_format;
+        this.fileFormat = fileFormat;
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class Task {
      * @return Return file format as string
      */
     public String getFileFormat() {
-        return this.file_format;
+        return this.fileFormat;
     }
 
 }
