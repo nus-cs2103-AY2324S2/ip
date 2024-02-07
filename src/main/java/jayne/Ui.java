@@ -29,11 +29,9 @@ public class Ui {
      *
      * @return a String containing a message asking the user to input a valid command.
      */
-    public void question() {
-        System.out.println("___________________________________");
-        System.out.println("What are you typing. please include either bye, list, mark, "
-                + "umark, todo, deadline or event in your inputs please");
-        System.out.println("___________________________________");
+    public String question() {
+        return "What are you typing. please include either bye, list, mark, "
+                + "umark, todo, deadline or event in your inputs please";
     }
 
 }

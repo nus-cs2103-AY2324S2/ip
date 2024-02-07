@@ -1,0 +1,11 @@
+/* styles.css */
+.text-field {
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+}
+
+.button {
+    -fx-background-color: #0077ff;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
