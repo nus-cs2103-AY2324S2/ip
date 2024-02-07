@@ -22,6 +22,17 @@ public class TaskList {
     }
 
     /**
+     * Instantiates new TaskList.
+     * Creates and assigns new Ui to local variables.
+     * Assigns given list to local tasks variable.
+     * @param list List of tasks to be instantiated.
+     */
+    public TaskList(ArrayList<Task> list) {
+        this.tasks = list;
+        this.ui = new Ui();
+    }
+
+    /**
      * Adds task from storage to current active list.
      * @param newTask Task to be added to active list.
      */

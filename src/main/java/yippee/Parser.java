@@ -2,12 +2,7 @@ package yippee;
 import java.util.ArrayList;
 import java.util.List;
 
-import yippee.commands.Command;
-import yippee.commands.CreateTaskCommand;
-import yippee.commands.DeleteCommand;
-import yippee.commands.ExitCommand;
-import yippee.commands.ListCommand;
-import yippee.commands.MarkCommand;
+import yippee.commands.*;
 import yippee.exceptions.InvalidCommandException;
 
 /**
@@ -60,12 +55,19 @@ public class Parser {
             }
             int number = Integer.parseInt(split[1]);
             return new DeleteCommand(number);
+        } else if (commandName.equals("find")) {
+            if (split.length == 1) {
+                throw new InvalidCommandException(
+                        "Wrong format! Please indicate any key words you want me to search for :0");
+            }
+            String keyword = split[1].toLowerCase().trim();
+            return new FindCommand(keyword);
         } else if (VALID_TASKS.contains(commandName)) {
             if (split.length == 1) {
                 throw new InvalidCommandException("You need to tell me the task name >:0");
             }
-            String taskType = split[0].toLowerCase();
-            String taskName = split[1].toLowerCase();
+            String taskType = split[0].toLowerCase().trim();
+            String taskName = split[1].toLowerCase().trim();
             return new CreateTaskCommand(taskType, taskName);
         } else {
             throw new InvalidCommandException("I don't know that command :( sorry...");

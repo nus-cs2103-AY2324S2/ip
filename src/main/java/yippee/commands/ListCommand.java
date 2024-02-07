@@ -21,6 +21,6 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        tasks.printList();
+        ui.printList(tasks);
     }
 }
