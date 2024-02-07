@@ -34,14 +34,16 @@ public class SearchCommand extends Command {
     /**
      * Searches tasks based on the date.
      * If no date is inputted, an error message is returned.
+     * Returns a response from Andelu.
      *
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
+     * @return The response from Andelu.
      * @throws AndeluException If missing the date.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
             throw new AndeluException("Missing the date!");
@@ -50,23 +52,29 @@ public class SearchCommand extends Command {
         LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() + "T00:00");
 
         ui.printAnyStatement("Here are the tasks on " + input + ":");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks on " + input + ":\n");
 
         int index = 1;
         for (Task i : tasks.getTasks()) {
             if (i instanceof Deadline) {
                 if (((Deadline) i).getBy().toLocalDate().isEqual(dateInput.toLocalDate())) {
                     ui.printAnyStatement((index++) + "." + i.toString());
+                    stringBuilder.append((index++) + "." + i.toString() + "\n");
                 }
 
             } else if (i instanceof Event) {
                 if (((Event) i).getStart().toLocalDate().isEqual(dateInput.toLocalDate())) {
                     ui.printAnyStatement((index++) + "." + i.toString());
+                    stringBuilder.append((index++) + "." + i.toString() + "\n");
                 }
             }
         }
 
         if (index == 1) {
             ui.printAnyStatement("There are no task on this date");
+            stringBuilder.append("There are no task on this date\n");
         }
+        return stringBuilder.toString();
     }
 }

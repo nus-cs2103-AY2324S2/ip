@@ -27,19 +27,23 @@ public class FindCommand extends Command {
     /**
      * Searches tasks based on the description.
      * If no description is inputted, an error message is returned.
+     * Returns the response from Andelu.
      *
      * @param tasks The TaskList Object that contains a List of Tasks.
      * @param ui THe Ui Object that interact with the user.
      * @param storage Storage Manager to write the file.
+     * @return The response from Andelu.
      * @throws AndeluException If missing the description.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
             throw new AndeluException("Missing the Description!");
         }
 
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the matching tasks in your list:\n");
         ui.printAnyStatement("Here are the matching tasks in your list:");
 
         int index = 1;
@@ -47,12 +51,14 @@ public class FindCommand extends Command {
         for (Task task : tasks.getTasks()) {
             if (task.getDescription().contains(splitInput[1].trim())) {
                 ui.printAnyStatement((index++) + "." + task.toString());
+                stringBuilder.append((index++) + "." + task.toString() + "\n");
             }
         }
 
         if (index == 1) {
             ui.printAnyStatement("There is no such task.");
+            stringBuilder.append("There is no such task.\n");
         }
-
+        return stringBuilder.toString();
     }
 }

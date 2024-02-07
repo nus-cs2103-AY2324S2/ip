@@ -13,16 +13,19 @@ public class ExitCommand extends Command {
 
     /**
      * Exits the program.
+     * Returns a bye statement.
      *
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
+     * @return The response from Andelu.
      * @throws AndeluException No Exception.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         super.confirmExit();
 
         ui.printByeStatement();
+        return "Bye. Hope to see you again soon!";
     }
 }

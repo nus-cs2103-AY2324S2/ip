@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
+
     private String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -21,6 +22,8 @@ public class Ui {
 
     }
 
+
+
     /**
      * Prints the welcome statements.
      */
@@ -29,6 +32,10 @@ public class Ui {
         System.out.println("      Hello! I'm AndrewOng2066");
         System.out.println("      What can I do for you?");
         System.out.println("    ____________________________________________________________\n");
+    }
+
+    public String getWelcomeStatement() {
+        return "Hello! I'm AndrewOng2066.\nWhat can I do for you?";
     }
 
     /**

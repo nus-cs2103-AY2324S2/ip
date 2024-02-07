@@ -1,8 +1,5 @@
 package andelu;
 
-import command.Command;
-
-
 /**
  * The Main class of this program.
  */
@@ -19,7 +16,12 @@ public class Andelu {
     private Ui ui;
 
     /**
-     * Creates a constructors and performs all the necessary work.
+     * Creates a default constructor.
+     */
+    public Andelu() {}
+
+    /**
+     * Creates a constructor and performs all the necessary work.
      *
      * @param filePath the name of the text file to be stored.
      */
@@ -34,10 +36,10 @@ public class Andelu {
         }
     }
 
-
+    /*
     /**
      * Runs the program.
-     */
+     *
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
@@ -56,9 +58,8 @@ public class Andelu {
                 ui.printClosingDottedLine();
             }
         }
-
-
     }
+    */
 
 
     /**
@@ -68,8 +69,40 @@ public class Andelu {
      * @param args
      */
     public static void main(String[] args) {
-        new Andelu("duke").run();
+        /*
+        new Andelu(args[0]).run();
+        */
     }
+
+    /**
+     * Returns the ui.
+     *
+     * @return Ui.
+     */
+    public Ui getUi() {
+        return ui;
+    }
+
+    /**
+     * Returns the TaskList.
+     *
+     * @return TaskList.
+     */
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Return the Storage.
+     *
+     * @return Storage.
+     */
+    public Storage getStorage() {
+        return storage;
+    }
+
+
+
 
 
 

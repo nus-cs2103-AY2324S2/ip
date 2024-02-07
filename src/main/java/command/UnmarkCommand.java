@@ -28,14 +28,16 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks a task as not complete.
      * If no task is selected, no task at the moment, or invalid index, an error message is returned.
+     * Returns a response from Andelu.
      *
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
+     * @return The response from Andelu.
      * @throws AndeluException If no task is selected, no task at the moment, or invalid index.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (tasks.getTasks().size() == 0) {
             throw new AndeluException("No task at the moment.");
@@ -55,6 +57,11 @@ public class UnmarkCommand extends Command {
             storage.writeArrayListToFile(tasks.getTasks(), true);
             ui.printAnyStatement("OK, I've marked this task as not done yet:");
             ui.printAnyStatement(tasks.getTasks().get(choiceUnmark - 1).toString());
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("OK, I've marked this task as not done yet:\n");
+            stringBuilder.append(tasks.getTasks().get(choiceUnmark - 1).toString() + "\n");
+            return stringBuilder.toString();
         } else {
             throw new AndeluException("Invalid choice.");
         }

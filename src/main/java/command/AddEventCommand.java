@@ -35,14 +35,16 @@ public class AddEventCommand extends Command {
      * Adds new Event task.
      * Performs some prior checks to ensure the validity of the new Event.
      * If invalid input occurs, error message is returned.
+     * Returns the response from Andelu.
      *
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
+     * @return The response from Andelu.
      * @throws AndeluException If there is missing description or invalid date and time for 'start' and 'end'.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
             throw new AndeluException("Missing the description!");
@@ -64,8 +66,14 @@ public class AddEventCommand extends Command {
         newEventList.add(newEvent);
         storage.writeArrayListToFile(newEventList, false);
 
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Got it. I've added this task:\n");
+        stringBuilder.append(newEvent.toString() + "\n");
+        stringBuilder.append("Now you have " + tasks.getTasks().size() + " tasks in the list.\n");
+
         ui.printAnyStatement("Got it. I've added this task:");
         ui.printAnyStatement(newEvent.toString());
         ui.printAnyStatement("Now you have " + tasks.getTasks().size() + " tasks in the list.");
+        return stringBuilder.toString();
     }
 }
