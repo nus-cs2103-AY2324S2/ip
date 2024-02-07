@@ -5,7 +5,6 @@ import java.util.Scanner;
 import java.io.IOException;
 
 public class Martin {
-    private static String NAME = "Martin";
     protected static ArrayList<Task> todoList = new ArrayList<>();
     private static String FILEPATH = "./data/martin.txt";
 
