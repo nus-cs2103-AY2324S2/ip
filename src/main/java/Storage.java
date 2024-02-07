@@ -4,12 +4,21 @@ import java.io.FileWriter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-public class FileManipulation {
-    private static final String FILEPATH = "./data/Jux.txt";
+public class Storage {
+    private  String filepath= "";
     private File f;
     private boolean doesExist;
-    public FileManipulation () {
-        this.f = new File(FILEPATH);
+
+    /**
+     * Searches and adds the hard disk for the file
+     * Creates the file or parent directory
+     * if it does not exist
+     *
+     * @param filepath
+     */
+    public Storage (String filepath) {
+        this.filepath = filepath;
+        this.f = new File(filepath);
         this.doesExist = f.exists();
         File parentDirectory = f.getParentFile();
         if (!parentDirectory.exists()) {
@@ -24,10 +33,15 @@ public class FileManipulation {
 
         }
     }
-    public boolean getDoesExist() {
-        return this.doesExist;
-    }
-    public ArrayList<Task> loadFile(ArrayList<Task> list) throws FileNotFoundException{
+
+    /**
+     * Scans the file for the Tasks
+     * Adds the tasks as their respective subtasks to an array list
+     * @return ArrayList<Task> that contains the tasks in the file
+     * @throws FileNotFoundException
+     */
+    public ArrayList<Task> load() throws FileNotFoundException{
+        ArrayList<Task> list = new ArrayList<>();
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String data = s.nextLine();
@@ -55,13 +69,18 @@ public class FileManipulation {
         }
         return list;
     }
-    static public void saveFile (ArrayList<Task> list) {
+
+    /**
+     * Writes the whole task list to the file
+     * @param list
+     */
+    public void saveFile (ArrayList<Task> list) {
         String toSave = "";
         for (int i = 0; i < list.size(); i ++) {
             toSave += list.get(i).saveStorage() + "\n";
         }
         try{
-            FileWriter fw = new FileWriter(FILEPATH);
+            FileWriter fw = new FileWriter(filepath);
             fw.write(toSave);
             fw.close();
         } catch(java.io.IOException e ) {
