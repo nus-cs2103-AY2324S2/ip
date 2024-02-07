@@ -67,14 +67,17 @@ public class Quacky {
         }
     }
 
-    protected String endQuacky() {
+    protected String startQuacky() {
+        return ui.showGreeting();
+    }
+    public void saveData()  {
         try {
             storage.save(tasks);
         } catch (Storage.StorageOperationException e) {
             ui.showErrorMessage(e);
         }
-        return ui.showFarewell();
     }
+
     public static void main(String[] args) {
         new Quacky("./data/data.txt").run();
     }
