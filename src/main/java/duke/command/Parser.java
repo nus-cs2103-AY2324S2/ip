@@ -20,6 +20,8 @@ public class Parser {
             return parseMarkCommand(input);
         } else if (input.startsWith("delete")) {
             return parseDeleteCommand(input);
+        } else if (input.startsWith("find")) {
+            return parseFindCommand(input);
         } else {
             throw new DukeException("UH OH! I don't understand what you mean.. sorry D:");
         }
@@ -94,5 +96,11 @@ public class Parser {
         String taskNum = input.substring(7);
         int taskNumber = Integer.parseInt(taskNum);
         return new Object[] { "delete", taskNumber };
+    }
+
+    private static Object[] parseFindCommand(String input) throws DukeException {
+        String kw = input.substring(5);
+        String keyword = kw.trim();
+        return new Object[] { "find", keyword };
     }
 }
