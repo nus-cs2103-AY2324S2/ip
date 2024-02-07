@@ -33,10 +33,12 @@ public class TaskList {
         return tasks;
     }
 
-    public void listAllTasks() {
+    public String listAllTasks() {
+        StringBuilder result = new StringBuilder();
         for (Task task : taskArr) {
-            System.out.println(task.getTask());
+            result.append(task.getTask()).append("\n");
         }
+        return result.toString();
     }
 
     public void unmarkTask(int index) {

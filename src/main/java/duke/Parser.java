@@ -48,87 +48,79 @@ public class Parser {
      * Parses the user input and calls the appropriate method
      * @param userInput the user input
      * @param taskList the list of tasks
-     * @throws DukeException if the user input is invalid
+     * @return the message result of the user input
      */
-    public static void parseUserInput(String userInput, TaskList taskList) throws DukeException {
+    public static String parseUserInput(String userInput, TaskList taskList) {
         // Your existing parsing logic from the main method
         try {
             DukeException.validateInstn(userInput);
             int index = taskList.getTaskArr().size();
             if (Objects.equals(userInput.toLowerCase(), "pewpewpew")) {
-                System.out.println("PeWPeWPeWPeWPeWPeWPeWPeWPeWPeWPeWPeW");
+                return "PeWPeWPeWPeWPeWPeWPeWPeWPeWPeWPeWPeW";
             } else if (userInput.toLowerCase().contains("find")) {
                 String keyword = userInput.substring(5);
                 ArrayList<Task> results = taskList.findTasks(keyword);
                 if (results.isEmpty()) {
-                    System.out.println("Sorry, I couldn't find any matching tasks in your list.");
-                } else if (!results.isEmpty()) {
-                    System.out.println("Here are the matching tasks in your list: ");
+                    return "Sorry, I couldn't find any matching tasks in your list.";
+                } else {
+                    StringBuilder message = new StringBuilder("Here are the matching tasks in your list: ");
                     for (Task task : results) {
-                        System.out.println(task.getTask());
+                        message.append("\n").append(task.getTask());
                     }
+                    return message.toString();
                 }
             } else if (Objects.equals(userInput.toLowerCase(), "list")) {
-                taskList.listAllTasks();
+                return taskList.listAllTasks();
             } else if (userInput.toLowerCase().contains("unmark")) {
                 int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
                 try {
                     DukeException.validateArrIndex(markedIndex, taskList.getTaskArr());
                     taskList.unmarkTask(markedIndex);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(taskList.printSelectedTask(markedIndex));
+                    return "OK, I've marked this task as not done yet:\n" + taskList.printSelectedTask(markedIndex);
                 } catch (DukeException d) {
-                    System.out.println(d);
+                    return d.toString();
                 }
             } else if (userInput.toLowerCase().contains("mark")) {
                 int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
                 try {
                     DukeException.validateArrIndex(markedIndex, taskList.getTaskArr());
                     taskList.markTask(markedIndex);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(taskList.printSelectedTask(markedIndex));
+                    return "Nice! I've marked this task as done:\n" + taskList.printSelectedTask(markedIndex);
                 } catch (DukeException d) {
-                    System.out.println(d);
+                    return d.toString();
                 }
             } else if (userInput.toLowerCase().contains("delete")) {
                 int markedIndex = Integer.parseInt(userInput.replaceAll("[^0-9]", ""));
                 try {
                     DukeException.validateArrIndex(markedIndex - 1, taskList.getTaskArr());
-
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(taskList.printSelectedTask(markedIndex));
-
+                    String message = "Noted. I've removed this task:\n" + taskList.printSelectedTask(markedIndex) + "\n";
                     taskList.deleteTask(markedIndex);
-
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list");
-
-
+                    message += "Now you have " + taskList.size() + " tasks in the list";
+                    return message;
                 } catch (DukeException d) {
-                    System.out.println(d);
+                    return d.toString();
                 }
             } else if (userInput.toLowerCase().contains("todo")) {
                 try {
                     DukeException.validateToDo(userInput);
                     taskList.addTask(new ToDo(index, userInput.substring(5)));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList.printSelectedTask(index + 1));
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list");
-
+                    String message = "Got it. I've added this task:\n" + taskList.printSelectedTask(index + 1) + "\n";
+                    message += "Now you have " + taskList.size() + " tasks in the list";
+                    return message;
                 } catch (DukeException d) {
-                    System.out.println(d);
+                    return d.toString();
                 }
             } else if (userInput.toLowerCase().contains("deadline")) {
                 try {
                     String[] str = userInput.split("/by ");
                     DukeException.validateDateTime(str[1]);
-                    System.out.println(str[1]);
                     String deadline = "by " + formatDateTime(str[1]);
                     taskList.addTask(new Deadline(index, str[0], deadline));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList.printSelectedTask(index + 1));
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list");
+                    String message = "Got it. I've added this task:\n" + taskList.printSelectedTask(index + 1) + "\n";
+                    message += "Now you have " + taskList.size() + " tasks in the list";
+                    return message;
                 } catch (DukeException d) {
-                    System.out.println(d);
+                    return d.toString();
                 }
             } else if (userInput.toLowerCase().contains("event")) {
                 try {
@@ -139,15 +131,16 @@ public class Parser {
                     DukeException.validateDateTime(start);
                     DukeException.validateDateTime(end);
                     taskList.addTask(new Event(index, front[0], formatDateTime(start), formatDateTime(end)));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList.printSelectedTask(index + 1));
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list");
+                    String message = "Got it. I've added this task:\n" + taskList.printSelectedTask(index + 1) + "\n";
+                    message += "Now you have " + taskList.size() + " tasks in the list";
+                    return message;
                 } catch (DukeException d) {
-                    System.out.println(d);
+                    return d.toString();
                 }
             }
         } catch (DukeException d) {
-            System.out.println( d);
+            return d.toString();
         }
+        return "Sorry, I don't understand. Please try again.";
     }
 }

@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.io.FileWriter;
 import java.io.IOException;
 public class Duke {
-
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -27,6 +26,13 @@ public class Duke {
     }
 
     /**
+     * default constructor
+     */
+    public Duke() {
+        this("data/duke.txt");
+    }
+
+    /**
      * Runs the program, takes user input and processes it
      */
     public void run() {
@@ -36,7 +42,8 @@ public class Duke {
         while (!Objects.equals(userInput.toLowerCase(), "bye")) {
             try {
                 DukeException.validateInstn(userInput);
-                Parser.parseUserInput(userInput, taskList);
+                String response = Parser.parseUserInput(userInput, taskList);
+                System.out.println(response);
                 if (userInput.contains("delete")) {
                     taskList.reOrder();
                 }
@@ -69,6 +76,23 @@ public class Duke {
         }
     }
 
+    public String getResponse(String userInput) {
+        if (userInput.equalsIgnoreCase("bye")){
+            return "BYE";
+        }
+        try {
+            DukeException.validateInstn(userInput);
+            String result = Parser.parseUserInput(userInput, taskList);
+            if (userInput.contains("delete")) {
+                taskList.reOrder();
+            }
+            // Save tasks to file after each user input
+            saveTasksToFile();
+            return result + "\n" + "What else can I do for you? (try typing my name 3 times with no space in between)";
+        } catch (DukeException d) {
+            return d.toString();
+        }
+    }
     /**
      * Main method that starts the program
      * @param args the command line arguments

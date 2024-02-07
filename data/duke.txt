@@ -2,3 +2,6 @@ D|0|return book|June 6th
 E|1|project meeting|Aug 6th 2pm|4pm
 D|0|deadline library book |by 2 of February 2024, 12:00AM
 E|0|event do 2103t |5 of February 2024, 12:00AM|6 of February 2024, 12:00AM
+T|0|eat macs
+T|0|2103T
+T|0|dotes
