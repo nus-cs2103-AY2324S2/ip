@@ -1,5 +1,9 @@
+package parser;
+import jux.JuxException;
+import tasklist.TaskList;
+import ui.Ui;
+
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -9,12 +13,12 @@ public class Parser {
     public static final String EVENT = "EVENT";
     public static final String INVALID = "INVALID";
 
-    public static void parsingInput(String input, TaskList taskList, Ui ui) throws DukeException {
+    public static void parsingInput(String input, TaskList taskList, Ui ui) throws JuxException {
         String command = findCommand(input);
         switch (command) {
             case "list":
                 if (taskList.isEmpty()) {
-                    throw new DukeException(" YOUR LIST IS EMPTY");
+                    throw new JuxException(" YOUR LIST IS EMPTY");
                 }
                 taskList.showList(ui);
                 break;
@@ -25,17 +29,17 @@ public class Parser {
                         int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
                         // future error when list is empty
                         if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
-                            throw new DukeException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                            throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
                                     "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
                                     + taskList.getSize());
                         }
                         if (taskList.isIndexedTaskChecked(convertedToNumber)) {
-                            throw new DukeException("TASK ALREADY MARKED");
+                            throw new JuxException("TASK ALREADY MARKED");
                         }
                         taskList.toggleIndexedTask(convertedToNumber);
                         taskList.printTaskMarked(ui, convertedToNumber);
                 } else {
-                    throw new DukeException("PLEASE INSERT NUMBER TO MARK");
+                    throw new JuxException("PLEASE INSERT NUMBER TO MARK");
                 }
                 break;
             case "unmark":
@@ -44,12 +48,12 @@ public class Parser {
                 int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
                 // future error when list is empty
                 if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
-                    throw new DukeException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                    throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
                             "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
                             + taskList.getSize());
                 }
                 if (!taskList.isIndexedTaskChecked(convertedToNumber)) {
-                    throw new DukeException("TASK ALREADY UNMARKED");
+                    throw new JuxException("TASK ALREADY UNMARKED");
                 }
                 taskList.toggleIndexedTask(convertedToNumber);
                 taskList.printTaskUnMarked(ui, convertedToNumber);
@@ -60,7 +64,7 @@ public class Parser {
                 int deleteConvertedToNumber = Parser.convertStringIndexToIntZeroIndex(deleteListStringNumber);
                 // future error when list is empty
                 if (deleteConvertedToNumber < 0 || deleteConvertedToNumber >= taskList.getSize()) {
-                    throw new DukeException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                    throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
                             "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
                             + taskList.getSize());
                 }
@@ -85,31 +89,31 @@ public class Parser {
             return INVALID;
         }
     }
-    public static String parseTodo(String input) throws DukeException {
+    public static String parseTodo(String input) throws JuxException {
         if (input.length() > 5) {
             return input.substring(5);
         } else {
-            throw new DukeException("PLEASE INSERT DESCRIPTION FOR YOUR TODO");
+            throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR TODO");
         }
     }
-    public static String[] parseDeadline(String input) throws DukeException{
+    public static String[] parseDeadline(String input) throws JuxException {
         if (input.length() >10) {
             if (!input.contains("/")) {
-                throw new DukeException("insert time after deadline such as deadline /monday");
+                throw new JuxException("insert time after deadline such as deadline /monday");
             }
             String desc = input.substring(9, input.indexOf("/"));
             String date = input.substring(input.indexOf("/") + 1);
             String[] strings = {desc, date};
             return strings;
         } else {
-            throw new DukeException("PLEASE INSERT DESCRIPTION FOR YOUR DEADLINE");
+            throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR DEADLINE");
         }
     }
-    public static String[] parseEvent(String input) throws DukeException{
+    public static String[] parseEvent(String input) throws JuxException {
         if (input.length() >7 ) {
             String regex = ".*" + '/'+ ".*" + '/' + ".*";
             if (!input.matches(regex)) {
-                throw new DukeException("insert time for event such as event /monday /sunday");
+                throw new JuxException("insert time for event such as event /monday /sunday");
             }
             String desc = input.substring(6, input.indexOf("/"));
             String firstDate = input.substring(input.indexOf("/") + 1, input.lastIndexOf("/"));
@@ -117,10 +121,10 @@ public class Parser {
             String [] strings ={desc, firstDate, endDate};
             return strings;
         } else {
-            throw new DukeException("PLEASE INSERT DESCRIPTION FOR YOUR EVENT");
+            throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR EVENT");
         }
     }
-    public static String formattedInputOfTask(String typeOfTask, String input) throws DukeException {
+    public static String formattedInputOfTask(String typeOfTask, String input) throws JuxException {
         try {
             String formattedInput = "";
             switch (typeOfTask) {
@@ -138,12 +142,12 @@ public class Parser {
             }
             return formattedInput;
         } catch(IndexOutOfBoundsException e) {
-            throw new DukeException("Enter the ask u want to add in the format of todo/event/deadline, whitespace" +
+            throw new JuxException("Enter the ask u want to add in the format of todo/event/deadline, whitespace" +
                     "and the task u want");
         }
 
     }
-    public static String findCommand(String input) {
+    public static String findCommand(String input) throws JuxException {
         if (input.startsWith("mark")) {
             return "mark";
         } else if (input.startsWith("unmark") || input.startsWith("unMark")) {
@@ -155,14 +159,14 @@ public class Parser {
         } else if (input.startsWith("todo") ||input.startsWith("deadline")||input.startsWith("event")) {
             return "add";
         } else {
-            return "invalid";
+            throw new JuxException("Enter a valid input");
         }
     }
-    public static int convertStringIndexToIntZeroIndex(String listStringNumber) throws DukeException {
+    public static int convertStringIndexToIntZeroIndex(String listStringNumber) throws JuxException {
         try {
             return Integer.parseInt(listStringNumber) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException(e.getMessage()); // might customise error message
+            throw new JuxException(e.getMessage()); // might customise error message
         }
     }
     public static boolean isExit(String input) {

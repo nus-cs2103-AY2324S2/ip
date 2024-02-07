@@ -1,6 +1,8 @@
-public class DukeException extends Exception {
+package jux;
 
-    public DukeException(String message) {
+public class JuxException extends Exception {
+
+    public JuxException(String message) {
         super(message);
     }
 

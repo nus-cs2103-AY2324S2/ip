@@ -1,12 +1,17 @@
+package jux;
+import parser.Parser;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-public class Duke {
+
+public class Jux {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    public Duke(String filePath) {
+    public Jux(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -32,7 +37,7 @@ public class Duke {
                 }
                 Parser.parsingInput(input, tasks, ui);
                 storage.saveFile(tasks.getTaskList());
-                } catch (DukeException e) {
+                } catch (JuxException e) {
                 System.err.println(e.getMessage());
             }
 
@@ -44,7 +49,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/Jux.txt").run();
+        new Jux("data/Jux.txt").run();
     }
 }
 
