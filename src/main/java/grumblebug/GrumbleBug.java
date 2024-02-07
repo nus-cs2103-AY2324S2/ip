@@ -1,11 +1,15 @@
 package grumblebug;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import java.util.Scanner;
 
 /**
  * Represents the overall chatbot object, with text input/output capabilities.
  */
-public class GrumbleBug {
+public class GrumbleBug extends Application{
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -19,15 +23,12 @@ public class GrumbleBug {
         this.parserInput = new Parser("yyyy-MM-dd");
     }
 
-    public static void main(String[] args) {
-        GrumbleBug bot = new GrumbleBug();
-        bot.runBot();
-    }
-
     /**
      * Runs the GrumbleBug chatbot interactions with the user, in a loop until it is terminated by user.
      */
-    public void runBot() {
+    @Override
+    public void start(Stage stage) {
+
         this.storage.loadFromFile(filePath, taskList);
         this.ui.start();
         Scanner sc = new Scanner(System.in);
