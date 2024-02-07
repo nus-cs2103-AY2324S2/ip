@@ -1,5 +1,7 @@
 package cappy.storage;
 
+import cappy.util.Logger;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,10 +46,10 @@ public class Storage implements AutoCloseable {
      */
     public void empty() throws IOException {
         close();
-        try (FileWriter fileWriter = new FileWriter(file, false)) {
-            fileWriter.write("");
-        }
-        writer = new BufferedWriter(new FileWriter(file));
+        FileWriter fileWriter = new FileWriter(file, false);
+        fileWriter.write("");
+        writer = new BufferedWriter(fileWriter);
+        Logger.debug("Emptied storage");
     }
 
     /**
@@ -58,6 +60,7 @@ public class Storage implements AutoCloseable {
     public void writeLine(String line) throws IOException {
         writer.write(line);
         writer.newLine();
+        Logger.debug("Wrote line '" + line + "' to storage");
     }
 
     /**
@@ -76,6 +79,7 @@ public class Storage implements AutoCloseable {
             line = reader.readLine();
         }
         reader.close();
+        Logger.debug("Read from storage");
         return builder.toString();
     }
 

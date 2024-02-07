@@ -3,6 +3,7 @@ package cappy.task;
 import cappy.error.CappyException;
 import cappy.parser.Parser;
 import cappy.storage.Storage;
+import cappy.util.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,10 +80,13 @@ public class TaskList {
      */
     public void save() throws IOException {
         if (storage != null) {
+            Logger.debug("Saving tasks to storage...");
             storage.empty();
             for (Task task : tasks) {
                 storage.writeLine(task.toCsv());
             }
+        } else {
+            Logger.debug("Storage is not set for this TaskList. Skipping save operation.");
         }
     }
 
@@ -100,6 +104,7 @@ public class TaskList {
                 taskList.addTask(Parser.parseCsvLine(line));
             }
         }
+        Logger.debug("Loaded " + taskList.size() + " tasks from storage.");
         return taskList;
     }
 

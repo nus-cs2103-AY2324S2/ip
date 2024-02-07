@@ -7,7 +7,7 @@ import cappy.parser.ParsedInput;
 import cappy.parser.Parser;
 import cappy.storage.Storage;
 import cappy.task.TaskList;
-import cappy.ui.Ui;
+import cappy.util.Logger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,24 +25,16 @@ import java.io.IOException;
  */
 public class Cappy extends Application {
     private static final String STORAGE_PATH = "./cappy.csv";
-    private static final Ui UI = new Ui();
     private static TaskList taskList;
     private static Storage storage;
+    private MainWindow mainWindow;
 
-    public Cappy() {}
-
-    public static void main(String[] args) {
-        UI.showBanner();
-        UI.showGreetings();
+    public Cappy() {
         try {
             storage = new Storage(STORAGE_PATH);
             taskList = TaskList.load(storage);
-            inputLoop();
-            storage.close();
         } catch (IOException | CappyException e) {
-            UI.showError(e);
-        } finally {
-            Cappy.UI.close();
+            Logger.error(e);
         }
     }
 
@@ -54,26 +46,36 @@ public class Cappy extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setCappy(new Cappy());
+            mainWindow = fxmlLoader.<MainWindow>getController();
+            mainWindow.setCappy(this);
             stage.show();
+            mainWindow.showGreetings();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
     }
 
-    private static void inputLoop() {
-        String input = "";
-        while (true) {
-            input = UI.getInput();
-            try {
-                ParsedInput parsedInput = Parser.parse(input);
-                parsedInput.executeCommand(taskList, UI, storage);
-                if (parsedInput.getCommandType() == CommandType.BYE) {
-                    break;
-                }
-            } catch (IOException | CappyException e) {
-                UI.showError(e);
+    public void handleUserInput(String input) {
+        try {
+            ParsedInput parsedInput = Parser.parse(input);
+            parsedInput.executeCommand(taskList, mainWindow, storage);
+            if (parsedInput.getCommandType() == CommandType.BYE) {
+                exit();
+                System.exit(0);
             }
+        } catch (IOException e) {
+            Logger.error(e);
+        } catch (CappyException e) {
+            mainWindow.showError(e);
+        }
+    }
+
+    public void exit() {
+        try {
+            storage.close();
+        } catch (IOException e) {
+            mainWindow.showError(e);
+            Logger.error(e);
         }
     }
 }

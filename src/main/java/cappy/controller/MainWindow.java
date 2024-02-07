@@ -1,6 +1,9 @@
 package cappy.controller;
 
 import cappy.Cappy;
+import cappy.task.Task;
+import cappy.task.TaskList;
+import cappy.ui.Ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /** Controller for MainWindow. Provides the layout for the other controls. */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends AnchorPane implements Ui {
     @FXML private ScrollPane scrollPane;
     @FXML private VBox dialogContainer;
     @FXML private TextField userInput;
@@ -38,12 +41,63 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = "got it";
-        dialogContainer
-                .getChildren()
-                .addAll(
-                        DialogBox.getUserDialog(input, userImage),
-                        DialogBox.getDukeDialog(response, dukeImage));
+        userShow(input);
         userInput.clear();
+        cappy.handleUserInput(input);
+    }
+
+    @FXML
+    public void userShow(String message) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(message, userImage));
+    }
+
+    @FXML
+    public void show(String message) {
+        dialogContainer.getChildren().add(DialogBox.getCappyDialog(message, dukeImage));
+    }
+
+    /**
+     * Shows the given messages to the user. Each message will be on a newline.
+     *
+     * @param messages The String array of messages to be displayed.
+     */
+    public void show(String[] messages) {
+        show(String.join("\n", messages));
+    }
+
+    @FXML
+    public void showError(String error) {
+        dialogContainer.getChildren().add(DialogBox.getCappyDialog(error, dukeImage));
+    }
+
+    @FXML
+    public void showError(Exception e) {
+        dialogContainer.getChildren().add(DialogBox.getCappyDialog(e.getMessage(), dukeImage));
+    }
+
+    /**
+     * Shows the newly added task and the current number of tasks in the task list to the user.
+     *
+     * @param task The newly added task.
+     * @param tasks The current TaskList.
+     */
+    public void showAddedTask(Task task, TaskList tasks) {
+        String[] messages = {
+            "Got it. I've added this task:",
+            task.toString(),
+            "Now you have " + tasks.size() + " tasks in the list."
+        };
+        show(messages);
+    }
+
+    /** Shows a greeting message to the user. */
+    public void showGreetings() {
+        String[] messages = {"Hello! I'm Cappy", "What can I do for you?"};
+        show(messages);
+    }
+
+    /** Shows a farewell message to the user. */
+    public void showExit() {
+        show("Bye. Hope to see you again soon!");
     }
 }
