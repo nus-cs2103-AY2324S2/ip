@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Saves the tasks in a hard-coded file and loads up the tasks from the hard-coded file upon restarting the program.
+ */
 public class Storage {
     private String filePath;
 
@@ -18,6 +21,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns a String of tasks to be written to the hard-coded file.
+     * @param tl
+     * @return String listItems
+     */
     public String storeList(TaskList tl) {
         StringBuilder listItems = new StringBuilder();
         for (int j = 0; j < tl.size(); j++) {
@@ -30,6 +38,11 @@ public class Storage {
         return listItems.toString();
     }
 
+    /**
+     * Writes the list of items to the hard-coded file.
+     * @param ls list of items
+     * @throws DukeException if there is an error when writing to the file
+     */
     public void save(String ls) throws DukeException {
         Path path = Paths.get(this.filePath);
         try {
@@ -42,6 +55,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Prints the list from the file upon restarting the program.
+     * @throws DukeException when there are errors with the file
+     */
     public void printList() throws DukeException {
         System.out.println("Here are the tasks in your list:");
         BufferedReader br = null;
@@ -72,6 +89,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an ArrayList<Task> which represents an array of tasks that is loaded from the file.
+     * @return ArrayList<Task> taskArr
+     * @throws DukeException
+     */
     public ArrayList<Task> load() throws DukeException {
         BufferedReader br = null;
         ArrayList<Task> taskArr = new ArrayList<>();

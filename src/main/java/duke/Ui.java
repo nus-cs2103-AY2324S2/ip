@@ -2,6 +2,9 @@ package duke;
 import exceptions.DukeException;
 import exceptions.DukeTaskNoDescException;
 
+/**
+ * Handles the interactions with the user.
+ */
 public class Ui {
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Jojo :)");
@@ -16,6 +19,10 @@ public class Ui {
         System.out.println("-----------------------------------------------------------------------");
     }
 
+    /**
+     * Prints a list of tasks
+     * @param tl
+     */
     public void printList(duke.TaskList tl) {
         System.out.println("Here are the tasks in your list:");
         for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
@@ -24,6 +31,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the task when marked as done
+     * @param tl
+     * @throws DukeException when the task is invalid
+     */
     public void printMark(duke.TaskList tl, String cmd) throws DukeException {
         try {
             int taskNum = Parser.parseMark(cmd);
@@ -35,6 +47,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the task when marked as undone
+     * @param tl
+     * @throws DukeException when the task is invalid
+     */
     public void printUnmark(duke.TaskList tl, String cmd) throws DukeException {
         try {
             int taskNum = Parser.parseUnmark(cmd);
@@ -46,6 +63,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the task when deleted
+     * @param tl
+     * @throws DukeException when the task is invalid
+     */
     public void printDelete(duke.TaskList tl, String cmd) throws DukeException {
         int taskNum = Parser.parseDelete(cmd);
         if (taskNum >= tl.size()) {
@@ -58,6 +80,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the todo when created
+     * @param tl
+     * @throws DukeException when the todo is invalid
+     */
     public void printToDo(TaskList tl, String cmd) throws DukeException {
         String test = Parser.parseToDoTest(cmd);
         if (test.strip().equals("")) {
@@ -71,6 +98,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the deadline when created
+     * @param tl
+     * @throws DukeException when the deadline is invalid
+     */
     public void printDeadline(TaskList tl, String cmd) throws DukeException {
         String test = Parser.parseDeadlineTest(cmd);
         if (test.strip().equals("")) {
@@ -85,6 +117,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the event when created
+     * @param tl
+     * @throws DukeException when the event is invalid
+     */
     public void printEvent(TaskList tl, String cmd) throws DukeException {
         String test = Parser.parseEventTest(cmd);
         if (test.strip().equals("")) {
