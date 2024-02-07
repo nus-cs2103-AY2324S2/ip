@@ -35,7 +35,7 @@ public class Parser {
      * @param description String description of the task.
      * @return String representation of new task.
      */
-    private String handleTaskCreation(Dino.TaskType taskType, String description) {
+    public String handleTaskCreation(Dino.TaskType taskType, String description) {
         StringBuilder printTask = new StringBuilder();
 
         try {
