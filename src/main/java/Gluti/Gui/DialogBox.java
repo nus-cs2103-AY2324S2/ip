@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -20,9 +22,10 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
     @FXML
     private ToggleButton themeToggleButton;
+    static Media botSound = new Media(DialogBox.class.getResource("/data/botNotif.wav").toExternalForm());
+    static MediaPlayer botMediaPlayer = new MediaPlayer(botSound);
 
     private DialogBox(String text, Image img) {
         try {
@@ -48,6 +51,7 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: " + "#8bbcd9" + "; "
@@ -56,6 +60,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getGlutiDialog(String text, Image img) {
+        botMediaPlayer.stop();
+        botMediaPlayer.play();
         var db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: " + "#a3d4c5" + "; "
                 + "-fx-background-radius: 10;");
