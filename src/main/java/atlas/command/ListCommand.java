@@ -28,7 +28,7 @@ public class ListCommand extends Command {
      * to the user through the Ui.
      */
     @Override
-    public void execute() {
-        ui.showAllTasks(tasks.getTasks());
+    public String execute() {
+        return ui.showAllTasks(tasks.getTasks());
     }
 }

@@ -34,10 +34,10 @@ public class AddDeadlineCommand extends Command {
      * Executes the addition of a new deadline task.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Deadline deadline = new Deadline(description, by);
         tasks.addTask(deadline);
-        ui.showTaskAdded(tasks);
+        return ui.showTaskAdded(tasks);
 
     }
 }

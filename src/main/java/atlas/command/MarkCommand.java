@@ -32,8 +32,8 @@ public class MarkCommand extends Command {
      * @throws AtlasException If an error occurs during marking the task (e.g., index out of bounds).
      */
     @Override
-    public void execute() throws AtlasException {
+    public String execute() throws AtlasException {
         tasks.markTask(taskIndex);
-        ui.showMark(super.tasks, taskIndex);
+        return ui.showMark(super.tasks, taskIndex);
     }
 }

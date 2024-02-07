@@ -109,6 +109,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Takes in a keyword and return tasks that match with that specific keyword.
+     *
+     * @param keyword Keyword given by the user.
+     * @return A list of tasks that match with that keyword.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : this.tasks) {

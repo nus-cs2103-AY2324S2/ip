@@ -32,8 +32,9 @@ public abstract class Command {
     /**
      * Executes the command.
      *
+     * @return A string representing the output of the program.
      * @throws AtlasException If the command encounters problems during execution.
      */
-    public abstract void execute() throws AtlasException;
+    public abstract String execute() throws AtlasException;
 
 }

@@ -26,9 +26,9 @@ public class ExitCommand extends Command {
      * of tasks, and then terminate the application.
      */
     @Override
-    public void execute() {
-        ui.showGoodbye();
+    public String execute() {
+        String str = ui.showGoodbye();
         storage.save(tasks);
-        System.exit(0);
+        return str;
     }
 }
