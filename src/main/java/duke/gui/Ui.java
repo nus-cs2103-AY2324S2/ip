@@ -72,6 +72,11 @@ public class Ui {
                 System.out.println("Roger. I have removed this task.");
                 System.out.println(taskString);
                 System.out.printf("Now you have %d tasks in the list.", taskList.getNumberOfTasks());
+
+            } else if (userInputArray[0].equalsIgnoreCase("find")) {
+                String findKeyword = userInputArray[1];
+                taskList.listMatchingTasks(findKeyword);
+
             } else {
                 // Unknown keyword error
                 try {

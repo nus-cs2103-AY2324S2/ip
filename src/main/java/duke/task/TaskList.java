@@ -79,6 +79,25 @@ public class TaskList {
         }
     }
 
+    public void listMatchingTasks(String findKeyword) {
+        System.out.println("Here are the matching tasks in your list:");
+
+        int foundTaskNumber = 1;
+
+        for (int i = 0; i < taskList.size(); i++) {
+
+            Task t = taskList.get(i);
+            String taskDescription = t.getDescription();
+
+            int index = taskDescription.indexOf(findKeyword);
+
+            if (index != -1) {
+                System.out.printf("%d. %s\n", foundTaskNumber, t.toString());
+                foundTaskNumber++;
+            }
+        }
+    }
+
     public int getNumberOfTasks() {
         return taskList.size();
     }
