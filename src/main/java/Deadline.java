@@ -6,7 +6,7 @@ import task.Task;
  * Represents a task with a specified deadline.
  */
 public class Deadline extends Task {
-
+    private static final String TASK_CODE = "D";
     protected String by;
 
     /**
@@ -16,8 +16,18 @@ public class Deadline extends Task {
      * @param by Deadline date and time.
      */
     public Deadline(String description, String by) {
-        super(description);
+        super(TASK_CODE, description);
         this.by = by;
+    }
+
+    /**
+     * Returns a string representation of the due date of the Deadline object.
+     *
+     * @return String representation of the due date.
+     */
+    @Override
+    public String getDate() {
+        return this.by;
     }
 
     /**
@@ -27,6 +37,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[" + TASK_CODE + "]" + super.toString() + " (by: " + by + ")";
     }
 }

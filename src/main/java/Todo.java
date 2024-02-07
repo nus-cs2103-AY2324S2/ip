@@ -6,6 +6,7 @@ import task.Task;
  * Represents a todo task.
  */
 public class Todo extends Task {
+    private static final String TASK_CODE = "T";
 
     /**
      * Constructs a Todo object with the given description.
@@ -13,7 +14,7 @@ public class Todo extends Task {
      * @param description Description of the todo task.
      */
     public Todo(String description) {
-        super(description);
+        super(TASK_CODE, description);
     }
 
     /**
@@ -23,6 +24,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + taskCode + "]" + super.toString();
     }
 }
