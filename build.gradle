@@ -37,6 +37,7 @@ shadowJar {
     archiveBaseName = "victor"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'victor.jar'
 }
 
 run{
