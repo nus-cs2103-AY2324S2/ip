@@ -75,7 +75,7 @@ public class Ui {
     public static void printTasks(ArrayList<Task> list) {
         System.out.println( "-------------------------------- \n" +
                 "Here are the tasks in your list:");
-        if (list.isEmpty()) {
+        if (list == null || list.isEmpty()) {
             System.out.println("----You have no tasks yet.----");
         }
         else {
@@ -109,13 +109,13 @@ public class Ui {
 
     public static void showErrorDeadlineFormat() {
         System.out.println("-------------------------------- \n" +
-                "Oops, wrong format! Please follow this format for deadline task entries (e.g. deadline submit report /by 11/10/2019 5pm ) \n" +
+                "Oops, wrong format! Please follow this format for deadline task entries (e.g. deadline submit report /by 11/10/2019 1800 ) \n" +
                 "-------------------------------- \n");
     }
 
     public static void showErrorEventFormat() {
         System.out.println("-------------------------------- \n" +
-                "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 4pm /to 11/10/2019 5pm ) \n" +
+                "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 1800 /to 11/10/2019 1800 ) \n" +
                 "-------------------------------- \n");
     }
 
@@ -128,7 +128,7 @@ public class Ui {
 
     public static void showErrorEventTimingFormat() {
         System.out.println("-------------------------------- \n" +
-                "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 4pm /to 11/10/2019 5pm ) \n" +
+                "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 1800 /to 11/10/2019 1800 ) \n" +
                 "-------------------------------- \n");
     }
 

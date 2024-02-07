@@ -15,6 +15,14 @@ public class TaskList extends ArrayList<Task> {
         this.tasks = tasks;
     }
 
+    public static Task getTask(int taskNo) {
+        try {
+            return tasks.get(taskNo);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorNotExist(taskNo);
+            return null;
+        }
+    }
     public static void addTask(Task t) {
         tasks.add(t);
         Ui.printTaskAdded(t, tasks);

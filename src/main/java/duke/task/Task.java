@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     public static DateTimeFormatter dateTimeString = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
     private String taskName;
-    protected boolean status;
+    private boolean status;
 
     public Task(String taskName, boolean status) {
         this.taskName = taskName;
@@ -16,6 +16,10 @@ public class Task {
     }
     public String getStatusIcon() {
         return status ? "[X]" : "[ ]";
+    }
+
+    public boolean isDone() {
+        return status;
     }
 
     public void done() {
