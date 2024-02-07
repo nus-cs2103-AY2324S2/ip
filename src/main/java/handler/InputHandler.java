@@ -14,9 +14,8 @@ import exception.IllegalArgumentException;
 import exception.UnknownCommandException;
 
 public class InputHandler {
-    public static final InputHandler instance = new InputHandler();
     private InputHandler() {}
-    public Action handleInput(String input) throws Exception{
+    public static Action handleInput(String input) throws Exception{
         String[] parsedInput = input.split(" ");
         String commandName = parsedInput[0];
         Command command = Command.getEnum(commandName);
@@ -77,7 +76,7 @@ public class InputHandler {
         }
     }
 
-    private int countByFlag(String[] parsedInput) {
+    private static int countByFlag(String[] parsedInput) {
         int counter = 0;
         for (int i = 0; i < parsedInput.length; i++) {
             if (parsedInput[i].equals("/by")) {
@@ -87,7 +86,7 @@ public class InputHandler {
         return counter;
     }
 
-    private int countFromFlag(String[] parsedInput) {
+    private static int countFromFlag(String[] parsedInput) {
         int counter = 0;
         for (int i = 0; i < parsedInput.length; i++) {
             if (parsedInput[i].equals("/from")) {
@@ -97,7 +96,7 @@ public class InputHandler {
         return counter;
     }
 
-    private int countToFlag(String[] parsedInput) {
+    private static int countToFlag(String[] parsedInput) {
         int counter = 0;
         for (int i = 0; i < parsedInput.length; i++) {
             if (parsedInput[i].equals("/to")) {
