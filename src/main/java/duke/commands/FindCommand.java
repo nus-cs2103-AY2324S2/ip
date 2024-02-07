@@ -14,10 +14,12 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
     public List<String> execute(TaskList tasks) throws DukeException {
+        int order = 1;
         messages.add("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             if(tasks.get(i).getDescription().contains(keyword)) {
-                messages.add(tasks.get(i).toString());
+                messages.add(order + "." + tasks.get(i).toString());
+                order++;
             }
         }
         return messages;
