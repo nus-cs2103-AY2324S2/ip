@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Task of ToDo type with only name
+ */
 public class ToDo extends Task {
 
     /** Type icon for ToDo task */

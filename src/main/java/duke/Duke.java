@@ -7,19 +7,29 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Duke class as main
+ */
 public class Duke {
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
+    /**
+     * Constructor
+     * @param filePath for path to store txt file
+     */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        TaskList tempTasks = new TaskList();
         try {
-            tasks = new TaskList(storage.load());
+            tempTasks = new TaskList(storage.load());
         } catch (Exception e) {
-            tasks = new TaskList();
+            tempTasks = new TaskList();
+        } finally {
+            this.tasks = tempTasks;
         }
     }
 
@@ -37,8 +47,6 @@ public class Duke {
                 ui.showError(e.getMessage());
             } catch (NumberFormatException e) {
                 ui.showError("Invalid Number");
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
             }
         }
     }

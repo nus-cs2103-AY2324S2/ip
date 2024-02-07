@@ -1,10 +1,11 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task of event type with start and end dates
+ */
 public class Event extends Task {
     /** Type icon for Event task */
     private static final String TYPE = "E";
@@ -13,6 +14,12 @@ public class Event extends Task {
     /** End date/time of this task */
     protected LocalDateTime end;
 
+    /**
+     * Constructor
+     * @param name for name of task
+     * @param start for start date/time of task
+     * @param end for end date/time of task
+     */
     public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
@@ -34,7 +41,7 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
         String printStart = start.format(formatter);
         String printEnd = end.format(formatter);
-        return "[" + TYPE + "]" + super.toString() +
-                "(from: " + printStart + " to: " + printEnd + ")";
+        return "[" + TYPE + "]" + super.toString()
+                + "(from: " + printStart + " to: " + printEnd + ")";
     }
 }

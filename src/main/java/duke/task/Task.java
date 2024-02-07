@@ -1,11 +1,18 @@
 package duke.task;
 
+/**
+ * Abstract class for task types
+ */
 public abstract class Task {
     /** Name or description of given task */
     protected String name;
     /** Denotes if task is completed or not */
     protected boolean isDone;
 
+    /**
+     * Constructor, initialised as not done
+     * @param name as name of task
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
