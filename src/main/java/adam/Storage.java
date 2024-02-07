@@ -43,7 +43,7 @@ public class Storage {
     public ArrayList<Task> load() throws AdamException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(this.filepath);
+            File file = new File(filepath);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -84,7 +84,7 @@ public class Storage {
     public void save(TaskList tasklist) throws AdamException {
         try {
             ArrayList<Task> tasks = tasklist.getTasks();
-            File file = new File(this.filepath);
+            File file = new File(filepath);
             if (!file.exists()) {
                 file.createNewFile();
                 System.out.println("created file");

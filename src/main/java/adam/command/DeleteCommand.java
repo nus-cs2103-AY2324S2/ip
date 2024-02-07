@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
-        String t = taskList.delete(this.taskNumber);
+        String t = taskList.delete(taskNumber);
         return ui.showResult(
                 "Ok, I've removed this task:",
                 t,

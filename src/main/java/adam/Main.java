@@ -34,7 +34,7 @@ public class Main extends Application {
     public static void exit(boolean isExit) {
         if (isExit) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1500);
                 Platform.exit();
             } catch (InterruptedException e) {
                 e.printStackTrace();

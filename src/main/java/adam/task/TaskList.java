@@ -85,7 +85,7 @@ public class TaskList {
 
     public ArrayList<String> find(String keyword) throws AdamException {
         ArrayList<String> found = new ArrayList<>();
-        for (Task t : this.tasks) {
+        for (Task t : tasks) {
             if (t.canFind(keyword)) {
                 found.add(t.toString());
             }
@@ -99,7 +99,7 @@ public class TaskList {
      * @return The list of tasks in an ArrayList.
      */
     public ArrayList<Task> getTasks() {
-        return this.tasks;
+        return tasks;
     }
 
     /**
@@ -108,6 +108,6 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int size() {
-        return this.tasks.size();
+        return tasks.size();
     }
 }

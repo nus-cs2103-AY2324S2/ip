@@ -30,18 +30,18 @@ public class Task {
      * Marks the task as done.
      */
     public void mark() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void unmark() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public boolean canFind(String keyword) {
-        return this.description.contains(keyword);
+        return description.contains(keyword);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Task {
      * @return the string format of the task.
      */
     public String toFileString() {
-        return (this.isDone ? "1" : "0") + "," + this.description;
+        return (isDone ? "1" : "0") + "," + description;
     }
 
     /**
@@ -60,6 +60,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

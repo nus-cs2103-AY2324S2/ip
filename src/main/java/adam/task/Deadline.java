@@ -34,7 +34,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D," + super.toFileString() + "," + this.by;
+        return "D," + super.toFileString() + "," + by;
     }
 
     /**
@@ -42,6 +42,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 }

@@ -39,17 +39,17 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
         Task t = null;
-        switch (this.command) {
+        switch (command) {
         case "todo":
-            t = new Todo(this.desc);
+            t = new Todo(desc);
             taskList.add(t);
             break;
         case "deadline":
-            t = new Deadline(this.desc, this.details[0]);
+            t = new Deadline(desc, details[0]);
             taskList.add(t);
             break;
         case "event":
-            t = new Event(this.desc, this.details[0], this.details[1]);
+            t = new Event(desc, details[0], details[1]);
             taskList.add(t);
             break;
         }

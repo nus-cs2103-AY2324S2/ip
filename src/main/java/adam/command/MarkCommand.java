@@ -27,7 +27,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
-        String t = taskList.mark(this.taskNumber);
+        String t = taskList.mark(taskNumber);
         return  ui.showResult(
                 "Nice, I've marked this task as done:",
                 t);
