@@ -1,10 +1,10 @@
 D | 0 | dog | 2023-09-04
 T | 0 | fun
-T | 0 | j
-T | 0 | jjjjjj
-T | 0 | read
 T | 0 | read book
 D | 0 | have fun | 2024-03-07
-E | 0 | go for | sun from mon
 T | 0 | jj
 T | 0 | d
+T | 0 | fun
+T | 0 | next task
+T | 0 | ff
+T | 0 | e
