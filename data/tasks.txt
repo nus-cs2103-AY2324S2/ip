@@ -1,3 +1,6 @@
 T | 0 | homework
 T | 0 | homework 2
 D | 0 | return book | 2024-08-01 2200
+E | 0 | project meeting | 2024-08-01 2200 to 2024-08-01 2300
+T | 0 | homework 3
+T | 0 | homework 4
