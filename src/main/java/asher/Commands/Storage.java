@@ -13,12 +13,23 @@ import asher.Tasks.TaskList;
 import asher.Tasks.Todo;
 import asher.Tasks.Task;
 
+/**
+ * The storage class handles storing tasks into a file in the hard disk before program exit and
+ * retrieving the tasks from the same file when the program is run again.
+ */
 public class Storage {
     protected String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Retrieves the tasks from the file that is saved and give the user the list of tasks
+     * that was previously stored.
+     * @param filePath The file that the tasks are stored in.
+     * @param tasks The List of tasks.
+     */
 
     public void getFileContents(String filePath, TaskList tasks) {
         try {
@@ -42,7 +53,6 @@ public class Storage {
         }
     }
 
-    // from the data we have, break it down to get the task listed
     private Task createTask(String list) {
         Task task;
         String[] splitParts = list.split(" \\| ");
@@ -93,6 +103,10 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Writes the list of tasks into the file before program terminates.
+     * @param tasks The List of tasks.
+     */
     public void writeToFile(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter("./taskLists.txt");
