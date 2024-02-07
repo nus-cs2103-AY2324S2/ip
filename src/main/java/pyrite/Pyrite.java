@@ -8,19 +8,22 @@ public class Pyrite {
 
     TaskList tasks = new TaskList();
     StateFile file = new StateFile();
-    UserInterface ui = new UserInterface();
-    public void begin() {
-        ui.greet(Pyrite.NAME);
-        // Load list from file
+    public Pyrite() {
         this.tasks = file.loadState(this.tasks);
-        while (true) {
-            String commandString = ui.readCommand();
-            Command command = Parser.parse(commandString);
-            String response = command.execute(this.tasks, this.file);
-            ui.say(response);
-            if (command instanceof ExitCommand) {
-                break;
-            }
+    }
+
+    protected String getResponse(String input) {
+        Command command = Parser.parse(input);
+        if (command instanceof ExitCommand) {
+            //exit program
+            System.exit(0);
         }
+        String response = command.execute(this.tasks, this.file);
+
+        return response;
+    }
+
+    protected String getName() {
+        return NAME;
     }
 }
