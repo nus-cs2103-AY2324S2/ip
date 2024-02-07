@@ -17,5 +17,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean match(String s) {
+        return taskDescription.toLowerCase().contains(s);
+    }
+
     public abstract String toFileString();
 }

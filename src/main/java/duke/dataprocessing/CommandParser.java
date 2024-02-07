@@ -72,7 +72,14 @@ public class CommandParser {
                 throw new DukeException("OOPS!!! Some arguments are missing.");
             }
             int index = Integer.parseInt(subCommands) - 1;
+
             return new DeleteCommand(index);
+        case "find":
+            if (isSingleCommand) {
+                throw new DukeException("OOPS!!! Some arguments are missing.");
+            }
+
+            return new FindCommand(subCommands);
         default:
             return new UnknownCommand();
         }
