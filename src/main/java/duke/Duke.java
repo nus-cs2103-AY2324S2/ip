@@ -45,4 +45,18 @@ public class Duke {
             ui.showLine();
         } while (!userInput.equalsIgnoreCase("bye"));
     }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        try {
+            Parser.processCommand(input).execute(taskList, ui, input);
+            Storage.saveTasks(taskList.getTasks());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
+        return "There is error";
+    }
 }
