@@ -95,6 +95,20 @@ public class TaskList {
         }
         return null;
     }
+    /**
+     * Searches for tasks in the task list containing a specific keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that match the search criteria. If no matches are found, an empty list is returned.
+     */
+    public String searchTasks(String keyword) {
+        for (Task task : this.taskList) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                return task.toString();
+            }
+        }
+        return "There are no matching tasks found.";
+    }
     @Override
     public String toString() {
         String s = "";

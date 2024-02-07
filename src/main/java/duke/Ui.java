@@ -72,6 +72,9 @@ public class Ui {
             } else if (command.matches("\\bdelete\\b.*")) {
                 String[] words = command.split("\\s+");
                 taskList.delete(Integer.parseInt(words[1].trim()));
+            } else if (command.matches("\\bfind\\b.*")) {
+                String keyword = command.substring(4);
+                System.out.println(taskList.searchTasks(keyword));
             } else if (command.trim().isEmpty()) {
                 continue;
             } else {
