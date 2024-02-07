@@ -29,5 +29,15 @@ public class Task {
     public String toFile() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            Task other = (Task) obj;
+            return this.description.equals(other.description)
+                    && this.isDone == other.isDone;
+        }
+        return false;
+    }
 }
 
