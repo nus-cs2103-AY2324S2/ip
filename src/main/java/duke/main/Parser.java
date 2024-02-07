@@ -4,6 +4,9 @@ import duke.exception.*;
 
 import java.util.Date;
 
+/**
+ * Represents a parser that interprets user inputs and carries out the interpreted commands
+ */
 public class Parser {
     private TaskList taskList;
     private UI ui;
@@ -17,6 +20,12 @@ public class Parser {
         return input.equals("bye");
     }
 
+    /**
+     * Method for taking in user input and executing specified commands based on a pre-defined list
+     *
+     * @param input                   Takes in user input as a String
+     * @throws UnknownInputException  Throws exception if input is in list of recognised commands
+     */
     public void parse(String input) throws UnknownInputException {
         int taskEnd = input.indexOf(" ");
         String commandType = taskEnd > 0 ? input.substring(0, taskEnd) : "list";
@@ -88,10 +97,7 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new UnknownInputException();
         }
-
-
     }
-
 }
 
 

@@ -6,13 +6,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/**
+ * Represents a task with a user-defined deadline
+ */
 public class Deadline extends Task {
     LocalDateTime dueDate;
     public Deadline(String name, String dueDate) throws DateFormatException {
         super(name, "D");
         String[] dateString = dueDate.split("/");
         try {
-
             int day = Integer.parseInt(dateString[0]);
             int month = Integer.parseInt(dateString[1]);
             int year = Integer.parseInt((dateString[2].split(" "))[0]);

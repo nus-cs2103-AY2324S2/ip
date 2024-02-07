@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/**
+ * Represents a task with a user-defined start and end time
+ */
 public class Event extends Task {
     LocalDateTime startTime;
     LocalDateTime endTime;
