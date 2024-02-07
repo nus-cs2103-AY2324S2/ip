@@ -20,8 +20,8 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("________________________________________");
+        System.out.println("\nHello from\n" + logo);
+        System.out.println("________________________________________\n");
 
         System.out.println("Hello! I'm NextGenerationJarvis.");
         System.out.println("What can I do for you?");
@@ -56,30 +56,49 @@ public class Duke {
                     System.out.println("Directory ./data created.");
                 }
             } finally {
-                System.out.println("\n________________________________________\n");
+                System.out.println("________________________________________\n");
             }
         }
 
         // Reading inputs from the file
-        // e.g. E | 1 | resiDANCE | 6th Feb 8-10pm
+        // e.g. E | 1 | resiDANCE | *time*
         try {
             Scanner fileScanner = new Scanner(file);
+            boolean hasError = false;
+
             while (fileScanner.hasNext()) {
                 String[] tasks = fileScanner.nextLine().split(" \\| ");
                 String type = tasks[0];
                 boolean isDone =  Integer.parseInt(tasks[1]) == 1 ? true : false;
+
                 if (type.equals("T")) {
                     ToDo td = new ToDo(isDone, tasks[2]);
                     taskList.add(td);
+
                 } else if (type.equals("D")) {
-                    Deadline d = new Deadline(isDone, tasks[2], tasks[3]);
-                    taskList.add(d);
+                    try {
+                        Deadline d = new Deadline(isDone, tasks[2], tasks[3]);
+                        taskList.add(d);
+
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage() + "\n");
+                        hasError = true;
+                    }
+
                 } else if (type.equals("E")) {
-                    Event e = new Event(isDone, tasks[2], tasks[3]);
-                    taskList.add(e);
+                    try {
+                        Event e = new Event(isDone, tasks[2], tasks[3]);
+                        taskList.add(e);
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage() + "\n");
+                        hasError = true;
+                    }
                 }
             }
             fileScanner.close();
+            System.out.println(hasError 
+                    ? "________________________________________\n" 
+                    : "data.txt loaded without error.\n________________________________________\n");
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -92,7 +111,7 @@ public class Duke {
 
         // loop only exits if input is "bye"
         while (!userInput.toLowerCase().equals("bye")) {
-            System.out.println("\n________________________________________");
+            System.out.println("________________________________________\n");
 
             // Level-2: if the input is "list"
             if (userInput.toLowerCase().equals("list")) {
@@ -173,7 +192,7 @@ public class Duke {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("\n________________________________________");
+        System.out.println("________________________________________\n");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("________________________________________\n");
 
