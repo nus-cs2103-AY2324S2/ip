@@ -38,61 +38,122 @@ public class Chatbot {
             return;
         }
         String instruction[] = this.currentInput.split(" ", 2); // It only splits the first " "
-        if (isNumeric(instruction[1])) {
-            int index = Integer.parseInt(instruction[1]) - 1;
-            if (instruction[0].equals("mark")) {
-                this.mark(index);
-                return;
-            } else {
-                this.unmark(index);
-                return;
-            }
+        if (instruction[0].equals("mark")) {
+            this.mark(instruction);
+            return;
         }
 
-        printHorizontalLine();
-        System.out.println("Got it. I've added this task: ");
+        if (instruction[0].equals("unmark")){
+            this.unmark(instruction);
+            return;
+        }
+
         if (instruction[0].equals("todo")) {
-            addToDo(instruction[1]);
-        } else if (instruction[0].equals("deadline")) {
-            String splits[] = instruction[1].split("/");
-            addDeadline(splits[0], splits[1]);
-        } else if (instruction[0].equals("event")) {
-            String splits[] = instruction[1].split("/");
-            addEvent(splits[0], splits[1], splits[2]);
+            addToDo(instruction);
+            return;
         }
-        numOfItems++;
-        System.out.println("Now you have " + numOfItems + " tasks in the list");
-        printHorizontalLine();
 
+        if (instruction[0].equals("deadline")) {
+            addDeadline(instruction);
+            return;
+        }
+
+        if (instruction[0].equals("event")) {
+            addEvent(instruction);
+            return;
+        }
+
+        printHorizontalLine();
+        LiteException.InvalidInput();
     }
 
-    private void addToDo(String description) {
-        Task todo = new Todo(description);
-        this.list[this.numOfItems] = todo;
-        System.out.println(todo);
+    private void addToDo(String instruction[]) {
+        try {
+            String description = instruction[1];
+            printHorizontalLine();
+            System.out.println("Got it. I've added this task: ");
+            Task todo = new Todo(description);
+            this.list[this.numOfItems] = todo;
+            System.out.println(todo);
+            this.numOfItems++;
+            System.out.println("Now you have " + this.numOfItems + " tasks in the list");
+            printHorizontalLine();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printHorizontalLine();
+            System.out.println("Please give a name for the todo task. \n +" +
+                    "The correct format is todo <description>");
+            printHorizontalLine();
+        }
     }
 
-    private void addDeadline(String description, String due) {
-        Task deadline = new Deadline(description, due);
-        this.list[this.numOfItems] = deadline;
-        System.out.println(deadline);
+    private void addDeadline(String instruction[]) {
+        try {
+            String splits[] = instruction[1].split("/");
+            String description = splits[0];
+            String due = splits[1];
+            printHorizontalLine();
+            System.out.println("Got it. I've added this task: ");
+            Task deadline = new Deadline(description, due);
+            this.list[this.numOfItems] = deadline;
+            System.out.println(deadline);
+            this.numOfItems++;
+            System.out.println("Now you have " + this.numOfItems + " tasks in the list");
+            printHorizontalLine();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printHorizontalLine();
+            System.out.println("Invalid input. \n" +
+                    "Please follow the format of: deadline <description> /by <date>");
+            printHorizontalLine();
+        }
     }
 
-    private void addEvent(String description, String start, String end) {
-        Task event = new Event(description, start, end);
-        this.list[this.numOfItems] = event;
-        System.out.println(event);
+    private void addEvent(String[] instruction) {
+        try {
+            String splits[] = instruction[1].split("/");
+            String description = splits[0];
+            String start = splits[1];
+            String end = splits[2];
+            printHorizontalLine();
+            System.out.println("Got it. I've added this task: ");
+            Task event = new Event(description, start, end);
+            this.list[this.numOfItems] = event;
+            System.out.println(event);
+            this.numOfItems++;
+            System.out.println("Now you have " + this.numOfItems + " tasks in the list");
+            printHorizontalLine();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printHorizontalLine();
+            System.out.println("Invalid input. \n" +
+                    "Please follow the format: event <description> /from <date> /to <date>");
+            printHorizontalLine();
+        }
     }
-    private void unmark(int index) {
-        printHorizontalLine();
-        System.out.println(this.list[index].unmark());
-        printHorizontalLine();
+    private void unmark(String instruction[]) {
+        try {
+            int index = Integer.parseInt(instruction[1]) - 1;
+            printHorizontalLine();
+            System.out.println(this.list[index].unmark());
+            printHorizontalLine();
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            printHorizontalLine();
+            System.out.println("Please input a valid index. \n"
+                + "The correct format is unmark <index>. \n"
+                + "The minimum index is 1 and the maximum index is " + list.length);
+        }
     }
 
-    private void mark(int index) {
-        printHorizontalLine();
-        System.out.println(this.list[index].mark());
-        printHorizontalLine();
+    private void mark(String instruction[]) {
+        try {
+            int index = Integer.parseInt(instruction[1]) - 1;
+            printHorizontalLine();
+            System.out.println(this.list[index].mark());
+            printHorizontalLine();
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            printHorizontalLine();
+            System.out.println("Please input a valid index. \n"
+                    + "The correct format is mark <index>. \n"
+                    + "The minimum index is 1 and the maximum index is " + list.length);
+        }
     }
 
     private void outputList() {
