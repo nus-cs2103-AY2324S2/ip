@@ -7,23 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Facilitates the loading of tasks from taskList.txt file.
+ * Facilitates the loading of tasks from tasks.txt file.
  */
 public class TaskList {
-    private final List<Task> taskList;
+    private final List<Task> tasks;
 
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
-     * Loads the saved tasks into the taskList array by verifying the type of tasks to store.
+     * Loads the saved tasks into the tasks array by verifying the type of tasks to store.
      * The method creates the object, Deadline, Event, To-do, based on the type of tasks identified.
      *
-     * @param storageArray The list of strings containing all tasks populated from the taskList.txt file.
+     * @param storageArray The list of strings containing all tasks populated from the tasks.txt file.
      */
     public TaskList(List<String> storageArray) {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
         // Read file line by line
@@ -58,7 +58,7 @@ public class TaskList {
                 item = new Event(description, dateTimeFrom, dateTimeTo);
             }
 
-            this.taskList.add(item);
+            this.tasks.add(item);
             if (isCompleted.equals("1")) {
                 item.markDone();
             }
@@ -66,14 +66,14 @@ public class TaskList {
     }
 
     public List<Task> getTaskList() {
-        return this.taskList;
+        return this.tasks;
     }
 
     public int getSize() {
-        return this.taskList.size();
+        return this.tasks.size();
     }
 
     public Task getTask(int index) {
-        return this.taskList.get(index);
+        return this.tasks.get(index);
     }
 }
