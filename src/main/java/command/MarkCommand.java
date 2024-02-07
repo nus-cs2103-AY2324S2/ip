@@ -27,14 +27,16 @@ public class MarkCommand extends Command {
     /**
      * Marks a task as completion.
      * If no task is selected, no task at the moment, or invalid index, an error message is returned.
+     * Return a response from Andelu.
      *
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
+     * @return The response from Andelu.
      * @throws AndeluException If no task is selected, no task at the moment, or invalid index.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
 
         if (tasks.getTasks().size() == 0) {
@@ -54,8 +56,14 @@ public class MarkCommand extends Command {
             tasks.markTask(choiceMark - 1);
             storage.writeArrayListToFile(tasks.getTasks(), true);
 
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Nice! I've marked this task as done:\n");
+            stringBuilder.append(tasks.getTasks().get(choiceMark - 1).toString() + "\n");
+
             ui.printAnyStatement("Nice! I've marked this task as done:");
             ui.printAnyStatement(tasks.getTasks().get(choiceMark - 1).toString());
+            return stringBuilder.toString();
+
         } else {
             throw new AndeluException("Invalid choice.");
         }
