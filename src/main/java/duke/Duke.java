@@ -51,12 +51,13 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        try {
-            Parser.processCommand(input).execute(taskList, ui, input);
-            Storage.saveTasks(taskList.getTasks());
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
-        }
-        return "There is error";
+        return "FICIN heard: " + input;
+        //try {
+        //    Parser.processCommand(input).execute(taskList, ui, input);
+        //    Storage.saveTasks(taskList.getTasks());
+        //} catch (DukeException e) {
+        //    ui.showError(e.getMessage());
+        //}
+        //return "There is error";
     }
 }
