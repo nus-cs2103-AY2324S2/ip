@@ -14,6 +14,14 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public boolean equals(Task task) {
+        if (task == this) {
+            return true;
+        } else {
+            return task.desc == desc && task.isDone == isDone;
+        }
+    }
+
     public void mark() {
         this.isDone = true;
     }
