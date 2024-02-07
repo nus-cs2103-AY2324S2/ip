@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Univus {
@@ -100,15 +102,23 @@ public class Univus {
                 if (message.equals("deadline")) {
                     throw new UnivusException("OOPS!!! The description of a deadline cannot be empty.");
                 } else {
-                    String dueDate = message.split("/")[1];
+                    int startIndex = message.indexOf("/");
+                    String dueDate = message.substring(startIndex + 1);
                     String description = message.split("/")[0];
-                    Deadlines deadline = new Deadlines(description, dueDate);
-                    store.add(deadline);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("\t" + deadline.toString());
-                    System.out.println("Now you have " + store.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    String pattern1 = "^by \\d{4}-\\d{2}-\\d{2}$";
+                    Pattern regex1 = Pattern.compile(pattern1);
+                    Matcher matcher1 = regex1.matcher(dueDate);
+                    if (matcher1.matches()) {
+                        Deadlines deadline = new Deadlines(description, dueDate);
+                        store.add(deadline);
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("\t" + deadline.toString());
+                        System.out.println("Now you have " + store.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        throw new UnivusException("OOPS!!! Invalid date format. Please use yyyy-MM-dd.");
+                    }
                 }
             } catch (UnivusException error) {
                 System.out.println("____________________________________________________________");
@@ -188,7 +198,7 @@ public class Univus {
                     int startIndex = message.lastIndexOf("]");
                     int endIndex = message.lastIndexOf("(");
                     int timeIndex = message.lastIndexOf(":");
-                    String dueDate = "by" + message.substring(timeIndex + 1, message.length() - 1);
+                    String dueDate = "by " + message.substring(timeIndex + 1, message.length() - 1);
                     String description = message.substring(startIndex + 2, endIndex);
                     Deadlines deadline = new Deadlines(description, dueDate);
                     store.add(deadline);
