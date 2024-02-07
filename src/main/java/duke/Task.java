@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,15 +37,15 @@ abstract public class Task {
         this.isDone = false;
     }
 
-    boolean isDone() {
+    public boolean isDone() {
         return isDone;
     }
 
-    void mark() {
+    public void mark() {
         this.isDone = true;
     }
 
-    void unmark() {
+    public void unmark() {
         this.isDone = false;
     }
 
@@ -70,7 +72,7 @@ abstract public class Task {
         throw new DukeException("    Oops! Unable to extract time from the prompt!\n");
     }
 
-    static LocalDate parseDate(String string) throws DukeException {
+    public static LocalDate parseDate(String string) throws DukeException {
         for (String date : dateFormats) {
             try {
                 LocalDate localDate = LocalDate.parse(string, DateTimeFormatter.ofPattern(date));

@@ -1,12 +1,19 @@
-class UnmarkCommand extends Command {
+package command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.DukeException;
+import duke.Task;
+
+public class UnmarkCommand extends Command {
     private final int num;
 
-    UnmarkCommand(int num) {
+    public UnmarkCommand(int num) {
         this.num = num;
     }
 
     @Override
-    void execute(Storage storage, TaskList taskList) throws DukeException {
+    public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);
         if (!task.isDone()) {
             System.out.println("Not done in the first place.");

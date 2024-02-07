@@ -1,10 +1,19 @@
+package command;
+
 import java.io.FileWriter;
 import java.io.IOException;
+import duke.Storage;
+import duke.Deadline;
+import duke.DukeException;
+import duke.Task;
+import duke.Todo;
+import duke.Event;
+import duke.TaskList;
 
-class AddTaskCommand extends Command {
+public class AddTaskCommand extends Command {
     private final String prompt;
 
-    AddTaskCommand(String prompt) {
+    public AddTaskCommand(String prompt) {
         this.prompt = prompt;
     }
 
@@ -45,7 +54,7 @@ class AddTaskCommand extends Command {
     }
 
     @Override
-    void execute(Storage storage, TaskList taskList) throws DukeException {
+    public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = createTask();
         storage.addTask(task);
         taskList.add(task);

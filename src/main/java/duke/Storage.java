@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Storage {
+public class Storage {
     private final File file;
 
     Storage(String fileFolder, String fileName) throws DukeException {
@@ -43,7 +45,7 @@ class Storage {
         }
     }
 
-    void editLine(int num, Task task) {
+    public void editLine(int num, Task task) {
         try {
             int i = 1;
             ArrayList<String> lines = new ArrayList<>();
@@ -67,7 +69,7 @@ class Storage {
         }
     }
 
-    void deleteLine(int num) {
+    public void deleteLine(int num) {
         try {
             int i = 1;
             ArrayList<String> lines = new ArrayList<>();
@@ -89,7 +91,7 @@ class Storage {
         }
     }
 
-    void addTask(Task task) {
+    public void addTask(Task task) {
         try {
             FileWriter fw = new FileWriter(file, true);
             fw.write(task.taskToLine() + "\n");

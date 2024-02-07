@@ -1,8 +1,10 @@
+package duke;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class TaskList {
+public class TaskList {
     private final ArrayList<Task> tasks;
 
     TaskList(ArrayList<String> load) throws DukeException {
@@ -12,7 +14,7 @@ class TaskList {
         }
     }
 
-    void print() {
+    public void print() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks yet...");
         } else {
@@ -23,21 +25,21 @@ class TaskList {
         }
     }
 
-    Task retrieve(int num) throws DukeException {
+    public Task retrieve(int num) throws DukeException {
         if (num <= 0 || num > tasks.size()) {
             throw new DukeException("OOPS! Invalid Index!");
         }
         return tasks.get(num - 1);
     }
 
-    Task remove(int num) throws DukeException {
+    public Task remove(int num) throws DukeException {
         if (num <= 0 || num > tasks.size()) {
             throw new DukeException("OOPS! Invalid Index!");
         }
         return tasks.remove(num - 1);
     }
 
-    void countSize() {
+    public void countSize() {
         if (tasks.size() == 1) {
             System.out.println("Now you have 1 task in the list");
         } else {
@@ -77,7 +79,7 @@ class TaskList {
         }
     }
 
-    void searchDate(LocalDate localDate) {
+    public void searchDate(LocalDate localDate) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : tasks) {
             if (task.matchDate(localDate)) {
@@ -94,7 +96,7 @@ class TaskList {
         }
     }
 
-    void add(Task task) {
+    public void add(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);

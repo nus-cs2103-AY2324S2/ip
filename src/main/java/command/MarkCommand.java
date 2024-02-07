@@ -1,12 +1,19 @@
-class MarkCommand extends Command {
+package command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.DukeException;
+import duke.Task;
+
+public class MarkCommand extends Command {
     private final int num;
 
-    MarkCommand(int num) {
+    public MarkCommand(int num) {
         this.num = num;
     }
 
     @Override
-    void execute(Storage storage, TaskList taskList) throws DukeException {
+    public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);
         if (task.isDone()) {
             System.out.println("Already done. No need to mark again.");
