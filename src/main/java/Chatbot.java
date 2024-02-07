@@ -23,25 +23,66 @@ public class Chatbot {
         exit();
     }
 
+    private boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
     private void parseInput() {
         if (this.currentInput.equals("list")) {
             outputList();
             return;
         }
-        String instruction[] = this.currentInput.split(" ");
-        if (instruction.length == 2) {
+        String instruction[] = this.currentInput.split(" ", 2); // It only splits the first " "
+        if (isNumeric(instruction[1])) {
             int index = Integer.parseInt(instruction[1]) - 1;
             if (instruction[0].equals("mark")) {
                 this.mark(index);
+                return;
             } else {
                 this.unmark(index);
+                return;
             }
-            return;
         }
-        addToList();
-        echo();
+
+        printHorizontalLine();
+        System.out.println("Got it. I've added this task: ");
+        if (instruction[0].equals("todo")) {
+            addToDo(instruction[1]);
+        } else if (instruction[0].equals("deadline")) {
+            String splits[] = instruction[1].split("/");
+            addDeadline(splits[0], splits[1]);
+        } else if (instruction[0].equals("event")) {
+            String splits[] = instruction[1].split("/");
+            addEvent(splits[0], splits[1], splits[2]);
+        }
+        numOfItems++;
+        System.out.println("Now you have " + numOfItems + " tasks in the list");
+        printHorizontalLine();
+
     }
 
+    private void addToDo(String description) {
+        Task todo = new Todo(description);
+        this.list[this.numOfItems] = todo;
+        System.out.println(todo);
+    }
+
+    private void addDeadline(String description, String due) {
+        Task deadline = new Deadline(description, due);
+        this.list[this.numOfItems] = deadline;
+        System.out.println(deadline);
+    }
+
+    private void addEvent(String description, String start, String end) {
+        Task event = new Event(description, start, end);
+        this.list[this.numOfItems] = event;
+        System.out.println(event);
+    }
     private void unmark(int index) {
         printHorizontalLine();
         System.out.println(this.list[index].unmark());
@@ -59,18 +100,6 @@ public class Chatbot {
         for (int i = 0; i < this.numOfItems; i++) {
             System.out.println((i+1) + ". " + this.list[i]);
         }
-        printHorizontalLine();
-    }
-
-    private void addToList() {
-        this.list[this.numOfItems] = new Task(this.currentInput);
-        this.numOfItems++;
-    }
-
-    private void echo() {
-        printHorizontalLine();
-        String msg = "added: " + this.currentInput;
-        System.out.println(msg);
         printHorizontalLine();
     }
 
