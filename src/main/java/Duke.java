@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import javafx.scene.shape.Line;
-
 public class Duke {
     private static final String LINE = "    ___________________________________________________________\n";
 
@@ -46,6 +44,12 @@ public class Duke {
                     Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
                     listOfTasks.add(newTask);
                     repeatFunction(newTask, listOfTasks);
+                } else if (input.contains("delete")) {
+                    String[] parts = input.split(" ");
+                    int deleteIndex = Integer.parseInt(parts[1]) - 1;
+                    Task deletedTask = listOfTasks.get(deleteIndex);
+                    listOfTasks.remove(deleteIndex);
+                    deleteTask(deletedTask, listOfTasks);
                 } else {
                     throw new DukeException("Unable to read input");
                 }
@@ -78,6 +82,21 @@ public class Duke {
         System.out.println("     Nice! I've marked this task as done:");
         task.setDone();
         System.out.println("  " + task.toString());
+        System.out.println(LINE);
+    }
+
+    /**
+     * Displays a message of the deleted task and the number of task in the list
+     * 
+     * @param task
+     * @param listOfTasks
+     */
+    public static void deleteTask(Task task, ArrayList<? extends Task> listOfTasks) {
+        System.out.print(LINE);
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("       " + task);
+        int len = listOfTasks.size();
+        System.out.println(String.format("     Now you have %d tasks in the list.", len));
         System.out.println(LINE);
     }
 
