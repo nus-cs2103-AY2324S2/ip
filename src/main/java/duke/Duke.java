@@ -1,6 +1,9 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Duke {
 
@@ -57,6 +60,13 @@ public class Duke {
 
             if (userCmd.equalsIgnoreCase("list")) {
                 list();
+            } else if (userCmd.equalsIgnoreCase("find")) {
+                try {
+                    String searchStr = parser.getCmdDetails(userCmd, cmdDetails);
+                    find(searchStr);
+                } catch (DukeException e) {
+                    printWithLines(e.getMessage());
+                }
             } else if (userCmd.equalsIgnoreCase("mark") ||
                     userCmd.equalsIgnoreCase("unmark")) {
                 try {
@@ -137,10 +147,6 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-
-
-
-
     public void list() {
         if (tasks.size() == 0) {
             printWithLines("There's nothing in your list so far");
@@ -155,7 +161,31 @@ public class Duke {
         System.out.println(horzLine);
     }
 
+    /**
+     * Finds tasks in the TaskList that contain the given search string.
+     *
+     * @param searchStr Keyword to find elements in the TaskList.
+     */
+    public void find(String searchStr) {
+        List<Task> matches = tasks.getTaskList().stream().filter(task -> task.getDescription().contains(searchStr))
+                .collect(Collectors.toList());
 
+        if (tasks.size() == 0) {
+            printWithLines("There's nothing in your list so far");
+            return;
+        } else if (matches.size() == 0) {
+            printWithLines("There's nothing in your list that matches your search");
+            return;
+        }
+
+        System.out.println(horzLine);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matches.size(); i++) {
+            int j = i + 1;
+            System.out.println(j + ". " + matches.get(i).toString());
+        }
+        System.out.println(horzLine);
+    }
 
     public void markDone(int index) throws DukeException {
         if (tasks.size() == 0) {
