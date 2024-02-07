@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.Command;
+import duke.task.TaskList;
+
 import java.nio.file.Paths;
 public class Duke {
     private final Storage storage;
@@ -36,7 +41,7 @@ public class Duke {
     }
 //    public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
-//        ArrayList<Task> list = loadFile();
+//        ArrayList<duke.task.Task> list = loadFile();
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
 //
 //        System.out.println("\t\tHello, my name is Xilef.\n\t\tHow may I help you today??\n");
@@ -53,26 +58,26 @@ public class Duke {
 //                else {
 //                    System.out.println("\t\tThese are the things on your agenda today");
 //                    for (int i = 1; i < list.size() + 1; i++) {
-//                        Task t = list.get(i - 1);
+//                        duke.task.Task t = list.get(i - 1);
 //                        System.out.println("\t\t" + i + "." + t.toString());
 //                    }
 //                }
 //                System.out.println("");
 //            } else if (arr[0].equals("unmark")) {
-//                Task t = list.get(getIndex(arr));
+//                duke.task.Task t = list.get(getIndex(arr));
 //                t.unmarkDone();
 //                System.out.println("\t\tReminder, you have not completed this task yet:\n\t\t  " + t.toString() + "\n");
 //            } else if (arr[0].equals("mark")) {
-//                Task t = list.get(getIndex(arr));
+//                duke.task.Task t = list.get(getIndex(arr));
 //                t.markDone();
 //                System.out.println("\t\tGreat job, you have accomplished this task:\n\t\t  " + t.toString() + "\n");
 //            } else if (arr[0].equals("delete")) {
 //                try {
 //                    int n = getIndex(arr);
 //                    if (list.size() <= n) {
-//                        throw new DukeException("There is nothing to be deleted");
+//                        throw new duke.DukeException("There is nothing to be deleted");
 //                    } else {
-//                        Task t = list.get(n);
+//                        duke.task.Task t = list.get(n);
 //                        list.remove(t);
 //                        System.out.println("\t\tRemoved the following task:\n\t\t  " + t.toString());
 //                        if (list.size() <= 1) {
@@ -81,7 +86,7 @@ public class Duke {
 //                            System.out.println("\t\tYou now have " + list.size() + " tasks remaining");
 //                        }
 //                    }
-//                } catch (DukeException e){
+//                } catch (duke.DukeException e){
 //                    System.out.println("\t\t" + e.getMessage());
 //                }
 //            } else {
@@ -91,26 +96,26 @@ public class Duke {
 //                    if (arr[0].equals("deadline")) {
 //                        LocalDateTime deadline = null;
 //                        if (newArr.length < 2) {
-//                            throw new DukeException("Incomplete deadline information");
+//                            throw new duke.DukeException("Incomplete deadline information");
 //                        }
 //                        try {
 //                            deadline = LocalDateTime.parse(newArr[1].split("by")[1].trim(), formatter);
 //
 //                        } catch (DateTimeParseException e) {
-//                            throw new DukeException("Invalid date/time");
+//                            throw new duke.DukeException("Invalid date/time");
 //                        }
 //                        System.out.println("\t\tAdded a new task to the list!");
-//                        Deadline d = new Deadline(newArr[0], deadline);
+//                        duke.task.Deadline d = new duke.task.Deadline(newArr[0], deadline);
 //                        list.add(d);
 //                        System.out.println("\t\t  " + d.toString());
 //                    } else if (arr[0].equals("todo")) {
 //                        System.out.println("\t\tAdded a new task to the list!");
-//                        Todo td = new Todo(newArr[0]);
+//                        duke.task.Todo td = new duke.task.Todo(newArr[0]);
 //                        list.add(td);
 //                        System.out.println("\t\t  " + td.toString());
 //                    } else if (arr[0].equals("event")) {
 //                        if (newArr.length < 3) {
-//                            throw new DukeException("Incomplete event information");
+//                            throw new duke.DukeException("Incomplete event information");
 //                        }
 //                        LocalDateTime from = null;
 //                        LocalDateTime to = null;
@@ -119,15 +124,15 @@ public class Duke {
 //                            to = LocalDateTime.parse(newArr[2].split("to")[1].trim(), formatter);
 //
 //                        } catch (DateTimeParseException e) {
-//                            throw new DukeException("Invalid date/time");
+//                            throw new duke.DukeException("Invalid date/time");
 //                        }
 //                        System.out.println("\t\tAdded a new task to the list!");
 //
-//                        Event e = new Event(newArr[0], from, to);
+//                        duke.task.Event e = new duke.task.Event(newArr[0], from, to);
 //                        list.add(e);
 //                        System.out.println("\t\t  " + e.toString());
 //                    } else {
-//                        throw new DukeException("Invalid task type");
+//                        throw new duke.DukeException("Invalid task type");
 //                    }
 //                    if (list.size() <= 1) {
 //                        System.out.println("\t\tYou have " + list.size() + " too many task to do!!!" +
@@ -136,7 +141,7 @@ public class Duke {
 //                        System.out.println("\t\tYou have " + list.size() + " too many tasks to do!!!" +
 //                                "\n\t\tQuickly start working on them!!!\n");
 //                    }
-//                } catch (DukeException e) {
+//                } catch (duke.DukeException e) {
 //                    System.out.println("\t\t" + e.getMessage());
 //                }
 //            }
@@ -157,9 +162,9 @@ public class Duke {
 //        return s.toString();
 //    }
 //
-//    private static void saveToFile(ArrayList<Task> list) {
+//    private static void saveToFile(ArrayList<duke.task.Task> list) {
 //        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-//            for (Task t : list) {
+//            for (duke.task.Task t : list) {
 //                writer.write(t.toStringForFile() + "\n");
 //            }
 //        } catch (IOException e) {
@@ -167,13 +172,13 @@ public class Duke {
 //        }
 //    }
 //
-//    private static ArrayList<Task> loadFile() {
-//        ArrayList<Task> list = new ArrayList<>();
+//    private static ArrayList<duke.task.Task> loadFile() {
+//        ArrayList<duke.task.Task> list = new ArrayList<>();
 //        File file = new File(FILE_PATH);
 //        try (Scanner scanner = new Scanner(file)) {
 //            while (scanner.hasNextLine()) {
 //                String line = scanner.nextLine();
-//                Task task = createTaskFromLine(line);
+//                duke.task.Task task = createTaskFromLine(line);
 //                if (task != null) {
 //                    list.add(task);
 //                }
@@ -186,25 +191,25 @@ public class Duke {
 //        return list;
 //    }
 //
-//    private static Task createTaskFromLine(String line) {
-//        Task t = null;
+//    private static duke.task.Task createTaskFromLine(String line) {
+//        duke.task.Task t = null;
 //        String[] parts = line.split("\\|");
 //        String taskType = parts[0].trim();
 //        String taskStatus = parts[1].trim();
 //        String taskDescription = parts[2].trim();
 //        switch (taskType) {
 //            case "T":
-//                t = new Todo(taskDescription);
+//                t = new duke.task.Todo(taskDescription);
 //                break;
 //            case "D":
 //                String taskBy = parts[3].trim();
 //                LocalDateTime taskDeadline = LocalDateTime.parse((taskBy));
-//                t = new Deadline(taskDescription, taskDeadline);
+//                t = new duke.task.Deadline(taskDescription, taskDeadline);
 //                break;
 //            case "E":
 //                LocalDateTime taskFrom = LocalDateTime.parse(parts[3].trim());
 //                LocalDateTime taskTo = LocalDateTime.parse(parts[4].trim());
-//                t = new Event(taskDescription, taskTo,  taskFrom);
+//                t = new duke.task.Event(taskDescription, taskTo,  taskFrom);
 //                break;
 //            default:
 //                System.out.println("Invalid task type: " + taskType);

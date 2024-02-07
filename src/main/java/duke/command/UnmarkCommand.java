@@ -1,4 +1,8 @@
-import java.util.concurrent.LinkedBlockingDeque;
+package duke.command;
+
+import duke.*;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class UnmarkCommand extends Command {
     private final int index;
@@ -7,7 +11,7 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.size() <= index) {
             throw new DukeException("There is nothing to be unmarked");
         } else {
