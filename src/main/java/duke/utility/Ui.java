@@ -2,10 +2,14 @@ package duke.utility;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import duke.task.Task;
 
+/**
+ * Represents the Ui of Duke, responsible for showing outputs.
+ */
 public class Ui {
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     /**
      * Greets the user.

@@ -1,11 +1,12 @@
 package duke.command;
 
-import duke.utility.Ui;
-import duke.utility.TaskList;
-import duke.utility.Storage;
+import java.io.IOException;
 
 import duke.task.Task;
-import java.io.IOException;
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
+
 
 /**
  * Represents a command to add a {@link Task} in a {@link TaskList}.

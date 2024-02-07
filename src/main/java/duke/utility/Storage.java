@@ -3,11 +3,10 @@ package duke.utility;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import duke.exceptions.DukeException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
 import duke.task.Task;
 
 /**
