@@ -1,12 +1,11 @@
 package quacky;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
 public class DeadlineTest {
     @Test
     public void toFileString_success() {
