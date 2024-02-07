@@ -1,4 +1,4 @@
-package exception;
+package nihao.exception;
 
 public class IllegalArgumentException extends Exception{
     public IllegalArgumentException(String commandName, int expected) {

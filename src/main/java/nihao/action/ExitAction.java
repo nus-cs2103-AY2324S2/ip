@@ -1,8 +1,8 @@
-package action;
+package nihao.action;
 
-import enums.SavedString;
-import handler.DataHandler;
-import handler.PrintHandler;
+import nihao.enums.SavedString;
+import nihao.handler.DataHandler;
+import nihao.handler.PrintHandler;
 
 public class ExitAction implements Action{
     @Override

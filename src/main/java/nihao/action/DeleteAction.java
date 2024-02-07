@@ -1,9 +1,9 @@
-package action;
+package nihao.action;
 
-import action.task.Task;
-import exception.IndexOutOfBoundsException;
-import handler.DataHandler;
-import handler.PrintHandler;
+import nihao.action.task.Task;
+import nihao.exception.IndexOutOfBoundsException;
+import nihao.handler.DataHandler;
+import nihao.handler.PrintHandler;
 
 public class DeleteAction implements Action{
     private final int index;

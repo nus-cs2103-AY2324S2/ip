@@ -6,7 +6,7 @@
 #+#   #+#+#     #+#     #+#    #+# #+#     #+# #+#    #+# 
 ###    #### ########### ###    ### ###     ###  ########  
 ------------------------------------
-Hello! I'm Nihao.
+Hello! I'm nihao.Nihao.
 I'm lazy and I don't want to do anything for you.
 ------------------------------------
 Deleted everything for you. It was tiring :<

@@ -1,4 +1,6 @@
-import handler.DataHandler;
+package nihao;
+
+import nihao.handler.DataHandler;
 
 public class App {
     private static Nihao nihao = Nihao.instance;

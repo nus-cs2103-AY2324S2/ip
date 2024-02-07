@@ -1,11 +1,10 @@
-import action.Action;
-import action.ExitAction;
-import handler.DataHandler;
-import handler.InputHandler;
-import handler.PrintHandler;
+package nihao;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import nihao.action.Action;
+import nihao.action.ExitAction;
+import nihao.handler.InputHandler;
+import nihao.handler.PrintHandler;
+
 import java.util.Scanner;
 
 public final class Nihao {

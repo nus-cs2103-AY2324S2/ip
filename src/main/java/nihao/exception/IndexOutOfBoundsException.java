@@ -1,4 +1,4 @@
-package exception;
+package nihao.exception;
 
 public class IndexOutOfBoundsException extends Exception{
     public IndexOutOfBoundsException(int index, int size) {

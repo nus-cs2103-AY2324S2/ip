@@ -1,4 +1,4 @@
-package enums;
+package nihao.enums;
 
 public enum Command {
     BYE,

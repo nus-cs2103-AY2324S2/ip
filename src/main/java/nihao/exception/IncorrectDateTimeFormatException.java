@@ -1,4 +1,4 @@
-package exception;
+package nihao.exception;
 
 public class IncorrectDateTimeFormatException extends Exception{
     public IncorrectDateTimeFormatException() {

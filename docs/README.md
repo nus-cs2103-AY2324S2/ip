@@ -12,9 +12,9 @@ Description of the feature.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `Keyword` - Describe nihao.action
 
-Describe the action and its outcome.
+Describe the nihao.action and its outcome.
 
 Example of usage: 
 
