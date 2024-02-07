@@ -29,7 +29,7 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();
-            isExit = Parser.parse(fullCommand);
+            isExit = Parser.parse(fullCommand, ui);
         }
         ui.showExit();
     }

@@ -18,26 +18,15 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-/**
- * A Storage class that deals with loading tasks from the file and saving tasks in the file.
- */
 public class Storage {
 
-    private static final String HOME = System.getProperty("user.home"); // user's home path
+    private static final String HOME = System.getProperty("user.home");
     private static final Path FILEPATH = Paths.get(HOME, "Downloads", "NUS_CS",
-            "CS2103", "duke.txt"); // file path of local tasklist file
+            "CS2103", "duke.txt");
 
-    /**
-     * A default constructor class to initialize Storage object
-     */
     public Storage() {
     }
 
-    /**
-     * Retrieve local file with a list of tasks.
-     * @return ArrayList<Task> taskList
-     * @throws IOException
-     */
     public static ArrayList<Task> retrieveList() throws IOException {
         if (Files.exists(FILEPATH)) {
             ArrayList<Task> taskList = new ArrayList<>();
@@ -80,10 +69,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Update local file contents.
-     * @param taskList
-     */
     public static void updateFile(ArrayList<Task> taskList) {
         createFile();
         ArrayList<String> taskContent = new ArrayList<>();
@@ -99,9 +84,6 @@ public class Storage {
 
     }
 
-    /**
-     * Create new local file if it does not exist.
-     */
     public static void createFile() {
         try {
             Files.createFile(FILEPATH);

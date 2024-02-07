@@ -8,27 +8,19 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * A Parser class that deals with making sense of the user command
- */
 public class Parser {
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    //public static DateTimeFormatter dateTimeString = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-    /**
-     * Processes a string input to decide which command to execute
-     * @param input
-     * @return isExit (i.e. to terminate program or not)
-     */
-    public static boolean parse(String input) {
+
+    public static boolean parse(String input, Ui ui) {
         int cmdSplit = input.indexOf(" ");
         String command = input;
         String task = null;
         if (cmdSplit == -1) {
-            if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName)
-                    | command.equals(Command.DELETE.commandName)) {
+            if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName) | command.equals(Command.DELETE.commandName)) {
                 System.out.println("-------------------------------- \n" +
-                        "Oops, I'm not sure which task you are referring to! " +
-                        "Please indicate a task number (e.g. " + command + " 1) \n" +
+                        "Oops, I'm not sure which task you are referring to! Please indicate a task number (e.g. " + command + " 1) \n" +
                         "-------------------------------- \n");
             } else if (command.equals(Command.TODO.commandName)) {
                 System.out.println("-------------------------------- \n" +
@@ -45,8 +37,7 @@ public class Parser {
             command = input.substring(0, cmdSplit);
             task = input.substring(input.indexOf(" ") + 1);
 
-            if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName)
-                    | command.equals(Command.DELETE.commandName)) {
+            if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName) | command.equals(Command.DELETE.commandName)) {
                 try {
                     int taskNo = Integer.parseInt(task) - 1;
                     if (command.equals(Command.MARK.commandName)) {
@@ -59,8 +50,7 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     Ui.showErrorNumbersOnly();
                 }
-            } else if (command.equals(Command.TODO.commandName) | command.equals(Command.DEADLINE.commandName)
-                    | command.equals(Command.EVENT.commandName)) {
+            } else if (command.equals(Command.TODO.commandName) | command.equals(Command.DEADLINE.commandName) | command.equals(Command.EVENT.commandName)) {
                 try {
                     Task t = null;
                     boolean success = true;
@@ -72,8 +62,7 @@ public class Parser {
                             Ui.showErrorDeadlineFormat();
                         } else {
                             String[] deadline = task.split(" /by ");
-                            t = new Deadline(deadline[0], false,
-                                    LocalDateTime.parse(deadline[1], dateTimeFormatter));
+                            t = new Deadline(deadline[0], false, LocalDateTime.parse(deadline[1], dateTimeFormatter));
                         }
                         //test
                     } else {
@@ -83,10 +72,8 @@ public class Parser {
                         } else {
                             String event = task.substring(0, task.indexOf(" /from "));
                             try {
-                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6,
-                                        task.indexOf(" /to ")), dateTimeFormatter);
-                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)),
-                                        dateTimeFormatter);
+                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to ")), dateTimeFormatter);
+                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)), dateTimeFormatter);
                                 t = new Event(event, false, from, to);
                             } catch (IndexOutOfBoundsException e) {
                                 Ui.showErrorEventTimingFormat();

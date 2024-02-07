@@ -11,15 +11,17 @@ public class ParserTest {
     @Test
     public void parseListCommandTest(){
         Parser parser = new Parser();
+        Ui ui = new Ui();
 
-        assertTrue(!parser.parse("list"));
+        assertTrue(!parser.parse("list", ui));
     }
 
     @Test
     public void parseExitCommandTest(){
         Parser parser = new Parser();
+        Ui ui = new Ui();
 
-        assertTrue(parser.parse("bye"));
+        assertTrue(parser.parse("bye", ui));
     }
 
 }
