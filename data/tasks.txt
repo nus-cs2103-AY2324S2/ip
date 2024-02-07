@@ -1,0 +1,15 @@
+<<<<<<< HEAD
+[ ] Todo : run
+[ ] Event : concert [ Jan 01 2023 - Jan 01 2023 ]
+[X] Deadline : assignment 2 [ Jan 29 2023 ]
+[ ] Todo : run
+[X] Todo : play
+=======
+[X] Todo : runn
+[X] Event : date [ Feb 14 2023 - Feb 14 2023 ]
+[X] Todo : run
+[ ] Event : date [ Feb 14 2023 - Feb 14 2023 ]
+[ ] Todo : sing
+[ ] Todo : play
+[ ] Todo : run
+>>>>>>> branch-Level-10
