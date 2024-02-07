@@ -5,7 +5,7 @@ import judy.commands.GreetCommand;
 import judy.exceptions.DukeException;
 import judy.parser.Parser;
 import judy.storage.Storage;
-import judy.type.TaskList;
+import judy.task.TaskList;
 import judy.ui.Ui;
 
 public class Judy {

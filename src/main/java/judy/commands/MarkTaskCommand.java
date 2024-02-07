@@ -1,6 +1,6 @@
 package judy.commands;
-import judy.type.Task;
-import judy.type.TaskList;
+import judy.task.Task;
+import judy.task.TaskList;
 import judy.storage.Storage;
 import judy.ui.Ui;
 

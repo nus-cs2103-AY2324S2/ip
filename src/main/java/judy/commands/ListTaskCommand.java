@@ -1,7 +1,7 @@
 package judy.commands;
 
 import judy.storage.Storage;
-import judy.type.TaskList;
+import judy.task.TaskList;
 import judy.ui.Ui;
 
 public class ListTaskCommand extends Command {

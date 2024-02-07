@@ -2,7 +2,7 @@ package judy.parser;
 
 import judy.exceptions.DukeException;
 import judy.commands.Command;
-import judy.type.*;
+import judy.task.*;
 import judy.commands.*;
 
 import java.time.LocalDateTime;
@@ -47,6 +47,9 @@ public class Parser {
                 break;
             case ExitCommand.COMMAND_WORD:
                 command = new ExitCommand();
+                break;
+            case HelpCommand.COMMAND_WORD:
+                command = new HelpCommand();
                 break;
             default:
                 command = new InvalidCommand();

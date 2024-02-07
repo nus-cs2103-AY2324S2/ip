@@ -1,4 +1,4 @@
-package judy.type;
+package judy.task;
 
 /**
  * This class represents a todo task

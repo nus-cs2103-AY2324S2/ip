@@ -1,5 +1,5 @@
 package judy.storage;
-import judy.type.Task;
+import judy.task.*;
 
 import java.io.*;
 import java.util.ArrayList;

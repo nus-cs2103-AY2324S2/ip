@@ -1,4 +1,4 @@
-package judy.type;
+package judy.task;
 
 
 import java.time.LocalDateTime;

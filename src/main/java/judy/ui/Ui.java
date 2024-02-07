@@ -1,6 +1,8 @@
 package judy.ui;
 
-import judy.type.*;
+import judy.task.Task;
+import judy.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -50,10 +52,14 @@ public class Ui {
             }
         }
     }
+    public void showHelp() {
+        System.out.println(Messages.helpMessage());
+    }
     public void showError(String errorMessage) {
          System.out.println(errorMessage);
     }
     public void showGoodbye() {
         System.out.println(Messages.GOODBYE_MESSAGE);
     }
+
 }
