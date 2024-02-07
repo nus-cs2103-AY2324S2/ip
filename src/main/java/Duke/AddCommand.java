@@ -23,18 +23,27 @@ public class AddCommand implements Command {
      * @param tasks   The task list to which the new task will be added.
      * @param ui      The user interface to display messages.
      * @param storage The storage to save the updated task list to the file.
+     * @return A string representation of the command result.
      * @throws DukeException If there is an issue executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             Task newTask = TaskFactory.createTask(userInput);
             tasks.addTask(newTask);
             ui.showConfirmationMessage(tasks.getTasks());
+
+            // Prepare the result message
+            String resultMessage = "Task added:\n" + newTask + "\n";
+            resultMessage += "Now you have " + tasks.getTasks().size() + " tasks in the list.";
+
             storage.saveTasksToFile(tasks);
+
+            return resultMessage;
         } catch (IOException e) {
             // Handle or log the IOException as needed
             ui.showIoExceptionMessage();
+            return "Error saving or loading tasks. Please check the file.";
         }
     }
 }

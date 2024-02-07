@@ -24,20 +24,27 @@ public class DeleteCommand implements Command {
      * @param tasks   The TaskList from which the task will be deleted.
      * @param ui      The Ui object for displaying user interface messages.
      * @param storage The Storage object for saving and loading tasks to and from a file.
+     * @return A string representation of the command result.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             if (taskIndex >= 0 && taskIndex < (tasks.getTasks()).size()) {
                 Task taskBeforeDeletion = tasks.getTask(taskIndex);
                 tasks.deleteTask(taskIndex);
                 storage.saveTasksToFile(tasks);
                 ui.showDeleteMessage(tasks.getTasks(), taskBeforeDeletion);
+                // Prepare the result message for successful deletion
+                String resultMessage = "Task deleted:\n" + taskBeforeDeletion + "\n";
+                resultMessage += "Now you have " + tasks.getTasks().size() + " tasks in the list.";
+                return resultMessage;
             } else {
                 ui.invalidTaskIndex();
+                return " Invalid task index. Please enter a valid task index.";
             }
         } catch (IOException e) {
             ui.showIoExceptionMessage();
+            return "Error saving or loading tasks. Please check the file.";
         }
     }
 }

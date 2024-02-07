@@ -27,18 +27,22 @@ public class MarkCommand implements Command {
      * @param storage The Storage object for saving tasks to the file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             if (taskIndex >= 0 && taskIndex < (tasks.getTasks()).size()) {
                 Task markedTask = tasks.getTask(taskIndex);
                 tasks.markTaskAsDone(taskIndex);
                 storage.saveTasksToFile(tasks);
                 ui.showMarkTaskAsDone(markedTask);
+                return "Task marked as done:\n" + markedTask + "\n";
             } else {
                 ui.invalidTaskIndex();
+                String string = " Invalid task index. Please enter a valid task index.";
+                return string;
             }
         } catch (IOException e) {
             ui.showIoExceptionMessage();
+            return "Error saving or loading tasks. Please check the file.";
         }
     }
 }
