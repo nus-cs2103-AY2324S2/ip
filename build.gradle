@@ -1,7 +1,12 @@
 plugins {
+    id 'checkstyle'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 repositories {
@@ -12,6 +17,7 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
+
 
 test {
     useJUnitPlatform()
