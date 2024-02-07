@@ -1,6 +1,8 @@
 package commands;
 
+import exceptions.InvalidFormatException;
 import exceptions.LeluException;
+import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 import tasksstorage.Storage;
@@ -25,7 +27,17 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        Task t = ToDo.ToDoOf(message);
-        tasks.addTask(t);
+        if (message.replaceAll(" ", "").equals("event")) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
+        }
+        String[] t = message.replaceFirst("event ", "").split("/from ");
+        if (t.length < 2) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
+        }
+        String[] frTo = t[1].split("/to ");
+        if (frTo.length < 2) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
+        }
+        tasks.addTask(new Event(t[0], frTo[0], frTo[1]));
     }
 }

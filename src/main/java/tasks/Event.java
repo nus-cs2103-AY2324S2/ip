@@ -18,28 +18,6 @@ public class Event extends Task {
     }
 
     /**
-     * A factory method which creates an Event object using the user input.
-     *
-     * @param input User input which starts with "event".
-     * @return An Event object with the specified name and start and end timings.
-     * @throws InvalidFormatException When the description of event, or start and end times, is empty in the user input.
-     */
-    public static Event EventOf(String input) throws InvalidFormatException {
-        if (input.replaceAll(" ", "").equals("event")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
-        }
-        String[] t = input.replaceFirst("event ", "").split("/from ");
-        if (t.length < 2) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
-        }
-        String[] frTo = t[1].split("/to ");
-        if (frTo.length < 2) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
-        }
-        return new Event(t[0], frTo[0], frTo[1]);
-    }
-
-    /**
      * Formats the details of the Event object as a String to be written to a text file.
      *
      * @return A String containing the description and start and end timings of an Event object.

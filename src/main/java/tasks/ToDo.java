@@ -12,20 +12,6 @@ public class ToDo extends Task {
         super(taskName);
     }
 
-    /**
-     * A factory method which creates a ToDo object using the user input.
-     *
-     * @param input User input which starts with "ToDo".
-     * @return A ToDo object with the specified name.
-     * @throws InvalidFormatException When the description of task is empty in the user input.
-     */
-    public static ToDo ToDoOf(String input) throws InvalidFormatException {
-        if (input.replaceAll(" ", "").equals("todo")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.TODO);
-        }
-        String t = input.replaceFirst("todo ", "");
-        return new ToDo(t);
-    }
 
     /**
      * Formats the details of the ToDo object as a String to be written to a text file.

@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.InvalidFormatException;
 import exceptions.LeluException;
 import tasks.Deadline;
 import tasks.Task;
@@ -26,7 +27,14 @@ import ui.Ui;
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        Task t = Deadline.DeadlineOf(message);
+        if (message.replaceAll(" ", "").equals("deadline")) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
+        }
+        String[] s = message.replaceFirst("deadline ", "").split("/by ");
+        if (s.length < 2) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.DEADLINE);
+        }
+        Task t = new Deadline(s[0].replaceAll("\\s+$", ""), s[1]);
         tasks.addTask(t);
     }
 }

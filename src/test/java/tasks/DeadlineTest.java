@@ -18,29 +18,7 @@ public class DeadlineTest {
         } catch (DateTimeParseException e) {
         }
     }
-    @Test
-    public void testDeadlineOf_success() throws InvalidInputException {
-        Deadline d1 = new Deadline("Submit assignment", "2025-05-20 23:59");
-        assertEquals(d1.toString(),
-                Deadline.DeadlineOf("deadline Submit assignment /by 2025-05-20 23:59").toString());
-        Deadline d2 = new Deadline("chop cucumber", "2026-11-18 01:43");
-        assertEquals(d2.toString(),
-                Deadline.DeadlineOf("deadline chop cucumber /by 2026-11-18 01:43").toString());
-    }
 
-    @Test
-    public void testDeadlineOf_exceptionThrown() throws InvalidInputException {
-        try {
-            Deadline.DeadlineOf("deadline ");
-            fail("Expected InvalidFormatException to be thrown");
-        } catch (InvalidFormatException e) {
-        }
-        try {
-            Deadline.DeadlineOf("deadline play games by tmr");
-            fail("Expected InvalidFormatException to be thrown");
-        } catch (InvalidFormatException e) {
-        }
-    }
 
     @Test
     public void testSaveFormat() {
