@@ -1,6 +1,9 @@
 package pyrite.task;
 
-public class ToDo extends Task{
+/**
+ * Task with only a description.
+ */
+public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
     }

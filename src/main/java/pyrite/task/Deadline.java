@@ -1,11 +1,21 @@
 package pyrite.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Task that contains a deadline.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline.
+     *
+     * @param description Description of the deadline.
+     * @param by          Date and time of the deadline.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;

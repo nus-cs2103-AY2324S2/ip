@@ -1,6 +1,9 @@
 package pyrite;
 
-public class DukeException extends UnsupportedOperationException{
+/**
+ * Exception class for Duke.
+ */
+public class DukeException extends UnsupportedOperationException {
     private String error;
     public DukeException(String error) {
         this.error = error;

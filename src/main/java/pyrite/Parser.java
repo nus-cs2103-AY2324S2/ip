@@ -1,17 +1,27 @@
 package pyrite;
 
-import pyrite.command.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
+import pyrite.command.AddCommand;
+import pyrite.command.Command;
+import pyrite.command.DeleteCommand;
+import pyrite.command.ExitCommand;
+import pyrite.command.FilteredListCommand;
+import pyrite.command.ListCommand;
+import pyrite.command.StatusCommand;
+import pyrite.command.UnknownCommand;
 import pyrite.task.Deadline;
 import pyrite.task.Event;
 import pyrite.task.Task;
 import pyrite.task.ToDo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-
+/**
+ * Parses user input and returns a Command.
+ */
 public class Parser {
-    private static int parseID(String parameters[]) {
+    private static int parseID(String[] parameters) {
         int id;
         try {
             id = Integer.parseInt(parameters[1]) - 1;
@@ -20,6 +30,7 @@ public class Parser {
         }
         return id;
     }
+
     private static int findCommand(String[] toSearch, String toFind) {
         for (int i = 0; i < toSearch.length; i++) {
             if (toSearch[i].equals(toFind)) {
@@ -31,13 +42,20 @@ public class Parser {
     // Solution below inspired by
     // https://stackoverflow.com/questions/31690570/java-scanner-command-system
     // https://stackoverflow.com/questions/4822256/java-is-there-an-easy-way-to-select-a-subset-of-an-array
+
+    /**
+     * Parses user input and returns a Command.
+     *
+     * @param commandString User input.
+     * @return Command to be executed.
+     */
     public static Command parse(String commandString) {
         if (commandString.equals("bye")) {
             return new ExitCommand();
-        } else if (commandString.equals("list")){
+        } else if (commandString.equals("list")) {
             return new ListCommand();
         } else {
-            String parameters[] = commandString.split(" ");
+            String[] parameters = commandString.split(" ");
             String commandType = parameters[0];
             if (commandType.equals("mark")) {
                 int id = parseID(parameters);
@@ -58,7 +76,7 @@ public class Parser {
                 int toID = findCommand(parameters, "/to");
                 int descEnd = parameters.length;
                 if (byID != -1) {
-                    if ( fromID == -1 && toID == -1) {
+                    if (fromID == -1 && toID == -1) {
                         descEnd = byID;
                     } else if (fromID != -1 || toID != -1) {
                         return new UnknownCommand(commandString,
@@ -78,66 +96,71 @@ public class Parser {
                             "The description cannot be empty. Add the description after the command.");
                 }
                 switch (commandType) {
-                    case "todo":
-                        return new AddCommand(new ToDo(description));
-                    case "deadline":
-                        if (byID == -1) {
-                            return new UnknownCommand(commandString,
-                                    "Incomplete pyrite.command.Command. Add deadline using '/by'.");
-                        }
-                        String byString = String.join("",
+                case "todo":
+                    return new AddCommand(new ToDo(description));
+                case "deadline":
+                    if (byID == -1) {
+                        return new UnknownCommand(commandString,
+                                "Incomplete pyrite.command.Command. Add deadline using '/by'.");
+                    }
+                    String byString = String.join("",
+                            Arrays.copyOfRange(parameters,
+                                    byID + 1,
+                                    parameters.length));
+                    LocalDateTime by;
+                    try {
+                        by = LocalDateTime.parse(byString);
+                    } catch (DateTimeParseException e) {
+                        return new UnknownCommand(commandString,
+                                "Invalid datetime format. Use yyyy-mm-ddThh:mm." + e);
+                    }
+                    return new AddCommand(new Deadline(description, by));
+                case "event":
+                    if (fromID == -1 | toID == -1) {
+                        return new UnknownCommand(commandString,
+                                "Incomplete pyrite.command.Command. Add start and end dates using '/from' and '/to'.");
+                    }
+                    String fromString;
+                    String toString;
+                    if (fromID < toID) {
+                        fromString = String.join("",
                                 Arrays.copyOfRange(parameters,
-                                        byID + 1,
+                                        fromID + 1,
+                                        toID));
+                        toString = String.join("",
+                                Arrays.copyOfRange(parameters,
+                                        toID + 1,
                                         parameters.length));
-                        LocalDateTime by;
-                        try {
-                            by = LocalDateTime.parse(byString);
-                        } catch (DateTimeParseException e) {
-                            return new UnknownCommand(commandString,
-                                    "Invalid datetime format. Use yyyy-mm-ddThh:mm." + e);
-                        }
-                        return new AddCommand(new Deadline(description, by));
-                    case "event":
-                        if (fromID == -1 | toID == -1) {
-                            return new UnknownCommand(commandString,
-                                    "Incomplete pyrite.command.Command. Add start and end dates using '/from' and '/to'.");
-                        }
-                        String fromString;
-                        String toString;
-                        if (fromID < toID) {
-                            fromString = String.join("",
-                                    Arrays.copyOfRange(parameters,
-                                            fromID + 1,
-                                            toID));
-                            toString = String.join("",
-                                    Arrays.copyOfRange(parameters,
-                                            toID + 1,
-                                            parameters.length));
-                        } else {
-                            fromString = String.join("",
-                                    Arrays.copyOfRange(parameters,
-                                            fromID + 1,
-                                            parameters.length));
-                            toString = String.join("",
-                                    Arrays.copyOfRange(parameters,
-                                            toID + 1,
-                                            fromID));
-                        }
-                        LocalDateTime start;
-                        LocalDateTime end;
-                        try {
-                            start = LocalDateTime.parse(fromString);
-                            end = LocalDateTime.parse(toString);
-                        } catch (DateTimeParseException e) {
-                            return new UnknownCommand(commandString,
-                                    "\"Invalid datetime format. Use yyyy-mm-ddThh:mm.\"");
-                        }
-                        return new AddCommand(new Event(description, start, end));
+                    } else {
+                        fromString = String.join("",
+                                Arrays.copyOfRange(parameters,
+                                        fromID + 1,
+                                        parameters.length));
+                        toString = String.join("",
+                                Arrays.copyOfRange(parameters,
+                                        toID + 1,
+                                        fromID));
+                    }
+                    LocalDateTime start;
+                    LocalDateTime end;
+                    try {
+                        start = LocalDateTime.parse(fromString);
+                        end = LocalDateTime.parse(toString);
+                    } catch (DateTimeParseException e) {
+                        return new UnknownCommand(commandString,
+                                "\"Invalid datetime format. Use yyyy-mm-ddThh:mm.\"");
+                    }
+                    return new AddCommand(new Event(description, start, end));
+                default:
+                    return new UnknownCommand(commandString,
+                            "Unknown command. "
+                                    + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete',"
+                                    + " 'bye'");
                 }
             }
             return new UnknownCommand(commandString,
-                    "Unknown command. " +
-                            "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete', 'bye'");
+                    "Unknown command. "
+                            + "Valid commands are 'todo', 'deadline', 'event', 'mark', 'unmark', 'delete', 'bye'");
         }
     }
 }

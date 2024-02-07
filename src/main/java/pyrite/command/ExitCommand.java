@@ -6,7 +6,7 @@ import pyrite.TaskList;
 /**
  * Command to exit the program.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * {inheritDoc}

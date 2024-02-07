@@ -1,7 +1,7 @@
 package pyrite;
 
-import java.io.FileInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -50,7 +50,7 @@ public class StateFile {
         try {
             TaskList loadedTasks = this.loadObject();
             return loadedTasks;
-        } catch (IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             // File issue, try to save blank state
             System.out.println("Unable to read saved state, creating new file...");
             this.saveState(tasks);
@@ -67,7 +67,7 @@ public class StateFile {
     public String saveState(TaskList tasks) {
         try {
             this.saveObject(tasks);
-        } catch (IOException e){
+        } catch (IOException e) {
             return "Unable to save state: " + e.toString();
         }
         return "";

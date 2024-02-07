@@ -6,7 +6,7 @@ import pyrite.TaskList;
 /**
  * Command to list all tasks in the list.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * {inheritDoc}

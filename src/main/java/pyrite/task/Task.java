@@ -1,7 +1,14 @@
 package pyrite.task;
 
 import java.io.Serializable;
-public class Task implements Serializable{
+
+/**
+ * Represents a task in the task list.
+ */
+public class Task implements Serializable {
+    /**
+     * Enum to represent the status of a task.
+     */
     public enum Status {
         DONE,
         NOT_DONE
@@ -9,6 +16,11 @@ public class Task implements Serializable{
     protected String description;
     protected Status status;
 
+    /**
+     * Constructs a Task.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.status = Status.NOT_DONE;
