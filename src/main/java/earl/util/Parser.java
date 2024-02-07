@@ -35,6 +35,17 @@ public class Parser {
         return input.split("\\s", 2);
     }
 
+    /**
+     * Overloaded method to split the user's input at a given regex.
+     *
+     * @param input  a line input by the user
+     * @param regex  the regex pattern to split at
+     * @return       an array of {@code String} split as specified
+     */
+    public static String[] parseUserInput(String input, String regex) {
+        return input.split(regex);
+    }
+
     /** Returns the integer index equivalent of the user's selection. */
     public static int parseIndex(String index) {
         return Integer.parseInt(index) - 1;
