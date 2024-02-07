@@ -1,5 +1,6 @@
 package kervyn.Commands;
 
+import javafx.scene.image.Image;
 import kervyn.Tasks.TaskList;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeParseException;
 public class Command {
     private String keyword;
     protected TaskList taskList;
+    private Image userImage;
 
     /**
      * Constructs a Command object with a specific keyword and associated TaskList.
@@ -20,9 +22,10 @@ public class Command {
      * @param keyword The keyword that triggers this command.
      * @param taskList The TaskList associated with this command.
      */
-    public Command(String keyword, TaskList taskList) {
+    public Command(String keyword, TaskList taskList, Image userImage) {
         this.keyword = keyword;
         this.taskList = taskList;
+        this.userImage = userImage;
     }
 
     /**

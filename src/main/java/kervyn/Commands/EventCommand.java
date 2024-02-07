@@ -1,5 +1,6 @@
 package kervyn.Commands;
 
+import javafx.scene.image.Image;
 import kervyn.Tasks.*;
 
 import java.time.LocalDateTime;
@@ -20,8 +21,8 @@ public class EventCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the event details.
      */
-    public EventCommand(TaskList taskList, String userInput) {
-        super("Event", taskList);
+    public EventCommand(TaskList taskList, String userInput, Image userImage) {
+        super("Event", taskList, userImage);
         this.userInput = userInput;
     }
 

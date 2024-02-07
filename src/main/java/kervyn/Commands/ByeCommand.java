@@ -1,4 +1,5 @@
 package kervyn.Commands;
+import javafx.scene.image.Image;
 import kervyn.Storage;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
@@ -15,8 +16,8 @@ public class ByeCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param storage The Storage object used for saving tasks.
      */
-    public ByeCommand(TaskList taskList, Storage storage) {
-        super("Bye", taskList);
+    public ByeCommand(TaskList taskList, Storage storage, Image userImage) {
+        super("Bye", taskList, userImage);
         this.storage = storage;
     }
 

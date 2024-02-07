@@ -83,11 +83,11 @@ public class TaskList {
     /**
      * Marks a task as completed in the task list.
      *
-     * @param userTasks The ArrayList of Task objects.
+     * @param userTasks          The ArrayList of Task objects.
      * @param processedUserInput The user input processed into an array of Strings.
      * @return Returns 1 if the mark operation was successful, 0 otherwise.
      */
-    public short markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+    public String markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (task.getStatus()) {
@@ -96,15 +96,18 @@ public class TaskList {
                 System.out.println("\tNice! I've marked this task as done:");
                 task.updateStatus();
                 System.out.println(task.toString());
+                return task.toString();
             }
 
-            return 1;
+//            return 1;
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to mark a task that doesn't exist
             System.out.println("\tTask number provided doesn't exist. Please try again.");
+            return "\tTask number provided doesn't exist. Please try again.";
         }
-        return 0;
+//        return 0;
+        return "";
     }
 
     /**

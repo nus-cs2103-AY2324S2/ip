@@ -1,5 +1,6 @@
 package kervyn.Commands;
 
+import javafx.scene.image.Image;
 import kervyn.Tasks.Deadline;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
@@ -22,8 +23,8 @@ public class DeadlineCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the deadline details.
      */
-    public DeadlineCommand(TaskList taskList, String userInput) {
-        super("Deadline", taskList);
+    public DeadlineCommand(TaskList taskList, String userInput, Image userImage) {
+        super("Deadline", taskList, userImage);
         this.userInput = userInput;
     }
 

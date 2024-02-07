@@ -1,5 +1,6 @@
 package kervyn.Commands;
 
+import javafx.scene.image.Image;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -12,8 +13,8 @@ public class ListCommand extends Command {
      *
      * @param taskList The TaskList associated with this command.
      */
-    public ListCommand(TaskList taskList) {
-        super("List", taskList);
+    public ListCommand(TaskList taskList, Image userImage) {
+        super("List", taskList, userImage);
     }
 
     /**

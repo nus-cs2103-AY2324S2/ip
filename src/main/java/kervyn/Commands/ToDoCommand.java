@@ -1,5 +1,6 @@
 package kervyn.Commands;
 
+import javafx.scene.image.Image;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
 import kervyn.Tasks.ToDo;
@@ -19,8 +20,8 @@ public class ToDoCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the ToDo task details.
      */
-    public ToDoCommand(TaskList taskList, String userInput) {
-        super("ToDo", taskList);
+    public ToDoCommand(TaskList taskList, String userInput, Image userImage) {
+        super("ToDo", taskList, userImage);
         this.userInput = userInput;
     }
 

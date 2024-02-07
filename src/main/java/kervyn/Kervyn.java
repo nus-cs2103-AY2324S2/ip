@@ -1,6 +1,7 @@
 package kervyn;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,8 @@ import javafx.scene.image.ImageView;
 import kervyn.Tasks.TaskList;
 
 import java.io.IOException;
+import java.util.Objects;
+
 import kervyn.FXControls.DialogBox;
 
 /**
@@ -23,7 +26,7 @@ import kervyn.FXControls.DialogBox;
  */
 public class Kervyn extends Application {
 
-    private Storage storage;
+    private Storage storage = new Storage("../data/tasks.txt");
     private TaskList taskList;
     private Ui ui;
 
@@ -76,6 +79,15 @@ public class Kervyn extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+        try {
+            taskList = new TaskList(storage.readTasks());
+        } catch (IOException e) {
+            taskList = new TaskList();
+            throw new RuntimeException(e);
+        }
+
+        Parser parser = new Parser(storage);
+
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -122,23 +134,29 @@ public class Kervyn extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Handle user input
+        //Handle user input via the send button
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            handleUserInput(parser);
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            handleUserInput(parser);
         });
     }
 
-    private void handleUserInput() {
+    private void handleUserInput(Parser parser) {
         String userText = userInput.getText();
-        String kervynText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, user),
-                DialogBox.getKervynDialog(kervynText, kervyn)
+                DialogBox.getUserDialog(userText, user)
         );
+        String kervynText = getResponse(userInput.getText());
+        parser.deduceCommand(userInput.getText(), taskList);
+        Platform.exit();
+
+//        dialogContainer.getChildren().addAll(
+//                DialogBox.getUserDialog(userText, user),
+//                DialogBox.getKervynDialog(kervynText, kervyn)
+//        );
         userInput.clear();
     }
 

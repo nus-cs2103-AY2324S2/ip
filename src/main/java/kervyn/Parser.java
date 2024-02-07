@@ -1,7 +1,7 @@
 package kervyn;
 
+import javafx.scene.image.Image;
 import kervyn.Commands.*;
-import kervyn.Tasks.Event;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -26,40 +26,42 @@ public class Parser {
      *
      * @param userInput The raw input string from the user.
      * @param taskList  The current list of tasks which may be modified or used by the commands.
+     * @return
      */
-    public void deduceCommand(String userInput, TaskList taskList) {
+    public String deduceCommand(String userInput, TaskList taskList, Image userImage) {
         String[] processedUserInput = userInput.split(" ");
         switch (processedUserInput[0]) {
             case "bye":
-                new ByeCommand(taskList, this.storage).executeCommand();
+                new ByeCommand(taskList, this.storage, userImage).executeCommand();
                 break;
             case "list":
-                new ListCommand(taskList).executeCommand();
+                new ListCommand(taskList, userImage).executeCommand();
                 break;
             case "mark":
-                new MarkCommand(taskList, processedUserInput).executeCommand();
+                new MarkCommand(taskList, processedUserInput, userImage).executeCommand();
                 break;
             case "unmark":
-                new UnMarkCommand(taskList, processedUserInput).executeCommand();
+                new UnMarkCommand(taskList, processedUserInput, userImage).executeCommand();
                 break;
             case "delete":
-                new DeleteCommand(taskList, processedUserInput).executeCommand();
+                new DeleteCommand(taskList, processedUserInput, userImage).executeCommand();
                 break;
             case "todo":
-                new ToDoCommand(taskList, userInput).executeCommand();
+                new ToDoCommand(taskList, userInput, userImage).executeCommand();
                 break;
             case "deadline":
-                new DeadlineCommand(taskList, userInput).executeCommand();
+                new DeadlineCommand(taskList, userInput, userImage).executeCommand();
                 break;
             case "event":
-                new EventCommand(taskList, userInput).executeCommand();
+                new EventCommand(taskList, userInput, userImage).executeCommand();
                 break;
             case "find":
-                new FindCommand(taskList, userInput).executeCommand();
+                new FindCommand(taskList, userInput, userImage).executeCommand();
                 break;
             default:
                 System.out.println("\t I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.");
                 break;
         }
+        return userInput;
     }
 }

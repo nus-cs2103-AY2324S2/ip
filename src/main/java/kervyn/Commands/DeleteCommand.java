@@ -1,5 +1,6 @@
 package kervyn.Commands;
 
+import javafx.scene.image.Image;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -14,8 +15,8 @@ public class DeleteCommand extends Command {
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input array containing details for the deletion command.
      */
-    public DeleteCommand(TaskList taskList, String[] userInput) {
-        super("Delete", taskList);
+    public DeleteCommand(TaskList taskList, String[] userInput, Image userImage) {
+        super("Delete", taskList, userImage);
         this.userInput = userInput;
     }
 
