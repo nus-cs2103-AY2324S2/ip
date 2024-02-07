@@ -169,4 +169,20 @@ public class TaskList {
         Ui.printAddedTask(addedTask.printTask(), totalNumOfTasks);
         Storage.saveData(tasks);
     }
+
+    /**
+     * Finds tasks with descriptions containing the specified keyword.
+     *
+     * @param keyword The keyword to be searched for.
+     */
+    public void findTask(String keyword) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).hasKeyword(keyword)) {
+                tasksWithKeyword.add(tasks.get(i));
+            }
+        }
+        TaskList filteredTasklist = new TaskList(tasksWithKeyword);
+        Ui.printFindTask(filteredTasklist, keyword);
+    }
 }

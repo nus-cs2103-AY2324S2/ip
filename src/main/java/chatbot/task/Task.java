@@ -55,5 +55,16 @@ public class Task {
         taskMessage += " |" + this.name;
         return taskMessage;
     }
+
+    /**
+     * Checks if task description contains the specified keyword.
+     *
+     * @param keyword The keyword to be checked for.
+     * @return True if the task description contains the keyword, otherwise false.
+     */
+    public boolean hasKeyword(String keyword) {
+        String lowerCaseName = this.name.toLowerCase();
+        return lowerCaseName.contains(keyword);
+    }
 }
 

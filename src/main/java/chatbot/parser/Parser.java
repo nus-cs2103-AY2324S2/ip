@@ -41,6 +41,7 @@ public class Parser {
         String[] deadlineFormatChecker = input.split("/by");
         String[] eventFormatChecker = input.split("/from");
         String command = inputTokens[0].toLowerCase();
+        int len = inputTokens.length;
 
         switch (command) {
         case "bye":
@@ -63,7 +64,6 @@ public class Parser {
             tasks.deleteTask(taskNum3);
             break;
         case "todo":
-            int len = inputTokens.length;
             if (len == 1) {
                 String exceptionMessage = Ui.createLine() + "\n"
                         + "you didn't specify what you want to do! use this format instead:\n"
@@ -85,10 +85,9 @@ public class Parser {
                         + Ui.createLine();
                 throw new DukeException(exceptionMessage);
             }
-            int len2 = inputTokens.length;
             String deadlineName = "";
             LocalDateTime deadline = LocalDateTime.of(2023, 12, 5, 16, 0);
-            for (int i = 1; i < len2; i++) {
+            for (int i = 1; i < len; i++) {
                 if (inputTokens[i].equals("/by")) {
                     String dateTimeString = inputTokens[i + 1] + " " + inputTokens[i + 2];
                     deadline = LocalDateTime.parse(dateTimeString, formatter);
@@ -109,11 +108,10 @@ public class Parser {
             } else if (eventFormatChecker[1].split("to").length != 2) {
                 throw new DukeException(exceptionMessage);
             }
-            int len3 = inputTokens.length;
             String eventName = "";
             LocalDateTime start = LocalDateTime.of(2023, 12, 5, 16, 0);
             LocalDateTime end = LocalDateTime.of(2023, 12, 5, 16, 0);
-            for (int i = 1; i < len3; i++) {
+            for (int i = 1; i < len; i++) {
                 if (inputTokens[i].equals("/from")) {
                     String startString = inputTokens[i + 1] + " " + inputTokens[i + 2];
                     String endString = inputTokens[i + 4] + " " + inputTokens[i + 5];
@@ -125,6 +123,20 @@ public class Parser {
                 }
             }
             tasks.addEventTask(eventName, start, end);
+            break;
+        case "find":
+            if (len == 1) {
+                String exceptionMessage2 = Ui.createLine() + "\n"
+                        + "you didn't specify what you want to find! use this format instead:\n"
+                        + "find [keyword]\n"
+                        + Ui.createLine();
+                throw new DukeException(exceptionMessage2);
+            }
+            String keyword = "";
+            for (int i = 1; i < len; i++) {
+                keyword += " " + inputTokens[i];
+            }
+            tasks.findTask(keyword.toLowerCase());
             break;
         default:
             Ui.printUnknownCommand();
