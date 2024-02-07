@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents utility class for storing and loading information from a file on the hard disk.
+ */
 public class Storage {
     private static Path filePath;
 
@@ -21,6 +24,10 @@ public class Storage {
         this.filePath = Path.of(filePath);
     }
 
+    /**
+     * Sets up directory and file to store list in hard disk. If there is no directory or file, it will create the
+     * msising one.
+     */
     public void setupDirectoryAndFile() {
         try {
             Path directoryPath = filePath.getParent();
@@ -45,6 +52,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores the list of tasks into the hard disk.
+     *
+     * @param tasks List of tasks to be stored.
+     * @throws IOException If there is no file or directory.
+     */
     public void storeTasks(ArrayList<Task> tasks) throws IOException {
         ArrayList<String> tempTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
@@ -67,6 +80,12 @@ public class Storage {
         Files.write(filePath, tempTasks);
     }
 
+    /**
+     * Loads the list of tasks from the hard disk.
+     *
+     * @return list of tasks stored in the hard disk.
+     * @throws FileNotFoundException If there is no file or directory.
+     */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath.toString());

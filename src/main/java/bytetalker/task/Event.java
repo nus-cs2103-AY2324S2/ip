@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Represents the Event task that the user wants to store. It contains to and from variables to store time.
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
@@ -20,6 +23,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Creates a string to show information(task type, status, task content, from, to) about the event task.
+     *
+     * @return String that contains information about task.
+     */
     @Override
     public String toString() {
         return "[" + getTaskType().getIcon() + "]" + "[" + getStatusIcon() + "] " + getTask() + " (from: " + convertFromToString() + " to: " + convertToToString() + ")";
@@ -33,12 +41,24 @@ public class Event extends Task {
         return this.to;
     }
 
+    /**
+     * Converts the from variable which is LocalDateTime type to String in set output format(MMM dd yyyy h:mma) to be
+     * able to be printed.
+     *
+     * @return String of from variable.
+     */
     public String convertFromToString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma", Locale.ENGLISH);
         String formattedDateTime = this.from.format(outputFormatter);
         return formattedDateTime;
     }
 
+    /**
+     * Converts the to variable which is LocalDateTime type to string in set output format(MMM dd yyyy h:mma) to be
+     * able to be printed.
+     *
+     * @return String of to variable.
+     */
     public String convertToToString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma", Locale.ENGLISH);
         String formattedDateTime = this.to.format(outputFormatter);

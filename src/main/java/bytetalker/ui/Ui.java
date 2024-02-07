@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Deals with interactions with the user
+ * Deals with interactions with the user. Mainly the print statements are included in this class to control the
+ * messages.
  *
  * @author Junseo Kim
  * @version 0.1
@@ -50,7 +51,7 @@ public class Ui {
     /**
      * Accepts user input and returns it.
      *
-     * @return String This returns the user input
+     * @return String User input.
      */
     public String storeUserInput() {
         Scanner sc = new Scanner(System.in);
@@ -60,7 +61,7 @@ public class Ui {
     /**
      * Prints out the message that the task user wants is marked as done.
      *
-     * @param task Task that user wants to mark as done
+     * @param task Task that user wants to mark as done.
      */
     public void markTaskMsg(Task task) {
         System.out.println("    -----------------------------------");
@@ -72,7 +73,7 @@ public class Ui {
     /**
      * Prints out the message that the task user wants is marked as undone.
      *
-     * @param task Task the user wants to mark as undone
+     * @param task Task the user wants to mark as undone.
      */
     public void unmarkTaskMsg(Task task) {
         System.out.println("    -----------------------------------");
@@ -85,8 +86,8 @@ public class Ui {
      * Prints out the message that the task user wants is deleted and prints out the length of the task
      * list.
      *
-     * @param task Task the user wants to delete from the task list
-     * @param length Length of the task list after deleting the task
+     * @param task Task the user wants to delete from the task list.
+     * @param length Length of the task list after deleting the task.
      */
     public void deleteTaskMsg(Task task, int length) {
         System.out.println("    -----------------------------------");
@@ -100,8 +101,8 @@ public class Ui {
      * Prints out the message that the task user wants it added to the task list and prints out the length of the
      * task list.
      *
-     * @param task Task that the user wants to add to the lsit
-     * @param length Length of the task list after adding the task
+     * @param task Task that the user wants to add to the lsit.
+     * @param length Length of the task list after adding the task.
      */
     public void addTaskMsg(Task task, int length) {
         System.out.println("    -----------------------------------");
@@ -121,7 +122,7 @@ public class Ui {
     /**
      * Prints out the whole list of tasks in the list.
      *
-     * @param tasks Task list that contains all the tasks added
+     * @param tasks Task list that contains all the tasks added.
      */
     public void returnList(ArrayList<Task> tasks) {
         System.out.println("    -----------------------------------");
@@ -135,7 +136,7 @@ public class Ui {
     /**
      * Prints out the error message when date and time parse cannot be done.
      *
-     * @param e Error occured while parsing date and time
+     * @param e Error occured while parsing date and time.
      */
     public static void showDateTimeParseErrorMsg(Exception e) {
         System.err.println("Unable to parse the date and time string: " + e.getMessage());

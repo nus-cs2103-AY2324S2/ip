@@ -1,7 +1,7 @@
 package bytetalker.task;
 
 /**
- * Represents the types of task supported by the chatbot
+ * Represents the types of task supported by the chatbot.
  *
  * @author Junseo Kim
  * @version 1.0
@@ -24,9 +24,9 @@ public enum TaskType {
     private String icon;
 
     /**
-     * Returns the icon representing each type of task
+     * Returns the icon representing each type of task.
      *
-     * @return String Icon that represents that type of task
+     * @return String Icon that represents that type of task.
      */
     public String getIcon() {
         return this.icon;

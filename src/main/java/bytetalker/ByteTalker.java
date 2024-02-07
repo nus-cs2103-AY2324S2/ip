@@ -8,7 +8,7 @@ import bytetalker.parser.Parser;
 import java.io.FileNotFoundException;
 
 /**
- * The ByteTalker program implements a chatbot where it processes user input
+ * The ByteTalker program implements a chatbot where it processes user input.
  *
  * @author Junseo Kim
  * @version 0.1
@@ -33,7 +33,7 @@ public class ByteTalker {
     }
 
     /**
-     * The run program runs the chatbot and allows user input. User input is processed with other methods.
+     * Runs the chatbot and allows user input. User input is processed with other methods.
      */
     public void run() {
         ui.showWelcome();
@@ -59,7 +59,7 @@ public class ByteTalker {
 
     /**
      * This is the main method which starts the chatbot by running run method.
-     * @param args Unused
+     * @param args Unused.
      */
     public static void main(String[] args) {
         new ByteTalker("./data/bytetalker.ByteTalker.txt").run();

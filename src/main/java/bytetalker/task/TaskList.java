@@ -8,6 +8,9 @@ import bytetalker.ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of task and operations to process the task.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -19,6 +22,13 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Changes the status of the specified task as done.
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param storage Utility object to store the changed list of tasks into the hard disk.
+     * @param ui Utility object to print out the message to user to inform the process of the method.
+     */
     public void markTask(String[] splitMessage, Storage storage, Ui ui) {
         int index = Integer.parseInt(splitMessage[1]) - 1;
         try {
@@ -31,6 +41,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Changes the status of the specified task as undone
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param storage Utility object to store the changed list of tasks into the hard disk.
+     * @param ui Utility object to print out the message to user to inform the process of the method.
+     */
     public void unmarkTask(String[] splitMessage, Storage storage, Ui ui) {
         int index = Integer.parseInt(splitMessage[1]) - 1;
         try {
@@ -43,6 +60,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the list.
+     * It is a general method that calls individual methods to add todo, deadline and event
+     * to the list.
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param storage Utility object to store the changed list of tasks into the hard disk.
+     * @param ui Utility object to print out the message to user to inform the process of the method.
+     */
     public void addTask(String[] splitMessage, Storage storage, Ui ui) {
         try {
             Task task = null;
@@ -75,6 +101,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a Todo object based on the user input.
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @return Todo object that contains the task content specified by user.
+     */
     public Todo addTodo(String[] splitMessage) {
         Todo task = null;
         try {
@@ -91,6 +123,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Creates a Deadline object based on the user input.
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @return Deadline object that contains the task content and deadline of the task specified by the user.
+     */
     public Deadline addDeadline(String[] splitMessage) {
         Deadline task = null;
         try {
@@ -108,6 +146,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Creates an Event object based on the user input.
+     *
+     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @return Event object that contains the event information, from when and until when specified by the user.
+     */
     public Event addEvent(String[] splitMessage) {
         Event task = null;
         try {
@@ -125,6 +169,13 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Deletes the specified task from the list
+     *
+     * @param position Position of the task in the list
+     * @param storage Utility object to store the changed list of tasks into hard disk.
+     * @param ui Utility object to print out the message to user to inform the process of the method.
+     */
     public void deleteTask(int position, Storage storage, Ui ui) {
         Task task = this.tasks.get(position - 1);
         try {

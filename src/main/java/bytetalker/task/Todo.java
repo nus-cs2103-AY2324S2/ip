@@ -1,7 +1,7 @@
 package bytetalker.task;
 
 /**
- * Represents the Todo task that the user wants to store
+ * Represents the Todo task that the user wants to store.
  *
  * @author Junseo Kim
  * @version 0.1
@@ -19,7 +19,7 @@ public class Todo extends Task {
     /**
      * Creates a string to show information(task type, status, task content) about the todo task.
      *
-     * @return String This string contains information about task
+     * @return String that contains information about task.
      */
     @Override
     public String toString() {
