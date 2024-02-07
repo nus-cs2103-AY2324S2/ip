@@ -22,11 +22,7 @@ public class TaskList {
 
     public Task mark(int index, boolean done) throws IndexOutOfBoundsException {
         Task task = tasks.get(index);
-        if (done) {
-            task.done();
-        } else {
-            task.undone();
-        }
+        task.setDone(done);
         return task;
     }
 

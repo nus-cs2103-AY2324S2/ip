@@ -28,9 +28,11 @@ public class CommandParser {
                 return new ListCommand();
             case MARK:
                 if (tokens.isEmpty()) {
-                    throw new ShodanException("No arguments provided. Please specify the task number, for example: \n\tmark 1");
+                    throw new ShodanException("No arguments provided. "
+                            + "Please specify the task number, for example: \n\tmark 1");
                 } else if (tokens.size() != 1) {
-                    throw new ShodanException("Too many arguments. Please specify the task number, for example: \n\t mark 1");
+                    throw new ShodanException("Too many arguments. "
+                            + "Please specify the task number, for example: \n\t mark 1");
                 }
                 try {
                     int taskNum = Integer.parseInt(tokens.get(0));
@@ -40,9 +42,11 @@ public class CommandParser {
                 }
             case UNMARK:
                 if (tokens.isEmpty()) {
-                    throw new ShodanException("No arguments provided. Please specify the task number, for example: \n\tmark 1");
+                    throw new ShodanException("No arguments provided. "
+                            + "Please specify the task number, for example: \n\tmark 1");
                 } else if (tokens.size() != 1) {
-                    throw new ShodanException("Too many arguments. Please specify the task number, for example: \n\t mark 1");
+                    throw new ShodanException("Too many arguments. "
+                            + "Please specify the task number, for example: \n\t mark 1");
                 }
                 try {
                     int taskNum = Integer.parseInt(tokens.get(0));
@@ -56,9 +60,11 @@ public class CommandParser {
                 return new AddCommand(tokens, command);
             case DELETE:
                 if (tokens.isEmpty()) {
-                    throw new ShodanException("No arguments provided. Please specify the task number, for example: \n\tdelete 1");
+                    throw new ShodanException("No arguments provided. "
+                            + "Please specify the task number, for example: \n\tdelete 1");
                 } else if (tokens.size() != 1) {
-                    throw new ShodanException("Too many arguments. Please specify the task number, for example: \n\t delete 1");
+                    throw new ShodanException("Too many arguments. "
+                            + "Please specify the task number, for example: \n\t delete 1");
                 }
                 try {
                     int taskNum = Integer.parseInt(tokens.get(0));

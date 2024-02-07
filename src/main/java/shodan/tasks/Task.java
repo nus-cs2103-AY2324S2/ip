@@ -17,11 +17,8 @@ public abstract class Task {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 
-    public void done() {
-        this.isDone = true;
-    }
-    public void undone() {
-        this.isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public boolean isDone() {

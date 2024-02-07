@@ -26,7 +26,8 @@ public class MarkCommand extends Command {
                 ui.printMsg("Task has been set as not done yet:\n\t" + task);
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
+            throw new ShodanException("Couldn't find task with that number. "
+                    + "Use the list command to view all current tasks.");
         }
         return false;
     }
