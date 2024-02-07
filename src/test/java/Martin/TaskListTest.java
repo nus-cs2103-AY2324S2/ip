@@ -1,16 +1,18 @@
-import org.junit.jupiter.api.Test;
+package Martin;
 
-import Martin.Todo;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
     public void testPrintList() {
         // Create a new TaskList object
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(new ArrayList<Task>());
 
         // Add some tasks to the task list
         taskList.add(new Todo("Task 1"));
