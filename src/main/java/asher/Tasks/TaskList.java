@@ -100,4 +100,20 @@ public class TaskList {
         }
         return tasks.remove(taskId);
     }
+
+    /**
+     * Searches the keyword inside the list of task.
+     * @param keyword The word to search for.
+     * @return All the tasks that contains the keyword.
+     */
+    public ArrayList<Task> searchKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

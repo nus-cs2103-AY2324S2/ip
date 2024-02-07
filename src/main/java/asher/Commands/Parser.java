@@ -2,6 +2,7 @@ package asher.Commands;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import asher.BotException;
 import asher.Tasks.Deadline;
@@ -59,6 +60,9 @@ public class Parser {
                 break;
             case "delete":
                 parseDeleteCommand(input, taskList, ui);
+                break;
+            case "find":
+                parseFindCommand(input);
                 break;
             default:
                 throw new BotException("Invalid Command!");
@@ -263,5 +267,15 @@ public class Parser {
         } catch (Exception e) {
             throw new BotException("Task not found!");
         }
+    }
+
+    /**
+     * Parses the user input command to find the tasks with the keyword.
+     * @param input The user input command.
+     */
+    private void parseFindCommand(String input) {
+        String keyword = input.substring(5).trim();
+        ArrayList<Task> matchingTasks = taskList.searchKeyword(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 }
