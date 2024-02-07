@@ -1,4 +1,4 @@
-package baron.Utils;
+package baron.utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,5 +1,8 @@
-package baron.Models;
+package baron.models;
 
+/**
+ * A Todo class which is identically similar to Task.
+ */
 public class Todo extends Task {
 
     public Todo(String name) {

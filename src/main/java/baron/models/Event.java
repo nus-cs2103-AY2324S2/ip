@@ -1,18 +1,35 @@
-package baron.Models;
+package baron.models;
 
-public class Event extends baron.Models.Task {
+/**
+ * Event takes in /from and /to parameters, but does not format these dates
+ */
+public class Event extends baron.models.Task {
 
     private String startDate;
     private final String endDate;
 
+    /**
+     * Creates an event
+     * @param name name of event
+     * @param startDate start of event
+     * @param endDate end of event
+     */
     public Event(String name, String startDate, String endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Event(int id, String name, boolean done, String startDate, String endDate) {
-        super(id, name, done);
+    /**
+     * Creates an event from scratch. Used when retrieving data from database usually.
+     * @param id id of event
+     * @param name name of event
+     * @param isDone whether event is done or not
+     * @param startDate event start date
+     * @param endDate event end date
+     */
+    public Event(int id, String name, boolean isDone, String startDate, String endDate) {
+        super(id, name, isDone);
         this.startDate = startDate;
         this.endDate = endDate;
     }

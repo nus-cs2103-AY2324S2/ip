@@ -1,9 +1,4 @@
-package baron.Dao;
-
-import baron.Database.Database;
-import baron.Enums.TaskType;
-import baron.Models.Event;
-import baron.Utils.StringUtils;
+package baron.dao;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +6,14 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import baron.database.Database;
+import baron.enums.TaskType;
+import baron.models.Event;
+import baron.utils.StringUtils;
+
+/**
+ * Manages all DB operations for events
+ */
 public class EventDao extends TaskDao {
     public static final String NAME = TaskType.EVENT.getCommand();
     private static final String FROM_STRING = "/from";
@@ -30,15 +33,15 @@ public class EventDao extends TaskDao {
         return event;
     }
 
-    private static String getEventName(String input){
+    private static String getEventName(String input) {
         return StringUtils.getValueOfCommand(input, EventDao.NAME, EventDao.FROM_STRING);
     }
 
-    private static String getEventFrom(String input){
+    private static String getEventFrom(String input) {
         return StringUtils.getValueOfCommand(input, EventDao.FROM_STRING, EventDao.TO_STRING);
     }
 
-    private static String getEventTo(String input){
+    private static String getEventTo(String input) {
         return StringUtils.getValueOfCommand(input, EventDao.TO_STRING, null);
     }
 

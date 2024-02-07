@@ -1,11 +1,11 @@
-package baron.Utils;
-
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
+package baron.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 public class DateUtilsTest {
     @Test
