@@ -9,13 +9,16 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime by;
 
+    /**
+     * Constructs a new Deadline object with the specified description and deadline.
+     *
+     * @param description description of deadline.
+     * @param isCompleted true if deadline has been completed.
+     * @param by date/time of deadline.
+     */
     public Deadline(String description, boolean isCompleted, LocalDateTime by) {
         super(description, isCompleted);
         this.by = by;
-    }
-
-    public LocalDateTime getBy() {
-        return this.by;
     }
 
     /**
@@ -26,10 +29,6 @@ public class Deadline extends Task {
     public String getByString() {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return this.by.format(dateTimeFormat);
-    }
-
-    public void setBy(LocalDateTime dateTime) {
-        this.by = dateTime;
     }
 
     @Override

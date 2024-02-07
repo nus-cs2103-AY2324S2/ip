@@ -1,8 +1,10 @@
 package ui;
 
-import task.Task;
 import tasklist.TaskList;
 
+/**
+ * This class implements the ui of Scribbles.
+ */
 public class Ui {
 
     /**
@@ -22,18 +24,19 @@ public class Ui {
      * Prints the error message if user inputs an invalid input into chatbot.
      */
     public void invalidInputMessage() {
-        System.out.println("Sorry, Scribbles was unable to understand your instructions :(\n" +
-                "Try formatting your instructions as follows: \n" +
-                "- type \"list\" to view your current list of tasks\n" +
-                "- type \"mark [index]\" to mark task at index as completed\n" +
-                "- type \"unmark [index]\" to mark task at index as incomplete\n" +
-                "- type \"todo [task]\" to insert to-do task into your list\n" +
-                "- type \"deadline [task] /by [date]\" to insert task into your list with deadline as date\n" +
-                "- type \"event [task] /from [start] to [end]\" " +
-                "to insert task into your list with a start and end duration\n" +
-                "- type \"delete [index]\" to remove a task at index from your list\n" +
-                "- type \"find [keyword]\" to find tasks with matching keyword\n" +
-                "Please try again :)\n");
+        System.out.println("Sorry, Scribbles was unable to understand your instructions :(\n"
+                + "Try formatting your instructions as follows: \n"
+                + "- type \"list\" to view your current list of tasks\n"
+                + "- type \"mark [index]\" to mark task at index as completed\n"
+                + "- type \"unmark [index]\" to mark task at index as incomplete\n"
+                + "- type \"todo [task]\" to insert to-do task into your list\n"
+                + "- type \"deadline [task] /by [date]\" to insert task into your list with deadline as date\n"
+                + "- type \"event [task] /from [start] to [end]\" "
+                + "to insert task into your list with a start and end duration\n"
+                + "- type \"delete [index]\" to remove a task at index from your list\n"
+                + "- type \"find [keyword]\" to find tasks with matching keyword\n"
+                + "- type \"bye\" to exit Scribbles\n"
+                + "Please try again :)\n");
     }
 
     /**
@@ -71,7 +74,7 @@ public class Ui {
      * @param taskDeleted String of the task deleted from the list.
      * @param taskList task list that contains the tasks.
      */
-    public void taskDeletionMessage(String taskDeleted, TaskList taskList){
+    public void taskDeletionMessage(String taskDeleted, TaskList taskList) {
         System.out.println("I've removed this task from your list:");
         System.out.println(taskDeleted);
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
@@ -86,12 +89,12 @@ public class Ui {
     public void markCompletedMessage(int index, TaskList taskList) {
         int numOfTasks = taskList.size();
         if (index <= numOfTasks) {
-            System.out.println("Nice! I've marked task number " + index + " as done: \n" +
-                    taskList.get(index - 1).toString() + "\n");
+            System.out.println("Nice! I've marked task number " + index + " as done: \n"
+                    + taskList.get(index - 1).toString() + "\n");
         } else {
             // if task index does not exist
-            System.out.println("Uh oh! looks like that task does not exist in your list.\n" +
-                    "You currently only have " + numOfTasks + " task(s) in your list.\n");
+            System.out.println("Uh oh! looks like that task does not exist in your list.\n"
+                    + "You currently only have " + numOfTasks + " task(s) in your list.\n");
         }
     }
 
@@ -104,12 +107,12 @@ public class Ui {
     public void markIncompleteMessage(int index, TaskList taskList) {
         int numOfTasks = taskList.size();
         if (index <= numOfTasks) {
-            System.out.println("Okay! I've marked task number " + index + " as incomplete: \n" +
-                    taskList.get(index - 1).toString() + "\n");
+            System.out.println("Okay! I've marked task number " + index + " as incomplete: \n"
+                    + taskList.get(index - 1).toString() + "\n");
         } else {
             // message if task index does not exist
-            System.out.println("Uh oh! looks like that task does not exist in your list.\n" +
-                    "You currently only have " + numOfTasks + " task(s) in your list.\n");
+            System.out.println("Uh oh! looks like that task does not exist in your list.\n"
+                    + "You currently only have " + numOfTasks + " task(s) in your list.\n");
         }
     }
 
@@ -117,14 +120,14 @@ public class Ui {
      * Prints message if there is missing information from user input when adding tasks.
      */
     public void taskMissingInformationMessage() {
-        System.out.println("Uh oh! Looks like there's missing information in your instructions!\n" +
-                "Ensure your tasks are formatted as follows: \n" +
-                "- type \"todo [task]\" to insert to-do task into your list\n" +
-                "- type \"deadline [task] /by [date/time]\" to insert task into your list " +
-                "with [date/time] in the format dd/MM/yyyy HHmm\n" +
-                "- type \"event [task] /from [start date/time] to [end date/time]\" " +
-                "to insert task into your list with a start and end date/time in format dd/MM/yyyy HHmm\n" +
-                "Please try again :)\n");
+        System.out.println("Uh oh! Looks like there's missing information in your instructions!\n"
+                + "Ensure your tasks are formatted as follows: \n"
+                + "- type \"todo [task]\" to insert to-do task into your list\n"
+                + "- type \"deadline [task] /by [date/time]\" to insert task into your list "
+                + "with [date/time] in the format dd/MM/yyyy HHmm\n"
+                + "- type \"event [task] /from [start date/time] to [end date/time]\" "
+                + "to insert task into your list with a start and end date/time in format dd/MM/yyyy HHmm\n"
+                + "Please try again :)\n");
     }
 
     /**

@@ -1,11 +1,11 @@
 package parser;
 
-import ui.Ui;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import ui.Ui;
 
 /**
  * This class deals with making sense of user commands.
@@ -14,6 +14,11 @@ public class Parser {
     private String input;
     private Ui ui;
 
+    /**
+     * COnstructs a new instance of Parser with the specified input string.
+     *
+     * @param input input string to be parsed.
+     */
     public Parser(String input) {
         this.input = input;
         ui = new Ui();

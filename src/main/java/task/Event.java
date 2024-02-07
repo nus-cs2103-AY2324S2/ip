@@ -10,18 +10,18 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * Constructs a new event object with the specified description and start and end date/time.
+     *
+     * @param description description of event.
+     * @param isCompleted true if event is completed.
+     * @param start start date/time of event.
+     * @param end end date/time of event.
+     */
     public Event(String description, boolean isCompleted, LocalDateTime start, LocalDateTime end) {
         super(description, isCompleted);
         this.start = start;
         this.end = end;
-    }
-
-    public LocalDateTime getStart() {
-        return this.start;
-    }
-
-    public LocalDateTime getEnd() {
-        return this.end;
     }
 
     /**
@@ -42,14 +42,6 @@ public class Event extends Task {
     public String getEndString() {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return this.end.format(dateTimeFormat);
-    }
-
-    public void setStart(LocalDateTime date) {
-        this.start = date;
-    }
-
-    public void setEnd(LocalDateTime date) {
-        this.end = date;
     }
 
     @Override
