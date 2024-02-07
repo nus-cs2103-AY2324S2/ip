@@ -6,7 +6,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 import duke.ui.UI;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -36,7 +35,7 @@ public class Duke {
     protected static Storage storage = new Storage();
 
     public Duke() {
-        lst = storage.loadTasks();
+        this.lst = storage.loadTasks();
     }
 
     protected void linkMainWindow(MainWindow mw) {
@@ -63,7 +62,7 @@ public class Duke {
                     case BYE:
                         Storage.saveTasks();
                         mainWindow.addDukeMessage("Bye. Hope to see you again soon!");
-                        Platform.exit();
+                        System.exit(0);
                     case MARK:
                         return lst.markComplete(Integer.parseInt(taskDetail.trim()));
                     case UNMARK:
