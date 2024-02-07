@@ -1,3 +1,7 @@
+package duke;
+
+import command.*;
+
 abstract class Parser {
     static Command parse(String prompt) throws DukeException {
         String adjustedPrompt = prompt.replaceAll("\\s+", " ");

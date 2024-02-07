@@ -1,12 +1,19 @@
-class DeleteCommand extends Command {
+package command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.DukeException;
+import duke.Task;
+
+public class DeleteCommand extends Command {
     private final int num;
 
-    DeleteCommand(int num) {
+    public DeleteCommand(int num) {
         this.num = num;
     }
 
     @Override
-    void execute(Storage storage, TaskList taskList) throws DukeException {
+    public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.remove(num);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
