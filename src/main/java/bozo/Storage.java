@@ -26,42 +26,42 @@ public class Storage {
         ArrayList<Task> list = new ArrayList<>();
         try {
             File txtFile = new File(filePath);
-            Scanner scan = new Scanner(txtFile);
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine();
+            Scanner sc = new Scanner(txtFile);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
                 String[] parts = line.split(" \\| ");
                 String type = parts[0];
-                int isDone = Integer.parseInt(parts[1]);
-                String taskName = parts[2];
+                int i = Integer.parseInt(parts[1]);
+                String s = parts[2];
 
                 switch (type) {
-                    case "T":
-                        Todo td = new Todo(taskName);
-                        if (isDone == 1) {
-                            td.isDone = true;
-                        } else {
-                            td.isDone = false;
-                        }
-                        list.add(td);
-                        break;
-                    case "D":
-                        Deadline d = new Deadline(taskName, parts[3]);
-                        if (isDone == 1) {
-                            d.isDone = true;
-                        } else {
-                            d.isDone = false;
-                        }
-                        list.add(d);
-                        break;
-                    case "E":
-                        Event e = new Event(taskName, parts[3], parts[4]);
-                        if (isDone == 1) {
-                            e.isDone = true;
-                        } else {
-                            e.isDone = false;
-                        }
-                        list.add(e);
-                        break;
+                case "T":
+                    Todo td = new Todo(s);
+                    if (i == 1) {
+                        td.isDone = true;
+                    } else {
+                        td.isDone = false;
+                    }
+                    list.add(td);
+                    break;
+                case "D":
+                    Deadline d = new Deadline(s, parts[3]);
+                    if (i == 1) {
+                        d.isDone = true;
+                    } else {
+                        d.isDone = false;
+                    }
+                    list.add(d);
+                    break;
+                case "E":
+                    Event e = new Event(s, parts[3], parts[4]);
+                    if (i == 1) {
+                        e.isDone = true;
+                    } else {
+                        e.isDone = false;
+                    }
+                    list.add(e);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {

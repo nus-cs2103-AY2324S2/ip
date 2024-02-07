@@ -35,10 +35,10 @@ public class Parser {
             String taskStr = input.substring(input.indexOf(" ") + 1);
             int taskNum = Integer.parseInt(taskStr);
             if (taskNum > 0 && taskNum < list.getSize() + 1) {
-                Task currentTask = list.getTask(taskNum - 1);
-                currentTask.markAsDone();
+                Task t = list.getTask(taskNum - 1);
+                t.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + currentTask);
+                System.out.println("  " + t);
                 Ui.showLine();
             } else {
                 throw new BozoException("Error: bozo.Task does not exist!");
@@ -65,10 +65,10 @@ public class Parser {
             String taskStr = input.substring(input.indexOf(" ") + 1);
             int taskNum = Integer.parseInt(taskStr);
             if (taskNum > 0 && taskNum < list.getSize() + 1) {
-                Task currentTask = list.getTask(taskNum - 1);
-                currentTask.markAsNotDone();
+                Task t = list.getTask(taskNum - 1);
+                t.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + currentTask);
+                System.out.println("  " + t);
                 Ui.showLine();
             } else {
                 throw new BozoException("Error: bozo.Task does not exist!");
@@ -81,9 +81,9 @@ public class Parser {
             } else {
                 String taskStr = input.substring(input.indexOf(" ") + 1);
                 int taskNum = Integer.parseInt(taskStr);
-                Task currentTask = list.removeTask(taskNum - 1);
+                Task t = list.removeTask(taskNum - 1);
                 System.out.println("Noted: I've removed this task:");
-                System.out.println("  " + currentTask);
+                System.out.println("  " + t);
             }
             Ui.showLine();
         } else {
@@ -103,9 +103,9 @@ public class Parser {
                 if (input.length() < 10) {
                     throw new BozoException("I want that too but ur deadline can't be empty :-((");
                 } else {
-                    int indexOfSlash = input.indexOf("/by");
-                    Deadline d = new Deadline(input.substring(input.indexOf(" ") + 1, indexOfSlash - 1),
-                            input.substring(indexOfSlash + 4));
+                    int i = input.indexOf("/by");
+                    Deadline d = new Deadline(input.substring(input.indexOf(" ") + 1, i - 1),
+                              input.substring(i + 4));
                     list.addTask(d);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + d);
