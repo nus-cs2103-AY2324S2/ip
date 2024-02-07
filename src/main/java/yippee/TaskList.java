@@ -13,6 +13,11 @@ public class TaskList {
         this.ui = new Ui();
     }
 
+    public TaskList(ArrayList<Task> list) {
+        this.tasks = list;
+        this.ui = new Ui();
+    }
+
     public void addStoredTask(Task newTask) {
         this.tasks.add(newTask);
     }
@@ -54,15 +59,5 @@ public class TaskList {
 
     public ArrayList<Task> getList() {
         return this.tasks;
-    }
-    public void printList() {
-        int count = 1;
-        if (tasks.size() == 0) {
-            System.out.println("      Nothing added to list yet!");
-        }
-        for (Task task : tasks) {
-            System.out.printf("      %d. %s\n", count, task.toString());
-            count++;
-        }
     }
 }

@@ -1,4 +1,5 @@
 package yippee;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import yippee.exceptions.YippeeException;
@@ -52,5 +53,17 @@ public class Ui {
         this.sc.close();
         System.out.println("      Bye! Hope to see you again soon wooo!");
         showLine();
+    }
+
+    public void printList(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getList();
+        int count = 1;
+        if (tasks.size() == 0) {
+            System.out.println("      Nothing added to list yet!");
+        }
+        for (Task task : tasks) {
+            System.out.printf("      %d. %s\n", count, task.toString());
+            count++;
+        }
     }
 }

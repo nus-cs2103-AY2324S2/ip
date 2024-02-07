@@ -10,6 +10,6 @@ public class ListCommand extends Command {
         super(false);
     }
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        tasks.printList();
+        ui.printList(tasks);
     }
 }
