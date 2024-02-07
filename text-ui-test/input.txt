@@ -1,5 +1,5 @@
 todo read book
-deadline complete project /by tomorrow
+deadline complete project /by 2024-02-24
 event team meeting /from sunday 5pm /to 6pm
 list
 mark 1

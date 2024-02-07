@@ -1,3 +1,5 @@
+package lia;
+
 public class Parser {
     private Ui ui;
     private TaskList tasks;
@@ -57,7 +59,7 @@ public class Parser {
         String todo = input.replaceFirst("todo", "").trim();
 
         if (todo.isEmpty()) {
-            throw new LiaException("Task description cannot be empty.");
+            throw new LiaException("lia.Task description cannot be empty.");
         }
 
         tasks.addTodoTask(todo);
@@ -68,7 +70,7 @@ public class Parser {
         String deadline = input.replaceFirst("deadline", "").split("/by")[0].trim();
 
         if (deadline.isEmpty()) {
-            throw new LiaException("Task description cannot be empty.");
+            throw new LiaException("lia.Task description cannot be empty.");
         }
 
         String date = input.split("/by")[1].trim();
@@ -81,7 +83,7 @@ public class Parser {
         String event = input.replaceFirst("event", "").split("/from")[0].trim();
 
         if (event.isEmpty()) {
-            throw new LiaException("Event description cannot be empty.");
+            throw new LiaException("lia.Event description cannot be empty.");
         }
 
         String range = input.split("/from")[1].trim();

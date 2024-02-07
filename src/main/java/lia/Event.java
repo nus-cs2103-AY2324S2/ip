@@ -1,3 +1,5 @@
+package lia;
+
 public class Event extends Task {
     String start;
     String end;

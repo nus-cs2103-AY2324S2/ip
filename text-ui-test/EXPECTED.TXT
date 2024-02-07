@@ -1,10 +1,10 @@
-Hello! I'm Lia :)
+Hello, I'm Lia! To learn how to use me, type 'help'.
 What can I do for you?
 I've added this task:
 [T][ ] read book
 You have 1 task(s) in the list.
 I've added this task:
-[D][ ] complete project (by: tomorrow)
+[D][ ] complete project (by: Feb 14 2024)
 You have 2 task(s) in the list.
 I've added this task:
 [E][ ] team meeting (from: sunday 5pm to: 6pm)

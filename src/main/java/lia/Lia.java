@@ -1,7 +1,8 @@
+package lia;
+
 import java.util.Scanner;
 
 public class Lia {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
