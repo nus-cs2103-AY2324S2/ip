@@ -32,6 +32,15 @@ public class Task {
     }
 
     /**
+     * Retrieve description of Task.
+     *
+     * @return String
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Mark Task object as undone.
      */
     public void markAsUndone() {
