@@ -50,7 +50,7 @@ public class Parser {
             LocalDate localDate = LocalDate.parse(dateline);
             Deadline deadline = new Deadline(splitAgain[1], localDate);
             tasks.addTask(deadline);
-            ui.showDeadlineAdded(deadline, tasks.getSize());
+            ui.showTaskAdded(deadline, tasks.getSize());
         } catch (DukeException d) {
             ui.printError(d);
         }
@@ -65,7 +65,7 @@ public class Parser {
             String description = split[1];
             Todo todo = new Todo(description);
             tasks.addTask(todo);
-            ui.showTodoAdded(todo, tasks.getSize());
+            ui.showTaskAdded(todo, tasks.getSize());
         } catch (DukeException d){
             ui.printError(d);
         }
@@ -82,7 +82,7 @@ public class Parser {
             LocalDate to = LocalDate.parse(split[1].split(" /to ")[1]);
             Event event = new Event(description, from, to);
             tasks.addTask(event);
-            ui.showEventAdded(event, tasks.getSize());
+            ui.showTaskAdded(event, tasks.getSize());
         } catch (DukeException d) {
             ui.printError(d);
         }

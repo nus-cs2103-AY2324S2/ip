@@ -5,9 +5,6 @@ public class Ui {
 
     }
 
-
-
-
     public void printError(DukeException dukeException) {
         printBreak();
         System.out.println(dukeException.getMessage());
@@ -28,11 +25,6 @@ public class Ui {
         printBreak();
     }
 
-    public void printBreak() {
-        String line = "____________________________________________________________";
-        System.out.println(line);
-    }
-
     public void showTaskDone(Task task) {
         printBreak();
         System.out.println("Nice! I've marked this task as done:");
@@ -47,26 +39,10 @@ public class Ui {
         printBreak();
     }
 
-    public void showTodoAdded(Todo todo, int size) {
+    public void showTaskAdded(Task task, int size) {
         printBreak();
         System.out.println("Got it. I've added this task:");
-        System.out.println(" " + todo);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        printBreak();
-    }
-
-    public void showDeadlineAdded(Deadline deadline, int size) {
-        printBreak();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + deadline);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        printBreak();
-    }
-
-    public void showEventAdded(Event event, int size) {
-        printBreak();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + event);
+        System.out.println(" " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
         printBreak();
     }
@@ -79,10 +55,11 @@ public class Ui {
         printBreak();
     }
 
-    /**
-     * Print all elements in the list
-     * @param list
-     */
+    public void printBreak() {
+        String line = "____________________________________________________________";
+        System.out.println(line);
+    }
+
     public void printList(ArrayList<Task> list) {
         printBreak();
         System.out.println("Here are the tasks in your list:");

@@ -1,11 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -25,13 +18,8 @@ public class Duke {
         }
     }
 
-    public enum Command {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
-    }
-
     public void run() {
         ui.openingMessage();
-
         Scanner sc = new Scanner(System.in);
         String word = sc.nextLine();
         while (!word.equals("bye")) {
