@@ -1,7 +1,5 @@
 package duchess.task;
 
-import java.util.ArrayList;
-
 import duchess.tasks.Task;
 import duchess.tasks.Deadline;
 import duchess.tasks.Event;
