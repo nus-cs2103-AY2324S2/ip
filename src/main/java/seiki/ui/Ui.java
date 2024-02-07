@@ -132,6 +132,11 @@ public class Ui {
                 String.format(MESSAGE_REMAINING_TASKS, taskList.getTaskCount()));
     }
 
+    /**
+     * Generates and prints out the found tasks upon success.
+     * @param keyword
+     * @param resultList
+     */
     public void showFindTask(String keyword, TaskList resultList) {
         showToUser(String.format(MESSAGE_FIND_SUCCESS, keyword),
                 resultList.toString());
