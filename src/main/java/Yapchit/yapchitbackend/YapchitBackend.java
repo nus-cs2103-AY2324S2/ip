@@ -42,13 +42,6 @@ public class YapchitBackend {
         this.parser = new Parser();
         this.handler = new Handler();
         this.filePath = filePath;
-
-        try{
-            this.tasks = storage.importFromFile(filePath, ui, handler, parser);
-        } catch (YapchitException e) {
-            ui.printTasklistLoadError();
-            this.tasks = new TaskList();
-        }
     }
 
 
@@ -71,9 +64,17 @@ public class YapchitBackend {
         return retVal;
     }
 
-
     public String getIntro(){
-        return ui.printIntro();
+
+        String errorMsg = "";
+
+        try{
+            this.tasks = storage.importFromFile(filePath, ui, handler, parser);
+        } catch (YapchitException e) {
+            errorMsg = ui.printTasklistLoadError();
+            this.tasks = new TaskList();
+        }
+        return errorMsg == "" ? ui.printIntro() : errorMsg + "\n" + ui.printIntro();
     }
 
     public String getOutro(){
