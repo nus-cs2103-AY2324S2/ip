@@ -41,8 +41,15 @@ public class Duke {
      *
      * @param args The command-line arguments.
      */
+
+    public String runCommand(String command) {
+        // run a single command in TaskList
+        return taskList.runCommand(command);
+    }
     public static void main(String[] args){
         new Duke().run();
     }
+
+
 }
 
