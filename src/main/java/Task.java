@@ -13,6 +13,7 @@ public class Task {
 
     /**
      * gets status of task.
+     * 
      * @return String
      */
     public String getStatusIcon() {
@@ -21,29 +22,29 @@ public class Task {
 
     /**
      * gets description of task
+     * 
      * @return String
      */
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
-
 
     /**
      * sets work as done
      */
-    public void taskDone(){
+    public void taskDone() {
         isDone = true;
     }
 
     /**
      * sets work as undone
      */
-    public void taskUndone(){
+    public void taskUndone() {
         isDone = false;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }

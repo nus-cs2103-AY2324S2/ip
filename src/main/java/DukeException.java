@@ -2,10 +2,7 @@ public class DukeException {
 
     protected String description;
 
-    /**
-     *
-     * @param description
-     */
+
     public DukeException(String description) {
 
         this.description = description;
@@ -13,9 +10,10 @@ public class DukeException {
 
     @Override
     public String toString() {
-        if(this.description.equals("todo") || this.description.equals("deadline")||this.description.equals("event")){
+        if (this.description.equals("todo") || this.description.equals("deadline")
+                || this.description.equals("event")) {
             return "Your input is incomplete. Please add more details for " + this.description + ".";
-        }else{
+        } else {
             return "I do not understand your input.";
         }
     }
