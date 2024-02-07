@@ -51,8 +51,6 @@ public class Storage {
      */
     public TaskList loadTasks() {
         TaskList loadedTL = new TaskList(new ArrayList<>());
-
-
         try (BufferedReader br = new BufferedReader(new FileReader(this.filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
