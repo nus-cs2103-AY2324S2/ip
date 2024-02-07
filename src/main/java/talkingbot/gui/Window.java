@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import talkingbot.logic.TalkingBot;
@@ -23,8 +24,10 @@ public class Window extends AnchorPane {
     @FXML
     private Button sendButton;
     private TalkingBot talkingBot;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/gui/You.jpg"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/gui/TalkingBot.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/gui/You.jpg"));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream("/gui/TalkingBot.jpg"));
+    private final String userName = "You";
+    private final String botName = "TalkingBot";
 
     /**
      * Initializes the scrollPane and binds it to the vBox.
@@ -43,7 +46,7 @@ public class Window extends AnchorPane {
     }
 
     /**
-     * Sets the actions available in the current layout.
+     * Sets the listeners available in the current layout.
      */
     public void setActions() {
         this.sendButton.setOnMouseClicked((event) -> {
@@ -65,21 +68,14 @@ public class Window extends AnchorPane {
         return label;
     }
 
-    private void handleUserInput() {
-        Label text = new Label(this.textInput.getText());
-        Label botResponse = new Label(this.talkingBot.process(this.textInput.getText()));
-
-    }
-
     @FXML
     private void handleUserInput() {
         String text = this.textInput.getText();
-        String botResponse = this.talkingBot.process(text);
+        String botResponse = this.talkingBot.process(this.textInput.getText());
         this.vBox.getChildren().addAll(
-                Message.getUserDialog(text, this.userImage),
-                Message.getBotDialog(botResponse, this.botImage)
+                Message.getUserMessage(this.userImage, text, this.userName),
+                Message.getBotMessage(this.botImage, botResponse, this.botName)
         );
         this.textInput.clear();
     }
-
 }

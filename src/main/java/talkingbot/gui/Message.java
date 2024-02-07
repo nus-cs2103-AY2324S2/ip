@@ -2,27 +2,45 @@ package talkingbot.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import java.io.IOException;
 
+/**
+ * A class to display message bubbles.
+ */
 public class Message extends HBox {
+    @FXML
     private ImageView displayPicture;
-    private Label text;
+    @FXML
+    private Label displayText;
+    @FXML
     private Label displayName;
 
     /**
      * Constructor for the Message class.
      * @param displayPicture Display picture of the sender.
-     * @param text Text to be displayed in the message.
+     * @param displayText Text to be displayed in the message.
      * @param displayName Display name of the sender.
      */
-    public Message(ImageView displayPicture, Label text, Label displayName) {
-        this.displayPicture = displayPicture;;
-        this.text = text;
-        this.displayName = displayName;
+    private Message(Image displayPicture, String displayText, String displayName) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Window.class.getResource("/gui/Message.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.displayPicture.setImage(displayPicture);
+        this.displayText.setText(displayText);
+        this.displayName.setText(displayName);
     }
 
     private void flip() {
@@ -32,11 +50,11 @@ public class Message extends HBox {
         this.getChildren().setAll(tmp);
     }
 
-    public static Message getUserMessage(ImageView displayPicture, Label text, Label displayName) {
+    public static Message getUserMessage(Image displayPicture, String text, String displayName) {
         return new Message(displayPicture, text, displayName);
     }
 
-    public static Message getBotMessage(ImageView displayPicture, Label text, Label displayName) {
+    public static Message getBotMessage(Image displayPicture, String text, String displayName) {
         Message cur = new Message(displayPicture, text, displayName);
         cur.flip();
         return cur;
