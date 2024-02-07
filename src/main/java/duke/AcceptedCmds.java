@@ -1,5 +1,5 @@
 package duke;
 
 public enum AcceptedCmds {
-    bye, list, mark, unmark, todo, deadline, event, delete
+    bye, list, mark, unmark, todo, deadline, event, delete, find
 }
