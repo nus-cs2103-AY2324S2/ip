@@ -3,6 +3,9 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task of deadline type with due date
+ */
 public class Deadline extends Task {
 
     /** Type icon for Deadline task */
@@ -10,6 +13,11 @@ public class Deadline extends Task {
     /** Deadline or due date of this task */
     protected LocalDateTime dueDate;
 
+    /**
+     * Constructor for Deadline
+     * @param name of task
+     * @param dueDate date of which task is due
+     */
     public Deadline(String name, LocalDateTime dueDate) {
         super(name);
         this.dueDate = dueDate;

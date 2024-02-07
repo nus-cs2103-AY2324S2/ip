@@ -6,23 +6,23 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Command subclass for adding tasks
+ */
 public class AddCommand extends Command {
+    private final Task newTask; /** Task to add */
+    public AddCommand(Task newTask) {
+        this.newTask = newTask;
+    }
 
-	/** Task to add */
-	private final Task newTask;
-
-	public AddCommand(Task newTask) {
-		this.newTask = newTask;
-	}
-
-	@Override
-	public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-		try {
-			tasks.addTask(newTask);
-			ui.addTask(newTask, tasks.getNumTasks());
-			storage.saveTasks(tasks);
-		} catch (Exception e) {
-			throw new DukeException(e.getMessage());
-		}
-	}
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        try {
+            tasks.addTask(newTask);
+            ui.addTask(newTask, tasks.getNumTasks());
+            storage.saveTasks(tasks);
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
 }
