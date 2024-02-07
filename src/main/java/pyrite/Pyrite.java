@@ -16,7 +16,27 @@ public class Pyrite {
     }
 
     protected String getResponse(String input) {
-        Command command = Parser.parse(input);
+        // Separate multiple commands by semicolon
+        String[] commandStrings = input.split(";");
+        String response = executeCommands(commandStrings);
+        return response;
+    }
+
+    protected String getName() {
+        return NAME;
+    }
+
+    private String executeCommands(String ... commandStrings) {
+        String response = "";
+        for (String commandString : commandStrings) {
+            response += "\n" + executeCommand(commandString);
+        }
+        return response;
+    }
+
+    private String executeCommand(String commandString) {
+        commandString = commandString.trim(); // remove leading and trailing whitespaces
+        Command command = Parser.parse(commandString);
         if (command instanceof ExitCommand) {
             //exit program
             System.exit(0);
@@ -24,9 +44,5 @@ public class Pyrite {
         String response = command.execute(this.tasks, this.file);
 
         return response;
-    }
-
-    protected String getName() {
-        return NAME;
     }
 }
