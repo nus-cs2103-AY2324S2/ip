@@ -1,7 +1,9 @@
 import java.util.Arrays;
 import java.util.Scanner;
+
 public class BalkanBot {
     private static final String line = "------------------------------------------";
+
     public static void printComplexTask(Task[] arr, int current) {
         System.out.println(line);
         System.out.println("Got it I've now added this task:");
@@ -23,19 +25,17 @@ public class BalkanBot {
         System.out.println(line);
 
 
-
-        while(true) {
+        while (true) {
             String command = input.nextLine();
-            if(command.equals("bye")) {
+            if (command.equals("bye")) {
                 System.out.println(line);
                 System.out.println("Јебаћу ти бабицу");
                 System.out.println(line);
                 break;
-            }
-            else if(command.equals("list")) {
+            } else if (command.equals("list")) {
                 StringBuilder listOutput = new StringBuilder();
-                for(int i = 0; i < listOfInputs.length; i++) {
-                    if(listOfInputs[i] == null) {
+                for (int i = 0; i < listOfInputs.length; i++) {
+                    if (listOfInputs[i] == null) {
                         break;
                     } else {
                         listOutput.append(i + 1).append(". ").append(listOfInputs[i].toString())
@@ -46,8 +46,7 @@ public class BalkanBot {
                 System.out.println("Here is your list of tasks:");
                 System.out.println(listOutput);
                 System.out.println(line);
-            }
-            else {
+            } else {
                 String[] brokenCommand = command.split("\\s+");
                 String advancedCommand = brokenCommand[0];
                 String[] details = Arrays.copyOfRange(brokenCommand, 1, brokenCommand.length);
@@ -68,10 +67,15 @@ public class BalkanBot {
                     }
                     case "todo": {
                         String taskDescription = String.join(" ", details);
-                        listOfInputs[current] = new ToDo(taskDescription);
-                        current++;
-                        printComplexTask(listOfInputs, current);
-                        break;
+                        try {
+                            listOfInputs[current] = new ToDo(taskDescription);
+                            current++;
+                            printComplexTask(listOfInputs, current);
+                            break;
+                        } catch (InvalidInputException e) {
+                            System.out.println(e);
+                            break;
+                        }
                     }
                     case "deadline": {
                         StringBuilder taskDescription = new StringBuilder();
@@ -80,16 +84,21 @@ public class BalkanBot {
                         for (String currentString : details) {
                             if (foundDeadline) {
                                 deadline.append(currentString).append(" ");
-                            } else if (currentString.charAt(0) == '/') {
+                            } else if (currentString.equals("/by")) {
                                 foundDeadline = true;
                             } else {
                                 taskDescription.append(currentString).append(" ");
                             }
                         }
-                        listOfInputs[current] = new Deadline(taskDescription.toString(), deadline.toString());
-                        current++;
-                        printComplexTask(listOfInputs, current);
-                        break;
+                        try {
+                            listOfInputs[current] = new Deadline(taskDescription.toString(), deadline.toString());
+                            current++;
+                            printComplexTask(listOfInputs, current);
+                            break;
+                        } catch (InvalidInputException e) {
+                            System.out.println(e);
+                            break;
+                        }
                     }
                     case "event": {
                         StringBuilder taskDescription = new StringBuilder();
@@ -101,28 +110,29 @@ public class BalkanBot {
                             if (foundTo) {
                                 to.append(currentString).append(" ");
                             } else if (foundFrom) {
-                                if (currentString.charAt(0) == '/') {
+                                if (currentString.equals("/to")) {
                                     foundTo = true;
                                 } else {
                                     from.append(currentString).append(" ");
                                 }
-                            } else if (currentString.charAt(0) == '/') {
+                            } else if (currentString.equals("/from")) {
                                 foundFrom = true;
                             } else {
                                 taskDescription.append(currentString).append(" ");
                             }
                         }
-                        listOfInputs[current] = new Event(taskDescription.toString(), from.toString(), to.toString());
-                        current++;
-                        printComplexTask(listOfInputs, current);
-                        break;
+                        try {
+                            listOfInputs[current] = new Event(taskDescription.toString(), from.toString(), to.toString());
+                            current++;
+                            printComplexTask(listOfInputs, current);
+                            break;
+                        } catch (InvalidInputException e) {
+                            System.out.println(e);
+                            break;
+                        }
                     }
                     default:
-                        listOfInputs[current] = new Task(command);
-                        current++;
-                        System.out.println(line);
-                        System.out.println("Added: " + command);
-                        System.out.println(line);
+                        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                         break;
                 }
             }

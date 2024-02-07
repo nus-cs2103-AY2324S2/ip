@@ -20,10 +20,9 @@ public class Task {
     }
 
     public String cleanWhiteSpace(String word) {
-        if (word.charAt(word.length() - 1) == ' ') {
+        if (!word.isEmpty() && word.charAt(word.length() - 1) == ' ') {
             return word.substring(0, word.length() - 1);
-        }
-        else {
+        } else {
             return word;
         }
     }

@@ -1,5 +1,5 @@
-public class ToDoException extends Exception {
-    public ToDoException(String error) {
+public class InvalidInputException extends Exception {
+    public InvalidInputException(String error) {
         super(error);
     }
 }
