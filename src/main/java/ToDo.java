@@ -1,9 +1,11 @@
-public class ToDo extends Task {
-    public ToDo(String name) {
+import java.time.format.DateTimeFormatter;
+
+public class Todo extends Task {
+    public Todo(String name) {
         this(name, false);
     }
 
-    public ToDo(String name, boolean mark) {
+    public Todo(String name, boolean mark) {
         super(name, mark);
     }
 
@@ -15,5 +17,10 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String toString(DateTimeFormatter dtf) {
+        return this.toString();
     }
 }
