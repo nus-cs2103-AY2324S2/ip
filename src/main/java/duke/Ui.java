@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -11,7 +13,7 @@ public class Ui {
 
     public void close() {
         String closing = "Bye. Hope to see you again soon!\n";
-        String out = closing + LINE + "\n";
+        String out = closing + LINE;
         System.out.println(out);
     }
 

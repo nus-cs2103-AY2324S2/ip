@@ -1,3 +1,5 @@
+package duke;
+
 class Parser {
 
     public static Task parseToTask(String line, String splitFormat) throws DukeException {

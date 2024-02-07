@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -7,7 +9,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.function.ToDoubleFunction;
 
-public class Duke {
+class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

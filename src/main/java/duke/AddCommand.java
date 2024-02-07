@@ -1,3 +1,5 @@
+package duke;
+
 public class AddCommand implements Command {
 
     private String commandWord;
