@@ -33,11 +33,11 @@ public class App {
             try {
                 String userInput = ui.readUserInput();
                 ui.showLine();
-                Action action = Parser.parseUserInput(userInput);
+                Action action = Parser.parseAction(userInput);
                 action.run(tasks, ui, storage);
                 isExit = action.isExit();
-            } catch (ChipchatException x) {
-                System.err.format("Exception at App::run(), %s\n", x);
+            } catch (ChipchatException exc) {
+                System.err.println(exc);
             } finally {
                 ui.showLine();
             }

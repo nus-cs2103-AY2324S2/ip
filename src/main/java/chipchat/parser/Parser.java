@@ -2,6 +2,8 @@ package chipchat.parser;
 
 import chipchat.action.*;
 import chipchat.exception.ArgumentException;
+import chipchat.exception.InvalidArgumentException;
+import chipchat.exception.MissingArgumentException;
 import chipchat.task.Deadline;
 import chipchat.task.Event;
 import chipchat.task.Task;
@@ -9,93 +11,134 @@ import chipchat.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Parser {
-    public static Action parseUserInput(String userInput) throws ArgumentException {
-        String[] args = userInput.trim().split(" ", 2);
-        CommandType command = CommandType.valueOf(args[0].toUpperCase());
+    public static Action parseAction(String userInput) throws ArgumentException {
+        String[] tokens = userInput.trim().split(" ");
+        if (tokens.length == 0) {
+            throw new MissingArgumentException("Error: Please enter something");
+        }
 
-        int index = 0;
-        switch (command) {
+        CommandType command = parseCommand(tokens);
+        switch(command) {
         case BYE:
             return new Bye();
         case LIST:
             return new ListTasks();
         case DELETE:
-            index = Integer.parseInt(args[1].trim());
-            return new Delete(index);
         case MARK:
-            index = Integer.parseInt(args[1].trim());
-            return new Mark(index);
         case UNMARK:
-            index = Integer.parseInt(args[1].trim());
-            return new Unmark(index);
-        case TODO: case DEADLINE: case EVENT:
-            return parseTask(command, args[1]);
-        default:
-            break;
+            return parseEditAction(command, tokens);
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            return parseTask(command, tokens);
         }
         return null;
     }
 
-    private static Action parseTask(CommandType command, String userInput) {
-        String[] args;
-        String description;
+    private static Action parseEditAction(CommandType command, String[] tokens) {
+        if (tokens.length < 2) {
+            throw new MissingArgumentException("Error: Missing Index\nPlease enter the index (number) of the task to edit");
+        }
+
+        int index = parseIndex(tokens);
+        switch(command) {
+        case DELETE:
+            return new Delete(index);
+        case MARK:
+            return new Mark(index);
+        case UNMARK:
+            return new Unmark(index);
+        }
+        return null;
+    }
+
+    private static CommandType parseCommand(String[] tokens) throws InvalidArgumentException {
+        try {
+            return CommandType.valueOf(tokens[0].toUpperCase());
+        } catch (IllegalArgumentException exc) {
+            throw new InvalidArgumentException("Error: Sorry. I don't know what that means");
+        }
+    }
+
+    private static int parseIndex(String[] tokens) throws InvalidArgumentException {
+        try {
+            return Integer.parseInt(tokens[1]);
+        } catch (NumberFormatException exc) {
+            throw new InvalidArgumentException("Error: Please enter the index (number) of the task you would like to edit");
+        }
+    }
+
+    private static Action parseTask(CommandType command, String[] tokens) {
+        if (tokens.length < 2) {
+            throw new MissingArgumentException("Error: Missing description\nPlease enter the description of the task to add");
+        } else {
+            tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
+        }
+
+        ArrayList<String> args = new ArrayList<>();
+        StringBuilder currArg = new StringBuilder();
+        for (String token : tokens) {
+            if (token.startsWith("/")) {
+                args.add(currArg.toString().trim());
+                currArg.setLength(0);
+            } else {
+                currArg.append(token).append(" ");
+            }
+        }
+        // Add remaining currArg to args list
+        args.add(currArg.toString().trim());
+
+        String description = args.get(0);
         switch(command) {
         case TODO:
-            description = userInput.trim();
             return AddTask.addTodo(description, false);
         case DEADLINE:
-            args = userInput.split("/by", 2);
-            description = args[0].trim();
-            LocalDate dueBy = parseDate(args[1].trim());
+            LocalDate dueBy = parseDate(args.get(1));
             return AddTask.addDeadline(description, false, dueBy);
         case EVENT:
-            args = userInput.split("/from");
-            description = args[0].trim();
-            String[] dateArgs = args[1].split("/to");
-            LocalDate dateFrom = parseDate(dateArgs[0].trim());
-            LocalDate dateTo = parseDate(dateArgs[1].trim());
+            LocalDate dateFrom = parseDate(args.get(1));
+            LocalDate dateTo = parseDate(args.get(2));
             return AddTask.addEvent(description, false, dateFrom, dateTo);
-        default:
-            return null;
         }
+        return null;
     }
 
     public static Task parseLoadedTask(String line) {
         String taskStr = line.split("[.] \\[", 2)[1];
 
-        String[] argsTaskType = taskStr.split("\\]\\[", 2);
-        String taskChar = argsTaskType[0];
+        String[] tokensTaskType = taskStr.split("\\]\\[", 2);
+        String taskChar = tokensTaskType[0];
         CommandType taskType = CommandType.matchTaskType(taskChar);
 
-        String[] argsIsDone = argsTaskType[1].split("\\] ", 2);
-        boolean isDone = argsIsDone[0].equals("X");
+        String[] tokensIsDone = tokensTaskType[1].split("\\] ", 2);
+        boolean isDone = tokensIsDone[0].equals("X");
 
         String description;
-        String[] argsDate;
+        String[] tokensDate;
         switch (taskType) {
         case TODO:
-            description = argsIsDone[1].trim();
+            description = tokensIsDone[1].trim();
             return new Todo(description, isDone);
         case DEADLINE:
-            argsDate = argsIsDone[1].split("\\(by:", 2);
-            description = argsDate[0].trim();
-            LocalDate dueBy = parseDate(argsDate[1].replaceAll("[\\)]", " ").trim());
+            tokensDate = tokensIsDone[1].split("\\(by:", 2);
+            description = tokensDate[0].trim();
+            LocalDate dueBy = parseDate(tokensDate[1].replaceAll("[\\)]", " ").trim());
             return new Deadline(description, isDone, dueBy);
         case EVENT:
-            argsDate = argsIsDone[1].split("\\(from:", 2);
-            description = argsDate[0].trim();
-            String[] argsEvent = argsDate[1].split("to:");
-            LocalDate dateFrom = parseDate(argsEvent[0].trim());
-            LocalDate dateTo = parseDate(argsEvent[1].replaceAll("[\\)]", " ").trim());
+            tokensDate = tokensIsDone[1].split("\\(from:", 2);
+            description = tokensDate[0].trim();
+            String[] tokensEvent = tokensDate[1].split("to:");
+            LocalDate dateFrom = parseDate(tokensEvent[0].trim());
+            LocalDate dateTo = parseDate(tokensEvent[1].replaceAll("[\\)]", " ").trim());
             return new Event(description, isDone, dateFrom, dateTo);
         default:
             return null;
         }
     }
-
 
     public static LocalDate parseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
