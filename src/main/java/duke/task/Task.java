@@ -8,24 +8,26 @@ package duke.task;
 public class Task {
     String name;
     String type;
-    boolean complete;
+    boolean isComplete;
     public Task(String name, String type) {
         this.name = name;
         this.type = type;
-        this.complete = false;
+        this.isComplete = false;
     }
+//<<<<<<< HEAD
 
     /**
      * Sets a task's completion status as true
      */
-    public void mark() {
-        this.complete = true;
+
+    public void setComplete() {
+        this.isComplete = true;
     }
 
     /**
      * Sets a task's completion status as false
      */
-    public void unmark() {
-        this.complete = false;
+    public void setInComplete() {
+        this.isComplete = false;
     }
 }

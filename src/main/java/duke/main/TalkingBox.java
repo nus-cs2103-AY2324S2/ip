@@ -6,22 +6,22 @@ import java.io.IOException;
 public class TalkingBox {
     private Storage storage;
     private TaskList taskList;
-    private UI ui;
+    private Ui ui;
     private Parser parser;
 
-    public TalkingBox(String path) throws IOException {
+    public TalkingBox(String path) {
         taskList = new TaskList();
-        ui = new UI(taskList);
-        parser = new Parser(taskList, ui);
+        ui = new Ui(taskList);
+        parser = new Parser(this.taskList, this.ui);
         try {
             storage = new Storage(taskList, path);
         } catch (FileNotFoundException f) {
-            ui.printException(f);
+            this.ui.printException(f);
         }
     }
 
     public void run() throws IOException {
-        this.ui.welcomeMessage();
+        this.ui.printWelcomeMessage();
         boolean isExit = false;
         boolean isError = false;
         while (!isExit && !isError) {
@@ -30,11 +30,12 @@ public class TalkingBox {
             try {
                 this.parser.parse(command);
             } catch (UnknownInputException e) {
-                ui.printException(e);
+                this.ui.printException(e);
                 isError = true;
             }
         }
         this.storage.store();
+        this.ui.printExitMessage();
     }
 
     public static void main(String[] args) throws IOException {

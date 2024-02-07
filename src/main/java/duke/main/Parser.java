@@ -2,16 +2,15 @@ package duke.main;
 import duke.task.*;
 import duke.exception.*;
 
-import java.util.Date;
 
 /**
  * Represents a parser that interprets user inputs and carries out the interpreted commands
  */
 public class Parser {
     private TaskList taskList;
-    private UI ui;
+    private Ui ui;
 
-    public Parser(TaskList taskList, UI ui) {
+    public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -67,7 +66,7 @@ public class Parser {
                         this.taskList.remove(deleteIndex);
                         this.ui.printTotal();
                     } catch (ArrayIndexOutOfBoundsException arrIndexEx) {
-                        this.ui.printException(arrIndexEx);
+                        throw new InvalidIndexException();
                     }
                     break;
                 case mark:
@@ -76,7 +75,7 @@ public class Parser {
                         this.taskList.mark(markIndex);
                         this.ui.printOnMark(markIndex);
                     } catch (ArrayIndexOutOfBoundsException arrEx) {
-                        this.ui.printException(arrEx);
+                        throw new InvalidIndexException();
                     }
                     break;
                 case unmark:
@@ -85,7 +84,7 @@ public class Parser {
                         this.taskList.unmark(unmarkIndex);
                         this.ui.printOnUnmark(unmarkIndex);
                     } catch (ArrayIndexOutOfBoundsException arrException) {
-                        this.ui.printException(arrException);
+                        throw new InvalidIndexException();
                     }
                     break;
                 case list:
@@ -94,7 +93,7 @@ public class Parser {
                 default:
                     throw new UnknownInputException();
             }
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | InvalidIndexException e) {
             throw new UnknownInputException();
         }
     }

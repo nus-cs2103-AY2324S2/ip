@@ -37,7 +37,7 @@ public class TaskList {
      * @param index  index of task to be marked as done
      */
     public void mark(int index) {
-        this.taskList.get(index).mark();
+        this.taskList.get(index).setComplete();
     }
 
 
@@ -47,7 +47,7 @@ public class TaskList {
      * @param index  index of task to be marked as not done
      */
     public void unmark(int index) {
-        this.taskList.get(index).unmark();
+        this.taskList.get(index).setInComplete();
     }
 
     /**
@@ -65,7 +65,8 @@ public class TaskList {
      *
      * @return  integer representing size of task list
      */
-    public int size() {
+
+    public int getSize() {
         return this.taskList.size();
     }
 }

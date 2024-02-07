@@ -1,24 +1,30 @@
 package duke.main;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
+//<<<<<<< HEAD:src/main/java/duke/main/UI.java
 /**
  * Represents the user interface that outputs text to users and receives user text
  */
-public class UI {
+//public class Ui {
+//=======
+public class Ui {
+//>>>>>>> branch-A-CodingStandard:src/main/java/duke/main/Ui.java
     private TaskList taskList;
     private Scanner scanner;
 
-    public UI(TaskList taskList) {
+    public Ui(TaskList taskList) {
         this.taskList = taskList;
         this.scanner = new Scanner(System.in);
     }
 
+//<<<<<<< HEAD:src/main/java/duke/main/UI.java
     /**
      * Prints out a welcome message to the user when the program is first launched
      */
-    public void welcomeMessage() {
+//    public void welcomeMessage() {
+    public void printWelcomeMessage() {
+
         System.out.println("Hello! What tasks do you have?");
     }
 
@@ -27,7 +33,7 @@ public class UI {
      *
      * @param index  the index of the task in the task list that has been marked
      */
-    public void printOnMark(int index){
+    public void printOnMark (int index) {
         System.out.println("Task marked as done. Good job!");
         System.out.println(taskList.get(index).toString());
     }
@@ -48,7 +54,7 @@ public class UI {
      */
     public void printOnAdd() {
         System.out.println("Added new task: ");
-        System.out.println(taskList.get(taskList.size() - 1).toString());
+        System.out.println(taskList.get(taskList.getSize() - 1).toString());
         printTotal();
     }
 
@@ -66,7 +72,7 @@ public class UI {
      * Iterates through the task list and prints out each task
      */
     public void printList() {
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.getSize(); i++) {
             System.out.println((i + 1) + ": " + taskList.get(i).toString());
         }
     }
@@ -75,13 +81,14 @@ public class UI {
      * Prints the total number of tasks in the task list
      */
     public void printTotal() {
-        System.out.println("current number of tasks: " + taskList.size());
+        System.out.println("current number of tasks: " + taskList.getSize());
     }
 
     /**
      * Prints an exit message when the program is closed
      */
-    public void exitMessage() {
+
+    public void printExitMessage() {
         System.out.println("Goodbye!");
     }
 
