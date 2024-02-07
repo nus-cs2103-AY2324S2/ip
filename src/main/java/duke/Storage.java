@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +18,7 @@ public class Storage {
         Storage.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws DukeException{
+    public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {
