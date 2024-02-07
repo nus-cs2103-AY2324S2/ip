@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
@@ -28,7 +30,7 @@ public class Parser {
                     String s = userInput.substring("todo".length()).trim();
 
                     if (s.isEmpty()) {
-                        throw new DukeException("Task description cannot be empty.");
+                        throw new DukeException("duke.Task description cannot be empty.");
                     }
 
                     Task task = new Todo(s);

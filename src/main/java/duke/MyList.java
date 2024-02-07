@@ -1,4 +1,5 @@
-import java.io.*;
+package duke;
+
 import java.util.*;
 public class MyList {
     private List<Task> items;
