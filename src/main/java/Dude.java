@@ -5,6 +5,8 @@ public class  Dude {
 
     static TaskList taskList = new TaskList();
 
+    static final String[] supported_commands = {"bye", "list", "mark", "unmark", "todo", "event", "deadline"};
+
     public static void main(String[] args) {
 
 //        String logo =   "888888ba                 dP          \n" +
@@ -32,9 +34,16 @@ public class  Dude {
                 //this will not be handled.
                 break;
             }
-            String first_arg = msg.split(" ")[0];
 
-            switch (first_arg){
+            String command = "";
+            try {
+                command = get_command(msg);
+            }catch (InvalidCommandException e){
+                System.out.println(echo(e.getMessage()));
+                continue;
+            }
+
+            switch (command){
                 case "bye":
                     System.out.println(bye());
                     return;
@@ -140,7 +149,7 @@ public class  Dude {
         try{
             Todo task = Todo.from(msg);
             return taskList.add_task(task);
-        }catch (IllegalArgumentException | TaskListFullException e) {
+        }catch (InvalidDescriptionException | TaskListFullException e) {
             return echo(e.getMessage());
         }
     }
@@ -149,7 +158,7 @@ public class  Dude {
         try{
             Event task = Event.from(msg);
             return taskList.add_task(task);
-        }catch (IllegalArgumentException | TaskListFullException e) {
+        }catch (InvalidDescriptionException | InvalidFormatException | InvalidArgumentException | TaskListFullException e) {
             return echo(e.getMessage());
         }
     }
@@ -158,9 +167,20 @@ public class  Dude {
         try{
             Deadline task = Deadline.from(msg);
             return taskList.add_task(task);
-        }catch (IllegalArgumentException | TaskListFullException e) {
+        }catch (InvalidFormatException | InvalidArgumentException | InvalidDescriptionException | TaskListFullException e) {
             return echo(e.getMessage());
         }
+    }
+
+    private static String get_command(String msg) throws InvalidCommandException {
+        String cmd = msg.split(" ")[0];
+
+        for (String supported_command : supported_commands) {
+            if (cmd.equals(supported_command)) {
+                return cmd;
+            }
+        }
+        throw new InvalidCommandException("I'm sorry, but I don't know what\n\tthat means :-(");
     }
 
 }

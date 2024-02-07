@@ -1,6 +1,6 @@
 public class Deadline extends Task{
 
-    public static Deadline from(String s){
+    public static Deadline from(String s) throws InvalidFormatException, InvalidDescriptionException, InvalidArgumentException {
         //Expects a string in the format "deadline <description> /by <deadline_date>"
 
         //get rid of the command
