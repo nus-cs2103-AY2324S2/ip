@@ -1,3 +1,5 @@
+package luke.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +11,10 @@ public class Task {
 
     private String printStatus() {
         return (this.isDone ? "X" : " "); // mark done task with X
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public void markAsDone() {
