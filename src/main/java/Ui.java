@@ -1,8 +1,8 @@
 package tool;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
+import task.Task;
 import tool.TaskList;
 
 /**
@@ -43,16 +43,25 @@ public class Ui {
     /**
      * Prints task list.
      *
-     * @param noOfTasks Number of tasks in list.
      * @param tasks List of tasks.
      */
-    public void printTasks(int noOfTasks, TaskList tasks) {
+    public void printTasks(TaskList tasks) {
         System.out.println(DIVIDER);
         System.out.println("        Here are the tasks in your list:");
-        for (int i = 1; i < noOfTasks + 1; i++) {
+        for (int i = 1; i < tasks.size() + 1; i++) {
             task.Task currentTask = tasks.getTask(i - 1);
             System.out.println("        " + i + ". " + currentTask.toString());
         }
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints no outstanding tasks and list of commands.
+     */
+    public void printNoOutstandingTasks() {
+        System.out.println(DIVIDER);
+        System.out.println("        There are no outstanding tasks in your list.\n");
+        System.out.println("        You may add various tasks with the commands below:\n" + POSSIBLE_COMMANDS);
         System.out.println(DIVIDER);
     }
 
@@ -61,8 +70,87 @@ public class Ui {
      */
     public void printHelp() {
         System.out.println(DIVIDER);
-        System.out.println("        There are no outstanding tasks in your list.\n");
-        System.out.println("        You may add various tasks with the commands below:\n" + POSSIBLE_COMMANDS);
+        System.out.println("        Here are the possible commands:\n" + POSSIBLE_COMMANDS);
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints success message of adding a todo task.
+     *
+     * @param todo Todo object added.
+     * @param noOfTasks Number of tasks in the list.
+     */
+    public void printAddTodoSuccessful(Task todo, int noOfTasks) {
+        System.out.println(DIVIDER);
+        System.out.println("        Got it. I've added this task:");
+        System.out.println("          " + todo);
+        System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints success message of adding a deadline.
+     *
+     * @param deadline Deadline object added.
+     * @param noOfTasks Number of tasks in the list.
+     */
+    public void printAddDeadlineSuccessful(Task deadline, int noOfTasks) {
+        System.out.println(DIVIDER);
+        System.out.println("        Got it. I've added this task:");
+        System.out.println("          " + deadline);
+        System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints success message of adding an event.
+     *
+     * @param event Event object added.
+     * @param noOfTasks Number of tasks in the list.
+     */
+    public void printAddEventSuccessful(Task event, int noOfTasks) {
+        System.out.println(DIVIDER);
+        System.out.println("        Got it. I've added this task:");
+        System.out.println("          " + event);
+        System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints success message of marking a task as completed.
+     *
+     * @param selectedTaskToBeMarked Selected task to be marked as completed.
+     */
+    public void printMarkTaskSuccessful(Task selectedTaskToBeMarked) {
+        System.out.println(DIVIDER);
+        System.out.println("        Nice! I've marked this task as done:");
+        System.out.println("          " + selectedTaskToBeMarked);
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints success message of unmarking a task as incomplete.
+     *
+     * @param selectedTaskToBeUnmarked Selected task to be marked as completed.
+     */
+    public void printUnmarkTaskSuccessful(Task selectedTaskToBeUnmarked) {
+        System.out.println(DIVIDER);
+        System.out.println("        OK, I've marked this task as not done yet:");
+        System.out.println("          " + selectedTaskToBeUnmarked);
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints success message of deleting a task.
+     *
+     * @param deletedTask Selected task to be deleted.
+     * @param noOfTasks Number of tasks in the list.
+     */
+    public void printDeleteTaskSuccessful(Task deletedTask, int noOfTasks) {
+        System.out.println(DIVIDER);
+        System.out.println("        Noted. I've removed this task:");
+        System.out.println("          " + deletedTask);
+        System.out.println("        Now you have " + (noOfTasks - 1) + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 

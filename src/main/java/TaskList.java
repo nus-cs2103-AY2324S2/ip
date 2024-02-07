@@ -36,12 +36,7 @@ public class TaskList {
     public void addToDo(String description, Ui ui) {
         Todo todo = new Todo(description);
         tasks.add(todo);
-
-        ui.showDivider();
-        System.out.println("        Got it. I've added this task:");
-        System.out.println("          " + todo);
-        System.out.println("        Now you have " + tasks.size() + " tasks in the list.");
-        ui.showDivider();
+        ui.printAddTodoSuccessful(todo, tasks.size());
     }
 
     /**
@@ -53,12 +48,7 @@ public class TaskList {
     public void addDeadline(String description, String dueDate, Ui ui) {
         Deadline deadline = new Deadline(description, dueDate);
         tasks.add(deadline);
-
-        ui.showDivider();
-        System.out.println("        Got it. I've added this task:");
-        System.out.println("          " + deadline);
-        System.out.println("        Now you have " + tasks.size() + " tasks in the list.");
-        ui.showDivider();
+        ui.printAddDeadlineSuccessful(deadline, tasks.size());
     }
 
     /**
@@ -71,12 +61,7 @@ public class TaskList {
     public void addEvent(String description, String from, String to, Ui ui) {
         Event event = new Event(description, from, to);
         tasks.add(event);
-
-        ui.showDivider();
-        System.out.println("        Got it. I've added this task:");
-        System.out.println("          " + event);
-        System.out.println("        Now you have " + tasks.size() + " tasks in the list.");
-        ui.showDivider();
+        ui.printAddEventSuccessful(event, tasks.size());
     }
 
     /**
@@ -88,10 +73,7 @@ public class TaskList {
         Task selectedTaskToBeMarked = tasks.get(selectedTaskNumberToBeMarked - 1);
         selectedTaskToBeMarked.setMarked();
         tasks.set(selectedTaskNumberToBeMarked - 1, selectedTaskToBeMarked);
-        ui.showDivider();
-        System.out.println("        Nice! I've marked this task as done:");
-        System.out.println("          " + selectedTaskToBeMarked);
-        ui.showDivider();
+        ui.printMarkTaskSuccessful(selectedTaskToBeMarked);
     }
 
     /**
@@ -103,10 +85,7 @@ public class TaskList {
         Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
         selectedTaskToBeUnmarked.setUnmarked();
         tasks.set(selectedTaskNumberToBeUnmarked - 1, selectedTaskToBeUnmarked);
-        ui.showDivider();
-        System.out.println("        OK, I've marked this task as not done yet:");
-        System.out.println("          " + selectedTaskToBeUnmarked);
-        ui.showDivider();
+        ui.printUnmarkTaskSuccessful(selectedTaskToBeUnmarked);
     }
 
     /**
@@ -116,12 +95,7 @@ public class TaskList {
      */
     public void deleteTask(int selectedTaskNumberToBeDeleted, Ui ui) {
         Task deletedTask = tasks.get(selectedTaskNumberToBeDeleted - 1);
-
-        ui.showDivider();
-        System.out.println("        Noted. I've removed this task:");
-        System.out.println("          " + deletedTask);
-        System.out.println("        Now you have " + (tasks.size() - 1) + " tasks in the list.");
-        ui.showDivider();
+        ui.printDeleteTaskSuccessful(deletedTask, tasks.size());
         tasks.remove(selectedTaskNumberToBeDeleted - 1);
     }
 

@@ -53,14 +53,25 @@ public class Parser {
             return 0;
         } else {
             switch(token[0]) {
+            case "help":
+                try {
+                    if (token.length != 1) {
+                        throw ChronosException.createInvalidHelpException();
+                    } else {
+                        ui.printHelp();
+                    }
+                } catch (exception.InvalidHelpException e){
+                    System.out.println(e.getMessage());
+                }
+                return 1;
             case "list":
                 try {
                     if (token.length != 1) {
                         throw ChronosException.createInvalidListException();
                     } else if (tasks.isEmpty()) {
-                        ui.printHelp();
+                        ui.printNoOutstandingTasks();
                     } else {
-                        ui.printTasks(tasks.size(), tasks);
+                        ui.printTasks(tasks);
                     }
                 } catch (exception.InvalidListException e){
                     System.out.println(e.getMessage());

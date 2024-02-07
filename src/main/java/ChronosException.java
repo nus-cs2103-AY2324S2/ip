@@ -21,7 +21,16 @@ public abstract class ChronosException extends Exception {
      * @return InvalidListException
      */
     public static ChronosException createInvalidListException() {
-        return new InvalidListException(DIVIDER + "\n" + "        Invalid command. To print the list of tasks, please use list only.\n" + DIVIDER);
+        return new InvalidListException(DIVIDER + "\n" + "        Invalid command. To print the list of tasks, please key in list.\n" + DIVIDER);
+    }
+
+    /**
+     * Constructs a InvalidHelpException with the specified error message.
+     *
+     * @return InvalidHelpException
+     */
+    public static ChronosException createInvalidHelpException() {
+        return new InvalidHelpException(DIVIDER + "\n" + "        Invalid command. To view the list of commands, please key in help.\n" + DIVIDER);
     }
 
     /**
