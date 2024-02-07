@@ -45,10 +45,10 @@ public class Parser {
         } else if ("list".equalsIgnoreCase(userInput)) {
             taskList.printTasks();
         } else if (userInput.toLowerCase().startsWith("mark")) {
-            int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             taskList.markTask(taskNumber, true, storage);
         } else if (userInput.toLowerCase().startsWith("unmark")) {
-            int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             taskList.markTask(taskNumber, false, storage);
         } else if (userInput.toLowerCase().startsWith("delete")) {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);

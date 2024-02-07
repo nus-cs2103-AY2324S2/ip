@@ -23,7 +23,10 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void deleteTask(int taskNumber, Storage storage) {
+    public void deleteTask(int taskNumber, Storage storage) throws ChatbotException {
+        if (taskNumber <= 0 || taskNumber > tasks.size()){
+            throw new ChatbotException("Unknown task number. Please try again");
+        }
         Task removedTask = tasks.remove(taskNumber - 1);
         try {
             storage.saveTasks(tasks);
@@ -35,9 +38,12 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void markTask(int taskNumber, boolean isDone, Storage storage) {
+    public void markTask(int taskNumber, boolean isDone, Storage storage) throws ChatbotException {
+        if (taskNumber <= 0 || taskNumber > tasks.size()){
+            throw new ChatbotException("Unknown task number. Please try again");
+        }
         if (isDone) {
-            tasks.get(taskNumber).markAsDone();
+            tasks.get(taskNumber-1).markAsDone();
             try {
                 storage.saveTasks(tasks);
             } catch(IOException e) {
@@ -46,7 +52,7 @@ public class TaskList {
             System.out.println("Nice! I've marked this task as done: ");
         }
         else {
-            tasks.get(taskNumber).unmarkAsDone();
+            tasks.get(taskNumber-1).unmarkAsDone();
             try {
                 storage.saveTasks(tasks);
             } catch(IOException e) {
@@ -54,7 +60,7 @@ public class TaskList {
             }
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println("  " + tasks.get(taskNumber).toString());
+        System.out.println("  " + tasks.get(taskNumber-1).toString());
     }
 
     public void printTasks() {
