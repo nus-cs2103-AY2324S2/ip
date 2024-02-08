@@ -22,7 +22,8 @@ public class UnknownCommandException extends RuntimeException {
     public String getMessage() {
         String message = super.getMessage() + "\n";
         String badCommandMessage = String.format("Unknown command provided: %s\n", got);
-        String knownCommandsMessage = knownCommands == null ? ""
+        String knownCommandsMessage = (knownCommands == null)
+                ? ""
                 : String.format("Known commands: %s\n", String.join(", ", knownCommands));
         return String.format("%s%s%s",
                 badCommandMessage,

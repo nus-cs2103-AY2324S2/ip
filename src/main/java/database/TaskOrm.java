@@ -2,6 +2,7 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.Parser;
@@ -24,6 +25,8 @@ public class TaskOrm extends Database {
      *             if a database error occurs
      */
     public Task createTodo(String description) throws SQLException {
+        assert description != null : "description should not be null";
+
         String sql = "INSERT INTO tasks (type, description) VALUES (?, ?)";
 
         ResultSet rs = this.insert(sql, Todo.TYPE, description);
@@ -43,7 +46,10 @@ public class TaskOrm extends Database {
      * @throws SQLException
      *             if a database error occurs
      */
-    public Task createDeadline(String description, java.time.LocalDate deadline) throws SQLException {
+    public Task createDeadline(String description, LocalDate deadline) throws SQLException {
+        assert description != null : "description should not be null";
+        assert deadline != null : "deadline should not be null";
+
         String sql = "INSERT INTO tasks (type, description, deadline) VALUES (?, ?, ?)";
 
         ResultSet rs = this.insert(sql, Deadline.TYPE, description, deadline.toString());
@@ -65,8 +71,12 @@ public class TaskOrm extends Database {
      * @throws SQLException
      *             if a database error occurs
      */
-    public Task createEvent(String description, java.time.LocalDate startDate, java.time.LocalDate endDate)
+    public Task createEvent(String description, LocalDate startDate, LocalDate endDate)
             throws SQLException {
+        assert description != null : "description should not be null";
+        assert startDate != null : "startDate should not be null";
+        assert endDate != null : "endDate should not be null";
+
         String sql = "INSERT INTO tasks (type, description, startDate, endDate) VALUES (?, ?, ?, ?)";
 
         ResultSet rs = this.insert(sql, Event.TYPE, description, startDate.toString(), endDate.toString());
@@ -113,6 +123,8 @@ public class TaskOrm extends Database {
      *             if a database error occurs
      */
     public Task delete(int taskID) throws SQLException {
+        this.ensureExists(taskID);
+
         Task task = this.get(taskID);
 
         String sql = "DELETE FROM tasks WHERE id = ?";
@@ -131,6 +143,8 @@ public class TaskOrm extends Database {
      *             if a database error occurs
      */
     public Task get(int taskID) throws SQLException {
+        assert taskID > 0 : "taskID should be greater than 0";
+
         String sql = "SELECT * FROM tasks WHERE id = ?";
 
         ResultSet rs = this.select(sql, String.valueOf(taskID));
@@ -183,6 +197,8 @@ public class TaskOrm extends Database {
      *             if a database error occurs
      */
     public ArrayList<Task> list(String keyword) throws SQLException {
+        assert keyword != null : "keyword should not be null";
+
         ArrayList<Task> tasks = new ArrayList<>();
 
         String sql = "SELECT * FROM tasks WHERE description LIKE ?";
@@ -203,6 +219,8 @@ public class TaskOrm extends Database {
      *             if a database error occurs
      */
     public boolean isTaskDone(int taskID) throws SQLException {
+        assert taskID > 0 : "taskID should be greater than 0";
+
         String sql = "SELECT isDone FROM tasks WHERE id = ?";
         ResultSet rs = this.select(sql, String.valueOf(taskID));
 
@@ -214,6 +232,8 @@ public class TaskOrm extends Database {
     }
 
     private void ensureExists(int taskID) throws SQLException {
+        assert taskID > 0 : "taskID should be greater than 0";
+
         String sql = "SELECT COUNT(*) FROM tasks WHERE id = ?";
         ResultSet rs = this.select(sql, String.valueOf(taskID));
 

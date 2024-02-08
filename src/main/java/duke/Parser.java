@@ -32,6 +32,7 @@ public class Parser {
 
     /**
      * Parses the command from the inputs.
+     *
      * @return command word.
      * @throws BadInputException
      *             if the command is not specified
@@ -51,6 +52,7 @@ public class Parser {
 
     /**
      * Parses the task number from the inputs.
+     *
      * @return task number
      * @throws BadInputException
      *             if the task number is not specified, not an
@@ -78,6 +80,7 @@ public class Parser {
 
     /**
      * Parses the date from provided string.
+     *
      * @return date
      * @throws BadInputException
      *             if the date is not specified or not in the

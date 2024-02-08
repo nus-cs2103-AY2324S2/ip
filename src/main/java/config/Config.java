@@ -15,6 +15,7 @@ public class Config {
 
     /**
      * Loads the environment variables from the .env file.
+     *
      * @throws RuntimeException
      *             if necessary values are not set in .env file
      */
@@ -22,12 +23,11 @@ public class Config {
         Dotenv dotenv = Dotenv.load();
 
         this.dbConnectionUrl = dotenv.get("DB_CONNECTION_URL");
-        if (dbConnectionUrl == null) {
-            throw new RuntimeException("DB_CONNECTION_URL is not set in .env file");
-        }
+        assert this.dbConnectionUrl != null : "DB_CONNECTION_URL is not set in .env file";
 
         String appName = dotenv.get("APP_NAME");
         this.appName = Objects.requireNonNullElse(appName, "Duke");
+
     }
 
     public static void loadConfig() throws RuntimeException {
