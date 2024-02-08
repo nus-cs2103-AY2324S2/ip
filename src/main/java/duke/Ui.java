@@ -31,7 +31,6 @@ public class Ui {
      * Displays a welcome message when the application starts.
      */
     public void showWelcome() {
-        showLine();
         System.out.println("\n Hello! I'm FICIN!");
         System.out.println(" What can I do for you?");
     }
@@ -49,9 +48,7 @@ public class Ui {
      * Displays a goodbye message when the user exits the application.
      */
     public void showGoodbye() {
-        showLine();
         System.out.println(" \nBye. Hope to see you again soon!");
-        showLine();
     }
 
     /**
@@ -60,7 +57,6 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        showLine();
         System.out.println(" OOPS!!! " + message);
     }
 
@@ -71,11 +67,9 @@ public class Ui {
      * @param numberOfTasks  The total number of tasks after adding.
      */
     public void showTaskAdded(Task task, int numberOfTasks) {
-        showLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + numberOfTasks + " tasks in the list.");
-        showLine();
     }
 
     /**
@@ -94,10 +88,8 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public void showTaskUndone(Task task) {
-        showLine();
         System.out.println(" OK, I've marked this task as not done yet:");
         System.out.println("   " + task);
-        showLine();
     }
 
     /**
@@ -107,11 +99,9 @@ public class Ui {
      * @param numberOfTasks  The total number of tasks after deletion.
      */
     public void showTaskDeleted(Task task, int numberOfTasks) {
-        showLine();
         System.out.println(" Noted. I've removed this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + numberOfTasks + " tasks in the list.");
-        showLine();
     }
 
     /**
@@ -131,9 +121,7 @@ public class Ui {
      * This method shows a line separator, a notification message, and another line separator.
      */
     public void showNoTask() {
-        showLine();
         System.out.println(" There is no result found");
-        showLine();
     }
 
     /**
