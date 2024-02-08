@@ -1,13 +1,12 @@
 package duke;
 
-import duke.commands.*;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
 import duke.utils.Ui;
-
-import java.sql.SQLOutput;
 
 /**
  * The Parser class handles parsing of user input for Duke chatbot.
@@ -20,25 +19,25 @@ public class Parser {
      * @param userTasks The TaskList containing the user's tasks.
      * @param currInput The current user input.
      */
-    public static void parse(TaskList userTasks, String[] currInput) {
+    public static Command parse(String[] currInput, TaskList userTasks) {
         try {
             String cmd = currInput[0];
 
             // list tasks
             if (cmd.equals("list")) {
-                System.out.println(new ListCommand(currInput, userTasks).execute());
+                return new ListCommand(currInput, userTasks);
             // find tasks
             } else if (cmd.equals("find")) {
-                System.out.println(new FindCommand(currInput, userTasks).execute());
+                return new FindCommand(currInput, userTasks);
             // mark tasks
             } else if (cmd.contains("mark")) {
-                System.out.println(new MarkCommand(currInput, userTasks).execute());
+                return new MarkCommand(currInput, userTasks);
             // delete tasks
             } else if (cmd.equals("delete")) {
-                System.out.println(new DeleteCommand(currInput, userTasks).execute());
+                return new DeleteCommand(currInput, userTasks);
             // add tasks
             } else if (cmd.equals("deadline") || cmd.equals("event") || cmd.equals("todo")) {
-                System.out.println(new AddCommand(currInput, userTasks).execute());
+                return new AddCommand(currInput, userTasks);
             // unknown commands
             } else {
                 throw new DukeException(String.format(DukeException.UNKNOWN_CMD, cmd));

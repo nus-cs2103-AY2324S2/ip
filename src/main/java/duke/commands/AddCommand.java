@@ -12,6 +12,7 @@ import duke.task.Todo;
  */
 public class AddCommand extends Command {
     private TaskList userTasks;
+    private boolean isAdded;
 
     /**
      * Constructs a Find that handles search requests.
@@ -32,21 +33,21 @@ public class AddCommand extends Command {
             String[] task = cmd[1].split(" /by ");
             Deadline newDL = new Deadline(task[0], task[1]);
             userTasks.addTask(newDL);
-            super.isAdd = true;
+            isAdded = true;
         } else if (taskType.equals("event")) {
             String[] task = cmd[1].split(" /from ", 2);
             String[] period = task[1].split(" /to ", 2);
             Event newEvt = new Event(task[0], period[0], period[1]);
             userTasks.addTask(newEvt);
-            super.isAdd = true;
+            isAdded = true;
         } else if (taskType.equals("todo")) {
             Todo newTd = new Todo(cmd[1]);
             userTasks.addTask(newTd);
-            super.isAdd = true;
+            isAdded = true;
         }
 
         String response;
-        if (super.isAdd) {
+        if (isAdded) {
             int numTasks = userTasks.getSize();
             Task addedTask = userTasks.getTask(numTasks - 1);
             response = "    Got it. I've added this task:\n"

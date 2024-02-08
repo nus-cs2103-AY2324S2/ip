@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import duke.commands.Command;
 import duke.utils.Ui;
 
 /**
@@ -53,7 +54,7 @@ public class Duke {
 
         // programme
         while (!exitProgramme.contains(currInput[0])) {
-            Parser.parse(this.tasks, currInput);
+            Command cmd = Parser.parse(currInput, this.tasks);
             currInput = input.nextLine().split(" ", 2);
         }
 
@@ -77,7 +78,7 @@ public class Duke {
     public String getResponse(String input) {
         String[] currInput = input.split(" ", 2);
         if (!exitProgramme.contains(currInput[0])) {
-            Parser.parse(this.tasks, currInput);
+            Parser.parse(currInput, this.tasks);
         }
 
         return "Duke heard: " + input;

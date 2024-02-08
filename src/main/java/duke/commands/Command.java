@@ -8,7 +8,6 @@ import duke.DukeException;
  */
 public abstract class Command {
     protected String[] cmd;
-    protected boolean isAdd = false;
     protected boolean isExit = false;
 
     public Command(String[] cmd) {
