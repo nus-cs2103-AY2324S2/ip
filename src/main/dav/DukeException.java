@@ -1,4 +1,4 @@
-package dav;
+package main.dav;
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);

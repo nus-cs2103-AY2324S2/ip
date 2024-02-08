@@ -1,4 +1,4 @@
-package dav;
+package main.dav;
 import java.util.Scanner;
 
 public class Dav {
