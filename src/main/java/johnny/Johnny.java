@@ -1,5 +1,19 @@
 package johnny;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import johnny.commands.Command;
 import johnny.exceptions.JohnnyException;
 import johnny.parser.Parser;
@@ -13,12 +27,13 @@ import johnny.ui.Ui;
  */
 public class Johnny {
 
+    /** File path to where the data will be stored. */
+    private static final String FILE_PATH = "data/tasks.txt";
     /** Storage component to read and store Tasks in a text file. */
     private Storage storage;
-
     /** TaskList component to store tasks in a list. */
     private TaskList tasks;
-    /** Ui component that reads commands and prints responses to user. */
+    /** Ui component determines responses to user. */
     private Ui ui;
 
     /**
@@ -26,12 +41,10 @@ public class Johnny {
      * Instantiates Ui and Storage component.
      * Instantiates TaskList component using data in the Storage.
      * Ui will print any error caught in the chatbot to the user.
-     *
-     * @param filePath File path to where the data will be stored.
      */
-    public Johnny(String filePath) {
+    public Johnny() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
 
         try {
             tasks = new TaskList(storage.load());
@@ -46,29 +59,25 @@ public class Johnny {
      * Print welcome message and reads command from user and responds with the appropriate response.
      * Ui will print any error caught in the chatbot to the user.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
 
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (JohnnyException e) {
-                ui.showError(e.getMessage());
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            if (c.isExit()) {
+                Platform.exit();
             }
+            return ui.getOutput();
+        } catch (JohnnyException e) {
+            ui.showError(e.getMessage());
+            return ui.getOutput();
         }
     }
 
-    /**
-     * Instantiates a new chatbot with a specified file path and starts the chatbot.
-     *
-     * @param args Unused.
-     */
-    public static void main(String[] args) {
-        new Johnny("data/tasks.txt").run();
+    public String getWelcome() {
+        ui.showWelcome();
+        return ui.getOutput();
     }
 
 }
