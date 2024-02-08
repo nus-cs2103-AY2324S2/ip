@@ -42,7 +42,7 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke chatbot.
+     * Runs the Duke chatbot in CLI.
      * Processes user input until termination keywords are entered
      */
     public void run() {
@@ -63,11 +63,24 @@ public class Duke {
     }
 
     /**
-     * The main method to launch the Duke chatbot application.
+     * The main method to launch the Duke chatbot in CLI.
      *
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
         new Duke().run();
     }
+
+    /**
+     * Runs the Duke chatbot in GUI.
+     */
+    public String getResponse(String input) {
+        String[] currInput = input.split(" ", 2);
+        if (!exitProgramme.contains(currInput[0])) {
+            Parser.parse(this.tasks, currInput);
+        }
+
+        return "Duke heard: " + input;
+    }
+
 }

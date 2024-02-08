@@ -1,5 +1,6 @@
 package duke;
 
+import duke.commands.Find;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -11,34 +12,23 @@ import duke.utils.Ui;
  * It interprets user commands and executes corresponding actions.
  */
 public class Parser {
-
-    /**
-     * Default constructor for the Parser class.
-     */
-    public Parser() {}
-
     /**
      * Parses the user input and executes the corresponding actions.
      *
      * @param userTasks The TaskList containing the user's tasks.
      * @param currInput The current user input.
      */
-    public static void parse(TaskList userTasks, String[] currInput) {
+    public static String parse(TaskList userTasks, String[] currInput) {
         try {
             String cmd = currInput[0];
             boolean isAdded = false;
 
             // list tasks
             if (cmd.equals("list")) {
-                userTasks.printTasks(false);
+                System.out.println(userTasks.stringifyTasks(false));
             // find tasks
             } else if (cmd.equals("find")) {
-                if (currInput.length < 2) {
-                    throw new DukeException(
-                            String.format(DukeException.NON_EMPTY_DESC, cmd));
-                }
-                TaskList searchResults = userTasks.searchTasks(currInput[1], userTasks);
-                searchResults.printTasks(true);
+                return new Find(currInput, userTasks).execute();
             // mark tasks
             } else if (cmd.contains("mark")) {
                 if (currInput.length < 2) {
