@@ -205,13 +205,9 @@ public class Luna {
             output.append("      " + HORIZONTAL_LINE);
             while (readText != null) {
                 output.append("      ").append(readText).append("\n");
-//                output = new String(output + "      " + readText + "\n");
-
                 readText = br.readLine();
             }
             output.append("      " + HORIZONTAL_LINE);
-
-//            output += "      " + HORIZONTAL_LINE;
             System.out.print(output);
         }
 
