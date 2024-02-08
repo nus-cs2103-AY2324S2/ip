@@ -29,40 +29,30 @@ public class Parser {
      * @return true if the command is a termination command (e.g., 'bye'), otherwise false.
      * @throws JayneException if the command is invalid or if any issues occur during command execution.
      */
-    public boolean parse(String input) throws JayneException {
+    public String parse(String input) throws JayneException {
         String[] parts = input.split(" ", 2);
         String commandText = parts[0].toLowerCase();
         switch (commandText) {
         case "find":
-            Handler.handleFind(parts, taskList);
-            break;
+            return Handler.handleFind(parts, taskList);
         case "bye":
-            Handler.handleBye();
-            return true;
+            return Handler.handleBye();
         case "list":
-            Handler.handleList(taskList);
-            break;
+            return Handler.handleList(taskList);
         case "mark":
-            Handler.handleMark(parts, taskList);
-            break;
+            return Handler.handleMark(parts, taskList);
         case "unmark":
-            Handler.handleUnmark(parts, taskList);
-            break;
+            return Handler.handleUnmark(parts, taskList);
         case "todo":
-            Handler.handleTodo(parts, taskList);
-            break;
+            return Handler.handleTodo(parts, taskList);
         case "deadline":
-            Handler.handleDeadline(parts, taskList);
-            break;
+            return Handler.handleDeadline(parts, taskList);
         case "event":
-            Handler.handleEvent(parts, taskList);
-            break;
+            return Handler.handleEvent(parts, taskList);
         case "delete":
-            Handler.handleDelete(parts, taskList);
-            break;
+            return Handler.handleDelete(parts, taskList);
         default:
-            ui.question();
+            return ui.question();
         }
-        return false;
     }
 }

@@ -68,7 +68,7 @@ public class Storage {
      *
      * @param taskArray the list of tasks to be saved.
      */
-    public void saveTasks(List<Task> taskArray) {
+    public void saveTasks(List<Task> taskArray) throws JayneException {
         try {
             Path path = Paths.get(filepath);
             Files.createDirectories(path.getParent());
@@ -79,7 +79,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
+            throw new JayneException("An error occurred while saving tasks to file: " + e.getMessage());
         }
     }
     /**
@@ -88,7 +88,7 @@ public class Storage {
      *
      * @param taskArray the list to load the tasks into.
      */
-    public void loadTasks(List<Task> taskArray) {
+    public void loadTasks(List<Task> taskArray) throws JayneException {
         try {
             Path path = Paths.get(filepath);
             if (!Files.exists(path)) {
@@ -103,11 +103,11 @@ public class Storage {
                         taskArray.add(task);
                     }
                 } catch (JayneException e) {
-                    System.out.println("Error parsing line from file: " + line);
+                    throw new JayneException("Error parsing line from file: " + line);
                 }
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks from file: " + e.getMessage());
+            throw new JayneException("An error occurred while loading tasks from file: " + e.getMessage());
         }
     }
     /**

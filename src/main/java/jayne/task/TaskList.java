@@ -21,7 +21,7 @@ public class TaskList {
      *
      * @param storage the Storage object used for loading and saving tasks.
      */
-    public TaskList(Storage storage) {
+    public TaskList(Storage storage) throws JayneException {
         this.taskArray = new ArrayList<>();
         this.storage = storage;
         storage.renameFileIfExists();
@@ -41,20 +41,23 @@ public class TaskList {
      *
      * @param keyword the keyword to search for in task descriptions.
      */
-    public void findTask(String keyword) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+    public String findTask(String keyword) {
+        //System.out.println("____________________________________________________________");
+        //System.out.println("Here are the matching tasks in your list:");
         int count = 0;
+        String output = "";
         for (int i = 0; i < taskArray.size(); i++) {
             Task task = taskArray.get(i);
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                System.out.println(++count + "." + task);
+                output = ++count + "." + task;
             }
         }
         if (count == 0) {
-            System.out.println("No tasks found with the keyword: " + keyword);
+            output = "No tasks found with the keyword: " + keyword;
         }
-        System.out.println("____________________________________________________________");
+
+        return "Here are the matching tasks in your list:\n" + output;
+        //System.out.println("____________________________________________________________");
     }
 
     /**
@@ -77,7 +80,7 @@ public class TaskList {
      *
      * @param task the task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws JayneException {
         taskArray.add(task);
         this.taskCount = taskCount + 1;
         storage.saveTasks(taskArray);
@@ -100,7 +103,7 @@ public class TaskList {
      *
      * @param taskNumber the position of the task in the task list.
      */
-    public void markTaskAsDone(int taskNumber) {
+    public void markTaskAsDone(int taskNumber) throws JayneException {
         if (taskNumber >= 1 && taskNumber <= taskArray.size()) {
             taskArray.get(taskNumber - 1).markAsDone();
             storage.saveTasks(taskArray);
@@ -111,7 +114,7 @@ public class TaskList {
      *
      * @param taskNumber the position of the task in the task list.
      */
-    public void markTaskAsNotDone(int taskNumber) {
+    public void markTaskAsNotDone(int taskNumber) throws JayneException {
         if (taskNumber >= 1 && taskNumber <= taskArray.size()) {
             taskArray.get(taskNumber - 1).markAsNotDone();
             storage.saveTasks(taskArray);
@@ -120,10 +123,13 @@ public class TaskList {
     /**
      * Displays all tasks in the task list to the user.
      */
-    public void display() {
-        System.out.println("Here are the tasks in your list:");
+    public String display() {
+        //System.out.println("Here are the tasks in your list:");
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskArray.size(); i++) {
-            System.out.println((i + 1) + ". " + taskArray.get(i).toString());
+            output.append(i + 1).append(". ").append(taskArray.get(i).toString()).append("\n");
         }
+
+        return "Here are the tasks in your list:\n" + output;
     }
 }

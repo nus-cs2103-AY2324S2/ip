@@ -16,7 +16,7 @@ class TaskListTest {
 
     private static final String FILE_PATH = "./out/test.txt";
     @BeforeEach
-    void setUp() {
+    void setUp() throws JayneException {
         this.storage = new Storage(FILE_PATH);
         taskList = new TaskList(storage);
     }
@@ -28,7 +28,7 @@ class TaskListTest {
     }
 
     @Test
-    void addTask_addsTaskCorrectly() {
+    void addTask_addsTaskCorrectly() throws JayneException {
         // Given
         Task newTask = new Todo("Test Todo");
 
@@ -58,7 +58,7 @@ class TaskListTest {
     }
 
     @Test
-    void deleteTask_withInvalidIndex_throwsException() {
+    void deleteTask_withInvalidIndex_throwsException() throws JayneException {
         // Given
         Task task = new Todo("Test Todo");
         taskList.addTask(task);

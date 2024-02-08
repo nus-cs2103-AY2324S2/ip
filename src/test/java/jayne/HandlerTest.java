@@ -18,7 +18,7 @@ class HandlerTest {
     private Storage storage;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws JayneException {
         this.storage = new Storage("./out/test.txt");
         taskList = new TaskList(storage);
     }

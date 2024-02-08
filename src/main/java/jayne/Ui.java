@@ -18,11 +18,13 @@ public class Ui {
     /**
      * Displays a welcome message to the user when the application starts.
      */
-    public void showWelcome() {
-        System.out.println("___________________________________");
-        System.out.println("Hello! I'm Jayne");
-        System.out.println("What can I do for you?");
-        System.out.println("___________________________________");
+    public String showWelcome() {
+//        System.out.println("___________________________________");
+//        System.out.println("Hello! I'm Jayne");
+//        System.out.println("What can I do for you?");
+//        System.out.println("___________________________________");
+        return "Wakey Wakey Snowiee\n" + "its time for schooooll.\n"
+                + "What do you need?";
     }
     /**
      * Provides a generic question prompt when the user enters an unrecognized command.
@@ -30,6 +32,10 @@ public class Ui {
      * @return a String containing a message asking the user to input a valid command.
      */
     public String question() {
+//        System.out.println("___________________________________");
+//        System.out.println("What are you typing. please include either bye, list, mark, "
+//                + "umark, todo, deadline or event in your inputs please");
+//        System.out.println("___________________________________");
         return "What are you typing. please include either bye, list, mark, "
                 + "umark, todo, deadline or event in your inputs please";
     }

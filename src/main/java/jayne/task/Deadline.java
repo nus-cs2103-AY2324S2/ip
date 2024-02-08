@@ -1,5 +1,7 @@
 package jayne.task;
 
+import jayne.JayneException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,7 +18,7 @@ public class Deadline extends Task {
      * @param description the description of the deadline task.
      * @param by the deadline date as a String.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws JayneException {
         super(description);
         this.by = parseDate(by);
     }
@@ -27,12 +29,13 @@ public class Deadline extends Task {
      * @param dateString the date string to be parsed.
      * @return the parsed LocalDate or null if parsing fails.
      */
-    private LocalDate parseDate(String dateString) {
+    private LocalDate parseDate(String dateString) throws JayneException {
         try {
             return LocalDate.parse(dateString);
         } catch (DateTimeParseException e) {
-            System.out.println("Unable to parse the date: " + dateString);
-            return null;
+            //System.out.println("Unable to parse the date: " + dateString);
+            throw new JayneException("Unable to parse the date: " + dateString);
+            //return null;
         }
     }
     /**

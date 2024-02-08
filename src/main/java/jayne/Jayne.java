@@ -46,32 +46,22 @@ public class Jayne extends Application {
      *
      * @param filepath the path to the file where tasks are saved and loaded from.
      */
-    public Jayne(String filepath) {
+    public Jayne(String filepath) throws JayneException {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         this.taskList = new TaskList(storage);
     }
-    /**
-     * Starts the application.
-     * This method runs the main program loop which repeatedly
-     * takes in user input, processes it, and outputs the result
-     * until the exit command is issued.
-     */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
+
+    public String run(String input) {
         ui.showWelcome();
         Parser parser = new Parser(taskList, ui);
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = scanner.nextLine().trim();
-                if (input.isEmpty()) {
-                    throw new JayneException("Input cannot be empty.");
-                }
-                isExit = parser.parse(input);
-            } catch (JayneException e) {
-                System.out.println("\nHuh?!?!? " + e.getMessage() + "\n");
+        try {
+            if (input.isEmpty()) {
+                throw new JayneException("Input cannot be empty.");
             }
+            return "Hello, Snowieeee, " + parser.parse(input); //HERE
+        } catch (JayneException e) {
+            return "\nHuh?!?!? " + e.getMessage() + "\n";
         }
     }
     /**
@@ -82,7 +72,7 @@ public class Jayne extends Application {
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = getResponse(userInput.getText());
+        String dukeText = run(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
                 DialogBox.getDukeDialog(dukeText, jayne)
@@ -90,24 +80,6 @@ public class Jayne extends Application {
         userInput.clear();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-//        String output = "";
-//        Parser parser = new Parser(taskList, ui);
-//        try {
-//            if (input.isEmpty()) {
-//                output = "Input cannot be empty.";
-//            }
-//            parser.parse(input);
-//        } catch (JayneException e) {
-//            output = ui.question();
-//        }
-//        return output;
-        return "hi";
-    }
 
     @Override
     public void start(Stage stage) {
@@ -127,36 +99,39 @@ public class Jayne extends Application {
 
         stage.setScene(scene);
         stage.show();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(ui.showWelcome(), jayne)
+        );
 
         //Add design on how the program will look like
-        stage.setTitle("Jayne");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+//        stage.setTitle("Jayne");
+//        stage.setResizable(false);
+//        stage.setMinHeight(600.0);
+//        stage.setMinWidth(400.0);
+//
+//        mainLayout.setPrefSize(400.0, 600.0);
+//
+//        scrollPane.setPrefSize(385, 535);
+//        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+//
+//        scrollPane.setVvalue(1.0);
+//        scrollPane.setFitToWidth(true);
+//
+//        //You will need to import `javafx.scene.layout.Region` for this.
+//        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+//
+//        userInput.setPrefWidth(325.0);
+//
+//        sendButton.setPrefWidth(55.0);
+//
+//        AnchorPane.setTopAnchor(scrollPane, 1.0);
+//
+//        AnchorPane.setBottomAnchor(sendButton, 1.0);
+//        AnchorPane.setRightAnchor(sendButton, 1.0);
+//
+//        AnchorPane.setLeftAnchor(userInput , 1.0);
+//        AnchorPane.setBottomAnchor(userInput, 1.0);
 
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));

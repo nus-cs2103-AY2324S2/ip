@@ -3,6 +3,7 @@ John Doe
 todo borrow book
 todo
 deadline return book /by Sunday
+deadline return book /by 1999-02-02
 deadline
 deadline return book
 event project meeting /from Mon 2pm /to 4pm
@@ -26,4 +27,5 @@ delete
 delete 10
 delete 3
 list
+/find book
 bye
