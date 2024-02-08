@@ -36,6 +36,22 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the tasks that match the keyword.
+     *
+     * @param tasks The list of tasks that match the keyword.
+     */
+    public void showFind(TaskList tasks) {
+        if (tasks.size() == 0) {
+            System.out.print("I'm afraid I couldn't find any tasks that match your keyword, my dear.\n");
+            return;
+        }
+        System.out.print("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.print((i + 1) + ". " + tasks.get(i).toString() + "\n");
+        }
+    }
+
     public void showMark(Task task, boolean isMark) {
         if (isMark) {
             System.out.print("Well, isn't this delightful! I've marked this task as done, my dear.\n"

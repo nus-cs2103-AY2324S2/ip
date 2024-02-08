@@ -28,6 +28,22 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    /**
+     * Returns a new TaskList containing tasks that match the keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A new TaskList containing tasks that match the keyword.
+     */
+    public TaskList find(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.isMatchingKeyword(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return new TaskList(matchingTasks);
+    }
+
     public void delete(int index) {
         this.tasks.remove(index);
     }

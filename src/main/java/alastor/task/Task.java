@@ -39,5 +39,15 @@ public class Task {
         }
         return false;
     }
+
+    /**
+     * Returns true if the task's description contains the keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return True if the task's description contains the keyword.
+     */
+    public boolean isMatchingKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
 
