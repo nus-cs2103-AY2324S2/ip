@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents storage component of Buddy, storing Task data.
+ * Represents storage component of buddy.Buddy, storing Task data.
  */
 public class Storage {
     private String filePath;

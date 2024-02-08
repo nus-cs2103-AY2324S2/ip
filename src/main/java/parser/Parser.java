@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents Parser component of Buddy, parsing inputs given by user.
+ * Represents Parser component of buddy.Buddy, parsing inputs given by user.
  */
 public class Parser {
     protected static final DateTimeFormatter DATE_TIME_PARSE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -24,16 +24,18 @@ public class Parser {
      * @throws BuddyException If input given by user is incomplete or unrecognised.
      */
     public static Command parse(String fullCommand) throws BuddyException {
+        Command c = null;
         if (!fullCommand.isEmpty()) {
             String[] commandParts = fullCommand.split(" ", 2);
             CommandType commandWord = getCommandType(commandParts[0]);
 
             switch (commandWord) {
             case BYE:
-                // Fallthrough
-                return new ExitCommand();
+                c = new ExitCommand();
+                break;
             case LIST:
-                return new ListCommand();
+                c = new ListCommand();
+                break;
             case MARK:
                 // Fallthrough
             case UNMARK:
@@ -43,7 +45,8 @@ public class Parser {
                     }
 
                     int index = Integer.parseInt(commandParts[1].trim()) - 1;
-                    return new MarkCommand(commandWord, index);
+                    c = new MarkCommand(commandWord, index);
+                    break;
                 } catch (NumberFormatException nfe) {
                     throw new BuddyException("Not a valid task number buddy!");
                 }
@@ -54,7 +57,8 @@ public class Parser {
                     }
 
                     int index = Integer.parseInt(commandParts[1].trim()) - 1;
-                    return new DeleteCommand(index);
+                    c = new DeleteCommand(index);
+                    break;
                 } catch (NumberFormatException nfe) {
                     throw new BuddyException("Not a valid task number buddy!");
                 }
@@ -64,7 +68,8 @@ public class Parser {
                 }
 
                 Todo todo = new Todo(commandParts[1].trim());
-                return new AddCommand(todo);
+                c = new AddCommand(todo);
+                break;
             case DEADLINE:
                 try {
                     if (commandParts.length == 1) {
@@ -78,8 +83,8 @@ public class Parser {
 
                     LocalDateTime by = LocalDateTime.parse(requestBody[1].trim(), DATE_TIME_PARSE_FORMAT);
                     Deadline deadline = new Deadline(requestBody[0], by);
-                    return new AddCommand(deadline);
-
+                    c = new AddCommand(deadline);
+                    break;
                 } catch (DateTimeParseException dtpe) {
                     throw new BuddyException("Not a valid date format!");
                 }
@@ -102,7 +107,8 @@ public class Parser {
                     LocalDateTime from = LocalDateTime.parse(requestTime[0].trim(), DATE_TIME_PARSE_FORMAT);
                     LocalDateTime to = LocalDateTime.parse(requestTime[1].trim(), DATE_TIME_PARSE_FORMAT);
                     Event event = new Event(requestBody[0].trim(), from, to);
-                    return new AddCommand(event);
+                    c = new AddCommand(event);
+                    break;
                 } catch (DateTimeParseException dtpe) {
                     throw new BuddyException("Not a valid date format!");
                 }
@@ -111,12 +117,13 @@ public class Parser {
                     throw new BuddyException("What are you trying to find buddy?");
                 }
 
-                return new FindCommand(commandParts[1].trim());
+                c = new FindCommand(commandParts[1].trim());
+                break;
             default:
                 throw new BuddyException("Not a valid command!");
             }
         }
-        return new Command();
+        return c;
     }
 
     /**

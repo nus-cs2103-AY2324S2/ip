@@ -3,10 +3,9 @@ package command;
 import exception.BuddyException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 
 /**
- * Represents Command that exits Buddy.
+ * Represents Command that exits buddy.Buddy.
  */
 public class ExitCommand extends Command {
 
@@ -14,16 +13,15 @@ public class ExitCommand extends Command {
      * Saves data from TaskList into storage file.
      *
      * @param tasks TaskList consisting of Tasks.
-     * @param ui Current Ui object used.
      * @param storage Current Storage object used.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
             storage.save(tasks);
-            ui.showBye();
+            return "See ya!";
         } catch (BuddyException e) {
-            ui.showSavingError();
+            return "Error while saving to file!";
         }
     }
 
