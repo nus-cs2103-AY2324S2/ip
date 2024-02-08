@@ -1,3 +1,5 @@
+package gronk;
+
 public class UserInterface {
     public static final String WELCOME = "\tHi, I'm Gronk!\n"
             + "\tWhat's up today?";

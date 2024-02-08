@@ -1,3 +1,5 @@
+package gronk;
+
 public class WrongTimeFormatException extends Exception {
     public WrongTimeFormatException() {}
 

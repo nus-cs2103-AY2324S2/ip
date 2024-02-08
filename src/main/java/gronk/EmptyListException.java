@@ -1,3 +1,5 @@
+package gronk;
+
 public class EmptyListException extends Exception {
     public EmptyListException() {}
 

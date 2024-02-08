@@ -1,3 +1,5 @@
+package gronk;
+
 public class EmptyDescException extends Exception {
     public EmptyDescException() {}
 

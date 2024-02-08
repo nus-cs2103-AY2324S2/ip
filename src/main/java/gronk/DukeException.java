@@ -1,3 +1,5 @@
+package gronk;
+
 public class DukeException extends Exception {
     public DukeException() {}
 

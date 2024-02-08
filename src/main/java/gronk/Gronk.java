@@ -1,3 +1,5 @@
+package gronk;
+
 import java.util.Scanner;
 
 public class Gronk {
