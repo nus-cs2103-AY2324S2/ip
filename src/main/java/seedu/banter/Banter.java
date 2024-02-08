@@ -1,5 +1,8 @@
 package seedu.banter;
 
+import javafx.application.Application;
+
+
 /**
  * Represents the Banter program.
  */
@@ -8,10 +11,10 @@ public class Banter {
     private Parser parser = new Parser(storage);
 
     /**
-     * Starts the Banter program.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void start() {
-        parser.printGreetMessage();
-        parser.respondUntilExit();
+    String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
