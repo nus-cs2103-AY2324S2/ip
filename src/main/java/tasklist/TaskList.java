@@ -18,20 +18,50 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
+
+    /**
+     * Returns whether the task is checked
+     * @param num index of task
+     * @return boolean value of whether the task is checked
+     */
     public boolean isIndexedTaskChecked(int num) {
         return taskList.get(num).getStatusIcon().equals("X");
     }
+
+    /**
+     * Toggles whether the indexed task is marked
+     * @param num index of task
+     */
     public void toggleIndexedTask(int num) {
         taskList.get(num).toggleIsDone();
     }
+
+    /**
+     * Prints the task when it is marked
+     * @param ui the ui
+     * @param num the index for the task
+     */
     public void printTaskMarked(Ui ui, int num) {
         Task task = taskList.get(num);
         ui.printTaskMarked(task.toString());
     }
+
+    /**
+     * Prints the task when it is unmarked
+     * @param ui the ui
+     * @param num the index for the task
+     */
     public void printTaskUnMarked(Ui ui, int num) {
         Task task = taskList.get(num);
         ui.printTaskUnMarked(task.toString());
     }
+
+    /**
+     * Remove indexed task from tasklist and
+     * print to user
+     * @param ui the ui
+     * @param num the index of the task
+     */
     public void deleteTask(Ui ui, int num) {
         Task task = taskList.get(num);
         taskList.remove(num);
@@ -47,9 +77,16 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
     public boolean isEmpty(){
-
         return size == 0;
     }
+
+    /**
+     * Add the corresponding task to the tasklist
+     * @param ui the ui
+     * @param typeOfTask the type of task
+     * @param task the task information to add
+     * @throws JuxException
+     */
     public void addTask(Ui ui, String typeOfTask, String task) throws JuxException {
         if (typeOfTask.equals(Parser.TODO)) {
             addTodo(task);
@@ -79,5 +116,8 @@ public class TaskList {
     }
     public void showList(Ui ui) {
         ui.printList(taskList);
+    }
+    public void showListWithIndexing(Ui ui) {
+        ui.printListWithIndexing(taskList);
     }
 }

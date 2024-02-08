@@ -13,6 +13,14 @@ public class Parser {
     public static final String EVENT = "EVENT";
     public static final String INVALID = "INVALID";
 
+
+    /**
+     * Takes input from user and finds the corresponding action
+     * @param input input string
+     * @param taskList the task list
+     * @param ui the ui
+     * @throws JuxException
+     */
     public static void parsingInput(String input, TaskList taskList, Ui ui) throws JuxException {
         String command = findCommand(input);
         switch (command) {
@@ -20,7 +28,7 @@ public class Parser {
                 if (taskList.isEmpty()) {
                     throw new JuxException(" YOUR LIST IS EMPTY");
                 }
-                taskList.showList(ui);
+                taskList.showListWithIndexing(ui);
                 break;
             case "mark":
                 if (input.length() > 5 ) {
@@ -77,6 +85,12 @@ public class Parser {
                 break;
         }
     }
+
+    /**
+     * Returns the type of task to add
+     * @param input user input
+     * @return the type of task
+     */
     public static String typeOfTask(String input) {
 
         if (input.startsWith("todo")) {
@@ -89,6 +103,13 @@ public class Parser {
             return INVALID;
         }
     }
+
+    /**
+     * Parse input for Todo constructor
+     * @param input user input
+     * @return todo description
+     * @throws JuxException when description is empty
+     */
     public static String parseTodo(String input) throws JuxException {
         if (input.length() > 5) {
             return input.substring(5);
@@ -96,6 +117,14 @@ public class Parser {
             throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR TODO");
         }
     }
+
+    /**
+     * Parse input for Deadline constructor
+     * Checks if input format is valid
+     * @param input user input
+     * @return string array containing the deadline constructor values
+     * @throws JuxException if invalid time or missing description
+     */
     public static String[] parseDeadline(String input) throws JuxException {
         if (input.length() >10) {
             if (!input.contains("/")) {
@@ -109,6 +138,14 @@ public class Parser {
             throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR DEADLINE");
         }
     }
+
+    /**
+     * Parse input for Event constructor
+     * Checks if input format is valid
+     * @param input user input
+     * @return string array containing the event constructor values
+     * @throws JuxException if invalid time or missing description
+     */
     public static String[] parseEvent(String input) throws JuxException {
         if (input.length() >7 ) {
             String regex = ".*" + '/'+ ".*" + '/' + ".*";
@@ -124,29 +161,13 @@ public class Parser {
             throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR EVENT");
         }
     }
-    public static String formattedInputOfTask(String typeOfTask, String input) throws JuxException {
-        try {
-            String formattedInput = "";
-            switch (typeOfTask) {
-                case TODO:
-                    formattedInput = input.substring(5);
-                    break;
-                case EVENT:
-                    formattedInput = input.substring(6);
-                    break;
-                case DEADLINE:
-                    formattedInput = input.substring(9);
-                    break;
-                default:
-                    formattedInput = "invalid";
-            }
-            return formattedInput;
-        } catch(IndexOutOfBoundsException e) {
-            throw new JuxException("Enter the ask u want to add in the format of todo/event/deadline, whitespace" +
-                    "and the task u want");
-        }
 
-    }
+    /**
+     * Finds the action that the user wants to execute
+     * @param input user input
+     * @return string containing the action
+     * @throws JuxException if invalid action
+     */
     public static String findCommand(String input) throws JuxException {
         if (input.startsWith("mark")) {
             return "mark";
@@ -162,6 +183,13 @@ public class Parser {
             throw new JuxException("Enter a valid input");
         }
     }
+
+    /**
+     * Converts the input index provided by the user to an int
+     * @param listStringNumber string index
+     * @return int indedx
+     * @throws JuxException if invalid string index
+     */
     public static int convertStringIndexToIntZeroIndex(String listStringNumber) throws JuxException {
         try {
             return Integer.parseInt(listStringNumber) - 1;
@@ -169,19 +197,23 @@ public class Parser {
             throw new JuxException(e.getMessage()); // might customise error message
         }
     }
+
+    /**
+     * Returns a boolean value of whether
+     * the user wants to exit the program
+     * @param input user input
+     * @return boolean value depending if input is equal to bye
+     */
     public static boolean isExit(String input) {
         return input.equals("bye") ? true : false;
     }
 
-    public static boolean isDateTime(String date) {
-        String time = date.substring(date.length()-4);
-        if (time.contains(":")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    /**
+     * Convert the localDateTime variable in the task to
+     * a presentable format
+     * @param localDateTime date time stored in the task
+     * @return formatted string to be printed
+     */
     public static String convertDateTimeToStringUI(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         if(localDateTime.toLocalTime().equals(LocalTime.MIDNIGHT)) {
@@ -190,15 +222,32 @@ public class Parser {
 
         return localDateTime.format(formatter);
     }
+
+    /**
+     * Converts the localDateTime date to string to be stored in the datafile
+     * @param localDateTime date time stored in the task
+     * @return formatted string to be stored
+     */
     public static String convertDateTimeToStringStorage(LocalDateTime localDateTime) {
         String formattedDateTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
         return formattedDateTime;
     }
+
+    /**
+     * Converts the String dateTime in the storage to LocalDateTime
+     * @param date date string stored in storage
+     * @return the local date time to be stored in the task
+     */
     public static LocalDateTime storageConvertToDateTime(String date) {
         return LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
     }
 
-
+    /**
+     * Converts the String input to LocalDateTime
+     * @param date String date input
+     * @return local date time format
+     * @throws DateTimeException if invalid format
+     */
     public static LocalDateTime inputConvertToDateTime(String date) throws DateTimeException{
         try {
             String timeFormat = date;
