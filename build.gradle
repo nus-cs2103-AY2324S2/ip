@@ -28,13 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClassName="duke.Duke"
 }
 
 shadowJar {
+    archiveFileName = 'duke.jar'
     archiveBaseName = "duke"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
