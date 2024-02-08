@@ -11,6 +11,10 @@ public class Storage {
     private TaskList taskList;
     private UserInterface userInterface;
 
+    /**
+     * Saves the taskList to a file with filename. The format
+     * of messages has also been changed.
+     */
     public void saveToFile() {
         try {
             FileWriter myWriter = new FileWriter(this.filename);
@@ -24,6 +28,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a TaskList object containing Task objects from the
+     * filename (if it exists).
+     */
     public void loadFromFile() {
         try {
             File myFile = new File(this.filename);
@@ -40,21 +48,28 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the lines in a file which is being loaded and
+     * translates them into instructions to create a new
+     * TaskList object.
+     *
+     * @param m A line from the file that is being loaded.
+     */
     public void loadLine(String m) {
         String[] message = m.split(",");
         int messageType = message.length;
-        if (messageType == 2) { // todo
+        if (messageType == 2) {
             this.taskList.addTask(new Todo(
                     message[1],
                     Integer.parseInt(message[0])
             ));
-        } else if (messageType == 3) { // deadline
+        } else if (messageType == 3) {
             this.taskList.addTask(Deadline.createDeadline(
                     message[1],
                     Integer.parseInt(message[0]),
                     message[2]
             ));
-        } else if (messageType == 4) { // event
+        } else if (messageType == 4) {
             this.taskList.addTask(new Event(
                     message[1],
                     Integer.parseInt(message[0]),
@@ -64,14 +79,32 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the TaskList object which was read from the file.
+     *
+     * @return A TaskList object which was read from a file.
+     */
     public TaskList returnTasks() {
         return this.taskList;
     }
 
+    /**
+     * Getter method for the filepath variable.
+     *
+     * @return A string containing the filepath.
+     */
     public String getFilepath() {
         return this.filename;
     }
 
+    /**
+     * Constructor for Storage object.
+     * Initializes a filename for reference later, a
+     * TaskList to load data from, and a UserInterface
+     * to print messages with.
+     *
+     * @param filename String of filename.
+     */
     public Storage(String filename) {
         this.filename = filename;
         this.taskList = new TaskList();
