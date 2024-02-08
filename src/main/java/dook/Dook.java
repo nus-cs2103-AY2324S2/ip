@@ -1,15 +1,24 @@
 package dook;
 
 import command.Command;
+import javafx.application.Application;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import task.TaskList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 
 public class Dook {
@@ -19,6 +28,15 @@ public class Dook {
     private Ui ui;
     private Parser parser;
     private Storage storage;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/Meow1.png"));
+    private Image dook = new Image(this.getClass().getResourceAsStream("/images/Meow2.png"));
+
+
 
     public Dook() {
         this.tasks = new TaskList();
@@ -32,26 +50,12 @@ public class Dook {
      * and acts on the state of Dook accordingly.
      */
     public void run() {
-        try {
-            this.storage.checkFile();
-        } catch (Exception e) {
-            System.out.println("meow :( an error happened when opening your files, please restart to prevent data loss");
-            return;
-        }
-        this.ui.introduce();
-        try {
-            this.tasks = this.storage.loadTaskListFromFile();
-        } catch (IOException e) {
-            this.ui.println("error while loading file, specific error: " + e);
-        } catch (DookException e) {
-            this.ui.println(e.getMessage());
-        }
         boolean willExitLoop = false;
         while (!willExitLoop) {
             String input = ui.getInput();
             this.ui.printSeparator();
             try {
-                Command c = this.parser.parse(input);
+                Command c = Parser.parse(input);
                 c.execute(this.tasks, this.ui, this.storage);
                 willExitLoop = c.isExit();
             } catch (Exception e) {
@@ -62,6 +66,7 @@ public class Dook {
         }
     }
 
+<<<<<<< HEAD
 
     public static void main(String[] args) {
         Dook d = new Dook();
@@ -76,4 +81,16 @@ public class Dook {
         stage.setScene(scene); // Setting the stage to show our screen
         stage.show(); // Render the stage.
     }*/
+=======
+    public String getResponse(String input) {
+        try {
+            this.tasks = this.storage.loadTaskListFromFile();
+            Command c = Parser.parse(input);
+            String response = c.execute(this.tasks, this.ui, this.storage);
+            return response;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+>>>>>>> branch-Level-10
 }

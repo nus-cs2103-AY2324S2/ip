@@ -33,7 +33,7 @@ public class Storage {
             writer.write(tasks.fileRepresentation());
             writer.close();
         } catch (IOException e) {
-            throw new DookException("An error occured when writing to your files...:(" + e);
+            throw new DookException(String.join("/", path) + "An error occured when writing to your files...:(" + e);
         }
     }
 

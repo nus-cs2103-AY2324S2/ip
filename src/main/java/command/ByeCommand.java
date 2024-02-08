@@ -19,8 +19,8 @@ public class ByeCommand extends Command {
      * @param storage The storage interface.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
-        ui.println("Bye :(. Hope to see you again soon! ≽^- ˕ -^≼");
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         storage.write(tasks);
+        return "Bye :(. Hope to see you again soon! ≽^- ˕ -^≼";
     }
 }

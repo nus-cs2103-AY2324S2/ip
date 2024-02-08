@@ -14,8 +14,9 @@ public class ListCommand extends Command {
      * @param storage The storage interface.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.println("Here are your tasks!");
-        ui.println(tasks.toString());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String toReturn = "Here are your tasks!\n";
+        toReturn += tasks.toString();
+        return toReturn;
     }
 }

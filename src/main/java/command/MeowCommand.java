@@ -7,7 +7,7 @@ import task.TaskList;
 public class MeowCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.println("meow!");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "meow!";
     }
 }

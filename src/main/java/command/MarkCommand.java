@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
      * @throws DookException If TaskList is empty or indexed out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toMark;
         try {
             toMark = tasks.get(positionToMark - 1);
@@ -39,9 +39,11 @@ public class MarkCommand extends Command {
             }
             throw err;
         }
+        String toReturn = "";
         toMark.markAsDone();
-        ui.println("Oki! :D Good job! I've marked this task as done:");
-        ui.println(toMark.toString());
+        toReturn += "Oki! :D Good job! I've marked this task as done:\n";
+        toReturn += toMark.toString() + "\n";
         storage.write(tasks);
+        return toReturn;
     }
 }
