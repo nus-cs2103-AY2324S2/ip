@@ -3,6 +3,8 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+
+
 /**
  * Represents the Chatbot object.
  */
@@ -12,15 +14,15 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit = false;
+    private static final String FILE_PATH = "./data/duke.txt";
 
     /**
      * Constructor for Duke.
-     *
-     * @param filePath Filepath to store tasks data.
      */
-    public Duke(String filePath) {
+    public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(FILE_PATH);
 
         try {
             this.tasks = new TaskList(this.storage.readTasksFile());
@@ -31,23 +33,33 @@ public class Duke {
     }
 
     private void run() {
-        this.ui.greet();
-        boolean isExit = false;
+        System.out.println(this.ui.greet());
 
         while (!isExit) {
-            try {
-                String input = this.ui.readInput();
-                Command cmd = Parser.parse(input);
-                cmd.execute(this.tasks, this.ui, this.storage);
-                isExit = cmd.isExit();
-
-            } catch (DukeException e) {
-                ui.error(e);
-            }
+            String input = this.ui.readInput();
+            System.out.println(this.getResponse(input));
         }
     }
 
+    /**
+     * Returns the response to the user's input.
+     *
+     * @param input The user's input.
+     * @return The response to the user's input
+     */
+    protected String getResponse(String input) {
+        try {
+            Command cmd = Parser.parse(input);
+            String response = cmd.generateReply(this.tasks, this.ui, this.storage);
+            this.isExit = cmd.isExit();
+            return response;
+        } catch (DukeException e) {
+            return ui.error(e);
+        }
+    }
+
+
     public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+        new Duke().run();
     }
 }

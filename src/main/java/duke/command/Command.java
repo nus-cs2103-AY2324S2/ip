@@ -12,14 +12,15 @@ import duke.Ui;
 public abstract class Command {
 
     /**
-     * Abstract method of the execution of command.
+     * Abstract method of the execution of command and generation of the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
+     * @return The reply to the user's input.
      * @throws DukeException If command has error.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String generateReply(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
 
     /**

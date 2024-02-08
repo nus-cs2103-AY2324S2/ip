@@ -25,21 +25,21 @@ public class AddTodoCommand extends Command {
         this.arguments = arguments;
     }
 
-
     /**
-     * Executes the todo command.
+     * Executes the todo command and generates the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
+     * @return The reply to the user's input.
      * @throws InvalidArgumentException If command has invalid or missing arguments.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgumentException {
+    public String generateReply(TaskList taskList, Ui ui, Storage storage) throws InvalidArgumentException {
         try {
             Task newTask = new Todo(this.arguments);
             taskList.add(newTask);
-            ui.addTask(newTask, taskList.getLength());
+            return ui.addTask(newTask, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("TODO");

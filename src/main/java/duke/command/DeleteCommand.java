@@ -26,22 +26,23 @@ public class DeleteCommand extends Command {
 
 
     /**
-     * Executes the delete command.
+     * Executes the delete command and generates the response.
      *
-      * @param taskList List of tasks.
+     * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
-     * @throws InvalidArgumentException If command has invalid or missing arguments
+     * @return The reply to the user's input.
+     * @throws InvalidArgumentException If command has invalid or missing arguments.
      * @throws NoTaskFoundException If the task to be deleted can't be found.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public String generateReply(TaskList taskList, Ui ui, Storage storage)
             throws InvalidArgumentException, NoTaskFoundException {
         try {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
             taskList.remove(taskId);
-            ui.deleteTask(task, taskList.getLength());
+            return ui.deleteTask(task, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("DELETE");

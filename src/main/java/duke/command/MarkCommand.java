@@ -26,22 +26,23 @@ public class MarkCommand extends Command {
 
 
     /**
-     * Executes the mark command.
+     * Executes the mark command and generates the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
+     * @return The reply to the user's input.
      * @throws InvalidArgumentException If command has invalid or missing arguments
      * @throws NoTaskFoundException If the task to be marked can't be found.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public String generateReply(TaskList taskList, Ui ui, Storage storage)
             throws InvalidArgumentException, NoTaskFoundException {
         try {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
             task.changeMark("MARK");
-            ui.markTask(task);
+            return ui.markTask(task);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("MARK");
