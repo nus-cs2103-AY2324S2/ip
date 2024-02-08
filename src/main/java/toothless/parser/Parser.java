@@ -1,11 +1,11 @@
 package toothless.parser;
 
+import java.util.ArrayList;
+
 import toothless.exception.ToothlessException;
 import toothless.task.Task;
 import toothless.task.TaskList;
 import toothless.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * A class that parses, resolves and validates user input.
@@ -22,16 +22,14 @@ public class Parser {
 
     /**
      * Returns isRunning boolean.
-     * 
      * @return A boolean that indicates if program is still running.
      */
     public boolean isStillRunning() {
         return isRunning;
     }
-    
+
     /**
      * The main method that parses user input.
-     * 
      * @param userInput User input string to be parsed.
      * @param tasks TaskList class that is operated on when user command is executed.
      * @param ui Ui class used to print messages.
@@ -42,7 +40,7 @@ public class Parser {
             ui.printMessage("Bye. Purr-lease chat again soon!");
             makeExit();
         } else if (userInput.equals("list")) {
-            ui.printList(tasks.getTasks(), 
+            ui.printList(tasks.getTasks(),
                     "\tOops! Looks like you haven't added any tasks yet!", "");
         } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
             int listIndex = validateListInput(userInput, "mark", tasks.size());
@@ -71,7 +69,7 @@ public class Parser {
         } else if (userInput.startsWith("find ") || userInput.equals("find")) {
             String keyword = validateFindInput(userInput);
             ArrayList<Task> keywordTasks = tasks.findKeyword(keyword);
-            ui.printList(keywordTasks, 
+            ui.printList(keywordTasks,
                     "\tOops! Looks like there are no tasks matching the keyword!",
                     "\tHere are the meow-tching tasks in your list:\n");
         } else {
@@ -81,7 +79,6 @@ public class Parser {
 
     /**
      * Validates the user input for commands dealing with list item.
-     * 
      * @param listInput User input string for list item to be validated.
      * @param command The user command that uses the list item.
      * @param taskListSize The size of the taskList.
@@ -112,7 +109,6 @@ public class Parser {
 
     /**
      * Validates the user input for todo command.
-     * 
      * @param toDoInput User input string for todo command.
      * @return The todo task description.
      * @throws ToothlessException if task description is empty.
@@ -127,7 +123,6 @@ public class Parser {
 
     /**
      * Validates the user input for deadline command.
-     * 
      * @param deadlineInput User input string for deadline command.
      * @return String array containing task description and /by field.
      * @throws ToothlessException if user input is invalid or in the wrong format.
@@ -137,8 +132,8 @@ public class Parser {
                 .strip().split("\\s+/by\\s+");
 
         if (deadlineAttributes.length != 2) {
-            throw new ToothlessException("Sorry, purr-lease use the format: " +
-                    "deadline [description] /by [yyyy-mm-dd hh:mm].");
+            throw new ToothlessException("Sorry, purr-lease use the format: "
+                    + "deadline [description] /by [yyyy-mm-dd hh:mm].");
         } else if (deadlineAttributes[0].isBlank()) {
             throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
         } else if (deadlineAttributes[1].isBlank()) {
@@ -150,7 +145,6 @@ public class Parser {
 
     /**
      * Validates the user input for event command.
-     * 
      * @param eventInput User input string for event command.
      * @return String array containing task description, /from field and /to field.
      * @throws ToothlessException if user input is invalid or in the wrong format.
@@ -164,8 +158,8 @@ public class Parser {
         int toIndex = eventInput.indexOf("/to");
 
         if (tempAttributes.length != 3) {
-            throw new ToothlessException("Sorry, purr-lease use the format: " +
-                    "event [description] /from [yyyy-mm-dd hh:mm] /to [yyyy-mm-dd hh:mm]");
+            throw new ToothlessException("Sorry, purr-lease use the format: "
+                    + "event [description] /from [yyyy-mm-dd hh:mm] /to [yyyy-mm-dd hh:mm]");
         } else if (fromIndex == -1 || toIndex == -1) {
             throw new ToothlessException("Sorry, purr-lease remember to include the /from and /to fields.");
         } else if (tempAttributes[0].isBlank()) {
@@ -189,7 +183,6 @@ public class Parser {
 
     /**
      * Validates the user input for find command.
-     * 
      * @param findInput The user input for find command.
      * @return The keyword to be found.
      * @throws ToothlessException if keyword is blank.

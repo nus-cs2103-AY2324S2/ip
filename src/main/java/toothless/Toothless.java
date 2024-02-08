@@ -17,24 +17,13 @@ public class Toothless {
     private Parser parser;
 
     /**
-     * The main method and entry point of the program. 
-     * 
-     * @param args Command-line arguments passed to the program.
-     */
-    public static void main(String[] args) {
-        Toothless toothless = new Toothless("./data/tasklist.txt");
-        toothless.run();
-    }
-
-    /**
      * A private constructor to initialize the chatbot.
-     * 
      * @param filepath A String indicating the filepath where data would be stored.
      */
     private Toothless(String filepath) {
         ui = new Ui();
         parser = new Parser();
-        
+
         try {
             this.storage = new Storage(filepath);
             this.tasks = new TaskList(this.storage.loadStorage());
@@ -46,12 +35,20 @@ public class Toothless {
     }
 
     /**
+     * The main method and entry point of the program.
+     * @param args Command-line arguments passed to the program.
+     */
+    public static void main(String[] args) {
+        Toothless toothless = new Toothless("./data/tasklist.txt");
+        toothless.run();
+    }
+
+    /**
      * The main loop of the program.
      */
     private void run() {
         this.isRunning = true;
         ui.printWelcome();
-        
         while (this.isRunning) {
             try {
                 String userInput = ui.readCommand();
@@ -64,13 +61,11 @@ public class Toothless {
                 ui.printLine();
             }
         }
-        
         try {
             storage.saveToStorage(tasks.getTasks());
             ui.printMessage("Successfully saved task data to tasklist.txt.");
         } catch (ToothlessException e) {
             ui.printMessage(e.getMessage());
         }
-        
     }
 }

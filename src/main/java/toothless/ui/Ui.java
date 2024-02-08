@@ -1,9 +1,9 @@
 package toothless.ui;
 
-import toothless.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import toothless.task.Task;
 
 /**
  * Class for dealing with interactions with the user.
@@ -48,11 +48,11 @@ public class Ui {
      */
     public void printWelcome() {
         printLine();
-        String introMessage = " /\\_/\\\n" +
-                "\t( o.o )\n" +
-                "\t > ^ <\n" +
-                "\tNya-ice to meet you! I'm Toothless :D\n" +
-                "\tWhat can I do for you?";
+        String introMessage = " /\\_/\\\n"
+                + "\t( o.o )\n"
+                + "\t > ^ <\n"
+                + "\tNya-ice to meet you! I'm Toothless :D\n"
+                + "\tWhat can I do for you?";
         printMessage(introMessage);
         printLine();
     }
