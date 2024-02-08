@@ -1,0 +1,49 @@
+.dialog-box {
+    -fx-background-color: white;
+    -fx-border-color: #e1e1e1;
+    -fx-border-radius: 5px;
+    -fx-alignment: center-left; /* Default alignment for all dialog boxes */
+}
+
+
+.main-window {
+    -fx-background-color: #ffffff;
+}
+
+.button {
+    -fx-background-color: #09c;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
+
+.text-field {
+    -fx-border-color: #e1e1e1;
+    -fx-border-radius: 5px;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.vbox {
+    -fx-spacing: 8px;
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+.dialog-box {
+    -fx-alignment: center-left; /* Aligns the contents of the dialog box to the left */
+}
+
+.dialog-box .label {
+    -fx-text-fill: black; /* Ensures the text is readable */
+}
+
+.dialog-box.bot {
+    -fx-alignment: center-right; /* Aligns the contents of the dialog box to the right */
+}

@@ -17,18 +17,23 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in the list to the console.
+     * Lists the tasks in the task list.
+     *
+     * @return A string representation of the tasks in the list.
      */
-    public static void list() {
+    public static String list() {
+        StringBuilder result = new StringBuilder();
+
         if (taskList.isEmpty()) {
-            System.out.println("You have no tasks! Hooray!!!!!!!!!!");
+            result.append("You have no tasks! Hooray!!!!!!!!!!");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            result.append("Here are the tasks in your list:\n");
             for (int i = 0; i < taskList.size(); i++) {
                 int number = i + 1;
-                System.out.println(number + ". " + taskList.get(i));
+                result.append(number).append(". ").append(taskList.get(i)).append("\n");
             }
         }
+        return result.toString();
     }
 
     /**
@@ -41,30 +46,40 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list and prints a message to the console.
+     * Adds a task to the list and returns a message string.
+     *
+     * @param task the task to add
+     * @return A message indicating the task addition.
+     */
+    public static String addTask(Task task) {
+        taskList.add(task);
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                task, taskList.size());
+    }
+
+    /**
+     * Adds a task to the list without returning any message.
      *
      * @param task the task to add
      */
-    public static void addTask(Task task) {
-        taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
-    }
-
     public static void addTaskSilent(Task task) {
         taskList.add(task);
     }
 
-    public static void markTask(int idx) {
+    /**
+     * Marks a task as done and returns a message string.
+     *
+     * @param idx the 1-based index of the task to mark
+     * @return A message indicating the task marked as done.
+     */
+    public static String markTask(int idx) {
         Task task = taskList.get(idx - 1);
         task.done();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        return String.format("Nice! I've marked this task as done:\n%s", task);
     }
 
     /**
-     * Marks a task as done without printing any message.
+     * Marks a task as done without returning any message.
      *
      * @param idx the 1-based index of the task to mark
      */
@@ -74,28 +89,28 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as not done and prints a message to the console.
+     * Marks a task as not done and returns a message string.
      *
      * @param idx the 1-based index of the task to unmark
+     * @return A message indicating the task marked as not done yet.
      */
-    public static void unmarkTask(int idx) {
+    public static String unmarkTask(int idx) {
         Task task = taskList.get(idx - 1);
         task.undone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        return String.format("OK, I've marked this task as not done yet:\n%s", task);
     }
 
     /**
-     * Deletes a task from the list and prints a message to the console.
+     * Deletes a task from the list and returns a message string.
      *
      * @param idx the 1-based index of the task to delete
+     * @return A message indicating the task deletion.
      */
-    public static void deleteTask(int idx) {
+    public static String deleteTask(int idx) {
         Task task = taskList.get(idx - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size() - 1));
         taskList.remove(idx - 1);
+        return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+                task, taskList.size());
     }
 
     /**
@@ -109,16 +124,17 @@ public class TaskList {
     }
 
     /**
-     * Finds and displays tasks in the task list that match the provided search string.
+     * Finds and returns a message string for tasks that match the provided search string.
      *
      * This method iterates through the task list, checking if each task's string representation
-     * contains the provided search string (case-insensitive). Matching tasks are displayed with
-     * their corresponding index and task details. If no matches are found, an appropriate message
-     * is printed to indicate no matching tasks.
+     * contains the provided search string (case-insensitive). Matching tasks are included in the
+     * returned message string along with their corresponding index and task details.
      *
      * @param search The search string to match against task names.
+     * @return A message string containing matching tasks or an indication of no matching tasks.
      */
-    public static void findTask(String search) {
+    public static String findTask(String search) {
+        StringBuilder result = new StringBuilder();
         boolean isThereMatch = false; // Flag to track if any matching tasks are found
         int number = 1; // Counter for displaying the index of matching tasks
 
@@ -129,19 +145,21 @@ public class TaskList {
             // Check if the task name contains the search string (case-insensitive)
             if (taskName.toLowerCase().contains(search.toLowerCase())) {
                 if (!isThereMatch) {
-                    System.out.println("Here are the matching tasks in your list: ");
+                    result.append("Here are the matching tasks in your list: \n");
                     isThereMatch = true;
                 }
-                System.out.println(number + ". " + task);
+                result.append(number).append(". ").append(task).append("\n");
                 number++;
             }
         }
-    
-        // Print a message if no matching tasks are found
-        if (!isThereMatch) {
-            System.out.println("No matching tasks found!");
-        }
-    }
 
+        // Append a message if no matching tasks are found
+        if (!isThereMatch) {
+            result.append("No matching tasks found!");
+        }
+
+        return result.toString();
+    }
 }
+
 
