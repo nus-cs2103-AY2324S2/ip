@@ -1,4 +1,9 @@
-import java.util.List;
+import lai.task.Deadline;
+import lai.task.Event;
+import lai.task.Task;
+import lai.task.ToDo;
+import lai.util.*;
+
 import java.util.Scanner;
 
 public class Lai {
