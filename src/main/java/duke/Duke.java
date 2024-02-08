@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import duke.command.Command;
+import duke.ui.Ui;
 
 /**
  * The main class of the Duke program.
@@ -38,7 +39,7 @@ public class Duke {
     }
 
     public String getResponse(String input) {
-        return "Duke said: " + input;
+        return "Hello";
     }
 
     /**

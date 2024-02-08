@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * A command to find the tasks matching a certain query.
