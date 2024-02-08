@@ -9,7 +9,7 @@ import chimp.exception.*;
 public class Chimp {
     public static void main(String[] args) throws InvalidParameterException {
         Ui ui = new Ui();
-        TaskList list = new TaskList();
+        TaskList tasks = new TaskList();
         Storage storage = new Storage();
         ui.say("greet");
 
@@ -19,9 +19,9 @@ public class Chimp {
             String inp = sc.nextLine();
             try {
                 Command c = Parser.parse(inp);
-                c.execute(list, ui, storage);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-                Storage.saveOutputToFile(list.toString());
+                Storage.saveOutputToFile(tasks.toString());
             } catch (InvalidCommandException
                     | CommandParseException
                     | CommandExecuteException e) {

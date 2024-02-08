@@ -7,7 +7,7 @@ import chimp.core.Ui;
 public class ExitCommand extends Command{
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.say("bye");
     }
 

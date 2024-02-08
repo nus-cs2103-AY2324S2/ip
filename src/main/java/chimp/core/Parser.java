@@ -33,14 +33,16 @@ public class Parser {
                 String fromSubCommand = arg.split("/")[1];
                 String from = fromSubCommand.substring(fromSubCommand.indexOf(' '));
                 from = from.strip();
-                if (from == null || from.equals(""))
+                if (from == null || from.equals("")) {
                     throw new CommandParseException("deadline needs by date/time!");
+                }
 
                 String toSubCommand = arg.split("/")[2];
                 String to = toSubCommand.substring(toSubCommand.indexOf(' '));
                 to = to.strip();
-                if (to == null || to.equals(""))
+                if (to == null || to.equals("")) {
                     throw new CommandParseException("deadline needs by date/time!");
+                }
 
                 LocalDate fromDate;
                 LocalDate toDate;
@@ -65,8 +67,9 @@ public class Parser {
                     throw new CommandParseException("Invalid date format provided to deadline");
                 }
 
-                if (by == null || by.equals(""))
+                if (by == null || by.equals("")) {
                     throw new CommandParseException("deadline needs by date/time!");
+                }
 
                 // TODO: switch case scoping best practice?
                 text = arg.split("/")[0].strip();
