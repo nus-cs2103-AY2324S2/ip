@@ -15,12 +15,6 @@ public class TaskList {
         }
     }
     /**
-     * Creating an empty task list.
-     */
-    public TaskList() {
-        this.taskList = new ArrayList<>();
-    }
-    /**
      * Prints the task list to console.
      */
     public void returnList() {
