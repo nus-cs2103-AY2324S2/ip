@@ -17,14 +17,14 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
         try {
             if (isMark) {
                 taskList.get(num).markAsDone();
-                ui.showMark(taskList, num);
+                return ui.showMark(taskList, num);
             } else {
                 taskList.get(num).markAsNotDone();
-                ui.showUnmark(taskList, num);
+                return ui.showUnmark(taskList, num);
             }
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("OOPS!! I haven't record this detective.task!");

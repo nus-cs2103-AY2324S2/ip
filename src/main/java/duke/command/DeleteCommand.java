@@ -16,12 +16,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
         Task needDelete;
         try {
             needDelete = taskList.get(num);
             taskList.remove(num);
-            ui.showDeleteTask(taskList, needDelete);
+            return ui.showDeleteTask(taskList, needDelete);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("OOPS!! I haven't record this detective.task!");
         }

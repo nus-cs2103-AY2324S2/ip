@@ -8,5 +8,7 @@ import duke.Ui;
  * Represents an executable command.
  */
 public abstract class Command {
-    public void execute(TaskList taskList, Ui ui) throws DukeException { }
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
+        return null;
+    }
 }

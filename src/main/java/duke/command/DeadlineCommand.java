@@ -16,8 +16,8 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Ui ui) throws DukeException {
         taskList.add(task);
-        ui.showAddTask(taskList, task);
+        return ui.showAddTask(taskList, task);
     }
 }
