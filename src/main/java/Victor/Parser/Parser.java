@@ -20,7 +20,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /** The taskName enum is a class that holds all the names of the various tasks. */
-    enum taskName {
+    enum TaskName {
         list,
         mark,
         unmark,
@@ -118,7 +118,7 @@ public class Parser {
                     ui.displayBarrier();
                     System.out.println("Sorry pal, but your description is empty.");
                     System.out.println("Please redo the command and remember to add a description of the action");
-                    System.out.println("The format to schedule a todo task is: " + taskName.todo + " (Description)");
+                    System.out.println("The format to schedule a todo task is: " + TaskName.todo + " (Description)");
                     ui.displayBarrier();
                 }
             }
@@ -137,7 +137,7 @@ public class Parser {
                     ui.displayBarrier();
                     System.out.println("Oh, you forgot to indicate when is the deadline or maybe you forgot the description.");
                     System.out.println("Please redo the command and remember to add the necessary information.");
-                    System.out.println("The format to schedule a deadline is: " + taskName.deadline + " (Description) /by (Deadline Date + time)");
+                    System.out.println("The format to schedule a deadline is: " + TaskName.deadline + " (Description) /by (Deadline Date + time)");
                     ui.displayBarrier();
                 } catch (DateTimeParseException e) {
                     ui.displayBarrier();
@@ -162,7 +162,7 @@ public class Parser {
                     System.out.println("You forgot to provide either a description, an start date or an end date for this event.");
                     System.out.println("Sorry, but mind reading is not installed in me yet.");
                     System.out.println("Please redo the command and remember to add the necessary information.");
-                    System.out.println("The format to schedule a event is: " + taskName.event + " (Description) /from (Start date + time) /to (End date + time)");
+                    System.out.println("The format to schedule a event is: " + TaskName.event + " (Description) /from (Start date + time) /to (End date + time)");
                     ui.displayBarrier();
                 }
             }
@@ -179,14 +179,14 @@ public class Parser {
                 } catch (IndexOutOfBoundsException e) {
                     ui.displayBarrier();
                     System.out.println("The number you gave exceeds how many items is in the list.");
-                    System.out.println("Can't " + taskName.delete + " an item not in the list. Please try again.");
-                    System.out.println("The format to delete a task is: " + taskName.delete + " (task list number)");
+                    System.out.println("Can't " + TaskName.delete + " an item not in the list. Please try again.");
+                    System.out.println("The format to delete a task is: " + TaskName.delete + " (task list number)");
                     ui.displayBarrier();
                 } catch (NumberFormatException e) {
                     ui.displayBarrier();
                     System.out.println("Sorry, I'm only smart enough to find the task based on numbers.");
                     System.out.println("Please give a number. If you refuse, too bad, this is all I can do.");
-                    System.out.println("The format to delete a task is: " + taskName.delete + " (task list number)");
+                    System.out.println("The format to delete a task is: " + TaskName.delete + " (task list number)");
                     ui.displayBarrier();
                 }
             }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     /** The currentTaskList variable is used to hold the current data of the program */
-    ArrayList<Task> currentTaskList;
+    ArrayList<Task> currentTask;
     /** The ui variable is used to use any method from the Ui class */
     Ui ui = new Ui();
 
@@ -30,7 +30,7 @@ public class TaskList {
      *
      */
     public TaskList(ArrayList<Task> currentTaskList) {
-        this.currentTaskList = currentTaskList;
+        this.currentTask = currentTaskList;
     }
 
     /**
@@ -39,7 +39,7 @@ public class TaskList {
      *
      */
     public TaskList() {
-        this.currentTaskList = new ArrayList<Task>();
+        this.currentTask = new ArrayList<Task>();
     }
 
     /**
@@ -49,8 +49,8 @@ public class TaskList {
     public void printList() {
         ui.displayBarrier();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < currentTaskList.size(); i++) {
-            System.out.println(i+1 + "." + currentTaskList.get(i).toString());
+        for (int i = 0; i < currentTask.size(); i++) {
+            System.out.println(i+1 + "." + currentTask.get(i).toString());
         }
         ui.displayBarrier();
     }
@@ -63,7 +63,7 @@ public class TaskList {
      * @return The current ArrayList of Tasks
      */
     public ArrayList<Task> returnList() {
-        return currentTaskList;
+        return currentTask;
     }
 
     /**
@@ -74,7 +74,7 @@ public class TaskList {
      * @return A Task obtained from the ArrayList of Tasks
      */
     public Task getPosValue(int posNum) {
-        return currentTaskList.get(posNum);
+        return currentTask.get(posNum);
     }
 
     /**
@@ -84,7 +84,7 @@ public class TaskList {
      *
      */
     public void addTask(Task userTask) {
-        currentTaskList.add(userTask);
+        currentTask.add(userTask);
     }
 
     /**
@@ -94,7 +94,7 @@ public class TaskList {
      *
      */
     public void removeTask(int posNum) {
-        currentTaskList.remove(posNum);
+        currentTask.remove(posNum);
     }
 
     /**
@@ -103,6 +103,6 @@ public class TaskList {
      * @return size of the ArrayList currentTaskList
      */
     public int getSize() {
-        return currentTaskList.size();
+        return currentTask.size();
     }
 }
