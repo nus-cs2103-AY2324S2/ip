@@ -28,6 +28,17 @@ public class TaskList {
         return this.taskList;
     }
 
+    public TaskList find(String keyword) {
+        TaskList searchingResult = new TaskList();
+        for (Task task: taskList) {
+            String description = task.getDescription();
+            if (description.contains(keyword)) {
+                searchingResult.add(task);
+            }
+        }
+        return searchingResult;
+    }
+
     public void list() {
         int index = 1;
         for (Task msg : taskList) {
