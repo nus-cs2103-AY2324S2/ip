@@ -24,13 +24,19 @@ public class Parser {
      * List of keywords that trigger the termination of the Duke chatbot.
      */
     private static final List<String> exitProgramme = Arrays.asList(terminateKeywords);
+
+    /**
+     * Retrieves user input.
+     *
+     * @return The user input as String.
+     */
     public static String getUserInput() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }
 
     /**
-     * Parses the user input and executes the corresponding actions.
+     * Parses the user input to determine if user wishes to exit.
      *
      * @param input The current user input.
      * @return The boolean value for whether the user wishes to exit.

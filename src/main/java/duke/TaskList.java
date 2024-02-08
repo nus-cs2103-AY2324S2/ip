@@ -107,7 +107,7 @@ public class TaskList {
      * Prints the tasks in the TaskList with their corresponding indices.
      */
     public String stringifyTasks(boolean isSearch) {
-        String tasklist = "";
+        String tasklist;
         if (isSearch) {
             tasklist = "    Here are the matching tasks in your list:";
         } else {
