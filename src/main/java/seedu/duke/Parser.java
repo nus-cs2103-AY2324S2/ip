@@ -99,7 +99,7 @@ public class Parser {
         String[] split = input.split(" ");
         try {
             if (split.length < 2) {
-                throw new DukeException("Which Duke.task number do you want to delete?");
+                throw new DukeException("Which task number do you want to delete?");
             }
             int number = Integer.parseInt(split[1]);
             Task task = tasks.getTask(number -  1);
