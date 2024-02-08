@@ -1,33 +1,25 @@
 package CinnamoRoll;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 class TaskList {
     private final ArrayList<Task> tasks;
-    private final String PATH;
+    private final String PATH = "src/main/java/Cinnamo.txt";
     private final Parser parser = new Parser();
-
-    private enum Users {
-        MARK,
-        UNMARK,
-        LIST,
-        DELETE,
-        TODO,
-        DEADLINE,
-        EVENT,
-        FIND
-    }
 
     TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.PATH = "src/main/java/test.txt";
     }
 
-    TaskList(ArrayList<Task> tasks, String path) {
+    TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.PATH = path;
     }
 
     public Task getUser(int index) {
@@ -37,10 +29,8 @@ class TaskList {
     /**
      * Writes the tasks stored in the current task list to the file specified by the PATH constant.
      * The tasks are formatted and written according to the list() method's output.
-     *
-     * @throws IOException If there is an error writing to the file.
      */
-    public void writeInto() throws IOException {
+    public void writeInto() {
         try {
             FileWriter filewriter = new FileWriter(this.PATH);
             filewriter.write(this.listTask());
@@ -55,10 +45,9 @@ class TaskList {
      *
      * @param instruction An array representing the task instruction.
      * @return A string message indicating the success of adding the task.
-     * @throws IOException If there is an error writing to the file.
      * @throws CinnamoException If there is an error parsing the task instruction or a specific type of task-related exception occurs.
      */
-    private String executeTask(String[] instruction) throws IOException, CinnamoException {
+    public String executeTask(String[] instruction) throws CinnamoException {
         try {
             Task task = this.parser.parseTasks(instruction);
             this.tasks.add(task);
@@ -80,7 +69,7 @@ class TaskList {
      *
      * @return A string representation of the tasks in the format "1. [Task1] \n 2. [Task2] \n ..."
      */
-    private String listTask() {
+    public String listTask() {
         String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
@@ -97,7 +86,7 @@ class TaskList {
      * @param str The string to search for within task descriptions.
      * @return A formatted string listing the tasks that contain the specified string.
      */
-    private String findTask(String str) {
+    public String findTask(String str) {
         String output = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).containString(str)) {
@@ -118,7 +107,7 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    private String deleteTask(String[] str) throws Exception, CinnamoIndexException {
+    public String deleteTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]);
             Task temp = this.tasks.get(index - 1);
@@ -139,7 +128,7 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    private String markTask(String[] str) throws Exception, CinnamoIndexException {
+    public String markTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).markTask();
@@ -160,7 +149,7 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    private String unmarkTask(String[] str) throws Exception, CinnamoIndexException {
+    public String unmarkTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).unmarkTask();
@@ -180,13 +169,13 @@ class TaskList {
      * @throws CinnamoException If an error related to task execution or command parsing occurs.
      * @throws Exception If there is an error during the response process.
      */
-    void respondUser(String str) throws Exception, CinnamoException {
+    void respondUser(String str) throws Exception {
         try {
 
             Parser parser = new Parser();
             String[] arr = parser.parseInput(str);
 
-            switch (TaskList.Users.valueOf(arr[0])) {
+            switch (User.valueOf(arr[0])) {
                 case MARK:
                     System.out.println(this.markTask(arr));
                     break;

@@ -3,19 +3,16 @@ package CinnamoRoll;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.io.BufferedReader;
+import java.util.Scanner;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 class Storage {
-    private final String PATH;
+    private final String PATH = "src/main/java/Cinnamo.txt";
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    Storage(String filepath) {
-        this.PATH = filepath;
-    }
     /**
      * Loads tasks from a file specified by the PATH constant and creates an ArrayList of Task objects.
      * The file is expected to have each task represented in a specific format:
@@ -26,12 +23,15 @@ class Storage {
      * @return An ArrayList of Task objects loaded from the file.
      * @throws IOException If there is an error reading the file.
      */
+
+    //Solution below for creating a new file was debugged & aided
+    // by https://stackoverflow.com/questions/7469018/cannot-make-file-java-io-ioexception-no-such-file-or-directory;
     ArrayList<Task> loadData() throws IOException {
         try {
             ArrayList<Task> output = new ArrayList<>();
-            BufferedReader bf = new BufferedReader(new FileReader(PATH));
+            Scanner sc = new Scanner(new FileReader(PATH));
             String input;
-            while ((input = bf.readLine()) != null) {
+            while ((input = sc.nextLine()) != null) {
                 Task task;
                 String[] info = input.split("\\|", 3);
                 boolean marked = false;
@@ -65,7 +65,10 @@ class Storage {
             return output;
         } catch(FileNotFoundException ex){
             File f = new File(PATH);
-            f.createNewFile();
+            if (!f.getParentFile().exists())
+                f.getParentFile().mkdirs();
+            if (!f.exists())
+                f.createNewFile();
             return new ArrayList<Task>();
         }
     }
