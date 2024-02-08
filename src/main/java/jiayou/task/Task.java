@@ -7,7 +7,6 @@ package jiayou.task;
 public class Task {
     private String description;
     private boolean isDone = false;
-    private char taskType;
 
     /**
      * Returns a new task with the given description.

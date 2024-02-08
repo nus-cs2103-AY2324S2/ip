@@ -35,10 +35,11 @@ public class Jiayou {
     }
 
     /**
-     * Initializes the chatbot and runs it.
+     * This is the entry point for the Jiayou chatbot.
      *
-     * @param args the command line arguments.
+     * @param args Command line arguments passed to the application.
      */
     public static void main(String[] args){
+        // Implementation will be added in the future.
     }
 }

@@ -41,7 +41,8 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to mark. "
                             + "Please add the index after the keyword mark!");
                 } else {
-                    response = tasks.markTask(content);
+                    String[] taskIds = content.split(" ");
+                    response = tasks.markTask(taskIds);
                     break;
                 }
             case UNMARK:
@@ -49,7 +50,8 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to unmark. "
                             + "Please add the index after the keyword unmark!");
                 } else {
-                    response = tasks.unmarkTask(content);
+                    String[] taskIds = content.split(" ");
+                    response = tasks.unmarkTask(taskIds);
                     break;
                 }
             case DELETE:

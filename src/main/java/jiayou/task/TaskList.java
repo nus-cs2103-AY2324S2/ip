@@ -8,7 +8,6 @@ import java.util.List;
 import jiayou.JiayouException;
 import jiayou.Storage;
 
-
 /**
  * Represents a task list to store all the tasks of the chatbot.
  */
@@ -40,7 +39,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.tasks.add(task);
-        String response = ">w<Got it. I've added this task:\n";
+        String response = ">w< Got it. I've added this task:\n";
         response += ("  " + task + "\n");
         response += ("Now you have " + getSize() + " tasks in the list.\n");
         updateStorage();
@@ -53,6 +52,7 @@ public class TaskList {
      * @param taskIds the task id(s) of the task(s) to be deleted.
      * @return a response message.
      */
+
     public String deleteTask(String ... taskIds) {
         String response = "";
         List<Integer> idsToInt = new ArrayList<>();
@@ -64,10 +64,9 @@ public class TaskList {
                             + "Please input a valid number!");
                 }
                 idsToInt.add(idToInt);
-                }
-
+            }
             Collections.sort(idsToInt, Collections.reverseOrder());
-            response += ">w<Noted. I've removed task(s):\n";
+            response += ">w< Noted. I've removed task(s):\n";
 
             for (int idToInt : idsToInt) {
                 Task removedTask = tasks.remove(idToInt);
@@ -86,34 +85,66 @@ public class TaskList {
     /**
      * Marks the certain task in the list as done.
      *
-     * @param input the task id of the task to get marked done.
+     * @param taskIds the task id(s) of the task(s) to get marked done.
      * @return a response message.
      */
-    public String markTask(String input) {
-        int taskId = Integer.parseInt(input);
+    public String markTask(String ... taskIds) {
         String response = "";
-        Task task = this.tasks.get(taskId - 1);
-        task.setStatus(true);
-        response += ">w<Nice! I've marked this task as done:\n";
-        response += ("  " + task);
-        updateStorage();
+        List<Integer> idsToInt = new ArrayList<>();
+        try {
+            for (String taskId : taskIds) {
+                int idToInt = Integer.parseInt(taskId) - 1;
+                if (idToInt < 0 || idToInt >= tasks.size()) {
+                    throw new JiayouException("OOPS!!! The task you wanna mark doesn't exist. "
+                            + "Please input a valid number!");
+                }
+                idsToInt.add(idToInt);
+            }
+            response += ">w< Nice! I've marked task(s) as done:\n";
+            for (int idToInt : idsToInt) {
+                Task taskToMark = tasks.get(idToInt);
+                taskToMark.setStatus(true);
+                response += ("  " + taskToMark + "\n");
+            }
+            updateStorage();
+        } catch (NumberFormatException e) {
+            System.out.println("OOPS!!! Please enter a valid task number!");
+        } catch (JiayouException e) {
+            System.out.println(e.getMessage());
+        }
         return response;
     }
 
     /**
      * Unmarks the certain task in the list as not done.
      *
-     * @param input the task id of the task to get masked not done.
+     * @param taskIds the task id(s) of the task(s) to get masked not done.
      * @return a response message.
      */
-    public String unmarkTask(String input) {
-        int taskId = Integer.parseInt(input);
+    public String unmarkTask(String ... taskIds) {
         String response = "";
-        Task task = tasks.get(taskId - 1);
-        task.setStatus(false);
-        response += "OK, I've marked this task as not done yet:";
-        response += ("  " + task);
-        updateStorage();
+        List<Integer> idsToInt = new ArrayList<>();
+        try {
+            for (String taskId : taskIds) {
+                int idToInt = Integer.parseInt(taskId) - 1;
+                if (idToInt < 0 || idToInt >= tasks.size()) {
+                    throw new JiayouException("OOPS!!! The task you wanna unmark doesn't exist. "
+                            + "Please input a valid number!");
+                }
+                idsToInt.add(idToInt);
+            }
+            response += ">w< Nice! I've marked task(s) as undone:\n";
+            for (int idToInt : idsToInt) {
+                Task taskToUnmark = tasks.get(idToInt);
+                taskToUnmark.setStatus(false);
+                response += ("  " + taskToUnmark + "\n");
+            }
+            updateStorage();
+        } catch (NumberFormatException e) {
+            System.out.println("OOPS!!! Please enter a valid task number!");
+        } catch (JiayouException e) {
+            System.out.println(e.getMessage());
+        }
         return response;
     }
 
