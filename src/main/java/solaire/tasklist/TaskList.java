@@ -144,7 +144,7 @@ public class TaskList {
         int filteredIndex = 1;
         for (Task task : taskList) {
             if (task.getDescription().contains(prompt)) {
-                output += filteredIndex + ". " + task.toString();
+                output += filteredIndex + ". " + task.toString() + "\n";
                 filteredIndex++;
             }
         }
