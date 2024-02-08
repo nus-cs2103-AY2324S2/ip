@@ -47,6 +47,12 @@ public class Duke {
             } else if (word.startsWith("delete")) {
                 Parser.parseDelete(word, tasks, ui);
                 word = sc.nextLine();
+                /*
+            } else if (word.startsWith("find")) {
+                //add
+                Parser.parseFind(word, tasks, ui);
+                word = sc.nextLine();
+                 */
             } else {
                 try {
                     throw new DukeException("Sorry, I didn't understand that.");

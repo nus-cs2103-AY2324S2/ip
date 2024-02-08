@@ -109,4 +109,18 @@ public class Parser {
             ui.printError(d);
         }
     }
+
+    public static void parseFind(String input, TaskList tasks, Ui ui) {
+        //add
+        String[] split = input.split(" ", 2);
+        try {
+            if (split.length < 2) {
+                throw new DukeException("Here's the format I require: find [search term]");
+            }
+            String searchTerm = split[1];
+            ui.searchThenPrintList(tasks.getList(), searchTerm);
+        } catch (DukeException d){
+            ui.printError(d);
+        }
+    }
 }

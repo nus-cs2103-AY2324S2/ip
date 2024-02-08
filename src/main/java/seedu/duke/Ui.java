@@ -77,4 +77,17 @@ public class Ui {
         }
         printBreak();
     }
+
+    public void searchThenPrintList(ArrayList<Task> list, String searchTerm) {
+        //add
+        printBreak();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).containsSearchTerm(searchTerm)) {
+                System.out.println(i + 1 + "." + list.get(i));
+                // won't be in order
+            }
+        }
+        printBreak();
+    }
 }

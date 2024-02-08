@@ -23,6 +23,11 @@ public class Task implements Serializable {
         isDone = false;
     }
 
+    public boolean containsSearchTerm(String searchTerm) {
+        //add
+        return description.contains(searchTerm);
+    }
+
     @Override
     public String toString() {
         if (isDone) {
