@@ -114,15 +114,12 @@ public class Storage {
             String currentLine = br.readLine();
 
             if (i != index) {
-                System.out.println(currentLine);
-
                 if (i < numOfTasks - 1) {
                     bw.write(currentLine + System.lineSeparator());
                 } else {
                     bw.write(currentLine);
                 }
             }
-
         }
 
         bw.close();
