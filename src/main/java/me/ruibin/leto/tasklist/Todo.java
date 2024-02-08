@@ -3,15 +3,17 @@ package me.ruibin.leto.tasklist;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** A type of Task representing a Todo */
 public class Todo extends Task {
 
     private Todo(Boolean completed, String message) { super(completed, message); }
 
     /**
-     * Factory method for producing Todo objects
-     * @param input Command entered by the user, the entire line
-     * @return a new Todo object
-     * @throws TodoInvalidCmdException when input command is invalid
+     * Create a instance of Todo from user command.
+     *
+     * @param input Command entered by the user, the entire line.
+     * @return a new Todo object.
+     * @throws TodoInvalidCmdException when input command is invalid.
      */
     public static Todo todoFromCMD(String input) throws TodoInvalidCmdException {
         String regex = "(?i)todo ([^,]+)";
@@ -24,9 +26,11 @@ public class Todo extends Task {
     }
 
     /**
-     * Create an Todo task from csv format, Type,Completed,Task,By,From,To
-     * @param entry text string containing the row in the csv
-     * @return an Event task
+     * Create an Todo task from csv format:<br>
+     * <code>Type,Completed,Task,By,From,To</code>.
+     *
+     * @param entry text string containing the row in the csv.
+     * @return an Event task.
      */
     public static Todo todoFromCSV(String entry) throws InvalidTaskException {
         String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
@@ -45,8 +49,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns the object as a row in a csv table according to format
-     * Type,Completed,Task,By,From,To
+     * Returns the object as a row in a csv table according to format: <br>
+     * <code>Type,Completed,Task,By,From,To</code>.
+     *
      * @return String in csv format
      */
     @Override

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeadlineTest {
+    /** Test creating Deadline from valid command by date 1 day ago. */
     @Test
     public void deadlineFromCommand_validCommand_success() {
         LocalDate deadline = LocalDate.now().minusDays(1);
@@ -22,6 +23,7 @@ public class DeadlineTest {
         }
     }
 
+    /** Test creating Deadline from invalid command with bad by date. */
     @Test
     public void deadlineFromCommand_commandWithBadFormat_failure() {
         LocalDate deadline = LocalDate.now().minusDays(1);
@@ -35,6 +37,7 @@ public class DeadlineTest {
         }
     }
 
+    /** Test creating Deadline from valid CSV. */
     @Test
     public void deadlineFromCSV_validEntry_success() {
         LocalDate deadline = LocalDate.now().minusDays(1);
@@ -49,6 +52,7 @@ public class DeadlineTest {
         }
     }
 
+    /** Test creating Deadline from invalid CSV with empty by date. */
     @Test
     public void deadlineFromCSV_invalidEmptyDatesEntry_failure() {
         String entry = "D,N,SUBMIT.Paper #CS320,XXX,,";

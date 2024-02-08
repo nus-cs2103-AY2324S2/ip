@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** A type of Task with LocalDate fields specifying from date and to date. */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
@@ -28,6 +29,13 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Create a new instance of Event from user command.
+     *
+     * @param input Command inputs from user.
+     * @return A new instance of Event.
+     * @throws InvalidTaskException If input is not a valid event command.
+     */
     public static Event eventFromCommand(String input) throws InvalidTaskException {
         String regex = "(?i)event ([^,]+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2}) *";
         Matcher matcher = Pattern.compile(regex).matcher(input);
@@ -41,7 +49,9 @@ public class Event extends Task {
     }
 
     /**
-     * Create an Event task from csv format, Type,Completed,Task,By,From,To
+     * Create an Event task from csv format:<br>
+     * <code>Type,Completed,Task,By,From,To</code>.
+     *
      * @param entry text string containing the row in the csv
      * @return an Event task
      */
@@ -65,8 +75,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the object as a row in a csv table according to format
-     * Type,Completed,Task,By,From,To
+     * Returns the object as a row in a csv table according to format:<br>
+     * <code>Type,Completed,Task,By,From,To</code>.
+     *
      * @return String in csv format
      */
     public String toCSVString() {

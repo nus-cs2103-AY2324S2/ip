@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**  returns <code>Results.OK</code>*/
 public class Storage {
     private static final String PATH_TO_STORE = "Leto-Tasks.csv";
 
@@ -55,6 +56,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Read an entry from the file into a Task and add it to the list.
+     * Throws Error if entry is invalid.
+     * If file is not found, will create one by default.
+     *
+     * @throws InvalidTaskException entry cannot be parsed.
+     */
     private static void ReadEntry(String entry) throws InvalidTaskException {
         String[] parts = entry.split(",");
         switch (parts[0]) {
@@ -73,6 +81,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Write the current task lists to a csv file.
+     */
     public static void WriteFile() {
         int saved = 0;
         try {
@@ -94,6 +105,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Helper method for writing an individual task to BufferedWriter.
+     * Used within WriteFile.
+     *
+     * @param bw BufferedWriter for the csv file.
+     * @param t Task to write.
+     * @throws IOException Pass up possible IOException from bw write.
+     */
     private static void WriteTask(BufferedWriter bw, Task t) throws IOException {
         bw.write(t.toCSVString() + "\n");
     }
