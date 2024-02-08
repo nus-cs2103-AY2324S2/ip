@@ -44,15 +44,17 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("com.example.artemis.Launcher")
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
 
+
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'artemis.jar'
+    archiveBaseName = "artemis"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
