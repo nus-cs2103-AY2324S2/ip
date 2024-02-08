@@ -3,7 +3,6 @@ package command;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents Command that adds task to task list.
@@ -20,8 +19,16 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         tasks.addTask(this.task);
-        ui.showAdd(this.task, tasks.size());
+
+        String response = "";
+        response += "I've added the following task:\n" + task + "You have " + tasks.size() + " tasks";
+        return response;
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

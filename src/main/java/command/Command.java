@@ -3,28 +3,26 @@ package command;
 import exception.BuddyException;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
+
 
 /**
- * Represents Commands to be executed by Buddy.
+ * Represents Commands to be executed by buddy.Buddy.
  */
-public class Command {
+public abstract class Command {
     /**
      * Executes command depending on command type.
      *
      * @param tasks TaskList consisting of Tasks.
-     * @param ui Current Ui object used.
      * @param storage Current Storage object used.
+     * @return string response representing action taken.
      * @throws BuddyException
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {};
+    public abstract String execute(TaskList tasks, Storage storage) throws BuddyException;
 
     /**
-     * Returns boolean representing whether Buddy should exit.
+     * Returns boolean representing whether buddy.Buddy should exit.
      *
-     * @return Boolean representing if Buddy should exit.
+     * @return Boolean representing if buddy.Buddy should exit.
      */
-    public boolean isExit() {
-        return false;
-    }
+    public abstract boolean isExit();
 }

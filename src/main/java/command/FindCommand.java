@@ -3,7 +3,6 @@ package command;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import ui.Ui;
 
 /**
  * Represents Command that finds task based on user input.
@@ -21,13 +20,19 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showFind();
+    public String execute(TaskList tasks, Storage storage) {
+        String response = "Here are the matching tasks!\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
             if (task.getDescription().contains(this.query)) {
-                System.out.println((i + 1) + ". " + task);
+                response += (i + 1) + ". " + task + "\n";
             }
         }
+        return response;
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }
