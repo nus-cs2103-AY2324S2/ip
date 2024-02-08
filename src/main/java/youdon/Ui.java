@@ -1,3 +1,5 @@
+package youdon;
+
 public class Ui {
 
     private final String DIVIDER_LINE = "----------------------------------------------------------------";

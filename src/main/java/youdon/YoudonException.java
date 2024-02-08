@@ -1,3 +1,5 @@
+package youdon;
+
 public class YoudonException extends Throwable {
     public static class EmptyDescException extends Exception {
         public EmptyDescException(String errorMessage) {
