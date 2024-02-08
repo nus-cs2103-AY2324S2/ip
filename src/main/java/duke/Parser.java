@@ -43,6 +43,9 @@ public class Parser {
                 return new UnmarkCommand(getIndex(arr));
             case "mark":
                 return new MarkCommand(getIndex(arr));
+            case "find":
+                String keyword = arr[1];
+                return new FindCommand(keyword);
             default:
                 String desc = getDescripition(arr);
                 String[] newArr = desc.split("/");
