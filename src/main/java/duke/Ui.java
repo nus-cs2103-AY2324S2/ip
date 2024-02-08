@@ -36,24 +36,24 @@ public class Ui {
             if (command.matches("bye")) {
                 isOn = false;
                 break;
-            } else if (command.matches("list")) {
+            } else if (command.toLowerCase().matches("list")) {
                 taskList.returnList();
                 continue;
-            } else if (command.matches("\\bmark\\b.*")) {
+            } else if (command.toLowerCase().matches("\\bmark\\b.*")) {
                 String[] words = command.split("\\s+");
                 taskList.mark(Integer.parseInt(words[1]));
                 continue;
-            } else if (command.matches("\\bunmark\\b.*")) {
+            } else if (command.toLowerCase().matches("\\bunmark\\b.*")) {
                 String[] words = command.split("\\s+");
                 taskList.unmark(Integer.parseInt(words[1]));
                 continue;
-            } else if (command.matches("\\bdeadline\\b.*")) {
+            } else if (command.toLowerCase().matches("\\bdeadline\\b.*")) {
                 String[] words = command.split("/by");
                 String date = words[1].trim();
                 taskList.addTask(new Deadline(words[0].substring(8).trim(), date));
                 System.out.println("Added deadline.");
                 continue;
-            } else if (command.matches("\\bevent\\b.*")) {
+            } else if (command.toLowerCase().matches("\\bevent\\b.*")) {
                 String[] words = command.split("/from+");
                 String[] from = words[1].split("/to");
                 String date1 = from[0].trim();
@@ -61,18 +61,18 @@ public class Ui {
 
                 taskList.addTask(new Event(words[0].substring(5).trim(), date1, date2));
                 System.out.println("Added event.");
-            } else if (command.matches("\\btodo\\b.*")) {
+            } else if (command.toLowerCase().matches("\\btodo\\b.*")) {
                 String[] words = command.split("todo");
-                if (words[1] == "") {
+                if (words[1].equals("")) {
                     throw new RiriException("You are adding nothing to your list");
                 }
                 taskList.addTask(new Todo(words[1].trim()));
                 System.out.println("Added todo.");
                 continue;
-            } else if (command.matches("\\bdelete\\b.*")) {
+            } else if (command.toLowerCase().matches("\\bdelete\\b.*")) {
                 String[] words = command.split("\\s+");
                 taskList.delete(Integer.parseInt(words[1].trim()));
-            } else if (command.matches("\\bfind\\b.*")) {
+            } else if (command.toLowerCase().matches("\\bfind\\b.*")) {
                 String keyword = command.substring(4);
                 System.out.println(taskList.searchTasks(keyword));
             } else if (command.trim().isEmpty()) {
