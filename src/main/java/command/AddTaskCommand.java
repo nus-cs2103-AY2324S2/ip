@@ -1,7 +1,5 @@
 package command;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import duke.Storage;
 import duke.Deadline;
 import duke.DukeException;
@@ -51,6 +49,14 @@ public class AddTaskCommand extends Command {
         default:
             throw new DukeException("Sorry. I don't see what you mean by that...");
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof AddTaskCommand) {
+            return ((AddTaskCommand) other).prompt.equals(prompt);
+        }
+        return false;
     }
 
     @Override

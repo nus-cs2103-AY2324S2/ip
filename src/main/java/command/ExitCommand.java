@@ -5,6 +5,11 @@ import duke.TaskList;
 
 public class ExitCommand extends Command {
     @Override
+    public boolean equals(Object other) {
+        return other instanceof ExitCommand;
+    }
+
+    @Override
     public void execute(Storage storage, TaskList taskList) {
         System.out.println("Bye. Hope to see you again soon!");
     }

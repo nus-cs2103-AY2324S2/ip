@@ -15,6 +15,18 @@ public class SearchDateCommand extends Command {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other instanceof SearchDateCommand) {
+            try {
+                return Task.parseDate(((SearchDateCommand) other).date).isEqual(Task.parseDate(date));
+            } catch (DukeException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void execute(Storage storage, TaskList taskList) throws DukeException {
         LocalDate localDate = Task.parseDate(date);
         taskList.searchDate(localDate);
