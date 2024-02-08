@@ -66,6 +66,16 @@ public class Duke {
         }
     }
 
+    public void save() {
+        try {
+            storage.writeTaskList(tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
+        } catch (IOException e) {
+            System.out.println("Cannot write to state file \"" + FILE_NAME + "\"");
+        }
+    }
+
     /**
      * The main loop.
      *
