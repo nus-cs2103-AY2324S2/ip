@@ -11,8 +11,8 @@ public class Parser {
      * Parses the given command.
      *
      * @param command Command from the user to be parsed.
-     *
      * @return Parsed command, as an array of strings.
+     * @throws IllegalArgumentException If the command is of an invalid form.
      */
     public static String[] parse(String command) throws IllegalArgumentException {
         switch (command) {
@@ -42,9 +42,9 @@ public class Parser {
     /**
      * Parses the given task.
      *
-     * @param task Task of type ToDo, Deadline or Event to be parsed.
-     *
+     * @param task Task of type ToDo, Deadline or Event to be parsed, as a string.
      * @return Parsed task, as an array of strings.
+     * @throws IllegalArgumentException If the string is of an invalid format.
      */
     public static String[] parseTask(String task) throws IllegalArgumentException {
         boolean isToDo = task.startsWith("todo ");
@@ -70,8 +70,8 @@ public class Parser {
             }
             String[] secondSplit = firstSplit[1].split(" /to ");
             if (secondSplit.length == 1) {
-                throw new IllegalArgumentException("Your 'to' field is missing " +
-                        "or before your 'from' field! Try again.");
+                throw new IllegalArgumentException("Your 'to' field is missing "
+                        + "or before your 'from' field! Try again.");
             } else if (secondSplit.length >= 3) {
                 throw new IllegalArgumentException("You can only have one '/to' field! Try again.");
             } else {

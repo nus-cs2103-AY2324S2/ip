@@ -1,8 +1,5 @@
 package sleepy.taskstorage;
 
-import sleepy.tasks.Task;
-import sleepy.tools.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import sleepy.tasks.Task;
+import sleepy.tools.Ui;
+
+/**
+ * This class helps to store the task list in the hard disk.
+ *
+ * @author kjw142857
+ */
 public class Storage {
     private File hardDiskFile;
 
@@ -19,7 +24,7 @@ public class Storage {
      * @param filePath filePath of the file used for storage.
      */
     public Storage(String filePath) {
-        try {;
+        try {
             hardDiskFile = new File(filePath);
             hardDiskFile.createNewFile();
         } catch (IOException i) {

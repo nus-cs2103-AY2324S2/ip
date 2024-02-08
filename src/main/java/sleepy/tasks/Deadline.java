@@ -38,8 +38,8 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescription() {
-        String deadlineDate = formattedDate == null ?
-                givenDeadline : formattedDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        String deadlineDate = formattedDate == null
+                ? givenDeadline : formattedDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "[D]" + super.getDescription() + " (by: " + deadlineDate + ")";
     }
 }

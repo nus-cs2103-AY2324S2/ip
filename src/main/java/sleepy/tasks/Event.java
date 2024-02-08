@@ -48,10 +48,10 @@ public class Event extends Task {
      */
     @Override
     public String getDescription() {
-        String startDate = formattedFromDate == null ?
-                start : formattedFromDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));;
-        String endDate = formattedToDate == null ?
-                end : formattedToDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));;
+        String startDate = formattedFromDate == null
+                ? start : formattedFromDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        String endDate = formattedToDate == null
+                ? end : formattedToDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         return "[E]" + super.getDescription() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }

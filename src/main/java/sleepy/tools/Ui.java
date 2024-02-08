@@ -1,8 +1,8 @@
 package sleepy.tools;
 
-import sleepy.taskstorage.TaskList;
-
 import java.util.Scanner;
+
+import sleepy.taskstorage.TaskList;
 
 /**
  * This class helps to print out the Sleepy AI Chatbot's lines.
@@ -11,6 +11,10 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    /**
+     * Constructor for the Ui class. Initialises the chatbot UI
+     * and prints the welcome messages
+     */
     public Ui() {
         String name = "Sleepy";
         String welcomeLine = "Hello! I'm " + name;
@@ -55,6 +59,12 @@ public class Ui {
         printLine(exitLine);
     }
 
+    /**
+     * Attaches the UI to the given TaskList, and waits commands
+     * from the user.
+     *
+     * @param taskList
+     */
     public void acceptCommands(TaskList taskList) {
         // Await next command from user
         Scanner userInput = new Scanner(System.in);

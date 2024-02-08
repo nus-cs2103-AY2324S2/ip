@@ -1,13 +1,13 @@
 package sleepy.taskstorage;
 
+import java.util.ArrayList;
+
 import sleepy.tasks.Deadline;
 import sleepy.tasks.Event;
 import sleepy.tasks.Task;
 import sleepy.tasks.ToDo;
 import sleepy.tools.Parser;
 import sleepy.tools.Ui;
-
-import java.util.ArrayList;
 
 /**
  * This class stores the tasks in the Sleepy AI Chatbot.
@@ -75,6 +75,8 @@ public class TaskList {
             case "add":
                 addTask(accessCommand);
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid command!");
             }
         } catch (NumberFormatException n) {
             Ui.printError("Zzz... The target task must be an integer!");
@@ -86,7 +88,8 @@ public class TaskList {
     /**
      * Creates and adds a task to this list.
      *
-     * @param task Task to be added.
+     * @param task Task to be added, in the form of a string.
+     * @throws IllegalArgumentException If the string does not contain a task type.
      */
     public void addTask(String task) throws IllegalArgumentException {
         Task createdTask = null;
@@ -101,6 +104,8 @@ public class TaskList {
         case "event":
             createdTask = new Event(task, parsedTask[1], parsedTask[2], parsedTask[3]);
             break;
+        default:
+            throw new IllegalArgumentException("This is not a task!");
         }
         tasks.add(createdTask);
         storage.saveTasks(tasks);
@@ -113,6 +118,7 @@ public class TaskList {
      * Deletes a task from this list.
      *
      * @param taskNumber Task number to be deleted.
+     * @throws IllegalArgumentException If the task number is invalid.
      */
     public void deleteTask(int taskNumber) throws IllegalArgumentException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
