@@ -1,17 +1,14 @@
+package parser;
+
 import exception.IncompleteCommandException;
 import exception.InvalidCommandException;
 
 public class Parser {
 
-    public String extractCommand(String string) throws InvalidCommandException {
+    public String extractCommand(String string) {
         String[] splitString;
-        try {
-            splitString = string.split(" ", 2);
-            return splitString[0];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException(string);
-        }
-
+        splitString = string.split(" ", 2);
+        return splitString[0];
     }
 
     public String extractDescription(String string) throws IncompleteCommandException {
