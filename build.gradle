@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("dook.Dook")
+    mainClass.set("dook.Launcher")
 }
 
 shadowJar {

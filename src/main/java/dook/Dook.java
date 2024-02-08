@@ -66,22 +66,6 @@ public class Dook {
         }
     }
 
-<<<<<<< HEAD
-
-    public static void main(String[] args) {
-        Dook d = new Dook();
-        d.run();
-    }
-
-    /*@Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
-    }*/
-=======
     public String getResponse(String input) {
         try {
             this.tasks = this.storage.loadTaskListFromFile();
@@ -92,5 +76,4 @@ public class Dook {
             return e.getMessage();
         }
     }
->>>>>>> branch-Level-10
 }
