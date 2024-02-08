@@ -2,6 +2,8 @@ package main.java;
 
 import main.java.task.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Paimon {
@@ -129,25 +131,32 @@ public class Paimon {
                 case "deadline":
                     try {
                         String deadlineDescription = parser.parseInput()[0];
-                        String deadlineEndDate = parser.parseInput()[1];
+                        String deadlineEndString = parser.parseInput()[1];
+                        LocalDateTime deadlineEndDate = DateParser.parseDate(deadlineEndString);
                         Task deadlineTask = new DeadlineTask(deadlineDescription, deadlineEndDate);
                         taskList.addTask(deadlineTask);
                         sendTaskMessage("Okay Traveller, I've added the following task!", deadlineTask.getTask(), "You now have " + taskList.getSize() + " tasks.");
                     } catch (ChatException e) {
                         System.out.println(e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("The date should be in the format: yyyy/MM/dd, yyyy/MM/dd HH:mm, yyyy-MM-DD, dd/MM/yyyy HH:mm");
                     }
                     break;
                 case "event":
                     try {
                         String eventDescription = parser.parseInput()[0];
-                        String eventStartDate = parser.parseInput()[1];
-                        String eventEndDate = parser.parseInput()[2];
+                        String eventStartString = parser.parseInput()[1];
+                        String eventEndString = parser.parseInput()[2];
+                        LocalDateTime eventStartDate = DateParser.parseDate(eventStartString);
+                        LocalDateTime eventEndDate = DateParser.parseDate(eventEndString);
                         Task eventTask = new EventTask(eventDescription, eventStartDate, eventEndDate);
                         taskList.addTask(eventTask);
                         sendTaskMessage("Okay Traveller, I've added the following task!", eventTask.getTask(), "You now have " + taskList.getSize() + " tasks.");
 
                     } catch (ChatException e) {
                         System.out.println(e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        System.out.println("The date should be in the format: yyyy/MM/dd, yyyy/MM/dd HH:mm, yyyy-MM-DD, dd/MM/yyyy HH:mm");
                     }
                     break;
                 case "delete":
