@@ -22,8 +22,10 @@ public class Parser {
      *
      * @param tasks the task list of the chatbot.
      * @param input the input string to be parsed.
+     * @return a response message.
      */
-    public void parse(TaskList tasks, String input) {
+    public String parse(TaskList tasks, String input) {
+        String response = "";
         try {
             String[] parts = input.split(" ", 2);
             String commandString = parts[0];
@@ -32,15 +34,14 @@ public class Parser {
 
             switch (command) {
             case LIST:
-                tasks.printList();
+                response = tasks.printList();
                 break;
             case MARK:
                 if (content.isEmpty()) {
                     throw new JiayouException("OOPS!!! I don't know which task to mark. "
                             + "Please add the index after the keyword mark!");
                 } else {
-                    tasks.markTask(content);
-                    tasks.updateStorage();
+                    response = tasks.markTask(content);
                     break;
                 }
             case UNMARK:
@@ -48,8 +49,7 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to unmark. "
                             + "Please add the index after the keyword unmark!");
                 } else {
-                    tasks.unmarkTask(content);
-                    tasks.updateStorage();
+                    response = tasks.unmarkTask(content);
                     break;
                 }
             case DELETE:
@@ -57,7 +57,7 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to delete. "
                             + "Please add the index after the keyword delete!");
                 } else {
-                    tasks.deleteTask(content);
+                    response = tasks.deleteTask(content);
                     break;
                 }
             case TODO:
@@ -66,34 +66,25 @@ public class Parser {
                             + "Please add a description after the keyword todo!");
                 } else {
                     ToDo newToDo = new ToDo(content);
-                    tasks.addTask(newToDo);
-                    System.out.println(">w<Got it. I've added this task:");
-                    System.out.println("  " + newToDo);
-                    System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+                    response = tasks.addTask(newToDo);
                     break;
                 }
             case DEADLINE:
                 String[] deadlineParts = content.split(" /by ");
                 Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                tasks.addTask(newDeadline);
-                System.out.println(">w<Got it. I've added this task:");
-                System.out.println("  " + newDeadline);
-                System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+                response = tasks.addTask(newDeadline);
                 break;
             case EVENT:
                 String[] eventParts = content.split(" /from | /to ");
                 Event newEvent = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                tasks.addTask(newEvent);
-                System.out.println(">w<Got it. I've added this task:");
-                System.out.println("  " + newEvent);
-                System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+                response = tasks.addTask(newEvent);
                 break;
             case SEARCH_BY_DATE:
                 LocalDate date = LocalDate.parse(content);
-                tasks.searchByDate(date);
+                response = tasks.searchByDate(date);
                 break;
             case SEARCH_BY_KEYWORD:
-                tasks.searchByKeyword(content);
+                response = tasks.searchByKeyword(content);
                 break;
             default:
                 break;
@@ -103,5 +94,6 @@ public class Parser {
         } catch (JiayouException e) {
             System.out.println(e.getMessage());
         }
+        return response;
     }
 }

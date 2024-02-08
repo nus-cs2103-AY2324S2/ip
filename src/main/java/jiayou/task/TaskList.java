@@ -34,101 +34,118 @@ public class TaskList {
      * Adds a new task to the task list.
      *
      * @param task the task to be added.
+     * @return a response message.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.tasks.add(task);
+        String response = ">w<Got it. I've added this task:\n";
+        response += ("  " + task + "\n");
+        response += ("Now you have " + getSize() + " tasks in the list.\n");
         updateStorage();
+        return response;
     }
 
     /**
      * Deletes a new task from the task list.
      *
      * @param input the task id of the task to be deleted.
+     * @return a response message.
      */
-    public void deleteTask(String input) {
+    public String deleteTask(String input) {
+        String response = "";
         try {
             int taskId = Integer.parseInt(input) - 1;
             if (taskId < 0 || taskId >= tasks.size()) {
                 throw new JiayouException("OOPS!!! The task you wanna delete doesn't exist. "
                         + "Please input a valid number!");
             }
-
             Task removedTask = tasks.remove(taskId);
-            System.out.println(">w<Noted. I've removed this task:");
-            System.out.println("  " + removedTask);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            response += ">w<Noted. I've removed this task:\n";
+            response += ("  " + removedTask + "\n");
+            response += ("Now you have " + tasks.size() + " tasks in the list.\n");
             updateStorage();
         } catch (NumberFormatException e) {
             System.out.println("OOPS!!! Please enter a valid task number!");
         } catch (JiayouException e) {
             System.out.println(e.getMessage());
         }
+        return response;
     }
 
     /**
      * Marks the certain task in the list as done.
      *
      * @param input the task id of the task to get marked done.
+     * @return a response message.
      */
-    public void markTask(String input) {
+    public String markTask(String input) {
         int taskId = Integer.parseInt(input);
+        String response = "";
         Task task = this.tasks.get(taskId - 1);
         task.setStatus(true);
-        System.out.println(">w<Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+        response += ">w<Nice! I've marked this task as done:\n";
+        response += ("  " + task);
         updateStorage();
+        return response;
     }
 
     /**
      * Unmarks the certain task in the list as not done.
      *
      * @param input the task id of the task to get masked not done.
+     * @return a response message.
      */
-    public void unmarkTask(String input) {
+    public String unmarkTask(String input) {
         int taskId = Integer.parseInt(input);
+        String response = "";
         Task task = tasks.get(taskId - 1);
         task.setStatus(false);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+        response += "OK, I've marked this task as not done yet:";
+        response += ("  " + task);
         updateStorage();
+        return response;
     }
 
     /**
      * Searches for the tasks on a certain date and print them out.
      *
      * @param date the date to search.
+     * @return a response message.
      */
-    public void searchByDate(LocalDate date) {
-        System.out.println("Here are the tasks on " + date + " in your list:");
+    public String searchByDate(LocalDate date) {
+        String response = "Here are the tasks on " + date + " in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task instanceof Event) {
                 if (date.equals(((Event) task).getFrom())
                         | date.equals((((Event) task).getTo()))
                         | (date.isAfter((((Event) task).getFrom())) & date.isBefore(((Event) task).getTo()))) {
-                    System.out.println((i + 1) + "." + task.toString());
+                    response += ((i + 1) + "." + task.toString() + "\n");
                 }
             } else if (task instanceof Deadline) {
                 if (date.equals(((Deadline) task).getByTime())) {
-                    System.out.println((i + 1) + "." + task.toString());
+                    response += ((i + 1) + "." + task.toString() + "\n");
                 }
             }
         }
+        return response;
     }
 
     /**
      * Searches for the tasks with a certain keyword and print them out.
      *
      * @param keyword the keyword to search.
+     * @return a response message.
      */
-    public void searchByKeyword(String keyword) {
-        System.out.println("Here are the tasks with the keyword " + keyword + " in your list:");
+    public String searchByKeyword(String keyword) {
+        String response = "Here are the tasks with the keyword " + keyword + " in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task.getDescription().contains(keyword)) {
-                System.out.println((i + 1) + "." + task.toString());
+                response += ((i + 1) + "." + task.toString() + "\n");
             }
         }
+        return response;
     }
 
     public int getSize() {
@@ -137,13 +154,16 @@ public class TaskList {
 
     /**
      * Prints all the tasks out.
+     *
+     * @return a response message.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        String response = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
-            System.out.println((i + 1) + "." + task.toString());
+            response += ((i + 1) + "." + task.toString() + "\n");
         }
+        return response;
     }
 
     public ArrayList<Task> getList() {

@@ -9,10 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Jiayou using FXML.
  */
 public class Main extends Application {
-
     private Jiayou jiayou = new Jiayou();
 
     @Override
@@ -29,4 +28,3 @@ public class Main extends Application {
         }
     }
 }
-

@@ -5,7 +5,7 @@ import java.util.Scanner;
 import jiayou.task.TaskList;
 
 /**
- * Represents the user interface for the chatbot.
+ * Represents the text user interface for the chatbot.
  * @author Liu Jiayao
  */
 public class Ui {
