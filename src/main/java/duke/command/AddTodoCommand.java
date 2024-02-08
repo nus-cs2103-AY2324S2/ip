@@ -1,8 +1,8 @@
 package duke.command;
 
+import duke.task.Todo;
 import duke.util.Parser;
 import duke.util.TaskList;
-import duke.task.Todo;
 
 /**
  * Represents the Command of adding a new todo to a task list.

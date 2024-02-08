@@ -1,11 +1,11 @@
 package duke.command;
 
-import duke.util.Parser;
-import duke.util.TaskList;
-import duke.task.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.task.Event;
+import duke.util.Parser;
+import duke.util.TaskList;
 
 /**
  * Represents the Command of adding a new event to a task list.

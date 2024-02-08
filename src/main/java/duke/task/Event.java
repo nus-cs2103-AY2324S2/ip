@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents an event task that is added by the user.
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
 
@@ -32,7 +32,7 @@ public class Event extends Task{
     @Override
     public String toString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
-        return "[E]" + super.toString() + " (from: " + this.fromDate.format(outputFormatter) + " to: " +
-                this.toDate.format(outputFormatter) +")";
+        return "[E]" + super.toString() + " (from: " + this.fromDate.format(outputFormatter) + " to: "
+                + this.toDate.format(outputFormatter) + ")";
     }
 }

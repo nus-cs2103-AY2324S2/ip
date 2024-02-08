@@ -1,8 +1,8 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * Represents the list from which the tasks are stored.
@@ -11,6 +11,14 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> listItems;
     private Storage storage = new Storage();
+
+    /**
+     * Constructs an instance of TaskList.
+     * The listItems field is initialized from the stored data, if any.
+     */
+    public TaskList() {
+        this.listItems = storage.loadTasks();
+    }
 
     /**
      * Adds the given task of given type, using given data into the list.
@@ -22,18 +30,10 @@ public class TaskList {
      *             Deadlines have one for description and one for the deadline date and time.
      *             Events have one for description, one for the start date and time and, one for end date and time.
      */
-    public void addTask(Task task, String type, String[]data){
+    public void addTask(Task task, String type, String[]data) {
         this.listItems.add(task);
         storage.addListStateRecord(type, data);
         Ui.informItemAdded(task, this);
-    }
-
-    /**
-     * Constructs an instance of TaskList.
-     * The listItems field is initialized from the stored data, if any.
-     */
-    public TaskList() {
-        this.listItems = storage.loadTasks();
     }
 
     /**
@@ -44,11 +44,11 @@ public class TaskList {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
         int index = 1;
-        for (Task item : this.listItems){
+        for (Task item : this.listItems) {
             System.out.println("\t" + index + ". " + item);
             index++;
         }
-        System.out.println("\t____________________________________________________________\n" );
+        System.out.println("\t____________________________________________________________\n");
     }
 
     /**
@@ -56,9 +56,9 @@ public class TaskList {
      * @param index the given index of the task to be marked.
      */
     public void markList(int index) {
-        this.listItems.get(index-1).mark();
-        storage.modifyStateRecord(true, index-1);
-        Ui.informListMarked(listItems.get(index-1));
+        this.listItems.get(index - 1).mark();
+        storage.modifyStateRecord(true, index - 1);
+        Ui.informListMarked(listItems.get(index - 1));
     }
 
     /**
@@ -66,9 +66,9 @@ public class TaskList {
      * @param index the given index of the task to be marked.
      */
     public void unmarkList(int index) {
-        this.listItems.get(index-1).unmark();
-        storage.modifyStateRecord(false, index-1);
-        Ui.informListUnmarked(listItems.get(index-1));
+        this.listItems.get(index - 1).unmark();
+        storage.modifyStateRecord(false, index - 1);
+        Ui.informListUnmarked(listItems.get(index - 1));
     }
 
     /**
@@ -76,8 +76,8 @@ public class TaskList {
      * @param index the given index of the task to be marked.
      */
     public void deleteList(int index) {
-        Task task = listItems.remove(index-1);
-        storage.removeListStateRecord( index-1);
+        Task task = listItems.remove(index - 1);
+        storage.removeListStateRecord(index - 1);
         Ui.informItemRemoved(task, listItems.size());
     }
 
@@ -96,8 +96,8 @@ public class TaskList {
      */
     public void searchAndDisplay(String keyword) {
         ArrayList<Task> searchResult = new ArrayList<>();
-        for(Task t : this.listItems){
-            if(t.contains(keyword)){
+        for (Task t : this.listItems) {
+            if (t.contains(keyword)) {
                 searchResult.add(t);
             }
         }
