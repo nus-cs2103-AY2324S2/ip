@@ -10,7 +10,7 @@ public abstract class Command {
         return false;
     }
 
-    public boolean changedData() {
+    public boolean hasChangedData() {
         return false;
     }
 }

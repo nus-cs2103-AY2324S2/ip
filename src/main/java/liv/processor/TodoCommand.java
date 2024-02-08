@@ -18,7 +18,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public boolean changedData() {
+    public boolean hasChangedData() {
         return true;
     }
 }

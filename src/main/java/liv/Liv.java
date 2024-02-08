@@ -28,7 +28,7 @@ public class Liv {
                 ui.displayBar(); // show the divider line ("_______")
                 Command c = Parser.parse(input);
                 c.execute(tasks, ui);
-                if (c.changedData()) {
+                if (c.hasChangedData()) {
                     storage.saveTaskToFile();
                 }
                 isExit = c.isExit();

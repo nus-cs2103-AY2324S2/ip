@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public boolean changedData() {
+    public boolean hasChangedData() {
         return true;
     }
 }
