@@ -39,4 +39,13 @@ public class Task {
     public String serializeTask() {
         return null;
     }
+
+    /**
+     * Checks if a string is in the description of the task.
+     * @param other The string to check.
+     * @return True if the string other is in the description of task, False otherwise.
+     */
+    public boolean isInDescription(String other) {
+        return this.description.contains(other);
+    }
 }

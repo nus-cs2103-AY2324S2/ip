@@ -27,4 +27,20 @@ public class TaskList {
     public Task deleteTask(int index) {
         return tasks.remove(index);
     }
+
+    /**
+     * Returns all tasks with the description that contains the keyword.
+     * @param keyword The keyword that would be in the description returned.
+     * @return A list of tasks that match the keyword.
+     */
+    public ArrayList<String> findMatchingTasks(String keyword) {
+        ArrayList<String> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.isInDescription(keyword)) {
+                matchingTasks.add(task.getDisplayedString());
+            }
+        }
+        return matchingTasks;
+    }
 }
