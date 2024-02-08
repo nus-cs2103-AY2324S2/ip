@@ -4,7 +4,7 @@ import java.util.HashMap;
 import chimp.task.Task;
 
 public class Ui {
-    private static final String divider = "____________________________________________________________\n";
+    private static final String DIVIDER = "____________________________________________________________\n";
 
     HashMap<String, String> getPhrases() {
         HashMap<String, String> phrases = new HashMap<>();
@@ -28,34 +28,34 @@ public class Ui {
 
     public void say(String key) {
         String phrase = getPhrases().get(key);
-        System.out.println(divider);
+        System.out.println(DIVIDER);
         System.out.println(phrase);
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 
     public void say(Task task, TaskList list) {
-        System.out.println(divider);
+        System.out.println(DIVIDER);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 
     public void say(String key, Task task, TaskList list) {
         String phrase = getPhrases().get(key);
-        System.out.println(divider);
+        System.out.println(DIVIDER);
         System.out.println(phrase);
         System.out.println(task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 
     public void printList(TaskList list) {
-        System.out.println(divider);
+        System.out.println(DIVIDER);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 }
