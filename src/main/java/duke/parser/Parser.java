@@ -12,10 +12,17 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A Parser class that deals with making sense of the user command
+ */
 public class Parser {
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-
+    /**
+     * Processes a string input to decide which command to execute
+     * @param input
+     * @return isExit (i.e. to terminate program or not)
+     */
     public static boolean parse(String input, Ui ui) {
         int cmdSplit = input.indexOf(" ");
         String command = input;
@@ -72,7 +79,6 @@ public class Parser {
                             t = new Deadline(deadline[0], false,
                                     LocalDateTime.parse(deadline[1], dateTimeFormatter));
                         }
-                        //test
                     } else {
                         if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
                             success = false;
@@ -96,6 +102,8 @@ public class Parser {
                 } catch (DateTimeException e) {
                     Ui.showErrorDatetimeFormat();
                 }
+            } else if (command.equals(Command.FIND.COMMAND_NAME)) {
+                Ui.printMatchingTasks(TaskList.findTaskByKeyword(task));
             }
             else {
                 Ui.showErrorAndPrintCommands();

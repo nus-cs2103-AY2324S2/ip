@@ -1,5 +1,8 @@
 package duke.command;
 
+/**
+ * A collection of Command Enum objects to store available commands and its signatures.
+ */
 public enum Command {
     TODO("todo", "todo <task_name>"),
     DEADLINE("deadline", "deadline <task_name> /by <due_date>"),
@@ -11,9 +14,14 @@ public enum Command {
     FIND("find", "find <keyword"),
     TERMINATE("bye", "bye");
 
-    public final String COMMAND_NAME;
-    public final String COMMAND_SIGNATURE;
+    public final String COMMAND_NAME; // the command keyword
+    public final String COMMAND_SIGNATURE; // the command format
 
+    /**
+     * Create a command with a keyword and its format
+     * @param commandName
+     * @param commandSignature
+     */
     private Command(String commandName, String commandSignature) {
         this.COMMAND_NAME = commandName;
         this.COMMAND_SIGNATURE = commandSignature;
