@@ -56,6 +56,9 @@ public class Parser {
             handleUnmarkCommand(userInput, taskList, storage);
         } else if (userInput.trim().toLowerCase().startsWith("delete")) {
             handleDeleteCommand(userInput, taskList, storage);
+        } else if (userInput.trim().toLowerCase().startsWith("find")) {
+            String keyword = userInput.substring("find".length()).trim();
+            taskList.findTask(keyword);
         } else {
             throw new ChatbotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
