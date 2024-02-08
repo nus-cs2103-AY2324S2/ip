@@ -1,5 +1,6 @@
 package victor.parser;
 
+
 import victor.tasklist.TaskList;
 import victor.tasktype.Deadline;
 import victor.tasktype.Event;
@@ -10,7 +11,15 @@ import victor.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is the portion of the code that takes in the user command,
+ * interprets what the user wants to do from the command and does it.
+ *
+ * @author Dominic Fu Ming Jun
+ */
 public class Parser {
+
+    /** The taskName enum is a class that holds all the names of the various tasks. */
     enum taskName {
         list,
         mark,
@@ -20,12 +29,36 @@ public class Parser {
         event,
         delete
     }
-    String taskType = "";
-    public Parser() {
 
+
+    /** Ui class that is used to display certain information for this class. */
+    Ui ui;
+    /** The currentTasks variable is used to hold the current data from the Victor.txt data file. */
+    TaskList currentTasks;
+    /**
+     * The Parser constructor takes in the ui and currentTasks
+     *
+     * @param ui The ui class that is needed to perform ui methods.
+     * @param currentTasks The currentTasks that is used to get the current task list.
+     *
+     */
+    public Parser(Ui ui, TaskList currentTasks) {
+        this.ui = ui;
+        this.currentTasks = currentTasks;
     }
 
-    public void parse(String commandLine, Ui ui, TaskList currentTasks) {
+    /**
+     * The parse method is used to decode the commandLine String and perform
+     * the actions that is indicated in the commandLine.
+     *
+     * @param commandLine The commandLine that is to be decoded to determine what task to perform.
+     * @throws IndexOutOfBoundsException Normally used if the command line tries to access an item position outside the
+     *                                   range of the ArrayList.
+     * @throws NumberFormatException Used for when the commandLine action requires a number, but has something else instead
+     * @throws DateTimeParseException Used for deadline, when the input for the by variable is unable to be converted from
+     *                                String to a LocalDate, indicating that it is in the wrong format.
+     */
+    public void parse(String commandLine) {
         String[] inputList = commandLine.split(" ", 2);
         switch (inputList[0]) {
             case "list" -> currentTasks.printList();

@@ -6,20 +6,49 @@ import victor.tasktype.Task;
 import victor.tasktype.Todo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class contains the method to load data from
+ * a data file and store new data into said data file.
+ *
+ * @author Dominic Fu Ming Jun
+ *
+ */
 public class Storage {
 
+    /** The dataFile variable is a File that is used to store the data file. */
     File dataFile;
+    /** The filePath variable is a String that contains the path to the data file location. */
     String filePath;
+    /**
+     * The Storage Constructor will take in the filePath of the
+     * data file to retrieve the data from. It would update the
+     * filePath and create a new File using the filePath.
+     *
+     * @param filePath The file path of the data file
+     *
+     */
     public Storage(String filePath) {
         this.dataFile = new File(filePath);
         this.filePath = filePath;
     }
 
+    /**
+     * Loads all the data from the dataFile and use it to fill up an empty ArrayList.
+     * If there is no dataFile since they cannot find it at the filePath location,
+     * then the load() will create a new Victor.txt datafile at said location.
+     * It will then return an empty ArrayList if there is no datafile found.
+     *
+     * @return an ArrayList of tasks.
+     * @throws FileNotFoundException If the file doesn't exist at the file path location
+     * @throws IOException If the program is unable to create a new file
+     * at the file path location
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> currentList = new ArrayList<>();
         try {
@@ -44,7 +73,7 @@ public class Storage {
 
                 }
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             try {
                 boolean isCreated = dataFile.createNewFile();
                 System.out.println("Error: Data File not found. Creating new Data File");
@@ -55,7 +84,16 @@ public class Storage {
         }
         return currentList;
     }
-
+    /**
+     * The updateFile is used to update the data file with the new data.
+     * It currently replaces all the old data in the data file and
+     * transfer all the data in the updatedArray into the data file.
+     *
+     * @param updatedArray an updated ArrayList of Tasks containing the current data
+     *                     after the user had ended the program.
+     * @throws IOException If the program is unable to update the data to the file.
+     *
+     */
     public void updateFile(ArrayList<Task> updatedArray) throws IOException{
         int i = 0;
         try {
