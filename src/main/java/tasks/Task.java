@@ -81,6 +81,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean isFound(String matcher) {
+        return Parser.matchStrings(this.description, matcher);
+    }
+
     public String toSaveFormat() {
         if (this.isDone) {
             return "Y " + this.description;

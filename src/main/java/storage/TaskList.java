@@ -40,6 +40,17 @@ public class TaskList {
         return list.get(index - 1);
     }
 
+    public String findTasks(String matcher) {
+        String output = "";
+        int outputIndex = 1;
+        for (Task t : list) {
+            if (t.isFound(matcher)) {
+                output += outputIndex + "." + t.toString() + "\n";
+            }
+        }
+        return output;
+    }
+
     public List<String> toSaveFormat() {
         List<String> output= new ArrayList<>();
         for (Task task : list) {
