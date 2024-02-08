@@ -18,6 +18,16 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
+    public ArrayList<Task> findTask(String taskToFind) {
+        ArrayList<Task> taskArray = new ArrayList<>();
+        for (int i = 0; i < getSize(); i++) {
+            if (taskList.get(i).match(taskToFind)) {
+                taskArray.add(taskList.get(i));
+            }
+        }
+        return taskArray;
+
+    }
 
     /**
      * Returns whether the task is checked

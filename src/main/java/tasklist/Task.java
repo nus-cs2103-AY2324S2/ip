@@ -10,6 +10,13 @@ public class Task {
         this.description = description;
         this.isDone = isDone;
     }
+    public boolean match(String matchString) {
+        if (description.contains(matchString)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
