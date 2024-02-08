@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
         String response = jiayou.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, jiayouImage)
+                DialogBox.getJiayouDialog(response, jiayouImage)
         );
         userInput.clear();
     }

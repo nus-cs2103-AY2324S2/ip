@@ -1,4 +1,1 @@
-T | 0 | 656645
-T | 0 | sdiwhdiw
-T | 0 | dhuhd
 E | 0 | reading | from 2010-01-01 to 2020-02-02

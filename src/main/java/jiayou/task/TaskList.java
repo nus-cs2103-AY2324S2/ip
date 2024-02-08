@@ -41,7 +41,7 @@ public class TaskList {
         this.tasks.add(task);
         String response = ">w< Got it. I've added this task:\n";
         response += ("  " + task + "\n");
-        response += ("Now you have " + getSize() + " tasks in the list.\n");
+        response += ("Now you have " + getSize() + " task(s) in the list.\n");
         updateStorage();
         return response;
     }
@@ -66,7 +66,7 @@ public class TaskList {
                 idsToInt.add(idToInt);
             }
             Collections.sort(idsToInt, Collections.reverseOrder());
-            response += ">w< Noted. I've removed task(s):\n";
+            response += ">w< Noted. I've removed the task(s):\n";
 
             for (int idToInt : idsToInt) {
                 Task removedTask = tasks.remove(idToInt);
@@ -100,7 +100,7 @@ public class TaskList {
                 }
                 idsToInt.add(idToInt);
             }
-            response += ">w< Nice! I've marked task(s) as done:\n";
+            response += ">w< Nice! I've marked the task(s) as done:\n";
             for (int idToInt : idsToInt) {
                 Task taskToMark = tasks.get(idToInt);
                 taskToMark.setStatus(true);
@@ -133,7 +133,7 @@ public class TaskList {
                 }
                 idsToInt.add(idToInt);
             }
-            response += ">w< Nice! I've marked task(s) as undone:\n";
+            response += ">w< Nice! I've marked the task(s) as undone:\n";
             for (int idToInt : idsToInt) {
                 Task taskToUnmark = tasks.get(idToInt);
                 taskToUnmark.setStatus(false);
@@ -155,7 +155,7 @@ public class TaskList {
      * @return a response message.
      */
     public String searchByDate(LocalDate date) {
-        String response = "Here are the tasks on " + date + " in your list:\n";
+        String response = "Here are the task(s) on " + date + " in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task instanceof Event) {
@@ -180,7 +180,7 @@ public class TaskList {
      * @return a response message.
      */
     public String searchByKeyword(String keyword) {
-        String response = "Here are the tasks with the keyword " + keyword + " in your list:\n";
+        String response = "Here are the task(s) with the keyword " + keyword + " in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task.getDescription().contains(keyword)) {
@@ -200,7 +200,7 @@ public class TaskList {
      * @return a response message.
      */
     public String printList() {
-        String response = "Here are the tasks in your list:\n";
+        String response = "Here are the task(s) in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             response += ((i + 1) + "." + task.toString() + "\n");
