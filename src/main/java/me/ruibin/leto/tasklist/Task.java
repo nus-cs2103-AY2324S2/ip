@@ -31,7 +31,7 @@ public class Task {
      * Completed,Task
      * @return String in csv format
      */
-    public String toCSVString() {
+    public String toCsvString() {
         return (isCompleted() ? "Y" : "N") + "," + this.message;
     }
 }

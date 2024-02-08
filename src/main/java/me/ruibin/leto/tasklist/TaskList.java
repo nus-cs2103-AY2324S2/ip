@@ -1,24 +1,23 @@
 package me.ruibin.leto.tasklist;
 
-import me.ruibin.leto.storage.Storage;
-import me.ruibin.leto.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.ruibin.leto.storage.Storage;
+import me.ruibin.leto.ui.Ui;
+
 public class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>(100);
-//    private static int taskNextIndex = 0;
 
     public TaskList() {}
 
     public static void initFromFile() {
-        Storage.ReadFile();
+        Storage.readFile();
     }
 
     public static void saveTasks() {
-        Storage.WriteFile();
+        Storage.writeFile();
     }
 
     public static void addTaskToList(Task t) {
@@ -37,15 +36,14 @@ public class TaskList {
                 t = Deadline.deadlineFromCommand(inputs);
                 break;
             case "todo":
-                t = Todo.todoFromCMD(inputs);
+                t = Todo.todoFromCmd(inputs);
                 break;
-            } // end switch for type of task
-            if (t == null) {
+            default:
                 throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
-            }
+            } // end switch for type of task
             TaskList.list.add(t);
-            Ui.letoSpeak("Task added, " + t +
-                    "\n  > You have " + TaskList.list.size() + " tasks.");
+            Ui.letoSpeak("Task added, " + t
+                    + "\n  > You have " + TaskList.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
             e.printException();
         }
@@ -55,7 +53,6 @@ public class TaskList {
         Task temp;
         try {
             int index = getIndexFromInput(inputs);
-//            temp = TaskListCommands.list[index];
             temp = TaskList.list.get(index);
             if (temp == null) {
                 // should never happen
@@ -66,7 +63,6 @@ public class TaskList {
             } else {
                 temp.markCompleted();
                 Ui.letoSpeak("Task marked as completed! Congratulations");
-//                System.out.println("  << Duke Leto >>\n  > Task marked as completed! Congratulations");
             }
         } catch (InvalidTaskException e) {
             e.printException();
@@ -77,14 +73,13 @@ public class TaskList {
         Task temp;
         try {
             int index = getIndexFromInput(inputs);
-//            temp = TaskListCommands.list[index];
             temp = TaskList.list.get(index);
             if (temp == null) {
                 // should not happen btw
                 throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
             }
             if (!temp.isCompleted()) {
-                Ui.letoSpeak("Task is already not completed (╬▔皿▔)╯");
+                Ui.letoSpeak("Task is already not completed :< ");
             } else {
                 temp.markUncompleted();
                 Ui.letoSpeak("Task marked as uncompleted! Things happen, don't worry we account for it");
@@ -99,8 +94,8 @@ public class TaskList {
             int index = getIndexFromInput(inputs);
             Task t = TaskList.list.get(index);
             TaskList.list.remove(index);
-            Ui.letoSpeak("Task deleted, [" + t.toString() +
-                    "]\n  > You have " + TaskList.list.size() + " tasks.");
+            Ui.letoSpeak("Task deleted, [" + t.toString()
+                    + "]\n  > You have " + TaskList.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
             e.printException();
         }
@@ -121,7 +116,8 @@ public class TaskList {
             }
             return i;
         } catch (NumberFormatException e) {
-            throw new InvalidTaskException("We cannot get task index from your input, it should be an integer, `(un)mark _int_`");
+            throw new InvalidTaskException("We cannot get task index from your input, "
+                    + "it should be an integer, `(un)mark _int_`");
         }
     }
 
