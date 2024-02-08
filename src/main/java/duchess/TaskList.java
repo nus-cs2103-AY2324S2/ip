@@ -1,12 +1,13 @@
 package duchess;
 
-import duchess.task.TaskType;
+import java.util.ArrayList;
+
 import duchess.task.Deadline;
 import duchess.task.Event;
 import duchess.task.Task;
+import duchess.task.TaskType;
 import duchess.task.ToDo;
 
-import java.util.ArrayList;
 import javafx.util.Pair;
 
 /**
@@ -72,10 +73,12 @@ public class TaskList {
                 Deadline newDeadline = new Deadline(description, by);
                 addTask(newDeadline, TaskType.DEADLINE);
             } else {
-                throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
+                throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> "
+                        + "/by <deadline>");
             }
         } else {
-            throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
+            throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> "
+                    + "/by <deadline>");
         }
     }
 
@@ -90,20 +93,23 @@ public class TaskList {
 
         if (eventTokens.length > 1) {
             // Split further to extract description and event details
-            String[] details = eventTokens[1].trim().split("/from|/to"); // Means can use either /from or /to as delimiter
+            // Means can use either /from or /to as delimiter
+            String[] details = eventTokens[1].trim().split("/from | /to");
 
             if (details.length > 2) {
                 String description = details[0].trim();
                 String from = details[1].trim(); // from is everything after
-                String to = details[2].trim();   // to is everything after
+                String to = details[2].trim(); // to is everything after
 
                 Event newEvent = new Event(description, from, to);
                 addTask(newEvent, TaskType.EVENT);
             } else {
-                throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
+                throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> "
+                        + "/from <start> /to <end>");
             }
         } else {
-            throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
+            throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> "
+                    + "/from <start> /to <end>");
         }
     }
 
@@ -214,7 +220,6 @@ public class TaskList {
 
     /**
      * Gets the list of tasks.
-     * 
      * @return the list of tasks
      */
     public ArrayList<Task> getTasks() {
@@ -225,7 +230,8 @@ public class TaskList {
      * Finds tasks containing the specified keyword in their descriptions.
      *
      * @param keyword the keyword to search for in task descriptions
-     * @return an ArrayList of Pair objects containing the index of the matching task in the original list and the matching task itself
+     * @return an ArrayList of Pair objects containing the index of the matching task in the original list and the
+     * matching task itself
      */
     public ArrayList<Pair<Integer, Task>> findTasksByKeyword(String keyword) {
         ArrayList<Pair<Integer, Task>> matchingTasks = new ArrayList<>();

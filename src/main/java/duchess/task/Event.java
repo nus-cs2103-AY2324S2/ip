@@ -49,7 +49,8 @@ public class Event extends Task {
     /**
      * Returns a string representation of the Event task in file format.
      *
-     * @return a string representing the Event task including its type, completion status, description, start, and end for file storage
+     * @return a string representing the Event task including its type, completion status, description,
+     * start, and end for file storage
      */
     @Override
     public String toFileString() {

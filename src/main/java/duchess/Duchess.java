@@ -1,21 +1,20 @@
 package duchess;
 
-import duchess.task.Task;
-import duchess.storage.Storage;
-import duchess.ui.Ui;
 import java.util.ArrayList;
+
+import duchess.storage.Storage;
+import duchess.task.Task;
+import duchess.ui.Ui;
 
 /**
  * Duchess class represents the main class of the Duchess program.
  * It initializes the necessary components and runs the program.
  */
 public class Duchess {
+    private static final String FILE_PATH = "./data/duchess.txt";
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
-
-
-    private static final String FILE_PATH = "./data/duchess.txt";
 
     /**
      * Constructs a Duchess object.

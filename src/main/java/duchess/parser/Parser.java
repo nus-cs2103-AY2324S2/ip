@@ -1,10 +1,10 @@
 package duchess.parser;
 
 import duchess.DuchessException;
-import duchess.task.Task;
-import duchess.task.Event;
-import duchess.task.ToDo;
 import duchess.task.Deadline;
+import duchess.task.Event;
+import duchess.task.Task;
+import duchess.task.ToDo;
 
 /**
  * Parser class provides methods to parse input strings into Task objects.
