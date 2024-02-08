@@ -2,6 +2,11 @@ package gronk;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class.
+ * This contains an ArrayList which stores
+ * Task objects.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 

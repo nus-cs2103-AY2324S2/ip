@@ -1,5 +1,10 @@
 package gronk;
 
+/**
+ * Generic Task class.
+ * Todo, Deadline, and Event subclasses all
+ * inherit from this Task class.
+ */
 public class Task {
     private String desc;
     private int status; // 0 incomplete, 1 complete

@@ -4,10 +4,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline class.
+ * Subclass of Task, with a deadline involved.
+ */
 public class Deadline extends Task {
+    private static final DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private LocalDateTime time;
-    private final static DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private final static DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    /**
+     * Constructor for Deadline object.
+     * @param d String containing description of Task.
+     * @param s Integer representing completion status.
+     * @param t String representing deadline of Task.
+     */
     public Deadline(String d, int s, String t) {
         super(d, s);
         try {
@@ -17,6 +28,14 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Factory constructor for Deadline object.
+     *
+     * @param description String containing description of Task.
+     * @param status Integer representing completion status.
+     * @param time String representing deadline of Task.
+     * @return New Deadline object.
+     */
     public static Deadline createDeadline(String description, int status, String time) {
         try {
             LocalDateTime deadline = LocalDateTime.parse(time, INPUTFORMAT);

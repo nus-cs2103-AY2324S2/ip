@@ -1,5 +1,9 @@
 package gronk;
 
+/**
+ * Todo class.
+ * Simple todo object with no specified deadline.
+ */
 public class Todo extends Task {
     public Todo(String d, int s) {
         super(d, s);

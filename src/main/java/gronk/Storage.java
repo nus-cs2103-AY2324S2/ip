@@ -6,10 +6,31 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage class.
+ * This contains a TaskList object which contains
+ * Task objects, a filename to read and write from,
+ * and a user interface to output messages to interact
+ * with the user.
+ */
 public class Storage {
     private String filename;
     private TaskList taskList;
     private UserInterface userInterface;
+
+    /**
+     * Constructor for Storage object.
+     * Initializes a filename for reference later, a
+     * TaskList to load data from, and a UserInterface
+     * to print messages with.
+     *
+     * @param filename String of filename.
+     */
+    public Storage(String filename) {
+        this.filename = filename;
+        this.taskList = new TaskList();
+        this.userInterface = new UserInterface();
+    }
 
     /**
      * Saves the taskList to a file with filename. The format
@@ -42,7 +63,7 @@ public class Storage {
                 loadLine(sc.nextLine());
                 numberOfTasks += 1;
             }
-            System.out.println("\tLoaded "  + Integer.toString(numberOfTasks) + " tasks from file.");
+            System.out.println("\tLoaded " + Integer.toString(numberOfTasks) + " tasks from file.");
         } catch (FileNotFoundException e) {
             System.out.println("\tNo tasks saved. Initializing new session.");
         }
@@ -95,19 +116,5 @@ public class Storage {
      */
     public String getFilepath() {
         return this.filename;
-    }
-
-    /**
-     * Constructor for Storage object.
-     * Initializes a filename for reference later, a
-     * TaskList to load data from, and a UserInterface
-     * to print messages with.
-     *
-     * @param filename String of filename.
-     */
-    public Storage(String filename) {
-        this.filename = filename;
-        this.taskList = new TaskList();
-        this.userInterface = new UserInterface();
     }
 }

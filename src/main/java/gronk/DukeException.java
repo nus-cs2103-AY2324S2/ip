@@ -1,5 +1,9 @@
 package gronk;
 
+/**
+ * DukeException class.
+ * Generic exception when a command is not recognized.
+ */
 public class DukeException extends Exception {
     public DukeException() {}
 

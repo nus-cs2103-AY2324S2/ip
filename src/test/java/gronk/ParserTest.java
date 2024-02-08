@@ -1,11 +1,12 @@
 package gronk;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
-    public void listTest(){
+    public void listTest() {
         Storage storage = new Storage("testTasks.txt");
         storage.loadFromFile();
         Parser parser = new Parser(storage.returnTasks());
@@ -17,7 +18,7 @@ public class ParserTest {
     }
 
     @Test
-    public void addTodoTest(){
+    public void addTodoTest() {
         Storage storage = new Storage("testTasks.txt");
         storage.loadFromFile();
         Parser parser = new Parser(storage.returnTasks());

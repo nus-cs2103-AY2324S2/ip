@@ -4,17 +4,39 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Event class.
+ * Subclass of Task, with two dates representing a window
+ * for completion of the task.
+ */
 public class Event extends Task {
+    private static final DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private final static DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private final static DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    /**
+     * Constructor for Event object.
+     * @param d String containing description of Task.
+     * @param s Integer representing completion status.
+     * @param st String representing start time of Task.
+     * @param et String representing end time of Task.
+     */
     public Event(String d, int s, String st, String et) {
         super(d, s);
         this.startTime = LocalDateTime.parse(st, INPUTFORMAT);
         this.endTime = LocalDateTime.parse(et, INPUTFORMAT);
     }
 
+    /**
+     * Factory constructor for Event.
+     *
+     * @param description String containing description of Task.
+     * @param status Integer representing completion status.
+     * @param start String representing start time of Task.
+     * @param end String representing end time of Task.
+     * @return New Event object.
+     */
     public static Event createEvent(String description, int status, String start, String end) {
         try {
             LocalDateTime starttime = LocalDateTime.parse(start, INPUTFORMAT);

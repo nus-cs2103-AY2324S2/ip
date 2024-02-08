@@ -1,5 +1,10 @@
 package gronk;
 
+/**
+ * MissingTasksException class.
+ * This exception is thrown when the filename for a
+ * Storage object is not found.
+ */
 public class MissingTasksException extends Exception {
     public MissingTasksException() {}
 

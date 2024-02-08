@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+/**
+ * Parser class.
+ * Utility class to parse the user's messages and
+ * execute them.
+ */
 public class Parser {
     private UserInterface userInterface;
     private TaskList taskList;
@@ -38,8 +43,8 @@ public class Parser {
                 int messageLength = splitMessage.size();
                 if (messageLength == 1) {
                     String word = splitMessage.get(0);
-                    if (word.equals("todo") || word.equals("deadline") ||
-                            word.equals("event") || word.equals("find")) {
+                    if (word.equals("todo") || word.equals("deadline")
+                            || word.equals("event") || word.equals("find")) {
                         throw new EmptyDescException();
                     } else {
                         throw new DukeException();

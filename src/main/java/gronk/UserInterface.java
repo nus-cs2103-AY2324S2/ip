@@ -1,5 +1,10 @@
 package gronk;
 
+/**
+ * UserInterface class.
+ * Helper class that provides text formatting for
+ * output messages.
+ */
 public class UserInterface {
     /**
      * Welcome message to be played when Gronk starts.
