@@ -103,6 +103,7 @@ public class Parser {
         String[] tasks = command.trim().split(" ", 2);
         switch (tasks[0]) {
             case "list":
+                checkParameters(tasks, 1, type);
                 return new ListCommand();
             case "mark":
                 checkParameters(tasks, 2, type);
@@ -125,10 +126,14 @@ public class Parser {
                 checkParameters(event, 3, type);
                 return new AddCommand(new Event(event[0].trim(), stringToDateTime(event[1].trim(), ParseType.COMMAND),
                         stringToDateTime(event[2].trim(), ParseType.COMMAND)));
+            case "find":
+                checkParameters(tasks, 2, type);
+                return new FindCommand(tasks[1]);
             case "delete":
                 checkParameters(tasks, 2, type);
                 return new DeleteCommand(stringToInt(tasks[1]));
             case "bye":
+                checkParameters(tasks, 1, type);
                 return new ExitCommand();
             default:
                 return new InvalidCommand();
