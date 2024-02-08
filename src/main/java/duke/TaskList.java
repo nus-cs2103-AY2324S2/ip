@@ -4,7 +4,7 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -13,14 +13,13 @@ import java.util.stream.Collectors;
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
-
     /**
-     * Constructor for TaskList
+     * Constructor for TaskList.
      *
-     * @param taskList
+     * @param tasks Varargs of tasks added to the tasklist.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList.addAll(taskList);
+    public TaskList(Task... tasks) {
+        this.taskList.addAll(List.of(tasks));
     }
 
     /**
@@ -81,10 +80,9 @@ public class TaskList {
      * @return Filtered list of tasks.
      */
     public TaskList filter(String keyword) {
-        List<Task> filteredTasks = this.taskList.stream()
-                .filter(t -> t.getDescription().contains(keyword))
-                .collect(Collectors.toList());
+        Stream<Task> filteredTasks = this.taskList.stream()
+                .filter(t -> t.getDescription().contains(keyword));
 
-        return new TaskList(new ArrayList<>(filteredTasks));
+        return new TaskList(filteredTasks.toArray(Task[]::new));
     }
 }
