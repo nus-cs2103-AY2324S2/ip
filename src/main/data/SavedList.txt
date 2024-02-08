@@ -1,5 +1,0 @@
-T|0|Read book
-T|0|Return book
-T|0|TODO Put away laundry
-T|0|clean
-T|0|TODO CLEAN

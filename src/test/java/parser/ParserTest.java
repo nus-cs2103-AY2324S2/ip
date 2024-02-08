@@ -3,6 +3,7 @@ package parser;
 import org.junit.jupiter.api.Test;
 import tasks.TaskList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
@@ -21,13 +22,16 @@ public class ParserTest {
 
     @Test
     public void deleteTask_taskNumberIsString_exceptionThrown() {
+        boolean thrown = false;
         TaskList existingTaskList = new TaskList();
 
         try {
             Parser.processCommand("delete fifty", existingTaskList);
         }
         catch (NumberFormatException e) {
+            thrown = true;
             assertEquals("For input string: \"fifty\"", e.getMessage());
         }
+        //assertTrue(thrown);
     }
 }

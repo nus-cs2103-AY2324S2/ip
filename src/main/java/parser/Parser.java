@@ -20,7 +20,7 @@ public class Parser {
      * @throws NumberFormatException If number cannot be parsed (a non-number is entered)
      * @throws IndexOutOfBoundsException If task number does not exist in list
      */
-    public static int processCommand(String input, TaskList existingTaskList) {
+    public static int parseAndExecuteCommand(String input, TaskList existingTaskList) {
         String[] splitInput = input.split(" ");
         String command = splitInput[0].toLowerCase();
         System.out.print(dividerText);

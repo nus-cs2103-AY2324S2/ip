@@ -19,10 +19,10 @@ public class Tam {
         taskListObj = Storage.getSavedTasks();
         Ui.greet();
         String nextCommand = scannerObj.nextLine();
-        int status = Parser.processCommand(nextCommand, taskListObj);
+        int status = Parser.parseAndExecuteCommand(nextCommand, taskListObj);
         while (status == 1) {
             nextCommand = scannerObj.nextLine();
-            status = Parser.processCommand(nextCommand, taskListObj);
+            status = Parser.parseAndExecuteCommand(nextCommand, taskListObj);
         }
         Ui.exit();
     }
