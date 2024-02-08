@@ -4,6 +4,9 @@ import storage.TaskList;
 import ui.UserInterface;
 import tasks.Task;
 
+/**
+ * Command for adding a new task to the TaskList
+ */
 public class AddCommand implements Command{
     private Task task;
 

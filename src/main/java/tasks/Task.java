@@ -5,6 +5,9 @@ import exceptions.ArgumentException;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task in the TaskList
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;

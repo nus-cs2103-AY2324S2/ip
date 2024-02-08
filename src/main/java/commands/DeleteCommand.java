@@ -4,6 +4,9 @@ import storage.TaskList;
 import ui.UserInterface;
 import tasks.Task;
 
+/**
+ * Command for removing a task at a specified index from the TaskList
+ */
 public class DeleteCommand implements Command{
     private int index;
 
