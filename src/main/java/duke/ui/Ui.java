@@ -9,9 +9,23 @@ import duke.task.Task;
  */
 public class Ui {
     private final Scanner scanner;
+    private StringBuilder outputBuffer;
 
+    /**
+     * The constructor of the user interface.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
+        outputBuffer = new StringBuilder();
+    }
+
+    /**
+     * Flushes the output of the program at that state as a String.
+     */
+    public String flush() {
+        var out = outputBuffer.toString();
+        outputBuffer = new StringBuilder();
+        return out;
     }
 
     /**
@@ -45,35 +59,34 @@ public class Ui {
      * Prints a horizontal line on the screen. Used to visually separate sections apart.
      */
     public void showLine() {
-        for (int i = 0; i < 72; i++) {
-            System.out.print('─');
-        }
-        System.out.print('\n');
+        outputBuffer.append("─".repeat(72)).append('\n');
     }
 
     public void showError(Exception e) {
-        System.out.println("The cat tilts its head and hands you an error report:\n" + e.getMessage());
+        outputBuffer.append("The cat tilts its head and hands you an error report:\n").append(e.getMessage());
     }
 
     public void showNote(String str) {
-        System.out.println("The cat hands a note to you, it reads:\n" + str);
+        outputBuffer.append("The cat hands a note to you, it reads:\n").append(str);
     }
 
     public void showCommandNotFound(String command) {
-        System.out.println("The cat tilts its head. It doesn't know what command \"" + command + "\" is.");
+        outputBuffer.append("The cat tilts its head. It doesn't know what command \"").append(command).append("\" is.");
     }
 
     /**
      * Shows an added task.
+     *
      * @param task task that was added
      */
     public void showAddedTask(Task task) {
-        System.out.println("The cat scratches a mark on the wall and then hands you a receipt:\nAdded task "
-                + task.describe());
+        outputBuffer.append("The cat scratches a mark on the wall and then hands you a receipt:\nAdded task ")
+                .append(task.describe());
     }
 
     /**
      * Reads a command from the user.
+     *
      * @return a string with a line of the user's input, or "bye" if input is empty
      */
     public String readCommand() {

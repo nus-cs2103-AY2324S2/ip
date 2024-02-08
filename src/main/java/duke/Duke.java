@@ -39,7 +39,15 @@ public class Duke {
     }
 
     public String getResponse(String input) {
-        return "Duke said: " + input;
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (Parser.InvalidCommandType e) {
+            ui.showCommandNotFound(e.getCommand());
+        } catch (Parser.InvalidCommandData e) {
+            ui.showError(e);
+        }
+        return ui.flush();
     }
 
     /**
