@@ -16,15 +16,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ * Loads tasks from the file and saves tasks in file.
+ */
 public class Storage {
     private File file;
     private String filePath;
 
+    /**
+     * Storage constructor.
+     *
+     * @param filePath      Location of save file.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         this.filePath = filePath;
     }
 
+    /**
+     * Load tasks from save file.
+     *
+     * @return taskList     List of tasks retrieved from save file.
+     * @throws IOException  If scanner cannot read next line.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         if (!file.exists()) {
             handleFileAccessErrors();
@@ -60,6 +74,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Add new task to file.
+     *
+     * @param task          New task to save to file.
+     * @throws IOException  If FileWriter cannot access/write to file.
+     */
     public void addNewTask(Task task) throws IOException {
         if (!file.exists()) {
             handleFileAccessErrors();
@@ -76,6 +96,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Deletes task from file.
+     *
+     * @param index         Index of task to be deleted.
+     * @param numOfTasks    Total number of tasks in task list.
+     * @throws IOException  If unable to access/read/write to file.
+     */
     public void deleteTask(int index, int numOfTasks) throws IOException{
         File oldFile = file;
         File temp = new File("./data/temp.txt");
@@ -105,7 +132,15 @@ public class Storage {
         temp.renameTo(new File(filePath));
     }
 
-    public void updateTask(Task task, int num, int size) throws IOException {
+    /**
+     * Updated task saved in file.
+     *
+     * @param task          Updated task.
+     * @param index         Index of task to be deleted.
+     * @param numOfTasks    Total number of tasks in task list.
+     * @throws IOException  If unable to access/read/write to file.
+     */
+    public void updateTask(Task task, int index, int numOfTasks) throws IOException {
         if (!file.exists()) {
             handleFileAccessErrors();
         }
@@ -117,12 +152,12 @@ public class Storage {
         BufferedReader br = new BufferedReader(new FileReader(file));
         BufferedWriter bw = new BufferedWriter(new FileWriter(temp, true));
 
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < numOfTasks; ++i) {
             String currentLine = br.readLine();
 
-            if (i == (num - 1)) {
+            if (i == (index - 1)) {
                 bw.write(updated + System.lineSeparator());
-            } else if (i != size - 1) {
+            } else if (i != numOfTasks - 1) {
                 bw.write(currentLine + System.lineSeparator());
             } else {
                 bw.write(currentLine);
@@ -136,6 +171,11 @@ public class Storage {
         temp.renameTo(new File("./data/duke.txt"));
     }
 
+    /**
+     * Handles missing directory and file creating.
+     *
+     * @throws IOException  If unable to create file.
+     */
     // Move to error handling class?
     private void handleFileAccessErrors() throws IOException {
         try {

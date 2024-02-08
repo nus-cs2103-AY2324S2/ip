@@ -8,12 +8,21 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
+/**
+ * Main class for Duke chatbox.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Duke constructor.
+     *
+     * @param filePath
+     * @throws IOException
+     */
     public Duke(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +35,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Main driver code for Duke chatbox.
+     * Handles calls to TaskList, Ui, Storage and Parser.
+     *
+     * @throws DukeException
+     * @throws IOException
+     */
     public void run() throws DukeException, IOException {
         Parser parser = new Parser();
         ui.printWelcomeMessage();

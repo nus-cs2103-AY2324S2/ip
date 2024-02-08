@@ -4,10 +4,27 @@ import duke.tasks.Task;
 
 import java.io.IOException;
 
+/**
+ * Handles reading user input and calling the relevant commands.
+ */
 public class Parser {
 
+    /**
+     * Parser constructor.
+     */
     public Parser() {}
 
+    /**
+     * Parses user input and calls the relevant commands.
+     *
+     * @param input             User command input.
+     * @param storage           Storage instance.
+     * @param taskList          TaskList instance.
+     * @param ui                Ui instance.
+     * @return continue         Returns 0: exit program, -1: continue reading user input.
+     * @throws DukeException    If user command incomplete.
+     * @throws IOException      If storage to file is unsuccessful.
+     */
     public int parseInput(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException, IOException {
         input = input + " ";
         String[] command = input.split(" ", 2);
