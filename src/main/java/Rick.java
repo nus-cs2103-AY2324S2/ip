@@ -8,9 +8,25 @@ import java.nio.file.Paths;
 
 
 public class Rick {
-    public static ArrayList<Item> list = new ArrayList<>();
-    public static Path directoryPath = Paths.get("./data");
-    public static Path filePath = Paths.get("./data/rick.txt");
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    private static ArrayList<Item> list = new ArrayList<>();
+    private static Path filePath = Paths.get("./data/rick.txt");
+    private static Path directoryPath = Paths.get("./data");
+
+    public Rick(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (RickException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
     public static void loadFile() throws RickException {
         reply("Loading local data...");
         try {
@@ -42,7 +58,6 @@ public class Rick {
                 case ("D"):
                     if (splited.length != 4) {throw new Exception("D length wrong");}
                     list.add(new Deadline(splited[2], splited[1], splited[3]));
-                    break;
                 case ("E"):
                     if (splited.length != 5) {throw new Exception("E length wrong");}
                     list.add(new Event(splited[2], splited[1], splited[3], splited[4]));
@@ -55,7 +70,7 @@ public class Rick {
             throw new RickException(e.getMessage());
             //TODO switch error message
             //throw new RickException("There's something wrong with your local data... You might want to [check the file], " +
-                    //"or [clear local data]");
+            //"or [clear local data]");
         }
     }
     //TODO implement 'clear local data'
@@ -125,9 +140,6 @@ public class Rick {
         String exit = "Bye. Hope to see you again soon !";
         reply(exit);
     }
-    public static void echo(String args){
-        reply(args);
-    }
 
     public static void list() {
         String divider = "____________________________________________________________";
@@ -188,6 +200,12 @@ public class Rick {
                 "\nNow you have " + list.size() + " tasks in the list.";
         update();
         reply(output);
+//        try {
+//            this.ui.reply(this.tasks.add_to_list(arg));
+//            this.storage.update();
+//        } catch (RickException e) {
+//            Ui.reply(e.getMessage());
+//        }
     }
 
     public static void mark(String arg) throws RickException {
@@ -205,6 +223,10 @@ public class Rick {
             update();
             reply(output);
         }
+//        try {
+//            update();
+//            reply(this.list.mark());
+//        }
     }
 
     public static void unmark(String arg) throws RickException {
