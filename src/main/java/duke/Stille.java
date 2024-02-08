@@ -7,6 +7,9 @@ import storage.Storage;
 import storage.TaskList;
 import ui.UserInterface;
 
+/**
+ * Main driver class, initializes the required classes and starts the operation.
+ */
 public class Stille {
     private final UserInterface ui;
     private final Storage storage;
@@ -24,6 +27,9 @@ public class Stille {
         }
     }
 
+    /**
+     * Main logic of application, displays opening message and enters command loop.
+     */
     public void run() {
         ui.showOpeningMessage();
 
@@ -40,6 +46,9 @@ public class Stille {
         this.exit();
     }
 
+    /**
+     * At the end of operation, save the current tasklist, output closing message.
+     */
     public void exit() {
         try {
             this.storage.save(this.list.toSaveFormat());

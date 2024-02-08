@@ -3,6 +3,9 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task that has an ending date
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;

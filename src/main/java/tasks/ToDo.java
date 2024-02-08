@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Task that has no starting or ending date
+ */
 public class ToDo extends Task{
 
     public ToDo(String description) {

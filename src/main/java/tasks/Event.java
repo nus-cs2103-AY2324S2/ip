@@ -3,6 +3,9 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task that has a starting and ending date
+ */
 public class Event extends Task{
     protected LocalDate from;
     protected LocalDate to;

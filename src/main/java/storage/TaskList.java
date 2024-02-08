@@ -6,6 +6,9 @@ import parser.Parser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the todolist of the application
+ */
 public class TaskList {
     private List<Task> list;
 

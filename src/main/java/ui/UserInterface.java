@@ -4,6 +4,9 @@ import tasks.Task;
 
 import java.util.Scanner;
 
+/**
+ * Manages output to the command line
+ */
 public class UserInterface {
     private String openingMessage = "Hello! I'm Stille\n" + "What can I do for you?\n";
     private String closingMessage = "Bye. Hope to see you again soon!";
