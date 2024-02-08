@@ -22,5 +22,6 @@ public class ListCommand extends Command {
     public void execute(TaskList tL, Ui ui, Storage st) {
         String out = tL.showList();
         ui.showMessage(out);
+        setOut(out);
     }
 }

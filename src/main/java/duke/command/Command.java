@@ -9,7 +9,7 @@ import duke.Ui;
  *
  */
 public abstract class Command {
-
+    private String out;
     private boolean isExit;
     /**
      * Constructor for Command.
@@ -41,5 +41,12 @@ public abstract class Command {
      */
     public boolean isExit() {
         return isExit;
+    }
+
+    public void setOut(String s) {
+        out = s;
+    }
+    public String getOut() {
+        return out;
     }
 }

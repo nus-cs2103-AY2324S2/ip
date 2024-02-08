@@ -33,8 +33,10 @@ public class FindCommand extends Command {
             String key = inputs[1];
             String out = tL.findList(key);
             ui.showMessage(out);
+            setOut(out);
         } catch (CommandFormatException e) {
             ui.showMessage("The command format for find is find 'key' (e.g.: find book)");
+            setOut("The command format for find is find 'key' (e.g.: find book)");
         }
     }
 

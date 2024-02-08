@@ -21,5 +21,6 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tL, Ui ui, Storage st) {
         ui.showBye();
+        setOut("Bye. Hope to see you again soon!");
     }
 }

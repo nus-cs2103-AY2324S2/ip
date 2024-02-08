@@ -55,6 +55,7 @@ public class AddCommand extends Command {
                     String out = tL.addTask(new Event(desFromTo[0], ldtF, ldtT));
                     ui.showMessage(out);
                     st.write(tL.getList());
+                    setOut(out);
                 }
                 break;
             case "todo":
@@ -76,6 +77,7 @@ public class AddCommand extends Command {
                     String out = tL.addTask(new ToDos(name[1]));
                     ui.showMessage(out);
                     st.write(tL.getList());
+                    setOut(out);
                 }
                 break;
             case "deadline":
@@ -93,16 +95,20 @@ public class AddCommand extends Command {
                     String out = tL.addTask(new Deadline(desBy[0], ldt));
                     ui.showMessage(out);
                     st.write(tL.getList());
+                    setOut(out);
                 }
                 break;
             default:
             }
         } catch (DescriptionFormatException e) {
             ui.showMessage(e.getMessage());
+            setOut(e.getMessage());
         } catch (DateTimeParseException e) {
             ui.showMessage("Please use the date format: yyyy-MM-dd HH:mm (e.g.: 2023-02-01 12:30)");
+            setOut("Please use the date format: yyyy-MM-dd HH:mm (e.g.: 2023-02-01 12:30)");
         } catch (IOException e) {
             ui.showMessage("Save failed");
+            setOut("Please use the date format: yyyy-MM-dd HH:mm (e.g.: 2023-02-01 12:30)");
         }
     }
 
