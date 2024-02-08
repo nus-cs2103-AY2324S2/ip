@@ -1,5 +1,7 @@
-import java.util.ArrayList;
+package gulie;
+import gulie.task.Task;
 
+import java.util.ArrayList;
 public class GulieTasklist extends ArrayList<Task> {
 
     public Task store(Task task) {

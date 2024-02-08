@@ -1,5 +1,11 @@
+package gulie;
+
+import gulie.task.Deadline;
+import gulie.task.Event;
+import gulie.task.Task;
+import gulie.task.Todo;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class GulieParser {
