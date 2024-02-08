@@ -11,6 +11,8 @@ public class Ellie {
 
     private Command command;
 
+    private Boolean isExit;
+
     /**
      * Constructs an Ellie object.
      * Initializes the storage, task list, and user interface components.
@@ -18,6 +20,7 @@ public class Ellie {
     public Ellie() {
         storage = new Storage("./data/toDoList.txt", "./data");
         taskList = new TaskList(storage);
+        isExit = false;
     }
 
 
@@ -31,11 +34,21 @@ public class Ellie {
         command = Parser.parse(input);
 
         if (command.isExit()) {
+            isExit = true;
             return Ui.goodbye();
         }
 
         String response = command.runAndReturnResponse(taskList);
         return response;
+    }
+
+    /**
+     * Returns true if the user has entered the exit command.
+     *
+     * @return True if the user has entered the exit command.
+     */
+    public Boolean isExit() {
+        return isExit;
     }
 
 

@@ -49,7 +49,6 @@ test {
 }
 
 application {
-    //mainClass.set("ellie.Main")
     mainClass.set("ellie.Launcher")
 }
 
