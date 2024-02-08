@@ -1,8 +1,6 @@
 package duchess;
 
 import duchess.task.Task;
-import duchess.storage.Storage;
-import duchess.ui.Ui;
 import java.util.ArrayList;
 
 /**

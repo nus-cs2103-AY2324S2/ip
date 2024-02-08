@@ -1,5 +1,6 @@
-package duchess;
+package duchess.parser;
 
+import duchess.DuchessException;
 import duchess.task.Task;
 import duchess.task.Event;
 import duchess.task.ToDo;
