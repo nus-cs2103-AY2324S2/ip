@@ -1,18 +1,20 @@
-
+import java.io.IOException;
 import java.util.*;
 
 public class Operator {
     // Operator handles the user input and output
     private Scanner scanner;
     private TaskList taskList;
+    private TaskRepository taskRepo;
 
-    public Operator() {
+    public Operator() throws IOException, BotException {
         this.scanner = new Scanner(System.in);
-        this.taskList = new TaskList();
+        this.taskRepo = new TaskRepository();
+        this.taskList = taskRepo.loadTasks();
     }
 
     // Entry point of the bot
-    public void goLive() throws BotException {
+    public void goLive() throws BotException, IOException {
         while (true) {
             String userInput = scanner.nextLine();
             String[] userInputArr = userInput.split(" ");
@@ -31,6 +33,8 @@ public class Operator {
                 case "mark":
                     try {
                         botMarkTask(userInputArr);
+                        // save to file
+                        taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -38,6 +42,8 @@ public class Operator {
                 case "unmark":
                     try {
                         botUnmarkTask(userInputArr);
+                        // save to file
+                        taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -45,6 +51,10 @@ public class Operator {
                 case "todo":
                     try {
                         handleTodoCommand(userInputArr);
+                        System.out.println("reached here");
+                        // save to file
+                        taskRepo.saveTasks(taskList);
+                        System.out.println("reached here as well");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -52,6 +62,8 @@ public class Operator {
                 case "deadline":
                     try {
                         handleDeadlineCommand(userInputArr);
+                        // save to file
+                        // taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -59,6 +71,8 @@ public class Operator {
                 case "event":
                     try {
                         handleEventCommand(userInputArr);
+                        // save to file
+                        // taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -66,6 +80,8 @@ public class Operator {
                 case "delete":
                     try {
                         handleDeleteCommand(userInputArr);
+                        // save to file
+                        // taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -119,7 +135,7 @@ public class Operator {
             throw new BotException("The description of a todo cannot be empty.");
         }
         String todoTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
-        taskList.addTodo(todoTask);
+        this.taskList.addTodo(todoTask);
         botAddTaskMsg();
     }
 

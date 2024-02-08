@@ -1,5 +1,7 @@
+import java.io.IOException;
+
 public class Duke {
-    public static void main(String[] args) throws BotException {
+    public static void main(String[] args) throws BotException, IOException {
         // Name of the bot
         String botName = "WannaBeSkynet";
 
