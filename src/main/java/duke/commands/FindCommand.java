@@ -2,9 +2,18 @@ package duke.commands;
 
 import duke.TaskList;
 
-public class Find extends Command {
+/**
+ *  The Find class handles search requests.
+ */
+public class FindCommand extends Command {
     private TaskList userTasks;
-    public Find(String[] cmd, TaskList userTasks) {
+
+    /**
+     * Constructs a Find that handles search requests.
+     * @param cmd The user input split by command and description.
+     * @param userTasks The current task list of user tasks.
+     */
+    public FindCommand(String[] cmd, TaskList userTasks) {
         super(cmd);
         this.userTasks = userTasks;
     }
