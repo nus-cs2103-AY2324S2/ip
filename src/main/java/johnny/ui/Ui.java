@@ -11,8 +11,8 @@ import johnny.tasks.TaskList;
  */
 public class Ui {
 
-    /** Scanner to read input from user. */
-    private Scanner scanner = new Scanner(System.in);
+    /** Output to be returned to GUI */
+    private StringBuilder output = new StringBuilder();
 
     /**
      * Prints error message to user.
@@ -20,22 +20,21 @@ public class Ui {
      * @param errorMessage Error message of error to be printed.
      */
     public void showError(String errorMessage) {
-        System.out.println(errorMessage + "\n");
+        output.append(errorMessage);
     }
 
     /**
      * Prints welcome message to user.
      */
     public void showWelcome() {
-        System.out.println("Johnny here. What do you want bro?\n");
+        output.append("Johnny here. What do you want bro?");
     }
 
     /**
-     * Closes scanner and prints end message to user.
+     * Prints end message to user.
      */
     public void showEnd() {
-        scanner.close();
-        System.out.println("Bye bro. I'm going back to sleep.");
+        output.append("Bye bro. I'm going back to sleep.");
     }
 
     /**
@@ -46,13 +45,12 @@ public class Ui {
      */
     public void showList(TaskList tasks) throws JohnnyException {
         if (tasks.size() == 0) {
-            System.out.println("You have no tasks bro. Stop being lazy and add some tasks.\n");
+            output.append("You have no tasks bro. Stop being lazy and add some tasks.");
         } else {
-            System.out.println("Get all these done bro:");
+            output.append("Get all these done bro:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(i + 1 + ". " + tasks.get(i));
+                output.append(i + 1 + ". " + tasks.get(i) + "\n");
             }
-            System.out.println();
         }
     }
 
@@ -62,8 +60,8 @@ public class Ui {
      * @param task Task to be marked.
      */
     public void showMark(Task task) {
-        System.out.println("Finally done bro.");
-        System.out.println(task + "\n");
+        output.append("Finally done bro.\n");
+        output.append(task);
     }
 
     /**
@@ -72,8 +70,8 @@ public class Ui {
      * @param task Task to be unmarked.
      */
     public void showUnmark(Task task) {
-        System.out.println("Why are you not done yet bro?");
-        System.out.println(task + "\n");
+        output.append("Why are you not done yet bro?\n");
+        output.append(task);
     }
 
     /**
@@ -82,9 +80,9 @@ public class Ui {
      * @param task Task to be deleted.
      */
     public void showDelete(Task task, TaskList tasks) {
-        System.out.println("Task removed. Why so lazy bro?");
-        System.out.println(task);
-        System.out.println("You still have " + tasks.size() + " tasks in your list bro.\n");
+        output.append("Task removed. Why so lazy bro?\n");
+        output.append(task + "\n");
+        output.append("You still have " + tasks.size() + " tasks in your list bro.");
     }
 
     /**
@@ -94,18 +92,9 @@ public class Ui {
      * @param tasks Tasks left in TaskList.
      */
     public void showAddTask(Task task, TaskList tasks) {
-        System.out.println("Go get this done bro:");
-        System.out.println(task);
-        System.out.println("You still have " + tasks.size() + " tasks in your list bro.\n");
-    }
-
-    /**
-     * Reads user input.
-     *
-     * @return User input as String.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
+        output.append("Go get this done bro: \n");
+        output.append(task + "\n");
+        output.append("You still have " + tasks.size() + " tasks in your list bro.");
     }
 
     /**
@@ -116,14 +105,24 @@ public class Ui {
      */
     public void showFoundTasks(TaskList foundTasks) throws JohnnyException {
         if (foundTasks.size() == 0) {
-            System.out.println("No matches bro.\n");
+            output.append("No matches bro.");
         } else {
-            System.out.println("All these tasks match:");
+            output.append("All these tasks match bro:\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println(i + 1 + ". " + foundTasks.get(i));
+                output.append(i + 1 + ". " + foundTasks.get(i) + "\n");
             }
-            System.out.println();
         }
+    }
+
+    /**
+     * Returns the Ui response and resets the output String.
+     *
+     * @return String that is passed into GUI.
+     */
+    public String getOutput() {
+        String temp = output.toString();
+        output = new StringBuilder();
+        return temp;
     }
 
 }
