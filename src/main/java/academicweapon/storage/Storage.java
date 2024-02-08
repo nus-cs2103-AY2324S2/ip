@@ -23,11 +23,35 @@ public class Storage {
      *
      * @param filePath The file path for the task list data file
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
-
-        File file = new File(filePath);
+//    public Storage(String filePath) {
+//        this.filePath = filePath;
+//
+//        File file = new File(filePath);
+//        try {
+//            if (file.exists()) {
+//                this.file = file;
+//            } else {
+//                file.createNewFile();
+//                this.file = file;
+//            }
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+    public Storage(String fileName) {
+        this.filePath = "./data/" + fileName;
+        this.file = new File(fileName);
         try {
+            File parentDirectory = file.getParentFile();
+            if (!parentDirectory.exists()) {
+                boolean directoryCreated = parentDirectory.mkdirs();
+                if (directoryCreated) {
+                    System.out.println("Parent directory created successfully.");
+                } else {
+                    System.out.println("Failed to create parent directory");
+                }
+            }
+
             if (file.exists()) {
                 this.file = file;
             } else {
@@ -35,7 +59,7 @@ public class Storage {
                 this.file = file;
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
