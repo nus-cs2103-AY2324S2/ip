@@ -53,6 +53,7 @@ public class Storage {
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         try {
+            Files.createDirectories(Paths.get(filePath));
             List<String> lines = Files.readAllLines(Paths.get(filePath));
             for (String line : lines) {
                 tasks.add(decodeTask(line));

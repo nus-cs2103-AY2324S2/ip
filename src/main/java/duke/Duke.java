@@ -5,6 +5,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+import javafx.application.Application;
 
 /**
  * The Duke program is a chatbot that helps users to keep track of their tasks.
@@ -37,6 +38,7 @@ public class Duke {
      * Runs the Duke program.
      */
     public void run() {
+        Application.launch(Ui.class);
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
