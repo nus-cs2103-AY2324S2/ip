@@ -1,10 +1,13 @@
 package dook;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,21 +15,29 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
+    private static final ArrayList<String> DANCE_STRING = new ArrayList<>(List.of(
+            "　　　  　^＿^　　　♪\n"
+                    + "　　　 （´・ω・｀∩\n"
+                    + "　　 　　o　　　,ﾉ\n"
+                    + "　　　　Ｏ＿　.ﾉ\n"
+                    + "♪　　　 　 (ノ",
+            "　　　 　^＿^　♪\n"
+                    + "　　　 ∩・ω・｀）\n"
+                    + "　　　 |　　 cﾉ\n"
+                    + "　　 　｜　　 _⊃　　♪\n"
+                    + "　　　 し -,"));
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Dook dook;
 
@@ -38,18 +49,6 @@ public class MainWindow extends AnchorPane {
             + "| | | |/ _ \\ / _ \\| |/ /    (˚. 。7  \n"
             + "| |_| | |_| | |_| |   <      |、˜〵 \n"
             + "|____/ \\___/ \\___/|_|\\_\\     \u3058\u3057_,)ノ\n";
-
-    private static ArrayList<String> danceString = new ArrayList<String>(List.of(
-                    "　　　  　^＿^　　　♪\n" +
-                    "　　　 （´・ω・｀∩\n" +
-                    "　　 　　o　　　,ﾉ\n" +
-                    "　　　　Ｏ＿　.ﾉ\n" +
-                    "♪　　　 　 (ノ",
-                    "　　　 　^＿^　♪\n" +
-                    "　　　 ∩・ω・｀）\n" +
-                    "　　　 |　　 cﾉ\n" +
-                    "　　 　｜　　 _⊃　　♪\n" +
-                    "　　　 し -,"));
 
     private Timeline danceAnimation;
     @FXML
@@ -75,16 +74,16 @@ public class MainWindow extends AnchorPane {
         danceAnimation.setCycleCount(0);
         for (int i = 0; i < 16; i++) {
             danceAnimation.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(((float)i + 0.5)/2.0),
+                    new KeyFrame(Duration.seconds(((float) i + 0.5) / 2.0),
                             event -> dialogContainer
                                     .getChildren()
                                     .addAll(DialogBox
-                                            .getDukeDialog(danceString.get(0), dookImage))),
-                    new KeyFrame(Duration.seconds(((float)i + 1) / 2.0),
+                                            .getDukeDialog(DANCE_STRING.get(0), dookImage))),
+                    new KeyFrame(Duration.seconds(((float) i + 1) / 2.0),
                             event -> dialogContainer
                                     .getChildren()
                                     .addAll(DialogBox
-                                            .getDukeDialog(danceString.get(1), dookImage))));
+                                            .getDukeDialog(DANCE_STRING.get(1), dookImage))));
         }
     }
 

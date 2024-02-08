@@ -2,7 +2,6 @@ package command;
 
 import task.Task;
 import task.TaskList;
-import dook.Ui;
 import dook.Storage;
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         ArrayList<Task> found = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).hasSubstring(target)) {

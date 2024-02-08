@@ -2,7 +2,6 @@ package command;
 
 import task.Task;
 import task.TaskList;
-import dook.Ui;
 import dook.Storage;
 import dook.DookException;
 
@@ -17,11 +16,10 @@ public class DeleteCommand extends Command {
      * Deletes a command from the TaskList.
      *
      * @param tasks The bot TaskList.
-     * @param ui The user interface.
      * @param storage The storage interface.
      * @throws DookException If TaskList is empty or indexed out of bounds.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+    public String execute(TaskList tasks, Storage storage) throws DookException {
         String toReturn;
         Task toDelete;
         try {
@@ -31,9 +29,9 @@ public class DeleteCommand extends Command {
             if (tasks.size() == 0) {
                 err = new DookException("Nooo! You don't have any tasks to delete :(");
             } else {
-                err = new DookException(String.format("Nooo! " +
-                                "You have %d tasks!" +
-                                " Valid inputs for delete is in the range [1 - %d]",
+                err = new DookException(String.format("Nooo! "
+                                + "You have %d tasks!"
+                                + " Valid inputs for delete is in the range [1 - %d]",
                         tasks.size(), tasks.size()));
             }
             throw err;
