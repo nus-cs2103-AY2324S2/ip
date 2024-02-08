@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Dude class is the entry point of the application that manages tasks.
+ * It is responsible for initializing the system, loading existing tasks from a file,
+ * and processing user commands.
+ */
 public class Dude {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -113,68 +118,135 @@ public class Dude {
 }
 
 // Base Task class
+/**
+ * Abstract class representing the structure and functionality of a task.
+ * This class serves as a base for different types of tasks that can be created, tracked, and modified.
+ * Each task has a description and a status indicating whether it is done.
+ */
 abstract class Task {
+    /**
+     * The descriptive text of the task.
+     */
     String description;
+
+    /**
+     * The completion status of the task.
+     */
     boolean isDone;
 
+    /**
+     * Constructs a new Task with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-
     }
 
+    /**
+     * Marks the task as done by setting the isDone field to true.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Marks the task as not done by setting the isDone field to false.
+     */
     public void markAsNotDone() {
         isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task,
+     * which includes the description and completion status.
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public abstract String toString();
 }
 
+
 // ToDo subclass
+/**
+ * Represents a ToDo task with a description.
+ * Inherits from the Task class.
+ */
 class ToDo extends Task {
+    /**
+     * Constructs a new ToDo task with the specified description.
+     *
+     * @param description The description of the ToDo task.
+     */
     public ToDo(String description) {
         super(description);
     }
 
+    /**
+     * Returns a string representation of the ToDo task,
+     * including its type, completion status, and description.
+     *
+     * @return A string representation of the ToDo task.
+     */
     @Override
     public String toString() {
         return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
     }
 }
 
-//Deadline subclass
+/**
+ * Represents a Deadline task with a description and a due date.
+ * Inherits from the Task class.
+ */
 class Deadline extends Task {
+    /**
+     * The due date of the Deadline task.
+     */
     LocalDate by;
 
+    /**
+     * Constructs a new Deadline task with the specified description and due date.
+     *
+     * @param description The description of the Deadline task.
+     * @param by          The due date of the task in the format "yyyy-MM-dd".
+     */
     public Deadline(String description, String by) {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.by = LocalDate.parse(by, formatter);
-        // Parse the string to a LocalDate
     }
 
+    /**
+     * Returns a string representation of the Deadline task,
+     * including its type, completion status, description, and due date.
+     *
+     * @return A string representation of the Deadline task.
+     */
     @Override
     public String toString() {
-        // Define a formatter
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
-        // Format the LocalDate to the desired format
         String formattedDate = by.format(formatter);
         return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + formattedDate + ")";
     }
-
-
 }
 
-// Event subclass
+
+/**
+ * Represents an Event task with a description, start date, and end date.
+ * Inherits from the Task class.
+ */
 class Event extends Task {
     LocalDate start;
     LocalDate end;
-
+    /**
+     * Constructs a new Event task with the specified description, start date, and end date.
+     *
+     * @param description The description of the Event task.
+     * @param start       The start date of the event in the format "yyyy-MM-dd".
+     * @param end         The end date of the event in the format "yyyy-MM-dd".
+     */
     public Event(String description, String start, String end) {
         super(description);
         // Parse the strings to LocalDate
@@ -183,6 +255,12 @@ class Event extends Task {
         this.end = LocalDate.parse(end, formatter);
     }
 
+    /**
+     * Returns a string representation of the Event task,
+     * including its type, completion status, description, start date, and end date.
+     *
+     * @return A string representation of the Event task.
+     */
     @Override
     public String toString() {
         // Define a formatter
@@ -195,10 +273,21 @@ class Event extends Task {
     }
 }
 
-
+/**
+ * Provides functionality to save and load tasks to and from a file.
+ * This class handles the conversion of Task objects into a string format suitable for file storage
+ * and the parsing of these strings back into Task objects.
+ */
 class TaskStorage {
     public static final String FILE_NAME = "tasks.txt";
 
+    /**
+     * Saves a list of tasks to a file, converting each task to a string format.
+     * Each task is written on a new line in the file.
+     *
+     * @param tasks The list of Task objects to be saved.
+     * @throws IOException If an I/O error occurs writing to the file.
+     */
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME));
         for (Task task : tasks) {
@@ -211,6 +300,12 @@ class TaskStorage {
 
     }
 
+    /**
+     * Loads a list of tasks from a file, converting each line of the file back into a Task object.
+     *
+     * @return An ArrayList of Task objects read from the file.
+     * @throws IOException If an I/O error occurs reading from the file.
+     */
     public static ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME));
@@ -225,6 +320,13 @@ class TaskStorage {
         return tasks;
     }
 
+    /**
+     * Converts a Task object into a string format for file storage.
+     * The format includes task type, completion status, description, and dates if applicable.
+     *
+     * @param task The Task object to be converted.
+     * @return A string representation of the Task object.
+     */
     private static String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -241,6 +343,13 @@ class TaskStorage {
         return sb.toString();
     }
 
+    /**
+     * Converts a string representation of a task back into a Task object.
+     * The string format should include task type, completion status, description, and dates if applicable.
+     *
+     * @param line The string representation of the task.
+     * @return A Task object corresponding to the string, or null if the string format is invalid.
+     */
     private static Task taskFromString(String line) {
         String[] parts = line.split("\\|");
         boolean isDone = "1".equals(parts[1]);
@@ -346,6 +455,9 @@ enum Actions {
     FIND
 }
 
+/**
+ * Represents a command issued by the user, encapsulating an action and optional additional information.
+ */
 class Command {
     public Actions action;
 
@@ -362,8 +474,21 @@ class Command {
 
 }
 
+/**
+ * A utility class to parse input strings into Command objects.
+ * This class interprets user inputs and translates them into actionable commands
+ * for the application to execute.
+ */
  class Parser {
 
+    /**
+     * Parses the user input into a Command object.
+     * This method identifies the action requested by the user and any associated information.
+     *
+     * @param input The user input as a String.
+     * @return A Command object representing the action to be performed.
+     * @throws RuntimeException If the input does not match any known command patterns.
+     */
     public static Command getCommand(String input) {
         if (Parser.isBye(input)) {
             return new Command(Actions.BYE);
@@ -410,10 +535,22 @@ class Command {
         return input.equalsIgnoreCase("list");
     }
 
+    /**
+     * Extracts the task index from a done command input.
+     *
+     * @param input The user input as a String.
+     * @return The index of the task to be marked as done.
+     */
     public static int getDoneIndex(String input) {
         return Integer.parseInt(input.substring(5));
     }
 
+    /**
+     * Extracts the task index from a delete command input.
+     *
+     * @param input The user input as a String.
+     * @return The index of the task to be deleted.
+     */
     public static int getDeleteIndex(String input) {
         return Integer.parseInt(input.substring(7));
     }
