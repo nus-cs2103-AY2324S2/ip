@@ -6,10 +6,11 @@ package GandalfBot;
 public class Parser {
     String userInput;
 
-    public Parser(String userInput){
+    public Parser(String userInput) {
         this.userInput = userInput;
     }
 
+<<<<<<< HEAD
     /**
      * Interprets the instance-level userInput field by checking for double spacing and structure it to the
      * different information types
@@ -17,16 +18,19 @@ public class Parser {
      * @return An array of stringbuilders containing the various information required
      */
     public StringBuilder[] interpret(){
+=======
+    public StringBuilder[] interpret() {
+>>>>>>> A-CodingStandard
         StringBuilder taskType = new StringBuilder();
         StringBuilder taskName = new StringBuilder();
         StringBuilder date1 = new StringBuilder();
         StringBuilder date2 = new StringBuilder();
         StringBuilder[] parsedInput = {taskType, taskName, date1, date2};
         int curr_info = 0;
-        for(int i = 0; i < userInput.length(); i++){
+        for(int i = 0; i < userInput.length(); i++) {
             char curr_char = userInput.charAt(i);
-            if(curr_char == ' '){
-                if(userInput.charAt(i - 1) == ' '){
+            if(curr_char == ' ') {
+                if(userInput.charAt(i - 1) == ' ') {
                     curr_info++;
                     continue;
                 }

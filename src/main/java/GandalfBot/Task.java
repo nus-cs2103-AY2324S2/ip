@@ -10,8 +10,10 @@ public class Task implements Serializable {
     String nameOfTask;
     boolean status;
 
-    public Task(){}
-    public Task(String nameOfTask){
+    public Task() {
+
+    }
+    public Task(String nameOfTask) {
         this.nameOfTask = nameOfTask;
         this.status = false;
     }
@@ -20,7 +22,7 @@ public class Task implements Serializable {
      *
      * @param status The status of the task (true for completed, false for not completed).
      */
-    public void markStatus(boolean status){
+    public void markStatus(boolean status) {
         this.status = status;
     }
 
@@ -29,16 +31,17 @@ public class Task implements Serializable {
      *
      * @return The status of the task (true for completed, false for not completed).
      */
-    public boolean getStatus(){
+
+    public boolean getStatus() {
         return this.status;
     }
 
     @Override
-    public String toString(){
-        if(status){
+    public String toString() {
+        if(status) {
             return "[X] " + nameOfTask;
         }
-        else{
+        else {
             return "[ ] " + nameOfTask;
         }
     }
