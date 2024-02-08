@@ -2,6 +2,7 @@ package checkbot.command;
 
 import checkbot.exception.InvalidIndexException;
 import checkbot.Storage;
+import checkbot.exception.SaveFileException;
 import checkbot.task.Task;
 import checkbot.task.TodoList;
 import checkbot.Ui;
@@ -17,8 +18,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException {
+    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
         Task task = todoList.markTask(index);
+        storage.saveTasks(todoList);
         ui.showMarkedTaskMessage(task);
     }
 }
