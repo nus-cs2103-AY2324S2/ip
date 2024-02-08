@@ -19,8 +19,9 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
-        if (num < 1 || num > tasks.size())
+        if (num < 1 || num > tasks.size()) {
             throw new CommandExecuteException("mark must have number argument");
+        }
         tasks.get(num - 1).mark();
         ui.say("mark", tasks.get(num - 1), tasks);
     }
