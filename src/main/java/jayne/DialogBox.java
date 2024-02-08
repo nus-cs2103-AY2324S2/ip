@@ -1,35 +1,40 @@
 package jayne;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.shape.Circle;
-import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
-
-
-
+/**
+ * Represents a dialog box in a GUI application. This class is designed to display a message
+ * alongside an image, such as a user or character avatar. The dialog box can be customized
+ * to show the image on either the left or right side of the text message.
+ *
+ * This class extends {@link HBox}, using FXML to define its structure, which includes a label
+ * for text and an image view for displaying an avatar. It also features the ability to flip
+ * the layout of its content, allowing flexibility in how dialog is presented.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
-    //private ImageView displayPicture;
 
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private Circle circle;
 
     private DialogBox(String text, Image img) {
         try {
@@ -42,7 +47,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        circle.setFill(new ImagePattern(img));
+        //displayPicture.setImage(img);
     }
 
     /**
@@ -60,7 +66,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getJayneDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

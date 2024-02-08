@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Jayne using FXML.
  */
 public class Main extends Application {
 
@@ -28,7 +28,6 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            //scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Jayne Android");
             fxmlLoader.<MainWindow>getController().setJayne(jayne);
