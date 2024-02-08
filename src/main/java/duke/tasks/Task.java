@@ -9,13 +9,14 @@ import java.util.List;
 
 public class Task {
     protected String description;
-    protected boolean isDone = false;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
+        this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    public String printDoneStatus() {
         return isDone ? "X" : " ";
     }
 
@@ -23,19 +24,14 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String getSaveTask() {
-        return (isDone ? "1" : "0") + " | " + description;
-    }
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+    public boolean isMatchingDescription(String match) {
+        return this.description.contains(match);
     }
 
     public LocalDateTime parseDateTime(String dateTime) {
         List<String> separators = Arrays.asList("-", "/");
         List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
         List<String> timeCombinations = Arrays.asList("HH:mm", "HHmm", "hh:mm a");
-
 
         for (String d : dateCombinations) {
             for (String t : timeCombinations) {
@@ -51,7 +47,12 @@ public class Task {
         return null;
     }
 
-    public boolean isMatchingDescription(String match) {
-        return this.description.contains(match);
+    public String saveFileString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.printDoneStatus() + "] " + this.description;
     }
 }

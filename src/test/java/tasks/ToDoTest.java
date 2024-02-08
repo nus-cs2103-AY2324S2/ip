@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ToDoTest {
     @Test
     public void testSaveFileSyntax() {
-        assertEquals("T | 0 | play", new ToDo("play").getSaveTask());
+        assertEquals("T | 0 | play", new ToDo("play").saveFileString());
     }
     @Test
     public void testStringConversion() {

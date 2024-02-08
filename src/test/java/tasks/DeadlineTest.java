@@ -2,7 +2,6 @@ package tasks;
 
 import duke.tasks.Deadline;
 
-import duke.tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,6 +28,6 @@ public class DeadlineTest {
     @Test
     public void testSaveFileSyntax() {
         assertEquals("D | 0 | return book | 2024-01-25 17:00",
-                new Deadline("return book", "2024/01/25 1700").getSaveTask());
+                new Deadline("return book", "2024/01/25 1700").saveFileString());
     }
 }

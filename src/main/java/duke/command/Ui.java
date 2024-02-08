@@ -78,7 +78,7 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
     }
 
-    public void printUnknowCommandError(String command) {
+    public void printUnknownCommandError(String command) {
         System.out.println(line);
         System.out.println("Are you as clueless about \"" + command + "\" as I am?");
     }
