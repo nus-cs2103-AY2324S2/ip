@@ -1,6 +1,9 @@
 
 package duke;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import duke.task.TaskList;
 
 /**
@@ -44,5 +47,39 @@ public class Duke {
             }
             ui.showLine();
         } while (!userInput.equalsIgnoreCase("bye"));
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream previous = System.out;
+        System.setOut(new PrintStream(baos));
+        if (ui == null) {
+            ui = new Ui();
+        }
+        if (taskList == null) {
+            taskList = new TaskList();
+            try {
+                taskList.getTasks().addAll(Storage.loadTasks()); // Load tasks from storage
+            } catch (DukeException e) {
+                return "Failed to load tasks: " + e.getMessage();
+            }
+        }
+
+        try {
+            Parser.processCommand(input).execute(taskList, ui, input);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage()); // This goes to the ByteArrayOutputStream
+        }
+
+        // Restore original System.out
+        System.out.flush();
+        System.setOut(previous);
+
+        // Return captured output as a string
+        return baos.toString().trim();
     }
 }

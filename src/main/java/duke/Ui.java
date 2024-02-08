@@ -24,7 +24,7 @@ public class Ui {
      * Displays a line separator to separate different sections of messages.
      */
     public void showLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("_________________________");
     }
 
     /**
@@ -84,10 +84,8 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void showTaskDone(Task task) {
-        showLine();
         System.out.println(" Nice! I've marked this task as done:");
         System.out.println("   " + task);
-        showLine();
     }
 
     /**
@@ -122,12 +120,10 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public void showTasks(List<Task> tasks) {
-        showLine();
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." + tasks.get(i));
         }
-        showLine();
     }
 
     /**
