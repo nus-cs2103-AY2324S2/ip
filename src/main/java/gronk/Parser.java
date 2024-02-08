@@ -22,7 +22,8 @@ public class Parser {
                 int messageLength = splitMessage.size();
                 if (messageLength == 1) {
                     String word = splitMessage.get(0);
-                    if (word.equals("todo") || word.equals("deadline") || word.equals("event")) {
+                    if (word.equals("todo") || word.equals("deadline") ||
+                            word.equals("event") || word.equals("find")) {
                         throw new EmptyDescException();
                     } else {
                         throw new DukeException();
@@ -73,6 +74,15 @@ public class Parser {
                         this.taskList.deleteTask(index);
                         return tempMessage;
                     }
+                } else if (splitMessage.get(0).equals("find")) {
+                    String searchString = message.substring(5);
+                    TaskList matchedTasks = new TaskList();
+                    for (Task task: this.taskList.getAllTasks()) {
+                        if (task.getDesc().indexOf(searchString) != -1) {
+                            matchedTasks.addTask(task);
+                        }
+                    }
+                    return this.userInterface.returnAllTasks(matchedTasks);
                 } else {
                     throw new DukeException();
                 }
