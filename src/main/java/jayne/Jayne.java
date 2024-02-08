@@ -72,7 +72,7 @@ public class Jayne {
     }
     /**
      * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Jayne's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -81,7 +81,7 @@ public class Jayne {
         String jayneText = run(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, user),
-                DialogBox.getDukeDialog(jayneText, jayne)
+                DialogBox.getJayneDialog(jayneText, jayne)
         );
         userInput.clear();
     }

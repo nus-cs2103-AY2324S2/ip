@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
         String startMessage = "Wakey Wakey Snowiee\n" + "its time for schooooll.\n"
                 + "What do you need?";
 
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(startMessage, jayneImage));
+        dialogContainer.getChildren().add(DialogBox.getJayneDialog(startMessage, jayneImage));
     }
 
     public void setJayne(Jayne d) {
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Jayne's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = jayne.run(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, jayneImage)
+                DialogBox.getJayneDialog(response, jayneImage)
         );
         if (Objects.equals(response, "Hey, Snowieeee, Bye. Hope to see you again soon!")) {
             this.isEnd = true;
