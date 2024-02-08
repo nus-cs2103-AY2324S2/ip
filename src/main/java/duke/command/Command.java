@@ -8,13 +8,14 @@ public enum Command {
     MARK ("mark", "mark <task_number>"),
     UNMARK("unmark", "unmark <task_number>"),
     DELETE("delete", "delete <task_number>"),
+
     TERMINATE("bye", "bye");
 
-    public final String commandName;
-    public final String commandSignature;
+    public final String COMMAND_NAME;
+    public final String COMMAND_SIGNATURE;
 
     private Command(String commandName, String commandSignature) {
-        this.commandName = commandName;
-        this.commandSignature = commandSignature;
+        this.COMMAND_NAME = commandName;
+        this.COMMAND_SIGNATURE = commandSignature;
     }
 }
