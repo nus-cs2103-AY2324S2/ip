@@ -25,18 +25,19 @@ public class FindCommand extends Command {
 
 
     /**
-     * Executed the find command.
+     * Executed the find command and generates the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
-     * @throws InvalidArgumentException
+     * @return The reply to the user's input.
+     * @throws InvalidArgumentException If command has invalid or missing arguments.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgumentException {
+    public String generateReply(TaskList taskList, Ui ui, Storage storage) throws InvalidArgumentException {
         try {
             TaskList filteredList = taskList.filter(this.arguments);
-            ui.findTask(filteredList);
+            return ui.findTask(filteredList);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("TODO");

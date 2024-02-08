@@ -32,27 +32,28 @@ public class AddDeadlineCommand extends Command {
 
 
     /**
-     * Executes the deadline command.
+     * Executes the deadline command and generates the response.
      *
      * @param taskList List of tasks.
-     * @param ui User Interface of chatbot.
-     * @param storage Storage that stores data.
-     * @throws InvalidArgumentException If command has invalid or missing arguments.
+     * @param ui       User Interface of chatbot.
+     * @param storage  Storage that stores data.
+     * @return The reply to the user's input.
+     * @throws InvalidArgumentException       If command has invalid or missing arguments.
      * @throws InvalidDateTimeFormatException If DateTime stated has an invalid format.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public String generateReply(TaskList taskList, Ui ui, Storage storage)
             throws InvalidArgumentException, InvalidDateTimeFormatException {
 
         try {
-            String[] splitDate = this.arguments.split(" /by ", 2);
+            String[] argParts = this.arguments.split(" /by ", 2);
 
-            LocalDateTime dueDateTime = LocalDateTime.parse(splitDate[1],
+            LocalDateTime dueDateTime = LocalDateTime.parse(argParts[1],
                     DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
 
-            Task newTask = new Deadline(splitDate[0], dueDateTime);
+            Task newTask = new Deadline(argParts[0], dueDateTime);
             taskList.add(newTask);
-            ui.addTask(newTask, taskList.getLength());
+            return ui.addTask(newTask, taskList.getLength());
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("DEADLINE");

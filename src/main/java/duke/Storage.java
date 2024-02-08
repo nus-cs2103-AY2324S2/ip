@@ -77,12 +77,12 @@ public class Storage {
             }
             sc.close();
         } catch (FileNotFoundException e) {
-            createTaskFile();
+            createTasksFile();
         }
         return tasks;
     }
 
-    private void createTaskFile() throws TasksFileException {
+    private void createTasksFile() throws TasksFileException {
         File tasksFile = new File(filePath);
         File dataDirectory = tasksFile.getParentFile();
         dataDirectory.mkdirs();

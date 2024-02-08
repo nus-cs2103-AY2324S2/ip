@@ -13,21 +13,21 @@ import java.io.IOException;
  */
 public class ByeCommand extends Command {
 
-
     /**
-     * Executes the bye command.
+     * Executes the bye command and generates the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
+     * @return The reply to the user's input.
      * @throws TasksFileException If tasks file can't be written to for saving of data into storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TasksFileException {
+    public String generateReply(TaskList taskList, Ui ui, Storage storage) throws TasksFileException {
         try {
             ui.close();
             storage.saveTasksFile(taskList);
-            ui.goodbye();
+            return ui.goodbye();
         } catch (IOException e) {
             throw new TasksFileException();
         }

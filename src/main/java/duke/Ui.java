@@ -35,18 +35,18 @@ public class Ui {
     /**
      * Shows the greeting message to the user.
      */
-    public void greet() {
-        System.out.println(DIVIDER +
+    public String greet() {
+        return DIVIDER +
                 "Hello! I'm KwunTalk!\nWhat can I do for you?\n" +
-                DIVIDER);
+                DIVIDER;
     }
 
 
     /**
      * Shows the goodbye message to the user.
      */
-    public void goodbye() {
-        System.out.println(DIVIDER + "Bye. Hope to see you again soon!\n" + DIVIDER);
+    public String goodbye() {
+        return DIVIDER + "Bye. Hope to see you again soon!\n" + DIVIDER;
     }
 
 
@@ -55,9 +55,9 @@ public class Ui {
      *
      * @param taskList List of tasks.
      */
-    public void listTasks(TaskList taskList) {
+    public String listTasks(TaskList taskList) {
         if (taskList.isEmpty()) {
-            System.out.println(DIVIDER + "Your list is currently empty.\n" + DIVIDER);
+            return DIVIDER + "Your list is currently empty.\n" + DIVIDER;
 
         } else {
             StringBuilder sb = new StringBuilder();
@@ -65,7 +65,7 @@ public class Ui {
             for (int i = 1; i <= taskList.getLength(); i++) {
                 sb.append(String.format("%d. %s\n", i, taskList.get(i)));
             }
-            System.out.println(DIVIDER + "Here are the tasks in your list:\n" + sb + DIVIDER);
+            return DIVIDER + "Here are the tasks in your list:\n" + sb + DIVIDER;
         }
     }
 
@@ -76,10 +76,10 @@ public class Ui {
      * @param task Task that was deleted.
      * @param taskTotal Total number of tasks in the list after deleting.
      */
-    public void deleteTask(Task task, int taskTotal) {
+    public String deleteTask(Task task, int taskTotal) {
         String s = String.format("OK. I've deleted this task:\n%s\nNow you have %s tasks in the list.\n",
                 task, taskTotal);
-        System.out.println(DIVIDER + s + DIVIDER);
+        return DIVIDER + s + DIVIDER;
     }
 
 
@@ -88,9 +88,9 @@ public class Ui {
      *
      * @param task Task to be marked.
      */
-    public void markTask(Task task) {
+    public String markTask(Task task) {
         String s = String.format("Nice! I've marked this task as done:\n%s\n", task);
-        System.out.println(DIVIDER + s + DIVIDER);
+        return DIVIDER + s + DIVIDER;
     }
 
 
@@ -99,9 +99,9 @@ public class Ui {
      *
      * @param task Task to be unmarked.
      */
-    public void unmarkTask(Task task) {
+    public String unmarkTask(Task task) {
         String s = String.format("OK, I've marked this task as not done yet:\n%s\n", task);
-        System.out.println(DIVIDER + s + DIVIDER);
+        return DIVIDER + s + DIVIDER;
     }
 
 
@@ -111,10 +111,10 @@ public class Ui {
      * @param task Task to be added.
      * @param taskTotal Total number of tasks in the list after adding.
      */
-    public void addTask(Task task, int taskTotal) {
+    public String addTask(Task task, int taskTotal) {
         String s = String.format("Got it. I've added this task:\n%s\nNow you have %s tasks in the list.\n",
                 task, taskTotal);
-        System.out.println(DIVIDER + s + DIVIDER);
+        return DIVIDER + s + DIVIDER;
     }
 
 
@@ -123,8 +123,8 @@ public class Ui {
      *
      * @param e Exception to be handled.
      */
-    public void error(DukeException e) {
-        System.out.println(DIVIDER + e + DIVIDER);
+    public String error(DukeException e) {
+        return DIVIDER + e + DIVIDER;
     }
 
 
@@ -133,9 +133,9 @@ public class Ui {
      *
      * @param filteredList Filtered list of tasks.
      */
-    public void findTask(TaskList filteredList) {
+    public String findTask(TaskList filteredList) {
         if (filteredList.isEmpty()) {
-            System.out.println(DIVIDER + "There are no matching tasks in your list.\n" + DIVIDER);
+            return DIVIDER + "There are no matching tasks in your list.\n" + DIVIDER;
 
         } else {
             StringBuilder sb = new StringBuilder();
@@ -143,7 +143,7 @@ public class Ui {
             for (int i = 1; i <= filteredList.getLength(); i++) {
                 sb.append(String.format("%d. %s\n", i, filteredList.get(i)));
             }
-            System.out.println(DIVIDER + "Here are the matching tasks in your list:\n" + sb + DIVIDER);
+            return DIVIDER + "Here are the matching tasks in your list:\n" + sb + DIVIDER;
         }
     }
 }

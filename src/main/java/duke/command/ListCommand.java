@@ -12,14 +12,15 @@ public class ListCommand extends Command {
 
 
     /**
-     * Executes the list command.
+     * Executes the list command and generates the response.
      *
      * @param taskList List of tasks.
      * @param ui User Interface of chatbot.
      * @param storage Storage that stores data.
+     * @return The reply to the user's input.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.listTasks(taskList);
+    public String generateReply(TaskList taskList, Ui ui, Storage storage) {
+        return ui.listTasks(taskList);
     }
 }
