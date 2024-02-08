@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class DataHandler {
     private static final String fileNamePath = "data/PersistentData.json";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<>();
     private DataHandler() {};
 
     private static void readFromJson() throws IOException {

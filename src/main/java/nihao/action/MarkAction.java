@@ -3,7 +3,7 @@ import nihao.action.task.Task;
 import nihao.exception.IndexOutOfBoundsException;
 import nihao.handler.PrintHandler;
 import nihao.handler.DataHandler;
-public class MarkAction extends Action{
+public class MarkAction implements Action{
     private final int index;
     public MarkAction(String index) {
         this.index = Integer.parseInt(index);

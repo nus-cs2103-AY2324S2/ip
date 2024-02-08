@@ -4,7 +4,7 @@ import nihao.exception.IndexOutOfBoundsException;
 import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
-public class UnmarkAction extends Action{
+public class UnmarkAction implements Action{
     private int index;
     public UnmarkAction(String index) {
         this.index = Integer.parseInt(index);

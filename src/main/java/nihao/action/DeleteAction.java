@@ -5,7 +5,7 @@ import nihao.exception.IndexOutOfBoundsException;
 import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
-public class DeleteAction extends Action{
+public class DeleteAction implements Action{
     private final int index;
     private boolean isAll;
     public DeleteAction(String index) {

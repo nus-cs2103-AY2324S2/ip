@@ -2,7 +2,7 @@ package nihao.action;
 import nihao.action.task.Task;
 import nihao.handler.PrintHandler;
 import nihao.handler.DataHandler;
-public class TaskAction extends Action{
+public class TaskAction implements Action{
     public Task task;
 
     public TaskAction(Task task) {
