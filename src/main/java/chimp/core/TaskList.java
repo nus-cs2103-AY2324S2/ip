@@ -36,6 +36,16 @@ public class TaskList extends ArrayList<Task>{
         return sb.toString();
     }
 
+    public Task[] find(String keyword) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).toString().contains(keyword)) {
+                matches.add(this.get(i));
+            }
+        }
+        return matches.toArray(new Task[0]);
+    }
+
     public int size() {
         return super.size();
     }
