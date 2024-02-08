@@ -1,6 +1,14 @@
 package duke.task;
 
+/**
+ * A {@code Todo} is a type of {@code Task} with no associated date or time.
+ */
 public class Todo extends Task {
+    /**
+     * Creates a new {@code Todo} with the given description.
+     *
+     * @param description The description of the {@code Todo}.
+     */
 
     public Todo(String description) {
         super(description);
