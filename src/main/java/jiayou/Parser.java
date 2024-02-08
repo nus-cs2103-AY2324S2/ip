@@ -14,7 +14,7 @@ import jiayou.task.ToDo;
  */
 public class Parser {
     private static enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH_BY_DATE, SEARCH_BY_KEYWORD
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH_BY_DATE, SEARCH_BY_KEYWORD, HELP
     }
 
     /**
@@ -35,6 +35,16 @@ public class Parser {
             switch (command) {
             case LIST:
                 response = tasks.printList();
+                break;
+            case HELP:
+                response = "1. To get the whole list of tasks: list\n";
+                response += "2. To mark/unmark tasks with the index x, y and z: mark/unmark x y z\n";
+                response += "3. To delete the task(s) with the index x, y and z: delete x y z\n";
+                response += "4. To search tasks on a certain date: search_by_date YYYY-MM-DD\n";
+                response += "5. To search tasks with the keyword x: search_by_keyword x\n";
+                response += "6. To add a todo task: todo description\n";
+                response += "7. To add a deadline task: deadline description /by YYYY-MM-DD\n";
+                response += "8. To add an event task: event description /from YYYY-MM-DD /to YYYY-MM-DD";
                 break;
             case MARK:
                 if (content.isEmpty()) {
