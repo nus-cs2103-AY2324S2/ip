@@ -5,29 +5,29 @@ import java.util.ArrayList;
 public class GulieTasklist extends ArrayList<Task> {
 
     public Task store(Task task) {
-        this.add(task);
+        add(task);
         return task;
     }
 
     public Task delete(int i) throws GulieException {
-        if (i >= this.size() || i < 0) {
+        if (i >= size() || i < 0) {
             throw new GulieException("Invalid index: " + i);
         }
-        Task task = this.get(i);
-        return this.remove(i);
+        Task task = get(i);
+        return remove(i);
     }
 
     public void mark(int i) throws GulieException {
-        if (i >= this.size() || i < 0)
+        if (i >= size() || i < 0)
             throw new GulieException("Invalid index: " + i);
-        Task task = this.get(i);
+        Task task = get(i);
         task.setMark(true);
     }
 
     public void unmark(int i) throws GulieException {
-        if (i >= this.size() || i < 0)
+        if (i >= size() || i < 0)
             throw new GulieException("Invalid index: " + i);
-        Task task = this.get(i);
+        Task task = get(i);
         task.setMark(false);
     }
 }
