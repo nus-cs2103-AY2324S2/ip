@@ -67,21 +67,21 @@ public class Parser {
                     command.equals(Command.EVENT.COMMAND_NAME)) {
                 try {
                     Task t = null;
-                    boolean success = true;
+                    boolean success = false;
                     if (command.equals(Command.TODO.COMMAND_NAME)) {
                         t = new ToDo(task, false);
+                        success = true;
                     } else if (command.equals(Command.DEADLINE.COMMAND_NAME)) {
                         if (task == null || !task.contains(" /by ")) {
-                            success = false;
                             Ui.showErrorDeadlineFormat();
                         } else {
                             String[] deadline = task.split(" /by ");
                             t = new Deadline(deadline[0], false,
                                     LocalDateTime.parse(deadline[1], dateTimeFormatter));
+                            success = true;
                         }
                     } else {
                         if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
-                            success = false;
                             Ui.showErrorEventFormat();
                         } else {
                             String event = task.substring(0, task.indexOf(" /from "));
@@ -91,6 +91,7 @@ public class Parser {
                                 LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)),
                                         dateTimeFormatter);
                                 t = new Event(event, false, from, to);
+                                success = true;
                             } catch (IndexOutOfBoundsException e) {
                                 Ui.showErrorEventTimingFormat();
                             }
