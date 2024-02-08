@@ -2,6 +2,9 @@ package duke.commands;
 
 import duke.tasks.TaskList;
 
+/**
+ * This class represents a Command that adds a Task to a TaskList
+ */
 public abstract class AddCommand extends Command {
 
     private final TaskList taskList;

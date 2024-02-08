@@ -7,32 +7,32 @@ public abstract class Task implements Savable {
     private static final String DONE_SYMBOL = "[X]";
     private static final String UNDONE_SYMBOL = "[ ]";
     private final String description;
-    String task_symbol;
-    private boolean is_done;
+    private boolean isDone;
+    private String taskSymbol;
 
     /**
      * Constructs a new Task with the specified description and task symbol.
      *
      * @param description textual description of the task
-     * @param task_symbol textual symbol that represents the type of Task
+     * @param taskSymbol textual symbol that represents the type of Task
      */
-    public Task(String description, String task_symbol) {
+    public Task(String description, String taskSymbol) {
         this.description = description;
-        this.is_done = false;
-        this.task_symbol = task_symbol;
+        this.isDone = false;
+        this.taskSymbol = taskSymbol;
     }
 
     /**
      * Constructs a new Task with the specified description, task symbol and completion state.
      *
      * @param description textual description of the task
-     * @param task_symbol textual symbol that represents the type of Task
+     * @param taskSymbol textual symbol that represents the type of Task
      * @param isDone      boolean value that determines if the initialised Task is completed or not
      */
-    public Task(String description, String task_symbol, Boolean isDone) {
+    public Task(String description, String taskSymbol, Boolean isDone) {
         this.description = description;
-        this.is_done = isDone;
-        this.task_symbol = task_symbol;
+        this.isDone = isDone;
+        this.taskSymbol = taskSymbol;
     }
 
     /**
@@ -41,10 +41,10 @@ public abstract class Task implements Savable {
      * @return true if task was change from not done to done. Else false.
      */
     public boolean markDone() {
-        if (this.is_done) {
+        if (this.isDone) {
             return false;
         } else {
-            this.is_done = true;
+            this.isDone = true;
             return true;
         }
     }
@@ -55,8 +55,8 @@ public abstract class Task implements Savable {
      * @return true if task was change from done to not done. Else false.
      */
     public boolean unmarkDone() {
-        if (this.is_done) {
-            this.is_done = false;
+        if (this.isDone) {
+            this.isDone = false;
             return true;
         } else {
             return false;
@@ -65,13 +65,13 @@ public abstract class Task implements Savable {
 
     @Override
     public String saveString() {
-        return this.description + "\n" + this.is_done;
+        return this.description + "\n" + this.isDone;
     }
 
     @Override
     public String toString() {
-        return this.task_symbol
-                + (this.is_done ? DONE_SYMBOL : UNDONE_SYMBOL)
+        return this.taskSymbol
+                + (this.isDone ? DONE_SYMBOL : UNDONE_SYMBOL)
                 + " "
                 + this.description;
     }

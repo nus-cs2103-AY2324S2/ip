@@ -1,12 +1,14 @@
 package duke.core;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import duke.commands.AddCommand;
 import duke.commands.InvalidCommandException;
 import duke.tasks.TaskList;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
@@ -27,7 +29,8 @@ public class ParserTest {
             Parser.parseAdd("event /from 2023-12-12 /to 2022-12-31", taskList);
             fail();
         } catch (Exception e) {
-            assertEquals("Usage: add event <description> /from <YYYY-MM-DD> [HH:MM] /to <YYYY-MM-DD> [HH:MM]", e.getMessage());
+            assertEquals("Usage: add event <description> /from <YYYY-MM-DD> [HH:MM] /to <YYYY-MM-DD> [HH:MM]",
+                    e.getMessage());
         }
     }
 
@@ -38,7 +41,8 @@ public class ParserTest {
             Parser.parseAdd("event testDesc /from 23:23 /to 2022-12-31", taskList);
             fail();
         } catch (Exception e) {
-            assertEquals("Usage: add event <description> /from <YYYY-MM-DD> [HH:MM] /to <YYYY-MM-DD> [HH:MM]", e.getMessage());
+            assertEquals("Usage: add event <description> /from <YYYY-MM-DD> [HH:MM] /to <YYYY-MM-DD> [HH:MM]",
+                    e.getMessage());
         }
     }
 
@@ -46,7 +50,8 @@ public class ParserTest {
     public void parseAddRandomSpaces() {
         try {
             TaskList taskList = new TaskList(); //No need for stub as method only passes this instance
-            AddCommand cmd = Parser.parseAdd("event   testDesc  /from   2023-06-07   23:23  /to   2022-12-31  ", taskList);
+            AddCommand cmd = Parser.parseAdd(
+                    "event   testDesc  /from   2023-06-07   23:23  /to   2022-12-31  ", taskList);
             cmd.execute();
             assertEquals("1. [E][ ] testDesc (7 JUNE 2023 23:23 - 31 DECEMBER 2022)\n", taskList.toString());
         } catch (Exception e) {

@@ -3,11 +3,20 @@ package duke.commands;
 import duke.core.Ui;
 import duke.tasks.TaskList;
 
+/**
+ * This class represents a Command that filters a TaskList with a String
+ */
 public class FindCommand extends Command {
 
     private final TaskList taskList;
     private final String searchString;
 
+    /**
+     * Constructs a new FindCommand that will filter the given TaskList using the given String.
+     *
+     * @param taskList The TaskList to filter through.
+     * @param searchString The String to filter the TaskList using.
+     */
     public FindCommand(TaskList taskList, String searchString) {
         super();
         this.taskList = taskList;

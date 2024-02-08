@@ -1,11 +1,11 @@
 package duke.commands;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import duke.core.Ui;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
  * This class represents a Command that adds an Event to a TaskList

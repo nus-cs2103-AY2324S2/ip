@@ -10,7 +10,7 @@ import duke.tasks.TaskList;
 public class MeanDuke {
 
     //Creates an empty task list
-    static TaskList taskList = new TaskList();
+    private static TaskList taskList = new TaskList();
 
     /**
      * Initialises the MeanDuke chatbot

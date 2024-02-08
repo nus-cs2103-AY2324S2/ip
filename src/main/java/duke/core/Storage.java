@@ -1,10 +1,5 @@
 package duke.core;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.TaskList;
-import duke.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +9,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
 
 /**
  * This class represents the part of MeanDuke that handles loading and saving of data to disk.

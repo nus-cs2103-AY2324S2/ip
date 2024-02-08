@@ -1,11 +1,22 @@
 package duke.core;
 
-import duke.commands.*;
-import duke.tasks.TaskList;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+
+import duke.commands.AddCommand;
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddTodoCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.InvalidCommandException;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.UnmarkCommand;
+import duke.tasks.TaskList;
 
 /**
  * This class represents a parser that reads user input and converts it into Commands
@@ -91,8 +102,8 @@ public class Parser {
         switch (typeUpper) {
         case "TODO":
             try {
-                String TodoDesc = typeAndRemaining[1].strip();
-                return new AddTodoCommand(taskList, TodoDesc);
+                String todoDesc = typeAndRemaining[1].strip();
+                return new AddTodoCommand(taskList, todoDesc);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new InvalidCommandException(AddTodoCommand.getUsage());
             }
