@@ -20,6 +20,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-/data/chimp.txt
+/data/
 
 /.vscode/
