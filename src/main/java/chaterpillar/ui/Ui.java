@@ -1,4 +1,4 @@
-package ui;
+package chaterpillar.ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,8 +1,8 @@
-package commands;
+package chaterpillar.commands;
 
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+import chaterpillar.tasks.TaskList;
+import chaterpillar.ui.Ui;
+import chaterpillar.storage.Storage;
 
 public class UnrecognisedCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {

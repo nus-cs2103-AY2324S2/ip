@@ -1,6 +1,6 @@
-package tasks;
+package chaterpillar.tasks;
 
-import datetime.DateTime;
+import chaterpillar.datetime.DateTime;
 
 /**
  * Represents a task. A <code>tasks.Task</code> object contains its

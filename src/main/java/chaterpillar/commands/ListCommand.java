@@ -1,9 +1,9 @@
-package commands;
+package chaterpillar.commands;
 
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+import chaterpillar.tasks.Task;
+import chaterpillar.tasks.TaskList;
+import chaterpillar.ui.Ui;
+import chaterpillar.storage.Storage;
 
 public class ListCommand extends Command {
     private final TaskList tasks;

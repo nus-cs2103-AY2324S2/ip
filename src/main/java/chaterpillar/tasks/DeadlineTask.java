@@ -1,7 +1,7 @@
-package tasks;
+package chaterpillar.tasks;
 
-import datetime.DateTime;
-import exceptions.ChaterpillarException;
+import chaterpillar.datetime.DateTime;
+import chaterpillar.exceptions.ChaterpillarException;
 
 /**
  * Represents a task with a deadline. A <code>tasks.DeadlineTask</code>

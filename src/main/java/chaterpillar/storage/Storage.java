@@ -1,7 +1,7 @@
-package storage;
+package chaterpillar.storage;
 
-import exceptions.ChaterpillarException;
-import tasks.*;
+import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.tasks.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

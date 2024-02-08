@@ -1,9 +1,11 @@
-import exceptions.ChaterpillarException;
-import commands.Command;
-import parser.Parser;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+package chaterpillar;
+
+import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.commands.Command;
+import chaterpillar.parser.Parser;
+import chaterpillar.tasks.TaskList;
+import chaterpillar.ui.Ui;
+import chaterpillar.storage.Storage;
 
 import java.io.IOException;
 
@@ -16,10 +18,10 @@ public class Chaterpillar {
     public TaskList tasks;
     public Ui ui;
 
-    public Chaterpillar() {
+    public Chaterpillar() throws ChaterpillarException, IOException {
         ui = new Ui();
         storage = new Storage();
-        tasks = new TaskList();
+        tasks = storage.loadFromFile();
     }
 
     public void run() {
@@ -40,7 +42,7 @@ public class Chaterpillar {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ChaterpillarException, IOException {
         new Chaterpillar().run();
     }
 }
