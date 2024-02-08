@@ -16,7 +16,7 @@ public class Todo extends Task {
      * This is done using the super keyword.
      *
      * @param description The description of the task.
-     * @param isDone States whether the task is done or not.
+     * @param isDone      States whether the task is done or not.
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
@@ -41,7 +41,6 @@ public class Todo extends Task {
      * of the data file before being saved into the data file.
      *
      * @return A string that is in the format to be added to the data file.
-     *
      */
     @Override
     public String saveInput() {

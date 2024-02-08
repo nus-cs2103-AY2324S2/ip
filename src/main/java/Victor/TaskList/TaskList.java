@@ -13,12 +13,15 @@ import java.util.ArrayList;
  * current in the ArrayList.
  *
  * @author Dominic Fu Ming Jun
- *
  */
 public class TaskList {
-    /** The currentTaskList variable is used to hold the current data of the program */
-    ArrayList<Task> currentTaskList;
-    /** The ui variable is used to use any method from the Ui class */
+    /**
+     * The currentTaskList variable is used to hold the current data of the program
+     */
+    ArrayList<Task> currentTaskLists;
+    /**
+     * The ui variable is used to use any method from the Ui class
+     */
     Ui ui = new Ui();
 
     /**
@@ -27,30 +30,27 @@ public class TaskList {
      * currentTaskList variable.
      *
      * @param currentTaskList The ArrayList containing all the current data from the data file
-     *
      */
     public TaskList(ArrayList<Task> currentTaskList) {
-        this.currentTaskList = currentTaskList;
+        this.currentTaskLists = currentTaskList;
     }
 
     /**
      * This TaskList Constructor is used to create a new TaskList using an
      * empty ArrayList of Tasks.
-     *
      */
     public TaskList() {
-        this.currentTaskList = new ArrayList<Task>();
+        this.currentTaskLists = new ArrayList<Task>();
     }
 
     /**
      * Prints out all the current data from the ArrayList.
-     *
      */
     public void printList() {
         ui.displayBarrier();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < currentTaskList.size(); i++) {
-            System.out.println(i+1 + "." + currentTaskList.get(i).toString());
+        for (int i = 0; i < currentTaskLists.size(); i++) {
+            System.out.println(i + 1 + "." + currentTaskLists.get(i).toString());
         }
         ui.displayBarrier();
     }
@@ -63,7 +63,7 @@ public class TaskList {
      * @return The current ArrayList of Tasks
      */
     public ArrayList<Task> returnList() {
-        return currentTaskList;
+        return currentTaskLists;
     }
 
     /**
@@ -74,27 +74,25 @@ public class TaskList {
      * @return A Task obtained from the ArrayList of Tasks
      */
     public Task getPosValue(int posNum) {
-        return currentTaskList.get(posNum);
+        return currentTaskLists.get(posNum);
     }
 
     /**
      * Add a new Task into the ArrayList.
      *
      * @param userTask A Task that is to be added to the ArrayList
-     *
      */
     public void addTask(Task userTask) {
-        currentTaskList.add(userTask);
+        currentTaskLists.add(userTask);
     }
 
     /**
      * Removes a Task from a specific position in the ArrayList.
      *
      * @param posNum The number of where in the ArrayList to remove the Task from.
-     *
      */
     public void removeTask(int posNum) {
-        currentTaskList.remove(posNum);
+        currentTaskLists.remove(posNum);
     }
 
     /**
@@ -103,6 +101,6 @@ public class TaskList {
      * @return size of the ArrayList currentTaskList
      */
     public int getSize() {
-        return currentTaskList.size();
+        return currentTaskLists.size();
     }
 }

@@ -10,10 +10,14 @@ package victor.tasktype;
  */
 public class Event extends Task {
 
-    /** The from variable is a String to indicate the start date and time of the event. */
+    /**
+     * The from variable is a String to indicate the start date and time of the event.
+     */
     protected String from;
 
-    /** The to variable is a String to indicate the end date and time of the event. */
+    /**
+     * The to variable is a String to indicate the end date and time of the event.
+     */
     protected String to;
 
     /**
@@ -25,9 +29,9 @@ public class Event extends Task {
      * the variable of the same name.
      *
      * @param description The description of the task.
-     * @param  isDone States whether the task is done or not.
-     * @param from The Start date and time of the event.
-     * @param to The end date and time of the event.
+     * @param isDone      States whether the task is done or not.
+     * @param from        The Start date and time of the event.
+     * @param to          The end date and time of the event.
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
@@ -46,7 +50,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + from + "to: " + to +  ")";
+                " (from: " + from + "to: " + to + ")";
     }
 
     /**
@@ -55,10 +59,9 @@ public class Event extends Task {
      * of the data file before being saved into the data file.
      *
      * @return A string that is in the format to be added to the data file.
-     *
      */
     @Override
     public String saveInput() {
-        return "E | " + isDone + " | " + description + " | " + from  + " | " + to;
+        return "E | " + isDone + " | " + description + " | " + from + " | " + to;
     }
 }

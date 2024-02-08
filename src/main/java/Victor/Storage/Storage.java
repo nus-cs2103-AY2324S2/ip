@@ -17,21 +17,24 @@ import java.util.Scanner;
  * a data file and store new data into said data file.
  *
  * @author Dominic Fu Ming Jun
- *
  */
 public class Storage {
 
-    /** The dataFile variable is a File that is used to store the data file. */
+    /**
+     * The dataFile variable is a File that is used to store the data file.
+     */
     File dataFile;
-    /** The filePath variable is a String that contains the path to the data file location. */
+    /**
+     * The filePath variable is a String that contains the path to the data file location.
+     */
     String filePath;
+
     /**
      * The Storage Constructor will take in the filePath of the
      * data file to retrieve the data from. It would update the
      * filePath and create a new File using the filePath.
      *
      * @param filePath The file path of the data file
-     *
      */
     public Storage(String filePath) {
         this.dataFile = new File(filePath);
@@ -46,11 +49,11 @@ public class Storage {
      *
      * @return an ArrayList of tasks.
      * @throws FileNotFoundException If the file doesn't exist at the file path location
-     * @throws IOException If the program is unable to create a new file
-     * at the file path location
+     * @throws IOException           If the program is unable to create a new file
+     *                               at the file path location
      */
     public ArrayList<Task> load() {
-        ArrayList<Task> currentList = new ArrayList<>();
+        ArrayList<Task> currentLists = new ArrayList<>();
         try {
             Scanner s = new Scanner(dataFile);
             while (s.hasNext()) {
@@ -58,18 +61,18 @@ public class Storage {
                 String[] inputs = nextLine.split("\\|");
                 String fileDataType = inputs[0].trim();
                 switch (fileDataType) {
-                    case "T" -> {
-                        Task newTodo = new Todo(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()));
-                        currentList.add(newTodo);
-                    }
-                    case "D" -> {
-                        Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim());
-                        currentList.add(newDeadline);
-                    }
-                    case "E" -> {
-                        Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim(), inputs[4].trim());
-                        currentList.add(newEvent);
-                    }
+                case "T" -> {
+                    Task newTodo = new Todo(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()));
+                    currentLists.add(newTodo);
+                }
+                case "D" -> {
+                    Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim());
+                    currentLists.add(newDeadline);
+                }
+                case "E" -> {
+                    Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim(), inputs[4].trim());
+                    currentLists.add(newEvent);
+                }
 
                 }
             }
@@ -82,29 +85,29 @@ public class Storage {
                 System.out.println("Data will not be saved after session end.");
             }
         }
-        return currentList;
+        return currentLists;
     }
+
     /**
      * The updateFile is used to update the data file with the new data.
      * It currently replaces all the old data in the data file and
      * transfer all the data in the updatedArray into the data file.
      *
-     * @param updatedArray an updated ArrayList of Tasks containing the current data
+     * @param updatedArrays an updated ArrayList of Tasks containing the current data
      *                     after the user had ended the program.
      * @throws IOException If the program is unable to update the data to the file.
-     *
      */
-    public void updateFile(ArrayList<Task> updatedArray) throws IOException{
+    public void updateFile(ArrayList<Task> updatedArrays) throws IOException {
         int i = 0;
         try {
             FileWriter writeToFile = new FileWriter(this.filePath);
-            while (i < updatedArray.size()-1) {
-                Task nextTask = updatedArray.get(i);
+            while (i < updatedArrays.size() - 1) {
+                Task nextTask = updatedArrays.get(i);
                 writeToFile.write(nextTask.saveInput()
                         + System.lineSeparator());
                 i++;
             }
-            Task finalTask = updatedArray.get(updatedArray.size()-1);
+            Task finalTask = updatedArrays.get(updatedArrays.size() - 1);
             writeToFile.write(finalTask.saveInput());
             writeToFile.close();
         } catch (IOException e) {

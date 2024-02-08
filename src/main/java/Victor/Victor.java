@@ -1,4 +1,5 @@
 package victor;
+
 import victor.parser.Parser;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
@@ -15,21 +16,29 @@ class DukeException extends Exception {
 
 
 }
+
 /**
  * The Victor class is the main part of the AI where
  * we start running the program from.
  *
  * @author Dominic Fu Ming Jun
- *
  */
 public class Victor {
-    /** Storage class that is used to load and store data into data file */
+    /**
+     * Storage class that is used to load and store data into data file
+     */
     private static Storage storage;
-    /** TaskList class that contains methods to change data to the ArrayList of Tasks */
+    /**
+     * TaskList class that contains methods to change data to the ArrayList of Tasks
+     */
     private static TaskList tasks;
-    /** Ui class that displays the Ui of the application */
+    /**
+     * Ui class that displays the Ui of the application
+     */
     private static Ui ui;
-    /** Parser class that is used to determine what does the user command mean */
+    /**
+     * Parser class that is used to determine what does the user command mean
+     */
     private static Parser parser;
 
     /**
@@ -44,8 +53,9 @@ public class Victor {
         storage = new Storage(filePath);
         ui.showIntro();
         tasks = new TaskList(storage.load());
-        parser = new Parser(ui,tasks);
+        parser = new Parser(ui, tasks);
     }
+
     /**
      * The run method is used to run the file.
      * It would continue to run the file until the user input 'bye',
@@ -63,6 +73,7 @@ public class Victor {
         ui.showEnding();
         storage.updateFile(tasks.returnList());
     }
+
     public static void main(String[] args) throws IOException {
         new Victor("data/victor.txt").run();
     }

@@ -13,12 +13,15 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    /** The by variable is a String to indicate when the Deadline is due by. */
+    /**
+     * The by variable is a String to indicate when the Deadline is due by.
+     */
     protected String by;
 
-    /** The tempBy variable is a LocalDate that is hold the LocalDate of the by
+    /**
+     * The tempBy variable is a LocalDate that is hold the LocalDate of the by
      * variable when it is converted from a String into a LocalDate.
-     * */
+     */
     protected LocalDate tempBy;
 
     /**
@@ -30,8 +33,8 @@ public class Deadline extends Task {
      * It also converts the String by into a LocalDate and added into the tempBy variable.
      *
      * @param description The description of the task.
-     * @param  isDone States whether the task is done or not.
-     * @param by The date that indicate when the deadline is due by.
+     * @param isDone      States whether the task is done or not.
+     * @param by          The date that indicate when the deadline is due by.
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
@@ -61,7 +64,6 @@ public class Deadline extends Task {
      * of the data file before being saved into the data file.
      *
      * @return A string that is in the format to be added to the data file.
-     *
      */
     @Override
     public String saveInput() {

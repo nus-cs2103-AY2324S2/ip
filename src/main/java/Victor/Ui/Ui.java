@@ -21,10 +21,8 @@ public class Ui {
 
     /** The intro variable is used to hold the greeting this program says when it starts running. */
     protected String intro;
-
     /** The ending variable is used to hold the ending String this program says when the user inputs "bye". */
     protected String ending;
-
     /** The barrier variable is used to hold the String that acts as a barrier to better separate the output. */
     protected String barrier = "____________________________________________________________";
 
