@@ -6,9 +6,18 @@ import alastor.TaskList;
 import alastor.Ui;
 import alastor.task.Task;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
+
     private final int index;
 
+    /**
+     * Constructs a DeleteCommand.
+     *
+     * @param index Index of task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

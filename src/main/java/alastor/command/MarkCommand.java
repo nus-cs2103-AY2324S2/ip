@@ -6,10 +6,20 @@ import alastor.TaskList;
 import alastor.Ui;
 import alastor.task.Task;
 
+/**
+ * Represents a command to mark or unmark a task.
+ */
 public class MarkCommand extends Command {
+
     private final int index;
     private final boolean isMark;
 
+    /**
+     * Constructs a MarkCommand.
+     *
+     * @param index Index of task to be marked or unmarked.
+     * @param isMark Whether to mark or unmark the task.
+     */
     public MarkCommand(int index, boolean isMark) {
         this.index = index;
         this.isMark = isMark;

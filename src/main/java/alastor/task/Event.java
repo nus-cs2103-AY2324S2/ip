@@ -3,11 +3,21 @@ package alastor.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Event task.
+ */
 public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs an Event task.
+     *
+     * @param description The description of the task.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;

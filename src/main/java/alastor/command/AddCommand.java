@@ -6,10 +6,18 @@ import alastor.TaskList;
 import alastor.Ui;
 import alastor.task.Task;
 
+/**
+ * Represents a command to add a task.
+ */
 public class AddCommand extends Command {
 
     protected Task task;
 
+    /**
+     * Constructs an AddCommand.
+     *
+     * @param task Task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }

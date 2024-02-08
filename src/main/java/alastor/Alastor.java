@@ -2,12 +2,20 @@ package alastor;
 
 import alastor.command.Command;
 
+/**
+ * Represents Alastor, a personal assistant chatbot that helps a person to keep track of various things.
+ */
 public class Alastor {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs an Alastor object.
+     *
+     * @param filePath The file path to save and load tasks from.
+     */
     public Alastor(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +27,9 @@ public class Alastor {
         }
     }
 
+    /**
+     * Runs the Alastor program.
+     */
     public void run() {
         ui.showLine();
         ui.showGreet();

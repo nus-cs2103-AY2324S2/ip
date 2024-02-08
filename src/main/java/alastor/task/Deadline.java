@@ -3,10 +3,19 @@ package alastor.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline task.
+     *
+     * @param description The description of the task.
+     * @param by The deadline of the task.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
