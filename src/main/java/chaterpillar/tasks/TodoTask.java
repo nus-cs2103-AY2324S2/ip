@@ -1,4 +1,4 @@
-package tasks;
+package chaterpillar.tasks;
 
 /**
  * Represents a task to be done. A <code>ToDoTask</code>

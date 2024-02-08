@@ -1,10 +1,10 @@
-package parser;
+package chaterpillar.parser;
 
 import java.time.format.DateTimeParseException;
 
-import exceptions.ChaterpillarException;
-import tasks.*;
-import commands.*;
+import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.tasks.*;
+import chaterpillar.commands.*;
 
 public class Parser {
     public static Command parse(String input) throws ChaterpillarException {

@@ -1,7 +1,7 @@
-package tasks;
+package chaterpillar.tasks;
 
-import datetime.DateTime;
-import exceptions.ChaterpillarException;
+import chaterpillar.datetime.DateTime;
+import chaterpillar.exceptions.ChaterpillarException;
 
 /**
  * Represents a task which is an event. A <code>tasks.EventTask</code>

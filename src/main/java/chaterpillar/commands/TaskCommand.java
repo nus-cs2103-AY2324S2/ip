@@ -1,12 +1,12 @@
-package commands;
+package chaterpillar.commands;
 
 import java.io.IOException;
 
-import exceptions.ChaterpillarException;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.tasks.Task;
+import chaterpillar.tasks.TaskList;
+import chaterpillar.ui.Ui;
+import chaterpillar.storage.Storage;
 public class TaskCommand extends Command {
     private final Task task;
 

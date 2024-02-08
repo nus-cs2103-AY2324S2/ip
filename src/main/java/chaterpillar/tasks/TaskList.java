@@ -1,7 +1,7 @@
-package tasks;
+package chaterpillar.tasks;
 
-import datetime.DateTime;
-import exceptions.ChaterpillarException;
+import chaterpillar.datetime.DateTime;
+import chaterpillar.exceptions.ChaterpillarException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

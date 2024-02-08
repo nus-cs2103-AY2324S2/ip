@@ -1,6 +1,6 @@
-package datetime;
+package chaterpillar.datetime;
 
-import exceptions.ChaterpillarException;
+import chaterpillar.exceptions.ChaterpillarException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -118,6 +118,7 @@ public class DateTime {
 
                         .appendPattern("[HHmm]")
                         .appendPattern("[HH:mm]")
+                        .appendPattern("[h:mm a]")
                         .appendPattern("[h a]")
                         .parseDefaulting(ChronoField.YEAR, Year.now().getValue());
         DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder.toFormatter();

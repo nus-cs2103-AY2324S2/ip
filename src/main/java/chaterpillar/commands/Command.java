@@ -1,9 +1,9 @@
-package commands;
+package chaterpillar.commands;
 
-import exceptions.ChaterpillarException;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.tasks.TaskList;
+import chaterpillar.ui.Ui;
+import chaterpillar.storage.Storage;
 
 import java.io.IOException;
 

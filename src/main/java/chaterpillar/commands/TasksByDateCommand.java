@@ -1,10 +1,10 @@
-package commands;
+package chaterpillar.commands;
 
-import datetime.DateTime;
-import exceptions.ChaterpillarException;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+import chaterpillar.datetime.DateTime;
+import chaterpillar.exceptions.ChaterpillarException;
+import chaterpillar.tasks.TaskList;
+import chaterpillar.ui.Ui;
+import chaterpillar.storage.Storage;
 
 public class TasksByDateCommand extends Command {
     DateTime date;
@@ -19,7 +19,7 @@ public class TasksByDateCommand extends Command {
             throw new ChaterpillarException(
                     "Congrats! You have no tasks for today. :)");
         } else {
-            ui.echo(String.format("Here are the tasks on %s:", this.date));
+            ui.echo(String.format("For %s,kq", this.date));
             TaskList tasksNew = tasks.getTasksOnDate(this.date);
             new ListCommand(tasksNew).execute(tasks, ui, storage);
         }
