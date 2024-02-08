@@ -2,13 +2,16 @@ package seedu.banter.ui;
 
 import seedu.banter.enums.CommandType;
 
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
-    public static final String BANTER_LOGO = ".______        ___      .__   __. .___________. _______ .______\n" +
-            "|   _  \\      /   \\     |  \\ |  | |           ||   ____||   _  \\\n" +
-            "|  |_)  |    /  ^  \\    |   \\|  | `---|  |----`|  |__   |  |_)  |\n" +
-            "|   _  <    /  /_\\  \\   |  . `  |     |  |     |   __|  |      /\n" +
-            "|  |_)  |  /  _____  \\  |  |\\   |     |  |     |  |____ |  |\\  \\----.\n" +
-            "|______/  /__/     \\__\\ |__| \\__|     |__|     |_______||__| `._____|";
+    public static final String BANTER_LOGO = ".______        ___      .__   __. .___________. _______ .______\n"
+            + "|   _  \\      /   \\     |  \\ |  | |           ||   ____||   _  \\\n"
+            + "|  |_)  |    /  ^  \\    |   \\|  | `---|  |----`|  |__   |  |_)  |\n"
+            + "|   _  <    /  /_\\  \\   |  . `  |     |  |     |   __|  |      /\n"
+            + "|  |_)  |  /  _____  \\  |  |\\   |     |  |     |  |____ |  |\\  \\----.\n"
+            + "|______/  /__/     \\__\\ |__| \\__|     |__|     |_______||__| `._____|";
     public static final String EXIT_MESSAGE_BODY = "Bye. Hope to see you again soon!";
     public static final String TODO_USAGE = "todo <description>";
     public static final String DEADLINE_USAGE = "deadline <description> /by <due date>";
@@ -17,19 +20,18 @@ public class Ui {
     public static final String UNMARK_USAGE = "unmark <task number>";
     public static final String DELETE_USAGE = "delete <task number>";
     public static final String FIND_USAGE = "find <keyword(s)>";
-    public static final String COMMAND_USAGE = "This is what banter.Banter can do:\n" +
-            CommandType.BYE + "\n" +
-            CommandType.LIST + "\n" +
-            MARK_USAGE + "\n" +
-            UNMARK_USAGE + "\n" +
-            TODO_USAGE + "\n" +
-            DEADLINE_USAGE + "\n" +
-            EVENT_USAGE + "\n" +
-            DELETE_USAGE + "\n" +
-            FIND_USAGE;
-    public static final String GREET_MESSAGE_BODY = "Hello! I'm banter.Banter\n" +
-            "What can I do for you?\n\n" +
-            COMMAND_USAGE;
+    public static final String COMMAND_USAGE = "This is what banter.Banter can do:\n"
+            + CommandType.BYE + "\n"
+            + CommandType.LIST + "\n"
+            + MARK_USAGE + "\n"
+            + UNMARK_USAGE + "\n"
+            + TODO_USAGE + "\n"
+            + DEADLINE_USAGE + "\n"
+            + EVENT_USAGE + "\n"
+            + DELETE_USAGE + "\n"
+            + FIND_USAGE;
+    public static final String GREET_MESSAGE_BODY = "Hello! I'm banter.Banter\n"
+            + "What can I do for you?\n\n" + COMMAND_USAGE;
 
 
     // Messages

@@ -1,8 +1,8 @@
 package seedu.banter.tasks;
 
-import seedu.banter.utilities.DateTime;
-
 import java.time.LocalDateTime;
+
+import seedu.banter.utilities.DateTime;
 
 
 /**
@@ -18,18 +18,18 @@ public class Deadline extends Task {
      * @param description
      * @param by
      */
-    public Deadline(String description, LocalDateTime by) {  // default access modifier
+    public Deadline(String description, LocalDateTime by) { // default access modifier
         super(description);
         this.by = by;
     }
-    
+
     /**
      * Constructs a new Deadline object.
      * @param description
      * @param isDone
      * @param by
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {  // default access modifier
+    public Deadline(String description, boolean isDone, LocalDateTime by) { // default access modifier
         super(description, isDone);
         this.by = by;
     }
@@ -42,7 +42,7 @@ public class Deadline extends Task {
     public String getTaskType() {
         return DEADLINE_ICON;
     }
-    
+
     /**
      * String representation of a Deadline task.
      * @return String representation of a Deadline task.
@@ -51,7 +51,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[" + getTaskType() + "]" + super.toString() + " (by: " + DateTime.displayDateTimeToUser(by) + ")";
     }
-    
+
     /**
      * Returns the due date of a Deadline task.
      * @return Due date of a Deadline task.

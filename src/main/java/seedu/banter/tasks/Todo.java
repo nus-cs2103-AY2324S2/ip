@@ -14,17 +14,17 @@ public class Todo extends Task {
      * @param description The description of the Todo task.
      * @param description
      */
-    public Todo(String description) {  // default access modifier
+    public Todo(String description) { // default access modifier
         super(description);
     }
-    
+
     /**
      * Constructs a Todo task with the specified description and done status.
      *
      * @param description The description of the Todo task.
      * @param isDone The done status of the Todo task.
      */
-    public Todo(String description, boolean isDone) {  // default access modifier
+    public Todo(String description, boolean isDone) { // default access modifier
         super(description, isDone);
     }
 
@@ -37,7 +37,7 @@ public class Todo extends Task {
     public String getTaskType() {
         return TODO_ICON;
     }
-    
+
     /**
      * Returns the string representation of a Todo task.
      *

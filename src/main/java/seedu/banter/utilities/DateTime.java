@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a date time utility class.
+ */
 public class DateTime {
     private static final String[] USER_INPUT_FORMATS = {"d/M/yyyy HHmm", "dd/MM/yyyy HHmm", "d/M/yyyy", "dd/MM/yyyy"};
     private static final String USER_DISPLAY_FORMAT = "dd MMM yyyy HHmm";

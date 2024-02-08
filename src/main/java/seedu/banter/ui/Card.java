@@ -18,7 +18,7 @@ public class Card {
         this.message = message;
         indentMessageBody();
     }
-    
+
     private void indentMessageBody() {
         String[] lines = message.split("\n");
         for (int i = 0; i < lines.length; i++) {

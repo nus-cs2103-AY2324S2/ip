@@ -1,12 +1,13 @@
 package seedu.banter.tasks;
 
 import java.time.LocalDateTime;
+
 import seedu.banter.utilities.DateTime;
 
 
 /**
  * Represents a task of type Event in a task list.
- * A Event task has a description, a start time and an end time.
+ * An Event task has a description, a start time and an end time.
  */
 public class Event extends Task {
     private static final String EVENT_ICON = "E";
@@ -19,7 +20,7 @@ public class Event extends Task {
      * @param from
      * @param to
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {  // default access modifier
+    public Event(String description, LocalDateTime from, LocalDateTime to) { // default access modifier
         super(description);
         this.from = from;
         this.to = to;
@@ -32,7 +33,7 @@ public class Event extends Task {
      * @param from
      * @param to
      */
-    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {  // default access modifier
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) { // default access modifier
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -53,8 +54,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (from: " + DateTime.displayDateTimeToUser(from) + 
-                " to: " + DateTime.displayDateTimeToUser(to) + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (from: " + DateTime.displayDateTimeToUser(from)
+                + " to: " + DateTime.displayDateTimeToUser(to) + ")";
     }
 
     /**
@@ -64,7 +65,7 @@ public class Event extends Task {
     public LocalDateTime getStart() {
         return from;
     }
-    
+
     /**
      * Returns the end time of an Event task.
      * @return End time of an Event task.

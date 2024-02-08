@@ -14,7 +14,7 @@ import seedu.banter.ui.Ui;
  */
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> taskList;
-    
+
     /**
      * Constructs a new TaskList object.
      */
@@ -30,10 +30,10 @@ public class TaskList implements Iterable<Task> {
     public String addTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
-        return "Got it. I've added this task:\n" + todo +
-                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+        return "Got it. I've added this task:\n" + todo
+                + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
-    
+
     /**
      * Loads a Todo task to the TaskList.
      * @param description Description of the Todo task.
@@ -53,10 +53,10 @@ public class TaskList implements Iterable<Task> {
     public String addDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
-        return "Got it. I've added this task:\n" + deadline +
-                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+        return "Got it. I've added this task:\n" + deadline
+                + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
-   
+
     /**
      * Loads a Deadline task to the TaskList.
      * @param description Description of the Deadline task.
@@ -78,10 +78,10 @@ public class TaskList implements Iterable<Task> {
     public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
-        return "Got it. I've added this task:\n" + event +
-                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+        return "Got it. I've added this task:\n" + event
+                + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
-    
+
     /**
      * Loads an Event task to the TaskList.
      * @param eventDescription Description of the Event task.
@@ -93,7 +93,7 @@ public class TaskList implements Iterable<Task> {
         Event event = new Event(eventDescription, isDone, start, end);
         taskList.add(event);
     }
-    
+
     /**
      * Returns the string representation of the TaskList.
      * @return String representation of the TaskList.
@@ -128,7 +128,7 @@ public class TaskList implements Iterable<Task> {
     public String markTaskAsUndone(int taskNumber) throws InvalidBanterUsageError {
         try {
             return taskList.get(taskNumber - 1).markAsUndone();
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.UNMARK_USAGE, this);
         }
     }
@@ -141,8 +141,8 @@ public class TaskList implements Iterable<Task> {
     public String deleteTask(int taskNumber) throws InvalidBanterUsageError {
         try {
             Task deleted = taskList.remove(taskNumber - 1);
-            return "Noted. I've removed this task:\n" + deleted +
-                    "\nNow you have " + taskList.size() + " banter.tasks in the list.";
+            return "Noted. I've removed this task:\n" + deleted
+                    + "\nNow you have " + taskList.size() + " banter.tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.DELETE_USAGE, this);
         }

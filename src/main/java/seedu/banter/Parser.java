@@ -1,13 +1,13 @@
 package seedu.banter;
 
-import seedu.banter.enums.CommandType;
-import seedu.banter.errors.InvalidBanterUsageError;
-import seedu.banter.ui.Card;
-import seedu.banter.tasks.TaskList;
-
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import seedu.banter.enums.CommandType;
 import seedu.banter.errors.Errors;
+import seedu.banter.errors.InvalidBanterUsageError;
+import seedu.banter.tasks.TaskList;
+import seedu.banter.ui.Card;
 import seedu.banter.ui.Ui;
 import seedu.banter.utilities.DateTime;
 
@@ -16,15 +16,16 @@ import seedu.banter.utilities.DateTime;
  * Represents a parser that parses user input and functions as the app controller.
  */
 public class Parser {
-    private final TaskList taskList;
-    private final Storage storage;
-
     // Constants
     private static final String SEPARATOR = " ";
     private static final String DEADLINE_DUE_DATE = "/by";
     private static final String EVENT_START = "/from";
     private static final String EVENT_END = "/to";
-    
+
+    // Attributes
+    private final TaskList taskList;
+    private final Storage storage;
+
     /**
      * Constructs a new Parser object.
      * @param storage Storage object that handles loading and saving of tasks.
@@ -42,7 +43,7 @@ public class Parser {
         System.out.println(Ui.BANTER_LOGO);
         Ui.GREET_MESSAGE.print();
     }
-    
+
     private void printExitMessage() {
         Ui.EXIT_MESSAGE.print();
     }
@@ -58,35 +59,35 @@ public class Parser {
             try {
                 command = getCommandType(input);
                 switch (command) {
-                    case BYE:
-                        printExitMessage();
-                        break;
-                    case LIST:
-                        parseList();
-                        break;
-                    case MARK:
-                        parseMark(input);
-                        break;
-                    case UNMARK:
-                        parseUnmark(input);
-                        break;
-                    case TODO:
-                        parseTodo(input);
-                        break;
-                    case DEADLINE:
-                        parseDeadline(input);
-                        break;
-                    case EVENT:
-                        parseEvent(input);
-                        break;
-                    case DELETE:
-                        parseDelete(input);
-                        break;
-                    case FIND:
-                        parseFind(input);
-                        break;
-                    default:
-                        throw Errors.INVALID_COMMAND_ERROR;
+                case BYE:
+                    printExitMessage();
+                    break;
+                case LIST:
+                    parseList();
+                    break;
+                case MARK:
+                    parseMark(input);
+                    break;
+                case UNMARK:
+                    parseUnmark(input);
+                    break;
+                case TODO:
+                    parseTodo(input);
+                    break;
+                case DEADLINE:
+                    parseDeadline(input);
+                    break;
+                case EVENT:
+                    parseEvent(input);
+                    break;
+                case DELETE:
+                    parseDelete(input);
+                    break;
+                case FIND:
+                    parseFind(input);
+                    break;
+                default:
+                    throw Errors.INVALID_COMMAND_ERROR;
                 }
             } catch (InvalidBanterUsageError e) {
                 Card errorMessage = new Card(e.getMessage());

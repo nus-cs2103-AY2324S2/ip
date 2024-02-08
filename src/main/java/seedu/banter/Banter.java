@@ -1,5 +1,8 @@
 package seedu.banter;
 
+/**
+ * Represents the Banter program.
+ */
 public class Banter {
     private Storage storage = new Storage();
     private Parser parser = new Parser(storage);

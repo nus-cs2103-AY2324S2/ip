@@ -1,9 +1,11 @@
-package seedu.banter;
+package seedu.banter.tasks;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import seedu.banter.tasks.Todo;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoTest {
     @Test
@@ -23,7 +25,7 @@ public class TodoTest {
         assertEquals(description, todo.getDescription());
         assertTrue(todo.isDone());
     }
-    
+
     @Test
     public void todoInitializationWithUndoneStatus() {
         String description = "Read a book";
@@ -48,7 +50,7 @@ public class TodoTest {
 
         assertEquals("[T][X] " + description, todo.toString());
     }
-    
+
     @Test
     public void todoToStringWithUndoneStatus() {
         String description = "Write code";

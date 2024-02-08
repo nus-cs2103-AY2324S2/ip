@@ -1,8 +1,11 @@
 package seedu.banter.tasks;
 
-import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
 
 class EventTest {
 
@@ -14,7 +17,7 @@ class EventTest {
 
         String expected = "[E][ ] Meeting (from: 30 Jan 2022 1000 to: 30 Jan 2022 1200)";
         String result = event.toString();
-        
+
         assertEquals(expected, result, "toString() should return the expected string representation");
     }
 
