@@ -17,9 +17,16 @@ public abstract class Event extends Template {
     }
 
     /**
-     * Processes if a command is applicable
-     * If so, it creates a new instance of {@link alpaca.tasks.Event} and add's
-     * it to the list it was provided
+     * Creates a Event task and adds it to the list
+     * 
+     * @param input The command inputted
+     * @param list  The list to put the newly created task in
+     * @throws ArrayIndexOutOfBoundsException If an item with that index does not
+     *                                        exist
+     * @throws ValueNotFound                  If there is additional information
+     *                                        following the command
+     * @throws InvalidInput                   If the information following the
+     *                                        command is not comprehesible
      **/
     public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) throw new ValueNotFound("You need to provide a value for event");

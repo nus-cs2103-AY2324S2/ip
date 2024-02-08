@@ -6,6 +6,8 @@ package alpaca.tasks;
 public class Event extends Task{
     /**
      * Creates a Event object
+     * 
+     * @param name What the task is named
      **/
     public Event(String name) {
         super(name);
@@ -14,10 +16,15 @@ public class Event extends Task{
 
     /**
      * Creates a Event object, allowing the preset of the done option
+     * 
+     * @param done If the task should be
+     * @param name What the task is named
      **/
     public Event(Boolean done, String name) {
         super(name);
         setType("E");
-        if (done) setDone();
+        if (done) {
+            setDone();
+        }
     }
 }

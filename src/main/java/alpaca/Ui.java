@@ -18,30 +18,29 @@ import alpaca.exceptions.ValueNotFound;
  * Handles the Ui elements
  **/
 public class Ui {
-    final static String name = "Alpaca";
+    final static String NAME = "Alpaca";
     Scanner scanner;
     ArrayList<Task> list = new ArrayList<Task>();
 
-    private void divider() {
+    private void divide() {
         System.out.println("____________________________________________________________\n");
     }
 
-    private void greeting() {
-        divider();
-        System.out.println("Hihi! I'm " + Ui.name + "\nWhat can I do for you?");
-        divider();
+    private void greet() {
+        divide();
+        System.out.println("Hihi! I'm " + Ui.NAME + "\nWhat can I do for you?");
+        divide();
     }
 
     private void bye() {
         System.out.println("cucu");
-        divider();
+        divide();
     }
 
     private void list() {
         if (list.size() == 0) {
             System.out.println("Sorry, you haven't created any tasks yet :(");
-            return;
-            
+            return; 
         }
         System.out.println(" Here are the tasks in your list:");
         int counter = 1;
@@ -53,25 +52,38 @@ public class Ui {
 
     private void processInput() {
         String input = scanner.nextLine();
-        divider();
+        divide();
         if (input.toLowerCase().equals("bye")) {
             bye();
             return;
-        } else if (input.toLowerCase().equals("list")) list();
-        else {
+        } else if (input.toLowerCase().equals("list")) {
+            list();
+        } else {
             trying : try {
-                if (Mark.run(input, list)) break trying;
-                if (Unmark.run(input, list)) break trying;
-                if (Deadline.run(input, list)) break trying;
-                if (Event.run(input, list)) break trying;
-                if (ToDo.run(input, list)) break trying;
-                if (Delete.run(input, list)) break trying;
+                if (Mark.run(input, list)) {
+                    break trying;
+                }
+                if (Unmark.run(input, list)) {
+                    break trying;
+                }
+                if (Deadline.run(input, list)) {
+                    break trying;
+                }
+                if (Event.run(input, list)) {
+                    break trying;
+                }
+                if (ToDo.run(input, list)) {
+                    break trying;
+                }
+                if (Delete.run(input, list)) {
+                    break trying;
+                }
                 System.out.println("Me no understand :(");
             } catch (ArrayIndexOutOfBoundsException | ValueNotFound | InvalidInput e) {
                 System.out.println(e.getMessage());
             }
         }
-        divider();
+        divide();
         processInput();
     }
     
@@ -79,7 +91,7 @@ public class Ui {
      * Handles the start and end of a run with all the necessary resource handling
      **/
     public void run() {
-        greeting();
+        greet();
         scanner = new Scanner(System.in);
         ReadData.read(list);
         processInput();

@@ -13,18 +13,37 @@ public abstract class Unmark extends Template {
     protected static String trigger = "unmark";
 
     protected static Boolean isTrigger(String input, String trigger) {
-        return input.toLowerCase().replaceAll(" ", "").replaceAll("[0-9]", "").equals(trigger);
+        return input.toLowerCase().replaceAll(" ", "")
+                .replaceAll("[0-9]", "").equals(trigger);
     }
 
     /**
-     * Determines if the input is referring to this case and if the inputs are valid
+     * Unmarks a task on the list
+     * 
+     * @param input The command inputted
+     * @param list  The list of tasks to unmark
+     * @throws ArrayIndexOutOfBoundsException If an item with that index does not
+     *                                        exist
+     * @throws ValueNotFound                  If there is additional information
+     *                                        following the command
+     * @throws InvalidInput                   If the information following the
+     *                                        command is not comprehesible
      **/
-    public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
-        if (input.toLowerCase().equals(trigger)) throw new ValueNotFound("Unmark needs a index");
-        if (!isTriggerPrefix(input, trigger)) return false;
-        if (!isTrigger(input, trigger)) throw new InvalidInput("That's not a valid input for Unmark");
+    public static Boolean run(String input, ArrayList<Task> list)
+            throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
+        if (input.toLowerCase().equals(trigger)) {
+            throw new ValueNotFound("Unmark needs a index");
+        }
+        if (!isTriggerPrefix(input, trigger)) {
+            return false;
+        }
+        if (!isTrigger(input, trigger)) {
+            throw new InvalidInput("That's not a valid input for Unmark");
+        }
         int index = getNumber(input, trigger) - 1;
-        if (index < 0 || index >= list.size()) throw new ArrayIndexOutOfBoundsException("An item does not exist at that index");
+        if (index < 0 || index >= list.size()) {
+            throw new ArrayIndexOutOfBoundsException("An item does not exist at that index");
+        }
         Task task = list.get(index);
         task.setUndone();
         System.out.println("OK, I've marked this task as not done yet:");
