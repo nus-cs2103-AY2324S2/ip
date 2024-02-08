@@ -55,6 +55,9 @@ public class Parser {
         } else if (userInput.toLowerCase().startsWith("delete")) {
             int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
             taskList.deleteTask(taskNumber, storage);
+        } else if (userInput.trim().toLowerCase().startsWith("find")) {
+            String keyword = userInput.substring("find".length()).trim();
+            taskList.findTask(keyword);
         } else {
             throw new ChatbotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
