@@ -6,19 +6,32 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
+
 import liv.task.Task;
 import liv.task.TodoTask;
 import liv.task.Deadline;
 import liv.task.Event;
 
+/**
+ * A class to save and load the task list to and from the machine.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for the class.
+     * @param filePath The path to the file that contains the task list.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads and processes one line from the data file.
+     * @param line the line to be processed.
+     */
     private void handleLineFromDataFile(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
@@ -43,6 +56,12 @@ public class Storage {
         if (isDone)
             task.changeStatus();
     }
+
+    /**
+     * Creates the directory and the file if they do not currently exist.
+     * Reads the data file line by line and process each line.
+     * Loads the data file to the chatbot.
+     */
     public void loadDataFile() {
         // Data format: [<task type>] | [<isDone>] | <description> | <time>
         File file = new File(filePath);
@@ -64,6 +83,10 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Saves the tasks currently on the list to the data file.
+     */
     public void saveTaskToFile() {
         // Data format: [<task type>] | [<isDone>] | <description> | <time>
         try {

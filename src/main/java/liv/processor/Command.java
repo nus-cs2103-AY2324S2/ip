@@ -24,11 +24,15 @@ public abstract class Command {
         return false;
     }
 
+<<<<<<< HEAD
     /**
      * Checks if this command alters the data stored in the list.
      * @return True if the command alters the task list, false otherwise.
      */
     public boolean changedData() {
+=======
+    public boolean hasChangedData() {
+>>>>>>> branch-A-CodingStandard
         return false;
     }
 }

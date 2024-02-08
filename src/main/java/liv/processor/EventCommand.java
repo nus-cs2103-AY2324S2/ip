@@ -33,7 +33,7 @@ public class EventCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public boolean changedData() {
+    public boolean hasChangedData() {
         return true;
     }
 }
