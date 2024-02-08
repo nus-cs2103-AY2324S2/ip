@@ -7,7 +7,7 @@ import java.io.OutputStream;
  * Main class where the program runs. Users can input commands
  * from console and respond to prompts
  */
-public class Arona {
+public class Arona  {
     private String name;
     private String filePath = "./src/data/tasklist.txt";
     private TaskList taskList;
@@ -28,14 +28,14 @@ public class Arona {
             }
         }));
 
-        this.name = "";
-        this.storage = new Storage(filePath);
-        try {
-            this.ui = new Ui();
-            this.taskList = new TaskList(storage.load(), ui);
-        } catch (FileException e) {
-            this.taskList = new TaskList(ui);
+        name = "";
+        storage = new Storage(filePath);
+        ui = new Ui();
 
+        try {
+            taskList = new TaskList(storage.load(), ui);
+        } catch (FileException e) {
+            taskList = new TaskList(ui);
         }
         System.setOut(originalOut);
     }
@@ -50,30 +50,26 @@ public class Arona {
      * @throws IndexOutOfBoundsException if user enter a task number
      *      that does not exist
      */
-    public void run() {
-        ui.greetings();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parseCommand(fullCommand);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
-            } catch (FileException e) {
-                System.err.println(e.getMessage());
-            } catch (AronaException e) {
-                System.err.println(e.getMessage());
-            } catch (TaskException e) {
-                System.err.println(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                System.err.println(e.getMessage());
-            }
+    public void run(String fullCommand) {
+        try {
+            Command command = Parser.parseCommand(fullCommand);
+            command.execute(taskList, ui, storage);
+
+        } catch (FileException | AronaException | TaskException | IndexOutOfBoundsException e) {
+            ui.setResponse(e.getMessage());
         }
+
     }
 
-    public static void main(String[] args) throws TaskException {
-        Arona arona = new Arona();
-        arona.run();
+    public String getResponse() {
+        return ui.getResponse();
+    }
+
+    public void greetUser() {
+        ui.greetings();
+    }
+
+    public static void main(String[] args) {
+
     }
 }

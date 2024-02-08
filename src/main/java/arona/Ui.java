@@ -14,13 +14,15 @@ public class Ui {
             + "どういうご用件ですか?　\n"
             + "ここで先生のスケジュールが決まります.";
     private String goodbye = "Goodbye sensei! Hope to see you soon!";
+    private String response;
     public void greetings() {
-        System.out.println("開始中... \n" + logo);
-        System.out.println(greetings);
+        response = "開始中... \n"
+                + logo + "\n"
+                + greetings + "\n";
     }
 
     public void quitApplication() {
-        System.out.println(goodbye);
+        response = goodbye + "\n";
     }
 
     public String readCommand() {
@@ -30,39 +32,47 @@ public class Ui {
     }
 
     public void printTasks(ArrayList<Task> tasks) {
-        System.out.println("Sensei! Here are the tasks in your list:");
+        response = "Sensei! Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) == null) break;
             Task task = tasks.get(i);
-            System.out.println(i + 1 + "." + task.toString());
+            response += i + 1 + "." + task.toString() + "\n";
         }
     }
 
     public void taskAdded(ArrayList<Task> tasks) {
-        System.out.println("Arona has added this task to sensei's task list!: ");
-        System.out.println(tasks.get(tasks.size() - 1).toString());
-        System.out.println("Arona has counted " + tasks.size() + " tasks in the list!");
+        response = "Arona has added this task to sensei's task list!: \n"
+                + tasks.get(tasks.size() - 1).toString() + "\n"
+                + "Arona has counted " + tasks.size() + " tasks in the list!";
     }
 
     public void taskDeleted(Task task, int size) {
-        System.out.println("Arona has removed this task!: ");
-        System.out.println(task.toString());
-        System.out.println("Arona has counted " + size + " tasks in the list!");
+        response = "Arona has removed this task!: \n"
+                + task.toString() + "\n"
+                + "Arona has counted " + size + " tasks in the list!\n";
     }
 
     public void alreadyMarked(boolean status) {
-        System.out.println("Sensei, the task has already been marked as " + (status ? "done!" : "not done!"));
+        response = "Sensei, the task has already been marked as " + (status ? "done!" : "not done!") + "\n";
     }
 
     public void markTask() {
-        System.out.println("Congratulation, sensei! arona.Arona has marked the task as done!:");
+        response = "Congratulation, sensei! Arona has marked the task as done!:\n";
     }
 
     public void unmarkTask() {
-        System.out.println("I understand, sensei! arona.Arona has marked the task as not done!:");
+        response = "I understand, sensei! Arona has marked the task as not done!:\n";
     }
 
     public String showLine() {
         return "---------------------------------";
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String res) {
+        response = res;
     }
 }
