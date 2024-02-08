@@ -51,10 +51,12 @@ public class TaskList {
     /**
      *
      */
-    public void listTask() {
+    public String listTask() {
+        String result = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            result += (i + 1) + ". " + tasks.get(i) + "\n";
         }
+        return result;
     }
 
     /**
@@ -101,8 +103,6 @@ public class TaskList {
      * @throws OutOfBoundException If the index is out of bound.
      */
     public Task markTaskById(Integer id, Boolean status) throws OutOfBoundException, IndexOutOfBoundsException {
-        System.out.println(id);
-        System.out.println(this.getNumOfTasks());
         // Test if the id is out of bound
         if (id >= this.getNumOfTasks() || id < 0) {
             throw new OutOfBoundException();

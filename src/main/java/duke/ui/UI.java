@@ -21,9 +21,8 @@ public class UI {
     /**
      * Displays task list.
      */
-    public void showList(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
-        taskList.listTask();
+    public String showList(TaskList taskList) {
+        return "Here are the tasks in your list:\n" + taskList.listTask();
     }
 
     /**
@@ -31,9 +30,8 @@ public class UI {
      *
      * @param taskList List to be displayed.
      */
-    public void showMatchedList(TaskList taskList) {
-        System.out.println("Here are the matching tasks in your list: ");
-        taskList.listTask();
+    public String showMatchedList(TaskList taskList) {
+        return "Here are the matching tasks in your list:\n" + taskList.listTask();
     }
 
     /**
@@ -42,10 +40,8 @@ public class UI {
      * @param task  Task added.
      * @param count Number of tasks in the list after the addition.
      */
-    public void onAddSuccess(Task task, Integer count) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        this.showTaskListCount(count);
+    public String onAddSuccess(Task task, Integer count) {
+        return "Got it. I've added this task:\n" + task + "\n" + "Now you have " + count + " tasks in the list.";
     }
 
     /**
@@ -53,9 +49,8 @@ public class UI {
      *
      * @param task Task marked
      */
-    public void onMarkDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+    public String onMarkDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -63,9 +58,8 @@ public class UI {
      *
      * @param task Task unmarked.
      */
-    public void onUnmarkDone(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+    public String onUnmarkDone(Task task) {
+        return "Nice! I've unmarked this task as undone:\n" + task;
     }
 
     /**
@@ -74,10 +68,8 @@ public class UI {
      * @param task     Task deleted.
      * @param taskList Task list after deletion.
      */
-    public void onDelete(Task task, TaskList taskList) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        this.showTaskListCount(taskList.getNumOfTasks());
+    public String onDelete(Task task, TaskList taskList) {
+        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
     }
 
     /**
@@ -85,15 +77,15 @@ public class UI {
      *
      * @param msg Error message.
      */
-    public void showErrorMsg(String msg) {
-        System.out.println(msg);
+    public String showErrorMsg(String msg) {
+        return msg;
     }
 
     /**
      * Displays loading error.
      */
-    public void showLoadingError() {
-        System.out.println("Error occur when initiating the resources.");
+    public String showLoadingError() {
+        return "Error occur when initiating the resources.";
     }
 
     /**
@@ -108,8 +100,8 @@ public class UI {
     /**
      * Displays exit message.
      */
-    public void onExit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String onExit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -117,7 +109,7 @@ public class UI {
      *
      * @param count Number of tasks.
      */
-    public void showTaskListCount(Integer count) {
-        System.out.println("Now you have " + count + " tasks in the list.");
+    public String showTaskListCount(Integer count) {
+        return "Now you have " + count + " tasks in the list.";
     }
 }
