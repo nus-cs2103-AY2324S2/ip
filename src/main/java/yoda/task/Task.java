@@ -5,7 +5,7 @@ package yoda.task;
  */
 public class Task {
 
-    private final String description; // Description of the task
+    private final String DESCRIPTION; // Description of the task
     private boolean isDone;     // Flag to track if the task is done
 
     /**
@@ -14,7 +14,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isDone = false; // Task is not done by default
     }
 
@@ -24,7 +24,7 @@ public class Task {
      * @return The description of the task.
      */
     public String getDescription() {
-        return this.description;
+        return this.DESCRIPTION;
     }
 
     /**
