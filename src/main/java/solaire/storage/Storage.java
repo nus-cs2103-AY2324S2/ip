@@ -31,7 +31,7 @@ public class Storage {
         taskList.clear();
 
         // Read from target file
-        Path filePath = Paths.get("src", "main", "java", "solaire", "resources", "Solaire.txt");
+        Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
         try {
 
             Path directoryPath = filePath.getParent();
@@ -61,7 +61,7 @@ public class Storage {
      * @param taskList an <code>ArrayList</code> of <code>Task</code> objects
      */
     public static void write(ArrayList<Task> taskList) {
-        Path filePath = Paths.get("src", "main", "java", "solaire", "resources", "Solaire.txt");
+        Path filePath = Paths.get("src", "main", "resources", "Solaire.txt");
 
         try {
             Files.createDirectories(filePath.getParent());

@@ -26,70 +26,52 @@ public class Solaire {
         this.taskList = new TaskList(Storage.loadFromLocal());
     }
 
-    public static void main(String[] args) {
-        Solaire solaire = new Solaire();
-        solaire.startConversation();
-    }
-
     /**
-     * Begins the chatbot's working loop.
-     * Runs infinitely until user inputs "bye".
+     * Processes the user input and returns the appropriate response.
+     *
+     * @param input user input
+     * @return String response to user input
      */
-    public void startConversation() {
-        ui.greet(); // UI
-
-        while (true) {
-            String input = ui.acceptInput();
-
-            if (input.equals("bye")) {
-                break;
-            }
-            processInput(input);
-            Storage.write(this.taskList.getTaskList());
-        }
-
-        ui.waveBye(); // UI
-    }
-
-    private void processInput(String input) {
+    public String processInput(String input) {
         String[] inputCommand = input.split(" ", 2);
+        String solaireOutput = "";
         try {
             UserCommands command = UserCommands.valueOf(inputCommand[0].toUpperCase());
-
             switch (command) {
             case GREET:
-                ui.greet();
+                solaireOutput = ui.greet();
                 break;
             case BYE:
-                ui.waveBye();
+                solaireOutput = ui.waveBye();
                 break;
             case MARK:
-                taskList.markDone(Integer.parseInt(inputCommand[1]));
+                solaireOutput = taskList.markDone(Integer.parseInt(inputCommand[1]));
                 break;
             case UNMARK:
-                taskList.unmarkDone(Integer.parseInt(inputCommand[1]));
+                solaireOutput = taskList.unmarkDone(Integer.parseInt(inputCommand[1]));
                 break;
             case LIST:
-                taskList.showList();
+                solaireOutput = taskList.showList();
                 break;
             case TODO:
             case DEADLINE:
             case EVENT:
-                taskList.processTaskCommand(input);
+                solaireOutput = taskList.processTaskCommand(input);
                 break;
             case DELETE:
-                taskList.processRemoveFromList(input);
+                solaireOutput = taskList.processRemoveFromList(input);
                 break;
             case FIND:
-                taskList.findTask(inputCommand[1]);
+                solaireOutput = taskList.findTask(inputCommand[1]);
                 break;
             default:
-                System.out.print("Unsupported command pattern\n");
+                solaireOutput = "Unsupported command pattern\n";
                 break;
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("I am not yet familiar with these commands");
+            solaireOutput = "I am not yet familiar with these commands";
+        } finally {
+            return solaireOutput;
         }
-
     }
 }

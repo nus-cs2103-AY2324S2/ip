@@ -26,23 +26,23 @@ public class Ui {
     /**
      * Greets the user with an intro message.
      */
-    public void greet() {
+    public String greet() {
         String greetingMessage =
                 "Oh hello there. I'm Solaire of Astora.\n" + "The sun is a wondrous body. Like a " + "magnificent "
                         + "father!\n" + "If only I could be so grossly incandescent!\n";
 
-        System.out.print(greetingMessage);
-        lineBreak();
+        return greetingMessage;
+        //lineBreak();
     }
 
     /**
      * Ends the chat session of Solaire.
      */
-    public void waveBye() {
-        String farewellMessage = "Farewell!\n";
-        System.out.print(farewellMessage);
-        lineBreak();
+    public String waveBye() {
         scn.close();
+        String farewellMessage = "Farewell!\n";
+        return farewellMessage;
+        //lineBreak();
     }
 
     private void lineBreak() {
