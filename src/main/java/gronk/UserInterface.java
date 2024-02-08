@@ -28,11 +28,11 @@ public class UserInterface {
             if (taskList.getSize() == 0) {
                 throw new EmptyListException();
             }
-            String m = "";
+            String message = "";
             for (int j = 0; j < taskList.getSize(); j++) {
-                m += "\t" + Integer.toString(j + 1) + ". " + taskList.getTask(j).toString() + "\n";
+                message += "\t" + Integer.toString(j + 1) + ". " + taskList.getTask(j).toString() + "\n";
             }
-            return m.substring(0, m.length() - 1);
+            return message.substring(0, message.length() - 1);
         } catch (EmptyListException e) {
             printMessage(e.toString());
         }
