@@ -1,6 +1,7 @@
 import exception.IncompleteCommandException;
 import exception.InvalidCommandException;
 import exception.InvalidTaskNumberException;
+import parser.Parser;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -60,54 +61,50 @@ public class BotChat {
     public static String response(String s) {
         Matcher markMatcher = markPattern.matcher(s);
         Matcher unmarkMatcher = unmarkPattern.matcher(s);
-        try {
-            String command = parser.extractCommand(s);
-            if (command.equals("bye")) {
-                terminate = true;
-                return Ui.byeMessage();
-            } else if (command.equals("list")) {
-                StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
-                for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
-                    stringBuilder.append(i);
-                    stringBuilder.append(". ");
-                    stringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
-                    stringBuilder.append("\n ");
-                }
-                return stringBuilder.toString();
-            } else if (markMatcher.matches()) {
-                try {
-                    int taskNum = convertTaskNumStringToInt(s);
-                    storage.editDataStoreTaskAsDone(taskNum);
-                    return markTaskAsDone(taskNum);
-                } catch (InvalidTaskNumberException e) {
-                    return e.toString();
-                }
-            } else if (unmarkMatcher.matches()) {
-                try {
-                    int taskNum = convertTaskNumStringToInt(s);
-                    storage.editDataStoreTaskAsUndone(taskNum);
-                    return unmarkTaskAsDone(taskNum);
-                } catch (InvalidTaskNumberException e) {
-                    return e.toString();
-                }
-            } else if (command.equals("delete")) {
-                String requestedDeletion = s.substring(7);
-                try {
-                    return deleteTask(requestedDeletion);
-                } catch (InvalidTaskNumberException e) {
-                    return e.toString();
-                }
-            } else {
-                try {
-                    addTask(s);
-                    return Ui.addTaskMessage(taskArrayList.getTaskByIdx(taskArrayList.getLastIdx() - 1).toString(),
-                            taskArrayList.getLastIdx());
-                } catch (Exception e) {
-                    return e.toString();
-                }
+        String command = parser.extractCommand(s);
+        if (command.equals("bye")) {
+            terminate = true;
+            return Ui.byeMessage();
+        } else if (command.equals("list")) {
+            StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list: \n");
+            for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
+                stringBuilder.append(i);
+                stringBuilder.append(". ");
+                stringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
+                stringBuilder.append("\n ");
             }
-        } catch (InvalidCommandException e) {
-            return e.toString();
+            return stringBuilder.toString();
+        } else if (markMatcher.matches()) {
+            try {
+                int taskNum = convertTaskNumStringToInt(s);
+                storage.editDataStoreTaskAsDone(taskNum);
+                return markTaskAsDone(taskNum);
+            } catch (InvalidTaskNumberException e) {
+                return e.toString();
+            }
+        } else if (unmarkMatcher.matches()) {
+            try {
+                int taskNum = convertTaskNumStringToInt(s);
+                storage.editDataStoreTaskAsUndone(taskNum);
+                return unmarkTaskAsDone(taskNum);
+            } catch (InvalidTaskNumberException e) {
+                return e.toString();
+            }
+        } else if (command.equals("delete")) {
+            String requestedDeletion = s.substring(7);
+            try {
+                return deleteTask(requestedDeletion);
+            } catch (InvalidTaskNumberException e) {
+                return e.toString();
+            }
+        } else {
+            try {
+                addTask(s);
+                return Ui.addTaskMessage(taskArrayList.getTaskByIdx(taskArrayList.getLastIdx() - 1).toString(),
+                        taskArrayList.getLastIdx());
+            } catch (Exception e) {
+                return e.toString();
+            }
         }
     }
 
