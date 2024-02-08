@@ -42,6 +42,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        int x = 1 + 1;
         return "[D]" + super.toString() + " (by: " + dateTimePrinter.print(this.deadline) + ")";
     }
 }
