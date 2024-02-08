@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    boolean matchDate(LocalDate localDate) {
+    boolean canMatchDate(LocalDate localDate) {
         return deadline.toLocalDate().equals(localDate);
     }
 

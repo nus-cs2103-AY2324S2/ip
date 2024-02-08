@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract public class Task {
-    private static final List<String> dateFormats = List.of(
+    private static final List<String> DATE_FORMATS = List.of(
             "yyyy-MM-dd",
             "yyyy-M-d",
             "dd-MM-yyyy",
@@ -20,7 +20,7 @@ abstract public class Task {
             "yyyy/MM/d"
     );
 
-    private static final List<String> timeFormats = List.of(
+    private static final List<String> TIME_FORMATS = List.of(
             "HH[:mm[:ss[.SSS]]]",
             "H[:mm[:ss[.SSS]]]",
             "HH[mm[ss]]",
@@ -58,8 +58,8 @@ abstract public class Task {
     }
 
     static LocalDateTime parse(String string) throws DukeException {
-        for (String date : dateFormats) {
-            for (String time : timeFormats) {
+        for (String date : DATE_FORMATS) {
+            for (String time : TIME_FORMATS) {
                 String format = date + " " + time;
                 try {
                     LocalDateTime dateTime = LocalDateTime.parse(string, DateTimeFormatter.ofPattern(format));
@@ -73,7 +73,7 @@ abstract public class Task {
     }
 
     public static LocalDate parseDate(String string) throws DukeException {
-        for (String date : dateFormats) {
+        for (String date : DATE_FORMATS) {
             try {
                 LocalDate localDate = LocalDate.parse(string, DateTimeFormatter.ofPattern(date));
                 return localDate;
@@ -84,7 +84,7 @@ abstract public class Task {
         throw new DukeException("Oops! Cannot understand the input date!");
     }
 
-    boolean matchDate(LocalDate localDate) {
+    boolean canMatchDate(LocalDate localDate) {
         return false;
     }
 

@@ -25,7 +25,7 @@ public class Event extends Task {
     }
 
     @Override
-    boolean matchDate(LocalDate localDate) {
+    boolean canMatchDate(LocalDate localDate) {
         return startTime.toLocalDate().equals(localDate) ||
                 endTime.toLocalDate().equals(localDate) ||
                 (startTime.toLocalDate().isBefore(localDate) &&

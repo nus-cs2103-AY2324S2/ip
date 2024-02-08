@@ -82,7 +82,7 @@ public class TaskList {
     public void searchDate(LocalDate localDate) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.matchDate(localDate)) {
+            if (task.canMatchDate(localDate)) {
                 result.add(task);
             }
         }
