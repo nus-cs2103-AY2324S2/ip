@@ -88,12 +88,12 @@ public class TaskList {
      * @throws JuxException
      */
     public void addTask(Ui ui, String typeOfTask, String task) throws JuxException {
-        if (typeOfTask.equals(Parser.TODO)) {
+        if (typeOfTask.equals(Parser.TASK_TODO)) {
             addTodo(task);
-        } else if (typeOfTask.equals(Parser.DEADLINE)) {
+        } else if (typeOfTask.equals(Parser.TASK_DEADLINE)) {
             addDeadline(task);
 
-        } else if (typeOfTask.equals(Parser.EVENT)){
+        } else if (typeOfTask.equals(Parser.TASK_EVENT)){
             addEvent(task);
         } else {
             throw new JuxException("SORRY I DO NOT KNOW WHAT THAT MEANS, PLEASE TRY AGAIN!");

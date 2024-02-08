@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 public class Parser {
-    public static final String TODO = "TODO";
-    public static final String DEADLINE = "DEADLINE";
-    public static final String EVENT = "EVENT";
-    public static final String INVALID = "INVALID";
+    public static final String TASK_TODO = "TODO";
+    public static final String TASK_DEADLINE = "DEADLINE";
+    public static final String TASK_EVENT = "EVENT";
+    public static final String TASK_INVALID = "INVALID";
 
 
     /**
@@ -24,34 +24,15 @@ public class Parser {
     public static void parsingInput(String input, TaskList taskList, Ui ui) throws JuxException {
         String command = findCommand(input);
         switch (command) {
-            case "list":
-                if (taskList.isEmpty()) {
-                    throw new JuxException(" YOUR LIST IS EMPTY");
-                }
-                taskList.showListWithIndexing(ui);
-                break;
-            case "mark":
-                if (input.length() > 5 ) {
-                    String listStringNumber =  input.substring(5);
-                    // future error detection for non-numerals
-                        int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
-                        // future error when list is empty
-                        if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
-                            throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
-                                    "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
-                                    + taskList.getSize());
-                        }
-                        if (taskList.isIndexedTaskChecked(convertedToNumber)) {
-                            throw new JuxException("TASK ALREADY MARKED");
-                        }
-                        taskList.toggleIndexedTask(convertedToNumber);
-                        taskList.printTaskMarked(ui, convertedToNumber);
-                } else {
-                    throw new JuxException("PLEASE INSERT NUMBER TO MARK");
-                }
-                break;
-            case "unmark":
-                String listStringNumber =  input.substring(7);
+        case "list":
+            if (taskList.isEmpty()) {
+                throw new JuxException(" YOUR LIST IS EMPTY");
+            }
+            taskList.showListWithIndexing(ui);
+            break;
+        case "mark":
+            if (input.length() > 5) {
+                String listStringNumber = input.substring(5);
                 // future error detection for non-numerals
                 int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
                 // future error when list is empty
@@ -60,29 +41,48 @@ public class Parser {
                             "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
                             + taskList.getSize());
                 }
-                if (!taskList.isIndexedTaskChecked(convertedToNumber)) {
-                    throw new JuxException("TASK ALREADY UNMARKED");
+                if (taskList.isIndexedTaskChecked(convertedToNumber)) {
+                    throw new JuxException("TASK ALREADY MARKED");
                 }
                 taskList.toggleIndexedTask(convertedToNumber);
-                taskList.printTaskUnMarked(ui, convertedToNumber);
-                break;
-            case "delete":
-                String deleteListStringNumber =  input.substring(7);
-                // future error detection for non-numerals
-                int deleteConvertedToNumber = Parser.convertStringIndexToIntZeroIndex(deleteListStringNumber);
-                // future error when list is empty
-                if (deleteConvertedToNumber < 0 || deleteConvertedToNumber >= taskList.getSize()) {
-                    throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
-                            "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
-                            + taskList.getSize());
-                }
-                taskList.deleteTask(ui,deleteConvertedToNumber);
-                break;
-            case "add":
-                String typeOfTask = Parser.typeOfTask(input);
-                taskList.addTask(ui, typeOfTask, input);
-                default:
-                break;
+                taskList.printTaskMarked(ui, convertedToNumber);
+            } else {
+                throw new JuxException("PLEASE INSERT NUMBER TO MARK");
+            }
+            break;
+        case "unmark":
+            String listStringNumber = input.substring(7);
+            // future error detection for non-numerals
+            int convertedToNumber = Parser.convertStringIndexToIntZeroIndex(listStringNumber);
+            // future error when list is empty
+            if (convertedToNumber < 0 || convertedToNumber >= taskList.getSize()) {
+                throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                        "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
+                        + taskList.getSize());
+            }
+            if (!taskList.isIndexedTaskChecked(convertedToNumber)) {
+                throw new JuxException("TASK ALREADY UNMARKED");
+            }
+            taskList.toggleIndexedTask(convertedToNumber);
+            taskList.printTaskUnMarked(ui, convertedToNumber);
+            break;
+        case "delete":
+            String deleteListStringNumber = input.substring(7);
+            // future error detection for non-numerals
+            int deleteConvertedToNumber = Parser.convertStringIndexToIntZeroIndex(deleteListStringNumber);
+            // future error when list is empty
+            if (deleteConvertedToNumber < 0 || deleteConvertedToNumber >= taskList.getSize()) {
+                throw new JuxException("NUMBER NOT IN LIST, PLEASE ADD A TASK OR " +
+                        "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
+                        + taskList.getSize());
+            }
+            taskList.deleteTask(ui, deleteConvertedToNumber);
+            break;
+        case "add":
+            String typeOfTask = Parser.typeOfTask(input);
+            taskList.addTask(ui, typeOfTask, input);
+        default:
+            break;
         }
     }
 
@@ -94,13 +94,13 @@ public class Parser {
     public static String typeOfTask(String input) {
 
         if (input.startsWith("todo")) {
-            return TODO;
+            return TASK_TODO;
         } else if (input.startsWith("event")) {
-            return EVENT;
+            return TASK_EVENT;
         } else if (input.startsWith("deadline")) {
-            return DEADLINE;
+            return TASK_DEADLINE;
         } else {
-            return INVALID;
+            return TASK_INVALID;
         }
     }
 
@@ -161,7 +161,6 @@ public class Parser {
             throw new JuxException("PLEASE INSERT DESCRIPTION FOR YOUR EVENT");
         }
     }
-
     /**
      * Finds the action that the user wants to execute
      * @param input user input
