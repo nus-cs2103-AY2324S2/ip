@@ -125,7 +125,7 @@ abstract public class Task {
      * @param localDate The given date that the user wishes to check
      * @return False by default.
      */
-    boolean matchDate(LocalDate localDate) {
+    boolean canMatchDate(LocalDate localDate) {
         return false;
     }
 

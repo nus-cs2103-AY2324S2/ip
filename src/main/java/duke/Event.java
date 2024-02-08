@@ -46,7 +46,7 @@ public class Event extends Task {
      * @return True if the searching date is between the starting time and ending time
      */
     @Override
-    boolean matchDate(LocalDate localDate) {
+    boolean canMatchDate(LocalDate localDate) {
         return startTime.toLocalDate().equals(localDate) ||
                 endTime.toLocalDate().equals(localDate) ||
                 (startTime.toLocalDate().isBefore(localDate) &&

@@ -39,7 +39,7 @@ public class Deadline extends Task {
      * @return True if the searching date is the same as the date of the deadline
      */
     @Override
-    boolean matchDate(LocalDate localDate) {
+    boolean canMatchDate(LocalDate localDate) {
         return deadline.toLocalDate().equals(localDate);
     }
 
