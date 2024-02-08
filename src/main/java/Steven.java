@@ -59,4 +59,9 @@ public class Steven {
     public static void main(String[] args) {
         new Steven().run();
     }
+    String getResponse(String input) {
+        UserInput command = new UserInput(input);
+        String outputString = new Parser(command, this.tasks).processInput();
+        return outputString;
+    }
 }
