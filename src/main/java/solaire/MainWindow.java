@@ -23,14 +23,19 @@ public class MainWindow extends AnchorPane {
 
     private Solaire solaire;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/AshenOne.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Solaire.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Solaire instance to be used by the GUI.
+     *
+     * @param s an instance of Solaire chatbot.
+     */
     public void setSolaire(Solaire s) {
         solaire = s;
     }

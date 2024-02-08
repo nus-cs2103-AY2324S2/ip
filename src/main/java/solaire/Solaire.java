@@ -26,31 +26,6 @@ public class Solaire {
         this.taskList = new TaskList(Storage.loadFromLocal());
     }
 
-    //    public static void main(String[] args) {
-    //        Solaire solaire = new Solaire();
-    //        solaire.startConversation();
-    //    }
-
-    /**
-     * Begins the chatbot's working loop.
-     * Runs infinitely until user inputs "bye".
-     */
-    public void startConversation() {
-        ui.greet(); // UI
-
-        while (true) {
-            String input = ui.acceptInput();
-
-            if (input.equals("bye")) {
-                break;
-            }
-            processInput(input);
-            Storage.write(this.taskList.getTaskList());
-        }
-
-        ui.waveBye(); // UI
-    }
-
     /**
      * Processes the user input and returns the appropriate response.
      *
