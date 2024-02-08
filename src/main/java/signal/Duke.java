@@ -1,16 +1,25 @@
+package signal;
+
+import signal.Task;
+import signal.ToDo;
+import signal.Deadline;
+import signal.Event;
+
 import com.sun.source.util.TaskListener;
 
 import java.io.*;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import static java.time.DayOfWeek.MONDAY;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static java.time.DayOfWeek.MONDAY;
 
 public class Duke {
 
@@ -24,142 +33,6 @@ public class Duke {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
         String formattedTime = time.format(formatter);
         return formattedTime;
-    }
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description, boolean isDone) {
-            this.description = description;
-            this.isDone = isDone;
-        }
-
-        public String getStatusIcon() {
-            return (this.isDone ? "X" : "0" ); // mark done task with 1
-        }
-
-        public String toString() {
-            return " | " + getStatusIcon() + " | " + this.description;
-        }
-
-        public void editDescription(String input) {
-            this.description = input;
-        }
-
-        public String checkType() {
-            return "Task";
-        }
-
-        public boolean checkDone() {
-            return this.isDone;
-        }
-        public void markDone() {
-            this.isDone = true;
-        }
-
-        public void markUnDone() {
-            this.isDone = false;
-        }
-
-        public LocalDate getDue() {
-            return null;
-        }
-
-    }
-
-    public static class ToDo extends Task {
-        public ToDo(String description, boolean isDone) {
-            super(description, isDone);
-        }
-
-        @Override
-        public String toString() {
-            return "T" + super.toString();
-        }
-
-        @Override
-        public String checkType() {
-            return "ToDo";
-        }
-    }
-
-    public static class Deadline extends Task {
-//        protected String by;
-        private LocalDate byDate;
-        private LocalTime byTime;
-
-        public Deadline(String description, String by, boolean isDone) {
-            super(description, isDone);
-            String[] parseBy = by.split(" ");
-            if (parseBy.length > 1) {
-                this.byTime = LocalTime.parse(parseBy[1]);
-            }
-            this.byDate = LocalDate.parse(parseBy[0]);
-
-//            this.by = by;
-        }
-
-        @Override
-        public LocalDate getDue() {
-            return this.byDate;
-        }
-
-        @Override
-        public String toString() {
-            return "D" + super.toString()
-                    + " | by: " + formatDate(byDate) + (byTime != null ? " " + formatTime(byTime) : "");
-        }
-
-        @Override
-        public String checkType() {
-            return "Deadline";
-        }
-    }
-
-    public static class Event extends Task {
-//        protected String start;
-//        protected String end;
-        private LocalDate startDate;
-        private LocalTime startTime;
-        private LocalDate endDate;
-        private LocalTime endTime;
-
-        public Event(String description, String start, String end, boolean isDone) {
-            super(description, isDone);
-            String[] parseStart = start.split(" ");
-            String[] parseEnd = end.split(" ");
-            if (parseStart.length > 1) {
-                this.startTime = LocalTime.parse(parseStart[1]);
-            }
-            this.startDate = LocalDate.parse(parseStart[0]);
-            if (parseEnd.length > 1) {
-                this.endDate = LocalDate.parse(parseEnd[0]);
-                this.endTime = LocalTime.parse(parseEnd[1]);
-            } else {
-                this.endTime = LocalTime.parse(parseEnd[0]);
-            }
-
-//            this.start = start;
-//            this.end = end;
-        }
-
-        @Override
-        public LocalDate getDue() {
-            return this.startDate;
-        }
-
-        @Override
-        public String toString() {
-            return "E" + super.toString()
-                    + " | from: " + formatDate(startDate) + (startTime != null ? " " + formatTime(startTime) : "")
-                    +  " | to: " + (endDate != null ? " " + formatDate(endDate) : "") + formatTime(endTime);
-        }
-
-        @Override
-        public String checkType() {
-            return "Event";
-        }
-
     }
 
     private static final String LOGO = " _______  __                       __ \n"
