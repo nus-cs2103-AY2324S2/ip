@@ -29,20 +29,25 @@ public class TaskList {
      *
      * @param input a user command input as String.
      */
-    public void processTaskCommand(String input) {
+    public String processTaskCommand(String input) {
         try {
-            addToList(Parser.parseTaskInput(input));
+            return addToList(Parser.parseTaskInput(input));
         } catch (SolaireException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
-    private void addToList(Task task) {
+    private String addToList(Task task) {
+        String output = "";
         if (task != null) {
             taskList.add(task);
-            System.out.println("Added " + task + " to your list");
-            lineBreak();
+            output = "Added " + task + " to your list";
+            //lineBreak();
+        } else {
+            output = "Task not added to list";
         }
+        return output;
+
     }
 
     public ArrayList<Task> getTaskList() {
@@ -54,7 +59,7 @@ public class TaskList {
      *
      * @param input user input command in the format "delete (index)".
      */
-    public void processRemoveFromList(String input) {
+    public String processRemoveFromList(String input) {
         try {
             String[] inputCommand = input.split(" ", 2);
             if (inputCommand.length < 2) {
@@ -67,22 +72,24 @@ public class TaskList {
                 }
                 Task taskToDelete = taskList.get(targetTaskId - 1);
                 taskList.remove(taskToDelete);
-                System.out.println("Removed" + taskToDelete + " from your list");
+                String output = "Removed" + taskToDelete + " from your list";
+                return output;
             }
         } catch (SolaireException e) {
-            System.out.println(e.getMessage());
+            String output = e.getMessage();
+            return output;
         }
-
     }
 
     /**
      * Prints the current list of tasks.
      */
-    public void showList() {
-        System.out.print("Your list is as follows:\n " + "-------------------\n");
+    public String showList() {
+        String output = "Your list is as follows:\n " + "-------------------\n";
         for (Task item : taskList) {
-            System.out.println(taskList.indexOf(item) + 1 + ". " + item.toString());
+            output += taskList.indexOf(item) + 1 + ". " + item.toString() + "\n";
         }
+        return output;
     }
 
     /**
@@ -90,16 +97,17 @@ public class TaskList {
      *
      * @param id 1-indexed integer identifier of the task as shown in the UI.
      */
-    public void markDone(int id) {
+    public String markDone(int id) {
+        String output = "";
         for (Task item : taskList) {
             if (item.getId() == id) {
                 item.markAsDone();
-                System.out.print("Marked item number: " + item.getId() + "\n");
-                return;
+                output = "Marked item number: " + item.getId() + "\n";
+                return output;
             }
         }
-
-        System.out.print("Couldn't find task associated with given id\n");
+        output = "Couldn't find task associated with given id\n";
+        return output;
     }
 
     /**
@@ -107,16 +115,17 @@ public class TaskList {
      *
      * @param id 1-indexed integer identifier of the task as shown in the UI.
      */
-    public void unmarkDone(int id) {
+    public String unmarkDone(int id) {
+        String output = "";
         for (Task item : taskList) {
             if (item.getId() == id) {
                 item.unmarkDone();
-                System.out.print("Unmarked  item number: " + item.getId() + "\n");
-                return;
+                output = "Unmarked  item number: " + item.getId() + "\n";
+                return output;
             }
         }
-
-        System.out.print("Couldn't find task associated with given id\n");
+        output = "Couldn't find task associated with given id\n";
+        return output;
     }
 
     /**
@@ -124,20 +133,22 @@ public class TaskList {
      *
      * @param prompt a user input to match task descriptions against.
      */
-    public void findTask(String prompt) {
+    public String findTask(String prompt) {
         prompt = prompt.trim();
+        String output = "";
         if (prompt.equals("")) {
-            System.out.println("Please insert a non-blank prompt to filter with.\n" + "-------------------\n");
-            return;
+            output = "Please insert a non-blank prompt to filter with.\n" + "-------------------\n";
+            return output;
         }
-        System.out.print("Here are the matching tasks in your list:\n " + "-------------------\n");
+        output = "Here are the matching tasks in your list:\n " + "-------------------\n";
         int filteredIndex = 1;
         for (Task task : taskList) {
             if (task.getDescription().contains(prompt)) {
-                System.out.println(filteredIndex + ". " + task.toString());
+                output += filteredIndex + ". " + task.toString();
                 filteredIndex++;
             }
         }
+        return output;
     }
 
 }
