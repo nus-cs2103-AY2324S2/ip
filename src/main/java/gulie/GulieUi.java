@@ -68,6 +68,19 @@ public class GulieUi {
         out.println(line);
     }
 
+    /**
+     * Displays a list of tasks found with the "find" command. 
+     * @param tasklist the tasklist found
+     */
+    public void find(GulieTasklist tasklist) {
+        out.println(line);
+        out.println(" These are the matching tasks in yur list: ");
+        for (int i = 0; i < tasklist.size(); i++) {
+            out.println(String.format(" %d. %s", i + 1, tasklist.get(i)));
+        }
+        out.println(line);
+    }
+
     public void error(GulieException ge) {
         out.println(line);
         out.println(" " + ge.getMessage());

@@ -30,4 +30,14 @@ public class GulieTasklist extends ArrayList<Task> {
         Task task = this.get(i);
         task.setMark(false);
     }
+
+    public GulieTasklist find(String keyword) {
+        GulieTasklist tasklist = new GulieTasklist();
+        for (Task task: this) {
+            if (task.hasKeyword(keyword)) {
+                tasklist.store(task);
+            }
+        }
+        return tasklist;
+    }
 }

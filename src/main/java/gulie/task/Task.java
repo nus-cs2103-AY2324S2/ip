@@ -26,6 +26,16 @@ public abstract class Task {
         return String.format("%s\t%s", mark ? "1" : "0", name);
     }
 
+    /**
+     * Returns true if the keyword is in this Task.
+     *
+     * @param keyword
+     * @return true if the keyword is in this Task
+     */
+    public boolean hasKeyword(String keyword) {
+        return name.contains(keyword);
+    }
+
     public static Task fromSaveString(String str) throws GulieException {
         String[] spl = str.split("\t");
         if (!spl[1].equals("0") && !spl[1].equals("1")) {

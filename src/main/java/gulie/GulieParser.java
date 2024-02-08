@@ -123,6 +123,15 @@ public class GulieParser {
                 throw new GulieException("Index provided must be an integer.");
             }
         }
+        case "find": {
+            final String keyword = getArgument(input, "find", "keyword");
+            return new Command() {
+                @Override
+                public void run(GulieUi ui, GulieStorage storage, GulieTasklist tasklist) throws GulieException {
+                    ui.find(tasklist.find(keyword));
+                }
+            };
+        }
         default:
             throw new GulieException("Apologies. I do not understand.");
         }
