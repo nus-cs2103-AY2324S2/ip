@@ -6,6 +6,7 @@ package ghbot.executor;
  */
 public class UnmarkExecutor extends Executor {
     private int lstNo;
+    private String executeStr;
 
     /**
      * UnmarkExecutor Constructor.
@@ -13,18 +14,22 @@ public class UnmarkExecutor extends Executor {
      */
     public UnmarkExecutor(int lstNo) {
         this.lstNo = lstNo;
+        this.executeStr = "";
     }
 
     /**
      * Prints a string to let user know that the task has been unmarked.
      */
     @Override
-    public void execute() {
+    public String execute() {
         for (int i = 0; i < this.taskList.taskSize(); i++) {
             if (i + 1 == lstNo) {
                 this.taskList.getTask(i).isNotCompleted();
-                System.out.println("OK, I've marked this task as not done yet:\n" + this.taskList.getTask(i));
+                this.executeStr = "OK, I've marked this task as not done yet:\n" + this.taskList.getTask(i);
+                return this.executeStr;
             }
         }
+        return "Sorry, you may have select a task that is out of scope!\n"
+                + "Please select a number from 1 to " + taskList.taskSize();
     }
 }

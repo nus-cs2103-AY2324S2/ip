@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class FindExecutor extends Executor {
     private String description;
+    private String executeStr;
 
     /**
      * FindExecutor Constructor.
@@ -16,13 +17,14 @@ public class FindExecutor extends Executor {
      */
     public FindExecutor(String description) {
         this.description = description;
+        this.executeStr = "";
     }
 
     /**
      * Prints all the tasks that matches the description.
      */
     @Override
-    public void execute() {
+    public String execute() {
         List<String> matchedLst = new ArrayList<>();
         for (int i = 0; i < this.taskList.taskSize(); i++) {
             String[] words = this.taskList.getTask(i).toString().split(" ");
@@ -34,12 +36,13 @@ public class FindExecutor extends Executor {
             }
         }
         if (matchedLst.size() > 0) {
-            System.out.println("Here are the list of tasks that matches the keyword:");
+            this.executeStr = "Here are the list of tasks that matches the keyword:";
             for (int i = 0; i < matchedLst.size(); i++) {
-                System.out.println(i + 1 + "." + matchedLst.get(i));
+                this.executeStr = this.executeStr + "\n" + (i + 1) + "." + matchedLst.get(i);
             }
+            return this.executeStr;
         } else {
-            System.out.println("Sorry! No match found!");
+            return "Sorry! No match found!";
         }
     }
 }

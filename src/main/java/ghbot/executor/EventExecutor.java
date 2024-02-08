@@ -10,6 +10,7 @@ public class EventExecutor extends Executor {
     private String description;
     private String fromTime;
     private String toTime;
+    private String executeStr;
 
     /**
      * EventExecutor Constructor.
@@ -21,16 +22,18 @@ public class EventExecutor extends Executor {
         this.description = description;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.executeStr = "";
     }
 
     /**
      * Prints a string to let user know that the event has been added.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Event event = new Event(this.description, this.fromTime, this.toTime);
         this.taskList.addTask(event);
-        System.out.println("Got it. I've added this task:\n" + event);
-        System.out.println("Now you have " + this.taskList.taskSize() + " tasks in the list.");
+        this.executeStr = "Got it. I've added this task:\n" + event + "\n";
+        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        return this.executeStr;
     }
 }

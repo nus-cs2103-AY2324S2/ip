@@ -8,6 +8,7 @@ import ghbot.Todo;
  */
 public class TodoExecutor extends Executor {
     private String description;
+    private String executeStr;
 
     /**
      * TodoExecutor Class.
@@ -15,16 +16,18 @@ public class TodoExecutor extends Executor {
      */
     public TodoExecutor(String description) {
         this.description = description;
+        this.executeStr = "";
     }
 
     /**
      * Prints a string to let user know that the todo task has been added.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Todo todo = new Todo(this.description);
         this.taskList.addTask(todo);
-        System.out.println("Got it. I've added this task:\n" + todo);
-        System.out.println("Now you have " + this.taskList.taskSize() + " tasks in the list.");
+        this.executeStr = "Got it. I've added this task:\n" + todo + "\n";
+        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        return this.executeStr;
     }
 }

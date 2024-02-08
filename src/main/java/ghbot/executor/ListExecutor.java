@@ -5,20 +5,26 @@ package ghbot.executor;
  * Executes "list" command.
  */
 public class ListExecutor extends Executor {
+    private String executeStr;
     /**
      * ListExecutor Constructor.
      */
     public ListExecutor() {
+        this.executeStr = "";
     }
 
     /**
      * Prints all the saved tasks.
      */
     @Override
-    public void execute() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.taskList.taskSize(); i++) {
-            System.out.println(i + 1 + "." + this.taskList.getTask(i));
+    public String execute() {
+        if (taskList.taskSize() < 1) {
+            return "Currently there is no task!";
         }
+        this.executeStr = "Here are the tasks in your list:";
+        for (int i = 0; i < this.taskList.taskSize(); i++) {
+            this.executeStr = this.executeStr + "\n" + (i + 1) + "." + this.taskList.getTask(i);
+        }
+        return this.executeStr;
     }
 }

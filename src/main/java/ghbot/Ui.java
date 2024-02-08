@@ -3,23 +3,20 @@ package ghbot;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Ui Class.
  * It deals with the interaction with the user.
  */
 public class Ui {
-    private Scanner sc;
+    private String input;
     private final DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Ui Constructor.
      */
-    public Ui() {
-        System.out.println("Hello! I'm GhBot");
-        System.out.println("What can I do for you?");
-        this.sc = new Scanner(System.in);
+    public Ui(String input) {
+        this.input = input;
     }
 
     /**
@@ -28,7 +25,6 @@ public class Ui {
      * @throws GhBotException Throws exception when the format of the input is wrong.
      */
     public String[] validateInput() throws GhBotException {
-        String input = this.sc.nextLine();
         if (input.isEmpty()) {
             throw new GhBotException("Helloooo!! please type something and follow the format below!!\n"
                     + "todo 'task description'\n"

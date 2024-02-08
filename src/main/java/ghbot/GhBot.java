@@ -11,28 +11,41 @@ import ghbot.executor.Executor;
  * This is the main class for the chatbot.
  */
 public class GhBot {
+    private Storage storage;
+    private TaskList taskLst;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        String fileName = "./data/history.txt";
-        Storage storage = new Storage(fileName);
-        TaskList taskLst = new TaskList(storage.getInputFromFile());
-        Ui ui = new Ui();
+    /**
+     * GhBot Constructor.
+     * @param filename The name of the file.
+     */
+    public GhBot(String filename) {
+        this.storage = new Storage(filename);
+        this.taskLst = new TaskList(storage.getInputFromFile());
+    }
 
-        while (true) {
-            try {
-                String[] subStr = ui.validateInput();
-                Executor executor = Parser.parse(subStr);
-                if (executor != null) {
-                    executor.set(taskLst);
-                    executor.execute();
-                }
-                if (executor instanceof ByeExecutor) {
-                    break;
-                }
-                storage.writeDataToFile(taskLst.toList());
-            } catch (GhBotException | IOException | DateTimeParseException e) {
-                System.out.println(e.getMessage());
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        this.ui = new Ui(input);
+        try {
+            String[] subStr = this.ui.validateInput();
+            Executor executor = Parser.parse(subStr);
+
+            if (executor instanceof ByeExecutor) {
+                this.storage.writeDataToFile(taskLst.toList());
+                return executor.execute();
             }
+
+            if (executor != null) {
+                executor.set(this.taskLst);
+                return executor.execute();
+            }
+        } catch (GhBotException | IOException | DateTimeParseException e) {
+            return e.getMessage();
         }
+        return "";
     }
 }
