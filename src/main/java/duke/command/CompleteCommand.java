@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.ui.Ui;
 import duke.task.Task;
+import duke.ui.Ui;
 
 /**
  * A command to change the completion status of a task.
@@ -14,7 +14,8 @@ public class CompleteCommand extends Command {
 
     /**
      * Constructs a command that changes the completion status of a task.
-     * @param index the index of the task to change
+     *
+     * @param index      the index of the task to change
      * @param isComplete whether to change the task to completed leave it as pending
      */
     public CompleteCommand(int index, boolean isComplete) {

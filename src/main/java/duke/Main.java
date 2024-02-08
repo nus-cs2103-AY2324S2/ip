@@ -9,8 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * This is the main entrypoint of the program.
+ * This sets up the main GUI window and hooks up a Duke instance to it.
+ */
 public class Main extends Application {
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {

@@ -7,8 +7,8 @@ import java.util.Map;
  * A task that has a start and an end.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs a task with a start and an end.

@@ -35,6 +35,7 @@ public abstract class Task implements Serializable {
 
     /**
      * The constructor of a task.
+     *
      * @param description the description of the task
      */
     protected Task(String description) {
@@ -43,7 +44,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets the task to completed.
+     * Sets the task to complete.
      */
     public final void setComplete() {
         status = Status.Complete;
@@ -58,6 +59,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Returns a description of the status of the Task
+     *
      * @return the status description
      */
     public final String status() {
@@ -82,6 +84,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Helper function to generate the expected set of {@link #validateComponentKeys}
+     *
      * @param keys the expected components
      * @return the components as a set
      */
@@ -92,8 +95,9 @@ public abstract class Task implements Serializable {
     /**
      * Used to validate the components of a command.
      * It checks whether the components are the same and that it has the default component (DESCRIPTION).
+     *
      * @param expected the set of expected components
-     * @param actual the set of actual components
+     * @param actual   the set of actual components
      * @throws InvalidComponents if expected != actual
      */
     protected static void validateComponentKeys(
@@ -116,6 +120,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Parses the local date time of a task component. Right now the format is fixed to "dd/MM/yyyy HHmm"
+     *
      * @param input string with a date and time in the given format.
      * @return the parsed LocalDateTime
      * @throws DateTimeParseException if the string doesn't match the pattern.

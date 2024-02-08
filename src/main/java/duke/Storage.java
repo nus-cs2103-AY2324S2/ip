@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
  */
 // Serializing the state was inspired by https://www.baeldung.com/java-serialization
 public class Storage {
-    private File file;
+    private final File file;
 
     /**
      * Makes a new {@link Storage} instance. This sets up the file for input and output.

@@ -39,7 +39,7 @@ public class Duke {
     }
 
     public String getResponse(String input) {
-        return "Hello";
+        return "Duke said: " + input;
     }
 
     /**
@@ -66,6 +66,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Saves the state to storage.
+     */
     public void save() {
         try {
             storage.writeTaskList(tasks);

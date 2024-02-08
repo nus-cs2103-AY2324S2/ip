@@ -7,7 +7,7 @@ import java.util.Map;
  * A task with a deadline.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Construct a task with a deadline.

@@ -8,7 +8,7 @@ import duke.ui.Ui;
  * A command to find the tasks matching a certain query.
  */
 public class FindCommand extends Command {
-    private String query;
+    private final String query;
 
     /**
      * Construct a task that filters the list of tasks that contain the string query.
