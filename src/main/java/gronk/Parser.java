@@ -7,11 +7,27 @@ import java.util.NoSuchElementException;
 public class Parser {
     private UserInterface userInterface;
     private TaskList taskList;
+
+    /**
+     * Constructor for Parser object.
+     * Initializes a UserInterface to interact with
+     * the user and a TaskList object to store data in.
+     *
+     * @param taskList TaskList object.
+     */
     public Parser(TaskList taskList) {
         this.userInterface = new UserInterface();
         this.taskList = taskList;
     }
 
+    /**
+     * Parser for user commands.
+     * Contains all the logic to deal with user commands,
+     * including error handling and initialization of new Task objects.
+     *
+     * @param message String containing user input.
+     * @return String containing response message to user's input.
+     */
     public String parse(String message) {
         try {
             if (message.equals("list")) {
