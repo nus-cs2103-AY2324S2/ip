@@ -1,3 +1,5 @@
+package Duke;
+
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;

@@ -1,3 +1,5 @@
+package Duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +40,7 @@ public class Parser {
                         throw new DukeException("Invalid task number >:((");
                     }
                 }
-            } else if (userInput.startsWith("todo") || userInput.startsWith("Todo")) {
+            } else if (userInput.startsWith("todo") || userInput.startsWith("Duke.Todo")) {
                 int pos = userInput.indexOf(" ");
                 if (pos != -1 && pos + 1 < userInput.length()) {
                     String taskStr = userInput.substring(pos + 1);
@@ -54,7 +56,7 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:((");
                 }
-            } else if (userInput.startsWith("deadline") || userInput.startsWith("Deadline")) {
+            } else if (userInput.startsWith("deadline") || userInput.startsWith("Duke.Deadline")) {
                 int pos = userInput.indexOf(" ");
                 int posBy = userInput.indexOf("/by");
                 if (pos != -1 && pos + 1 < userInput.length() && posBy != -1 && posBy + 1 < userInput.length()) {
@@ -75,7 +77,7 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:((");
                 }
-            } else if (userInput.startsWith("event") || userInput.startsWith("Event")) {
+            } else if (userInput.startsWith("event") || userInput.startsWith("Duke.Event")) {
                 int pos = userInput.indexOf(" ");
                 int posFrom = userInput.indexOf("/from");
                 int posTo = userInput.indexOf("/to");

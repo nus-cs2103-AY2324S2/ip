@@ -1,3 +1,5 @@
+package Duke;
+
 public class TaskList {
     private static Task[] tasks;
     private static int taskNum;
