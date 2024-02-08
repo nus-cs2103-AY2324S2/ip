@@ -20,7 +20,6 @@ public class ListCommand extends Command {
 
     @Override
     public String execute() {
-        System.out.println(userTasks.stringifyTasks(false));
-        return userTasks.stringifyTasks(true);
+        return userTasks.stringifyTasks(false);
     }
 }

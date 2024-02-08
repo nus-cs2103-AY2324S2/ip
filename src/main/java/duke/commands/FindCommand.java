@@ -22,7 +22,6 @@ public class FindCommand extends Command {
     public String execute() {
         super.validateArgs();
         TaskList searchResults = userTasks.searchTasks(cmd[1], userTasks);
-        System.out.println(searchResults.stringifyTasks(true));
         return searchResults.stringifyTasks(true);
     }
 }

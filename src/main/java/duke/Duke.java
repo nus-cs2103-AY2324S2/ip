@@ -43,7 +43,7 @@ public class Duke {
         while (!isExit) {
             try {
                 Command cmd = Parser.parse(input, this.tasks);
-                cmd.execute();
+                System.out.println(cmd.execute());
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {

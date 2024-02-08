@@ -53,7 +53,6 @@ public class AddCommand extends Command {
             response = "    Got it. I've added this task:\n"
                     + "        " + addedTask + "\n"
                     + "    Now you have " + numTasks + " tasks in the list.";
-            System.out.println(response);
             return response;
         } else {
             throw new DukeException("Task is not added x.x");

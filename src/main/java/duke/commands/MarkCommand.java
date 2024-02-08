@@ -44,7 +44,6 @@ public class MarkCommand extends Command {
             response = "    Ok, I've marked this task as not done yet: \n"
                     + "        " + currTask;
         }
-        System.out.println(response);
         return response;
     }
 }
