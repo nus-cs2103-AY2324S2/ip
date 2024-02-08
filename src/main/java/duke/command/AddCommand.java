@@ -1,10 +1,16 @@
 package duke.command;
 
-import duke.*;
-import duke.task.*;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 import java.time.LocalDateTime;
 
+<<<<<<< HEAD
 /**
  * An {@code AddCommand} is a {@code Command} that adds a {@code Task} to a {@code TaskList}.
  */
@@ -20,6 +26,11 @@ public class AddCommand extends Command {
      *
      * @param desc The description of the {@code Todo} task.
      */
+=======
+public class AddCommand extends Command {
+    private final Task task;
+
+>>>>>>> branch-A-CodingStandard
     public AddCommand(String desc) {
        task = new Todo(desc);
     }
@@ -46,12 +57,15 @@ public class AddCommand extends Command {
         task = new Event(desc, from, to);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritDoc}
      *
      * Adds the task to the task list and saves the updated task list.
      * Displays the task that was added to the user.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);

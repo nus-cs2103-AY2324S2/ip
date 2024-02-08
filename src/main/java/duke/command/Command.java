@@ -2,8 +2,8 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.task.TaskList;
 import duke.Ui;
+import duke.task.TaskList;
 
 /**
  * An {@code Command} represents an operation that modifies the state of the application.
@@ -20,10 +20,13 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
+<<<<<<< HEAD
     /**
      * Returns whether the command should exit the application.
      *
      * @return {@code true} if the command should exit the application, otherwise {@code false}.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public abstract boolean isExit();
 }

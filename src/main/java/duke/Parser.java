@@ -1,6 +1,13 @@
 package duke;
 
 import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +19,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
 
+<<<<<<< HEAD
     /**
      * Parses a user input string into a {@code Command} object.
      *
@@ -19,6 +27,8 @@ public class Parser {
      * @return A {@code Command} object representing the user's command.
      * @throws DukeException If the user input is invalid.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public static Command parse(String str) throws DukeException {
         String[] arr = str.split(" ");
         if (arr[0].equals("bye")) {
@@ -59,6 +69,28 @@ public class Parser {
                         try {
                             from = LocalDateTime.parse(newArr[1].split("from")[1].trim(), formatter);
                             to = LocalDateTime.parse(newArr[2].split("to")[1].trim(), formatter);
+                case "todo":
+                    return new AddCommand(newArr[0]);
+                case "deadline":
+                    if (newArr.length < 2) {
+                        throw new DukeException("Incomplete deadline information");
+                    }
+                    LocalDateTime deadline = null;
+                    try {
+                        deadline = LocalDateTime.parse(newArr[1].split("by")[1].trim(), formatter);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date/time");
+                    }
+                    return new AddCommand(newArr[0], deadline);
+                case "event":
+                    if (newArr.length < 3) {
+                        throw new DukeException("Incomplete event information");
+                    }
+                    LocalDateTime from = null;
+                    LocalDateTime to = null;
+                    try {
+                        from = LocalDateTime.parse(newArr[1].split("from")[1].trim(), formatter);
+                        to = LocalDateTime.parse(newArr[2].split("to")[1].trim(), formatter);
 
                         } catch (DateTimeParseException e) {
                             throw new DukeException("Invalid date/time");
@@ -66,6 +98,12 @@ public class Parser {
                         return new AddCommand(newArr[0], from, to);
                     default:
                         throw new DukeException("Invalid task type");
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date/time");
+                    }
+                    return new AddCommand(newArr[0], from, to);
+                default:
+                    throw new DukeException("Invalid task type");
                 }
             }
         }

@@ -1,14 +1,15 @@
 package duke.command;
 
 import duke.Storage;
+import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.Ui;
 
 /**
  * Lists all tasks in the task list.
  */
 public class ListCommand extends Command {
+<<<<<<< HEAD
 
     /**
      * Constructs a new {@code ListCommand}.
@@ -25,6 +26,8 @@ public class ListCommand extends Command {
      * Displays a message to the user if there are no tasks in the list.
      */
 
+=======
+>>>>>>> branch-A-CodingStandard
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.size() == 0) {

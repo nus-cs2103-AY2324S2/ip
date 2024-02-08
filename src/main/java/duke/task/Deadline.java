@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+<<<<<<< HEAD
 /**
  * A {@code Deadline} is a type of {@code Task} with a deadline.
  */
@@ -10,6 +11,10 @@ public class Deadline extends Task {
     /**
      * The deadline of the {@code Deadline}.
      */
+=======
+
+public class Deadline extends Task {
+>>>>>>> branch-A-CodingStandard
     protected LocalDateTime deadline;
 
     /**

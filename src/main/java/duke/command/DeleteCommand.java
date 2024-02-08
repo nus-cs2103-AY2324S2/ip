@@ -1,6 +1,8 @@
 package duke.command;
 
-import duke.*;
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -25,6 +27,7 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritDoc}
      *
@@ -33,6 +36,8 @@ public class DeleteCommand extends Command {
      *
      * @throws DukeException If the index is out of bounds.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.size() <= index) {

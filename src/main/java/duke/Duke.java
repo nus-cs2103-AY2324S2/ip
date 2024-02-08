@@ -4,12 +4,14 @@ import duke.command.Command;
 import duke.task.TaskList;
 
 import java.nio.file.Paths;
+
 public class Duke {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
     private static final String FILE_NAME = "duke.txt";
     private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
+
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

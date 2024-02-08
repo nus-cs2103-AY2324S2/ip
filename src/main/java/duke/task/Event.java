@@ -17,6 +17,7 @@ public class Event extends Task {
      */
     protected LocalDateTime to;
 
+<<<<<<< HEAD
     /**
      * Creates a new {@code Event} with the given description, start time, and end time.
      *
@@ -24,6 +25,8 @@ public class Event extends Task {
      * @param from The start time of the {@code Event}.
      * @param to The end time of the {@code Event}.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
