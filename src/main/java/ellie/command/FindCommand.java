@@ -24,9 +24,9 @@ public class FindCommand extends Command {
      *
      * @param tasklist The TaskList to search for tasks.
      */
-    public void run(TaskList tasklist) {
-        tasklist.searchTask(keyword);
-        return;
+    public String runAndReturnResponse(TaskList tasklist) {
+        String response = tasklist.searchTask(keyword);
+        return response;
     };
 
 

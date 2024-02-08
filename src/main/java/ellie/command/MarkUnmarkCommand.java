@@ -19,19 +19,18 @@ public class MarkUnmarkCommand extends Command {
     }
 
     /**
-     * Marks or unmarks the task in the task list.
+     * Marks or unmarks a task in the provided TaskList. Returns response to be displayed.
      *
      * @param tasklist The TaskList to be operated on by the command.
      */
-    public void run(TaskList tasklist) {
+    public String runAndReturnResponse(TaskList tasklist) {
+        String response;
         if (isMark) {
-            tasklist.markTaskIndex(index);
+            response = tasklist.markTaskIndex(index);
         } else {
-            tasklist.unmarkTaskIndex(index);
+            response = tasklist.unmarkTaskIndex(index);
         }
+        return response;
     }
-
-
-
 
 }
