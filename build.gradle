@@ -35,6 +35,8 @@ shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = 'duke.Duke'
+    archiveFileName = 'duke.jar'
 }
 
 run{
