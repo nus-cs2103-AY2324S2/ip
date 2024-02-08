@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
-
+import duke.task.Task;
 
 
 /**
@@ -25,7 +25,9 @@ public class Duke {
         this.storage = new Storage(FILE_PATH);
 
         try {
-            this.tasks = new TaskList(this.storage.readTasksFile());
+            this.tasks = new TaskList(this.storage.readTasksFile()
+                    .toArray(new Task[0])
+            );
         } catch (DukeException e) {
             this.ui.error(e);
 
