@@ -248,20 +248,20 @@ class TaskStorage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             switch (parts[0]) {
-                case "T":
-                    ToDo todo = new ToDo(description);
-                    if (isDone) todo.markAsDone();
-                    return todo;
-                case "D":
-                    Deadline deadline = new Deadline(description, parts[3]);
-                    if (isDone) deadline.markAsDone();
-                    return deadline;
-                case "E":
-                    Event event = new Event(description, parts[3], parts[4]);
-                    if (isDone) event.markAsDone();
-                    return event;
-                default:
-                    return null;
+            case "T":
+                ToDo todo = new ToDo(description);
+                if (isDone) todo.markAsDone();
+                return todo;
+            case "D":
+                Deadline deadline = new Deadline(description, parts[3]);
+                if (isDone) deadline.markAsDone();
+                return deadline;
+            case "E":
+                Event event = new Event(description, parts[3], parts[4]);
+                if (isDone) event.markAsDone();
+                return event;
+            default:
+                return null;
             }
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date: " + e.getMessage());
@@ -389,12 +389,16 @@ class Command {
         String command = parts[0];
         String taskInfo = parts.length > 1 ? parts[1] : "";
 
-        return switch (command.toLowerCase()) {
-            case "todo" -> new Command(Actions.TODO, taskInfo);
-            case "deadline" -> new Command(Actions.DEADLINE, taskInfo);
-            case "event" -> new Command(Actions.EVENT, taskInfo);
-            default -> throw new RuntimeException("Invalid input. Try again!");
-        };
+        switch (command.toLowerCase()) {
+        case "todo":
+            return new Command(Actions.TODO, taskInfo);
+         case "deadline":
+             return new Command(Actions.DEADLINE, taskInfo);
+         case "event":
+             return new Command(Actions.EVENT, taskInfo);
+         default:
+             throw new RuntimeException("Invalid input. Try again!");
+        }
 
     }
     public static boolean isBye(String input) {
@@ -455,4 +459,6 @@ class TaskList {
             }
         }
         return foundTasks;
-    }}
+    }
+}
+
