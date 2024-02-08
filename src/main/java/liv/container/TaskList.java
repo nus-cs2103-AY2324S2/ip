@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import liv.task.Task;
 
 /**
- * A class that stores all the tasks.
+ * A class that stores the tasks from users.
  */
 public class TaskList {
     private static ArrayList<Task> tasks;

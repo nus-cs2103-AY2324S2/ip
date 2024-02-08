@@ -10,7 +10,7 @@ import liv.task.Deadline;
 import liv.task.Event;
 
 /**
- * Handles the interaction between users and the codes.
+ * Handles the interaction between users and the chatbot.
  */
 public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -118,7 +118,6 @@ public class Ui {
     }
 
     /**
-<<<<<<< HEAD
      * Displays the texts and results of the "find" command.
      * @param matchingTasks The list of tasks that is the result of the "find" command.
      */
@@ -133,11 +132,9 @@ public class Ui {
             System.out.println("Total: " + matchingTasks.size() + " mission(s)");
         }
     }
-=======
-     * Prints the error message that was thrown by the Exception class.
+    /** Prints the error message that was thrown by the Exception class.
      * @param message The exception message thrown.
      */
->>>>>>> branch-A-JavaDoc
     public void displayErrorMessage(String message) {
         System.out.println(message);
     }
