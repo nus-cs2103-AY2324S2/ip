@@ -3,7 +3,7 @@ package alastor;
 import alastor.command.Command;
 
 /**
- * Represents Alastor, a personal assistant chatbot that helps a person to keep track of various things.
+ * Represents Alastor, a personal assistant chatBot that helps a person to keep track of various things.
  */
 public class Alastor {
 
@@ -38,7 +38,7 @@ public class Alastor {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                ui.showLine();
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();

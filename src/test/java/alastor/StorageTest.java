@@ -24,7 +24,7 @@ public class StorageTest {
         String filePath = "./data/test.txt";
         File file = new File(filePath);
         assertEquals(false, file.exists());
-        Storage storage = new Storage("./data/test.txt");
+        Storage storage = new Storage(filePath);
         try {
             storage.load();
             assertEquals(true, file.exists());
@@ -41,7 +41,7 @@ public class StorageTest {
         File file = new File(filePath);
         File parentDir = file.getParentFile();
         assertEquals(false, parentDir.exists());
-        Storage storage = new Storage("test_data/test.txt");
+        Storage storage = new Storage(filePath);
         try {
             storage.load();
             assertEquals(true, parentDir.exists());

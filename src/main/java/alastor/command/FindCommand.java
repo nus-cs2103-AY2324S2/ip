@@ -9,7 +9,7 @@ import alastor.Ui;
  */
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructs a new find command with the given keyword.

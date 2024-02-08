@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    public ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     /**
      * Constructs a TaskList object.

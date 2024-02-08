@@ -52,7 +52,8 @@ public class Storage {
                 if (parentDir.mkdir()) {
                     System.out.println("I've created a new directory for your tasks, my dear.\n");
                 } else {
-                    throw new AlastorException("I'm afraid I've encountered an error while creating a directory for your tasks, my dear.\n");
+                    throw new AlastorException("I'm afraid I've encountered an error while creating a directory for"
+                            + " your tasks, my dear.\n");
                 }
             }
             try {
@@ -62,7 +63,8 @@ public class Storage {
                     throw new AlastorException("I'm afraid the file I tried creating already exists, my dear.\n");
                 }
             } catch (IOException newException) {
-                throw new AlastorException("I'm afraid I've encountered an error while creating a file for your tasks, my dear.\n");
+                throw new AlastorException("I'm afraid I've encountered an error while creating a file for your tasks,"
+                        + " my dear.\n");
             }
         }
         return list;

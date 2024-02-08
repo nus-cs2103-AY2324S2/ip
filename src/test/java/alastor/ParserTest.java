@@ -88,7 +88,7 @@ public class ParserTest {
 
         try {
             ArrayList<Task> list = new ArrayList<>();
-            Parser.parseFile("T | 0 | ", list, 0); //empty
+            Parser.parseFile("T | 0 | ", list, 0);
             fail();
         } catch (AlastorException e) {
             assertEquals(type.getErrorMessage() + "There might be some empty parameters",
@@ -97,7 +97,7 @@ public class ParserTest {
 
         try {
             ArrayList<Task> list = new ArrayList<>();
-            Parser.parseFile("T | 0 | task | 01-01-2021 18:00", list, 0); //extra data
+            Parser.parseFile("T | 0 | task | 01-01-2021 18:00", list, 0);
             fail();
         } catch (AlastorException e) {
             assertEquals(type.getErrorMessage() + "There might be some extra invalid parameters",
@@ -109,8 +109,8 @@ public class ParserTest {
             Parser.parseFile("D | 0 | task | wrong date-time format", list, 0);
             fail();
         } catch (AlastorException e) {
-            assertEquals(type.getErrorMessage() + "The date and time might be in an incorrect format, it should be dd-MM-yyyy HH:mm",
-                    e.getMessage());
+            assertEquals(type.getErrorMessage() + "The date and time might be in an incorrect format,"
+                    + " it should be dd-MM-yyyy HH:mm", e.getMessage());
         }
 
         try {
@@ -118,8 +118,8 @@ public class ParserTest {
             Parser.parseFile("T | 0 ", list, 0);
             fail();
         } catch (AlastorException e) {
-            assertEquals(type.getErrorMessage() + "There might be some missing parameters or invalid separators",
-                    e.getMessage());
+            assertEquals(type.getErrorMessage()
+                    + "There might be some missing parameters or invalid separators", e.getMessage());
         }
 
         try {
