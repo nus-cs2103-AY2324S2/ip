@@ -9,16 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalTime to;
+    private LocalDateTime from;
+    private LocalTime to;
 
-    public Event (String description, String from, String to) throws IllegalArgumentException {
+    public Event (String description, String from, String to) {
         super(description);
         this.from = parseDateTime(from);
         this.to = parseTime(to);
     }
 
-    //TODO: Diversify input options for /to
     public Event (String description, boolean done, String from, String to) {
         super(description);
         super.updateIsDone(done);
