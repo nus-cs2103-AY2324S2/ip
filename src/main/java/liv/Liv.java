@@ -29,8 +29,8 @@ public class Liv {
      * The main logic structure of the chatbot.
      */
         public void run() {
-        ui.displayGreetCommand();
         storage.loadDataFile();
+        ui.displayGreetCommand();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -50,6 +50,6 @@ public class Liv {
         }
     }
     public static void main(String[] args) {
-        new Liv("data/liv.Liv.txt").run();
+        new Liv("./data/Liv.txt").run();
     }
 }
