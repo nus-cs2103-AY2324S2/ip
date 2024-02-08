@@ -67,6 +67,7 @@ public class Ui {
             "MARK DONE: mark done <INDEX>",
             "MARK UNDONE: mark undone <INDEX>",
             "DELETE TASK: delete <INDEX>",
+            "FIND TASK: find <KEYWORD>",
             "EXIT: bye"
         };
         for (int i = 0; i < instructions.length; i++) {

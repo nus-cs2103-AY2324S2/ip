@@ -1,4 +1,5 @@
 D | not done | deadline1 (by: 12 Dec 2020)
-D | not done | deadline2 (by: 23 Mar 2030)
 T | not done | newthing
 T | not done | thing2
+T | not done | newTodo
+D | not done | newdeadline (by: 8 Feb 2024)
