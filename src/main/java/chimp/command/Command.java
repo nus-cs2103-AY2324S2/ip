@@ -5,6 +5,6 @@ import chimp.core.Ui;
 import chimp.exception.CommandExecuteException;
 
 public abstract class Command {
-    public abstract void execute(TaskList list, Ui ui, Storage storage) throws CommandExecuteException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException;
     public abstract boolean isExit();
 }

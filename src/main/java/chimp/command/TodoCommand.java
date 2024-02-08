@@ -18,9 +18,9 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws CommandExecuteException {
-        list.add(text);
-        ui.say(list.get(list.size() - 1), list);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
+        tasks.add(text);
+        ui.say(tasks.get(tasks.size() - 1), tasks);
     }
 
 }
