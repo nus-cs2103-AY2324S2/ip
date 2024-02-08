@@ -10,6 +10,7 @@ public class Alpaca {
     private void run() {
         ui.run();
     }
+
     public static void main(String[] args) {
         new Alpaca().run();
     }

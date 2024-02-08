@@ -28,7 +28,7 @@ public abstract class Template {
     }
 
     protected static String removePrefix(String input, String prefix) {
-        return input.replaceFirst("^" + prefix + " ", "");
+        return input.replaceFirst("^(?i)" + prefix + " ", "");
     }
 
     protected static Boolean isValidIndex(int index, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException {

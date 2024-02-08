@@ -46,3 +46,8 @@ java {
     sourceCompatibility = 1.11
     targetCompatibility = 1.11
 }
+
+
+checkstyle {
+    toolVersion "10.3.1"
+}
