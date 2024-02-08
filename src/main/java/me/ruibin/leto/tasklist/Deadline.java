@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** A type of Task with a deadline LocalDate field. */
 public class Deadline extends Task {
     private LocalDate deadline;
 
@@ -15,6 +16,13 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Read user input and generate a new instance of Deadline.
+     *
+     * @param input Command inputs from user.
+     * @return A new instance of Deadline.
+     * @throws InvalidTaskException If input do not fit valid command format.
+     */
     public static Deadline deadlineFromCommand(String input) throws InvalidTaskException {
         String regex = "(?i)deadline ([^,]+) /by (\\d{4}-\\d{2}-\\d{2}) *";
         Matcher matcher = Pattern.compile(regex).matcher(input);
@@ -38,7 +46,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Create a Deadline task from csv format, Type,Completed,Task,By,From,To
+     * Create a Deadline task from csv format, Type,Completed,Task,By,From,To.
+     *
      * @param entry text string containing the row in the csv
      * @return a Deadline task
      */
@@ -65,8 +74,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the object as a row in a csv table according to format
-     * Type,Completed,Task,By,From,To
+     * Returns the object as a row in a csv table according to format:<br>
+     * <code>Type,Completed,Task,By,From,To</code>.
+     *
      * @return String in csv format
      */
     public String toCsvString() {

@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Test;
 
 public class EventTest {
+    /** Test creating Event from valid command with 10 days long 10 days from now. */
     @Test
     public void eventFromCommand_validCommand_success() {
         LocalDate startDate = LocalDate.now().plusDays(10);
@@ -27,6 +28,7 @@ public class EventTest {
         }
     }
 
+    /** Test creating Event from invalid command with bad date formats. */
     @Test
     public void eventFromCommand_commandWithBadFormat_failure() {
         LocalDate startDate = LocalDate.now().plusDays(10);
@@ -41,6 +43,7 @@ public class EventTest {
         }
     }
 
+    /** Test creating Event from valid csv. */
     @Test
     public void eventFromCsv_validCsvEntry_success() {
         LocalDate startDate = LocalDate.now().plusDays(10);
@@ -58,6 +61,7 @@ public class EventTest {
         }
     }
 
+    /** Test creating Event from invalid csv with empty dates. */
     @Test
     public void eventFromCsv_badCsvEntry_failure() {
         String entry = "E,N,event  H4(K1nG  cOnv@nt!0n,,,";

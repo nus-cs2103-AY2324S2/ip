@@ -2,8 +2,15 @@ package me.ruibin.leto.ui;
 
 import java.io.PrintWriter;
 
+/** Wraps output with custom formatting before sending to stdout using PrintWriter. */
 public class Ui {
     private static final PrintWriter pw = new PrintWriter(System.out);
+
+    /**
+     * Prints message in multiple line. Auto indenting on linebreak.
+     *
+     * @param message Message to print.
+     */
     public static void letoSpeak(String message) {
         pw.write("  << Duke Leto >>\n  > " + message.replaceAll("\n", "\n  > "));
         pw.println();
@@ -11,11 +18,17 @@ public class Ui {
         pw.flush();
     }
 
+    /**
+     * Prints message ine a single line.
+     *
+     * @param message To print.
+     */
     public static void shortSay(String message) {
         pw.write("  << Duke Leto >> : " + message + "\n");
         pw.flush();
     }
 
+    /** Prints the logo. */
     public static void letoLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -27,6 +40,7 @@ public class Ui {
         pw.flush();
     }
 
+    /** Print the standard help message. */
     public static void letoHelp() {
         letoSpeak("Supported commands:\n"
             + "list     -  list all tasks\n"

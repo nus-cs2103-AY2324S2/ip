@@ -10,6 +10,10 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Reads user inputs and parse it, running the resulting command.
+     * Loops until it encounters a command that returns <code>Results.EXIT</code>
+     */
     public static void readCommandAndExecute() {
         boolean isBye = false;
 

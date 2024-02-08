@@ -20,6 +20,7 @@ import me.ruibin.leto.tasklist.TaskList;
 import me.ruibin.leto.tasklist.Todo;
 import me.ruibin.leto.ui.Ui;
 
+/**  returns <code>Results.OK</code>*/
 public class Storage {
     private static final String PATH_TO_STORE = "Leto-Tasks.csv";
 
@@ -53,6 +54,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Read an entry from the file into a Task and add it to the list.
+     * Throws Error if entry is invalid.
+     * If file is not found, will create one by default.
+     *
+     * @throws InvalidTaskException entry cannot be parsed.
+     */
     private static void readEntry(String entry) throws InvalidTaskException {
         String[] parts = entry.split(",");
         switch (parts[0]) {
@@ -73,6 +81,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Write the current task lists to a csv file.
+     */
     public static void writeFile() {
         int saved = 0;
         try {
@@ -94,6 +105,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Helper method for writing an individual task to BufferedWriter.
+     * Used within WriteFile.
+     *
+     * @param bw BufferedWriter for the csv file.
+     * @param t Task to write.
+     * @throws IOException Pass up possible IOException from bw write.
+     */
     private static void writeTask(BufferedWriter bw, Task t) throws IOException {
         bw.write(t.toCsvString() + "\n");
     }

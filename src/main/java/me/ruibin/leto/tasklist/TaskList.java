@@ -7,23 +7,31 @@ import java.util.List;
 import me.ruibin.leto.storage.Storage;
 import me.ruibin.leto.ui.Ui;
 
+/** Class representing the list of tasks in Leto. */
 public class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>(100);
 
     public TaskList() {}
 
+    /** Static method to initialise the task list from csv file. */
     public static void initFromFile() {
         Storage.readFile();
     }
 
+    /** Save task list to csv file. */
     public static void saveTasks() {
         Storage.writeFile();
     }
 
+    /**
+     * Provides a way to add a task to task list.
+     * For example in Storage class readEntry.
+     * */
     public static void addTaskToList(Task t) {
         list.add(t);
     }
 
+    /** In charge of reading inputs and adding the corresponding task to the list */
     public static void addToList(String inputs) {
         try {
             Task t = null;
@@ -49,6 +57,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * From user input mark the task specified as completed.
+     *
+     * @param inputs Command from the user.
+     */
     public static void markTaskCompleted(String inputs) {
         Task temp;
         try {
@@ -69,6 +82,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * From user input mark the task specified as uncompleted.
+     *
+     * @param inputs Command from the user.
+     */
     public static void markTaskUncompleted(String inputs) {
         Task temp;
         try {
@@ -89,6 +107,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * From user input delete the task specified.
+     *
+     * @param inputs Command from the user.
+     */
     public static void deleteTask(String inputs) {
         try {
             int index = getIndexFromInput(inputs);
@@ -101,6 +124,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Helper method to get index of the task from user command.
+     *
+     * @param input Command from the user.
+     * @throws InvalidTaskException Invalid task index or parsing issue.
+     */
     private static int getIndexFromInput(String input) throws InvalidTaskException {
         try {
             String[] inputs = input.split(" ");
@@ -121,6 +150,7 @@ public class TaskList {
         }
     }
 
+    /** Convert tasks in the list to an output string and then call Ui print. */
     public static void printList() {
         StringBuilder toPrint = new StringBuilder(" < Task List >\n");
         for (int i = 0; i < TaskList.list.size(); i++) {
@@ -131,6 +161,11 @@ public class TaskList {
         Ui.letoSpeak(toPrint.toString());
     }
 
+    /**
+     * Get tasks as an unmodifiable list when there is a need to iterate through it.
+     *
+     * @return A unmodifiable List of Task.
+     */
     public static List<Task> getTasks() {
         return Collections.unmodifiableList(list);
     }

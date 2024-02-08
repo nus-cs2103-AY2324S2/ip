@@ -22,6 +22,7 @@ enum Commands {
         this.commandAction = function;
     }
 
+    /** Run the specific command. */
     public Results run(String inputs) {
         return this.commandAction.apply(inputs);
     }
