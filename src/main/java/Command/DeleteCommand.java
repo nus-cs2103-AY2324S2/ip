@@ -1,5 +1,6 @@
 package Command;
 
+import Ping.PingException;
 import Ping.Task;
 import Ping.TaskList;
 import Ping.UI;
@@ -15,13 +16,13 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public TaskList perform(TaskList tasks, UI ui) {
-        try {
+    public String perform(TaskList tasks, UI ui) throws PingException {
+        // handle the exception
+        if (this.idx < 0 || this.idx >= tasks.taskSize()) {
+            throw new PingException("Invalid number in the list");
+        } else {
             Task deletedTask = tasks.deleteTask(this.idx);
-            ui.deleteTaskMessage(this.idx, deletedTask, tasks.taskSize());
-        } catch (Exception e) {
-            System.out.println("Incorrect number");
+            return ui.deleteTaskMessage(this.idx, deletedTask, tasks.taskSize());
         }
-        return tasks;
     }
 }

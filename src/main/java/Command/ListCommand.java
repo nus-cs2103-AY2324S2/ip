@@ -9,8 +9,8 @@ import Ping.UI;
  */
 public class ListCommand extends Command {
     @Override
-    public TaskList perform(TaskList tasks, UI ui) {
-        ui.showList(tasks.allTasks());
-        return tasks;
+    public String perform(TaskList tasks, UI ui) {
+
+        return ui.showList(tasks.allTasks());
     }
 }

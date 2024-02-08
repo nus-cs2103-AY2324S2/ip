@@ -26,39 +26,39 @@ public class UI {
         System.out.println("----------------------------------------------------------");
     }
 
-    public void goodBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String goodBye() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public void respondBlah() {
-        System.out.println("haha, that's humorous");
+    public String respondBlah() {
+        return "haha, that's humorous\n";
     }
 
     public void exceptionMessage() {
         System.out.println("Incorrect number or command");
     }
 
-    public void hiMessage() {
-        System.out.println("Hi, there");
+    public String hiMessage() {
+        return "Hi, there\n";
     }
 
     /**
      * This function below used for event and deadline command
      */
 
-    public void addMessage(Task task, int numOfWork) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
+    public String addMessage(Task task, int numOfWork) {
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + numOfWork + " tasks in the list.";
     }
 
     /**
      * This function below used for todo command
      */
-    public void deleteTaskMessage(int i, Task task, int numOfWork) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
+    public String deleteTaskMessage(int i, Task task, int numOfWork) {
+        return "Noted. I've removed this task: \n"
+                + task.toString() + "\n"
+                + "Now you have " + numOfWork + " tasks in the list";
     }
 
     /**
@@ -66,19 +66,16 @@ public class UI {
      *
      * @param tasks the list of tasks
      */
-    public void showList(ArrayList<Task> tasks) {
+    public String showList(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         if (tasks.isEmpty()) {
-            System.out.println("No task added yet");
+            return "The list is empty\n";
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 int idx = i + 1;
-                if (tasks.get(i).isDone) {
-                    System.out.printf("%d." + tasks.get((i)).toString() + "%n", idx);
-                } else {
-                    System.out.printf("%d." + tasks.get(i).toString() + "%n", idx);
-
-                }
+                sb.append(idx).append(".").append(tasks.get(i).toString()).append("\n");
             }
+            return sb.toString();
         }
     }
 
@@ -87,9 +84,8 @@ public class UI {
      *
      * @param t the task
      */
-    public void markTaskMessage(Task t) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t.toString());
+    public String markTaskMessage(Task t) {
+        return "Nice! I've marked this task as done:\n" + t.toString();
     }
 
     /**
@@ -97,9 +93,8 @@ public class UI {
      *
      * @param t the task
      */
-    public void unmarkTaskMessage(Task t) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(t.toString());
+    public String unmarkTaskMessage(Task t) {
+        return "Nice! I've unmarked this task as not done:\n" + t.toString();
     }
 
     /**
@@ -107,15 +102,19 @@ public class UI {
      *
      * @param tasks the list of tasks
      */
-    public void findTaskMessage(ArrayList<Task> tasks) {
+    public String findTaskMessage(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         if (tasks.isEmpty()) {
-            System.out.println("No matching task found");
+            return "No matching tasks\n";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 int idx = i + 1;
-                System.out.printf("%d." + tasks.get(i).toString() + "%n", idx);
+                sb.append(idx).append(".").append(tasks.get(i).toString()).append("\n");
             }
+            return sb.toString();
         }
+    }
+    public String showError(String message) {
+        return message;
     }
 }

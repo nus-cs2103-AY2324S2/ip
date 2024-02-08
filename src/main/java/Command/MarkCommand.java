@@ -1,5 +1,6 @@
 package Command;
 
+import Ping.PingException;
 import Ping.Task;
 import Ping.TaskList;
 import Ping.UI;
@@ -14,14 +15,13 @@ public class MarkCommand extends Command {
         this.idx = idx;
     }
     @Override
-    public TaskList perform(TaskList tasks, UI ui) {
+    public String perform(TaskList tasks, UI ui) throws PingException {
         try {
             Task task = tasks.getTask(this.idx);
             task.markDone();
-            ui.markTaskMessage(task);
+            return ui.markTaskMessage(task);
         } catch (Exception e) {
-            System.out.println("Invalid number in the list");
+            throw new PingException("Invalid number");
         }
-        return tasks;
     }
 }

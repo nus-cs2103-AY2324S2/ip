@@ -17,13 +17,12 @@ public class DateTimeCheck {
      * @param s the date input by the user
      * @return the date in the format of LocalDate
      */
-    public static LocalDate timeCheckOnDate(String s) {
+    public static LocalDate timeCheckOnDate(String s) throws PingException {
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             return LocalDate.parse(s, formatterDate);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Check whether it is format dd/MM/yyyy");
-            return null;
+            throw new PingException("Invalid date format. Check whether it is format /by dd/MM/yyyy");
         }
     }
 
@@ -32,13 +31,12 @@ public class DateTimeCheck {
      * @param s the time input by the user
      * @return the time in the format of LocalDateTime
      */
-    public static LocalDateTime timeCheckOnTime(String s) {
+    public static LocalDateTime timeCheckOnTime(String s) throws PingException {
         DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
             return LocalDateTime.parse(s, formatterDateTime);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Check whether it is format dd/MM/yyyy HHmm");
-            return null;
+            throw new PingException("Invalid time format. Check whether it is format dd/MM/yyyy HHmm");
         }
     }
 
@@ -48,16 +46,11 @@ public class DateTimeCheck {
      * @param time2 the end time
      * @return true if the start time is not greater than the end time, otherwise return false
      */
-    public static boolean timeCompare(LocalDateTime time1, LocalDateTime time2) {
+    public static boolean timeCompare(LocalDateTime time1, LocalDateTime time2) throws PingException {
         if (time1.isAfter(time2)) {
-            System.out.println("from time cannot larger than to time");
-            return false;
-        } else if (time1.isEqual(time2)) {
-            System.out.println("Two time can not be equal");
-            return false;
-        } else {
-            return true;
+            throw new PingException("Start time cannot be greater than end time");
         }
+        return true;
     }
 
 }

@@ -3,6 +3,7 @@ package Command;
 import Ping.Task;
 import Ping.TaskList;
 import Ping.UI;
+import Ping.PingException;
 
 
 /**
@@ -15,9 +16,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public TaskList perform(TaskList tasks, UI ui) {
+    public String perform(TaskList tasks, UI ui) throws PingException {
+        if (task == null) {
+            throw new PingException("Task cannot be empty");
+        } else {
         tasks.addTask(task);
-        ui.addMessage(task, tasks.taskSize());
-        return tasks;
+        return ui.addMessage(task, tasks.taskSize());
+        }
     }
 }

@@ -11,8 +11,7 @@ import Ping.UI;
 public class BlahCommand extends Command {
 
     @Override
-    public TaskList perform(TaskList tasks, UI ui) {
-        ui.respondBlah();
-        return null;
+    public String perform(TaskList tasks, UI ui) {
+        return ui.respondBlah();
     }
 }

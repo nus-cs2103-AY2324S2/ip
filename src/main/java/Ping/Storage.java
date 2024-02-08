@@ -1,6 +1,13 @@
 package Ping;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+
 
 /**
  * This class is used to save and load the file
@@ -12,7 +19,7 @@ public class Storage {
      * This method is used to save the file
      * @param tasks the list of tasks
      */
-    public static void saveFiles(ArrayList<Task> tasks) {
+    public static void saveFiles(ArrayList<Task> tasks) throws PingException {
         try {
             File file = new File(PATH);
             File dir = new File("./data");
@@ -31,14 +38,14 @@ public class Storage {
             oot.close();
             fout.close();
         } catch (IOException e) {
-            System.out.println("Oops! Something goes wrong!");
+            throw new PingException("An error occurred while saving the file");
         }
     }
     /**
      * This method is used to load the file
      * @return the list of tasks
      */
-    public static ArrayList<Task> loadFiles() {
+    public static ArrayList<Task> loadFiles() throws PingException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(PATH);
 
@@ -52,13 +59,10 @@ public class Storage {
             tasks = (ArrayList<Task>) objInputStream.readObject();
             objInputStream.close();
             inputStream.close();
-        } catch (Exception e) {
-            System.out.println("----------------------------------------------------------");
-            System.out.println("No existing file found\n"
-                    + "Dont'worry, I already creat an empty list for you\n"
-                    + "ChatBot Ping now could be used!"
-            );
-            System.out.println("----------------------------------------------------------");
+        } catch (IOException | ClassNotFoundException e) {
+            throw new PingException("No existing file found\n"
+            + "Dont'worry, I already creat an empty list for you\n"
+            + "ChatBot Ping now could be used!");
         }
         return tasks;
     }

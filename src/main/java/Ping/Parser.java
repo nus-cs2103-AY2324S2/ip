@@ -12,7 +12,7 @@ import Command.FindCommand;
 import Command.HiCommand;
 import Command.ListCommand;
 import Command.MarkCommand;
-import Command.UnMarkCommand;
+import Command.UnmarkCommand;
 /**
  * This class is used to parse the command input by the user
  */
@@ -22,7 +22,7 @@ public class Parser {
      * @param input the command input by the user
      * @return the command object
      */
-    public static Command parseCommand(String input) {
+    public static Command parseCommand(TaskList tasks, String input) throws PingException {
         String[] restCommands = input.split(" ");
         String command = restCommands[0];
         switch (command.toLowerCase()) {
@@ -35,7 +35,7 @@ public class Parser {
         case "mark":
             return parseMark(restCommands);
         case "unmark":
-            return parseUnMark(restCommands);
+            return parseUnmark(restCommands);
         case "todo":
             return parseTodo(restCommands);
         case "list":
@@ -49,62 +49,56 @@ public class Parser {
         case "find":
             return parseFind(restCommands);
         default:
-            System.out.println("Pleas fill in the valid command\n"
+            throw new PingException("Pleas fill in the valid command\n"
                     + "Valid commands are: bye, list, blah, todo, event, deadline, mark, unmark, delete, hi");
         }
-
-        return null;
     }
 
-    private static Command parseMark(String[] restCommands) {
+    private static Command parseMark(String[] restCommands) throws PingException {
         try {
             int i = Integer.parseInt(restCommands[1]) - 1;
             return new MarkCommand(i);
         } catch (Exception e) {
-            System.out.println("Make sure you follow the right format of mark <number>");
+            throw new PingException("Invalid number");
         }
-        return null;
     }
 
-    private static Command parseUnMark(String[] restCommands) {
+    private static Command parseUnmark(String[] restCommands) throws PingException {
         try {
             int i = Integer.parseInt(restCommands[1]) - 1;
-            return new UnMarkCommand(i);
+            return new UnmarkCommand(i);
         } catch (Exception e) {
-            System.out.println("Make sure you follow the right format of unmark <number>");
+            throw new PingException("Invalid number");
         }
-        return null;
     }
 
-    private static Command parseTodo(String[] todoCommand) {
-        String rest = "";
+    private static Command parseTodo(String[] todoCommand) throws PingException {
+        StringBuilder rest = new StringBuilder();
         try {
             for (int i = 1; i < todoCommand.length; i++) {
-                rest = rest + todoCommand[i] + " ";
+                rest.append(todoCommand[i]).append(" ");
             }
-            Todo j = new Todo(rest);
-            if (!rest.isEmpty()) {
-                return new AddCommand(j);
+            if (rest.length() > 0) {
+                return new AddCommand(new Todo(rest.toString()));
             } else {
-                System.out.println("Todo what? you can't to do nothing right?");
+                throw new PingException("Did you type right?");
             }
         } catch (Exception e) {
-            System.out.println("Make sure you follow the right format of todo <Things you want to add>");
+            throw new PingException("Incorrect number or command");
         }
-        return null;
     }
 
-    private static Command parseDelete(String[] delCommand) {
+    private static Command parseDelete(String[] delCommand) throws PingException {
         try {
             int i = Integer.parseInt(delCommand[1]) - 1;
             return new DeleteCommand(i);
         } catch (Exception e) {
-            System.out.println("Incorrect number or command");
+            throw new PingException("Invalid number");
         }
-        return null;
+        
     }
 
-    private static Command parseDeadline(String[] dlCommand) {
+    private static Command parseDeadline(String[] dlCommand) throws PingException {
         StringBuilder rest = new StringBuilder();
         StringBuilder date = new StringBuilder();
         try {
@@ -133,15 +127,16 @@ public class Parser {
             if (rest.length() > 0 && dt != null) {
                 return new AddCommand(dl);
             } else {
-                System.out.println("Did you type right?");
+                throw new PingException("Did you type right?");
             }
+        } catch (PingException e) {
+            throw new PingException(e.getMessage());
         } catch (Exception e) {
-            System.out.println("Incorrect number or command");
+            throw new PingException("Incorrect number or command");
         }
-        return null;
     }
 
-    private static Command parseEvent(String[] evCommand) {
+    private static Command parseEvent(String[] evCommand) throws PingException {
         StringBuilder rest = new StringBuilder();
         StringBuilder date1 = new StringBuilder();
         StringBuilder date2 = new StringBuilder();
@@ -180,12 +175,13 @@ public class Parser {
             if ((rest.length() > 0) && dt1 != null && dt2 != null && compareOfTime) {
                 return new AddCommand(e);
             } else {
-                System.out.println("Did you type right?");
+                throw new PingException("Did you type right?");
             }
+        } catch (PingException e) {
+            throw new PingException(e.getMessage());
         } catch (Exception e) {
-            System.out.println("Incorrect number or command");
+            throw new PingException("Incorrect number or command");
         }
-        return null;
     }
 
     // This function after prCommand[0] is the string that need to be found in ArrayList<Task>
