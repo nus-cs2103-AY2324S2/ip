@@ -10,13 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
 /**
  * The main class of the application.
  * This class is responsible for starting the gui application.
  */
 public class ViewPort extends Application {
-    private Duke duke = new Duke();
+    private final Duke duke = new Duke();
+
     @Override
     public void start(Stage stage) {
 

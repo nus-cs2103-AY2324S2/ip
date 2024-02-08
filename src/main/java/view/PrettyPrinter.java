@@ -1,7 +1,8 @@
 package view;
 
 /**
- * The PrettyPrinter class is responsible for printing messages in a pretty format.
+ * The PrettyPrinter class is responsible for printing messages in a pretty
+ * format.
  */
 public class PrettyPrinter {
     private void printIndentedln(String message) {
@@ -14,7 +15,9 @@ public class PrettyPrinter {
 
     /**
      * Prints the message in a pretty format.
-     * @param message The message to be printed.
+     *
+     * @param message
+     *            The message to be printed.
      */
     public void print(String message) {
         String[] lines = message.split("\n");

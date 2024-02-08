@@ -21,7 +21,8 @@ public class Main {
             db.autoMigrate();
         } catch (SQLException e) {
             System.out.println("Something went wrong while connecting and migrating the database:");
-            throw new RuntimeException(e.getMessage()); // we should not continue if we cannot connect to the database
+            // we should not continue if we cannot connect to the database
+            throw new RuntimeException(e.getMessage());
         }
 
         Application.launch(ViewPort.class, args);
