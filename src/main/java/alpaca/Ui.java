@@ -2,17 +2,17 @@ package alpaca;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import Tasks.Task;
+import alpaca.tasks.Task;
 
-import Actions.Deadline;
-import Actions.Delete;
-import Actions.Event;
-import Actions.Mark;
-import Actions.ToDo;
-import Actions.Unmark;
+import alpaca.actions.Deadline;
+import alpaca.actions.Delete;
+import alpaca.actions.Event;
+import alpaca.actions.Mark;
+import alpaca.actions.ToDo;
+import alpaca.actions.Unmark;
 
-import Exceptions.InvalidInput;
-import Exceptions.ValueNotFound;
+import alpaca.exceptions.InvalidInput;
+import alpaca.exceptions.ValueNotFound;
 
 public class Ui {
     final static String name = "Alpaca";

@@ -1,7 +1,5 @@
 package alpaca;
 
-import Ui;
-
 public class Alpaca {
     private Ui ui;
 
