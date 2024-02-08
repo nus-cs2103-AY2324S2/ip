@@ -1,89 +1,74 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.exceptions.InvalidCommandException;
 import duke.exceptions.ListOutofBoundsException;
 import duke.exceptions.MissingArgumentsException;
 import duke.exceptions.WrongTimeFormatException;
 import duke.parser.Parser;
 import duke.parser.Token;
-import duke.ui.UI;
+import duke.responses.Responses;
+
 
 /**
  * The Duke program is a simple task manager that allows users to manage their tasks through a command-line interface.
  */
 public class Duke {
 
-    /**
-     * Runs the Duke program. Allowing users to manage their tasks.
-     *
-     * @param args The command-line arguments (unused in this program).
-     */
-    public static void main(String[] args) {
-        UI ui = new UI();
-        UI.greeting();
-        Scanner scanner = new Scanner(System.in);
+    public Duke() {
+    }
+
+    public String getResponse(String userInput) {
+
+        Responses dukeResponse = new Responses();
         Parser parser = new Parser();
-        boolean isTrue = true;
-        while (isTrue) {
-            String input = scanner.nextLine().trim();
-            parser.feed(input);
-            Token output;
+        parser.feed(userInput);
+        Token output;
+
+        try {
+            output = parser.parse();
+        } catch (InvalidCommandException e) {
+            return Responses.error(e.getMessage());
+        } catch (MissingArgumentsException e) {
+            return Responses.error(e.getMessage());
+        } catch (WrongTimeFormatException e) {
+            return Responses.error(e.getMessage());
+        }
+
+        switch (output.getCmd()) {
+        case BYE:
+            return Responses.goodbye();
+        case LIST:
+            return dukeResponse.listItems();
+        case UNMARK:
             try {
-                output = parser.parse();
-            } catch (InvalidCommandException e) {
-                UI.error(e.getMessage());
-                continue;
-            } catch (MissingArgumentsException e) {
-                UI.error(e.getMessage());
-                continue;
-            } catch (WrongTimeFormatException e) {
-                UI.error(e.getMessage());
-                continue;
+                return dukeResponse.unMarkTask(output.getSelectedItem() - 1);
+            } catch (ListOutofBoundsException e) {
+                return Responses.error(e.getMessage());
             }
-            switch (output.getCmd()) {
-            case BYE:
-                UI.goodbye();
-                isTrue = false;
-                break;
-            case LIST:
-                ui.listItems();
-                break;
-            case UNMARK:
-                try {
-                    ui.unMarkTask(output.getSelectedItem() - 1);
-                } catch (ListOutofBoundsException e) {
-                    UI.error(e.getMessage());
-                }
-                break;
-            case MARK:
-                try {
-                    ui.markTaskUI(output.getSelectedItem() - 1);
-                } catch (ListOutofBoundsException e) {
-                    UI.error(e.getMessage());
-                }
-                break;
-            case FIND:
-                ui.findTaskUI(output.getSearchKey());
-                break;
-            case TODO:
-                // Fallthrough
-            case DEADLINE:
-                // Fallthrough
-            case EVENT:
-                ui.addItem(output.getTask());
-                break;
-            case DELETE:
-                try {
-                    ui.removeTask(output.getSelectedItem() - 1);
-                } catch (ListOutofBoundsException e) {
-                    UI.error(e.getMessage());
-                }
-                break;
-            default:
-                break;
+        case MARK:
+            try {
+                return dukeResponse.markTaskUI(output.getSelectedItem() - 1);
+            } catch (ListOutofBoundsException e) {
+                return Responses.error(e.getMessage());
             }
+        case FIND:
+            return dukeResponse.findTaskUI(output.getSearchKey());
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            return dukeResponse.addItem(output.getTask());
+        case DELETE:
+            try {
+                return dukeResponse.removeTask(output.getSelectedItem() - 1);
+            } catch (ListOutofBoundsException e) {
+                return Responses.error(e.getMessage());
+            }
+        default:
+            return "";
         }
     }
+
+
 }
