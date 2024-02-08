@@ -15,6 +15,7 @@ public class Ui {
         String unmark = "OK, I've marked this task as not done yet: \n";
         String hoo = "HOO-HOO-HOO-HOO, I don't know what that means\n";
         String delete = "Noted. I've removed this task:\n";
+        String find = "Here are the matching tasks in your list:\n";
 
         phrases.put("greet", greet);
         phrases.put("bye", bye);
@@ -22,6 +23,7 @@ public class Ui {
         phrases.put("unmark", unmark);
         phrases.put("hoo", hoo);
         phrases.put("delete", delete);
+        phrases.put("find", find);
 
         return phrases;
     }
@@ -50,12 +52,12 @@ public class Ui {
         System.out.println(divider);
     }
 
-    public void say(String key, String[] matches, TaskList list) {
+    public void say(String key, Task[] matches, TaskList list) {
         String phrase = getPhrases().get(key);
         System.out.println(divider);
         System.out.println(phrase);
         for (int i = 0; i < matches.length; i++) {
-            System.out.println((i + 1) + ". " + list.get(Integer.parseInt(matches[i]) - 1));
+            System.out.println((i + 1) + ". " + matches[i].toString());
         }
         System.out.println(divider);
     }

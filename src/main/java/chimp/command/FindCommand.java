@@ -4,6 +4,7 @@ import chimp.core.Storage;
 import chimp.core.TaskList;
 import chimp.core.Ui;
 import chimp.exception.CommandExecuteException;
+import chimp.task.Task;
 
 public class FindCommand extends Command{
     String arg;
@@ -14,7 +15,8 @@ public class FindCommand extends Command{
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
-        String[] matches = tasks.find(arg);
+        Task[] matches = tasks.find(arg);
+        ui.say("find", matches, tasks);
     }
 
     @Override
