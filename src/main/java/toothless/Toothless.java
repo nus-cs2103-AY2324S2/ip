@@ -10,7 +10,7 @@ import toothless.ui.Ui;
  * The main class for the Toothless TaskList chatbot.
  */
 public class Toothless {
-    private boolean isRunning;
+    private static final String FILE_PATH = "./data/tasklist.txt";
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
@@ -18,54 +18,47 @@ public class Toothless {
 
     /**
      * A private constructor to initialize the chatbot.
-     * @param filepath A String indicating the filepath where data would be stored.
      */
-    private Toothless(String filepath) {
+    public Toothless() {}
+
+    /**
+     * Initializes Toothless.
+     * @return String message in case of initialization error.
+     */
+    public String initialize() {
+        String message = "";
         ui = new Ui();
         parser = new Parser();
 
         try {
-            this.storage = new Storage(filepath);
+            this.storage = new Storage(FILE_PATH);
             this.tasks = new TaskList(this.storage.loadStorage());
         } catch (ToothlessException e) {
-            ui.printMessage(e.getMessage());
-            ui.printMessage("Sorry, tasklist.txt is corrupted. Starting a blank tasklist.");
+            message += e.getMessage();
+            message += "\nSorry, tasklist.txt is corrupted. Starting a blank tasklist.";
             this.tasks = new TaskList();
         }
+        return message;
     }
 
     /**
-     * The main method and entry point of the program.
-     * @param args Command-line arguments passed to the program.
+     * Get response to user input.
+     * @param input User input from GUI.
+     * @return String of Toothless' response.
      */
-    public static void main(String[] args) {
-        Toothless toothless = new Toothless("./data/tasklist.txt");
-        toothless.run();
-    }
-
-    /**
-     * The main loop of the program.
-     */
-    private void run() {
-        this.isRunning = true;
-        ui.printWelcome();
-        while (this.isRunning) {
-            try {
-                String userInput = ui.readCommand();
-                ui.printLine();
-                parser.parseInput(userInput, tasks, ui);
-                this.isRunning = parser.isStillRunning();
-            } catch (ToothlessException e) {
-                ui.printMessage(e.getMessage());
-            } finally {
-                ui.printLine();
-            }
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            response += parser.parseInput(input, tasks, ui);
+        } catch (ToothlessException e) {
+            response += e.getMessage();
         }
+
         try {
             storage.saveToStorage(tasks.getTasks());
-            ui.printMessage("Successfully saved task data to tasklist.txt.");
         } catch (ToothlessException e) {
-            ui.printMessage(e.getMessage());
+            response += e.getMessage();
         }
+        return response;
     }
 }

@@ -11,70 +11,56 @@ import toothless.ui.Ui;
  * A class that parses, resolves and validates user input.
  */
 public class Parser {
-    private boolean isRunning = true;
-
-    /**
-     * Sets isRunning boolean to false for stopping program.
-     */
-    private void makeExit() {
-        this.isRunning = false;
-    }
-
-    /**
-     * Returns isRunning boolean.
-     * @return A boolean that indicates if program is still running.
-     */
-    public boolean isStillRunning() {
-        return isRunning;
-    }
-
     /**
      * The main method that parses user input.
      * @param userInput User input string to be parsed.
      * @param tasks TaskList class that is operated on when user command is executed.
      * @param ui Ui class used to print messages.
+     * @return String of response.
      * @throws ToothlessException if user input is invalid.
      */
-    public void parseInput(String userInput, TaskList tasks, Ui ui) throws ToothlessException {
+    public String parseInput(String userInput, TaskList tasks, Ui ui) throws ToothlessException {
+        String response = "";
         if (userInput.equals("bye")) {
-            ui.printMessage("Bye. Purr-lease chat again soon!");
-            makeExit();
+            response = "Bye. Purr-lease chat again soon!";
         } else if (userInput.equals("list")) {
-            ui.printList(tasks.getTasks(),
-                    "\tOops! Looks like you haven't added any tasks yet!", "");
+            response = ui.getListMessage(tasks.getTasks(),
+                    "Oops! Looks like you haven't added any tasks yet!",
+                    "Here are the tasks in your list:\n");
         } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
             int listIndex = validateListInput(userInput, "mark", tasks.size());
             Task markedTask = tasks.markTask(listIndex);
-            ui.printMarkedTask(markedTask);
+            response = ui.getMarkedTaskMessage(markedTask);
         } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
             int listIndex = validateListInput(userInput, "unmark", tasks.size());
             Task unmarkedTask = tasks.unmarkTask(listIndex);
-            ui.printUnmarkedTask(unmarkedTask);
+            response = ui.getUnmarkedTaskMessage(unmarkedTask);
         } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
             String taskDescription = validateToDoInput(userInput);
             Task newTask = tasks.addToDoToList(taskDescription);
-            ui.printNewTask(newTask, tasks.size());
+            response = ui.getNewTaskMessage(newTask, tasks.size());
         } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
             String[] deadlineAttributes = validateDeadlineInput(userInput);
             Task newTask = tasks.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
-            ui.printNewTask(newTask, tasks.size());
+            response = ui.getNewTaskMessage(newTask, tasks.size());
         } else if (userInput.startsWith("event ") || userInput.equals("event")) {
             String[] eventAttributes = validateEventInput(userInput);
             Task newTask = tasks.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
-            ui.printNewTask(newTask, tasks.size());
+            response = ui.getNewTaskMessage(newTask, tasks.size());
         } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
             int listIndex = validateListInput(userInput, "delete", tasks.size());
             Task deletedTask = tasks.deleteTask(listIndex);
-            ui.printDeletedTask(deletedTask, tasks.size());
+            response = ui.getDeletedTaskMessage(deletedTask, tasks.size());
         } else if (userInput.startsWith("find ") || userInput.equals("find")) {
             String keyword = validateFindInput(userInput);
             ArrayList<Task> keywordTasks = tasks.findKeyword(keyword);
-            ui.printList(keywordTasks,
-                    "\tOops! Looks like there are no tasks matching the keyword!",
-                    "\tHere are the meow-tching tasks in your list:\n");
+            response = ui.getListMessage(keywordTasks,
+                    "Oops! Looks like there are no tasks matching the keyword!",
+                    "Here are the meow-tching tasks in your list:\n");
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
+        return response;
     }
 
     /**
