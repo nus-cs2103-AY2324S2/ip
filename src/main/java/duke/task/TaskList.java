@@ -3,6 +3,7 @@ package duke.task;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class TaskList extends ArrayList<Task> {
 
@@ -57,6 +58,16 @@ public class TaskList extends ArrayList<Task> {
         } catch (IndexOutOfBoundsException e) {
             Ui.showErrorNotExist(taskNo);
         }
+    }
+
+    public static ArrayList<Task> findTaskByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.getTaskName().contains(keyword)) {
+                matchingTasks.add(t);
+            }
+        }
+        return matchingTasks;
     }
 
     public static void printTaskList() {

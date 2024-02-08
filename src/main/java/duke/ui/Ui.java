@@ -87,6 +87,21 @@ public class Ui {
         System.out.println( "-------------------------------- \n");
     }
 
+    public static void printMatchingTasks(ArrayList<Task> list) {
+        System.out.println( "-------------------------------- \n" +
+                "Here are the matching tasks in your list:");
+        if (list == null | list.isEmpty()) {
+            System.out.println("----You have no such tasks.----");
+        }
+        else {
+            for (int i = 0; i < list.size(); i++) {
+                Task iTask = list.get(i);
+                System.out.println((i + 1) + ". " + iTask.toString());
+            }
+        }
+        System.out.println( "-------------------------------- \n");
+    }
+
     public static void showLoadingError() {
         System.out.println("-------------------------------- \n" +
                 "Oops, error in uploading saved tasks. Please check if the format is correct.");

@@ -8,6 +8,7 @@ public enum Command {
     MARK ("mark", "mark <task_number>"),
     UNMARK("unmark", "unmark <task_number>"),
     DELETE("delete", "delete <task_number>"),
+    FIND("find", "find <keyword>"),
     TERMINATE("bye", "bye");
 
     public final String commandName;

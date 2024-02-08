@@ -87,6 +87,9 @@ public class Parser {
                     Ui.showErrorDatetimeFormat();
                 }
             }
+            else if (command.equals(Command.FIND.commandName)) {
+                Ui.printMatchingTasks(TaskList.findTaskByKeyword(task));
+            }
             else {
                 Ui.showErrorAndPrintCommands();
             }
