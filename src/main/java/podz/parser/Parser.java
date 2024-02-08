@@ -20,6 +20,9 @@ import podz.task.Todo;
  * Represents the parser of the user's input.
  */
 public class Parser {
+    /**
+     * Represents the available commands for the parser.
+     */
     public enum Commands {
         LIST,
         MARK,
@@ -33,7 +36,7 @@ public class Parser {
         UNKNOWN;
 
         /**
-         * Returns the enum value corresponding to command input or a default value.
+         * Returns the enum value corresponding to the command input or a default value.
          * 
          * @param command the string to be converted into an enum value
          * @return the enum value representing the string
