@@ -15,7 +15,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             if (!commandDetails.contains(" /from ") || !commandDetails.contains(" /to ")) {
                 throw new CommandFormatException("Wrong format, please include start and end time \nUsage: event <task description> /from <start time> /to <end time>");
@@ -28,10 +28,12 @@ public class AddEventCommand extends Command {
             Event event = new Event(description, start, end);
             if (!event.dateTimeIsNull()) {
                 tasks.addTask(event);
-                ui.showAdded(event, tasks);
+                return ui.showAdded(event, tasks);
+            } else {
+                return ui.showWrong();
             }
         } catch (CommandFormatException e) {
-            ui.showMessage(e.getMessage());
+            return ui.showMessage(e.getMessage());
         }
     }
 }

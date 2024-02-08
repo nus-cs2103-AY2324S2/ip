@@ -33,20 +33,24 @@ public class Ui {
         System.out.println("Hello! I'm Jerry.\nWhat can I do for you?");
     }
 
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return ("Bye. Hope to see you again soon!");
     }
 
     public void showError(String message) {
         System.out.println("Error: " + message);
     }
 
+    public String showWrong() {
+        return "Sorry, something went wrong";
+    }
+
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }
 
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return message;
     }
 
     /**
@@ -59,33 +63,36 @@ public class Ui {
         }
     }
 
-    public void showList(TaskList list) {
+    public String showList(TaskList list) {
         ArrayList<Task> tasks = list.getTasks();
-        System.out.println("Here are the tasks in your list:");
+        String result = "Here are the tasks in your list:";
         for (int x = 0; x < tasks.size() ; x++) {
-            System.out.println((x + 1) + "." + tasks.get(x));
+            result += '\n' + ((x + 1) + "." + tasks.get(x));
         }
+        if (tasks.size() == 0) {
+            result += "\n You have no items in your list.";
+        }
+        return result;
     }
 
-    public void showMark(TaskList list, int taskIndex) {
+    public String showMark(TaskList list, int taskIndex) {
         ArrayList<Task> tasks = list.getTasks();
-        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskIndex));
+        return ("Nice! I've marked this task as done:\n  " + tasks.get(taskIndex));
     }
 
-    public void showUnmark(TaskList list, int taskIndex) {
+    public String showUnmark(TaskList list, int taskIndex) {
         ArrayList<Task> tasks = list.getTasks();
-        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskIndex));
+        return ("OK, I've marked this task as not done yet:\n  " + tasks.get(taskIndex));
     }
 
-    public void showDelete(TaskList list, Task removedTask) {
+    public String showDelete(TaskList list, Task removedTask) {
         ArrayList<Task> tasks = list.getTasks();
-        System.out.println("I've removed this task:\n  " + removedTask);
-        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
+        String result = "I've removed this task:\n  " + removedTask;
+        return result + ("\nNow you have " + (tasks.size()) + " tasks in the list.");
     }
 
-    public void showAdded(Task task, TaskList tasks) {
-        System.out.println("Got it. I've added this task:\n  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    public String showAdded(Task task, TaskList tasks) {
+        return ("Got it. I've added this task:\n  " + task) + ("\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -93,10 +100,11 @@ public class Ui {
      *
      * @param tasks The list of tasks that match the search criteria.
      */
-    public void showTaskSearchResults(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showTaskSearchResults(ArrayList<Task> tasks) {
+        String result = "Here are the matching tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            result += '\n' + ((i + 1) + "." + tasks.get(i));
         }
+        return result;
     }
 }

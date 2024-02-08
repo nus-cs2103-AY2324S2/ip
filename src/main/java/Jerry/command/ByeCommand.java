@@ -8,8 +8,8 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        ui.showGoodbye();
+    public String execute() {
+        return ui.showGoodbye();
 
     }
 }

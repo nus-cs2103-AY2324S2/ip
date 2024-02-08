@@ -14,7 +14,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             if (!commandDetails.contains(" /by ")) {
                 throw new CommandFormatException("Wrong format, please include deadline \nUsage: deadline <task description> /by <date/time>");
@@ -25,10 +25,12 @@ public class AddDeadlineCommand extends Command {
             Deadline deadline = new Deadline(description, by);
             if (!deadline.byIsNull()) {
                 tasks.addTask(deadline);
-                ui.showAdded(deadline, tasks);
+                return ui.showAdded(deadline, tasks);
+            } else {
+                return ui.showWrong();
             }
         } catch (CommandFormatException e) {
-            ui.showMessage(e.getMessage());
+            return ui.showMessage(e.getMessage());
         }
     }
 }

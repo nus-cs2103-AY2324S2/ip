@@ -12,14 +12,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             tasks.unmark(taskIndex);
-            ui.showUnmark(tasks, taskIndex);
+            return ui.showUnmark(tasks, taskIndex);
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Task index is out of bounds.");
+            return ui.showMessage("Task index is out of bounds.");
         } catch (Exception e) {
-            ui.showError("Task index must be a number");
+            return ui.showMessage("Task index must be a number");
         }
     }
 }
