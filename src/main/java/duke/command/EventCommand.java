@@ -45,5 +45,4 @@ public class EventCommand extends Command {
         ui.taskResponse(event, tasks);
         storage.saveList(tasks.getTasks());
     }
-
 }

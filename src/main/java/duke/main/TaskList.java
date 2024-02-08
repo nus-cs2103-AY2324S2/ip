@@ -78,7 +78,7 @@ public class TaskList {
             tasks.remove(item);
         } else {
             int oneItem = item + 1;
-            throw new DukeException("Error! duke.task.Task number '" + oneItem + "' does not exist.");
+            throw new DukeException("\nError! Task number '" + oneItem + "' does not exist.");
         }
     }
 }

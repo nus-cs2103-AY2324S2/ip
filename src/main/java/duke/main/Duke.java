@@ -5,54 +5,46 @@ import duke.exception.DukeException;
 /**
  * Represents the main class for the chat application.
  */
-public class Duke { 
-
+public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private static final String filePath = "data/duke.txt";
+    private boolean isExit = false;
 
     /**
-     * Main method for the chat application.
-     *
-     * @param args Command-line arguments.
+     * Generates a response to user input.
      */
-    public static void main(String[] args) {
-        Duke duke = new Duke("data/duke.txt");
-        duke.startChat();
+    String getResponse(String input) {
+        if (!isExit) {
+            try {
+                ui.repeat();
+                Command c = Parser.parse(input);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+                return ui.getAnswer();
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
+        } else {
+            return "";
+        }
     }
 
     /**
-     * Constructs a Duke instance with the given file path to store tasks.
+     * Constructs a Duke object.
+     * Initialises the storage, user interface and task list.
      *
-     * @param filePath The file path for storing tasks.
+     * @throws DukeException If there is an error loading the task list from storage.
      */
-    private Duke(String filePath) {
+    Duke() {
         storage = new Storage(filePath);
         ui = new Ui();
         try {
             tasks = new TaskList(storage.loadList());
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
             tasks = new TaskList();
-        }
-    }
-
-    /**
-     * Starts the chat interface.
-     */
-    private void startChat() {
-        ui.sayHi();
-        boolean exited = false;
-        while (!exited) {
-            String fullCommand = ui.readCommand();
-            try {
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                exited = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
         }
     }
 }

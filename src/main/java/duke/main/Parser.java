@@ -72,7 +72,7 @@ public class Parser {
     private static int parseTaskNumber(String input, String command) throws DukeException {
         String taskNumString = input.replace(command, "").trim();
         if (taskNumString.isEmpty() || !taskNumString.matches("\\d+")) {
-            throw new DukeException("Error! Please provide a valid task number after '" + command + "'.");
+            throw new DukeException("\nError! Please provide a valid task number after '" + command + "'.");
         }
         int taskNumber = Integer.parseInt(taskNumString);
         return taskNumber;
