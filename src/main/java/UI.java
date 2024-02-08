@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class UI {
     public static void initMsg() {
         System.out.println("    ____________________________________________________________\n"
@@ -44,6 +42,14 @@ public class UI {
                 + "    ____________________________________________________________\n");
     }
 
+    public static void createSaveMsg(Boolean isSuccessful) {
+        System.out.println("    There was no save data.");
+        System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
+    }
+
+    public static void loadSaveMsg() {
+        System.out.println("    Successfully loaded the save data. ");
+    }
     public static void showList(TaskList list) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Here are the tasks in your list:");

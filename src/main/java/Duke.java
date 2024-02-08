@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.Scanner;
 
 public class Duke {
     private boolean isActive;
@@ -39,9 +35,8 @@ public class Duke {
         if (input.isEmpty()) {
             throw new ftException("Error: Please Type Command");
         }
-        StringTokenizer st = new StringTokenizer(input);
         try {
-            CommandTypes command = CommandTypes.valueOf(st.nextToken().toUpperCase());
+            CommandTypes command = Parser.parseType(input);
             switch (command) {
                 case BYE:
                     this.isActive = false;
@@ -50,27 +45,27 @@ public class Duke {
                     UI.showList(tasks);
                     break;
                 case MARK:
-                    tasks.mark(st);
+                    tasks.mark(input);
                     Storage.updateTask(tasks);
                     break;
                 case UNMARK:
-                    tasks.unmark(st);
+                    tasks.unmark(input);
                     Storage.updateTask(tasks);
                     break;
                 case TODO:
-                    tasks.addTask(st, CommandTypes.TODO);
+                    tasks.addTask(input, CommandTypes.TODO);
                     Storage.updateTask(tasks);
                     break;
                 case DEADLINE:
-                    tasks.addTask(st, CommandTypes.DEADLINE);
+                    tasks.addTask(input, CommandTypes.DEADLINE);
                     Storage.updateTask(tasks);
                     break;
                 case EVENT:
-                    tasks.addTask(st, CommandTypes.EVENT);
+                    tasks.addTask(input, CommandTypes.EVENT);
                     Storage.updateTask(tasks);
                     break;
                 case DELETE:
-                    tasks.deleteTask(st);
+                    tasks.deleteTask(input);
                     Storage.updateTask(tasks);
                     break;
                 default:

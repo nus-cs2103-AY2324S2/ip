@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
@@ -10,28 +8,25 @@ public class Storage {
         try {
             File save = new File("./data/myTask.txt");
             if (!save.exists()) {
-                System.out.println("    There was no save data.");
                 save.getParentFile().mkdirs();
                 boolean isSuccessful = save.createNewFile();
-                System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
+                UI.createSaveMsg(isSuccessful);
             } else {
-                System.out.println("    Successfully loaded the save data. ");
+                UI.loadSaveMsg();
             }
             Scanner s = new Scanner(save);
             while (s.hasNext()) {
-                String saved = s.nextLine();
-                String[] elements = saved.split("\\|");
-                elements = Arrays.stream(elements).map(String::trim).toArray(String[]::new);
-                String taskType = elements[0];
+                String[] parsedSave = Parser.parseSave(s.nextLine());
+                String taskType = parsedSave[0];
                 switch (taskType) {
                     case "T":
-                        myList.add(new ToDo(elements[2], Boolean.parseBoolean(elements[1])));
+                        myList.add(new ToDo(parsedSave[2], Parser.parseBool(parsedSave[1])));
                         break;
                     case "D":
-                        myList.add(new Deadline(elements[2], Boolean.parseBoolean(elements[1]), new Date(elements[3])));
+                        myList.add(new Deadline(parsedSave[2], Parser.parseBool(parsedSave[1]), new Date(parsedSave[3])));
                         break;
                     case "E":
-                        myList.add(new Event(elements[2], Boolean.parseBoolean(elements[1]), new Date(elements[3]), new Date(elements[4])));
+                        myList.add(new Event(parsedSave[2], Parser.parseBool(parsedSave[1]), new Date(parsedSave[3]), new Date(parsedSave[4])));
                         break;
                     default:
                         throw new ftException("    Warning: The file is corrupted. Please delete the file");

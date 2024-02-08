@@ -1,28 +1,20 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TaskList {
 
     private List<Task> myList;
-    private UI ui;
 
     public TaskList() {
         this.myList = new ArrayList<>();
-        this.ui = new UI();
     }
-    public void addTask(StringTokenizer st, CommandTypes ct) throws ftException {
+    public void addTask(String s, CommandTypes ct) throws ftException {
         Task task = null;
         switch (ct) {
             case TODO:
-                StringBuilder sbTD = new StringBuilder();
-                while (st.hasMoreTokens()) {
-                    String token = st.nextToken().trim();
-                    sbTD.append(" ").append(token);
-                }
-                String todo = sbTD.toString();
+                String todo = Parser.parseToDo(s);
                 if (!todo.isEmpty()) {
                     task = new ToDo(todo, false);
                 } else {
@@ -31,21 +23,9 @@ public class TaskList {
                 break;
 
             case DEADLINE:
-                StringBuilder sbDL = new StringBuilder();
-                StringBuilder sbBy = new StringBuilder();
-                while (st.hasMoreTokens()) {
-                    String token = st.nextToken().trim();
-                    if (token.equals("/by")) {
-                        while (st.hasMoreTokens()) {
-                            sbBy.append(" ").append(st.nextToken());
-                        }
-                        break;
-                    } else {
-                        sbDL.append(" ").append(token);
-                    }
-                }
-                String dt = sbDL.toString();
-                String by = sbBy.toString();
+                String[] parsedDL = Parser.parseDeadLine(s);
+                String dt = parsedDL[0];
+                String by = parsedDL[1];
                 if (!dt.isEmpty() && !by.isEmpty()) {
                     try {
                         task = new Deadline(dt, false, new Date(by));
@@ -58,29 +38,10 @@ public class TaskList {
                 break;
 
             case EVENT:
-                StringBuilder sb = new StringBuilder();
-                StringBuilder sbFrom = new StringBuilder();
-                StringBuilder sbTo = new StringBuilder();
-                while (st.hasMoreTokens()) {
-                    String token = st.nextToken().trim();
-                    if (token.equals("/from")) {
-                        while (st.hasMoreTokens()) {
-                            String curr = st.nextToken().trim();
-                            if (curr.equals("/to")) {
-                                while (st.hasMoreTokens()) {
-                                    sbTo.append(" ").append(st.nextToken());
-                                }
-                            } else {
-                                sbFrom.append(" ").append(curr);
-                            }
-                        }
-                    } else {
-                        sb.append(" ").append(token);
-                    }
-                }
-                String name = sb.toString();
-                String from = sbFrom.toString();
-                String to = sbTo.toString();
+                String[] parsedEvent = Parser.parseEvent(s);
+                String name = parsedEvent[0];
+                String from = parsedEvent[1];
+                String to = parsedEvent[2];
                 if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
                     try {
                         task = new Event(name, false, new Date(from), new Date(to));
@@ -99,11 +60,8 @@ public class TaskList {
     }
 
 
-    public void mark(StringTokenizer st) throws ftException {
-        if (!st.hasMoreTokens()) {
-            throw new ftException("Error: No index provided");
-        }
-        int i = Integer.parseInt(st.nextToken());
+    public void mark(String s) throws ftException {
+        int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
@@ -113,11 +71,8 @@ public class TaskList {
         }
     }
 
-    public void unmark(StringTokenizer st) throws ftException {
-        if (!st.hasMoreTokens()) {
-            throw new ftException("Error: No index provided");
-        }
-        int i = Integer.parseInt(st.nextToken());
+    public void unmark(String s) throws ftException {
+        int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
@@ -127,11 +82,8 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(StringTokenizer st) throws ftException {
-        if (!st.hasMoreTokens()) {
-            throw new ftException("Error: No index provided");
-        }
-        int i = Integer.parseInt(st.nextToken());
+    public void deleteTask(String s) throws ftException {
+        int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             String task = myList.remove(i - 1).toString();
             UI.deleteMsg(task, myList.size());
