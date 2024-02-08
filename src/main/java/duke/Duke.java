@@ -7,7 +7,6 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -93,7 +92,7 @@ public class Duke extends Application {
         while (isActive()) {
             // should start the cycle talking
             String userInput = ui.StartListening();
-            try{
+            try {
                 parser.ProcessInput(userInput);
             } catch (InputException e) {
                 ui.speak(e.getMessage());
