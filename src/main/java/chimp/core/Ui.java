@@ -50,6 +50,16 @@ public class Ui {
         System.out.println(divider);
     }
 
+    public void say(String key, String[] matches, TaskList list) {
+        String phrase = getPhrases().get(key);
+        System.out.println(divider);
+        System.out.println(phrase);
+        for (int i = 0; i < matches.length; i++) {
+            System.out.println((i + 1) + ". " + list.get(Integer.parseInt(matches[i]) - 1));
+        }
+        System.out.println(divider);
+    }
+
     public void printList(TaskList list) {
         System.out.println(divider);
         System.out.println("Here are the tasks in your list:");

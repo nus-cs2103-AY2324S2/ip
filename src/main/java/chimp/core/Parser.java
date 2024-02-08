@@ -76,6 +76,8 @@ public class Parser {
                 return new DeleteCommand(num);
             case "bye":
                 return new ExitCommand();
+            case "find":
+                return new FindCommand(arg);
             default:
                 throw new InvalidCommandException("command \"" + command + "\" is invalid");
         }
