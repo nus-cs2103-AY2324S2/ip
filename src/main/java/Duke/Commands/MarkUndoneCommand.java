@@ -10,10 +10,10 @@ import Duke.Ui;
  * Represents a command to mark a task as not done.
  */
 public class MarkUndoneCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
-    int indexToUnmark;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private int indexToUnmark;
 
     /**
      * Constructor for the MarkUndoneCommand class.

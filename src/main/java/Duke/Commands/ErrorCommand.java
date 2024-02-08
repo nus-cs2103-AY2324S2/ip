@@ -9,10 +9,10 @@ import Duke.Ui;
  * Represents a command to print an error.
  */
 public class ErrorCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
-    String error;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private String error;
 
     /**
      * Constructor for the ErrorCommand class.

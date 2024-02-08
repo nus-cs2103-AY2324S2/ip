@@ -1,19 +1,19 @@
 package Duke.Commands;
 
+import java.io.IOException;
+
 import Duke.DukeException;
 import Duke.Storage;
 import Duke.TaskList;
 import Duke.Ui;
 
-import java.io.IOException;
-
 /**
  * Represents a command to exit the chatBot.
  */
 public class GoodbyeCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
 
     /**
      * Constructor for the GoodbyeCommand class.

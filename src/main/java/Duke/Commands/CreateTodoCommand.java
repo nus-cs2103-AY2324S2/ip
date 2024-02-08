@@ -3,22 +3,18 @@ package Duke.Commands;
 import Duke.DukeException;
 import Duke.Storage;
 import Duke.TaskList;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
 import Duke.Tasks.Task;
 import Duke.Tasks.Todo;
 import Duke.Ui;
-
-import java.time.DateTimeException;
 
 /**
  * Represents a command to create a Todo task.
  */
 public class CreateTodoCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
-    String input;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private String input;
 
     /**
      * Constructor for the CreateTodoCommand class.
