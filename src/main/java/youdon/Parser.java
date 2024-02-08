@@ -72,6 +72,7 @@ public class Parser {
                     // save and wait for next input
                     try {
                         storage.saveData(taskList);
+                        System.out.println("Tasklist saved!");
                     } catch (IOException e) {
                         System.out.println("Error!" + e.getMessage());
                     }
@@ -95,6 +96,7 @@ public class Parser {
                     // save and wait for next input
                     try {
                         storage.saveData(taskList);
+                        System.out.println("Tasklist saved!");
                     } catch (IOException e) {
                         System.out.println("Error!" + e.getMessage());
                     }
@@ -117,6 +119,7 @@ public class Parser {
                     // save and wait for next input
                     try {
                         storage.saveData(taskList);
+                        System.out.println("Tasklist saved!");
                     } catch (IOException e) {
                         System.out.println("Error!" + e.getMessage());
                     }
@@ -135,6 +138,7 @@ public class Parser {
                     taskList.add(new Todo(task));
                     // print out task added
                     ui.printTaskAdded(taskList);
+                    System.out.println("Tasklist saved!");
                 }
 
                 // if task has "by", split into task and deadline
@@ -151,6 +155,7 @@ public class Parser {
                             taskList.add(new Deadline(taskDesc, dateTimeDeadline));
                             // print out task added
                             ui.printTaskAdded(taskList);
+                            System.out.println("Tasklist saved!");
                         } catch (Exception e) {
                             // handle the exception if the date or time is not the correct format
                             System.out.println("Oh no! That's not a correct date or time format!");
@@ -173,6 +178,7 @@ public class Parser {
                             taskList.add(new Event(taskDesc, dateTimeStart, dateTimeEnd));
                             // print out task added
                             ui.printTaskAdded(taskList);
+                            System.out.println("Tasklist saved!");
                         } catch (Exception e) {
                             // handle the exception if the date or time is not the correct format
                             System.out.println("Oh no! That's not a correct date or time format!");

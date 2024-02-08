@@ -3,9 +3,9 @@ package youdon;
 public class Youdon {
     public static void main(String[] args) {
 
-        // initialise ui and storage
+        // initialise ui and storage (filepath = "./data/save.txt")
         Ui ui = new Ui();
-        Storage storage = new Storage("./src/main/data/save.txt");
+        Storage storage = new Storage("./data/save.txt");
         TaskList taskList =  new TaskList(storage.loadData());
         Parser parser = new Parser(ui, taskList, storage);
 

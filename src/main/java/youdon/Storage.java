@@ -36,7 +36,6 @@ public class Storage {
                 Task task = taskList.get(i);
                 writer.write(task.toString() + "\n");
             }
-            System.out.println("Tasklist saved!");
         } catch (IOException e) {
             System.err.println("Error! " + e.getMessage());
         }
@@ -86,7 +85,7 @@ public class Storage {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
                         LocalDateTime startDateTime = LocalDateTime.parse(start, formatter);
                         // identify task end time
-                        startIndex = data.indexOf(" to:") + 4;
+                        startIndex = data.indexOf(" to:") + 5;
                         endIndex = data.indexOf(")", startIndex);
                         String end = data.substring(startIndex, endIndex);
                         LocalDateTime endDateTime = LocalDateTime.parse(end, formatter);
