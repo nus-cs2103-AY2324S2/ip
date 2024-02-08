@@ -70,15 +70,12 @@ public class Storage {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Creates a {@code Task} object from a line of text in the tasks file.
      *
      * @param line The line of text to parse.
      * @return A {@code Task} object, or {@code null} if the line is invalid.
      */
-=======
->>>>>>> branch-A-CodingStandard
     private static Task createTaskFromLine(String line) {
         Task t = null;
         String[] parts = line.split("\\|");

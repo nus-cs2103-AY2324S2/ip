@@ -10,29 +10,22 @@ import duke.task.Todo;
 
 import java.time.LocalDateTime;
 
-<<<<<<< HEAD
 /**
  * An {@code AddCommand} is a {@code Command} that adds a {@code Task} to a {@code TaskList}.
  */
 public class AddCommand extends Command {
-
     /**
      * The task to add.
      */
-    private Task task;
+    private final Task task;
 
     /**
      * Creates a new {@code AddCommand} for a {@code Todo} task with the given description.
      *
      * @param desc The description of the {@code Todo} task.
      */
-=======
-public class AddCommand extends Command {
-    private final Task task;
-
->>>>>>> branch-A-CodingStandard
     public AddCommand(String desc) {
-       task = new Todo(desc);
+        task = new Todo(desc);
     }
 
     /**
@@ -41,7 +34,6 @@ public class AddCommand extends Command {
      * @param desc The description of the {@code Deadline} task.
      * @param deadline The deadline of the {@code Deadline} task.
      */
-
     public AddCommand(String desc, LocalDateTime deadline) {
         task = new Deadline(desc, deadline);
     }
@@ -57,15 +49,12 @@ public class AddCommand extends Command {
         task = new Event(desc, from, to);
     }
 
-<<<<<<< HEAD
     /**
      * {@inheritDoc}
      *
      * Adds the task to the task list and saves the updated task list.
      * Displays the task that was added to the user.
      */
-=======
->>>>>>> branch-A-CodingStandard
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);

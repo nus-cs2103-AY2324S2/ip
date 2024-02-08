@@ -4,19 +4,15 @@ package duke.task;
  * A {@code Task} represents a task with a description and a status (done or not done).
  */
 public class Task {
-<<<<<<< HEAD
 
     /**
      * The description of the {@code Task}.
      */
-    protected String description;
+    public String description;
 
     /**
      * The status of the {@code Task}.
      */
-=======
-    public String description;
->>>>>>> branch-Level-9
     protected boolean isDone;
 
     /**
