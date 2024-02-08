@@ -47,14 +47,14 @@ public class Steven {
             Scanner input = new Scanner(System.in);
             while (input.hasNextLine()) {
                 UserInput command = new UserInput(input.nextLine());
-                exit = new Parser(command, this.tasks).processInput();
+                String outputString = new Parser(command, this.tasks).processInput();
+                System.out.println(outputString);
                 if (exit) {
                     System.out.print(LINE);
                     break;
                 }
             }
         }
-        System.out.println("I'll see you soon then!\n" + LINE);
     }
     public static void main(String[] args) {
         new Steven().run();

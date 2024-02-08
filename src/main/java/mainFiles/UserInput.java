@@ -51,15 +51,15 @@ public class UserInput {
         }
     }
 
-    boolean arg1Empty() {
+    public boolean arg1Empty() {
         return arg1 == null;
     }
 
-    boolean arg2Empty() {
+    public boolean arg2Empty() {
         return arg2 == null;
     }
 
-    boolean arg3Empty() {
+    public boolean arg3Empty() {
         return arg3 == null;
     }
 

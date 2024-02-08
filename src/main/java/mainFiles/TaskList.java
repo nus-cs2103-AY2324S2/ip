@@ -58,6 +58,20 @@ public class TaskList {
         }
     }
     /**
+     * Prints the current list
+     * It will add a counter to the list such that each task is enumerated. This method returns it as a string
+     * @return string that lists all the tasks
+     */
+    public String printListString() {
+        String retString = "";
+        int counter = 1;
+        for (Task t : taskList) {
+            retString += String.format("%d. %s%n\n", counter, t.toString());
+            counter++;
+        }
+        return retString;
+    }
+    /**
      * Marks an item with a particular index.
      * @param index Index of item to be marked.
      * @throws IncompatibleMarkException If the item to be marked is already marked.
