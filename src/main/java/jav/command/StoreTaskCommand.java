@@ -28,7 +28,7 @@ public class StoreTaskCommand extends TaskCommand {
     }
 
     @Override
-    public void Execute() throws IOException, InvalidParamException {
+    public void execute() throws IOException, InvalidParamException {
         try {
             StorageManager.getInstance().store(param, type);
             FileManager.getInstance().saveStorageData(StorageManager.getInstance().getFileFormat());

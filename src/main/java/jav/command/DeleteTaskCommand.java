@@ -20,7 +20,7 @@ public class DeleteTaskCommand extends TaskCommand {
     }
 
     @Override
-    public void Execute() throws InvalidParamException {
+    public void execute() throws InvalidParamException {
         if (Integer.parseInt(param) >= 1) {
             if (StorageManager.getInstance().deleteTask(Integer.parseInt(param) - 1)) {
                 UiManager.getInstance().printDeletingTask();

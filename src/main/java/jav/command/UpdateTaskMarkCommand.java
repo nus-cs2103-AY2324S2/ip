@@ -25,7 +25,7 @@ public class UpdateTaskMarkCommand extends TaskCommand {
     }
 
     @Override
-    public void Execute() throws InvalidParamException {
+    public void execute() throws InvalidParamException {
         if (Integer.parseInt(param) >= 1) {
             if (StorageManager.getInstance().updateTask(Integer.parseInt(param) - 1, isMarking)) {
                 if (isMarking) {

@@ -8,8 +8,8 @@ import jav.Jav;
 public class ShutdownCommand extends Command {
 
     @Override
-    public void Execute() {
-        Jav.Exit();
+    public void execute() {
+        Jav.exit();
     }
 
 }
