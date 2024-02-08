@@ -188,14 +188,9 @@ public class Parser {
     // After matching, it will return the list of tasks that contain the string 
     private static Command parseFind(String[] prCommand) {
         StringBuilder rest = new StringBuilder();
-        try {
-            for (int i = 1; i < prCommand.length; i++) {
-                rest.append(prCommand[i]).append(" ");
-            }
-            return new FindCommand(rest.toString());
-        } catch (Exception e) {
-            System.out.println("Incorrect number or command");
+        for (int i = 1; i < prCommand.length; i++) {
+            rest.append(prCommand[i]).append(" ");
         }
-        return null;
+        return new FindCommand(rest.toString());
     }
 }

@@ -105,7 +105,7 @@ public class UI {
     public String findTaskMessage(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         if (tasks.isEmpty()) {
-            return "No matching tasks\n";
+            return "No matching tasks found\n";
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 int idx = i + 1;
@@ -114,6 +114,7 @@ public class UI {
             return sb.toString();
         }
     }
+
     public String showError(String message) {
         return message;
     }

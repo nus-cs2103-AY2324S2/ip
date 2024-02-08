@@ -34,18 +34,21 @@ public class TaskList {
     public ArrayList<Task> allTasks() {
         return tasks;
     }
+
     /**
      * This method is used to find tasks that contain the keyword
+     *
      * @param keyword the keyword to search for
      * @return an ArrayList of tasks that contain the keyword
      */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.description.contains(keyword)) {
-                foundTasks.add(task);
+        for (Task t : tasks) {
+            if (t.toString().contains(keyword)) {
+                foundTasks.add(t);
             }
         }
         return foundTasks;
     }
 }
+

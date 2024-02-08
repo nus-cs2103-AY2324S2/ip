@@ -10,8 +10,8 @@ import Ping.UI;
 public class FindCommand extends Command {
     private final String keyword;
 
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FindCommand(String ... keyword) {
+        this.keyword = String.join(" ", keyword);
     }
 
     @Override
