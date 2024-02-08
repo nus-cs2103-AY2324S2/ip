@@ -99,4 +99,21 @@ public class AddTaskCommand extends Command {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String explain() {
+        return "Adds a task to the task list."
+                + "Format: "
+                + ADD_TODO_COMMAND + " <description>\n"
+                + "Example: "
+                + ADD_TODO_COMMAND + " read book\n"
+                + "Format: "
+                + ADD_DEADLINE_COMMAND + " <description> /by <deadline>\n"
+                + "Example: "
+                + ADD_DEADLINE_COMMAND + " return book /by 2019-12-15\n"
+                + "Format: "
+                + ADD_EVENT_COMMAND + " <description> /from <start date> /to <end date>\n"
+                + "Example: "
+                + ADD_EVENT_COMMAND + " fun event /from 2019-12-1 /to 2019-12-15";
+    }
 }

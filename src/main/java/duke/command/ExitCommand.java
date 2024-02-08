@@ -15,4 +15,9 @@ public class ExitCommand extends Command {
     public boolean terminate() {
         return true;
     }
+
+    @Override
+    public String explain() {
+        return "Exits the application.";
+    }
 }

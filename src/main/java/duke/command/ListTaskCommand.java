@@ -26,4 +26,9 @@ public class ListTaskCommand extends Command {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String explain() {
+        return "Lists all tasks from the task list.";
+    }
 }

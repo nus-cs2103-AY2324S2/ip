@@ -27,4 +27,11 @@ public class DeleteTaskCommand extends Command {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String explain() {
+        return "Deletes the task with the specified index from the task list.\n"
+                + "Format: delete <index>\n"
+                + "Example: delete 3";
+    }
 }
