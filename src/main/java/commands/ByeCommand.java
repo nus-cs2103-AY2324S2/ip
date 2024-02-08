@@ -1,9 +1,9 @@
 package commands;
 
 import exceptions.FileError;
+import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
-import storage.Storage;
 
 /**
  *  Command that signifies the closing of Blawg application

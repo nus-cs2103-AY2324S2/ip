@@ -12,7 +12,7 @@ public class ToDo extends Task {
     }
 
     public ToDo(String description, Boolean isDone) {
-        super(description, isDone,'T');
+        super(description, isDone, 'T');
     }
     @Override
     public String toString() {

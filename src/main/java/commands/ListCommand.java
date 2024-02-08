@@ -1,8 +1,8 @@
 package commands;
 
+import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
-import storage.Storage;
 
 /**
  *  Handles the displaying of the user's task list to the user in a readable manner

@@ -1,21 +1,19 @@
 package storage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import exceptions.FileAccessError;
 import exceptions.FileError;
-
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * <p>
@@ -54,7 +52,7 @@ public class Storage {
     /**
      * The method handles the reading of data from the txt file and converts it
      * to an ArrayList of tasks
-     <p>
+     * <p>
      *  This method opens the file specified by fileName, reads each line, and
      *  converts it into Task objects which are collected in an ArrayList. The
      *  ArrayList represents the user's task list and is used to recreate the state

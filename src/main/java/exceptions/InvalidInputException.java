@@ -1,7 +1,5 @@
 package exceptions;
 
-import exceptions.BlawgException;
-
 /**
  *  Represents exception relating to user submitting incorrect command inputs with
  *  wrong parameters.

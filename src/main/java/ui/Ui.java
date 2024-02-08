@@ -13,7 +13,9 @@ public class Ui {
     private static final String LINE = "____________________________________________________________\n";
     private final Scanner sc;
     private final PrintStream printer;
-
+    /**
+     * Initialises a UI class, setting up a Scanner and printer
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
         this.printer = new PrintStream(System.out);

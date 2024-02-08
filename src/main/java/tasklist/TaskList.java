@@ -1,8 +1,8 @@
 package tasklist;
 
-import tasks.Task;
-
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * <p>
@@ -10,13 +10,20 @@ import java.util.ArrayList;
  *  </p>
  */
 public class TaskList {
-    private ArrayList<Task>  tasks;
+    private final ArrayList<Task> tasks;
 
+    /**
+     * initialises an empty Tasklist
+     */
     public TaskList() {
 
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * initialises a Tasklist filled with task from an array
+     * @param tasks an arrayList of task to be stored in TaskList
+     */
     public TaskList(ArrayList<Task> tasks) {
 
         this.tasks = tasks;

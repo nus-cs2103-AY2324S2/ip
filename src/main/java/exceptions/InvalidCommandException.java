@@ -3,7 +3,7 @@ package exceptions;
 /**
  *  Represents exception relating to invalid commands.
  */
-public class InvalidCommandException extends Exception{
+public class InvalidCommandException extends Exception {
     public InvalidCommandException() {
         super();
     }

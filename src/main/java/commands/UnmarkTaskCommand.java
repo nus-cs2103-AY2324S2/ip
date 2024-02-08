@@ -8,7 +8,7 @@ import ui.Ui;
 /**
  *  Handles the unmarking of task as done
  */
-public class UnmarkTaskCommand extends Command{
+public class UnmarkTaskCommand extends Command {
     private final int index;
 
     public UnmarkTaskCommand(int index) {

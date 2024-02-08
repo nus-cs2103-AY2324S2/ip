@@ -6,7 +6,9 @@ import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
-
+/**
+ *  Handles the finding of tasks from the user's task list containing a word
+ */
 public class FindCommand extends Command {
     private final String wordToSearch;
 

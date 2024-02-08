@@ -1,28 +1,26 @@
 package parser;
 
-import commands.Command;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import commands.AddDeadlineCommand;
+import commands.AddEventCommand;
+import commands.AddTodoCommand;
 import commands.ByeCommand;
+import commands.Command;
+import commands.DeleteCommand;
 import commands.FindCommand;
 import commands.InvalidCommand;
 import commands.ListCommand;
 import commands.MarkTaskCommand;
 import commands.UnmarkTaskCommand;
-import commands.AddTodoCommand;
-import commands.AddDeadlineCommand;
-import commands.AddEventCommand;
-import commands.DeleteCommand;
-
+import exceptions.IncorrectDateError;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidInputException;
-import exceptions.IncorrectDateError;
-
 import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * <p>
@@ -95,13 +93,13 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     return new InvalidCommand(e.getMessage() + "\n");
                 }
-            }else if (firstWord.equalsIgnoreCase("find")) {
+            } else if (firstWord.equalsIgnoreCase("find")) {
                 String wordToSearch = String.join(" ", java.util.Arrays.copyOfRange(
                         splitInput, 1, splitInput.length));
                 return new FindCommand(wordToSearch);
             } else {
-                throw new InvalidCommandException("I don't know what that means :( Valid commands are: \n" +
-                        "list, todo, deadline, event, mark, unmark, bye\n");
+                throw new InvalidCommandException("I don't know what that means :( Valid commands are: \n"
+                        + "list, todo, deadline, event, mark, unmark, bye\n");
             }
         } catch (InvalidCommandException | IncorrectDateError | InvalidInputException e) {
             return new InvalidCommand(e.getMessage());
@@ -122,8 +120,8 @@ public class Parser {
         String description = "";
         String date = "";
         if (indexToUse == -1) {
-            throw new InvalidInputException("Invalid input! Proper usage is \n" +
-                    "deadline {task description} by {date}\n");
+            throw new InvalidInputException("Invalid input! Proper usage is \n"
+                    + "deadline {task description} by {date}\n");
         }
         description = deadlineText.substring(0, indexToUse).trim();
         date = deadlineText.substring(indexToUse + lengthToSkip).trim();
@@ -154,8 +152,8 @@ public class Parser {
         String startDate = "";
         String endDate = "";
         if (fromIndexToUse == -1 || toIndexToUse == -1) {
-            throw new InvalidInputException("Invalid input! Proper usage is \n" +
-                    "event {task description} from {start date} to {end date}\n");
+            throw new InvalidInputException("Invalid input! Proper usage is \n"
+                    + "event {task description} from {start date} to {end date}\n");
         }
         description = eventText.substring(0, fromIndexToUse).trim();
         startDate = eventText.substring(fromIndexToUse + fromLengthToSkip, toIndexToUse);

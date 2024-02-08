@@ -8,13 +8,24 @@ package tasks;
  */
 public class Deadline extends Task {
     private final String date;
+    /**
+     * initializes a Deadline clas
+     * @param description describes a Deadline
+     * @param date due date of the Deadline
+     */
     public Deadline(String description, String date) {
         super(description, 'D');
         this.date = date;
     }
 
+    /**
+     * initializes a Deadline clas
+     * @param description describes a Deadline
+     * @param isDone indicates if a Deadline has been marked as done
+     * @param date due date of the Deadline
+     */
     public Deadline(String description, Boolean isDone, String date) {
-        super(description, isDone,'D');
+        super(description, isDone, 'D');
         this.date = date;
     }
     @Override

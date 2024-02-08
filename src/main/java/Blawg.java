@@ -1,11 +1,9 @@
 import commands.Command;
-
 import exceptions.BlawgException;
-import tasklist.TaskList;
-import storage.Storage;
-import ui.Ui;
-
 import parser.Parser;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
 
 /**
  * <p>
@@ -18,6 +16,10 @@ public class Blawg {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
+    /**
+     * initialises a Blawg class
+     * @param filepath where the data storage file is read and written to
+     */
     public Blawg(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);

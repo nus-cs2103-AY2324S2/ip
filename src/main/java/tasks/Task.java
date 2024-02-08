@@ -10,18 +10,33 @@ public class Task {
     private boolean isDone;
     private final char shortForm;
 
+    /**
+     * initialises a Task class
+     * @param description describes a Task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.shortForm = 'T';
     }
 
+    /**
+     * initialises a Task class
+     * @param description describes a Task
+     * @param shortForm character that represents the type of class
+     */
     public Task(String description, char shortForm) {
         this.description = description;
         this.isDone = false;
         this.shortForm = shortForm;
     }
 
+    /**
+     * initialises a Task class
+     * @param description describes a Task
+     * @param isDone indicates if a Task has been marked as done
+     * @param shortForm character that represents the type of class
+     */
     public Task(String description, boolean isDone, char shortForm) {
         this.description = description;
         this.isDone = isDone;
@@ -44,11 +59,17 @@ public class Task {
         return (this.isDone ? "1" : "0");
     }
 
+    /**
+     * Changes the boolean isDone to True
+     */
     public void markAsDone() {
 
         this.isDone = true;
     }
 
+    /**
+     * Changes the boolean isDone to False
+     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
