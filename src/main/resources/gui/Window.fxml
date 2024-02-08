@@ -5,25 +5,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0" minWidth="500.0" prefHeight="700.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="talkingbot.gui.Window">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="650.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="talkingbot.gui.Window">
     <children>
-      <Pane layoutY="621.0" opacity="0.42" prefHeight="81.0" prefWidth="542.0" style="-fx-background-color: lightpink;" />
-        <TextField fx:id="textInput" layoutY="600.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#handleUserInput" opacity="0.58" prefHeight="65.0" prefWidth="439.0" style="-fx-background-radius: 1000;" AnchorPane.bottomAnchor="1.0">
+        <TextField fx:id="textInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="572.0" AnchorPane.bottomAnchor="1.0" />
+        <Button fx:id="sendButton" layoutX="574.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-radius: 100; -fx-background-color: lightyellow;" text="Send">
          <effect>
-            <DropShadow />
-         </effect>
-      </TextField>
-        <Button fx:id="sendButton" layoutX="403.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="44.0" prefWidth="96.0" style="-fx-background-color: lightgreen; -fx-background-radius: 1000;" text="Send" textAlignment="CENTER" AnchorPane.rightAnchor="1.0">
-         <effect>
-            <DropShadow blurType="GAUSSIAN" height="6.26" radius="2.63" spread="0.05" width="6.26" />
-         </effect>
-      </Button>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" layoutY="-17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minViewportWidth="100.0" minWidth="-Infinity" prefHeight="638.0" prefViewportWidth="100.0" prefWidth="542.0" vvalue="1.0">
+            <DropShadow radius="4.84" width="0.36" />
+         </effect></Button>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="660.0" prefWidth="650.0" vvalue="1.0">
             <content>
-                <VBox fx:id="vBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="637.0" prefWidth="560.0" style="-fx-background-color: lightblue;" />
+                <VBox fx:id="vBox" prefHeight="660.0" prefWidth="650.0" style="-fx-background-color: lightblue;" />
             </content>
         </ScrollPane>
     </children>

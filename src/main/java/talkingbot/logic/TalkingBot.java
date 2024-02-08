@@ -49,7 +49,6 @@ public class TalkingBot {
         Parser parser = new Parser();
         Command curCommand = parser.parseCommand(text);
         String response = curCommand.runCommand(this.tasks, this.saveFile, this.ui);
-        String hLine = this.ui.getHLine();
-        return String.format("%s%s%s", hLine, response, hLine);
+        return response;
     }
 }
