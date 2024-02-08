@@ -64,7 +64,7 @@ public class Ui {
                 guide();
                 continue;
             }
-            this.parser.parse(this.tasks, input);
+            this.parser.parseCommand(this.tasks, input);
             System.out.println(Ui.LINE);
         }
         sc.close();

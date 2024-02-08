@@ -24,7 +24,7 @@ public class Parser {
      * @param input the input string to be parsed.
      * @return a response message.
      */
-    public String parse(TaskList tasks, String input) {
+    public String parseCommand(TaskList tasks, String input) {
         String response = "";
         try {
             String[] parts = input.split(" ", 2);

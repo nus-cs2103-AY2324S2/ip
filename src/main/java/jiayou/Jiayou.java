@@ -31,7 +31,7 @@ public class Jiayou {
      * @return a response message.
      */
     public String getResponse(String input) {
-        return parser.parse(tasks, input);
+        return parser.parseCommand(tasks, input);
     }
 
     /**

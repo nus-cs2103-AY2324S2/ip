@@ -8,31 +8,31 @@ import java.time.format.DateTimeFormatter;
  * @author Liu Jiayao
  */
 public class Deadline extends Task {
-    private LocalDate byTime;
+    private LocalDate by;
 
     /**
      * Returns a new event task with the given description.
      *
      * @param description the description of the event task.
-     * @param byTime the deadline date.
+     * @param by the deadline date.
      */
-    public Deadline(String description, String byTime) {
+    public Deadline(String description, String by) {
         super(description);
-        this.byTime = LocalDate.parse(byTime);
+        this.by = LocalDate.parse(by);
     }
 
     public LocalDate getByTime() {
-        return this.byTime;
+        return this.by;
     }
 
     @Override
     public String toStringForStore() {
-        return "D" + super.toStringForStore() + " | by" + this.byTime.toString();
+        return "D" + super.toStringForStore() + " | by" + this.by.toString();
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.byTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
