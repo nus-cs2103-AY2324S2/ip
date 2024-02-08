@@ -6,8 +6,16 @@ import eve.tasks.Deadline;
 import eve.tasks.Event;
 import eve.tasks.Task;
 import eve.tasks.Todo;
-
+/**
+ * TaskList class is used to handle the commands that are input by the user
+ * It contains the methods to handle the commands
+ *    
+ */
 public class TaskList {
+    /**
+     * This method is used to list out the tasks in the list
+     * @param list is the list of tasks
+     */
     public static void commandList(ArrayList<Task> list){
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++ ){
@@ -17,6 +25,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method is used to mark a task as done
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */
     
     public static void commandMark(String[] tempyArr, ArrayList<Task> list){
         int index = Integer.parseInt(tempyArr[1]) - 1 ;
@@ -27,6 +40,12 @@ public class TaskList {
                 
     }
 
+    /**
+     * This method is used to mark a task as not done
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */
+
     public static void commandUnMark(String[] tempyArr, ArrayList<Task> list){
         int index = Integer.parseInt(tempyArr[1]) - 1 ;
         Task temp = list.get(index);
@@ -36,6 +55,11 @@ public class TaskList {
                 
     }
 
+    /**
+     * This method is used to delete a task
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */
     public static void commandDelete(String[] tempyArr, ArrayList<Task> list){
         int index = Integer.parseInt(tempyArr[1]) - 1 ;
         Task temp = list.get(index);
@@ -44,6 +68,13 @@ public class TaskList {
         System.out.println(temp.toString());
         System.out.println("Now you have " + list.size() +" tasks in the list.");       
     }
+
+    /**
+     * This method is used to add a todo task
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     * @throws EveExceptions
+     */
 
     public static void commandTodo (String[] tempyArr, ArrayList<Task> list) throws EveExceptions {
         
@@ -59,6 +90,11 @@ public class TaskList {
         System.out.println("Now you have " + list.size() +" tasks in the list.");
     }
 
+    /**
+     * This method is used to add a deadline task
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */
     public static void commandDeadline(String[] tempyArr, ArrayList<Task> list){
         String description = tempyArr[1];
         String arrTemp[] = description.split(" /by ");
@@ -72,6 +108,12 @@ public class TaskList {
         System.out.println("Now you have " + list.size() +" tasks in the list.");
     }
 
+    /**
+     * This method is used to add an event task
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */ 
+    
     public static void commandEvent(String[] tempyArr, ArrayList<Task> list){
         String description = tempyArr[1];
         String arrTemp[] = description.split(" /from ");

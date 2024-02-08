@@ -1,5 +1,8 @@
 package eve.tasks;
 
+/*
+ * This object is what is stored in the list 
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

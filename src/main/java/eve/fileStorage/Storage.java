@@ -13,6 +13,10 @@ import eve.tasks.Todo;
 import eve.tasks.Event;
 import eve.tasks.Deadline;
 
+/*
+ * Storage class is used to handle the file storage of the tasks,
+ * it contains the methods to load the tasks from the file and to write the tasks into the file
+ */
 public class Storage {
     private static final String directoryPath = "./data";
     private static final String filePath = "./data/Eve.txt";

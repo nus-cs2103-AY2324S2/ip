@@ -3,6 +3,9 @@ package eve.tasks;
 import java.time.LocalDateTime;
 import eve.parser.Parser;
 
+/*
+ * Event class is a subclass of Task class
+ */
 public class Event extends Task {
     protected LocalDateTime startString;
     protected LocalDateTime endString;
