@@ -41,4 +41,14 @@ public class TaskList {
         list.get(index).markAsUndone();
     }
 
+    public TaskList find(String keyword) {
+        TaskList foundList = new TaskList();
+        for (Task task : list) {
+            if (task.matchKeyword(keyword)) {
+                foundList.add(task);
+            }
+        }
+        return foundList;
+    }
+
 }
