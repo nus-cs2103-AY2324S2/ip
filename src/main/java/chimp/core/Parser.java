@@ -5,6 +5,14 @@ import chimp.exception.CommandParseException;
 import chimp.exception.InvalidCommandException;
 
 public class Parser {
+    /**
+     * Parses a given user input to a command.
+     *
+     * @param input the user input to be parsed
+     * @return the parsed Command object
+     * @throws InvalidCommandException if the command is invalid
+     * @throws CommandParseException if there is an error while parsing the command
+     */
     public static Command parse(String input) throws InvalidCommandException, CommandParseException {
         int num;
         input = input.toLowerCase();
