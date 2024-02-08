@@ -7,9 +7,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the part of the program taht handles the file management.
+ */
 public class Storage {
     private final File file;
 
+    /**
+     * Initialize the file using the given folder and file name. If there is an existing file, just use it.
+     * If the folder or file does not exist, create them.
+     *
+     * @param fileFolder The directory of the file
+     * @param fileName   Name of the file
+     * @throws DukeException If the creation of file is unsuccessful.
+     */
     Storage(String fileFolder, String fileName) throws DukeException {
         File directory = new File(fileFolder);
         if (!directory.exists()) {
@@ -31,6 +42,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from an existing file, and sends the tasks to the initialization stage of the program.
+     *
+     * @return An ArrayList of the lines in the file
+     * @throws DukeException if the file is not found.
+     */
     ArrayList<String> load() throws DukeException {
         ArrayList<String> result = new ArrayList<>();
         try {
@@ -45,6 +62,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrite a certain line in the file using the latest information of the task.
+     *
+     * @param num  the index of the task that needs to be updated
+     * @param task The task with latest updated information
+     */
     public void editLine(int num, Task task) {
         try {
             int i = 1;
@@ -69,6 +92,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a line from the file if the task on that line is deleted.
+     *
+     * @param num The index of the task to be deleted
+     */
     public void deleteLine(int num) {
         try {
             int i = 1;
@@ -91,6 +119,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a new task to the file when a new task is created.
+     *
+     * @param task The new task added
+     */
     public void addTask(Task task) {
         try {
             FileWriter fw = new FileWriter(file, true);

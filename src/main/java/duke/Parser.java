@@ -2,7 +2,17 @@ package duke;
 
 import command.*;
 
+/**
+ * Represents the process of understanding user's prompts, and convert them into certain commands.
+ */
 abstract class Parser {
+    /**
+     * Converts the user's prompt into commands that can be executed.
+     *
+     * @param prompt The user input.
+     * @return Certain meaningful commands.
+     * @throws DukeException if the prompt is meaningless or of incompatible format.
+     */
     static Command parse(String prompt) throws DukeException {
         String adjustedPrompt = prompt.replaceAll("\\s+", " ");
         String[] order = adjustedPrompt.split(" ");
