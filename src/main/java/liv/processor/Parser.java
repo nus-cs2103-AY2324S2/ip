@@ -22,6 +22,8 @@ public class Parser {
             return parseMarkOrUnmarkCommand(input, false);
         } else if (input.startsWith("delete")) {
             return parseDeleteCommand(input);
+        } else if (input.startsWith("find")) {
+            return parseFindCommand(input);
         } else if (input.startsWith("todo")) {
             return parseTodoCommand(input);
         } else if (input.startsWith("deadline")) {
@@ -118,5 +120,14 @@ public class Parser {
         LocalDateTime to = LocalDateTime.parse(time2, INPUT_PATTERN);
         Event newEvent = new Event(description, from, to);
         return new EventCommand(newEvent);
+    }
+
+    public static Command parseFindCommand(String input) throws LivException {
+        int spaceIndex = input.indexOf(' ');
+        if (spaceIndex == -1) {
+            throw new LivException("Keyword cannot be empty!");
+        }
+        String keyword = input.substring(spaceIndex + 1);
+        return new FindCommand(keyword);
     }
 }

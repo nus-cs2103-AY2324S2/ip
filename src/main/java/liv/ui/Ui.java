@@ -1,5 +1,6 @@
 package liv.ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import liv.container.TaskList;
 import liv.task.Task;
@@ -50,23 +51,38 @@ public class Ui {
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
     public static void displayTodoCommand(TodoTask todo) {
-        System.out.println("liv.task.Task added:");
+        System.out.println("Task added:");
         System.out.println(todo.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
 
     public static void displayDeadlineCommand(Deadline deadline) {
-        System.out.println("liv.task.Deadline added:");
+        System.out.println("Deadline added:");
         System.out.println(deadline.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
 
     public static void displayEventCommand(Event event) {
-        System.out.println("liv.task.Task added:");
+        System.out.println("Event added:");
         System.out.println(event.getDisplayedString());
         System.out.println("You have " + TaskList.getListSize() + " mission(s) on the list");
     }
 
+    /**
+     * Displays the texts and results of the "find" command.
+     * @param matchingTasks The list of tasks that is the result of the "find" command.
+     */
+    public static void displayFindCommand(ArrayList<String> matchingTasks) {
+        if (matchingTasks.size() == 0) {
+            System.out.println("No mission found!");
+        } else {
+            System.out.println("Here are the mission(s) you requested me to find:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(matchingTasks.get(i));
+            }
+            System.out.println("Total: " + matchingTasks.size() + " mission(s)");
+        }
+    }
     public void displayErrorMessage(String message) {
         System.out.println(message);
     }
