@@ -1,6 +1,15 @@
 package duke;
 
-import command.*;
+import command.Command;
+import command.AddTaskCommand;
+import command.ListCommand;
+import command.ExitCommand;
+import command.MarkCommand;
+import command.SearchDateCommand;
+import command.UnmarkCommand;
+import command.DeleteCommand;
+import command.FindKeywordCommand;
+
 
 /**
  * Represents the process of understanding user's prompts, and convert them into certain commands.
@@ -55,7 +64,11 @@ abstract class Parser {
                 throw e;
             }
             return new SearchDateCommand(order[1]);
-        case "exit":
+        case "find":
+            if (order.length > 2) {
+                throw e;
+            }
+            return new FindKeywordCommand(order[1]);
         case "bye":
             if (order.length > 1) {
                 throw e;

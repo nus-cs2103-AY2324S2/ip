@@ -129,6 +129,17 @@ abstract public class Task {
         return false;
     }
 
+
+    /**
+     * Checks if a keyword is contained in the content of the task.
+     *
+     * @param keyword The keyword typed in by the user
+     * @return True if the keyword is contained in the content
+     */
+    boolean isContaining(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     /**
      * Prints the task with certain information.
      *
