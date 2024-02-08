@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = "gandalf.jar"
     dependsOn("distZip", "distTar")
 }
 

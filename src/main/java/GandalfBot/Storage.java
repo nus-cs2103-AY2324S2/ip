@@ -1,6 +1,9 @@
 package GandalfBot;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +25,20 @@ public class Storage {
             data = (ArrayList<Task>) ois.readObject();
         }
         catch(FileNotFoundException e){
-            throw new GandalfException("The file is lost in time");
+            try {
+                // Create directory if it doesn't exist
+                Path dirPath = Paths.get(this.filePathMeta).getParent();
+                if (!Files.exists(dirPath)) {
+                    Files.createDirectories(dirPath);
+                }
+
+                // Create the file if it doesn't exist
+                if (!Files.exists(Paths.get(this.filePathMeta))) {
+                    Files.createFile(Paths.get(this.filePathMeta));
+                }
+            } catch (IOException ex) {
+                throw new GandalfException("Error creating file: " + ex.getMessage());
+            }
         }
         catch(IOException | ClassNotFoundException e){
             throw new GandalfException("Error with IO or class");
@@ -30,21 +46,52 @@ public class Storage {
         return data;
     }
     public void store(ArrayList<Task> arrayList) {
-        //store as readable format
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePathRead))){
-            for(int i = 0; i < arrayList.size(); i++) {
-                Task action = arrayList.get(i);
-                writer.write((i + 1) + ". " + action);
-                writer.newLine();
+        try {
+            // Create directory if it doesn't exist
+            Path dirPath = Paths.get(this.filePathMeta).getParent();
+            if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
             }
-        }
-        catch(IOException e){
+
+            // Create the file if it doesn't exist
+            if (!Files.exists(Paths.get(this.filePathMeta))) {
+                Files.createFile(Paths.get(this.filePathMeta));
+            }
+
+            // Write object to file
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePathMeta, false))) {
+                oos.writeObject(arrayList);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.filePathMeta, false))) {
-            oos.writeObject(arrayList);
-        } catch (IOException e) {
-            e.getMessage();
+
+        try {
+            // Create directory if it doesn't exist
+            Path dirPath = Paths.get(this.filePathRead).getParent();
+            if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
+            }
+
+            // Create the file if it doesn't exist
+            if (!Files.exists(Paths.get(this.filePathRead))) {
+                Files.createFile(Paths.get(this.filePathRead));
+            }
+            //store as readable format
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePathRead))) {
+                for (int i = 0; i < arrayList.size(); i++) {
+                    Task action = arrayList.get(i);
+                    writer.write((i + 1) + ". " + action);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
