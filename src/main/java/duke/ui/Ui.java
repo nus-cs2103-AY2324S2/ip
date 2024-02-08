@@ -126,6 +126,15 @@ public class Ui {
         System.out.println("Till next time!");
         duke.ToggleActiveState();
     }
+    /*
+     public void EndSession() {
+        // should be called from ACTIVE_LISTENING STATE, exception handling?
+        ToggleConversationState();
+        System.out.println("Hope you find my service helpful.");
+        System.out.println("Till next time!");
+        duke.ToggleActiveState();
+    }
+     */
 
     public static void printHorizontalLine() {
         horizontalLine.printLine();

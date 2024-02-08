@@ -166,6 +166,11 @@ public class Parser {
             return "bye";
         }
 
+        if (input.equals("close")) {
+            duke.close();
+            return "close";
+        }
+
         if (input.equals("list") || input.equals("print tasks") ) {
             return ui.listTasksReturnString();
         }

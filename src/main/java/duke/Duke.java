@@ -39,6 +39,8 @@ public class Duke extends Application {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/photo_1.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/photo_2.jpeg"));
 
+    private Stage stage;
+
 
     private enum LivState {
         ACTIVE,
@@ -47,7 +49,9 @@ public class Duke extends Application {
     private static Duke instance = null;
     private LivState currentState = null;
 
-    public Duke() {
+    public Duke(Stage stage) {
+        this.stage = stage;
+
         // break the initialisation into the initialization function of different classes
         currentState = LivState.INACTIVE;
 
@@ -138,11 +142,11 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(userImage)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(dukeText, dukeImage)
         );
         userInput.clear();
     }
@@ -255,8 +259,12 @@ public class Duke extends Application {
 
     public static Duke getInstance() {
         if (instance == null) {
-            instance = new Duke();
+            //instance = new Duke();
         }
         return instance;
+    }
+
+    public void close() {
+        stage.close();
     }
 }
