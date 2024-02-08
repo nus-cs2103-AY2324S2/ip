@@ -11,7 +11,7 @@ import java.io.FileWriter;
 public class FileHandler {
     private static final String FILE_PATH = "./data/paimon.txt";
 
-    public FileHandler() {
+    public FileHandler(String pathName) {
     }
 
     private static Task convertDataToTask(String data) throws IOException {
@@ -28,14 +28,14 @@ public class FileHandler {
             case "D":
                 try {
                     returnTask = new DeadlineTask(fields[2], DateParser.parseDate(fields[3]));
-                } catch (DateTimeParseException e) {
+                } catch (ChatException e) {
                     throw new IOException("Unable to read date " + fields[3]);
                 }
                 break;
             case "E":
                 try {
                     returnTask = new EventTask(fields[2], DateParser.parseDate(fields[3]), DateParser.parseDate(fields[4]));
-                } catch (DateTimeParseException e) {
+                } catch (ChatException e) {
                     throw new IOException("Unable to read date " + fields[3] + " " + fields[4]);
                 }
                 break;

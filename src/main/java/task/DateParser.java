@@ -1,5 +1,7 @@
 package main.java.task;
 
+import main.java.ChatException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -17,7 +19,7 @@ public class DateParser {
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"),
             DateTimeFormatter.ofPattern("dd/MM/yyyy")
     );
-    public static LocalDateTime parseDate(String input) throws DateTimeParseException {
+    public static LocalDateTime parseDate(String input) throws ChatException {
         LocalDateTime dateTime = null;
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -32,11 +34,6 @@ public class DateParser {
                 // Continue to the next formatter
             }
         }
-
-        if (dateTime == null) {
-            throw new DateTimeParseException("Not able to parse", input, 0);
-        } else {
-            return dateTime;
-        }
+        throw new ChatException("The date should be in the format: yyyy/MM/dd, yyyy/MM/dd HH:mm, yyyy-MM-DD, dd/MM/yyyy HH:mm");
     }
 }
