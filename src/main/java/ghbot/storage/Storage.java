@@ -1,4 +1,4 @@
-package ghbot;
+package ghbot.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import ghbot.task.Deadline;
+import ghbot.task.Event;
+import ghbot.task.Task;
+import ghbot.task.Todo;
 
 /**
  * Storage Class.

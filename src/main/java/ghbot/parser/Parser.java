@@ -1,9 +1,10 @@
-package ghbot;
+package ghbot.parser;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import ghbot.Instruction;
 import ghbot.executor.ByeExecutor;
 import ghbot.executor.DeadlineExecutor;
 import ghbot.executor.DeleteExecutor;

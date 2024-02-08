@@ -1,6 +1,6 @@
 package ghbot.executor;
 
-import ghbot.Deadline;
+import ghbot.task.Deadline;
 
 /**
  * DeadlineExecutor Class.

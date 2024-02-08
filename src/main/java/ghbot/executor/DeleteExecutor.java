@@ -22,6 +22,10 @@ public class DeleteExecutor extends Executor {
      */
     @Override
     public String execute() {
+        if (this.lstNo < 1 || this.lstNo > this.taskList.taskSize()) {
+            return "Sorry, you may have select a task that is out of scope!\n"
+                    + "Please select a number from 1 to " + taskList.taskSize();
+        }
         this.executeStr = "Noted. I've removed this task:\n" + this.taskList.getTask(lstNo - 1) + "\n";
         this.taskList.deleteTask(lstNo - 1);
         this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";

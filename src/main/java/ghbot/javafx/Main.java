@@ -1,7 +1,8 @@
-package ghbot;
+package ghbot.javafx;
 
 import java.io.IOException;
 
+import ghbot.GhBot;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

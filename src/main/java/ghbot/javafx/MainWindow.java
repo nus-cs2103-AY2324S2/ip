@@ -1,8 +1,9 @@
-package ghbot;
+package ghbot.javafx;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ghbot.GhBot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

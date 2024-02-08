@@ -1,8 +1,11 @@
-package ghbot;
+package ghbot.ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import ghbot.Instruction;
+import ghbot.exception.GhBotException;
 
 /**
  * Ui Class.
@@ -42,7 +45,7 @@ public class Ui {
                 && !subStr[0].equalsIgnoreCase(Instruction.DELETE.toString())
                 && !subStr[0].equalsIgnoreCase(Instruction.FIND.toString())) {
             throw new GhBotException("Sorry! I don't get the instruction!\n"
-                    + "please use either todo, deadline, event, list, mark, unmark, bye or delete!");
+                    + "please use either todo, deadline, event, list, mark, unmark, bye, find or delete!");
         }
 
         if (subStr[0].equalsIgnoreCase(Instruction.TODO.toString()) && subStr.length < 2) {

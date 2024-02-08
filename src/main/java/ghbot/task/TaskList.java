@@ -1,4 +1,4 @@
-package ghbot;
+package ghbot.task;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ghbot;
+package ghbot.exception;
 
 /**
  * GhBotException Class.

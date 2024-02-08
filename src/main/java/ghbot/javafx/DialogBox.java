@@ -1,4 +1,4 @@
-package ghbot;
+package ghbot.javafx;
 
 import java.io.IOException;
 import java.util.Collections;

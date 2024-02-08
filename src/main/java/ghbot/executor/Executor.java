@@ -1,6 +1,6 @@
 package ghbot.executor;
 
-import ghbot.TaskList;
+import ghbot.task.TaskList;
 
 /**
  * Executor Abstract Class.

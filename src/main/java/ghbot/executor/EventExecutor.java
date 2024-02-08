@@ -1,6 +1,6 @@
 package ghbot.executor;
 
-import ghbot.Event;
+import ghbot.task.Event;
 
 /**
  * EventExecutor Class.

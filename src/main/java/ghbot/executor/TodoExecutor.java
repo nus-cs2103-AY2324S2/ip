@@ -1,6 +1,6 @@
 package ghbot.executor;
 
-import ghbot.Todo;
+import ghbot.task.Todo;
 
 /**
  * TodoExecutor Class.

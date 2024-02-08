@@ -1,4 +1,4 @@
-package ghbot;
+package ghbot.javafx;
 
 import javafx.application.Application;
 
