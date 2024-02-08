@@ -22,7 +22,7 @@ public class Event extends Task {
 
     /**
      * Returns a string description for the item in the list for file operation.
-     * @return a string.
+     * @return A string.
      */
     @Override
     public String toFile() {
@@ -31,7 +31,7 @@ public class Event extends Task {
 
     /**
      * Returns a string description of an event.
-     * @return a string that describe the event.
+     * @return A string that describe the event.
      */
     @Override
     public String toString() {

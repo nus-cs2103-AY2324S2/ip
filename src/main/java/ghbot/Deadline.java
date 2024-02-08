@@ -19,7 +19,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string description for the item in the list for file operation.
-     * @return a string.
+     * @return A string.
      */
     @Override
     public String toFile() {
@@ -28,7 +28,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string description of a deadline task.
-     * @return a string that describe the deadline.
+     * @return A string that describe the deadline.
      */
     @Override
     public String toString() {
