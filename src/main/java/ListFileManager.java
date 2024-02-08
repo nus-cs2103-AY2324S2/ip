@@ -9,33 +9,10 @@ public class ListFileManager {
     public ListFileManager (String filename) {
         createFile(filename);
     }
-//        try {
-//            //Solution below inspired by https://www.geeksforgeeks.org/file-createnewfile-method-in-java-with-examples/
-//            File listFile = new File("../../data/tasklist.txt");
-//            System.out.println("Blank TEst");
-//
-//            if (listFile.createNewFile()) {
-//                System.out.println("File created");
-//                BufferedWriter writer = new BufferedWriter(new FileWriter(listFile, true));
-//                writer.append("Writing\n");
-//                writer.close();
-//
-//            } else {
-//                System.out.println("File already exists");
-//
-//            }
-//
-//        } catch (IOException e) {
-//            System.out.println("File is empty");
-//
-//
-//        }
-//    }
 
     public void createFile(String filename) {
         try {
             //https://www.java67.com/2014/02/how-to-create-file-and-directory-in-java.html#:~:text=File%20provides%20methods%20like%20createNewFile,the%20directory%20is%20created%20successfully.
-
             boolean success = true;
             directory = new File("data");
 
@@ -59,10 +36,8 @@ public class ListFileManager {
                     System.out.println("File created: " + listFile.getName());
                 } else {
                     System.out.println("File already exists. " + listFile.getAbsolutePath());
-
                 }
             }
-
 
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -81,12 +56,25 @@ public class ListFileManager {
             System.out.println("An error occurred.");
 //            e.printStackTrace();
         }
-
     }
 
     public void appendEntry(list_Entry entry) {
         appendToFile(entry.type + "," + entry.check + "," + entry.task + "," + entry.task_start + "," + entry.task_end + "\n");
     }
+
+    public void clearFile() {
+        try {
+            FileWriter myWriter = new FileWriter(listFile);
+            myWriter.write("");
+            myWriter.close();
+            System.out.println("Successfully cleared the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+//            e.printStackTrace();
+        }
+    }
+
+
 
     public void loadList(ArrayList<list_Entry> loadList) {
 //        ArrayList<list_Entry> loadList = new ArrayList<>();

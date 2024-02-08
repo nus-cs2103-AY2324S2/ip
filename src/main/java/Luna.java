@@ -59,8 +59,9 @@ public class Luna {
             }
 
             if (input_command.equalsIgnoreCase("save")) {
-                for (int i = 0; i < user_list.size(); i++) {
-                    lfm.appendEntry(user_list.get(i));
+                lfm.clearFile();
+                for (list_Entry listEntry : user_list) {
+                    lfm.appendEntry(listEntry);
                 }
             } else if (input_command.equalsIgnoreCase("load")) {
                 user_list.clear();
