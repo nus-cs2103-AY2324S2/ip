@@ -1,12 +1,17 @@
 package CinnamoRoll;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 class TaskList {
     private final ArrayList<Task> tasks;
-    private final String PATH;
+    private final String PATH = "src/main/java/Cinnamo.txt";
     private final Parser parser = new Parser();
 
     private enum Users {
@@ -22,12 +27,10 @@ class TaskList {
 
     TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.PATH = "src/main/java/test.txt";
     }
 
-    TaskList(ArrayList<Task> tasks, String path) {
+    TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.PATH = path;
     }
 
     public Task getUser(int index) {
@@ -37,10 +40,8 @@ class TaskList {
     /**
      * Writes the tasks stored in the current task list to the file specified by the PATH constant.
      * The tasks are formatted and written according to the list() method's output.
-     *
-     * @throws IOException If there is an error writing to the file.
      */
-    public void writeInto() throws IOException {
+    public void writeInto() {
         try {
             FileWriter filewriter = new FileWriter(this.PATH);
             filewriter.write(this.listTask());
@@ -55,10 +56,9 @@ class TaskList {
      *
      * @param instruction An array representing the task instruction.
      * @return A string message indicating the success of adding the task.
-     * @throws IOException If there is an error writing to the file.
      * @throws CinnamoException If there is an error parsing the task instruction or a specific type of task-related exception occurs.
      */
-    private String executeTask(String[] instruction) throws IOException, CinnamoException {
+    private String executeTask(String[] instruction) throws CinnamoException {
         try {
             Task task = this.parser.parseTasks(instruction);
             this.tasks.add(task);
