@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private Circle circle;
 
     private DialogBox(String text, Image img) {
         try {
@@ -42,7 +45,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        circle.setFill(new ImagePattern(img));
+        //displayPicture.setImage(img);
     }
 
     /**
@@ -54,6 +58,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
