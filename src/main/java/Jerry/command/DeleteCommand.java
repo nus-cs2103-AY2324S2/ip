@@ -13,14 +13,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             Task removedTask = tasks.deleteTask(taskIndex);
-            ui.showDelete(tasks, removedTask);
+            return ui.showDelete(tasks, removedTask);
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Task index is out of bounds.");
+            return ui.showMessage("Task index is out of bounds.");
         } catch (Exception e) {
-            ui.showError("Task index must be a number");
+            return ui.showMessage("Task index must be a number");
         }
     }
 }

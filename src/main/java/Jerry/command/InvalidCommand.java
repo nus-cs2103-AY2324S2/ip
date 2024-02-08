@@ -8,7 +8,7 @@ public class InvalidCommand extends Command{
         super(ui, null);
     }
     @Override
-    public void execute() {
-        ui.showMessage("Invalid Command");
+    public String execute() {
+        return ui.showMessage("Invalid Command");
     }
 }

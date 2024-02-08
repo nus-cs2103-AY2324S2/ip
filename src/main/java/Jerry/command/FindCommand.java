@@ -15,8 +15,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         ArrayList<Task> foundTasks = tasks.findTasks(keyword);
-        ui.showTaskSearchResults(foundTasks);
+        return ui.showTaskSearchResults(foundTasks);
     }
 }

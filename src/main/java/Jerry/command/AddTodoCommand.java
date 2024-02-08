@@ -13,16 +13,16 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             if (description.trim().isEmpty()) {
                 throw new CommandFormatException("Error: Wrong format \nUsage: todo <task description>");
             }
             ToDo todo = new ToDo(description);
             tasks.addTask(todo);
-            ui.showAdded(todo, tasks);
+            return ui.showAdded(todo, tasks);
         } catch (CommandFormatException e) {
-            ui.showError(e.getMessage());
+            return ui.showMessage(e.getMessage());
         }
     }
 }
