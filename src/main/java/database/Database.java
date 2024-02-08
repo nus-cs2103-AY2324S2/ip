@@ -16,6 +16,7 @@ public class Database {
 
     /**
      * Connect to the database.
+     *
      * @throws SQLException
      *             if a database error occurs
      */
@@ -36,6 +37,7 @@ public class Database {
 
     /**
      * Disconnect from the database.
+     *
      * @throws SQLException
      *             if a database error occurs
      */
@@ -45,6 +47,7 @@ public class Database {
 
     /**
      * Execute a SQL statement.
+     *
      * @param sql
      *            the SQL statement to execute
      * @return a ResultSet object that contains the data produced by the given
@@ -60,6 +63,7 @@ public class Database {
 
     /**
      * Execute a SQL statement.
+     *
      * @param sql
      *            the SQL statement to execute
      * @param values
@@ -80,6 +84,7 @@ public class Database {
 
     /**
      * Execute a SQL insert statement.
+     *
      * @param sql
      *            the SQL statement to execute
      * @return a ResultSet object that contains the data produced by the given
@@ -95,6 +100,7 @@ public class Database {
 
     /**
      * Execute a SQL insert statement.
+     *
      * @param sql
      *            the SQL statement to execute
      * @param values
@@ -115,6 +121,7 @@ public class Database {
 
     /**
      * Execute a SQL select statement.
+     *
      * @param sql
      *            the SQL statement to execute
      * @return a ResultSet object that contains the data produced by the given
@@ -130,6 +137,7 @@ public class Database {
 
     /**
      * Execute a SQL select statement.
+     *
      * @param sql
      *            the SQL statement to execute
      * @param values
@@ -151,6 +159,7 @@ public class Database {
     /**
      * Migrate the database with the necessary tables, if they don't exist.
      * This method should be called after connecting to the database.
+     *
      * @throws SQLException
      *             if a database error occurs
      */
