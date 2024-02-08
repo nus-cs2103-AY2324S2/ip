@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -16,7 +15,7 @@ public class FileHandler {
     public static boolean isMarked(String input) {
         return String.valueOf(input.charAt(4)).equals("X");
     }
-    public static Path addTasks(ArrayList<Task> storage, Path filePath) throws IOException {
+    public static Path handleFile(TaskList storage, Path filePath) throws IOException {
         try {
             List<String> taskList = Files.readAllLines(filePath);
             for (String s : taskList) {

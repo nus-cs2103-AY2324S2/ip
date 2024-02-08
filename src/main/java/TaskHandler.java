@@ -13,36 +13,24 @@ import java.util.regex.Pattern;
 
 public class TaskHandler{
 
-    public static void addTasks(String input, ArrayList<Task> storage, Path filePath) throws IOException {
+    public static void doTasks(String input, TaskList storage, Path filePath) throws IOException {
         int taskNum = storage.size() + 1;
         if (input.equals("list")) {
-            System.out.println("__________________________________\n" +
-                    "Here are the tasks in your list:\n");
-            for (int i = 0; i < storage.size(); i++) {
-                int counter = i + 1;
-                String output = counter + ". " + storage.get(i).toString();
-                System.out.println(output);
-            }
+            String contents = storage.showALlTask();
+
+            UI.listMsg(contents);
+
+        } else if (input.equals("help")) {
+            UI.showAvailCommands();
 
         } else if (input.startsWith("mark")) {
             String[] temp = input.split(" ");
             try {
-                if (temp.length <= 1) {
-                    throw new DukeException("__________________________________\n" +
-                            "What tasks do you want to mark?");
-                }
+                int index = checkInput(temp, storage, UI.errorMsg("mark"));
+                boolean toMark = true;
+                Task task = storage.mark(index, toMark);
+                UI.markedMsg(task);
 
-                int number = Integer.parseInt(temp[1]);
-                if (number > storage.size() || number <= 0) {
-                    throw new DukeException("__________________________________\n" +
-                            "The task is not in the list!!");
-                }
-                int index = number - 1;
-                Task task = storage.get(index);
-                task.markTask();
-                String output = "OK, I've marked this task as done:\n" +
-                        "   " + task.toString();
-                System.out.println(output);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
@@ -50,22 +38,11 @@ public class TaskHandler{
         } else if (input.startsWith("unmark")) {
             String[] temp = input.split(" ");
             try {
-                if (temp.length <= 1) {
-                    throw new DukeException("__________________________________\n" +
-                            "What tasks do you want to unmark?");
-                }
+                int index = checkInput(temp, storage, UI.errorMsg("unmark"));
+                boolean toMark = false;
+                Task task = storage.mark(index, toMark);
+                UI.unMarkedMsg(task);
 
-                int number = Integer.parseInt(temp[1]) ;
-                if (number > storage.size() || number <= 0 ) {
-                    throw new DukeException("__________________________________\n" +
-                            "The task is not in the list!!");
-                }
-                int index = number - 1;
-                Task task = storage.get(index);
-                task.unmarkTask();
-                String output = "OK, I've marked this task as not done yet:\n" +
-                        "   " + task.toString();
-                System.out.println(output);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
@@ -73,22 +50,10 @@ public class TaskHandler{
         } else if (input.startsWith("delete")) {
             String[] temp = input.split(" ");
             try {
-                if (temp.length <= 1) {
-                    throw new DukeException("__________________________________\n" +
-                            "What tasks do you want to delete?");
-                }
-                int number = Integer.parseInt(temp[1]);
-                if (number > storage.size() || number <= 0) {
-                    throw new DukeException("__________________________________\n" +
-                            "The task is not in the list!!");
-                }
-                int index = number - 1;
-                Task task = storage.get(index);
-                storage.remove(index);
-                String output = "OK, I've removed this task:\n" +
-                        "   " + task.toString() +
-                        "\nNow you have " + storage.size() + " tasks in the list.";
-                System.out.println(output);
+                int index = checkInput(temp, storage, UI.errorMsg("delete"));
+                Task task  = storage.delete(index);
+                UI.deleteMsg(task, storage);
+
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
@@ -96,17 +61,10 @@ public class TaskHandler{
         } else if (input.startsWith("todo")) {
             try {
                 String[] test = input.split(" ");
-                if (test.length <= 1) {
-                    throw new DukeException("__________________________________\n" +
-                            "So where is the todo task????");
-                }
+                checkTaskInput(test, storage, UI.errorMsg("todo"));
                 String msg = input.substring(5);
                 ToDo task = new ToDo(msg);
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
+                UI.printAddMsg(task, taskNum);
                 storage.add(task);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -115,29 +73,20 @@ public class TaskHandler{
         } else if (input.startsWith("deadline")) {
             try {
                 String[] test = input.split(" ");
-                if (test.length <= 1) {
-                    throw new DukeException("__________________________________\n" +
-                            "So where is the deadline task????");
-                }
+                checkTaskInput(test, storage, UI.errorMsg("deadline"));
                 String msg = input.substring(9);
                 Pattern p = Pattern.compile("(.+) /by (\\d+/\\d+/\\d+)(.*)");
                 Matcher m = p.matcher(msg);
                 Deadline task;
                 if (m.matches()) {
-                    System.out.println(m.group(2));
                     LocalDate date = getDate(m.group(2));
                     task = new Deadline(m.group(1), date);
                 } else {
-                    System.out.println("__________________________________\n" +
+                    throw new DukeException("__________________________________\n" +
                             "Need a deadline!!\n" +
                             "__________________________________\n");
-                    return;
                 }
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
+                UI.printAddMsg(task, taskNum);
                 storage.add(task);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -146,10 +95,7 @@ public class TaskHandler{
         } else if (input.startsWith("event")) {
             try {
                 String[] test = input.split(" ");
-                if (test.length <= 1) {
-                    throw new DukeException("__________________________________\n" +
-                            "So where is the event???");
-                }
+                checkTaskInput(test, storage, UI.errorMsg("event"));
                 String msg = input.substring(6);
                 Pattern p = Pattern.compile("(.+) /from (\\d+/\\d+/\\d+)(.*) /to (\\d+/\\d+/\\d+)(.*)");
                 Matcher m = p.matcher(msg);
@@ -159,16 +105,11 @@ public class TaskHandler{
                     LocalDate toDate = getDate(m.group(4));
                     task = new Event(m.group(1), fromDate, toDate);
                 } else {
-                    System.out.println("__________________________________\n" +
+                    throw new DukeException("__________________________________\n" +
                             "Need a period for the event!!\n" +
                             "__________________________________\n");
-                    return;
                 }
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
+                UI.printAddMsg(task, taskNum);
                 storage.add(task);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -177,12 +118,12 @@ public class TaskHandler{
         } else {
             try {
                 throw new DukeException("__________________________________\n" +
-                        "What is this task???");
+                        "What is this task???\n" +
+                        "__________________________________\n");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("__________________________________\n");
         Files.writeString(filePath, "");
         for (Task task : storage) {
             try {
@@ -219,7 +160,7 @@ public class TaskHandler{
     private static LocalDate getDate(String msg) throws DukeException {
         Pattern p = Pattern.compile("(\\d+)/(\\d+)/(\\d+)");
         Matcher m = p.matcher(msg);
-        if (m.matches()) { //Never check for match because i already check in the main code
+        if (m.matches()) {
             String month = String.format("%02d", Integer.parseInt(m.group(2)));
             String day = String.format("%02d", Integer.parseInt(m.group(1)));
             String dateString = m.group(3) + "-" + month + "-" + day;
@@ -227,6 +168,26 @@ public class TaskHandler{
         } else {
             throw new DukeException("Date format is wrong!!");
         }
+    }
+
+    private static int checkInput(String[] temp, TaskList storage, String errorMsg) throws DukeException {
+        if (temp.length <= 1) {
+            throw new DukeException(errorMsg);
+        }
+        if (temp[0].equals("mark") || temp[0].equals("unmark") || temp[0].equals("delete")) {}
+        int number = Integer.parseInt(temp[1]);
+        if (number > storage.size() || number <= 0) {
+            throw new DukeException("__________________________________\n" +
+                    "The task is not in the list!!");
+        }
+        return number;
+    }
+
+    private static void checkTaskInput(String [] temp, TaskList storage, String errorMsg) throws DukeException {
+        if (temp.length <= 1) {
+            throw new DukeException(errorMsg);
+        }
+
     }
 
 }
