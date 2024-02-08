@@ -1,5 +1,8 @@
-package lery;
-
+import javafx.scene.image.Image;
+import lery.LeryException;
+import lery.Parser;
+import lery.Storage;
+import lery.Ui;
 
 import java.util.Scanner;
 
@@ -13,6 +16,11 @@ import java.util.Scanner;
 
 public class Lery {
 
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image lery = new Image(this.getClass().getResourceAsStream("/images/LeryDog.jpg"));
+
+
     private Storage storage;
     private Ui ui;
     /**
@@ -24,6 +32,36 @@ public class Lery {
         this.storage = new Storage();
     }
 
+    /**
+     * Gets Lery's response based on user input.
+     *
+     * @param input The user input to be processed.
+     * @return A response generated based on user's input.
+     */
+    public String getResponse(String input) {
+        try {
+            if (input.equalsIgnoreCase("bye")) {
+                return ui.exit();
+            }
+            Parser p = new Parser(this.storage);
+
+            return p.parseCommand(input);
+        } catch (LeryException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String initialiseChat() throws LeryException {
+        String greeting = ui.greet();
+        this.storage.loadTasks();
+        return greeting;
+
+    }
+
+
+
+
+
 
     /**
      * Runs the chatbot and parses the users comments.
@@ -31,7 +69,7 @@ public class Lery {
 
     public void run() {
 
-        ui.greet();
+        System.out.println(ui.greet());
         Scanner scanner = new Scanner(System.in);
         try {
             this.storage.loadTasks();
@@ -42,7 +80,7 @@ public class Lery {
             Parser p = new Parser(this.storage);
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
-                ui.exit();
+                System.out.println(ui.exit());
                 break;
             }
             try {

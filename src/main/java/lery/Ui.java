@@ -10,7 +10,7 @@ package lery;
  *
  */
 public class Ui {
-    private static final String LINE = "____________________________________________________________\n";
+    private static final String LINE = "_".repeat(50);
     private static final String LOGO = " _                    \n"
             + "| |    ___ _ __ _   _ \n"
                     + "| |   / _ \\ '__| | | |\n"
@@ -29,18 +29,19 @@ public class Ui {
 
     /**
      * Prints a greeting message with the Lery logo.
+     *
+     * @return
      */
-    public void greet() {
-        System.out.println(this.LINE + LOGO + "Hello! I'm Lery.Lery"
-                + "\n" + "What can I do for you?\n" + this.LINE);
-
+    public String greet() {
+        return this.LINE + "\nHello! I'm Lery."
+                + "\n" + "What can I do for you?\n" + this.LINE;
     }
 
     /**
      * Prints an exit message.
      */
-    public void exit() {
-        System.out.println(this.LINE + "Bye. Hope to see you again soon!\n" + this.LINE);
+    public String exit() {
+        return this.LINE + "\nBye. Hope to see you again soon!\n" + this.LINE;
     }
 
 }

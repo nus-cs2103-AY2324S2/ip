@@ -1,16 +1,16 @@
 package lery;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 import lery.task.Deadline;
 import lery.task.Event;
 import lery.task.Task;
 import lery.task.TaskList;
 import lery.task.Todo;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 
 /**
@@ -144,7 +144,7 @@ public class Storage {
      *
      * @param t the task to be deleted.
      */
-    public void delete(Task t) {
+    public void deleteTask(Task t) {
         this.taskList.delete(t);
     }
 }
