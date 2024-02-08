@@ -1,4 +1,7 @@
-import java.util.List;
+package lai.util;
+
+import lai.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {

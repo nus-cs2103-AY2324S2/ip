@@ -1,3 +1,5 @@
+package lai.util;
+
 public class LaiException extends Exception {
     public LaiException (String message) {
         super(message);

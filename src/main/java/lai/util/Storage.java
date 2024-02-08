@@ -1,3 +1,10 @@
+package lai.util;
+
+import lai.task.Deadline;
+import lai.task.Event;
+import lai.task.Task;
+import lai.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
