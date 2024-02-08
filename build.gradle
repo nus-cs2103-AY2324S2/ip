@@ -7,7 +7,6 @@ plugins {
 repositories {
     mavenCentral()
 }
-
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -28,15 +27,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("ChatBro.ChatBro")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "ChatBro"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
