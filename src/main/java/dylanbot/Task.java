@@ -1,11 +1,20 @@
 package dylanbot;
 
+/**
+ * Represents a general Task
+ */
 public class Task {
 
     private String type;
     private String desc;
     private boolean completed;
 
+    /**
+     * Creates a new Task with the given type and description
+     *
+     * @param type The specified type
+     * @param desc The specified description
+     */
     public Task(String type, String desc) {
         this.type = type;
         this.desc = desc;
@@ -38,6 +47,7 @@ public class Task {
         this.completed = false;
     }
 
+    @Override
     public String toString() {
         return "[" + type + "] "
                 + (completed ? "[X]" : "[ ]")

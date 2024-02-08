@@ -7,15 +7,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 // deals with loading tasks from the file and saving tasks in the file
+
+/**
+ * Represents a Storage object that handles loading and saving of tasks to/from a file
+ */
 public class Storage {
     private final String filePath;
 
     private final Ui ui;
+
+    /**
+     * Creates a Storage object that reads/writes to the file at the specified file path
+     *
+     * @param filePath The file path of the desired file
+     * @param ui The Ui to be used
+     */
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
         this.ui = ui;

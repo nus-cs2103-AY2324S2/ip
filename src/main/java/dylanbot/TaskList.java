@@ -3,15 +3,29 @@ package dylanbot;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class TaskList { // contains the task list e.g., it has operations to add/delete tasks in the list
+/**
+ * Represents a list of tasks, with operations to add/delete tasks in the list
+ */
+public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
 
+    /**
+     * Creates a TaskList based on the given ArrayList of tasks and the given Ui
+     *
+     * @param tasks The specified ArrayList
+     * @param ui The Ui to be used
+     */
     public TaskList(ArrayList<Task> tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
     }
 
+    /**
+     * Creates a new empty TaskList
+     *
+     * @param ui The Ui to be used
+     */
     public TaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.ui = ui;
@@ -117,6 +131,11 @@ public class TaskList { // contains the task list e.g., it has operations to add
         Ui.print("Aight removed this task:\n\t" + toRemove.toString());
     }
 
+    /**
+     * Finds all tasks that contain the specified term
+     *
+     * @param term The specified search term
+     */
     public void findTerm(String term) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task t : tasks) {

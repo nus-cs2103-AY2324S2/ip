@@ -1,9 +1,18 @@
 package dylanbot;
 
-public class Parser { // deals with making sense of the user command
+/**
+ * Represents a Parser that makes sense of user inputs
+ */
+public class Parser {
     private Ui ui;
     private TaskList tl;
 
+    /**
+     * Creates a Parser
+     *
+     * @param ui The Ui to be used
+     * @param tl The TaskList that will be referenced and used
+     */
     public Parser(Ui ui, TaskList tl) {
         this.ui = ui;
         this.tl = tl;
