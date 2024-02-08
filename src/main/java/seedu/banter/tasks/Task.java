@@ -80,7 +80,12 @@ public abstract class Task { // default access modifier
      * @param keyword
      * @return True if the description of the task contains the keyword.
      */
-    public boolean contains(String keyword) {
-        return description.contains(keyword);
+    public boolean contains(String ...keyword) {
+        for (String k : keyword) {
+            if (!description.contains(k)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -162,7 +162,7 @@ public class TaskList implements Iterable<Task> {
      * @param keyword
      * @return String representation of the list of tasks in TaskList that contain the keyword.
      */
-    public String findTasks(String keyword) {
+    public String findTasks(String ...keyword) {
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
         int count = 0;
         for (Task task : taskList) {
