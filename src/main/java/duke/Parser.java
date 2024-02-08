@@ -20,32 +20,26 @@ public class Parser {
      * @param currInput The current user input.
      */
     public static Command parse(String[] currInput, TaskList userTasks) {
-        try {
-            String cmd = currInput[0];
+        String cmd = currInput[0];
 
-            // list tasks
-            if (cmd.equals("list")) {
-                return new ListCommand(currInput, userTasks);
-            // find tasks
-            } else if (cmd.equals("find")) {
-                return new FindCommand(currInput, userTasks);
-            // mark tasks
-            } else if (cmd.contains("mark")) {
-                return new MarkCommand(currInput, userTasks);
-            // delete tasks
-            } else if (cmd.equals("delete")) {
-                return new DeleteCommand(currInput, userTasks);
-            // add tasks
-            } else if (cmd.equals("deadline") || cmd.equals("event") || cmd.equals("todo")) {
-                return new AddCommand(currInput, userTasks);
-            // unknown commands
-            } else {
-                throw new DukeException(String.format(DukeException.UNKNOWN_CMD, cmd));
-            }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            System.out.println(Ui.LINE);
+        // list tasks
+        if (cmd.equals("list")) {
+            return new ListCommand(currInput, userTasks);
+        // find tasks
+        } else if (cmd.equals("find")) {
+            return new FindCommand(currInput, userTasks);
+        // mark tasks
+        } else if (cmd.contains("mark")) {
+            return new MarkCommand(currInput, userTasks);
+        // delete tasks
+        } else if (cmd.equals("delete")) {
+            return new DeleteCommand(currInput, userTasks);
+        // add tasks
+        } else if (cmd.equals("deadline") || cmd.equals("event") || cmd.equals("todo")) {
+            return new AddCommand(currInput, userTasks);
+        // unknown commands
+        } else {
+            throw new DukeException(String.format(DukeException.UNKNOWN_CMD, cmd));
         }
     }
 }

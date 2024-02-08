@@ -54,8 +54,15 @@ public class Duke {
 
         // programme
         while (!exitProgramme.contains(currInput[0])) {
-            Command cmd = Parser.parse(currInput, this.tasks);
-            currInput = input.nextLine().split(" ", 2);
+            try {
+                Command cmd = Parser.parse(currInput, this.tasks);
+                cmd.execute();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                System.out.println(Ui.LINE);
+                currInput = input.nextLine().split(" ", 2);
+            }
         }
 
         // save and exit
@@ -78,9 +85,13 @@ public class Duke {
     public String getResponse(String input) {
         String[] currInput = input.split(" ", 2);
         if (!exitProgramme.contains(currInput[0])) {
-            Parser.parse(currInput, this.tasks);
+            try {
+                Command cmd = Parser.parse(currInput, this.tasks);
+                String response = cmd.execute();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
         }
-
         return "Duke heard: " + input;
     }
 
