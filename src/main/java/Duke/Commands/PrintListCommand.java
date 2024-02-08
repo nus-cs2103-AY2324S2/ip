@@ -9,9 +9,9 @@ import Duke.Ui;
  * Represents a command to print all task in taskList.
  */
 public class PrintListCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
 
     /**
      * Constructor for the PrintListCommand class.

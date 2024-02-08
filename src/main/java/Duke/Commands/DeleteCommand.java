@@ -10,10 +10,10 @@ import Duke.Ui;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
-    int indexToDelete;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private int indexToDelete;
 
     /**
      * Constructor for the DeleteCommand class.

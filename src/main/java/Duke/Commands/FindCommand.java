@@ -9,10 +9,10 @@ import Duke.Ui;
  * Represent a command to find tasks.
  */
 public class FindCommand extends Command {
-    Ui ui;
-    TaskList taskList;
-    Storage storage;
-    String input;
+    private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private String input;
     /**
      * Constructor for a command to find tasks.
      *
