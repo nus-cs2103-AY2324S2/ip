@@ -36,6 +36,8 @@ public class Parser {
                 ui.printDeadline(tl, cmd);
             } else if (cmd.startsWith("event")) {
                 ui.printEvent(tl, cmd);
+            } else if (cmd.startsWith("find")) {
+                ui.printFind(tl, cmd);
             } else {
                 throw new DukeUnknownTaskException();
             }
@@ -78,7 +80,7 @@ public class Parser {
      * @param cmd
      * @return String desc
      */
-    public static String parseToDoTest(String cmd) {
+    public static String parseToDoOrFindTest(String cmd) {
         return cmd.substring(4);
     }
 
@@ -87,7 +89,7 @@ public class Parser {
      * @param cmd
      * @return String desc
      */
-    public static String parseToDo(String cmd) {
+    public static String parseToDoOrFind(String cmd) {
         return cmd.substring(5);
     }
 

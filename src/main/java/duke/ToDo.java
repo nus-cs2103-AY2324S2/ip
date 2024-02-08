@@ -12,6 +12,7 @@ public class ToDo extends Task {
      * Returns a simplified toString for the ease of saving.
      * @return String
      */
+    @Override
     public String simpleToString() {
         return "T " + super.simpleToString();
     }

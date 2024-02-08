@@ -16,6 +16,7 @@ public class Event extends duke.Task {
      * Returns a simplified toString for the ease of saving.
      * @return String
      */
+    @Override
     public String simpleToString() {
         return "E " + super.simpleToString() + " | " + this.from + " - " + this.to;
     }
