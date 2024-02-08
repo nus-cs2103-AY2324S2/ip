@@ -1,3 +1,4 @@
+package area;
 public class DukeException extends Exception {
 
     protected String description;
@@ -7,7 +8,7 @@ public class DukeException extends Exception {
         this.description = description;
     }
 
-    
+
 
     @Override
     public String toString() {
