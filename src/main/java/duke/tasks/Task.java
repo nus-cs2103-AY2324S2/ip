@@ -7,30 +7,61 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Basic template for tasks.
+ */
 public class Task {
     protected String description;
     protected boolean isDone = false;
 
+    /**
+     * Task constructor.
+     *
+     * @param description   Task name or description of task.
+     */
     public Task(String description) {
         this.description = description;
     }
 
+    /**
+     * Get status of task.
+     *
+     * @return statusIcon   "X": Task is completed.
+     *                      " ": Task has not been completed.
+     */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
 
+    /**
+     * Update if task is done.
+     *
+     * @param isDone    Marks task as completed/uncompleted. [True: complete, False: uncompleted]
+     */
     public void updateIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
+    /**
+     * Formats Task as a string to be saved to file.
+     *
+     * @return saveTask     Returns the task as a string in the format compatible with file.
+     */
     public String getSaveTask() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Parses and converts string to LocalDateTime object.
+     *
+     * @param dateTime      String containing date and time.
+     * @return dateTime     LocalDateTime object.
+     */
     public LocalDateTime parseDateTime(String dateTime) {
         List<String> separators = Arrays.asList("-", "/");
         List<String> dateCombinations = Arrays.asList("dd_MM_yyyy ", "MM_dd_yyyy ", "yyyy_dd_MM ", "yyyy_MM_dd ");
@@ -51,6 +82,13 @@ public class Task {
         return null;
     }
 
+    /**
+     * Checks if task description matches string.
+     *
+     * @param match         String to search for within description.
+     * @return hasMatch     True: string is found within description.
+     *                      False: string is not found within description.
+     */
     public boolean isMatchingDescription(String match) {
         return this.description.contains(match);
     }
