@@ -18,11 +18,10 @@ public class Parser {
             try {
                 int index = Integer.parseInt(message.split(" ")[1]);
 
-
                 if (index > taskList.size() || index < 1) {
                     throw new UnivusException("OOPS!!! Wrong Index!");
                 }
-                Task task = taskList.getTask(index - 1);
+                Task task = taskList.getTask(index);
                 if (task.isDone()) {
                     throw new UnivusException("Already Marked!");
                 } else {
@@ -43,7 +42,7 @@ public class Parser {
                 if (index > taskList.size() || index < 1) {
                     throw new UnivusException("OOPS!!! Wrong Index!");
                 }
-                Task task = taskList.getTask(index - 1);
+                Task task = taskList.getTask(index);
                 if (!task.isDone()) {
                     throw new UnivusException("Already Unmarked!");
                 } else {
@@ -131,7 +130,7 @@ public class Parser {
                 if (index > taskList.size() || index < 1) {
                     throw new UnivusException("OOPS!!! Wrong Index!");
                 } else {
-                    Task task = taskList.remove(index - 1);
+                    Task task = taskList.remove(index);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Noted. I've removed this task:");
                     System.out.println("\t" + task.toString());

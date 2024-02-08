@@ -15,20 +15,17 @@ public class TaskList {
     }
 
     public Task remove(int index) {
-        return this.taskList.remove(index);
+        return this.taskList.remove(index - 1);
     }
 
     public Task getTask(int index) {
-        return this.taskList.get(index);
+        return this.taskList.get(index - 1);
     }
     public int size() {
         return this.taskList.size();
     }
     public ArrayList<Task> getTaskList() {
         return this.taskList;
-    }
-    public void setTaskList(ArrayList<Task> tasks) {
-        this.taskList = tasks;
     }
 
     public void list() {
