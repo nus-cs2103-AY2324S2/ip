@@ -1,15 +1,17 @@
 package checkbot;
 
-import java.util.Scanner;
-
 import checkbot.command.Command;
 import checkbot.exception.CheckbotException;
 import checkbot.task.TodoList;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * Represents the main class of the Checkbot program.
  */
-public class Checkbot {
+public class Checkbot extends Application {
     public static final String TASK_FILE_DIR = "./tasks.txt";
 
     private final TodoList todoList;
@@ -26,38 +28,40 @@ public class Checkbot {
         this.storage = new Storage(filePath);
         this.todoList = this.storage.loadTasks();
         this.parser = new Parser();
-        this.ui = new Ui();
+        this.ui = new Ui(
+                new Image(this.getClass().getResourceAsStream("/images/checkbot.png")),
+                new Image(this.getClass().getResourceAsStream("/images/DaUser.png")),
+                this::parseUserInput);
     }
 
     /**
-     * Main method to run the Checkbot program.
-     *
-     * @param args Command line arguments, not used.
+     * Constructor for Checkbot that uses the default filepath for tasks.txt
      */
-    public static void main(String[] args) {
-        new Checkbot(TASK_FILE_DIR).run();
+    public Checkbot() {
+        this(TASK_FILE_DIR);
     }
 
-    /**
-     * Runs the Checkbot program.
-     */
-    public void run() {
-        ui.showWelcome();
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            try {
-                Command c = parser.parse(input);
-                c.execute(todoList, storage, ui);
-                if (c.isBye()) {
-                    break;
-                }
-            } catch (CheckbotException e) {
-                ui.showError(e);
+    private void parseUserInput(String input) {
+        try {
+            Command c = parser.parse(input);
+            c.execute(todoList, storage, ui);
+            if (c.isBye()) {
+                Platform.exit();
             }
+        } catch (CheckbotException e) {
+            ui.showError(e);
         }
+    }
 
-        scanner.close();
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("Checkbot");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+        stage.setScene(ui.initializeScene());
+        stage.show();
+
+        ui.showWelcome();
     }
 }
