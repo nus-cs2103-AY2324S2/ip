@@ -4,17 +4,25 @@ import seedu.duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the <code>UI</code> that users see in response to
+ * their potential input commands e.g., <code>Hello</code>
+ */
 public class Ui {
-    public void showLoadingError() {
 
-    }
-
+    /**
+     * Represents printed output when a DukeException is thrown.
+     * @param dukeException
+     */
     public void printError(DukeException dukeException) {
         printBreak();
         System.out.println(dukeException.getMessage());
         printBreak();
     }
 
+    /**
+     * Represents printed output when Duke starts.
+     */
     public void openingMessage() {
         printBreak();
         System.out.println("Hello! I'm Klara");
@@ -22,6 +30,9 @@ public class Ui {
         printBreak();
     }
 
+    /**
+     * Represents printed output when Duke ends.
+     */
     public void closingMessage() {
         // Logging off upon "bye" command
         printBreak();
@@ -29,6 +40,10 @@ public class Ui {
         printBreak();
     }
 
+    /**
+     * Represents printed output when a <code>Task</code> is marked as done.
+     * @param task Represents the <code>Task</code> object marked
+     */
     public void showTaskDone(Task task) {
         printBreak();
         System.out.println("Nice! I've marked this task as done:");
@@ -36,6 +51,10 @@ public class Ui {
         printBreak();
     }
 
+    /**
+     * Represents printed output when a <code>Task</code> is marked as undone.
+     * @param task Represents the <code>Task</code> object unmarked
+     */
     public void showTaskUndone(Task task) {
         printBreak();
         System.out.println("OK, I've marked this task as not done yet:");
@@ -43,6 +62,11 @@ public class Ui {
         printBreak();
     }
 
+    /**
+     * Represents printed output when a <code>Task</code> is added.
+     * @param task Represents the <code>Task</code> object added
+     * @param size Represents size of Task list to be printed
+     */
     public void showTaskAdded(Task task, int size) {
         printBreak();
         System.out.println("Got it. I've added this task:");
@@ -51,6 +75,11 @@ public class Ui {
         printBreak();
     }
 
+    /**
+     * Represents printed output when a <code>Task</code> is deleted.
+     * @param task Represents the <code>Task</code> object deleted
+     * @param size Represents size of Task list to be printed
+     */
     public void showTaskDeleted(Task task, int size) {
         printBreak();
         System.out.println("Noted. I've removed this task:");
@@ -59,20 +88,29 @@ public class Ui {
         printBreak();
     }
 
+    /**
+     * Default spacer to print to tidy output.
+     */
     public void printBreak() {
         String line = "____________________________________________________________";
         System.out.println(line);
     }
 
+    /**
+     * Represents printed output when <code>list</code> command is given
+     * Loop through the list to print out each <code>Task</code> and its
+     * description
+     * @param list Represents the list to be printed to system output.
+     */
     public void printList(ArrayList<Task> list) {
         printBreak();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isDone) {
-                System.out.println(Integer.toString(i + 1) + "." + list.get(i));
+            if (list.get(i).getStatus()) {
+                System.out.println(i + 1 + "." + list.get(i));
             }
             else {
-                System.out.println(Integer.toString(i + 1) + "." + list.get(i));
+                System.out.println(i + 1 + "." + list.get(i));
             }
         }
         printBreak();
