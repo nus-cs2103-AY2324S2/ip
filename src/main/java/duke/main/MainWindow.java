@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private void sayHi() {
-        String greetingMessage = "Hello! I'm myChats\n" + "What can I do for you?\n";
+        String greetingMessage = "\nHello! I'm myChats\n" + "What can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingMessage, dukeImage));
     }
 
@@ -50,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getUserDialog("\n" + input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();

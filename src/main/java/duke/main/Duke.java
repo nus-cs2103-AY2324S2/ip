@@ -30,7 +30,6 @@ public class Duke {
     String getResponse(String input) {
         if (!exited) {
             try {
-
                 ui.repeat();
                 Command c = Parser.parse(input);
                 c.execute(tasks, ui, storage);

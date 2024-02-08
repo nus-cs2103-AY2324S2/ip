@@ -87,7 +87,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            throw new DukeException("\nAn IOException occurred.\n");
+            throw new DukeException("\nAn IOException occurred.");
         }
     }
 }

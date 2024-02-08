@@ -8,21 +8,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Handles user interactions.
  */
 public class Ui {
 
-    //private Scanner sc;
     private StringBuilder answer;
 
     /**
      * Constructs a Ui instance with a Scanner for user input.
      */
     public Ui() {
-        //sc = new Scanner(System.in);
         answer = new StringBuilder();
     }
 
@@ -55,7 +52,6 @@ public class Ui {
                 answer.append(task);
             }
         }
-        answer.append("\n");
     }
 
     /**
@@ -76,7 +72,6 @@ public class Ui {
          if (numTasks != 1) {
              answer.append("Now you have " + numTasks + " tasks in the list.");
          }
-         answer.append("\n");
     }
 
     /**
@@ -96,7 +91,6 @@ public class Ui {
         if (numTasks != 1) {
             answer.append("Now you have " + numTasks + " tasks in the list.");
         }
-        answer.append("\n");
     }
 
     /**
@@ -113,7 +107,7 @@ public class Ui {
                 if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
                     if (deadline.getBy().toLocalDate().equals(targetDate)) {
-                        answer.append(deadline);
+                        answer.append("\n" + deadline);
                     }
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
@@ -121,13 +115,12 @@ public class Ui {
                             || event.getEndTime().toLocalDate().equals(targetDate)
                             || (targetDate.isAfter(event.getStartTime().toLocalDate())
                             && targetDate.isBefore(event.getEndTime().toLocalDate()))) {
-                        answer.append(event);
+                        answer.append("\n" + event);
                     }
                 }
             }
-            answer.append("\n");
         } catch (DateTimeParseException e) {
-            answer.append("\nError! Please provide a valid date format (MMM dd yyyy).\n");
+            answer.append("\nError! Please provide a valid date format (MMM dd yyyy).");
         }
     }
 
@@ -151,16 +144,15 @@ public class Ui {
                 answer.append(foundTask);
             }
         }
-        answer.append("\n");
     }
 
     /**
      * Displays an error message when there is a loading issue.
      *
-     * @param error Error message to display.
+     * @param message Error message to display.
      */
-    void showLoadingError(String error) {
-        answer.append("\nLoading error: " + error + "\n");
+    void showLoadingError(String message) {
+        answer.append("\nLoading error: " + message);
     }
 
     public void printToScreen(String message) {
