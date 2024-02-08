@@ -158,12 +158,12 @@ public class Parser {
                 }
                 String[] eventArguments = eventDescription.split(" /from ");
                 String[] eventDuration = eventArguments[1].split(" /to ");
-                String EVDescription = eventArguments[0];
+                String EvDescription = eventArguments[0];
                 String startTime = eventDuration[0];
                 String endTime = eventDuration[1];
 
                 try {
-                    Event event = new Event(EVDescription, startTime, endTime);
+                    Event event = new Event(EvDescription, startTime, endTime);
                     taskList.addTask(event);
                     ui.setIndentedLine();
                     System.out.println("  " + event);
