@@ -1,1 +1,4 @@
-1. [E][ ] finish work (from: Tuesday, April 2, 2024 6:00PM to: Wednesday, April 3, 2024 8:00PM)
+1. [T][ ] read a book
+2. [T][ ] throw a book
+3. [T][X] eat a burger
+4. [T][ ] read a book

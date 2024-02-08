@@ -35,6 +35,9 @@ public class Task implements Serializable {
     public boolean getStatus() {
         return this.status;
     }
+    public String getNameOfTask() {
+        return this.nameOfTask;
+    }
 
     @Override
     public String toString() {
