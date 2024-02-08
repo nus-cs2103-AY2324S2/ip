@@ -1,21 +1,20 @@
 package command;
-import duke.Ui;
-import duke.TaskList;
-
-import task.Deadline;
-import exception.EmptyInputException;
-import exception.EmptyTimeException;
-import exception.InvalidDateTimeException;
-import exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import duke.TaskList;
+import duke.Ui;
+import exception.EmptyInputException;
+import exception.EmptyTimeException;
+import exception.InvalidDateTimeException;
+import exception.InvalidFormatException;
+import task.Deadline;
+
 /**
  * Command to add a deadline into the task list.
  */
-public class deadlineCommand extends Command {
+public class DeadlineCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
@@ -30,13 +29,13 @@ public class deadlineCommand extends Command {
      * @throws InvalidFormatException If user's input invalid format.
      * @throws InvalidDateTimeException If user input invalid date/time format.
      */
-    public deadlineCommand(TaskList taskList, Ui ui) {
+    public DeadlineCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui) throws
-            EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException  {
+            EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("deadline");

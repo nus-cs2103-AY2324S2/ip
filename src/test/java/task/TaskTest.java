@@ -1,12 +1,12 @@
-package task;  //same package as the class being tested
-
-import org.junit.jupiter.api.Test;
+package task; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskTest {
     @Test
-    public void dummyTest(){
+    public void dummyTest() {
         assertEquals(2, 2);
     }
 
@@ -20,7 +20,6 @@ public class TaskTest {
     @Test
     public void testMarkDoneUnmarkDone() {
         Task task = new Task("test todo mark/unmark");
-        
         task.markAsDone();
         String tString1 = task.toString();
         assertEquals("[X] test todo mark/unmark", tString1);

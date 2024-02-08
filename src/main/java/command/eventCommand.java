@@ -1,21 +1,20 @@
 package command;
-import duke.Ui;
-import duke.TaskList;
-
-import task.Event;
-import exception.EmptyInputException;
-import exception.EmptyTimeException;
-import exception.InvalidDateTimeException;
-import exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import duke.TaskList;
+import duke.Ui;
+import exception.EmptyInputException;
+import exception.EmptyTimeException;
+import exception.InvalidDateTimeException;
+import exception.InvalidFormatException;
+import task.Event;
+
 /**
  * Command to add an event into the task list.
  */
-public class eventCommand extends Command {
+public class EventCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
@@ -30,13 +29,13 @@ public class eventCommand extends Command {
      * @throws InvalidFormatException If user's input invalid format.
      * @throws InvalidDateTimeException If user input invalid date/time format.
      */
-    public eventCommand(TaskList taskList, Ui ui) {
+    public EventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui) throws
-            EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException  {
+            EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("event");

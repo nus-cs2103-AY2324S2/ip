@@ -1,11 +1,11 @@
 package command;
-import duke.Ui;
 import duke.TaskList;
+import duke.Ui;
 
 /**
  * Command to exit the program.
  */
-public class byeCommand extends Command {
+public class ByeCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
@@ -17,7 +17,8 @@ public class byeCommand extends Command {
      * @param ui The ui to get the input of the user.
      * @throws Exception If input is not valid.
      */
-    public byeCommand(TaskList taskList, Ui ui) {
+    public ByeCommand(TaskList taskList, Ui ui) {
+
         super(taskList, ui);
     }
 

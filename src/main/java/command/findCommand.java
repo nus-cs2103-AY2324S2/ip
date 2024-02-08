@@ -3,14 +3,16 @@ package command;
 import duke.TaskList;
 import duke.Ui;
 import exception.EmptyInputException;
-import task.Todo;
 
-public class findCommand extends Command {
+/**
+ * Command to find an event in the task list.
+ */
+public class FindCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public findCommand(TaskList taskList, Ui ui) {
+    public FindCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
     @Override

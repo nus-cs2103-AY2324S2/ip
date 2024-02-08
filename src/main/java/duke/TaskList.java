@@ -1,6 +1,12 @@
 package duke;
-import task.*;
+
 import java.util.ArrayList;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 
 /**
  * TaskList contains the task list.
@@ -108,7 +114,7 @@ public class TaskList {
      *
      * @param t New todo to be added into taskList.
      */
-    public void todo(Todo t)  {
+    public void todo(Todo t) {
         taskList.add(t);
         System.out.println(Ui.INDENT_SEPERATOR);
         System.out.println(Ui.INDENT + "Got it. I've added this task:");
@@ -171,15 +177,14 @@ public class TaskList {
 
     /**
      * To print the tasks that contains the keyword.
-     *
-     * @return The tasks that contains the given keywords.
      */
     public void find(String keyword) {
         System.out.println(Ui.INDENT_SEPERATOR);
 
         if (taskList.isEmpty()) {
             System.out.println("There are currently no tasks in your list");
-        } else {System.out.println("keyword:" + keyword + "end");
+        } else {
+            //System.out.println("keyword:" + keyword + "end");
             System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
             int index = 1;
             for (int i = 0; i < taskList.size(); i++) {
