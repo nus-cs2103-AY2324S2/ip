@@ -2,11 +2,20 @@ package GandalfBot;
 
 import java.util.Scanner;
 
+/**
+ * Main class for the Gandalf chatbot
+ */
 public class Gandalf {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Takes in two paths as it uses two files for its store/load feature. One file is for loading any existing lists,
+     * and another file is meant to be readable in a .txt file
+     * @param filePathMeta
+     * @param filePathRead
+     */
     public Gandalf(String filePathMeta, String filePathRead){
         ui = new Ui();
         storage = new Storage(filePathMeta, filePathRead);
@@ -18,6 +27,10 @@ public class Gandalf {
         }
     }
 
+    /**
+     * Function to run the chatbot, uses a while-loop to constantly allow the chatbot to receive new inputs
+     * Also processes inputs to do various things depending on the command
+     */
     public void run(){
         ui.welcome();
         Scanner scanner = new Scanner(System.in);
