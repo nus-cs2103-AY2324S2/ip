@@ -8,6 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Storage {
+    /**
+     * Checks if the given command is a save command.
+     *
+     * @param command the command to be checked
+     * @return true if the command is a save command, false otherwise
+     */
     public static boolean isSaveCommand(String command) {
         HashSet<String> saveCommands = new HashSet<>(
                 List.of(
@@ -20,6 +26,11 @@ public class Storage {
         return saveCommands.contains(command);
     }
 
+    /**
+     * Saves the output to a file.
+     *
+     * @param output the output to be saved
+     */
     public static void saveOutputToFile(String output) {
         Path filePath = Path.of("./data/chimp.txt");
 

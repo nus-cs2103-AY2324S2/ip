@@ -7,6 +7,18 @@ import chimp.core.*;
 import chimp.exception.*;
 
 public class Chimp {
+    /**
+     * The main method is the entry point of the Chimp program.
+     * It initializes the user interface, task list, and storage objects.
+     * It then enters a loop to continuously read user input, parse it into a command,
+     * execute the command, and save the output to a file.
+     * If an invalid command or exception occurs, an error message is displayed.
+     * The loop continues until the user enters an exit command.
+     * Finally, the scanner is closed.
+     *
+     * @param args the command line arguments
+     * @throws InvalidParameterException if an invalid parameter is passed
+     */
     public static void main(String[] args) throws InvalidParameterException {
         Ui ui = new Ui();
         TaskList tasks = new TaskList();
