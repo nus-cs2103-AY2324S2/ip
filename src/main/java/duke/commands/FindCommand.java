@@ -17,7 +17,7 @@ public class FindCommand extends Command {
         int order = 1;
         messages.add("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i).getDescription().contains(keyword)) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
                 messages.add(order + "." + tasks.get(i).toString());
                 order++;
             }

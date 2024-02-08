@@ -12,7 +12,7 @@ public class Duke {
     private static final String TASKS_CACHE_PATH = ".duke-cache";
     private static TaskList tasks;
     private static Storage storage;
-    private static final String HORIZONTAL_LINE= "---------------------------------\n";
+    private static final String HORIZONTAL_LINE = "---------------------------------\n";
 
     private static void greet() {
         String greet = "Hello! I'm Dino\n"
@@ -30,7 +30,6 @@ public class Duke {
         }
 
         greet();
-
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();

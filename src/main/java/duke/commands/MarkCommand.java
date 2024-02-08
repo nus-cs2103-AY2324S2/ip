@@ -27,8 +27,9 @@ public class MarkCommand extends Command {
      */
 
     public List<String> execute(TaskList tasks) throws DukeException {
-        if(details.length() < 1) { throw new DukeException(
-                "Please enter the tasks number that you want to mark as incomplete: ex. mark 2"); }
+        if (details.length() < 1) { throw new DukeException(
+                "Please enter the tasks number that you want to mark as incomplete: ex. mark 2");
+        }
 
         try {
             int i = Integer.parseInt(details) - 1;

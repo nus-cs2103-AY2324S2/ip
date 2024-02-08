@@ -18,7 +18,6 @@ public class EventCommand extends Command {
 
 
     public EventCommand(String details) {
-
         this.details = details;
     }
 

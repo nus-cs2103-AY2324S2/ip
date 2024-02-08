@@ -12,9 +12,10 @@ public class TaskList implements Serializable {
 
     private final List<Task> tasks = new ArrayList<>();
 
+
     /**
      * The function checks if a list of tasks is empty.
-     * 
+     *
      * @return The method is returning a boolean value.
      */
     public boolean isEmpty() {
