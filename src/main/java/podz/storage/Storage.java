@@ -23,14 +23,14 @@ public class Storage {
      * 
      * @param filePath the file path where the data are stored
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         Storage.FILE_PATH = filePath;
     }
 
     /**
      * Updates the saved tasks in the data file.
      * 
-     * @param taskList the list of tasks to be saved
+     * @param tasks the list of tasks to be saved
      */
     public static void updateSaved(ArrayList<Task> tasks) {
         try {
@@ -49,7 +49,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the data file and returns them as an <code>ArrayList<Tasks></code>.
+     * Loads tasks from the data file and returns them as an <code>ArrayList<Task></code>.
      * 
      * @return the list of tasks
      */
@@ -94,7 +94,7 @@ public class Storage {
         return tasks;
     }
 
-    private static File initDataFile () throws IOException {
+    private static File initDataFile() throws IOException {
         File data = new File(FILE_PATH);
         if (!data.getParentFile().exists()) {
             data.getParentFile().mkdirs();
