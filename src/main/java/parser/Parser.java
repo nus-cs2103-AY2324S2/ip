@@ -5,6 +5,7 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
 import commands.ListCommand;
+import commands.FindCommand;
 import commands.MarkDoneCommand;
 import commands.MarkNotDoneCommand;
 import exceptions.ArgumentException;

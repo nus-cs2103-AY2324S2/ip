@@ -46,6 +46,7 @@ public class TaskList {
         for (Task t : list) {
             if (t.isFound(matcher)) {
                 output += outputIndex + "." + t.toString() + "\n";
+                outputIndex++;
             }
         }
         return output;
