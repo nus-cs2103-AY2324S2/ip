@@ -52,6 +52,9 @@ public class Ui {
         System.out.println("You entered:" );
         System.out.println(task);
     }
+    public void printNotFound() {
+        System.out.println("Task not found!");
+    }
     public void printNumberOfTasks(int num) {
         if (num == 1) {
             System.out.println("You now have 1 task remaining");

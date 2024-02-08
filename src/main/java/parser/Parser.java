@@ -1,5 +1,6 @@
 package parser;
 import jux.JuxException;
+import tasklist.Task;
 import tasklist.TaskList;
 import ui.Ui;
 
@@ -7,6 +8,8 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 public class Parser {
     public static final String TODO = "TODO";
     public static final String DEADLINE = "DEADLINE";
@@ -73,9 +76,22 @@ public class Parser {
             case "add":
                 String typeOfTask = Parser.typeOfTask(input);
                 taskList.addTask(ui, typeOfTask, input);
+                break;
+        case "find":
+            String findTask = Parser.parseFind(input);
+            ArrayList<Task> tasksFound = taskList.findTask(findTask);
+            if (tasksFound.isEmpty()) {
+                ui.printNotFound();
+            } else {
+                ui.printList(tasksFound);
+            }
+            break;
                 default:
                 break;
         }
+    }
+    public static  String parseFind(String input) {
+        return input.substring(5);
     }
     public static String typeOfTask(String input) {
 
@@ -158,8 +174,10 @@ public class Parser {
             return "delete";
         } else if (input.startsWith("todo") ||input.startsWith("deadline")||input.startsWith("event")) {
             return "add";
+        } else if (input.startsWith("find")) {
+            return "find";
         } else {
-            throw new JuxException("Enter a valid input");
+                throw new JuxException("Enter a valid input");
         }
     }
     public static int convertStringIndexToIntZeroIndex(String listStringNumber) throws JuxException {
@@ -209,7 +227,7 @@ public class Parser {
                 timeFormat = timeFormat + "T00:00";
             }
 
-            System.out.println(timeFormat);
+            //System.out.println(timeFormat);
             LocalDateTime localDateTime = LocalDateTime.parse(timeFormat,DateTimeFormatter.ISO_DATE_TIME);
             return localDateTime;
         } catch (DateTimeException e) {
