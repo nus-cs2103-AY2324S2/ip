@@ -1,10 +1,10 @@
 package duchess.task;
 
-import duchess.DuchessException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duchess.DuchessException;
 
 /**
  * Deadline class represents a task with a specific deadline in the Duchess program.
@@ -37,7 +37,7 @@ public class Deadline extends Task {
      * @param by the deadline of the task in the format "MMM dd yyyy hh:mm a"
      * @throws DuchessException if there is an error parsing the deadline string
      */
-    public Deadline(String description, boolean isDone, String by) throws DuchessException{
+    public Deadline(String description, boolean isDone, String by) throws DuchessException {
         super(description, isDone);
         try {
             this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
@@ -53,16 +53,18 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 
     /**
      * Returns a string representation of the Deadline task in file format.
-     * 
-     * @return a string representing the Deadline task including its type, completion status, description, and deadline for file storage
+     * @return a string representing the Deadline task including its type, completion status, description,
+     * and deadline for file storage
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 }

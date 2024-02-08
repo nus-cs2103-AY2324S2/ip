@@ -1,7 +1,5 @@
 package duchess.task;
 
-import duchess.task.Task;
-
 /**
  * ToDo class represents a task without any specific deadline or time.
  * It extends the Task class and provides methods to manipulate ToDo tasks.

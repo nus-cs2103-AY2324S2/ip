@@ -1,12 +1,12 @@
 package duchess.ui;
 
-import duchess.task.Task;
-import duchess.storage.Storage;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duchess.DuchessException;
 import duchess.TaskList;
-
-import java.util.Scanner;
-import java.util.ArrayList;
+import duchess.storage.Storage;
+import duchess.task.Task;
 
 import javafx.util.Pair;
 
@@ -159,7 +159,7 @@ public class Ui {
 
 
             default:
-                    throw new DuchessException("Oh dear, I can't make out what that is.");
+                throw new DuchessException("Oh dear, I can't make out what that is.");
             }
             printHorizontalLine();
         }

@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duchess.task.Task;
-import duchess.parser.Parser;
 import duchess.DuchessException;
 import duchess.TaskList;
+import duchess.parser.Parser;
+import duchess.task.Task;
 
 /**
  * Storage class manages the loading and saving of tasks from/to a file.
