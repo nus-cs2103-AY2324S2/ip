@@ -13,8 +13,6 @@ import luke.ui.Ui;
  */
 public class Parser {
     private String input;
-    private Ui ui;
-    private Storage storage;
 
     /**
      * Constructor for the parser.
@@ -148,7 +146,7 @@ public class Parser {
                         list.add(new Deadline(description, by));
 
                     } catch (StringIndexOutOfBoundsException e) {
-                        throw new TaskException("Hold up!! The description of a deadline cannot be empty.\n"
+                        throw new TaskException("Hold up!! The description and /by of a deadline cannot be empty.\n"
                                 + "Please follow this format: deadline <description> /by <date/day/time>.");
                     }
 
@@ -164,7 +162,8 @@ public class Parser {
                         String to = input.substring(input.indexOf("/to") + 4);
                         list.add(new Event(description, from, to));
                     } catch (StringIndexOutOfBoundsException e) {
-                        throw new TaskException("Hold up!! The description of an event cannot be empty.\n"
+                        throw new TaskException("Hold up!! The description, /from and /to of an event "
+                                + "cannot be empty.\n"
                                 + "Please follow this format: event <description> "
                                 + "/from <date/day/time> /to <date/day/time>.");
                     }
@@ -178,9 +177,9 @@ public class Parser {
             } catch (LukeException | TaskException | FileException e) {
                 ui.getErrorMessage(e.getMessage());
             } catch (DateException e) {
-                ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as dd/MM/yyyy or"
-                        + " yyyy-MM-dd\nYou can also enter the time in 24-hour format such as HH[:MM] " +
-                        "after the date");
+                ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as "
+                        + "dd/MM/yyyy or yyyy-MM-dd\nYou can also enter the time in 24-hour format such as "
+                        + "HH[:MM] after the date");
             }
         }
     }
