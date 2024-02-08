@@ -64,7 +64,7 @@ public class Parser {
         try {
             taskNum = Integer.parseInt(args[1]);
         } catch (NumberFormatException numberFormatException) {
-            throw new InvalidArgumentException("task number", "cannot be parsed to an integer.",
+            throw new InvalidArgumentException("task number", "cannot be parsed to an integer",
                 numberFormatException.getMessage());
         }
 
