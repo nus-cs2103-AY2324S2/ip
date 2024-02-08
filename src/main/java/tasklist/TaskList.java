@@ -1,4 +1,4 @@
-package items;
+package tasklist;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -6,10 +6,11 @@ import handler.DataHandler;
 import msg.StdMsgs;
 import task.Task;
 import msg.Msg;
+import ui.Ui;
 
 
 /**
- * The items class is a representation of a list of tasks that is able to add, delete, mark and unmark tasks on that
+ * The tasklist class is a representation of a list of tasks that is able to add, delete, mark and unmark tasks on that
  * list and return an appropriate response
  */
 public class TaskList {
@@ -17,8 +18,13 @@ public class TaskList {
     private int taskCount = 0;
     /** ArrayList<task> to store tasks */
     private ArrayList<Task> taskList = new ArrayList<Task>();
+    private Ui ui;
 
     public TaskList() {}
+
+    public int getTaskCount() {
+        return taskCount;
+    }
 
     /**
      * Adds an item to taskList and gives appropriate response msg
@@ -47,6 +53,7 @@ public class TaskList {
         this.taskList.get(i - 1).markAsDone();
         StdMsgs.MARK.print();
         new Msg(this.taskList.get(i - 1).toString()).print();
+
         DataHandler.overWriteItems(this.toDataFormat());
     }
 
@@ -63,21 +70,23 @@ public class TaskList {
     }
 
     /**
+     * Retrieves task at index i
+     *
+     * @param i
+     */
+    public Task getTask(int i) {
+        return taskList.get(i);
+    }
+
+    /**
      * Deletes task at index i of taskList
      *
      * @param i
      */
     public void delete(int i) throws IOException {
         // exception handling when taskList is empty or invalid index is required
-        Task temp = this.taskList.get(i - 1);
         this.taskList.remove(i - 1);
         this.taskCount -= 1;
-        new Msg(
-                "Got it. I've deleted this task:\n" +
-                        temp +
-                        "\n" +
-                        String.format("Now you have %d tasks in the list.", this.taskCount)
-        ).print();
         DataHandler.overWriteItems(this.toDataFormat());
     }
     public Msg toMsg() {
@@ -107,6 +116,6 @@ public class TaskList {
         for (int i = 0; i < taskCount; i++) {
             text.append(String.format("%s\n", this.taskList.get(i).toDataFormat()));
         }
-        return text.toString();b
+        return text.toString();
     }
 }

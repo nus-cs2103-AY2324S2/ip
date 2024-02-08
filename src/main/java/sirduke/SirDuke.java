@@ -6,7 +6,7 @@ import dukeexceptions.EventEmptyException;
 import dukeexceptions.InvalidCmd;
 import handler.CommandsHandler;
 import handler.DataHandler;
-import items.TaskList;
+import tasklist.TaskList;
 import msg.Msg;
 import msg.StdMsgs;
 

@@ -3,7 +3,7 @@ package handler;
 import dukeexceptions.DeadlineEmptyException;
 import dukeexceptions.EventEmptyException;
 import dukeexceptions.InvalidCmd;
-import items.TaskList;
+import tasklist.TaskList;
 import msg.StdMsgs;
 import task.Deadline;
 import task.Event;
@@ -89,6 +89,7 @@ public class CommandsHandler {
             items.add(new Task(userInput));
             break;
         case DELETE:
+            
             items.delete(Integer.parseInt(userInput.substring(7)));
             break;
         }
