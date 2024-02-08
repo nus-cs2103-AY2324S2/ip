@@ -31,7 +31,7 @@ public class FindCommand implements Function<String, Results> {
         StringBuilder outputListMessage = new StringBuilder("Tasks matching \"" + keyword + "\":\n");
         int index = 1;
         for (Task t: tasks) {
-            if (t.toCSVString().split(",")[2].contains(keyword)) {
+            if (t.toCsvString().split(",")[2].contains(keyword)) {
                 outputListMessage.append(index).append(". ").append(t).append("\n");
                 index++;
             }
