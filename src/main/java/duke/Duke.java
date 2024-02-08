@@ -203,7 +203,14 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (JamieException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return "An error occurred while processing your request.";
+        }
     }
 
 
