@@ -6,6 +6,7 @@ package ghbot.executor;
  */
 public class DeleteExecutor extends Executor {
     private int lstNo;
+    private String executeStr;
 
     /**
      * DeleteExecutor Constructor.
@@ -13,15 +14,17 @@ public class DeleteExecutor extends Executor {
      */
     public DeleteExecutor(int lstNo) {
         this.lstNo = lstNo;
+        this.executeStr = "";
     }
 
     /**
      * Prints a string to let user know that the task has been removed.
      */
     @Override
-    public void execute() {
-        System.out.println("Noted. I've removed this task:\n" + this.taskList.getTask(lstNo - 1));
+    public String execute() {
+        this.executeStr = "Noted. I've removed this task:\n" + this.taskList.getTask(lstNo - 1) + "\n";
         this.taskList.deleteTask(lstNo - 1);
-        System.out.println("Now you have " + this.taskList.taskSize() + " tasks in the list.");
+        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        return executeStr;
     }
 }

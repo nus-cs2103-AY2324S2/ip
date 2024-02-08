@@ -12,5 +12,5 @@ public abstract class Executor {
         this.taskList = taskList;
     }
 
-    public abstract void execute();
+    public abstract String execute();
 }

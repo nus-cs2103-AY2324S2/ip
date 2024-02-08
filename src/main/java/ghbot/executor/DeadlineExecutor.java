@@ -9,6 +9,7 @@ import ghbot.Deadline;
 public class DeadlineExecutor extends Executor {
     private String description;
     private String deadlineTime;
+    private String executeStr;
 
     /**
      * DeadlineExecutor Constructor.
@@ -18,16 +19,18 @@ public class DeadlineExecutor extends Executor {
     public DeadlineExecutor(String description, String deadlineTime) {
         this.description = description;
         this.deadlineTime = deadlineTime;
+        this.executeStr = "";
     }
 
     /**
      * Prints a string to let user know that they have successfully added a deadline task.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Deadline deadline = new Deadline(this.description, this.deadlineTime);
         this.taskList.addTask(deadline);
-        System.out.println("Got it. I've added this task:\n" + deadline);
-        System.out.println("Now you have " + this.taskList.taskSize() + " tasks in the list.");
+        this.executeStr = "Got it. I've added this task:\n" + deadline + "\n";
+        this.executeStr = this.executeStr + "Now you have " + this.taskList.taskSize() + " tasks in the list.";
+        return this.executeStr;
     }
 }
