@@ -1,6 +1,8 @@
 package duke.command;
 
-import duke.*;
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -10,6 +12,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int index) {
         this.index = index;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.size() <= index) {

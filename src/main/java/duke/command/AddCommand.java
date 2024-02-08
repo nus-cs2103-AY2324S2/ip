@@ -1,13 +1,18 @@
 package duke.command;
 
-import duke.*;
-import duke.task.*;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 import java.time.LocalDateTime;
 
-
 public class AddCommand extends Command {
-    private Task task;
+    private final Task task;
+
     public AddCommand(String desc) {
        task = new Todo(desc);
     }
@@ -19,6 +24,7 @@ public class AddCommand extends Command {
     public AddCommand(String desc, LocalDateTime from, LocalDateTime to) {
         task = new Event(desc, from, to);
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
