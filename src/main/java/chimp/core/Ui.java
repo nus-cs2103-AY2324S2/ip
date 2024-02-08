@@ -77,12 +77,12 @@ public class Ui {
 
     public void say(String key, Task[] matches, TaskList list) {
         String phrase = getPhrases().get(key);
-        System.out.println(divider);
+        System.out.println(DIVIDER);
         System.out.println(phrase);
         for (int i = 0; i < matches.length; i++) {
             System.out.println((i + 1) + ". " + matches[i].toString());
         }
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 
     /**
