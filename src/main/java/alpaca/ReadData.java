@@ -12,6 +12,9 @@ import alpaca.tasks.Deadline;
 import alpaca.tasks.Event;
 import alpaca.tasks.ToDo;
 
+/**
+ * Handles the storage and retrieval of data
+ **/
 public abstract class ReadData {
     private static final String dataPath = "data/tasks.txt";
 

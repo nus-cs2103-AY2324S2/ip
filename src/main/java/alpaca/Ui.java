@@ -14,6 +14,9 @@ import alpaca.actions.Unmark;
 import alpaca.exceptions.InvalidInput;
 import alpaca.exceptions.ValueNotFound;
 
+/**
+ * Handles the Ui elements
+ **/
 public class Ui {
     final static String name = "Alpaca";
     Scanner scanner;
@@ -72,6 +75,9 @@ public class Ui {
         processInput();
     }
     
+    /**
+     * Handles the start and end of a run with all the necessary resource handling
+     **/
     public void run() {
         greeting();
         scanner = new Scanner(System.in);
@@ -79,8 +85,5 @@ public class Ui {
         processInput();
         ReadData.write(list);
         scanner.close();
-    }
-    
-    public static void main(String[] args) {
     }
 }

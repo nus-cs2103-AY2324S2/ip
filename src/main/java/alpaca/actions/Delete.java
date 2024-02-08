@@ -6,6 +6,9 @@ import alpaca.tasks.Task;
 import alpaca.exceptions.ValueNotFound;
 import alpaca.exceptions.InvalidInput;
 
+/**
+ * Handles the processing of the Delete command
+ **/
 public abstract class Delete extends Template {
     protected static String trigger = "delete";
 
@@ -13,6 +16,9 @@ public abstract class Delete extends Template {
         return input.toLowerCase().replaceAll(" ", "").replaceAll("[0-9]", "").equals(trigger);
     }
 
+    /**
+     * Determines if the input is referring to this case and if the inputs are valid
+     **/
     public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (input.toLowerCase().equals(trigger)) throw new ValueNotFound("Delete needs a index");
         if (!isTriggerPrefix(input, trigger)) return false;

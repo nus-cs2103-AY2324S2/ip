@@ -6,6 +6,9 @@ import alpaca.tasks.Task;
 import alpaca.exceptions.ValueNotFound;
 import alpaca.exceptions.InvalidInput;
 
+/**
+ * Handles the creation of {@link alpaca.tasks.Event}
+ **/
 public abstract class Event extends Template {
     protected static String trigger = "event";
 
@@ -13,6 +16,11 @@ public abstract class Event extends Template {
         return input.toLowerCase().replaceAll(" ", "").replaceAll("[0-9]", "").equals(trigger);
     }
 
+    /**
+     * Processes if a command is applicable
+     * If so, it creates a new instance of {@link alpaca.tasks.Event} and add's
+     * it to the list it was provided
+     **/
     public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         if (isTrigger(input, trigger)) throw new ValueNotFound("You need to provide a value for event");
         if (!isTriggerPrefix(input, trigger)) return false;
