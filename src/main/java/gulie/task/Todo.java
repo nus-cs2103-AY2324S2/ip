@@ -35,6 +35,6 @@ public class Todo extends Task {
 
     @Override
     public String toString(DateTimeFormatter dtf) {
-        return this.toString();
+        return toString();
     }
 }

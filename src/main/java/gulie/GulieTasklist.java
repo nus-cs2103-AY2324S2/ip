@@ -13,7 +13,7 @@ public class GulieTasklist extends ArrayList<Task> {
      * @return
      */
     public Task store(Task task) {
-        this.add(task);
+        add(task);
         return task;
     }
 
@@ -24,11 +24,11 @@ public class GulieTasklist extends ArrayList<Task> {
      * @throws GulieException If an invalid index is given.
      */
     public Task delete(int i) throws GulieException {
-        if (i >= this.size() || i < 0) {
+        if (i >= size() || i < 0) {
             throw new GulieException("Invalid index: " + i);
         }
-        Task task = this.get(i);
-        return this.remove(i);
+        Task task = get(i);
+        return remove(i);
     }
 
     /**
@@ -37,9 +37,9 @@ public class GulieTasklist extends ArrayList<Task> {
      * @throws GulieException If an invalid index is given.
      */
     public void mark(int i) throws GulieException {
-        if (i >= this.size() || i < 0)
+        if (i >= size() || i < 0)
             throw new GulieException("Invalid index: " + i);
-        Task task = this.get(i);
+        Task task = get(i);
         task.setMark(true);
     }
 
@@ -49,9 +49,9 @@ public class GulieTasklist extends ArrayList<Task> {
      * @throws GulieException If an invalid index is given.
      */
     public void unmark(int i) throws GulieException {
-        if (i >= this.size() || i < 0)
+        if (i >= size() || i < 0)
             throw new GulieException("Invalid index: " + i);
-        Task task = this.get(i);
+        Task task = get(i);
         task.setMark(false);
     }
 }

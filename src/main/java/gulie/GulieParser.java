@@ -145,7 +145,7 @@ public class GulieParser {
      * @throws GulieException
      */
     public Command parse(String input) throws GulieException {
-        return this.parse(input, false);
+        return parse(input, false);
     }
 
     private static String getArgument(String inp, String arg) throws GulieException {
