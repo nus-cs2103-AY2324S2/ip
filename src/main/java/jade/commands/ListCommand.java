@@ -33,11 +33,10 @@ public class ListCommand extends Command {
      * @inheritDoc This implementation prints all tasks with an option to specify a date.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
             // Show user that there are no tasks now
             String result = "\tYou have no tasks now :-|";
-            ui.printMessage(result);
             return result;
         }
         int count = 0; // to track the number of tasks to be printed
@@ -60,10 +59,8 @@ public class ListCommand extends Command {
         if (selectedDate != null && count == 0) {
             String result = String.format("There are no tasks on %s", selectedDate
                     .format(DateTimeFormatter.ofPattern("MMM d yyyy")));
-            ui.printMessage(result);
             return result;
         } else {
-            ui.printMessage((sb.toString()));
             return sb.toString();
         }
     }
@@ -72,7 +69,7 @@ public class ListCommand extends Command {
      * @inheritDoc The ListCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }

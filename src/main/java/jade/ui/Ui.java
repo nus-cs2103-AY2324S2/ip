@@ -1,13 +1,11 @@
 package jade.ui;
 
-import java.util.Scanner;
-
 /**
  * Represents a user interface for the <code>Jade</code> object.
- * A <code>Ui</code> object reads user input and prints feedbacks to user.
+ * A <code>Ui</code> saves messages for user feedback.
  */
 public class Ui {
-    private static final String LOGO = "  ____   ___    ____     ______\n"
+    public static final String LOGO = "  ____   ___    ____     ______\n"
             + "  |  |  / _ \\  |  ___ \\ / |____/\n"
             + "  |  | | | | | | |  | | | |____\n"
             + "  |  | | |_| | | |  | | | |____|\n"
@@ -19,48 +17,6 @@ public class Ui {
             + "2. deadline {Task Description} /by {yyyy-mm-dd} e.g. deadline read a book /by 2024-12-31\n"
             + "3. event {Task Description} /from {yyyy-mm-dd} /to {yyyy-mm-dd} "
             + "e.g. read a book /from 2024-12-30 /to 2024-12-31", LOGO);
-    private final Scanner sc; // scanner object for reading user input
-
-    /**
-     * Class constructor initializing the scanner by default.
-     */
-    public Ui() {
-        sc = new Scanner(System.in);
-    }
-
-    /**
-     * Prints the error message returned by the program.
-     */
-    public void showError(String errorMsg) {
-        printMessage(errorMsg);
-    }
-
-    /**
-     * Prints the error message returned by the program.
-     */
-    public void showLoadingError() {
-        printMessage("\t[There's no file under current storage path, a new task file has been created.]");
-    }
-
-    /**
-     * Returns the next line of user input.
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
-     * Prints welcome message, logo, and instructions about using the Jade object.
-     */
-    public void launch() {
-        System.out.print(LAUNCH_MESSAGE);
-    }
-
-    /**
-     * Prints the message enclosed by two lines.
-     */
-    public void printMessage(String msg) {
-        System.out.println(msg);
-    }
-
+    public static final String LOADING_ERROR_MESSAGE = "\t[There's no file under current "
+             + "storage path, a new task file has been created.]";
 }

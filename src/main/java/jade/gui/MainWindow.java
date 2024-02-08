@@ -2,6 +2,7 @@ package jade.gui;
 
 import jade.Jade;
 import jade.ui.Ui;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -24,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Jade jade;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image jadeImage = new Image(this.getClass().getResourceAsStream("/images/jade.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image jadeImage = new Image(this.getClass().getResourceAsStream("/images/jade.png"));
 
     @FXML
     public void initialize() {
@@ -49,6 +50,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJadeDialog(response, jadeImage)
         );
+        if (jade.shouldExit()) {
+            // Platform.exit();
+        }
         userInput.clear();
     }
 }

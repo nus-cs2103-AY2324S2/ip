@@ -22,11 +22,10 @@ public class AddCommand extends Command {
      * @inheritDoc This implementation prints an add message after the task is added.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         tasks.add(task);
         String result = String.format("Got it. I've added this task:\n\t %s\n"
                 + "Now you have %d task(s) in the list.", task, tasks.size());
-        ui.printMessage(result);
         return result;
     }
 
@@ -34,7 +33,7 @@ public class AddCommand extends Command {
      * @inheritDoc The AddCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }

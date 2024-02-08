@@ -22,9 +22,8 @@ public class InvalidCommand extends Command {
      * @inheritDoc This implementation prints an error message to user
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         String result = "Input is invalid, please retry.";
-        ui.printMessage(result);
         return result;
     }
 
@@ -32,7 +31,7 @@ public class InvalidCommand extends Command {
      * @inheritDoc The InvalidCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }

@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
      * @inheritDoc This implementation prints a delete message after the task is deleted.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
+    public String execute(TaskList taskList, Storage storage) throws JadeException {
         if (index <= 0 || index > taskList.size()) {
             throw new JadeException("Please input a valid number to delete the task.");
         }
@@ -31,7 +31,6 @@ public class DeleteCommand extends Command {
         taskList.remove(index - 1);
         String result = String.format("OK, I've deleted this task:\n\t  %s\n"
                 + "Now you have %d task(s) in the list.", deletedTask, taskList.size());
-        ui.printMessage(result);
         return result;
     }
 
@@ -39,7 +38,7 @@ public class DeleteCommand extends Command {
      * @inheritDoc The DeleteCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }

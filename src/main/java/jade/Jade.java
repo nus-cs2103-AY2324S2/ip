@@ -16,53 +16,39 @@ import jade.ui.Ui;
  * @since 2024-01-23
  */
 public class Jade {
-    private static final String USER_TAKSKS_File_PATH = "data/jadeList.txt";
+    private static final String USER_TASKS_File_PATH = "data/jadeList.txt";
     private TaskList taskList; // list that stores all user tasks
     private final Storage storage; // storage object to load from and save to local file
-    private final Ui ui; // user interface for reading input and printing output
+    private boolean shouldExit;
     /**
      * Class constructor.
      */
     public Jade() {
-        this.ui = new Ui();
         this.taskList = new TaskList();
-        this.storage = new Storage(USER_TAKSKS_File_PATH);
+        this.storage = new Storage(USER_TASKS_File_PATH);
+        this.shouldExit = false;
         try {
             this.taskList = new TaskList(storage.load());
         } catch (JadeException e) {
-            ui.showLoadingError();
+            System.out.print(Ui.LOADING_ERROR_MESSAGE);
             this.taskList = new TaskList();
         }
     }
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generate a response from user input.
+     * @param input The user input.
+     * @return The response message by executing user command.
      */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(taskList, ui, storage);
+            this.shouldExit = c.isExit() ? true : false;
+            return c.execute(taskList, storage);
         } catch (JadeException e) {
-            ui.showError(e.getMessage());
             return e.getMessage();
         }
     }
-    /**
-     * Receives user input to run the jade object.
-     * When user enters the exit command, the program terminates.
-     */
-    public void run() {
-        ui.launch();
-        boolean exitProg = false;
-        while (!exitProg) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                exitProg = c.shouldExit();
-            } catch (JadeException e) {
-                ui.showError(e.getMessage());
-            }
-        }
+    public boolean shouldExit() {
+        return this.shouldExit;
     }
 }

@@ -22,13 +22,12 @@ public class MarkCommand extends Command {
      * @inheritDoc This implementation prints a mark message after the task is marked.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
+    public String execute(TaskList taskList, Storage storage) throws JadeException {
         if (index <= 0 || index > taskList.size()) {
             throw new JadeException("Please input a valid number to mark done.");
         }
         taskList.mark(index - 1);
         String result = String.format("Nice, I've marked this task as done:\n\t  %s", taskList.get(index - 1));
-        ui.printMessage(result);
         return result;
     }
 
@@ -36,7 +35,7 @@ public class MarkCommand extends Command {
      * @inheritDoc The MarkCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }

@@ -23,7 +23,7 @@ public class FindCommand extends Command {
      * @inheritDoc This implementation prints all tasks that contain the keyword.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
+    public String execute(TaskList tasks, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
         int count = 0; // track the number of matching tasks found
         for (int i = 0; i < tasks.size(); i++) {
@@ -33,7 +33,6 @@ public class FindCommand extends Command {
             }
         }
         String result = String.format("Here are the matching tasks in your list:\n%s", sb);
-        ui.printMessage(result);
         return result;
     }
 
@@ -41,7 +40,7 @@ public class FindCommand extends Command {
      * @inheritDoc The DeleteCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }
