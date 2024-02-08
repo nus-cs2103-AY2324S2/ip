@@ -4,7 +4,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Duke {
+public class Luna {
 
     enum commandHints {
         LIST,
