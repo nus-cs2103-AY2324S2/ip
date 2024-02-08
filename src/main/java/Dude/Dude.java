@@ -24,7 +24,9 @@ public class Dude {
         ui.showMessage("Loaded " + tasks.size() + " tasks from file.");
         ui.showWelcome();
 
-        while (true) {
+        boolean running = true;
+
+        while (running) {
             try {
                 String input = scanner.nextLine();
                 Command cmd = Parser.getCommand(input);
@@ -34,6 +36,7 @@ public class Dude {
                     case BYE:
                         ui.showGoodbye();
                         scanner.close();
+                        running = false;
                         break;
                     case LIST:
                         ui.showTaskList(tasks.toArrayList());
