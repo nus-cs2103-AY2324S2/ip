@@ -1,5 +1,6 @@
 package GandalfBot;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gandalf {
@@ -18,6 +19,22 @@ public class Gandalf {
         }
     }
 
+    public void find(String keyword) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        int numOfFiltered = 0;
+        for(int i = 0; i < tasks.getList().size(); i++) {
+            Task action = tasks.getList().get(i);
+            String nameOfTask = action.getNameOfTask();
+            if(nameOfTask.contains(keyword)) {
+                filteredList.add(numOfFiltered, action);
+                numOfFiltered++;
+            }
+        }
+        for(int i = 0; i < filteredList.size(); i++) {
+            Task action = filteredList.get(i);
+            System.out.println((i + 1) + ". " + action);
+        }
+    }
     public void run(){
         ui.welcome();
         Scanner scanner = new Scanner(System.in);
@@ -51,8 +68,10 @@ public class Gandalf {
                 ui.marked();
                 System.out.println(correspondingTask);
                 storage.store(tasks.getList());
-            }
-            else if(parsedInput[0].toString().trim().equals("unmark")){
+            } else if(parsedInput[0].toString().trim().equals("find")) {
+                String keyword = parsedInput[1].toString().trim();
+                find(keyword);
+            } else if(parsedInput[0].toString().trim().equals("unmark")){
                 int taskNumber = Integer.parseInt(parsedInput[1].toString());
                 Task correspondingTask = tasks.getList().get(taskNumber - 1);
                 correspondingTask.markStatus(false);

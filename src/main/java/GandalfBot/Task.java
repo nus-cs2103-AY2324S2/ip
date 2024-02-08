@@ -15,8 +15,8 @@ public class Task implements Serializable {
         this.status = status;
     }
 
-    public boolean getStatus(){
-        return this.status;
+    public String getNameOfTask(){
+        return this.nameOfTask;
     }
 
     @Override
