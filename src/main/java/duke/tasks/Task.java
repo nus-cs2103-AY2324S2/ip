@@ -71,7 +71,6 @@ public class Task {
                         String pattern = d.replaceAll("_", s) + t;
                         return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern));
                     } catch (DateTimeParseException dt) {
-                        System.out.println("Invalid date or time");
                     }
                 }
             }

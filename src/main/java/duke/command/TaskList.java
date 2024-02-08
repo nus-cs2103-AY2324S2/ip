@@ -32,10 +32,15 @@ public class TaskList {
     /**
      * Print all tasks in task list.
      */
-    public void printTaskList() {
+    public String printTaskList() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+            stringBuilder.append(i + 1);
+            stringBuilder.append(".");
+            stringBuilder.append(tasks.get(i).toString());
+            stringBuilder.append("\n");
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -120,12 +125,15 @@ public class TaskList {
      *
      * @param match     String to compare with task description.
      */
-    public void findMatchingTasks(String match) {
+    public String findMatchingTasks(String match) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (Task t : tasks) {
             if (t.isMatchingDescription(match)) {
-                System.out.println(t.toString());
+                stringBuilder.append(t);
+                stringBuilder.append("\n");
             }
         }
+        return stringBuilder.toString();
     }
 
     /**

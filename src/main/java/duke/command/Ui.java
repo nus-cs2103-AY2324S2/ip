@@ -20,41 +20,45 @@ public class Ui {
 
     /**
      * Print welcome message.
+     * @return welcomeMessage   String
      */
-    public void printWelcomeMessage() {
-        System.out.println(line);
-        System.out.println(logo);
-        System.out.println("Hello! I'm " + name + "\r\nWhat can I do for you? \r\n" + line);
+    public String printWelcomeMessage() {
+        StringBuilder stringBuilder = new StringBuilder(logo);
+        stringBuilder.append("\nHello! I'm ");
+        stringBuilder.append(name);
+        stringBuilder.append("\r\nWhat can I do for you? \r\n");
+        stringBuilder.append(line);
+        return stringBuilder.toString();
     }
 
     /**
      * Print exit message.
      */
-    public void printExitMessage() {
-        System.out.println("Bye. Hope to see you again soon!\r\n" + line);
+    public String printExitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Print error loading tasks from file.
      */
-    public void showLoadingError() {
-        System.out.println("File corrupted, unable to load saved tasks");
-        System.out.println("Resetting list.............................");
+    public String showLoadingError() {
+        return "File corrupted, unable to load saved tasks \nResetting list.............................";
     }
 
     /**
      * Print a line.
      */
-    public void printLine() {
-        System.out.println(line);
+    public String printLine() {
+        return line;
     }
 
     /**
      * Print task list message.
      */
-    public void printTaskList() {
-        System.out.println(line);
-        System.out.println("Here are the tasks in your list:");
+    public String printTaskList(String tasks) {
+        StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list:\n");
+        stringBuilder.append(tasks);
+        return stringBuilder.toString();
     }
 
     /**
@@ -62,10 +66,10 @@ public class Ui {
      *
      * @param taskString    String representation of task.
      */
-    public void printMarkTask(String taskString) {
-        System.out.println(line);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + taskString);
+    public String printMarkTask(String taskString) {
+        StringBuilder stringBuilder = new StringBuilder("Nice! I've marked this task as done:\n ");
+        stringBuilder.append(taskString);
+        return stringBuilder.toString();
     }
 
     /**
@@ -73,10 +77,10 @@ public class Ui {
      *
      * @param taskString    String representation of task.
      */
-    public void printUnmarkTask(String taskString) {
-        System.out.println(line);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + taskString);
+    public String printUnmarkTask(String taskString) {
+        StringBuilder stringBuilder = new StringBuilder("OK, I've marked this task as not done yet:\n ");
+        stringBuilder.append(taskString);
+        return stringBuilder.toString();
     }
 
     /**
@@ -85,34 +89,13 @@ public class Ui {
      * @param taskString    String representation of task.
      * @param numOfTasks    Total number of tasks in list.
      */
-    public void printAddToDo(String taskString, int numOfTasks) {
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:\r\n " + taskString);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-    }
-
-    /**
-     * Print add event message.
-     *
-     * @param taskString    String representation of task.
-     * @param numOfTasks    Total number of tasks in list.
-     */
-    public void printAddEvent(String taskString, int numOfTasks) {
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:\r\n " + taskString);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-    }
-
-    /**
-     * Print add deadline message.
-     *
-     * @param taskString    String representation of task.
-     * @param numOfTasks    Total number of tasks in list.
-     */
-    public void printAddDeadline(String taskString, int numOfTasks) {
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:\r\n " + taskString);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+    public String printAddTask(String taskString, int numOfTasks) {
+        StringBuilder stringBuilder = new StringBuilder("Got it. I've added this task:\r\n ");
+        stringBuilder.append(taskString);
+        stringBuilder.append("\nNow you have ");
+        stringBuilder.append(numOfTasks);
+        stringBuilder.append(" tasks in the list.");
+        return stringBuilder.toString();
     }
 
     /**
@@ -121,19 +104,22 @@ public class Ui {
      * @param taskString    String representation of task.
      * @param numOfTasks    Total number of tasks in list.
      */
-    public void printDeleteTask(String taskString, int numOfTasks) {
-        System.out.println(line);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(" " + taskString);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+    public String printDeleteTask(String taskString, int numOfTasks) {
+        StringBuilder stringBuilder = new StringBuilder("Noted. I've removed this task:\r\n ");
+        stringBuilder.append(taskString);
+        stringBuilder.append("\nNow you have ");
+        stringBuilder.append(numOfTasks);
+        stringBuilder.append(" tasks in the list.");
+        return stringBuilder.toString();
     }
 
     /**
      * Print find task message.
      */
-    public void printFindTask() {
-        System.out.println(line);
-        System.out.println("Here are the matching tasks in your list:");
+    public String printFindTask(String tasks) {
+        StringBuilder stringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
+        stringBuilder.append(tasks);
+        return stringBuilder.toString();
     }
 
     /**
@@ -141,9 +127,11 @@ public class Ui {
      *
      * @param command   Input command string.
      */
-    public void printUnknownCommandError(String command) {
-        System.out.println(line);
-        System.out.println("Are you as clueless about \"" + command + "\" as I am?");
+    public String printUnknownCommandError(String command) {
+        StringBuilder stringBuilder = new StringBuilder("Are you as clueless about \"");
+        stringBuilder.append(command);
+        stringBuilder.append("\" as I am?");
+        return stringBuilder.toString();
     }
 
     /**
@@ -151,7 +139,7 @@ public class Ui {
      *
      * @param errorMessage      Error message string.
      */
-    public void printErrorMessage(String errorMessage) {
-        System.out.println(errorMessage);
+    public String printErrorMessage(String errorMessage) {
+        return errorMessage;
     }
 }

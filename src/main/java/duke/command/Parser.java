@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import duke.tasks.Task;
 
-
-
 /**
  * Handles reading user input and calling the relevant commands.
  */
@@ -25,21 +23,18 @@ public class Parser {
      * @param taskList          TaskList instance.
      * @param ui                Ui instance.
      * @return continue         Returns 0: exit program, -1: continue reading user input.
-     * @throws DukeException    If user command incomplete.
      * @throws IOException      If storage to file is unsuccessful.
      */
-    public int parseInput(String input, Storage storage, TaskList taskList, Ui ui) throws DukeException, IOException {
+    public String parseInput(String input, Storage storage, TaskList taskList, Ui ui) throws IOException {
         input = input + " ";
         String[] command = input.split(" ", 2);
 
         switch (command[0].toLowerCase()) {
         case "bye":
-            return 0;
+            return ui.printExitMessage();
 
         case "list":
-            ui.printTaskList();
-            taskList.printTaskList();
-            return -1;
+            return ui.printTaskList(taskList.printTaskList());
 
         case "mark":
             try {
@@ -55,13 +50,11 @@ public class Parser {
 
                 Task t = taskList.markTask(index - 1);
                 storage.updateTask(t, index, numOfTasks);
-                ui.printMarkTask(t.toString());
+                return ui.printMarkTask(t.toString());
 
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
-
-            return -1;
 
         case "unmark":
             try {
@@ -77,13 +70,11 @@ public class Parser {
 
                 Task t = taskList.unmarkTask(index - 1);
                 storage.updateTask(t, index, numOfTasks);
-                ui.printUnmarkTask(t.toString());
+                return ui.printUnmarkTask(t.toString());
 
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
-
-            return -1;
 
         case "todo":
             try {
@@ -93,13 +84,11 @@ public class Parser {
 
                 Task task = taskList.addTodo(command[1].strip());
                 storage.addNewTask(task);
-                ui.printAddToDo(task.toString(), taskList.getNumOfTasks());
+                return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
 
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
-
-            return -1;
 
         case "event":
             try {
@@ -116,13 +105,11 @@ public class Parser {
 
                 Task task = taskList.addEvent(event[0].strip(), event[1].strip(), event[2].strip());
                 storage.addNewTask(task);
-                ui.printAddEvent(task.toString(), taskList.getNumOfTasks());
+                return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
 
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
-
-            return -1;
 
         case "deadline":
             try {
@@ -137,13 +124,12 @@ public class Parser {
 
                 Task task = taskList.addDeadline(d[0].strip(), d[1].strip());
                 storage.addNewTask(task);
-                ui.printAddDeadline(task.toString(), taskList.getNumOfTasks());
+                return ui.printAddTask(task.toString(), taskList.getNumOfTasks());
 
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
 
-            return -1;
 
         case "delete":
             try {
@@ -159,13 +145,12 @@ public class Parser {
 
                 Task task = taskList.deleteTask(index - 1);
                 storage.deleteTask(index - 1, numOfTasks);
-                ui.printDeleteTask(task.toString(), taskList.getNumOfTasks());
+                return ui.printDeleteTask(task.toString(), taskList.getNumOfTasks());
 
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
 
-            return -1;
 
         case "find":
             try {
@@ -173,17 +158,13 @@ public class Parser {
                     throw new DukeException("Invalid input, missing search term");
                 }
 
-                ui.printFindTask();
-                taskList.findMatchingTasks(command[1].strip());
+                return ui.printFindTask(taskList.findMatchingTasks(command[1].strip()));
             } catch (DukeException de) {
-                ui.printErrorMessage(de.getErrorMessage());
+                return ui.printErrorMessage(de.getErrorMessage());
             }
 
-            return -1;
-
         default:
-            ui.printUnknownCommandError(command[0]);
-            return -1;
+            return ui.printUnknownCommandError(command[0]);
         }
     }
 }
