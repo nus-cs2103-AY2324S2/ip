@@ -1,4 +1,4 @@
-import yoda.YodaUI;
+import yoda.yodaUI.YodaUI;
 import yoda.parser.Parser;
 import yoda.storage.Storage;
 import yoda.task.TaskList;
@@ -11,7 +11,8 @@ import java.io.IOException;
  * Yoda can also find tasks by searching for keywords.
  */
 public class Yoda {
-    private final YodaUI yodaUI;
+    private final YodaUI YODA_UI;
+    private Parser parser;
 
     public Yoda(String filePath) {
         Storage storage = new Storage(filePath);
@@ -25,27 +26,29 @@ public class Yoda {
             tasks = new TaskList(null);
         }
         // Initialize YodaUI with the loaded tasks
-        this.yodaUI = new YodaUI("Yoda", tasks, storage);
+        this.YODA_UI = new YodaUI("Yoda", tasks, storage);
+    }
+
+    public void run() {
+        YODA_UI.printGreeting();
+        Scanner scanner = new Scanner(System.in);
+        Parser commandParser = new Parser(YODA_UI);
+        boolean isRunning = true;
+        while (isRunning) {
+            String input = scanner.nextLine();
+            try {
+                commandParser.parseAndExecute(input);
+            } catch (Exception e) {
+                YODA_UI.printMessage("Error occurred: " + e.getMessage());
+                isRunning = false;
+            }
+
+        }
     }
 
     public static void main(String[] args) {
         // Initialize Yoda with the file path for storing tasks
         Yoda yoda = new Yoda("data/yoda.txt");
-
-        Scanner scanner = new Scanner(System.in);
-        Parser commandParser = new Parser(yoda.yodaUI);
-
-        // Display the greeting message
-        yoda.yodaUI.printGreeting();
-
-        while (yoda.yodaUI.isChatting()) {
-            String input = scanner.nextLine();
-            try {
-                commandParser.parseAndExecute(input);
-            } catch (Exception e) {
-                yoda.yodaUI.printMessage("Error occurred: " + e.getMessage());
-            }
-        }
-        scanner.close();
+        yoda.run();
     }
 }

@@ -1,5 +1,5 @@
 package yoda.parser;
-import yoda.YodaUI;
+import yoda.yodaUI.YodaUI;
 import yoda.task.Deadline;
 import yoda.task.Event;
 import yoda.task.TaskList;
@@ -9,14 +9,14 @@ import java.time.format.DateTimeParseException;
 import yoda.datetimeutil.DateTimeUtil;
 public class Parser {
 
-    private final YodaUI yodaUI;
+    private final YodaUI YODA_UI;
 
     /**
      * Constructor for CommandParser.
      * @param yodaUI The instance of YodaUI to interact with the task list.
      */
     public Parser(YodaUI yodaUI) {
-        this.yodaUI = yodaUI;
+        this.YODA_UI = yodaUI;
     }
 
     /**
@@ -30,47 +30,47 @@ public class Parser {
 
         try {
             switch (command) {
-                case BYE:
-                    yodaUI.printMessage("Farewell. See you again, I hope!");
-                    yodaUI.stopChatting();
-                    break;
-                case LIST:
-                    yodaUI.showTasks();
-                    break;
-                case SAVE:
-                    TaskList taskList = yodaUI.getTaskList();
-                    yodaUI.saveTasks(taskList);
-                    break;
-                case DELETE:
-                    performTaskOperation(parts, yodaUI::deleteTask);
-                    break;
-                case FIND:
-                    if (parts.length > 1) {
-                        yodaUI.findTasks(parts[1]);
-                    } else {
-                        throw new Exception("Search term, provide you must.");
-                    }
-                    break;
-                case MARK:
-                    performTaskOperation(parts, yodaUI::markTaskAsDone);
-                    break;
-                case UNMARK:
-                    performTaskOperation(parts, yodaUI::markTaskAsUndone);
-                    break;
-                case TODO:
-                    yodaUI.addTask(new Todo(parts[1]));
-                    break;
-                case DEADLINE:
-                    addTaskWithDateTime(parts, Command.DEADLINE);
-                    break;
-                case EVENT:
-                    addTaskWithDateTime(parts, Command.EVENT);
-                    break;
-                default:
-                    yodaUI.printMessage("Sorry, I am. What that means, I do not know :-(");
+            case BYE:
+                YODA_UI.printMessage("Farewell. See you again, I hope!");
+                YODA_UI.stopChatting();
+                break;
+            case LIST:
+                YODA_UI.showTasks();
+                break;
+            case SAVE:
+                TaskList taskList = YODA_UI.getTaskList();
+                YODA_UI.saveTasks(taskList);
+                break;
+            case DELETE:
+                performTaskOperation(parts, YODA_UI::deleteTask);
+                break;
+            case FIND:
+                if (parts.length > 1) {
+                    YODA_UI.findTasks(parts[1]);
+                } else {
+                    throw new Exception("Search term, provide you must.");
+                }
+                break;
+            case MARK:
+                performTaskOperation(parts, YODA_UI::markTaskAsDone);
+                break;
+            case UNMARK:
+                performTaskOperation(parts, YODA_UI::markTaskAsUndone);
+                break;
+            case TODO:
+                YODA_UI.addTask(new Todo(parts[1]));
+                break;
+            case DEADLINE:
+                addTaskWithDateTime(parts, Command.DEADLINE);
+                break;
+            case EVENT:
+                addTaskWithDateTime(parts, Command.EVENT);
+                break;
+            default:
+                YODA_UI.printMessage("Sorry, I am. What that means, I do not know :-(");
             }
         } catch (Exception e) {
-            yodaUI.printMessage(e.getMessage());
+            YODA_UI.printMessage(e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class Parser {
         try {
             if (commandType == Command.DEADLINE) {
                 LocalDateTime by = DateTimeUtil.parseDateTime(taskParts[1]);
-                yodaUI.addTask(new Deadline(taskParts[0], by));
+                YODA_UI.addTask(new Deadline(taskParts[0], by));
             } else if (commandType == Command.EVENT) {
                 String[] timeParts = taskParts[1].split(" /to ", 2);
                 if (timeParts.length < 2) {
@@ -101,7 +101,7 @@ public class Parser {
                 }
                 LocalDateTime from = DateTimeUtil.parseDateTime(timeParts[0]);
                 LocalDateTime to = DateTimeUtil.parseDateTime(timeParts[1]);
-                yodaUI.addTask(new Event(taskParts[0], from, to));
+                YODA_UI.addTask(new Event(taskParts[0], from, to));
             }
         } catch (DateTimeParseException e) {
             throw new Exception("Invalid, the date format is. Use one of the accepted formats, you must.");
@@ -117,7 +117,7 @@ public class Parser {
     private int parseTaskNumber(String input) throws Exception {
         try {
             int taskNumber = Integer.parseInt(input);
-            if (taskNumber <= 0 || taskNumber > yodaUI.getTaskListSize()) {
+            if (taskNumber <= 0 || taskNumber > YODA_UI.getTaskListSize()) {
                 throw new Exception("Valid task number, provide you must.");
             }
             return taskNumber;

@@ -4,21 +4,21 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class TaskList {
-    private final List<Task> tasks; // List to store the tasks
+    private final List<Task> TASKS; // List to store the tasks
 
     public TaskList(List<Task> loadedTasks) {
-        this.tasks = loadedTasks != null ? new ArrayList<>(loadedTasks) : new ArrayList<>();
+        this.TASKS = loadedTasks != null ? new ArrayList<>(loadedTasks) : new ArrayList<>();
     }
 
     public void addTask(Task task) {
         if (task != null) {
-            tasks.add(task);
+            TASKS.add(task);
         }
     }
 
     public void findTasks(String keyword) {
         List<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
+        for (Task task : TASKS) {
             if (task.getDescription().contains(keyword)) {
                 foundTasks.add(task);
             }
@@ -34,40 +34,40 @@ public class TaskList {
     }
 
     public void deleteTask(int taskNumber) throws Exception {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+        if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new Exception("Valid task number, provide you must.");
         }
-        tasks.remove(taskNumber - 1);
+        TASKS.remove(taskNumber - 1);
     }
 
     public void markTaskAsDone(int taskNumber) throws Exception {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+        if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new Exception("Valid task number, provide you must.");
         }
-        tasks.get(taskNumber - 1).markAsDone();
+        TASKS.get(taskNumber - 1).markAsDone();
     }
 
     public void markTaskAsUndone(int taskNumber) throws Exception {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+        if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new Exception("Valid task number, provide you must.");
         }
-        tasks.get(taskNumber - 1).markAsUndone();
+        TASKS.get(taskNumber - 1).markAsUndone();
     }
 
     public Task getTask(int taskNumber) throws Exception {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+        if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new Exception("Valid task number, provide you must.");
         }
-        return tasks.get(taskNumber - 1);
+        return TASKS.get(taskNumber - 1);
     }
 
 
     public int size() {
-        return tasks.size();
+        return TASKS.size();
     }
 
     public boolean isEmpty() {
-        return tasks.isEmpty();
+        return TASKS.isEmpty();
     }
 
     /**
@@ -75,18 +75,18 @@ public class TaskList {
      * @return A stream of Task objects.
      */
     public Stream<Task> stream() {
-        return tasks.stream();
+        return TASKS.stream();
     }
 
     @Override
     public String toString() {
-        if (tasks.isEmpty()) {
+        if (TASKS.isEmpty()) {
             return "Empty, your task list is.";
         }
 
         StringBuilder response = new StringBuilder("Tasks in your list, here they are:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            response.append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        for (int i = 0; i < TASKS.size(); i++) {
+            response.append(i + 1).append(".").append(TASKS.get(i)).append("\n");
         }
         return response.toString().trim();
     }

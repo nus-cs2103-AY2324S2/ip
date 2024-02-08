@@ -1,16 +1,15 @@
-package yoda;
+package yoda.yodaUI;
 import yoda.task.Task;
 import yoda.task.TaskList;
 import yoda.storage.Storage;
-
 import java.io.IOException;
 
 
 public class YodaUI {
-    private final TaskList taskList;
-    private final String chatbotName;
+    private final TaskList TASKLIST;
+    private final String CHATBOT_NAME;
     private boolean isChatting;
-    private final Storage storage;
+    private final Storage STORAGE;
 
     /**
      * Constructor to initialize the chatbot with a name, a TaskList, and a Storage.
@@ -19,10 +18,10 @@ public class YodaUI {
      * @param storage The Storage object for handling task persistence.
      */
     public YodaUI(String chatbotName, TaskList taskList, Storage storage) {
-        this.chatbotName = chatbotName;
+        this.CHATBOT_NAME = chatbotName;
         this.isChatting = true;
-        this.taskList = taskList;
-        this.storage = storage;
+        this.TASKLIST = taskList;
+        this.STORAGE = storage;
     }
 
     /**
@@ -47,8 +46,8 @@ public class YodaUI {
      */
     public void markTaskAsDone(int taskNumber) {
         try {
-            taskList.markTaskAsDone(taskNumber);
-            Task task = taskList.getTask(taskNumber);
+            TASKLIST.markTaskAsDone(taskNumber);
+            Task task = TASKLIST.getTask(taskNumber);
             printMessage("Done, this task is:\n" + task);
         } catch (Exception e) {
             printMessage(e.getMessage());
@@ -56,12 +55,12 @@ public class YodaUI {
     }
 
     public int getTaskListSize() {
-        return taskList.size();
+        return TASKLIST.size();
     }
 
     // Method to get the TaskList object
     public TaskList getTaskList() {
-        return this.taskList;
+        return this.TASKLIST;
     }
 
     /**
@@ -71,8 +70,8 @@ public class YodaUI {
      */
     public void markTaskAsUndone(int taskNumber) {
         try {
-            taskList.markTaskAsUndone(taskNumber);
-            Task task = taskList.getTask(taskNumber);
+            TASKLIST.markTaskAsUndone(taskNumber);
+            Task task = TASKLIST.getTask(taskNumber);
             printMessage("Undone, this task remains:\n" + task);
         } catch (Exception e) {
             printMessage(e.getMessage());
@@ -85,7 +84,7 @@ public class YodaUI {
      * @param searchTerm The search term to match tasks against.
      */
     public void findTasks(String searchTerm) {
-        taskList.findTasks(searchTerm);
+        TASKLIST.findTasks(searchTerm);
     }
 
     /**
@@ -95,8 +94,8 @@ public class YodaUI {
      */
     public void deleteTask(int taskNumber) {
         try {
-            taskList.deleteTask(taskNumber);
-            printMessage("Removed, this task has been:\nNow you have " + taskList.size() + " tasks in the list.");
+            TASKLIST.deleteTask(taskNumber);
+            printMessage("Removed, this task has been:\nNow you have " + TASKLIST.size() + " tasks in the list.");
         } catch (Exception e) {
             printMessage(e.getMessage());
         }
@@ -108,8 +107,8 @@ public class YodaUI {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        taskList.addTask(task);
-        printMessage("Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + taskList.size() + ", hmm.");
+        TASKLIST.addTask(task);
+        printMessage("Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + TASKLIST.size() + ", hmm.");
     }
 
     /**
@@ -117,12 +116,12 @@ public class YodaUI {
      * Delegates to TaskList to get the string representation of tasks.
      */
     public void showTasks() {
-        printMessage(taskList.toString());
+        printMessage(TASKLIST.toString());
     }
 
     public void saveTasks(TaskList taskList) {
         try {
-            storage.saveTasks(taskList);
+            STORAGE.saveTasks(taskList);
             printMessage("Saved, your task list has been.");
         } catch (IOException e) {
             printMessage("Error saving tasks: " + e.getMessage());
@@ -152,7 +151,8 @@ public class YodaUI {
      */
     public void printGreeting() {
         printLine();
-        System.out.println("Greetings! " + chatbotName + ", I am\nAssist you, may I?");
+        System.out.println("Greetings! " + CHATBOT_NAME + ", I am\nAssist you, may I?");
         printLine();
     }
+
 }

@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 
 /** Represents the storage for tasks. */
 public class Storage {
-    private final String filePath;
-    private final Path path;
+    private final String FILE_PATH;
+    private final Path PATH;
 
 
     /**
@@ -30,8 +30,8 @@ public class Storage {
      * @param filePath The file path where tasks are stored.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
-        this.path = Paths.get(filePath);
+        this.FILE_PATH = filePath;
+        this.PATH = Paths.get(filePath);
     }
 
     /**
@@ -56,13 +56,13 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     private boolean isFileContentDifferent(List<String> taskStrings) throws IOException {
-        if (!Files.exists(path)) {
-            Files.createDirectories(path.getParent());
-            Files.createFile(path);
+        if (!Files.exists(PATH)) {
+            Files.createDirectories(PATH.getParent());
+            Files.createFile(PATH);
             return true;
         }
 
-        List<String> fileContent = Files.readAllLines(path);
+        List<String> fileContent = Files.readAllLines(PATH);
         return !fileContent.equals(taskStrings);
     }
 
@@ -73,7 +73,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     private void writeToFile(List<String> taskStrings) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (String taskString : taskStrings) {
                 writer.write(taskString + System.lineSeparator());
             }
@@ -111,7 +111,7 @@ public class Storage {
      */
     public TaskList loadTasks() throws IOException {
         List<Task> loadedTasks = new ArrayList<>();
-        Path path = Paths.get(filePath);
+        Path path = Paths.get(FILE_PATH);
 
         if (!Files.exists(path)) {
             Files.createDirectories(path.getParent());
@@ -138,21 +138,26 @@ public class Storage {
      */
     private Task fileToTaskFormat(String line) {
         String[] parts = line.split(" \\| ");
+        if (parts.length < 3) return null; // Basic validation
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
         switch (type) {
-            case "T":
-                return createTodoTask(isDone, description);
-            case "D":
-                return createDeadlineTask(isDone, description, parts[3]);
-            case "E":
-                return createEventTask(isDone, description, parts[3], parts[4]);
-            default:
-                return null;
+        case "T":
+            return createTodoTask(isDone, description);
+        case "D":
+            if (parts.length < 4) return null; // Additional validation for deadlines
+            return createDeadlineTask(isDone, description, parts[3]);
+        case "E":
+            if (parts.length < 5) return null; // Additional validation for events
+            return createEventTask(isDone, description, parts[3], parts[4]);
+        default:
+            return null;
         }
     }
+
 
     /**
      * Creates a Todo task from the given parameters.
