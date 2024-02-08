@@ -17,6 +17,8 @@ public class ChatBot {
     private static final String EVENT = "event";
     private static final String ADD_TASK = " has been accounted for! \n" + NEW_LINE;
     private static final String NORMAL = "normal";
+    private static final String REMOVE = "remove";
+    private static final String TASK_REMOVED = "I have removed the task from the list Sir!";
 
     TaskList taskList = new TaskList();
     Boolean isFinished = false;
@@ -47,6 +49,10 @@ public class ChatBot {
         } else if (input.contains(BYE)) {
             this.isFinished = true;
             return EXIT;
+        } else if (input.contains(REMOVE)) {
+            idx = Integer.valueOf(input.substring(SEVEN));
+            taskList.removeTask(idx - 1);
+            return TASK_REMOVED;
         } else {
             if (input.contains(TODO)) {
                 try {

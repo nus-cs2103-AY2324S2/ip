@@ -18,7 +18,7 @@ public class TaskList {
         Task task;
         String status;
         String finalOutput = new String("");
-        
+
         for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
             status = task.checkStatus();
@@ -35,6 +35,10 @@ public class TaskList {
     public void unmarkTask(int idx) {
         Task task = taskList.get(idx - 1);
         task.revertStatus();
+    }
+
+    public void removeTask(int idx) {
+        taskList.remove(idx);
     }
 
 }
