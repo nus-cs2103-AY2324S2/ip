@@ -79,8 +79,7 @@ public class Ui {
             }
             return true;
         case "mark":
-        case "unmark":
-        {
+        case "unmark": {
             boolean isMark = command.equals("mark");
             String ferr2 = "%s command: no such task numbered %s.";
             String idxString = arguments[0];
@@ -95,8 +94,7 @@ public class Ui {
             reply(String.format("  %s", tasks.peekTask(idx)));
             return true;
         }
-        case "todo":
-        {
+        case "todo": {
             String taskStr = arguments[0];
             Task task = TaskList.createTodo(taskStr, false);
             tasks.addTask(task);
@@ -105,8 +103,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "deadline":
-        {
+        case "deadline": {
             String taskStr = arguments[0];
             String deadline = arguments[1];
             Task task = TaskList.createDeadline(taskStr, deadline, false);
@@ -116,8 +113,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "event":
-        {
+        case "event": {
             String taskStr = arguments[0];
             String fromStr = arguments[1];
             String toStr = arguments[2];
@@ -128,8 +124,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "delete":
-        {
+        case "delete": {
             String ferr2 = "%s command: no such task numbered %s.";
             String idxString = arguments[0];
             int idx = Integer.parseInt(idxString) - 1;
@@ -144,8 +139,7 @@ public class Ui {
             reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
             return true;
         }
-        case "find":
-        {
+        case "find": {
             String query = arguments[0];
             reply(FIND_MESSAGE);
             int[] count = { 1 };
