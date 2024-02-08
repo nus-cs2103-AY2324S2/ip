@@ -3,7 +3,7 @@ import nihao.action.task.Task;
 import nihao.exception.IndexOutOfBoundsException;
 import nihao.handler.PrintHandler;
 import nihao.handler.DataHandler;
-public class MarkAction implements Action{
+public class MarkAction extends Action{
     private final int index;
     public MarkAction(String index) {
         this.index = Integer.parseInt(index);
@@ -14,5 +14,10 @@ public class MarkAction implements Action{
         Task task = DataHandler.getTask(index);
         PrintHandler.printWithDivider("Fine. I've marked this as completed:\n" +
                 "   " + task);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof MarkAction && ((MarkAction) obj).index == this.index;
     }
 }

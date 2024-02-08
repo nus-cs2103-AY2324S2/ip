@@ -17,7 +17,7 @@ import nihao.exception.UnknownCommandException;
 import java.time.LocalDateTime;
 
 public class InputHandler {
-    private InputHandler() {}
+    InputHandler() {}
     public static Action handleInput(String input) throws Exception {
         String[] parsedInput = input.split(" ");
         String commandName = parsedInput[0];
@@ -54,12 +54,12 @@ public class InputHandler {
             if (countByFlag(parsedInput) != 1) {
                 throw new IllegalArgumentException("deadline requires exactly 1 /by flag");
             }
-            int flagIndex = input.indexOf(" /by ");
-            if (flagIndex == -1) {
+            int byIndex = input.indexOf(" /by ");
+            if (byIndex < 9) {
                 throw new IllegalArgumentException("illegal use of /by flag");
             }
-            taskName = input.substring(9, flagIndex);
-            LocalDateTime by = DateTimeHandler.handleInput(input.substring(flagIndex + 5));
+            taskName = input.substring(9, byIndex);
+            LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + 5));
             DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
             return new TaskAction(deadlineTask);
         case EVENT:
@@ -68,8 +68,9 @@ public class InputHandler {
             }
             int fromIndex = input.indexOf(" /from ");
             int toIndex = input.indexOf(" /to ");
-            if (fromIndex == -1 || toIndex == -1 || toIndex < fromIndex) {
+            if (fromIndex < 6 || toIndex < fromIndex + 7) {
                 throw new IllegalArgumentException("illegal use of flags");
+                // Todo: define "  " and " " more clearly
             }
             taskName = input.substring(6, fromIndex);
             LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + 7, toIndex));

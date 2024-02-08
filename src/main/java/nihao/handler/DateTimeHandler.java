@@ -15,7 +15,7 @@ public class DateTimeHandler {
         try {
             localDateTime = LocalDateTime.parse(input, INPUT_FORMATTER);
             return localDateTime;
-        } catch (DateTimeParseException e) {
+        } catch (Exception e) {
             throw new IncorrectDateTimeFormatException();
         }
     }

@@ -18,4 +18,10 @@ public class DeadlineTask extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getByString() + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof DeadlineTask && ((DeadlineTask) obj).taskName.equals(taskName)
+                && ((DeadlineTask) obj).by.equals(by);
+    }
 }

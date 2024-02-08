@@ -5,7 +5,7 @@ import nihao.exception.IndexOutOfBoundsException;
 import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
-public class DeleteAction implements Action{
+public class DeleteAction extends Action{
     private final int index;
     private boolean isAll;
     public DeleteAction(String index) {
@@ -31,5 +31,10 @@ public class DeleteAction implements Action{
                     + "   " + task + "\n"
                     + "Now you have " + noOfTasks + " tasks.");
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof DeleteAction && ((DeleteAction) obj).index == this.index;
     }
 }

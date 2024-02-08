@@ -8,7 +8,7 @@ public class Task {
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-    private String taskName;
+    protected String taskName;
     public String getTaskName() {
         return taskName;
     }

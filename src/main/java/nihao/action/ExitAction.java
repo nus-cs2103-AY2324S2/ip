@@ -4,7 +4,7 @@ import nihao.enums.SavedString;
 import nihao.handler.DataHandler;
 import nihao.handler.PrintHandler;
 
-public class ExitAction implements Action{
+public class ExitAction extends Action{
     @Override
     public void execute() {
         PrintHandler.printWithDivider(SavedString.GOODBYE.getContent());

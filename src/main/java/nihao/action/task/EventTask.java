@@ -25,4 +25,11 @@ public class EventTask extends Task{
                 " (from: " + getFromString() +
                 " to: " + getToString() + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        System.out.println("invoked eventtask.equals");
+        return obj instanceof EventTask && ((EventTask) obj).taskName.equals(taskName)
+                && ((EventTask) obj).from.equals(from) && ((EventTask) obj).to.equals(to);
+    }
 }

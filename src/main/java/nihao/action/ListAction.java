@@ -5,7 +5,7 @@ import nihao.handler.DataHandler;
 
 import java.util.ArrayList;
 
-public class ListAction implements Action{
+public class ListAction extends Action{
     public ListAction() {}
     @Override
     public void execute() {
