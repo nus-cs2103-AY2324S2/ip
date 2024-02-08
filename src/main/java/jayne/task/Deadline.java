@@ -33,9 +33,7 @@ public class Deadline extends Task {
         try {
             return LocalDate.parse(dateString);
         } catch (DateTimeParseException e) {
-            //System.out.println("Unable to parse the date: " + dateString);
             throw new JayneException("Unable to parse the date: " + dateString);
-            //return null;
         }
     }
     /**
