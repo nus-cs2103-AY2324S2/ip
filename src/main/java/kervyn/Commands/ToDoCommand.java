@@ -1,6 +1,7 @@
 package kervyn.Commands;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
 import kervyn.Tasks.ToDo;
@@ -14,17 +15,18 @@ import java.util.Objects;
 public class ToDoCommand extends Command {
     private String userInput;
     private Image kervynImage;
-
+    private VBox dialogContainer;
     /**
      * Constructs a ToDoCommand with the specified TaskList and user input.
      *
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the ToDo task details.
      */
-    public ToDoCommand(TaskList taskList, String userInput, Image kervynImage) {
+    public ToDoCommand(TaskList taskList, String userInput, Image kervynImage, VBox dialogContainer) {
         super("ToDo", taskList, kervynImage);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
+        this.dialogContainer = dialogContainer;
     }
 
     /**
@@ -65,7 +67,7 @@ public class ToDoCommand extends Command {
      * @param toDo The ToDo task that was added.
      * @param userTasks The current list of tasks, including the newly added ToDo task.
      */
-    private void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks, Image kervynImage) {
+    private void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks) {
         System.out.println(toDo.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
@@ -79,7 +81,7 @@ public class ToDoCommand extends Command {
         ToDo newToDo = getProcessedToDo(this.userInput);
         if (newToDo != null) {
             this.taskList.addTask(newToDo);
-            toDoTaskTextDisplay(newToDo, this.taskList.getTaskList(), this.kervynImage);
+            toDoTaskTextDisplay(newToDo, this.taskList.getTaskList());
         }
     }
 }

@@ -33,31 +33,31 @@ public class Parser {
         String[] processedUserInput = userInput.split(" ");
         switch (processedUserInput[0]) {
             case "bye":
-                new ByeCommand(taskList, this.storage, kervynImage).executeCommand();
+                new ByeCommand(taskList, this.storage, kervynImage, dialogContainer).executeCommand();
                 break;
             case "list":
                 new ListCommand(taskList, kervynImage, dialogContainer).executeCommand();
                 break;
             case "mark":
-                new MarkCommand(taskList, processedUserInput, kervynImage).executeCommand();
+                new MarkCommand(taskList, processedUserInput, kervynImage, dialogContainer).executeCommand();
                 break;
             case "unmark":
-                new UnMarkCommand(taskList, processedUserInput, kervynImage).executeCommand();
+                new UnMarkCommand(taskList, processedUserInput, kervynImage, dialogContainer).executeCommand();
                 break;
             case "delete":
-                new DeleteCommand(taskList, processedUserInput, kervynImage).executeCommand();
+                new DeleteCommand(taskList, processedUserInput, kervynImage, dialogContainer).executeCommand();
                 break;
             case "todo":
-                new ToDoCommand(taskList, userInput, kervynImage).executeCommand();
+                new ToDoCommand(taskList, userInput, kervynImage, dialogContainer).executeCommand();
                 break;
             case "deadline":
-                new DeadlineCommand(taskList, userInput, kervynImage).executeCommand();
+                new DeadlineCommand(taskList, userInput, kervynImage, dialogContainer).executeCommand();
                 break;
             case "event":
-                new EventCommand(taskList, userInput, kervynImage).executeCommand();
+                new EventCommand(taskList, userInput, kervynImage, dialogContainer).executeCommand();
                 break;
             case "find":
-                new FindCommand(taskList, userInput, kervynImage).executeCommand();
+                new FindCommand(taskList, userInput, kervynImage, dialogContainer).executeCommand();
                 break;
             default:
                 System.out.println("\t I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.");

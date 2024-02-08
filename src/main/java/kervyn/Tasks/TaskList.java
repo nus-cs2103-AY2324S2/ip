@@ -109,7 +109,7 @@ public class TaskList {
      * @param processedUserInput The user input processed into an array of Strings.
      * @return Returns 1 if the mark operation was successful, 0 otherwise.
      */
-    public String markTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage) {
+    public String markTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (task.getStatus()) {
@@ -139,7 +139,7 @@ public class TaskList {
      * @param processedUserInput The user input processed into an array of Strings.
      * @return Returns 1 if the unmark operation was successful, 0 otherwise.
      */
-    public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage) {
+    public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (!task.getStatus()) {
@@ -179,7 +179,7 @@ public class TaskList {
      * @param userTasks The ArrayList of Task objects.
      * @param processedUserInput The user input processed into an array of Strings.
      */
-    public void removeTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage) {
+    public void removeTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             System.out.println("\tOK, I've removed this task as per your request:");
@@ -192,7 +192,7 @@ public class TaskList {
         }
     }
 
-    public void findTask(ArrayList<Task> userTasks, String userInput, Image kervynImage) {
+    public void findTask(ArrayList<Task> userTasks, String userInput, Image kervynImage, VBox dialogContainer) {
         String[] processedUserInput = userInput.split(" ");
         StringBuilder userKeywords = new StringBuilder();
         ArrayList<Task> results = new ArrayList<>();

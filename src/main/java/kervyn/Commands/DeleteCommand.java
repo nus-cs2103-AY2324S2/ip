@@ -1,6 +1,7 @@
 package kervyn.Commands;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -9,17 +10,18 @@ import kervyn.Tasks.TaskList;
 public class DeleteCommand extends Command {
     private String[] userInput;
     private Image kervynImage;
-
+    private VBox dialogContainer;
     /**
      * Constructs a DeleteCommand with the specified TaskList and user input.
      *
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input array containing details for the deletion command.
      */
-    public DeleteCommand(TaskList taskList, String[] userInput, Image kervynImage) {
+    public DeleteCommand(TaskList taskList, String[] userInput, Image kervynImage, VBox dialogContainer) {
         super("Delete", taskList, kervynImage);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
+        this.dialogContainer = dialogContainer;
     }
 
     /**
@@ -28,6 +30,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        taskList.removeTask(taskList.getTaskList(), this.userInput, this.kervynImage);
+        taskList.removeTask(taskList.getTaskList(), this.userInput, this.kervynImage, this.dialogContainer);
     }
 }

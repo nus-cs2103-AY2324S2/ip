@@ -1,6 +1,7 @@
 package kervyn.Commands;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -9,17 +10,18 @@ import kervyn.Tasks.TaskList;
 public class MarkCommand extends Command {
     private String[] userInput;
     private Image kervynImage;
-
+    private VBox dialogContainer;
     /**
      * Constructs a MarkCommand with the specified TaskList and user input.
      *
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input array containing the index of the task to be marked.
      */
-    public MarkCommand(TaskList taskList, String[] userInput, Image kervynImage) {
+    public MarkCommand(TaskList taskList, String[] userInput, Image kervynImage, VBox dialogContainer) {
         super("Mark", taskList, kervynImage);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
+        this.dialogContainer = dialogContainer;
     }
 
     /**
@@ -28,7 +30,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        taskList.markTask(taskList.getTaskList(), this.userInput, this.kervynImage);
+        taskList.markTask(taskList.getTaskList(), this.userInput, this.kervynImage, this.dialogContainer);
     }
 
 }

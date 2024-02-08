@@ -1,6 +1,7 @@
 package kervyn.Commands;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kervyn.Tasks.Deadline;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
@@ -17,16 +18,19 @@ import java.util.Objects;
 public class DeadlineCommand extends Command {
     private String userInput;
     private Image kervynImage;
+
+    private VBox dialogContainer;
     /**
      * Constructs a DeadlineCommand with the specified TaskList and user input.
      *
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the deadline details.
      */
-    public DeadlineCommand(TaskList taskList, String userInput, Image kervynImage) {
+    public DeadlineCommand(TaskList taskList, String userInput, Image kervynImage, VBox dialogContainer) {
         super("Deadline", taskList, kervynImage);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
+        this.dialogContainer = dialogContainer;
     }
 
     /**
@@ -76,7 +80,7 @@ public class DeadlineCommand extends Command {
      * @param deadline The Deadline task that was added.
      * @param userTasks The current list of tasks, including the newly added deadline task.
      */
-    private void deadlineTaskTextDisplay(Deadline deadline, ArrayList<Task> userTasks, Image kervynImage) {
+    private void deadlineTaskTextDisplay(Deadline deadline, ArrayList<Task> userTasks) {
         System.out.println(deadline.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
@@ -91,7 +95,7 @@ public class DeadlineCommand extends Command {
         Deadline newDeadline = getProcessedDeadline(this.userInput);
         if (newDeadline != null) {
             this.taskList.addTask(newDeadline);
-            deadlineTaskTextDisplay(newDeadline, this.taskList.getTaskList(), this.kervynImage);
+            deadlineTaskTextDisplay(newDeadline, this.taskList.getTaskList());
         }
     }
 }

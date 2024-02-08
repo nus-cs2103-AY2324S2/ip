@@ -1,6 +1,7 @@
 package kervyn.Commands;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import kervyn.Tasks.*;
 
 import java.time.LocalDateTime;
@@ -16,16 +17,19 @@ public class EventCommand extends Command {
     private String userInput;
     private Image kervynImage;
 
+    private VBox dialogContainer;
+
     /**
      * Constructs an EventCommand with the specified TaskList and user input.
      *
      * @param taskList The TaskList associated with this command.
      * @param userInput The user input string containing the event details.
      */
-    public EventCommand(TaskList taskList, String userInput, Image kervynImage) {
+    public EventCommand(TaskList taskList, String userInput, Image kervynImage, VBox dialogContainer) {
         super("Event", taskList, kervynImage);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
+        this.dialogContainer = dialogContainer;
     }
 
     /**
@@ -77,7 +81,7 @@ public class EventCommand extends Command {
      * @param event The Event task that was added.
      * @param userTasks The current list of tasks, including the newly added event task.
      */
-    private void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks, Image kervynImage) {
+    private void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks) {
         System.out.println(event.toString());
         System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
     }
@@ -91,7 +95,7 @@ public class EventCommand extends Command {
         Event newEvent = getProcessedEvent(this.userInput);
         if (newEvent != null) {
             this.taskList.addTask(newEvent);
-            eventTaskTextDisplay(newEvent, this.taskList.getTaskList(), this.kervynImage);
+            eventTaskTextDisplay(newEvent, this.taskList.getTaskList());
         }
     }
 }
