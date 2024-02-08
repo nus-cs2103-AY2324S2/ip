@@ -1,12 +1,12 @@
 package felix.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
-    public void testToFileStringMethod(){
+    public void testToFileStringMethod() {
         Event event = new Event("project meeting",
                "2024-01-10 1400", "2024-01-10 1700");
         event.markAsDone();
@@ -15,7 +15,7 @@ public class EventTest {
     }
 
     @Test
-    public void testToStringMethod(){
+    public void testToStringMethod() {
         Event event = new Event("project meeting",
                 "2024-01-10 1400", "2024-01-10 1700");
         event.markAsDone();

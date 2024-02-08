@@ -1,14 +1,24 @@
 package felix.utils;
 
-import felix.command.*;
+import java.time.format.DateTimeParseException;
+
+import felix.command.AddTaskCommand;
+import felix.command.Command;
+import felix.command.DeleteCommand;
+import felix.command.ExitCommand;
+import felix.command.FindCommand;
+import felix.command.ListCommand;
+import felix.command.MarkCommand;
+import felix.command.UnmarkCommand;
 import felix.exception.FelixException;
 import felix.task.Deadline;
 import felix.task.Event;
 import felix.task.Task;
 import felix.task.ToDo;
 
-import java.time.format.DateTimeParseException;
-
+/**
+ * Class representing a parser that processes user commands
+ */
 public class Parser {
     /**
      * Parses a line of user input and returns the corresponding Command.
@@ -70,7 +80,8 @@ public class Parser {
                 String[] remainder = words[1].split(" /by ");
                 task = new Deadline(remainder[0], remainder[1]);
             } catch (IndexOutOfBoundsException e) {
-                throw new FelixException("Command does not follow this format: deadline {description} by {end_datetime}");
+                throw new FelixException("Command does not follow this format: "
+                        + "deadline {description} by {end_datetime}");
             } catch (DateTimeParseException e) {
                 throw new FelixException("datetime for deadline is not in the format \"yyyy-MM-dd HHmm\"");
             }
@@ -79,7 +90,8 @@ public class Parser {
                 String[] remainder = words[1].split(" /from | /to ");
                 task = new Event(remainder[0], remainder[1], remainder[2]);
             } catch (IndexOutOfBoundsException e) {
-                throw new FelixException("Command does not follow this format: event {description} /from {start_datetime} /to {end_datetime}");
+                throw new FelixException("Command does not follow this format: event {description}"
+                        + " /from {start_datetime} /to {end_datetime}");
             } catch (DateTimeParseException e) {
                 throw new FelixException("datetime not in the format \"yyyy-MM-dd HHmm\"");
             }

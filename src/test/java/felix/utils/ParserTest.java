@@ -1,14 +1,16 @@
 package felix.utils;
 
-import felix.command.Command;
-import felix.exception.FelixException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import felix.command.Command;
+import felix.exception.FelixException;
+
 
 public class ParserTest {
     @Test
-    public void testInvalidCommand(){
+    public void testInvalidCommand() {
         Parser parser = new Parser();
         try {
             Command res = parser.getCommand("hello world");
@@ -63,7 +65,8 @@ public class ParserTest {
         try {
             Command res = parser.getCommand("deadline test Monday 6pm");
         } catch (FelixException err) {
-            assertEquals("Command does not follow this format: deadline {description} by {end_datetime}", err.getMessage());
+            assertEquals("Command does not follow this format:"
+                    + " deadline {description} by {end_datetime}", err.getMessage());
         }
     }
 
@@ -83,7 +86,8 @@ public class ParserTest {
         try {
             Command res = parser.getCommand("event test from Monday to Friday");
         } catch (FelixException err) {
-            assertEquals("Command does not follow this format: event {description} /from {start_datetime} /to {end_datetime}", err.getMessage());
+            assertEquals("Command does not follow this format: event {description}"
+                    + " /from {start_datetime} /to {end_datetime}", err.getMessage());
         }
     }
 
@@ -96,4 +100,4 @@ public class ParserTest {
             assertEquals("datetime not in the format \"yyyy-MM-dd HHmm\"", err.getMessage());
         }
     }
-} 
+}

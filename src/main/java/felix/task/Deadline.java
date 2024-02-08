@@ -2,7 +2,10 @@ package felix.task;
 
 import java.time.LocalDateTime;
 
-public class Deadline extends Task{
+/**
+ * Class representing tasks with an end date
+ */
+public class Deadline extends Task {
     private final LocalDateTime deadline;
 
     /**
@@ -13,7 +16,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = LocalDateTime.parse(deadline, inputFormatter);
+        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
     /**
@@ -21,13 +24,13 @@ public class Deadline extends Task{
      */
     @Override
     public String toFileString() {
-        return String.format("D | %s | %s | %s",this.getStatusIcon(),
-                this.getDescription(), this.deadline.format(inputFormatter));
+        return String.format("D | %s | %s | %s", this.getStatusIcon(),
+                this.getDescription(), this.deadline.format(INPUT_FORMATTER));
     }
 
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)",super.toString(), this.deadline.format(outputFormatter));
+        return String.format("[D]%s (by: %s)", super.toString(), this.deadline.format(OUTPUT_FORMATTER));
     }
 }
