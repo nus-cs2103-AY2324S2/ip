@@ -100,11 +100,11 @@ public class Ui {
      * @throws DukeException when the todo is invalid
      */
     public void printToDo(TaskList tl, String cmd) throws DukeException {
-        String test = Parser.parseToDoTest(cmd);
+        String test = Parser.parseToDoOrFind(cmd);
         if (test.strip().equals("")) {
             throw new DukeTaskNoDescException();
         } else {
-            Task t = new ToDo(Parser.parseToDo(cmd));
+            Task t = new ToDo(test);
             tl.addTask(t); // add task to list
             System.out.println("Got it. I've added this task:");
             System.out.println(t);
@@ -148,6 +148,29 @@ public class Ui {
             System.out.println("Got it. I've added this task:");
             System.out.println(t);
             System.out.println("Now you have " + tl.size() + " tasks in the list.");
+        }
+    }
+
+    /**
+     * Prints a list of task(s) that matches the keyword partially or fully.
+     * @param tl TaskList
+     * @param cmd String 
+     * @throws DukeException when find is invalid 
+     */
+    public void printFind(TaskList tl, String cmd) throws DukeException {
+        String test = Parser.parseToDoOrFind(cmd);
+        if (test.strip().equals("")) {
+            throw new DukeTaskNoDescException();
+        } else {
+            System.out.println("Here are the matching tasks in the list:");
+            int i = 1;
+            for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
+                String taskDesc = tl.get(j).description.toLowerCase();
+                if (taskDesc.contains(test.toLowerCase())) {
+                    System.out.println(i + ". " + tl.get(j));
+                    i++;
+                }
+            }
         }
     }
 
