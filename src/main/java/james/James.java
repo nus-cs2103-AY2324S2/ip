@@ -1,5 +1,8 @@
 package james;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import james.commands.Command;
 import james.exception.DukeException;
 import james.parser.Parser;
@@ -7,18 +10,15 @@ import james.storage.Storage;
 import james.tasklist.TaskList;
 import james.ui.Ui;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents the main class of the Duke application.
  */
 public class James {
+    private static final String FILE_PATH = "./data/hardDisk.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    private static final String FILE_PATH = "./data/hardDisk.txt";
 
     /**
      * Creates a new James with the given file path.

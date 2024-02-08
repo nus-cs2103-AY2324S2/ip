@@ -24,7 +24,7 @@ public class ListCommand extends Command {
      * Returns whether the command is an exit command.
      *
      * @return False.
-     */ 
+     */
     @Override
     public boolean isExit() {
         return false;

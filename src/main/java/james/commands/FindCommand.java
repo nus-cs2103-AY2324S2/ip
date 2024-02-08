@@ -1,14 +1,11 @@
 package james.commands;
 
-import james.exception.DukeException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import james.storage.Storage;
 import james.tasklist.TaskList;
 import james.ui.Ui;
-
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.List;
 
 /**
  * Represents a command to search for tasks by a keyword.
