@@ -19,7 +19,13 @@ public class Duke {
         String message;
 
         while (Chatty.hasFinished() == false) {
-            message = Chatty.interact(input);
+            try {
+                message = Chatty.interact(input);
+            } catch (UnrecognizedException e) {
+                message = "Apologies Sir! I am not equipped to handle such a command!";
+            } catch (MissingInputException e) {
+                message = "Apologies Sir! You did not include the name of the item!";
+            }
             System.out.println(message);
             input = reader.nextLine();
         }

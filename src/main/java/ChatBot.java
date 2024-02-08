@@ -1,3 +1,4 @@
+
 public class ChatBot {
     private static final String INDENT = "    ";
     private static final String NEW_LINE = INDENT + "____________________________________________________________ \n";
@@ -30,7 +31,7 @@ public class ChatBot {
         return isFinished;
     }
 
-    public String interact(String input) {
+    public String interact(String input) throws UnrecognizedException, MissingInputException {
         if (input.contains(LIST)) {
             return NEW_LINE + taskList.showList() + NEW_LINE;
 
@@ -48,13 +49,26 @@ public class ChatBot {
             return EXIT;
         } else {
             if (input.contains(TODO)) {
-                task = new Task(input.substring(input.lastIndexOf(" ") + 1), TODO);
+                try {
+                    task = new Task(input.substring(TODO.length() + 1), TODO);
+                } catch (StringIndexOutOfBoundsException e) {
+                     throw new MissingInputException("Life is liddat");
+                }
             } else if (input.contains(DEADLINE)) {
-                task = new Task(input.substring(input.lastIndexOf(" ") + 1), DEADLINE);
+                try {
+                    task = new Task(input.substring(DEADLINE.length() + 1), DEADLINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new MissingInputException("Bruh");
+                }
             } else if (input.contains(EVENT)) {
-                task = new Task(input.substring(input.lastIndexOf(" ") + 1), EVENT);
+                try {
+                    task = new Task(input.substring(EVENT.length() + 1), EVENT);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new MissingInputException("Haiz");
+                }
             } else {
-                task = new Task(input, NORMAL);
+                // task = new Task(input, NORMAL);
+                throw new UnrecognizedException("Yoyoyo");
             }
             taskList.addTask(task);
             return NEW_LINE +  task.getName() + ADD_TASK;
