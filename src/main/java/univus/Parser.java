@@ -8,7 +8,18 @@ import univus.task.ToDo;
 import univus.task.Deadline;
 import univus.task.Event;
 
+/**
+ * Parses user input and performs corresponding actions for the Univus application.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input message and performs actions based on the message content.
+     *
+     * @param taskList The TaskList to which tasks are added, marked, or removed.
+     * @param message  The user input message to be parsed.
+     * @throws UnivusException If an error occurs during the parsing or execution of the command.
+     */
     public static void parse(TaskList taskList, String message) throws UnivusException {
         if (message.equals("list")) {
             System.out.println("____________________________________________________________");

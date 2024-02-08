@@ -8,12 +8,26 @@ import univus.task.ToDo;
 import univus.task.Deadline;
 import univus.task.Event;
 
-
+/**
+ * Handles the storage of task data in a file for the Univus application.
+ */
 public class Storage {
     private String filePath;
+
+    /**
+     * Constructs a new instance of the Storage class.
+     *
+     * @param filepath The file path where task data will be stored and loaded.
+     */
     public Storage(String filepath) {
         this.filePath = filepath;
     }
+
+    /**
+     * Saves the task data from the provided TaskList to the file specified in the constructor.
+     *
+     * @param taskList The TaskList containing the tasks to be saved.
+     */
     public void saveToFile(TaskList taskList) {
         try (PrintWriter writer = new PrintWriter(filePath)) {
             ArrayList<Task> store = taskList.getTaskList();
@@ -25,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task data from the file specified in the constructor and returns a TaskList.
+     *
+     * @return A TaskList containing tasks loaded from the file.
+     */
     public TaskList loadFromFile() {
         TaskList store = new TaskList();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
