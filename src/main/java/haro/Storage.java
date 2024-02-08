@@ -1,16 +1,18 @@
 package haro;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 import haro.task.Deadline;
 import haro.task.Event;
 import haro.task.Task;
 import haro.task.ToDo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-import java.io.IOException;
+
 
 /**
  * The Storage class manages the reading and saving of task data to a text file.
@@ -61,17 +63,17 @@ public class Storage {
                 String commandType = storageArgs[0].toLowerCase().trim();
 
                 switch (commandType) {
-                    case "t":
-                        actionType = "todo";
-                        break;
-                    case "d":
-                        actionType = "deadline";
-                        break;
-                    case "e":
-                        actionType = "event";
-                        break;
-                    default:
-                        actionType = "none";
+                case "t":
+                    actionType = "todo";
+                    break;
+                case "d":
+                    actionType = "deadline";
+                    break;
+                case "e":
+                    actionType = "event";
+                    break;
+                default:
+                    actionType = "none";
                 }
 
                 if (actionType == "none") {
@@ -135,9 +137,9 @@ public class Storage {
             }
 
         } catch (NoSuchElementException e) {
-
+            // Do nothing
         } catch (Exception e) {
-
+            // Do nothing
         } finally {
             return resultTasks;
         }

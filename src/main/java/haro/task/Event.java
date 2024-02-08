@@ -1,18 +1,18 @@
 package haro.task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
 
 /**
  * The Event class represents an event task in the application, extending the Task class.
  * It provides specific functionality for handling event tasks with start and end dates.
  */
 public class Event extends Task {
-    String start;
-    String end;
-    LocalDate startDate;
-    LocalDate endDate;
+    private String start;
+    private String end;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Constructs an Event instance with the specified task description, start date, and end date.

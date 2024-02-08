@@ -8,14 +8,12 @@ import haro.command.FindCommand;
 import haro.command.ListCommand;
 import haro.command.MarkCommand;
 import haro.command.UnmarkCommand;
-
 import haro.exception.EmptyCommandException;
 import haro.exception.EmptyTaskException;
 import haro.exception.InvalidArgsException;
 import haro.exception.InvalidCommandException;
 import haro.exception.MissingDuedateException;
 import haro.exception.MissingEventTimeException;
-
 import haro.task.Deadline;
 import haro.task.Event;
 import haro.task.Task;
@@ -46,7 +44,7 @@ public class Parser {
      * @return A Command object corresponding to the user input
      * @throws Exception If there are errors in the user input or command execution
      */
-    public static Command parseCommand (String input) throws Exception {
+    public static Command parseCommand(String input) throws Exception {
         Instruction instruction = Instruction.NONE;
         String[] inputArgs = input.split(" ", 2);
         String instructWord = inputArgs[0].toLowerCase().trim();
@@ -88,17 +86,13 @@ public class Parser {
         if (instruction == Instruction.BYE) {
             ByeCommand byeCommand = new ByeCommand();
             return byeCommand;
-        }
-
-        else if (instruction == Instruction.NONE) {
+        } else if (instruction == Instruction.NONE) {
             if (inputArgs[0].equals("")) {
                 throw new EmptyCommandException("Empty command! Type something!\n ");
             }
 
             throw new InvalidCommandException("Sorry, please type a valid command\n");
-        }
-
-        else if (instruction == Instruction.LIST) {
+        } else if (instruction == Instruction.LIST) {
             ListCommand listCommand = new ListCommand();
             return listCommand;
         }
@@ -119,9 +113,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(commandArg) - 1;
             MarkCommand markCommand = new MarkCommand(taskNumber);
             resultCommand = markCommand;
-        }
-
-        else if (instruction == Instruction.UNMARK) {
+        } else if (instruction == Instruction.UNMARK) {
             if (!isNumeric(commandArg)) {
                 throw new InvalidArgsException("Please input a number for the task you want to unmark!\n");
             }
@@ -129,15 +121,11 @@ public class Parser {
             int taskNumber = Integer.parseInt(commandArg) - 1;
             UnmarkCommand unmarkCommand = new UnmarkCommand(taskNumber);
             resultCommand = unmarkCommand;
-        }
-
-        else if (instruction == Instruction.TODO) {
+        } else if (instruction == Instruction.TODO) {
             Task newTodo = new ToDo(commandArg.trim());
             AddCommand addCommand = new AddCommand(newTodo);
             resultCommand = addCommand;
-        }
-
-        else if (instruction == Instruction.DEADLINE) {
+        } else if (instruction == Instruction.DEADLINE) {
             if (!commandArg.contains("/by")) {
                 throw new MissingDuedateException("Please specify a due date using '/by'!\n");
             }
@@ -148,9 +136,7 @@ public class Parser {
             Task newDeadline = new Deadline(taskName, taskDue);
             AddCommand addCommand = new AddCommand(newDeadline);
             resultCommand = addCommand;
-        }
-
-        else if (instruction == Instruction.EVENT) {
+        } else if (instruction == Instruction.EVENT) {
             if (!commandArg.contains("/from")) {
                 throw new MissingEventTimeException("Please specify a start date using '/from'!\n");
             } else if (!commandArg.contains("/to")) {
@@ -168,9 +154,7 @@ public class Parser {
             Task newEvent = new Event(taskName, taskFrom, taskTo);
             AddCommand addCommand = new AddCommand(newEvent);
             resultCommand = addCommand;
-        }
-
-        else if (instruction == Instruction.DELETE) {
+        } else if (instruction == Instruction.DELETE) {
             if (!isNumeric(commandArg)) {
                 throw new InvalidArgsException("Please input a number for the task you want to delete!\n");
             }
@@ -178,9 +162,7 @@ public class Parser {
             int taskNumber = Integer.parseInt(commandArg) - 1;
             DeleteCommand deleteCommand = new DeleteCommand(taskNumber);
             resultCommand = deleteCommand;
-        }
-
-        else if (instruction == Instruction.FIND){
+        } else if (instruction == Instruction.FIND) {
             commandArg = commandArg.trim();
 
             if (commandArg.equals("")) {

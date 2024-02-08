@@ -1,18 +1,17 @@
 package haro.command;
 
-import haro.exception.InvalidArgsException;
-
 import haro.Storage;
-import haro.task.Task;
 import haro.TaskList;
 import haro.Ui;
+import haro.exception.InvalidArgsException;
+import haro.task.Task;
 
 /**
  * The UnmarkCommand class represents a command to unmark a task in the TaskList.
  * It extends the base Command class and implements the execute method to unmark the task.
  */
 public class UnmarkCommand extends Command {
-    int taskNumber;
+    private int taskNumber;
 
     /**
      * Constructs an UnmarkCommand instance with the specified task number.
