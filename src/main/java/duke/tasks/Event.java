@@ -27,14 +27,14 @@ public class Event extends Task {
     }
 
     @Override
-    public String getSaveTask() {
-        return "E | " + super.getSaveTask() + " | "
+    public String saveFileString() {
+        return "E | " + super.saveFileString() + " | "
                 + from.toString().replace("T", " ") + " | " + to;
     }
 
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] "
+        return "[E][" + this.printDoneStatus() + "] "
                 + this.description + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("hh:mm a")) + ")";

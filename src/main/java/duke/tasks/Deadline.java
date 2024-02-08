@@ -20,6 +20,7 @@ public class Deadline extends Task {
     @Override
     public String getSaveTask() {
         return "D | " + super.getSaveTask() + " | " + by.toString().replace("T", " ");
+    public String saveFileString() {
     }
 
     @Override

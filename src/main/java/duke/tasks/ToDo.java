@@ -11,12 +11,12 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String getSaveTask() {
-        return "T | " + super.getSaveTask();
+    public String saveFileString() {
+        return "T | " + super.saveFileString();
     }
 
     @Override
     public String toString() {
-        return "[T][" + this.getStatusIcon() + "] " + this.description;
+        return "[T][" + this.printDoneStatus() + "] " + this.description;
     }
 }
