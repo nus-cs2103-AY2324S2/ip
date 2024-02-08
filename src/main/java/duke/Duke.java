@@ -12,10 +12,13 @@ import duke.utils.Ui;
  */
 public class Duke {
     /**
+     * The file path to load and save task data.
+     */
+    private static final String DEFAULT_PATH = "./data/data.txt";
+    /**
      * Keywords to terminate the Duke chatbot.
      */
     private static final String[] terminateKeywords = {"bye", "BYE", "Bye"};
-
     /**
      * List of keywords that trigger the termination of the Duke chatbot.
      */
@@ -27,12 +30,10 @@ public class Duke {
 
     /**
      * Constructs a Duke instance with a specified file path for task data.
-     *
-     * @param filePath The file path to load and save task data.
      */
-    public Duke(String filePath) {
+    public Duke() {
         try {
-            this.storage = new Storage(filePath);
+            this.storage = new Storage(DEFAULT_PATH);
             this.tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -67,6 +68,6 @@ public class Duke {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new Duke("./data/data.txt").run();
+        new Duke().run();
     }
 }
