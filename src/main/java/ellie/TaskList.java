@@ -10,6 +10,7 @@ public class TaskList {
 
     private final ArrayList<Task> taskArrayList;
     private final Storage storage;
+    private final String NEW_LINE = "\n";
 
     /**
      * Constructs a TaskList object with the specified Storage.
@@ -29,13 +30,17 @@ public class TaskList {
      *
      * @param element The Task object to be added to the list.
      */
-    public void addTask(Task element) {
+    public String addTask(Task element) {
         taskArrayList.add(element);
         saveTasks();
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + element.listTaskString());
-        System.out.println("Now you have " + this.taskQuantity() + " tasks in the list.\n");
+        String response = "";
+
+        response += "Got it. I've added this task:";
+        response += "    " + element.listTaskString();
+        response += "Now you have " + this.taskQuantity() + " tasks in the list.\n";
+
+        return response;
     }
 
     /**
@@ -43,8 +48,12 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in tasks.
      */
-    public void searchTask(String keyword) {
+    public String searchTask(String keyword) {
+
+        String NO_RESPONSE = "No matching tasks found.\n";
+
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String response = NEW_LINE;
 
         for (Task task : taskArrayList) {
             if (task.toString().toLowerCase().contains(keyword)) {
@@ -53,16 +62,18 @@ public class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.\n");
+            response += NO_RESPONSE;
         } else {
-            System.out.println("Matching tasks:");
+            response += "Matching tasks: \n";
             int index = 0;
             for (Task matchingTask : matchingTasks) {
                 index++;
-                System.out.println("    " + index + "." + matchingTask.listTaskString());
+                response += "    " + index + "." + matchingTask.listTaskString() + "\n";
             }
-            System.out.println();
+            response += NEW_LINE;
         }
+
+        return response;
     }
 
 
@@ -70,19 +81,24 @@ public class TaskList {
      * Prints the list of tasks to the console.
      * If the list is empty, prints a message indicating that there are no items in the list.
      */
-    public void listTasks() {
+    public String listTasks() {
+        String NO_TASKS_RESPONSE = "No items in list!\n";
+
+        String response = NEW_LINE;
+
         if (taskArrayList.isEmpty()) {
-            System.out.println("No items in list!\n");
-            return;
+            response += NO_TASKS_RESPONSE;
+            return response;
         }
 
         int index = 0;
-        System.out.println("Here are your tasks!");
+        response += "Here are your tasks!\n";
         for (Task element : taskArrayList) {
             index++;
-            System.out.println("    " + index + "." + element.listTaskString());
+            response += "    " + index + "." + element.listTaskString() + NEW_LINE;
         }
-        System.out.print("\n");
+        response += NEW_LINE;
+        return response;
     }
 
     /**
@@ -100,19 +116,23 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void markTaskIndex(int index) {
+    public String markTaskIndex(int index) {
+        String INVALID_INDEX_RESPONSE = "Sorry! There doesn't seem to be enough tasks for there to be a task "
+                                            + index + "!\n";
+        String response = NEW_LINE;
+
         if (index > taskArrayList.size()) {
-            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
-            return;
+            response += INVALID_INDEX_RESPONSE;
+            return response;
         }
 
         Task task = taskArrayList.get(index - 1);
         task.markTask();
         saveTasks();
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task.listTaskString() + "\n");
-
+        response += "Nice! I've marked this task as done:";
+        response += "  " + task.listTaskString() + NEW_LINE;
+        return response;
     }
 
     /**
@@ -121,19 +141,21 @@ public class TaskList {
      *
      * @param index The index of the task to be unmarked as done.
      */
-    public void unmarkTaskIndex(int index) {
+    public String unmarkTaskIndex(int index) {
+        String response = NEW_LINE;
+
         if (index > taskArrayList.size()) {
-            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
-            return;
+            response += "Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!" + NEW_LINE;
+            return response;
         }
 
         Task task = taskArrayList.get(index - 1);
         task.unmarkTask();
         saveTasks();
 
-        System.out.println("Nice! I've marked this task as not done yet:");
-        System.out.println("  " + task.listTaskString() + "\n");
-
+        response += "Nice! I've marked this task as not done yet:" + NEW_LINE;
+        response += "  " + task.listTaskString() + NEW_LINE;
+        return response;
     }
 
     /**
@@ -141,18 +163,20 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTaskIndex(int index) {
+    public String deleteTaskIndex(int index) {
+        String response = NEW_LINE;
+
         if (index > taskArrayList.size()) {
-            System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
-            return;
+            response += "Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!" + NEW_LINE;
+            return response;
         }
 
         Task removedTask = taskArrayList.remove(index - 1);
         saveTasks();
-        System.out.println("Got it! I've removed this task from your list:");
-        System.out.println("  " + removedTask.listTaskString() + "\n");
 
-
+        response += "Got it! I've removed this task from your list:" + NEW_LINE;
+        response += "  " + removedTask.listTaskString() + NEW_LINE;
+        return response;
     }
 
     /**

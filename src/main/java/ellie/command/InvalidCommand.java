@@ -11,9 +11,8 @@ public class InvalidCommand extends Command {
         this.errorMessage = errorMessage;
     }
 
-    public void run(TaskList tasklist) {
-        System.out.println(errorMessage);
-        return;
+    public String runAndReturnResponse(TaskList tasklist) {
+        return errorMessage;
     }
 
     @Override

@@ -14,7 +14,7 @@ public abstract class Command {
      *
      * @param tasklist The TaskList to be operated on by the command.
      */
-    public abstract void run(TaskList tasklist);
+    public abstract String runAndReturnResponse(TaskList tasklist);
 
     /**
      * Checks if the command signals an exit from the application.

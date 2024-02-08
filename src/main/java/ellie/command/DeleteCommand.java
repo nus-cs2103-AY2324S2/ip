@@ -26,9 +26,9 @@ public class DeleteCommand extends Command {
      *
      * @param tasklist The TaskList to be operated on by the command.
      */
-    public void run(TaskList tasklist) {
-        tasklist.deleteTaskIndex(index);
-        return;
+    public String runAndReturnResponse(TaskList tasklist) {
+        String response = tasklist.deleteTaskIndex(index);
+        return response;
     }
 
 

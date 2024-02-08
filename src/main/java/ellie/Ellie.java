@@ -6,11 +6,12 @@ import java.util.Scanner;
 
 public class Ellie {
 
-    private Ui ui;
     private final TaskList taskList;
     private final Storage storage;
 
     private Command command;
+
+    private Boolean isExit;
 
     /**
      * Constructs an Ellie object.
@@ -19,30 +20,37 @@ public class Ellie {
     public Ellie() {
         storage = new Storage("./data/toDoList.txt", "./data");
         taskList = new TaskList(storage);
-        ui = new Ui();
+        isExit = false;
+    }
+
+
+    /**
+     * Returns a response to the user input.
+     *
+     * @param input The user input.
+     * @return The response to the user input.
+     */
+    public String getResponse(String input) {
+        command = Parser.parse(input);
+
+        if (command.isExit()) {
+            isExit = true;
+            return Ui.goodbye();
+        }
+
+        String response = command.runAndReturnResponse(taskList);
+        return response;
     }
 
     /**
-     * Starts the Ellie application.
-     * Prompts the user for input and processes commands until an exit command is received.
+     * Returns true if the user has entered the exit command.
+     *
+     * @return True if the user has entered the exit command.
      */
-    public void start() {
-        ui.hello();
-        Scanner reader = new Scanner(System.in);
-        Command command = null;
-        String input = reader.nextLine();
-
-        while (true) {
-            command = Parser.parse(input);
-            if (command.isExit()) {
-                break;
-            }
-            command.run(taskList);
-            input = reader.nextLine();
-        }
-
-        ui.goodbye();
+    public Boolean isExit() {
+        return isExit;
     }
+
 
 
 

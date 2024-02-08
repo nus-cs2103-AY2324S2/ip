@@ -1,20 +1,34 @@
 package ellie;
 
+import java.io.IOException;
+
+import ellie.MainWindow;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 /**
- * The Main class serving as the entry point for the Ellie application.
+ * A GUI for Duke using FXML.
  */
-public class Main {
+public class Main extends Application {
 
-    /**
-     * The main method to start the Ellie application.
-     * Creates an instance of the Ellie class and initiates the application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
+    private Ellie ellie = new Ellie();
 
-        Ellie myEllie = new Ellie();
-        myEllie.start();
-
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setEllie(ellie);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
 }

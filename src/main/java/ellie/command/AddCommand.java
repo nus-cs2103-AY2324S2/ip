@@ -27,9 +27,9 @@ public class AddCommand extends Command {
      *
      * @param tasklist The TaskList to be operated on by the command.
      */
-    public void run(TaskList tasklist) {
-        tasklist.addTask(task);
-        return;
+    public String runAndReturnResponse(TaskList tasklist) {
+        String response = tasklist.addTask(task);
+        return response;
     };
 
 

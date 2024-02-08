@@ -14,8 +14,8 @@ public class ExitCommand extends Command {
         super.isExit = true;
     }
 
-    public void run(TaskList tasklist) {
-        return;
+    public String runAndReturnResponse(TaskList tasklist) {
+        return "";
     }
 
     @Override

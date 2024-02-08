@@ -6,8 +6,8 @@ package ellie;
  */
 public class Ui {
 
-    final static String horizontalLine = "____________________________________________________________";
-    final static String logoEllie =
+    final static String HORIZONTAL_LINE = "____________________________________________________________";
+    final static String LOGO_ELLIE =
             " _______   ___       ___       ___  _______          \n"
                     + "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n"
                     + "\\ \\   __/|\\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __/|        \n"
@@ -26,20 +26,23 @@ public class Ui {
 
     /**
      * Prints a welcome message, the Ellie logo, and a horizontal line.
-     * Also provides a prompt to enter commands.
      */
-    public void hello() {
-        System.out.println("Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!");
-        System.out.println(logoEllie + "\n" + horizontalLine);
-        System.out.println("What can I do for you? Type 'help' to see available commands! \n");
+    public static String hello() {
+        String helloMessage = "";
+        helloMessage += "Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!\n";
+        helloMessage += LOGO_ELLIE + "\n" + HORIZONTAL_LINE + "\n";
+        helloMessage += "What can I do for you? Type 'help' to see available commands! \n";
+        return helloMessage;
     }
 
     /**
      * Prints a farewell message and a horizontal line.
      */
-    public void goodbye() {
-        System.out.println("\n Bye! Hope to see you again soon!");
-        System.out.println(horizontalLine);
+    public static String goodbye() {
+        String goodbyeMessage = "";
+        goodbyeMessage += "\n Bye! Hope to see you again soon!";
+        goodbyeMessage += "\n" + HORIZONTAL_LINE;
+        return goodbyeMessage;
     }
 
 
