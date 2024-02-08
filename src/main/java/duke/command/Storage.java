@@ -38,18 +38,18 @@ public class Storage {
             StringTokenizer st = new StringTokenizer(s, "|");
 
             String t = st.nextToken().strip();
-            boolean done = st.nextToken().strip().equalsIgnoreCase("1");
+            boolean isDone = st.nextToken().strip().equalsIgnoreCase("1");
             String description = st.nextToken().strip();
 
             if (t.equalsIgnoreCase("t")) {
-                tasks.add(new ToDo(description, done));
+                tasks.add(new ToDo(description, isDone));
 
             } else if (t.equalsIgnoreCase("e")) {
                 String from = st.nextToken().strip();
-                tasks.add(new Event(description, done, from, st.nextToken().strip()));
+                tasks.add(new Event(description, isDone, from, st.nextToken().strip()));
 
             } else if (t.equalsIgnoreCase("d")) {
-                tasks.add(new Deadline(description, done, st.nextToken().strip()));
+                tasks.add(new Deadline(description, isDone, st.nextToken().strip()));
 
             } else {
                 System.out.println("File error, cannot read list");
@@ -68,9 +68,9 @@ public class Storage {
         FileWriter fw = new FileWriter(file, true);
 
         if (file.length() == 0) {
-            fw.write(task.getSaveTask());
+            fw.write(task.saveFileString());
         } else {
-            fw.write(System.lineSeparator() + task.getSaveTask());
+            fw.write(System.lineSeparator() + task.saveFileString());
         }
 
         fw.close();
@@ -110,7 +110,7 @@ public class Storage {
             handleFileAccessErrors();
         }
 
-        String updated = task.getSaveTask();
+        String updated = task.saveFileString();
         File oldFile = file;
         File temp = new File("./data/temp.txt");
 
@@ -135,8 +135,7 @@ public class Storage {
         oldFile.delete();
         temp.renameTo(new File("./data/duke.txt"));
     }
-
-    // Move to error handling class?
+    
     private void handleFileAccessErrors() throws IOException {
         try {
             file.createNewFile();
