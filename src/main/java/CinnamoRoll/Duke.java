@@ -1,11 +1,5 @@
 package CinnamoRoll;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-
 import java.util.Scanner;
 
 public class Duke {
@@ -18,6 +12,7 @@ public class Duke {
         storage = new Storage();
         this.tasklist = new TaskList();
     }
+
     /**
      * Running the main part of the code to start the Chatbot Cinnamo
      */
@@ -25,7 +20,7 @@ public class Duke {
         this.tasklist = new TaskList(this.storage.loadData());
         Scanner sc = new Scanner(System.in);
         this.ui.greetUser();
-        while(true) {
+        while (true) {
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 break;
@@ -35,9 +30,46 @@ public class Duke {
         ui.exitChat();
     }
 
-    public String getResponse(String input) {
-        return "Cinnamo heard: " + input;
+    public String getResponse(String input) throws Exception {
+        try {
+            Parser parse = new Parser();
+            String[] userInput = parse.parseInput(input);
+            switch (User.valueOf(userInput[0])) {
+                case MARK:
+                    return this.tasklist.markTask(userInput);
+
+                case UNMARK:
+                    return this.tasklist.unmarkTask(userInput);
+
+                case LIST:
+                    return this.tasklist.listTask();
+
+                case DELETE:
+                    return this.tasklist.deleteTask(userInput);
+
+                case TODO:
+                    return this.tasklist.executeTask(userInput);
+
+                case DEADLINE:
+                    return this.tasklist.executeTask(userInput);
+
+                case EVENT:
+                    return this.tasklist.executeTask(userInput);
+
+                case FIND:
+                    return this.tasklist.findTask(userInput[1]);
+
+                default:
+                    throw new CinnamoException();
+            }
+        } catch (CinnamoException cin) {
+            return cin.toString();
+        } catch (IllegalArgumentException e) {
+            CinnamoException cin = new CinnamoException();
+            return cin.toString();
+        }
     }
+
 
     public static void main(String[] args) throws Exception {
         new Duke().run();

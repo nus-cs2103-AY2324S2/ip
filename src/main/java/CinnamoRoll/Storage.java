@@ -23,6 +23,9 @@ class Storage {
      * @return An ArrayList of Task objects loaded from the file.
      * @throws IOException If there is an error reading the file.
      */
+
+    //Solution below for creating a new file was debugged & aided
+    // by https://stackoverflow.com/questions/7469018/cannot-make-file-java-io-ioexception-no-such-file-or-directory;
     ArrayList<Task> loadData() throws IOException {
         try {
             ArrayList<Task> output = new ArrayList<>();
@@ -62,7 +65,10 @@ class Storage {
             return output;
         } catch(FileNotFoundException ex){
             File f = new File(PATH);
-            f.createNewFile();
+            if (!f.getParentFile().exists())
+                f.getParentFile().mkdirs();
+            if (!f.exists())
+                f.createNewFile();
             return new ArrayList<Task>();
         }
     }
