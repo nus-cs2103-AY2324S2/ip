@@ -113,6 +113,72 @@ public class Parser {
         throw new CommandNotFoundException(input);
     }
 
+    public String ProcessInputReturnString(String input) throws InputException {
+
+        String[] words = input.split(" ");
+
+        // for multi-word commands
+        if (words[0].equals("mark") || words[0].equals("unmark")) {
+            if (isInteger(words[1])) {
+                boolean isDone = words[0].equals("mark");
+                int taskIndex = Integer.parseInt(words[1]);
+                return taskList.setTaskDoneWithIndex(taskIndex, isDone);
+            } else {
+                return "Action failed: task index input is not an integer";
+            }
+        }
+
+        if (words[0].equals("delete")) {
+            if (isInteger(words[1])) {
+                int taskIndex = Integer.parseInt(words[1]);
+                Task deletedTask = taskList.deleteTask(taskIndex);
+                return "Noted. I've removed this task:"
+                        + "\n"
+                        + "    "
+                        + deletedTask
+                        + "\n"
+                        + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";//input);
+            } else {
+                return "Action failed: task index input is not an integer";
+            }
+            //return;
+        }
+
+        if (words[0].equals("todo")
+                || words[0].equals("deadline")
+                || words[0].equals("event")) {
+
+            Task newTask = null;
+            newTask = Task.createTask(words[0], input);
+            taskList.addTask(newTask);
+            return "Got it. I've added this task:"
+                    + "\n"
+                    + "    "
+                    + newTask
+                    + "\n"
+                    + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";//input);
+        }
+
+
+        if (input.equals("bye")) {
+            //ui.EndSession();
+            storage.saveToMemory();
+            return "bye";
+        }
+
+        if (input.equals("list") || input.equals("print tasks") ) {
+            return ui.listTasksReturnString();
+        }
+
+        if (words[0].equals("find")) {
+            taskList.findTaskWithKeyword(words[1]);
+            return ui.listFilteredTasksReturnString();
+        }
+
+        throw new CommandNotFoundException(input);
+    }
+
+
     /**
      * Parses dateTime string to LocalDateTime with preset formatter.
      *

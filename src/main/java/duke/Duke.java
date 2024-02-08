@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -34,6 +36,8 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/photo_1.jpeg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/photo_2.jpeg"));
 
 
     private enum LivState {
@@ -49,6 +53,7 @@ public class Duke extends Application {
 
         // additional line of code to accommodate the need to have a publicly available constructor
         instance = this;
+        instanceStart();
     }
 
     @Override
@@ -102,13 +107,11 @@ public class Duke extends Application {
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
 
         //Scroll down to the end every time dialogContainer's height changes.
@@ -130,12 +133,33 @@ public class Duke extends Application {
     }
 
     /**
-     * Starts Duke.
-     * Initialises ui, parser, taskList and storage.
-     * Loads taskList saved locally if any.
-     * Creates a Data directory to host the data file if local taskList not found.
-     * Starts listening to user input.
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
      */
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(dukeImage))
+        );
+        userInput.clear();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            return parser.ProcessInputReturnString(input);
+        } catch (InputException e) {
+            return e.getMessage();
+        }
+    }
+
+
     private void instanceStart() {
         // initialize duke.ui.Ui
         ui = Ui.getInstance();
@@ -159,6 +183,40 @@ public class Duke extends Application {
             System.out.println("No previous task file found");
             storage.createDataFile();
         }
+    }
+
+    /**
+     * Starts Duke.
+     * Initialises ui, parser, taskList and storage.
+     * Loads taskList saved locally if any.
+     * Creates a Data directory to host the data file if local taskList not found.
+     * Starts listening to user input.
+     */
+    /*
+    private void Start() {
+        // initialize duke.ui.Ui
+        ui = Ui.getInstance();
+        ui.initUi();
+
+        // initialize parser
+        parser = Parser.getInstance();
+        parser.initParser();
+
+        // initialize taskList
+        taskList = TaskList.getInstance();
+        taskList.initTaskList();
+
+        // initialize storage
+        storage = Storage.getInstance();
+        storage.initStorage();
+
+        try {
+            storage.loadFromMemory();
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous task file found");
+            storage.createDataFile();
+        }
+
 
         instance.ToggleActiveState();
 
@@ -172,7 +230,7 @@ public class Duke extends Application {
             }
         }
     }
-
+     */
     public boolean isActive() {
         return currentState == LivState.ACTIVE;
     }

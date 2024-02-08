@@ -37,7 +37,7 @@ public class Ui {
     private TaskList taskList = null;
 
     private Ui() {
-        // break the initialisation into the initialization function of different classes
+        // break the initialization into the initialization function of different classes
         horizontalLine = HorizontalLine.getInstance();
         currentState = UiState.ACTIVE_TALKING;
         duke = Duke.getInstance();
@@ -131,6 +131,15 @@ public class Ui {
         horizontalLine.printLine();
     }
 
+    public String listTasksReturnString() {
+        taskList.unfilterTasks();
+        String result = "";
+        for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
+            result += (i + "." + taskList.getTask(i).toString());
+        }
+        return result;
+    }
+
     /**
      * Lists all existing tasks.
      */
@@ -142,6 +151,14 @@ public class Ui {
             System.out.println(i + "." + taskList.getTask(i).toString());
         }
         ToggleConversationState();
+    }
+
+    public String listFilteredTasksReturnString() {
+        String result = "";
+        for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
+            result += (i + "." + taskList.getTask(i).toString());
+        }
+        return result;
     }
 
     public void listFilteredTasks() {
