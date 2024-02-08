@@ -8,12 +8,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage handler for saving and loading tasks to and from a file.
+ * This class provides methods to save and load tasks from a file.
+ */
 public class Storage {
     // file path should be "./src/main/data/save.txt"
     private final String filepath;
     private final File saveFile;
 
-    // create save file if it doesnt exist
+    /**
+     * Constructs a new instance of the Storage class with the specified file path.
+     * Creates a new save file if it doesn't exist.
+     *
+     * @param filepath The file path of the save file.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         this.saveFile = new File(filepath);
@@ -30,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from the task list to the save file.
+     *
+     * @param taskList The list of tasks to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveData(TaskList taskList) throws IOException {
         try (FileWriter writer = new FileWriter(this.filepath)) {
             for (int i = 0; i < taskList.size(); i++) {
@@ -41,6 +56,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the save file and returns them as an ArrayList.
+     *
+     * @return The list of tasks loaded from the save file.
+     */
     public ArrayList<Task> loadData() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {

@@ -5,18 +5,33 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Parses user input and performs corresponding actions.
+ * This class handles parsing user input commands and executing actions accordingly,
+ * such as adding tasks, marking tasks as done, and deleting tasks.
+ */
 public class Parser {
 
     private final Ui ui;
     private final TaskList taskList;
     private final Storage storage;
 
+    /**
+     * Constructs a new instance of the Parser class with the specified UI, task list, and storage.
+     *
+     * @param ui      The user interface for displaying messages.
+     * @param taskList The list of tasks to perform actions on.
+     * @param storage The storage handler for saving and loading tasks.
+     */
     public Parser(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Parses user input and executes corresponding actions until an empty input is provided.
+     */
     public void parse() {
         Scanner input = new Scanner(System.in);
         String data = input.nextLine();
