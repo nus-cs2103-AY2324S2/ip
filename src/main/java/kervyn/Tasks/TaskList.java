@@ -59,16 +59,14 @@ public class TaskList {
         dialogContainer.getChildren().add(
                 DialogBox.getKervynDialog("\tHere are the tasks on your list:", kervynImage)
         );
-        String textToOutput = "";
         for (int i = 0; i < userTasks.size(); i++) {
             Task task = userTasks.get(i);
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
             switch (type) {
                 case 'T':
-                    textToOutput = "\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription();
                     dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                            DialogBox.getKervynDialog("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription(), kervynImage)
                     );
                     break;
                 case 'D':
@@ -76,9 +74,8 @@ public class TaskList {
                     if (deadlineTask == null) {
                         return 0;
                     }
-                    textToOutput = "\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")";
                     dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                            DialogBox.getKervynDialog("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")", kervynImage)
                     );
                     break;
                 case 'E':
@@ -86,15 +83,13 @@ public class TaskList {
                     if (eventTask == null) {
                         return 0;
                     }
-                    textToOutput = "\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")";
                     dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                            DialogBox.getKervynDialog("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")", kervynImage)
                     );
                     break;
                 default:
-                    textToOutput = "\tNo tasks to display :(";
                     dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog(textToOutput, kervynImage)
+                            DialogBox.getKervynDialog("\tNo tasks to display :(", kervynImage)
                     );
                     break;
             }
@@ -109,27 +104,30 @@ public class TaskList {
      * @param processedUserInput The user input processed into an array of Strings.
      * @return Returns 1 if the mark operation was successful, 0 otherwise.
      */
-    public String markTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
+    public short markTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (task.getStatus()) {
-                taskAlreadyMarked();
+                taskAlreadyMarked(dialogContainer, kervynImage);
             } else {
-                System.out.println("\tNice! I've marked this task as done:");
+                dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog("\tNice! I've marked this task as done:", kervynImage)
+                );
                 task.updateStatus();
-                System.out.println(task.toString());
-                return task.toString();
+                dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog(task.toString(), kervynImage)
+                );
             }
 
-//            return 1;
+            return 1;
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to mark a task that doesn't exist
-            System.out.println("\tTask number provided doesn't exist. Please try again.");
-            return "\tTask number provided doesn't exist. Please try again.";
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tTask number provided doesn't exist. Please try again.", kervynImage)
+            );
         }
-//        return 0;
-        return "";
+        return 0;
     }
 
     /**
@@ -143,18 +141,24 @@ public class TaskList {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (!task.getStatus()) {
-                taskAlreadyUnMarked();
+                taskAlreadyUnMarked(dialogContainer, kervynImage);
             } else {
-                System.out.println("\tOK, I've marked this task as not done yet:");
+                dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog("\tOK, I've marked this task as not done yet:", kervynImage)
+                );
                 task.updateStatus();
-                System.out.println(task.toString());
+                dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog(task.toString(), kervynImage)
+                );
             }
 
             return 1;
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to unmark a task that doesn't exist
-            System.out.println("\tTask number provided doesn't exist. Please try again.");
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tTask number provided doesn't exist. Please try again.", kervynImage)
+            );
         }
         return 0;
     }
@@ -162,15 +166,19 @@ public class TaskList {
     /**
      * Private method to handle the scenario when a task is already marked.
      */
-    private static void taskAlreadyMarked() {
-        System.out.println("\tUh oh! It looks like this task is already marked as done, please try again with another task!");
+    private void taskAlreadyMarked(VBox dialogContainer, Image kervynImage) {
+        dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tUh oh! It looks like this task is already marked as done, please try again with another task!", kervynImage)
+        );
     }
 
     /**
      * Private method to handle the scenario when a task is already unmarked.
      */
-    private static void taskAlreadyUnMarked() {
-        System.out.println("\tUh oh! It looks like this task is already marked as not done, please try again with another task!");
+    private static void taskAlreadyUnMarked(VBox dialogContainer, Image kervynImage) {
+        dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tUh oh! It looks like this task is already marked as not done, please try again with another task!", kervynImage)
+        );
     }
 
     /**
@@ -182,13 +190,19 @@ public class TaskList {
     public void removeTask(ArrayList<Task> userTasks, String[] processedUserInput, Image kervynImage, VBox dialogContainer) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
-            System.out.println("\tOK, I've removed this task as per your request:");
-            System.out.println(task.toString());
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tOK, I've removed this task as per your request:", kervynImage)
+            );
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog(task.toString(), kervynImage)
+            );
             userTasks.remove(task);
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to delete a task that doesn't exist
-            System.out.println("\tTask number provided doesn't exist. Please try again.");
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tTask number provided doesn't exist. Please try again.", kervynImage)
+            );
         }
     }
 
@@ -211,12 +225,18 @@ public class TaskList {
         }
 
         if (results.isEmpty()) {
-            System.out.println("\tThere are no tasks that match your keyword provided.");
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tThere are no tasks that match your keyword provided.", kervynImage)
+            );
         } else {
-            System.out.println("\tHere are the matching tasks in your list:");
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tHere are the matching tasks in your list:", kervynImage)
+            );
             for (int j = 0; j < results.size(); j++) {
                 // Check the type of the tasks
-                System.out.println("\t" + (j + 1) + ". " + results.get(j).toString());
+                dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog("\t" + (j + 1) + ". " + results.get(j).toString(), kervynImage)
+                );
             }
         }
     }

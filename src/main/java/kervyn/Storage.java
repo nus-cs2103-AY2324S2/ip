@@ -77,13 +77,15 @@ public class Storage {
             for (String line : lines) {
                 char[] lineToCharArr = line.trim().toCharArray();
                 char type = lineToCharArr[1];
+                char check = lineToCharArr[5];
+                boolean status = check == 'X';
                 String description = "";
                 // Finding content for the description
                 String[] splitContent = line.split("]");
                 switch (type) {
                     case 'T':
                         description = splitContent[2].trim();
-                        ToDo newToDo = new ToDo(description, false);
+                        ToDo newToDo = new ToDo(description, status);
                         userRequests.add(newToDo);
                         break;
                     case 'D':
@@ -96,7 +98,7 @@ public class Storage {
                         LocalDateTime deadline = LocalDateTime.parse(deadlineStr, formatter);
 
                         description = furtherSplitContent[0].trim();
-                        Deadline newDeadline = new Deadline(description, false, deadline);
+                        Deadline newDeadline = new Deadline(description, status, deadline);
                         userRequests.add(newDeadline);
                         break;
                     case 'E':
@@ -111,7 +113,7 @@ public class Storage {
 
                         LocalDateTime startDate = LocalDateTime.parse(startDateStr, formatter);
                         LocalDateTime endDate = LocalDateTime.parse(endDateStr, formatter);
-                        Event newEvent = new Event(description, false, startDate, endDate);
+                        Event newEvent = new Event(description, status, startDate, endDate);
                         userRequests.add(newEvent);
                         break;
                 }
