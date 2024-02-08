@@ -26,6 +26,8 @@ public class Parser {
                 ui.printDeadline(tl, cmd);
             } else if (cmd.startsWith("event")) {
                 ui.printEvent(tl, cmd);
+            } else if (cmd.startsWith("find")) {
+                ui.printFind(tl, cmd);
             } else {
                 throw new DukeUnknownTaskException();
             }
@@ -48,20 +50,12 @@ public class Parser {
         return Integer.parseInt(cmd.substring(7)) - 1;
     }
 
-    public static String parseToDoTest(String cmd) {
+    public static String parseToDoOrFind(String cmd) {
         return cmd.substring(4).strip();
     }
 
-    public static String parseToDo(String cmd) {
-        return cmd.substring(5).strip();
-    }
-
-    public static String parseDeadlineTest(String cmd) {
-        return cmd.substring(8).strip();
-    }
-
     public static String parseDeadline(String cmd) {
-        return cmd.substring(9).strip();
+        return cmd.substring(8).strip();
     }
 
     public static String parseDeadlineDesc(String cmd) {
