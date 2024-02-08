@@ -3,6 +3,9 @@ package dylanbot;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the Ui which deals with user interactions
+ */
 public class Ui { // deals with interactions with the user
     private Scanner sc;
 
@@ -43,6 +46,11 @@ public class Ui { // deals with interactions with the user
         return input;
     }
 
+    /**
+     * Prints out the given ArrayList of tasks
+     *
+     * @param tasks The ArrayList of tasks to be printed
+     */
     public void displayTasks(ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
