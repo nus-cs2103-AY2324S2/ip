@@ -22,21 +22,22 @@ public class Ui {
      * Prints a greeting to the user
      *
      */
-    public static void greet() {
-        String greeting = LINE + "   Hello! I'm Woody\n"
-                + "   What can I do for you?\n" + LINE;
-
-        System.out.println(greeting);
+    public static String greet() {
+        String greeting = "   Yee-haw! I'm Woody.\n" + "   What can I do for you?\n";
+        System.out.println(LINE + greeting + LINE);
+        return greeting;
     }
 
     /**
      * Prints a goodbye to the user
      *
      */
-    public static void goodbye() {
+    public static String goodbye() {
         Random random = new Random();
-        System.out.println("   Bye! " + CATCHPHRASES[random.nextInt(CATCHPHRASES.length)]
-                + "\n" + LINE);
+        String goodbye = "   Bye! " + CATCHPHRASES[random.nextInt(CATCHPHRASES.length)]
+                + "\n";
+        System.out.println(goodbye + LINE);
+        return goodbye;
     }
 
 }

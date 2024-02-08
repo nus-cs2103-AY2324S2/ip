@@ -1,9 +1,6 @@
 package duke;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
+import duke.commands.Command;
 import duke.utils.Ui;
 
 /**
@@ -12,27 +9,19 @@ import duke.utils.Ui;
  */
 public class Duke {
     /**
-     * Keywords to terminate the Duke chatbot.
+     * The file path to load and save task data.
      */
-    private static final String[] terminateKeywords = {"bye", "BYE", "Bye"};
-
-    /**
-     * List of keywords that trigger the termination of the Duke chatbot.
-     */
-    private static final List<String> exitProgramme = Arrays.asList(terminateKeywords);
+    private static final String DEFAULT_PATH = "./data/data.txt";
 
     private Storage storage;
     private TaskList tasks;
 
-
     /**
      * Constructs a Duke instance with a specified file path for task data.
-     *
-     * @param filePath The file path to load and save task data.
      */
-    public Duke(String filePath) {
+    public Duke() {
         try {
-            this.storage = new Storage(filePath);
+            this.storage = new Storage(DEFAULT_PATH);
             this.tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -41,19 +30,28 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke chatbot.
+     * Runs the Duke chatbot in CLI.
      * Processes user input until termination keywords are entered
      */
     public void run() {
         // programme start
         Ui.greet();
-        Scanner input = new Scanner(System.in);
-        String[] currInput = input.nextLine().split(" ", 2);
+        String input = Parser.getUserInput();
+        boolean isExit = Parser.isExit(input);
 
         // programme
-        while (!exitProgramme.contains(currInput[0])) {
-            Parser.parse(this.tasks, currInput);
-            currInput = input.nextLine().split(" ", 2);
+        while (!isExit) {
+            try {
+                Command cmd = Parser.parse(input, this.tasks);
+                System.out.println(cmd.execute());
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                System.out.println(Ui.LINE);
+                // prompt and get next input
+                input = Parser.getUserInput();
+                isExit = Parser.isExit(input);
+            }
         }
 
         // save and exit
@@ -62,11 +60,28 @@ public class Duke {
     }
 
     /**
-     * The main method to launch the Duke chatbot application.
+     * The main method to launch the Duke chatbot in CLI.
      *
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new Duke("./data/data.txt").run();
+        new Duke().run();
     }
+
+    /**
+     * Runs the Duke chatbot in GUI.
+     */
+    public String getResponse(String input) {
+        try {
+            if (Parser.isExit(input)) {
+                javafx.application.Platform.exit();
+            }
+            Command cmd = Parser.parse(input, this.tasks);
+            String response = cmd.execute();
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+    }
+
 }

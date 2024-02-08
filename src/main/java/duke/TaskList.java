@@ -106,17 +106,20 @@ public class TaskList {
     /**
      * Prints the tasks in the TaskList with their corresponding indices.
      */
-    public void printTasks(boolean isSearch) {
+    public String stringifyTasks(boolean isSearch) {
+        String tasklist;
         if (isSearch) {
-            System.out.println("    Here are the matching tasks in your list:");
+            tasklist = "    Here are the matching tasks in your list:";
         } else {
-            System.out.println("    Here are the items in your list: ");
+            tasklist = "    Here are the items in your list: ";
         }
 
         for (int i = 0; i < this.taskList.size(); i++) {
             String listIdx = i + 1 + ". ";
             Task currTask = this.taskList.get(i);
-            System.out.println("    " + listIdx + currTask);
+            tasklist += "\n    " + listIdx + currTask;
         }
+
+        return tasklist;
     }
 }
