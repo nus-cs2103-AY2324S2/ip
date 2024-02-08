@@ -1,4 +1,5 @@
 package command;
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.InvalidCommandException;
@@ -10,6 +11,7 @@ public class InvalidCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
     /**
      * The constructor of InvalidCommand.
@@ -18,12 +20,14 @@ public class InvalidCommand extends Command {
      * @param ui The ui to get the input of the user.
      * @throws InvalidCommandException If input is not valid.
      */
-    public InvalidCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public InvalidCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
     }
 
+
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidCommandException {
         throw new InvalidCommandException("");
     }
 
@@ -31,4 +35,5 @@ public class InvalidCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

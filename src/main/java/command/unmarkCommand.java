@@ -1,16 +1,19 @@
 package command;
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import exception.DukeException;
 
 /**
  * Command to unmark a specific task in the task list.
  */
 public class UnmarkCommand extends Command {
-
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    public UnmarkCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public UnmarkCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
     }
 
     /**
@@ -20,11 +23,13 @@ public class UnmarkCommand extends Command {
      * @param ui The ui to get the input of the user.
      * @throws Exception If input is not valid.
      */
-    public void execute(TaskList taskList, Ui ui) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = ui.getInput();
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) - 1;
-        taskList.unmark(position);
+        String str = taskList.unmark(position);
+        storage.writeTasks(taskList);
+        return str;
     }
 
     public boolean isExit() {

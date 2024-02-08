@@ -1,15 +1,19 @@
 package command;
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import exception.DukeException;
 
 /**
  * Command to mark a specific task in the task list.
  */
 public class MarkCommand extends Command {
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    public MarkCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public MarkCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
     }
 
     /**
@@ -20,11 +24,14 @@ public class MarkCommand extends Command {
      * @throws Exception If input is not valid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        String str;
         String input = ui.getInput();
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) - 1;
-        taskList.mark(position);
+        str = taskList.mark(position);
+        storage.writeTasks(taskList);
+        return str;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package duke;
 
 import command.Command;
+import exception.DukeException;
 import exception.EmptyInputException;
 import exception.EmptyTimeException;
 import exception.InvalidDateTimeException;
@@ -14,55 +15,46 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
     /**
-     * The constructor ßßßßof Duke.
+     * The constructor of Duke.
      *
      * @param filePath The file path to be passed into to load the initial tasks.
      */
-
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList(storage.load());
+        this.parser = new Parser(this.tasks, this.ui, this.storage);
     }
 
     /**
      * Run the program
-     * show the welcome message
+     *
+     * @param input The input of the user.
+     * @return The response of bee.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                //ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui);
-                isExit = c.isExit();
-            } catch (EmptyInputException e) {
-                System.out.println(e.getMessage());
-            } catch (EmptyTimeException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidFormatException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidDateTimeException e) {
-                System.out.println(e.getMessage());
-            } catch (InvalidInputException e) {
-                System.out.println("    OOPS!!! ");
-            } catch (Exception e) {
-                System.out.println(Ui.INDENT_SEPERATOR + "\n    OOPS!!! Something went wrong D:\n"
-                        + Ui.INDENT_SEPERATOR);
-            } finally {
-                storage.writeTasks(tasks);
-            }
+    public String getResponse(String input) {
+        String response;
+        ui.readCommand(input);
+        Command c = parser.parse(input);
+        try {
+            response = c.execute(tasks, ui, storage);
+        } catch (EmptyInputException e) {
+            response = e.getMessage();
+        } catch (EmptyTimeException e) {
+            response = e.getMessage();
+        } catch (InvalidFormatException e) {
+            response = e.getMessage();
+        } catch (InvalidDateTimeException e) {
+            response = e.getMessage();
+        } catch (InvalidInputException e) {
+            response = e.getMessage();
+        } catch (DukeException e) {
+            response = e.getMessage();
         }
-    }
 
-    public static void main(String[] args) {
-        new Duke("./data/tasks.txt").run();
+        return response;
     }
-
 }

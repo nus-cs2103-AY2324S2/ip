@@ -28,29 +28,39 @@ public class TaskList {
     }
 
     /**
+     * To show welcome message to user.
+     *
+     * @param ui The ui to get the input of the user.
+     */
+    public String welcome(Ui ui) {
+        return Ui.showWelcome();
+    }
+
+    /**
      * To show goodbye message to user.
      *
      * @param ui The ui to get the input of the user.
      */
-    public void bye(Ui ui) {
-        Ui.showGoodbyeMessage();
+    public String bye(Ui ui) {
+        return Ui.showGoodbyeMessage();
     }
 
     /**
      * To print the entire Task array.
      */
-    public void showList() {
-        System.out.println(Ui.INDENT_SEPERATOR);
+    public String showList() {
+        String str = Ui.INDENT_SEPERATOR;
         if (taskList.isEmpty()) {
-            System.out.println("There are currently no tasks in your list");
+            str = str + "There are currently no tasks in your list";
         } else {
-            System.out.println(Ui.INDENT + "Here are the tasks in your list:");
+            str = str + Ui.INDENT + "Here are the tasks in your list:";
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
-                System.out.println(Ui.INDENT + (i + 1) + "." + t.toString());
+                str = str + Ui.INDENT + (i + 1) + "." + t.toString();
             }
         }
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -60,25 +70,25 @@ public class TaskList {
      * @param position The index of the specified task in the array list
      *                 to be marked as completed.
      */
-    public void mark(int position) {
+    public String mark(int position) {
+        String str = "";
         // check for error
         if (position + 1 > taskList.size()) {
-            System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task.Task does not exist");
+            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
         } else if (position < 0) {
-            System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task.Task does not exist");
+            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
 
         } else {
-            System.out.println(Ui.INDENT_SEPERATOR);
+            str = str + Ui.INDENT_SEPERATOR;
             Task t = taskList.get(position);
             if (t.getStatusIcon().equals(" ")) {
-                System.out.println(Ui.INDENT + "Nice! I've marked this task as done:");
+                str = str + Ui.INDENT + "Nice! I've marked this task as done:";
             }
             t.markAsDone();
-            System.out.println(Ui.INDENT + "  " + t.toString());
+            str = str + Ui.INDENT + "  " + t.toString();
         }
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -88,25 +98,25 @@ public class TaskList {
      * @param position The index of the specified task in the array list
      *                 to be marked as incompleted.
      */
-    public void unmark(int position) {
+    public String unmark(int position) {
+        String str = "";
         // check for error
         if (position + 1 > taskList.size()) {
-            System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task.Task does not exist");
+            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
         } else if (position < 0) {
-            System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task.Task does not exist");
+            str = str + Ui.INDENT_SEPERATOR + Ui.INDENT + "Task does not exist";
 
         } else {
-            System.out.println(Ui.INDENT_SEPERATOR);
+            str = str + Ui.INDENT_SEPERATOR;
             Task t = taskList.get(position);
             if (t.getStatusIcon().equals("X")) {
-                System.out.println(Ui.INDENT + "OK, I've marked this task as not done yet:");
+                str = str + Ui.INDENT + "OK, I've marked this task as not done yet:";
             }
             t.markAsUndone();
-            System.out.println(Ui.INDENT + "  " + t.toString());
+            str = str + Ui.INDENT + "  " + t.toString();
         }
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -114,13 +124,14 @@ public class TaskList {
      *
      * @param t New todo to be added into taskList.
      */
-    public void todo(Todo t) {
+    public String todo(Todo t) {
         taskList.add(t);
-        System.out.println(Ui.INDENT_SEPERATOR);
-        System.out.println(Ui.INDENT + "Got it. I've added this task:");
-        System.out.println(Ui.INDENT + "  " + t.toString());
-        System.out.println(Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println(Ui.INDENT_SEPERATOR);
+        String str = Ui.INDENT_SEPERATOR
+                + Ui.INDENT + "Got it. I've added this task:"
+                + Ui.INDENT + "  " + t.toString()
+                + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list."
+                + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -128,13 +139,14 @@ public class TaskList {
      *
      * @param t New deadline to be added into taskList.
      */
-    public void deadline(Deadline t) {
-        System.out.println(Ui.INDENT_SEPERATOR);
+    public String deadline(Deadline t) {
+        String str = Ui.INDENT_SEPERATOR;
         taskList.add(t);
-        System.out.println(Ui.INDENT + "Got it. I've added this task:");
-        System.out.println(Ui.INDENT + "  " + t.toString());
-        System.out.println(Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT + "Got it. I've added this task:"
+                + Ui.INDENT + "  " + t.toString()
+                + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list."
+                + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -142,13 +154,14 @@ public class TaskList {
      *
      * @param t New event to be added into taskList.
      */
-    public void event(Event t) {
-        System.out.println(Ui.INDENT_SEPERATOR);
+    public String event(Event t) {
+        String str = Ui.INDENT_SEPERATOR;
         taskList.add(t);
-        System.out.println(Ui.INDENT + "Got it. I've added this task:");
-        System.out.println(Ui.INDENT + "  " + t.toString());
-        System.out.println(Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT + "Got it. I've added this task:"
+                + Ui.INDENT + "  " + t.toString()
+                + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list."
+                + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -158,45 +171,48 @@ public class TaskList {
      * @param position The index of the specified task in the array list
      *                 to be deleted.
      */
-    public void delete(int position) {
+    public String delete(int position) {
+        String str = "";
         Task t = taskList.get(position);
         // check for error
         if (position + 1 > taskList.size()) {
-            System.out.println(Ui.INDENT + "Task.Task does not exist");
+            str = str + Ui.INDENT + "Task.Task does not exist";
         } else if (position < 0) {
-            System.out.println(Ui.INDENT + "Task.Task does not exist");
+            str = str + Ui.INDENT + "Task.Task does not exist";
         } else {
             taskList.remove(t);
-            System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Noted. I've removed this task:");
-            System.out.println(Ui.INDENT + "  " + t.toString());
-            System.out.println(Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.");
+            str = str + Ui.INDENT_SEPERATOR
+                    + Ui.INDENT + "Noted. I've removed this task:"
+                    + Ui.INDENT + "  " + t.toString()
+                    + Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.";
         }
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**
      * To print the tasks that contains the keyword.
      */
-    public void find(String keyword) {
-        System.out.println(Ui.INDENT_SEPERATOR);
+    public String find(String keyword) {
+        String str = Ui.INDENT_SEPERATOR;
 
         if (taskList.isEmpty()) {
-            System.out.println("There are currently no tasks in your list");
+            str = str + "There are currently no tasks in your list";
         } else {
             //System.out.println("keyword:" + keyword + "end");
-            System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
+            str = str + Ui.INDENT + "Here are the matching tasks in your list:";
             int index = 1;
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
                 String description = t.getDescription();
                 if (description.contains(keyword)) {
-                    System.out.println(Ui.INDENT + index + "." + t.toString());
+                    str = str + Ui.INDENT + index + "." + t.toString();
                     index += 1;
                 }
             }
         }
-        System.out.println(Ui.INDENT_SEPERATOR);
+        str = str + Ui.INDENT_SEPERATOR;
+        return str;
     }
 
     /**

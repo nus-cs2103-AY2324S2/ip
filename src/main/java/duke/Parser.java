@@ -10,6 +10,7 @@ import command.MarkCommand;
 import command.ShowListCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
+import command.WelcomeCommand;
 
 /**
  * Parser deals with making sense of the user command.
@@ -18,15 +19,18 @@ public class Parser {
     private static TaskList taskList;
     private static Ui ui;
 
+    private static Storage storage;
+
     /**
      * The constructor of Parser.
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
      */
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
+        this.storage = storage;
     }
 
     /**
@@ -40,26 +44,28 @@ public class Parser {
         String temp = input.split(" ")[0];
         Actions action = Actions.valueOf(temp.toUpperCase());
         switch (action) {
+        case HELLO:
+            return new WelcomeCommand(taskList, ui, storage);
         case BYE:
-            return new ByeCommand(taskList, ui);
+            return new ByeCommand(taskList, ui, storage);
         case LIST:
-            return new ShowListCommand(taskList, ui);
+            return new ShowListCommand(taskList, ui, storage);
         case MARK:
-            return new MarkCommand(taskList, ui);
+            return new MarkCommand(taskList, ui, storage);
         case UNMARK:
-            return new UnmarkCommand(taskList, ui);
+            return new UnmarkCommand(taskList, ui, storage);
         case TODO:
-            return new TodoCommand(taskList, ui);
+            return new TodoCommand(taskList, ui, storage);
         case DEADLINE:
-            return new DeadlineCommand(taskList, ui);
+            return new DeadlineCommand(taskList, ui, storage);
         case EVENT:
-            return new EventCommand(taskList, ui);
+            return new EventCommand(taskList, ui, storage);
         case DELETE:
-            return new DeleteCommand(taskList, ui);
+            return new DeleteCommand(taskList, ui, storage);
         case FIND:
-            return new FindCommand(taskList, ui);
+            return new FindCommand(taskList, ui, storage);
         default:
-            return new InvalidCommand(taskList, ui);
+            return new InvalidCommand(taskList, ui, storage);
         }
     }
 }

@@ -1,4 +1,5 @@
 package command;
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.EmptyInputException;
@@ -8,11 +9,12 @@ import task.Todo;
  * Command to add a todo into the task list.
  */
 public class TodoCommand extends Command {
-
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    public TodoCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public TodoCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
     }
 
     /**
@@ -22,12 +24,14 @@ public class TodoCommand extends Command {
      * @param ui The ui to get the input of the user.
      * @throws EmptyInputException If user did not input description.
      */
-    public void execute(TaskList taskList, Ui ui) throws EmptyInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
         String input = ui.getInput();
         if (input.split(" ").length > 1) {
             String description = input.substring(4).trim();
             Todo t = new Todo(description);
-            taskList.todo(t);
+            String str = taskList.todo(t);
+            storage.writeTasks(taskList);
+            return str;
         } else {
             throw new EmptyInputException("todo");
         }
