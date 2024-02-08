@@ -26,6 +26,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean matchKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public String toDataString() {
         return (this.isDone ? "X" : "O") + "|" + this.description;
     }

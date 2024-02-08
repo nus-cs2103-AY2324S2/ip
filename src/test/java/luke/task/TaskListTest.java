@@ -141,4 +141,24 @@ public void testGetList() throws DateException {
 
     }
 
+    @Test
+    public void testFind() throws DateException {
+        TaskList taskList = new TaskList();
+        Todo todo = new Todo("read book");
+        Deadline deadline = new Deadline("return book", "2024-02-25 13:00");
+        Event event = new Event("project meeting", "2024-02-25 13:00", "2024-02-25 15:00");
+        taskList.add(todo);
+        taskList.add(deadline);
+        taskList.add(event);
+
+        // find tasks with keyword "book"
+        TaskList foundList = taskList.find("book");
+
+        // Test if the tasks with keyword "book" are found
+        assertEquals(2, foundList.size());
+        assertEquals(todo, foundList.get(0));
+        assertEquals(deadline, foundList.get(1));
+
+    }
+
 }

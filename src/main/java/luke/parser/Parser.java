@@ -22,6 +22,22 @@ public class Parser {
             return;
         } else if (this.input.equals("list")) {
             ui.printList(list);
+        } else if (this.input.contains("find")) {
+            try {
+                if (input.equals("find")) {
+                    throw new LukeException("Hold up!! There must be a keyword to find!\n"
+                            + "Please enter a keyword after find.");
+                }
+
+                // 5 is the index after "find ", so starts from index 5
+                String keyword = input.substring(5);
+                TaskList foundList = list.find(keyword);
+                ui.printTaskFound(foundList);
+
+            } catch (LukeException e) {
+                ui.getErrorMessage(e.getMessage());
+            }
+
         } else if (this.input.contains("mark")) {
             try {
                 if (input.equals("mark") || input.equals("unmark")) {

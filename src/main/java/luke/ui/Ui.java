@@ -91,4 +91,15 @@ public class Ui {
         return sc.nextLine().trim();
 
     }
+
+    public void printTaskFound(TaskList tasks) {
+        System.out.println("________________________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) != null) {
+                System.out.println(i + 1 + "." + tasks.get(i));
+            }
+        }
+        System.out.println("________________________________________________________________________");
+    }
 }
