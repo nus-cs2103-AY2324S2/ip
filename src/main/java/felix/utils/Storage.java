@@ -1,17 +1,20 @@
 package felix.utils;
 
-import felix.exception.FelixException;
-import felix.task.Task;
-
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import felix.exception.FelixException;
+import felix.task.Task;
+
+/**
+ * Class representing abstraction for storage file
+ */
 public class Storage {
     private final File storageFile;
 
@@ -40,7 +43,7 @@ public class Storage {
      * Generates a list of tasks from the storage file associated with the created Storage instance.
      *
      * @return list of tasks.
-     * @throws FelixException If file is not found, there is error reading from the file, or datetime is not in correct format.
+     * @throws FelixException If file not found, error reading from the file, or datetime not in correct format.
      */
     public TaskList getTasksFromFile() throws FelixException {
         try {

@@ -5,6 +5,9 @@ import felix.utils.Storage;
 import felix.utils.TaskList;
 import felix.utils.Ui;
 
+/**
+ * Abstract class for a command
+ */
 public abstract class Command {
     protected boolean isExit = false;
     public boolean isExit() {

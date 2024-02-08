@@ -2,6 +2,9 @@ package felix.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class representing a task with a start and end time
+ */
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
@@ -15,8 +18,8 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = LocalDateTime.parse(start, inputFormatter);
-        this.end = LocalDateTime.parse(end, inputFormatter);
+        this.start = LocalDateTime.parse(start, INPUT_FORMATTER);
+        this.end = LocalDateTime.parse(end, INPUT_FORMATTER);
     }
 
     /**
@@ -25,12 +28,12 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return String.format("E | %s | %s | %s | %s", this.getStatusIcon(), this.getDescription(),
-                this.start.format(inputFormatter), this.end.format(inputFormatter));
+                this.start.format(INPUT_FORMATTER), this.end.format(INPUT_FORMATTER));
     }
 
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                this.start.format(outputFormatter), this.end.format(outputFormatter));
+                this.start.format(OUTPUT_FORMATTER), this.end.format(OUTPUT_FORMATTER));
     }
 }

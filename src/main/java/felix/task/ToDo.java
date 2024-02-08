@@ -1,5 +1,8 @@
 package felix.task;
 
+/**
+ * Class representing tasks with no provided time constraints
+ */
 public class ToDo extends Task {
     /**
      * Constructor for ToDo class.
@@ -14,11 +17,11 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("T | %s | %s",this.getStatusIcon(), this.getDescription());
+        return String.format("T | %s | %s", this.getStatusIcon(), this.getDescription());
     }
 
     @Override
     public String toString() {
-        return String.format("[T]%s",super.toString());
+        return String.format("[T]%s", super.toString());
     }
 }

@@ -1,5 +1,9 @@
 package felix;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import felix.command.Command;
 import felix.exception.FelixException;
 import felix.utils.Parser;
@@ -7,11 +11,9 @@ import felix.utils.Storage;
 import felix.utils.TaskList;
 import felix.utils.Ui;
 
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.ArrayList;
-
+/**
+ * Main class
+ */
 public class Felix {
     private static final ArrayList<String> FILE_PATH = new ArrayList<>(List.of("data", "taskList.txt"));
     private final Ui ui;
@@ -33,6 +35,10 @@ public class Felix {
         }
     }
 
+    /**
+     * Runs the application.
+     * @throws FelixException If errors are encountered.
+     */
     public void run() throws FelixException {
         boolean isExit = false;
         this.ui.printLogo();

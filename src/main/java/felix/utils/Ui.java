@@ -2,6 +2,9 @@ package felix.utils;
 
 import java.util.Scanner;
 
+/**
+ * Class representing abstraction for user interface
+ */
 public class Ui {
     private static final String BOT_NAME = "Felix";
     private static final String LOGO = "___________    .__  .__        \n"
@@ -65,7 +68,7 @@ public class Ui {
      */
     public void printIntroduction() {
         this.printHorizontalLine();
-        System.out.printf("Hello! I'm %s\nWhat can I do for you?\n",BOT_NAME);
+        System.out.printf("Hello! I'm %s\nWhat can I do for you?\n", BOT_NAME);
         this.printHorizontalLine();
     }
 

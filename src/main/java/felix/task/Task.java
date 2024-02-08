@@ -1,13 +1,21 @@
 package felix.task;
 
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
+/**
+ * Abstract class for tasks
+ */
 public abstract class Task {
-    protected static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
+    protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
     private final String description;
     private boolean isDone;
+
+    /**
+     * Constructor for subclasses of Task.
+     *
+     * @param description Description of task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -65,6 +73,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s",this.getStatusIcon(),this.description);
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }

@@ -1,9 +1,12 @@
 package felix.utils;
 
-import felix.task.Task;
-
 import java.util.ArrayList;
 
+import felix.task.Task;
+
+/**
+ * Class representing a list of tasks
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -49,7 +52,9 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             output.append(this.tasks.get(i).toFileString());
-            if (i < this.tasks.size() - 1) output.append("\n");
+            if (i < this.tasks.size() - 1) {
+                output.append("\n");
+            }
         }
         return output.toString();
     }
@@ -77,7 +82,9 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             output.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
-            if (i < this.tasks.size() - 1) output.append("\n");
+            if (i < this.tasks.size() - 1) {
+                output.append("\n");
+            }
         }
         return output.toString();
     }
