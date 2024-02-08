@@ -11,16 +11,16 @@ public class HughJazz {
     private static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
+        String userInput;
+
         ui.showGreeting();
+
         try {
             ArrayList<Task> loadedTasks = storage.load();
             taskList.loadTasks(loadedTasks);
         } catch (FileNotFoundException e ){
             ui.showError("No existing txt file found");
         }
-
-        String userInput;
-
         while (true) {
             userInput = ui.readCommand();
             if("bye".equalsIgnoreCase(userInput)) {
@@ -35,8 +35,8 @@ public class HughJazz {
                     ui.showError(e.getMessage());
                 }
             }
-
         }
+
         ui.showGoodbye();
     }
 }

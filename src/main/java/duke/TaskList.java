@@ -2,13 +2,12 @@ package duke;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 public class TaskList {
     private ArrayList<Task> tasks;
-
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-
     public void loadTasks(ArrayList<Task> taskList) {
         this.tasks = taskList;
     }

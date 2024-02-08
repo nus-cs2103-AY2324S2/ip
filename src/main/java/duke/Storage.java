@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
+
 public class Storage {
     private String filePath;
 
@@ -19,7 +20,6 @@ public class Storage {
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
         while (scanner.hasNext()) {
-//            taskCount += 1; // taskCount does not exist yet
             String line = scanner.nextLine();
             Task task = Parser.decodeTask(line);
             if (task != null) {
@@ -31,7 +31,7 @@ public class Storage {
     }
 
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
-        new File("." + File.separator + "data").mkdirs(); // Ensure directory exists
+        new File("." + File.separator + "data").mkdirs();
         PrintWriter writer = new PrintWriter(new File(filePath));
         for (Task task : tasks) {
             writer.println(task.toFileFormat());
