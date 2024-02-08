@@ -45,4 +45,4 @@ public class Event extends Task {
     public String save() {
         return "E " + super.save() + String.format(" | %s | %s", from.format(input), to.format(input));
     }
- }
+}

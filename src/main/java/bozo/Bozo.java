@@ -23,8 +23,8 @@ public class Bozo {
         parser = new Parser();
     }
 
-     /**
-     * The main method for the Bozo chatbot.
+    /**
+     * Runs the Bozo chatbot.
      */
     public void run() {
         ui.showWelcome();

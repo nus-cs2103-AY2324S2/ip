@@ -30,6 +30,7 @@ test {
 }
 
 application {
+
     mainClass.set("bozo.Bozo")
 }
 
