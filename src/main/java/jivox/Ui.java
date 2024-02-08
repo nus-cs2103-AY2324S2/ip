@@ -57,7 +57,8 @@ public class Ui {
      * @param tasksLeft The number of tasks remaining.
      */
     public String showDelete(Task t, int tasksLeft) {
-        return String.format("Noted. I've removed this task:\n %s \n Now you have %d Tasks in the List\n", t.toString(), tasksLeft);
+        return String.format("Noted. I've removed this task:\n %s \n"
+                + " Now you have %d Tasks in the List\n", t.toString(), tasksLeft);
     }
 
     /**
