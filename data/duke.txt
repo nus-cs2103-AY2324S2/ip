@@ -1,3 +1,6 @@
-T | 0 | borrow book
-E | 0 | project meeting | Mon 2pm - 4pm
+T | 0 | die
+T | 1 | read
+T | 0 | list
 D | 0 | return book | 2019-12-02 1800
+T | 0 | something
+E | 0 | project meeting | Mon 2pm - 4pm
