@@ -1,8 +1,10 @@
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 import exception.GeePeeTeeException;
+import javafx.scene.image.Image;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
@@ -23,14 +25,19 @@ public class GeePeeTee {
     private Storage storage;
     private Ui ui;
 
+    public static void main(String[] args) {
+        new GeePeeTee("GeePeeTee.txt").run();
+    }
+
     /**
      * Constructs a new {@code GeePeeTee} instance with the specified file path.
+     * 
      * @param filePath The file path to be associated with the application.
      */
     public GeePeeTee(String filePath) {
         ui = new Ui();
         try {
-            storage = new Storage("GeePeeTee.txt");
+            storage = new Storage(filePath);
             taskList = new TaskList(storage.loadTaskList());
         } catch (FileNotFoundException e) {
             ui.showFileNotFoundError();
