@@ -1,6 +1,8 @@
 package kervyn.Commands;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import kervyn.FXControls.DialogBox;
 import kervyn.Tasks.TaskList;
 
 import java.time.LocalDateTime;
@@ -14,7 +16,8 @@ import java.time.format.DateTimeParseException;
 public class Command {
     private String keyword;
     protected TaskList taskList;
-    private Image userImage;
+    private Image kervynImage;
+    private VBox dialogContainer;
 
     /**
      * Constructs a Command object with a specific keyword and associated TaskList.
@@ -22,17 +25,20 @@ public class Command {
      * @param keyword The keyword that triggers this command.
      * @param taskList The TaskList associated with this command.
      */
-    public Command(String keyword, TaskList taskList, Image userImage) {
+    public Command(String keyword, TaskList taskList, Image kervynImage, VBox dialogContainer) {
         this.keyword = keyword;
         this.taskList = taskList;
-        this.userImage = userImage;
+        this.kervynImage = kervynImage;
+        this.dialogContainer = dialogContainer;
     }
 
     /**
      * Displays a message indicating that a task has been added.
      */
     public void taskAdded() {
-        System.out.println("\tUnderstood. I've added this task:");
+        this.dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tUnderstood. I've added this task:", this.kervynImage)
+        );
     }
 
     /**
@@ -49,7 +55,9 @@ public class Command {
             LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
             return dateTime.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format, please try again with a format that looks like dd-MM-yyyy HHmm");
+            this.dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tInvalid date format, please try again with a format that looks like dd-MM-yyyy HHmm", this.kervynImage)
+            );
             return null;
         }
     }

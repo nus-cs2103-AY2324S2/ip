@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @param taskList The TaskList associated with this command.
      */
     public ListCommand(TaskList taskList, Image kervynImage, VBox dialogContainer) {
-        super("List", taskList, kervynImage);
+        super("List", taskList, kervynImage, dialogContainer);
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;
     }

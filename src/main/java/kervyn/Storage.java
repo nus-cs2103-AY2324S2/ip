@@ -1,5 +1,8 @@
 package kervyn;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import kervyn.FXControls.DialogBox;
 import kervyn.Tasks.Deadline;
 import kervyn.Tasks.Event;
 import kervyn.Tasks.Task;
@@ -21,13 +24,17 @@ import java.util.ArrayList;
  */
 public class Storage {
     private String path;
+    private VBox dialogContainer;
+    private Image kervynImage;
     /**
      * Constructs a Storage object associated with the file path provided.
      *
      * @param path The file path where tasks are saved and read from.
      */
-    public Storage(String path) {
+    public Storage(String path, VBox dialogContainer, Image kervynImage) {
         this.path = path;
+        this.dialogContainer = dialogContainer;
+        this.kervynImage = kervynImage;
     }
 
     /**
@@ -58,7 +65,9 @@ public class Storage {
             return 1;
         }
         catch (IOException e) {
-            System.out.println("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!");
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!", kervynImage)
+            );
         }
         return 0;
     }
@@ -120,7 +129,9 @@ public class Storage {
             }
         }
         catch (IOException e) {
-            System.out.println("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!");
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!", kervynImage)
+            );
         }
 
         return userRequests;

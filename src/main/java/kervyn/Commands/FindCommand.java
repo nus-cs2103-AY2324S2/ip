@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @param userInput The user input array containing details for the deletion command.
      */
     public FindCommand(TaskList taskList, String userInput, Image kervynImage, VBox dialogContainer) {
-        super("Find", taskList, kervynImage);
+        super("Find", taskList, kervynImage, dialogContainer);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;

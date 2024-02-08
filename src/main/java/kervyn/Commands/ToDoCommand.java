@@ -2,6 +2,7 @@ package kervyn.Commands;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import kervyn.FXControls.DialogBox;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
 import kervyn.Tasks.ToDo;
@@ -23,7 +24,7 @@ public class ToDoCommand extends Command {
      * @param userInput The user input string containing the ToDo task details.
      */
     public ToDoCommand(TaskList taskList, String userInput, Image kervynImage, VBox dialogContainer) {
-        super("ToDo", taskList, kervynImage);
+        super("ToDo", taskList, kervynImage, dialogContainer);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;
@@ -41,7 +42,9 @@ public class ToDoCommand extends Command {
             String[] toDoDescriptionArray = userInput.split(" ");
 
             if (Objects.equals(toDoDescriptionArray[1], "")) {
-                System.out.println("\tThe description of a todo cannot be empty. Please try again.");
+                this.dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog("\tThe description of a todo cannot be empty. Please try again.", this.kervynImage)
+                );
                 return null;
             }
 
@@ -56,7 +59,9 @@ public class ToDoCommand extends Command {
             return new ToDo(toDoDescription.toString(), false);
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("\tPlease provide the ToDo task in the required format.");
+            this.dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tPlease provide the ToDo task in the required format.", this.kervynImage)
+            );
             return null;
         }
     }
@@ -68,8 +73,12 @@ public class ToDoCommand extends Command {
      * @param userTasks The current list of tasks, including the newly added ToDo task.
      */
     private void toDoTaskTextDisplay(ToDo toDo, ArrayList<Task> userTasks) {
-        System.out.println(toDo.toString());
-        System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
+        this.dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog(toDo.toString(), this.kervynImage)
+        );
+        this.dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tNow you have " + userTasks.size() + " tasks in the list.", this.kervynImage)
+        );
     }
 
     /**

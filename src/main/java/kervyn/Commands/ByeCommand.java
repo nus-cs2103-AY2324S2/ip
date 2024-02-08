@@ -1,6 +1,8 @@
 package kervyn.Commands;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import kervyn.FXControls.DialogBox;
 import kervyn.Storage;
 import kervyn.Tasks.Task;
 import kervyn.Tasks.TaskList;
@@ -19,7 +21,7 @@ public class ByeCommand extends Command {
      * @param storage The Storage object used for saving tasks.
      */
     public ByeCommand(TaskList taskList, Storage storage, Image kervynImage, VBox dialogContainer) {
-        super("Bye", taskList, kervynImage);
+        super("Bye", taskList, kervynImage, dialogContainer);
         this.storage = storage;
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;
@@ -32,12 +34,15 @@ public class ByeCommand extends Command {
      */
     @Override
     public void executeCommand() {
-        System.out.println("\tBye. Hope to see you again soon!");
+        dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tBye. Hope to see you again soon!", kervynImage)
+        );
         StringBuilder content = new StringBuilder();
         for (Task userRequest : this.taskList.getTaskList()) {
             content.append(userRequest.toString()).append("\n");
         }
 
         storage.writeToFile(content.toString());
+        Platform.exit();
     }
 }

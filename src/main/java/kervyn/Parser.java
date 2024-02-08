@@ -3,6 +3,7 @@ package kervyn;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import kervyn.Commands.*;
+import kervyn.FXControls.DialogBox;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -60,7 +61,9 @@ public class Parser {
                 new FindCommand(taskList, userInput, kervynImage, dialogContainer).executeCommand();
                 break;
             default:
-                System.out.println("\t I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.");
+                dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog("\t I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.", kervynImage)
+                );
                 break;
         }
         return userInput;

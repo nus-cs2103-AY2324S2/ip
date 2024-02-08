@@ -18,7 +18,7 @@ public class MarkCommand extends Command {
      * @param userInput The user input array containing the index of the task to be marked.
      */
     public MarkCommand(TaskList taskList, String[] userInput, Image kervynImage, VBox dialogContainer) {
-        super("Mark", taskList, kervynImage);
+        super("Mark", taskList, kervynImage, dialogContainer);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;

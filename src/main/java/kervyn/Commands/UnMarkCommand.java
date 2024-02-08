@@ -19,7 +19,7 @@ public class UnMarkCommand extends Command {
      * @param userInput The user input array containing the index of the task to be unmarked.
      */
     public UnMarkCommand(TaskList taskList, String[] userInput, Image kervynImage, VBox dialogContainer) {
-        super("UnMark", taskList, kervynImage);
+        super("UnMark", taskList, kervynImage, dialogContainer);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;

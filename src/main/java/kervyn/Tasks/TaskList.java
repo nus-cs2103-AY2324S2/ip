@@ -56,44 +56,39 @@ public class TaskList {
      * @return Returns 1 if the list operation was successful, 0 otherwise.
      */
     public short listTasks(ArrayList<Task> userTasks, Image kervynImage, VBox dialogContainer) {
-        dialogContainer.getChildren().add(
-                DialogBox.getKervynDialog("\tHere are the tasks on your list:", kervynImage)
-        );
+        StringBuilder textToOutput = new StringBuilder();
+        textToOutput.append("\tHere are the tasks on your list:\n");
         for (int i = 0; i < userTasks.size(); i++) {
             Task task = userTasks.get(i);
             char check = task.getStatus() ? 'X' : ' ';
             char type = task.getCapitalType();
             switch (type) {
                 case 'T':
-                    dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription(), kervynImage)
-                    );
+                    textToOutput.append("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription() + "\n");
                     break;
                 case 'D':
                     Deadline deadlineTask = (Deadline) task;
                     if (deadlineTask == null) {
                         return 0;
                     }
-                    dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")", kervynImage)
-                    );
+                    textToOutput.append("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")\n");
                     break;
                 case 'E':
                     Event eventTask = (Event) task;
                     if (eventTask == null) {
                         return 0;
                     }
-                    dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")", kervynImage)
-                    );
+                    textToOutput.append("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")\n");
                     break;
                 default:
-                    dialogContainer.getChildren().add(
-                            DialogBox.getKervynDialog("\tNo tasks to display :(", kervynImage)
-                    );
+                    textToOutput.append("\tNo tasks to display :(");
                     break;
             }
         }
+
+        dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog(textToOutput.toString(), kervynImage)
+        );
         return 1;
     }
 
@@ -232,12 +227,15 @@ public class TaskList {
             dialogContainer.getChildren().add(
                     DialogBox.getKervynDialog("\tHere are the matching tasks in your list:", kervynImage)
             );
+            StringBuilder textToOutput = new StringBuilder();
             for (int j = 0; j < results.size(); j++) {
                 // Check the type of the tasks
-                dialogContainer.getChildren().add(
-                        DialogBox.getKervynDialog("\t" + (j + 1) + ". " + results.get(j).toString(), kervynImage)
-                );
+                textToOutput.append("\t" + (j + 1) + ". " + results.get(j).toString() + "\n");
             }
+
+            dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog(textToOutput.toString(), kervynImage)
+            );
         }
     }
 }

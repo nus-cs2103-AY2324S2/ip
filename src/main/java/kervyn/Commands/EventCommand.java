@@ -2,6 +2,7 @@ package kervyn.Commands;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import kervyn.FXControls.DialogBox;
 import kervyn.Tasks.*;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class EventCommand extends Command {
      * @param userInput The user input string containing the event details.
      */
     public EventCommand(TaskList taskList, String userInput, Image kervynImage, VBox dialogContainer) {
-        super("Event", taskList, kervynImage);
+        super("Event", taskList, kervynImage, dialogContainer);
         this.userInput = userInput;
         this.kervynImage = kervynImage;
         this.dialogContainer = dialogContainer;
@@ -45,7 +46,9 @@ public class EventCommand extends Command {
         try {
             String[] eventProcessedInput = userInput.split("/");
             if (Objects.equals(eventProcessedInput[1], "") || Objects.equals(eventProcessedInput[2], "")) {
-                System.out.println("\tThe description/startDate/endDate for an event cannot be empty. Please try again.");
+                this.dialogContainer.getChildren().add(
+                        DialogBox.getKervynDialog("\tThe description/startDate/endDate for an event cannot be empty. Please try again.", this.kervynImage)
+                );
                 return null;
             }
             String[] eventDescriptionArray = eventProcessedInput[0].split(" ");
@@ -70,7 +73,9 @@ public class EventCommand extends Command {
             taskAdded();
             return new Event(eventDescription.toString(), false, startDate, endDate);
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            System.out.println("\tPlease provide the start date / end date in the required format that looks like dd-MM-yyyy HHmm.");
+            this.dialogContainer.getChildren().add(
+                    DialogBox.getKervynDialog("\tPlease provide the start date / end date in the required format that looks like dd-MM-yyyy HHmm.", this.kervynImage)
+            );
             return null;
         }
     }
@@ -82,8 +87,12 @@ public class EventCommand extends Command {
      * @param userTasks The current list of tasks, including the newly added event task.
      */
     private void eventTaskTextDisplay(Event event, ArrayList<Task> userTasks) {
-        System.out.println(event.toString());
-        System.out.println("\tNow you have " + userTasks.size() + " tasks in the list.");
+        this.dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog(event.toString(), this.kervynImage)
+        );
+        this.dialogContainer.getChildren().add(
+                DialogBox.getKervynDialog("\tNow you have " + userTasks.size() + " tasks in the list.", this.kervynImage)
+        );
     }
 
     /**
