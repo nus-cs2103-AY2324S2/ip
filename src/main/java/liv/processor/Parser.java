@@ -8,9 +8,22 @@ import liv.task.Event;
 import liv.container.TaskList;
 import liv.task.TodoTask;
 
+/**
+ * Process the user command input.
+ */
 public class Parser {
+    /**
+     * The input format for date time.
+     * Uses for deadline and event task command.
+     */
     private static final DateTimeFormatter INPUT_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Creates a command object from the user input.
+     * @param input The input of the user.
+     * @return A command object with the type depends on the users input.
+     * @throws LivException If the command cannot is not valid.
+     */
     public static Command parse(String input) throws LivException {
         if (input.equalsIgnoreCase("bye")) {
             return parseByeCommand();
@@ -35,9 +48,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a ByeCommand object to be executed.
+     * @return A ByeCommand object.
+     */
     public static Command parseByeCommand() {
         return new ByeCommand();
     }
+
+    /**
+     * Processes the input that includes the index of the task.
+     * @param input The command that users input.
+     * @return The index of the task that users want to process.
+     * @throws LivException If the index input is not a number, or no index input is given.
+     */
     private static int parseNumberInInput(String input) throws LivException {
         // Expect input.txt in this form: "<command> <number>"
         int spaceIndex = input.indexOf(' ');
@@ -51,9 +75,21 @@ public class Parser {
         return Integer.parseInt(numberString);
     }
 
+    /**
+     * Creates a ListCommand object to be executed.
+     * @return A ListCommand object.
+     */
     public static Command parseListCommand() {
         return new ListCommand();
     }
+
+    /**
+     * Creates a MarkCommand or a UnmarkCommand object depends on the user input.
+     * @param input A String that was read from the user input.
+     * @param state A boolean to decide whether to create a MarkCommand or UnmarkCommand.
+     * @return A MarkCommand or a UnmarkCommand, depends on the boolean state.
+     * @throws LivException If no task index was given.
+     */
     public static Command parseMarkOrUnmarkCommand(String input, boolean state) throws LivException {
         int index = parseNumberInInput(input);
         int trueIndex = index - 1;
@@ -66,6 +102,12 @@ public class Parser {
         return new UnmarkCommand(index);
     }
 
+    /**
+     * Creates a DeleteCommand to be executed.
+     * @param input A string that the users input.
+     * @return A DeleteCommand object.
+     * @throws LivException If no task index was given.
+     */
     public static Command parseDeleteCommand(String input) throws LivException {
         int index = parseNumberInInput(input);
         int trueIndex = index - 1;
@@ -74,6 +116,13 @@ public class Parser {
         }
         return new DeleteCommand(index);
     }
+
+    /**
+     * Creates a TodoCommand to be executed.
+     * @param input A string that the users input.
+     * @return A TodoCommand object.
+     * @throws LivException If the description is empty.
+     */
     public static Command parseTodoCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
@@ -83,6 +132,13 @@ public class Parser {
         TodoTask newTodoTask = new TodoTask(description);
         return new TodoCommand(newTodoTask);
     }
+
+    /**
+     * Creates a DeadlineCommand to be executed.
+     * @param input A string that the users input.
+     * @return A DeadlineCommand object.
+     * @throws LivException If the description or time is empty.
+     */
     public static Command parseDeadlineCommand(String input) throws LivException {
         // deadline <description> /by <time>
         int spaceIndex = input.indexOf(' ');
@@ -99,6 +155,13 @@ public class Parser {
         Deadline newDeadline = new Deadline(description, by);
         return new DeadlineCommand(newDeadline);
     }
+
+    /**
+     * Creates a EventCommand to be executed.
+     * @param input A string that the users input.
+     * @return A EventCommand object.
+     * @throws LivException If the description or time is empty.
+     */
     public static Command parseEventCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {

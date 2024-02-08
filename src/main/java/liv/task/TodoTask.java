@@ -1,20 +1,31 @@
 package liv.task;
 
+/**
+ * Represents the task to do in a task list.
+ */
 public class TodoTask extends Task {
 
+    /**
+     * The constructor of the class.
+     * @param description The description of the task.
+     */
     public TodoTask(String description) {
         super(description);
     }
-//    private static liv.task.TodoTask parseTodoCommand(String input.txt) {
-//        int spaceIndex = command.indexOf(' ');
-//        String description = command.substring(spaceIndex + 1);
-//        return new liv.task.TodoTask(description);
-//    }
+
+    /**
+     * {@inheritDoc}
+     * Uses [T] to denote the todo type.
+     */
     @Override
     public String getDisplayedString() {
         return "[T]" + getStatusIcon() + " " + getDescription();
     }
 
+    /**
+     * {@inheritDoc}
+     * Uses [T] to denote the todo type.
+     */
     @Override
     public String serializeTask() {
         return "[T] | " + getStatusIcon() + " | " + getDescription();
