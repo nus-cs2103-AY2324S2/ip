@@ -2,6 +2,7 @@ package jav.manager;
 
 import jav.command.Command;
 import jav.command.DeleteTaskCommand;
+import jav.command.FindTaskCommand;
 import jav.command.ListTasksCommand;
 import jav.command.ShutdownCommand;
 import jav.command.StoreTaskCommand;
@@ -47,6 +48,8 @@ public class ParserManager {
             return new StoreTaskCommand(StorageManager.StorageType.TODO, param);
         } else if (cmd.equals("unmark") || cmd.equals("u")) {
             return new UpdateTaskMarkCommand(false, param);
+        } else if (cmd.equals("find") || cmd.equals("f")) {
+            return new FindTaskCommand(param);
         } else {
             throw new InvalidCommandException("Unknown command", null);
         }

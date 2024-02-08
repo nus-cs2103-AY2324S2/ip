@@ -38,17 +38,29 @@ public class StorageManager {
      * @return a string representation of the currently stored tasks.
      */
     public String printStoredTasks() {
-        int i = 1;
-        String s = "";
         if (tasks == null) {
             tasks = new ArrayList<>();
+            return "";
         } else {
-            for(Task t : tasks) {
-                s += "| " + i + ".";
-                s += t.toString();
-                s += "\n";
-                i++;
-            }
+            return printTasks(tasks);
+        }
+    }
+
+    /**
+     * Returns the given tasks as a string.
+     *
+     * @param tasks the given tasks.
+     * 
+     * @return a string representation of the given tasks.
+     */
+    public String printTasks(ArrayList<Task> tasks) {
+        int i = 1;
+        String s = "";
+        for(Task t : tasks) {
+            s += "| " + i + ".";
+            s += t.toString();
+            s += "\n";
+            i++;
         }
 
         return s;
@@ -186,5 +198,23 @@ public class StorageManager {
         } else {
             return StorageType.TODO;
         }
+    }
+
+    /**
+     * Finds tasks that match the given keyword.
+     *
+     * @param param the keyword to search for.
+     * 
+     * @return a string representation of the found tasks
+     */
+    public String findTask(String param) {
+        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(param)) {
+                foundTasks.add(task);
+            }
+        }
+
+        return printTasks(foundTasks);
     }
 }

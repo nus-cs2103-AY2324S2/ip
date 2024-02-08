@@ -65,6 +65,7 @@ Bot replies with a confirmation message and stores the string.
 > e read book \from 1 jan \to 1 dec
 | Sure I'll store it right away!
 
+
 ```
 
 ### `list` or `l` - Lists out all stored tasks
@@ -84,6 +85,7 @@ Bot replies with a confirmation message and prints all the stored strings in the
 > l
 | Here's everything that I'd stored!
 | 1.[ ] userinputedstring
+
 
 ```
 
@@ -112,6 +114,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
 
+
 ```
 
 ### `unmark *` or `u *` - Marks a task as not done, where * is index of the task (starting from 1)
@@ -139,6 +142,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
 
+
 ```
 
 ### `remove *` or `r *` - Deletes a task, where * is index of the task (starting from 1)
@@ -165,5 +169,46 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 > r 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
+
+
+```
+
+### `find *` or `f *` - Finds tasks matching a given keyword, where * is the keyword to search for
+
+Finds and prints out all tasks matching a given keyword, where * is the keyword as a string to search for.
+
+Example of usage:
+
+`find a` or `f a`
+
+Expected outcome:
+
+If the task exists, the bot replies with a confirmation message and deletes the specified task from the storage. Otherwise, the bot replies with a error messsage.
+
+```sh {"id":"01HP40KJH2Y1D6W3292VZZ82QP"}
+// If valid
+| User Input:
+> f user
+| Let the search commence!
+| Here's what I've found: 
+| 1.[T][ ] userinputedstring
+| 2.[T][X] userinputedstring2
+
+// If invalid
+| User Input:
+> f 
+| It appears the parameters might be doing a little dance of confusion!
+| Could you please check the parameters and give them another whirl?
+
+// If nothing found
+| User Input:
+> f zzz
+| It appears that this road is a deadend and no tasks were found with the keyword!
+| Shall we recalibrate our keyword quest to find a different task?
+
+
+```
+
+```sh {"id":"01HP40RHQHN8Q85SGQTM7H8N89"}
 
 ```

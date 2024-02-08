@@ -17,7 +17,7 @@ public class UiManager {
     /**
      * Prints the custom message along with the contents of the storage.
      * 
-     * @param tasks the contents of the storage
+     * @param storageString the contents of the storage
      */
     public void printStorage(String storageString) {
         System.out.println("| Here's everything that I'd stored!");
@@ -100,5 +100,24 @@ public class UiManager {
         String msg = "| It appears the parameters might be doing a little dance of confusion!\n"
                    + "| Could you please check the parameters and give them another whirl?";
         System.out.println(msg);
+    }
+
+    /**
+     * Prints the custom message upon finding tasks with the given keyword.
+     * 
+     * @param foundTasksString the tasks with the given keyword.
+     */
+    public void printFindTask(String foundTasksString) {
+        String msg = "";
+        if (foundTasksString == "") {
+            msg = "| It appears that this road is a deadend and no tasks were found with the keyword!\n"
+                + "| Shall we recalibrate our keyword quest to find a different task?";
+        } else {
+            msg = "| Let the search commence!\n"
+                + "| Here's what I've found:\n" 
+                + foundTasksString;
+        }
+
+        System.out.print(msg);
     }
 }
