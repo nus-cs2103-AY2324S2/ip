@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -20,10 +24,107 @@ public class Youdon {
         throw new YoudonException.InvalidCommandException("Sorry, I do not recognise that command.");
     }
 
+    // save data
+    public static void saveData(ArrayList<Task> taskList, String filepath) throws IOException {
+        try (FileWriter writer = new FileWriter(filepath)) {
+            for (Task task : taskList) {
+                writer.write(task.toString() + "\n");
+            }
+            System.out.println("Tasklist saved!");
+        } catch (IOException e) {
+            System.err.println("Error! " + e.getMessage());
+        }
+    }
+
+    // load data
+    public static void loadData(String filepath, ArrayList<Task> taskList) throws FileNotFoundException {
+        try {
+            File file = new File(filepath);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                // identify task type
+                String taskType = data.substring(1, 2);
+
+                if (taskType.equals("T")) {
+                    // identify task description
+                    int startIndex = data.indexOf("[") + 7;
+                    String description = data.substring(startIndex);
+                    taskList.add(new Todo(description));
+                }
+
+                if (taskType.equals("D")) {
+                    // identify task description
+                    int startIndex = data.indexOf("[") + 7;
+                    int endIndex = data.indexOf(" (by:");
+                    String description = data.substring(startIndex, endIndex).trim();
+                    // identify task deadline
+                    startIndex = data.indexOf("(by: ") + 5;
+                    endIndex = data.indexOf(")", -1);
+                    String deadline = data.substring(startIndex, endIndex);
+                    taskList.add(new Deadline(description, deadline));
+                }
+
+                if (taskType.equals("E")) {
+                    // identify task description
+                    int startIndex = data.indexOf("[") + 7;
+                    int endIndex = data.indexOf(" (from:");
+                    String description = data.substring(startIndex, endIndex);
+
+                    // identify task start time
+                    startIndex = data.indexOf("from: ") + 6;
+                    endIndex = data.indexOf(" to:");
+                    String start = data.substring(startIndex, endIndex);
+
+                    // identify task end time
+                    startIndex = data.indexOf("to: ") + 4;
+                    endIndex = data.indexOf(")");
+                    String end = data.substring(startIndex, endIndex);
+
+                    taskList.add(new Event(description, start, end));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+    }
+
+
     public static void main(String[] args) {
         // initialise array and index
         ArrayList<Task> taskList = new ArrayList<>();
         int index = 0;
+
+        // create save.txt if it does not exist
+        String filepath = "./src/main/data/save.txt";
+        File file = new File(filepath);
+
+        try {
+            // if file does not exist, create it
+            if (!file.exists()) {
+                file.getParentFile().mkdir();
+                file.createNewFile();
+                System.out.println("Save File created successfully!");
+            } else {
+                System.out.println("Save File already exists!");
+            }
+        } catch (IOException e) {
+            System.out.println("Error!" + e.getMessage());
+        }
+
+        // if there is text in save.txt, load the data
+        try {
+            if (file.length() > 0) {
+                loadData(filepath, taskList);
+                index = taskList.size();
+                System.out.println("Save File loaded!");
+            } else {
+                System.out.println("Save File is empty :(");
+            }
+        } catch (IOException e) {
+            System.out.println("Error!" + e.getMessage());
+        }
 
         // string constants
         String line = "----------------------------------------------------------------";
@@ -100,7 +201,13 @@ public class Youdon {
                     System.out.println("Nicely done! The task has been marked as done:");
                     System.out.println("  " + taskList.get(taskNumber - 1).toString());
                     System.out.println(line);
-                    // wait for next input
+                    // save and wait for next input
+                    try {
+                        saveData(taskList, filepath);
+                    } catch (IOException e) {
+                        System.out.println("Error!" + e.getMessage());
+                    }
+
                     if (input.hasNextLine()) {
                         data = input.nextLine();
                     } else {
@@ -120,7 +227,13 @@ public class Youdon {
                     System.out.println("Okies! The task has been marked as undone:");
                     System.out.println("  " + taskList.get(taskNumber - 1).toString());
                     System.out.println(line);
-                    // wait for next input
+                    // save and wait for next input
+                    try {
+                        saveData(taskList, filepath);
+                    } catch (IOException e) {
+                        System.out.println("Error!" + e.getMessage());
+                    }
+
                     if (input.hasNextLine()) {
                         data = input.nextLine();
                     } else {
@@ -140,7 +253,13 @@ public class Youdon {
                     // delete task and fix indexing
                     taskList.remove(taskNumber - 1);
                     index--;
-                    // wait for next input
+                    // save and wait for next input
+                    try {
+                        saveData(taskList, filepath);
+                    } catch (IOException e) {
+                        System.out.println("Error!" + e.getMessage());
+                    }
+
                     if (input.hasNextLine()) {
                         data = input.nextLine();
                     } else {
@@ -196,7 +315,13 @@ public class Youdon {
                         index++;
                     }
                 }
-                // wait for next input
+                // save and wait for next input
+                try {
+                    saveData(taskList, filepath);
+                } catch (IOException e) {
+                    System.out.println("Error!" + e.getMessage());
+                }
+
                 if (input.hasNextLine()) {
                     data = input.nextLine();
                 } else {
