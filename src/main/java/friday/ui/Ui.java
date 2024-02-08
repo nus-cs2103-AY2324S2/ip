@@ -1,6 +1,7 @@
 package friday.ui;
 
 import java.util.Scanner;
+
 import friday.task.TaskList;
 
 /**
@@ -40,7 +41,7 @@ public class Ui {
      * @param tasks The TaskList containing tasks to be displayed.
      */
     public void displayTaskList(TaskList tasks) {
-        for (int i = 0; i < tasks.length(); i++) {
+        for (int i = 0; i < tasks.getLength(); i++) {
             System.out.println(i + 1 + ". " + tasks.getTask(i).toString());
         }
     }

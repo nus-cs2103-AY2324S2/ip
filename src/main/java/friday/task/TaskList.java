@@ -2,13 +2,14 @@ package friday.task;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import friday.ui.Ui;
 
 /**
  * Represents a list of tasks in the Friday application.
  */
 public class TaskList {
-    private List<Task> tasks ;
+    private List<Task> tasks;
     private Ui ui;
 
     /**
@@ -24,7 +25,7 @@ public class TaskList {
      *
      * @return The number of tasks in the task list.
      */
-    public int length() {
+    public int getLength() {
         return tasks.size();
     }
 
@@ -69,6 +70,7 @@ public class TaskList {
             }
         }
     }
+
     /**
      * Deletes a task based on user input.
      *
@@ -89,6 +91,15 @@ public class TaskList {
                 ui.displayMessage(displayCounter(tasks.size()));
             }
         }
+    }
+
+    /**
+     * Deletes a task from the task list based on user input.
+     *
+     * @param index The task number to be deleted.
+     */
+    public void deleteTask(int index) {
+        tasks.remove(index);
     }
 
     /**
@@ -193,15 +204,6 @@ public class TaskList {
             ui.displayMessage(displayCounter(tasks.size()));
             return e;
         }
-    }
-
-    /**
-     * Deletes a task from the task list based on user input.
-     *
-     * @param index The task number to be deleted.
-     */
-    public void deleteTask(int index) {
-        tasks.remove(index);
     }
 
     /**

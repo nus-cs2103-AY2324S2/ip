@@ -1,14 +1,16 @@
 package friday.storage;
 
-import friday.task.Task;
-import friday.task.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import friday.task.Task;
+import friday.task.TaskList;
+
 /**
- * The Storage class is responsible for handling the reading and writing of task data to a file in the Friday application.
+ * The Storage class is responsible for handling the reading and writing of task data
+ * to a file in the Friday application.
  */
 public class Storage {
     private String filePath;
@@ -48,7 +50,7 @@ public class Storage {
      */
     public void writeToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
-        for (int i = 0; i < tasks.length(); i++) {
+        for (int i = 0; i < tasks.getLength(); i++) {
             fw.write(tasks.getTask(i).toString() + System.lineSeparator());
         }
         fw.close();

@@ -1,4 +1,4 @@
-[T][X] create file
+[T][ ] create file
 [T][X] read
 [D][X] submit (by: Feb 01 2024 0800)
 [D][ ] presentation (by: Feb 03 2024 1000)
@@ -10,4 +10,4 @@
 [D][ ] wake up (by: Feb 03 2024 0700)
 [T][X] jump
 [T][ ] run
-[T][ ] jog
+[T][X] jog

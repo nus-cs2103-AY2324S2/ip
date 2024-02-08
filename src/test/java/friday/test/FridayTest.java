@@ -1,8 +1,9 @@
 package friday.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import friday.task.TaskList;
 import friday.task.Todo;
 
@@ -13,7 +14,7 @@ public class FridayTest {
         taskList.addTodo("todo Testing Todo");
         Todo t = new Todo("Testing Todo");
 
-        assertEquals(1, taskList.length());
+        assertEquals(1, taskList.getLength());
         assertEquals(t.toString(), taskList.getTask(0).toString());
     }
 
@@ -24,6 +25,6 @@ public class FridayTest {
         taskList.addTodo("todo Testing Delete");
         taskList.deleteTask(0);
 
-        assertEquals(0, taskList.length());
+        assertEquals(0, taskList.getLength());
     }
 }

@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import friday.parser.Parser;
 import friday.storage.Storage;
-import friday.task.TaskList;
-import friday.task.Todo;
 import friday.task.Deadline;
 import friday.task.Event;
+import friday.task.TaskList;
+import friday.task.Todo;
 import friday.ui.Ui;
 
 /**
