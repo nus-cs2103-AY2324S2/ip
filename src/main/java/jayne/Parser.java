@@ -9,17 +9,14 @@ import jayne.task.TaskList;
 public class Parser {
     //private String[] parts;
     private TaskList taskList;
-    private Ui ui;
 
     /**
      * Constructs a new Parser.
      *
      * @param taskList the TaskList to be manipulated based on user commands.
-     * @param ui       the Ui responsible for interactions with the user.
      */
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList) {
         this.taskList = taskList;
-        this.ui = ui;
     }
 
     /**
@@ -52,7 +49,8 @@ public class Parser {
         case "delete":
             return Handler.handleDelete(parts, taskList);
         default:
-            return ui.question();
+            return "What are you typing. please include either bye, list, mark, "
+                    + "umark, todo, deadline or event in your inputs please";
         }
     }
 }
