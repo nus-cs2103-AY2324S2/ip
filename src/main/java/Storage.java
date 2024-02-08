@@ -7,29 +7,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
-public class Data {
+public class Storage {
 
     private static ArrayList<String> taskList = new ArrayList<String>();
     private static final String FILE = "./data/duke.txt";
 
     private File file;
     private File folder;
+    private String filePath;
+    private TaskList tasks;
+    private ArrayList<String> instructions;
 
-    public Data(String path){
+    public Storage(String path, TaskList tasks) {
+        this.filePath = path;
         file = new File(path);
         folder = new File("./data");
+        this.tasks = tasks;
+        this.instructions = new ArrayList<String>();
     }
 
-    public void createFolder(){
-        if(!folder.exists()){
+    public void addInstruction(String instruction) {
+        this.instructions.add(instruction);
+    }
+
+    public void createFolder() {
+        if (!folder.exists()) {
             folder.mkdir();
         }
     }
 
-    public void createFile(){
-        try{
+    public void createFile() {
+        try {
             file.createNewFile();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -38,45 +48,34 @@ public class Data {
         return taskList;
     }
 
-    public  void setTasks() {
-        taskList = Duke.instructions;
-    }
-
-    public  void loadTasks() {
-        Path path = Paths.get(FILE);
+    public void loadTasks() {
+        Path path = Paths.get(filePath);
         if (Files.exists(path)) {
             try {
                 List<String> lines = Files.readAllLines(path);
                 for (String line : lines) {
                     String[] sentence = line.split(" ", 2);
-                    
-                    if(sentence.length == 1 ){
-                        DukeException error = new DukeException(line);
-                        System.out.println(error.toString());
-                    }else{
-                        String command = sentence[0];
-                        if(command.equals("todo") || command.equals("deadline") || command.equals("event")){
-                            Duke.addTask(line);
-                        }else if(command.equals("mark")||command.equals("unmark")||command.equals("delete")){
-                            Duke.modifyTask(line);
-                        }else{
-                            // any instruction that is not clear that has not been covered
-                            DukeException error = new DukeException(line);
-                            System.out.println(error.toString());
-                        }
+                    String command = sentence[0];
+                    if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+                        tasks.addTask(line);
+                    } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
+                        tasks.modifyTask(line);
+                    }else if(command.equals("unmark")){
+                        tasks.modifyTask(line);
+                    }else if(command.equals("delete")){
+                        tasks.modifyTask(line);
                     }
                 }
             } catch (IOException e) {
                 System.out.println("Error loading tasks from file: " + e.getMessage());
             }
         }
-        
     }
 
     public void saveTasks() {
         try {
-            FileWriter writer = new FileWriter(FILE,true);
-            for (String instruction : Duke.instructions) {
+            FileWriter writer = new FileWriter(filePath, true);
+            for (String instruction : this.instructions) {
                 writer.write(instruction + "\n");
             }
             writer.close();
