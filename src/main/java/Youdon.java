@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -61,9 +63,11 @@ public class Youdon {
                     String description = data.substring(startIndex, endIndex).trim();
                     // identify task deadline
                     startIndex = data.indexOf("(by: ") + 5;
-                    endIndex = data.indexOf(")", -1);
+                    endIndex = data.indexOf(")", startIndex);
                     String deadline = data.substring(startIndex, endIndex);
-                    taskList.add(new Deadline(description, deadline));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                    LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
+                    taskList.add(new Deadline(description, deadlineDateTime));
                 }
 
                 if (taskType.equals("E")) {
@@ -74,15 +78,18 @@ public class Youdon {
 
                     // identify task start time
                     startIndex = data.indexOf("from: ") + 6;
-                    endIndex = data.indexOf(" to:");
+                    endIndex = data.indexOf(" to:", startIndex);
                     String start = data.substring(startIndex, endIndex);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                    LocalDateTime startDateTime = LocalDateTime.parse(start, formatter);
 
                     // identify task end time
-                    startIndex = data.indexOf("to: ") + 4;
-                    endIndex = data.indexOf(")");
+                    startIndex = data.indexOf(" to:") + 4;
+                    endIndex = data.indexOf(")", startIndex);
                     String end = data.substring(startIndex, endIndex);
+                    LocalDateTime endDateTime = LocalDateTime.parse(end, formatter);
 
-                    taskList.add(new Event(description, start, end));
+                    taskList.add(new Event(description, startDateTime, endDateTime));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -287,32 +294,47 @@ public class Youdon {
                         // add to tasklist
                         String taskDesc = chunks[0];
                         String deadline = chunks[1];
-                        taskList.add(new Deadline(taskDesc, deadline));
-
-                        // print out task added
-                        System.out.println(line);
-                        System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
-                        System.out.println("You now have " + (index + 1) + " task(s) in the list.");
-                        System.out.println(line);
-                        index++;
+                        try {
+                            // attempt to parse the string into a LocalDateTime object
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                            LocalDateTime dateTimeDeadline = LocalDateTime.parse(deadline, formatter);
+                            taskList.add(new Deadline(taskDesc, dateTimeDeadline));
+                            // print out task added
+                            System.out.println(line);
+                            System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
+                            System.out.println("You now have " + (index + 1) + " task(s) in the list.");
+                            System.out.println(line);
+                            index++;
+                        } catch (Exception e) {
+                            // handle the exception if the date or time is not the correct format
+                            System.out.println("Oh no! That's not a correct date or time format!");
+                        }
                     }
                 }
 
                 if (task.contains("/from ")) {
-                    String[] sections = task.split("/from |/to");
+                    String[] sections = task.split("/from | /to ");
                     if (command.equals("event")) {
                         // add to tasklist
                         String taskDesc = sections[0];
                         String start = sections[1];
                         String end = sections[2];
-                        taskList.add(new Event(taskDesc, start, end));
-
-                        // print out task added
-                        System.out.println(line);
-                        System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
-                        System.out.println("You now have " + (index + 1) + " task(s) in the list.");
-                        System.out.println(line);
-                        index++;
+                        try {
+                            // attempt to parse the strings into a LocalDateTime object
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                            LocalDateTime dateTimeStart = LocalDateTime.parse(start, formatter);
+                            LocalDateTime dateTimeEnd = LocalDateTime.parse(end, formatter);
+                            taskList.add(new Event(taskDesc, dateTimeStart, dateTimeEnd));
+                            // print out task added
+                            System.out.println(line);
+                            System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
+                            System.out.println("You now have " + (index + 1) + " task(s) in the list.");
+                            System.out.println(line);
+                            index++;
+                        } catch (Exception e) {
+                            // handle the exception if the date or time is not the correct format
+                            System.out.println("Oh no! That's not a correct date or time format!");
+                        }
                     }
                 }
                 // save and wait for next input
