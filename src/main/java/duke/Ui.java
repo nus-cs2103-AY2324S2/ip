@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Represents the user interface which deals with the interactions with the user.
  */
 public class Ui {
-    private static final String DIVIDER = "_______________________________________________________________________\n";
+    private static final String DIVIDER = "_______________________________________________________\n";
     private Scanner sc = new Scanner(System.in);
 
 
