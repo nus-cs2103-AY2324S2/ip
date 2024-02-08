@@ -12,8 +12,8 @@ import java.util.List;
  * Event task template.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalTime to;
+    private LocalDateTime from;
+    private LocalTime to;
 
     /**
      * Event constructor.
@@ -50,14 +50,14 @@ public class Event extends Task {
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     @Override
-    public String getSaveTask() {
-        return "E | " + super.getSaveTask() + " | "
+    public String saveFileString() {
+        return "E | " + super.saveFileString() + " | "
                 + from.toString().replace("T", " ") + " | " + to;
     }
 
     @Override
     public String toString() {
-        return "[E][" + this.getStatusIcon() + "] "
+        return "[E][" + this.printDoneStatus() + "] "
                 + this.description + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("hh:mm a")) + ")";

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Deadline task template.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Deadline constructor.
@@ -39,13 +39,14 @@ public class Deadline extends Task {
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     @Override
-    public String getSaveTask() {
-        return "D | " + super.getSaveTask() + " | " + by.toString().replace("T", " ");
+    public String saveFileString() {
+        return "D | " + super.saveFileString() + " | "
+                + by.toString().replace("T", " ");
     }
 
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: "
+        return "[D][" + this.printDoneStatus() + "] " + this.description + " (by: "
                 + this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 }

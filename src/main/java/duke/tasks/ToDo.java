@@ -31,12 +31,12 @@ public class ToDo extends Task {
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     @Override
-    public String getSaveTask() {
-        return "T | " + super.getSaveTask();
+    public String saveFileString() {
+        return "T | " + super.saveFileString();
     }
 
     @Override
     public String toString() {
-        return "[T][" + this.getStatusIcon() + "] " + this.description;
+        return "[T][" + this.printDoneStatus() + "] " + this.description;
     }
 }

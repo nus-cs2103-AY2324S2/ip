@@ -136,8 +136,4 @@ public class TaskList {
     public int getNumOfTasks() {
         return tasks.size();
     }
-
-    public String getTaskString(int index) {
-        return tasks.get(index).toString();
-    }
 }
