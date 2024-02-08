@@ -1,12 +1,22 @@
 package duke;
 
 import java.nio.file.Paths;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * The main class for the Duke application.
  * Initializes the application's UI, storage, and task list components.
  */
-public class Duke {
+public class Duke extends Application {
     // Path to the directory where task data is stored
     protected static final String DATA_DIRECTORY = Paths.get("src", "main", "java", "data").toString();
     // Path to the file within DATA_DIRECTORY where tasks are saved
@@ -42,5 +52,12 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke().run();
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        GUI gui = new GUI();
+        gui.initStage(primaryStage); // Initialize and show the stages
     }
 }
