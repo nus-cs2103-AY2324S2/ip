@@ -20,11 +20,13 @@ public class Parser {
      * @param message  The user input message to be parsed.
      * @throws UnivusException If an error occurs during the parsing or execution of the command.
      */
+    private static final String LINE = "____________________________________________________________";
+
     public static void parse(TaskList taskList, String message) throws UnivusException {
         if (message.equals("list")) {
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
             taskList.list();
-            System.out.println("____________________________________________________________");
+            System.out.println(LINE);
         } else if (message.matches("mark\\s\\d+")) {
             try {
                 int index = Integer.parseInt(message.split(" ")[1]);
@@ -37,15 +39,15 @@ public class Parser {
                     throw new UnivusException("Already Marked!");
                 } else {
                     task.mark();
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("\t" + task.toString());
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                 }
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         } else if (message.matches("unmark\\s\\d+")) {
             try {
@@ -58,15 +60,15 @@ public class Parser {
                     throw new UnivusException("Already Unmarked!");
                 } else {
                     task.unMark();
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("\t" + task.toString());
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                 }
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         } else if (message.startsWith("todo")) {
             try {
@@ -75,16 +77,16 @@ public class Parser {
                 } else {
                     ToDo todo = new ToDo(message);
                     taskList.add(todo);
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + todo.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                 }
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         } else if (message.startsWith("deadline")) {
             try {
@@ -100,19 +102,19 @@ public class Parser {
                     if (matcher1.matches()) {
                         Deadline deadline = new Deadline(description, dueDate);
                         taskList.add(deadline);
-                        System.out.println("____________________________________________________________");
+                        System.out.println(LINE);
                         System.out.println("Got it. I've added this task:");
                         System.out.println("\t" + deadline.toString());
                         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                        System.out.println(LINE);
                     } else {
                         throw new UnivusException("OOPS!!! Invalid date format. Please use yyyy-MM-dd.");
                     }
                 }
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         } else if (message.startsWith("event")) {
             try {
@@ -124,16 +126,16 @@ public class Parser {
                     String end = message.split("/")[2];
                     Event event = new Event(description, start, end);
                     taskList.add(event);
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + event.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                 }
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         } else if (message.matches("delete\\s\\d+")) {
             try {
@@ -142,24 +144,24 @@ public class Parser {
                     throw new UnivusException("OOPS!!! Wrong Index!");
                 } else {
                     Task task = taskList.remove(index);
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                     System.out.println(" Noted. I've removed this task:");
                     System.out.println("\t" + task.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE);
                 }
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         } else {
             try {
                 throw new UnivusException("OOPS!!! I'm sorry, but I don't know what that means...");
             } catch (UnivusException error) {
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
                 System.out.println(error.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE);
             }
         }
     }
