@@ -9,7 +9,7 @@ public class DukeException extends Exception {
     /**
      * DukeException constructor.
      */
-    public DukeException(){
+    public DukeException() {
         super();
     }
 

@@ -1,11 +1,11 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
-import java.util.ArrayList;
 
 /**
  * Contains task list.

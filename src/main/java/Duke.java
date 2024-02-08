@@ -1,12 +1,12 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import duke.command.DukeException;
 import duke.command.Parser;
 import duke.command.Storage;
 import duke.command.TaskList;
 import duke.command.Ui;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
 
 /**
  * Main class for Duke chatbox.

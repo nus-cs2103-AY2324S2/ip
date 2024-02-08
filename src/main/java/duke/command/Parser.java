@@ -1,8 +1,10 @@
 package duke.command;
 
+import java.io.IOException;
+
 import duke.tasks.Task;
 
-import java.io.IOException;
+
 
 /**
  * Handles reading user input and calling the relevant commands.
@@ -102,14 +104,14 @@ public class Parser {
         case "event":
             try {
                 if (command[1].matches("")) {
-                    throw new DukeException("This event is the highlight of the social \"calen-darling.\"" +
-                            "\r\nGot all the details?");
+                    throw new DukeException("This event is the highlight of the social \"calen-darling.\""
+                            + "\r\nGot all the details?");
                 }
 
                 String[] event = command[1].split("/to | /from");
                 if (event.length < 3) {
-                    throw new DukeException("This event is the highlight of the social \"calen-darling.\"" +
-                            "\r\nGot all the details?");
+                    throw new DukeException("This event is the highlight of the social \"calen-darling.\""
+                            + "\r\nGot all the details?");
                 }
 
                 Task task = taskList.addEvent(event[0].strip(), event[1].strip(), event[2].strip());

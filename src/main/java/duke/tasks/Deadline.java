@@ -15,7 +15,7 @@ public class Deadline extends Task {
      * @param description   Task name or description of task.
      * @param by            Date and time task has to be completed by.
      */
-    public Deadline (String description, String by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = parseDateTime(by);
     }
@@ -27,7 +27,7 @@ public class Deadline extends Task {
      * @param done          Marks task as completed/uncompleted. [True: complete, False: uncompleted]
      * @param by            Date and time task has to be completed by.
      */
-    public Deadline (String description, boolean done, String by) {
+    public Deadline(String description, boolean done, String by) {
         super(description);
         super.updateIsDone(done);
         this.by = parseDateTime(by);

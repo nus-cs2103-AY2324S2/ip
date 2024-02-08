@@ -10,7 +10,7 @@ public class ToDo extends Task {
      *
      * @param description   Task name or description of task.
      */
-    public ToDo (String description) {
+    public ToDo(String description) {
         super(description);
     }
 
@@ -20,7 +20,7 @@ public class ToDo extends Task {
      * @param description   Task name or description of task.
      * @param isDone        Marks task as completed/uncompleted. [True: complete, False: uncompleted]
      */
-    public ToDo (String description, boolean isDone) {
+    public ToDo(String description, boolean isDone) {
         super(description);
         super.updateIsDone(isDone);
     }

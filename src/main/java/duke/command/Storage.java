@@ -1,20 +1,19 @@
 package duke.command;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * Loads tasks from the file and saves tasks in file.
@@ -103,7 +102,7 @@ public class Storage {
      * @param numOfTasks    Total number of tasks in task list.
      * @throws IOException  If unable to access/read/write to file.
      */
-    public void deleteTask(int index, int numOfTasks) throws IOException{
+    public void deleteTask(int index, int numOfTasks) throws IOException {
         File oldFile = file;
         File temp = new File("./data/temp.txt");
 

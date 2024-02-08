@@ -3,7 +3,6 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class Task {
      *
      * @param match String to search for within description.
      * @return hasMatch     True: string is found within description.
-     * False: string is not found within description.
+     *                      False: string is not found within description.
      */
     public boolean isMatchingDescription(String match) {
         return this.description.contains(match);
@@ -72,6 +71,7 @@ public class Task {
                         String pattern = d.replaceAll("_", s) + t;
                         return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern));
                     } catch (DateTimeParseException dt) {
+                        System.out.println("Invalid date or time");
                     }
                 }
             }
