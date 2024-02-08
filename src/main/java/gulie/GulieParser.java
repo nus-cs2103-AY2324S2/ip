@@ -8,8 +8,18 @@ import gulie.task.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A parser for Gulie.
+ */
 public class GulieParser {
 
+    /**
+     * Parses a Command from an input String.
+     * @param input
+     * @param silent If nothing should be outputed on the ui.
+     * @return
+     * @throws GulieException
+     */
     public Command parse(String input, boolean silent) throws GulieException {
         if (input.indexOf("\t") != -1) {
             throw new GulieException("Invalid input. The use of tabs are not allowed.");
@@ -128,6 +138,12 @@ public class GulieParser {
         }
     }
 
+    /**
+     * Parses a Command from an input String.
+     * @param input
+     * @return
+     * @throws GulieException
+     */
     public Command parse(String input) throws GulieException {
         return this.parse(input, false);
     }

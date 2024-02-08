@@ -2,11 +2,23 @@ package gulie.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A task that has no associated datetimes.
+ */
 public class Todo extends Task {
+    /**
+     * A constructor for a Todo.
+     * @param name
+     */
     public Todo(String name) {
         this(name, false);
     }
 
+    /**
+     * A constructor for a Todo.
+     * @param name
+     * @param mark
+     */
     public Todo(String name, boolean mark) {
         super(name, mark);
     }

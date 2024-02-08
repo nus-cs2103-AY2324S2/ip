@@ -3,6 +3,9 @@ package gulie;
 import java.io.InputStream;
 import java.io.PrintStream;
 
+/**
+ * A simple task manager.
+ */
 public class Gulie {
     private GulieTasklist tasklist;
     private final static String savepath = "./data/Gulie.txt";
@@ -18,6 +21,9 @@ public class Gulie {
         ui.greet();
     }
 
+    /**
+     * Starts the manager.
+     */
     public void run() {
         String inp = ui.getInput();
         while (!inp.equals("bye")) {

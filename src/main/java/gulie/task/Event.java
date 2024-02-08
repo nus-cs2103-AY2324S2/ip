@@ -3,13 +3,29 @@ package gulie.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A task that has a start and end time.
+ */
 public class Event extends Task {
     private LocalDateTime from, to;
 
+    /**
+     * A constructor for an Event.
+     * @param name
+     * @param from
+     * @param to
+     */
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         this(name, from, to, false);
     }
 
+    /**
+     * A constructor for an Event.
+     * @param name
+     * @param from
+     * @param to
+     * @param mark
+     */
     public Event(String name, LocalDateTime from, LocalDateTime to, boolean mark) {
         super(name, mark);
         this.from = from;

@@ -7,6 +7,9 @@ import java.io.PrintStream;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * A user interface for Gulie.
+ */
 public class GulieUi {
     private static final String name = "Güliedistodiez";
     private static final String line = "____________________________________________________________";
@@ -15,6 +18,12 @@ public class GulieUi {
 
     private Scanner in;
     private PrintStream out;
+
+    /**
+     * A constructor for GulieUi
+     * @param input
+     * @param output
+     */
     public GulieUi(InputStream input, PrintStream output) {
         in = new Scanner(input);
         out = output;
@@ -74,6 +83,10 @@ public class GulieUi {
         out.println(line);
     }
 
+    /**
+     * Gets the next input from the user.
+     * @return
+     */
     public String getInput() {
         if (in.hasNextLine()) {
             return in.nextLine();

@@ -6,13 +6,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A task that can be marked as complete.
+ */
 public abstract class Task {
     private String name;
     private Boolean mark;
+
+    /**
+     * A constructor for Task.
+     * @param name
+     */
     public Task(String name) {
         this(name, false);
     }
 
+    /**
+     * A constructor for Task.
+     * @param name
+     * @param mark
+     */
     public Task(String name, boolean mark) {
         this.name = name;
         this.mark = mark;
@@ -22,10 +35,20 @@ public abstract class Task {
         this.mark = mark;
     }
 
+    /**
+     * Returns a String suitable for use in a save file.
+     * @return
+     */
     public String toSaveString() {
         return String.format("%s\t%s", mark ? "1" : "0", name);
     }
 
+    /**
+     * Generates a Task from a save string.
+     * @param str
+     * @return
+     * @throws GulieException If the input string not follow the save format.
+     */
     public static Task fromSaveString(String str) throws GulieException {
         String[] spl = str.split("\t");
         if (!spl[1].equals("0") && !spl[1].equals("1")) {
@@ -61,5 +84,10 @@ public abstract class Task {
         return String.format("[%s] %s", this.mark ? "X" : " ", this.name);
     }
 
+    /**
+     * Returngs a string representaiton of the task using a specified DateTimeFormatter.
+     * @param dtf
+     * @return
+     */
     public abstract String toString(DateTimeFormatter dtf);
 }
