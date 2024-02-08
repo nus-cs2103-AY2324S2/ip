@@ -1,11 +1,5 @@
 package toothless.storage;
 
-import toothless.exception.ToothlessException;
-import toothless.task.Deadline;
-import toothless.task.Event;
-import toothless.task.Task;
-import toothless.task.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,18 +9,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import toothless.exception.ToothlessException;
+import toothless.task.Deadline;
+import toothless.task.Event;
+import toothless.task.Task;
+import toothless.task.ToDo;
+
 /**
  * A class to deal with loading data from and saving data to file in computer.
  */
 public class Storage {
+    private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String filePath;
     private File file;
 
-    private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     /**
      * A public constructor to initialize storage.
-     * 
      * @param filePath A String indicating the filepath where data would be stored.
      * @throws ToothlessException if file failed to be created.
      */
@@ -47,7 +45,6 @@ public class Storage {
 
     /**
      * Loads data from file into ArrayList of Task objects.
-     * 
      * @return ArrayList of Task objects with data from file.
      * @throws ToothlessException if file is corrupted.
      */
@@ -62,7 +59,6 @@ public class Storage {
                     String taskType = taskArgs[0];
                     boolean isDone = taskArgs[1].equals("0") ? false : true;
                     String taskDescription = taskArgs[2];
-                    
                     if (taskType.equals("T")) {
                         ToDo newToDo = new ToDo(taskDescription, isDone);
                         tasks.add(newToDo);
@@ -81,20 +77,19 @@ public class Storage {
                 } catch (IndexOutOfBoundsException e) {
                     throw new ToothlessException("Sorry, tasks seem to have missing arguments.");
                 } catch (DateTimeParseException e) {
-                    throw new ToothlessException("Sorry, task seems to have corrupted datetime. " +
-                            "The format should be yyyy-mm-dd hh:mm");
+                    throw new ToothlessException("Sorry, task seems to have corrupted datetime. "
+                            + "The format should be yyyy-mm-dd hh:mm");
                 }
             }
             tasklistScanner.close();
         } catch (IOException e) {
             throw new ToothlessException(e.getMessage());
-        } 
+        }
         return tasks;
     }
 
     /**
      * Saves data from ArrayList of Tasks to data file.
-     * 
      * @param tasks ArrayList of Tasks to save into file.
      * @throws ToothlessException if saving failed.
      */
