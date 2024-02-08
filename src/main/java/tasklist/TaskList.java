@@ -44,7 +44,6 @@ public class TaskList {
         }
     }
     public TaskList() {
-
         this.taskList = new ArrayList<>();
     }
     public boolean isEmpty(){
