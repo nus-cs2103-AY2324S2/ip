@@ -11,15 +11,16 @@ public class HughJazz {
     private static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
+        String userInput;
+
         ui.showGreeting();
+
         try {
             ArrayList<Task> loadedTasks = storage.load();
             taskList.loadTasks(loadedTasks);
         } catch (FileNotFoundException e ){
             ui.showError("No existing txt file found");
         }
-
-        String userInput;
 
         while (true) {
             userInput = ui.readCommand();
@@ -29,13 +30,12 @@ public class HughJazz {
                 try {
                     Parser.parse(userInput, taskList, storage);
                 } catch (DateTimeParseException e) {
-                    System.out.println("Please use the format dd/MM/yyyy HHmm for dates.");
+                    System.out.println("Please input date and time in the correct format dd/MM/yyyy HHmm");
                     System.out.println("Please try again");
                 } catch (ChatbotException e) {
                     ui.showError(e.getMessage());
                 }
             }
-
         }
         ui.showGoodbye();
     }
