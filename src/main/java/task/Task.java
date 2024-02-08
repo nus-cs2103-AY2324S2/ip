@@ -7,7 +7,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    String indent = "    ";
+    private String indent = "    ";
 
     /**
      * The constructor of Task.

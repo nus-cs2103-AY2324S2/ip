@@ -25,7 +25,7 @@ public class Ui {
     /**
      * Display the welcome message.
      */
-    public void showWelcome() {
+    public static String showWelcome() {
         String logo = " ____\n"
                 + "|  _ \\   ___   ___\n"
                 + "| |_| | / _ \\ / _ \\\n"
@@ -37,18 +37,20 @@ public class Ui {
                 + "What can I do for you?\n"
                 + SEPERATOR;
 
-        System.out.println(logo + "\n" + msg);
+        return logo + "\n" + msg;
     }
 
     /**
      * Display the goodbye message
      */
-    public static void showGoodbyeMessage() {
-        System.out.println(INDENT_SEPERATOR
+    public static String showGoodbyeMessage() {
+        String str;
+        str = INDENT_SEPERATOR
                 + "\n"
                 + INDENT
                 + "Bye. Hope to see you again soon!\n"
-                + INDENT_SEPERATOR);
+                + INDENT_SEPERATOR;
+        return str;
     }
 
     /**
@@ -61,13 +63,12 @@ public class Ui {
     }
 
     /**
-     * Read the user's input.
+     * To read the user's input into the chatbot.
      *
-     * @return The user's input.
+     * @param input The input of the user.
      */
-    public String readCommand() {
-        this.input = this.scanner.nextLine();
-        return this.input;
+    public void readCommand(String input) {
+        this.input = input;
     }
 
 }

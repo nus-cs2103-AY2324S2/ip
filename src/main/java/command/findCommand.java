@@ -1,29 +1,35 @@
 package command;
 
+import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import exception.EmptyInputException;
-import task.Todo;
 
-public class findCommand extends Command {
+/**
+ * Command to find an event in the task list.
+ */
+public class FindCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
-    public findCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public FindCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
     }
     @Override
 
-    public void execute(TaskList taskList, Ui ui) throws EmptyInputException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
+        String str;
         String input = ui.getInput();
         if (input.length() > 4) {
             String keyword = input.substring(5);
-            taskList.find(keyword);
+            str = taskList.find(keyword);
         } else {
             throw new EmptyInputException("find");
         }
-
+        return str;
     }
 
     @Override

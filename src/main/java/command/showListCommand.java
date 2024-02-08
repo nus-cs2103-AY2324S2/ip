@@ -1,33 +1,35 @@
 package command;
-import duke.Ui;
+import duke.Storage;
 import duke.TaskList;
+import duke.Ui;
+import exception.DukeException;
 
 /**
  * Command to show user the full task list.
  */
-public class showListCommand extends Command {
-
+public class ShowListCommand extends Command {
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    public ShowListCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
+    }
 
     /**
-     * The constructor of showListCommand.
+     * show the full task list
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
      * @throws Exception If input is not valid.
      */
-    public showListCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
-    }
-
     @Override
-    public void execute(TaskList taskList, Ui ui) throws Exception {
-        taskList.showList();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        return taskList.showList();
     }
 
     @Override
     public boolean isExit() {
-       return false;
+        return false;
     }
 }

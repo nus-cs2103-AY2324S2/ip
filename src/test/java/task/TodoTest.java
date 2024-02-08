@@ -1,12 +1,12 @@
-package task;  //same package as the class being tested
-
-import org.junit.jupiter.api.Test;
+package task; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class TodoTest {
     @Test
-    public void dummyTest(){
+    public void dummyTest() {
         assertEquals(2, 2);
     }
 

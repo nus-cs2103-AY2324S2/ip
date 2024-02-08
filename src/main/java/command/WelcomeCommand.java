@@ -2,36 +2,34 @@ package command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import exception.DukeException;
 
 /**
- * Command to exit the program.
+ * Command to start the program.
  */
-public class ByeCommand extends Command {
+public class WelcomeCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
 
     /**
-     * The constructor of byeCommand.
+     * The constructor of WelcomeCommand.
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
-     * @throws Exception If input is not valid.
      */
-    public ByeCommand(TaskList taskList, Ui ui, Storage storage) {
+    public WelcomeCommand(TaskList taskList, Ui ui, Storage storage) {
 
         super(taskList, ui, storage);
     }
 
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        return taskList.bye(ui);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.welcome(ui);
     }
 
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 }

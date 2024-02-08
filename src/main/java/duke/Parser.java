@@ -1,5 +1,16 @@
 package duke;
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.InvalidCommand;
+import command.MarkCommand;
+import command.ShowListCommand;
+import command.TodoCommand;
+import command.UnmarkCommand;
+import command.WelcomeCommand;
 
 /**
  * Parser deals with making sense of the user command.
@@ -8,15 +19,18 @@ public class Parser {
     private static TaskList taskList;
     private static Ui ui;
 
+    private static Storage storage;
+
     /**
      * The constructor of Parser.
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
      */
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
+        this.storage = storage;
     }
 
     /**
@@ -26,30 +40,32 @@ public class Parser {
      * @param input The full user input.
      * @return A specific command that corresponds to the specific Actions.
      */
-    public static Command parse(String input)  {
+    public static Command parse(String input) {
         String temp = input.split(" ")[0];
         Actions action = Actions.valueOf(temp.toUpperCase());
         switch (action) {
+        case HELLO:
+            return new WelcomeCommand(taskList, ui, storage);
         case BYE:
-            return new byeCommand(taskList, ui);
+            return new ByeCommand(taskList, ui, storage);
         case LIST:
-            return new showListCommand(taskList, ui);
+            return new ShowListCommand(taskList, ui, storage);
         case MARK:
-            return new markCommand(taskList, ui);
+            return new MarkCommand(taskList, ui, storage);
         case UNMARK:
-            return new unmarkCommand(taskList, ui);
+            return new UnmarkCommand(taskList, ui, storage);
         case TODO:
-            return new todoCommand(taskList, ui);
+            return new TodoCommand(taskList, ui, storage);
         case DEADLINE:
-            return new deadlineCommand(taskList, ui);
+            return new DeadlineCommand(taskList, ui, storage);
         case EVENT:
-            return new eventCommand(taskList, ui);
+            return new EventCommand(taskList, ui, storage);
         case DELETE:
-            return new deleteCommand(taskList, ui);
+            return new DeleteCommand(taskList, ui, storage);
         case FIND:
-            return new findCommand(taskList, ui);
+            return new FindCommand(taskList, ui, storage);
         default:
-            return new InvalidCommand(taskList, ui);
+            return new InvalidCommand(taskList, ui, storage);
         }
     }
 }

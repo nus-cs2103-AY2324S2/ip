@@ -1,24 +1,25 @@
 package command;
-import duke.Ui;
-import duke.TaskList;
-
-import task.Deadline;
-import exception.EmptyInputException;
-import exception.EmptyTimeException;
-import exception.InvalidDateTimeException;
-import exception.InvalidFormatException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import exception.EmptyInputException;
+import exception.EmptyTimeException;
+import exception.InvalidDateTimeException;
+import exception.InvalidFormatException;
+import task.Deadline;
+
 /**
  * Command to add a deadline into the task list.
  */
-public class deadlineCommand extends Command {
+public class DeadlineCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
     /**
      * The constructor of deadlineCommand.
@@ -30,13 +31,14 @@ public class deadlineCommand extends Command {
      * @throws InvalidFormatException If user's input invalid format.
      * @throws InvalidDateTimeException If user input invalid date/time format.
      */
-    public deadlineCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public DeadlineCommand(TaskList taskList, Ui ui, Storage storage) {
+        super(taskList, ui, storage);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws
-            EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException  {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws
+            EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
+        String str;
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("deadline");
@@ -54,12 +56,14 @@ public class deadlineCommand extends Command {
                     LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
                     LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
                     Deadline t = new Deadline(description, date, time);
-                    taskList.deadline(t);
+                    str = taskList.deadline(t);
+                    storage.writeTasks(taskList);
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateTimeException("deadline");
                 }
             }
         }
+        return str;
     }
 
     @Override

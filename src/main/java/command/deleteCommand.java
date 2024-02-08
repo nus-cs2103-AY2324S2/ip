@@ -1,17 +1,16 @@
 package command;
-import duke.Ui;
+import duke.Storage;
 import duke.TaskList;
-import exception.EmptyInputException;
-import exception.EmptyTimeException;
-import exception.InvalidDateTimeException;
-import exception.InvalidFormatException;
+import duke.Ui;
+import exception.DukeException;
 
 /**
  * Command to delete a specific task from the task list.
  */
-public class deleteCommand extends Command {
+public class DeleteCommand extends Command {
     private TaskList taskList;
     private Ui ui;
+    private Storage storage;
 
     /**
      * The constructor of deleteCommand.
@@ -20,16 +19,19 @@ public class deleteCommand extends Command {
      * @param ui The ui to get the input of the user.
      * @throws Exception If input is not valid.
      */
-    public deleteCommand(TaskList taskList, Ui ui) {
-        super(taskList, ui);
+    public DeleteCommand(TaskList taskList, Ui ui, Storage storage) {
+
+        super(taskList, ui, storage);
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = ui.getInput();
         String indexStr = input.split(" ")[1];
-        int position = Integer.parseInt(indexStr) -1;
-        taskList.delete(position);
+        int position = Integer.parseInt(indexStr) - 1;
+        String str = taskList.delete(position);
+        storage.writeTasks(taskList);
+        return str;
     }
 
     @Override

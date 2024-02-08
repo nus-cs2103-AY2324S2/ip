@@ -4,7 +4,7 @@ package exception;
  * DukeException are Exceptions specific to duke.Duke.
  */
 public class DukeException extends Exception {
-    String message;
+    private String message;
 
     /**
      * The constructor of DukeException.
