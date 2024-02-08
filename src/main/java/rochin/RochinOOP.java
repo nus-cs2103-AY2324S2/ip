@@ -618,7 +618,7 @@ public class RochinOOP {
         }
 
         /**
-         * Mark the task as not done.
+         * Mark the task as not done
          */
         public void markAsNotDone() {
             isDone = false;
