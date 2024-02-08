@@ -1,4 +1,4 @@
-package duke;
+package seedu.duke;
 
 public enum Command {
     // found enums to be unnecessary using while loop and if-else loop

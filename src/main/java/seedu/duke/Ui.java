@@ -1,6 +1,7 @@
-package duke;
+package seedu.duke;
 
-import duke.task.Task;
+import seedu.duke.task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -30,14 +31,14 @@ public class Ui {
 
     public void showTaskDone(Task task) {
         printBreak();
-        System.out.println("Nice! I've marked this Duke.task as done:");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
         printBreak();
     }
 
     public void showTaskUndone(Task task) {
         printBreak();
-        System.out.println("OK, I've marked this Duke.task as not done yet:");
+        System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
         printBreak();
     }
