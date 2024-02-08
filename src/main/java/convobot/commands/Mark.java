@@ -9,15 +9,15 @@ import utils.TaskList;
  */
 public class Mark implements Command {
 
-    private final int i;
+    private final int indexToMark;
 
     /**
      * Constructor for the Mark command.
      *
-     * @param i The index of the task to be marked as completed.
+     * @param indexToMark The index of the task to be marked as completed.
      */
-    public Mark(int i) {
-        this.i = i;
+    public Mark(int indexToMark) {
+        this.indexToMark = indexToMark;
     }
 
     /**
@@ -28,8 +28,8 @@ public class Mark implements Command {
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
     public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
-        taskList.mark(i, true);
-        rc.showMarked(taskList.getTaskString(i));
+        taskList.mark(indexToMark, true);
+        rc.showMarked(taskList.getTaskString(indexToMark));
     }
 
     /**

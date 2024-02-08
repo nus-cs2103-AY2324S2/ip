@@ -13,8 +13,8 @@ import exceptions.ConvoBotException;
  */
 public class DateTime {
 
-    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Converts a {@code LocalDate} object to a formatted string suitable for display.
@@ -23,7 +23,7 @@ public class DateTime {
      * @return a formatted string representing the date for display
      */
     public static String dateToString(LocalDate d) {
-        return d.format(displayFormatter);
+        return d.format(DISPLAY_FORMATTER);
     }
 
     /**
@@ -33,7 +33,7 @@ public class DateTime {
      * @return a formatted string representing the date for file storage
      */
     public static String dateToFile(LocalDate d) {
-        return d.format(inputFormatter);
+        return d.format(INPUT_FORMATTER);
     }
 
     /**
@@ -46,7 +46,7 @@ public class DateTime {
     public static LocalDate stringToDate(String s) throws ConvoBotException {
         LocalDate d;
         try {
-            d = LocalDate.parse(s, inputFormatter);
+            d = LocalDate.parse(s, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ConvoBotException("Invalid input. Wrong date format.");
         }

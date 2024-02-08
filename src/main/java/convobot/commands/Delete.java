@@ -9,15 +9,15 @@ import utils.TaskList;
  */
 public class Delete implements Command {
 
-    private final int i;
+    private final int indexToDelete;
 
     /**
      * Constructor for the Delete command.
      *
-     * @param i The index of the task to be deleted.
+     * @param indexToDelete The index of the task to be deleted.
      */
-    public Delete(int i) {
-        this.i = i;
+    public Delete(int indexToDelete) {
+        this.indexToDelete = indexToDelete;
     }
 
     /**
@@ -28,8 +28,8 @@ public class Delete implements Command {
      * @throws ConvoBotException If an exception specific to ConvoBot occurs during command execution.
      */
     public void execute(TaskList taskList, ResponseConstructor rc) throws ConvoBotException {
-        String removedTaskString = taskList.getTaskString(i);
-        taskList.delete(i);
+        String removedTaskString = taskList.getTaskString(indexToDelete);
+        taskList.delete(indexToDelete);
         rc.showRemoved(removedTaskString, taskList.size());
     }
 
