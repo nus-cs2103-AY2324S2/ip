@@ -2,11 +2,7 @@ package duke;
 
 import exceptions.DukeException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,9 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/**
- * Saves the tasks in a hard-coded file and loads up the tasks from the hard-coded file upon restarting the program.
- */
 public class Storage {
     private String filePath;
 
@@ -25,11 +18,6 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /**
-     * Returns a String of tasks to be written to the hard-coded file.
-     * @param tl
-     * @return String listItems
-     */
     public String storeList(TaskList tl) {
         StringBuilder listItems = new StringBuilder();
         for (int j = 0; j < tl.size(); j++) {
@@ -42,11 +30,6 @@ public class Storage {
         return listItems.toString();
     }
 
-    /**
-     * Writes the list of items to the hard-coded file.
-     * @param ls list of items
-     * @throws DukeException if there is an error when writing to the file
-     */
     public void save(String ls) throws DukeException {
         Path path = Paths.get(this.filePath);
         try {
@@ -59,10 +42,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Prints the list from the file upon restarting the program.
-     * @throws DukeException when there are errors with the file
-     */
     public void printList() throws DukeException {
         System.out.println("Here are the tasks in your list:");
         BufferedReader br = null;
@@ -92,11 +71,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Returns an ArrayList<Task> which represents an array of tasks that is loaded from the file.
-     * @return ArrayList<Task> taskArr
-     * @throws DukeException
-     */
     public ArrayList<Task> load() throws DukeException {
         BufferedReader br = null;
         ArrayList<Task> taskArr = new ArrayList<>();
@@ -110,17 +84,17 @@ public class Storage {
             while ((s = br.readLine()) != null) {
                 String[] splitStr = s.split(" \\| ");
                 Task task;
-                switch(splitStr[0]) {
+                switch(splitStr[0].strip()) {
                     case "T":
-                        task = new ToDo(splitStr[2]);
+                        task = new ToDo(splitStr[2].strip());
                         break;
                     case  "D":
-                        LocalDateTime by = LocalDateTime.parse(splitStr[3], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-                        task = new Deadline(splitStr[2], by);
+                        LocalDateTime by = LocalDateTime.parse(splitStr[3].strip(), DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                        task = new Deadline(splitStr[2].strip(), by);
                         break;
                     case "E":
                         String[] toFrom = splitStr[3].split("-");
-                        task = new Event(splitStr[2], toFrom[0], toFrom[1]);
+                        task = new Event(splitStr[2].strip(), toFrom[0].strip(), toFrom[1].strip());
                         break;
                     default:
                         throw new DukeException("Sorry! There was an error parsing the file.");

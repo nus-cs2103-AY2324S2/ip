@@ -5,9 +5,6 @@ import exceptions.DukeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * A CLI chatbot with the ability to save tasks.
- */
 public class Duke {
     private Storage storage;
     private duke.TaskList tasks;
@@ -25,10 +22,6 @@ public class Duke {
         }
     }
 
-    /**
-     * Runs the program.
-     * @throws DukeException
-     */
     public void run() throws DukeException {
             this.ui.showWelcomeMessage();
             this.storage.printList();

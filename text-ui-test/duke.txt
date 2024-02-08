@@ -1,2 +1,0 @@
-T | 0 | iron clothes
-D | 0 | deadline do assignment | Dec 02 2025 23:59

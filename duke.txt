@@ -1,3 +1,0 @@
-E | 0 | study | 3pm   -   4pm
-D | 0 | submission | Sep 03 2018 11:23
-E | 0 | cca | 2pm  -  3pm

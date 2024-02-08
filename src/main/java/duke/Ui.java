@@ -2,37 +2,21 @@ package duke;
 import exceptions.DukeException;
 import exceptions.DukeTaskNoDescException;
 
-/**
- * Handles the interactions with the user.
- */
 public class Ui {
 
-    /**
-     * Prints a welcome message.
-     */
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Jojo :)");
     }
 
-    /**
-     * Prints the starting prompt.
-     */
     public void showStartingQn() {
         System.out.println("What can I do for you?");
     }
 
-    /**
-     * Prints break lines to show end of a command.
-     */
     public void breakLines() {
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------");
     }
 
-    /**
-     * Prints a list of tasks.
-     * @param tl
-     */
     public void printList(duke.TaskList tl) {
         System.out.println("Here are the tasks in your list:");
         for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
@@ -41,11 +25,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints the task when marked as done.
-     * @param tl
-     * @throws DukeException when the task is invalid
-     */
     public void printMark(duke.TaskList tl, String cmd) throws DukeException {
         try {
             int taskNum = Parser.parseMark(cmd);
@@ -57,11 +36,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints the task when marked as undone.
-     * @param tl
-     * @throws DukeException when the task is invalid
-     */
     public void printUnmark(duke.TaskList tl, String cmd) throws DukeException {
         try {
             int taskNum = Parser.parseUnmark(cmd);
@@ -73,11 +47,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints the task when deleted.
-     * @param tl
-     * @throws DukeException when the task is invalid
-     */
     public void printDelete(duke.TaskList tl, String cmd) throws DukeException {
         int taskNum = Parser.parseDelete(cmd);
         if (taskNum >= tl.size()) {
@@ -90,17 +59,12 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints the todo when created.
-     * @param tl
-     * @throws DukeException when the todo is invalid
-     */
     public void printToDo(TaskList tl, String cmd) throws DukeException {
-        String test = Parser.parseToDoOrFindTest(cmd);
+        String test = Parser.parseToDoTest(cmd);
         if (test.strip().equals("")) {
             throw new DukeTaskNoDescException();
         } else {
-            Task t = new ToDo(Parser.parseToDoOrFind(cmd));
+            Task t = new ToDo(Parser.parseToDo(cmd));
             tl.addTask(t); // add task to list
             System.out.println("Got it. I've added this task:");
             System.out.println(t);
@@ -108,11 +72,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints the deadline when created.
-     * @param tl
-     * @throws DukeException when the deadline is invalid
-     */
     public void printDeadline(TaskList tl, String cmd) throws DukeException {
         String test = Parser.parseDeadlineTest(cmd);
         if (test.strip().equals("")) {
@@ -127,11 +86,6 @@ public class Ui {
         }
     }
 
-    /**
-     * Prints the event when created.
-     * @param tl
-     * @throws DukeException when the event is invalid
-     */
     public void printEvent(TaskList tl, String cmd) throws DukeException {
         String test = Parser.parseEventTest(cmd);
         if (test.strip().equals("")) {
@@ -146,34 +100,10 @@ public class Ui {
         }
     }
 
-    public void printFind(TaskList tl, String cmd) throws DukeException {
-        String test = Parser.parseToDoOrFindTest(cmd);
-        if (test.strip().equals("")) {
-            throw new DukeTaskNoDescException();
-        } else {
-            String search = Parser.parseToDoOrFind(cmd);
-            System.out.println("Here are the matching tasks in the list:");
-            int i = 1;
-            for (int j = 0; j < tl.size(); j++) { // printing out all items in the list
-                String taskDesc = tl.get(j).description.toLowerCase();
-                if (taskDesc.contains(search.toLowerCase())) {
-                    System.out.println(i + ". " + tl.get(j));
-                    i++;
-                }
-            }
-        }
-    }
-
-    /**
-     * Prints an exit message.
-     */
     public void showExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    /**
-     * Prints an error message when the file does not load correctly.
-     */
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }
