@@ -1,4 +1,4 @@
-package main.dav;
+package dav;
 import java.util.Scanner;
 class Ui {
 
