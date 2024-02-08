@@ -7,7 +7,7 @@ import sleepy.tasks.Event;
 import sleepy.tasks.Task;
 import sleepy.tasks.ToDo;
 import sleepy.tools.Parser;
-import sleepy.tools.Ui;
+import sleepy.tools.ResponseHandler;
 
 /**
  * This class stores the tasks in the Sleepy AI Chatbot.
@@ -63,11 +63,11 @@ public class TaskList {
                 break;
             case "find":
                 String keywords = parsedCommand[1];
-                Ui.printLine("Here are the matching tasks in your list:");
+                ResponseHandler.appendLineToResponse("Here are the matching tasks in your list:");
                 int i = 1;
                 for (Task task: tasks) {
                     if (task.getDescription().contains(keywords)) {
-                        Ui.printLine(i + "." + task.getDescription());
+                        ResponseHandler.appendLineToResponse(i + "." + task.getDescription());
                         i++;
                     }
                 }
@@ -79,9 +79,9 @@ public class TaskList {
                 throw new IllegalArgumentException("Invalid command!");
             }
         } catch (NumberFormatException n) {
-            Ui.printError("Zzz... The target task must be an integer!");
+            ResponseHandler.printError("Zzz... The target task must be an integer!");
         } catch (IllegalArgumentException i) {
-            Ui.printError(i.getMessage());
+            ResponseHandler.printError(i.getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ public class TaskList {
         tasks.add(createdTask);
         storage.saveTasks(tasks);
         if (!isStartingUp) {
-            Ui.printLine("added: " + createdTask.getDescription());
+            ResponseHandler.appendLineToResponse("added: " + createdTask.getDescription());
         }
     }
 
@@ -126,9 +126,9 @@ public class TaskList {
         }
         Task removedTask = tasks.remove(taskNumber - 1);
         storage.saveTasks(tasks);
-        Ui.printLine("Noted. I've removed this task:");
-        Ui.printLine("  " + removedTask.getDescription());
-        Ui.printLine(String.format("Now you have %d task(s) in the list.", tasks.size()));
+        ResponseHandler.appendLineToResponse("Noted. I've removed this task:");
+        ResponseHandler.appendLineToResponse("  " + removedTask.getDescription());
+        ResponseHandler.appendLineToResponse(String.format("Now you have %d task(s) in the list.", tasks.size()));
     }
 
     /**
@@ -153,9 +153,13 @@ public class TaskList {
      * Prints out the list of tasks.
      */
     public void printTasks() {
+        if (tasks.size() == 0) {
+            ResponseHandler.appendLineToResponse("Your task list is empty! Looks like you can go back to sleep.");
+            return;
+        }
         for (int i = 1; i <= tasks.size(); i++) {
             Task nextTask = tasks.get(i - 1);
-            Ui.printLine(i + "." + nextTask.getDescription());
+            ResponseHandler.appendLineToResponse(i + "." + nextTask.getDescription());
         }
     }
 }

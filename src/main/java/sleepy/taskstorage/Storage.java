@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import sleepy.tasks.Task;
-import sleepy.tools.Ui;
+import sleepy.tools.ResponseHandler;
 
 /**
  * This class helps to store the task list in the hard disk.
@@ -28,7 +28,9 @@ public class Storage {
             hardDiskFile = new File(filePath);
             hardDiskFile.createNewFile();
         } catch (IOException i) {
-            Ui.printLine("Sleepy encountered a serious error! Please restart the application :(");
+            ResponseHandler.appendLineToResponse(
+                    "Sleepy encountered a serious error! Please restart the application :("
+            );
         }
     }
 
@@ -45,7 +47,7 @@ public class Storage {
                 readTasks.add(scanner.nextLine());
             }
         } catch (FileNotFoundException f) {
-            Ui.printLine("Sleepy encountered a bug and could not recover your data!");
+            ResponseHandler.appendLineToResponse("Sleepy encountered a bug and could not recover your data!");
         }
         return readTasks;
     }
@@ -64,7 +66,7 @@ public class Storage {
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException i) {
-            Ui.printLine("Sleepy couldn't save your data! Please restart the application :(");
+            ResponseHandler.appendLineToResponse("Sleepy couldn't save your data! Please restart the application :(");
         }
     }
 }

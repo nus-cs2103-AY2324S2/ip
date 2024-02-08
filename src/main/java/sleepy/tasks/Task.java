@@ -1,6 +1,6 @@
 package sleepy.tasks;
 
-import sleepy.tools.Ui;
+import sleepy.tools.ResponseHandler;
 
 /**
  * This class is an abstract class for the tasks in the list.
@@ -31,8 +31,8 @@ public abstract class Task {
      */
     public void markAsDone() {
         isDone = true;
-        Ui.printLine("Nice! I've marked this task as done:");
-        Ui.printLine(this.getDescription());
+        ResponseHandler.appendLineToResponse("Nice! I've marked this task as done:");
+        ResponseHandler.appendLineToResponse(this.getDescription());
     }
 
     /**
@@ -40,8 +40,8 @@ public abstract class Task {
      */
     public void markAsUndone() {
         isDone = false;
-        Ui.printLine("OK, I've marked this task as not done yet:");
-        Ui.printLine(this.getDescription());
+        ResponseHandler.appendLineToResponse("OK, I've marked this task as not done yet:");
+        ResponseHandler.appendLineToResponse(this.getDescription());
     }
 
     /**

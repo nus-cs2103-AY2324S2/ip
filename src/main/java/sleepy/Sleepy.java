@@ -1,7 +1,7 @@
 package sleepy;
 
 import sleepy.taskstorage.TaskList;
-import sleepy.tools.Ui;
+import sleepy.tools.ResponseHandler;
 
 /**
  * This class is the main class for the Sleepy AI Chatbot.
@@ -9,30 +9,43 @@ import sleepy.tools.Ui;
  * @author kjw142857
  */
 public class Sleepy {
+    public static final String WELCOME_TEXT = "Hello! I'm Sleepy \n Zzz...";
     private TaskList taskList;
-    private Ui ui;
+
+    private boolean isInExitState;
 
     /**
      * Constructor for the Sleepy class.
-     *
-     * @param filePath Filepath of the file used to store the user's list.
      */
-    public Sleepy(String filePath) {
+    public Sleepy() {
+        String filePath = "./src/main/java/sleepy/taskstorage/HardDiskStorage.txt";
         // Retrieve saved data
         taskList = new TaskList(filePath);
+        isInExitState = false;
     }
 
     /**
-     * Runs the Sleepy chatbot.
+     * Gets the response from Sleepy depending on the user command.
+     *
+     * @param input Input by the user.
+     * @return Response from Sleepy.
      */
-    public void run() {
-        // Initialise chatbot
-        ui = new Ui();
-        // UI starts accepting commands on the task list
-        ui.acceptCommands(taskList);
+    public String getResponse(String input) {
+        String nextUserCommand = input.toLowerCase();
+        if (nextUserCommand.equals("bye")) {
+            isInExitState = true;
+            return "Bye. Gonna go back to sleep now *yawn*";
+        }
+        taskList.access(nextUserCommand);
+        return ResponseHandler.returnResponse();
     }
 
-    public static void main(String[] args) {
-        new Sleepy("./src/main/java/sleepy/taskstorage/HardDiskStorage.txt").run();
+    /**
+     * Shows whether Sleepy is about to exit.
+     *
+     * @return Exit state of Sleepy.
+     */
+    public boolean isInExitState() {
+        return this.isInExitState;
     }
 }
