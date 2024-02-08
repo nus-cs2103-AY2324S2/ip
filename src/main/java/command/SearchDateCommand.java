@@ -26,6 +26,7 @@ public class SearchDateCommand extends Command {
         return false;
     }
 
+
     @Override
     public void execute(Storage storage, TaskList taskList) throws DukeException {
         LocalDate localDate = Task.parseDate(date);

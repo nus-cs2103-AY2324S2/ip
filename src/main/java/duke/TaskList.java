@@ -96,6 +96,28 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches all tasks that contain the certain keyword and print them all.
+     *
+     * @param keyword The keyword typed in by the user
+     */
+    public void searchKeyword(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.isContaining(keyword)) {
+                result.add(task);
+            }
+        }
+        if (result.isEmpty()) {
+            System.out.println("Sorry! No tasks can satisfy your query conditions...");
+        } else {
+            System.out.println("OK! The search results are as follows:");
+            for (int i = 1; i <= result.size(); i++) {
+                System.out.printf("  %d. %s\n", i, result.get(i - 1));
+            }
+        }
+    }
+
     public void add(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
