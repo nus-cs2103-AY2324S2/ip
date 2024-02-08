@@ -1,3 +1,7 @@
+package FriendlyTool.main;
+
+import FriendlyTool.task.Task;
+
 public class UI {
     public static void initMsg() {
         System.out.println("    ____________________________________________________________\n"

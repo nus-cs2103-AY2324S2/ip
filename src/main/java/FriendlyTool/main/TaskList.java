@@ -1,3 +1,9 @@
+package FriendlyTool.main;
+
+import FriendlyTool.command.CommandTypes;
+import FriendlyTool.command.Parser;
+import FriendlyTool.task.*;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +59,7 @@ public class TaskList {
                 }
                 break;
             default:
-                throw new ftException("Error: Invalid Task Type");
+                throw new ftException("Error: Invalid FriendlyTool.task.Task Type");
         }
         myList.add(task);
         UI.updateTaskMsg(task, myList.size());

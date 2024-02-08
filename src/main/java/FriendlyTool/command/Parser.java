@@ -1,3 +1,7 @@
+package FriendlyTool.command;
+
+import FriendlyTool.main.ftException;
+
 import java.util.Arrays;
 import java.util.StringTokenizer;
 

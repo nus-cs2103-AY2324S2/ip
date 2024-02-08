@@ -1,3 +1,8 @@
+package FriendlyTool.main;
+
+import FriendlyTool.command.Parser;
+import FriendlyTool.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,3 +1,8 @@
+package FriendlyTool.main;
+
+import FriendlyTool.command.CommandTypes;
+import FriendlyTool.command.Parser;
+
 import java.util.Scanner;
 
 public class Duke {
