@@ -37,6 +37,9 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Parses a date-time string into a LocalDateTime object.
+     */
     private LocalDateTime parseDateTime(String dateTimeString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(dateTimeString, formatter);

@@ -1,8 +1,10 @@
 package friday.task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import friday.storage.Storage;
 import friday.ui.Ui;
 
 /**
@@ -11,13 +13,17 @@ import friday.ui.Ui;
 public class TaskList {
     private List<Task> tasks;
     private Ui ui;
+    private Storage storage;
 
     /**
      * Constructs a TaskList object with an empty list of tasks and initializes UI and Storage components.
+     *
+     * @param filePath The file path where task data is stored.
      */
-    public TaskList() {
+    public TaskList(String filePath) {
         this.tasks = new ArrayList<>();
         this.ui = new Ui();
+        this.storage = new Storage(filePath);
     }
 
     /**
@@ -33,19 +39,23 @@ public class TaskList {
      * Marks a task as done based on user input.
      *
      * @param userInput The user input specifying the task to be marked as done.
+     * @return A message indicating the task has been marked as done, or an error message.
      */
-    public void markTask(String userInput) {
+    public String markTask(String userInput) {
         String num = userInput.substring(4).trim();
         if (num.isEmpty()) {
-            ui.displayMessage("Error. Unknown task number to be marked.");
+            return "Error. Unknown task number to be marked.";
         } else {
             int id = Integer.parseInt(num);
             if (id > tasks.size()) {
-                ui.displayMessage("Error. Task number does not exist.");
+                return "Error. Task number does not exist.";
             } else {
-                ui.displayMessage("Nice! I have marked this task as done: ");
+                StringBuilder sb = new StringBuilder();
+                sb.append("Nice! I have marked this task as done: ");
+                sb.append(System.lineSeparator());
                 tasks.get(id - 1).markAsDone();
-                ui.displayMessage(tasks.get(id - 1).toString());
+                sb.append(tasks.get(id - 1).toString());
+                return sb.toString();
             }
         }
     }
@@ -54,19 +64,23 @@ public class TaskList {
      * Marks a task as undone based on user input.
      *
      * @param userInput The user input specifying the task to be marked as undone.
+     * @return A message indicating the task has been marked as undone, or an error message.
      */
-    public void unmarkTask(String userInput) {
+    public String unmarkTask(String userInput) {
         String num = userInput.substring(6).trim();
         if (num.isEmpty()) {
-            ui.displayMessage("Error. Unknown task number to be unmarked.");
+            return "Error. Unknown task number to be unmarked.";
         } else {
             int id = Integer.parseInt(num);
             if (id > tasks.size()) {
-                ui.displayMessage("Error. Task number does not exist.");
+                return "Error. Task number does not exist.";
             } else {
-                ui.displayMessage("Okay. I have unmarked this task: ");
+                StringBuilder sb = new StringBuilder();
+                sb.append("Okay. I have unmarked this task: ");
+                sb.append(System.lineSeparator());
                 tasks.get(id - 1).markAsUndone();
-                ui.displayMessage(tasks.get(id - 1).toString());
+                sb.append(tasks.get(id - 1).toString());
+                return sb.toString();
             }
         }
     }
@@ -75,31 +89,25 @@ public class TaskList {
      * Deletes a task based on user input.
      *
      * @param userInput The user input specifying the task number to be deleted.
+     * @return A message indicating the task has been deleted, or an error message.
      */
-    public void deleteTask(String userInput) {
+    public String deleteTask(String userInput) {
         String num = userInput.substring(6).trim();
         if (num.isEmpty()) {
-            ui.displayMessage("Error. Unknown task number to be deleted.");
+            return "Error. Unknown task number to be deleted.";
         } else {
             int id = Integer.parseInt(num);
             if (id > tasks.size()) {
-                ui.displayMessage("Error. Task number does not exist.");
+                return "Error. Task number does not exist.";
             } else {
-                ui.displayMessage("Okay. I have deleted this task: ");
-                ui.displayMessage(tasks.get(id - 1).toString());
+                StringBuilder sb = new StringBuilder("Okay. I have deleted this task: ");
+                sb.append(System.lineSeparator());
+                sb.append(tasks.get(id - 1).toString() + System.lineSeparator());
                 tasks.remove(id - 1);
-                ui.displayMessage(displayCounter(tasks.size()));
+                sb.append(displayCounter(tasks.size()));
+                return sb.toString();
             }
         }
-    }
-
-    /**
-     * Deletes a task from the task list based on user input.
-     *
-     * @param index The task number to be deleted.
-     */
-    public void deleteTask(int index) {
-        tasks.remove(index);
     }
 
     /**
@@ -127,82 +135,94 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the task list based on user input for a Todo.
+     * Adds a Todo task to the task list based on user input.
      *
      * @param userInput The user input specifying the Todo task to be added.
-     * @return The added Todo task.
+     * @return A message indicating the task has been added successfully or an error message.
      */
-    public Todo addTodo(String userInput) {
+    public String addTodo(String userInput) {
         String description = userInput.substring(5).trim();
         if (description.isEmpty()) {
-            ui.displayMessage("Error. Cannot add empty Todo.");
-            return null;
+            return "Error. Cannot add empty Todo.";
         } else {
-            ui.displayMessage("Got it. I have added this task: ");
+            StringBuilder sb = new StringBuilder("Got it. I have added this task: ");
+            sb.append(System.lineSeparator());
             Todo t = new Todo(description);
-            ui.displayMessage(t.toString());
+            try {
+                storage.appendToFile(t + System.lineSeparator());
+            } catch (IOException e) {
+                return e.getMessage();
+            }
+            sb.append(t.toString() + System.lineSeparator());
             tasks.add(t);
-            ui.displayMessage(displayCounter(tasks.size()));
-            return t;
+            sb.append(displayCounter(tasks.size()));
+            return sb.toString();
         }
     }
 
     /**
-     * Adds a task to the task list based on user input for a Deadline.
+     * Adds a Deadline task to the task list based on user input.
      *
      * @param userInput The user input specifying the Deadline task to be added.
-     * @return The added Deadline task.
+     * @return A message indicating the task has been added successfully or an error message.
      */
-    public Deadline addDeadline(String userInput) {
+    public String addDeadline(String userInput) {
         int id = userInput.indexOf("/by");
         String description = userInput.substring(8, id).trim();
         if (description.isEmpty()) {
-            ui.displayMessage("Error. Cannot add empty Deadline.");
-            return null;
+            return "Error. Cannot add empty Deadline.";
         } else {
             String by = userInput.substring(id + 3).trim();
             if (by.isEmpty()) {
-                ui.displayMessage("Error. Please indicate end time.");
-                return null;
+                return "Error. Please indicate end time.";
             } else {
-                ui.displayMessage("Got it. I have added this task: ");
+                StringBuilder sb = new StringBuilder("Got it. I have added this task: ");
+                sb.append(System.lineSeparator());
                 Deadline d = new Deadline(description, by);
-                ui.displayMessage(d.toString());
+                sb.append(d + System.lineSeparator());
                 tasks.add(d);
-                ui.displayMessage(displayCounter(tasks.size()));
-                return d;
+                try {
+                    storage.appendToFile(d + System.lineSeparator());
+                } catch (IOException e) {
+                    return e.getMessage();
+                }
+                sb.append(displayCounter(tasks.size()));
+                return sb.toString();
             }
         }
     }
 
     /**
-     * Adds a task to the task list based on user input for an Event.
+     * Adds an Event task to the task list based on user input.
      *
      * @param userInput The user input specifying the Event task to be added.
-     * @return The added Event task.
+     * @return A message indicating the task has been added successfully or an error message.
      */
-    public Event addEvent(String userInput) {
+    public String addEvent(String userInput) {
         int idFrom = userInput.indexOf("/from");
         int idTo = userInput.indexOf("/to");
         String description = userInput.substring(5, idFrom).trim();
         String fromTime = userInput.substring(idFrom + 5, idTo).trim();
         String toTime = userInput.substring(idTo + 3).trim();
         if (description.isEmpty()) {
-            ui.displayMessage("Error. Cannot add empty Event.");
-            return null;
+            return "Error. Cannot add empty Event.";
         } else if (fromTime.isEmpty()) {
-            ui.displayMessage("Error. Please indicate start time.");
-            return null;
+            return "Error. Please indicate start time.";
         } else if (toTime.isEmpty()) {
-            ui.displayMessage("Error. Please indicate to time.");
-            return null;
+            return "Error. Please indicate to time.";
         } else {
-            ui.displayMessage("Got it. I have added this task: ");
+            StringBuilder sb = new StringBuilder("Got it. I have added this task: ");
+            sb.append(System.lineSeparator());
             Event e = new Event(description, fromTime, toTime);
-            ui.displayMessage(e.toString());
+            sb.append(e.toString() + System.lineSeparator());
             tasks.add(e);
-            ui.displayMessage(displayCounter(tasks.size()));
-            return e;
+            try {
+                storage.appendToFile(e + System.lineSeparator());
+            } catch (IOException err) {
+                System.out.println(err.getMessage());
+            }
+            sb.append(displayCounter(tasks.size()));
+            return sb.toString();
         }
     }
 
@@ -211,8 +231,9 @@ public class TaskList {
      *
      * @param userInput The user input containing the search command and keyword.
      *                  Format: "find keyword"
+     * @return A message listing the matching tasks or an error message if no tasks match the keyword.
      */
-    public void searchTask(String userInput) {
+    public String searchTask(String userInput) {
         String keyword = userInput.substring(5).trim();
         List<Task> matchingTasks = new ArrayList<>();
         for (Task t : tasks) {
@@ -222,12 +243,15 @@ public class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.displayMessage("Oops. There are no matching tasks.");
+            return "Oops. There are no matching tasks.";
         } else {
-            ui.displayMessage("Here are the matching tasks in your list: ");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list: ");
+            sb.append(System.lineSeparator());
             for (int i = 1; i <= matchingTasks.size(); i++) {
-                ui.displayMessage(i + ". " + matchingTasks.get(i - 1).toString());
+                sb.append(i + ". " + matchingTasks.get(i - 1).toString());
+                sb.append(System.lineSeparator());
             }
+            return sb.toString();
         }
     }
 

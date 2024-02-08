@@ -8,9 +8,11 @@ import friday.task.TaskList;
 import friday.task.Todo;
 
 public class FridayTest {
+    private static final String DATA_FILE_PATH = "./src/main/java/data/Friday.txt";
+
     @Test
     public void testAddTodo() {
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(DATA_FILE_PATH);
         taskList.addTodo("todo Testing Todo");
         Todo t = new Todo("Testing Todo");
 
@@ -20,10 +22,10 @@ public class FridayTest {
 
     @Test
     public void testDeleteTask() {
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(DATA_FILE_PATH);
 
         taskList.addTodo("todo Testing Delete");
-        taskList.deleteTask(0);
+        taskList.deleteTask("delete 1");
 
         assertEquals(0, taskList.getLength());
     }

@@ -9,8 +9,7 @@ import friday.task.Task;
 import friday.task.TaskList;
 
 /**
- * The Storage class is responsible for handling the reading and writing of task data
- * to a file in the Friday application.
+ * The Storage class handles the reading and writing of task data to and from a file.
  */
 public class Storage {
     private String filePath;
@@ -64,7 +63,7 @@ public class Storage {
      */
     public TaskList loadDataFromFile() throws IOException {
         File file = new File(filePath);
-        TaskList tasks = new TaskList();
+        TaskList tasks = new TaskList(filePath);
 
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNextLine()) {
@@ -78,7 +77,7 @@ public class Storage {
             }
         }
         if (tasks.isEmpty()) {
-            tasks = new TaskList();
+            tasks = new TaskList(filePath);
         }
         return tasks;
     }
