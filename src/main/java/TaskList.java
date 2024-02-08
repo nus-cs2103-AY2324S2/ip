@@ -95,8 +95,7 @@ public class TaskList {
                 throw new ftException("Error: Invalid Task Type");
         }
         myList.add(task);
-        updateTask();
-        ui.updateTaskMsg(task, myList.size());
+        UI.updateTaskMsg(task, myList.size());
     }
 
 
@@ -108,11 +107,7 @@ public class TaskList {
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
-            updateTask();
-            System.out.println("    ____________________________________________________________\n"
-                    + "    Nice! I've marked this task as done:\n"
-                    + "      " + task.toString()
-                    + "\n    ____________________________________________________________\n");
+            UI.markMsg(task);
         } else {
             throw new ftException("Error: Please provide valid index");
         }
@@ -126,8 +121,7 @@ public class TaskList {
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
-            updateTask();
-            ui.markMsg(task);
+            UI.unmarkMsg(task);
         } else {
             throw new ftException("Error: Please provide valid index");
         }
@@ -140,65 +134,12 @@ public class TaskList {
         int i = Integer.parseInt(st.nextToken());
         if ((0 < i) && (i <= myList.size())) {
             String task = myList.remove(i - 1).toString();
-            updateTask();
-            System.out.println("    ____________________________________________________________\n"
-                    + "    Great!, You have completed the task:\n"
-                    + "      " + task
-                    + "\n    Now you have " + myList.size() + " tasks in the list.\n"
-                    + "    ____________________________________________________________\n");
+            UI.deleteMsg(task, myList.size());
         } else {
             throw new ftException("Error: Please provide valid index");
         }
     }
 
-    public void updateTask() throws ftException {
-        try {
-            FileWriter fw = new FileWriter("./data/myTask.txt");
-            for (Task task: myList) {
-                fw.write(task.toSaveFormat() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            throw new ftException("Error in updating the task");
-        }
-    }
-
-    public void loadTask() throws ftException {
-        try {
-            File save = new File("./data/myTask.txt");
-            if (!save.exists()) {
-                System.out.println("    There was no save data.");
-                save.getParentFile().mkdirs();
-                boolean isSuccessful = save.createNewFile();
-                System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
-            } else {
-                System.out.println("    Successfully loaded the save data. ");
-            }
-            Scanner s = new Scanner(save);
-            while (s.hasNext()) {
-                String saved = s.nextLine();
-                String[] elements = saved.split("\\|");
-                elements = Arrays.stream(elements).map(String::trim).toArray(String[]::new);
-                String taskType = elements[0];
-                switch (taskType) {
-                    case "T":
-                        myList.add(new ToDo(elements[2], Boolean.parseBoolean(elements[1])));
-                        break;
-                    case "D":
-                        myList.add(new Deadline(elements[2], Boolean.parseBoolean(elements[1]), new Date(elements[3])));
-                        break;
-                    case "E":
-                        myList.add(new Event(elements[2], Boolean.parseBoolean(elements[1]), new Date(elements[3]), new Date(elements[4])));
-                        break;
-                    default:
-                        throw new ftException("    Warning: The file is corrupted. Please delete the file");
-                }
-                s.nextLine();
-            }
-        } catch (IOException e) {
-            throw new ftException("File not found");
-        }
-    }
 
     public int size() {
         return myList.size();
@@ -206,5 +147,9 @@ public class TaskList {
 
     public Task get(int i) {
         return myList.get(i);
+    }
+
+    public void add(Task task) {
+        myList.add(task);
     }
 }

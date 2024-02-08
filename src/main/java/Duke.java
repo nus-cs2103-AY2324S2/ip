@@ -7,21 +7,19 @@ import java.util.*;
 public class Duke {
     private boolean isActive;
     private TaskList tasks;
-    private UI ui;
 
     public Duke() {
         this.isActive = true;
         this.tasks = new TaskList();
-        this.ui = new UI();
     }
     public static void main(String[] args) {
         Duke ft = new Duke();
         ft.init();
     }
     public void init() {
-        ui.initMsg();
+        UI.initMsg();
         try {
-            tasks.loadTask();
+            Storage.loadTask(tasks);
         } catch (ftException e) {
             System.out.println(e.getMessage());
         }
@@ -34,7 +32,7 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
-        ui.byeMsg();
+        UI.byeMsg();
     }
 
     private void nextAction(String input) throws ftException {
@@ -49,25 +47,31 @@ public class Duke {
                     this.isActive = false;
                     break;
                 case LIST:
-                    ui.showList(tasks);
+                    UI.showList(tasks);
                     break;
                 case MARK:
                     tasks.mark(st);
+                    Storage.updateTask(tasks);
                     break;
                 case UNMARK:
                     tasks.unmark(st);
+                    Storage.updateTask(tasks);
                     break;
                 case TODO:
                     tasks.addTask(st, CommandTypes.TODO);
+                    Storage.updateTask(tasks);
                     break;
                 case DEADLINE:
                     tasks.addTask(st, CommandTypes.DEADLINE);
+                    Storage.updateTask(tasks);
                     break;
                 case EVENT:
                     tasks.addTask(st, CommandTypes.EVENT);
+                    Storage.updateTask(tasks);
                     break;
                 case DELETE:
                     tasks.deleteTask(st);
+                    Storage.updateTask(tasks);
                     break;
                 default:
                     throw new ftException("Unknown Command: Please use a correct command");
