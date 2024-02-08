@@ -1,20 +1,20 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Represents the storage which stores the lists inside the disk.
  */
 public class Storage {
-    private ArrayList<String> listStates= new ArrayList<>();
-    private static String listFilePath = "./data/duke.txt";
+    private static String fileListPath = "./data/duke.txt";
+    private ArrayList<String> listStates = new ArrayList<>();
 
     /**
      * Access the stored lists and parse it into usable ArrayList of Task.
@@ -26,15 +26,15 @@ public class Storage {
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> temp = new ArrayList<>();
         this.initializeListFile();
-        File f = new File(listFilePath);
-        try{
+        File f = new File(fileListPath);
+        try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String str = s.nextLine();
                 listStates.add(str);
-                Parser.initializeTask(str,temp);
+                Parser.initializeTask(str, temp);
             }
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("FILE NOT FOUND");
         }
         return temp;
@@ -47,12 +47,12 @@ public class Storage {
     private void writeList() {
         this.initializeListFile();
         try {
-            FileWriter fw = new FileWriter(listFilePath);
+            FileWriter fw = new FileWriter(fileListPath);
             for (int i = 0; i < listStates.size(); i++) {
                 fw.write(listStates.get(i) + "\n");
             }
             fw.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println("File Saving failed..." + e);
         }
     }
@@ -79,7 +79,7 @@ public class Storage {
      */
     public void addListStateRecord(String type, String[] data) {
         String newRecord = "";
-        switch (type){
+        switch (type) {
         case "todo":
             String[] recordT = {"T", "0", data[0]};
             newRecord = String.join(" | ", recordT);
@@ -121,25 +121,16 @@ public class Storage {
      * If the file does not exist, it is created.
      */
     public void initializeListFile() {
-        try{
+        try {
             File dir = new File("./data/");
             if (!dir.exists()) {
-                if (dir.mkdirs()) {
-//                    System.out.println("Initializaing....");
-                } else {
-//                    System.out.println("Failed to create the directory.");
-                    return;
-                }
+                dir.mkdirs();
             }
-            File file = new File(listFilePath);
-                if (!file.exists()) {
-                    if (file.createNewFile()) {
-                        //System.out.println("File created: " + file.getAbsolutePath());
-                    } else {
-                        //System.out.println("Failed to create the file.");
-                    }
-                }
-        }catch(IOException e){
+            File file = new File(fileListPath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
             System.out.println("FILE Creation failed" + e);
         }
     }

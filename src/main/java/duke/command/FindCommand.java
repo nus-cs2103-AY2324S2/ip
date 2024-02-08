@@ -6,8 +6,8 @@ import duke.util.TaskList;
 /**
  * Represents the Command of finding a task from a list.
  */
-public class FindCommand  extends Command {
-    String keyword;
+public class FindCommand extends Command {
+    private String keyword;
 
     /**
      * Initializes a Command to find e a task that contains the given keyword.

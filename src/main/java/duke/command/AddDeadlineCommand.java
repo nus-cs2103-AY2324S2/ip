@@ -1,11 +1,11 @@
 package duke.command;
 
-import duke.util.Parser;
-import duke.util.TaskList;
-import duke.task.Deadline;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.task.Deadline;
+import duke.util.Parser;
+import duke.util.TaskList;
 
 /**
  * Represents the Command of adding a new deadline to a task list.

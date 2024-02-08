@@ -1,8 +1,8 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * Represents the User Interface.
@@ -23,7 +23,7 @@ public class Ui {
     private static void printMessageWithLines(String content) {
         System.out.println("\t____________________________________________________________");
         System.out.println("\t" + content);
-        System.out.println("\t____________________________________________________________\n" );
+        System.out.println("\t____________________________________________________________\n");
     }
 
     /**
@@ -32,7 +32,7 @@ public class Ui {
      */
     public void greet() {
         System.out.println(logo);
-        String message = "Greetings! I am " + name + "." +"\n\tHow may I be of service to you today?";
+        String message = "Greetings! I am " + name + "." + "\n\tHow may I be of service to you today?";
         printMessageWithLines(message);
     }
 
@@ -62,19 +62,7 @@ public class Ui {
      */
     public static void informListMarked(Task task) {
         String message = "It is my pleasure to inform you that I have officially marked this particular task as"
-                +" 'completed':" + "\n\t   " + task;
-        printMessageWithLines(message);
-    }
-    public static void informBadTodoInput() {
-        String message = "It is imperative that the description of a to-do is not left empty.";
-        printMessageWithLines(message);
-    }
-    public static void informBadDeadlineInput() {
-        String message = "It is imperative that the description and the date of a deadline is not left empty.";
-        printMessageWithLines(message);
-    }
-    public static void informBadEventInput() {
-        String message = "It is imperative that the description and from-to information of an event is not left empty.";
+                + " 'completed':" + "\n\t   " + task;
         printMessageWithLines(message);
     }
 
@@ -85,7 +73,7 @@ public class Ui {
      */
     public static void informListUnmarked(Task task) {
         String message = "I wish to communicate that I have marked this particular task as 'incomplete' at this "
-                +"juncture:"+ "\n\t   " + task;
+                + "juncture:" + "\n\t   " + task;
         printMessageWithLines(message);
     }
 
@@ -97,8 +85,8 @@ public class Ui {
      * @param taskList the list from which the task will be added.
      */
     public static void informItemAdded(Task task, TaskList taskList) {
-        String message = "I am pleased to convey that the following task has been added to the outlined list:\n" +
-                "\t   "+task + "\n " + taskList;
+        String message = "I am pleased to convey that the following task has been added to the outlined list:\n"
+                + "\t   " + task + "\n " + taskList;
         printMessageWithLines(message);
     }
 
@@ -124,18 +112,22 @@ public class Ui {
      * @param size the list from which the task will be removed.
      */
     public static void informItemRemoved(Task task, int size) {
-        String message = "I acknowledge your update. The specified task has been duly removed:\n\t" + task + "\n\tCurrently, " +
-                "the list comprises " + size + " tasks.";
+        String message = "I acknowledge your update. The specified task has been duly removed:\n\t" + task
+                + "\n\tCurrently, " + "the list comprises " + size + " tasks.";
         printMessageWithLines(message);
     }
-
+    /**
+     * Display the input task list.
+     *
+     * @param taskList the task list to be displayed.
+     */
     public static void displaySelectedList(ArrayList<Task> taskList) {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tHere are the corresponding tasks that align with your criteria:");
-        for(Task t: taskList){
+        for (Task t: taskList) {
             System.out.println("\t" + t);
         }
-        System.out.println("\t____________________________________________________________\n" );
+        System.out.println("\t____________________________________________________________\n");
     }
     /**
      * Informs the user of the correct format to enter a date and time.
@@ -150,18 +142,18 @@ public class Ui {
      * displaying the correct format of all the valid commands.
      */
     public static void informWrongInputFormat() {
-        String message = "Please follow the correct format for adding tasks:\n" +
-                "\t\tTo add todos: todo <Task name>\n" +
-                "\t\tTo add deadlines: deadline <Task name> /by <deadline in yyyy-mm-dd HHmm format>\n"+
-                "\t\tTo add events: event <Task name> /from <start time in yyyy-mm-dd HHmm format> " +
-                "/to <end time in yyyy-mm-dd HHmm format>\n" +
-                "\tOther commands: \n" +
-                "\t\tlist : to list the full list\n" +
-                "\t\tmark <index>: to mark the task at index no <index> in the list as complete\n" +
-                "\t\tunmark <index>: to mark the task at index no <index> in the last as incomplete\n" +
-                "\t\tdelete <index>: to remove the taks at index no <index> in the last\n" +
-                "\t\tbye: to leave the program\n" +
-                "\t\tfind <keyword>: to find tasks with description that contains the keyword";
+        String message = "Please follow the correct format for adding tasks:\n"
+                + "\t\tTo add todos: todo <Task name>\n"
+                + "\t\tTo add deadlines: deadline <Task name> /by <deadline in yyyy-mm-dd HHmm format>\n"
+                + "\t\tTo add events: event <Task name> /from <start time in yyyy-mm-dd HHmm format> "
+                + "/to <end time in yyyy-mm-dd HHmm format>\n"
+                + "\tOther commands: \n"
+                + "\t\tlist : to list the full list\n"
+                + "\t\tmark <index>: to mark the task at index no <index> in the list as complete\n"
+                + "\t\tunmark <index>: to mark the task at index no <index> in the last as incomplete\n"
+                + "\t\tdelete <index>: to remove the taks at index no <index> in the last\n"
+                + "\t\tbye: to leave the program\n"
+                + "\t\tfind <keyword>: to find tasks with description that contains the keyword";
         printMessageWithLines(message);
     }
 

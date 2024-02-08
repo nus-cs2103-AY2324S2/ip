@@ -1,12 +1,20 @@
 package duke.util;
 
-import duke.command.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddTodoCommand;
+import duke.command.ByeCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.ListTaskCommand;
+import duke.command.NoActionCommand;
+import duke.command.ToggleMarkTaskCommand;
 public class ParserTest {
 
     @Test
@@ -83,7 +91,7 @@ public class ParserTest {
 
         //test6
         ToggleMarkTaskCommand dummy6 = (ToggleMarkTaskCommand) p.parse(unmark1);
-        int unmarkInd =(int) field.get(dummy6);
+        int unmarkInd = (int) field.get(dummy6);
         assertEquals(dummy6.getType(), Parser.Cmd.unmark);
         assertEquals(unmarkInd, 1);
 

@@ -1,11 +1,11 @@
 package duke.util;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class StorageTest {
 
@@ -19,7 +19,6 @@ public class StorageTest {
         String[] todoData = {"todo description"};
         String[] deadlineData = {"deadline description", "1995/05/23 0000"};
         String[] eventData = {"event description", "1995/05/23 0000", "2023/12/12 0000"};
-        
         Field field = Storage.class.getDeclaredField("listStates");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")

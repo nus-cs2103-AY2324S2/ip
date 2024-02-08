@@ -1,10 +1,11 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.util.Parser;
 import duke.util.TaskList;
 import duke.util.Ui;
-import java.util.Scanner;
 
 /**
  * Represents a chatbot whose name is "Alfred".
@@ -37,17 +38,17 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         try {
             Command command;
-            do{
+            do {
                 command = this.parser.parse(scanner.nextLine());
                 command.run(this.taskList);
-            }while(!command.getType().equals(Parser.Cmd.bye));
-        }catch(IllegalArgumentException e) {
+            } while(!command.getType().equals(Parser.Cmd.bye));
+        } catch (IllegalArgumentException e) {
             Ui.informInvalidCommand();
         }
     }
 
     public static void main(String[] args) {
-        Duke Alfred = new Duke();
-        Alfred.run();
+        Duke alfred = new Duke();
+        alfred.run();
     }
 }
