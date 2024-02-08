@@ -8,15 +8,30 @@ import luke.exception.TaskException;
 import luke.task.*;
 import luke.ui.Ui;
 
+/**
+ * Represents a parser that parses the user input and executes the corresponding command.
+ */
 public class Parser {
     private String input;
-    private Ui ui;
-    private Storage storage;
+
+    /**
+     * Constructor for the parser.
+     *
+     * @param input The user input.
+     */
     public Parser(String input) {
         this.input = input;
 
     }
 
+    /**
+     * Parses the user input and executes the corresponding command to add, delete, mark, unmark or list the tasks
+     * as well as to exit the program.
+     *
+     * @param list The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage of the tasks.
+     */
     public void parse(TaskList list, Ui ui, Storage storage) {
         if (isExit()) {
             return;
@@ -147,7 +162,7 @@ public class Parser {
                         list.add(new Deadline(description, by));
 
                     } catch (StringIndexOutOfBoundsException e) {
-                        throw new TaskException("Hold up!! The description of a deadline cannot be empty.\n"
+                        throw new TaskException("Hold up!! The description and /by of a deadline cannot be empty.\n"
                                 + "Please follow this format: deadline <description> /by <date/day/time>.");
                     }
 
@@ -163,7 +178,8 @@ public class Parser {
                         String to = input.substring(input.indexOf("/to") + 4);
                         list.add(new Event(description, from, to));
                     } catch (StringIndexOutOfBoundsException e) {
-                        throw new TaskException("Hold up!! The description of an event cannot be empty.\n"
+                        throw new TaskException("Hold up!! The description, /from and /to of an event "
+                                + "cannot be empty.\n"
                                 + "Please follow this format: event <description> "
                                 + "/from <date/day/time> /to <date/day/time>.");
                     }
@@ -177,9 +193,9 @@ public class Parser {
             } catch (LukeException | TaskException | FileException e) {
                 ui.getErrorMessage(e.getMessage());
             } catch (DateException e) {
-                ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as dd/MM/yyyy or"
-                        + " yyyy-MM-dd\nYou can also enter the time in 24-hour format such as HH[:MM] " +
-                        "after the date");
+                ui.getErrorMessage(e.getMessage() + "\nPlease enter the date in proper format such as "
+                        + "dd/MM/yyyy or yyyy-MM-dd\nYou can also enter the time in 24-hour format such as "
+                        + "HH[:MM] after the date");
             }
         }
     }
@@ -188,6 +204,11 @@ public class Parser {
         this.input = input;
     }
 
+    /**
+     * Checks if the user input is "bye".
+     *
+     * @return True if the user input is "bye", false otherwise.
+     */
     public boolean isExit() {
         return input.equals("bye");
     }

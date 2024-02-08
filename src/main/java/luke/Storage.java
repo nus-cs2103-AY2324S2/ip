@@ -12,9 +12,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of the tasks into a file and reading the tasks from the file.
+ */
 public class Storage {
     private File file;
     private Ui ui;
+
+    /**
+     * Constructor for Storage that initializes the file and Ui, and creates the file if it does not exist.
+     *
+     * @param path The file path of the file to be read from.
+     */
     public Storage(String path) {
         this.file = new File(path);
 
@@ -30,6 +39,13 @@ public class Storage {
         this.ui = new Ui();
 
     }
+
+    /**
+     * Reads the tasks from the file and returns an ArrayList of tasks.
+     *
+     * @return An ArrayList of tasks read from the file.
+     * @throws FileException If the file is not found or is corrupted.
+     */
     public ArrayList<Task> readTask() throws FileException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         // Read tasks from file
@@ -82,6 +98,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the list of tasks to the data file.
+     *
+     * @param tasks The TaskList of tasks to be written to the file.
+     * @throws FileException If there is an error editing the file.
+     */
     public void writeTask(TaskList tasks) throws FileException {
         try (FileWriter fw = new FileWriter(this.file, false)) {
             for (int i = 0; i < tasks.size(); i++) {
