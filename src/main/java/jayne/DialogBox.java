@@ -1,31 +1,33 @@
 package jayne;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
-
-
-
+/**
+ * Represents a dialog box in a GUI application. This class is designed to display a message
+ * alongside an image, such as a user or character avatar. The dialog box can be customized
+ * to show the image on either the left or right side of the text message.
+ *
+ * This class extends {@link HBox}, using FXML to define its structure, which includes a label
+ * for text and an image view for displaying an avatar. It also features the ability to flip
+ * the layout of its content, allowing flexibility in how dialog is presented.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
-    //private ImageView displayPicture;
 
     @FXML
     private Label dialog;
@@ -58,7 +60,6 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

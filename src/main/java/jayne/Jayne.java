@@ -2,20 +2,14 @@ package jayne;
 
 import java.util.Objects;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import jayne.task.TaskList;
-
-
 
 /**
  * Represents the main class for the Jayne application.
@@ -50,7 +44,16 @@ public class Jayne {
         this.storage = new Storage(filepath);
         this.taskList = new TaskList(storage);
     }
-
+    /**
+     * Processes a user's input command, executes it, and returns a formatted response message.
+     * It checks for empty input, throwing a {@link JayneException} if found. On successful command
+     * execution, it prepends a customized greeting to the response. If the input indicates the end
+     * of the session, it updates the application state accordingly. Errors during processing are
+     * caught and returned as formatted error messages.
+     *
+     * @param input The user's command as a string.
+     * @return A greeting followed by the command's execution result, or an error message.
+     */
     public String run(String input) {
         Parser parser = new Parser(taskList);
         String msg = "";
@@ -82,49 +85,4 @@ public class Jayne {
         );
         userInput.clear();
     }
-
-
-
-    public void start(Stage stage) {
-
-//        sendButton.setOnMouseClicked((event) -> {
-//            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-//            userInput.clear();
-//        });
-//
-//        userInput.setOnAction((event) -> {
-//            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-//            System.out.println("Test");
-//            userInput.clear();
-//        });
-//
-//        //Scroll wheel automatically
-//        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-//
-//        sendButton.setOnMouseClicked((event) -> {
-//            handleUserInput();
-//        });
-//
-//        userInput.setOnAction((event) -> {
-//            handleUserInput();
-//            if (!isEnd) {
-//                stage.close();
-//            }
-//        });
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-//    @FXML
-//    private Label getDialogLabel(String text) {
-//        // You will need to import `javafx.scene.control.Label`.
-//        Label textToAdd = new Label(text);
-//        textToAdd.setWrapText(true);
-//
-//        return textToAdd;
-//    }
 }

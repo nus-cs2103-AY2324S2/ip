@@ -1,10 +1,10 @@
 package jayne.task;
 
-import jayne.JayneException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import jayne.JayneException;
 /**
  * Represents a task with a deadline.
  * It contains all the functionality of a task with the addition

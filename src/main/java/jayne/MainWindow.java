@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -30,7 +28,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/SnowieeCrop.png"));
     @FXML
     private Image jayneImage = new Image(this.getClass().getResourceAsStream("/images/Jayne.png"));
-
+    /**
+     * Initializes the UI components for the application. This method binds the scroll pane's
+     * vertical scroll property to the dialog container's height to ensure automatic scrolling
+     * as content increases. It also displays a starting message in the dialog container using
+     * a {@link DialogBox} with a predefined image.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

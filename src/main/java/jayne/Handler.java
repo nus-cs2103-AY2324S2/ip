@@ -100,9 +100,6 @@ public class Handler {
         }
         Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
         taskList.addTask(newDeadline);
-//        System.out.println(dash + "\nGot it. I've added this task:");
-//        System.out.println("  " + newDeadline);
-//        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
         return "Got it. I've added this task:\n"
                 + "  " + newDeadline
                 + "Now you have " + taskList.getTaskCount() + " tasks in the list.";
@@ -120,10 +117,6 @@ public class Handler {
         }
         Todo newTodo = new Todo(parts[1]);
         taskList.addTask(newTodo);
-//        System.out.println(dash + "\nGot it. I've added this task:");
-//        System.out.println("  " + newTodo);
-//        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"
-//                + dash);
         return "Got it. I've added this task:\n" + newTodo + "\nNow you have "
                 + taskList.getTaskCount() + " tasks in the list.";
     }
@@ -148,9 +141,6 @@ public class Handler {
         }
         Event newEvent = new Event(eventParts[0], times[0], times[1]);
         taskList.addTask(newEvent);
-//        System.out.println(dash + "\nGot it. I've added this task:");
-//        System.out.println("  " + newEvent);
-//        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
         return "Got it. I've added this task:\n"
                 + "  " + newEvent
                 + "\nNow you have " + taskList.getTaskCount() + " tasks in the list.";
@@ -182,9 +172,6 @@ public class Handler {
      * Prints bye
      */
     public static String handleBye() {
-//        System.out.println(dash);
-//        System.out.println("Bye. Hope to see you again soon!");
-//        System.out.println(dash);
         return "Bye. Hope to see you again soon!";
     }
     /**
