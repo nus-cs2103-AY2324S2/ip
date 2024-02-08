@@ -70,7 +70,9 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 Command command = Parser.parse(fullCommand);
+
                 command.execute(tasks, ui, storage);
+
                 isExit = command.isExit();
             } catch (DukeException dukeException) {
                 ui.showError(dukeException.getMessage());
