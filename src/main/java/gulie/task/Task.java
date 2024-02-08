@@ -44,12 +44,22 @@ public abstract class Task {
     }
 
     /**
+     * Returns true if the keyword is in this Task.
+     *
+     * @param keyword
+     * @return true if the keyword is in this Task
+     */
+    public boolean hasKeyword(String keyword) {
+        return name.contains(keyword);
+    }
+
+    /**
      * Generates a Task from a save string.
      * @param str
      * @return
      * @throws GulieException If the input string not follow the save format.
      */
-    public static Task fromSaveString(String str) throws GulieException {
+     public static Task fromSaveString(String str) throws GulieException {
         String[] spl = str.split("\t");
         if (!spl[1].equals("0") && !spl[1].equals("1")) {
             throw new GulieException("This task is corrupted.");
