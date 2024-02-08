@@ -1,5 +1,6 @@
+package Duke;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Event extends SpecialTask {
     String label = "[E]";

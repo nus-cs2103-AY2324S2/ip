@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package Duke;
 
 public class UI {
     /**
@@ -45,7 +45,8 @@ public class UI {
     public static void listMsg(String contents) {
         System.out.println("__________________________________\n" +
                 "Here are the tasks in your list:\n" +
-                contents);
+                contents +
+                "__________________________________\n");
     }
 
     public static void scheduledTaskMsg() {
