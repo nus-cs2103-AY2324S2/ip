@@ -13,8 +13,8 @@ public class Ui {
     }
 
     /**
-     * Print welcome message.
-     * @return welcomeMessage   String
+     * Returns welcome message to be printed to GUI.
+     * @return welcomeMessage   Welcome message to be printed.
      */
     public String printWelcomeMessage() {
         String logo = " ____        _        \n"
@@ -31,7 +31,8 @@ public class Ui {
     }
 
     /**
-     * Print exit message.
+     * Returns exit message to be printed to GUI.
+     * @return exitMessage  Exit message to be printed.
      */
     public String printExitMessage() {
         return "Bye. Hope to see you again soon!";
@@ -40,19 +41,20 @@ public class Ui {
     /**
      * Print error loading tasks from file.
      */
-    public String showLoadingError() {
-        return "File corrupted, unable to load saved tasks \nResetting list.............................";
+    public void showLoadingError() {
+        System.out.println("File corrupted, unable to load saved tasks \nResetting list.............................");
     }
 
     /**
      * Print a line.
      */
-    public String printLine() {
-        return Line;
+    public void printLine() {
+        System.out.println(Line);
     }
 
     /**
-     * Print task list message.
+     * Return task list string to be printed to GUI.
+     * @return taskList     Consolidated task list.
      */
     public String printTaskList(String tasks) {
         StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list:\n");
@@ -61,9 +63,10 @@ public class Ui {
     }
 
     /**
-     * Print task marked message.
+     * Return task marked message to be printed to GUI.
      *
      * @param taskString    String representation of task.
+     * @return markedTask   Information of successfully marked task.
      */
     public String printMarkTask(String taskString) {
         StringBuilder stringBuilder = new StringBuilder("Nice! I've marked this task as done:\n ");
@@ -72,9 +75,10 @@ public class Ui {
     }
 
     /**
-     * Print task unmarked message.
+     * Return task unmarked message to be printed to GUI.
      *
-     * @param taskString    String representation of task.
+     * @param taskString        String representation of task.
+     * @return unmarkedTask     Information of successfully unmarked task.
      */
     public String printUnmarkTask(String taskString) {
         StringBuilder stringBuilder = new StringBuilder("OK, I've marked this task as not done yet:\n ");
@@ -83,10 +87,11 @@ public class Ui {
     }
 
     /**
-     * Print add task message.
+     * Return add task message to be printed to GUI.
      *
      * @param taskString    String representation of task.
      * @param numOfTasks    Total number of tasks in list.
+     * @return addedTask    The newly added task and number of tasks in task list.
      */
     public String printAddTask(String taskString, int numOfTasks) {
         StringBuilder stringBuilder = new StringBuilder("Got it. I've added this task:\r\n ");
@@ -98,10 +103,11 @@ public class Ui {
     }
 
     /**
-     * Print delete task message.
+     * Return delete task message to be printed to GUI.
      *
      * @param taskString    String representation of task.
      * @param numOfTasks    Total number of tasks in list.
+     * @return deletedTask  The deleted task and number of tasks left in task list.
      */
     public String printDeleteTask(String taskString, int numOfTasks) {
         StringBuilder stringBuilder = new StringBuilder("Noted. I've removed this task:\r\n ");
@@ -113,7 +119,8 @@ public class Ui {
     }
 
     /**
-     * Print find task message.
+     * Return find task message to be printed to GUI.
+     * @return findTask     All tasks that contain/match input string.
      */
     public String printFindTask(String tasks) {
         StringBuilder stringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
@@ -122,9 +129,10 @@ public class Ui {
     }
 
     /**
-     * Print unknown command message.
+     * Return unknown command message to be printed to GUI.
      *
      * @param command   Input command string.
+     * @return unknownCommandString     Indicates that command entered is not a known command.
      */
     public String printUnknownCommandError(String command) {
         StringBuilder stringBuilder = new StringBuilder("Are you as clueless about \"");
@@ -134,9 +142,10 @@ public class Ui {
     }
 
     /**
-     * Print error message.
+     * Return error message to be printed to GUI.
      *
      * @param errorMessage      Error message string.
+     * @return errorMessage     Error message string.
      */
     public String printErrorMessage(String errorMessage) {
         return errorMessage;

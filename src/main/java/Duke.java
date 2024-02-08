@@ -125,7 +125,6 @@ public class Duke extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
     }
 
     /**
@@ -144,8 +143,10 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Get taskbot response to user input.
+     * @param input             User input string.
+     * @return response         Result of parsing the user input.
+     * @throws IOException      If there is errors with File I/O in storage.
      */
     public String getResponse(String input) throws IOException {
         Parser parser = new Parser();

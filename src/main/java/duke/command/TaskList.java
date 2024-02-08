@@ -31,6 +31,7 @@ public class TaskList {
 
     /**
      * Print all tasks in task list.
+     * @return allTasks     String of all tasks in the task list.
      */
     public String printTaskList() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -123,7 +124,8 @@ public class TaskList {
     /**
      * Print all matching tasks.
      *
-     * @param match     String to compare with task description.
+     * @param match                 String to compare with task description.
+     * @return allMatchingTasks     String of all tasks that contain/match the task description.
      */
     public String findMatchingTasks(String match) {
         StringBuilder stringBuilder = new StringBuilder();

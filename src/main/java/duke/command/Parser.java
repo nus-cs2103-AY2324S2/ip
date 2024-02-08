@@ -22,7 +22,7 @@ public class Parser {
      * @param storage           Storage instance.
      * @param taskList          TaskList instance.
      * @param ui                Ui instance.
-     * @return continue         Returns 0: exit program, -1: continue reading user input.
+     * @return uiString         Result of parsing user input.
      * @throws IOException      If storage to file is unsuccessful.
      */
     public String parseInput(String input, Storage storage, TaskList taskList, Ui ui) throws IOException {
