@@ -1,4 +1,4 @@
-package main.dav;
+package dav;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 class DeadlineTask extends Task {

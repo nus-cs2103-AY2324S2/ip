@@ -1,4 +1,4 @@
-package main.dav;
+package dav;
 class Task {
 
     protected String description;

@@ -1,4 +1,4 @@
-package main.dav;
+package dav;
 class TodoTask extends Task {
 
     public TodoTask(String description) {
