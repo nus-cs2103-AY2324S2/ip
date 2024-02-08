@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -20,20 +23,20 @@ public class Duke {
     public static void main(String[] args) {
         Duke duke = new Duke();
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                    + "|  _ \\ _   _| | _____ \n"
+                    + "| | | | | | | |/ / _ \\\n"
+                    + "| |_| | |_| |   <  __/\n"
+                    + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm CharmBot ");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-
+    
         Scanner scanner = new Scanner(System.in);
-      
-
         String command = scanner.nextLine();
+         // Initialize tasks list here
+    
         while (!command.equals("bye")) {
             System.out.println("____________________________________________________________");
             try {
@@ -81,33 +84,33 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    } else if (command.startsWith("deadline")) {
+                    } else if (command.startsWith("deadline ")) {
                         String[] parts = command.substring(9).split("/by");
-                        String description = parts[0].trim();
-                        String by = (parts.length > 1) ? parts[1].trim() : "";
-                        if (description.isEmpty() || by.isEmpty()) {
-                            throw new DukeException("The description and/or deadline of a deadline task cannot be empty.");
+                        if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                            throw new DukeException("Invalid command format. Please use 'deadline <description> /by <time in hhmm format>'. For example, 'deadline Finish project /by 1800'.");
                         }
-                        tasks.add(new DeadlineTask(description, by));
+                        String description = parts[0].trim();
+                        String by = parts[1].trim();
+                        LocalTime byTime = LocalTime.parse(by, DateTimeFormatter.ofPattern("HHmm"));
+                        tasks.add(new DeadlineTask(description, byTime));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    } else if (command.startsWith("event")) {
+                    } else if (command.startsWith("event ")) {
                         String[] parts = command.substring(6).split("/from");
-                        if (parts.length < 2) {
+                        if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
                             throw new DukeException("Invalid command format. Please use 'event <description> /from <start time> /to <end time>'.");
                         }
                         String description = parts[0].trim();
                         String[] eventParts = parts[1].split("/to");
-                        if (eventParts.length < 2) {
+                        if (eventParts.length != 2 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty()) {
                             throw new DukeException("Invalid command format. Please use 'event <description> /from <start time> /to <end time>'.");
                         }
                         String from = eventParts[0].trim();
                         String to = eventParts[1].trim();
-                        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                            throw new DukeException("The description and/or timing of an event task cannot be empty.");
-                        }
-                        tasks.add(new EventTask(description, from, to));
+                        LocalTime startTime = LocalTime.parse(from, DateTimeFormatter.ofPattern("HHmm"));
+                        LocalTime endTime = LocalTime.parse(to, DateTimeFormatter.ofPattern("HHmm"));
+                        tasks.add(new EventTask(description, startTime, endTime));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -126,12 +129,13 @@ public class Duke {
             command = scanner.nextLine();
         }
         duke.saveTasksToFile(tasks);
-        
-
+    
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
+    
+    
     private ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -156,21 +160,26 @@ public class Duke {
     private Task parseTaskFromString(String line) {
         String[] parts = line.split("\\|");
         String type = parts[0].trim();
-        boolean isDone = parts[1].trim().equals("X");
+        boolean isDone = parts[1].trim().equals("1"); // Assuming "1" represents task is done
         String description = parts[2].trim();
-        
+    
         switch (type) {
-            case "[D]":
+            case "D":
                 String by = parts[3].trim();
-                return new DeadlineTask(description, by);
-            case "[E]":
+                LocalTime byTime = LocalTime.parse(by, DateTimeFormatter.ofPattern("HHmm"));
+                return new DeadlineTask(description, byTime);
+            case "E":
                 String from = parts[3].trim();
                 String to = parts[4].trim();
-                return new EventTask(description, from, to);
+                LocalTime startTime = LocalTime.parse(from, DateTimeFormatter.ofPattern("HHmm"));
+                LocalTime endTime = LocalTime.parse(to, DateTimeFormatter.ofPattern("HHmm"));
+                return new EventTask(description, startTime, endTime);
             default:
                 return new ToDoTask(description);
         }
     }
+    
+    
     
 
     private  void saveTasksToFile(ArrayList<Task> tasks) {
@@ -233,41 +242,42 @@ class ToDoTask extends Task {
 }
 
 class DeadlineTask extends Task {
-    private String by;
 
-    public DeadlineTask(String description, String by) {
+    private LocalTime deadline;
+
+    public DeadlineTask(String description, LocalTime by) {
         super(description);
-        this.by = by;
+        this.deadline = by;
     }
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
     @Override
     public String toString() {
-        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + by + ")";
+        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " +deadline + ")";
     }
 }
 
 class EventTask extends Task {
-    private String from;
-    private String to;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, LocalTime startTime, LocalTime endTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startTime.format(DateTimeFormatter.ofPattern("HHmm")) + " | " + endTime.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
     @Override
     public String toString() {
-        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + startTime.format(DateTimeFormatter.ofPattern("HH:mm")) + " to: " + endTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
     }
 }
