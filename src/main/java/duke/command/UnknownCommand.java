@@ -14,4 +14,9 @@ public class UnknownCommand extends Command {
     public String execute() {
         return String.format("I'm sorry, but I don't know what \"%s\" means.\n", this.command);
     }
+
+    @Override
+    public String explain() {
+        return "Displays an error message for an unrecognized command.";
+    }
 }

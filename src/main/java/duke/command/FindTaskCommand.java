@@ -36,4 +36,11 @@ public class FindTaskCommand extends Command {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String explain() {
+        return "Finds tasks from the task list that match the search term.\n"
+                + "Format: find <search term>\n"
+                + "Example: find book";
+    }
 }

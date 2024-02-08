@@ -26,4 +26,11 @@ public class MarkTaskCommand extends Command {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String explain() {
+        return "Marks the task with the specified index as done.\n"
+                + "Format: mark <index>\n"
+                + "Example: mark 3";
+    }
 }

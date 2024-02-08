@@ -26,4 +26,11 @@ public class UnmarkTaskCommand extends Command {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String explain() {
+        return "Marks the task with the specified index as not done.\n"
+                + "Format: unmark <index>\n"
+                + "Example: unmark 3";
+    }
 }

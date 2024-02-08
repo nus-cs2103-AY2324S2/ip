@@ -36,6 +36,8 @@ public abstract class Command {
             return new DeleteTaskCommand(parser.parseTaskID());
         case FindTaskCommand.COMMAND_WORD:
             return new FindTaskCommand(parser.parseArguments());
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand(parser.parseArguments());
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
@@ -49,6 +51,13 @@ public abstract class Command {
      * @return the output of the command that will be printed to the user
      */
     public abstract String execute();
+
+    /**
+     * Explain the command to the user.
+     *
+     * @return the explanation of the command
+     */
+    public abstract String explain();
 
     /**
      * Checks if the command is a termination command.
