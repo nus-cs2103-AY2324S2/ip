@@ -2,9 +2,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class Duke {
     private static final int TASKS_MAX = 100;
@@ -127,7 +130,7 @@ public class Duke {
                     printDivider();
                     tasks.add(new Todo(tempString));
                     taskCount += 1;
-                    System.out.println("I've appended this to yer list: " + tasks.get(taskCount - 1).toString());
+                    System.out.println("I've appended this to yer list:\n" + tasks.get(taskCount - 1).toString());
                     printDivider();
                     break;
                 }
@@ -139,11 +142,11 @@ public class Duke {
                                 "Declare yer deadline as such: 'deadline * /by *', ye scurvy dog!");
                     }
                     String description = tempArray[0].trim();
-                    String by = tempArray[1].trim();
+                    LocalDateTime by = parseDate(tempArray[1].trim());
                     printDivider();
                     tasks.add(new Deadline(description, by));
                     taskCount += 1;
-                    System.out.println("I've appended this to yer list: " + tasks.get(taskCount - 1).toString());
+                    System.out.println("I've appended this to yer list:\n" + tasks.get(taskCount - 1).toString());
                     printDivider();
                     break;
                 }
@@ -161,12 +164,12 @@ public class Duke {
                         throw new IllegalArgumentException("Blunder! " +
                                 "Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
                     }
-                    String from = tempArray[0].trim();
-                    String to = tempArray[1].trim();
+                    LocalDateTime from = parseDate(tempArray[0].trim());
+                    LocalDateTime to = parseDate(tempArray[1].trim());
                     printDivider();
                     tasks.add(new Event(description, from, to));
                     taskCount += 1;
-                    System.out.println("I've appended this to yer list: " + tasks.get(taskCount - 1).toString());
+                    System.out.println("I've appended this to yer list:\n" + tasks.get(taskCount - 1).toString());
                     printDivider();
                     break;
                 }
@@ -222,7 +225,7 @@ public class Duke {
                                 throw new IllegalArgumentException("Line " + lineNum + ": Deadline does not have 4 data fields.");
                             }
 
-                            String deadlineBy = data[3].trim();
+                            LocalDateTime deadlineBy = parseDate(data[3].trim());
                             //TODO: Check if data is in yyyy-mm-dd format
                             Deadline deadline = new Deadline(taskDescription, deadlineBy);
 
@@ -244,8 +247,8 @@ public class Duke {
                                 throw new IllegalArgumentException("Line " + lineNum + ": Event does not have 5 data fields.");
                             }
 
-                            String eventFrom = data[3].trim();
-                            String eventTo = data[4].trim();
+                            LocalDateTime eventFrom = parseDate(data[3].trim());
+                            LocalDateTime eventTo = parseDate(data[4].trim());
                             //TODO: Check if data is in yyyy-mm-dd format
                             Event event = new Event(taskDescription, eventFrom, eventTo);
 
@@ -370,6 +373,26 @@ public class Duke {
             System.out.println("Error writing to file: " + FILE_PATH);
         }
     }
+
+    /**
+     * Helper function to convert date input into LocalDateTime to be passed to Task subclasses.
+     * @param input Date as a String.
+     * @return Returns LocalDateTime object.
+     * @throws IllegalArgumentException for date String not in the correct format.
+     */
+    private static LocalDateTime parseDate(String input) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        LocalDateTime time;
+        try {
+            time = LocalDateTime.parse(input, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Blunder! " +
+                    "The date format ye provided be as tangled as a ship's riggin'.\n" +
+                    "Write yer dates in the format dd/MM/yyyy HHmm or dd/MM/yyyy");
+        }
+        return time;
+    }
+
 }
 
 class ExitProgramException extends RuntimeException {
