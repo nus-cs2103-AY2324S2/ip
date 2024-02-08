@@ -37,7 +37,6 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
         dialog.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/RelaxedTypingMonoJP-Medium.ttf"), 13));
-        //dialog.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/Menlo.ttc") ,5));
         dialog.setText(text);
         displayPicture.setImage(img);
     }
