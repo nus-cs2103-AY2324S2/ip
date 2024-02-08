@@ -2,6 +2,8 @@ package jiayou.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import jiayou.JiayouException;
 import jiayou.Storage;
@@ -48,21 +50,30 @@ public class TaskList {
     /**
      * Deletes a new task from the task list.
      *
-     * @param input the task id of the task to be deleted.
+     * @param taskIds the task id(s) of the task(s) to be deleted.
      * @return a response message.
      */
-    public String deleteTask(String input) {
+    public String deleteTask(String ... taskIds) {
         String response = "";
+        List<Integer> idsToInt = new ArrayList<>();
         try {
-            int taskId = Integer.parseInt(input) - 1;
-            if (taskId < 0 || taskId >= tasks.size()) {
-                throw new JiayouException("OOPS!!! The task you wanna delete doesn't exist. "
-                        + "Please input a valid number!");
+            for (String taskId : taskIds) {
+                int idToInt = Integer.parseInt(taskId) - 1;
+                if (idToInt < 0 || idToInt >= tasks.size()) {
+                    throw new JiayouException("OOPS!!! The task you wanna delete doesn't exist. "
+                            + "Please input a valid number!");
+                }
+                idsToInt.add(idToInt);
+                }
+
+            Collections.sort(idsToInt, Collections.reverseOrder());
+            response += ">w<Noted. I've removed task(s):\n";
+
+            for (int idToInt : idsToInt) {
+                Task removedTask = tasks.remove(idToInt);
+                response += ("  " + removedTask + "\n");
             }
-            Task removedTask = tasks.remove(taskId);
-            response += ">w<Noted. I've removed this task:\n";
-            response += ("  " + removedTask + "\n");
-            response += ("Now you have " + tasks.size() + " tasks in the list.\n");
+            response += ("Now you have " + tasks.size() + " task(s) in the list.\n");
             updateStorage();
         } catch (NumberFormatException e) {
             System.out.println("OOPS!!! Please enter a valid task number!");

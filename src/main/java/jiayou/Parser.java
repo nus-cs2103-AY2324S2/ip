@@ -57,7 +57,8 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to delete. "
                             + "Please add the index after the keyword delete!");
                 } else {
-                    response = tasks.deleteTask(content);
+                    String[] taskIds = content.split(" ");
+                    response = tasks.deleteTask(taskIds);
                     break;
                 }
             case TODO:
