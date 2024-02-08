@@ -5,7 +5,25 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.Ui;
 
+/**
+ * Lists all tasks in the task list.
+ */
 public class ListCommand extends Command {
+
+    /**
+     * Constructs a new {@code ListCommand}.
+     *
+     * Lists all tasks in the task list.
+     */
+    public ListCommand() {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Lists all tasks in the task list.
+     * Displays a message to the user if there are no tasks in the list.
+     */
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

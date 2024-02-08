@@ -11,13 +11,27 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class is responsible for loading and saving tasks to a file.
+ */
 public class Storage {
     private static String filePath;
 
+    /**
+     * Creates a new {@code Storage} object with the given file path.
+     *
+     * @param filePath The file path of the tasks file.
+     */
     public Storage(String filePath) {
         Storage.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the tasks file.
+     *
+     * @return An {@code ArrayList} of {@code Task} objects representing the loaded tasks.
+     * @throws DukeException If the tasks file cannot be found.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filePath);
@@ -35,6 +49,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the given {@code TaskList} to the tasks file.
+     *
+     * @param tasks The {@code TaskList} to save.
+     */
     public void save(TaskList tasks) {
         try (FileWriter writer = new FileWriter(filePath)) {
             int size = tasks.size();
@@ -46,6 +65,13 @@ public class Storage {
             System.out.println("Error saving file: " + e.getMessage());
         }
     }
+
+    /**
+     * Creates a {@code Task} object from a line of text in the tasks file.
+     *
+     * @param line The line of text to parse.
+     * @return A {@code Task} object, or {@code null} if the line is invalid.
+     */
     private static Task createTaskFromLine(String line) {
         Task t = null;
         String[] parts = line.split("\\|");

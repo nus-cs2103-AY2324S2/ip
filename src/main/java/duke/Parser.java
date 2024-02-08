@@ -6,8 +6,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Parser} class is responsible for parsing user input and converting it into a {@code Command} object.
+ */
 public class Parser {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
+
+    /**
+     * Parses a user input string into a {@code Command} object.
+     *
+     * @param str The user input string.
+     * @return A {@code Command} object representing the user's command.
+     * @throws DukeException If the user input is invalid.
+     */
     public static Command parse(String str) throws DukeException {
         String[] arr = str.split(" ");
         if (arr[0].equals("bye")) {
@@ -60,11 +71,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the index of a task from a user input string.
+     *
+     * @param arr The user input string, split into an array of strings.
+     * @return The index of the task, as an integer.
+     */
     private static int getIndex(String[] arr) {
         int index = Integer.parseInt(arr[1]);
         return index - 1;
     }
 
+    /**
+     * Extracts the description of a task from a user input string.
+     *
+     * @param arr The user input string, split into an array of strings.
+     * @return The description of the task, as a string.
+     */
     private static String getDescripition(String[] arr) {
         StringBuilder s = new StringBuilder();
         for (int i = 1; i < arr.length; i++) {

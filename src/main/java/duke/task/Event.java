@@ -3,9 +3,27 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An {@code Event} is a type of {@code Task} with a start and end time.
+ */
 public class Event extends Task {
+    /**
+     * The start time of the {@code Event}.
+     */
     protected LocalDateTime from;
+
+    /**
+     * The end time of the {@code Event}.
+     */
     protected LocalDateTime to;
+
+    /**
+     * Creates a new {@code Event} with the given description, start time, and end time.
+     *
+     * @param description The description of the {@code Event}.
+     * @param from The start time of the {@code Event}.
+     * @param to The end time of the {@code Event}.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
