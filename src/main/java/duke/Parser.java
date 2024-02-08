@@ -47,7 +47,7 @@ public class Parser {
     }
 
     /**
-     * Returns the index of the taskList to mark as done
+     * Returns the index of the taskList to mark as done.
      * @param cmd
      * @return int index
      */
@@ -56,7 +56,7 @@ public class Parser {
     }
 
     /**
-     * Returns the index of the taskList to mark as undone
+     * Returns the index of the taskList to mark as undone.
      * @param cmd
      * @return int index
      */
@@ -65,7 +65,7 @@ public class Parser {
     }
 
     /**
-     * Returns the index of the taskList to delete
+     * Returns the index of the taskList to delete.
      * @param cmd
      * @return int index
      */
@@ -74,7 +74,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description after "todo"
+     * Returns the String of the description after "todo".
      * @param cmd
      * @return String desc
      */
@@ -83,7 +83,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description after "todo" with no beginning empty space
+     * Returns the String of the description after "todo" with no beginning empty space.
      * @param cmd
      * @return String desc
      */
@@ -92,7 +92,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description and date-time after "deadline"
+     * Returns the String of the description and date-time after "deadline".
      * @param cmd
      * @return String desc and date-time
      */
@@ -101,7 +101,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description and date-time after "deadline" with no beginning empty space
+     * Returns the String of the description and date-time after "deadline" with no beginning empty space.
      * @param cmd
      * @return String desc and date-time
      */
@@ -110,7 +110,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description after "deadline" with no beginning empty space
+     * Returns the String of the description after "deadline" with no beginning empty space.
      * @param cmd
      * @return String desc
      */
@@ -120,7 +120,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description and duration after "event"
+     * Returns the String of the description and duration after "event".
      * @param cmd
      * @return String desc and duration
      */
@@ -129,7 +129,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the description and duration after "event" with no beginning empty space
+     * Returns the String of the description and duration after "event" with no beginning empty space.
      * @param cmd
      * @return String desc and duration
      */
@@ -145,7 +145,7 @@ public class Parser {
     }
 
     /**
-     * Returns the String of the date-time after "deadline" with no beginning empty space
+     * Returns the String of the date-time after "deadline" with no beginning empty space.
      * @param cmd
      * @return String date-time
      */

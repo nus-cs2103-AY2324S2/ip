@@ -6,21 +6,31 @@ import exceptions.DukeTaskNoDescException;
  * Handles the interactions with the user.
  */
 public class Ui {
+
+    /**
+     * Prints a welcome message.
+     */
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Jojo :)");
     }
 
+    /**
+     * Prints the starting prompt.
+     */
     public void showStartingQn() {
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Prints break lines to show end of a command.
+     */
     public void breakLines() {
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------");
     }
 
     /**
-     * Prints a list of tasks
+     * Prints a list of tasks.
      * @param tl
      */
     public void printList(duke.TaskList tl) {
@@ -32,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Prints the task when marked as done
+     * Prints the task when marked as done.
      * @param tl
      * @throws DukeException when the task is invalid
      */
@@ -48,7 +58,7 @@ public class Ui {
     }
 
     /**
-     * Prints the task when marked as undone
+     * Prints the task when marked as undone.
      * @param tl
      * @throws DukeException when the task is invalid
      */
@@ -64,7 +74,7 @@ public class Ui {
     }
 
     /**
-     * Prints the task when deleted
+     * Prints the task when deleted.
      * @param tl
      * @throws DukeException when the task is invalid
      */
@@ -81,7 +91,7 @@ public class Ui {
     }
 
     /**
-     * Prints the todo when created
+     * Prints the todo when created.
      * @param tl
      * @throws DukeException when the todo is invalid
      */
@@ -99,7 +109,7 @@ public class Ui {
     }
 
     /**
-     * Prints the deadline when created
+     * Prints the deadline when created.
      * @param tl
      * @throws DukeException when the deadline is invalid
      */
@@ -118,7 +128,7 @@ public class Ui {
     }
 
     /**
-     * Prints the event when created
+     * Prints the event when created.
      * @param tl
      * @throws DukeException when the event is invalid
      */
@@ -136,10 +146,16 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints an exit message.
+     */
     public void showExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints an error message when the file does not load correctly.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }

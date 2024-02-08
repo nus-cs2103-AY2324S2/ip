@@ -29,6 +29,7 @@ public class Deadline extends duke.Task {
     public String simpleToString() {
         return "D " + super.simpleToString() + " | " + this.formattedDeadline();
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.formattedDeadline() + ")";
