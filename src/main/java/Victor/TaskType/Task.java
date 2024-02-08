@@ -82,5 +82,19 @@ public class Task {
     public String saveInput() {
         return "";
     }
+
+    /**
+     * The descriptionContains method is used to determine whether
+     * a task description contains the wordSearch. It is used for
+     * the findTask method in the TaskList.
+     *
+     * @param wordSearch A string which would be used to check if
+     *                   the description contains it.
+     * @return A boolean would be return to indicate whether
+     * the wordSearch is found inside the description.
+     */
+    public boolean descriptionContains(String wordSearch) {
+        return this.description.contains(wordSearch);
+    }
 }
 

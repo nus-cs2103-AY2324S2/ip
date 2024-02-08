@@ -213,6 +213,20 @@ public class Parser {
                 ui.displayBarrier();
             }
         }
+        case "find" -> {
+            try {
+                ui.displayBarrier();
+                System.out.println("Here are the matching tasks in your list:");
+                currentTasks.findTask(inputList[1]);
+                ui.displayBarrier();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.displayBarrier();
+                System.out.println("Sorry, you didn't add anything after the keyword find.");
+                System.out.println("I'm gonna need you to indicate what you want to search for "
+                        + "in the list. Thanks");
+                ui.displayBarrier();
+            }
+        }
         }
     }
 }

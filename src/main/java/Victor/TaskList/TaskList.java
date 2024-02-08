@@ -103,4 +103,20 @@ public class TaskList {
     public int getSize() {
         return currentTaskLists.size();
     }
+
+    /**
+     * Search each of the tasks in the currentTaskLists ArrayList,
+     * then display any tasks that contains the wordSearch variable
+     * within the description.
+     *
+     * @param wordSearch A string which would be used to check if
+     *                   the description contains it.
+     */
+    public void findTask(String wordSearch) {
+        for (Task task : currentTaskLists) {
+            if (task.descriptionContains(wordSearch)) {
+                System.out.println(task.toString());
+            }
+        }
+    }
 }
