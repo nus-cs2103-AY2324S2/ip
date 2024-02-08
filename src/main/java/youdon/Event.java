@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected LocalDateTime start;
-    protected LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
@@ -22,6 +22,7 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTimeStart = this.start.format(formatter);
         String formattedDateTimeEnd = this.end.format(formatter);
-        return "[" + this.getTypeIcon() + "][" + this.getStatusIcon() + "] " + this.description + "(from: " + formattedDateTimeStart + " to: " + formattedDateTimeEnd + ")";
+        return "[" + this.getTypeIcon() + "][" + this.getStatusIcon() + "] " + this.description
+                + "(from: " + formattedDateTimeStart + " to: " + formattedDateTimeEnd + ")";
     }
 }

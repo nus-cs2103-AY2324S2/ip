@@ -1,8 +1,8 @@
 package youdon;
 
 public class Ui {
-
     private final String DIVIDER_LINE = "----------------------------------------------------------------";
+
     public Ui() {
 
     }
@@ -31,33 +31,33 @@ public class Ui {
         System.out.println(DIVIDER_LINE);
     }
 
-    public void printTaskList(TaskList taskList) {
+    public void printTaskList(TaskList tasks) {
         System.out.println(DIVIDER_LINE);
         System.out.println("Here are your tasks:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i).toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
         System.out.println(DIVIDER_LINE);
     }
 
-    public void printMarkMsg(TaskList taskList, int taskNumber) {
+    public void printMarkMsg(TaskList tasks, int taskNumber) {
         System.out.println(DIVIDER_LINE);
         System.out.println("Nicely done! The task has been marked as done:");
-        System.out.println("  " + taskList.get(taskNumber - 1).toString());
+        System.out.println("  " + tasks.get(taskNumber - 1).toString());
         System.out.println(DIVIDER_LINE);
     }
 
-    public void printUnmarkMsg(TaskList taskList, int taskNumber) {
+    public void printUnmarkMsg(TaskList tasks, int taskNumber) {
         System.out.println(DIVIDER_LINE);
         System.out.println("Okies! The task has been marked as undone:");
-        System.out.println("  " + taskList.get(taskNumber - 1).toString());
+        System.out.println("  " + tasks.get(taskNumber - 1).toString());
         System.out.println(DIVIDER_LINE);
     }
 
-    public void printDeleteMsg(TaskList taskList, int taskNumber) {
+    public void printDeleteMsg(TaskList tasks, int taskNumber) {
         System.out.println(DIVIDER_LINE);
         System.out.println("Alright! The task has been deleted:");
-        System.out.println("  " + taskList.get(taskNumber - 1).toString());
+        System.out.println("  " + tasks.get(taskNumber - 1).toString());
         System.out.println(DIVIDER_LINE);
     }
 
