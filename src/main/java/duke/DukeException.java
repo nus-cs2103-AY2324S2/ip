@@ -9,15 +9,12 @@ public class DukeException extends RuntimeException {
     /**
      * Exception message template for when creating a task with an empty description.
      */
-    public static final String NON_EMPTY_DESC =
-            "The description of a %s cannot be empty!";
+    public static final String NON_EMPTY_DESC = "The description of a %s cannot be empty!";
 
     /**
      * Exception message template for an unknown command.
-     * Used when the chatbot encounters an unrecognized command.
      */
-    public static final String UNKNOWN_CMD =
-            "I'm sorry, but I don't know what %s means :-(";
+    public static final String UNKNOWN_CMD = "I'm sorry, but I don't know what %s means :-(";
 
     /**
      * Constructs a DukeException with a formatted error message.

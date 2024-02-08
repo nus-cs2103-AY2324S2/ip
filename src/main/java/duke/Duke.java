@@ -16,18 +16,9 @@ public class Duke {
      * The file path to load and save task data.
      */
     private static final String DEFAULT_PATH = "./data/data.txt";
-    /**
-     * Keywords to terminate the Duke chatbot.
-     */
-    private static final String[] terminateKeywords = {"bye", "BYE", "Bye"};
-    /**
-     * List of keywords that trigger the termination of the Duke chatbot.
-     */
-    private static final List<String> exitProgramme = Arrays.asList(terminateKeywords);
 
     private Storage storage;
     private TaskList tasks;
-
 
     /**
      * Constructs a Duke instance with a specified file path for task data.
@@ -49,19 +40,21 @@ public class Duke {
     public void run() {
         // programme start
         Ui.greet();
-        Scanner input = new Scanner(System.in);
-        String[] currInput = input.nextLine().split(" ", 2);
+        String input = Parser.getUserInput();
+        boolean isExit = Parser.isExit(input);
 
         // programme
-        while (!exitProgramme.contains(currInput[0])) {
+        while (!isExit) {
             try {
-                Command cmd = Parser.parse(currInput, this.tasks);
+                Command cmd = Parser.parse(input, this.tasks);
                 cmd.execute();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {
                 System.out.println(Ui.LINE);
-                currInput = input.nextLine().split(" ", 2);
+                // prompt and get next input
+                input = Parser.getUserInput();
+                isExit = Parser.isExit(input);
             }
         }
 
@@ -84,14 +77,6 @@ public class Duke {
      */
     public String getResponse(String input) {
         String[] currInput = input.split(" ", 2);
-        if (!exitProgramme.contains(currInput[0])) {
-            try {
-                Command cmd = Parser.parse(currInput, this.tasks);
-                String response = cmd.execute();
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
         return "Duke heard: " + input;
     }
 
