@@ -15,10 +15,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private VBox dialogContainer;
+
     @FXML
     private TextField userInput;
+
     @FXML
     private Button sendButton;
 
@@ -27,24 +30,36 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Displays a greeting message when the MainWindow is initialised.
+     */
     private void sayHi() {
         String greetingMessage = "\nHello! I'm myChats\n" + "What can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingMessage, dukeImage));
     }
 
+    /**
+     * Initialises the MainWindow controller.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         sayHi();
     }
 
+    /**
+     * Sets the Duke object for the MainWindow controller.
+     *
+     * @param d Duke object to be set.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * the reply and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

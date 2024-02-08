@@ -2,13 +2,6 @@ package duke.main;
 import duke.command.Command;
 import duke.exception.DukeException;
 
-import javafx.scene.Scene;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-
 /**
  * Represents the main class for the chat application.
  */
@@ -16,38 +9,33 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
     private static final String filePath = "data/duke.txt";
-    private boolean exited = false;
+    private boolean isExit = false;
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input.
      */
     String getResponse(String input) {
-        if (!exited) {
+        if (!isExit) {
             try {
                 ui.repeat();
                 Command c = Parser.parse(input);
                 c.execute(tasks, ui, storage);
-                exited = c.isExit();
+                isExit = c.isExit();
                 return ui.getAnswer();
             } catch (DukeException e) {
                 return e.getMessage();
             }
-        }
-        else {
+        } else {
             return "";
         }
-
     }
 
-
     /**
-     * Constructs a Duke instance with the given file path to store tasks.
+     * Constructs a Duke object.
+     * Initialises the storage, user interface and task list.
+     *
+     * @throws DukeException If there is an error loading the task list from storage.
      */
     Duke() {
         storage = new Storage(filePath);
@@ -60,4 +48,3 @@ public class Duke {
         }
     }
 }
-

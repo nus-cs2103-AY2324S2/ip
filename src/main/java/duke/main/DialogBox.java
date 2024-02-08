@@ -1,35 +1,40 @@
 package duke.main;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import java.io.IOException;
+import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.layout.Region;
-
-
-import java.io.IOException;
-import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import javafx.geometry.Pos;
+
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.Node;
+
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents a dialog box in the GUI.
  */
 public class DialogBox extends HBox {
 
     @FXML
     private Label dialog;
+
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with the given text and image.
+     *
+     * @param text Text content of the dialog box.
+     * @param img Image to be displayed in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -39,7 +44,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
@@ -55,10 +59,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates and returns a user dialog box with the given text and image.
+     *
+     * @param text Text content of the user dialog.
+     * @param img Image to be displayed for the user dialog.
+     * @return DialogBox representing the user dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a flipped dialog box with the given text and image.
+     *
+     * @param text Text content of dialog.
+     * @param img Image to be displayed for dialog.
+     * @return DialogBox representing dialog.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

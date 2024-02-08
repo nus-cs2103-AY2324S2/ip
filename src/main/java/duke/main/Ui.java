@@ -17,16 +17,26 @@ public class Ui {
     private StringBuilder answer;
 
     /**
-     * Constructs a Ui instance with a Scanner for user input.
+     * Constructs a Ui instance.
+     * Initialises the answer StringBuilder used for displaying messages to the user.
      */
     public Ui() {
         answer = new StringBuilder();
     }
 
+    /**
+     * Clears the content stored in the answer StringBuilder.
+     * Resets the answer StringBuilder to an empty state.
+     */
     void repeat() {
         answer.setLength(0);
     }
 
+    /**
+     * Retrieves content stored in the answer StringBuilder.
+     *
+     * @return Content of the answer StringBuilder as a string.
+     */
     String getAnswer() {
         return answer.toString();
     }
@@ -40,7 +50,7 @@ public class Ui {
 
     /**
      * Displays the current list of items with their respective indexes,
-     * skipping null or uninitialized elements in the list.
+     * skipping null or uninitialised elements in the list.
      *
      * @param tasks ArrayList of tasks to be displayed.
      */
@@ -155,6 +165,11 @@ public class Ui {
         answer.append("\nLoading error: " + message);
     }
 
+    /**
+     * Appends the given message to the answer StringBuilder.
+     *
+     * @param message Message to be appended to the screen.
+     */
     public void printToScreen(String message) {
         answer.append(message);
     }
