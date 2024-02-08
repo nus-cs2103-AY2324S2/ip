@@ -7,6 +7,9 @@ import ui.Ui;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * main chatbot class
+ */
 public class Jux {
     private Storage storage;
     private TaskList tasks;
@@ -21,6 +24,10 @@ public class Jux {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the program when user runs the file
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
 

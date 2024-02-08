@@ -13,10 +13,20 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    /**
+     * Toggles whether the task has been done
+     * @return String for UI
+     */
     public String toggleIsDone() {
         isDone = !isDone;
         return getStatusIcon();
     }
+
+    /**
+     * Saves the task in the storage as a String
+     * @return string format of task to store
+     */
     public String saveStorage() {
         String storageIsDone = "0";
         if (isDone) {

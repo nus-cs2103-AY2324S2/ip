@@ -21,7 +21,7 @@ public class Storage {
      * Creates the file or parent directory
      * if it does not exist
      *
-     * @param filepath
+     * @param filepath the filepath
      */
     public Storage (String filepath) {
         this.filepath = filepath;
@@ -45,7 +45,7 @@ public class Storage {
      * Scans the file for the Tasks
      * Adds the tasks as their respective subtasks to an array list
      * @return ArrayList<Task> that contains the tasks in the file
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file not found
      */
     public ArrayList<Task> load() throws FileNotFoundException{
         ArrayList<Task> list = new ArrayList<>();
@@ -79,7 +79,7 @@ public class Storage {
 
     /**
      * Writes the whole task list to the file
-     * @param list
+     * @param list task list
      */
     public void saveFile (ArrayList<Task> list) {
         String toSave = "";
