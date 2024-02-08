@@ -155,6 +155,23 @@ public class Parser {
                 System.out.println(error.getMessage());
                 System.out.println(LINE);
             }
+        } else if (message.startsWith("find")) {
+            try {
+                if (message.equals("find")) {
+                    throw new UnivusException("OOPS!!! Please indicate the keyword.");
+                } else {
+                    String keyword = message.split(" ")[1];
+                    TaskList searchingResult = taskList.find(keyword);
+                    System.out.println(LINE);
+                    System.out.println(" Here are the matching tasks in your list:");
+                    searchingResult.list();
+                    System.out.println(LINE);
+                }
+            } catch (UnivusException error) {
+                System.out.println(LINE);
+                System.out.println(error.getMessage());
+                System.out.println(LINE);
+            }
         } else {
             try {
                 throw new UnivusException("OOPS!!! I'm sorry, but I don't know what that means...");
