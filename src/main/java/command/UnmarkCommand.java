@@ -5,13 +5,27 @@ import duke.TaskList;
 import duke.DukeException;
 import duke.Task;
 
+/**
+ * Represents a command that marks a task as unfinished
+ */
 public class UnmarkCommand extends Command {
     private final int num;
 
+    /**
+     * Constructs a new unMarkCommand.
+     *
+     * @param num The index of the task that is to be marked unfinished
+     */
     public UnmarkCommand(int num) {
         this.num = num;
     }
 
+    /**
+     * Judges if 2 commands are unmarking the same indexed command.
+     *
+     * @param other Another command
+     * @return True if 2 commands are unmarking the same indexed task
+     */
     @Override
     public boolean equals(Object other) {
         if (other instanceof UnmarkCommand) {
@@ -20,6 +34,13 @@ public class UnmarkCommand extends Command {
         return false;
     }
 
+    /**
+     * Marks one task as unfinished. Rewrite the corresponding part in the file.
+     *
+     * @param storage Involved in file management
+     * @param taskList Active during the execution of the program
+     * @throws DukeException
+     */
     @Override
     public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);

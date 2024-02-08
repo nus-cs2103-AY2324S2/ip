@@ -8,9 +8,18 @@ import duke.Todo;
 import duke.Event;
 import duke.TaskList;
 
+
+/**
+ * Represents a command that adds a new task to the tasklist and inserts it in the storage file
+ */
 public class AddTaskCommand extends Command {
     private final String prompt;
 
+    /**
+     * Constructs a new command that creates a task.
+     *
+     * @param prompt Adjusted by the Parser
+     */
     public AddTaskCommand(String prompt) {
         this.prompt = prompt;
     }
@@ -51,6 +60,12 @@ public class AddTaskCommand extends Command {
         }
     }
 
+    /**
+     * Judges if 2 commands are adding the same task.
+     *
+     * @param other Another command
+     * @return True if 2 are of the same prompt
+     */
     @Override
     public boolean equals(Object other) {
         if (other instanceof AddTaskCommand) {
@@ -59,6 +74,13 @@ public class AddTaskCommand extends Command {
         return false;
     }
 
+    /**
+     * Adds a new task to the taskList and write it into the file.
+     *
+     * @param storage Involved in file management
+     * @param taskList Active during the execution of the program
+     * @throws DukeException
+     */
     @Override
     public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = createTask();
