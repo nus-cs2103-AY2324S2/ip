@@ -25,7 +25,6 @@ public class TaskList {
         this.taskList = existing.taskList;
     }
 
-    // duke.TaskList actions
     /**
      * Adds a task to the TaskList.
      *
@@ -48,7 +47,6 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("there isn't an available task to delete.");
         }
-
     }
 
     /**

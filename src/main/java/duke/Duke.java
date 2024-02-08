@@ -35,7 +35,7 @@ public class Duke {
      */
     public void run() {
         // programme start
-        Ui.greet();
+        System.out.println(Ui.LINE + Ui.greet() + Ui.LINE);
         String input = Parser.getUserInput();
         boolean isExit = Parser.isExit(input);
 

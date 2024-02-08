@@ -24,7 +24,6 @@ public class Ui {
      */
     public static String greet() {
         String greeting = "   Yee-haw! I'm Woody.\n" + "   What can I do for you?\n";
-        System.out.println(LINE + greeting + LINE);
         return greeting;
     }
 
