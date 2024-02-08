@@ -129,14 +129,5 @@ public class RochinGUI extends Application {
         return "Rochin heard: " + input;
     }
 
-    private void sendMessage() {
-        String userInput = inputField.getText().trim();
-        displayMessage("> " + userInput);
-        rochinOOP.processUserInput(userInput);
-        userInput.clear();
-    }
 
-    private void displayMessage(String message) {
-        chatArea.appendText(message + "\n");
-    }
 }
