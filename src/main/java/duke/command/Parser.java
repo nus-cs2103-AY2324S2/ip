@@ -145,6 +145,20 @@ public class Parser {
 
                 return -1;
 
+            case "find":
+                try {
+                    if (command[1].matches("")) {
+                        throw new DukeException("Invalid input, missing search term");
+                    }
+
+                    ui.printFindTask();
+                    taskList.findMatchingTasks(command[1].strip());
+                } catch (DukeException de) {
+                    ui.printErrorMessage(de.getErrorMessage());
+                }
+
+                return -1;
+
             default:
                 ui.printUnknowCommandError(command[0]);
                 return -1;

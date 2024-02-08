@@ -122,8 +122,10 @@ public class Storage {
 
             if (i == (num - 1)) {
                 bw.write(updated + System.lineSeparator());
-            } else {
+            } else if (i != size - 1) {
                 bw.write(currentLine + System.lineSeparator());
+            } else {
+                bw.write(currentLine);
             }
         }
 
