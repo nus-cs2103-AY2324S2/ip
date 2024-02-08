@@ -12,8 +12,6 @@ import haro.task.Event;
 import haro.task.Task;
 import haro.task.ToDo;
 
-
-
 /**
  * The Storage class manages the reading and saving of task data to a text file.
  * It loads tasks from a specific text file and saves it back to the same file.
