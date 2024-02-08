@@ -1,7 +1,15 @@
 package alastor.task;
 
+/**
+ * Represents a ToDo task.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Constructs a ToDo task.
+     *
+     * @param description The description of the task.
+     */
     public ToDo(String description) {
         super(description);
     }

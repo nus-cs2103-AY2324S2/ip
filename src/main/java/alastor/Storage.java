@@ -9,16 +9,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage object that handles the loading and saving of tasks to a file.
+ */
 public class Storage {
 
     protected String filePath;
     protected File storageFile;
 
+    /**
+     * Constructs a storage object with the specified file path.
+     *
+     * @param filePath The file path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.storageFile = new File(filePath);
     }
 
+    /**
+     * Loads the tasks from the storage file.
+     *
+     * @return The list of tasks loaded from the storage file.
+     * @throws AlastorException If an error occurs while loading the tasks from the storage file.
+     */
     public ArrayList<Task> load() throws AlastorException {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -54,6 +68,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the specified task to the storage file.
+     *
+     * @param task The task to be saved to the storage file.
+     * @throws AlastorException If an error occurs while saving the task to the storage file.
+     */
     public void saveAdd(Task task) throws AlastorException {
         try {
             FileWriter writer = new FileWriter(this.filePath, true);
@@ -64,6 +84,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the storage file with the specified list of tasks.
+     *
+     * @param tasks The list of tasks to be saved to the storage file.
+     * @throws AlastorException If an error occurs while rewriting the storage file with the list of tasks.
+     */
     public void saveRewrite(TaskList tasks) throws AlastorException {
         try {
             FileWriter writer = new FileWriter(this.filePath);
