@@ -17,8 +17,6 @@ import jayne.task.Todo;
  * It acts as a bridge between the user interface and the data model.
  */
 public class Handler {
-
-    private static final String dash = "___________________________________";
     /**
      * Handles the deletion of a task from the task list.
      *

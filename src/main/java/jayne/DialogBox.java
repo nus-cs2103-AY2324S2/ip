@@ -48,7 +48,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         circle.setFill(new ImagePattern(img));
-        //displayPicture.setImage(img);
     }
 
     /**

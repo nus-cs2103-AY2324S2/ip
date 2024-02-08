@@ -42,8 +42,6 @@ public class TaskList {
      * @param keyword the keyword to search for in task descriptions.
      */
     public String findTask(String keyword) {
-        //System.out.println("____________________________________________________________");
-        //System.out.println("Here are the matching tasks in your list:");
         int count = 0;
         String output = "";
         for (int i = 0; i < taskArray.size(); i++) {
@@ -57,7 +55,6 @@ public class TaskList {
         }
 
         return "Here are the matching tasks in your list:\n" + output;
-        //System.out.println("____________________________________________________________");
     }
 
     /**
@@ -124,7 +121,6 @@ public class TaskList {
      * Displays all tasks in the task list to the user.
      */
     public String display() {
-        //System.out.println("Here are the tasks in your list:");
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskArray.size(); i++) {
             output.append(i + 1).append(". ").append(taskArray.get(i).toString()).append("\n");
