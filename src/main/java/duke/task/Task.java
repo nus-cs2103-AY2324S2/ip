@@ -78,22 +78,22 @@ public abstract class Task {
     }
 
     /**
-     * Marks a task as done.
+     * Returns string of marks a task as done.
+     * @return string of action.
      */
-    public void markDone() {
+    public String markDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this);
+        return "Nice! I've marked this task as done:\n" + this.toString();
     }
 
 
     /**
-     * Marks a task as undone.
+     * Returns string of marks a task as not done.
+     * @return string of action.
      */
-    public void markUndone() {
+    public String markUndone() {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet");
-        System.out.println(this);
+        return "OK, I've marked this task as not done yet\n" + this.toString();
     }
 
 

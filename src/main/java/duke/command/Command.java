@@ -18,6 +18,16 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
+     * Return command string.
+     *
+     * @param tasks List of tasks.
+     * @param ui Ui of ai chatbot.
+     * @param storage External storage in hard disk.
+     * @return command string.
+     */
+    public abstract String getExecuteMessage(TaskList tasks, Ui ui, Storage storage);
+
+    /**
      * Returns false to indicate that user is still in this chatbot.
      *
      * @return false to indicate that user still in chatroom.

@@ -4,6 +4,20 @@ import duke.helpers.Parser;
 import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 
 /**
  * Duke class
@@ -12,6 +26,12 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/corgi.jpg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/golden_retriever.jpg"));
 
     /**
      * Constructor of Duke.
@@ -40,7 +60,8 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        new Duke().startChat();
+    public String getResponse(String userInput) {
+        Command command = Parser.parse(userInput);
+        return command.getExecuteMessage(tasks, ui, storage);
     }
 }
