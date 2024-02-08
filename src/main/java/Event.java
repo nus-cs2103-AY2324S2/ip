@@ -1,15 +1,26 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private final static DateTimeFormatter INPUTFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final static DateTimeFormatter OUTPUTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     public Event(String d, int s, String st, String et) {
         super(d, s);
-        this.startTime = LocalDateTime.parse(st, this.inputFormat);
-        this.endTime = LocalDateTime.parse(et, this.inputFormat);
+        this.startTime = LocalDateTime.parse(st, INPUTFORMAT);
+        this.endTime = LocalDateTime.parse(et, INPUTFORMAT);
+    }
+
+    public static Event createEvent(String description, int status, String start, String end) {
+        try {
+            LocalDateTime starttime = LocalDateTime.parse(start, INPUTFORMAT);
+            LocalDateTime endtime = LocalDateTime.parse(end, INPUTFORMAT);
+            return new Event(description, status, start, end);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 
     public String getTime() {
@@ -19,20 +30,13 @@ public class Event extends Task {
     }
 
     public String getStartTime() {
-        return this.startTime.format(this.outputFormat);
+        return this.startTime.format(OUTPUTFORMAT);
     }
 
     public String getEndTime() {
-        return this.endTime.format(this.outputFormat);
+        return this.endTime.format(OUTPUTFORMAT);
     }
 
-    //public String getStartTime() {
-    //    return "\tstarting: " + this.starttime;
-    //}
-
-    //public String getEndTime() {
-    //    return "\tending: " + this.endtime;
-    //}
 
     @Override
     public String statusMessage() {
@@ -47,8 +51,8 @@ public class Event extends Task {
     public String saveFormat() {
         return Integer.toString(this.getStatus())
                 + "," + this.getDesc()
-                + "," + this.startTime.format(this.inputFormat)
-                + "," + this.endTime.format(this.inputFormat);
+                + "," + this.startTime.format(INPUTFORMAT)
+                + "," + this.endTime.format(INPUTFORMAT);
     }
 
     @Override
