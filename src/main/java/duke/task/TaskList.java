@@ -59,8 +59,14 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
-    public static void findTaskByKeyword(String keyword) {
-        
+    public static ArrayList<Task> findTaskByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.getTaskName().contains(keyword)) {
+                matchingTasks.add(t);
+            }
+        }
+        return matchingTasks;
     }
 
     public static void printTaskList() {
