@@ -76,8 +76,16 @@ public class Duke {
      * Runs the Duke chatbot in GUI.
      */
     public String getResponse(String input) {
-        String[] currInput = input.split(" ", 2);
-        return "Duke heard: " + input;
+        try {
+            if (Parser.isExit(input)) {
+                javafx.application.Platform.exit();
+            }
+            Command cmd = Parser.parse(input, this.tasks);
+            String response = cmd.execute();
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 
 }
