@@ -7,8 +7,8 @@ import duke.storage.TaskList;
 
 
 /**
- * The UI class handles interactions with the user through the command-line interface.
- * It displays greetings, goodbyes, and processes user input to perform various tasks.
+ * The Responses class handles interactions with the user through the command-line interface.
+ * It provides methods to display greetings, goodbyes, process user input, and perform various tasks.
  */
 public class Responses {
     private static final String lines = "    ____________________________________________________________";
@@ -17,15 +17,18 @@ public class Responses {
     private final TaskList taskList;
 
     /**
-     * Constructs a UI object and initializes the associated TaskList.
+     * Constructs a Responses object and initializes the associated TaskList.
      */
     public Responses() {
         this.taskList = new TaskList();
         Storage.start(taskList);
     }
 
+
     /**
-     * Displays a greeting message when the Duke program starts.
+     * Returns a greeting message when the Duke program starts.
+     *
+     * @return A string containing the greeting message.
      */
     public static String greeting() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -37,7 +40,9 @@ public class Responses {
     }
 
     /**
-     * Displays a goodbye message when the Duke program ends.
+     * Returns a goodbye message when the Duke program ends.
+     *
+     * @return A string containing the goodbye message.
      */
     public static String goodbye() {
         return "    Bye. Hope to see you again soon!";
@@ -48,6 +53,7 @@ public class Responses {
      * Adds a task to the TaskList and displays a confirmation message.
      *
      * @param task The task to be added.
+     * @return A string containing the confirmation message.
      */
     public String addItem(Task task) {
         this.taskList.add(task);
@@ -59,6 +65,7 @@ public class Responses {
      * Marks a task as done and displays a confirmation message.
      *
      * @param input The index of the task to be marked as done.
+     * @return A string containing the confirmation message.
      * @throws ListOutofBoundsException If the provided index is out of bounds.
      */
     public String markTaskUI(int input) throws ListOutofBoundsException {
@@ -75,6 +82,7 @@ public class Responses {
      * Marks a task as not done and displays a confirmation message.
      *
      * @param input The index of the task to be marked as not done.
+     * @return A string containing the confirmation message.
      * @throws ListOutofBoundsException If the provided index is out of bounds.
      */
     public String unMarkTask(int input) throws ListOutofBoundsException {
@@ -88,9 +96,10 @@ public class Responses {
     }
 
     /**
-     * Removes a task from the TaskList and displays a confirmation message.
+     * Removes a task from the TaskList and returns a confirmation message.
      *
      * @param input The index of the task to be removed.
+     * @return A string containing the confirmation message.
      * @throws ListOutofBoundsException If the provided index is out of bounds.
      */
     public String removeTask(int input) throws ListOutofBoundsException {
@@ -109,16 +118,17 @@ public class Responses {
     }
 
     /**
-     * Prints the tasks matching the specified key using the taskList's find method
+     * Returns the tasks matching the specified key using the taskList's find method
      *
      * @param key The keyword or item to search for in the tasks.
+     * @return A string containing the tasks matching the specified key.
      */
     public String findTaskUI(String key) {
         return this.taskList.find(key);
     }
 
     /**
-     * Displays the list of tasks in the TaskList.
+     * Returns the list of tasks in the TaskList.
      */
     public String listItems() {
         return taskList.toString();
@@ -126,7 +136,7 @@ public class Responses {
 
 
     /**
-     * Displays an error message.
+     * Returns an error message.
      *
      * @param error The error message to be displayed.
      */

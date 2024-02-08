@@ -15,6 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 
+/**
+ * Represents a custom dialog box component for displaying messages in a JavaFX application.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
@@ -24,6 +27,12 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
 
+    /**
+     * Constructs a new DialogBox with the given text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -48,10 +57,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates and returns a dialog box for user input with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     * @return A DialogBox instance representing the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+
+    /**
+     * Creates and returns a dialog box for Duke's response with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be displayed in the dialog box.
+     * @return A DialogBox instance representing Duke's response.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
