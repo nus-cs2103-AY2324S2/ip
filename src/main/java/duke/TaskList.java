@@ -25,7 +25,6 @@ public class TaskList {
         for (int i = 1; i < taskList.size() + 1; i++) {
             System.out.println(i + ". " + taskList.get(i - 1).toString());
         }
-
     }
     /**
      * Adds task to the task list.

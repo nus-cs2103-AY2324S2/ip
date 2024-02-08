@@ -65,7 +65,7 @@ public class Task {
             }
         }
 
-        throw new IllegalArgumentException("Unable to parse the date string using any of the specified patterns.");
+        throw new IllegalArgumentException("Try writing the date in this format: M/d/yyyy HHmm");
     }
     /**
      * Convert the LocalDate object to a string in a particular format
