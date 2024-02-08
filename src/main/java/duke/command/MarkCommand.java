@@ -37,14 +37,19 @@ public class MarkCommand extends Command {
             String out = tL.mark(noArr);
             ui.showMessage(out);
             st.write(tL.getList());
+            setOut(out);
         } catch (IndexOutOfBoundsException e) {
             ui.showMessage("No task number " + inputs[1]);
+            setOut("No task number " + inputs[1]);
         } catch (NumberFormatException e) {
             ui.showMessage("The task number given is not a number");
+            setOut("The task number given is not a number");
         } catch (CommandFormatException e) {
             ui.showMessage("The command format for mark is mark number (e.g.: mark 1)");
+            setOut("The command format for mark is mark number (e.g.: mark 1)");
         } catch (IOException e) {
             ui.showMessage("Save failed");
+            setOut("Save failed");
         }
     }
 
