@@ -1,7 +1,14 @@
 public class list_Entry {
-    public static final String TYPE_TODO = "[T]";
-    public static final String TYPE_DEADLINE = "[D]";
-    public static final String TYPE_EVENT = "[E]";
+    public static final String TYPE_TODO = "T";
+    public static final String TYPE_DEADLINE = "D";
+    public static final String TYPE_EVENT = "E";
+
+    public enum taskType {
+        T,
+        D,
+        E,
+
+    }
 
 
     protected String task;
@@ -36,7 +43,7 @@ public class list_Entry {
     }
     @Override
     public String toString() {
-        return (this.type + (this.check ? "[X] " : "[ ] ") + this.task);
+        return ("[" + this.type + "]" + (this.check ? "[X] " : "[ ] ") + this.task);
     }
 }
 

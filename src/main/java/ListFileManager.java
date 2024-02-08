@@ -97,8 +97,24 @@ public class ListFileManager {
             while (br.ready()) {
                 String str = br.readLine();
                 String [] words = str.split(",", 5);
-                System.out.println(str);
-                loadList.add(new list_Entry());
+
+                list_Entry temp;
+              switch (list_Entry.taskType.valueOf(words[0])) {
+                  case T:
+                      temp = new list_Entry_Todo(words[2],(words[1].equals("true")));
+                      break;
+                  case D:
+                      temp = new list_Entry_Deadline(words[2],(words[1].equals("true")),words[4]);
+                      break;
+                  case E:
+                      temp = new list_Entry_Event(words[2],(words[1].equals("true")),words[3], words[4]);
+                      break;
+                  default:
+                      temp = null;
+                      System.out.println("ERROR: " + str);
+                      break;
+              }
+                loadList.add(temp);
             }
             br.close();
         } catch (IOException e) {
