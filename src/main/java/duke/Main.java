@@ -24,16 +24,23 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            // Load the FXML file for MainWindow
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
+            // Get the controller and set Duke
+            MainWindow mainWindow = fxmlLoader.getController();
+            Duke duke = new Duke();
+            mainWindow.setDuke(duke);
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
 
 

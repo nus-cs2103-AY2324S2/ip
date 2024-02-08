@@ -3,124 +3,104 @@ package duke;
 import java.util.ArrayList;
 
 /**
- * Represents the user interface of the application.
+ * Represents the user interface of the application for GUI.
  */
 public class Ui {
 
     /**
-     * Prints the welcome message.
+     * Returns the welcome message.
      */
-    public void showWelcomeMessage() {
-        printSeparator();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        printSeparator();
+    public String showWelcomeMessage() {
+        return "Hello! I'm Duke\nWhat can I do for you?";
     }
 
     /**
-     * Prints the goodbye message.
+     * Returns the goodbye message.
      */
-    public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printSeparator();
+    public String showGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints the task added message.
+     * Returns the task added message.
      *
      * @param task The task that was added.
      * @param taskCount The number of tasks in the list.
+     * @return A message indicating the task was added.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        printSeparator();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printSeparator();
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n  " + task
+                + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Prints the task deleted message.
+     * Returns the task deleted message.
      *
      * @param task The task that was deleted.
      * @param taskCount The number of tasks in the list.
+     * @return A message indicating the task was deleted.
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        printSeparator();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printSeparator();
+    public String showTaskDeleted(Task task, int taskCount) {
+        return "Noted. I've removed this task:\n  " + task
+                + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Prints the task list.
+     * Returns the task list.
      *
      * @param tasks The list of tasks.
+     * @return A string representation of the task list.
      * @throws DukeException If the task list is empty.
      */
-    public void showTaskList(TaskList tasks) throws DukeException {
-        printSeparator();
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList(TaskList tasks) throws DukeException {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            sb.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
         }
-        printSeparator();
+        return sb.toString();
     }
 
     /**
-     * Prints the task marked as done message.
+     * Returns the task marked as done message.
      *
      * @param task The task that was marked as done.
+     * @return A message indicating the task was marked as done.
      */
-    public void showMarkTask(Task task) {
-        printSeparator();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-        printSeparator();
+    public String showMarkTask(Task task) {
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 
     /**
-     * Prints the task marked as not done message.
+     * Returns the task marked as not done message.
      *
      * @param task The task that was marked as not done.
+     * @return A message indicating the task was marked as not done.
      */
-    public void showUnmarkTask(Task task) {
-        printSeparator();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-        printSeparator();
+    public String showUnmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n  " + task;
     }
 
     /**
-     * Prints the error message.
+     * Returns the error message.
      *
      * @param message The error message.
+     * @return The error message.
      */
-    public void showError(String message) {
-        printSeparator();
-        System.out.println("ERROR: " + message);
-        printSeparator();
+    public String showError(String message) {
+        return "ERROR: " + message;
     }
 
     /**
-     * Displays the list of tasks found by the search.
+     * Returns the list of tasks found by the search.
      *
      * @param tasks The list of tasks that match the search.
+     * @return A string representation of the found tasks.
      */
-    public void showFoundTasks(ArrayList<Task> tasks) {
-        printSeparator();
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFoundTasks(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        printSeparator();
-    }
-
-    /**
-     * Prints the separator.
-     */
-    public void printSeparator() {
-        System.out.println("____________________________________________________________");
+        return sb.toString();
     }
 }

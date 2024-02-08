@@ -35,7 +35,7 @@ public class Duke {
             String command = scanner.nextLine().trim();
 
             try {
-                Parser.parseAndExecute(command, tasks, ui, storage);
+                Parser.parseAndExecute(command, tasks, storage);
                 isExit = command.equals("bye");
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -61,6 +61,10 @@ public class Duke {
      * @return The response from Duke.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return Parser.parseAndExecute(input, tasks, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }
