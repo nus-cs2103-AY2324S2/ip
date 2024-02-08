@@ -1,16 +1,16 @@
 package haro.task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
 
 /**
  * The Deadline class represents a task with a specific deadline in the application, extending the Task class.
  * It provides specific functionality for handling tasks with deadlines.
  */
 public class Deadline extends Task {
-    String deadline;
-    LocalDate deadlineDate;
+    private String deadline;
+    private LocalDate deadlineDate;
 
     /**
      * Constructs a Deadline instance with the specified task description and deadline.

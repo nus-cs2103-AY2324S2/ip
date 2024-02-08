@@ -1,11 +1,10 @@
 package haro.command;
 
-import haro.exception.InvalidArgsException;
-
 import haro.Storage;
-import haro.task.Task;
 import haro.TaskList;
 import haro.Ui;
+import haro.exception.InvalidArgsException;
+import haro.task.Task;
 
 /**
  * The MarkCommand class represents a command to mark a task as done in the TaskList.
@@ -25,7 +24,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the command by marking the specified task as done in the TaskList and displaying a corresponding message.
+     * Executes the command by marking the specified task as done in the TaskList and
+     * displaying a corresponding message.
      *
      * @param taskList TaskList to be modified by the command
      * @param ui       Ui for displaying messages related to command execution

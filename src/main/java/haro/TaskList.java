@@ -1,9 +1,10 @@
 package haro;
 
+import java.util.ArrayList;
+
 import haro.exception.InvalidArgsException;
 import haro.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * The TaskList class manages a list of tasks, providing methods for adding, marking, unMarking and deleting tasks.
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
+    private String horizontalLine = "______________________________________________\n";
 
     /**
      * Constructs an empty TaskList.
@@ -26,7 +28,6 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
-    private String horizontalLine = "______________________________________________\n";
 
     /**
      * Converts tasks in the TaskList to a formatted string.
@@ -68,9 +69,7 @@ public class TaskList {
     public Task markTask(int index) throws InvalidArgsException {
         if (index >= tasks.size()) {
             throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
-        }
-
-        else if (index < 0) {
+        } else if (index < 0) {
             throw new InvalidArgsException("Please input a positive task number!\n");
         }
 
@@ -89,9 +88,7 @@ public class TaskList {
     public Task unmarkTask(int index) throws InvalidArgsException {
         if (index >= tasks.size()) {
             throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
-        }
-
-        else if (index < 0) {
+        } else if (index < 0) {
             throw new InvalidArgsException("Please input a positive task number!\n");
         }
 
@@ -110,9 +107,7 @@ public class TaskList {
     public Task deleteTask(int index) throws InvalidArgsException {
         if (index >= tasks.size()) {
             throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
-        }
-
-        else if (index < 0) {
+        } else if (index < 0) {
             throw new InvalidArgsException("Please input a positive task number!\n");
         }
 

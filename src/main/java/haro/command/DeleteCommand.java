@@ -1,11 +1,10 @@
 package haro.command;
 
 import haro.Storage;
-import haro.task.Task;
 import haro.TaskList;
 import haro.Ui;
-
 import haro.exception.InvalidArgsException;
+import haro.task.Task;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the TaskList.

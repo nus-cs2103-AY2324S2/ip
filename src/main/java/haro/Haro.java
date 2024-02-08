@@ -42,8 +42,8 @@ public class Haro {
         haroUi.greet();
         boolean isExit = false;
 
-        while(!isExit) {
-            try{
+        while (!isExit) {
+            try {
                 String fullCommand = haroUi.readCommand();
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(taskList, haroUi, haroStorage);

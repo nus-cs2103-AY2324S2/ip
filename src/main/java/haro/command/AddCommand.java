@@ -1,9 +1,9 @@
 package haro.command;
 
 import haro.Storage;
-import haro.task.Task;
 import haro.TaskList;
 import haro.Ui;
+import haro.task.Task;
 
 /**
  * The AddCommand class represents a command to add a task to the TaskList.
