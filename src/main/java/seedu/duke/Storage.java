@@ -11,17 +11,28 @@ import java.io.ObjectOutputStream;
 
 import java.util.ArrayList;
 
+/**
+ * Represents <code>Storage</code> logic to save and load past
+ * task lists from prior user input
+ */
 public class Storage {
-    String filepath;
+    private String filepath;
 
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads the saved TaskList into the application from the path provided.
+     * @return ArrayList<Task> containing the saved <code>TaskList</code>
+     * @throws DukeException in the event of an Exception
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> list = new ArrayList<>();
         // Load tasks from file
-        // Solution below inspired by https://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file-and-read-load-that-file-to-the
+        // Solution below inspired by:
+        // https://stackoverflow.com/questions/16111496/java-how-can-i-write-my-arraylist-to-a-file
+        // -and-read-load-that-file-to-the
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filepath))) {
             list = (ArrayList<Task>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
@@ -45,6 +56,10 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the modified TaskList into the application from the path provided.
+     * @param list Contains the <code>TaskList</code> to be saved
+     */
     public void saveList(ArrayList<Task> list) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath))) {
             oos.writeObject(list);
