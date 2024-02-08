@@ -28,7 +28,7 @@ public class Task {
     /**
      * Unmarks the task as done by setting the completion status to false.
      */
-    public void unmarkAsDone() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
@@ -37,8 +37,8 @@ public class Task {
      *
      * @return A string representing the task's completion status.
      */
-    public String getStatusNumber() {
-        return (isDone ? "1" : "0"); // Use "1" for done, "0" for not done
+    public Integer getStatusNumber() {
+        return (isDone ? 1 : 0); // Use "1" for done, "0" for not done
     }
 
     /**

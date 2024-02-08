@@ -58,7 +58,9 @@ public class Parser {
             case BYE:
                 return new ExitCommand();
             case TODO:
+                // Fallthrough
             case DEADLINE:
+                // Fallthrough
             case EVENT:
                 return new AddCommand();
             case FIND:

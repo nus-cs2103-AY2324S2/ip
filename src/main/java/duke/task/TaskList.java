@@ -65,10 +65,10 @@ public class TaskList {
      * @param index The index of the task to be unmarked, 1-based.
      * @return The task that was unmarked, or null if the index is invalid.
      */
-    public Task unmarkTask(int index) {
+    public Task unmarkTaskDone(int index) {
         if (isValidIndex(index)) {
             Task task = this.tasks.get(index - 1); // Adjust for 0-based indexing
-            task.unmarkAsDone();
+            task.markAsNotDone();
             return task;
         }
         return null;
@@ -90,10 +90,10 @@ public class TaskList {
     /**
      * Checks if the given index is a valid index for accessing tasks in the TaskList.
      *
-     * @param index The index to be validated, 1-based.
+     * @param taskNum The index to be validated, 1-based.
      * @return True if the index is valid, false otherwise.
      */
-    private boolean isValidIndex(int index) {
-        return index >= 1 && index <= this.tasks.size();
+    private boolean isValidIndex(int taskNum) {
+        return taskNum >= 1 && taskNum <= this.tasks.size();
     }
 }

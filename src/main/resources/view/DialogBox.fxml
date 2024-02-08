@@ -12,12 +12,12 @@
     <children>
         <Label fx:id="dialog" text="arial" wrapText="true">
             <font>
-                <Font name="Arial" size="13.0" />
+                <Font name="Arial" size="12.0" />
             </font>
         </Label>
         <ImageView fx:id="displayPicture" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
             <clip>
-                <Circle radius="30" centerX="30" centerY="30" />
+                <Circle radius="28" centerX="28" centerY="28" />
             </clip>
             <HBox.margin>
                 <Insets left="10.0"/>

@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, String userInput) throws DukeException {
         int taskIndex = Parser.extractTaskIndex(userInput);
-        Task task = taskList.unmarkTask(taskIndex);
+        Task task = taskList.unmarkTaskDone(taskIndex);
         if (task != null) {
             ui.showTaskUndone(task);
         } else {
