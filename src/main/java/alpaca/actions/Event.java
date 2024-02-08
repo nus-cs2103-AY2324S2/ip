@@ -28,9 +28,14 @@ public abstract class Event extends Template {
      * @throws InvalidInput                   If the information following the
      *                                        command is not comprehesible
      **/
-    public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
-        if (isTrigger(input, trigger)) throw new ValueNotFound("You need to provide a value for event");
-        if (!isTriggerPrefix(input, trigger)) return false;
+    public static Boolean run(String input, ArrayList<Task> list)
+            throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
+        if (isTrigger(input, trigger)) {
+            throw new ValueNotFound("You need to provide a value for event");
+        }
+        if (!isTriggerPrefix(input, trigger)) {
+            return false;
+        }
         Task task = new alpaca.tasks.Event(removePrefix(input, trigger));
         list.add(task);
         System.out.println("Got it. I've added this task:");

@@ -7,6 +7,7 @@ import alpaca.tasks.Task;
 import alpaca.actions.Deadline;
 import alpaca.actions.Delete;
 import alpaca.actions.Event;
+import alpaca.actions.Find;
 import alpaca.actions.Mark;
 import alpaca.actions.ToDo;
 import alpaca.actions.Unmark;
@@ -60,22 +61,25 @@ public class Ui {
             list();
         } else {
             trying : try {
-                if (Mark.run(input, list)) {
-                    break trying;
-                }
-                if (Unmark.run(input, list)) {
-                    break trying;
-                }
                 if (Deadline.run(input, list)) {
+                    break trying;
+                }
+                if (Delete.run(input, list)) {
                     break trying;
                 }
                 if (Event.run(input, list)) {
                     break trying;
                 }
+                if (Find.run(input, list)) {
+                    break trying;
+                }
+                if (Mark.run(input, list)) {
+                    break trying;
+                }
                 if (ToDo.run(input, list)) {
                     break trying;
                 }
-                if (Delete.run(input, list)) {
+                if (Unmark.run(input, list)) {
                     break trying;
                 }
                 System.out.println("Me no understand :(");
