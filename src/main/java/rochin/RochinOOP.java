@@ -637,7 +637,7 @@ public class RochinOOP {
          * Create new tasks according to the data in the file.
          *
          * @param fileLine data from the file.
-         * @return new task.
+         * @return new task
          */
         public Task createTaskFromFileString(String fileLine) throws RochinException {
             String[] parts = fileLine.split("\\s*\\|\\s*");
