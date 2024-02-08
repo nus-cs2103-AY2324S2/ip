@@ -66,6 +66,11 @@ public class Dude {
                         Task removedTask = tasks.remove(index);
                         ui.showDelete(removedTask);
                         break;
+                    case FIND:
+                        String keyword = cmd.info;
+                        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                        ui.showTaskList(matchingTasks);
+                        break;
                     case TODO:
                         ToDo todo = new ToDo(cmd.info);
                         tasks.add(todo);
@@ -314,6 +319,11 @@ class Ui {
     }
 
     public void showTaskList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No Tasks to show.");
+            return;
+        }
+
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
@@ -332,7 +342,8 @@ enum Actions {
     DEADLINE,
     TODO,
     LIST,
-    BYE
+    BYE,
+    FIND
 }
 
 class Command {
@@ -368,6 +379,10 @@ class Command {
         }
         if (input.startsWith("delete ")) {
             return new Command(Actions.DELETE);
+        }
+
+        if (input.startsWith("find ")) {
+            return new Command(Actions.FIND, input.substring(5).trim());
         }
 
         String[] parts = input.split(" ", 2);
@@ -432,5 +447,12 @@ class TaskList {
         return tasks;
     }
 
-    // Other methods to manage tasks...
-}
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }}
