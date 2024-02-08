@@ -13,7 +13,7 @@ public class Event extends Task {
         this.startTime = Task.parse(startTime);
         this.endTime = Task.parse(endTime);
         if (!this.startTime.isBefore(this.endTime)) {
-            throw new DukeException("    Oops! It seems the event ends before it starts!");
+            throw new DukeException("Oops! It seems the event ends before it starts!");
         }
     }
 
@@ -27,7 +27,9 @@ public class Event extends Task {
     @Override
     boolean matchDate(LocalDate localDate) {
         return startTime.toLocalDate().equals(localDate) ||
-                endTime.toLocalDate().equals(localDate);
+                endTime.toLocalDate().equals(localDate) ||
+                (startTime.toLocalDate().isBefore(localDate) &&
+                        endTime.toLocalDate().isAfter(localDate));
     }
 
     @Override

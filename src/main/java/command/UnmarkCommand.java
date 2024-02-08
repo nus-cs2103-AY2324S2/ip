@@ -13,6 +13,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other instanceof UnmarkCommand) {
+            return ((UnmarkCommand) other).num == num;
+        }
+        return false;
+    }
+
+    @Override
     public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);
         if (!task.isDone()) {

@@ -13,6 +13,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other instanceof DeleteCommand) {
+            return ((DeleteCommand) other).num == num;
+        }
+        return false;
+    }
+
+    @Override
     public void execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.remove(num);
         System.out.println("Noted. I've removed this task:");

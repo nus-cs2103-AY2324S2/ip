@@ -10,19 +10,19 @@ import java.util.List;
 abstract public class Task {
     private static final List<String> dateFormats = List.of(
             "yyyy-MM-dd",
+            "yyyy-M-d",
             "dd-MM-yyyy",
             "yyyy-MM-d",
             "d-MM-yyyy",
             "d/MM/yyyy",
             "dd/MM/yyyy",
             "yyyy/MM/dd",
-            "yyyy/MM/d",
-            "MMM d yyyy",
-            "MMM dd yyyy"
+            "yyyy/MM/d"
     );
 
     private static final List<String> timeFormats = List.of(
             "HH[:mm[:ss[.SSS]]]",
+            "H[:mm[:ss[.SSS]]]",
             "HH[mm[ss]]",
             "hh[:mm[:ss]] a",
             "h[:mm[:ss]] a",
@@ -69,7 +69,7 @@ abstract public class Task {
                 }
             }
         }
-        throw new DukeException("    Oops! Unable to extract time from the prompt!\n");
+        throw new DukeException("Oops! Unable to extract time from the prompt!");
     }
 
     public static LocalDate parseDate(String string) throws DukeException {
@@ -81,7 +81,7 @@ abstract public class Task {
                 continue;
             }
         }
-        throw new DukeException("    Oops! Cannot understand the input date!");
+        throw new DukeException("Oops! Cannot understand the input date!");
     }
 
     boolean matchDate(LocalDate localDate) {
