@@ -1,6 +1,5 @@
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,97 +12,93 @@ import java.time.format.DateTimeFormatter;
 public class Dude {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Loading tasks from file...");
-        ArrayList<Task> tasks = TaskStorage.loadTasksFromFile();
-        System.out.println("Loaded " + tasks.size() + " tasks from file.");
-        System.out.println("Hello! I'm Duddde");
-        System.out.println("What can I do for you?");
+        TaskList tasks;
+        try {
+            tasks = new TaskList(TaskStorage.loadTasksFromFile());
+        } catch (IOException e) {
+            tasks = new TaskList(new ArrayList<>());
+        }
+        Ui ui = new Ui();
+        ui.showMessage("Loaded " + tasks.size() + " tasks from file.");
+        ui.showWelcome();
 
         while (true) {
             try {
                 String input = scanner.nextLine();
-                System.out.println(input);
+                Command cmd = Parser.getCommand(input);
+                int index;
 
-                if (input.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i));
-                    }
-                } else if (input.startsWith("done ")) {
-                    int index = Integer.parseInt(input.substring(5));
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new IndexOutOfBoundsException("Task number does not exist.");
-                    }
-                    tasks.get(index).markAsDone();
-                    TaskStorage.saveTasksToFile(tasks);
-                    System.out.println("Marked as done: " + tasks.get(index));
-                } else if (input.startsWith("undo ")) {
-                    int index = Integer.parseInt(input.substring(5));
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new IndexOutOfBoundsException("Task number does not exist.");
-                    }
-                    tasks.get(index).markAsNotDone();
-                    TaskStorage.saveTasksToFile(tasks);
-                    System.out.println("Marked as not done: " + tasks.get(index));
-                } else if (input.startsWith("delete ")) {
-                    int index = Integer.parseInt(input.substring(7));
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new IndexOutOfBoundsException("Task number does not exist.");
-                    }
-                    Task removedTask = tasks.remove(index);
-                    TaskStorage.saveTasksToFile(tasks);
-                    System.out.println("Deleted: " + removedTask);
+                switch (cmd.action){
+                    case BYE:
+                        ui.showGoodbye();
+                        scanner.close();
+                        break;
+                    case LIST:
+                        ui.showTaskList(tasks.toArrayList());
+                        break;
+                    case DONE:
+                        index = Parser.getDoneIndex(input);
 
-                } else {
-                    String[] parts = input.split(" ", 2);
-                    String command = parts[0];
-                    String taskInfo = parts.length > 1 ? parts[1] : "";
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new IndexOutOfBoundsException("Task number does not exist.");
+                        }
+                        tasks.get(index).markAsDone();
+                        ui.showDone(tasks.get(index));
+                        break;
+                    case UNDONE:
+                        index = Parser.getDoneIndex(input);
 
-                    switch (command.toLowerCase()) {
-                        case "todo":
-                            tasks.add(new ToDo(taskInfo));
-                            System.out.println("Added ToDo: " + taskInfo);
-                            break;
-                        case "deadline":
-                            if (!taskInfo.contains(" /by ")) {
-                                throw new IllegalArgumentException(
-                                        "Invalid deadline format. Use '/by' to specify the deadline.");
-                            }
-                            String[] deadlineParts = taskInfo.split(" /by ", 2);
-                            tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
-                            System.out.println("Added Deadline: " + deadlineParts[0]);
-                            break;
-                        case "event":
-                            if (!taskInfo.contains(" /from ") || !taskInfo.contains(" /to ")) {
-                                throw new IllegalArgumentException(
-                                        "Invalid event format. Use '/from' and '/to' to specify the event times.");
-                            }
-                            String[] eventParts = taskInfo.split(" /from ", 2);
-                            String[] eventTimes = eventParts[1].split(" /to ", 2);
-                            tasks.add(new Event(eventParts[0], eventTimes[0], eventTimes[1]));
-                            System.out.println("Added Event: " + eventParts[0]);
-                            break;
-                        default:
-                            System.out.println("Unknown command");
-                            break;
-
-                    }
-                    TaskStorage.saveTasksToFile(tasks);
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new IndexOutOfBoundsException("Task number does not exist.");
+                        }
+                        tasks.get(index).markAsNotDone();
+                        ui.showUndone(tasks.get(index));
+                    case DELETE:
+                        index = Parser.getDeleteIndex(input);
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new IndexOutOfBoundsException("Task number does not exist.");
+                        }
+                        Task removedTask = tasks.remove(index);
+                        ui.showDelete(removedTask);
+                        break;
+                    case TODO:
+                        ToDo todo = new ToDo(cmd.info);
+                        tasks.add(todo);
+                        ui.showAddTask(todo);
+                        break;
+                    case DEADLINE:
+                        if (!cmd.info.contains(" /by ")) {
+                            throw new IllegalArgumentException(
+                                    "Invalid deadline format. Use '/by' to specify the deadline.");
+                        }
+                        String[] deadlineParts = cmd.info.split(" /by ", 2);
+                        Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                        tasks.add(deadline);
+                        ui.showAddTask(deadline);
+                        break;
+                    case EVENT:
+                        if (!cmd.info.contains(" /from ") || !cmd.info.contains(" /to ")) {
+                            throw new IllegalArgumentException(
+                                    "Invalid event format. Use '/from' and '/to' to specify the event times.");
+                        }
+                        String[] eventParts = cmd.info.split(" /from ", 2);
+                        String[] eventTimes = eventParts[1].split(" /to ", 2);
+                        Event newEvent = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+                        tasks.add(newEvent);
+                        ui.showAddTask(newEvent);
+                        break;
                 }
+
+                TaskStorage.saveTasksToFile(tasks.toArrayList());
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a valid task number.");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                ui.showError("Please enter a valid task number.");
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                ui.showError(e.getMessage());
             } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
+                ui.showError("An unexpected error occurred: " + e.getMessage());
             }
         }
 
-        scanner.close();
     }
 }
 
@@ -194,33 +189,29 @@ class Event extends Task {
 class TaskStorage {
     public static final String FILE_NAME = "tasks.txt";
 
-    public static void saveTasksToFile(ArrayList<Task> tasks) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (Task task : tasks) {
-                String taskString = taskToFileString(task);
-                if (!taskString.isEmpty()) {
-                    bufferedWriter.write(taskString);
-                    bufferedWriter.newLine();
-                }
+    public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME));
+        for (Task task : tasks) {
+            String taskString = taskToFileString(task);
+            if (!taskString.isEmpty()) {
+                bufferedWriter.write(taskString);
+                bufferedWriter.newLine();
             }
-        } catch (IOException e) {
-            System.out.println("Error while saving tasks to file: " + e.getMessage());
         }
+
     }
 
-    public static ArrayList<Task> loadTasksFromFile() {
+    public static ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                Task task = taskFromString(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME));
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            Task task = taskFromString(line);
+            if (task != null) {
+                tasks.add(task);
             }
-        } catch (IOException e) {
-            System.out.println("Could not load tasks from file: " + e.getMessage());
         }
+
         return tasks;
     }
 
@@ -229,12 +220,10 @@ class TaskStorage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (task instanceof ToDo) {
             sb.append("T|").append(task.isDone ? "1" : "0").append("|").append(task.description);
-        } else if (task instanceof Deadline) {
-            Deadline deadline = (Deadline) task;
+        } else if (task instanceof Deadline deadline) {
             String byDate = deadline.by.format(formatter);
             sb.append("D|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(byDate);
-        } else if (task instanceof Event) {
-            Event event = (Event) task;
+        } else if (task instanceof Event event) {
             String startDate = event.start.format(formatter);
             String endDate = event.end.format(formatter);
             sb.append("E|").append(task.isDone ? "1" : "0").append("|").append(task.description).append("|").append(startDate).append("|").append(endDate);
@@ -254,13 +243,10 @@ class TaskStorage {
                     if (isDone) todo.markAsDone();
                     return todo;
                 case "D":
-                    LocalDate by = LocalDate.parse(parts[3], formatter);
                     Deadline deadline = new Deadline(description, parts[3]);
                     if (isDone) deadline.markAsDone();
                     return deadline;
                 case "E":
-                    LocalDate start = LocalDate.parse(parts[3], formatter);
-                    LocalDate end = LocalDate.parse(parts[4], formatter);
                     Event event = new Event(description, parts[3], parts[4]);
                     if (isDone) event.markAsDone();
                     return event;
@@ -272,4 +258,174 @@ class TaskStorage {
             return null;
         }
     }
+}
+
+class Ui {
+    private Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void showWelcome() {
+        System.out.println("Hello! I'm Dude\nWhat can I do for you?");
+    }
+
+    public void showAddTask(Event event){
+        System.out.println("Added Event: " + event);
+    }
+
+    public void showAddTask(Deadline deadline) {
+        System.out.println("Added Deadline: " + deadline);
+    }
+
+    public void showAddTask(ToDo todo) {
+        System.out.println("Added Todo: " + todo);
+    }
+
+    public void showDelete(Task task) {
+        System.out.println("Deleted: "  + task);
+    }
+
+    public void showDone(Task task) {
+        System.out.println("Marked as Done: " + task);
+    }
+
+    public void showUndone(Task task) {
+        System.out.println("Marked as Not Done: " + task);
+    }
+
+
+    public void showGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public void showError(String message) {
+        System.out.println("Error: " + message);
+    }
+
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void showTaskList(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
+    public void closeScanner() {
+        scanner.close();
+    }
+}
+
+enum Actions {
+    DELETE,
+    ADD,
+    DONE,
+    UNDONE,
+    EVENT,
+    DEADLINE,
+    TODO,
+    LIST,
+    BYE
+}
+
+class Command {
+    public Actions action;
+
+    public String info;
+
+    public Command(Actions action, String info) {
+        this.action = action;
+        this.info = info;
+    }
+
+    public Command(Actions action) {
+        this.action = action;
+    }
+
+}
+
+ class Parser {
+
+    public static Command getCommand(String input) {
+        if (Parser.isBye(input)) {
+            return new Command(Actions.BYE);
+        }
+        if (Parser.isList(input)) {
+            return new Command(Actions.LIST);
+        }
+        if (input.startsWith("done ")) {
+            return new Command(Actions.DONE);
+        }
+        if (input.startsWith("undo ")) {
+            return new Command(Actions.UNDONE);
+        }
+        if (input.startsWith("delete ")) {
+            return new Command(Actions.DELETE);
+        }
+
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+        String taskInfo = parts.length > 1 ? parts[1] : "";
+
+        return switch (command.toLowerCase()) {
+            case "todo" -> new Command(Actions.TODO, taskInfo);
+            case "deadline" -> new Command(Actions.DEADLINE, taskInfo);
+            case "event" -> new Command(Actions.EVENT, taskInfo);
+            default -> throw new RuntimeException("Invalid input. Try again!");
+        };
+
+    }
+    public static boolean isBye(String input) {
+        return input.equalsIgnoreCase("bye");
+    }
+
+
+    public static boolean isList(String input) {
+        return input.equalsIgnoreCase("list");
+    }
+
+    public static int getDoneIndex(String input) {
+        return Integer.parseInt(input.substring(5));
+    }
+
+    public static int getDeleteIndex(String input) {
+        return Integer.parseInt(input.substring(7));
+    }
+
+}
+
+
+class TaskList {
+    private ArrayList<Task> tasks;
+
+    public TaskList(ArrayList<Task> startingTasks) {
+        this.tasks = startingTasks;
+    }
+    public void add(Task task) {
+        tasks.add(task);
+    }
+
+    public Task remove(int index) {
+        return tasks.remove(index);
+    }
+
+    public void markAsDone(int index) {
+        tasks.get(index).markAsDone();
+    }
+
+    public int size() {
+        return tasks.size();
+    }
+
+    public Task get(int index) {
+        return tasks.get(index);
+    }
+
+    public ArrayList<Task> toArrayList() {
+        return tasks;
+    }
+
+    // Other methods to manage tasks...
 }
