@@ -5,10 +5,10 @@ import tasks.Task;
 import java.util.Scanner;
 
 public class UserInterface {
-    private String openingMessage = "Hello! I'm Stille\n" + "What can I do for you?\n";
-    private String closingMessage = "Bye. Hope to see you again soon!";
-    private String dividerLine = "___________________________________";
-    private String errorMessage = "Error: ";
+    public static final String OPENING_MSG = "Hello! I'm Stille\n" + "What can I do for you?\n";
+    public static final String CLOSING_MSG = "Bye. Hope to see you again soon!";
+    public static final String LINE_DIVIDER = "___________________________________";
+    public static final String ERROR_MSG = "Error: ";
 
     private Scanner sc;
     public UserInterface() {
@@ -21,19 +21,19 @@ public class UserInterface {
         showDividerLine();
     }
     public void showOpeningMessage() {
-        this.showMessage(openingMessage);
+        this.showMessage(OPENING_MSG);
     }
 
     public void showClosingMessage() {
-        this.showMessage(closingMessage);
+        this.showMessage(CLOSING_MSG);
     }
 
     public void showDividerLine() {
-        System.out.println(dividerLine);
+        System.out.println(LINE_DIVIDER);
     }
 
     public void showError(Exception e) {
-        this.showMessage(errorMessage + e.getMessage());
+        this.showMessage(ERROR_MSG + e.getMessage());
     }
 
     public void showList(String list) {

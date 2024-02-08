@@ -5,25 +5,25 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    protected LocalDate dueBy;
 
     public Deadline(String description, LocalDate by) {
         super(description);
-        this.by = by;
+        this.dueBy = by;
     }
 
     public Deadline(String description, LocalDate by, String status) {
         super(description, status);
-        this.by = by;
+        this.dueBy = by;
     }
 
     @Override
     public String toSaveFormat() {
-        return "D " + super.toSaveFormat() + " /by " + by;
+        return "D " + super.toSaveFormat() + " /by " + dueBy;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + dueBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
