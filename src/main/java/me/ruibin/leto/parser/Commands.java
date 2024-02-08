@@ -15,7 +15,8 @@ enum Commands {
     DELETE(new DeleteCommand()),
     SAVE(new SaveCommand()),
     HELP(new HelpCommand()),
-    DEFAULT(new HelpCommand());
+    DEFAULT(new HelpCommand()),
+    FIND(new FindCommand());
 
     private Function<String, Results> commandAction;
     private Commands(Function<String, Results> function) {
