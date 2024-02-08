@@ -44,7 +44,7 @@ public class Storage {
         }
 
         Scanner scanner = new Scanner(file);
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();

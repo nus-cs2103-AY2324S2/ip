@@ -4,13 +4,7 @@ package duke.command;
  * Handles interaction with user.
  */
 public class Ui {
-    private String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private String name = "Anxi";
-    private String line = "------------------------------------------------------------";
+    private final String Line = "------------------------------------------------------------";
 
     /**
      * Ui constructor.
@@ -23,11 +17,16 @@ public class Ui {
      * @return welcomeMessage   String
      */
     public String printWelcomeMessage() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        String name = "Anxi";
         StringBuilder stringBuilder = new StringBuilder(logo);
         stringBuilder.append("\nHello! I'm ");
         stringBuilder.append(name);
-        stringBuilder.append("\r\nWhat can I do for you? \r\n");
-        stringBuilder.append(line);
+        stringBuilder.append("\r\nWhat can I do for you?");
         return stringBuilder.toString();
     }
 
@@ -49,7 +48,7 @@ public class Ui {
      * Print a line.
      */
     public String printLine() {
-        return line;
+        return Line;
     }
 
     /**

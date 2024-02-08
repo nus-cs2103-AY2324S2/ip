@@ -8,13 +8,6 @@ public class DukeException extends Exception {
 
     /**
      * DukeException constructor.
-     */
-    public DukeException() {
-        super();
-    }
-
-    /**
-     * DukeException constructor.
      *
      * @param errorMessage  Indicates why exception was thrown.
      */

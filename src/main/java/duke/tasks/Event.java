@@ -75,6 +75,7 @@ public class Event extends Task {
             try {
                 return LocalTime.parse(time, DateTimeFormatter.ofPattern(t));
             } catch (DateTimeParseException dt) {
+                // ...
             }
         }
 

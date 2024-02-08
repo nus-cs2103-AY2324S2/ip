@@ -71,6 +71,7 @@ public class Task {
                         String pattern = d.replaceAll("_", s) + t;
                         return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern));
                     } catch (DateTimeParseException dt) {
+                        // ...
                     }
                 }
             }
@@ -91,6 +92,5 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.printDoneStatus() + "] " + this.description;
-
     }
 }

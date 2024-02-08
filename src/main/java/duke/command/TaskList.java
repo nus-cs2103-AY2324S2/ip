@@ -17,7 +17,7 @@ public class TaskList {
      * TaskList constructor.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
