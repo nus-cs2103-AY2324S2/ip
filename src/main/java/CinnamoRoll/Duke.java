@@ -2,6 +2,20 @@ package CinnamoRoll;
 
 import java.util.Scanner;
 
+// Firstly, overall string formatting for toString methods in methods in TaskList and child classes of Task class
+// with header comments were adapted from chatgpt generated results:
+// https://chat.openai.com/c/51dceff5-b364-42aa-a5b9-41f2859ec48b
+// https://chat.openai.com/c/30a81394-ee96-43ba-ab98-f1a95355d6b0
+
+// Secondly, exception handling codes were inspired by chatgpt generated codes, specifically on how to
+// create subclasses for Exception class and what are the public methods for exception classes:
+// https://chat.openai.com/c/7d9fd6bb-3163-49c7-8301-289a1ebaa6e1
+
+// Lastly, date-time formatting occuring from Task classes and parsers was inspired by two sources,
+// which are also explained and commented in a very detailed manner in parser class:
+// 1. https://github.com/david-eom/CS2103T-IP/releases/tag/Level-8.
+// 2. https://stackoverflow.com/questions/70384955/converting-one-date-time-format-into-another-in-java
+
 public class Duke {
     private Ui ui;
     private Storage storage;
@@ -20,16 +34,22 @@ public class Duke {
         this.tasklist = new TaskList(this.storage.loadData());
         Scanner sc = new Scanner(System.in);
         this.ui.greetUser();
-        while (true) {
+        boolean isTerminated = false;
+        while (!isTerminated) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                break;
-            }
-            ui.respondUser(this.tasklist, input);
+            isTerminated = ui.respondUser(this.tasklist, input);
         }
         ui.exitChat();
     }
 
+    /**
+     * Copy-pasted from the getResponse method from tasklist class which returns the output
+     * from executing the commands from user inputs
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
     public String getResponse(String input) throws Exception {
         try {
             Parser parse = new Parser();

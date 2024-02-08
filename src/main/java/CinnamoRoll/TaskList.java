@@ -30,10 +30,18 @@ class TaskList {
      * Writes the tasks stored in the current task list to the file specified by the PATH constant.
      * The tasks are formatted and written according to the list() method's output.
      */
+
+    // Solution below, very specifically only on how to write into the file using filewriter object with
+    // write/close methods, and how writeinto method allows other methods to
+    // directly write into the file were adapted from two sources: chatgpt code and previous batch's level 8 submission here:
+    // 1. https://chat.openai.com/c/c34f9461-e0dc-4946-b2f2-eeec0e39aded
+    // 2. https://github.com/david-eom/CS2103T-IP/releases/tag/Level-8
+    // 3. Solution was also inspired by chatgpt generated result here:
+    // https://chat.openai.com/c/c34f9461-e0dc-4946-b2f2-eeec0e39aded
     public void writeInto() {
         try {
             FileWriter filewriter = new FileWriter(this.PATH);
-            filewriter.write(this.listTask());
+            filewriter.write(this.storeTask());
             filewriter.close();
         } catch (IOException ex) {
             System.out.println("No input provided!");
@@ -70,7 +78,18 @@ class TaskList {
      * @return A string representation of the tasks in the format "1. [Task1] \n 2. [Task2] \n ..."
      */
     public String listTask() {
-        String output = "Here are the tasks in your list:\n";
+        String output = "Here are the tasks in your list >.<:\n";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
+            if (i < this.tasks.size() - 1) {
+                output += "\n";
+            }
+        }
+        return output;
+    }
+
+    public String storeTask() {
+        String output = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
             if (i < this.tasks.size() - 1) {
@@ -169,6 +188,8 @@ class TaskList {
      * @throws CinnamoException If an error related to task execution or command parsing occurs.
      * @throws Exception If there is an error during the response process.
      */
+    // Solution below on how to convert string into enum value for switch-case was inspired by the following stackoverflow
+    // forum: https://stackoverflow.com/questions/10387329/using-string-representations-of-enum-values-in-switch-case
     void respondUser(String str) throws Exception {
         try {
 

@@ -37,13 +37,18 @@ class Ui {
      * Saying bye to the user who attempts to exit the chat!
      */
     void exitChat() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("See you again! Hope you had great time with me >.<");
     }
 
     /**
      * Process and respond to the user's request in terms of input string
      */
-    void respondUser(TaskList tasks, String str) throws Exception {
-        tasks.respondUser(str);
+    boolean respondUser(TaskList tasks, String str) throws Exception {
+        if(str.equals("bye")) {
+            return true;
+        } else {
+            tasks.respondUser(str);
+            return false;
+        }
     }
 }

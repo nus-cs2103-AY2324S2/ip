@@ -23,6 +23,13 @@ class Parser {
      * @return A Task object based on the parsed input.
      * @throws CinnamoTimeException If there is an error parsing the date and time information.
      */
+    // 1. Solution below, very specifically on how to do date-time formatting with hours, minutes and seconds in java
+    // with the user inputs were inspired by previous batch student's submission here:
+    // https://github.com/david-eom/CS2103T-IP/releases/tag/Level-8.
+
+    // 2. Conversion from the user input format to the output format required / specified by Level 8
+    // iP webpage was adapted from this stackoverflow webpage:
+    // https://stackoverflow.com/questions/70384955/converting-one-date-time-format-into-another-in-java
     Task parseTasks(String[] arr) throws CinnamoTimeException {
         try {
             String identifier = arr[0];
