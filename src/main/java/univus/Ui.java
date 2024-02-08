@@ -1,19 +1,23 @@
 package univus;
 
-import java.util.Scanner;
-
-
+/**
+ * The Ui class that deals with interactions with the user.
+ */
 public class Ui {
-    private Scanner scanner;
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
+
+    /**
+     * Prints a greeting to the user.
+     */
     public void greet() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Univus");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }
+
+    /**
+     * prints a bye to the user.
+     */
     public void bye() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
