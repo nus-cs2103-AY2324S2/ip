@@ -5,3 +5,6 @@ D | 0 | work | tmw
 E | 0 | proj meeting | sun - mon
 T | 0 | work
 E | 0 | go to gym | 6pm - 7pm
+T | 0 | work
+T | 0 | work
+T | 0 | work

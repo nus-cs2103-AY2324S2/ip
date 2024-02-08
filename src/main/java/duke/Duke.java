@@ -4,7 +4,8 @@ import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
-
+import javafx.application.Application;
+import javafx.application.Platform;
 import duke.ui.Ui;
 
 import java.util.Scanner;
@@ -53,6 +54,7 @@ public class Duke {
 
         }
         scanner.close();
+        Platform.exit(); // Close the application
     }
 
     /**
