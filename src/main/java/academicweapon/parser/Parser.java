@@ -45,44 +45,44 @@ public class Parser {
         }
 
         switch (action) {
-    case FIND:
-        String keyword = inputParts[1];
-        lst.add(keyword);
-        break;
-    case LIST:
-        break;
-    case BYE:
-        break;
-    case MARK:
-        String indexToMark = String.valueOf(Integer.parseInt(inputParts[1]) - 1);
-        lst.add(indexToMark);
-        break;
-    case UNMARK:
-        String indexToUnmark = String.valueOf(Integer.parseInt(inputParts[1]) - 1);
-        lst.add(indexToUnmark);
-        break;
-    case TODO:
-        String description = inputParts[1];
-        lst.add(description);
-        break;
-    case DEADLINE:
-        String[] splitAgain = inputParts[1].split(" /by ");
-        lst.add(splitAgain[0]);
-        lst.add(splitAgain[1]);
-        break;
-    case EVENT:
-        String[] splitOnce = inputParts[1].split("/from ");
-        String[] splitTwice = splitOnce[1].split("/to ");
-        lst.add(splitOnce[0]);
-        lst.add(splitTwice[0]);
-        lst.add(splitTwice[1]);
-        break;
-    case DELETE:
-        String index = String.valueOf(Integer.parseInt(inputParts[1]) - 1);
-        lst.add(index);
-        break;
-    default:
-        throw new DukeExceptions("Invalid AcademicWeapon.Action. Please enter a valid command.");
+        case FIND:
+            String keyword = inputParts[1];
+            lst.add(keyword);
+            break;
+        case LIST:
+            break;
+        case BYE:
+            break;
+        case MARK:
+            String indexToMark = String.valueOf(Integer.parseInt(inputParts[1]) - 1);
+            lst.add(indexToMark);
+            break;
+        case UNMARK:
+            String indexToUnmark = String.valueOf(Integer.parseInt(inputParts[1]) - 1);
+            lst.add(indexToUnmark);
+            break;
+        case TODO:
+            String description = inputParts[1];
+            lst.add(description);
+            break;
+        case DEADLINE:
+            String[] splitAgain = inputParts[1].split(" /by ");
+            lst.add(splitAgain[0]);
+            lst.add(splitAgain[1]);
+            break;
+        case EVENT:
+            String[] splitOnce = inputParts[1].split("/from ");
+            String[] splitTwice = splitOnce[1].split("/to ");
+            lst.add(splitOnce[0]);
+            lst.add(splitTwice[0]);
+            lst.add(splitTwice[1]);
+            break;
+        case DELETE:
+            String index = String.valueOf(Integer.parseInt(inputParts[1]) - 1);
+            lst.add(index);
+            break;
+        default:
+            throw new DukeExceptions("Invalid AcademicWeapon.Action. Please enter a valid command.");
         }
 
         return lst;
