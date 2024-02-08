@@ -59,7 +59,7 @@ public class Deadlines extends Task {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(" h:mm a");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-        return "[D]" + super.toString() + " (by: " + dateFormatter.format(this.by)
+        return "[D]" + super.toString() + "\n (by: " + dateFormatter.format(this.by)
                 + Optional.ofNullable(byTime).map(timeFormatter::format).orElse("") + ")";
     }
 }

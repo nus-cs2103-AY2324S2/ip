@@ -82,7 +82,7 @@ public class Responses {
         if (input < 0 || input > this.taskList.taskLength() - 1) {
             throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
         }
-        stringBuilder.append("    OK, I've marked this task as not done yet:");
+        stringBuilder.append("    OK, I've marked this task as not done yet:\n");
         stringBuilder.append(this.taskList.unMarkTask(input));
         return stringBuilder.toString();
     }
@@ -101,9 +101,9 @@ public class Responses {
             throw new ListOutofBoundsException(String.format("%d", this.taskList.taskLength()));
         }
 
-        stringBuilder.append("    Noted. I've removed this task:");
+        stringBuilder.append("    Noted. I've removed this task:\n");
         stringBuilder.append(this.taskList.remove(input));
-        stringBuilder.append(String.format("    Now you have %d tasks in the list.", this.taskList.taskLength()));
+        stringBuilder.append(String.format("\n    Now you have %d tasks in the list.", this.taskList.taskLength()));
 
         return stringBuilder.toString();
     }

@@ -1,5 +1,8 @@
 package duke.gui;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import duke.Duke;
 
@@ -46,6 +50,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            // Perform any necessary clean-up tasks here
+            if (response.equals("    Bye. Hope to see you again soon!")) {
+                Platform.exit();
+                //System.exit(0);
+            }
+        }
+        ));
+        timeline.play();
         userInput.clear();
     }
 }

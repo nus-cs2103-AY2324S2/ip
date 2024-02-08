@@ -85,7 +85,7 @@ public class Events extends Task {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(" h:mm a");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-        return "[E]" + super.toString() + " (from: " + dateFormatter.format(this.from)
+        return "[E]" + super.toString() + "\n (from: " + dateFormatter.format(this.from)
                 + Optional.ofNullable(fromTime).map(timeFormatter::format).orElse("")
                 + " to: " + dateFormatter.format(this.to)
                 + Optional.ofNullable(toTime).map(timeFormatter::format).orElse("") + ")";
