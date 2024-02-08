@@ -1,12 +1,12 @@
 package james.commands;
 
+import java.io.IOException;
+
 import james.exception.DukeException;
 import james.storage.Storage;
-import james.tasks.Task;
 import james.tasklist.TaskList;
+import james.tasks.Task;
 import james.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to delete a task from the task list.

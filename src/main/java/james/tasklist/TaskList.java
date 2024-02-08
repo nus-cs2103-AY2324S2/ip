@@ -1,9 +1,9 @@
 package james.tasklist;
 
+import java.util.ArrayList;
+
 import james.exception.DukeException;
 import james.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.

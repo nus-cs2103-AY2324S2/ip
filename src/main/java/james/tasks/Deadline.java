@@ -1,20 +1,19 @@
 package james.tasks;
 
-import james.exception.DukeException;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+import james.exception.DukeException;
+
 /**
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
     private static final List<DateTimeFormatter> DFORMATTERS = Arrays.asList(
             DateTimeFormatter.ofPattern("dd-MM-yyyy"),
             DateTimeFormatter.ofPattern("d-MM-yyyy"),
@@ -54,8 +53,8 @@ public class Deadline extends Task {
             DateTimeFormatter.ofPattern("dd/M/yyyy Hmm"),
             DateTimeFormatter.ofPattern("d/M/yyyy Hmm")
     );
+    private LocalDateTime by;
 
-    
     /**
      * Constructor for a deadline task.
      *
@@ -76,6 +75,7 @@ public class Deadline extends Task {
             try {
                 return LocalDateTime.parse(by, formatter);
             } catch (DateTimeParseException ignored) {
+                // Ignored
             }
         }
         for (DateTimeFormatter formatter : DFORMATTERS) {
@@ -83,6 +83,7 @@ public class Deadline extends Task {
                 LocalDate date = LocalDate.parse(by, formatter);
                 return date.atStartOfDay();
             } catch (DateTimeParseException ignored) {
+                // Ignored
             }
         }
         try {

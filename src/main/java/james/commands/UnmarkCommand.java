@@ -1,12 +1,12 @@
 package james.commands;
 
+import java.io.IOException;
+
 import james.exception.DukeException;
 import james.storage.Storage;
-import james.tasks.Task;
 import james.tasklist.TaskList;
+import james.tasks.Task;
 import james.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to unmark a task as not done in the task list.
@@ -16,13 +16,13 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructor for an unmark command.
-     * 
+     *
      * @param indexToUnmark
      */
     public UnmarkCommand(int indexToUnmark) {
         this.indexToUnmark = indexToUnmark;
     }
-    
+
     /**
      * Executes the command to unmark a task as not done in the task list.
      *

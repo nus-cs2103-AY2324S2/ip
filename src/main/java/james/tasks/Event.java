@@ -1,61 +1,60 @@
 package james.tasks;
 
-import james.exception.DukeException;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+import james.exception.DukeException;
+
 /**
  * Represents a deadline task.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
-
     private static final List<DateTimeFormatter> DFORMATTERS = Arrays.asList(
-            DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-            DateTimeFormatter.ofPattern("d-MM-yyyy"),
-            DateTimeFormatter.ofPattern("dd-M-yyyy"),
-            DateTimeFormatter.ofPattern("d-M-yyyy"),
-            DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-            DateTimeFormatter.ofPattern("d-MM-yyyy"),
-            DateTimeFormatter.ofPattern("dd-M-yyyy"),
-            DateTimeFormatter.ofPattern("d-M-yyyy"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+        DateTimeFormatter.ofPattern("d-MM-yyyy"),
+        DateTimeFormatter.ofPattern("dd-M-yyyy"),
+        DateTimeFormatter.ofPattern("d-M-yyyy"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+        DateTimeFormatter.ofPattern("d-MM-yyyy"),
+        DateTimeFormatter.ofPattern("dd-M-yyyy"),
+        DateTimeFormatter.ofPattern("d-M-yyyy"),
 
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-            DateTimeFormatter.ofPattern("d/MM/yyyy"),
-            DateTimeFormatter.ofPattern("dd/M/yyyy"),
-            DateTimeFormatter.ofPattern("d/M/yyyy"),
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-            DateTimeFormatter.ofPattern("d/MM/yyyy"),
-            DateTimeFormatter.ofPattern("dd/M/yyyy"),
-            DateTimeFormatter.ofPattern("d/M/yyyy")
+        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+        DateTimeFormatter.ofPattern("d/MM/yyyy"),
+        DateTimeFormatter.ofPattern("dd/M/yyyy"),
+        DateTimeFormatter.ofPattern("d/M/yyyy"),
+        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+        DateTimeFormatter.ofPattern("d/MM/yyyy"),
+        DateTimeFormatter.ofPattern("dd/M/yyyy"),
+        DateTimeFormatter.ofPattern("d/M/yyyy")
     );
 
     private static final List<DateTimeFormatter> DTFORMATTERS = Arrays.asList(
-            DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
-            DateTimeFormatter.ofPattern("d-MM-yyyy HHmm"),
-            DateTimeFormatter.ofPattern("dd-M-yyyy HHmm"),
-            DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
-            DateTimeFormatter.ofPattern("dd-MM-yyyy Hmm"),
-            DateTimeFormatter.ofPattern("d-MM-yyyy Hmm"),
-            DateTimeFormatter.ofPattern("dd-M-yyyy Hmm"),
-            DateTimeFormatter.ofPattern("d-M-yyyy Hmm"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
+        DateTimeFormatter.ofPattern("d-MM-yyyy HHmm"),
+        DateTimeFormatter.ofPattern("dd-M-yyyy HHmm"),
+        DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy Hmm"),
+        DateTimeFormatter.ofPattern("d-MM-yyyy Hmm"),
+        DateTimeFormatter.ofPattern("dd-M-yyyy Hmm"),
+        DateTimeFormatter.ofPattern("d-M-yyyy Hmm"),
 
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
-            DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
-            DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"),
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
-            DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm"),
-            DateTimeFormatter.ofPattern("d/MM/yyyy Hmm"),
-            DateTimeFormatter.ofPattern("dd/M/yyyy Hmm"),
-            DateTimeFormatter.ofPattern("d/M/yyyy Hmm")
+        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm"),
+        DateTimeFormatter.ofPattern("d/MM/yyyy Hmm"),
+        DateTimeFormatter.ofPattern("dd/M/yyyy Hmm"),
+        DateTimeFormatter.ofPattern("d/M/yyyy Hmm")
     );
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructor for an event task.
@@ -82,6 +81,7 @@ public class Event extends Task {
             try {
                 return LocalDateTime.parse(by, formatter);
             } catch (DateTimeParseException ignored) {
+                //ignored because multiple formats are tried
             }
         }
         for (DateTimeFormatter formatter : DFORMATTERS) {
@@ -89,6 +89,7 @@ public class Event extends Task {
                 LocalDate date = LocalDate.parse(by, formatter);
                 return date.atStartOfDay();
             } catch (DateTimeParseException ignored) {
+                //ignored because multiple formats are tried
             }
         }
         try {
@@ -150,7 +151,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | from " + this.datetoSaveString(this.getFrom()) + " to " + this.datetoSaveString(this.getTo());
+        return "E | " + super.toFileFormat() + " | from " + this.datetoSaveString(this.getFrom())
+            + " to " + this.datetoSaveString(this.getTo());
     }
 
     /**
@@ -160,6 +162,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.datetoString(this.getFrom()) + " to: " + this.datetoString(this.getTo()) + ")";
+        return "[E]" + super.toString() + " (from: " + this.datetoString(this.getFrom())
+            + " to: " + this.datetoString(this.getTo()) + ")";
     }
 }
