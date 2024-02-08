@@ -14,17 +14,17 @@ public class Storage {
     String filePathMeta;
     String filePathRead;
 
-    public Storage(String filePathMeta, String filePathRead){
+    public Storage(String filePathMeta, String filePathRead) {
         this.filePathMeta = filePathMeta;
         this.filePathRead = filePathRead;
     }
 
-    public ArrayList<Task> load() throws GandalfException{
+    public ArrayList<Task> load() throws GandalfException {
         ArrayList<Task> data = new ArrayList<>();
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
             data = (ArrayList<Task>) ois.readObject();
         }
-        catch(FileNotFoundException e){
+        catch(FileNotFoundException e) {
             try {
                 // Create directory if it doesn't exist
                 Path dirPath = Paths.get(this.filePathMeta).getParent();
@@ -40,7 +40,7 @@ public class Storage {
                 throw new GandalfException("Error creating file: " + ex.getMessage());
             }
         }
-        catch(IOException | ClassNotFoundException e){
+        catch(IOException | ClassNotFoundException e) {
             throw new GandalfException("Error with IO or class");
         }
         return data;

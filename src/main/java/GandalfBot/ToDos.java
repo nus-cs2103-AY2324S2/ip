@@ -1,15 +1,15 @@
 package GandalfBot;
 
-public class ToDos extends Task{
-    public ToDos(String nameOfTask){
+public class ToDos extends Task {
+    public ToDos(String nameOfTask) {
         super(nameOfTask);
     }
     @Override
-    public String toString(){
-        if(status){
+    public String toString() {
+        if(status) {
             return "[T][X] " + nameOfTask;
         }
-        else{
+        else {
             return "[T][ ] " + nameOfTask;
         }
     }

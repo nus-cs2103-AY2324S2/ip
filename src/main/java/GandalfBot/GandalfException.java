@@ -2,8 +2,8 @@ package GandalfBot;
 
 import java.util.ArrayList;
 
-public class GandalfException extends Exception{
-    public GandalfException(String message){
+public class GandalfException extends Exception {
+    public GandalfException(String message) {
         super(message);
     }
 }
