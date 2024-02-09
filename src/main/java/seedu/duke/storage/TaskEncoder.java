@@ -22,6 +22,7 @@ public class TaskEncoder {
             return String.format("D | %d | %s | %s", hasDoneInt, task.getDescription(), (
                     (Deadline) task).getDeadlineString());
         } else {
+            assert task instanceof Event;
             Event event = (Event) task;
             return String.format("T | %d | %s | %s-%s", hasDoneInt, event.getDescription(),
                     event.getStartDateString(), event.getEndDateString());
