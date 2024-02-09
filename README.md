@@ -50,5 +50,5 @@ public class Task {
 }
 ```
 ##
-What are you waiting for, download DukeYarr now and join our other happy users!
+What are you waiting for? Download DukeYarr now and join our other happy users!
 > The ~~One Piece~~ Productivity! The ~~One Piece~~ Productivity is real! – Whitebeard
