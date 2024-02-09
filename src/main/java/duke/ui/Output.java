@@ -21,7 +21,7 @@ public class Output {
 
 
     public static String layer(String s) {
-        String line = "____________________________________________________________";
+        String line = "_______________________________________________________";
         return line + "\n" + s + "\n" + line; 
     }
 

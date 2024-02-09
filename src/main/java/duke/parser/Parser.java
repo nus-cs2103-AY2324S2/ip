@@ -61,7 +61,7 @@ public class Parser {
     public String parse(String input) {
         ArrayList<Task> inventory = storage.load();
         try {
-            if (input.equalsIgnoreCase("list")) {
+            if (input.toLowerCase().equalsIgnoreCase("list")) {
                 if (!input.trim().equals("list")) {
                     throw new DukeException("OOPS!!! This is an invalid call of list command.");
                 } 
@@ -70,7 +70,7 @@ public class Parser {
                     return lister.list();
                 }
             } 
-            else if (input.startsWith("mark")) {
+            else if (input.toLowerCase().startsWith("mark")) {
                 if (input.trim().equals("mark")) {
                     throw new DukeException("OOPS!!! Invalid Command, highlight which task to mark");
                 } else {
@@ -82,7 +82,7 @@ public class Parser {
                     return marker.mark();
                 }
             } 
-            else if (input.startsWith("unmark")) {
+            else if (input.toLowerCase().startsWith("unmark")) {
                 if (input.trim().equals("unmark")) {
                     throw new DukeException("OOPS!!! Invalid Command, highlight which task to unmark");
                 } else {
@@ -94,7 +94,7 @@ public class Parser {
                     return unmarker.unmark();
                 }
             } 
-            else if (input.startsWith("todo")) {
+            else if (input.toLowerCase().startsWith("todo")) {
                 if (input.trim().equals("todo")) {
                     throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                 } else {
@@ -105,7 +105,7 @@ public class Parser {
                     return adder.toString();
                 }
             }
-            else if (input.startsWith("deadline")) {
+            else if (input.toLowerCase().startsWith("deadline")) {
                 String valid_format = "Please input in format: *deadline* *TASK* /*by yyyy-mm-dd TIME*";
                 if (input.trim().equals("deadline")) {
                     throw new DukeException("OOPS!!! The description of a deadline cannot be empty. " + valid_format);
@@ -154,7 +154,7 @@ public class Parser {
                     }
                 }
             }
-            else if (input.startsWith("event")) {
+            else if (input.toLowerCase().startsWith("event")) {
                 String valid_format = "Please input in the format: Event *TASK* /*from YYYY-MM-DD TIME* /*to YYYY-MM-DD TIME*";
                 if (input.trim().equals("event")) {
                     throw new DukeException("OOPS!!! The description of a event cannot be empty. " + valid_format);
