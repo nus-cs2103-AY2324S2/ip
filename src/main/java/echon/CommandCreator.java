@@ -35,6 +35,16 @@ public class CommandCreator {
         return argument;
     }
 
+    private int parseIndexArgument(String command, String name) throws EchonException {
+        String[] tokens = command.split(" ");
+        for (int i = 0; i < tokens.length - 1; i++) {
+            if (tokens[i].equals("/" + name)) {
+                return Integer.parseInt(tokens[i + 1]) - 1;
+            }
+        }
+        throw new EchonException("OOPS!!! The argument /" + name + " is missing.");
+    }
+
     private String parseNamedArgument(String command, String name) throws EchonException {
         String[] tokens = command.split(" ");
         for (int i = 0; i < tokens.length - 1; i++) {
@@ -50,6 +60,16 @@ public class CommandCreator {
             }
         }
         throw new EchonException("OOPS!!! The argument /" + name + " is missing.");
+    }
+
+    private Boolean parseBooleanArgument(String command, String name) {
+        String[] tokens = command.split(" ");
+        for (int i = 0; i < tokens.length - 1; i++) {
+            if (tokens[i].equals("/" + name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -81,7 +101,8 @@ public class CommandCreator {
             String description = parseStringArgument(command);
             String fromDate = parseNamedArgument(command, "from");
             String toDate = parseNamedArgument(command, "to");
-            return new AddEventCommand(description, fromDate, toDate,
+            Boolean isTentative = parseBooleanArgument(command, "tentative");
+            return new AddEventCommand(description, fromDate, toDate, isTentative,
                     this.taskList);
         } else if (command.startsWith("delete")) {
             int index = parseIndex(command);
@@ -89,6 +110,15 @@ public class CommandCreator {
         } else if (command.startsWith("find")) {
             String keyword = parseStringArgument(command);
             return new FindTaskCommand(keyword, this.taskList);
+        } else if (command.startsWith("add-slot")) {
+            int index = parseIndex(command);
+            String fromDate = parseNamedArgument(command, "from");
+            String toDate = parseNamedArgument(command, "to");
+            return new AddTentativeSlotCommand(index, fromDate, toDate, this.taskList);
+        } else if (command.startsWith("confirm-slot")) {
+            int index = parseIndex(command);
+            int slotIndex = parseIndexArgument(command, "slot");
+            return new ConfirmTentativeSlotCommand(index, slotIndex, this.taskList);
         } else {
             throw new EchonException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
