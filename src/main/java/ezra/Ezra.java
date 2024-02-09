@@ -26,23 +26,6 @@ public class Ezra {
     }
 
     /**
-     * Runs the Ezra application, allowing the user to enter commands.
-     */
-    public void run() {
-        Ui.greet();
-
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            Parser.generateReply(input, storage, tasks);
-            if (input.equals("bye")) {
-                break;
-            }
-        }
-        scanner.close();
-    }
-
-    /**
      * Generates a response based on the given input using the Parser class.
      *
      * @param input The input given the user.
@@ -50,14 +33,5 @@ public class Ezra {
      */
     public String getResponse(String input) {
         return Parser.generateReply(input, storage, tasks);
-    }
-
-    /**
-     * The main method to start the Ezra application.
-     *
-     * @param args Command line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        new Ezra("data/ezra.txt").run();
     }
 }
