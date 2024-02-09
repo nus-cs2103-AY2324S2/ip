@@ -6,7 +6,7 @@ import java.util.List;
  * adding, marking, and deleting tasks from the list.
  */
 public class TaskList {
-    public List<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructor of TaskList object, which creates an empty TaskList.
@@ -21,7 +21,9 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "Task should be added to the list";
     }
 
     /**
@@ -31,6 +33,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds";
         return tasks.get(index);
     }
 

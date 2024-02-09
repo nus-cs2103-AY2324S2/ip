@@ -28,6 +28,7 @@ public class Storage {
      * @return The save message
      */
     public String save(TaskList taskList) {
+        assert taskList != null : "Task list cannot be null";
         try {
             String directoryPath = "./data";
             String filePath = directoryPath + "/HeadCube.txt";
