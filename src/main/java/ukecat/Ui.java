@@ -17,7 +17,6 @@ public class Ui {
         switch (words[0]) {
         case "bye":
             Parser.closeScanner();
-            System.exit(0);
             return BYE;
         case "hi":
             return HI;
