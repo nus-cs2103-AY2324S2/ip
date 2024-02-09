@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 import util.CsvUtil;
 
 /**
@@ -8,6 +10,7 @@ import util.CsvUtil;
 public abstract class Task {
     protected final String description;
     protected boolean isMarked;
+    protected LocalDateTime startDate;
 
     /**
      * Constructs a task with the given description.
@@ -17,6 +20,7 @@ public abstract class Task {
     Task(String description) {
         this.description = description;
         this.isMarked = false;
+        this.startDate = null;
     }
 
     /**
@@ -25,9 +29,22 @@ public abstract class Task {
      * @param isMarked    The marked status of the task.
      * @param description The description of the task.
      */
-    Task(boolean isMarked, String description) {
+    Task(boolean isMarked, String description, LocalDateTime startDate) {
         this.description = description;
         this.isMarked = isMarked;
+        this.startDate = startDate;
+    }
+
+    /**
+     * Constructs a task with the given description and start date.
+     *
+     * @param description The description of the task.
+     * @param startDate   The start date of the task.
+     */
+    public Task(String description, LocalDateTime startDate) {
+        this.description = description;
+        this.isMarked = false;
+        this.startDate = startDate;
     }
 
     /**
@@ -68,7 +85,22 @@ public abstract class Task {
         return String.format("[%s] %s", check, description);
     }
 
+    /**
+     * Checks if the task description contains the specified string.
+     *
+     * @param s The string to check for.
+     * @return true if the task description contains the specified string, false otherwise.
+     */
     public boolean contains(String s) {
         return this.description.contains(s);
+    }
+
+    /**
+     * Gets the start date and time of the task.
+     *
+     * @return The start date and time of the task.
+     */
+    public LocalDateTime getDateTime() {
+        return this.startDate;
     }
 }

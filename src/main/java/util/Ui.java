@@ -8,6 +8,7 @@ import action.Goodbye;
 import action.HandleError;
 import action.List;
 import action.Mark;
+import action.Sort;
 import action.Unmark;
 import exception.NarutoException;
 import task.Deadline;
@@ -91,6 +92,8 @@ public class Ui {
                 return new HandleError(e);
             }
             return new Find(tokens);
+        case "sort":
+            return new Sort(taskList);
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
         }
