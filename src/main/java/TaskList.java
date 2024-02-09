@@ -9,6 +9,10 @@ public class TaskList {
         this.taskCounter = 0;
     }
 
+    public int size() {
+        return tasks.size();
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
         taskCounter++;
@@ -17,6 +21,9 @@ public class TaskList {
     public Task deleteTask(int index) throws DukeException {
         validateIndex(index);
         Task removedTask = tasks.remove(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removedTask.getStatusIcon());
+        System.out.println("Now you have " + tasks.size() + " " + (tasks.size() <= 1 ? "task" : "tasks") + " in the list.");
         return removedTask;
     }
 
@@ -35,7 +42,25 @@ public class TaskList {
         }
     }
 
-    public int size() {
-        return tasks.size();
+    public void markTaskAsDone(int index) throws DukeException {
+        validateIndex(index);
+        Task task = tasks.get(index);
+        if (task.isDone()) {
+            throw new DukeException("Oops! This task is already marked as done.");
+        }
+        task.markAsDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task.getStatusIcon());
+    }
+
+    public void markTaskAsNotDone(int index) throws DukeException {
+        validateIndex(index);
+        Task task = tasks.get(index);
+        if (!task.isDone()) {
+            throw new DukeException("Oops! This task is not marked as done yet.");
+        }
+        task.markAsNotDone();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task.getStatusIcon());
     }
 }

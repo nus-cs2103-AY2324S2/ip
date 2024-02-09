@@ -18,7 +18,7 @@ public class Ui {
     }
 
     public static void showError(String errorMessage) {
-        System.out.println("Oops! " + errorMessage);
+        System.out.println(errorMessage);
     }
 
     public static void showTaskList(ArrayList<Task> tasks) {
@@ -30,5 +30,9 @@ public class Ui {
                 System.out.println((i + 1) + "." + tasks.get(i).getStatusIcon());
             }
         }
+    }
+
+    public static void showInvalidCommand() {
+        System.out.println("I don't understand what you mean :c");
     }
 }

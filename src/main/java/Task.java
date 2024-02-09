@@ -12,6 +12,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Obtains status icon for task.
      *

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Event extends Task {
 
     protected String start;
