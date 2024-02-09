@@ -16,12 +16,15 @@ public class TaskEncoder {
      */
     public static String encodeTask(Task task) {
         int hasDoneInt = task.getHasDone() ? 1 : 0;
+
+
         if (task instanceof Todo) {
             return String.format("T | %d | %s ", hasDoneInt, task.getDescription());
         } else if (task instanceof Deadline) {
             return String.format("D | %d | %s | %s", hasDoneInt, task.getDescription(), (
                     (Deadline) task).getDeadlineString());
         } else {
+            assert task instanceof Event;
             Event event = (Event) task;
             return String.format("T | %d | %s | %s-%s", hasDoneInt, event.getDescription(),
                     event.getStartDateString(), event.getEndDateString());

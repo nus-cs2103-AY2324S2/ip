@@ -27,10 +27,10 @@ import seedu.duke.exception.UnknownCommandException;
  */
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final Pattern DEADLINE_COMMAND_FORMAT = Pattern.compile("(?<description>\\S+) /by (?<deadline>.*)");
-    public static final Pattern ONE_ARG_COMMAND_FORMAT = Pattern.compile("(?<arg>\\S+)");
+    public static final Pattern DEADLINE_COMMAND_FORMAT = Pattern.compile("(?<description>.+?) /by (?<deadline>.*)");
+    public static final Pattern ONE_ARG_COMMAND_FORMAT = Pattern.compile("(?<arg>.+?)");
     public static final Pattern EVENT_COMMAND_FORMAT = Pattern.compile(
-            "(?<description>\\S+) /from (?<startDate>.*) /to (?<endDate>.*)");
+            "(?<description>.+?) /from (?<startDate>.*) /to (?<endDate>.*)");
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
@@ -124,10 +124,8 @@ public class Parser {
     }
 
     private static Command prepareDeadline(String arguments) throws InvalidCommandFormatException {
-        System.out.println(arguments);
         Matcher matcher = DEADLINE_COMMAND_FORMAT.matcher(arguments.trim());
-
-
+        System.out.println(arguments);
         if (!matcher.matches()) {
             throw new InvalidCommandFormatException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.COMMAND_USAGE));

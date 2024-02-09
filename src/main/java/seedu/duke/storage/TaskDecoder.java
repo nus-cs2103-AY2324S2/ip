@@ -35,6 +35,8 @@ public class TaskDecoder {
         Matcher deadlineMatcher = DEADLINE_SAVE_FORMAT.matcher(taskString.trim());
         Matcher todoMatcher = TODO_SAVE_FORMAT.matcher(taskString.trim());
         Matcher eventMatcher = EVENT_SAVE_FORMAT.matcher(taskString.trim());
+
+
         try {
             if (deadlineMatcher.matches()) {
                 return decodeDeadline(deadlineMatcher);
@@ -61,15 +63,23 @@ public class TaskDecoder {
     private static Task decodeDeadline(Matcher deadlineMatcher) {
         boolean hasDone = !deadlineMatcher.group("hasDone").equals("0");
         String taskDescription = deadlineMatcher.group("taskDescription");
+
+
         LocalDateTime deadline = LocalDateTime.parse(deadlineMatcher.group("deadline"), datetimeFormatter);
+
+
         return new Deadline(taskDescription, hasDone, deadline);
     }
 
     private static Task decodeEvent(Matcher eventMatcher) {
         boolean hasDone = !eventMatcher.group("hasDone").equals("0");
         String taskDescription = eventMatcher.group("taskDescription");
+
+
         LocalDateTime startDate = LocalDateTime.parse(eventMatcher.group("startDate"), datetimeFormatter);
         LocalDateTime endDate = LocalDateTime.parse(eventMatcher.group("endDate"), datetimeFormatter);
+
+
         return new Event(taskDescription, hasDone, startDate, endDate);
     }
 }
