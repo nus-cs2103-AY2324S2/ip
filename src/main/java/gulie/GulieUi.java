@@ -72,7 +72,7 @@ public class GulieUi {
     public void list(GulieTasklist tasklist) {
         out.println(line);
         for (int i = 0; i < tasklist.size(); i++) {
-            out.println(String.format(" %d. %s", i + 1, tasklist.get(i)));
+            out.println(String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER)));
         }
         out.println(line);
     }
@@ -85,7 +85,7 @@ public class GulieUi {
         out.println(line);
         out.println(" These are the matching tasks in yur list: ");
         for (int i = 0; i < tasklist.size(); i++) {
-            out.println(String.format(" %d. %s", i + 1, tasklist.get(i)));
+            out.println(String.format(" %d. %s", i + 1, tasklist.get(i).toString(DATE_TIME_FORMATTER)));
         }
         out.println(line);
     }
