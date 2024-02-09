@@ -28,6 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            assert nollid != null : "nollid instance should not be null";
             fxmlLoader.<MainWindow>getController().setNollid(nollid);
 
             stage.setTitle("Nollid");
