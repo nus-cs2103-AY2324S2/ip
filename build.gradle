@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClassName = "squid.Duke"
+    mainClassName = "squid.ui.Launcher"
 }
 
 
