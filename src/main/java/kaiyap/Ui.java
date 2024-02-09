@@ -1,6 +1,7 @@
 package kaiyap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Ui class handles the user interface for the KaiYap application.
@@ -75,7 +76,7 @@ public class Ui {
      *
      * @param tasks the list of tasks that matched the search phrase.
      */
-    public String printTasksFound(ArrayList<Task> tasks) {
+    public String printTasksFound(List<Task> tasks) {
         StringBuilder output = new StringBuilder((
                 SEPARATOR
                         + "\tHere are the matching tasks in your list:\n"
