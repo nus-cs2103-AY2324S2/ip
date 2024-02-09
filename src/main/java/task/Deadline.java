@@ -1,4 +1,5 @@
 package task;
+
 import java.time.LocalDateTime;
 
 import util.CsvUtil;
@@ -8,7 +9,7 @@ import util.DateTimeUtil;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    protected LocalDateTime byDate;
 
     /**
      * Constructs a Deadline object with the given description and deadline.
@@ -18,7 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
-        this.by = by;
+        this.byDate = by;
     }
 
     /**
@@ -30,7 +31,7 @@ public class Deadline extends Task {
      */
     public Deadline(boolean isMarked, String description, LocalDateTime by) {
         super(isMarked, description);
-        this.by = by;
+        this.byDate = by;
     }
 
     /**
@@ -41,7 +42,7 @@ public class Deadline extends Task {
     @Override
     public CsvUtil format() {
         return new CsvUtil("D", String.valueOf(super.isMarked), super.description,
-            DateTimeUtil.format(by));
+            DateTimeUtil.format(byDate));
     }
 
     /**
@@ -52,7 +53,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),
-            DateTimeUtil.format(by));
+            DateTimeUtil.format(byDate));
     }
 
     /**
@@ -70,6 +71,6 @@ public class Deadline extends Task {
             return false;
         }
         Deadline d = (Deadline) o;
-        return isMarked == d.isMarked && description.equals(d.description) && d.by.equals(by);
+        return isMarked == d.isMarked && description.equals(d.description) && d.byDate.equals(byDate);
     }
 }

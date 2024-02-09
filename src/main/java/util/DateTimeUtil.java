@@ -9,8 +9,8 @@ import java.time.format.DateTimeParseException;
  * The DateTimeUtil class provides utility methods for formatting and parsing date and time.
  */
 public class DateTimeUtil {
-    private static final DateTimeFormatter input = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-    private static final DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Formats the given string representation of a date and time into a LocalDateTime object.
@@ -19,7 +19,7 @@ public class DateTimeUtil {
      * @return the LocalDateTime object representing the formatted date and time
      */
     public static LocalDateTime format(String s) {
-        return LocalDateTime.parse(s, input);
+        return LocalDateTime.parse(s, INPUT);
     }
 
     /**
@@ -29,7 +29,7 @@ public class DateTimeUtil {
      * @return the string representation of the formatted date and time
      */
     public static String format(LocalDateTime d) {
-        return d.format(input);
+        return d.format(INPUT);
     }
 
     /**
@@ -39,7 +39,7 @@ public class DateTimeUtil {
      * @return the LocalDateTime object representing the parsed date and time
      */
     public static LocalDateTime parse(String s) {
-        return LocalDateTime.parse(s, input);
+        return LocalDateTime.parse(s, INPUT);
     }
 
     /**
@@ -53,7 +53,7 @@ public class DateTimeUtil {
             return true;
         }
         try {
-            LocalDate.parse(dateStr, input);
+            LocalDate.parse(dateStr, INPUT);
             return true;
         } catch (DateTimeParseException ignored) {
             return false;

@@ -1,4 +1,5 @@
 package action;
+
 import java.io.IOException;
 
 import util.TaskList;
@@ -9,7 +10,7 @@ import util.TaskList;
  */
 public class Mark implements Action {
     private final TaskList taskList;
-    private final int i;
+    private final int idx;
 
     /**
      * Constructs a Mark object with the specified task list and index.
@@ -19,7 +20,7 @@ public class Mark implements Action {
      */
     public Mark(TaskList taskList, int i) {
         this.taskList = taskList;
-        this.i = i;
+        this.idx = i;
     }
 
     /**
@@ -32,7 +33,7 @@ public class Mark implements Action {
     public String execute() throws IOException {
         StringBuilder output = new StringBuilder();
         output.append("Great job! You marked that task off your list! Believe it! ᕕ( ᐛ )ᕗ\n")
-                .append("\n").append(this.taskList.mark(i));
+                .append("\n").append(this.taskList.mark(idx));
         return output.toString();
     }
 }

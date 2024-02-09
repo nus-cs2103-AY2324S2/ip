@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import naruto.Naruto;
 
-
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
