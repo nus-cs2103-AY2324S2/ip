@@ -837,3 +837,30 @@ class AddEventCommand extends Command {
     }
 }
 
+class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        List<Task> matchedTasks = tasks.findTasks(keyword);
+        if (matchedTasks.isEmpty()) {
+            return "No tasks matched your keyword.";
+        } else {
+            return ui.formatMatchedTasks(matchedTasks); // Assuming you have implemented this method to format the list of tasks into a String.
+        }
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+}
+
