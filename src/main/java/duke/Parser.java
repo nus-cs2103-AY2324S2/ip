@@ -80,18 +80,12 @@ public class Parser {
                 output += this.line;
 
             } else if (input.toLowerCase().startsWith("unmark")) {
-                try {
-                    if (input.split(" ").length == 1) {
-                        throw new MissingTaskToMarkException("Please provide a task to unmark :)");
+                assert (input.split(" ").length != 1) : "Please provide a task to unmark :)";
 
-                    } else {
-                        int index = Integer.parseInt(input.substring(7));
-                        String response = tasksList.unmark(index);
-                        output += (response);
-                    }
-                } catch (MissingTaskToMarkException err) {
-                    output += (err.getMessage());
-                }
+                int index = Integer.parseInt(input.substring(7));
+                String response = tasksList.unmark(index);
+                output += (response);
+
 
             } else if (input.toLowerCase().startsWith("mark")) {
                 try {
