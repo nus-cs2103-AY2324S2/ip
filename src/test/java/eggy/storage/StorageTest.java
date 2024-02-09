@@ -1,13 +1,8 @@
 package eggy.storage;
 
-import eggy.exception.LoadTasksException;
-import eggy.task.TaskList;
-import eggy.task.Todo;
-import eggy.exception.EggyException;
-import eggy.exception.InvalidTaskTypeException;
-import eggy.exception.SaveTasksException;
-import eggy.task.Event;
-import eggy.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,9 +15,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import eggy.exception.EggyException;
+import eggy.exception.InvalidTaskTypeException;
+import eggy.exception.LoadTasksException;
+import eggy.exception.SaveTasksException;
+import eggy.task.Event;
+import eggy.task.Task;
+import eggy.task.TaskList;
+import eggy.task.Todo;
 
 public class StorageTest {
     @TempDir

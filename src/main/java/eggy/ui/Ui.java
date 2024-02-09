@@ -1,17 +1,17 @@
 package eggy.ui;
 
-import eggy.task.Task;
-import eggy.task.TaskList;
-
 import java.util.List;
 import java.util.Scanner;
+
+import eggy.task.Task;
+import eggy.task.TaskList;
 
 /**
  * The user interface of the chatbot.
  */
 public class Ui {
     /** The divider line. */
-    private final String DIVIDER = "    ____________________________________________________________";
+    private static final String DIVIDER = "    ____________________________________________________________";
     /** The scanner to read user input. */
     private final Scanner sc = new Scanner(System.in);
 
@@ -116,9 +116,13 @@ public class Ui {
      * @param tasks The matching tasks.
      */
     public void printMatchingTasks(List<Task> tasks) {
-        System.out.println("     Here are the matching tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("     " + (i + 1) + "." + tasks.get(i));
+        if (tasks.isEmpty()) {
+            System.out.println("     There are no matching tasks in your list.");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("     " + (i + 1) + "." + tasks.get(i));
+            }
         }
     }
 

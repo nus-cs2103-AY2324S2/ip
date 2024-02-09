@@ -12,7 +12,7 @@ import eggy.ui.Ui;
  */
 public class Eggy {
     /** The name of the chatbot. */
-    public final String NAME = "Eggy";
+    public static final String NAME = "Eggy";
     /** The user interface of the chatbot. */
     private final Ui ui;
     /** The storage of the chatbot. */
@@ -40,7 +40,7 @@ public class Eggy {
      * Runs the chatbot.
      */
     public void run() {
-        ui.printWelcome(this.NAME);
+        ui.printWelcome(Eggy.NAME);
         boolean isExit = false;
         while (!isExit) {
             try {

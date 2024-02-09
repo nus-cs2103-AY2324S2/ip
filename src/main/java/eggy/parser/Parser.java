@@ -5,11 +5,11 @@ import eggy.command.DeadlineCommand;
 import eggy.command.DeleteCommand;
 import eggy.command.EventCommand;
 import eggy.command.ExitCommand;
+import eggy.command.FindCommand;
 import eggy.command.ListCommand;
 import eggy.command.MarkCommand;
 import eggy.command.TodoCommand;
 import eggy.command.UnmarkCommand;
-import eggy.command.FindCommand;
 import eggy.exception.EggyException;
 import eggy.exception.InvalidCommandException;
 

@@ -5,8 +5,8 @@ import eggy.exception.IncompleteCommandException;
 import eggy.exception.TaskListIndexOutOfBoundsException;
 import eggy.exception.TaskNumberFormatException;
 import eggy.storage.Storage;
-import eggy.task.TaskList;
 import eggy.task.Task;
+import eggy.task.TaskList;
 import eggy.ui.Ui;
 
 /**

@@ -1,12 +1,12 @@
 package eggy.command;
 
-import eggy.exception.IncompleteTaskException;
-import eggy.storage.Storage;
-import eggy.task.TaskList;
-import eggy.task.Task;
-import eggy.ui.Ui;
-
 import java.util.List;
+
+import eggy.exception.IncompleteFindCommandException;
+import eggy.storage.Storage;
+import eggy.task.Task;
+import eggy.task.TaskList;
+import eggy.ui.Ui;
 
 /**
  * Represents a command to find tasks in the task list.
@@ -19,11 +19,11 @@ public class FindCommand extends Command {
      * Constructs a FindCommand.
      *
      * @param commands The array of commands.
-     * @throws IncompleteTaskException If the task description is incomplete.
+     * @throws IncompleteFindCommandException If the task description is incomplete.
      */
-    public FindCommand(String[] commands) throws IncompleteTaskException {
+    public FindCommand(String[] commands) throws IncompleteFindCommandException {
         if (commands.length < 2) {
-            throw new IncompleteTaskException("find");
+            throw new IncompleteFindCommandException();
         }
         this.keyword = commands[1];
     }
