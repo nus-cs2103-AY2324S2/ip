@@ -145,28 +145,38 @@ public class Command {
                 + "\nNow you have " + num + " " + singular + " in the list.";
     }
 
+    public String currTaskList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list: \n");
+        for (int i = 1; i  <= tasks.size(); i++) {
+            sb.append(i + ". ");
+            sb.append(tasks.getTask(i - 1) + "\n");
+        }
+        return sb.toString();
+    }
+
     public void execute(String fullCommand, TaskList tasks, Ui ui, Storage store) {
         String[] command = this.getKeywords(fullCommand);
         String symbol = this.getTaskSymbol(command[0]);
-        if (command.length <= 1 && !(command[0].equals("list"))) {
+        if (command.length <= 1 && command[0].equals("help")) {
             ui.listOfCommands();
         } else {
             switch (command[0]) {
             case "list":
-                ui.output(tasks.getList().toString());
+                ui.output(currTaskList(tasks));
                 break;
             case "todo":
-                Task newTdTask = new ToDo(fullCommand, symbol, false);
+                ToDo newTdTask = new ToDo(fullCommand, symbol, false);
                 tasks.addTask(newTdTask);
                 ui.output(displayTask(newTdTask, tasks));
                 break;
             case "event":
-                Task newEventTask = new Event(fullCommand, symbol, false);
+                Event newEventTask = new Event(fullCommand, symbol, false);
                 tasks.addTask(newEventTask);
                 ui.output(displayTask(newEventTask, tasks));
                 break;
             case "deadline":
-                Task newDlTask = new Deadline(fullCommand, symbol, false);
+                Deadline newDlTask = new Deadline(fullCommand, symbol, false);
                 tasks.addTask(newDlTask);
                 ui.output(displayTask(newDlTask, tasks));
                 break;
@@ -186,7 +196,7 @@ public class Command {
                 ui.output(findCommand(matchList));
                 break;
             default:
-                ui.listOfCommands();
+                System.out.println("Sorry Old Man Fredricksen don't recognise this input! Type \"help\" if you need a guide on input format!");
                 break;
             }
         }

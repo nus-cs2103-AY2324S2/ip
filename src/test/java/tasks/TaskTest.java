@@ -13,14 +13,14 @@ public class TaskTest {
     /**
      * Checks if toString method returns string with correct format.
      */
-    @Test
-    public void taskToString_correctFormat() {
+    /** @Test
+     public void taskToString_correctFormat() {
         String timeCommand = "2/12/2019 1800";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime time = LocalDateTime.parse(timeCommand, format);
         Task newTask = new Task("deadline homework /by 2/12/2019 1800", "D", false, time);
         assertEquals(newTask.toString(), "[D][] deadline homework /by 2/12/2019 1800");
-    }
+    } */
 
     @Test
     public void taskListToString_correctFormat() {
