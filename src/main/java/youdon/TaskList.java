@@ -16,10 +16,10 @@ public class TaskList {
     /**
      * Constructs a new instance of the TaskList class with the specified list of tasks.
      *
-     * @param taskList The initial list of tasks.
+     * @param tasks The initial list of tasks.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.tasks = taskList;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**

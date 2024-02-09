@@ -110,14 +110,14 @@ public class Ui {
     /**
      * Prints a message indicating that a task has been added.
      *
-     * @param taskList The updated task list containing the newly added task.
+     * @param tasks The updated task list containing the newly added task.
      */
-    public void printTaskAdded(TaskList taskList) {
+    public void printTaskAdded(TaskList tasks) {
         // index of most recently added item
-        int index = taskList.size() - 1;
+        int index = tasks.size() - 1;
         System.out.println(DIVIDER_LINE);
-        System.out.println("Alright! Task added:\n  " + taskList.get(index).toString());
-        System.out.println("You now have " + (taskList.size()) + " task(s) in the list.");
+        System.out.println("Alright! Task added:\n  " + tasks.get(index).toString());
+        System.out.println("You now have " + (tasks.size()) + " task(s) in the list.");
         System.out.println(DIVIDER_LINE);
     }
 }
