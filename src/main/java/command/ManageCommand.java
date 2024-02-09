@@ -73,6 +73,7 @@ public class ManageCommand extends Command {
     public String mark(TaskList tasks, Storage storage) {
         String result = "";
         for (int index : this.indices) {
+            assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
                 UI.print(String.format("Oops! %d is not a valid index.", index));
                 result += String.format("Oops! %d is not a valid index.\n", index);
@@ -111,6 +112,7 @@ public class ManageCommand extends Command {
     public String unmark(TaskList tasks, Storage storage) {
         String result = "";
         for (int index : this.indices) {
+            assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
                 UI.print(String.format("Oops! %d is not a valid index.", index));
                 result += String.format("Oops! %d is not a valid index.\n", index);
@@ -148,6 +150,7 @@ public class ManageCommand extends Command {
     public String delete(TaskList tasks, Storage storage) {
         String result = "";
         for (int index : this.indices) {
+            assert index >= tasks.getSize() || index < 0 : "Provided index is invalid";
             if (index >= tasks.getSize() || index < 0) {
                 UI.print(String.format("Oops! %d is not a valid index.", index));
                 result += String.format("Oops! %d is not a valid index.\n", index);

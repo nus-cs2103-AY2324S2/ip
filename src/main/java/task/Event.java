@@ -24,6 +24,7 @@ public class Event extends Task {
      */
     public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
+        assert startDate.isBefore(endDate) || startDate.isEqual(endDate) : "Start date must be before end date";
         this.startDate = startDate;
         this.endDate = endDate;
     }
