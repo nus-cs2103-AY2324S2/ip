@@ -33,6 +33,7 @@ class Duke {
                 isExit = c.isExit();
             } catch (DukeException ex) {
                 System.out.println(ex.toString());
+                ui.showLine();
             }
         }
         ui.close();
