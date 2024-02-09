@@ -37,30 +37,36 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        // If no keyword provided, throw error
-        if (argsList.size() == 1) {
-            throw new InvalidArgumentException("Please enter a keyword to search for.\n"
-                    + FindCommand.USAGE_HINT);
-        }
-
-        // If more than 1 keyword, throw error
-        if (argsList.size() > 2) {
-            throw new InvalidArgumentException("Please enter only 1 keyword.\n"
-                    + FindCommand.USAGE_HINT);
-        }
+        checkKeywordProvided();
+        checkOnlyOneKeyword();
 
         String keyword = argsList.get(1);
-        // List to store tasks that contain keyword in their description
+
         TaskList results = new TaskList();
 
-        // Search through each task's description for the keyword
+        // If task description contains keyword, add to result list
         for (Task t : tasks) {
             if (t.getDescription().contains(keyword)) {
                 results.add(t);
             }
         }
 
-        // List items in the results list
+        return getResultsString(results);
+    }
+
+    private void checkKeywordProvided() throws InvalidArgumentException {
+        if (argsList.size() == 1) {
+            throw new InvalidArgumentException("Please enter a keyword to search for.\n" + FindCommand.USAGE_HINT);
+        }
+    }
+
+    private void checkOnlyOneKeyword() throws InvalidArgumentException {
+        if (argsList.size() > 2) {
+            throw new InvalidArgumentException("Please enter only 1 keyword.\n" + FindCommand.USAGE_HINT);
+        }
+    }
+
+    private String getResultsString(TaskList results) {
         StringBuilder outputMessage = new StringBuilder("Here are the matching tasks in your list:\n");
         if (results.isEmpty()) {
             outputMessage = new StringBuilder("There are no matching tasks in your list.");
@@ -73,6 +79,7 @@ public class FindCommand extends Command {
                 outputMessage.append(i + 1).append(".").append(results.get(i).toString());
             }
         }
+
         return outputMessage.toString();
     }
 }
