@@ -173,7 +173,13 @@ public class Duke extends Application {
         Storage storage = new Storage();
         Parser parser = new Parser(storage);
         Output output = new Output(parser, storage);
-        
+        String response = output.execute(input);
+        //writing into the file
+        try {
+            storage.writeToFile(storage.load());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
         if (input.equalsIgnoreCase("bye")) {
             String byeMessage = output.execute(input); // Assume this returns the "Bye" message
             Platform.runLater(() -> {
@@ -183,7 +189,7 @@ public class Duke extends Application {
             });
             return byeMessage;
         } else {
-            return output.execute(input);
+            return response;
         }
     }
 
