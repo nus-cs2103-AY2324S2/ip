@@ -19,8 +19,10 @@ public class Duke {
                 if (input.equals("bye")) {
                     bye();
                     hasEnded = true;
+                    break;
                 } else if (input.equals("list")) {
                     printList(listOfTasks);
+                    break;
                 } else if (input.contains("mark")) {
                     String[] parts = input.split(" ");
                     int index = Integer.parseInt(parts[1]);
@@ -29,35 +31,29 @@ public class Duke {
                     } else {
                         mark(listOfTasks.get(index - 1));
                     }
-
-                } else if (input.contains("todo")) {
-                    Task newTask = new Todo(input.substring(5));
-                    listOfTasks.add(newTask);
-                    repeatFunction(newTask, listOfTasks);
-                } else if (input.contains("deadline")) {
-                    String[] parts = input.substring(9).split(" /");
-                    Task newTask = new Deadline(parts[0], parts[1].substring(3));
-                    listOfTasks.add(newTask);
-                    repeatFunction(newTask, listOfTasks);
-                } else if (input.contains("event")) {
-                    String[] parts = input.substring(6).split(" /");
-                    Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
-                    listOfTasks.add(newTask);
-                    repeatFunction(newTask, listOfTasks);
-                } else if (input.contains("delete")) {
-                    String[] parts = input.split(" ");
-                    int deleteIndex = Integer.parseInt(parts[1]) - 1;
-                    Task deletedTask = listOfTasks.get(deleteIndex);
-                    listOfTasks.remove(deleteIndex);
-                    deleteTask(deletedTask, listOfTasks);
+                    break;
                 } else {
-                    throw new DukeException("Unable to read input");
+                    if (input.contains("todo")) {
+                        Task newTask = new Todo(input.substring(5));
+                        listOfTasks.add(newTask);
+                        repeatFunction(newTask, listOfTasks);
+                    } else if (input.contains("deadline")) {
+                        String[] parts = input.substring(9).split(" /");
+                        Task newTask = new Deadline(parts[0], parts[1].substring(3));
+                        listOfTasks.add(newTask);
+                        repeatFunction(newTask, listOfTasks);
+                    } else if (input.contains("event")) {
+                        String[] parts = input.substring(6).split(" /");
+                        Task newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
+                        listOfTasks.add(newTask);
+                        repeatFunction(newTask, listOfTasks);
+                    }
+                    break;
                 }
             } catch (DukeException e) {
-                System.out.print(LINE);
-                System.out.println("     " + e);
-                System.out.println(LINE);
+                System.out.println(e);
             }
+            String input = reader.readLine();
         }
 
     }
@@ -81,22 +77,7 @@ public class Duke {
         System.out.println(LINE);
         System.out.println("     Nice! I've marked this task as done:");
         task.setDone();
-        System.out.println("       " + task.toString());
-        System.out.println(LINE);
-    }
-
-    /**
-     * Displays a message of the deleted task and the number of task in the list
-     * 
-     * @param task
-     * @param listOfTasks
-     */
-    public static void deleteTask(Task task, ArrayList<? extends Task> listOfTasks) {
-        System.out.print(LINE);
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task);
-        int len = listOfTasks.size();
-        System.out.println(String.format("     Now you have %d tasks in the list.", len));
+        System.out.println("  " + task.toString());
         System.out.println(LINE);
     }
 
