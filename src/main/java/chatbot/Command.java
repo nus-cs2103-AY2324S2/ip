@@ -49,53 +49,51 @@ public enum Command {
     }
 
     /**
-     * Getter for if the command breaks the input loop.
-     *
-     * @return True if the command breaks the input loop.
-     */
-    public boolean shouldExit() {
-        return this.isBreaking;
-    }
-
-    /**
      * Executes the command for the provided task list.
      *
-     * @param view The UI object to interface with.
      * @param tl The task list object to operate on.
-     * @throws DukeException If an error occurs with the execution.
+     * @return The messages to display.
      */
-    public void execute(Ui view, TaskList tl) throws DukeException {
-        switch (this) {
-        case LIST:
-            view.displayList(tl);
-            break;
-        case TODO:
-        case DEADLINE:
-        case EVENT:
-            executeAdd(view, tl);
-            break;
-        case MARK:
-        case UNMARK:
-        case DELETE:
-            executeIndexing(view, tl);
-            break;
-        case FIND:
-            executeFind(view, tl);
-            break;
-        default:
-            break;
+    public Response execute(TaskList tl) {
+        Response r = null;
+        try {
+            switch (this) {
+            case EXIT:
+                r = Response.displayParting();
+                break;
+            case LIST:
+                r = Response.displayList(tl);
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                r = executeAdd(tl);
+                break;
+            case MARK:
+            case UNMARK:
+            case DELETE:
+                r = executeIndexing(tl);
+                break;
+            case FIND:
+                r = executeFind(tl);
+                break;
+            default:
+            }
+
+        } catch (DukeException e) {
+            r = Response.displayError(e);
         }
+        return r;
     }
 
     /**
      * Executes a command with arguments for the provided task list.
      *
-     * @param view The UI object to interface with.
      * @param tl The task list object to operate on.
      * @throws DukeException If an error occurs with the execution.
      */
-    private void executeAdd(Ui view, TaskList tl) throws DukeException {
-        Task t = new Task("");
+    private Response executeAdd(TaskList tl) throws DukeException {
+        Task t = null;
         Pattern pattern;
         Matcher matcher;
         switch (this) {
@@ -124,17 +122,16 @@ public enum Command {
             break;
         }
         tl.addTask(t);
-        view.displayAdd(tl, t);
+        return Response.displayAdd(tl, t);
     }
 
     /**
      * Executes a command with only index for the provided task list.
      *
-     * @param view The UI object to interface with.
      * @param tl The task list object to operate on.
      * @throws DukeException If an error occurs with the execution.
      */
-    private void executeIndexing(Ui view, TaskList tl) throws DukeException {
+    private Response executeIndexing(TaskList tl) throws DukeException {
         int i;
         try {
             i = Integer.parseInt(args);
@@ -146,26 +143,28 @@ public enum Command {
             throw new InvalidArgumentException();
         }
 
+        Response r = Response.displayError(new InvalidArgumentException());
         switch (this) {
         case MARK:
             tl.markTask(i - 1);
-            view.displayMark(i);
+            r = Response.displayMark(i);
             break;
         case UNMARK:
             tl.unmarkTask(i - 1);
-            view.displayUnmark(i);
+            r = Response.displayUnmark(i);
             break;
         case DELETE:
             Task removed = tl.removeTask(i - 1);
-            view.displayDelete(tl, removed);
+            r = Response.displayDelete(tl, removed);
             break;
         default:
             break;
         }
+        return r;
     }
 
-    private void executeFind(Ui view, TaskList tl) {
+    private Response executeFind(TaskList tl) {
         ArrayList<Task> res = tl.filterByString(args.strip());
-        view.displayFind(res);
+        return Response.displayFind(res);
     }
 }

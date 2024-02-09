@@ -1,0 +1,16 @@
+.root-panel {
+    -fx-padding: 20px;
+}
+
+#messageBg {
+    -fx-background-radius: 10px;
+    -fx-background-color: #B4D4FF;
+}
+
+.error-box {
+    -fx-background-radius: 10px;
+    -fx-background-color: #F7CAC9;
+}
+.error-label {
+    -fx-text-fill: red;
+}

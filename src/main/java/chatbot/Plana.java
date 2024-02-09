@@ -11,7 +11,6 @@ import chatbot.exceptions.DukeException;
 public class Plana {
     private final TaskList taskList;
     private final Storage store;
-    private final Ui view;
     private boolean shouldExit;
 
     /**
@@ -21,7 +20,6 @@ public class Plana {
      * @throws ClassNotFoundException If data from hard disk is of the wrong format/outdated.
      */
     public Plana() throws IOException, ClassNotFoundException {
-        this.view = new Ui();
         this.shouldExit = false;
         this.store = new Storage();
         this.taskList = new TaskList(this.store);
@@ -29,24 +27,17 @@ public class Plana {
 
     /**
      * Initiates the user input loop.
-     *
-     * @throws IOException If writing to hard disk on exit fails.
      */
-    public void init() throws IOException {
-        this.view.greet();
-
-        while (!shouldExit) {
-            String userInput = this.view.getInput();
-            try {
-                Command cmd = Parser.toCommand(userInput);
-                cmd.execute(view, taskList);
-                this.shouldExit = cmd.shouldExit();
-            } catch (DukeException e) {
-                this.view.displayError(e);
-            }
+    public Response getResponse(String input) {
+        try {
+            Command cmd = Parser.toCommand(input);
+            return cmd.execute(taskList);
+        } catch (DukeException e) {
+            return Response.displayError(e);
         }
+    }
 
+    public void persistData() throws IOException {
         this.taskList.saveToStore(this.store);
-        this.view.bye();
     }
 }
