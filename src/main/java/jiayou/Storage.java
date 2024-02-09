@@ -99,7 +99,7 @@ public class Storage {
             break;
         }
 
-        newTask.setStatus((isDone.contains("1")));
+        newTask.setStatus((isDone.equals("1")));
         return newTask;
     }
 }

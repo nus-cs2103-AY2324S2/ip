@@ -38,8 +38,8 @@ public class Parser {
                 break;
             case HELP:
                 response = "1. To get the whole list of tasks: list\n";
-                response += "2. To mark/unmark tasks with the index x, y and z: mark/unmark x y z\n";
-                response += "3. To delete the task(s) with the index x, y and z: delete x y z\n";
+                response += "2. To mark/unmark the task(s) with ids x, y and z: mark/unmark x y z\n";
+                response += "3. To delete the task(s) with ids x, y and z: delete x y z\n";
                 response += "4. To search tasks on a certain date: search_by_date YYYY-MM-DD\n";
                 response += "5. To search tasks with the keyword x: search_by_keyword x\n";
                 response += "6. To add a todo task: todo description\n";

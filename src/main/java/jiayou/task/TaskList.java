@@ -203,7 +203,7 @@ public class TaskList {
         String response = "Here are the task(s) in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
-            response += ((i + 1) + "." + task.toString() + "\n");
+            response += ((i + 1) + ". " + task.toString() + "\n");
         }
         return response;
     }

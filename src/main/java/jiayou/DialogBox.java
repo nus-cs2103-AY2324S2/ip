@@ -7,12 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  * An example of a custom control using FXML.
@@ -33,6 +37,7 @@ public class DialogBox extends HBox {
                 fxmlLoader.setController(this);
                 fxmlLoader.setRoot(this);
                 fxmlLoader.load();
+                VBox.setMargin(this, new Insets(0, 0, 0, 100));
             } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBoxForJiayou.fxml"));
                 fxmlLoader.setController(this);
