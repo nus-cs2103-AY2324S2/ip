@@ -37,7 +37,7 @@ public class Parser {
         }
     }
 
-    private void markTaskAsDone(String input) throws LiaException {
+    void markTaskAsDone(String input) throws LiaException {
         String[] tokens = input.split(" ");
         int pos = Integer.parseInt(tokens[1]);
 
@@ -46,7 +46,7 @@ public class Parser {
         ui.showMarkedAsDone(tasks.getTask(pos - 1));
     }
 
-    private void markTaskAsNotDone(String input) throws LiaException {
+    void markTaskAsNotDone(String input) throws LiaException {
         String[] tokens = input.split(" ");
         int pos = Integer.parseInt(tokens[1]);
 
@@ -55,7 +55,7 @@ public class Parser {
         ui.showMarkedAsNotDone(tasks.getTask(pos - 1));
     }
 
-    private void addTodoTask(String input) throws LiaException {
+    void addTodoTask(String input) throws LiaException {
         String todo = input.replaceFirst("todo", "").trim();
 
         if (todo.isEmpty()) {
@@ -66,7 +66,7 @@ public class Parser {
         ui.showAddedTask(tasks.getLastTask(), tasks);
     }
 
-    private void addDeadlineTask(String input) throws LiaException {
+    void addDeadlineTask(String input) throws LiaException {
         String deadline = input.replaceFirst("deadline", "").split("/by")[0].trim();
 
         if (deadline.isEmpty()) {
@@ -79,7 +79,7 @@ public class Parser {
         ui.showAddedTask(tasks.getLastTask(), tasks);
     }
 
-    private void addEventTask(String input) throws LiaException {
+    void addEventTask(String input) throws LiaException {
         String event = input.replaceFirst("event", "").split("/from")[0].trim();
 
         if (event.isEmpty()) {
@@ -94,7 +94,7 @@ public class Parser {
         ui.showAddedTask(tasks.getLastTask(), tasks);
     }
 
-    private void deleteTask(String input) throws LiaException {
+    void deleteTask(String input) throws LiaException {
         String[] tokens = input.split(" ");
         int pos = Integer.parseInt(tokens[1]);
 
