@@ -1,9 +1,12 @@
 package anita;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
+/**
+ * The main class.
+ */
 public class Duke {
     protected static boolean initialize = true;
 
@@ -11,6 +14,11 @@ public class Duke {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * The constructor for the Duke class.
+     *
+     * @param filePath The path of the database used to store task data.
+     */
     public Duke(String filePath) {
         database = new Database(filePath, this);
         ui = new Ui();

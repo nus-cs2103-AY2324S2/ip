@@ -2,11 +2,20 @@ package anita;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class contains an ArrayList used to store task objects.
+ * It also handles all task related operations.
+ */
 public class TaskList {
+    private ArrayList<Task> taskList;
     private Ui ui;
     private Database database;
-    protected ArrayList<Task> taskList;
 
+    /**
+     * The constructor for a TaskList object.
+     *
+     * @param database Takes in the database used for task operations.
+     */
     public TaskList(Database database) {
         taskList = new ArrayList<>();
         ui = new Ui();
@@ -20,7 +29,7 @@ public class TaskList {
      * @return Task to be retrieved.
      */
     public Task get(int index) {
-        return taskList.get(index -1);
+        return taskList.get(index - 1);
     }
 
     /**
@@ -65,7 +74,7 @@ public class TaskList {
      * @param index Index of task to be removed.
      */
     public void removeTask(int index) {
-        Task curr = taskList.remove(index-1);
+        Task curr = taskList.remove(index - 1);
         database.deleteLine(index);
         ui.removeTaskMessage(curr);
         getNumberOfTasks();
@@ -76,7 +85,7 @@ public class TaskList {
      */
     public void listTask() {
         for (int i = 0; i < taskList.size(); i++) {
-            ui.listTaskMessage(i+1, taskList.get(i));
+            ui.listTaskMessage(i + 1, taskList.get(i));
         }
     }
 
@@ -95,7 +104,7 @@ public class TaskList {
         }
 
         for (int i = 0; i < matchingTaskArray.size(); i++) {
-            ui.listTaskMessage(i+1, matchingTaskArray.get(i));
+            ui.listTaskMessage(i + 1, matchingTaskArray.get(i));
         }
     }
 

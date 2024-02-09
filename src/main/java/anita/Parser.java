@@ -1,12 +1,9 @@
 package anita;
 
+/**
+ * The Parser class handles all methods used to parse user commands.
+ */
 public class Parser {
-    private Ui ui;
-
-
-    public Parser() {
-        ui = new Ui();
-    }
 
     /**
      * Takes in the raw user input and returns the command.
@@ -39,8 +36,9 @@ public class Parser {
      */
     public int removeParser(String description) {
         String[] tokens = description.split(" ");
-        if (tokens.length == 1)
+        if (tokens.length == 1) {
             throw new ArrayIndexOutOfBoundsException("Please enter the index of the task to be deleted.");
+        }
         return Integer.parseInt(tokens[1]);
     }
 
@@ -65,9 +63,9 @@ public class Parser {
         String[] tokens = description.split(" ");
         String[] res = new String[1];
         String taskName = "";
-        if (tokens.length == 1)
+        if (tokens.length == 1) {
             throw new ArrayIndexOutOfBoundsException("The description of a todo cannot be empty.");
-
+        }
         for (int i = 1; i < tokens.length; i++) {
             taskName += tokens[i] + " ";
         }
@@ -85,9 +83,9 @@ public class Parser {
         String[] tokens2 = tokens[0].split(" ", 2);
         String[] res = new String[2];
         String taskName = "";
-        if (tokens2.length == 1)
+        if (tokens2.length == 1) {
             throw new ArrayIndexOutOfBoundsException("The description of a deadline cannot be empty.");
-
+        }
         for (int i = 1; i < tokens2.length; i++) {
             taskName += tokens2[i] + " ";
         }
@@ -108,9 +106,9 @@ public class Parser {
         String[] res = new String[2];
         String taskName = "";
 
-        if (tokens2.length == 1)
+        if (tokens2.length == 1) {
             throw new ArrayIndexOutOfBoundsException("The description of a deadline cannot be empty.");
-
+        }
         for (int i = 1; i < tokens2.length; i++) {
             taskName += tokens2[i] + " ";
         }

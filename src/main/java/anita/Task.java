@@ -1,9 +1,17 @@
 package anita;
 
+/**
+ * An abstract class to be inherited by other tasks.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * The constructor for the Task class.
+     *
+     * @param description The raw user input.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
