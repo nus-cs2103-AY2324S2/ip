@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 public class Parser {
-    
+
     private String userInput;
     private ArrayList<Task> myList;
     private Ui ui;
@@ -50,7 +50,7 @@ public class Parser {
 
             return false;
 
-        } else if (command.equals("find")){
+        } else if (command.equals("find")) {
 
             TaskList taskList = new TaskList(myList);
             taskList.find(parts);
@@ -72,7 +72,7 @@ public class Parser {
             taskList.markList(parts);
             return true;
 
-        } else if (command.equals("delete")){
+        } else if (command.equals("delete")) {
             TaskList taskList = new TaskList(myList);
             taskList.remove(parts);
             return true;
@@ -81,9 +81,7 @@ public class Parser {
             TaskList taskList = new TaskList(myList);
             taskList.add(command, restOfInputs);
             return true;
-            
+
         }
     }
- }
-
- 
+}

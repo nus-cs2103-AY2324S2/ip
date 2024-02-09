@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
 
 /**
  * Represents the user interface for the Duke program, providing methods for
@@ -93,6 +92,9 @@ public class Ui {
         System.out.println("Here are the tasks in your list: ");
     }
 
+    /**
+     * Prints a header indicating the start of the list of matching tasks.
+     */
     public void findListDetails() {
         System.out.println("------------------------------------------------------------");
         System.out.println("Here are the matching tasks in your list: ");
@@ -160,7 +162,7 @@ public class Ui {
         System.out.println("Got it. I've added this task: ");
         System.out.println(newEvent);
         System.out.println("Now you have " + size + " tasks in the list.");
-       System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------");
     }
 
     /**

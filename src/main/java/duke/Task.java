@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a generic tasks.
- * Provides basic functionality for managing tasks, such as marking as done, retrieving status, and obtaining a string representation.
+ * Provides basic functionality for managing tasks, such as marking as done,
+ * retrieving status, and obtaining a string representation.
  */
 public class Task implements Serializable {
 
@@ -94,7 +95,8 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         String status = getStatusIcon();
-        String deadlineString = (deadline != null) ? " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")" : "";
+        String deadlineString = (deadline != null) ? " (by: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a")) + ")" : "";
         return status + " " + getDescription() + deadlineString;
     }
 }

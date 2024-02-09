@@ -1,14 +1,13 @@
 package duke;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Handles the storage of tasks to and from a file.
@@ -27,7 +26,6 @@ public class Storage {
      * @param filePath The file path for storing tasks.
      */
     public Storage(String filePath) {
-        
     }
 
     /**
@@ -39,7 +37,7 @@ public class Storage {
         File file = new File(folder, "/duke.txt");
 
         if (!folder.exists()) {
-            // Creates the directory named by this abstract pathname, 
+            // Creates the directory named by this abstract pathname,
             // including any necessary but nonexistent parent directories
             folder.mkdirs();
         }
@@ -84,7 +82,6 @@ public class Storage {
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             tasks = (ArrayList<Task>) ois.readObject();
-            
         } catch (FileNotFoundException e) {
             System.out.println("No existing data file found. Starting with an empty task list");
 

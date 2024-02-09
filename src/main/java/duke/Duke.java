@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -10,7 +9,7 @@ import java.util.Scanner;
  * Supports three types of tasks: Todo, Deadline, and Event.
  * Provides a command-line interface for user interaction.
  *
- *  <p>
+ * <p>
  * The program initializes a user interface, a task list, and a storage mechanism.
  * Users interact with the program through the command line, providing input to perform various tasks.
  * The program handles tasks such as adding, marking as done, unmarking, listing, deleting, and exiting tasks.
@@ -25,7 +24,6 @@ import java.util.Scanner;
  *
  * @author Kailin Teo
  */
-
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -36,6 +34,7 @@ public class Duke {
      *
      * @param filePath The file path for storing and loading tasks.
      */
+
     public Duke(Storage filePath) {
         ui = new Ui();
         ui.message();
@@ -76,7 +75,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         Storage storage = new Storage("./data/duke.txt");
-        
         new Duke(storage);
     }
 }

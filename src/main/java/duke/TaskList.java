@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a list of tasks with various operations such as marking, unmarking, listing, removing and adding tasks.
@@ -81,22 +80,22 @@ public class TaskList {
      * @param parts An array containing the command and the task number.
      */
     public void remove(String[] parts) {
-        int removed_item = Integer.parseInt(parts[1]) - 1;
+        int removed = Integer.parseInt(parts[1]) - 1;
         Ui ui = new Ui();
-
-        
-        if (removed_item >= 0 && removed_item < myList.size()) {
-            Task item = myList.get(removed_item);
+        if (removed >= 0 && removed < myList.size()) {
+            Task item = myList.get(removed);
             ui.removeTop(item);
-            myList.remove(removed_item);
+            myList.remove(removed);
             ui.removeBottom(myList.size());
-    
         } else {
-            ui.invalidNum();    
+            ui.invalidNum();
         }
-        
     }
 
+    /**
+     * Finds tasks containing a specified keyword and prints them to the console.
+     * @param parts An array containing the command and the keyword to search for.
+     */
     public void find(String[] parts) {
 
         Ui ui = new Ui();
@@ -112,9 +111,13 @@ public class TaskList {
         }
 
         ui.separationLine();
-
     }
 
+    /**
+     * Adds a new task to the task list based on the provided command and input.
+     * @param command The command indicating the type of task to add (e.g., "todo", "deadline", "event").
+     * @param restOfInputs The rest of the user input containing task details (e.g., task description, deadline).
+     */
     public void add(String command, String restOfInputs) {
         Ui ui = new Ui();
 
@@ -146,9 +149,9 @@ public class TaskList {
 
                     } else {
 
-                        String[] item_time = restOfInputs.split("/by");
-                        String items = item_time[0];
-                        String time = item_time[1];
+                        String[] item = restOfInputs.split("/by");
+                        String items = item[0];
+                        String time = item[1];
 
                         Deadline newDeadline = new Deadline(items, time);
                         myList.add(newDeadline);
@@ -170,14 +173,12 @@ public class TaskList {
 
                     } else {
 
-                        String[] item_time = restOfInputs.split("/from");
-                        String items = item_time[0];
-                        String time = item_time[1];
-            
-                        String[] from_to = time.split("/to");
-                        String from = from_to[0];
-                        String to = from_to[1];
-            
+                        String[] item = restOfInputs.split("/from");
+                        String items = item[0];
+                        String time = item[1];
+                        String[] period = time.split("/to");
+                        String from = period[0];
+                        String to = period[1];
                         Event newEvent = new Event(items, from, to);
                         myList.add(newEvent);
                         int size = myList.size();
@@ -197,5 +198,4 @@ public class TaskList {
             ui.errorEncounter(e);
         }
     }
- }
- 
+}

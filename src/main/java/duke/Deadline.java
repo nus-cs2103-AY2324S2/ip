@@ -53,7 +53,7 @@ public class Deadline extends Task implements Serializable {
                 this.dayOfWeek = DayOfWeek.from(dayOfWeekFormatter.parse(by));
 
             } catch (DateTimeParseException error) {
-                System.err.println("Error: Invalid date/time input. Please delete the task and provide a valid date/time or day of the week again.");
+                System.err.println("Error: Invalid input. Please provide a valid period of the week again.");
             }
         }
     }
@@ -67,7 +67,8 @@ public class Deadline extends Task implements Serializable {
     public String toString() {
 
         if (by != null) {
-            return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + ")";
+            return "[D]" + super.toString() + " (by: "
+                    + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + ")";
         } else {
             return "[D]" + super.toString() + " (by: " + dayOfWeek + ")";
         }
