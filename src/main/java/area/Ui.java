@@ -1,6 +1,10 @@
 package area;
 import java.util.ArrayList;
 
+/**
+ *  Returns responses to user instructions in the form of printed statements. It starts with greeting the user and ends with the command bye. If any task is added or modified,
+ * Ui will print a statement accordingly to inform user that user's instructions have been followed.
+ */
 public class Ui {
 
     public Ui() {

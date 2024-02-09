@@ -1,5 +1,8 @@
 package area;
 
+/**
+ * Todo class is child of Task class. It is used to create objects that represent generic tasks that users want to keep track of.
+ */
 public class Todo extends Task {
 
     /**

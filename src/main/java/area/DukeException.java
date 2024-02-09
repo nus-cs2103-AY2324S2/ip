@@ -1,6 +1,6 @@
 package area;
 /**
- * checks for exception for each command.
+ * Checks for exception for each command.
  */
 public class DukeException extends Exception {
 
