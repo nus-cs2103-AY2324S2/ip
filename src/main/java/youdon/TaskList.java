@@ -7,10 +7,10 @@ import java.util.ArrayList;
  * This class provides methods for managing tasks in the list.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
