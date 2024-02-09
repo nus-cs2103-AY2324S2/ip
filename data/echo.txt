@@ -1,4 +1,5 @@
-T | 0 | sleep
+T | 1 | sleep
 T | 0 | borrow books
-D | 1 | return book | 2023-12-19 1600
+D | 0 | return book | 2023-12-19 1600
 T | 0 | what
+T | 0 | alive
