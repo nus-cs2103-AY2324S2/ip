@@ -5,20 +5,38 @@ import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 
+
+import java.io.IOException;
+
 import java.util.Scanner;
 
+/**
+ * Parses user input and performs corresponding actions.
+ * This class handles parsing user input commands and executing actions accordingly,
+ * such as adding tasks, marking tasks as done, and deleting tasks.
+ */
 public class Parser {
 
     private final Ui ui;
     private final TaskList tasks;
     private final Storage storage;
 
+    /**
+     * Constructs a new instance of the Parser class with the specified UI, task list, and storage.
+     *
+     * @param ui      The user interface for displaying messages.
+     * @param tasks The list of tasks to perform actions on.
+     * @param storage The storage handler for saving and loading tasks.
+     */
     public Parser(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
         this.tasks = tasks;
         this.storage = storage;
     }
 
+    /**
+     * Parses user input and executes corresponding actions until an empty input is provided.
+     */
     public void parse() {
         Scanner input = new Scanner(System.in);
         String data = input.nextLine();
@@ -60,8 +78,8 @@ public class Parser {
                 // if input == "find", find all tasks with the given word
                 if (command.equals("find")) {
                     TaskList foundList = new TaskList();
-                    for(int i = 0; i < taskList.size(); i++) {
-                        Task currTask = taskList.get(i);
+                    for(int i = 0; i < tasks.size(); i++) {
+                        Task currTask = tasks.get(i);
                         if (currTask.toString().contains(task)) {
                             foundList.add(currTask);
                         }

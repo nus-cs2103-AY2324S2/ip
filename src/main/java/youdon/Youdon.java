@@ -1,6 +1,15 @@
 package youdon;
 
+/**
+ * The main class that starts the Youdon chatbot application.
+ */
 public class Youdon {
+
+    /**
+     * The main method of the application.
+     *
+     * @param args The command-line arguments passed to the application.
+     */
     public static void main(String[] args) {
 
         // initialise ui and storage (filepath = "./data/save.txt")

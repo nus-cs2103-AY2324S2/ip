@@ -10,11 +10,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage handler for saving and loading tasks to and from a file.
+ * This class provides methods to save and load tasks from a file.
+ */
 public class Storage {
     private final String filepath;
     private final File saveFile;
 
-    // create save file if it doesnt exist
+    /**
+     * Constructs a new instance of the Storage class with the specified file path.
+     * Creates a new save file if it doesn't exist.
+     *
+     * @param filepath The file path of the save file.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         this.saveFile = new File(filepath);
@@ -32,6 +41,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from the task list to the save file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveData(TaskList tasks) throws IOException {
         try (FileWriter writer = new FileWriter(this.filepath)) {
             for (int i = 0; i < tasks.size(); i++) {
@@ -43,6 +58,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the save file and returns them as an ArrayList.
+     *
+     * @return The list of tasks loaded from the save file.
+     */
     public ArrayList<Task> loadData() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
