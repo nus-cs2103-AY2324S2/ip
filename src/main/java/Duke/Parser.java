@@ -126,7 +126,10 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:(");
                 }
-            } else {
+            } else if ((userInput.startsWith("Find") || userInput.startsWith("find"))) {
+                String keyword = userInput.substring(userInput.indexOf(" ") + 1).trim();
+                ui.showMatchingTasks(tasks, keyword);
+            }else {
                 throw new DukeException("Gurl I'm sorry, idk what that means :-(");
             }
         } catch (DukeException e) {
