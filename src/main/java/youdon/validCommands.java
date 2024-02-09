@@ -8,7 +8,9 @@ public enum validCommands {
     UNMARK("unmark"),
     LIST("list"),
     BYE("bye"),
-    DELETE("delete");
+    DELETE("delete"),
+    FIND("find");
+
 
     private final String command;
 

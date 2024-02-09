@@ -30,11 +30,7 @@ public class Parser {
                 // print out error message
                 ui.printYoudonErrorMsg(e.getMessage());
                 // update data to next input
-                if (input.hasNextLine()) {
-                    data = input.nextLine();
-                } else {
-                    data = "";
-                }
+                data = scanNextInput(input);
             }
 
             // if input == "bye", print chatbot bye message
@@ -47,11 +43,7 @@ public class Parser {
             if (data.equals("list")) {
                 ui.printTaskList(taskList);
                 // wait for next input
-                if (input.hasNextLine()) {
-                    data = input.nextLine();
-                } else {
-                    data = "";
-                }
+                data = scanNextInput(input);
                 continue;
             }
 
@@ -60,6 +52,21 @@ public class Parser {
                 String[] parts = data.split(" ", 2);
                 String command = parts[0];
                 String task = parts[1];
+
+                // if input == "find", find all tasks with the given word
+                if (command.equals("find")) {
+                    TaskList foundList = new TaskList();
+                    for(int i = 0; i < taskList.size(); i++) {
+                        Task currTask = taskList.get(i);
+                        if (currTask.toString().contains(task)) {
+                            foundList.add(currTask);
+                        }
+                    }
+                    ui.printTaskList(foundList);
+                    // wait for next input
+                    data = scanNextInput(input);
+                    continue;
+                }
 
                 // if input == "mark", mark the specified task as done
                 if (command.equals("mark")) {
@@ -77,11 +84,7 @@ public class Parser {
                         System.out.println("Error!" + e.getMessage());
                     }
 
-                    if (input.hasNextLine()) {
-                        data = input.nextLine();
-                    } else {
-                        data = "";
-                    }
+                    data = scanNextInput(input);
                     continue;
                 }
 
@@ -101,11 +104,7 @@ public class Parser {
                         System.out.println("Error!" + e.getMessage());
                     }
 
-                    if (input.hasNextLine()) {
-                        data = input.nextLine();
-                    } else {
-                        data = "";
-                    }
+                    data = scanNextInput(input);
                     continue;
                 }
 
@@ -124,11 +123,7 @@ public class Parser {
                         System.out.println("Error!" + e.getMessage());
                     }
 
-                    if (input.hasNextLine()) {
-                        data = input.nextLine();
-                    } else {
-                        data = "";
-                    }
+                    data = scanNextInput(input);
                     continue;
                 }
 
@@ -192,12 +187,16 @@ public class Parser {
                     System.out.println("Error!" + e.getMessage());
                 }
 
-                if (input.hasNextLine()) {
-                    data = input.nextLine();
-                } else {
-                    data = "";
-                }
+                data = scanNextInput(input);
             }
         }
+    }
+
+    private String scanNextInput(Scanner input) {
+        String data = "";
+        if (input.hasNextLine()) {
+            data = input.nextLine();
+        }
+        return data;
     }
 }
