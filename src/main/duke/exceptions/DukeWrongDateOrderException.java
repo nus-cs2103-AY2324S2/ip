@@ -1,4 +1,4 @@
-package com.exceptions;
+package duke.exceptions;
 
 /**
  * An exception that is thrown when the order of dates are wrong.

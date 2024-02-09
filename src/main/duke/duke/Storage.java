@@ -1,4 +1,4 @@
-package com.duke;
+package duke.duke;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.tasks.Deadline;
-import com.tasks.Event;
-import com.tasks.Task;
-import com.tasks.TaskList;
-import com.tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Todo;
 
 /**
  * The storage class contains the file paths and methods to load and save task lists.

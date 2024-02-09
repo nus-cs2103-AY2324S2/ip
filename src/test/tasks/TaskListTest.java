@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tasks.Deadline;
-import com.tasks.Event;
-import com.tasks.Task;
-import com.tasks.TaskList;
-import com.tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Todo;
 
 @ExtendWith(MockitoExtension.class)
 class TaskListTest {

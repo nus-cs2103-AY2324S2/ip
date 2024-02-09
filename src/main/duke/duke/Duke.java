@@ -1,6 +1,6 @@
-package com.duke;
+package duke.duke;
 
-import com.tasks.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * Class that runs the chatbot.

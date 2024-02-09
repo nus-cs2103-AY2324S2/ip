@@ -17,15 +17,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.duke.Parser;
-import com.duke.Storage;
-import com.exceptions.DukeEmptyArgumentException;
-import com.exceptions.DukeErroneousArgumentException;
-import com.tasks.Deadline;
-import com.tasks.Event;
-import com.tasks.Task;
-import com.tasks.TaskList;
-import com.tasks.Todo;
+import duke.duke.Parser;
+import duke.duke.Storage;
+import duke.exceptions.DukeEmptyArgumentException;
+import duke.exceptions.DukeErroneousArgumentException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Todo;
 
 @ExtendWith(MockitoExtension.class)
 class ParserTest {

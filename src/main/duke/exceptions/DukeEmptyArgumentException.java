@@ -1,4 +1,4 @@
-package com.exceptions;
+package duke.exceptions;
 
 /**
  * An exception that is thrown when an argument is empty.

@@ -1,16 +1,10 @@
-package com.tasks;
+package tasks;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * An encapsulation of a task list.
- *
- * @author Lim Zi Jia
- */
 public class TaskList {
-    /** List of tasks. */
     private List<Task> list;
 
     public TaskList() {
@@ -21,9 +15,6 @@ public class TaskList {
         this.list = list;
     }
 
-    /**
-     * Prints a list containing the current tasks.
-     */
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         int number = 1;
@@ -45,20 +36,15 @@ public class TaskList {
         return this.list.size();
     }
 
-    /**
-     * Marks a task as done.
-     *
-     * @param in The index of the task that should be marked as done.
-     */
     public void mark(String in) {
         int i;
         try {
             i = Integer.parseInt(in.substring(5));
-            Task t = this.list.get(i - 1);
+            Task t = this.list.get(i-1);
             t.markAsDone();
             System.out.print("Nice! I've marked this task as done:\n  ");
             System.out.print(t);
-            this.list.set(i - 1, t);
+            this.list.set(i-1, t);
 
         } catch (NumberFormatException e) {
             System.out.println("Not a valid number!");
@@ -67,19 +53,14 @@ public class TaskList {
         }
     }
 
-    /**
-     * Marks a task as not done.
-     *
-     * @param in The index of the task that should be marked as not done.
-     */
     public void unmark(String in) {
         try {
             int i = Integer.parseInt(in.substring(7));
-            Task t = this.list.get(i - 1);
+            Task t = this.list.get(i-1);
             t.markAsNotDone();
             System.out.print("OK, I've marked this task as not done yet:\n  ");
             System.out.print(t);
-            this.list.set(i - 1, t);
+            this.list.set(i-1, t);
 
         } catch (NumberFormatException e) {
             System.out.println("Not a valid number!");
@@ -88,15 +69,10 @@ public class TaskList {
         }
     }
 
-    /**
-     * Deletes a task from the list.
-     *
-     * @param in The index of the task that should be deleted.
-     */
     public void delete(String in) {
         try {
             int i = Integer.parseInt(in.substring(7));
-            Task t = this.list.remove(i - 1);
+            Task t = this.list.remove(i-1);
             System.out.print("Noted. I've removed this task::\n  ");
             System.out.println(t);
             System.out.printf("Now you have %d tasks in the list.\n", this.list.size());
@@ -108,48 +84,9 @@ public class TaskList {
         }
     }
 
-    /**
-     * Converts a list of tasks to a list of strings that are in the format used for saving.
-     *
-     * @return A list of strings that will be used for saving.
-     */
     public List<String> taskToSavedString() {
         return list.stream()
                 .map(Task::toSavedString)
                 .collect(Collectors.toList());
     }
-
-    /**
-     * Finds if the substring is in the name of th list of tasks and print it if there is.
-     *
-     * @param in A string in the format of "find x" where x is the substring to find.
-     */
-    public void find(String in) {
-        System.out.println("Here are the matching tasks in your list:");
-        int number = 1;
-        String toFind = in.substring(5);
-        for (Task t : this.list) {
-            if (t.has(toFind)) {
-                System.out.printf("%d. %s", number, t);
-                number++;
-            }
-        }
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-        TaskList tl = (TaskList) obj;
-
-        return this.list.equals(tl.list);
-    }
-
-
 }

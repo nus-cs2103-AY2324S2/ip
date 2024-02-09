@@ -1,8 +1,8 @@
-package com.duke;
+package duke.duke;
 
 import java.util.Scanner;
 
-import com.tasks.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * The main class that prints outputs.

@@ -1,4 +1,4 @@
-package com.tasks;
+package duke.tasks;
 
 /**
  * An encapsulation of a todo type task.
