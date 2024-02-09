@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("Huyang")
+    mainClass.set("huyang.Launcher")
 }
 
 shadowJar {
