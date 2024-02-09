@@ -59,6 +59,10 @@ public class Task {
     public Boolean isWithinDate(DateTime dt) {
         return false;
     }
+
+    public boolean containsInName(String keyword) {
+        return this.taskName.contains(keyword);
+    }
     @Override
     public String toString() {
         return (this.isMarked ? "[X] " : "[ ] ") + this.taskName;

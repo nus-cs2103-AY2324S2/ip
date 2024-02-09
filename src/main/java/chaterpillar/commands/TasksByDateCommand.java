@@ -15,11 +15,11 @@ public class TasksByDateCommand extends Command {
         this.date = date;
     }
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+        ui.echo(String.format("For %s,", this.date));
         if (tasks.size() == 0) {
             throw new ChaterpillarException(
                     "Congrats! You have no tasks for today. :)");
         } else {
-            ui.echo(String.format("For %s,kq", this.date));
             TaskList tasksNew = tasks.getTasksOnDate(this.date);
             new ListCommand(tasksNew).execute(tasks, ui, storage);
         }
