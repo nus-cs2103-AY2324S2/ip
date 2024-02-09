@@ -4,7 +4,7 @@ import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Task;
-import duke.ui.Ui;
+import duke.Ui;
 
 /**
  * Represents a command to delete a task.

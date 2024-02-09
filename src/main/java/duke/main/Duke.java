@@ -3,7 +3,7 @@ package duke.main;
 import duke.Parser;
 import duke.Storage;
 import duke.TaskList;
-import duke.ui.Ui;
+import duke.Ui;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 
@@ -40,6 +40,21 @@ public class Duke {
             } catch (DukeException e) {
                 this.ui.printErrorMessage(e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Return response from the Ui to the user.
+     *
+     * @return String Message from the Ui.
+     */
+    public String getResponse(String userInput) {
+        try {
+            Command c = Parser.parse(userInput, this.ui,this.taskList, this.storage);
+            String response = c.execute();
+            return response;
+        } catch (DukeException e) {
+            return this.ui.printErrorMessage(e.getMessage());
         }
     }
 

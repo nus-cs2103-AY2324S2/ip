@@ -5,7 +5,7 @@ import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Event;
 import duke.tasks.Task;
-import duke.ui.Ui;
+import duke.Ui;
 
 import java.time.DateTimeException;
 

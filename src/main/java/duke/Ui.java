@@ -1,4 +1,4 @@
-package duke.ui;
+package duke;
 
 import duke.TaskList;
 import duke.tasks.Task;

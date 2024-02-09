@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.ui.Ui;
+import duke.Ui;
 
 /**
  * Represent a command to find tasks.
