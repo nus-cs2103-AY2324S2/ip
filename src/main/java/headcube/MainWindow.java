@@ -18,8 +18,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
 
     private HeadCube headcube;
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image headcubeImage = new Image(this.getClass().getResourceAsStream("/images/headcube.png"));
+    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image HEADCUBE_IMAGE = new Image(this.getClass().getResourceAsStream("/images/headcube.png"));
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
         Ui ui = new Ui();
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getHeadCubeDialog(ui.greet(), headcubeImage)
+                DialogBox.getHeadCubeDialog(ui.greet(), HEADCUBE_IMAGE)
         );
     }
 

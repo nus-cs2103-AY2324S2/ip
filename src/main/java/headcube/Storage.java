@@ -30,6 +30,7 @@ public class Storage {
      * @return The save message
      */
     public String save(TaskList taskList) {
+        assert taskList != null : "Task list cannot be null";
         try {
             Files.createDirectories(Paths.get(DIRECTORY_PATH));
             File file = new File(FILE_PATH);
