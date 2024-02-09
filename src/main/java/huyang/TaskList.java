@@ -102,6 +102,7 @@ public class TaskList {
     private Task getTaskByNumber(String input) throws TaskException {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
+            assert (taskNumber < 1 || taskNumber > tasks.size()) : "Invalid task number.";
             if (taskNumber < 1 || taskNumber > tasks.size()) {
                 throw TaskException.forInvalidTaskNumber();
             }

@@ -20,6 +20,7 @@ public class Event extends Task {
      */
     public Event(String taskName, LocalDateTime start, LocalDateTime end) {
         super(taskName);
+        assert start.isBefore(end) : "Start time must be before end time.";
         this.start = start;
         this.end = end;
     }
