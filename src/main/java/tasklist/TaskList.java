@@ -1,9 +1,5 @@
 package tasklist;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import handler.DataHandler;
-import msg.StdMsgs;
 import storage.Storage;
 import task.Task;
 import msg.Msg;
@@ -55,17 +51,10 @@ public class TaskList {
      *
      * @param item
      */
-    public void add(Task item) throws IOException {
+    public void add(Task item) {
         this.taskList.add(item);
         taskCount += 1;
-        // ack msg
-        new Msg(
-                "Got it. I've added this task:\n" +
-                        item +
-                        "\n" +
-                        String.format("Now you have %d tasks in the list.", this.taskCount)
-        ).print();
-        DataHandler.overWriteItems(this.toDataFormat());
+        storage.save();
     }
 
     /**
@@ -83,12 +72,10 @@ public class TaskList {
      *
      * @param i
      */
-    public void mark(int i) throws IOException {
-        this.taskList.get(i - 1).markAsDone();
-        StdMsgs.MARK.print();
-        new Msg(this.taskList.get(i - 1).toString()).print();
-
-        DataHandler.overWriteItems(this.toDataFormat());
+    public void mark(int i) {
+        taskList.get(i - 1).markAsDone();
+        ui.markResponse(taskList.get(i - 1).toString());
+        storage.save();
     }
 
     /**
@@ -96,11 +83,10 @@ public class TaskList {
      *
      * @param i
      */
-    public void unmark(int i) throws IOException {
-        this.taskList.get(i - 1).unMarkAsDone();
-        StdMsgs.UNMARK.print();
-        new Msg(this.taskList.get(i - 1).toString()).print();
-        DataHandler.overWriteItems(this.toDataFormat());
+    public void unmark(int i) {
+        taskList.get(i - 1).unMarkAsDone();
+        ui.unmarkResponse(taskList.get(i - 1).toString());
+        storage.save();
     }
 
     /**
@@ -117,11 +103,15 @@ public class TaskList {
      *
      * @param i
      */
-    public void delete(int i) throws IOException {
-        // exception handling when taskList is empty or invalid index is required
-        this.taskList.remove(i - 1);
-        this.taskCount -= 1;
-        DataHandler.overWriteItems(this.toDataFormat());
+    public void delete(int i) {
+        try {
+            this.taskList.remove(i - 1);
+            this.taskCount -= 1;
+            storage.save();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // exception handling when taskList is empty or invalid index is required
+            ui.errorMsg(e.getMessage());
+        }
     }
     public Msg toMsg() {
         return new Msg(this.toString());

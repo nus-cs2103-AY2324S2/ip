@@ -1,11 +1,7 @@
 package parser;
 
-import command.Command;
-import dukeexceptions.DeadlineEmptyException;
-import dukeexceptions.DukeException;
-import dukeexceptions.EventEmptyException;
-import handler.DataHandler;
-import msg.StdMsgs;
+import command.*;
+import dukeexceptions.*;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -13,8 +9,10 @@ import task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
+    public Parser() {}
     public enum Commands {
         BYE,
         LIST,
@@ -28,51 +26,72 @@ public class Parser {
     }
     public Command parseCommand(String cmdInput) throws DukeException {
         Commands cmd;
-        cmd = Commands.valueOf(cmdInput.split(" ", 2)[0].toUpperCase());
+        try {
+            cmd = Commands.valueOf(cmdInput.split(" ", 2)[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCmd(cmdInput);
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         switch (cmd) {
             case BYE:
-                StdMsgs.BYE.print();
-                return new byeCmd();
+                return new ByeCmd();
             case LIST:
-
+                return new ListCmd();
             case UNMARK:
-                items.unmark(Integer.parseInt(userInput.substring(7)));
-                break;
+                return new UnmarkCmd(Integer.parseInt(cmdInput.substring(7)));
             case MARK:
-                items.mark(Integer.parseInt(userInput.substring(5)));
-                break;
+                return new MarkCmd(Integer.parseInt(cmdInput.substring(5)));
             case TODO:
-                items.add(new Todo(userInput.substring(5)));
-                break;
+                return new TodoCmd(cmdInput.substring(5));
             case EVENT:
-                // 0 has description, 1 has from, 2 has to
-                String[] inputs = userInput.substring(6).split("\\s/", 3);
-                if (inputs.length != 3) {
-                    throw new EventEmptyException(userInput, true, true);
+                String[] inputs = parseEvent(cmdInput);
+                try {
+                    return new EventCmd(inputs[0],
+                            LocalDateTime.parse(inputs[1].substring(5), formatter),
+                            LocalDateTime.parse(inputs[2].substring(3), formatter));
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateTimeFormat(e.getMessage());
                 }
-                // exception handling here is incomplete. How to see if only from or to fields are empty?
-                items.add(
-                        new Event(inputs[0],
-                                LocalDateTime.parse(inputs[1].substring(5), formatter),
-                                LocalDateTime.parse(inputs[2].substring(3), formatter)));
-                break;
-            case DEADLINE:
-                inputs = userInput.substring(9).split("\\s/by\\s", 2);
-                if (inputs.length != 2) {
-                    throw new DeadlineEmptyException(userInput);
-                }
-                items.add(new Deadline(inputs[0], LocalDateTime.parse(inputs[1], formatter)));
-                break;
-            case ADD:
-                items.add(new Task(userInput));
-                break;
-            case DELETE:
 
-                items.delete(Integer.parseInt(userInput.substring(7)));
-                break;
+            case DEADLINE:
+                inputs = parseDeadline(cmdInput);
+                try {
+                    return new DeadlineCmd(inputs[0], LocalDateTime.parse(inputs[1], formatter));
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateTimeFormat(e.getMessage());
+                }
+
+            case ADD:
+                return new AddCmd(cmdInput);
+            case DELETE:
+                return new DeleteCmd(Integer.parseInt(cmdInput.substring(7)));
+            default:
+                throw new InvalidCmd(cmdInput);
         }
-        return false;
+    }
+
+    public String[] parseEvent(String cmdInput) throws EventEmptyException {
+        // 0 has description, 1 has from, 2 has to
+        String[] inputs = cmdInput.substring(6).split("\\s/", 3);
+        // check for missing or invalid fields
+        if (!(inputs[1].startsWith("from") && inputs[2].startsWith("to"))) {
+            if (!inputs[1].startsWith("from") && !inputs[1].startsWith("to")) {
+                throw new EventEmptyException(cmdInput, true, true);
+            } else if (!inputs[1].startsWith("from")) {
+                throw new EventEmptyException(cmdInput, true, false);
+            } else {
+                throw new EventEmptyException(cmdInput, false, true);
+            }
+        }
+        return inputs;
+    }
+
+    public String[] parseDeadline(String cmdInput) throws DeadlineEmptyException {
+        String[] inputs = cmdInput.substring(9).split("\\s/by\\s", 2);
+        if (inputs.length != 2) {
+            throw new DeadlineEmptyException(cmdInput);
+        }
+        return inputs;
     }
 
     public enum TaskTag {
@@ -80,41 +99,38 @@ public class Parser {
         D, // Deadline
         E // Event
     }
-    public static Task parseDataFormat(String dataFormat) {
+    public static Task parseDataFormat(String dataFormat) throws InvalidDataFormat {
         String[] inputsToCmd;
-        DataHandler.TaskTag tag;
+        TaskTag tag;
         Boolean isDone;
         Task result;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-        try {
-            tag = DataHandler.TaskTag.valueOf(String.valueOf(dataFormat.charAt(0)));
-            // a lot of exceptions can happen here
-            // 1. what if another number other than 0 is put in the isDone category?
-            // 2. what if the first character is not a task tag?
-            // 3. how do we detect that the file is of incorrect format?
-            switch (tag) {
-                case D:
-                    inputsToCmd = dataFormat.split("\\s\\|\\s", 4);
-                    isDone = (inputsToCmd[1].equals("1"));
-                    LocalDateTime by = LocalDateTime.parse(inputsToCmd[3], formatter);
-                    result = new Deadline(inputsToCmd[2], isDone, by);
-                    return result;
-                case E:
-                    inputsToCmd = dataFormat.split("\\s\\|\\s", 5);
-                    isDone = (inputsToCmd[1].equals("1"));
-                    LocalDateTime from = LocalDateTime.parse(inputsToCmd[3], formatter);
-                    LocalDateTime to = LocalDateTime.parse(inputsToCmd[4], formatter);;
-                    result = new Event(inputsToCmd[2], isDone, from, to);
-                    return result;
-                case T:
-                    inputsToCmd = dataFormat.split("\\s\\|\\s", 3);
-                    isDone = (inputsToCmd[1].equals("1"));
-                    result = new Todo(inputsToCmd[2], isDone);
-                    return result;
-            }
-        } catch (IllegalArgumentException e) {
-            // throw invalid format exception
+        tag = TaskTag.valueOf(String.valueOf(dataFormat.charAt(0)).toUpperCase());
+        // a lot of exceptions can happen here
+        // 1. what if another number other than 0 is put in the isDone category?
+        // 2. what if the first character is not a task tag?
+        // 3. how do we detect that the file is of incorrect format?
+        switch (tag) {
+            case D:
+                inputsToCmd = dataFormat.split("\\s\\|\\s", 4);
+                isDone = (inputsToCmd[1].equals("1"));
+                LocalDateTime by = LocalDateTime.parse(inputsToCmd[3], formatter);
+                result = new Deadline(inputsToCmd[2], isDone, by);
+                return result;
+            case E:
+                inputsToCmd = dataFormat.split("\\s\\|\\s", 5);
+                isDone = (inputsToCmd[1].equals("1"));
+                LocalDateTime from = LocalDateTime.parse(inputsToCmd[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(inputsToCmd[4], formatter);;
+                result = new Event(inputsToCmd[2], isDone, from, to);
+                return result;
+            case T:
+                inputsToCmd = dataFormat.split("\\s\\|\\s", 3);
+                isDone = (inputsToCmd[1].equals("1"));
+                result = new Todo(inputsToCmd[2], isDone);
+                return result;
+            default:
+                throw new InvalidDataFormat(dataFormat);
         }
-        return new Task("you are not supposed to be here");
     }
 }

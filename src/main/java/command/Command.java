@@ -4,5 +4,11 @@ import ui.Ui;
 
 public abstract class Command {
     Boolean isExit;
-    abstract void execute(TaskList tasks, Ui ui);
+    TaskList tasks;
+    Ui ui;
+    public abstract void execute();
+    public void setTasksAndUi(TaskList tasks, Ui ui) {
+        this.ui = ui;
+        this.tasks = tasks;
+    }
 }

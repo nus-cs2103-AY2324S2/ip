@@ -1,5 +1,7 @@
 package storage;
 
+import dukeexceptions.InvalidCmd;
+import dukeexceptions.InvalidDataFormat;
 import parser.Parser;
 import task.Task;
 import tasklist.TaskList;
@@ -28,14 +30,15 @@ public class Storage {
         this.tasks = tasks;
         this.ui = ui;
         this.filePath = filePath;
-        file = new File("data/sirDuke.txt");
+        file = new File(filePath);
         createNewFileIfNeeded();
-        load(data);
+        load();
     }
 
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
         this.ui = ui;
+        data = new Scanner(filePath);
     }
 
     /**
@@ -61,18 +64,27 @@ public class Storage {
         }
     }
 
-    public void load(Scanner data) {
+    public void load() {
         while (data.hasNext()) {
-            String line = data.nextLine();
-            Task task = Parser.parseDataFormat(line);
-            tasks.load(task);
+            try {
+                String line = data.nextLine();
+                Task task = Parser.parseDataFormat(line);
+                tasks.load(task);
+                ui.loadingDone();
+            } catch (InvalidDataFormat e) {
+                e.setFilePath(filePath);
+                ui.errorMsg(e.getMessage());
+            }
         }
-        ui.loadingDone();
     }
 
-    public void save() throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(tasks.toDataFormat());
-        fw.close();
+    public void save() {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(tasks.toDataFormat());
+            fw.close();
+        } catch (IOException e) {
+            ui.errorMsg(e.getMessage());
+        }
     }
 }
