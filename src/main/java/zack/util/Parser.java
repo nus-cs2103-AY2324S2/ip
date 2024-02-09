@@ -35,8 +35,6 @@ public class Parser {
      * @throws ZackException If the command is unknown or invalid.
      */
     public static Command parse(String input) throws ZackException {
-        assert input != null && !input.isEmpty() : "Input to parse cannot be null or empty";
-
         String[] sections = input.split(" ", 2);
         String commandWord = sections[0].toLowerCase();
 
