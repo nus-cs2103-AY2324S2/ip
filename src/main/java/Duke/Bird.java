@@ -44,6 +44,7 @@ public class Bird {
         } catch (DukeException e) {
             response = e.getMessage();
         }
+        assert response != null: "Response returned by Duke should not be null!";
         return response;
     }
 
