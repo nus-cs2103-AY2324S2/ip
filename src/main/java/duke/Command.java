@@ -11,7 +11,8 @@ public abstract class Command {
         LIST,
         DELETE,
         ADD,
-        MARK
+        MARK,
+        FIND
     }
 
     private String text;

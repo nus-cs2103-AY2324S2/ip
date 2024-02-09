@@ -98,6 +98,9 @@ public class Parser {
 
                 command = new DeleteCommand(index);
                 break;
+            case "find":
+                command = new FindCommand(String.join(" ", parts.subList(1, parts.size())));
+                break;
             default:
                 throw new DukeException("Mamma Mia! Me-no understand!");
         }
