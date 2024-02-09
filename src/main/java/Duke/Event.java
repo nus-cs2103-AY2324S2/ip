@@ -20,15 +20,15 @@ public class Event extends Task {
      * @param name the name of the Event task
      * @param from the start date of the event
      * @param to the end date of the event
-     * @throws InvalidDateFormat if the date format is invalid
+     * @throws InvalidDateFormatException if the date format is invalid
      */
-    public Event(String name, String from, String to) throws InvalidDateFormat {
+    public Event(String name, String from, String to) throws InvalidDateFormatException {
         super(name.trim());
         try {
             this.from = LocalDate.parse(from.trim());
             this.to = LocalDate.parse(to.trim());
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormat();
+            throw new InvalidDateFormatException();
         }
     }
 

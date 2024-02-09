@@ -88,7 +88,7 @@ public class Storage {
             String line = s.nextLine();
             try {
                 decode(line);
-            } catch (InvalidDateFormat e) {
+            } catch (InvalidDateFormatException e) {
                 System.out.println("Decoding Error: " + e.getMessage());
             }
         }
@@ -99,9 +99,9 @@ public class Storage {
      * Decodes a line from the storage file into a task.
      *
      * @param line the line to decode
-     * @throws InvalidDateFormat if the date format in the line is invalid
+     * @throws InvalidDateFormatException if the date format in the line is invalid
      */
-    private static void decode(String line) throws InvalidDateFormat {
+    private static void decode(String line) throws InvalidDateFormatException {
         DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
         DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

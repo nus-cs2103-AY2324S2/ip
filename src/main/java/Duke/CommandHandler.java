@@ -103,14 +103,14 @@ public class CommandHandler {
      *
      * @param arguments the argument to process
      * @return the index of the task
-     * @throws IndexOutOfRange if the index is out of range
+     * @throws IndexOutOfRangeException if the index is out of range
      */
-    private static int processTaskIdx(String arguments) throws IndexOutOfRange{
+    private static int processTaskIdx(String arguments) throws IndexOutOfRangeException {
         int idx = Integer.parseInt(arguments);
         int size = TaskList.listSize();
         assert size>=0: "Size of TaskList should always be >= 0";
         if (idx <= 0 || idx > size) {
-            throw new IndexOutOfRange(idx, size);
+            throw new IndexOutOfRangeException(idx, size);
         }
         return idx;
     }
@@ -131,9 +131,9 @@ public class CommandHandler {
      * @param arguments the argument to process
      * @return a new Deadline task with the specified name and due date
      * @throws InvalidDeadlineFormatException if the argument format is invalid
-     * @throws InvalidDateFormat if the date format is invalid
+     * @throws InvalidDateFormatException if the date format is invalid
      */
-    private static Deadline processDeadline(String arguments) throws InvalidDeadlineFormatException, InvalidDateFormat {
+    private static Deadline processDeadline(String arguments) throws InvalidDeadlineFormatException, InvalidDateFormatException {
         try {
             String[] parts = arguments.split("/by ");
             return new Deadline(parts[0], parts[1]);
@@ -148,9 +148,9 @@ public class CommandHandler {
      * @param arguments the argument to process
      * @return a new Event task with the specified name and date range
      * @throws InvalidEventFormatException if the argument format is invalid
-     * @throws InvalidDateFormat if the date format is invalid
+     * @throws InvalidDateFormatException if the date format is invalid
      */
-    private static Event processEvent(String arguments) throws InvalidEventFormatException, InvalidDateFormat {
+    private static Event processEvent(String arguments) throws InvalidEventFormatException, InvalidDateFormatException {
         try {
             String[] parts = arguments.split("/from ");
             String[] parts2 = parts[1].split("/to ");

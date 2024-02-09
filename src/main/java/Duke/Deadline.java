@@ -17,14 +17,14 @@ public class Deadline extends Task {
      *
      * @param name the name of the Deadline task
      * @param date the due date of the task
-     * @throws InvalidDateFormat if the date format is invalid
+     * @throws InvalidDateFormatException if the date format is invalid
      */
-    public Deadline(String name, String date) throws InvalidDateFormat {
+    public Deadline(String name, String date) throws InvalidDateFormatException {
         super(name);
         try {
             this.date = LocalDate.parse(date);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormat();
+            throw new InvalidDateFormatException();
         }
     }
 
