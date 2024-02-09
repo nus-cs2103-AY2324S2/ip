@@ -1,13 +1,24 @@
-package Duke.commands;
+package duke.commands;
 
-import Duke.util.TaskList;
-import Duke.util.UI;
-import Duke.util.Storage;
-import Duke.exceptions.DukeException;
-import Duke.exceptions.InvalidTaskIndexException;
+import duke.util.TaskList;
+import duke.util.UI;
+import duke.util.Storage;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidTaskIndexException;
 
-public class DeleteCommand extends Commands {
+/**
+ * Constructs a DeleteCommand with the given array of words.
+ *
+ * @param words An array of words representing the command and its arguments.
+ */
+public class DeleteCommand extends Command {
     private String[] words;
+    /**
+     * Checks if a string is numeric.
+     *
+     * @param s The string to check.
+     * @return True if the string is numeric, false otherwise.
+     */
     private static boolean isNumeric(String s) {
         if (s == null) {
             return false;
@@ -23,6 +34,15 @@ public class DeleteCommand extends Commands {
         super();
         this.words = words;
     }
+    /**
+     * Executes the delete command.
+     *
+     * @param tasks The task list.
+     * @param ui The user interface.
+     * @param s The storage.
+     * @return Always returns false.
+     * @throws DukeException If an error occurs during execution.
+     */
     @Override
     public boolean execute(TaskList tasks, UI ui, Storage s) throws DukeException {
         int currentIdx = tasks.list().size();

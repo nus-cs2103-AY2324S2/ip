@@ -1,4 +1,4 @@
-package Duke.exceptions;
+package duke.exceptions;
 public class EmptyDescriptionException extends DukeException {
     String taskType;
     public EmptyDescriptionException(String TaskType) {

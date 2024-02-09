@@ -1,4 +1,4 @@
-package Duke.exceptions;
+package duke.exceptions;
 public class InvalidDeadlineException extends DukeException {
     public InvalidDeadlineException() {
         super();

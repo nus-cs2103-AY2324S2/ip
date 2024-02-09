@@ -1,4 +1,4 @@
-package Duke.main;
+package duke.main;
 
 import java.nio.file.Paths;
 import java.nio.file.Path;

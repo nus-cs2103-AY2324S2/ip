@@ -1,15 +1,23 @@
-package Duke.commands;
+package duke.commands;
 
 import java.time.LocalDateTime;
-import Duke.util.TaskList;
-import Duke.util.UI;
-import Duke.util.Storage;
-import Duke.exceptions.DukeException;
-import Duke.exceptions.EmptyDescriptionException;
-import Duke.exceptions.InvalidDateFormatException;
-
-public class DateCommand extends Commands {
+import duke.util.TaskList;
+import duke.util.UI;
+import duke.util.Storage;
+import duke.exceptions.DukeException;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.InvalidDateFormatException;
+/**
+ * Represents a command to find tasks with a specific date and time.
+ * The date should be in the format "DD/MM/YYYY HHMM".
+ */
+public class DateCommand extends Command {
     private String[] words;
+    /**
+     * Checks if the provided deadline string has a valid date format.
+     * @param deadline The deadline string to be validated.
+     * @return True if the deadline string has a valid date format, otherwise false.
+     */
     private static boolean isValidDateFormat(String deadline) {
         if (deadline.length() <= 12 || deadline.length() >= 16) {
             return false;
@@ -31,6 +39,10 @@ public class DateCommand extends Commands {
         }
         return true;
     }
+    /**
+     * Constructs a DateCommand with the specified array of words.
+     * @param words The array of words representing the date command.
+     */
     public DateCommand(String[] words) {
         super();
         this.words = words;
