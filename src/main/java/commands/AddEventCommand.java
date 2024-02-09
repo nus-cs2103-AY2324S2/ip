@@ -1,13 +1,11 @@
-package Commands;
+package commands;
 
 import Exceptions.InvalidInputException;
 import TaskList.Tasks.Task;
 import TaskList.Tasks.Event;
-import Storage.Storage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Represents a command to add an event to the task list.
