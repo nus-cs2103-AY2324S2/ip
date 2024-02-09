@@ -1,30 +1,16 @@
-import java.io.*;
-import java.time.LocalDate;
+package duke;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
-public class Storage {
-    private final String filePath;
-
-    public Storage(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public void saveTasksToFile(ArrayList<Task> tasks) {
-        try {
-            createDirectory(filePath); // Create directory if it doesn't exist
-            try (FileWriter writer = new FileWriter(filePath)) {
-                for (Task task : tasks) {
-                    writer.write(task.toFileString() + "\n");
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
-    }
-
-    public void loadTasksFromFile(ArrayList<Task> tasks) {
+public class TaskReader {
+    public static void loadTasksFromFile(ArrayList<Task> tasks, String filePath) {
         createDirectory(filePath);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -40,17 +26,7 @@ public class Storage {
         }
     }
 
-    private void createDirectory(String filePath) {
-        File directory = new File(filePath).getParentFile();
-        if (!directory.exists()) {
-            boolean created = directory.mkdirs();
-            if (!created) {
-                System.out.println("Error creating directory: " + directory.getAbsolutePath());
-            }
-        }
-    }
-
-    private Task createTaskFromLine(String line) {
+    private static Task createTaskFromLine(String line) {
         String[] parts = line.split("\\|");
         if (parts.length < 2) {
             return null;
@@ -73,6 +49,16 @@ public class Storage {
                 return new Event(description, start, end);
             default:
                 return null;
+        }
+    }
+
+    private static void createDirectory(String filePath) {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            if (!directory.mkdirs()) {
+                System.out.println("Error creating directory: " + directory.getAbsolutePath());
+            }
         }
     }
 

@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,6 +29,10 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
+        if (dueByDate == null) {
+            return "";
+        }
+
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
                 dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
