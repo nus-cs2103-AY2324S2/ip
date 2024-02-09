@@ -7,7 +7,7 @@ import duke.task.TaskList;
 /**
  * Represents a command to mark a specified task.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int index;
     /**
      * Constructs a mark command.

@@ -6,7 +6,7 @@ import duke.task.TaskList;
 /**
  * Represents a command to find a phrase/word.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     /** Word to find */
     private String searchWord;
 

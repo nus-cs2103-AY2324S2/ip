@@ -1,7 +1,6 @@
 package duke.task;
 
 import java.time.LocalDate;
-
 /**
  * Subclass of task that represents events.
  */
@@ -42,3 +41,4 @@ public class Event extends Task {
                 this.to.format(Task.getDateFormat()));
     }
 }
+

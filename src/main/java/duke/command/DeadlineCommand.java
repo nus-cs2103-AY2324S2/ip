@@ -1,12 +1,11 @@
 package duke.command;
 
+import java.time.LocalDate;
+
 import duke.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
-
-import java.time.LocalDate;
-
 /**
  * Command to create a new Deadline task.
  */

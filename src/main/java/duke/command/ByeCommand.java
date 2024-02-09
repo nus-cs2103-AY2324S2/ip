@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.task.TaskList;
 
+/** Command to execute bye instruction. */
 public class ByeCommand extends Command {
 
     /**
