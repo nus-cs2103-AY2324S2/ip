@@ -1,14 +1,29 @@
 package lia;
 
+/**
+ * The Parser class is responsible for interpreting user commands and delegating actions accordingly.
+ * It interacts with the user interface, task list, and handles parsing and execution of commands.
+ */
 public class Parser {
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructs a Parser object with the specified user interface and task list.
+     *
+     * @param ui    The user interface component.
+     * @param tasks The task list to be managed by the parser.
+     */
     public Parser(Ui ui, TaskList tasks) {
         this.ui = ui;
         this.tasks = tasks;
     }
 
+    /**
+     * Parses the user command and performs the corresponding action.
+     *
+     * @param input The user command to be parsed.
+     */
     public void parseCommand(String input) {
         try {
             if (input.equals("exit")) {
@@ -37,6 +52,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks the specified task as done based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
     void markTaskAsDone(String input) throws LiaException {
         String[] tokens = input.split(" ");
         int pos = Integer.parseInt(tokens[1]);
@@ -46,6 +67,12 @@ public class Parser {
         ui.showMarkedAsDone(tasks.getTask(pos - 1));
     }
 
+    /**
+     * Marks the specified task as not done based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
     void markTaskAsNotDone(String input) throws LiaException {
         String[] tokens = input.split(" ");
         int pos = Integer.parseInt(tokens[1]);
@@ -55,6 +82,12 @@ public class Parser {
         ui.showMarkedAsNotDone(tasks.getTask(pos - 1));
     }
 
+    /**
+     * Adds a todo task based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
     void addTodoTask(String input) throws LiaException {
         String todo = input.replaceFirst("todo", "").trim();
 
@@ -66,6 +99,12 @@ public class Parser {
         ui.showAddedTask(tasks.getLastTask(), tasks);
     }
 
+    /**
+     * Adds a deadline task based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
     void addDeadlineTask(String input) throws LiaException {
         String deadline = input.replaceFirst("deadline", "").split("/by")[0].trim();
 
@@ -79,6 +118,12 @@ public class Parser {
         ui.showAddedTask(tasks.getLastTask(), tasks);
     }
 
+    /**
+     * Adds an event task based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
     void addEventTask(String input) throws LiaException {
         String event = input.replaceFirst("event", "").split("/from")[0].trim();
 
@@ -94,6 +139,12 @@ public class Parser {
         ui.showAddedTask(tasks.getLastTask(), tasks);
     }
 
+    /**
+     * Deletes the specified task based on the user command input.
+     *
+     * @param input The user command input.
+     * @throws LiaException If an error occurs while processing the command.
+     */
     void deleteTask(String input) throws LiaException {
         String[] tokens = input.split(" ");
         int pos = Integer.parseInt(tokens[1]);

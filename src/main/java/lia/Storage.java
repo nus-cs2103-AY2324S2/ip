@@ -10,12 +10,20 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+/**
+ * The Storage class handles the loading and saving of tasks from/to a file.
+ * It interacts with the TaskList and various task-related classes for file I/O operations.
+ */
 public class Storage {
     private static final String FILE_NAME = "tasks.txt";
     private static final String FOLDER_NAME = "data";
     private static final String PROJECT_FOLDER = ".";
     private static final Path FILE_PATH = Paths.get(PROJECT_FOLDER, FOLDER_NAME, FILE_NAME);
 
+    /**
+     * Constructs a Storage object, ensuring the existence of necessary directories.
+     * It creates the required directory structure for storing task data.
+     */
     public Storage() {
         try {
             Files.createDirectories(FILE_PATH.getParent());
@@ -24,6 +32,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file and returns them as an ArrayList.
+     *
+     * @return An ArrayList containing the loaded tasks.
+     * @throws LiaException If an error occurs during the loading process.
+     */
     public ArrayList<Task> loadTasks() throws LiaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -58,6 +72,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to a file based on their types and properties.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             Files.createDirectories(FILE_PATH.getParent());
