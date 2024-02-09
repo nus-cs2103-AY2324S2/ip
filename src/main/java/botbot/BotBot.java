@@ -1,15 +1,16 @@
 package botbot;
 
+import java.io.IOException;
+
 import botbot.exception.BotBotException;
 import botbot.task.TaskList;
 
-import java.io.IOException;
 
 public class BotBot {
+    public static final String LIST_PATH = "data/list.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    public static String LIST_PATH = "data/list.txt";
 
     /**
      * Returns a new instance of chatbot
