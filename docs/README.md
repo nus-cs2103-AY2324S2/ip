@@ -24,7 +24,6 @@ expected output
 
 // Feature details
 
-
 ## Feature XYZ
 
 // Feature details
