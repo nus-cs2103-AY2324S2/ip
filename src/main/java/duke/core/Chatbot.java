@@ -1,17 +1,26 @@
 package duke.core;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import duke.task.TaskList;
+import duke.ui.Ui;
+
+/**
+ * Represents a Chatbot that can interact with user commands.
+ */
 
 public class Chatbot {
 
     private final String name;
     private TaskList tasklist;
 
+    /**
+     * Initialises a Chatbot with a custom name and a tasklist.
+     *
+     * @param name chatbot name
+     */
     public Chatbot(String name) {
         this.name = name;
         this.tasklist = new TaskList();
@@ -20,7 +29,7 @@ public class Chatbot {
     /**
      * Activates the chatbot to interact with different user commands
      *
-     * @param in User input commands.
+     * @param in  User input commands.
      * @param out Chatbot replies.
      */
     public void startChat(InputStream in, PrintStream out) {
@@ -31,7 +40,7 @@ public class Chatbot {
 
         boolean isChatting = true;
         while (isChatting) {
-            if (scanner.hasNextLine()) {  // Make sure there's another line to read
+            if (scanner.hasNextLine()) { // Make sure there's another line to read.
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("bye")) {
                     Ui.bye(tasklist);

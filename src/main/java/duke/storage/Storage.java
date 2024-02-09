@@ -1,22 +1,25 @@
 package duke.storage;
 
-import duke.parser.DateParser;
-import duke.core.ChatbotException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.task.TaskList;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import duke.core.ChatbotException;
+import duke.parser.DateParser;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.ToDo;
+
+/**
+ * Represents a storage for all tasks saved within a dhatbot.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/duke.txt";
 
@@ -47,7 +50,9 @@ public class Storage {
             sb.append(" | ").append(deadline.getBy()); // Append the 'by' time for deadlines
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            sb.append(" | ").append(event.getFrom()).append(" - ").append(event.getTo()); // Append the 'from - to' times for events
+
+            // Append the 'from - to' times for events
+            sb.append(" | ").append(event.getFrom()).append(" - ").append(event.getTo());
         }
 
         return sb.toString();
@@ -76,14 +81,18 @@ public class Storage {
             task = createTask("todo", description);
             break;
         case "D":
-            if (parts.length < 4) ChatbotException.getError(ChatbotException.ErrorType.TODO_CORRUPT);
+            if (parts.length < 4) {
+                ChatbotException.getError(ChatbotException.ErrorType.TODO_CORRUPT);
+            }
             description += " /by " + parts[3];
             task = createTask("deadline", description);
             break;
         case "E":
             String timeInfo = parts[3].trim();
             String[] timeParts = timeInfo.split(" - ");
-            if (timeParts.length < 2) ChatbotException.getError(ChatbotException.ErrorType.EVENT_CORRUPT);
+            if (timeParts.length < 2) {
+                ChatbotException.getError(ChatbotException.ErrorType.EVENT_CORRUPT);
+            }
             description += " /from " + timeParts[0].trim() + " /to " + timeParts[1].trim();
             task = createTask("event", description);
             break;
@@ -142,7 +151,7 @@ public class Storage {
      */
     public static void saveTasks(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(new File(FILE_PATH))) {
-            for (Task task : tasks.tasks) {
+            for (Task task : tasks.getTasks()) {
                 writer.println(Storage.taskToFileString(task));
             }
         } catch (FileNotFoundException e) {

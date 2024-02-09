@@ -1,7 +1,14 @@
 package duke.core;
 
+/**
+ * Represents a Chatbot Exception message collection.
+ */
+
 public class ChatbotException {
 
+    /**
+     * Enumerations of possible chatbot error types.
+     */
     public enum ErrorType {
         TODO_EMPTY("OOPS!!! The description of a todo cannot be empty."),
         DEADLINE_EMPTY("OOPS!!! The deadline time cannot be empty."),
@@ -13,7 +20,6 @@ public class ChatbotException {
         UNKNOWN_TASK("Unknown task type.");
 
         private final String message;
-
         ErrorType(String message) {
             this.message = message;
         }

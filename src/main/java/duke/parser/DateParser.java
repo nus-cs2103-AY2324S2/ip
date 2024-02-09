@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a parser for date input.
+ */
 public class DateParser {
     private static final List<DateTimeFormatter> DATE_TIME_FORMATTERS = Arrays.asList(
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
@@ -28,23 +31,30 @@ public class DateParser {
      * @return Date in LocalDateTime type.
      * @throws IllegalArgumentException If unable to parse string date input.
      */
-    public static LocalDateTime parseDateTime(String input) throws IllegalArgumentException {
+    public static LocalDateTime parseDateTime(String input) {
         // First, try parsing with date-only formatters
         for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
-            try {
+            if (canParse(input.trim(), formatter)) {
                 LocalDate date = LocalDate.parse(input.trim(), formatter);
                 return date.atStartOfDay(); // Convert to LocalDateTime at start of the day
-            } catch (DateTimeParseException ignored) {
             }
         }
 
         // If date-only parsing fails, try date-time formatters
         for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
-            try {
+            if (canParse(input.trim(), formatter)) {
                 return LocalDateTime.parse(input.trim(), formatter);
-            } catch (DateTimeParseException ignored) {
             }
         }
         throw new IllegalArgumentException("Unable to parse date and time: " + input);
+    }
+
+    private static boolean canParse(String input, DateTimeFormatter formatter) {
+        try {
+            LocalDate.parse(input, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
