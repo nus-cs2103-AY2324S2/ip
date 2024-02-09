@@ -3,7 +3,6 @@ package demon;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * A chatbot that allows user to add, delete, and modify tasks or reminders.
@@ -12,6 +11,8 @@ public class Demon {
     private TaskList tasks;
     private Ui ui;
     String filePath = "src/main/taskList.txt";
+    Command command = new Command(filePath);
+    boolean isRun = true;
 
     /**
      * Initializes the bot and load tasks saved in taskList.txt file
@@ -24,98 +25,10 @@ public class Demon {
             tasks = new TaskList(STORAGE.load());
         } catch (NoSuchFileException e) {
             tasks = new TaskList();
-            ui.showLoadingError();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        run();
-    }
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-        ui = new Ui();
-        Command command = new Command(filePath);
-        ui.welcomeMessage();
-        String input = sc.nextLine();
 
-        while (!input.equalsIgnoreCase("bye")) {
-            ui.inputMessage(input);
-            if (input.equalsIgnoreCase("list")) {
-                command.list(this.tasks);
-                Ui.promptNext();
-                input = sc.nextLine();
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("unmark")) {
-                try {
-                    int num = Integer.parseInt(input.split(" ")[1]);
-                    command.unmark(this.tasks, num);
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    Ui.outOfBoundsIndex(e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("mark")) {
-                try {
-                    int num = Integer.parseInt(input.split(" ")[1]);
-                    command.mark(this.tasks, num);
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    Ui.outOfBoundsIndex(e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("deadline")) {
-                try {
-                    command.addDeadline(this.tasks, input);
-                } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException e) {
-                    System.err.println("Error -> " + e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("todo")) {
-                try {
-                    command.addToDo(this.tasks, input);
-                    Ui.promptNext();
-                } catch (EmptyDescriptionException | IOException e) {
-                    System.err.println("Error -> " + e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("event")) {
-                try {
-                    command.addEvent(this.tasks, input);
-                    Ui.promptNext();
-                } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException e) {
-                    System.err.println("Error -> " + e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("delete")) {
-                try {
-                    command.delete(this.tasks, input);
-                    Ui.promptNext();
-                } catch (EmptyDescriptionException | IndexOutOfBoundsException e) {
-                    System.err.println("Error -> " + e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else if (input.split(" ",2)[0].equalsIgnoreCase("find")) {
-                try {
-                    command.findTask(this.tasks, input);
-                    Ui.promptNext();
-                } catch (EmptyDescriptionException e) {
-                    System.err.println("Error -> " + e);
-                } finally {
-                    input = sc.nextLine();
-                }
-            } else {
-                Ui.inValidCommand();
-                input = sc.nextLine();
-            }
-        }
-        System.out.println("Entered: '" + input + "'");
-        Ui.printDivider();
-        Ui.exitMessage();
-        Ui.printDivider();
     }
 
     /**
@@ -123,7 +36,18 @@ public class Demon {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        return "Demon heard: " + input;
+        if (input.equalsIgnoreCase("bye")) {
+            isRun = false;
+            return ui.exitMessage();
+        } else {
+            try {
+                return command.callCommand(input.toLowerCase(), this.tasks);
+            } catch (IOException | DateTimeParseException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                return Ui.outOfBoundsIndex(e);
+            } catch (Exception e) {
+                return e.getMessage();
+            }
+        }
     }
 }
 

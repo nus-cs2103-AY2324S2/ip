@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Command {
     Storage storage;
-
+    private StringBuilder storeString = new StringBuilder();
     public Command(String filePath) {
         this.storage = new Storage(filePath);
     }
@@ -25,13 +25,11 @@ public class Command {
      * @param tasks an array containing all tasks.
      */
     public void list(TaskList tasks) {
-        Ui.printDivider();
-        System.out.print("List of things to do :\n");
+        this.storeString.append("List of things to do :\n");
         for (int i = 1; i <= tasks.getTaskList().size(); i++) {
             Task item = tasks.getTaskList().get(i - 1);
-            System.out.println("\t" + i + "." + item.toString());
+            this.storeString.append("\t").append(i).append(".").append(item.toString()).append("\n");
         }
-        Ui.printDivider();
     }
 
     /**
@@ -43,19 +41,16 @@ public class Command {
      */
     public void unmark(TaskList tasks, int num) {
         if (num < 1 | num > tasks.getTaskList().size()) {
-            System.out.println(Ui.notWithinRange() + tasks.getTaskList().size());
+            throw new IndexOutOfBoundsException("Integer provided out of range!");
         } else {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals("X")) {
                 item.markNotDone();
-                Ui.printDivider();
                 storage.reWriteFile(num);
-                System.out.println("Sure Master, I've marked this task as not done :");
-                System.out.println(item);
-                Ui.printDivider();
-                Ui.promptNext();
+                this.storeString.append("Sure Master, I've marked this task as not done : \n");
+                this.storeString.append(item).append("\n");
             } else {
-                System.out.println("Oops! Task already NOT done!");
+                this.storeString.append("Oops! Task already NOT done!");
             }
         }
     }
@@ -69,19 +64,16 @@ public class Command {
      */
     public void mark(TaskList tasks, int num) {
         if (num < 1 | num > tasks.getTaskList().size()) {
-            System.out.println(Ui.notWithinRange() + tasks.getTaskList().size());
+            throw new IndexOutOfBoundsException("Integer provided out of range!");
         } else {
             Task item = tasks.getTaskList().get(num-1);
             if (item.getStatusIcon().equals(" ")) {
                 item.markDone();
-                Ui.printDivider();
                 storage.reWriteFile(num);
-                System.out.println("Sure Master, I've marked this task as done :");
-                System.out.println(item);
-                Ui.printDivider();
-                Ui.promptNext();
+                this.storeString.append("Sure Master, I've marked this task as done : \n");
+                this.storeString.append(item).append("\n");
             } else {
-                System.out.println("Oops! Task already done!");
+                this.storeString.append("Oops! Task already done!");
             }
         }
     }
@@ -129,12 +121,9 @@ public class Command {
 
         // May produce IOException
         storage.writeToFile(stringToSave);
-        Ui.printDivider();
-        Ui.showTaskAdded();
-        System.out.println(itemDeadline);
-        System.out.println("Now you have " + tasks.getTaskList().size() + " tasks in the list.");
-        Ui.printDivider();
-        Ui.promptNext();
+        this.storeString.append(Ui.showTaskAdded());
+        this.storeString.append(itemDeadline).append("\n");
+        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
     }
 
     /**
@@ -157,11 +146,9 @@ public class Command {
         String stringToSave = "T | " + (item_toDo.getStatusIcon().equals("X") ? "1" : "0") + " | " + toDo +"\n";
         // May produce IOException
         storage.writeToFile(stringToSave);
-        Ui.printDivider();
-        Ui.showTaskAdded();
-        System.out.println(item_toDo);
-        System.out.println("Now you have " + tasks.getTaskList().size() + " tasks in the list.");
-        Ui.printDivider();
+        this.storeString.append(Ui.showTaskAdded());
+        this.storeString.append(item_toDo).append("\n");
+        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
     }
 
     /**
@@ -214,11 +201,9 @@ public class Command {
                 + " | " + description + " | " + from + " | " + to + "\n";
         // May produce IOException
         storage.writeToFile(stringToSave);
-        Ui.printDivider();
-        Ui.showTaskAdded();
-        System.out.println(item_event);
-        System.out.println("Now you have " + tasks.getTaskList().size() + " tasks in the list.");
-        Ui.printDivider();
+        this.storeString.append("Yes Master, I've added this task: \n");
+        this.storeString.append(item_event).append("\n");
+        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
     }
 
     /**
@@ -229,25 +214,25 @@ public class Command {
      * @throws EmptyDescriptionException if description not given.
      * @throws IOException if fails to write new task into file.
      */
-    public void delete(TaskList tasks, String input) throws EmptyDescriptionException, IOException {
+    public void delete(TaskList tasks, String input)
+            throws EmptyDescriptionException,
+                    IOException,
+                    ExcessArgumentException {
         String[] parts = input.split(" ");
         if (parts.length < 2) {
             throw new EmptyDescriptionException("Description is EMPTY!");
         } else if (parts.length > 2) {
-            System.err.println("Provided too many arguments!");
+            throw new ExcessArgumentException("TOO MANY ARGUMENTS PROVIDED!");
         }
-
         if (Integer.parseInt(parts[1]) > tasks.getTaskList().size() | Integer.parseInt(parts[1]) < 1) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Integer provided out of range!");
         }
 
-        Ui.printDivider();
-        System.out.println("Noted Master. I've removed this task:");
-        System.out.println(tasks.getTaskList().get(Integer.parseInt(parts[1]) - 1).toString());
+        this.storeString.append("Noted Master. I've removed this task: \n");
+        this.storeString.append(tasks.getTaskList().get(Integer.parseInt(parts[1]) - 1).toString()).append("\n");
         tasks.getTaskList().remove(Integer.parseInt(parts[1]) - 1);
         storage.removeFromFile(Integer.parseInt(parts[1]) - 1);
-        System.out.println("Now you have " + tasks.getTaskList().size() + " tasks in the list.");
-        Ui.printDivider();
+        this.storeString.append(Ui.showNumberOfTasks(tasks.getTaskList().size()));
     }
 
     /**
@@ -266,20 +251,52 @@ public class Command {
         }
 
         String keyword = parts[1].toLowerCase();
-        Ui.printDivider();
-        System.out.println("Here are your matching tasks in your list:");
+        this.storeString.append("Here are your matching tasks in your list: \n");
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             String taskString = task.toString();
             if (taskString.toLowerCase().contains(keyword)) {
-                System.out.println((i + 1) + "." + taskString);
+                this.storeString.append((i + 1)).append(".").append(taskString).append("\n");
                 hasMatched = true;
             }
         }
 
         if (!hasMatched) {
-            System.out.println("NONE!");
+            this.storeString.append("NONE!");
         }
-        Ui.printDivider();
+    }
+    private String outPutString() {
+        String outPut = this.storeString.toString();
+        this.storeString.setLength(0);
+        return outPut;
+    }
+
+    public String callCommand(String input, TaskList tasks)
+            throws NoTimingException,
+                    EmptyDescriptionException,
+                    IOException,
+                    ExcessArgumentException {
+        if (input.equalsIgnoreCase("list")) {
+            list(tasks);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("unmark")) {
+            int num = Integer.parseInt(input.split(" ")[1]);
+            unmark(tasks, num);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("mark")) {
+            int num = Integer.parseInt(input.split(" ")[1]);
+            mark(tasks, num);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("deadline")) {
+            addDeadline(tasks, input);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("todo")) {
+            addToDo(tasks, input);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("event")) {
+            addEvent(tasks, input);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("delete")) {
+            delete(tasks, input);
+        } else if (input.split(" ",2)[0].equalsIgnoreCase("find")) {
+            findTask(tasks, input);
+        } else {
+            return Ui.inValidCommand();
+        }
+        return outPutString();
     }
 }
