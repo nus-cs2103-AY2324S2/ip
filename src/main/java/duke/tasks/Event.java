@@ -1,10 +1,9 @@
 package duke.tasks;
 
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class Event extends Task {
      * @param from          Date and time the event starts.
      * @param to            Time the event ends.
      */
-    public Event (String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = parseDateTime(from);
         this.to = parseTime(to);
@@ -37,7 +36,7 @@ public class Event extends Task {
      * @param from          Date and time the event starts.
      * @param to            Time the event ends.
      */
-    public Event (String description, boolean done, String from, String to) {
+    public Event(String description, boolean done, String from, String to) {
         super(description);
         super.updateIsDone(done);
         this.from = parseDateTime(from);
@@ -46,7 +45,6 @@ public class Event extends Task {
 
     /**
      * Formats Event as a string to be saved to file.
-     *
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     @Override
@@ -76,6 +74,7 @@ public class Event extends Task {
             try {
                 return LocalTime.parse(time, DateTimeFormatter.ofPattern(t));
             } catch (DateTimeParseException dt) {
+                // ...
             }
         }
 

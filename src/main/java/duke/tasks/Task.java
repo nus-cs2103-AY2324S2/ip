@@ -3,7 +3,6 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +15,6 @@ public class Task {
 
     /**
      * Task constructor.
-     *
      * @param description Task name or description of task.
      */
     public Task(String description) {
@@ -26,7 +24,6 @@ public class Task {
 
     /**
      * Get done status of task.
-     *
      * @return statusIcon   "X": Task is completed.
      *                      " ": Task has not been completed.
      */
@@ -36,8 +33,7 @@ public class Task {
 
     /**
      * Update if task is done.
-     *
-     * @param isDone Marks task as completed/uncompleted. [True: complete, False: uncompleted]
+     * @param isDone    Marks task as completed/uncompleted. [True: complete, False: uncompleted]
      */
     public void updateIsDone(boolean isDone) {
         this.isDone = isDone;
@@ -48,7 +44,7 @@ public class Task {
      *
      * @param match String to search for within description.
      * @return hasMatch     True: string is found within description.
-     * False: string is not found within description.
+     *                      False: string is not found within description.
      */
     public boolean isMatchingDescription(String match) {
         return this.description.contains(match);
@@ -72,6 +68,7 @@ public class Task {
                         String pattern = d.replaceAll("_", s) + t;
                         return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(pattern));
                     } catch (DateTimeParseException dt) {
+                        // ...
                     }
                 }
             }
@@ -82,7 +79,6 @@ public class Task {
 
     /**
      * Formats Task as a string to be saved to file.
-     *
      * @return saveTask     Returns the task as a string in the format compatible with file.
      */
     public String saveFileString() {
@@ -92,6 +88,5 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.printDoneStatus() + "] " + this.description;
-
     }
 }

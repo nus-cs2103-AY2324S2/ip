@@ -1,11 +1,11 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-
-import java.util.ArrayList;
 
 /**
  * Contains task list.
@@ -17,7 +17,7 @@ public class TaskList {
      * TaskList constructor.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -31,11 +31,17 @@ public class TaskList {
 
     /**
      * Print all tasks in task list.
+     * @return allTasks     String of all tasks in the task list.
      */
-    public void printTaskList() {
+    public String printTaskList() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+            stringBuilder.append(i + 1);
+            stringBuilder.append(".");
+            stringBuilder.append(tasks.get(i).toString());
+            stringBuilder.append("\n");
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -118,14 +124,18 @@ public class TaskList {
     /**
      * Print all matching tasks.
      *
-     * @param match     String to compare with task description.
+     * @param match                 String to compare with task description.
+     * @return allMatchingTasks     String of all tasks that contain/match the task description.
      */
-    public void findMatchingTasks(String match) {
+    public String findMatchingTasks(String match) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (Task t : tasks) {
             if (t.isMatchingDescription(match)) {
-                System.out.println(t.toString());
+                stringBuilder.append(t);
+                stringBuilder.append("\n");
             }
         }
+        return stringBuilder.toString();
     }
 
     /**
