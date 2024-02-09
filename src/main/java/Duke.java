@@ -3,6 +3,7 @@ import commands.Parser;
 
 import exceptions.DukeException;
 
+import javafx.scene.text.Font;
 import main.java.Ui;
 import main.java.Storage;
 
@@ -80,6 +81,7 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        helloWorld.setFont(Font.font("Arial", 50));
         Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
 
         stage.setScene(scene); // Setting the stage to show our screen
