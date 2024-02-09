@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class DialogBox extends HBox {
             Label message = new Label(i);
             dialog.getChildren().add(message);
         }
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2,
+                displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+        displayPicture.setClip(clip);
         displayPicture.setImage(img);
     }
 
