@@ -18,19 +18,18 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks task at given index as done.
      * Throws an exception if given index is out of range.
-     * Prints out corresponding messages to console.
      * Saves updated task list to storage file.
+     * Returns String representation of unmarked file.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
         try {
             Task task = tasks.getTask(this.indexToUnmark);
             task.unmarkDone();
-            ui.println("OK, I've marked this task as not done yet:");
-            ui.println(task);
             storage.writeToFile(tasks);
+            return ui.getUnmarkMessage(task);
         } catch (IndexOutOfBoundsException err) {
             throw new FelixException(String.format("You have %d tasks, provide a valid index in the range [1,%d]",
                     tasks.getCount(), tasks.getCount()));

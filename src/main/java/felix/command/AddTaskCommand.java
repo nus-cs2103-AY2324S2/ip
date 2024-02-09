@@ -18,17 +18,15 @@ public class AddTaskCommand extends Command {
 
     /**
      * Adds task to task list.
-     * Prints out corresponding messages to console.
      * Saves updated task list to storage file.
+     * Returns String representation of display message.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
-        ui.println("Got it. I've added this task:");
-        ui.println(task);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
         tasks.addTask(task);
-        ui.println(String.format("Now you have %d tasks in the list.", tasks.getCount()));
         storage.writeToFile(tasks);
+        return ui.getAddTaskMessage(task, tasks.getCount());
     }
 }

@@ -21,8 +21,7 @@ public class Felix {
     private final Parser parser;
     private TaskList tasks;
 
-
-    Felix() throws IOException {
+    public Felix() throws IOException {
         this.tasks = new TaskList();
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
@@ -31,34 +30,43 @@ public class Felix {
             this.tasks = this.storage.getTasksFromFile();
         } catch (FelixException err) {
             this.tasks = new TaskList();
-            this.ui.printLoadingError(err);
+            System.out.println(this.ui.getLoadingError(err));
         }
     }
 
     /**
      * Runs the application.
-     * @throws FelixException If errors are encountered.
      */
-    public void run() throws FelixException {
+    public void run() {
         boolean isExit = false;
-        this.ui.printLogo();
-        this.ui.printIntroduction();
+        System.out.println(ui.getLogo());
+        System.out.println(ui.getIntroduction());
         while (!isExit) {
-            String line = this.ui.getNextLine();
-            this.ui.printHorizontalLine();
+            String line = ui.getNextLine();
+            System.out.println(ui.getHorizontalLine());
             try {
-                Command command = this.parser.getCommand(line);
-                command.execute(this.tasks, this.ui, this.storage);
+                Command command = parser.getCommand(line);
+                System.out.println(command.execute(tasks, ui, storage));
                 isExit = command.isExit();
             } catch (FelixException err) {
-                this.ui.printException(err);
+                System.out.println(ui.getExceptionMessage(err));
             }
-            this.ui.printHorizontalLine();
+            System.out.println(ui.getHorizontalLine());
         }
     }
 
     public static void main(String[] args) throws IOException, FelixException {
         Felix felix = new Felix();
         felix.run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            tasks = storage.getTasksFromFile();
+            Command command = parser.getCommand(input);
+            return command.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 }

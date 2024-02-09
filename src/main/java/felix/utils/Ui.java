@@ -2,6 +2,8 @@ package felix.utils;
 
 import java.util.Scanner;
 
+import felix.task.Task;
+
 /**
  * Class representing abstraction for user interface
  */
@@ -15,7 +17,11 @@ public class Ui {
             + "     \\/      \\/              \\/ \n";
     private static final String LINE_SEPARATOR = "__________________________"
             + "__________________________________";
-
+    private static final String ADD_TASK_MSG = "Got it. I've added this task:";
+    private static final String DELETE_TASK_MSG = "Noted. I've removed this task:";
+    private static final String FIND_TASK_MSG = "Here are the matching tasks in your list:";
+    private static final String MARK_MSG = "Nice! I have marked this task as done:";
+    private static final String UNMARK_MSG = "OK, I've marked this task as not done yet:";
     private final Scanner scanner;
 
     /**
@@ -26,57 +32,98 @@ public class Ui {
     }
 
     /**
-     * Prints String representation of object.
+     * Returns String representation of object.
      */
-    public void println(Object obj) {
-        System.out.println(obj);
+    public String toString(Object obj) {
+        return obj.toString();
     }
 
     /**
-     * Prints horizontal line separator of length 60.
+     * Returns horizontal line separator of length 60.
      */
-    public void printHorizontalLine() {
-        System.out.println(LINE_SEPARATOR);
+    public String getHorizontalLine() {
+        return LINE_SEPARATOR;
     }
 
     /**
-     * Prints Exception message.
+     * Returns Exception message.
      */
-    public void printException(Exception e) {
-        System.out.println(e.getMessage());
+    public String getExceptionMessage(Exception e) {
+        return e.getMessage();
     }
 
     /**
-     * Prints message to be displayed and corresponding Exception if an error occurs when loading from hard disk file.
+     * Returns message to be displayed and corresponding Exception if an error occurs when loading from hard disk file.
      */
-    public void printLoadingError(Exception e) {
-        System.out.println("Error occurred when loading file:");
-        this.printException(e);
-        this.printHorizontalLine();
+    public String getLoadingError(Exception e) {
+        return String.format("Error occurred when loading file:\n%s\n%s",
+                this.getExceptionMessage(e), this.getHorizontalLine());
     }
 
     /**
-     * Prints chatbot logo.
+     * Returns chatbot logo.
      */
-    public void printLogo() {
-        System.out.println("Hello from\n" + LOGO);
-        this.printHorizontalLine();
+    public String getLogo() {
+        return String.format("%s\n%s", LOGO, this.getHorizontalLine());
     }
 
     /**
-     * Prints chatbot introduction.
+     * Returns chatbot introduction.
      */
-    public void printIntroduction() {
-        this.printHorizontalLine();
-        System.out.printf("Hello! I'm %s\nWhat can I do for you?\n", BOT_NAME);
-        this.printHorizontalLine();
+    public String getIntroduction() {
+        return String.format("%s\nHello! I'm %s\nWhat can I do for you?\n%s",
+                this.getHorizontalLine(), BOT_NAME, this.getHorizontalLine());
     }
 
     /**
-     * Prints goodbye message.
+     * Returns goodbye message.
      */
-    public void exitProgram() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String getExitMessage() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Returns message to be displayed when a new task is added.
+     * @param task Task to be added.
+     * @param taskCount Number of tasks in task list.
+     */
+    public String getAddTaskMessage(Task task, int taskCount) {
+        return String.format("%s\n%s\nNow you have %d tasks in the list.", ADD_TASK_MSG,
+                task.toString(), taskCount);
+    }
+
+    /**
+     * Returns message to be displayed when a task is successfully deleted.
+     * @param task Task to be added.
+     * @param taskCount Number of tasks in task list.
+     */
+    public String getDeleteTaskMessage(Task task, int taskCount) {
+        return String.format("%s\n%s\nNow you have %d tasks in the list.", DELETE_TASK_MSG,
+                task.toString(), taskCount);
+    }
+
+    /**
+     * Returns message to be displayed when a find command is issued.
+     * @param matchingTasks String representation of list of tasks matching keyword.
+     */
+    public String getFindMessage(String matchingTasks) {
+        return String.format("%s\n%s", FIND_TASK_MSG, matchingTasks);
+    }
+
+    /**
+     * Returns message to be displayed when a task is marked as done.
+     * @param task Task to be marked as done.
+     */
+    public String getMarkMessage(Task task) {
+        return String.format("%s\n%s", MARK_MSG, task.toString());
+    }
+
+    /**
+     * Returns message to be displayed when a task is unmarked as done.
+     * @param task Task to be unmarked as done.
+     */
+    public String getUnmarkMessage(Task task) {
+        return String.format("%s\n%s", UNMARK_MSG, task.toString());
     }
 
     /**

@@ -14,13 +14,13 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Prints out corresponding messages to console.
      * Stops execution of program.
+     * Returns String representation of display message.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
-        ui.exitProgram();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+        return ui.getExitMessage();
     }
 }
