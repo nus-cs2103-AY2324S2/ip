@@ -30,7 +30,7 @@ public class Lulu {
      * Initializes the storage, task list, and parser.
      */
     public Lulu() {
-        storage = new Storage("src/main/resources/data/lulu.txt");
+        storage = new Storage(System.getProperty("user.home") + "/cs2103t/ip/src/main/resources/data/lulu.txt");
         tasks = new TaskList(storage.retrieveLines());
         parser = new Parser();
     }
