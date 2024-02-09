@@ -11,9 +11,9 @@ import duke.commands.ModifyTaskCommand;
 import duke.exceptions.NoSuchCommandException;
 
 public class ParserTest {
-    
+
     @Test
-    public void GenerateTodoTest() {
+    public void generateTodo() {
         try {
             Command c = Parser.parse("todo task1");
             assert (c instanceof GenerateTaskCommand);
@@ -23,7 +23,7 @@ public class ParserTest {
     }
 
     @Test
-    public void GenerateDeadlineTest() {
+    public void generateDeadlineTest() {
         try {
             Command c = Parser.parse("deadline task2 /by 12/11/2024, 13:00");
             assert (c instanceof GenerateTaskCommand);
@@ -31,9 +31,9 @@ public class ParserTest {
             fail();
         }
     }
-    
+
     @Test
-    public void GenerateModificationTest() {
+    public void generateModificationTest() {
         try {
             Command c = Parser.parse("mark 2");
             assert (c instanceof ModifyTaskCommand);
@@ -43,7 +43,7 @@ public class ParserTest {
     }
 
     @Test
-    public void GenerateModificationTest2() {
+    public void generateModificationTest2() {
         try {
             Command c = Parser.parse("unmark 2");
             assert (c instanceof ModifyTaskCommand);
@@ -53,7 +53,7 @@ public class ParserTest {
     }
 
     @Test
-    public void GenerateExitTest() {
+    public void generateExitTest() {
         try {
             Command c = Parser.parse("bye");
             assert (c instanceof ExitCommand);
@@ -63,7 +63,7 @@ public class ParserTest {
     }
 
     @Test
-    public void InvalidCommandTest() {
+    public void invalidCommandTest() {
         try {
             Command c = Parser.parse("rjksjrkr");
             fail();

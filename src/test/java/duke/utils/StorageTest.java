@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import duke.Duke;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
@@ -37,9 +36,9 @@ public class StorageTest {
             File file = new File("data/test.txt");
             file.createNewFile();
             FileWriter fw = new FileWriter(file);
-            fw.write("[T]|[ ]|1\n" +
-                    "[D]|[X]|task2|12/11/2001, 16:00\n" +
-                    "[E]|[ ]|task 3|12/11/2001, 15:00|13/11/2001, 16:00");
+            fw.write("[T]|[ ]|1\n"
+                     + "[D]|[X]|task2|12/11/2001, 16:00\n"
+                     + "[E]|[ ]|task 3|12/11/2001, 15:00|13/11/2001, 16:00");
 
             fw.close();
             Storage s = new Storage("data/test.txt");
