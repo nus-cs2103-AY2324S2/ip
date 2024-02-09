@@ -35,10 +35,11 @@ public class Storage {
         load();
     }
 
-    public Storage(String filePath, Ui ui) {
+    public Storage(String filePath, Ui ui) throws IOException {
+        file = new File(filePath);
         this.filePath = filePath;
         this.ui = ui;
-        data = new Scanner(filePath);
+        createNewFileIfNeeded();
     }
 
     /**

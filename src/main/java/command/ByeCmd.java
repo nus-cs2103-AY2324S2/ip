@@ -6,5 +6,6 @@ public class ByeCmd extends Command{
     }
 
     public ByeCmd() {
+        isBye = true;
     }
 }
