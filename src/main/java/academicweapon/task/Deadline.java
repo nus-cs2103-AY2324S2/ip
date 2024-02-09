@@ -1,15 +1,14 @@
 package academicweapon.task;
 
-import academicweapon.parser.DateTimeParser;
 import academicweapon.exceptions.DukeExceptions;
-
+import academicweapon.parser.DateTimeParser;
 import java.time.LocalDateTime;
 
 /**
  * Represents a task with a deadline in the Duke application.
  * The Deadline class extends the Task class and includes a deadline specified by a date and time.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private String by;
     private LocalDateTime ldt = null;

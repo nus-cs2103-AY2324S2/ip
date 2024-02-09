@@ -1,10 +1,6 @@
 package academicweapon.task;
 
 import academicweapon.exceptions.DukeExceptions;
-import academicweapon.task.Deadline;
-import academicweapon.task.Event;
-import academicweapon.task.Task;
-import academicweapon.task.Todo;
 import academicweapon.ui.Ui;
 
 import java.util.ArrayList;
@@ -14,7 +10,7 @@ import java.util.ArrayList;
  * The TaskList class provides methods to manipulate and display a list.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -95,7 +91,7 @@ public class TaskList {
         }
 
         Ui.showLine();
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             System.out.println((i + 1) + "." + t.toString());
         }
@@ -143,7 +139,6 @@ public class TaskList {
     }
 
     /**
-     *
      * Finds tasks containing a specified keyword in their description.
      *
      * @param keyword The keyword to search for in task descriptions
@@ -151,7 +146,7 @@ public class TaskList {
      */
     public ArrayList<String> findKeyword(String keyword) {
         ArrayList<String> lst = new ArrayList<>();
-        for(Task task: this.tasks) {
+        for (Task task: this.tasks) {
             if (task.getDescription().contains(keyword)) {
                 lst.add(task.toString());
             }

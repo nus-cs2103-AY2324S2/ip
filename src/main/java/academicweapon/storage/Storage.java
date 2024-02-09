@@ -21,23 +21,8 @@ public class Storage {
     /**
      * Constructor for creating a Storage instance with a specified file path.
      *
-     * @param filePath The file path for the task list data file
+     * @param fileName The file path for the task list data file
      */
-//    public Storage(String filePath) {
-//        this.filePath = filePath;
-//
-//        File file = new File(filePath);
-//        try {
-//            if (file.exists()) {
-//                this.file = file;
-//            } else {
-//                file.createNewFile();
-//                this.file = file;
-//            }
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
     public Storage(String fileName) {
         this.filePath = "./data/" + fileName;
         this.file = new File(fileName);
@@ -74,7 +59,7 @@ public class Storage {
         try {
             Scanner sc = new Scanner(this.file);
             System.out.println("This is retrieved from the file.");
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 String currentLine = sc.nextLine();
                 DukeExceptions.checkCorruptedFile(currentLine);
                 System.out.println(currentLine);
