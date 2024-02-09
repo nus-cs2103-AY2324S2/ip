@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import duke.Duke;
+import duke.command.ByeCommand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -75,7 +76,7 @@ public class MainWindow extends Stage {
                 DialogBox.getDukeDialog(response, this.dukeImage)
         );
         this.userInput.clear();
-        if (response.equals("Bye. See you again.")) {
+        if (response.equals(ByeCommand.BYE_MESSAGE)) {
             waitAndExit(1000);
         }
     }

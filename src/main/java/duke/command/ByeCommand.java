@@ -11,9 +11,11 @@ import duke.task.TaskList;
  * @author KohGuanZeh
  */
 public class ByeCommand extends Command {
+    public static final String BYE_MESSAGE = "Bye. See you again.";
+
     @Override
     public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
-        return "Bye. See you again.";
+        return ByeCommand.BYE_MESSAGE;
     }
 
     @Override
