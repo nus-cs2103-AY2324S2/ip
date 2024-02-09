@@ -139,11 +139,11 @@ public class TaskList implements Serializable {
         if (split.length <= 1) {
             throw new MissMinutesException("Invalid find command format. Please enter a keyword, like `find book`");
         }
-        String keyword = split[1];
+        String keyword = split[1].toLowerCase();
 
         ArrayList<Task> results = this.tasks
                 .stream()
-                .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
+                .filter(task -> task.description.toLowerCase().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (results.isEmpty()) {
