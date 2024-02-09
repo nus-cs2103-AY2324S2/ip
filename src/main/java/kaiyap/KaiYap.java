@@ -44,17 +44,17 @@ public class KaiYap {
         ScrollPane scrollPane = new ScrollPane();
         VBox dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
         TextField userInput = new TextField();
         Button sendButton = new Button("Send");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
         this.ui = new Ui();
         this.taskList = new TaskList(ui);
         this.ui.setTaskList(this.taskList);
         this.storage = new Storage(ui, taskList, System.getProperty("user.home") + "/data/", "kaiyap.txt");
         this.parser = new Parser();
+
         storage.loadData();
     }
 
@@ -196,12 +196,7 @@ public class KaiYap {
         } else {
             taskList.get(numericIndex).setTaskDone(false);
             storage.saveData();
-            return (
-                    "\t____________________________________________________________\n"
-                            + "\tOK, I've marked this task as not done yet:\n"
-                            + "\t\t" + taskList.get(numericIndex).toString()
-                            + "\n\t____________________________________________________________"
-                );
+            return ui.printTaskUnmarked(numericIndex);
         }
     }
 }
