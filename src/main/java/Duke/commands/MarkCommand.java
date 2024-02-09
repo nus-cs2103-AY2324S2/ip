@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
-        int currentIdx = tasks.list().size();
+        int currentIdx = tasks.getItems().size();
         if (words.length == 1 || !isNumeric(words[1])) {
             throw new InvalidTaskIndexException(currentIdx);
         }
@@ -41,7 +41,7 @@ public class MarkCommand extends Command {
             throw new InvalidTaskIndexException(currentIdx);
         }
         ui.displayMark(tasks.markTask(taskIdx));
-        storage.rewriteFile(tasks.list());
+        storage.rewriteFile(tasks.getItems());
         return false;
     }
 }

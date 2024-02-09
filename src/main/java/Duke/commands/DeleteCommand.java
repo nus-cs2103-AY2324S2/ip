@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, UI ui, Storage s) throws DukeException {
-        int currentIdx = tasks.list().size();
+        int currentIdx = tasks.getItems().size();
         if (words.length == 1 || !isNumeric(words[1])) {
             throw new InvalidTaskIndexException(currentIdx);
         }
@@ -55,7 +55,7 @@ public class DeleteCommand extends Command {
         }
         currentIdx--;
         ui.displayDelete(tasks.delete(taskIdx2), currentIdx);
-        s.rewriteFile(tasks.list());
+        s.rewriteFile(tasks.getItems());
         return false;
     }
 }
