@@ -18,7 +18,7 @@ public class Duke {
         }
     }
 
-    public void run() {
+    public void run() throws DukeException {
         ui.welcomeMessage();
         boolean isExit = false;
         while (!isExit) {
@@ -31,7 +31,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke("./data/duke.txt").run();
     }
 }
