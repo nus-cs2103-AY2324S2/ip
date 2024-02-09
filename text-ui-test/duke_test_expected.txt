@@ -1,0 +1,4 @@
+T | 0 | read book
+D | 1 | return book | tomorrow
+E | 0 | eat lunch | now | later
+T | 0 | eat dinner
