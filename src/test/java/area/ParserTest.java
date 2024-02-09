@@ -17,7 +17,7 @@ public class ParserTest {
     public void parseDescriptionSuccess(){
         Parser parser = new Parser();
         assertEquals("book", parser.parseDesription("todo book"));
-        assertEquals("1", parser.parseDesription("unmark 1"));
+        assertEquals("2", parser.parseDesription("unmark 2"));
     }
     
 }
