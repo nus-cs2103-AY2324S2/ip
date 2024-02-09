@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  * Extends the Task class.
  */
 public class Deadline extends Task {
+    public static final String INPUT_DATE_FORMAT = "dd-MM-yyyy HHmm";
+    public static final String OUTPUT_DATE_FORMAT = "MMM dd yyyy h:mma";
     private LocalDateTime byDateTime;
 
     /**
@@ -31,7 +33,7 @@ public class Deadline extends Task {
      * @return The LocalDateTime representation of the deadline.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
         return LocalDateTime.parse(dateTimeString, formatter);
     }
 
@@ -43,7 +45,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + ")";
+                + byDateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT)) + ")";
     }
 
     /**
@@ -54,6 +56,6 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
+                + byDateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT));
     }
 }

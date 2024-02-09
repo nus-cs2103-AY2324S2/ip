@@ -5,11 +5,10 @@ package com.example.artemis;
  * It allows users to add, list, mark as done, and delete tasks.
  */
 public class Artemis {
-    // File path for storing tasks data
+    public static final String INVALID_INPUT = "Oops, there might be invalid input..";
     private static final String FILE_PATH = "./data/artemis.txt";
-
-    // Components of Artemis
     private static final Storage STORAGE = new Storage(FILE_PATH);
+
     private static final Ui UI = new Ui();
     private TaskList tasks;
 
@@ -41,7 +40,7 @@ public class Artemis {
             // Parse user input and perform corresponding actions
             return Parser.parseInput(input, tasks, UI, STORAGE);
         } catch (ArtemisException e) {
-            return UI.showError("Oops, there might be invalid input..");
+            return UI.showError(INVALID_INPUT);
         }
     }
 }
