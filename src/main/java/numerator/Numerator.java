@@ -47,7 +47,7 @@ public class Numerator {
         new Numerator().run();
     }
 
-    public String getResponse(String response) {
+    public String getResponseFromInput(String response) {
         try {
             return Parser.parseArguments(response, taskList, storage);
         } catch (NumeratorException e) {
