@@ -22,6 +22,10 @@ public class Task {
         }
     }
 
+    boolean contains(String keyword) {
+        return desc.contains(keyword);
+    }
+
     public void mark() {
         this.isDone = true;
     }

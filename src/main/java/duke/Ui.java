@@ -7,7 +7,7 @@ public class Ui {
 
     public void open() {
         String greeting = "Hello! I'm Donald.\nWhat can I do for you?\n";
-        String out = LINE + "\n" + greeting + LINE + "\n";
+        String out = LINE + "\n" + greeting + LINE;
         System.out.println(out);
     }
 
@@ -50,5 +50,10 @@ public class Ui {
     void listMessage(String str) {
         String out = "Here are the tasks in your list:\n" + str;
         System.out.print(out);
+    }
+
+    void findMessage(String str) {
+        String out = "Here are the matching tasks in your list:\n" + str;
+        System.out.print(str);
     }
 }

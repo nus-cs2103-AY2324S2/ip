@@ -60,6 +60,13 @@ class Parser {
             }
             index = Integer.parseInt(stringSplit[1]) - 1;
             command = new DeleteCommand(index);
+        case "find":
+            if (stringSplit.length < 2) {
+                throw new DukeException("Invalid input format!");
+            }
+            String keyword = line.split(commandWord + " ")[1];
+            command = new FindCommand(keyword.trim());
+            break;
         case "event":
         case "todo":
         case "deadline":

@@ -4,7 +4,6 @@ public class AddCommand implements Command {
 
     private String commandWord;
     private String description;
-    static String defaultString = "Got it. I've added this task:";
 
     AddCommand(String commandWord, String description) {
         this.commandWord = commandWord;

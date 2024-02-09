@@ -26,6 +26,16 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    TaskList find(String str) {
+        ArrayList<Task> foundList = new ArrayList<>();
+        for (Task task: tasks) {
+            if (task.contains(str)) {
+                foundList.add(task);
+            }
+        }
+        return new TaskList(foundList);
+    }
+
     String toStore() {
         String out = "";
         for (Task task: tasks) {
