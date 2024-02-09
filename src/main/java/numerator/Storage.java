@@ -74,8 +74,7 @@ public class Storage {
 
             // Solution below adapted from https://www.baeldung.com/reading-file-in-java
             Stream<String> lines = Files.lines(this.filepath);
-            lines.forEach(readLineFromString(taskList)
-            );
+            lines.forEach(readLineFromString(taskList));
 
             lines.close();
             return taskList;
