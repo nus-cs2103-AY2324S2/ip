@@ -252,8 +252,6 @@ public class Whisper {
             // parse event date and time
             LocalDateTime fromDateTime = parseDateTime(from);
             LocalDateTime toDateTime = parseDateTime(to);
-            System.out.println("fromDateTime: " + fromDateTime);
-            System.out.println("toDateTime: " + toDateTime);
 
             // add new event to task list
             //Task event = new Task(eventName, Task.TaskCategory.E).setFrom(from).setTo(to);
@@ -305,7 +303,7 @@ public class Whisper {
 
     // parse date and time
     private static LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
 
