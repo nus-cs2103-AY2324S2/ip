@@ -4,6 +4,5 @@
 [E][ ] tester1 (from: Jan 1 2022 to: Jan 1 2023)
 [E][X] tester2 (from: Jan 1 2022 to: Jan 1 2023)
 [T][ ] 100 hours of effort
-[T][ ] try now
 [T][ ] Buy groceries
-[D][ ] Submit report (by: Dec 31 2022)
+[D][X] Submit report (by: Dec 31 2022)
