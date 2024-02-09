@@ -1,10 +1,14 @@
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 class Task {
     protected SecretaryW.TaskType type;
     protected String description;
     protected boolean isDone;
-    protected String time1;
-    protected String time2;
+
+    protected LocalDate deadline;
+    protected LocalDate startTime;
+    protected LocalDate endTime;
 
     //constructor for TODO
     public Task(SecretaryW.TaskType type, String description) {
@@ -13,12 +17,21 @@ class Task {
         this.isDone = false;
     }
 
-    //constructor for DEADLINE
-    public Task(SecretaryW.TaskType type, String description, String time1) {
+    // Constructor for DEADLINE
+    public Task(SecretaryW.TaskType type, String description, String deadline) {
         this.type = type;
         this.description = description;
         this.isDone = false;
-        this.time1 = time1;
+        this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ofPattern("d/M/yyyy"));
+    }
+
+    //constructor for EVENT
+    public Task(SecretaryW.TaskType type, String description, String startTime, String endTime) {
+        this.type = type;
+        this.description = description;
+        this.isDone = false;
+        this.startTime = LocalDate.parse(startTime, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        this.endTime = LocalDate.parse(endTime, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 
     // Constructor for creating TODO Task from file data
@@ -29,29 +42,21 @@ class Task {
     }
 
     // Constructor for creating DEADLINE Task from file data
-    public Task(SecretaryW.TaskType type, String description, String time1, boolean isDone) {
+    public Task(SecretaryW.TaskType type, String description, String deadline, boolean isDone) {
         this.type = type;
         this.description = description;
-        this.time1 = time1;
         this.isDone = isDone;
+        this.deadline = LocalDate.parse(deadline);
     }
+
 
     // Constructor for creating EVENT Task from file data
-    public Task(SecretaryW.TaskType type, String description, String time1, String time2, boolean isDone) {
+    public Task(SecretaryW.TaskType type, String description, String startTime, String endTime, boolean isDone) {
         this.type = type;
         this.description = description;
-        this.time1 = time1;
-        this.time2 = time2;
+        this.startTime = LocalDate.parse(startTime);
+        this.endTime = LocalDate.parse(endTime);
         this.isDone = isDone;
-    }
-
-    //constructor for EVENT
-    public Task(SecretaryW.TaskType type, String description, String time1, String time2) {
-        this.type = type;
-        this.description = description;
-        this.isDone = false;
-        this.time1 = time1;
-        this.time2 = time2;
     }
     public String getDescription() {
         return this.description;
@@ -79,9 +84,9 @@ class Task {
             case TODO:
                 return "T | " + (isDone ? "1" : "0") + " | " + description;
             case DEADLINE:
-                return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + time1;
+                return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline;
             case EVENT:
-                return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + time1 + " | " + time2;
+                return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startTime + " | " + endTime;
             default:
                 return "";
         }
@@ -92,9 +97,12 @@ class Task {
             case TODO: //todo
                 return "[T]" + getStatusIcon() + " " + description;
             case DEADLINE: // deadline
-                return "[D]" + getStatusIcon() + " " + description + " (by: " + time1 + ")";
+                String formattedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                return "[D]" + getStatusIcon() + " " + description + " (by: " + formattedDeadline + ")";
             case EVENT: // event
-                return "[E]" + getStatusIcon() + " " + description + " (from: " + time1 + " to: " + time2 + ")";
+                String formattedStart = startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                String formattedEnd = endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                return "[E]" + getStatusIcon() + " " + description + " (from: " + formattedStart + " to: " + formattedEnd + ")";
             default:
                 return ""; // Other types
         }

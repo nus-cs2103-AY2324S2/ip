@@ -1,12 +1,15 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class SecretaryW {
     public enum TaskType {
         TODO, DEADLINE, EVENT
     }
 
-    private static final String FILE_PATH = "./java/data/SecretaryW.txt";
+    private static final String FILE_PATH = "./data/SecretaryW.txt";
 
     private static void loadTasksFromFile(ArrayList<Task> taskList) {
         try {
@@ -69,7 +72,7 @@ public class SecretaryW {
         // Load tasks from file
         loadTasksFromFile(taskList);
 
-        String greeting = "Hello! I'm SecretaryW\n" + "What can I do for you?\n";
+        String greeting = "Whats up, SecretaryW at your service\n" + "How can I help you?\n";
         String farewell = "Bye. Hope to see you again soon!\n";
 
         // Greetings
@@ -136,8 +139,10 @@ public class SecretaryW {
                     String description = parts[0].trim();
                     String by = parts[1].trim();
                     checkDeadline(by);
+                    checkDeadline2(by);
                     taskList.add(new Task(TaskType.DEADLINE, description, by));
                     printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+
                 } else if (userInput.startsWith("event")) {
                     // Add an event task
                     String[] parts = userInput.substring(5).split("/from"); // first split
@@ -148,6 +153,7 @@ public class SecretaryW {
                     String from = time[0].trim();
                     String to = time[1].trim();
                     checkEvent(from, to);
+                    checkEvent2(from, to);
                     taskList.add(new Task(TaskType.EVENT, description, from, to));
                     printTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
 
@@ -204,6 +210,25 @@ public class SecretaryW {
     private static void checkEvent(String from, String to) throws WException {
         if (from.isEmpty() || to.isEmpty()) {
             throw new WException("The event from and to times cannot be empty");
+        }
+    }
+
+    private static void checkDeadline2(String by) throws WException {
+        try {
+            // Attempt to parse the deadline string
+            LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new WException("Invalid date format provided for deadline task");
+        }
+    }
+
+    private static void checkEvent2(String from, String to) throws WException {
+        try {
+            // Attempt to parse the event string
+            LocalDate.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy"));
+            LocalDate.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new WException("Invalid date format provided for event task");
         }
     }
 }
