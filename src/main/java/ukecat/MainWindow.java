@@ -20,18 +20,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private UkeCat duke;
-
+    private UkeCat ukeCat;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(Ui.WELCOME, dukeImage)
+        );
     }
 
-    public void setDuke(UkeCat d) {
-        duke = d;
+    public void setUkeCat(UkeCat u) {
+        ukeCat = u;
     }
 
     /**
@@ -41,9 +43,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        Parser.parse(input);
+        String reply = ukeCat.ui.getReply(Storage.words);
+        String response = ukeCat.getResponse(reply);
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getUserDialog(input + "  ", userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();

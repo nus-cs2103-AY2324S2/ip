@@ -34,18 +34,20 @@ public abstract class Task {
      *
      * @param markType The type of marking (MARK for done, UNMARK for not done).
      */
-    public void setDone(MarkType markType) {
+    public String setDone(MarkType markType) {
+        String notif = "";
         switch (markType) {
         case MARK:
             this.isDone = true;
-            System.out.println("  Nice! I've marked this task as done:");
+            notif = "Nice! I've marked this task as done:\n";
             break;
         case UNMARK:
             this.isDone = false;
-            System.out.println("  OK, I've marked this task as not done yet:");
+            notif = "OK, I've marked this task as not done yet:\n";
             break;
         }
-        System.out.println("    " + this);
+        FileManager.updateTasks();
+        return String.format("  %s    %s", notif, this);
     }
 
     /**

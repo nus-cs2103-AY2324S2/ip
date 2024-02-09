@@ -1,5 +1,4 @@
-T,1,buy bread
-T,0,eat bread
-T,0,buy egg
-T,0,cook egg
-T,0,eat egg
+T,1,buy egg
+T,0,buy bread
+D,0,buy milk,2024-12-04
+T,0,buy toto

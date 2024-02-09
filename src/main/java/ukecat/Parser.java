@@ -15,10 +15,8 @@ public class Parser {
      * Parse user input and stores the input and words array into the Storage class.
      * Leading and trailing whitespaces are also trimmed from the words array.
      */
-    public static void parse() {
-        // trim removes leading and trailing whitespaces
-        Storage.input = sc.nextLine().trim();
-        // whitespace regex is //s, the + means whitespace of any length
+    public static void parse(String input) {
+        Storage.input = input.trim();
         Storage.words = Storage.input.split("\\s+");
 
     }
@@ -32,7 +30,6 @@ public class Parser {
      * @throws UkeCatException If input does not match the expected format.
      */
     public static void parseToDo(String input) throws UkeCatException {
-        // Regex pattern: todo + whitespaces + any chars
         Pattern pattern = Pattern.compile("^todo\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
 
@@ -52,7 +49,6 @@ public class Parser {
      * @throws UkeCatException If input does not match the expected format.
      */
     public static void parseDeadline(String input) throws UkeCatException {
-        // Regex pattern: deadline + spaces + chars + spaces + /by + spaces + chars
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
         if (matcher.matches()) {
@@ -72,8 +68,6 @@ public class Parser {
      * @throws UkeCatException If input does not match the expected format.
      */
     public static void parseEvent(String input) throws UkeCatException {
-        // Regex pattern: event + spaces + chars + spaces +
-        // /from + spaces + chars + spaces + /to + spaces + chars
         Pattern pattern = Pattern.compile("^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
 
@@ -99,10 +93,10 @@ public class Parser {
             if (words.length == 2) {
                 return Integer.parseInt(words[1]) - 1;
             } else {
-                throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
+                throw new UkeCatException("Wrong format, use: delete <task#>");
             }
         } catch (NumberFormatException e) {
-            throw new UkeCatException("Wrong format, use: mark / unmark <task#>");
+            throw new UkeCatException("Wrong format, use: delete <task#>");
         }
     }
 

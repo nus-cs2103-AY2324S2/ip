@@ -13,33 +13,30 @@ public class Ui {
      *
      * @param words The array of words representing the user input.
      */
-    public void respond(String[] words) {
+    public String getReply(String[] words) {
         switch (words[0]) {
+        case "bye":
+            Parser.closeScanner();
+            System.exit(0);
+            return BYE;
         case "hi":
-            System.out.println(HI);
-            break;
+            return HI;
         case "list":
-            Storage.printTasks();
-            break;
+            return Storage.displayTasks();
         case "mark":
-            Storage.markTask(MarkType.MARK);
-            break;
+            return Storage.markTask(MarkType.MARK);
         case "unmark":
-            Storage.markTask(MarkType.UNMARK);
-            break;
+            return Storage.markTask(MarkType.UNMARK);
         case "delete":
-            Storage.deleteTask();
-            break;
+            return Storage.deleteTask();
         case "todo":
         case "deadline":
         case "event":
-            Storage.addTask();
-            break;
+            return Storage.addTask();
         case "find":
-            Storage.findTask();
-            break;
+            return Storage.findTask();
         default:
-            System.out.println("  I don't understand! Try adding a task!");
+            return "  I don't understand! Try adding a task!";
         }
     }
 
@@ -48,13 +45,6 @@ public class Ui {
      */
     public void welcome() {
         System.out.println(LINE + WELCOME + LINE);
-    }
-
-    /**
-     * Displays the farewell message to the user.
-     */
-    public void bye() {
-        System.out.println(BYE);
     }
 
     // Hardcoded messages

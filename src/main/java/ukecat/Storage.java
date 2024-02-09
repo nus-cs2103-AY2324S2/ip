@@ -9,15 +9,14 @@ import java.util.ArrayList;
  * It includes methods for adding tasks and accessing the list of tasks.
  */
 public class Storage {
-    // ukecat.Storage from input
-    public static String input; // user input
-    public static String[] words; // split words using
-    public static String desc; // for any task
-    public static LocalDate by; // for deadlines
-    public static LocalDate start; // for events
-    public static LocalDate end; // for events
+    public static String input;
+    public static String[] words;
+    public static String desc;
+    public static LocalDate by;
+    public static LocalDate start;
+    public static LocalDate end;
 
-    public static int numT = 0;
+    public static int taskCount = 0;
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static ArrayList<Task> getTasks() {
@@ -27,8 +26,10 @@ public class Storage {
     /**
      * Adds a task based on the user input and parsed information.
      * Handles different task types (ToDo, Deadline, Event).
+     *
+     * @return A string message indicating the result of the addition.
      */
-    public static void addTask() {
+    public static String addTask() {
         Task t = null;
         try {
             switch (words[0]) {
@@ -50,32 +51,32 @@ public class Storage {
                 tasks.add(t);
                 break;
             }
-            numT++;
-            System.out.println("  I added this task: " + t);
-            report();
+            taskCount++;
+            String message = String.format("  Task added: %s%n%s", t, generateReport());
             FileManager.updateTasks();
+            return message;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
      * Deletes a task based on the user input and updates the task list.
      * Handles exceptions such as UkeCatException and IndexOutOfBoundsException.
+     *
+     * @return A string message indicating the result of the deletion.
      */
-    public static void deleteTask() {
+    public static String deleteTask() {
         try {
             int deleteIndex = Parser.parseDeleteTask(words);
             Task deletedTask = tasks.remove(deleteIndex);
-            numT--;
-            System.out.println("  I removed this task: " + deletedTask);
-            report();
+            taskCount--;
             FileManager.updateTasks();
+            return String.format("  Task removed: %s%n%s", deletedTask, generateReport());
         } catch (UkeCatException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found. Please delete task from list:");
-            printTasks();
+            return "Task not found. Please mark a valid task from the list:\n" + displayTasks();
         }
     }
 
@@ -83,54 +84,51 @@ public class Storage {
      * Marks a task as done or not done based on the user input and updates the task list.
      * Handles exceptions such as UkeCatException and IndexOutOfBoundsException.
      *
-     * @param markType The type of marking (MARK for done, UNMARK for not done).
+     * @param markType The type of marking (MarkType.MARK for done, MarkType.UNMARK for not done).
+     * @return A string message indicating the result of the marking operation.
      */
-    public static void markTask(MarkType markType) {
+    public static String markTask(MarkType markType) {
         try {
             int taskIndex = Parser.parseMarkTask(words);
-            tasks.get(taskIndex).setDone(markType);
-            FileManager.updateTasks();
+            return tasks.get(taskIndex).setDone(markType);
         } catch (UkeCatException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found. Please mark a valid task from the list:");
-            printTasks();
+            return "Task not found. Please mark a valid task from the list:\n" + displayTasks();
         }
     }
 
     /**
-     * Finds tasks in the task list containing the specified keyword in their descriptions.
-     * Prints the matching tasks along with their indices.
-     * If no matching tasks are found, a message is displayed.
-     * Catches and handles a UkeCatException if there's an issue parsing the user input.
+     * Finds tasks in the list containing a specified keyword.
+     *
+     * @return A string message indicating the result of the search.
      */
-    public static void findTask() {
+    public static String findTask() {
         try {
             String keyword = Parser.parseFindTask(words);
             ArrayList<Task> matchingTasks = new ArrayList<>();
 
-            if (numT == 0) {
-                System.out.println("  No tasks in the list yet!");
-                return;
+            if (taskCount == 0) {
+                return "No tasks in the list yet!";
             }
 
-            for (int i = 0; i < numT; i++) {
-                Task task = tasks.get(i);
+            for (Task task : tasks) {
                 if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                     matchingTasks.add(task);
                 }
             }
 
             if (matchingTasks.isEmpty()) {
-                System.out.println("  No tasks match the keyword.");
+                return "No tasks match the keyword.";
             } else {
-                System.out.println("  Here are the matching tasks in your list:");
+                StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
                 for (int i = 0; i < matchingTasks.size(); i++) {
-                    System.out.format("  %d. %s%n", i + 1, matchingTasks.get(i).toString());
+                    result.append(String.format("%d. %s%n", i + 1, matchingTasks.get(i).toString()));
                 }
+                return result.toString();
             }
         } catch (UkeCatException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -162,7 +160,7 @@ public class Storage {
                 tasks.add(t);
                 break;
             }
-            numT++;
+            taskCount++;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -179,29 +177,29 @@ public class Storage {
     }
 
     /**
-     * Prints the list of tasks to the console.
+     * Displays the list of tasks.
      * If no tasks are present, a message indicating an empty list is displayed.
+     *
+     * @return A string representation of the tasks.
+     * @throws IllegalStateException if tasks or words is null.
      */
-    public static void printTasks() {
-        if (words.length != 1) {
-            System.out.println("  Unknown command! Use 'list' instead.");
-            return;
+    public static String displayTasks() {
+        if (taskCount == 0) {
+            return "  No tasks in the list yet, try adding one!";
         }
-
-        if (numT == 0) {
-            System.out.println("  No tasks in the list yet!");
-            return;
+        StringBuilder listOfTasks = new StringBuilder();
+        for (int i = 0; i < taskCount; i++) {
+            listOfTasks.append(String.format("  %d. %s%n", i + 1, tasks.get(i).toString()));
         }
-        for (int i = 0; i < numT; i++) {
-            System.out.format("  %d. %s%n", i + 1, tasks.get(i).toString());
-        }
+        return listOfTasks.toString();
     }
 
     /**
-     * Displays a report indicating the number of tasks in the list.
+     * Generates a report indicating the number of tasks in the list.
+     *
+     * @return A string representation of the report.
      */
-    public static void report() {
-        String out = String.format("  You have %d task%s in the list now.", numT, numT == 1 ? "" : "s");
-        System.out.println(out);
+    public static String generateReport() {
+        return String.format("  You have %d task%s in the list now.", taskCount, taskCount == 1 ? "" : "s");
     }
 }
