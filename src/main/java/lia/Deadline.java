@@ -22,6 +22,11 @@ public class Deadline extends Task {
         this.date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * Gets the date of the deadline.
+     *
+     * @return The date of the deadline.
+     */
     public LocalDate getDate() {
         return date;
     }
