@@ -8,13 +8,13 @@ import duke.exceptions.DukeException;
  * indicating that a task description cannot be empty.
  */
 public class EmptyDescriptionException extends DukeException {
-    private static final String errorMessage = "The description of a task cannot be empty.";
+    private static final String ERROR_MESSAGE = "The description of a task cannot be empty.";
 
     /**
      * Constructs a new EmptyDescriptionException with a predefined error message.
      * The message indicates that a task description is required and cannot be left empty.
      */
     public EmptyDescriptionException() {
-        super(errorMessage);
+        super(ERROR_MESSAGE);
     }
 }

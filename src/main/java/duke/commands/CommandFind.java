@@ -24,11 +24,7 @@ public class CommandFind extends Command {
     }
 
     /**
-     * Executes the command to find tasks containing the specified keyword and displays the matching tasks to the user.
-     *
-     * @param tasks   The task list containing the tasks.
-     * @param storage The storage component for saving the task list.
-     * @throws DukeException If there is an error while searching for tasks or displaying the results.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

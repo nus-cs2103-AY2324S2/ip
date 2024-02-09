@@ -15,11 +15,7 @@ public class CommandList extends Command {
     public CommandList() {}
 
     /**
-     * Executes the "list" command, which displays all tasks in the task list to the user.
-     *
-     * @param tasks   The task list containing the tasks to be listed.
-     * @param storage The storage component for saving the updated task list.
-     * @throws DukeException If an error occurs while executing the command.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

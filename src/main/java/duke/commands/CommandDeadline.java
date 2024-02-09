@@ -21,12 +21,7 @@ public class CommandDeadline extends Command {
     }
 
     /**
-     * Executes the "deadline" command, which adds the specified deadline task to the task list,
-     * saves the updated task list to storage, and displays a confirmation message to the user.
-     *
-     * @param tasks   The task list to which the deadline task will be added.
-     * @param storage The storage component for saving the updated task list.
-     * @throws DukeException If an error occurs while executing the command.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

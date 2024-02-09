@@ -16,9 +16,7 @@ public class CommandBye extends Command {
     public CommandBye() {}
 
     /**
-     * Indicates that executing this command should result in exiting the Duke application.
-     *
-     * @return true to indicate an exit command, false otherwise.
+     * {@inheritDoc}
      */
     @Override
     public boolean isExit() {
@@ -26,10 +24,7 @@ public class CommandBye extends Command {
     }
 
     /**
-     * Executes the "bye" command, which displays a farewell message to the user.
-     *
-     * @param tasks   The task list (not used in this command).
-     * @param storage The storage component (not used in this command).
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

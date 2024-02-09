@@ -21,12 +21,7 @@ public class CommandUnmark extends Command {
     }
 
     /**
-     * Executes the command to unmark a task as not done and updates the task list.
-     * Saves the updated task list to storage.
-     *
-     * @param tasks   The task list containing the tasks.
-     * @param storage The storage component for saving the task list.
-     * @throws DukeException If there is an error while un-marking the task or saving the task list.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

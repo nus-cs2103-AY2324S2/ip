@@ -21,12 +21,7 @@ public class CommandDelete extends Command {
     }
 
     /**
-     * Executes the "delete" command, which removes the specified task from the task list,
-     * saves the updated task list to storage, and displays a confirmation message to the user.
-     *
-     * @param tasks   The task list from which the task will be deleted.
-     * @param storage The storage component for saving the updated task list.
-     * @throws DukeException If an error occurs while executing the command.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

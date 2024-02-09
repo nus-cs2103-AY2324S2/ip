@@ -21,11 +21,7 @@ public class CommandTodo extends Command {
     }
 
     /**
-     * Executes the "todo" command, which adds the specified todo task to the task list.
-     *
-     * @param tasks   The task list to which the todo task will be added.
-     * @param storage The storage component for saving the updated task list.
-     * @throws DukeException If an error occurs while executing the command.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

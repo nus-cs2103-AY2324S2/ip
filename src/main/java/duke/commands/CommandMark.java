@@ -21,11 +21,7 @@ public class CommandMark extends Command {
     }
 
     /**
-     * Executes the "mark" command, which marks the specified task as done in the task list.
-     *
-     * @param tasks   The task list containing the tasks to be marked.
-     * @param storage The storage component for saving the updated task list.
-     * @throws DukeException If an error occurs while executing the command.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {

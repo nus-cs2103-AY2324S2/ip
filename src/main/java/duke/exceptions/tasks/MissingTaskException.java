@@ -9,7 +9,7 @@ import duke.exceptions.DukeException;
  * This class extends {@link DukeException} to provide a specific error message for this situation.
  */
 public class MissingTaskException extends DukeException {
-    private static final String errorMessage = "The specified task does not exist.";
+    private static final String ERROR_MESSAGE = "The specified task does not exist.";
 
     /**
      * Constructs a new MissingTaskException with a predefined error message.
@@ -18,6 +18,6 @@ public class MissingTaskException extends DukeException {
      * or the task list is empty.
      */
     public MissingTaskException() {
-        super(errorMessage);
+        super(ERROR_MESSAGE);
     }
 }

@@ -21,12 +21,7 @@ public class CommandEvent extends Command {
     }
 
     /**
-     * Executes the "event" command, which adds the specified event task to the task list,
-     * saves the updated task list to storage, and displays a confirmation message to the user.
-     *
-     * @param tasks   The task list to which the event task will be added.
-     * @param storage The storage component for saving the updated task list.
-     * @throws DukeException If an error occurs while executing the command.
+     * {@inheritDoc}
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
