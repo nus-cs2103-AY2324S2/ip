@@ -16,6 +16,9 @@ public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
+        if(filePath == null) {
+            throw new IllegalArgumentException("File path cannot be null");
+        }
         this.filePath = filePath;
     }
 
@@ -28,15 +31,19 @@ public class Storage {
                 System.out.println("Saving it to your already created directories");
             }
 
+            BufferedWriter writer = null; // Initialize writer outside try block
+            try {
+                writer = new BufferedWriter(new FileWriter(fileReader));
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileReader));
-
-            for (int i = 0; i < taskNum; i++) {
-                writer.write(tasks[i].toSaveString());
-                writer.newLine();
+                for (int i = 0; i < taskNum; i++) {
+                    writer.write(tasks[i].toSaveString());
+                    writer.newLine();
+                }
+            } finally {
+                if (writer != null) {
+                    writer.close();
+                }
             }
-
-            writer.close();
         } catch (IOException e) {
             System.out.println("can't save :((");
         }
