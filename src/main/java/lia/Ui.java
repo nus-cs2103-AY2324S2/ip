@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Ui {
     public void showLoadingError() {
-        System.out.println("Hello, I'm lia.Lia! To learn how to use me, type 'help'.");
+        System.out.println("Hello, I'm Lia! To learn how to use me, type 'help'.");
     }
 
     public void showWelcomeMessage() {
