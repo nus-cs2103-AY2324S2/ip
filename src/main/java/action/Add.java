@@ -31,6 +31,8 @@ public class Add implements Action {
     @Override
     public String execute() throws IOException {
         StringBuilder sb = new StringBuilder();
+        assert this.task != null : "Task cannot be null"; // Add assertion for task
+        assert this.taskList != null : "TaskList cannot be null"; // Add assertion for taskList
         this.taskList.add(this.task);
         int size = this.taskList.getSize();
         String plural = size == 1 ? "task" : "tasks";

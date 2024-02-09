@@ -23,6 +23,9 @@ public class List implements Action {
      * @return A string representing the result of the execution.
      */
     public String execute() {
-        return "Here are the tasks in your list:\n" + taskList.toString();
+        assert taskList != null : "Task list cannot be null";
+        String result = "Here are the tasks in your list:\n" + taskList.toString();
+        assert result != null : "Result cannot be null";
+        return result;
     }
 }

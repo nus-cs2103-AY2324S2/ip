@@ -23,15 +23,16 @@ public class Parser {
      * @throws NarutoException  If the input string is not a valid index or is out of range.
      */
     static int parseIdx(String input, TaskList taskList) throws NarutoException {
+        assert input != null : "Input string cannot be null";
+        assert taskList != null : "TaskList cannot be null";
+
         int idx;
         try {
             idx = Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             throw NarutoException.createInvalidIndexException();
         }
-        if (idx > taskList.getSize() || idx <= 0) {
-            throw NarutoException.createInvalidIndexException();
-        }
+        assert idx > 0 && idx <= taskList.getSize() : "Index out of range";
         return idx;
     }
 
@@ -43,6 +44,8 @@ public class Parser {
      * @throws NarutoException  If the input string is empty.
      */
     static String parseDescription(String input) throws NarutoException {
+        assert input != null : "Input string cannot be null";
+
         String description = input.trim();
 
         if (description.isEmpty()) {
@@ -59,18 +62,17 @@ public class Parser {
      * @throws NarutoException  If the input string is empty, does not contain "/by", or has an invalid deadline.
      */
     static String[] parseDeadline(String input) throws NarutoException {
+        assert input != null : "Input string cannot be null";
+
         if (input.isEmpty()) {
             throw NarutoException.createEmptyDeadlineException();
         }
-        if (!input.contains("/by")) {
-            throw NarutoException.createInvalidDeadlineException();
-        }
+        assert input.contains("/by") : "Invalid deadline format";
+
         String [] tokens = input.split("/by");
         String description = tokens[0].trim();
         String by = tokens[1].trim();
-        if (!DateTimeUtil.isValid(by)) {
-            throw NarutoException.createInvalidDeadlineException();
-        }
+        assert DateTimeUtil.isValid(by) : "Invalid deadline";
         return new String[] { description, by };
     }
 
@@ -83,20 +85,19 @@ public class Parser {
      *                  has an invalid event.
      */
     static String[] parseEvent(String input) throws NarutoException {
+        assert input != null : "Input string cannot be null";
+
         if (input.isEmpty()) {
             throw NarutoException.createEmptyEventException();
         }
-        if (!(input.contains("/from") && input.contains("/to"))) {
-            throw NarutoException.createInvalidEventException();
-        }
+        assert input.contains("/from") && input.contains("/to") : "Invalid event format";
+
         String[] tokens = input.split("/from");
         String description = tokens[0].trim();
         tokens = tokens[1].split("/to");
         String from = tokens[0].trim();
         String to = tokens[1].trim();
-        if (!DateTimeUtil.isValid(from) || !DateTimeUtil.isValid(to)) {
-            throw NarutoException.createInvalidDeadlineException();
-        }
+        assert DateTimeUtil.isValid(from) && DateTimeUtil.isValid(to) : "Invalid event";
         return new String[] { description, from , to };
     }
 }

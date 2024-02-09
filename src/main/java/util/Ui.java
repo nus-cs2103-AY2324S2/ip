@@ -35,7 +35,7 @@ public class Ui {
     public static Action parseInput(TaskList taskList, String s) {
         String[] tokens = s.split(" ", 2);
         String input = tokens[0];
-        String restOfLine = tokens.length == 1 ? null : tokens[1];
+        String restOfLine = tokens.length == 1 ? "" : tokens[1];
         String description;
         int idx;
         assert restOfLine != null;
