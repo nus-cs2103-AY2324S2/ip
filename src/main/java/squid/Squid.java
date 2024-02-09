@@ -2,6 +2,7 @@ package squid;
 
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -294,7 +295,7 @@ public class Squid extends Application {
      * @param stage the primary stage for this application, onto which the application scene can be set.
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws InterruptedException {
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -343,6 +344,9 @@ public class Squid extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(new Label(hello()), new ImageView(duke)));
+        AtomicBoolean isLoop = new AtomicBoolean(true);
+
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
@@ -354,16 +358,28 @@ public class Squid extends Application {
             userInput.clear();
         });
 
+        Response response = parseInput(isLoop.get(), userInput.getText());
+        isLoop.set(response.getIsLoop());
+        System.out.println("isloop" + isLoop);
+
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            if (!handleUserInput()) {
+                Platform.exit();
+                System.exit(0);
+            }
+            System.out.println("isloop" + isLoop);
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            if (!handleUserInput()) {
+                Platform.exit();
+                System.exit(0);
+            }
+            System.out.println("isloop" + isLoop);
         });
     }
 
@@ -386,22 +402,17 @@ public class Squid extends Application {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
+    private boolean handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Response response = parseInput(true, userInput.getText());
+        Label dukeText = new Label(response.getResponse());
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+        return response.getIsLoop();
     }
 
     /**
@@ -465,6 +476,8 @@ public class Squid extends Application {
         res = "\n" + Messages.LINE_BREAK + res;
         return new Response(isLoop, res);
     }
+
+
 
     public static void main(String[] args) {
         new Squid();
