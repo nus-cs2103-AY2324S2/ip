@@ -1,6 +1,14 @@
 package mona;
+
+/**
+ * This class represents a todo task, a simple task with a description
+ */
 public class Todo extends Task {
 
+    /**
+     * Constructor for a todo task
+     * @param description the description for the todo task
+     */
     public Todo(String description) {
         super(description);
     }

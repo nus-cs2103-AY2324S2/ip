@@ -2,12 +2,19 @@ package mona;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents deadline tasks which specify a deadline to complete the task by
+ */
 public class Deadline extends Task {
-
     protected LocalDateTime by;
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
-    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    /**
+     * Constructor for a deadline task
+     * @param description the description for the deadline task
+     * @param by the deadline to complete the task by
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDateTime.parse(by, formatter);

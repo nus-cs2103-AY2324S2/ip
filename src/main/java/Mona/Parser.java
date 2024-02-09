@@ -10,7 +10,7 @@ public class Parser {
      * @return Command enum indicating which of the predefined commands was called
      * @throws MonaException thrown when an unknown command is encountered
      */
-    public Mona.Command getCurrentCommand(String[] input) throws MonaException{
+    public Mona.Command getCurrentCommand(String[] input) throws MonaException {
         switch (input[0]) {
         case "bye":
             return Mona.Command.BYE;
