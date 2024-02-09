@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -42,10 +45,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(input);
+        ArrayList<String> response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog("You said:\n" + input, userImage),
-                DialogBox.getDukeDialog("Duke said:\n" + response, dukeImage)
+                DialogBox.getUserDialog(inputs, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }

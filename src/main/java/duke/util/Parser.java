@@ -2,6 +2,7 @@ package duke.util;
 
 import duke.task.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -102,7 +103,7 @@ public class Parser {
      *
      * @param current The user's input command.
      */
-    public String read(String current) throws TaskException {
+    public ArrayList<String> read(String current) throws TaskException {
         if(current.equals("bye")) {
             this.isExit = true;
             return ui.bye();

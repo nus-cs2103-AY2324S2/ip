@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,12 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 public class DialogBox extends HBox {
 
@@ -21,7 +24,15 @@ public class DialogBox extends HBox {
     @FXML
     private VBox dialog;
 
-    private DialogBox(String text, Image img) {
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    public void initialize() {
+        Platform.runLater(() -> scrollPane.setVvalue(0.0));
+    }
+
+    private DialogBox(ArrayList<String> texts, Image img, String chatter) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -30,8 +41,13 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Label message = new Label(text);
-        dialog.getChildren().add(message);
+        Label currChatter = new Label(chatter + " said:");
+        dialog.getChildren().add(currChatter);
+
+        for (String i : texts) {
+            Label message = new Label(i);
+            dialog.getChildren().add(message);
+        }
         displayPicture.setImage(img);
     }
 
@@ -45,12 +61,12 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(ArrayList<String> texts, Image img) {
+        return new DialogBox(texts, img, "You");
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getDukeDialog(ArrayList<String> texts, Image img) {
+        var db = new DialogBox(texts, img, "Duke");
         db.flip();
         return db;
     }

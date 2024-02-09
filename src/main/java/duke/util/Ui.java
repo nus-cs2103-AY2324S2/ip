@@ -28,60 +28,68 @@ public class Ui {
 
     }
 
-    public String showList(ArrayList<String> list) {
-        String total = "";
-        String start =  "Here are the tasks in your list:\n" ;
+    public ArrayList<String> showList(ArrayList<String> list) {
+        ArrayList<String> total = new ArrayList<>();
+        total.add("Here are the tasks in your list:");
         for (String i : list) {
-            total +=  i + "\n";
+            total.add(i);
         }
-        return start + total;
+        return total;
     }
 
-    public String markTask(Task currTask){
-        String first = ( "Nice! I've marked this task as done:\n");
-        String second = ( currTask.getStatus());
-        return first + second;
+    public ArrayList<String> markTask(Task currTask){
+        ArrayList<String> total = new ArrayList<>();
+        total.add( "Nice! I've marked this task as done:");
+        total.add( currTask.getStatus());
+        return total;
     }
 
-    public String unmarkTask(Task currTask){
-        String first = ( "OK, I've marked this task as not done yet:\n");
-        String second = ( currTask.getStatus());
-        return first + second;
+    public ArrayList<String> unmarkTask(Task currTask){
+        ArrayList<String> total = new ArrayList<>();
+        total.add( "OK, I've marked this task as not done yet:");
+        total.add( currTask.getStatus());
+        return total;
     }
-    public String delete(int index, TaskList list){
+    public ArrayList<String> delete(int index, TaskList list){
+        ArrayList<String> total = new ArrayList<>();
         Task currTask = list.getTask(index);
         String currStatus = currTask.getStatus();
         list.deleteTask(index);
-        String first = ( "Noted. I've removed this task:\n");
-        String second = ( "  " + currStatus + "\n");
-        String third = ( "Now you have " + Integer.toString(list.size()) +
+        total.add( "Noted. I've removed this task:");
+        total.add( "  " + currStatus);
+        total.add( "Now you have " + Integer.toString(list.size()) +
                 " tasks in the list.");
-        return first + second + third;
+        return total;
     }
 
-    public String addTask(Task currTask, TaskList list){
-        String first = ( "Got it. I've added this task:\n");
-        String second = ( "  " + currTask.getStatus() + "\n");
-        String third = ( "Now you have " + Integer.toString(list.size()) +
+    public ArrayList<String> addTask(Task currTask, TaskList list){
+        ArrayList<String> total = new ArrayList<>();
+        total.add( "Got it. I've added this task:");
+        total.add( "  " + currTask.getStatus());
+        total.add( "Now you have " + Integer.toString(list.size()) +
                 " tasks in the list.");
-        return first + second + third;
+
+        return total;
     }
 
-    public String bye(){
-        return leave();
+    public ArrayList<String> bye(){
+        ArrayList<String> total = new ArrayList<>();
+        total.add(leave());
+        return total;
     }
 
-    public String showError(String e){
-        return e;
+    public ArrayList<String> showError(String e){
+        ArrayList<String> total = new ArrayList<>();
+        total.add(e);
+        return total;
     }
 
-    public String showFilteredList(String keyword, TaskList tasks){
-        String first =  "Here are the matching tasks in your list:\n";
+    public ArrayList<String> showFilteredList(String keyword, TaskList tasks){
+        ArrayList<String> total = new ArrayList<>();
+        String first =  "Here are the matching tasks in your list:";
         ArrayList<String> list = tasks.find(keyword);
-        String total = "";
-        for (String i : list) {
-            total += ( i + "\n");
-        }
-        return first + total;
+        total.add(first);
+        total.addAll(list);
+        return total;
     }
 }

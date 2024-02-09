@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+
 
 public class Duke{
     //GUI stuff
@@ -52,9 +54,9 @@ public class Duke{
         this.parser = new Parser(this.tasks, this.ui);
     }
 
-    public String getResponse(String input) {
+    public ArrayList<String> getResponse(String input) {
         try {
-            String s = parser.read(input);
+            ArrayList<String> s = parser.read(input);
             storage.saveFile(tasks.giveList());
             return s;
         } catch (TaskException e) {
