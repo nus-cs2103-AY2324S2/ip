@@ -118,10 +118,9 @@ public class Storage {
     public void rewriteFile(TaskList taskList) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
-            fw.write("T | 1 | dummy offset\n");
             ArrayList<Task> todoList = taskList.getTodoList();
             for (int i = 0; i < todoList.size(); i++) {
-                fw.write(todoList.get(i).toFileString());
+                fw.write(todoList.get(i).toFileString() + "\n");
             }
             fw.close();
         } catch (IOException e) {
@@ -132,7 +131,7 @@ public class Storage {
     public void appendToFile(String line) {
         try {
             FileWriter fw = new FileWriter(filePath, true);
-            fw.write(line);
+            fw.write(line + "\r\n");
             fw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -2,6 +2,7 @@ package Martin;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Represents a command that can be executed by the chatbot.
@@ -80,6 +81,10 @@ public class Command {
                 break;
             case BYE:
                 ui.sayBye();
+                break;
+            case FIND:
+                ArrayList<Task> foundTasks = taskList.find(remainingWords);
+                ui.printFoundTasks(foundTasks);
                 break;
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
