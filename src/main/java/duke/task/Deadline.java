@@ -3,7 +3,7 @@ package duke.task;
 import duke.util.TimeManager;
 
 /**
- * Represents a deadline task in Duke chat-bot.
+ * Represents a deadline task in duke.Duke chat-bot.
  * A deadline task has an end time in addition to the properties inherited from Task.
  */
 public class Deadline extends Task {

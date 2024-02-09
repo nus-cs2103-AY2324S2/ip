@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Ui {
     private final String LINE = "    ____________________________________________________________";
-    private final String INDENT = "     ";
     private final String NAME = "Alfred";
     public Ui(){
 
@@ -21,76 +20,68 @@ public class Ui {
         System.out.println("");
     }
 
-    public void intro() {
-        separate();
-        System.out.println(INDENT + "Hello! I'm " + NAME + "\n     What can I do for you?");
-        spacing();
+    public String intro() {
+        return  "Hello! I'm " + NAME + "\n     What can I do for you?";
     }
-    public void leave() {
-        System.out.println(INDENT + "Bye. Hope to see you again soon!");
-        spacing();
+    public String leave() {
+        return  "Bye. Hope to see you again soon!";
+
     }
 
-    public void showList(ArrayList<String> list){
-        separate();
-        System.out.println(INDENT + "Here are the tasks in your list:");
+    public String showList(ArrayList<String> list) {
+        String total = "";
+        String start =  "Here are the tasks in your list:\n" ;
         for (String i : list) {
-            System.out.println(INDENT + i);
+            total +=  i + "\n";
         }
-        spacing();
+        return start + total;
     }
 
-    public void markTask(Task currTask){
-        separate();
-        System.out.println(INDENT + "Nice! I've marked this task as done:");
-        System.out.println(INDENT + currTask.getStatus());
-        spacing();
+    public String markTask(Task currTask){
+        String first = ( "Nice! I've marked this task as done:\n");
+        String second = ( currTask.getStatus());
+        return first + second;
     }
 
-    public void unmarkTask(Task currTask){
-        separate();
-        System.out.println(INDENT + "OK, I've marked this task as not done yet:");
-        System.out.println(INDENT + currTask.getStatus());
-        spacing();
+    public String unmarkTask(Task currTask){
+        String first = ( "OK, I've marked this task as not done yet:\n");
+        String second = ( currTask.getStatus());
+        return first + second;
     }
-    public void delete(int index, TaskList list){
+    public String delete(int index, TaskList list){
         Task currTask = list.getTask(index);
-        separate();
-        System.out.println(INDENT + "Noted. I've removed this task:");
-        System.out.println(INDENT + "  " + currTask.getStatus());
+        String currStatus = currTask.getStatus();
         list.deleteTask(index);
-        System.out.println(INDENT + "Now you have " + Integer.toString(list.size()) +
+        String first = ( "Noted. I've removed this task:\n");
+        String second = ( "  " + currStatus + "\n");
+        String third = ( "Now you have " + Integer.toString(list.size()) +
                 " tasks in the list.");
-        spacing();
+        return first + second + third;
     }
 
-    public void addTask(Task currTask, TaskList list){
-        separate();
-        System.out.println(INDENT + "Got it. I've added this task:");
-        System.out.println(INDENT + "  " + currTask.getStatus());
-        System.out.println(INDENT + "Now you have " + Integer.toString(list.size()) +
+    public String addTask(Task currTask, TaskList list){
+        String first = ( "Got it. I've added this task:\n");
+        String second = ( "  " + currTask.getStatus() + "\n");
+        String third = ( "Now you have " + Integer.toString(list.size()) +
                 " tasks in the list.");
-        spacing();
+        return first + second + third;
     }
 
-    public void bye(){
-        separate();
-        leave();
+    public String bye(){
+        return leave();
     }
 
-    public void showError(String e){
-        separate();
-        System.out.println(INDENT + e);
-        spacing();
+    public String showError(String e){
+        return e;
     }
 
-    public void showFilteredList(String keyword, TaskList tasks){
-        separate();
-        System.out.println(INDENT + "Here are the matching tasks in your list:");
+    public String showFilteredList(String keyword, TaskList tasks){
+        String first =  "Here are the matching tasks in your list:\n";
         ArrayList<String> list = tasks.find(keyword);
+        String total = "";
         for (String i : list) {
-            System.out.println(INDENT + i);
+            total += ( i + "\n");
         }
-        spacing();
+        return first + total;
     }
 }

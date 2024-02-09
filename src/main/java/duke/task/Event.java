@@ -3,7 +3,7 @@ package duke.task;
 import duke.util.TimeManager;
 
 /**
- * Represents an event task in Duke chat-bot.
+ * Represents an event task in duke.Duke chat-bot.
  * An event task has both a start and an end time in addition to the properties inherited from Task.
  */
 public class Event extends Task {
