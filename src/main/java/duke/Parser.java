@@ -4,21 +4,21 @@ class Parser {
 
     public static Task parseToTask(String line, String splitFormat) throws DukeException {
         Task task;
-        String[] stringSplit = line.split(splitFormat);
-        for (int i = 0; i < stringSplit.length; i++) {
-            stringSplit[i] = stringSplit[i].trim();
+        String[] stringComponents = line.split(splitFormat);
+        for (int i = 0; i < stringComponents.length; i++) {
+            stringComponents[i] = stringComponents[i].trim();
         }
-        boolean isDone = Boolean.valueOf(stringSplit[1]);
+        boolean isDone = Boolean.valueOf(stringComponents[1]);
 
-        switch (stringSplit[0]) {
+        switch (stringComponents[0]) {
         case "T":
-            task = new ToDo(stringSplit[2], isDone);
+            task = new ToDo(stringComponents[2], isDone);
             break;
         case "D":
-            task = new Deadline(stringSplit[2], isDone, stringSplit[3]);
+            task = new Deadline(stringComponents[2], isDone, stringComponents[3]);
             break;
         case "E":
-            task = new Event(stringSplit[2], isDone, stringSplit[3], stringSplit[4]);
+            task = new Event(stringComponents[2], isDone, stringComponents[3], stringComponents[4]);
             break;
         default:
             throw new DukeException("Corrupted Data!");
@@ -27,8 +27,8 @@ class Parser {
     }
 
     public static Command parseToCommand(String line) throws DukeException {
-        String[] stringSplit = line.split(" ");
-        String commandWord = stringSplit[0].trim();
+        String[] stringComponents = line.split(" ");
+        String commandWord = stringComponents[0].trim();
         Command command;
         int index;
 
@@ -41,24 +41,24 @@ class Parser {
             break;
         case "mark":
             // Exception handling and splitting the string
-            if (stringSplit.length != 2) {
+            if (stringComponents.length != 2) {
                 throw new DukeException("Invalid input format!");
             }
-            index = Integer.parseInt(stringSplit[1]) - 1;
+            index = Integer.parseInt(stringComponents[1]) - 1;
             command = new MarkCommand(index, true);
             break;
         case "unmark":
             // Exception handling and splitting the string
-            if (stringSplit.length != 2) {
+            if (stringComponents.length != 2) {
                 throw new DukeException("Invalid input format!");
             }
-            index = Integer.parseInt(stringSplit[1]) - 1;
+            index = Integer.parseInt(stringComponents[1]) - 1;
             command = new MarkCommand(index, false);
         case "delete":
-            if (stringSplit.length < 2) {
+            if (stringComponents.length < 2) {
                 throw new DukeException("Invalid input format!");
             }
-            index = Integer.parseInt(stringSplit[1]) - 1;
+            index = Integer.parseInt(stringComponents[1]) - 1;
             command = new DeleteCommand(index);
         case "event":
         case "todo":
