@@ -180,7 +180,6 @@ public class Tasks {
     public static void read() throws ParseFailException, DuplicateTaskNameException, SquidDateException {
 
         try {
-            assert(SquidFile.doesFileExist(Filepath.FULL_PATH));
             String tasks = SquidFile.readFromFile();
             String[] separated = tasks.split("\n");
             if (separated.length == 1 && Objects.equals(separated[0], "")) {
