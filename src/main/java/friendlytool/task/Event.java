@@ -9,13 +9,14 @@ public class Event extends Task {
     private Date from;
     private Date to;
 
+
     /**
      * Constructs a Event.
      *
-     * @param name name of the task.
+     * @param name   name of the task.
      * @param isDone completed or not.
-     * @param from the start date.
-     * @param to the end date.
+     * @param from   the start date.
+     * @param to     the end date.
      */
     public Event(String name, boolean isDone, Date from, Date to) {
         super(name, isDone);
@@ -30,7 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +" (from: " + from + " to: " + to +")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
     /**

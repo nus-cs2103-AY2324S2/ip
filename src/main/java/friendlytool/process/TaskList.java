@@ -2,7 +2,11 @@ package friendlytool.process;
 
 import friendlytool.command.CommandTypes;
 import friendlytool.command.Parser;
-import friendlytool.task.*;
+import friendlytool.task.Deadline;
+import friendlytool.task.Event;
+import friendlytool.task.Task;
+import friendlytool.task.ToDo;
+
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -26,54 +30,54 @@ public class TaskList {
     /**
      * Adds the task to the list
      *
-     * @param s string containing information of the task.
+     * @param s  string containing information of the task.
      * @param ct command type.
-     * @throws ftException
+     * @throws FTException
      */
-    public void addTask(String s, CommandTypes ct) throws ftException {
+    public void addTask(String s, CommandTypes ct) throws FTException {
         Task task = null;
         switch (ct) {
-            case TODO:
-                String todo = Parser.parseToDo(s);
-                if (!todo.isEmpty()) {
-                    task = new ToDo(todo, false);
-                } else {
-                    throw new ftException("Error: Please tell me what you have TO DO");
-                }
-                break;
+        case TODO:
+            String todo = Parser.parseToDo(s);
+            if (!todo.isEmpty()) {
+                task = new ToDo(todo, false);
+            } else {
+                throw new FTException("Error: Please tell me what you have TO DO");
+            }
+            break;
 
-            case DEADLINE:
-                String[] parsedDL = Parser.parseDeadLine(s);
-                String dt = parsedDL[0];
-                String by = parsedDL[1];
-                if (!dt.isEmpty() && !by.isEmpty()) {
-                    try {
-                        task = new Deadline(dt, false, new Date(by));
-                    } catch (DateTimeParseException e) {
-                        throw new ftException("Invalid date format. Please follow yyyy-mm-ddThh:mm format.");
-                    }
-                } else {
-                    throw new ftException("Error: Please tell me your task and its deadline");
+        case DEADLINE:
+            String[] parsedDl = Parser.parseDeadline(s);
+            String dt = parsedDl[0];
+            String by = parsedDl[1];
+            if (!dt.isEmpty() && !by.isEmpty()) {
+                try {
+                    task = new Deadline(dt, false, new Date(by));
+                } catch (DateTimeParseException e) {
+                    throw new FTException("Invalid date format. Please follow yyyy-mm-ddThh:mm format.");
                 }
-                break;
+            } else {
+                throw new FTException("Error: Please tell me your task and its deadline");
+            }
+            break;
 
-            case EVENT:
-                String[] parsedEvent = Parser.parseEvent(s);
-                String name = parsedEvent[0];
-                String from = parsedEvent[1];
-                String to = parsedEvent[2];
-                if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
-                    try {
-                        task = new Event(name, false, new Date(from), new Date(to));
-                    } catch (DateTimeParseException e) {
-                        throw new ftException("Invalid date format. Please follow yyyy-mm-ddThh:mm format.");
-                    }
-                } else {
-                    throw new ftException("Error: Please tell me your event and its from/to dates");
+        case EVENT:
+            String[] parsedEvent = Parser.parseEvent(s);
+            String name = parsedEvent[0];
+            String from = parsedEvent[1];
+            String to = parsedEvent[2];
+            if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
+                try {
+                    task = new Event(name, false, new Date(from), new Date(to));
+                } catch (DateTimeParseException e) {
+                    throw new FTException("Invalid date format. Please follow yyyy-mm-ddThh:mm format.");
                 }
-                break;
-            default:
-                throw new ftException("Error: Invalid Task Type");
+            } else {
+                throw new FTException("Error: Please tell me your event and its from/to dates");
+            }
+            break;
+        default:
+            throw new FTException("Error: Invalid Task Type");
         }
         myList.add(task);
         UI.updateTaskMsg(task, myList.size());
@@ -84,16 +88,16 @@ public class TaskList {
      * Mark the task as done, based on the given index.
      *
      * @param s index for the task, in the string format.
-     * @throws ftException
+     * @throws FTException
      */
-    public void mark(String s) throws ftException {
+    public void mark(String s) throws FTException {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
             UI.markMsg(task);
         } else {
-            throw new ftException("Error: Please provide valid index");
+            throw new FTException("Error: Please provide valid index");
         }
     }
 
@@ -101,16 +105,16 @@ public class TaskList {
      * Unmarks the task based on the given index.
      *
      * @param s index for the task, in the string format.
-     * @throws ftException
+     * @throws FTException
      */
-    public void unmark(String s) throws ftException {
+    public void unmark(String s) throws FTException {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
             UI.unmarkMsg(task);
         } else {
-            throw new ftException("Error: Please provide valid index");
+            throw new FTException("Error: Please provide valid index");
         }
     }
 
@@ -118,18 +122,17 @@ public class TaskList {
      * Deletes the task based on the given index.
      *
      * @param s index for the task, in the string format.
-     * @throws ftException
+     * @throws FTException
      */
-    public void deleteTask(String s) throws ftException {
+    public void deleteTask(String s) throws FTException {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             String task = myList.remove(i - 1).toString();
             UI.deleteMsg(task, myList.size());
         } else {
-            throw new ftException("Error: Please provide valid index");
+            throw new FTException("Error: Please provide valid index");
         }
     }
-
 
     /**
      * Provides the number of elements in the list.
@@ -146,6 +149,7 @@ public class TaskList {
      * @param i index
      * @return task based on the index.
      */
+
     public Task get(int i) {
         return myList.get(i);
     }

@@ -2,6 +2,7 @@ package friendlytool.task;
 
 import friendlytool.process.Date;
 
+
 /**
  * Class for managing deadline tasks.
  */
@@ -10,14 +11,16 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline.
-     * @param name name of the task
+     *
+     * @param name   name of the task
      * @param isDone completed or not.
-     * @param by due date.
+     * @param by     due date.
      */
     public Deadline(String name, boolean isDone, Date by) {
         super(name, isDone);
         this.by = by;
     }
+
 
     /**
      * Converts a deadline to a readable format.
@@ -26,7 +29,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
     /**

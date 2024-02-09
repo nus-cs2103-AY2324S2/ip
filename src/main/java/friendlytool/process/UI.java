@@ -52,6 +52,7 @@ public class UI {
                 + "\n    ____________________________________________________________\n");
     }
 
+
     /**
      * Prints that a task is unmarked.
      *
@@ -95,6 +96,7 @@ public class UI {
         System.out.println("    Successfully loaded the save data. ");
     }
 
+
     /**
      * Prints the whole list with index.
      *
@@ -104,7 +106,7 @@ public class UI {
         System.out.println("    ____________________________________________________________\n"
                 + "    Here are the tasks in your list:");
         for (int i = 1; i < list.size() + 1; i++) {
-            Task task = list.get(i-1);
+            Task task = list.get(i - 1);
             if (task.isDone()) {
                 System.out.println("    " + i + "." + task);
             } else {

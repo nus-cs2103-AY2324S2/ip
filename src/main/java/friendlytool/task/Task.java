@@ -1,5 +1,6 @@
 package friendlytool.task;
 
+
 /**
  * Class that manages tasks.
  */
@@ -7,16 +8,18 @@ public class Task {
     private String name;
     private boolean isDone;
 
+
     /**
      * Constructs task.
      *
-     * @param name name of the task.
+     * @param name   name of the task.
      * @param isDone completed or not.
      */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
     }
+
 
     /**
      * Mark the task as done.
@@ -25,12 +28,14 @@ public class Task {
         isDone = true;
     }
 
+
     /**
      * mark the task as not done.
      */
     public void unmark() {
         isDone = false;
     }
+
 
     /**
      * Checks whether the task is done or not.
@@ -41,6 +46,7 @@ public class Task {
         return this.isDone;
     }
 
+
     /**
      * Provides name of the task.
      *
@@ -49,6 +55,7 @@ public class Task {
     public String getName() {
         return this.name;
     }
+
 
     /**
      * Converts a task into a readable format.
@@ -59,6 +66,7 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + name;
     }
+
 
     /**
      * Converts a task to a save format.
