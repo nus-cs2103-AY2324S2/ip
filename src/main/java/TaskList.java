@@ -1,6 +1,72 @@
+import java.io.File;
 import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.util.Arrays;
 
 public class TaskList extends ArrayList<Task> {
+    private static TaskList instance;
+    private final String filePath;
+
+    public TaskList(String filePath) {
+        this.filePath = filePath;
+        loadTasks();
+    }
+    public static TaskList getInstance(String filePath) {
+        if (instance == null) {
+            instance = new TaskList(filePath);
+        }
+        return instance;
+    }
+
+    public void saveTasks() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (Task task : this) {
+                writer.println(task.toString());
+            }
+        } catch (IOException e) {
+            System.out.println("Error: Tasks.txt file not found / may be corrupted.");
+        }
+    }
+
+    private void loadTasks() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    String[] textSections = line.split("\\|");
+                    CommandScanner.stringToTaskParser(textSections, this);
+                }
+            }
+        } catch (IOException e) {
+            try {
+                File file = new File(filePath);
+                File directory = file.getParentFile();
+                if (!directory.exists()) {
+                    if (directory.mkdirs()) {
+                        System.out.println("Directory created: " + directory.getAbsolutePath());
+                    } else {
+                        throw new IOException();
+                    }
+                }
+                if (!file.exists()) {
+                    if (file.createNewFile()) {
+                        System.out.println("File created: " + filePath);
+                    } else {
+                        throw new IOException();
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("Error creating file: " + ex.getMessage());
+            }
+        } catch (DukeException e) {
+            throw new RuntimeException("Error parsing tasks: " + e.getMessage(), e);
+        }
+    }
 
     public void addTask(Task task) {
         add(task);

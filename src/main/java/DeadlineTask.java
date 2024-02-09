@@ -48,10 +48,10 @@ public class DeadlineTask extends Task{
     }
     @Override
     public void markNotDone() {
-        super.markNotDone();;
+        super.markNotDone();
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + getDoneBy() + ")";
+        return "D" + " | " + super.toString() + " | " + "(by: " + getDoneBy() + ")";
     }
 }

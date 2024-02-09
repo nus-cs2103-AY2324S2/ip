@@ -18,7 +18,6 @@ public class EventTask extends Task{
             if ("/to".equals(details[i])) {
                 toIndex = i;
             }
-
         }
 
         if (fromIndex == -1) {
@@ -38,7 +37,6 @@ public class EventTask extends Task{
         } else {
             throw new DukeException("Invalid/incomplete event period given, please try again!");
         }
-
         return new String[]{description, startBy, endBy};
     }
 
@@ -70,6 +68,6 @@ public class EventTask extends Task{
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + getStartBy() + " to: " + getEndBy() + ")";
+        return "E" + " | " + super.toString() + " | " + "(from: " + getStartBy() + " to: " + getEndBy() + ")";
     }
 }

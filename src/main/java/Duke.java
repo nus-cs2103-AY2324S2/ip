@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -25,52 +24,22 @@ public class Duke {
         System.out.println("What can I do for you today?\n");
         System.out.println("_________________________________________\n");
 
+        String relativePath = "./data/tasks.txt";
+        TaskList tasksList = TaskList.getInstance(relativePath);
+
         Scanner scanner = new Scanner(System.in);
-        TaskList tasksList = new TaskList();
-
         boolean runBot = true;
-
         while (runBot) {
             String userInput = scanner.nextLine().trim();
             String[] words = userInput.split("\\s+");
-            String command;
+
+            if (words[0].equalsIgnoreCase("BYE")) {
+                System.out.println("Sayonara! Do visit again. RAHHHHH 0.0");
+                runBot = false;
+            }
 
             try {
-                command = CommandScanner.scanCommand(words);
-                switch (Objects.requireNonNull(command)) {
-                    case "TODO":
-                        ToDoTask todoTask = new ToDoTask(ToDoTask.getDescription(words));
-                        tasksList.addTask(todoTask);
-                        continue;
-                    case "DEADLINE":
-                        String[] deadlineDesc = DeadlineTask.getDescription(words);
-                        DeadlineTask deadlineTask = new DeadlineTask(deadlineDesc[0], deadlineDesc[1]);
-                        tasksList.addTask(deadlineTask);
-                        continue;
-                    case "EVENT":
-                        String[] eventDesc = EventTask.getDescription(words);
-                        EventTask eventTask = new EventTask(eventDesc[0], eventDesc[1], eventDesc[2]);
-                        tasksList.addTask(eventTask);
-                        continue;
-                    case "LIST":
-                        tasksList.displayTasks();
-                        continue;
-                    case "MARK":
-                        int markIndex = Integer.parseInt(words[words.length - 1]) - 1;
-                        tasksList.getTask(markIndex).markDone();
-                        continue;
-                    case "UNMARK":
-                        var unmarkIndex = Integer.parseInt(words[words.length - 1]) - 1;
-                        tasksList.getTask(unmarkIndex).markNotDone();
-                        continue;
-                    case "DELETE":
-                        int index = Integer.parseInt(words[words.length - 1]) - 1;
-                        tasksList.deleteTask(index);
-                        continue;
-                    case "BYE":
-                        System.out.println("Sayonara! Do visit again. RAHHHHH 0.0");
-                        runBot = false;
-                }
+                CommandScanner.scanCommand(words);
             } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
             } catch (IndexOutOfBoundsException e) {
@@ -79,7 +48,7 @@ public class Duke {
                 System.out.println("Error: Please only use integers for 'mark' or 'unmark' commands and ensure theres a space before giving the index!");
             }
 
-
         }
+        tasksList.saveTasks();
     }
 }
