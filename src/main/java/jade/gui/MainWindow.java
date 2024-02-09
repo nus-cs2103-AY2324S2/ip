@@ -2,6 +2,7 @@ package jade.gui;
 
 import jade.Jade;
 import jade.ui.Ui;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -51,7 +54,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getJadeDialog(response, jadeImage)
         );
         if (jade.shouldExit()) {
-            // Platform.exit();
+            userInput.setEditable(false);
+            sendButton.setDisable(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event ->
+                    Platform.exit());
+            pause.play();
         }
         userInput.clear();
     }
