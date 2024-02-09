@@ -48,6 +48,25 @@ public class TaskList {
     }
 
     /**
+     * Lists the tasks in the task list in their string representations
+     * that match the given keyword.
+     *
+     * @param keyword The keyword to match.
+     * @return The list of tasks in their string representations that
+     *         match the keyword.
+     */
+    public ArrayList<String> findTasks(String keyword) {
+        ArrayList<String> messages = new ArrayList<String>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                messages.add(String.format("%d.%s", i + 1, task.toString()));
+            }
+        }
+        return messages;
+    }
+
+    /**
      * Returns the task at the given index.
      *
      * @param index The index of the task.

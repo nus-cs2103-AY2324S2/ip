@@ -44,6 +44,8 @@ class EchoCommand extends Command {
 abstract class AddTaskCommand extends Command {
     private static final String EMPTY_DESCRIPTION_MESSAGE =
             "OOPS!!! The description of a todo cannot be empty.";
+    private static final String ADDED_MESSAGE = "Got it. I've added this task:";
+    private static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.";
 
     protected String description;
     private TaskList taskList;
@@ -54,6 +56,13 @@ abstract class AddTaskCommand extends Command {
     }
 
     protected abstract Task createTask() throws EchonException;
+
+    private ArrayList<String> constructMessages(Task task) {
+        ArrayList<String> messages = new ArrayList<String>(Arrays.asList(
+                ADDED_MESSAGE, "  " + task.toString(),
+                String.format(TASK_COUNT_MESSAGE, this.taskList.getSize())));
+        return messages;
+    }
 
     @Override
     public void execute(EchonUi ui) throws EchonException {
@@ -67,11 +76,7 @@ abstract class AddTaskCommand extends Command {
             throw new EchonException(e.getMessage());
         }
         this.taskList.addTask(task);
-        ArrayList<String> messages = new ArrayList<String>(Arrays.asList(
-                "Got it. I've added this task:", "  " + task.toString(),
-                String.format("Now you have %d tasks in the list.",
-                        this.taskList.getSize())));
-        ui.displayEchonMessages(messages);
+        ui.displayEchonMessages(constructMessages(task));
     }
 }
 
@@ -87,17 +92,17 @@ class AddTodoCommand extends AddTaskCommand {
 }
 
 class AddDeadlineCommand extends AddTaskCommand {
-    private String byDate;
+    private String dueDate;
 
-    public AddDeadlineCommand(String description, String byDate,
+    public AddDeadlineCommand(String description, String dueDate,
             TaskList taskList) {
         super(description, taskList);
-        this.byDate = byDate;
+        this.dueDate = dueDate;
     }
 
     @Override
     protected Task createTask() throws EchonException {
-        return new Deadline(this.description, this.byDate);
+        return new Deadline(this.description, this.dueDate);
     }
 }
 
@@ -119,6 +124,8 @@ class AddEventCommand extends AddTaskCommand {
 }
 
 class ListCommand extends Command {
+    private static final String LIST_MESSAGE = "Here are the tasks in your list:";
+
     private TaskList taskList;
 
     public ListCommand(TaskList taskList) {
@@ -127,14 +134,15 @@ class ListCommand extends Command {
 
     @Override
     public void execute(EchonUi ui) {
-        ArrayList<String> messages = new ArrayList<String>(
-                Arrays.asList("Here are the tasks in your list:"));
+        ArrayList<String> messages = new ArrayList<String>(Arrays.asList(LIST_MESSAGE));
         messages.addAll(this.taskList.listTasks());
         ui.displayEchonMessages(messages);
     }
 }
 
 class MarkAsDoneCommand extends Command {
+    private static final String MARKED_MESSAGE = "Nice! I've marked this task as done:";
+
     private int index;
     private TaskList taskList;
 
@@ -148,13 +156,14 @@ class MarkAsDoneCommand extends Command {
         Task task = this.taskList.getTask(this.index);
         task.markAsDone();
         ArrayList<String> messages = new ArrayList<String>(
-                Arrays.asList("Nice! I've marked this task as done:",
-                        "  " + task.toString()));
+                Arrays.asList(MARKED_MESSAGE, "  " + task.toString()));
         ui.displayEchonMessages(messages);
     }
 }
 
 class UnmarkAsDoneCommand extends Command {
+    private static final String UNMARKED_MESSAGE = "OK, I've marked this task as not done yet:";
+
     private int index;
     private TaskList taskList;
 
@@ -168,13 +177,15 @@ class UnmarkAsDoneCommand extends Command {
         Task task = this.taskList.getTask(this.index);
         task.unmarkAsDone();
         ArrayList<String> messages = new ArrayList<String>(
-                Arrays.asList("OK, I've marked this task as not done yet:",
-                        "  " + task.toString()));
+                Arrays.asList(UNMARKED_MESSAGE, "  " + task.toString()));
         ui.displayEchonMessages(messages);
     }
 }
 
 class DeleteTaskCommand extends Command {
+    private static final String DELETED_MESSAGE = "Noted. I've removed this task:";
+    private static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.";
+
     private int index;
     private TaskList taskList;
 
@@ -188,15 +199,15 @@ class DeleteTaskCommand extends Command {
         Task task = this.taskList.getTask(index);
         this.taskList.deleteTask(index);
         ArrayList<String> messages = new ArrayList<String>(
-                Arrays.asList("Noted. I've removed this task:", "  "
-                        + task.toString(),
-                        String.format("Now you have %d tasks in the list.",
-                                this.taskList.getSize())));
+                Arrays.asList(DELETED_MESSAGE, "  " + task.toString(),
+                        String.format(TASK_COUNT_MESSAGE, this.taskList.getSize())));
         ui.displayEchonMessages(messages);
     }
 }
 
 class FindTaskCommand extends Command {
+    private static final String FOUND_MESSAGE = "Here are the matching tasks in your list:";
+
     private String keyword;
     private TaskList taskList;
 
@@ -207,14 +218,8 @@ class FindTaskCommand extends Command {
 
     @Override
     public void execute(EchonUi ui) {
-        ArrayList<String> messages = new ArrayList<String>(
-                Arrays.asList("Here are the matching tasks in your list:"));
-        for (int i = 0; i < this.taskList.getSize(); i++) {
-            Task task = this.taskList.getTask(i);
-            if (task.getDescription().contains(this.keyword)) {
-                messages.add(String.format("%d.%s", i + 1, task.toString()));
-            }
-        }
+        ArrayList<String> messages = new ArrayList<String>(Arrays.asList(FOUND_MESSAGE));
+        messages.addAll(this.taskList.findTasks(this.keyword));
         ui.displayEchonMessages(messages);
     }
 }
