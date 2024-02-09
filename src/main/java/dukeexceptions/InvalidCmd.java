@@ -1,9 +1,9 @@
-package dukeexecpetions;
+package dukeexceptions;
 
 /**
  * DukeException for when command is not recognised
  */
-public class InvalidCmd extends Exception{
+public class InvalidCmd extends DukeException {
     /**
      * Passes the command the user tried to type into the error message
      *

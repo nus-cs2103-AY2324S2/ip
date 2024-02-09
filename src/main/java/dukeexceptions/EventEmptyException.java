@@ -1,4 +1,4 @@
-package dukeexecpetions;
+package dukeexceptions;
 
 /** Exception when an empty field is passed for a field*/
 public class EventEmptyException extends EmptyFieldException{

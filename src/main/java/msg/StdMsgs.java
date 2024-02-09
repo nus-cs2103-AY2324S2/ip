@@ -15,8 +15,8 @@ public enum StdMsgs {
             + "        \\/                     \\/           \\/    \\/ \n")),
     DIVIDER(new Msg("")),
     MARK(new Msg("Nice! I've marked this task as done:", false)),
-    UNMARK(new Msg("OK, I've marked this task as not done yet:", false));
-
+    UNMARK(new Msg("OK, I've marked this task as not done yet:", false)),
+    LOADINGDONE(new Msg("Loading done", false));
 
     /** Every Std_Msgs has a message class */
     private Msg msg;
