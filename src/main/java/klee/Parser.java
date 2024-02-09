@@ -31,35 +31,35 @@ public class Parser {
      * @throws KleeException
      */
     public static LocalDateTime parseDateTime(String dateTime) throws KleeException {
-        String[] splitDateTime = dateTime.split(" ");
+        String[] dateTimeComponents = dateTime.split(" ");
         int year = 0;
         int month = 0;
         int day = 0;
         int hour = 0;
         int minute = 0;
         boolean hasTime = false;
-        if (splitDateTime.length > 2) {
+        if (dateTimeComponents.length > 2) {
             // The input does not fit the syntax
             throw new KleeException("Time and date should be written with only 1 space between them.");
-        } else if (splitDateTime.length == 2) {
+        } else if (dateTimeComponents.length == 2) {
             //There is a space which indicates that time is given
-            hour = Integer.parseInt(splitDateTime[1].substring(0, 2));
-            minute = Integer.parseInt(splitDateTime[1].substring(2, 4));
+            hour = Integer.parseInt(dateTimeComponents[1].substring(0, 2));
+            minute = Integer.parseInt(dateTimeComponents[1].substring(2, 4));
             hasTime = true;
         }
 
         // Test which syntax of date was used
-        String[] splitDate = splitDateTime[0].split("-");
-        if (splitDate.length == 3) {
-            year = Integer.parseInt(splitDate[0]);
-            month = Integer.parseInt(splitDate[1]);
-            day = Integer.parseInt(splitDate[2]);
-        } else if (splitDate.length == 1) {
-            splitDate = splitDateTime[0].split("/");
-            if (splitDate.length == 3) {
-                year = Integer.parseInt(splitDate[2]);
-                month = Integer.parseInt(splitDate[1]);
-                day = Integer.parseInt(splitDate[0]);
+        String[] dateComponents = dateTimeComponents[0].split("-");
+        if (dateComponents.length == 3) {
+            year = Integer.parseInt(dateComponents[0]);
+            month = Integer.parseInt(dateComponents[1]);
+            day = Integer.parseInt(dateComponents[2]);
+        } else if (dateComponents.length == 1) {
+            dateComponents = dateTimeComponents[0].split("/");
+            if (dateComponents.length == 3) {
+                year = Integer.parseInt(dateComponents[2]);
+                month = Integer.parseInt(dateComponents[1]);
+                day = Integer.parseInt(dateComponents[0]);
             } else {
                 throw new KleeException("Dates should only be written like 27/1/2024 or 2024-1-27");
             }
@@ -86,12 +86,12 @@ public class Parser {
         case "list":
             return new List();
         default:
-            String[] command = input.split(" ");
-            switch (command[0]) {
+            String[] inputComponents = input.split(" ");
+            switch (inputComponents[0]) {
             case "mark":
-                if (command.length == 2) {
+                if (inputComponents.length == 2) {
                     try {
-                        Integer index = Integer.parseInt(command[1]) - 1;
+                        Integer index = Integer.parseInt(inputComponents[1]) - 1;
                         if (index >= 0) {
                             return new Mark(index);
                         } else {
@@ -106,9 +106,9 @@ public class Parser {
                     throw new KleeException("There should be an integer after mark to indicate which task to mark!");
                 }
             case "unmark":
-                if (command.length == 2) {
+                if (inputComponents.length == 2) {
                     try {
-                        Integer index = Integer.parseInt(command[1]) - 1;
+                        Integer index = Integer.parseInt(inputComponents[1]) - 1;
                         if (index >= 0) {
                             return new Unmark(index);
                         } else {
@@ -131,18 +131,18 @@ public class Parser {
                     throw new KleeException("The correct way to indicate a todo is `todo [description]`");
                 }
             case "deadline":
-                String[] splitDeadline = input.split("deadline ");
+                String[] deadlineComponents = input.split("deadline ");
                 try {
-                    String[] deadlineProps = splitDeadline[1].split(" /by ");
+                    String[] deadlineProps = deadlineComponents[1].split(" /by ");
                     return new Deadline(deadlineProps[0], parseDateTime(deadlineProps[1]));
                 } catch (Exception e) {
                     throw new KleeException("The correct way to indicate a deadline is `deadline [description] "
                             + "/by [date and time]`");
                 }
             case "event":
-                String[] splitEvent = input.split("event ");
+                String[] eventComponents = input.split("event ");
                 try {
-                    String[] eventProps = splitEvent[1].split(" /from ");
+                    String[] eventProps = eventComponents[1].split(" /from ");
                     String description = eventProps[0];
                     eventProps = eventProps[1].split(" /to ");
                     return new Event(description, parseDateTime(eventProps[0]), parseDateTime(eventProps[1]));
@@ -158,9 +158,9 @@ public class Parser {
                     throw new KleeException("The correct way to find a task is `find [Search Term]`");
                 }
             case "delete":
-                if (command.length == 2) {
+                if (inputComponents.length == 2) {
                     try {
-                        Integer index = Integer.parseInt(command[1]) - 1;
+                        Integer index = Integer.parseInt(inputComponents[1]) - 1;
                         if (index >= 0) {
                             return new Delete(index);
                         } else {
