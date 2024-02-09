@@ -1,7 +1,5 @@
 package echon;
 
-// @@author benson1029-reused
-// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
 import java.io.IOException;
 
 import javafx.application.Application;
