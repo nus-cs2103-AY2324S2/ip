@@ -35,81 +35,23 @@ public class Storage {
      * Returns a List of Tasks from the nollid.Storage's file path.
      */
     public ArrayList<Task> load() {
-        ArrayList<Task> taskList = new ArrayList<>();
-        // If file doesn't exist, create file and return empty taskList.
-        try {
-            if (Files.notExists(this.filePath)) {
-                if (Files.notExists(this.filePath.getParent())) {
-                    Files.createDirectories(this.filePath.getParent());
-                }
-                Files.createFile(this.filePath);
-
-                return taskList;
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return taskList;
-        }
-
-        JSONTokener jsonTokener;
-        // If file unable to be read, return empty taskList.
-        try {
-            jsonTokener = new JSONTokener(Files.newInputStream(this.filePath));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return taskList;
-        }
-
+        // If JSON file is unable to be read, return an empty list.
         JSONArray jsonArray;
-        // If file not in proper JSON format, return empty taskList.
         try {
-            jsonArray = new JSONArray(jsonTokener);
-        } catch (JSONException e) {
+            jsonArray = loadJsonArray();
+        } catch (IOException | JSONException e) {
             System.out.println(e.getMessage());
-            return taskList;
+            return new ArrayList<>();
         }
 
-        Task taskToAdd;
-
+        ArrayList<Task> taskList = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             // If for any reason, a JSON object is unable to be read in the file, just go to the next object.
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                String taskType = jsonObject.getString("type");
-                String description = jsonObject.getString("description");
-
-
-                switch (taskType) {
-                case "todo":
-                    taskToAdd = new Todo(description);
-                    break;
-                case "deadline":
-                    LocalDateTime deadline = Parser.getLocalDateTimeFromString(jsonObject.getString("deadline"));
-                    taskToAdd = new Deadline(description, deadline);
-                    break;
-                case "event":
-                    LocalDateTime from = Parser.getLocalDateTimeFromString(jsonObject.getString("from"));
-                    LocalDateTime to = Parser.getLocalDateTimeFromString(jsonObject.getString("to"));
-                    try {
-                        taskToAdd = new Event(description, from, to);
-                    } catch (NollidException e) {
-                        e.printStackTrace();
-                        continue;
-                    }
-                    break;
-                default:
-                    // Invalid task, go to next object
-                    continue;
-                }
-
-                boolean isDone = jsonObject.getBoolean("isDone");
-
-                if (isDone) {
-                    taskToAdd.setDone(true);
-                }
+                Task taskToAdd = getTaskFromJsonObject(jsonObject);
                 taskList.add(taskToAdd);
-            } catch (JSONException e) {
+            } catch (JSONException | NollidException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -131,28 +73,7 @@ public class Storage {
         }
 
         for (Task t : taskList) {
-            JSONObject jsonObject = new JSONObject();
-
-            if (t instanceof Todo) {
-                Todo todo = (Todo) t;
-                jsonObject.put("type", "todo");
-                jsonObject.put("isDone", todo.isDone());
-                jsonObject.put("description", todo.getDescription());
-            } else if (t instanceof Deadline) {
-                Deadline deadline = (Deadline) t;
-                jsonObject.put("type", "deadline");
-                jsonObject.put("isDone", deadline.isDone());
-                jsonObject.put("description", deadline.getDescription());
-                jsonObject.put("deadline", deadline.getDeadline().format(Parser.SAVE_FORMAT));
-            } else if (t instanceof Event) {
-                Event event = (Event) t;
-                jsonObject.put("type", "event");
-                jsonObject.put("isDone", event.isDone());
-                jsonObject.put("description", event.getDescription());
-                jsonObject.put("from", event.getFrom().format(Parser.SAVE_FORMAT));
-                jsonObject.put("to", event.getTo().format(Parser.SAVE_FORMAT));
-            }
-
+            JSONObject jsonObject = getJsonObjectFromTask(t);
             jsonArray.put(jsonObject);
         }
 
@@ -163,5 +84,102 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Creates a Task object based on the information provided in the JSONObject.
+     *
+     * @param jsonObject The JSONObject containing task information.
+     * @return The Task object created from the JSONObject.
+     * @throws NollidException If there is an issue creating the Task object.
+     */
+    private Task getTaskFromJsonObject(JSONObject jsonObject) throws NollidException {
+        String taskType = jsonObject.getString("type");
+        String description = jsonObject.getString("description");
+
+        Task taskToAdd = null;
+        switch (taskType) {
+        case "todo":
+            taskToAdd = new Todo(description);
+            break;
+        case "deadline":
+            LocalDateTime deadline = Parser.getLocalDateTimeFromString(jsonObject.getString("deadline"));
+            taskToAdd = new Deadline(description, deadline);
+            break;
+        case "event":
+            LocalDateTime from = Parser.getLocalDateTimeFromString(jsonObject.getString("from"));
+            LocalDateTime to = Parser.getLocalDateTimeFromString(jsonObject.getString("to"));
+            try {
+                taskToAdd = new Event(description, from, to);
+            } catch (NollidException e) {
+                e.printStackTrace();
+            }
+            break;
+        default:
+            // Invalid task type, taskToAdd is not reassigned
+            throw new NollidException("Task type not recognized.");
+        }
+
+        assert taskToAdd != null;
+
+        boolean isDone = jsonObject.getBoolean("isDone");
+        if (isDone) {
+            taskToAdd.setDone(true);
+        }
+
+        return taskToAdd;
+    }
+
+    /**
+     * Converts a Task object into a JSONObject for storage.
+     *
+     * @param task The Task object to be converted.
+     * @return The JSONObject representing the Task.
+     */
+    private JSONObject getJsonObjectFromTask(Task task) {
+        JSONObject jsonObject = new JSONObject();
+
+        if (task instanceof Todo) {
+            Todo todo = (Todo) task;
+            jsonObject.put("type", "todo");
+            jsonObject.put("isDone", todo.isDone());
+            jsonObject.put("description", todo.getDescription());
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            jsonObject.put("type", "deadline");
+            jsonObject.put("isDone", deadline.isDone());
+            jsonObject.put("description", deadline.getDescription());
+            jsonObject.put("deadline", deadline.getDeadline().format(Parser.SAVE_FORMAT));
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            jsonObject.put("type", "event");
+            jsonObject.put("isDone", event.isDone());
+            jsonObject.put("description", event.getDescription());
+            jsonObject.put("from", event.getFrom().format(Parser.SAVE_FORMAT));
+            jsonObject.put("to", event.getTo().format(Parser.SAVE_FORMAT));
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * Loads a JSONArray from the specified file path.
+     *
+     * @return The loaded JSONArray.
+     * @throws IOException   If there is an issue reading the file.
+     * @throws JSONException If there is an issue parsing the JSON data.
+     */
+    private JSONArray loadJsonArray() throws IOException, JSONException {
+        // If file doesn't exist, create it.
+        if (Files.notExists(this.filePath)) {
+            if (Files.notExists(this.filePath.getParent())) {
+                Files.createDirectories(this.filePath.getParent());
+            }
+            Files.createFile(this.filePath);
+        }
+
+        JSONTokener jsonTokener = new JSONTokener(Files.newInputStream(this.filePath));
+
+        return new JSONArray(jsonTokener);
     }
 }
