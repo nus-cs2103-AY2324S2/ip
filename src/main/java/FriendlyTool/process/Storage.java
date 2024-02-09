@@ -8,7 +8,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * A class that manages storing data for future use,
+ */
 public class Storage {
+    /**
+     * Loads Tasks to the list from the saved file. If not exists, create a new file in the directory.
+     *
+     * @param myList lists that will receive tasks.
+     * @throws ftException
+     */
     public static void loadTask(TaskList myList) throws ftException {
         try {
             File save = new File("./data/myTask.txt");
@@ -43,6 +52,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the save file based on the given list.
+     *
+     * @param list given list with tasks.
+     * @throws ftException
+     */
     public static void updateTask(TaskList list) throws ftException {
         try {
             FileWriter fw = new FileWriter("./data/myTask.txt");
