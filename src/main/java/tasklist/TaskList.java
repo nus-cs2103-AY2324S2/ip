@@ -2,6 +2,7 @@ package tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class TaskList {
      */
     public TaskList(List<String> data) {
         this.tasks = new ArrayList<>();
-        this.hashTasks = new HashSet<>();
+        this.hashTasks = new HashMap<>();
         for (String line : data) {
             String[] words = line.split(",");
             try {
@@ -67,12 +68,12 @@ public class TaskList {
      * @return true if the task is successfully added.
      */
     public boolean addTask(Task task) {
-        if (this.tasks.contains(task)) {
+        UI.print(hashTasks);
+        if (this.hashTasks.add(task)) {
+            return this.tasks.add(task);
+        } else {
             UI.print("Duplicate task detected");
             return false;
-        } else {
-            this.hashTasks.add(task);
-            return this.tasks.add(task);
         }
     }
 
@@ -91,7 +92,7 @@ public class TaskList {
      * @return The task that was removed from the TaskList.
      */
     public Task deleteTask(int index) {
-        Task toDelete = this.tasks.get(index);
+        Task toDelete = this.tasks.remove(index);
         this.hashTasks.remove(toDelete);
         return toDelete;
     }

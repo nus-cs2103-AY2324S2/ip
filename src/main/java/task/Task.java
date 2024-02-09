@@ -81,9 +81,6 @@ public class Task {
     }
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Task) {
-            return true;
-        }
-        return false;
+        return true;
     }
 }
