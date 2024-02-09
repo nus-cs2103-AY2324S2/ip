@@ -56,7 +56,7 @@ public class Storage {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                Task task = parseTask(line);
+                Task task = parseStringToTask(line);
                 if (task != null) {
                     loadedTasks.add(task);
                 }
@@ -75,7 +75,7 @@ public class Storage {
      * @return The parsed Task object.
      * @throws ZackException If there is an error in parsing the line.
      */
-    public Task parseTask(String line) throws ZackException {
+    public Task parseStringToTask(String line) throws ZackException {
         String[] parts = line.split(" \\| ");
         // handle exceptions for when the text file is edited.
         if (parts.length < 3) {
