@@ -22,6 +22,10 @@ public class Event extends Task {
         super(description);
         this.fromDateTime = parseDateTime(from);
         this.toDateTime = parseDateTime(to);
+
+        assert description != null : "Description cannot be null";
+        assert from != null : "Start time cannot be null";
+        assert to != null : "End time cannot be null";
     }
 
     /**

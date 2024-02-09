@@ -35,6 +35,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane not initialized";
+        assert dialogContainer != null : "DialogContainer not initialized";
+        assert userInput != null : "UserInput not initialized";
+        assert sendButton != null : "SendButton not initialized";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         // Show welcome message on startup
@@ -49,6 +54,7 @@ public class MainWindow extends AnchorPane {
      * @param a The Artemis instance to be set.
      */
     public void setArtemis(Artemis a) {
+        assert a != null : "Artemis instance cannot be null";
         artemis = a;
     }
 
@@ -60,6 +66,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert artemis != null : "Artemis instance cannot be null";
+
         String input = userInput.getText();
         String response = artemis.getResponse(input);
         dialogContainer.getChildren().addAll(
