@@ -1,4 +1,10 @@
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.ObjectOutputStream;
 
 public class Whisper {
     static String line = "-------------------------------------------------\n";
@@ -8,12 +14,21 @@ public class Whisper {
     static String byeMsg = line + "Bye. Hope to see you soon!\n" + line;
     static ArrayList<Task> taskList; // store tasks in ArrayList
 
+    // path for task file
+    private static final String FILE_PATH = "./data/whisper.txt";
+
     // Main method
     public static void main(String[] args) {
         System.out.println(line + welcomeMsg + line);
 
         Scanner sc = new Scanner(System.in);
         taskList = new ArrayList<>();
+
+        try {
+            loadTaskFile(); // load tasks from file
+        } catch (FileNotFoundException | WhisperException e) {
+            System.out.println(e.getMessage());
+        }
 
         while (true) {
             // read user input
@@ -23,6 +38,7 @@ public class Whisper {
             try {
                 // break if user exists the bot
                 if (input.equalsIgnoreCase("bye")) {
+                    saveFile(); // save tasks before exit
                     System.out.println(byeMsg);
                     break;
                     // show user's list
@@ -48,11 +64,123 @@ public class Whisper {
                 } else {
                     throw WhisperException.unknownCommand();
                 }
+                //saveFile(); // saves tasks to file when task list changes
             } catch (WhisperException e) {
                 System.out.println(e.getMessage());
             }
         }
         sc.close();
+    }
+
+    // Load file
+    public static void loadTaskFile() throws FileNotFoundException, WhisperException {
+//        try (Scanner sc = new Scanner(new File(FILE_PATH))) {
+        try {
+            File inputFile = new File(FILE_PATH);
+            if (inputFile.exists()) {
+                Scanner sc = new Scanner(inputFile);
+                while (sc.hasNext()) {
+                    String input = sc.nextLine().trim();
+                    Task task = parseTaskFromString(input);
+                    taskList.add(task);
+                }
+//                sc.close();
+                System.out.println("File loaded successfully.");
+            }
+        } catch (FileNotFoundException e) {
+                System.out.println("Error loading the file: \n" + e.getMessage());
+                e.printStackTrace();
+        }
+//            while (sc.hasNextLine()) {
+//                String input = sc.nextLine();
+//                try {
+//                    Task task = parseTaskFromString(input);
+//                    taskList.add(task);
+//                }
+    }
+
+
+    // save task to file when task list changes
+    public static void saveFile() {
+        try (PrintWriter pw = new PrintWriter(FILE_PATH)) {
+            for (Task task : taskList) {
+//                pw.println(task.serializeToString());
+                pw.println(taskToFormattedString(task));
+            }
+            System.out.println("Tasks saved succesfully\n");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Save task failed. \n" + e.getMessage());
+        }
+    }
+
+    // formats the logic
+    private static String taskToFormattedString(Task task) {
+        StringBuilder formattedTask = new StringBuilder();
+        formattedTask.append(task.getTaskCat().name()).append(" | ")
+                .append(task.isDone ? "1" : "0").append(" | ")
+                .append(task.getDescription());
+
+        if (task.getTaskCat() == Task.TaskCategory.D) {
+            formattedTask.append(" | ").append(task.getBy());
+        } else if (task.getTaskCat() == Task.TaskCategory.E) {
+            formattedTask.append(" | ").append(task.getFrom()).append(" | ").append(task.getTo());
+        }
+
+        return formattedTask.toString();
+    }
+
+    // parse task from string
+    private static Task parseTaskFromString(String taskInput) throws WhisperException {
+        try {
+            String[] parts = taskInput.split("\\|");
+
+            if (parts.length < 3) {
+                throw WhisperException.invalidFileFormat();
+            }
+
+            String taskType = parts[0].trim();
+            int isDone = Integer.parseInt(parts[1].trim());
+            String description = parts[2].trim();
+
+            Task task;
+
+            switch(taskType) {
+            case "T":
+                task = new Task(description, Task.TaskCategory.T);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    throw WhisperException.invalidFileFormat();
+                }
+                task = new Task(description, Task.TaskCategory.D).setBy(parts[3].trim());
+                break;
+            case "E":
+                if (parts.length < 4) {
+                    throw WhisperException.invalidFileFormat();
+                }
+                String dateTime = parts[3].trim();
+                String[] dateTimeParts = dateTime.split(" ");
+
+                if (dateTimeParts.length == 3) {
+                    String[] timeParts = dateTimeParts[2].split("-");
+                    String from = dateTimeParts[0] + " " + dateTimeParts[1] + " " +timeParts[0];
+                    String to = timeParts[1];
+                    task = new Task(description, Task.TaskCategory.E).setFrom(from).setTo(to);
+                } else {
+                    throw WhisperException.invalidFileFormat();
+                }
+                break;
+            default:
+                throw WhisperException.invalidFileFormat();
+            }
+
+            if (isDone == 1) {
+                task.markAsDone();
+            }
+            return task;
+        } catch (WhisperException e) {
+            throw new WhisperException("Error parsing task from file.");
+        }
     }
 
     // insert task (todo) into the task list
@@ -162,6 +290,7 @@ public class Whisper {
                 Task t = taskList.get(index);
                 t.markAsDone();
                 System.out.println(line + "Nice! I've marked this task as done:\n" + t.toString() + "\n" + line);
+                //saveFile(); // save changes to file
             } else {
                 throw WhisperException.invalidTaskID();
             }
@@ -178,6 +307,7 @@ public class Whisper {
                 Task t = taskList.get(index);
                 t.markAsUndone();
                 System.out.println(line + "Nice! I've marked this task as not done:\n" + t.toString() + "\n" + line);
+                //saveFile(); // save changes to file
             } else {
                 throw WhisperException.invalidTaskID();
             }

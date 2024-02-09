@@ -36,4 +36,10 @@ public class WhisperException extends Exception {
     public static WhisperException invalidTaskID() {
         return new WhisperException("\nInvalid task number. Please try again!");
     }
+
+    // handles corrupted file content
+    public static WhisperException invalidFileFormat() {
+        return new WhisperException("\nError parsing task from file.");
+    }
+
 }
