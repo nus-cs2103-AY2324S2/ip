@@ -10,6 +10,8 @@ public class Events extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
+    private static final DateTimeFormatter TARGET_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter ALTERNATIVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     /**
      * Constructor of an Events task with the specified description, start time, and end time.
      * The dates are parsed and stored as LocalDateTime. If the parsing fails, defaults
@@ -21,15 +23,13 @@ public class Events extends Task {
      */
     public Events(String description, String start, String end) {
         super(description);
-        DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
-            this.start = LocalDateTime.parse(start, originalFormatter);
-            this.end = LocalDateTime.parse(end, originalFormatter);
+            this.start = LocalDateTime.parse(start, ALTERNATIVE_FORMATTER);
+            this.end = LocalDateTime.parse(end, ALTERNATIVE_FORMATTER);
         } catch (DateTimeParseException e) {
             try {
-                this.start = LocalDateTime.parse(start, targetFormatter);
-                this.end = LocalDateTime.parse(end, targetFormatter);
+                this.start = LocalDateTime.parse(start, TARGET_FORMATTER);
+                this.end = LocalDateTime.parse(end, TARGET_FORMATTER);
             } catch (DateTimeParseException ex) {
                 System.out.println("Invalid date and time format. Setting 24 hours from now");
                 this.start = LocalDateTime.now();
@@ -47,8 +47,8 @@ public class Events extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
-                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+                + " (from: " + start.format(TARGET_FORMATTER)
+                + " to: " + end.format(TARGET_FORMATTER) + ")";
     }
 
     /**
@@ -60,7 +60,7 @@ public class Events extends Task {
     @Override
     public String toFileFormat() {
         return "E | " + super.toFileFormat() + " | "
-                + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
-                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+                + "(from: " + start.format(TARGET_FORMATTER)
+                + " to: " + end.format(TARGET_FORMATTER) + ")";
     }
 }
