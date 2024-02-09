@@ -18,6 +18,11 @@ public class Help {
                 ? "mark: Marks a task as complete."
                 : "unmark: Marks a task as incomplete.";
     }
+
+    /**
+     * Creates and returns the string representation of the help message.
+     * @return the string representation of the help message.
+     */
     public static final String getHelpMessage() {
         StringBuilder stringBuilder = new StringBuilder();
 
