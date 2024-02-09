@@ -43,7 +43,7 @@ public class Parser {
         } catch (WrongFormatException e) {
             return e.getMessage();
         } catch (DateTimeParseException e) {
-            return  "Date time must be in this format: 28/01/2023 1800";
+            return "Date time must be in this format: 28/01/2023 1800";
         }
     }
 
@@ -55,12 +55,15 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static ToDo parseToDo(String input) throws WrongFormatException {
-        if (Pattern.matches("todo\\s\\S.*", input)) {
-            String description = input.split("\\s", 2)[1];
-            return new ToDo(description);
-        } else {
+        boolean isValidToDoCommand = Pattern.matches("todo\\s\\S.*", input);
+        if (!isValidToDoCommand) {
             throw new WrongFormatException("Invalid 'todo' command format. Usage: todo <description>");
         }
+        return new ToDo(extractToDoDescription(input));
+    }
+
+    public static String extractToDoDescription(String input) {
+        return input.split("\\s", 2)[1];
     }
 
     /**
@@ -71,15 +74,21 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static Deadline parseDeadline(String input) throws WrongFormatException {
-        if (Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input)) {
-            String[] arr = input.split("\\s/by\\s");
-            String by = arr[1];
-            String description = arr[0].split("\\s", 2)[1];
-            return new Deadline(description, by);
-        } else {
+        boolean isValidDeadlineCommand = Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input);
+        if (!isValidDeadlineCommand) {
             throw new WrongFormatException(
                     "Invalid 'deadline' command format. Usage: deadline <description> /by <date time>");
         }
+        return new Deadline(extractDeadlineDescription(input), extractDeadlineBy(input));
+    }
+
+    public static String extractDeadlineDescription(String input) {
+        String deadlineSpaceDescription = input.split("\\s/by\\s")[0];
+        return deadlineSpaceDescription.split("\\s", 2)[1];
+    }
+
+    public static String extractDeadlineBy(String input) {
+        return input.split("\\s/by\\s")[1];
     }
 
     /**
@@ -90,17 +99,27 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static Event parseEvent(String input) throws WrongFormatException {
-        if (Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input)) {
-            String[] splitTo = input.split("\\s/to\\s");
-            String to = splitTo[1];
-            String[] splitFrom = splitTo[0].split("\\s/from\\s");
-            String from = splitFrom[1];
-            String description = splitFrom[0].split("\\s", 2)[1];
-            return new Event(description, from, to);
-        } else {
+        boolean isValidEventCommand = Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input);
+        if (!isValidEventCommand) {
             throw new WrongFormatException(
                     "Invalid 'event' command format. Usage: event <description> /from <date time> /to <date time>");
         }
+
+        return new Event(extractEventDescription(input), extractEventFrom(input), extractEventTo(input));
+    }
+
+    public static String extractEventDescription(String input) {
+        String eventSpaceDescription = input.split("\\s/from\\s")[0];
+        return eventSpaceDescription.split("\\s", 2)[1];
+    }
+
+    public static String extractEventFrom(String input) {
+        String inputWithoutTo = input.split("\\s/to\\s")[0];
+        return inputWithoutTo.split("\\s/from\\s")[1];
+    }
+
+    public static String extractEventTo(String input) {
+        return input.split("\\s/to\\s")[1];
     }
 
     /**
@@ -111,12 +130,17 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static String[] parseDelete(String input) throws WrongFormatException {
-        if (Pattern.matches("delete(\\s\\d+)+", input)) {
-            String[] splitArray = input.split("\\s");
-            return Arrays.copyOfRange(splitArray, 1, splitArray.length);
-        } else {
+        boolean isValidDeleteCommand = Pattern.matches("delete(\\s\\d+)+", input);
+        if (!isValidDeleteCommand) {
             throw new WrongFormatException("Invalid 'delete' command format. Usage: delete <existing task numbers>");
         }
+        return extractIndices(input);
+    }
+
+    public static String[] extractIndices(String input) {
+        String[] splitArray = input.split("\\s");
+        // First element in splitArray is the name of the command
+        return Arrays.copyOfRange(splitArray, 1, splitArray.length);
     }
 
     /**
@@ -127,12 +151,11 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static String[] parseMark(String input) throws WrongFormatException {
-        if (Pattern.matches("mark(\\s\\d+)+", input)) {
-            String[] splitArray = input.split("\\s");
-            return Arrays.copyOfRange(splitArray, 1, splitArray.length);
-        } else {
+        boolean isValidMarkCommand = Pattern.matches("mark(\\s\\d+)+", input);
+        if (!isValidMarkCommand) {
             throw new WrongFormatException("Invalid 'mark' command format. Usage: mark <existing task numbers>");
         }
+        return extractIndices(input);
     }
 
     /**
@@ -143,12 +166,11 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static String[] parseUnmark(String input) throws WrongFormatException {
-        if (Pattern.matches("unmark(\\s\\d+)+", input)) {
-            String[] splitArray = input.split("\\s");
-            return Arrays.copyOfRange(splitArray, 1, splitArray.length);
-        } else {
+        boolean isValidUnmarkCommand = Pattern.matches("unmark(\\s\\d+)+", input);
+        if (!isValidUnmarkCommand) {
             throw new WrongFormatException("Invalid 'unmark' command format. Usage: unmark <existing task numbers>");
         }
+        return extractIndices(input);
     }
 
     /**
@@ -159,12 +181,14 @@ public class Parser {
      * @throws WrongFormatException If the command format is invalid.
      */
     public static String parseFind(String input) throws WrongFormatException {
-        if (Pattern.matches("find\\s\\S.*", input)) {
-            return input.split("\\s", 2)[1];
-        } else {
-            throw new WrongFormatException(
-                    "Invalid 'find' command format. Usage: find <keyword>"
-            );
+        boolean isValidFindCommand = Pattern.matches("find\\s\\S.*", input);
+        if (!isValidFindCommand) {
+            throw new WrongFormatException("Invalid 'find' command format. Usage: find <keyword>");
         }
+        return extractKeyword(input);
+    }
+
+    public static String extractKeyword(String input) {
+        return input.split("\\s", 2)[1];
     }
 }
