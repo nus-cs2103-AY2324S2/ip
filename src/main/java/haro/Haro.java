@@ -55,5 +55,9 @@ public class Haro {
 
         haroUi.bye();
     }
+
+    public String getResponse(String userInput) {
+        return userInput;
+    }
 }
 
