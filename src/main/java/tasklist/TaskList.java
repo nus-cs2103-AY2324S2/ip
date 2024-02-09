@@ -30,7 +30,7 @@ public class TaskList {
      */
     public TaskList(List<String> data) {
         this.tasks = new ArrayList<>();
-        this.hashTasks = new HashMap<>();
+        this.hashTasks = new HashSet<>();
         for (String line : data) {
             String[] words = line.split(",");
             try {
