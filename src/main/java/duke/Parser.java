@@ -20,26 +20,26 @@ public class Parser {
      * @return A correct command enum assigned to the array.
      * @throws InvalidTaskException When the command does not match any of the enums.
      */
-    public static UI.Command getCommand(String[] arr) throws InvalidTaskException {
+    public static Ui.Command getCommand(String[] arr) throws InvalidTaskException {
         switch (arr[0]) {
         case "bye":
-            return UI.Command.BYE;
+            return Ui.Command.BYE;
         case "todo":
-            return UI.Command.TODO;
+            return Ui.Command.TODO;
         case "event":
-            return UI.Command.EVENT;
+            return Ui.Command.EVENT;
         case "deadline":
-            return UI.Command.DEADLINE;
+            return Ui.Command.DEADLINE;
         case "list":
-            return UI.Command.LIST;
+            return Ui.Command.LIST;
         case "unmark":
-            return UI.Command.UNMARK;
+            return Ui.Command.UNMARK;
         case "mark":
-            return UI.Command.MARK;
+            return Ui.Command.MARK;
         case "delete":
-            return UI.Command.DELETE;
+            return Ui.Command.DELETE;
         case "find":
-            return UI.Command.FIND;
+            return Ui.Command.FIND;
         default:
             throw new InvalidTaskException();
         }
@@ -68,64 +68,64 @@ public class Parser {
      */
     public static String[] extractDescriptionData(String... descriptionArray) throws
             InvalidInputException {
-        String[] ret = new String[3];
+        String[] returnArray = new String[3];
         String taskDesc;
         switch(descriptionArray[0]) {
         case "todo":
             taskDesc = String.join(" ",
                 Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
-            ret[0] = taskDesc;
+            returnArray[0] = taskDesc;
             break;
         case "find":
             String searchDesc = String.join(" ",
                 Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
-            ret[0] = searchDesc;
+            returnArray[0] = searchDesc;
             break;
         case "event":
-            Integer startIdx = -1;
-            Integer endIdx = -1;
+            Integer startIndex = -1;
+            Integer endIndex = -1;
             for (int i = 0; i < descriptionArray.length; i++) {
                 if (descriptionArray[i].equals("/from")) {
-                    startIdx = i;
+                    startIndex = i;
                 }
                 if (descriptionArray[i].equals("/to")) {
-                    endIdx = i;
+                    endIndex = i;
                 }
             }
-            if (startIdx.equals(-1) || endIdx.equals(-1)) { // we cannot find start or end.
+            if (startIndex.equals(-1) || endIndex.equals(-1)) { // we cannot find start or end.
                 throw new InvalidParametersException();
             }
             taskDesc = String.join(" ",
-                Arrays.copyOfRange(descriptionArray, 1, startIdx));
+                Arrays.copyOfRange(descriptionArray, 1, startIndex));
             String start = String.join(" ",
-                Arrays.copyOfRange(descriptionArray, startIdx + 1, endIdx));
+                Arrays.copyOfRange(descriptionArray, startIndex + 1, endIndex));
             String end = String.join(" ",
-                Arrays.copyOfRange(descriptionArray, endIdx + 1, descriptionArray.length));
-            ret[0] = taskDesc;
-            ret[1] = start;
-            ret[2] = end;
+                Arrays.copyOfRange(descriptionArray, endIndex + 1, descriptionArray.length));
+            returnArray[0] = taskDesc;
+            returnArray[1] = start;
+            returnArray[2] = end;
             break;
         case "deadline":
-            startIdx = -1;
+            startIndex = -1;
             for (int i = 0; i < descriptionArray.length; i++) {
                 if (descriptionArray[i].equals("/by")) { // we cannot find by event.
-                    startIdx = i;
+                    startIndex = i;
                 }
             }
-            if (startIdx.equals(-1)) {
+            if (startIndex.equals(-1)) {
                 throw new InvalidParametersException();
             }
             taskDesc = String.join(" ",
-              Arrays.copyOfRange(descriptionArray, 1, startIdx));
+              Arrays.copyOfRange(descriptionArray, 1, startIndex));
             start = String.join(" ",
-              Arrays.copyOfRange(descriptionArray, startIdx + 1, descriptionArray.length));
-            ret[0] = taskDesc;
-            ret[1] = start;
+              Arrays.copyOfRange(descriptionArray, startIndex + 1, descriptionArray.length));
+            returnArray[0] = taskDesc;
+            returnArray[1] = start;
             break;
         default:
-            return ret;
+            return returnArray;
         }
-        return ret;
+        return returnArray;
     }
 
     /**

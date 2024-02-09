@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exceptions.CorruptedLogException;
-import duke.tasks.Deadlines;
-import duke.tasks.Events;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
-import duke.tasks.ToDos;
+import duke.tasks.ToDo;
 
 /**
  * This class represents a storage manager to handle logging and restoration of task list.
@@ -30,13 +30,13 @@ public class Storage {
      * @param path The location where the logs will be written to.
      */
     public Storage(String path) {
-        String wd = System.getProperty("user.dir");
+        String workingDirectory = System.getProperty("user.dir");
         try {
             // Create directory
-            Path secondDir = Paths.get(wd + "/" + path);
+            Path secondDir = Paths.get(workingDirectory + "/" + path);
             //System.out.println("Attempting to create: " + dir_);
             Files.createDirectories(secondDir);
-            this.path = wd + "/" + path + "/log.txt";
+            this.path = workingDirectory + "/" + path + "/log.txt";
             //System.out.println("Creating file at: " + this.path);
         } catch (IOException e) {
             System.out.println("Problem setting up file manager: " + e.getMessage());
@@ -116,15 +116,15 @@ public class Storage {
         String desc = entry[2];
         switch (entry[0]) {
         case "T":
-            Task ret = new ToDos(desc);
+            Task ret = new ToDo(desc);
             ret.setCompletion(completeStatus);
             return ret;
         case "D":
-            ret = new Deadlines(desc, restoreDateTime(entry[3]));
+            ret = new Deadline(desc, restoreDateTime(entry[3]));
             ret.setCompletion(completeStatus);
             return ret;
         case "E":
-            ret = new Events(desc, restoreDateTime(entry[3]),
+            ret = new Event(desc, restoreDateTime(entry[3]),
               restoreDateTime(entry[4]));
             ret.setCompletion(completeStatus);
             return ret;

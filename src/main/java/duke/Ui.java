@@ -5,15 +5,15 @@ import java.util.Scanner;
 import duke.exceptions.HistoryIndexException;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidTaskException;
-import duke.tasks.Deadlines;
-import duke.tasks.Events;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
-import duke.tasks.ToDos;
+import duke.tasks.ToDo;
 
 /**
  * This class represents the user-interface, that reads and write i/o to the user.
  */
-public class UI {
+public class Ui {
 
     private Storage manager;
     private Parser parser;
@@ -41,7 +41,7 @@ public class UI {
      * @param parser Parses and handles user input.
      * @param history The task list representing the history of what we have added.
      */
-    public UI(Storage manager, Parser parser, TaskList history) {
+    public Ui(Storage manager, Parser parser, TaskList history) {
         this.history = history;
         this.manager = manager;
         this.parser = parser;
@@ -130,7 +130,7 @@ public class UI {
                 return "That's not a valid input! " + e.getMessage();
             }
             try {
-                event = new Events(data[0], parser.parseDate(data[1]), parser.parseDate(data[2]));
+                event = new Event(data[0], parser.parseDate(data[1]), parser.parseDate(data[2]));
                 output = history.addTask(event);
                 return output;
             } catch (InvalidInputException e) {
@@ -143,7 +143,7 @@ public class UI {
             } catch (InvalidInputException e) {
                 return "Invalid input: " + e.getMessage();
             }
-            event = new ToDos(data[0]);
+            event = new ToDo(data[0]);
             output = history.addTask(event);
             return output;
         case DEADLINE:
@@ -153,7 +153,7 @@ public class UI {
                 return "Invalid input: " + e.getMessage();
             }
             try {
-                event = new Deadlines(data[0], parser.parseDate(data[1]));
+                event = new Deadline(data[0], parser.parseDate(data[1]));
                 output = history.addTask(event);
                 return output;
             } catch (InvalidInputException e) {
