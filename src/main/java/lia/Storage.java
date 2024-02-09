@@ -86,12 +86,12 @@ public class Storage {
                     if (task instanceof Todo) {
                         taskSave = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
                     } else if (task instanceof Deadline) {
-                        taskSave = "D | " + (task.isDone() ? "1" : "0") + " | " +
-                                task.getDescription() + " | " + ((Deadline) task).getDate();
+                        taskSave = "D | " + (task.isDone() ? "1" : "0") + " | "
+                                + task.getDescription() + " | " + ((Deadline) task).getDate();
                     } else if (task instanceof Event) {
-                        taskSave = "E | " + (task.isDone() ? "1" : "0") + " | " +
-                                task.getDescription() + " | " + ((Event) task).getStart() +
-                                " | " + ((Event) task).getEnd();
+                        taskSave = "E | " + (task.isDone() ? "1" : "0") + " | "
+                                + task.getDescription() + " | " + ((Event) task).getStart()
+                                + " | " + ((Event) task).getEnd();
                     } else {
                         continue;
                     }

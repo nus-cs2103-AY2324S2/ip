@@ -5,8 +5,8 @@ package lia;
  * It is a subclass of the Task class.
  */
 public class Event extends Task {
-    String start;
-    String end;
+    private String start;
+    private String end;
 
     /**
      * Constructs an Event object with the given description, start time, end time, and completion status.
@@ -37,7 +37,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription() +
-                " (from: " + start + " to: " + end + ")";
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " (from: " + start + " to: " + end + ")";
     }
 }

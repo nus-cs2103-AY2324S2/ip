@@ -48,7 +48,7 @@ public class TaskList {
      *
      * @param pos The position of the task to mark as done.
      */
-    public void markTaskAsDone(int pos){
+    public void markTaskAsDone(int pos) {
         tasks.get(pos - 1).markAsDone();
     }
 
@@ -57,7 +57,7 @@ public class TaskList {
      *
      * @param pos The position of the task to mark as not done.
      */
-    public void markTaskAsNotDone(int pos){
+    public void markTaskAsNotDone(int pos) {
         tasks.get(pos - 1).markAsNotDone();
     }
 

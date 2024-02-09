@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * It is a subclass of the Task class.
  */
 public class Deadline extends Task {
-    LocalDate date;
+    private LocalDate date;
 
     /**
      * Constructs a Deadline object with the given description, date string, and completion status.
@@ -33,7 +33,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription() +
-                " (by: " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
