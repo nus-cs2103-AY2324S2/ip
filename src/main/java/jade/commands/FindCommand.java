@@ -3,7 +3,6 @@ package jade.commands;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
-import jade.ui.Ui;
 
 /**
  * The <code>FindCommand</code> object represents the command to
@@ -23,23 +22,27 @@ public class FindCommand extends Command {
      * @inheritDoc This implementation prints all tasks that contain the keyword.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
+    public String execute(TaskList taskList, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
         int count = 0; // track the number of matching tasks found
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).containsKeyword(keyword)) {
+        for (int i = 1; i <= taskList.size(); i++) {
+            if (taskList.get(i - 1).containsKeyword(keyword)) {
                 count++;
-                sb.append(String.format("\t%d. %s\n", count, tasks.get(i)));
+                sb.append(String.format("\n\t%d. %s", count, taskList.get(i - 1)));
             }
         }
-        ui.printMessage(String.format("\tHere are the matching tasks in your list:\n%s", sb));
+        if (count == 0) {
+            return "There are no matching results!";
+        } else {
+            return String.format("Here are the matching tasks in your list:%s", sb);
+        }
     }
 
     /**
      * @inheritDoc The DeleteCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean shouldExit() {
+    public boolean isExit() {
         return false;
     }
 }
