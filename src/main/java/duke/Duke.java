@@ -1,54 +1,26 @@
 package duke;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.io.IOException;
 import java.io.FileWriter;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
-import javafx.scene.image.Image;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
-/**
- * Represents the main class for the Duke application.
- * Initializes the application and starts the interaction with the user.
- */
-public class Duke extends Application {
+public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private String FILE_PATH = "./data/duke.txt/duke.txt";
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/minnie.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/spinminnie.jpeg"));
-    /**
-     * Constructs a new Duke instance with the specified file path for data storage.
-     *
-     */
-    public Duke() {
+
+    public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -57,153 +29,6 @@ public class Duke extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-        Duke duke = new Duke();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(this, tasks, ui, storage);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        //Part 3. Add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-    }
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    @FXML
-    private void handleUserInput() {
-        String userInputText = userInput.getText();
-        String response;
-
-        try {
-            Command command = Parser.parse(userInputText);
-            command.execute(tasks, ui, storage);
-            if (command instanceof DeleteCommand || command instanceof AddTodoCommand || command instanceof AddEventCommand || command instanceof AddDeadlineCommand || command instanceof ListCommand) {
-                // Show updated task list after adding/deleting a task or when list command is invoked
-                response = ui.showTaskList(tasks);
-            } else if (command instanceof FindCommand) {
-                response = command.execute(tasks, ui, storage);
-            } else {
-                // For other commands, you can customize the response
-                response = "Command executed successfully.";
-            }
-        } catch (DukeException e) {
-            // Handle exceptions, for example, invalid command, task not found, etc.
-            response = e.getMessage();
-        }
-
-        // Display the response or updated task list in the GUI
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInputText, user),
-                DialogBox.getDukeDialog(response, duke)
-        );
-
-        userInput.clear();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-
-        return "SCZL heard: " + input;
-    }
-
-    /**
-     * Runs the Duke application. Initializes the necessary components and starts
-     * the command loop to receive and process user input.
-     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -219,26 +44,12 @@ public class Duke extends Application {
         }
         ui.closeScanner();
     }
-    /**
-     * The entry point of the application.
-     *
-     * @param args Command line arguments.
-     */
+
     public static void main(String[] args) {
-        Launcher.main(new String[2]);
+
+        new Duke("./data/duke.txt/duke.txt").run();
     }
 }
-
-
-/**
- * A launcher class to workaround classpath issues.
- */
-class Launcher {
-    public static void main(String[] args) {
-        Application.launch(Duke.class, args);
-    }
-}
-
 
 class DukeException extends Exception {
     public DukeException(String message) {
@@ -251,33 +62,33 @@ class Ui {
     private Scanner scanner;
 
     public Ui() {
-
         scanner = new Scanner(System.in);
     }
 
-    public String showWelcome() {
-        return "Hello! I'm SCZL\nWhat can I do for you?";
+    public void showWelcome() {
+        System.out.println("Hello! I'm SCZL");
+        System.out.println("What can I do for you?");
     }
 
-    public String showGoodbye() {
-        return "Bye. Hope to see you again soon!";
+    public void showGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public String showError(String message) {
-        return message;
+    public void showError(String message) {
+        System.out.println(message);
     }
 
-    public String showTaskAdded(Task task, int taskCount) {
-        return "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.";
+    public void showTaskAdded(Task task, int taskCount) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public String showTaskList(TaskList tasks) {//
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list:\n");
+    public void showTaskList(TaskList tasks) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
-            sb.append((i + 1)).append(".").append(tasks.getTask(i)).append("\n");
+            System.out.println((i + 1) + "." + tasks.getTask(i));
         }
-        return sb.toString();
     }
 
     public String readCommand() {
@@ -308,39 +119,6 @@ class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
-    }
-
-    public String showMatchedTasks(List<Task> matchedTasks) {
-        if (matchedTasks.isEmpty()) {
-            return "No matching tasks found.";
-        } else {
-            StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < matchedTasks.size(); i++) {
-                response.append(i + 1).append(".").append(matchedTasks.get(i)).append("\n");
-            }
-            return response.toString();
-        }
-    }
-
-    public String formatMatchedTasks(List<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
-        }
-        return sb.toString();
-    }
-
-    public String formatTaskList(TaskList tasks) {
-        if (tasks.getSize() == 0) {
-            return "Task list is empty.";
-        }
-        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            Task task = tasks.getTask(i);
-            response.append(i + 1).append(".").append(task).append("\n");
-        }
-        return response.toString();
     }
 }
 
@@ -414,7 +192,7 @@ class Storage {
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
         }
-    } //
+    }
 
     private String taskToFileString(Task task) {
         String type = task instanceof Todo ? "T" :
@@ -480,11 +258,6 @@ class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid task number format.");
             }
-        case "find":
-            if (commandArgs.isEmpty()) {
-                throw new DukeException("The keyword for find cannot be empty.");
-            }
-            return new FindCommand(commandArgs);
         case "bye":
             return new ExitCommand();
         default:
@@ -533,44 +306,30 @@ class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
-
         this.tasks = tasks;
     }
 
     public TaskList() {
-
         this(new ArrayList<>());
     }
 
     public void addTask(Task task) {
-
         tasks.add(task);
     }
 
     public Task removeTask(int index) {
-
         return tasks.remove(index);
     }
 
     public Task getTask(int index) {
-
         return tasks.get(index);
     }
 
     public int getSize() {
-
         return tasks.size();
     }
 
-    public List<Task> findTasks(String keyword) {
-        List<Task> res = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                res.add(task);
-            }
-        }
-        return res;
-    }
+    // ... any other methods needed for task management ...
 }
 
 
@@ -660,7 +419,7 @@ class Event extends Task {
 }
 
 abstract class Command {
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
     public abstract boolean isExit();
 }
 
@@ -672,7 +431,7 @@ class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DukeException("Invalid task number.");
         }
@@ -680,12 +439,10 @@ class MarkCommand extends Command {
         task.markAsDone();
         ui.showMarkedTask(task);
         storage.save(tasks);
-        return "Marked as done: " + task;
     }
 
     @Override
     public boolean isExit() {
-
         return false;
     }
 }
@@ -698,7 +455,7 @@ class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DukeException("Invalid task number.");
         }
@@ -706,7 +463,6 @@ class UnmarkCommand extends Command {
         task.markAsNotDone();
         ui.showUnmarkedTask(task);
         storage.save(tasks);
-        return "Marked as not done: " + task;
     }
 
     @Override
@@ -723,14 +479,13 @@ class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (index < 0 || index >= tasks.getSize()) {
             throw new DukeException("Invalid task number.");
         }
         Task task = tasks.removeTask(index);
         ui.showDeletedTask(task, tasks.getSize());
         storage.save(tasks);
-        return "Deleted task: " + task;
     }
 
     @Override
@@ -741,9 +496,8 @@ class DeleteCommand extends Command {
 
 class ExitCommand extends Command {
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
-        return "Goodbye!";
     }
 
     @Override
@@ -756,9 +510,8 @@ class ExitCommand extends Command {
 
 class ListCommand extends Command {
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showTaskList(tasks);
-        return ui.formatTaskList(tasks);
     }
     public boolean isExit() {
         return false;
@@ -773,12 +526,11 @@ class AddTodoCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
         ui.showTaskAdded(newTodo, tasks.getSize());
         storage.save(tasks);
-        return "Added task: " + newTodo;
     }
 
     @Override
@@ -797,12 +549,11 @@ class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline newDeadline = new Deadline(description, by);
         tasks.addTask(newDeadline);
         ui.showTaskAdded(newDeadline, tasks.getSize());
         storage.save(tasks);
-        return "Added task: " + newDeadline;
     }
 
     @Override
@@ -823,12 +574,11 @@ class AddEventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Event newEvent = new Event(description, start, end);
         tasks.addTask(newEvent);
         ui.showTaskAdded(newEvent, tasks.getSize());
         storage.save(tasks);
-        return "Added task: " + newEvent;
     }
 
     @Override
@@ -836,33 +586,3 @@ class AddEventCommand extends Command {
         return false;
     }
 }
-
-class FindCommand extends Command {
-    private String keyword;
-    private String test;
-
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
-        this.test = "test";
-    }
-
-    @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        List<Task> matchedTasks = tasks.findTasks(keyword);
-        if (matchedTasks.isEmpty()) {
-            return "No tasks matched your keyword.";
-        } else {
-            return ui.formatMatchedTasks(matchedTasks); // Assuming you have implemented this method to format the list of tasks into a String.
-        }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-}
-
