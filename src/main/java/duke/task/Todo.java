@@ -3,13 +3,13 @@ package duke.task;
 /**
  * Represents a todo task.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructor for Todo.
      * @param description The description of the todo.
      */
-    public Todo (String description) {
+    public Todo(String description) {
         super(description);
     }
 
@@ -18,7 +18,7 @@ public class Todo extends Task{
      * @param description The description of the todo.
      * @param isDone Whether the todo is done.
      */
-    public Todo (String description, boolean isDone) {
+    public Todo(String description, boolean isDone) {
         super(description);
         this.isDone = isDone;
     }
@@ -51,7 +51,7 @@ public class Todo extends Task{
      * @param fileString The file string to be converted to a todo.
      * @return The todo from the file string.
      */
-    public static Todo TodoFromFileString(String fileString) {
+    public static Todo todoFromFileString(String fileString) {
         String[] taskDetails = fileString.split(" \\| ");
         boolean isDone = taskDetails[1].equals("1");
         String description = taskDetails[2];

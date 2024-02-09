@@ -1,6 +1,5 @@
 package duke.ui;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -9,11 +8,19 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Encapsulates a person in a dialogue window.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Creates a DialogBox for displaying.
+     * @param l The name of the person speaking.
+     * @param iv Their user image.
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

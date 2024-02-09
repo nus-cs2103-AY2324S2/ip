@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -8,10 +11,10 @@ import duke.ui.Ui;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-public class DukeApp extends Application{
+/**
+ * The Main app for Fluffy.
+ */
+public class DukeApp extends Application {
 
     private Storage storage;
     private TaskList tasks;
@@ -33,6 +36,11 @@ public class DukeApp extends Application{
         }
     }
 
+    /**
+     * A function for dealing with user input.
+     * @param input the input from a user.
+     * @return the result to show as a string.
+     */
     public String handler(String input) {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;

@@ -1,17 +1,17 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 /**
  * Represents a deadline task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
-    private final String TYPE = "D";
     protected LocalDate by;
+    private final String TYPE = "D";
 
     /**
      * Constructor for Deadline.
@@ -77,7 +77,7 @@ public class Deadline extends Task{
      * @param fileString The file string to be converted.
      * @return The Deadline object from the file string.
      */
-    public static Deadline DeadlineFromFileString(String fileString) {
+    public static Deadline deadlineFromFileString(String fileString) {
         String[] taskDetails = fileString.split(" \\| ");
         boolean isDone = taskDetails[1].equals("1");
         String description = taskDetails[2];

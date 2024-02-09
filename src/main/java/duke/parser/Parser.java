@@ -1,9 +1,18 @@
 package duke.parser;
 
-import duke.DukeException;
-import duke.command.*;
-
 import java.time.LocalDate;
+
+import duke.DukeException;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.UnmarkCommand;
 
 /**
  * Represents a parser to parse user input.
@@ -29,26 +38,26 @@ public class Parser {
         String[] commandParts = fullCommand.split(" ", 2);
         String command = commandParts[0].toLowerCase();
         switch (command) {
-            case TODO_COMMAND:
-                return parseTodoCommand(commandParts);
-            case DEADLINE_COMMAND:
-                return parseDeadlineCommand(commandParts);
-            case EVENT_COMMAND:
-                return parseEventCommand(commandParts);
-            case LIST_COMMAND:
-                return new ListCommand();
-            case UNMARK_COMMAND:
-                return parseUnmarkCommand(commandParts);
-            case MARK_COMMAND:
-                return parseMarkCommand(commandParts);
-            case DELETE_COMMAND:
-                return parseDeleteCommand(commandParts);
-            case BYE_COMMAND:
-                return new ByeCommand();
-            case FIND_COMMAND:
-                return new FindCommand(commandParts);
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        case TODO_COMMAND:
+            return parseTodoCommand(commandParts);
+        case DEADLINE_COMMAND:
+            return parseDeadlineCommand(commandParts);
+        case EVENT_COMMAND:
+            return parseEventCommand(commandParts);
+        case LIST_COMMAND:
+            return new ListCommand();
+        case UNMARK_COMMAND:
+            return parseUnmarkCommand(commandParts);
+        case MARK_COMMAND:
+            return parseMarkCommand(commandParts);
+        case DELETE_COMMAND:
+            return parseDeleteCommand(commandParts);
+        case BYE_COMMAND:
+            return new ByeCommand();
+        case FIND_COMMAND:
+            return new FindCommand(commandParts);
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
 

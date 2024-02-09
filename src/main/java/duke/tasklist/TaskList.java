@@ -1,11 +1,11 @@
 package duke.tasklist;
 
-import duke.DukeException;
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+
+import duke.DukeException;
+import duke.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -55,7 +55,7 @@ public class TaskList {
      * @return The task to be retrieved.
      * @throws DukeException If the index is out of bounds.
      */
-    public Task getTask(int index) throws DukeException{
+    public Task getTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("The task number is out of bounds.");
         }

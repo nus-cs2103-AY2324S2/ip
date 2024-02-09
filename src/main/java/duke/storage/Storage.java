@@ -94,11 +94,11 @@ public class Storage {
         String taskFileString = taskDetails[1];
         switch (taskType) {
             case "T":
-                return Todo.TodoFromFileString(taskFileString);
+                return Todo.todoFromFileString(taskFileString);
             case "D":
-                return Deadline.DeadlineFromFileString(taskFileString);
+                return Deadline.deadlineFromFileString(taskFileString);
             case "E":
-                return Event.EventFromFileString(taskFileString);
+                return Event.eventFromFileString(taskFileString);
             default:
                 throw new DukeException("Error reading from file");
         }

@@ -1,9 +1,9 @@
 package duke.task;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 /**
  * Represents an event task.
@@ -65,8 +65,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getType() + "]" + super.toString() + " (from: " + from.format(Task.DATE_TIME_FORMATTER) +
-               " to: " + to.format(Task.DATE_TIME_FORMATTER) + ")";
+        return "[" + getType() + "]" + super.toString() + " (from: " + from.format(Task.DATE_TIME_FORMATTER)
+                + " to: " + to.format(Task.DATE_TIME_FORMATTER) + ")";
     }
 
     /**
@@ -83,7 +83,7 @@ public class Event extends Task {
      * @param fileString The file string to be converted to an event.
      * @return The event from the file string.
      */
-    public static Event EventFromFileString(String fileString) {
+    public static Event eventFromFileString(String fileString) {
         String[] taskDetails = fileString.split(" \\| ");
         boolean isDone = taskDetails[1].equals("1");
         String description = taskDetails[2];
