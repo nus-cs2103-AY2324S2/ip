@@ -9,6 +9,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadlines extends Task {
     protected LocalDate by;
+    private static final DateTimeFormatter TARGET_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter ALTERNATIVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Constructor of a Deadlines task with the specified description and deadline.
@@ -20,13 +22,11 @@ public class Deadlines extends Task {
      */
     public Deadlines(String description, String by) {
         super(description);
-        DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            this.by = LocalDate.parse(by, targetFormatter);
+            this.by = LocalDate.parse(by, TARGET_FORMATTER);
         } catch (DateTimeParseException e) {
             try {
-                this.by = LocalDate.parse(by, originalFormatter);
+                this.by = LocalDate.parse(by, ALTERNATIVE_FORMATTER);
             } catch (DateTimeParseException ex) {
                 System.out.println("Invalid date format. Using current date");
                 this.by = LocalDate.now();
@@ -44,7 +44,7 @@ public class Deadlines extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                + " (by: " + by.format(TARGET_FORMATTER) + ")";
     }
 
     /**
@@ -56,7 +56,7 @@ public class Deadlines extends Task {
     @Override
     public String toFileFormat() {
         return "D | " + super.toFileFormat() + " | "
-                + "(by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                + "(by: " + by.format(TARGET_FORMATTER) + ")";
     }
 }
 

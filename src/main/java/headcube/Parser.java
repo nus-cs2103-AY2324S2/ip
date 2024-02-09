@@ -12,9 +12,9 @@ public class Parser {
     /**
      * Constructor of a Parser object with references to the UI, TaskList, and Storage.
      *
-     * @param ui The UI for displaying messages to the user.
+     * @param ui       The UI for displaying messages to the user.
      * @param taskList The list of tasks to manage.
-     * @param storage The storage to save and load tasks.
+     * @param storage  The storage to save and load tasks.
      */
     public Parser(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
@@ -46,7 +46,7 @@ public class Parser {
             } else if (input.equals("save")) {
                 return storage.save(taskList);
             } else {
-                String[] string = input.split(" ", 2 );
+                String[] string = input.split(" ", 2);
                 String event = string[0];
                 String description;
 
@@ -70,7 +70,6 @@ public class Parser {
                 } else {
                     throw new HeadCubeException("I do not understand what that means!!");
                 }
-
                 StringBuilder sb = new StringBuilder();
                 sb.append("Got it. I've added this task:\n  ")
                         .append(taskList.get(taskList.size() - 1))
@@ -83,5 +82,6 @@ public class Parser {
             return ui.error(e.getMessage());
         }
     }
-
 }
+
+

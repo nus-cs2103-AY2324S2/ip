@@ -48,20 +48,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-
-        if (input.equals("bye")) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, USER_IMAGE),
-                    DialogBox.getHeadCubeDialog(Ui.exit(), HEADCUBE_IMAGE)
-            );
-            userInput.clear();
-        } else {
-            String response = headcube.getParser().parse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, USER_IMAGE),
-                    DialogBox.getHeadCubeDialog(response, HEADCUBE_IMAGE)
-            );
-            userInput.clear();
-        }
+        String response = input.equals("bye") ? Ui.exit() : headcube.getParser().parse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getHeadCubeDialog(response, headcubeImage)
+        );
+        userInput.clear();
     }
 }

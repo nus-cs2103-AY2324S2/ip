@@ -11,6 +11,8 @@ import java.util.Scanner;
  */
 public class Storage {
     private Ui ui;
+    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = "./data/HeadCube.txt"
 
     /**
      * Constructor a Storage object with a reference to the UI for displaying messages.
@@ -30,10 +32,8 @@ public class Storage {
     public String save(TaskList taskList) {
         assert taskList != null : "Task list cannot be null";
         try {
-            String directoryPath = "./data";
-            String filePath = directoryPath + "/HeadCube.txt";
-            Files.createDirectories(Paths.get(directoryPath));
-            File file = new File(filePath);
+            Files.createDirectories(Paths.get(DIRECTORY_PATH));
+            File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -55,7 +55,7 @@ public class Storage {
      * @param taskList The task list to which loaded tasks will be added.
      */
     public void load(TaskList taskList) {
-        File file = new File("./data/HeadCube.txt");
+        File file = new File(FILE_PATH);
         if (!file.exists()) {
             return;
         }
@@ -85,13 +85,10 @@ public class Storage {
         if (parts.length < 3) {
             return null;
         }
-
         String event = parts[0];
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
-
         Task task = null;
-
         if ("T".equals(event)) {
             task = new ToDos(description);
         } else if ("D".equals(event)) {
@@ -108,7 +105,6 @@ public class Storage {
                 task = new Events(description, start, end);
             }
         }
-
         if (isDone) {
             task.done();
         }
