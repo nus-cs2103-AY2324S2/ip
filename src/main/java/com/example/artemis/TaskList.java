@@ -39,6 +39,8 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
+        assert index >= 0 : "Index must be non-negative";
+        assert index < tasks.size() : "Index must be within the bounds of the list";
         tasks.remove(index);
     }
 

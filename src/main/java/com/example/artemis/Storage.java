@@ -23,6 +23,8 @@ public class Storage {
      * @param filepath The file path for storing tasks data.
      */
     public Storage(String filepath) {
+        assert filepath != null && !filepath.isEmpty() : "Filepath cannot be null or empty";
+
         this.filepath = filepath;
     }
 
@@ -46,7 +48,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            // File doesn't exist, handle this case by creating an empty task list
+            throw new ArtemisException("File not found from the directory: " + e.getMessage());
         } catch (IOException e) {
             throw new ArtemisException("Error reading tasks from file: " + e.getMessage());
         }
@@ -61,6 +63,8 @@ public class Storage {
      * @throws ArtemisException If there is an issue saving tasks to the file.
      */
     public void save(ArrayList<Task> tasks) throws ArtemisException {
+        assert tasks != null : "Tasks list cannot be null";
+
         try {
             createDirectoryIfNotExists("./data/");
 

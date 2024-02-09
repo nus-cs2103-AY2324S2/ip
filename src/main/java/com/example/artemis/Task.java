@@ -60,13 +60,20 @@ public abstract class Task {
      * @throws IllegalArgumentException If the file string has an invalid format.
      */
     public static Task fromFileString(String fileString) {
+        assert fileString != null : "File string cannot be null";
+
         String[] parts = fileString.split("\\|");
+
+        assert parts.length >= 3  && parts.length <= 4 : "Invalid file format: " + fileString;
 
         if (parts.length < 3) {
             throw new IllegalArgumentException("Invalid file format: " + fileString);
         }
 
         String taskType = parts[0].trim();
+
+        assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Unknown task type: " + taskType;
+
         boolean isDone = Integer.parseInt(parts[1].trim()) == 1;
         String description = parts[2].trim();
 
