@@ -89,6 +89,7 @@ public class TaskList implements Serializable {
      * @throws MissMinutesException If the task doesn't exist or already marked as done
      */
     public String markTask(int... indices) throws MissMinutesException {
+        assert indices.length > 0 : "Indices cannot be empty";
         StringBuilder reply = new StringBuilder("Nice! I've marked these tasks as done: ");
         for (int idx : indices) {
             try {
@@ -111,6 +112,7 @@ public class TaskList implements Serializable {
      * @throws MissMinutesException If the task doesn't exist or already marked as done
      */
     public String unmarkTask(int... indices) throws MissMinutesException {
+        assert indices.length > 0 : "Indices cannot be empty";
         StringBuilder reply = new StringBuilder("OK, I've marked these tasks as not done yet: ");
         for (int idx : indices) {
             try {
