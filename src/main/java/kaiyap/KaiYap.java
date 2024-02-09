@@ -69,7 +69,10 @@ public class KaiYap {
         if (input.equals("bye")) {
             return ui.sayBye();
         }
+
         String action = parser.decideAction(input);
+        assert action != null : "Action determined by parser should not be null";
+
         try {
             switch (action) {
             case "listInputs":
@@ -162,6 +165,7 @@ public class KaiYap {
                 .mapToInt(Integer::parseInt)
                 .toArray();
         for (int numericIndex : numericIndices) {
+            assert numericIndex > 0 && numericIndex <= this.taskList.size() : "Task index out of bounds";
             if (numericIndex > this.taskList.size()) {
                 throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
             } else if (taskList.get(numericIndex - 1).isTaskDone()) {
@@ -195,6 +199,7 @@ public class KaiYap {
             throw new AlreadyExistsException("\tThis task has already been marked as undone. Good luck!");
         } else {
             taskList.get(numericIndex).setTaskDone(false);
+
             storage.saveData();
             return (
                     "\t____________________________________________________________\n"
