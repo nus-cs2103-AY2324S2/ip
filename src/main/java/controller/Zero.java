@@ -6,14 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.Command;
 import model.Deadline;
 import model.Event;
@@ -59,6 +56,9 @@ public class Zero extends Application {
         storage = new Storage(SAVE_FILE_PATH);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -75,6 +75,13 @@ public class Zero extends Application {
         }
     }
 
+    /**
+     * Returns a response {@code String} from the Zero bot according to the user input.
+     * 
+     * @param input User input.
+     * @return Zero bot's response to the user input.
+     * @throws IOException If an I/O error occurs.
+     */
     public String getResponse(String input) throws IOException {
         if (input.isBlank()) {
             return Ui.showEmptyCommand();
@@ -95,9 +102,6 @@ public class Zero extends Application {
         case EXIT:
             // Fallthrough
         case BYE:
-            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
             return Ui.showBye();
         case LIST:
             return Ui.showTasks(storage.getTaskList());
