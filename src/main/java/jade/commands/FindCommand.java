@@ -3,7 +3,6 @@ package jade.commands;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
-import jade.ui.Ui;
 
 /**
  * The <code>FindCommand</code> object represents the command to
@@ -26,14 +25,17 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
         int count = 0; // track the number of matching tasks found
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).containsKeyword(keyword)) {
+        for (int i = 1; i <= tasks.size(); i++) {
+            if (tasks.get(i - 1).containsKeyword(keyword)) {
                 count++;
-                sb.append(String.format("\t%d. %s\n", count, tasks.get(i)));
+                sb.append(String.format("\n\t%d. %s", count, tasks.get(i - 1)));
             }
         }
-        String result = String.format("Here are the matching tasks in your list:\n%s", sb);
-        return result;
+        if (count == 0) {
+            return "There are no matching results!";
+        } else {
+            return String.format("Here are the matching tasks in your list:%s", sb);
+        }
     }
 
     /**

@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import jade.data.TaskList;
 import jade.storage.Storage;
-import jade.ui.Ui;
-
 
 /**
  * The <code>ListCommand</code> object represents the command to list all tasks.
@@ -36,33 +34,39 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
             // Show user that there are no tasks now
-            String result = "\tYou have no tasks now :-|";
-            return result;
+            return "\tYou have no tasks now :-|";
         }
+        if (selectedDate != null) {
+            return handleListWithDate(tasks); // print tasks on a specific date
+        } else {
+            return handleListWithoutDate(tasks);
+        }
+    }
+
+    private String handleListWithDate(TaskList tasks) {
         int count = 0; // to track the number of tasks to be printed
         StringBuilder sb = new StringBuilder();
-        String dateString = selectedDate == null ? "" : " on " + selectedDate;
-        sb.append(String.format("Here are the task(s) in your list%s:\n", dateString));
+        String dateString = " on " + selectedDate;
+        sb.append(String.format("Here are the task(s) in your list%s:", dateString));
         for (int i = 1; i <= tasks.size(); i++) {
-            // case when user has specified a date for listing the tasks
-            if (selectedDate != null) { // print tasks on a specific date
-                if (tasks.get(i - 1).isSameDate(selectedDate)) {
-                    sb.append(String.format("\t%d. %s\n", i, tasks.get(i - 1)));
-                    count++;
-                }
-            } else {
-                // print all tasks in list
-                sb.append(String.format("\t%d. %s\n", i, tasks.get(i - 1)));
+            if (tasks.get(i - 1).isSameDate(selectedDate)) {
+                sb.append(String.format("\n\t%d. %s", i, tasks.get(i - 1)));
                 count++;
             }
         }
-        if (selectedDate != null && count == 0) {
-            String result = String.format("There are no tasks on %s", selectedDate
+        if (count == 0) {
+            return String.format("There are no tasks on %s", selectedDate
                     .format(DateTimeFormatter.ofPattern("MMM d yyyy")));
-            return result;
-        } else {
-            return sb.toString();
         }
+        return sb.toString();
+    }
+    private String handleListWithoutDate(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the task(s) in your list:");
+        for (int i = 1; i <= tasks.size(); i++) {
+            sb.append(String.format("\n\t%d. %s", i, tasks.get(i - 1)));
+        }
+        return sb.toString();
     }
 
     /**
