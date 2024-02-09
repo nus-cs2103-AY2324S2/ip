@@ -1,15 +1,18 @@
 package area;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Duke {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * creates a Duke object with the filepath as a parameter
+     * 
+     * @param filePath
+     * @throws Exception
+     */
     public Duke(String filePath) throws Exception {
         this.ui = new Ui();
         this.tasks = new TaskList();
@@ -61,9 +64,16 @@ public class Duke {
                 System.out.println(e.toString() + "\n");
             }
         }
+        sc.close();
 
     }
 
+    /**
+     * main to start chatbot program
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         new Duke("./data/duke.txt").run();
     }

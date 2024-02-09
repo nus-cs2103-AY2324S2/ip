@@ -1,4 +1,5 @@
 package area;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +12,6 @@ import java.io.File;
 public class Storage {
 
     private static ArrayList<String> taskList = new ArrayList<String>();
-    private static final String FILE = "./data/duke.txt";
 
     private File file;
     private File folder;
@@ -19,6 +19,12 @@ public class Storage {
     private TaskList tasks;
     private ArrayList<String> instructions;
 
+    /**
+     * creates an object of type Storage
+     * 
+     * @param path
+     * @param tasks
+     */
     public Storage(String path, TaskList tasks) {
         this.filePath = path;
         file = new File(path);
@@ -27,6 +33,11 @@ public class Storage {
         this.instructions = new ArrayList<String>();
     }
 
+    /**
+     * adds an instruction to a list of instructions
+     * 
+     * @param instruction
+     */
     public void addInstruction(String instruction) {
         this.instructions.add(instruction);
     }
@@ -45,6 +56,11 @@ public class Storage {
         }
     }
 
+    /**
+     * get list of tasks
+     * 
+     * @return ArrayList<String>
+     */
     public static ArrayList<String> getTasks() {
         return taskList;
     }
@@ -61,9 +77,9 @@ public class Storage {
                         tasks.addTask(line);
                     } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
                         tasks.modifyTask(line);
-                    }else if(command.equals("unmark")){
+                    } else if (command.equals("unmark")) {
                         tasks.modifyTask(line);
-                    }else if(command.equals("delete")){
+                    } else if (command.equals("delete")) {
                         tasks.modifyTask(line);
                     }
                 }

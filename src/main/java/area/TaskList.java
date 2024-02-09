@@ -1,4 +1,5 @@
 package area;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,7 +8,6 @@ public class TaskList {
     private int count;
     private Ui ui;
     private Parser parser;
-    private ArrayList<String> instructions;
 
     public TaskList(ArrayList<Task> tasks) throws DukeException {
         this.tasks = tasks;
@@ -16,48 +16,73 @@ public class TaskList {
         parser = new Parser();
     }
 
-    public TaskList(){
+    public TaskList() {
         this.tasks = new ArrayList<Task>();
         this.count = 0;
         ui = new Ui();
         parser = new Parser();
     }
 
+    /**
+     * get number of tasks
+     * 
+     * @return int
+     */
     public int getNumberOfTasks() {
         return count;
     }
 
+    /**
+     * returns list of tasks
+     * 
+     * @return ArrayList<Task>
+     */
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
 
-    public void setTaskList(ArrayList<Task> t){
+    /**
+     * assign a list of tasks to this
+     * 
+     * @param t
+     */
+    public void setTaskList(ArrayList<Task> t) {
         this.tasks = t;
     }
 
+    /**
+     * add the task to the list of tasks
+     * 
+     * @param instruction
+     */
     public void addTask(String instruction) {
         String command = parser.parseCommand(instruction);
-            if (command.equals("todo")) {
-                Todo  todoTask = new Todo(parser.parseTodo(instruction));
-                System.out.println("correct");
-                tasks.add(todoTask);
-                count++; // keep track of number of tasks
-                ui.addTask(this);
-            } else if (command.equals("deadline")) {
-                String [] description = parser.parseDeadline(instruction);
-                Deadline task = new Deadline(description[0],description[1]);
-                tasks.add(task);
-                count++; // keep track of number of tasks
-                ui.addTask(this);
-            } else if (command.equals("event")) {
-                String[] description = parser.parseEvent(instruction);
-                Event task = new Event(description[0], description[1], description[2]);
-                tasks.add(task);
-                count++; // keeps track of tasks
-                ui.addTask(this);
-            }
+        if (command.equals("todo")) {
+            Todo todoTask = new Todo(parser.parseTodo(instruction));
+            System.out.println("correct");
+            tasks.add(todoTask);
+            count++; // keep track of number of tasks
+            ui.addTask(this);
+        } else if (command.equals("deadline")) {
+            String[] description = parser.parseDeadline(instruction);
+            Deadline task = new Deadline(description[0], description[1]);
+            tasks.add(task);
+            count++; // keep track of number of tasks
+            ui.addTask(this);
+        } else if (command.equals("event")) {
+            String[] description = parser.parseEvent(instruction);
+            Event task = new Event(description[0], description[1], description[2]);
+            tasks.add(task);
+            count++; // keeps track of tasks
+            ui.addTask(this);
+        }
     }
 
+    /**
+     * Modify the task based on instruction
+     * 
+     * @param instruction
+     */
     public void modifyTask(String instruction) {
         String command = parser.parseCommand(instruction);
         if (command.equals("mark")) {

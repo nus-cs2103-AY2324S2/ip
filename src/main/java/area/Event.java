@@ -1,4 +1,5 @@
 package area;
+
 public class Event extends Task {
 
     protected String from;
@@ -6,7 +7,8 @@ public class Event extends Task {
     protected String to;
 
     /**
-     *
+     * create an Event object
+     * 
      * @param description
      * @param from
      * @param to
@@ -17,6 +19,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Return a String representation of Event details
+     * 
+     * @return String
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
