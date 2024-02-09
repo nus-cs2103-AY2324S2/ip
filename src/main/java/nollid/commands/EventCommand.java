@@ -61,20 +61,20 @@ public class EventCommand extends Command {
             extractEventInfo(this.argsList, toIndex, fromIndex, taskDescription, to, from);
         }
 
+        LocalDateTime fromDateTime;
+        LocalDateTime toDateTime;
         try {
-            LocalDateTime fromDateTime = Parser.getLocalDateTimeFromString(from.toString());
-            LocalDateTime toDateTime = Parser.getLocalDateTimeFromString(to.toString());
-            Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
-            tasks.add(task);
-
-            String message = tasks.getAddSuccessMessage(task);
-
-            storage.update(tasks);
-
-            return message;
+            fromDateTime = Parser.getLocalDateTimeFromString(from.toString());
+            toDateTime = Parser.getLocalDateTimeFromString(to.toString());
         } catch (DateTimeParseException e) {
             throw new InvalidArgumentException("Unrecognized start/end format\n" + USAGE_HINT);
         }
+
+        Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
+        tasks.add(task);
+        String message = tasks.getAddSuccessMessage(task);
+        storage.update(tasks);
+        return message;
     }
 
     /**
