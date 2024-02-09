@@ -3,10 +3,17 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Task that stores the description and status of completion.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Initialises a Task with the description and status of completion.
+     * @param description task description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -1,5 +1,8 @@
 package duke.core;
 
+/**
+ * Represents a Duke Chatbot.
+ */
 public class Duke {
 
     public static void main(String[] args) {

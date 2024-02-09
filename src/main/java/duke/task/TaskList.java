@@ -1,16 +1,21 @@
 package duke.task;
 
-import duke.storage.Storage;
-import duke.core.ChatbotException;
-
 import java.util.ArrayList;
 
+import duke.core.ChatbotException;
+import duke.storage.Storage;
+
+/**
+ * Represents a TaskList that stores all tasks specified by user.
+ */
 public class TaskList {
-
-    public ArrayList<Task> tasks;
-
     public static int tasksCount = 0;
 
+    private ArrayList<Task> tasks;
+
+    /**
+     * Initialises a TaskList with an array to store the tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         Storage.ensureFileExists();
@@ -105,6 +110,10 @@ public class TaskList {
 
     public String getTaskDescription(int num) {
         return tasks.get(num).getDescription();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     private void catchInputError(String command) {
