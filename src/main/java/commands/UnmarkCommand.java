@@ -1,8 +1,8 @@
-package command;
+package commands;
 
 import helpers.TaskList;
 import helpers.Ui;
-import task.Task;
+import tasks.Task;
 
 public class UnmarkCommand extends Command {
     private final int i;

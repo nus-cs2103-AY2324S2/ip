@@ -1,13 +1,13 @@
 package helpers;
 
-import command.AddCommand;
-import command.CommandType;
-import command.Command;
-import command.MarkCommand;
-import command.UnmarkCommand;
-import command.ListCommand;
-import command.DeleteCommand;
-import command.ExitCommand;
+import commands.AddCommand;
+import commands.CommandType;
+import commands.Command;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
+import commands.ListCommand;
+import commands.DeleteCommand;
+import commands.ExitCommand;
 
 public class Parser {
     public static Command parse(String[] input) throws IllegalArgumentException {

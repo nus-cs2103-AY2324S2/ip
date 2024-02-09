@@ -1,4 +1,4 @@
-package command;
+package commands;
 
 /**
  * Enum representing the various commands available in the application.

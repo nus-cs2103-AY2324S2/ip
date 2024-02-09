@@ -1,7 +1,6 @@
 package helpers;
 
-import helpers.TaskList;
-import task.Task;
+import tasks.Task;
 import java.util.Scanner;
 
 public class Ui {

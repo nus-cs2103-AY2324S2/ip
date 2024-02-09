@@ -1,4 +1,4 @@
-package command;
+package commands;
 
 import helpers.TaskList;
 import helpers.Ui;

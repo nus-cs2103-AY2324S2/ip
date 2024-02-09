@@ -1,12 +1,12 @@
-package command;
+package commands;
 
 import exceptions.InvalidInputFormatException;
 import helpers.TaskList;
 import helpers.Ui;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class AddCommand extends Command {
     private final CommandType commandType;

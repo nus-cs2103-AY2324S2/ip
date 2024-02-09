@@ -1,4 +1,4 @@
-import command.Command;
+import commands.Command;
 import exceptions.InvalidInputFormatException;
 import helpers.Parser;
 import helpers.TaskList;

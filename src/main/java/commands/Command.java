@@ -1,4 +1,4 @@
-package command;
+package commands;
 import exceptions.InvalidInputFormatException;
 import helpers.TaskList;
 import helpers.Ui;

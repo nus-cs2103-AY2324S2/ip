@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Represents a to-do item, which is a specialized form of task.Task.
