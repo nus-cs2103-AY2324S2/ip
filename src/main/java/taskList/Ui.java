@@ -92,9 +92,8 @@ public class Ui {
 
     /** Show help message explaining the commands in the program. */
     public void showHelpMessage() {
-        System.out.println(
-			"Type in text to add in a task to your list\n"
-			+ "Other commands:\n"
+        System.out.println( "Type in text to add in a task to your list\n"
+            + "Other commands:\n"
             + "add [task] - adds a task to the task list\n"
             + "mark [input number] - mark a task as done\n"
             + "unmark [input number] - unmark a task as undone\n"
@@ -105,7 +104,7 @@ public class Ui {
             + "list - list out the current tasks you have\n"
             + "bye - exit the program\n"
             + "(NOTE: deadline should be in dd-mm-yyyy hhmm format)");
-		}
+          }
 
     /** Show end message when program is exited. */
     public void showEndMessage() {

@@ -12,7 +12,7 @@ import tasklist.tasks.Task;
  */
 public class TaskList implements Serializable {
 	/** arraylist to store tasks */
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> theTaskList;
 
 	/**
 	 * Initalize the TaskList.
@@ -20,7 +20,7 @@ public class TaskList implements Serializable {
 	 * @param thelist list of tasks.
 	 */
 	public TaskList(ArrayList<Task> thelist) {
-		this.taskList = thelist;
+		this.theTaskList = thelist;
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class TaskList implements Serializable {
 	 * @param task task to be added.
 	 */
 	public void addTask(Task task) {
-		taskList.add(task);
+		theTaskList.add(task);
 	}
 
 	/**
@@ -39,11 +39,11 @@ public class TaskList implements Serializable {
 	 */
 	public Task deleteTask(int taskNo) {
 		try {
-			Task removedTask = taskList.remove(taskNo - 1);
+			Task removedTask = theTaskList.remove(taskNo - 1);
 			return removedTask;
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println(
-				"Error: Index is out of bounds. The list currently has " + taskList.size() + " item(s)");
+				"Error: Index is out of bounds. The list currently has " + theTaskList.size() + " item(s)");
 		}
 		return null;
 	}
@@ -55,9 +55,9 @@ public class TaskList implements Serializable {
 	 */
 	public void markTask(int taskNo) {
 		try {
-			taskList.get(taskNo - 1).markItem();
+			theTaskList.get(taskNo - 1).markItem();
 		} catch (IndexOutOfBoundsException e) {
-			throw new IndexOutOfBoundsException("Error: Index is out of bounds. The list currently has " + taskList.size() + " item(s)");
+			throw new IndexOutOfBoundsException("Error: Index is out of bounds. The list currently has " + theTaskList.size() + " item(s)");
 		}
 	}
 
@@ -68,9 +68,9 @@ public class TaskList implements Serializable {
 	 */
 	public void unmarkTask(int taskNo) {
 		try {
-			taskList.get(taskNo - 1).unmarkItem();
+			theTaskList.get(taskNo - 1).unmarkItem();
 		} catch (IndexOutOfBoundsException e) {
-			throw new IndexOutOfBoundsException("Error: Index is out of bounds. The list currently has " + taskList.size() + " item(s)");
+			throw new IndexOutOfBoundsException("Error: Index is out of bounds. The list currently has " + theTaskList.size() + " item(s)");
 		}
 	}
 
@@ -80,7 +80,7 @@ public class TaskList implements Serializable {
 	 * @return the size of the tasklist.
 	 */
 	public int size() {
-		return taskList.size();
+		return theTaskList.size();
 	}
 
 	/**
@@ -91,10 +91,10 @@ public class TaskList implements Serializable {
 	 */
 	public Task getTask(int i) {
 		try {
-			return taskList.get(i);
+			return theTaskList.get(i);
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println(
-				"Error: Index is out of bounds. The list currently has " + taskList.size() + " item(s)");
+				"Error: Index is out of bounds. The list currently has " + theTaskList.size() + " item(s)");
 		}
 		return null;
 	}
@@ -102,7 +102,7 @@ public class TaskList implements Serializable {
 	public ArrayList<Task> searchTask(String input) {
 		String[] inputWords = input.split(" ");
 		ArrayList<Task> matchedTasks = new ArrayList<>();
-		for (Task task : taskList) {
+		for (Task task : theTaskList) {
             if(task.matchItem(inputWords) != null) {
 				matchedTasks.add(task);
 			}

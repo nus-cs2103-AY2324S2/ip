@@ -29,7 +29,7 @@ public class Duke {
         scanner.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] artodogs) {
         new Duke("./data/duke.ser").run();
     }
 }
