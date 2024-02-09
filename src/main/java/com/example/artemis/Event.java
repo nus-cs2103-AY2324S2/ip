@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  * Extends the Task class.
  */
 public class Event extends Task {
+    public static final String INPUT_DATE_FORMAT = "dd-MM-yyyy HHmm";
+    public static final String OUTPUT_DATE_FORMAT = "MMM dd yyyy h:mma";
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
@@ -35,7 +37,7 @@ public class Event extends Task {
      * @return The LocalDateTime representation of the date-time.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(INPUT_DATE_FORMAT);
         return LocalDateTime.parse(dateTimeString, formatter);
     }
 
@@ -47,8 +49,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " to: "
-                + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + ")";
+                + fromDateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT)) + " to: "
+                + toDateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT)) + ")";
     }
 
     /**
@@ -59,7 +61,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " - "
-                + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
+                + fromDateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT)) + " - "
+                + toDateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT));
     }
 }
