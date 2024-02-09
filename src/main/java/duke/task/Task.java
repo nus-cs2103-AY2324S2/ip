@@ -19,6 +19,8 @@ public abstract class Task {
     private String description;
     // Task completion status.
     private boolean isDone;
+    // Priority of task.
+    private Priority priority;
 
     /**
      * Creates a new task with given description.
@@ -28,6 +30,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.NONE;
     }
 
     public String getDescription() {
@@ -48,17 +51,26 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     /**
-     * Returns isDone status in task saving format.
+     * Returns priority of task to be displayed in chatbot.
      *
-     * @return String indicator of whether task is done.
+     * @return Priority of task for user.
      */
-    public String getIsDoneIndicator() {
-        return this.isDone ? "1" : "0";
+    public String getPriorityPostfix() {
+        switch (this.priority) {
+        case HIGH:
+            return " (HIGH PRIORITY)";
+        case LOW:
+            return " (LOW PRIORITY)";
+        case NONE:
+            // Fallthrough intended.
+        default:
+            return "";
+        }
     }
 
     /**
@@ -69,7 +81,7 @@ public abstract class Task {
      */
     public String getTaskInformation() {
         String marker = this.isDone ? "[X]" : "[ ]";
-        return marker + " " + this.description;
+        return marker + " " + this.description + this.getPriorityPostfix();
     }
 
     /**
@@ -88,4 +100,31 @@ public abstract class Task {
      * @return String data of task.
      */
     public abstract String toDataString();
+
+    /**
+     * Returns isDone status in task saving format.
+     *
+     * @return String indicator of whether task is done.
+     */
+    public String getIsDoneDataString() {
+        return this.isDone ? "1" : "0";
+    }
+
+    /**
+     * Returns priority status in task saving format.
+     *
+     * @return String indicator of task priority.
+     */
+    public String getPriorityDataString() {
+        switch (this.priority) {
+        case HIGH:
+            return "high";
+        case LOW:
+            return "low";
+        case NONE:
+            return "none";
+        default:
+            return "";
+        }
+    }
 }

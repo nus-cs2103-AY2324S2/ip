@@ -6,7 +6,7 @@ package duke.task;
  * @author KohGuanZeh
  */
 public class TaskListException extends Exception {
-    public TaskListException(String errorMsg) {
-        super(errorMsg);
+    public TaskListException(String errorMessage) {
+        super(errorMessage);
     }
 }

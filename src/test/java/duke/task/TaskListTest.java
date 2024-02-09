@@ -94,4 +94,29 @@ public class TaskListTest {
             assertEquals("Error. Task of index 0 cannot be found.", e.getMessage());
         }
     }
+
+    @Test
+    public void setPriority_existingIndex_success() {
+        this.taskList.addTask(new ToDo("high priority task"));
+        try {
+            this.taskList.setPriority(1, Priority.HIGH);
+            assertEquals("Here are your list of tasks:\n    1.[T][ ] high priority task (HIGH PRIORITY)",
+                    this.taskList.listTasks());
+            this.taskList.setPriority(1, Priority.NONE);
+            assertEquals("Here are your list of tasks:\n    1.[T][ ] high priority task",
+                    this.taskList.listTasks());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void setPriority_indexOutOfBounds_exceptionThrown() {
+        this.taskList.addTask(new ToDo("some task"));
+        try {
+            this.taskList.setPriority(100, Priority.NONE);
+        } catch (Exception e) {
+            assertEquals("Error. Task of index 100 cannot be found.", e.getMessage());
+        }
+    }
 }

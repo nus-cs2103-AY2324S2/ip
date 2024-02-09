@@ -38,7 +38,8 @@ public class ToDo extends Task {
     @Override
     public String toDataString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("T | ").append(this.getIsDoneIndicator()).append(" | ").append(this.getDescription());
+        sb.append("T | ").append(this.getIsDoneDataString()).append(" | ").append(this.getDescription())
+                .append(" | ").append(this.getPriorityDataString());
         return sb.toString();
     }
 }

@@ -187,9 +187,34 @@ public class ParserTest {
     }
 
     @Test
+    public void parseInput_priority_success() {
+        assertDoesNotThrow(() -> Parser.parseInput("priority 100 high"));
+        // Empty should be recognized as none
+        assertDoesNotThrow(() -> Parser.parseInput("priority 1"));
+    }
+
+    @Test
+    public void parseInput_priorityWithInvalidPriority_exceptionThrown() {
+        try {
+            Parser.parseInput("priority 1 kekw");
+        } catch (Exception e) {
+            assertEquals("Error. Unknown priority value. Only high/low/none are allowed.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseInput_priorityWithNonNumbers_exceptionThrown() {
+        try {
+            Parser.parseInput("priority one low");
+        } catch (Exception e) {
+            assertEquals("Error. Priority expects the index of task to be modified.", e.getMessage());
+        }
+    }
+
+    @Test
     public void parseData_todoCorrectFormat_success() {
         try {
-            assertInstanceOf(ToDo.class, Parser.parseData("T | 1 | some task"));
+            assertInstanceOf(ToDo.class, Parser.parseData("T | 1 | some task | none"));
         } catch (Exception e) {
             fail();
         }
@@ -207,7 +232,7 @@ public class ParserTest {
     @Test
     public void parseData_deadlineCorrectFormat_success() {
         try {
-            assertInstanceOf(Deadline.class, Parser.parseData("D | 0 | some task /by 11-11-1111 11:11"));
+            assertInstanceOf(Deadline.class, Parser.parseData("D | 0 | some task /by 11-11-1111 11:11 | low"));
         } catch (Exception e) {
             fail();
         }
@@ -217,14 +242,21 @@ public class ParserTest {
     public void parseData_deadlineWrongFormat_exceptionThrown() {
         // Missing Tag
         try {
-            Parser.parseData("D | 1 | someTask /b 11-11-1111 11:11");
+            Parser.parseData("D | 1 | someTask /b 11-11-1111 11:11 | low");
         } catch (Exception e) {
             assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
         }
 
         // Wrong datetime format
         try {
-            Parser.parseData("D | 0 | someTask /by 11-11/1111 11.11");
+            Parser.parseData("D | 0 | someTask /by 11-11/1111 11.11 | none");
+        } catch (Exception e) {
+            assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
+        }
+
+        // Wrong priority format
+        try {
+            Parser.parseData("D | 1 | someTask /by 11-11-1111 11:11 | nonexistent");
         } catch (Exception e) {
             assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
         }
@@ -234,7 +266,7 @@ public class ParserTest {
     public void parseData_eventCorrectFormat_success() {
         try {
             assertInstanceOf(Event.class, Parser.parseData(
-                    "E | 1 | some task /from 11-11-1111 11:11 /to 12-12-1212 12:12"));
+                    "E | 1 | some task /from 11-11-1111 11:11 /to 12-12-1212 12:12 | high"));
         } catch (Exception e) {
             fail();
         }
@@ -244,14 +276,21 @@ public class ParserTest {
     public void parseData_eventWrongFormat_exceptionThrown() {
         // Missing Tag
         try {
-            Parser.parseData("E | 0 | someTask /from 11-11-1111 11:11 12-12-1212 12:12");
+            Parser.parseData("E | 0 | someTask /from 11-11-1111 11:11 12-12-1212 12:12 | low");
         } catch (Exception e) {
             assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
         }
 
         // Wrong datetime format
         try {
-            Parser.parseData("E | 0 | someTask /from 11-11-1111 11:11 /to 12-12-1212 12|12");
+            Parser.parseData("E | 0 | someTask /from 11-11-1111 11:11 /to 12-12-1212 12|12 | none");
+        } catch (Exception e) {
+            assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
+        }
+
+        // Wrong priority format
+        try {
+            Parser.parseData("E | 0 | someTask /from 11-11-1111 11:11 /to 12-12-1212 12:12");
         } catch (Exception e) {
             assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
         }
@@ -260,7 +299,7 @@ public class ParserTest {
     @Test
     public void parseData_unknownFormat_exceptionThrown() {
         try {
-            Parser.parseData("U | 1 | Some random tasks");
+            Parser.parseData("U | 1 | Some random tasks | none");
         } catch (Exception e) {
             assertEquals("Task cannot be loaded due to incorrect format. Skipping.", e.getMessage());
         }

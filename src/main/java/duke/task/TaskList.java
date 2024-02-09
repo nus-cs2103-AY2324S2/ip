@@ -82,6 +82,20 @@ public class TaskList {
     }
 
     /**
+     * Sets the task at specified index to be of specified priority.
+     *
+     * @param index Index of task as displayed.
+     * @param priority New priority of task.
+     * @return Task new priority message.
+     * @throws TaskListException Exception indicating invalid command when passed index does not exist.
+     */
+    public String setPriority(int index, Priority priority) throws TaskListException {
+        Task task = this.getTaskAtIndex(index);
+        task.setPriority(priority);
+        return "Modified Priority.\n" + task.getTaskInformation();
+    }
+
+    /**
      *  Returns the task at specified index in taskList.
      *
      * @param index ArrayList index of task in taskList.

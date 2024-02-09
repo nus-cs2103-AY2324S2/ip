@@ -24,6 +24,7 @@ public class UnknownCommandException extends CommandException {
                 + "- unmark <task-number>:\nMarks task at index <task-number> as not done.\n"
                 + "- delete <task-number>:\nDeletes task at index <task-number>.\n"
                 + "- find <task-name>:\nFinds task with matching keywords of <task-name>.\n"
+                + "- priority <task-number> <high/low/none>:\nModify priority of task at index <task-number>.\n"
                 + "- bye:\n exits the program.");
     }
 }

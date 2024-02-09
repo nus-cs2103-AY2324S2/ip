@@ -45,8 +45,9 @@ public class Deadline extends Task {
     @Override
     public String toDataString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("D | ").append(this.getIsDoneIndicator()).append(" | ").append(this.getDescription())
-                .append(" /by ").append(this.by.format(Task.INPUT_DATETIME_FORMAT));
+        sb.append("D | ").append(this.getIsDoneDataString()).append(" | ").append(this.getDescription())
+                .append(" /by ").append(this.by.format(Task.INPUT_DATETIME_FORMAT))
+                .append(" | ").append(this.getPriorityDataString());;
         return sb.toString();
     }
 }
