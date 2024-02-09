@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * This class represents a event task.
  */
-public class Events extends Task {
+public class Event extends Task {
 
     private LocalDateTime start;
 
@@ -17,7 +17,7 @@ public class Events extends Task {
      * @param start The starting time of the event.
      * @param end The ending time of the event.
      */
-    public Events(String description, LocalDateTime start, LocalDateTime end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description, "[E]");
         this.start = start;
         this.end = end;

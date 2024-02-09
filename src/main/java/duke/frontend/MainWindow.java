@@ -1,7 +1,7 @@
 package duke.frontend;
 
 import duke.Duke;
-import duke.UI;
+import duke.Ui;
 import duke.exceptions.InvalidTaskException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
         );
         try {
             isExit =
-              this.duke.getParser().getCommand(userInput.getText().split(" ")).equals(UI.Command.BYE);
+              this.duke.getParser().getCommand(userInput.getText().split(" ")).equals(Ui.Command.BYE);
         } catch (InvalidTaskException e) {
             System.out.println(e);
         }
@@ -72,7 +72,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private String getResponse(String input) {
-        String response = this.duke.getUI().run(input);
+        String response = this.duke.getUi().run(input);
         return response;
     }
 }
