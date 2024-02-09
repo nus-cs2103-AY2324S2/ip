@@ -151,7 +151,7 @@ public class TaskList implements Serializable {
         StringBuilder reply = new StringBuilder("Here are the matching tasks in your list: ");
         for (int i = 0; i < results.size(); i++) {
             reply.append("\n")
-                    .append((i + 1))
+                    .append(i + 1)
                     .append(". ")
                     .append(results.get(i));
         }
