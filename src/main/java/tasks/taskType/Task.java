@@ -1,6 +1,7 @@
 package tasks.taskType;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -50,27 +51,29 @@ public class Task {
     public String formatDates(String date) {
         String result = "";
         LocalDateTime time = null;
+        LocalDate dateWoTime = null;
         DateTimeFormatter[] formats = this.getFormatsDateTime();
         for (DateTimeFormatter format : formats) {
             try {
                 time = LocalDateTime.parse(date, format);
+                break;
             } catch (DateTimeParseException err) {
+                dateWoTime = LocalDate.parse(date, format);
+                break;
+            } catch (Exception err) {
+                // System.out.println("too bad");
             }
         }
 
-        try {
-            result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"));
-            System.out.println("Hello");
-        } catch (DateTimeException err) {
-            if (result.equals("")) {
-                try {
-                    result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                } catch (DateTimeException error) {}
-            }
-        } catch (NullPointerException err) {
-            System.out.println("Please enter the date in mm/dd/yyyy format");
+        if (time != null) {
+            try {
+                result = time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"));
+            } catch (DateTimeException err) {}
+        } else {
+            try {
+                result = dateWoTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            } catch (DateTimeException err) {}
         }
-
         return result;
     }
 
