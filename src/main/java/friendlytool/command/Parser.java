@@ -115,7 +115,6 @@ public class Parser {
     }
 
 
-
     /**
      * Converts the string to number index.
      *
@@ -123,22 +122,40 @@ public class Parser {
      * @return index for finding tasks.
      * @throws FTException
      */
-        public static int parseNumber (String s) throws FTException {
-            StringTokenizer st = new StringTokenizer(s);
-            st.nextToken();
-            if (!st.hasMoreTokens()) {
-                throw new FTException("Error: No index provided");
-            }
-            return Integer.parseInt(st.nextToken());
+    public static int parseNumber(String s) throws FTException {
+        StringTokenizer st = new StringTokenizer(s);
+        st.nextToken();
+        if (!st.hasMoreTokens()) {
+            throw new FTException("Error: No index provided");
         }
+        return Integer.parseInt(st.nextToken());
+    }
 
-        /**
-         * Converts the string to boolean.
-         *
-         * @param s user input.
-         * @return boolean value for isDone.
-         */
-        public static Boolean parseBool (String s){
-            return Boolean.parseBoolean(s);
+    /**
+     * Converts the string to boolean.
+     *
+     * @param s user input.
+     * @return boolean value for isDone.
+     */
+    public static Boolean parseBool(String s) {
+        return Boolean.parseBoolean(s);
+    }
+
+    /**
+     * Parse the input to find keyword
+     *
+     * @param s user input
+     * @return keyword that user provided
+     * @throws FTException
+     */
+    public static String parseKeyword(String s) throws FTException {
+        String[] strings = s.split(" ");
+        if (strings.length < 2) {
+            throw new FTException("Please provide keyword!");
+        } else if (strings.length == 2) {
+            return strings[1];
+        } else {
+            throw new FTException("Please provide one word");
         }
     }
+}

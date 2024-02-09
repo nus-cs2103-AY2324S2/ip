@@ -29,7 +29,7 @@ public class Duke {
      * Starts and load saved tasks.
      */
     public void init() {
-        UI.initMsg();
+        UI.printInitMsg();
         try {
             Storage.loadTask(tasks);
         } catch (FTException e) {
@@ -39,12 +39,12 @@ public class Duke {
         while (this.isActive) {
             String input = sc.nextLine();
             try {
-                nextAction(input);
+                findNextAction(input);
             } catch (FTException e) {
                 System.out.println(e.getMessage());
             }
         }
-        UI.byeMsg();
+        UI.printByeMsg();
     }
 
     /**
@@ -53,7 +53,7 @@ public class Duke {
      * @param input user input.
      * @throws FTException
      */
-    private void nextAction(String input) throws FTException {
+    private void findNextAction(String input) throws FTException {
         if (input.isEmpty()) {
             throw new FTException("Error: Please Type Command");
         }
@@ -89,6 +89,9 @@ public class Duke {
             case DELETE:
                 tasks.deleteTask(input);
                 Storage.updateTask(tasks);
+                break;
+            case FIND:
+                TaskFinder.findTask(tasks, input);
                 break;
             default:
                 throw new FTException("Unknown Command: Please use a correct command");

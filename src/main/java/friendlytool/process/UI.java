@@ -9,7 +9,7 @@ public class UI {
     /**
      * Prints a welcome message.
      */
-    public static void initMsg() {
+    public static void printInitMsg() {
         System.out.println("    ____________________________________________________________\n"
                 + "    Hello! I'm FriendlyTool\n"
                 + "    What can I do for you?\n"
@@ -20,7 +20,7 @@ public class UI {
     /**
      * Prints a bye message.
      */
-    public static void byeMsg() {
+    public static void printByeMsg() {
         System.out.println("    ____________________________________________________________\n"
                 + "    Bye. Hope to see you again soon!\n"
                 + "    ____________________________________________________________");
@@ -32,7 +32,7 @@ public class UI {
      * @param task task updated.
      * @param size number of elements in the list.
      */
-    public static void updateTaskMsg(Task task, int size) {
+    public static void printUpdateTaskMsg(Task task, int size) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Completed. I've added this task: \n    "
                 + task
@@ -45,7 +45,7 @@ public class UI {
      *
      * @param task task given.
      */
-    public static void markMsg(Task task) {
+    public static void printMarkMsg(Task task) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Nice! I've marked this task as done:\n"
                 + "      " + task.toString()
@@ -58,7 +58,7 @@ public class UI {
      *
      * @param task task given.
      */
-    public static void unmarkMsg(Task task) {
+    public static void printUnmarkMsg(Task task) {
         System.out.println("    ____________________________________________________________\n"
                 + "    OK, I've marked this task as not done yet:\n"
                 + "      " + task.toString()
@@ -71,7 +71,7 @@ public class UI {
      * @param task task deleted.
      * @param size number of elements in the list.
      */
-    public static void deleteMsg(String task, int size) {
+    public static void printDeleteMsg(String task, int size) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Great!, You have completed the task:\n"
                 + "      " + task
@@ -84,7 +84,7 @@ public class UI {
      *
      * @param isSuccessful save data creation is successful or not
      */
-    public static void createSaveMsg(Boolean isSuccessful) {
+    public static void printCreateSaveMsg(Boolean isSuccessful) {
         System.out.println("    There was no save data.");
         System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
     }
@@ -92,7 +92,7 @@ public class UI {
     /**
      * Prints that save data is loaded.
      */
-    public static void loadSaveMsg() {
+    public static void printLoadSaveMsg() {
         System.out.println("    Successfully loaded the save data. ");
     }
 
@@ -114,5 +114,30 @@ public class UI {
             }
         }
         System.out.println("    ____________________________________________________________\n");
+    }
+
+    /**
+     * Prints that there are matching tasks.
+     */
+    public static void printMatchingMsg() {
+        System.out.println("____________________________________________________________\n"
+                + "These are the matching tasks in your list:");
+    }
+
+    /**
+     * Prints out the found task.
+     *
+     * @param i    current index
+     * @param task task found
+     */
+    public static void printFindTaskMsg(int i, Task task) {
+        System.out.println("    " + i + "." + task);
+    }
+
+    /**
+     * Prints out a dotted line.
+     */
+    public static void printLine() {
+        System.out.println("____________________________________________________________\n");
     }
 }

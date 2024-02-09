@@ -35,7 +35,7 @@ public class TaskList {
      * @throws FTException
      */
     public void addTask(String s, CommandTypes ct) throws FTException {
-        Task task = null;
+        Task task;
         switch (ct) {
         case TODO:
             String todo = Parser.parseToDo(s);
@@ -80,7 +80,7 @@ public class TaskList {
             throw new FTException("Error: Invalid Task Type");
         }
         myList.add(task);
-        UI.updateTaskMsg(task, myList.size());
+        UI.printUpdateTaskMsg(task, myList.size());
     }
 
 
@@ -95,7 +95,7 @@ public class TaskList {
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
-            UI.markMsg(task);
+            UI.printMarkMsg(task);
         } else {
             throw new FTException("Error: Please provide valid index");
         }
@@ -112,7 +112,7 @@ public class TaskList {
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
-            UI.unmarkMsg(task);
+            UI.printUnmarkMsg(task);
         } else {
             throw new FTException("Error: Please provide valid index");
         }
@@ -128,7 +128,7 @@ public class TaskList {
         int i = Parser.parseNumber(s);
         if ((0 < i) && (i <= myList.size())) {
             String task = myList.remove(i - 1).toString();
-            UI.deleteMsg(task, myList.size());
+            UI.printDeleteMsg(task, myList.size());
         } else {
             throw new FTException("Error: Please provide valid index");
         }
@@ -149,7 +149,6 @@ public class TaskList {
      * @param i index
      * @return task based on the index.
      */
-
     public Task get(int i) {
         return myList.get(i);
     }
