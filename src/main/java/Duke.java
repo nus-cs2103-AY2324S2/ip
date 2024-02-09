@@ -1,74 +1,50 @@
-import Exceptions.DukeException;
-import Exceptions.InvalidTaskNameException;
+import Duke.Parser;
+import Duke.Storage;
+import Duke.Ui;
+import Task.TaskList;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
+
+import java.io.FileNotFoundException;
 
 /**
  *  This class contains the main method for the chatbot, ChrisP Bacon.
  *  ChrisP Bacon is a chatbot that manages the user's list of tasks.
  */
 public class Duke {
-    protected final File list = new File("data/list.txt");
-    protected static final ArrayList<Task> taskList = new ArrayList<Task>();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        Gui GUI = new Gui();
-        Scanner scan = new Scanner(System.in);
-        SaveAndLoad saveAndLoad = new SaveAndLoad();
-
-        // Entering the chatbot and load list from hard disk.
-        saveAndLoad.loadList();
-
-        // Get user's first input.
-        GUI.printIntro();
-        String userInput = scan.nextLine();
-        while (!userInput.equals("bye")) {
-            try {
-                String firstWord = userInput.indexOf(' ') < 0
-                        ? userInput
-                        : userInput.substring(0, userInput.indexOf(' '));
-
-                switch (firstWord) {
-                case "help":
-                    GUI.printHelp();
-                    break;
-                case "list":
-                    GUI.printList();
-                    break;
-                case "mark":
-                    GUI.printMark(userInput);
-                    break;
-                case "unmark":
-                    GUI.printUnmark(userInput);
-                    break;
-                case "delete":
-                    GUI.printDelete(userInput);
-                    break;
-                case "todo":
-                    GUI.printTodo(userInput);
-                    break;
-                case "deadline":
-                    GUI.printDeadline(userInput);
-                    break;
-                case "event":
-                    GUI.printEvent(userInput);
-                    break;
-                default:
-                    // if user entered input that cannot be recognised.
-                    throw new DukeException("Ooink oink! I'm sorry, I don't understand.\n"
-                            + "Type 'help' for command info!\n");
-                }
-            } catch (DukeException | InvalidTaskNameException e) {
-                GUI.printError(e.getMessage());
-            }
-            userInput = scan.nextLine(); // Scan for next input.
+    /**
+     * Initialises new ui and storage objects, loads tasks into a new task list object.
+     *
+     * @param filePath of the saved task list
+     */
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            ui.printError("Oink! File not found :(");
+            tasks = new TaskList();
         }
+    }
 
-        // if user entered "bye", close scanner, save list and exit chatbot.
-        scan.close();
-        saveAndLoad.saveList();
-        GUI.printBye();
+    /**
+     * Runs the chatbot program.
+     */
+    public void run() {
+        Parser parser = new Parser(this.tasks);
+        parser.parse();
+        storage.save(this.tasks);
+    }
+
+    /**
+     * Initialises and run duke program.
+     * @param args
+     */
+    public static void main(String[] args) {
+        new Duke("data/list.txt").run();
     }
 }
