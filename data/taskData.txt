@@ -1,4 +1,0 @@
-T,1,buy egg
-T,0,buy bread
-D,0,buy milk,2024-12-04
-T,0,buy toto

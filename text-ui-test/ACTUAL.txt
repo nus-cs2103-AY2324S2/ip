@@ -1,0 +1,35 @@
+________________________________________________________________________
+                    /~(_)~\.    Hi! I'm UkeCat, a cat with an ukulele!
+ /= ••\      /~(_)~\        \   \| /\           What can I do for you?
+K=|=|=|=|=|=|=|=|=(  )===]  |     (`~ o7 
+ \= ••/      \_(~)_/        /    c\   c\ 
+                    \_(~)_/`     U`U_, )=~~ 
+________________________________________________________________________
+
+  +-------------------------------------------------------------------------------------------------------------+
+  |Greetings, sentient being known as a human, I wish to convey my heartfelt salutations to you.                |    /\_/\
+  |As we commence our digital discourse, I extend a warm welcome and express my enthusiasm for this interaction.|   =X.X=|
+  |May our engagement be both enlightening and mutually beneficial in the realm of virtual communication.       |     \  \/
+  +-------------------------------------------------------------------------------------------------------------+
+  I added this task: [T][ ] a
+  You have 1 tasks in the list now.
+  I added this task: [D][ ] b (by: tmr)
+  You have 2 tasks in the list now.
+  I added this task: [E][ ] c (from: tdy to: tmr)
+  You have 3 tasks in the list now.
+  Nice! I've marked this task as done:
+    [T][X] a
+  OK, I've marked this task as not done yet:
+    [T][ ] a
+  1. [T][ ] a
+  2. [D][ ] b (by: tmr)
+  3. [E][ ] c (from: tdy to: tmr)
+  I removed this task: [T][ ] a
+  You have 2 tasks in the list now.
+  1. [D][ ] b (by: tmr)
+  2. [E][ ] c (from: tdy to: tmr)
+  I don't understand! Try adding a task!
+  +--------------------+    /\_/\
+  |Meow~ See you again!|   =~.~=|
+  +--------------------+     \  \/
+
