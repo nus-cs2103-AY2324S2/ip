@@ -50,7 +50,7 @@ public class Parser {
                     }
                 }
             } catch (DukeException e) {
-                System.out.println(e.toString());
+                return(e.toString());
             }
         }
         return res;
