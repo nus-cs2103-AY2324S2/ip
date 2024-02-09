@@ -51,7 +51,7 @@ public class Storage {
                     String description = parts[2];
 
                     switch (type) {
-                        case "T":
+                        case "T": 
                             tasks.add(new Todo(description, isDone));
                             break;
                         case "D":
@@ -62,6 +62,9 @@ public class Storage {
                             String start = parts[3];
                             String end = parts[4];
                             tasks.add(new Event(description, start, end, isDone));
+                            break;
+                        default:
+                            System.out.println("Unknown task type: " + type);
                             break;
                     }
                 }
