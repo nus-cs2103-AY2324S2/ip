@@ -30,14 +30,14 @@ public class AddTaskCommand extends Command {
      * @param ui UserInterface Object.
      * @param storage Existing Storage to be updated.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(taskToBeAdded);
-        ui.showAddedTask(taskToBeAdded, taskList.listSize());
         try {
             storage.saveStorage(taskList.getTaskStore());
         } catch (IOException e) {
             ui.showError(e.getMessage());
         }
+        return ui.showAddedTask(taskToBeAdded, taskList.listSize());
     }
 
     /**
