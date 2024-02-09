@@ -72,6 +72,7 @@ public class Storage {
      * This method writes each task into the file in a structured format.
      */
     public void saveData() {
+        assert this.dataPath != null && this.fileName != null : "Storage must be initialized before saving data";
         try {
             PrintWriter writer = new PrintWriter(dataPath + fileName);
             for (int i = 0; i < taskList.size(); i++) {
