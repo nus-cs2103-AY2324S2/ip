@@ -21,7 +21,7 @@ public class TaskList {
      * @throws IOException if there is an error initializing the storage.
      */
     public TaskList() throws IOException {
-        this.tasks = new ArrayList<>();
+        TaskList.tasks = new ArrayList<>();
         this.storage = new Storage(tasks);
     }
 
@@ -32,7 +32,7 @@ public class TaskList {
      * @throws IOException if there is an error writing to the storage.
      */
     public void add(Task t) throws IOException {
-        this.tasks.add(t);
+        TaskList.tasks.add(t);
         storage.writeToFile(tasks);
     }
 
@@ -44,8 +44,8 @@ public class TaskList {
      * @throws IOException if there is an error writing to the storage.
      */
     public Task delete(int i) throws IOException {
-        Task t = this.tasks.get(i - 1);
-        this.tasks.remove(i - 1);
+        Task t = TaskList.tasks.get(i - 1);
+        TaskList.tasks.remove(i - 1);
         storage.writeToFile(tasks);
         return t;
     }
@@ -56,7 +56,7 @@ public class TaskList {
      * @return the size of the task list.
      */
     public int getSize() {
-        return this.tasks.size();
+        return TaskList.tasks.size();
     }
 
     /**
@@ -67,7 +67,7 @@ public class TaskList {
      * @throws IOException if there is an error writing to the storage.
      */
     public Task mark(int i) throws IOException {
-        Task t = this.tasks.get(i - 1).mark();
+        Task t = TaskList.tasks.get(i - 1).mark();
         storage.writeToFile(tasks);
         return t;
     }
@@ -80,7 +80,7 @@ public class TaskList {
      * @throws IOException if there is an error writing to the storage.
      */
     public Task unmark(int i) throws IOException {
-        Task t = this.tasks.get(i - 1).unmark();
+        Task t = TaskList.tasks.get(i - 1).unmark();
         storage.writeToFile(tasks);
         return t;
     }
@@ -114,9 +114,9 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            sb.append(i + 1).append(".").append(this.tasks.get(i).toString());
-            if (i != this.tasks.size() - 1) {
+        for (int i = 0; i < TaskList.tasks.size(); i++) {
+            sb.append(i + 1).append(".").append(TaskList.tasks.get(i).toString());
+            if (i != TaskList.tasks.size() - 1) {
                 sb.append("\n");
             }
         }
