@@ -47,7 +47,7 @@ public class Parser {
      * @param input the input string
      * @return an array where the first element is the task description and the second element is the deadline
      */
-    public String[] deadlineParse(String input) {
+    public String[] parseDeadline(String input) {
         String[] deadlineArray = input.split(" /by ");
         String deadlineDescription = deadlineArray[0];
 
@@ -60,7 +60,7 @@ public class Parser {
      * @param input the input string
      * @return an array where the first element is the task description, the second element is the start time, and the third element is the end time
      */
-    public String[] eventParse(String input) {
+    public String[] parseEvent(String input) {
         String[] eventArray = input.split(" /at ");
         String eventDescription = eventArray[0];
         String[] eventTime = eventArray[1].split("-");
