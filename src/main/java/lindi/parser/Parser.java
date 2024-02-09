@@ -58,6 +58,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the index from the args
+     *
+     * @param args arguments from user input
+     * @return index from args
+     * @throws NumberFormatException if args is not a number
+     */
     private static int getIndexFromArgs(String args) throws NumberFormatException {
         return Integer.parseInt(args);
     }
