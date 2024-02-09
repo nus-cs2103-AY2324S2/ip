@@ -1,5 +1,7 @@
 package duke.dataprocessing;
 
+import java.time.LocalDate;
+
 import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
@@ -10,9 +12,18 @@ import duke.commands.MarkCommand;
 import duke.commands.UnknownCommand;
 import duke.exceptions.DukeException;
 
-import java.time.LocalDate;
-
+/**
+ * CommandParser class parses user input to create corresponding Command objects.
+ * It interprets the user's commands and arguments to determine the appropriate action to take.
+ */
 public class CommandParser {
+    /**
+     * Parses the full command entered by the user and creates the corresponding Command object.
+     *
+     * @param fullCommand The full command entered by the user.
+     * @return The Command object representing the parsed command.
+     * @throws DukeException If an error occurs during parsing or if the command is invalid.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String mainCommand = fullCommand.split(" ")[0];
         String subCommands = fullCommand.substring(fullCommand.indexOf(' ') + 1);

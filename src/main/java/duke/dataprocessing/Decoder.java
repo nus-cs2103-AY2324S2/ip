@@ -1,15 +1,25 @@
 package duke.dataprocessing;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
+/**
+ * Decoder class provides methods to decode task information from string representations.
+ */
 public class Decoder {
+    /**
+     * Decodes the specified string representation of a task into a Task object.
+     *
+     * @param s The string representation of the task.
+     * @return The Task object decoded from the string representation.
+     * @throws DukeException If an error occurs during decoding.
+     */
     public static Task decodeTask(String s) throws DukeException {
         String[] attributes = s.split(",");
         Task task = null;

@@ -1,9 +1,5 @@
 package duke.storage;
 
-import duke.exceptions.DukeException;
-import duke.dataprocessing.Decoder;
-import duke.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,13 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import duke.dataprocessing.Decoder;
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+
+/**
+ * Storage class handles the loading and updating of tasks from/to a file.
+ * It reads tasks from a specified file and writes tasks back to the same file.
+ */
 public class Storage {
-    String filepath;
+    private String filepath;
 
     public Storage(String filepath) throws DukeException {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DukeException If an error occurs while loading tasks from the file.
+     */
     public List<Task> load() throws DukeException {
         List<Task> taskList = new ArrayList<>();
         File f = new File(filepath);
@@ -35,6 +45,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Updates the file with the tasks from the given task list.
+     *
+     * @param taskList The list of tasks to be written to the file.
+     * @throws DukeException If an error occurs while updating the file.
+     */
     public void update(TaskList taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filepath);
