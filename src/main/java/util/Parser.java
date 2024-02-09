@@ -1,14 +1,11 @@
 package util;
 
-import java.util.Scanner;
-
 import exception.NarutoException;
 
 /**
  * The Parser class is responsible for parsing user input and extracting relevant information.
  */
 public class Parser {
-    private static Scanner sc = new Scanner(System.in);
 
     private Parser() {
         // Private constructor to prevent instantiation of the class
