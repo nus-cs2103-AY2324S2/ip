@@ -6,6 +6,7 @@ import duke.command.Command;
 import duke.command.CommandException;
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.task.TaskListException;
 import duke.utils.Parser;
 
 /**
@@ -73,7 +74,7 @@ public class Duke {
         try {
             Command command = Parser.parseInput(input);
             return command.run(this.taskList, this.storage);
-        } catch (CommandException e) {
+        } catch (CommandException | TaskListException e) {
             return e.getMessage();
         } catch (IOException e) {
             return "An error has occurred with the save file. Please restart.";

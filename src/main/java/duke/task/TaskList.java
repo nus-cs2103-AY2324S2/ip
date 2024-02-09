@@ -3,7 +3,6 @@ package duke.task;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import duke.command.CommandException;
 import duke.storage.LoadException;
 import duke.utils.Parser;
 
@@ -40,13 +39,10 @@ public class TaskList {
      *
      * @param index Index of task as displayed.
      * @return Message stating the deleted task.
-     * @throws CommandException Exception indicating invalid command when passed index does not exist.
+     * @throws TaskListException Exception indicating invalid command when passed index does not exist.
      */
-    public String deleteTask(int index) throws CommandException {
-        if (index <= 0 || index > this.taskList.size()) {
-            throw new CommandException("Error. Task of index " + index + " cannot be found.");
-        }
-        Task removedTask = this.taskList.remove(index - 1);
+    public String deleteTask(int index) throws TaskListException {
+        Task removedTask = this.removeTaskAtIndex(index);
         return "Removed: " + removedTask.getTaskInformation() + "\n" + this.getTotalTasks();
     }
 
@@ -64,13 +60,10 @@ public class TaskList {
      *
      * @param index Index of task as displayed.
      * @return Task completion message.
-     * @throws CommandException Exception indicating invalid command when passed index does not exist.
+     * @throws TaskListException Exception indicating invalid command when passed index does not exist.
      */
-    public String markTask(int index) throws CommandException {
-        if (index <= 0 || index > this.taskList.size()) {
-            throw new CommandException("Error. Task of index " + index + " cannot be found.");
-        }
-        Task task = this.taskList.get(index - 1);
+    public String markTask(int index) throws TaskListException {
+        Task task = this.getTaskAtIndex(index);
         task.markAsDone();
         return "Great job for finishing the task:\n" + task.getTaskInformation();
     }
@@ -80,15 +73,40 @@ public class TaskList {
      *
      * @param index Index of task as displayed.
      * @return Task incompletion message.
-     * @throws CommandException Exception indicating invalid command when passed index does not exist.
+     * @throws TaskListException Exception indicating invalid command when passed index does not exist.
      */
-    public String unmarkTask(int index) throws CommandException {
-        if (index <= 0 || index > this.taskList.size()) {
-            throw new CommandException("Error. Task of index " + index + " cannot be found.");
-        }
-        Task task = this.taskList.get(index - 1);
+    public String unmarkTask(int index) throws TaskListException {
+        Task task = this.getTaskAtIndex(index);
         task.unmarkAsDone();
         return "Take your time mate. Quality over quantity:\n" + task.getTaskInformation();
+    }
+
+    /**
+     *  Returns the task at specified index in taskList.
+     *
+     * @param index ArrayList index of task in taskList.
+     * @return Index of task as displayed.
+     * @throws TaskListException Exception thrown when index is out of bounds.
+     */
+    private Task getTaskAtIndex(int index) throws TaskListException {
+        if (index < 1 || index > this.taskList.size()) {
+            throw new TaskListException("Error. Task of index " + index + " cannot be found.");
+        }
+        return this.taskList.get(index - 1);
+    }
+
+    /**
+     *  Returns and removes the task at specified index in taskList.
+     *
+     * @param index ArrayList index of task in taskList.
+     * @return Index of task as displayed.
+     * @throws TaskListException Exception thrown when index is out of bounds.
+     */
+    private Task removeTaskAtIndex(int index) throws TaskListException {
+        if (index < 1 || index > this.taskList.size()) {
+            throw new TaskListException("Error. Task of index " + index + " cannot be found.");
+        }
+        return this.taskList.remove(index - 1);
     }
 
     /**

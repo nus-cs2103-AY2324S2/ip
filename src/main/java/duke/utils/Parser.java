@@ -82,23 +82,23 @@ public class Parser {
                 task = new ToDo(description);
                 break;
             case "D":
-                tokens = tokens[2].trim().split("/by");
-                description = tokens[0].trim();
+                String[] deadlineInfo = tokens[2].trim().split("/by");
+                description = deadlineInfo[0].trim();
                 if (description.isEmpty()) {
                     throw new LoadException("Description cannot be empty.");
                 }
-                LocalDateTime by = LocalDateTime.parse(tokens[1].trim(), Task.INPUT_DATETIME_FORMAT);
+                LocalDateTime by = LocalDateTime.parse(deadlineInfo[1].trim(), Task.INPUT_DATETIME_FORMAT);
                 task = new Deadline(description, by);
                 break;
             case "E":
-                tokens = tokens[2].split("/from");
-                description = tokens[0].trim();
+                String[] eventInfo = tokens[2].split("/from");
+                description = eventInfo[0].trim();
                 if (description.isEmpty()) {
                     throw new LoadException("Description cannot be empty.");
                 }
-                tokens = tokens[1].split("/to");
-                LocalDateTime from = LocalDateTime.parse(tokens[0].trim(), Task.INPUT_DATETIME_FORMAT);
-                LocalDateTime to = LocalDateTime.parse(tokens[1].trim(), Task.INPUT_DATETIME_FORMAT);
+                String[] fromToInfo = eventInfo[1].split("/to");
+                LocalDateTime from = LocalDateTime.parse(fromToInfo[0].trim(), Task.INPUT_DATETIME_FORMAT);
+                LocalDateTime to = LocalDateTime.parse(fromToInfo[1].trim(), Task.INPUT_DATETIME_FORMAT);
                 task = new Event(description, from, to);
                 break;
             default:

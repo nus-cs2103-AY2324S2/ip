@@ -8,6 +8,7 @@ import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.TaskListException;
 
 /**
  * Class to run Deadline Command.
@@ -42,7 +43,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
+    public String run(TaskList taskList, Storage storage) throws IOException, CommandException, TaskListException {
         String message = taskList.addTask(new Deadline(this.deadlineDescription, deadlineBy));
         storage.save(taskList.toDataString());
         return message;
