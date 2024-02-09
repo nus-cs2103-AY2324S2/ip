@@ -8,15 +8,14 @@ import java.time.format.DateTimeFormatter;
  * Subclasses (ToDo, Event, Deadline) provide specific implementations.
  */
 public abstract class Task {
+    /** Format style for dates of Tasks. */
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /** Description of duke.command.task as a string */
     private String description;
 
     /** Boolean Flag of whether the duke.command.task is done */
     private boolean isDone;
-
-    /** Format style for dates of Tasks. */
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
      * Constructs a task.
@@ -28,7 +27,6 @@ public abstract class Task {
         this.description = description;
         this.isDone = isDone;
     }
-
 
     /**
      * Creates instances of Task subclasses.

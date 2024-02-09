@@ -1,27 +1,27 @@
 package duke.task;
 
-import duke.exceptions.IllegalParamException;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
+import duke.exceptions.IllegalParamException;
 /**
  * Represents a collection of tasks and contains methods to manipulate this collection.
  */
-public class TaskList implements Iterable<Task>{
+public class TaskList implements Iterable<Task> {
     /** Stores tasks in a list */
     private List<Task> taskList = new ArrayList<>();
 
     @Override
     public String toString() {
         String out = "Here is the list of things I remember!\n";
-//        int count = 1;
 
         for (Task currentItem : this.taskList) {
             out += this.taskList.indexOf(currentItem) + 1 + "." + currentItem + "\n";
         }
-        return out.equals("Here is the list of things I remember!\n") ? "Looks like you have nothing to do! Yay!\n" : out;
+        return out.equals("Here is the list of things I remember!\n")
+                ? "Looks like you have nothing to do! Yay!\n"
+                : out;
     }
 
     @Override
