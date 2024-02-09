@@ -1,7 +1,5 @@
 package util;
 
-import java.util.Scanner;
-
 import action.Action;
 import action.Add;
 import action.Delete;

@@ -108,7 +108,6 @@ public class TaskList {
 
     /**
      * Returns the size of the task list.
-     * 
      * @return the size of the task list.
      */
     public int size() {
