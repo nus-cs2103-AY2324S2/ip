@@ -7,7 +7,8 @@ public class Messages {
     public static final String LINE_BREAK = "\n---------------------------------------------\n";
     public static final String ADD = "Added %s. When are you going to add 'feed Squid'?";
     public static final String HELLO = "HMm human. What do you want again?";
-    public static final String LIST = "Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.";
+    public static final String LIST =
+            "Here are your tasks. Sucks to be you, my only 2 tasks are eating and sleeping.\n";
     public static final String BYE = "You're done. Time for my food.";
     public static final String ECHO = "Squid: ";
     public static final String TODO = "Added todo\n%s";

@@ -103,7 +103,7 @@ public class Squid extends Application {
             return echo(message);
         }
         String[] params = message.split(" ", 2);
-        if (params.length <= 1) {
+        if (params.length <= 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(
                             Exceptions.NOT_ENOUGH_INPUTS, "echo", CorrectUsage.ECHO));
@@ -129,7 +129,7 @@ public class Squid extends Application {
      */
     private static String todo(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
         String[] params = message.split(" ", 2);
-        if (params.length <= 1) {
+        if (params.length <= 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(
                             Exceptions.NOT_ENOUGH_INPUTS, "todo", CorrectUsage.TODO));
@@ -154,7 +154,7 @@ public class Squid extends Application {
             DuplicateTaskNameException,
             SquidDateException {
         String[] params = message.split(" ", 2);
-        if (params.length <= 1) {
+        if (params.length <= 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(
                             Exceptions.NOT_ENOUGH_INPUTS,
@@ -191,7 +191,7 @@ public class Squid extends Application {
             DuplicateTaskNameException,
             SquidDateException {
         String[] params = message.split(" ", 2);
-        if (params.length <= 1) {
+        if (params.length <= 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(
                             Exceptions.NOT_ENOUGH_INPUTS,
@@ -228,7 +228,7 @@ public class Squid extends Application {
             NotEnoughInputsException,
             IncorrectIndexException {
         String[] params = input.split(" ", 2);
-        if (params.length <= 1) {
+        if (params.length <= 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(
                             Exceptions.NOT_ENOUGH_INPUTS,
@@ -268,7 +268,7 @@ public class Squid extends Application {
      */
     private static String delete(String input) throws NotEnoughInputsException, IncorrectIndexException {
         String[] params = input.split(" ", 2);
-        if (params.length == 1) {
+        if (params.length == 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(Exceptions.NOT_ENOUGH_INPUTS,
                             "delete",
@@ -282,7 +282,7 @@ public class Squid extends Application {
 
     private static String find(String input) throws NotEnoughInputsException {
         String[] params = input.split(" ", 2);
-        if (params.length == 1) {
+        if (params.length == 1 || params[1].isBlank()) {
             throw new NotEnoughInputsException(
                     String.format(Exceptions.NOT_ENOUGH_INPUTS, "find", CorrectUsage.FIND));
         }
@@ -421,7 +421,6 @@ public class Squid extends Application {
      * @throws SquidException General exception thrown by Squid.
      */
     private static Response parseInput(boolean isLoop, String input) {
-        System.out.println(Messages.LINE_BREAK);
         String[] messages = input.split(" ", 2);
         String command = messages[0];
         String res = "";
@@ -470,7 +469,7 @@ public class Squid extends Application {
             res = echo(e.getMessage());
         }
         res += "\n" + Messages.LINE_BREAK;
-        res = "\n" + Messages.LINE_BREAK + res;
+        res =  Messages.LINE_BREAK + res;
         return new Response(isLoop, res);
     }
 
