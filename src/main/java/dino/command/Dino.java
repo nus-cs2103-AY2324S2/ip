@@ -42,6 +42,7 @@ public class Dino {
      * @return String representation of command.
      */
     public String parseCommand(String input) {
+        assert input != null : "Input cannot be null";
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser(tasks);
         String[] parts = input.trim().split(" "); // Split into command and argument
