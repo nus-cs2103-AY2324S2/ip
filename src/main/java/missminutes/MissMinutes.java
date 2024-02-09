@@ -17,12 +17,7 @@ public class MissMinutes {
      */
     public MissMinutes(String filePath) {
         this.storage = new Storage(filePath);
-        try {
-            this.tasks = this.storage.loadTasks();
-        } catch (MissMinutesException err) {
-            System.out.println(err.getMessage());
-            this.tasks = new TaskList();
-        }
+        this.tasks = this.storage.loadTasks();
     }
 
     /**
