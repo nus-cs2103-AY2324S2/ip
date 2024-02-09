@@ -14,7 +14,7 @@ public class Parser {
             + "     Please use: deadline [description] /by [dd-mm-yyyy hhmm]";
     public static final String INVALID_TODO_INPUT = "OOPS!!! The description of a todo cannot be empty.";
     public static final String INVALID_INPUT = "OOPS!!! I'm sorry, but I don't know what that means :-(";
-    public static final String TASK_ALREADY_EXISTS = "Task already exists: ";
+    public static final String TASK_ALREADY_EXISTS = "Task already exists: \n";
 
     /**
      * Parses the user input and performs the corresponding action.
@@ -123,7 +123,7 @@ public class Parser {
             }
 
             if (tasks.containsTask(description)) {
-                return ui.showError(TASK_ALREADY_EXISTS + description);
+                return ui.showError(TASK_ALREADY_EXISTS + tasks.findTask(description));
             }
 
             tasks.addTask(new Todo(description));
@@ -155,7 +155,7 @@ public class Parser {
             String by = tokens[1].trim();
 
             if (tasks.containsTask(description)) {
-                return ui.showError(TASK_ALREADY_EXISTS + description);
+                return ui.showError(TASK_ALREADY_EXISTS + tasks.findTask(description));
             }
 
             tasks.addTask(new Deadline(description, by));
@@ -195,7 +195,7 @@ public class Parser {
             String to = fromTo[1].trim();
 
             if (tasks.containsTask(description)) {
-                return ui.showError(TASK_ALREADY_EXISTS + description);
+                return ui.showError(TASK_ALREADY_EXISTS + tasks.findTask(description));
             }
 
             tasks.addTask(new Event(description, from, to));

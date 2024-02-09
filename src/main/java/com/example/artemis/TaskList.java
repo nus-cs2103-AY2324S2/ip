@@ -59,4 +59,13 @@ public class TaskList {
         }
         return false;
     }
+
+    public String findTask(String description) {
+        for (int i = 0; i < tasks.size(); ++i) {
+            if (tasks.get(i).getDescription().equalsIgnoreCase(description)) {
+                return "     " + (i + 1) + "." + tasks.get(i).toString();
+            }
+        }
+        return "";
+    }
 }
