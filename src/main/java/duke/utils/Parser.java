@@ -5,9 +5,10 @@ import java.util.Hashtable;
 import java.util.Locale;
 
 import duke.commands.Command;
+import duke.commands.DeleteRecordCommand;
 import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
-import duke.commands.GenerateTaskCommand;
+import duke.commands.GenerateRecordCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.ModifyTaskCommand;
 import duke.exceptions.MissingInformationException;
@@ -65,17 +66,19 @@ public class Parser {
         case "find":
             return new FindCommand(paramsTable);
         case "todo":
-            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.TODO, paramsTable);
+            return new GenerateRecordCommand(GenerateRecordCommand.RecordType.TODO, paramsTable);
         case "event":
-            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.EVENT, paramsTable);
+            return new GenerateRecordCommand(GenerateRecordCommand.RecordType.EVENT, paramsTable);
         case "deadline":
-            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.DEADLINE, paramsTable);
+            return new GenerateRecordCommand(GenerateRecordCommand.RecordType.DEADLINE, paramsTable);
+        case "contact":
+            return new GenerateRecordCommand(GenerateRecordCommand.RecordType.CONTACT, paramsTable);
         case "mark":
             return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.MARK, paramsTable);
         case "unmark":
             return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.UNMARK, paramsTable);
         case "delete":
-            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.DELETE, paramsTable);
+            return new DeleteRecordCommand(paramsTable);
         default:
             throw new NoSuchCommandException(input);
         }
