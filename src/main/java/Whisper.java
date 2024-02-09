@@ -5,8 +5,9 @@ import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
-import java.io.ObjectOutputStream;
-import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Whisper {
     static String line = "-------------------------------------------------\n";
@@ -110,11 +111,24 @@ public class Whisper {
                 .append(task.isDone ? "1" : "0").append(" | ")
                 .append(task.getDescription());
 
-        if (task.getTaskCat() == Task.TaskCategory.D) {
-            formattedTask.append(" | ").append(task.getBy());
-        } else if (task.getTaskCat() == Task.TaskCategory.E) {
-            formattedTask.append(" | ").append(task.getFrom()).append("-").append(task.getTo());
+//        if (task.getTaskCat() == Task.TaskCategory.D) {
+//            formattedTask.append(" | ").append(task.getBy());
+//        } else if (task.getTaskCat() == Task.TaskCategory.E) {
+//            formattedTask.append(" | ").append(task.getFrom()).append("-").append(task.getTo());
+//        }
+
+        switch (task.getTaskCat()) {
+        case D:
+            formattedTask.append(" | ").append(task.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+            break;
+        case E:
+            formattedTask.append(" | ")
+                    .append(task.getEventFromDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
+                    .append("-")
+                    .append(task.getEventToDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+            break;
         }
+
 
         return formattedTask.toString();
     }
@@ -142,7 +156,10 @@ public class Whisper {
                 if (parts.length < 4) {
                     throw WhisperException.invalidFileFormat();
                 }
-                task = new Task(description, Task.TaskCategory.D).setBy(parts[3].trim());
+                String by = parts[3].trim();
+                LocalDateTime deadlineDateTime = parseDateTime(by);
+                //task = new Task(description, Task.TaskCategory.D).setBy(deadlineDateTime);
+                task = new Task(description, Task.TaskCategory.D, deadlineDateTime);
                 break;
             case "E":
                 if (parts.length < 4) {
@@ -154,7 +171,11 @@ public class Whisper {
                 if (timeParts.length == 2) {
                     String from = timeParts[0];
                     String to = timeParts[1];
-                    task = new Task(description, Task.TaskCategory.E).setFrom(from).setTo(to);
+                    LocalDateTime fromDateTime = parseDateTime(from);
+                    LocalDateTime toDateTime = parseDateTime(to);
+
+                    //task = new Task(description, Task.TaskCategory.E).setFrom(from).setTo(to);
+                    task = new Task(description, Task.TaskCategory.E, fromDateTime, toDateTime);
                 } else {
                     throw WhisperException.invalidFileFormat();
                 }
@@ -228,8 +249,15 @@ public class Whisper {
                 throw WhisperException.invalidEvent();
             }
 
+            // parse event date and time
+            LocalDateTime fromDateTime = parseDateTime(from);
+            LocalDateTime toDateTime = parseDateTime(to);
+            System.out.println("fromDateTime: " + fromDateTime);
+            System.out.println("toDateTime: " + toDateTime);
+
             // add new event to task list
-            Task event = new Task(eventName, Task.TaskCategory.E).setFrom(from).setTo(to);
+            //Task event = new Task(eventName, Task.TaskCategory.E).setFrom(from).setTo(to);
+            Task event = new Task(eventName, Task.TaskCategory.E, fromDateTime, toDateTime);
             taskList.add(event);
             System.out.println(line + "Got it. I've added this task:\n" + event.toString() +
                     "\n" + printTaskCount(taskList.size()) + "\n" + line);
@@ -255,13 +283,18 @@ public class Whisper {
 
             String deadlineName = descr[1];
             String by = deadlineStr[1].trim();
+
             // check if description or time is empty
             if (deadlineName.equals("") | by.equals("")) {
                 throw WhisperException.invalidDeadline();
             }
 
+            // parse date and time
+            LocalDateTime deadlineDateTime = parseDateTime(by);
+
             // add new deadline to task list
-            Task deadline = new Task(deadlineName, Task.TaskCategory.D).setBy(by);
+            //Task deadline = new Task(deadlineName, Task.TaskCategory.D).setBy(by);
+            Task deadline = new Task(deadlineName, Task.TaskCategory.D, deadlineDateTime);
             taskList.add(deadline);
             System.out.println(line + "Got it. I've added this task:\n" + deadline.toString() + "\n" +
                     printTaskCount(taskList.size()) + "\n" + line);
@@ -269,6 +302,12 @@ public class Whisper {
             System.out.println(e.getMessage());
         }
     }
+
+    // parse date and time
+    private static LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
+
 
     // display text when task is marked done
     public static void printTaskDone(int index) throws WhisperException {

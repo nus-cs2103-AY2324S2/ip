@@ -1,4 +1,6 @@
-import java.util.*;
+//import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     protected String description;
@@ -7,11 +9,28 @@ public class Task {
     protected String from;
     protected String to;
     protected String by;
+    protected LocalDateTime deadline;
+    protected LocalDateTime eventFromDateTime;
+    protected LocalDateTime eventToDateTime;
 
+    // Constuctor for each task category
     public Task(String description, TaskCategory cat) {
         this.description = description;
         this.isDone = false;
         this.category = cat;
+    }
+
+    // Deadline constructor
+    public Task(String description, TaskCategory cat, LocalDateTime deadline) {
+        this(description, cat);
+        this.deadline = deadline;
+    }
+
+    // Event constructor
+    public Task(String description, TaskCategory cat, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        this(description, cat);
+        this.eventFromDateTime = fromDateTime;
+        this.eventToDateTime = toDateTime;
     }
 
     // update task as done
@@ -54,6 +73,19 @@ public class Task {
         return this;
     }
 
+    // getter for date and time
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public LocalDateTime getEventFromDateTime() {
+        return eventFromDateTime;
+    }
+
+    public LocalDateTime getEventToDateTime() {
+        return eventToDateTime;
+    }
+
     // getter event
     public String getFrom() {
         return from;
@@ -69,31 +101,73 @@ public class Task {
         return by;
     }
 
+    // format datetime details for all task categories
+    private String formatDateTime() {
+        if (category == TaskCategory.D && deadline != null) {
+            return " (by: " + deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")) + ")";
+        } else if (category == TaskCategory.E && eventFromDateTime != null && eventToDateTime != null) {
+            return " (from: " + eventFromDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")) +
+                    " to: " + eventToDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")) + ")";
+        }
+        return "";
+    }
+
     @Override
     public String toString() {
-        return "[" + category + "]" + getStatusIcon() + getDescription() + category.getDetails(this);
+        return "[" + category + "]" + getStatusIcon() + getDescription() +
+                category.getDetails(this);
+//        return "[" + category + "]" + getStatusIcon() + getDescription() +
+//                formatDateTime();
     }
 
     // Enumeration for task categories
+//    public enum TaskCategory {
+//        T { // Todo
+//            @Override
+//            public String getDetails(Task task) {
+//                return "";
+//            }
+//        },
+//        E { // Events
+//            @Override
+//            public String getDetails(Task task) {
+//                return " (from: " + task.getFrom() + " to: " + task.getTo() + ")";
+//            }
+//        },
+//        D { // Deadline
+//            @Override
+//            public String getDetails(Task task) {
+//                return " (by: " + task.getBy() + ")";
+//            }
+//        };
+//        public abstract String getDetails(Task task);
+//    }
     public enum TaskCategory {
-        T { // Todo
+        T {
             @Override
             public String getDetails(Task task) {
                 return "";
             }
         },
-        E { // Events
+        E {
             @Override
             public String getDetails(Task task) {
-                return " (from: " + task.getFrom() + " to: " + task.getTo() + ")";
+                return " (from: " + task.getEventFromDateTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
+                        " to: " + task.getEventToDateTime().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
             }
         },
-        D { // Deadline
+        D {
             @Override
             public String getDetails(Task task) {
-                return " (by: " + task.getBy() + ")";
+                if (task.getDeadline() != null) {
+                    return " (by: " + task.getDeadline().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+                } else {
+                    return "";
+                }
             }
         };
+
         public abstract String getDetails(Task task);
     }
+
 }
