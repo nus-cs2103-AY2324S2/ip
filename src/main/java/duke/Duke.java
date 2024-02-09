@@ -3,7 +3,7 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
+/**
  * The Duke class represents a simple task management program.
  * Users can add, mark as done, unmark, list, delete and exit tasks.
  * Supports three types of tasks: Todo, Deadline, and Event.
