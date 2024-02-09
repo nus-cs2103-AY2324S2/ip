@@ -15,8 +15,8 @@ public class ExitCommand extends Command {
      * @param ui Existing UserInterface Object.
      * @param storage Existing Storage to be updated
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showExit();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showExit();
     }
 
     /**

@@ -32,9 +32,9 @@ public class FindTaskCommand extends Command {
      * @param storage Existing Storage to be updated
      * @throws DukeException
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> filteredList = taskList.findTask(this.keyword);
-        ui.showFilteredTask(filteredList, this.keyword);
+        return ui.showFilteredTask(filteredList, this.keyword);
     }
 
     /**

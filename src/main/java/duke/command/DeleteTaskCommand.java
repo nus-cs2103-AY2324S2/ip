@@ -32,20 +32,14 @@ public class DeleteTaskCommand extends Command {
      * @param storage Existing Storage to be updated
      * @throws DukeException
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        try {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
             Task deletedTask = taskList.deleteTask(indexToBeDeleted);
-            ui.showDeletedTask(deletedTask, taskList.listSize());
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, "
-                    + "consider checking the list command");
-        }
         try {
             storage.saveStorage(taskList.getTaskStore());
         } catch (IOException e) {
             ui.showError(e.getMessage());
         }
-
+        return ui.showDeletedTask(deletedTask, taskList.listSize());
     }
 
     /**

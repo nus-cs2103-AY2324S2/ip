@@ -11,25 +11,16 @@ public class Ui {
     /**
      * Prints out a welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm Pengu\n" + "What can I do for you?\n"
-                + "\nDid you know that the noise penguins make are called \"honks\"");
-        this.showLine();
+    public String showWelcome() {
+        return "Hello! I'm Pengu\n" + "What can I do for you?\n"
+                + "\nDid you know that the noise penguins make are called \"honks\"";
     }
 
     /**
      * Prints out a exit message.
      */
-    public void showExit() {
-        System.out.println("Bye. Hope to see you again soon! **HONK HONK**");
-        this.showLine();
-    }
-
-    /**
-     * Prints out a line divider String.
-     */
-    private void showLine() {
-        System.out.println("―――――――――――――――――――――――――――――――――――");
+    public String showExit() {
+        return "Bye. Hope to see you again soon! **HONK HONK**";
     }
 
     /**
@@ -37,19 +28,20 @@ public class Ui {
      *
      * @param taskList ArrayList of Tasks.
      */
-    public void showTaskListContents(ArrayList<Task> taskList) {
+    public String showTaskListContents(ArrayList<Task> taskList) {
+        String output;
         int storageSize = taskList.size();
         if (storageSize == 0) {
-            System.out.println("*Honk!* You currently have no tasks");
+            output = "*Honk!* You currently have no tasks";
         } else {
-            System.out.println("*Honk!* Pengu has listed your current tasks below:");
+            output = "*Honk!* Pengu has listed your current tasks below:";
             for (int k = 0; k < storageSize; k++) {
                 int curr = k + 1;
                 Task currTask = taskList.get(k);
-                System.out.println(curr + ". " + currTask.toString());
+                output = output + "\n" + curr + ". " + currTask.toString();
             }
         }
-        this.showLine();
+        return output;
     }
 
     /**
@@ -57,9 +49,8 @@ public class Ui {
      *
      * @param markedTask Task Object that was marked.
      */
-    public void showMarkedTask(Task markedTask) {
-        System.out.println("*Honk!* Good Job!, Pengu has marked this task as done:\n" + markedTask.toString());
-        this.showLine();
+    public String showMarkedTask(Task markedTask) {
+        return "*Honk!* Good Job!, Pengu has marked this task as done:\n" + markedTask.toString();
     }
 
     /**
@@ -67,9 +58,8 @@ public class Ui {
      *
      * @param unmarkedTask Task Object taht was unmarked.
      */
-    public void showUnmarkedTask(Task unmarkedTask) {
-        System.out.println("*Honk!* Pengu has marked this task as not done yet:\n" + unmarkedTask.toString());
-        this.showLine();
+    public String showUnmarkedTask(Task unmarkedTask) {
+        return "*Honk!* Pengu has marked this task as not done yet:\n" + unmarkedTask.toString();
     }
 
     /**
@@ -78,10 +68,10 @@ public class Ui {
      * @param deletedTask Task Object that was deleted.
      * @param taskStoreSize int of the size of TaskList.
      */
-    public void showDeletedTask(Task deletedTask, int taskStoreSize) {
-        System.out.println(String.format("*Honk* Pengu has removed the following task:\n" + deletedTask.toString()
-                + "\nNow you have %s tasks left", taskStoreSize));
-        this.showLine();
+    public String showDeletedTask(Task deletedTask, int taskStoreSize) {
+        String output = String.format("*Honk* Pengu has removed the following task:\n" + deletedTask.toString()
+                + "\nNow you have %s tasks left", taskStoreSize);
+        return output;
     }
 
     /**
@@ -89,9 +79,8 @@ public class Ui {
      *
      * @param errMessage error message.
      */
-    public void showError(String errMessage) {
-        System.out.println(errMessage);
-        this.showLine();
+    public String showError(String errMessage) {
+        return errMessage;
     }
 
     /**
@@ -100,10 +89,10 @@ public class Ui {
      * @param addedTask Task Object that was added.
      * @param taskStoreSize int of the size of the TaskList.
      */
-    public void showAddedTask(Task addedTask, int taskStoreSize) {
-        System.out.println(String.format("*Honk! Honk!* Pengu has added this task:\n" + addedTask.toString()
-                + "\nGet back to work! you have %s tasks in the list\n"
-                + "―――――――――――――――――――――――――――――――――――", taskStoreSize));
+    public String showAddedTask(Task addedTask, int taskStoreSize) {
+        String output = String.format("*Honk! Honk!* Pengu has added this task:\n" + addedTask.toString()
+                + "\nGet back to work! you have %s tasks in the list\n", taskStoreSize);
+        return output;
     }
 
     /**
@@ -112,20 +101,20 @@ public class Ui {
      * @param filteredList ArrayList of the Tasks that contain the keyword.
      * @param keyword String containing the keyword that was used to search within the TaskList.
      */
-    public void showFilteredTask(ArrayList<Task> filteredList, String keyword) {
+    public String showFilteredTask(ArrayList<Task> filteredList, String keyword) {
+        String output;
         if (filteredList.size() == 0) {
-            System.out.println(String.format("*Honk! no tasks with %s keyword found! "
-                    + "Maybe try looking at the list command", keyword));
-            this.showLine();
+            output = String.format("*Honk! no tasks with %s keyword found! "
+                    + "Maybe try looking at the list command", keyword);
         } else {
-            System.out.println(String.format("*Honk! Pengu has found the following tasks containing "
-                    + "the %s keyword:", keyword));
+            output = String.format("*Honk! Pengu has found the following tasks containing "
+                    + "the %s keyword:", keyword);
             for (int k = 0; k < filteredList.size(); k++) {
                 int curr = k + 1;
                 Task currTask = filteredList.get(k);
-                System.out.println(curr + ". " + currTask.toString());
+                output = output + "\n" + curr + ". " + currTask.toString();
             }
-            this.showLine();
         }
+        return output;
     }
 }
