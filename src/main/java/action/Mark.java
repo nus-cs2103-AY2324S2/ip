@@ -16,11 +16,11 @@ public class Mark implements Action {
      * Constructs a Mark object with the specified task list and index.
      *
      * @param taskList the task list to mark the task in
-     * @param i        the index of the task to mark
+     * @param idx        the index of the task to mark
      */
-    public Mark(TaskList taskList, int i) {
+    public Mark(TaskList taskList, int idx) {
         this.taskList = taskList;
-        this.idx = i;
+        this.idx = idx;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Mark implements Action {
     @Override
     public String execute() throws IOException {
         assert taskList != null : "Task list cannot be null";
-        assert i >= 0 && i < taskList.size() : "Invalid task index";
+        assert idx >= 0 && idx < taskList.size() : "Invalid task index";
 
         StringBuilder output = new StringBuilder();
         output.append("Great job! You marked that task off your list! Believe it! ᕕ( ᐛ )ᕗ\n")
