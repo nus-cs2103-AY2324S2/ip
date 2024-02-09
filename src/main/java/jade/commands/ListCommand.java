@@ -23,8 +23,8 @@ public class ListCommand extends Command {
     /**
      * Another Class constructor specifying the selected date.
      */
-    public ListCommand(LocalDate selectedDate) {
-        this.selectedDate = selectedDate;
+    public ListCommand(LocalDate selectedDateTime) {
+        this.selectedDate = selectedDateTime;
     }
 
     /**
@@ -34,7 +34,7 @@ public class ListCommand extends Command {
     public String execute(TaskList taskList, Storage storage) {
         if (taskList.isEmpty()) {
             // Show user that there are no tasks now
-            return "\tYou have no tasks now :-|";
+            return "You have no tasks now :-|";
         }
         if (selectedDate != null) {
             return handleListWithDate(taskList); // print tasks on a specific date
@@ -55,7 +55,7 @@ public class ListCommand extends Command {
             }
         }
         if (count == 0) {
-            return String.format("There are no tasks on %s", selectedDate
+            return String.format("You have no tasks on %s.", selectedDate
                     .format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
         return sb.toString();

@@ -9,22 +9,23 @@ import jade.ui.Ui;
  * The <code>InvalidCommand</code> object represents an invalid command.
  */
 public class InvalidCommand extends Command {
-    private final JadeException exception; // exception saved for possible further use
-
+    private String invalidMessage = "Input is invalid, please retry.";
+    /**
+     * The empty class constructor.
+     */
+    public InvalidCommand() {}
     /**
      * Class constructor specifying the JadeException.
      */
-    public InvalidCommand(JadeException e) {
-        this.exception = e;
+    public InvalidCommand(String exceptionMessage) {
+        this.invalidMessage = exceptionMessage;
     }
-
     /**
      * @inheritDoc This implementation prints an error message to user
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
-        String result = "Input is invalid, please retry.";
-        return result;
+        return invalidMessage;
     }
 
     /**

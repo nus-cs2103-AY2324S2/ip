@@ -59,7 +59,7 @@ public class Task {
      * Checks if the two dates are the same.
      * The Task class has no date, so the methods returns false by default.
      */
-    public boolean isSameDate(LocalDate date) {
+    public boolean isSameDate(LocalDate dateTime) {
         return false;
     }
 

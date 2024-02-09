@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,13 +65,14 @@ public class Storage {
                     savedTaskList.add(new Todo(task[2], isDone));
                     break;
                 case "D":
-                    savedTaskList.add(new Deadline(task[2], LocalDate.parse(task[3],
-                            DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
+                    savedTaskList.add(new Deadline(task[2], LocalDateTime.parse(task[3],
+                            DateTimeFormatter.ofPattern("MMM d yyyy hmma")), isDone));
                     break;
                 case "E":
-                    savedTaskList.add(new Event(task[2], LocalDate.parse(task[3], DateTimeFormatter
-                            .ofPattern("MMM d yyyy")), LocalDate.parse(task[4], DateTimeFormatter
-                            .ofPattern("MMM d yyyy")), isDone));
+                    String[] dateTimes = task[3].split(" - ");
+                    savedTaskList.add(new Event(task[2], LocalDateTime.parse(dateTimes[0], DateTimeFormatter
+                            .ofPattern("MMM d yyyy hmma")), LocalDateTime.parse(dateTimes[1], DateTimeFormatter
+                            .ofPattern("MMM d yyyy hmma")), isDone));
                     break;
                 default:
                     break;

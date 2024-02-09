@@ -1,36 +1,37 @@
 package jade.data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * The <code>Deadline</code> object represents a user task with a deadline date.
  */
 public class Deadline extends Task {
-    protected LocalDate deadlineDate;
+    protected LocalDateTime deadlineDateTime;
 
     /**
      * Class constructor specifying the deadline description and deadline date.
      */
-    public Deadline(String description, LocalDate deadlineDate) {
+    public Deadline(String description, LocalDateTime deadlineDateTime) {
         super(description);
-        this.deadlineDate = deadlineDate;
+        this.deadlineDateTime = deadlineDateTime;
     }
 
     /**
      * Another Class constructor.
      * Specifying the deadline description, deadline date, and the completion status.
      */
-    public Deadline(String description, LocalDate deadlineDate, boolean isDone) {
+    public Deadline(String description, LocalDateTime deadlineDateTime, boolean isDone) {
         super(description, isDone);
-        this.deadlineDate = deadlineDate;
+        this.deadlineDateTime = deadlineDateTime;
     }
 
     /**
      * Returns a formatted string of the deadline date.
      */
     public String dateFormatter() {
-        return deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hmma"));
     }
 
     /**
@@ -38,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean isSameDate(LocalDate date) {
-        return date.equals(deadlineDate);
+        return date.equals(deadlineDateTime.toLocalDate());
     }
 
     @Override

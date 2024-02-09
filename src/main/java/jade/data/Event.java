@@ -1,62 +1,64 @@
 package jade.data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The <code>Event</code> object represents a user task with a start date and an end date.
+ * The <code>Event</code> object represents a user task with a start DateTime and an end DateTime.
  */
 public class Event extends Task {
-    protected LocalDate startDate;
-    protected LocalDate endDate;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
 
     /**
-     * Class constructor specifying the event description, start date, and end date.
+     * Class constructor specifying the event description, start DateTime, and end DateTime.
      */
-    public Event(String description, LocalDate startDate, LocalDate endDate) {
+    public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     /**
      * Another Event constructor.
-     * Specifying the deadline description, start date, end date, and the completion status.
+     * Specifying the deadline description, start DateTime, end DateTime, and the completion status.
      */
-    public Event(String description, LocalDate startDate, LocalDate endDate, boolean isDone) {
+    public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isDone) {
         super(description, isDone);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
 
     /**
-     * Returns a formatted string of the LocalDate object.
+     * Returns a formatted string of the LocalDateTime object.
      */
-    public String dateFormatter(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public String dateTimeFormatter(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hmma"));
     }
 
     /**
-     * @inheritDoc This implementation checks whether the event dates include the date.
+     * @inheritDoc This implementation checks whether the event DateTimes include the DateTime.
      */
     @Override
-    public boolean isSameDate(LocalDate date) {
-        return (date.isBefore(endDate) && date.isAfter(startDate) || date.equals(startDate) || date.equals(endDate));
+    public boolean isSameDate(LocalDate dateTime) {
+        return (dateTime.isBefore(endDateTime.toLocalDate()) && dateTime.isAfter(startDateTime.toLocalDate()))
+                || dateTime.equals(startDateTime.toLocalDate()) || dateTime.equals(endDateTime.toLocalDate());
     }
 
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                dateFormatter(startDate), dateFormatter(endDate));
+                dateTimeFormatter(startDateTime), dateTimeFormatter(endDateTime));
     }
 
     /**
-     * @inheritDoc Adds the start date and end date at the end.
+     * @inheritDoc Adds the start DateTime and end DateTime at the end.
      */
     @Override
     public String taskFormatter() {
         return String.format("E | %s | %s | %s - %s\n", statusFormatter(),
-                description, dateFormatter(startDate), dateFormatter(endDate));
+                description, dateTimeFormatter(startDateTime), dateTimeFormatter(endDateTime));
     }
 }

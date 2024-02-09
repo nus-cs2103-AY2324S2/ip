@@ -2,6 +2,8 @@ package jade.parser;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import jade.commands.AddCommand;
@@ -17,9 +19,6 @@ import jade.data.Deadline;
 import jade.data.Event;
 import jade.data.Todo;
 import jade.exception.JadeException;
-
-
-
 
 /**
  * The <code>Parser</code> object to parse command line input from user.
@@ -37,7 +36,7 @@ public class Parser {
      * @return The concatenated description of the task.
      * @throws JadeException If IllegalArgumentException is caught.
      */
-    public static String concatDescription(String[] commands, String start, String end) throws JadeException {
+    public static String concatStringWithTextBound(String[] commands, String start, String end) throws JadeException {
         try {
             int startIndex = start.isEmpty() ? 1 : Arrays.asList(commands).indexOf(start) + 1;
             int endIndex = end.isEmpty() ? commands.length : Arrays.asList(commands).indexOf(end);
@@ -57,7 +56,21 @@ public class Parser {
      */
     public static void checkEmptyDescription(int length, String... commands) throws JadeException {
         if (commands.length < length) {
-            throw new JadeException("\tYour task description cannot be empty!");
+            throw new JadeException("Your task description cannot be empty!");
+        }
+    }
+
+    /**
+     * Returns a LocalDateTime object by parsing the dateTime string.
+     *
+     * @param dateTime The dateTime to be parsed.
+     * @throws JadeException If DateTimeException is caught.
+     */
+    public static LocalDateTime parseDateTime(String dateTime) throws JadeException {
+        try {
+            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd hmma"));
+        } catch (DateTimeException e) {
+            throw new JadeException("Your date format is invalid!");
         }
     }
 
@@ -71,7 +84,7 @@ public class Parser {
         try {
             return LocalDate.parse(date);
         } catch (DateTimeException e) {
-            throw new JadeException("\tYour date format is invalid!");
+            throw new JadeException("Your date format is invalid!");
         }
     }
 
@@ -85,10 +98,9 @@ public class Parser {
         try {
             return Integer.parseInt(intStr);
         } catch (NumberFormatException e) {
-            throw new JadeException("\tPlease input a valid number!");
+            throw new JadeException("Please input a valid number!");
         }
     }
-
     /**
      * Returns a Command object by parsing the single line user input.
      *
@@ -100,19 +112,19 @@ public class Parser {
             switch (commands[0]) {
             case "todo":
                 checkEmptyDescription(2, commands);
-                return new AddCommand(new Todo(concatDescription(commands, "", "")));
+                return new AddCommand(new Todo(concatStringWithTextBound(commands, "", "")));
             case "deadline":
-                checkEmptyDescription(3, commands);
-                return new AddCommand(new Deadline(concatDescription(commands, "", "/by"),
-                        parseDate(concatDescription(commands, "/by", ""))));
+                checkEmptyDescription(5, commands);
+                return new AddCommand(new Deadline(concatStringWithTextBound(commands, "", "/by"),
+                        parseDateTime(concatStringWithTextBound(commands, "/by", ""))));
             case "event":
-                checkEmptyDescription(4, commands);
-                return new AddCommand(new Event(concatDescription(commands, "", "/from"),
-                        parseDate(concatDescription(commands, "/from", "/to")),
-                        parseDate(concatDescription(commands, "/to", ""))));
+                checkEmptyDescription(8, commands);
+                return new AddCommand(new Event(concatStringWithTextBound(commands, "", "/from"),
+                        parseDateTime(concatStringWithTextBound(commands, "/from", "/to")),
+                        parseDateTime(concatStringWithTextBound(commands, "/to", ""))));
             case "list":
                 if (commands.length != 1) {
-                    return new ListCommand(parseDate(concatDescription(commands, "", "")));
+                    return new ListCommand(parseDate(concatStringWithTextBound(commands, "", "")));
                 }
                 return new ListCommand();
             case "mark":
@@ -126,15 +138,15 @@ public class Parser {
                 return new DeleteCommand(parseInt(commands[1]));
             case "find":
                 checkEmptyDescription(2, commands);
-                return new FindCommand(concatDescription(commands, "", ""));
+                return new FindCommand(concatStringWithTextBound(commands, "", ""));
             case "bye":
                 checkEmptyDescription(1, commands);
                 return new ExitCommand();
             default:
-                return new InvalidCommand(new JadeException("\tInput is invalid, please retry.\n"));
+                return new InvalidCommand();
             }
         } catch (JadeException e) {
-            return new InvalidCommand(e);
+            return new InvalidCommand(e.getMessage());
         }
     }
 }
