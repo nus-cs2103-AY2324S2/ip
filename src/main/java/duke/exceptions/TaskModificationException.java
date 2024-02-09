@@ -13,6 +13,6 @@ public class TaskModificationException extends DukeException {
      * @param errorMsg Reason for task modification failure.
      */
     public TaskModificationException(String errorMsg) {
-        super(errorMsg);
+        super("Error Modifying Task! " + errorMsg);
     }
 }

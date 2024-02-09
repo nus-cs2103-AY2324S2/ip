@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import duke.commands.Command;
 import duke.commands.ExitCommand;
-import duke.commands.GenerateTaskCommand;
+import duke.commands.GenerateRecordCommand;
 import duke.commands.ModifyTaskCommand;
 import duke.exceptions.NoSuchCommandException;
 
@@ -16,7 +16,7 @@ public class ParserTest {
     public void generateTodo() {
         try {
             Command c = Parser.parse("todo task1");
-            assert (c instanceof GenerateTaskCommand);
+            assert (c instanceof GenerateRecordCommand);
         } catch (NoSuchCommandException e) {
             fail();
         }
@@ -26,7 +26,7 @@ public class ParserTest {
     public void generateDeadlineTest() {
         try {
             Command c = Parser.parse("deadline task2 /by 12/11/2024, 13:00");
-            assert (c instanceof GenerateTaskCommand);
+            assert (c instanceof GenerateRecordCommand);
         } catch (NoSuchCommandException e) {
             fail();
         }

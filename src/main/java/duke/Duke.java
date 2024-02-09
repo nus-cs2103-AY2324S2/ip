@@ -6,11 +6,9 @@ import java.time.format.DateTimeParseException;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.exceptions.TaskCreationException;
-import duke.exceptions.TaskModificationException;
+import duke.utils.Database;
 import duke.utils.Parser;
 import duke.utils.Storage;
-import duke.utils.TaskList;
 
 /**
  * This class implements the functionality of the Duke bot.
@@ -20,14 +18,14 @@ import duke.utils.TaskList;
 public class Duke {
 
     private Storage storage;
-    private TaskList tasks;
+    private Database db;
     private boolean isRunning;
 
     /**
      * Initialises Duke object with an empty tasklist and empty storage.
      */
     public Duke() {
-        this.tasks = new TaskList();
+        this.db = new Database();
         this.storage = null;
         this.isRunning = true;
     }
@@ -50,16 +48,24 @@ public class Duke {
     public String loadSave(String filePath) {
 
         if (isRunning) {
+
+            String status = "";
+
             try {
                 this.storage = new Storage(filePath);
-                this.tasks = storage.readSaveData();
-                return tasks.size() + " Tasks loaded from save";
+                status = storage.readSaveData(this.db) + "\n";
+                status = status + db.taskListSize() + " Tasks loaded from save\n";
+                status = status + db.contactListSize() + " Contacts loaded from save\n";
             } catch (FileNotFoundException e) {
-                return "Error reading file: " + e.getMessage() + "\nMaking new task list";
+                status = "Error reading file: " + e.getMessage() + "\nMaking new database";
             } catch (IOException e) {
-                return "Save file could not be generated: " + e.getMessage() + "\nMaking new task list";
+                status = "Save file could not be generated: " + e.getMessage() + "\nMaking new database";
             }
+
+            return status;
+
         }
+
         assert !this.isRunning();
         return "Duke is not running";
     }
@@ -75,26 +81,17 @@ public class Duke {
         if (isRunning) {
             try {
                 Command c = Parser.parse(input);
-                String response = c.execute(tasks, storage);
+                String response = c.execute(db, storage);
                 if (storage != null) {
-                    storage.saveTodoData(tasks);
+                    storage.saveData(db);
                 }
                 if (c.isExitCommand()) {
                     this.isRunning = false;
                 }
                 return response;
-            } catch (TaskCreationException e) {
-                return "Error Creating Task! " + e.getMessage();
             } catch (DateTimeParseException e) {
                 return "Error parsing datetime: " + e.getMessage()
                         + "\nUse the format \"DD/MM/YYYY, HH:MM\" to enter date and time.";
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace(System.out);
-                return e.getMessage();
-            } catch (NumberFormatException e) {
-                return "Invalid selection for marking or deletion: " + e;
-            } catch (TaskModificationException e) {
-                return "Error Modifying Task: " + e.getMessage();
             } catch (IOException e) {
                 return e.getMessage();
             } catch (DukeException e) {

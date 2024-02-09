@@ -5,10 +5,10 @@ package duke.exceptions;
  *
  * @author delishad21
  */
-public class MissingParameterException extends TaskCreationException {
+public class MissingParameterException extends DukeException {
 
     /**
-     * Creates a TaskCreationException, thrown when a user task is unable to be created.
+     * Creates a TaskCreationException, thrown when a task is unable to be created.
      *
      * @param missingParameters All missing parameters in creation of the task.
      */

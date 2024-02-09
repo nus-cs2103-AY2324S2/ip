@@ -5,10 +5,11 @@ package duke.exceptions;
  *
  * @author delishad21
  */
-public class MissingInformationException extends TaskCreationException {
+public class MissingInformationException extends DukeException {
 
     /**
-     * Creates a TaskInformationException, thrown when a user task is unable to be created.
+     * Creates a MissingInformationException, thrown when a task is unable to be created due to
+     * missing information.
      *
      * @param missingParameters All missing information in creation of the task.
      */

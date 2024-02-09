@@ -2,10 +2,11 @@ package duke.commands;
 
 import java.util.Hashtable;
 
+import duke.contacts.Contact;
 import duke.exceptions.MissingInformationException;
 import duke.tasks.Task;
+import duke.utils.Database;
 import duke.utils.Storage;
-import duke.utils.TaskList;
 
 /**
  * This class implements the find Command, when executed, it searches for tasks matching user input in the
@@ -30,26 +31,37 @@ public class FindCommand extends Command {
     /**
      * Executes the find command, finds item in the TaskList provided.
      *
-     * @param tasks the current list of tasks.
+     * @param db the current database of records.
      * @param storage Storage object with save file.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws MissingInformationException {
+    public String execute(Database db, Storage storage) throws MissingInformationException {
         if (description.equals("")) {
             throw new MissingInformationException("description");
         }
 
         String toFind = description.trim();
-        String foundtasks = "";
+        String foundRecords = "";
 
-        for (int i = 1; i <= tasks.size(); i++) {
-            Task task = tasks.get(i);
+        foundRecords += "__________\nTasks\n__________\n";
+
+        for (int i = 1; i <= db.taskListSize(); i++) {
+            Task task = db.getTask(i);
             if (task.getDescription().contains(toFind)) {
-                foundtasks += i + "." + task + "\n";
+                foundRecords += i + "." + task + "\n";
             }
         }
 
-        return foundtasks;
+        foundRecords += "__________\nContacts\n__________\n";
+
+        for (int i = 1; i <= db.contactListSize(); i++) {
+            Contact contact = db.getContact(i);
+            if (contact.toString().contains(toFind)) {
+                foundRecords += i + "." + db.getContact(i - 1) + "\n";
+            }
+        }
+
+        return foundRecords;
 
     }
 }

@@ -42,12 +42,13 @@ public class StorageTest {
 
             fw.close();
             Storage s = new Storage("data/test.txt");
-            TaskList taskList = s.readSaveData();
+            Database taskList = new Database();
+            s.readSaveData(taskList);
 
-            assertTrue(taskList.size() == 3);
-            assertTrue(taskList.get(1) instanceof Todo);
-            assertTrue(taskList.get(2) instanceof Deadline);
-            assertTrue(taskList.get(3) instanceof Event);
+            assertTrue(taskList.taskListSize() == 3);
+            assertTrue(taskList.getTask(1) instanceof Todo);
+            assertTrue(taskList.getTask(2) instanceof Deadline);
+            assertTrue(taskList.getTask(3) instanceof Event);
             file.delete();
 
         } catch (IOException e) {
