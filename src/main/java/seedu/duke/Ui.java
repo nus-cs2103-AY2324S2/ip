@@ -87,6 +87,9 @@ public class Ui {
                 System.out.println(i + 1 + "." + list.get(i));
                 // won't be in order
             }
+            else{
+                System.out.println("not found");
+            }
         }
         printBreak();
     }

@@ -15,7 +15,6 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-//            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
@@ -44,15 +43,14 @@ public class Duke {
             } else if (word.startsWith("event")) {
                 Parser.parseEvent(word, tasks, ui);
                 word = sc.nextLine();
-            } else if (word.startsWith("delete")) {
-                Parser.parseDelete(word, tasks, ui);
-                word = sc.nextLine();
-                /*
             } else if (word.startsWith("find")) {
                 //add
                 Parser.parseFind(word, tasks, ui);
+                System.out.println("what");
                 word = sc.nextLine();
-                 */
+            } else if (word.startsWith("delete")) {
+                Parser.parseDelete(word, tasks, ui);
+                word = sc.nextLine();
             } else {
                 try {
                     throw new DukeException("Sorry, I didn't understand that.");
