@@ -839,9 +839,11 @@ class AddEventCommand extends Command {
 
 class FindCommand extends Command {
     private String keyword;
+    private String test;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
+        this.test = "test";
     }
 
     @Override
