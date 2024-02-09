@@ -82,6 +82,11 @@ public class TaskList {
         return fileStringBuilder.toString();
     }
 
+    /**
+     * Converts a string representation of tasks from a file to a TaskList object.
+     *
+     * @return The TaskList object containing tasks parsed from the file string.
+     */
     public static TaskList convertFileStringToTaskList() {
         String fileString = FileManager.readFile(FILE_NAME);
         TaskList newTaskList = new TaskList();

@@ -3,9 +3,13 @@ package helpers;
 import tasks.Task;
 import java.util.Scanner;
 
+/**
+ * The Ui class handles user interface operations.
+ */
 public class Ui {
     // Constants
     private static final String CHATBOT_NAME = "Chitty";
+    private static final String SPACING = "----------------------------------------------------------\n";
     private static final String GREETING_MESSAGE = String.format("Hello! I'm %s\nWhat can I do for you?\n", CHATBOT_NAME);
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!\n";
     private static final String ADD_TASK = "Got it. I've added this task:\n";
@@ -17,14 +21,21 @@ public class Ui {
     private static final String INVALID_INPUT = "Invalid input, please double check your input values!\n";
     private static final String INVALID_COMMAND = "Invalid command, please only use the following commands:\n" +
             "todo, deadline, event, list, mark, unmark, delete, bye \n";
-    private static final String SPACING = "----------------------------------------------------------\n";
 
     private final Scanner scanner;
 
+    /**
+     * Constructs a Ui object and initializes the scanner for user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads user input from the console.
+     *
+     * @return The user input as a string.
+     */
     public String readInput() {
         return scanner.hasNextLine() ? scanner.nextLine() : "";
     }
@@ -41,30 +52,6 @@ public class Ui {
      */
     public void displayGoodByeMessage() {
         System.out.println(SPACING + GOODBYE_MESSAGE + SPACING);
-    }
-
-    public void displayAddedTask(Task task, int length) {
-        System.out.println(SPACING + ADD_TASK + task + "\n" +
-                String.format(TASK_LENGTH, length) + SPACING);
-    }
-
-    public void displayMarkedTask(Task task) {
-        System.out.println(SPACING + MARK_TASK + task + "\n" + SPACING);
-    }
-
-    public void displayUnmarkedTask(Task task) {
-        System.out.println(SPACING + UNMARK_TASK + task + "\n" + SPACING);
-    }
-
-    public void displayDeletedTask(Task task, int length) {
-        System.out.println(SPACING + DELETE_TASK + task + "\n" +
-                String.format(TASK_LENGTH, length) + SPACING);
-    }
-    /**
-     * Lists all tasks in the task list.
-     */
-    public void listTasks(TaskList taskList) {
-        System.out.println(SPACING + LIST_TASKS + taskList + SPACING);
     }
 
     /**
@@ -88,5 +75,54 @@ public class Ui {
      */
     public void displayInvalidCommandMessage() {
         System.out.println(SPACING + INVALID_COMMAND + SPACING);
+    }
+
+    /**
+     * Displays a message indicating that a task has been added.
+     *
+     * @param task   The task that has been added.
+     * @param length The number of tasks in the list after adding the task.
+     */
+    public void displayAddedTask(Task task, int length) {
+        System.out.println(SPACING + ADD_TASK + task + "\n" +
+                String.format(TASK_LENGTH, length) + SPACING);
+    }
+
+    /**
+     * Displays a message indicating that a task has been marked as completed.
+     *
+     * @param task The task that has been marked as completed.
+     */
+    public void displayMarkedTask(Task task) {
+        System.out.println(SPACING + MARK_TASK + task + "\n" + SPACING);
+    }
+
+    /**
+     * Displays a message indicating that a task has been unmarked.
+     *
+     * @param task The task that has been unmarked.
+     */
+    public void displayUnmarkedTask(Task task) {
+        System.out.println(SPACING + UNMARK_TASK + task + "\n" + SPACING);
+    }
+
+    /**
+     * Displays a message indicating that a task has been deleted.
+     *
+     * @param task   The task that has been deleted.
+     * @param length The number of tasks in the list after deleting the task.
+     */
+    public void displayDeletedTask(Task task, int length) {
+        System.out.println(SPACING + DELETE_TASK + task + "\n" +
+                String.format(TASK_LENGTH, length) + SPACING);
+    }
+
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @param taskList The task list to be displayed.
+     */
+    public void listTasks(TaskList taskList) {
+        System.out.println(SPACING + LIST_TASKS + taskList + SPACING);
     }
 }
