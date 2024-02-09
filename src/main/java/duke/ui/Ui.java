@@ -5,6 +5,7 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 
 import java.util.Scanner;
+import java.util.function.Function;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,22 +13,31 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Ui extends Application {
-    public void showWelcome() {
-        System.out.println("Hello! I'm Fluffy, \nWhat can I do for you?");
-        showLine();
-    }
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Image loki = new Image(this.getClass().getResourceAsStream("/images/loki.png"));
+    private Image thor = new Image(this.getClass().getResourceAsStream("/images/thor.png"));
+
+    private Function<String, String> commandHandler;
+
+    public Ui() {
+    }
+
+    public Ui(Function<String, String> commandHandler) {
+        this.commandHandler = commandHandler;
+    }
 
     @Override
     public void start(Stage stage) {
@@ -50,7 +60,7 @@ public class Ui extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Fluffy");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -81,28 +91,65 @@ public class Ui extends Application {
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
+
+        showWelcome();
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Exits the program.
      */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
+    public void exit() {
+        System.exit(0);
+    }
 
-        return textToAdd;
+    /**
+     * Handles the user input and displays the response.
+     */
+    public void handleUserInput() {
+        String userInputString = userInput.getText();
+        userSpeak(userInputString);
+        fluffySpeak(getResponse(userInputString));
+        userInput.clear();
+    }
+
+    /**
+     * Displays the response from User.
+     * @param message The response from User.
+     */
+    public void userSpeak(String message) {
+        Label response = new Label(message);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(response, new ImageView(loki))
+        );
+    }
+
+    /**
+     * Displays the response from Fluffy.
+     * @param message The response from Fluffy.
+     */
+    public void fluffySpeak(String message) {
+        Label response = new Label(message);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, new ImageView(thor))
+        );
+    }
+
+    private String getResponse(String input) {
+        return commandHandler.apply(input);
+    }
+
+    public void showWelcome() {
+        fluffySpeak("Hello! I'm Fluffy, \nWhat can I do for you?");
+    }
+
+    public void setCommandHandler(Function<String, String> commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     public void showLine() {

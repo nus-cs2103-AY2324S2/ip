@@ -10,6 +10,7 @@ import duke.tasklist.TaskList;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,11 @@ public class Storage {
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         try {
-            Files.createDirectories(Paths.get(filePath));
+            Path path = Paths.get(filePath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
             List<String> lines = Files.readAllLines(Paths.get(filePath));
             for (String line : lines) {
                 tasks.add(decodeTask(line));
