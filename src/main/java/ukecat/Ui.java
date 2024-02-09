@@ -44,17 +44,29 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public void welcome() {
-        System.out.println(LINE + WELCOME + LINE);
+        System.out.println(LINE + WELCOME_GUI + LINE);
     }
 
     // Hardcoded messages
     public static final String LINE = "________________________________________________________________________\n";
-    public static final String WELCOME =
+    public static final String WELCOME_CONSOLE =
             "                    /~(_)~\\.    Hi! I'm UkeCat, a cat with an ukulele!\n"
                     + " /= ••\\      /~(_)~\\        \\   \\| /\\           What can I do for you?\n"
-                    + "K=|=|=|=|=|=|=|=|=(  )===]  |     (`~ o7 \n"
-                    + " \\= ••/      \\_(~)_/        /    c\\   c\\ \n"
+                    + "K=|=|=|=|=|=|=|=|=(  )===]  |      (`~ o7 \n"
+                    + " \\= ••/      \\_(~)_/        /   c\\   c\\ \n"
                     + "                    \\_(~)_/`     U`U_, )=~~ \n";
+
+
+    public static String line0 = " Hi! I'm UkeCat, a cat with an ukulele!\n What can I do for you?";
+    public static String line1 = "                     /~(_)~\\.   ";
+    public static String line2 = "  /=.. \\      /~(_)~\\        \\   /\\";
+    public static String line3 = " K=|=|=|=|=|=|=|=|=(  )===]  |  (`~ o7";
+    public static String line4 = "  \\=.. /      \\_(~)_/        / c\\   c\\";
+    public static String line5 = "                     \\_(~)_/`   U`U_, )=~~";
+
+    public static final String WELCOME_GUI = String.format("%s%n%s%n%s%n%s%n%s%n%s%n",
+            line0, line1, line2, line3, line4, line5);
+
     public static final String BYE =
             "  +--------------------+" + "    /\\_/\\\n" +
                     "  |Meow~ See you again!|" + "   =~.~=|\n" +
