@@ -30,6 +30,9 @@ public class Delete implements Action {
      */
     @Override
     public String execute() throws IOException {
+        assert taskList != null : "Task list cannot be null";
+        assert idx >= 0 && idx < taskList.getSize() : "Invalid index";
+
         Task task = this.taskList.delete(this.idx);
         int size = this.taskList.getSize();
         String plural = size == 1 ? "task" : "tasks";
