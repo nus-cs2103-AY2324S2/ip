@@ -1,6 +1,8 @@
 package nollid.commands;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import nollid.Storage;
 import nollid.TaskList;
@@ -41,15 +43,12 @@ public class FindCommand extends Command {
         checkOnlyOneKeyword();
 
         String keyword = argsList.get(1);
-
         TaskList results = new TaskList();
 
-        // If task description contains keyword, add to result list
-        for (Task t : tasks) {
-            if (t.getDescription().contains(keyword)) {
-                results.add(t);
-            }
-        }
+        Stream<Task> taskStream = StreamSupport.stream(tasks.spliterator(), false);
+        taskStream
+                .filter(task -> task.getDescription().contains(keyword))
+                .forEach(results::add);
 
         return getResultsString(results);
     }
