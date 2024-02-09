@@ -147,13 +147,13 @@ public class Parser {
      */
     public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
-            return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
+            return String.format("T,%s,%s", t.getStatus(), t.getDescription());
         } else if (t instanceof Deadline) {
             Deadline x = (Deadline) t;
-            return String.format("D,%d,%s,%s", t.getIntIsDone(), t.getDescription(), x.getBy());
+            return String.format("D,%s,%s,%s", t.getStatus(), t.getDescription(), x.getBy());
         } else { // instanceof ukecat.Event
             Event x = (Event) t;
-            return String.format("E,%d,%s,%s,%s", t.getIntIsDone(), t.getDescription(),
+            return String.format("E,%s,%s,%s,%s", t.getStatus(), t.getDescription(),
                     x.getStart(), x.getEnd());
         }
     }

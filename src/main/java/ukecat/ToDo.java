@@ -18,11 +18,11 @@ public class ToDo extends Task {
     /**
      * Constructs a new ToDo task with the specified status and description.
      *
-     * @param isDone      The status of the ToDo task ("0" for not done, "1" for done).
+     * @param status      The status of the ToDo task
      * @param description The description of the ToDo task.
      */
-    public ToDo(String isDone, String description) {
-        super(isDone, description);
+    public ToDo(TaskStatus status, String description) {
+        super(status, description);
     }
 
     /**

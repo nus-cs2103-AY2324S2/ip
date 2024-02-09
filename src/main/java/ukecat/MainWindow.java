@@ -63,7 +63,7 @@ public class MainWindow extends AnchorPane {
 
         if (response.equals(Ui.BYE)) {
             // If the user entered "bye," add a pause before system exit
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> System.exit(0));
             pause.play();
         }

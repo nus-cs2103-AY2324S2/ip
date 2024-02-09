@@ -24,12 +24,12 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline task with the specified status, description, and deadline.
      *
-     * @param isDone      The status of the Deadline task ("0" for not done, "1" for done).
+     * @param status      The status of the Deadline task.
      * @param description The description of the Deadline task.
      * @param by          The deadline date of the task.
      */
-    public Deadline(String isDone, String description, LocalDate by) {
-        super(isDone, description);
+    public Deadline(TaskStatus status, String description, LocalDate by) {
+        super(status, description);
         this.by = by;
     }
 

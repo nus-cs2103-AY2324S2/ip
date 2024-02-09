@@ -27,13 +27,13 @@ public class Event extends Task {
     /**
      * Constructs a new Event task with the specified status, description, start date, and end date.
      *
-     * @param isDone      The status of the Event task ("0" for not done, "1" for done).
+     * @param status      The status of the Event task.
      * @param description The description of the Event task.
      * @param start       The start date of the event.
      * @param end         The end date of the event.
      */
-    public Event(String isDone, String description, LocalDate start, LocalDate end) {
-        super(isDone, description);
+    public Event(TaskStatus status, String description, LocalDate start, LocalDate end) {
+        super(status, description);
         this.start = start;
         this.end = end;
     }

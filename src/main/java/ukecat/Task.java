@@ -6,7 +6,7 @@ package ukecat;
  */
 public abstract class Task {
     private String description;
-    private boolean isDone;
+    private TaskStatus status;
 
     /**
      * Constructs a new Task with the specified description.
@@ -15,17 +15,17 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.status = TaskStatus.NOT_DONE;
     }
 
     /**
      * Constructs a new Task with the specified status, description, and isDone value.
      *
-     * @param isDone      The status of the task ("0" for not done, "1" for done).
+     * @param status      The status of the task ("0" for not done, "1" for done).
      * @param description The description of the task.
      */
-    public Task(String isDone, String description) {
-        this.isDone = isDone.equals("1");
+    public Task(TaskStatus status, String description) {
+        this.status = status;
         this.description = description;
     }
 
@@ -38,11 +38,11 @@ public abstract class Task {
         String notif = "";
         switch (markType) {
         case MARK:
-            this.isDone = true;
+            this.status = TaskStatus.COMPLETE;
             notif = "Nice! I've marked this task as done:\n";
             break;
         case UNMARK:
-            this.isDone = false;
+            this.status = TaskStatus.NOT_DONE;
             notif = "OK, I've marked this task as not done yet:\n";
             break;
         }
@@ -51,21 +51,21 @@ public abstract class Task {
     }
 
     /**
-     * Gets the integer representation of the isDone status (1 for done, 0 for not done).
+     * Gets the {@link TaskStatus} enum representing the task's status.
      *
-     * @return The integer representation of the isDone status.
+     * @return The {@link TaskStatus} enum representing the task's status.
      */
-    public int getIntIsDone() {
-        return isDone ? 1 : 0;
+    public TaskStatus getStatus() {
+        return status;
     }
 
     /**
-     * Gets the status icon for the task ("[X] " for done, "[ ] " for not done).
+     * Gets the status icon for the task.
      *
      * @return The status icon for the task.
      */
     public String getStatusIcon() {
-        return isDone ? "[X] " : "[ ] ";
+        return status == TaskStatus.COMPLETE ? "[X] " : "[ ] ";
     }
 
     /**

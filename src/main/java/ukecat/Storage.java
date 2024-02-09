@@ -132,38 +132,44 @@ public class Storage {
         }
     }
 
-    /**
-     * Adds a task based on the CSV input and updates the task list.
-     * Handles exceptions for parsing different task types (ToDo, Deadline, Event).
-     *
-     * <p>Assumes that words[1] is "0" or "1" representing the task's done status.
-     */
     public static void addCsvTask() {
-        Task t;
+        Task t = createTaskFromCsv();
+        if (t != null) {
+            tasks.add(t);
+            taskCount++;
+        }
+    }
+
+    /**
+     * Creates a task based on the CSV input and returns the task.
+     *
+     * @return The created task.
+     */
+    private static Task createTaskFromCsv() {
+        Task t = null;
         try {
+            TaskStatus status = TaskStatus.valueOf(words[1]);
+
             switch (words[0]) {
             case "todo":
                 Parser.parseToDo(input);
-                t = new ToDo(words[1], desc);
-                tasks.add(t);
+                t = new ToDo(status, desc);
                 break;
 
             case "deadline":
                 Parser.parseDeadline(input);
-                t = new Deadline(words[1], desc, by);
-                tasks.add(t);
+                t = new Deadline(status, desc, by);
                 break;
 
             case "event":
                 Parser.parseEvent(input);
-                t = new Event(words[1], desc, start, end);
-                tasks.add(t);
+                t = new Event(status, desc, start, end);
                 break;
             }
-            taskCount++;
-        } catch (Exception e) {
+        } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         }
+        return t;
     }
 
     /**
@@ -185,7 +191,7 @@ public class Storage {
      */
     public static String displayTasks() {
         if (taskCount == 0) {
-            return "  No tasks in the list yet, try adding one!";
+            return "  No tasks in the list yet!";
         }
         StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < taskCount; i++) {
