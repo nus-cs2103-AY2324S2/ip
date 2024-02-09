@@ -1,5 +1,7 @@
 package lia;
 
+import java.util.ArrayList;
+
 /**
  * The Parser class is responsible for interpreting user commands and delegating actions accordingly.
  * It interacts with the user interface, task list, and handles parsing and execution of commands.
@@ -29,7 +31,12 @@ public class Parser {
             if (input.equals("exit")) {
                 ui.showGoodbye();
             } else if (input.equals("list")) {
-                ui.showTasks(tasks.getTasks());
+                ArrayList<Task> listTasks = tasks.getTasks();
+                ui.showTasks(listTasks);
+
+                if (listTasks.isEmpty()) {
+                    System.out.println("Your task list is currently empty.");
+                }
             } else if (input.startsWith("mark")) {
                 markTaskAsDone(input);
             } else if (input.startsWith("unmark")) {
@@ -42,6 +49,8 @@ public class Parser {
                 addEventTask(input);
             } else if (input.startsWith("delete")) {
                 deleteTask(input);
+            } else if (input.startsWith("find")) {
+                findTasks(input);
             } else if (input.equals("help")) {
                 ui.showHelp();
             } else {
@@ -153,5 +162,23 @@ public class Parser {
         Task removedTask = tasks.getTask(pos - 1);
         tasks.deleteTask(pos);
         ui.showRemovedTask(removedTask, tasks);
+    }
+
+    /**
+     * Finds tasks containing the specified keyword and displays them.
+     *
+     * @param input The user command input.
+     */
+    void findTasks(String input) {
+        String keyword = input.replaceFirst("find", "").trim();
+        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        if (!matchingTasks.isEmpty()) {
+            System.out.println("Matching tasks:");
+        }
+        ui.showTasks(matchingTasks);
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        }
     }
 }
