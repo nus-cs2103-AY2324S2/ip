@@ -107,7 +107,7 @@ public class TaskManager {
         } else {
             response.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+                response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
             }
         }
 
@@ -126,7 +126,7 @@ public class TaskManager {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
                 tasks.get(index - 1).markAsDone();
-                echo.displayBotResponse("Mice I have marked this task as done: "
+                echo.displayBotResponse(" Nice I have marked this task as done: "
                         + tasks.get(index - 1));
             } else {
                 echo.displayBotResponse("Invalid task index.");

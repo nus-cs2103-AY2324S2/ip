@@ -85,7 +85,7 @@ public class Echo extends Application {
 
         AnchorPane.setBottomAnchor(userInput, 0.0);
         AnchorPane.setLeftAnchor(userInput, 0.0);
-        AnchorPane.setRightAnchor(userInput, 60.0);
+        AnchorPane.setRightAnchor(userInput, 0.0);  // Full width
 
         AnchorPane.setBottomAnchor(sendButton, 0.0);
         AnchorPane.setRightAnchor(sendButton, 0.0);
@@ -110,6 +110,7 @@ public class Echo extends Application {
         // Event handler for the Send button
         sendButton.setOnAction(event -> {
             String userCommand = userInput.getText();
+            displayUserInput(userCommand);
             Ui.startConversation(userCommand, this.taskManager);
             userInput.clear();
         });
@@ -134,6 +135,12 @@ public class Echo extends Application {
      * @param response The response to display.
      */
     public void displayBotResponse(String response) {
-        Platform.runLater(() -> chatArea.appendText(response + "\n"));
+        String formattedResponse = "Bot: " + response + "\n";
+        Platform.runLater(() -> chatArea.appendText(formattedResponse));
+    }
+
+    public void displayUserInput(String userInput) {
+        String formattedUserInput = "You: " + userInput + "\n";
+        Platform.runLater(() -> chatArea.appendText(formattedUserInput));
     }
 }
