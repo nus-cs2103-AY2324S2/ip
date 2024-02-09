@@ -57,6 +57,7 @@ shadowJar {
     archiveBaseName = "artemis"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    destinationDirectory = file('jarfile')
 }
 
 run{

@@ -19,6 +19,11 @@ public class Parser {
      * @throws ArtemisException If there is an issue with parsing the input or executing the command.
      */
     public static String parseInput(String input, TaskList tasks, Ui ui, Storage storage) throws ArtemisException {
+        assert input != null : "Input cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         String[] tokens = input.split(" ", 2);
         String command = tokens[0].toLowerCase();
 
@@ -56,8 +61,13 @@ public class Parser {
      * @return A message indicating the result of marking a task as done.
      */
     private static String handleMarkAsDone(String[] tokens, TaskList tasks, Ui ui) {
+        assert tokens != null : "Tokens cannot be null";
+
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
+
+            assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
+
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsDone();
             return ui.showTaskMarkedAsDone(task);
@@ -75,8 +85,13 @@ public class Parser {
      * @return A message indicating the result of marking a task as not done.
      */
     private static String handleMarkAsNotDone(String[] tokens, TaskList tasks, Ui ui) {
+        assert tokens != null : "Tokens cannot be null";
+
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
+
+            assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
+
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsNotDone();
             return ui.showTaskMarkedAsNotDone(task);
@@ -94,8 +109,11 @@ public class Parser {
      * @return A message indicating the result of adding a todo task.
      */
     private static String handleTodoTask(String[] tokens, TaskList tasks, Ui ui) {
+        assert tokens != null : "Tokens cannot be null";
+
         try {
             String description = tokens[1].trim();
+
             if (description.isEmpty()) {
                 throw new ArtemisException("OOPS!!! The description of a todo cannot be empty.");
             }
@@ -115,10 +133,15 @@ public class Parser {
      * @return A message indicating the result of adding a deadline task.
      */
     private static String handleDeadlineTask(String input, TaskList tasks, Ui ui) {
+        assert input != null : "Input cannot be null";
+
         try {
             String[] tokens = input.split("/by");
+
+            assert tokens.length != 2 : "Invalid input format";
+
             if (tokens.length < 2) {
-                throw new ArtemisException("Invalid deadline format. "
+                throw new ArtemisException("Invalid deadline format. \n"
                         + "Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
             }
 
@@ -140,17 +163,25 @@ public class Parser {
      * @return A message indicating the result of adding an event task.
      */
     private static String handleEventTask(String input, TaskList tasks, Ui ui) {
+        assert input != null : "Input cannot be null";
+
         try {
             String[] tokens = input.split("/from");
+
+            assert tokens.length != 2 : "Invalid input format";
+
             if (tokens.length < 2) {
-                throw new ArtemisException("Invalid event format. "
+                throw new ArtemisException("Invalid event format. \n"
                         + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
             String description = tokens[0].replace("event ", "").trim();
             String[] fromTo = tokens[1].split("/to");
+
+            assert fromTo.length != 2 : "Invalid input format";
+
             if (fromTo.length < 2) {
-                throw new ArtemisException("Invalid event format. "
+                throw new ArtemisException("Invalid event format. \n"
                         + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
@@ -172,8 +203,13 @@ public class Parser {
      * @return A message indicating the result of deleting a task.
      */
     private static String handleDeleteTask(String[] tokens, TaskList tasks, Ui ui) {
+        assert tokens != null : "Tokens cannot be null";
+
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
+
+            assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
+
             Task task = tasks.getTasks().get(taskIndex);
             tasks.deleteTask(taskIndex);
             return ui.showTaskDelete(task, tasks.getTasks().size());

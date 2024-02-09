@@ -19,6 +19,9 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.byDateTime = parseDateTime(by);
+
+        assert description != null : "Description cannot be null";
+        assert by != null : "Deadline cannot be null";
     }
 
     /**
