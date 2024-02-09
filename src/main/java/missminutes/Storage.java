@@ -43,9 +43,8 @@ public class Storage {
      * Loads the `TaskList` object from the specified file path in disk.
      *
      * @return The `TaskList` object loaded from disk
-     * @throws MissMinutesException If unable to load file from specified directory, or if class definition changed
      */
-    public TaskList loadTasks() throws MissMinutesException {
+    public TaskList loadTasks() {
         try {
             FileInputStream fileIn = new FileInputStream(filePath);
             ObjectInputStream out = new ObjectInputStream(fileIn);
@@ -56,7 +55,7 @@ public class Storage {
             fileIn.close();
             return tasks;
         } catch (Exception err) {
-            throw new MissMinutesException("Failed to load storage from " + filePath);
+            return new TaskList();
         }
     }
 }
