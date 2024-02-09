@@ -6,7 +6,7 @@ import exception.NarutoException;
  * This class represents an action to handle an error by printing the error message.
  */
 public class HandleError implements Action {
-    private NarutoException err;
+    private final NarutoException err;
 
     /**
      * Constructs a new HandleError object with the specified error.
