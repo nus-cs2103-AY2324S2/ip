@@ -90,33 +90,39 @@ public class Tasks {
 
     /**
      * Purely lists current tasks.
+     * @return the String representation of current tasks.
      * @throws IncorrectIndexException Should never be thrown.
      */
-    public static void list() throws IncorrectIndexException {
+    public static String list() throws IncorrectIndexException {
+        StringBuilder res = new StringBuilder();
         for (int i = 0; i < Tasks.size(); i++) {
             Task currTask = Tasks.get(i);
-            System.out.printf("%d: %s%n", i + 1, currTask);
+            res.append(String.format("%d: %s%n", i + 1, currTask));
         }
+        return res.toString();
     }
 
     /**
      * Prints the tasks contained in the given input.
      * @param arr The data structure representing tasks.
+     * @return the String representation of current tasks.
      */
-    public static void list(List<Task> arr) {
+    public static String list(List<Task> arr) {
+        StringBuilder res = new StringBuilder();
         for (int i = 0; i < arr.size(); i++) {
             Task currTask = arr.get(i);
-            System.out.printf("%d: %s%n", i + 1, currTask);
+            res.append(String.format("%d: %s%n", i + 1, currTask));
         }
+        return res.toString();
     }
 
     /**
      * Finds tasks matching the input.
      * @param regex the input to match similar tasks with.
      */
-    public static void find(String regex) {
+    public static String find(String regex) {
         List<Task> filtered = arr.stream().filter(x -> x.getTaskName().matches(".*" + regex + ".*")).toList();
-        list(filtered);
+        return list(filtered);
     }
 
     /**
