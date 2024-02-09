@@ -1,13 +1,22 @@
 package duke.command;
-import duke.TaskList;
+
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents a command to be executed by the Duke chatbot.
+ * This is an abstract class that serves as the base class for all commands.
+ */
 public abstract class Command {
     protected TaskList tasks;
     protected Storage storage;
     protected Ui ui;
 
+    /**
+     * Constructs a new Command object.
+     * This constructor does not require any parameters.
+     */
     public Command() {
         //do nothing
     }

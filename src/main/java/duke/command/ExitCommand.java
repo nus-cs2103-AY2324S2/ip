@@ -1,10 +1,19 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents a command to exit the Duke chatbot program.
+ * This class extends the Command class and overrides the execute method to print a closing message.
+ * Also overrides the isExit() method to exit the program loop.
+ */
 public class ExitCommand extends Command {
+    /**
+     * Constructs a new ExitCommand object.
+     * This constructor does not require any parameters.
+     */
     public ExitCommand() {
         //do nothing
     }
@@ -21,8 +30,8 @@ public class ExitCommand extends Command {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
-        ui.printMessage("Fair winds to ye, me hearty! " +
-                "May the tide carry ye safely until our paths cross again.");
+        ui.printMessage("Fair winds to ye, me hearty! "
+                + "May the tide carry ye safely until our paths cross again.");
     }
 
     /**

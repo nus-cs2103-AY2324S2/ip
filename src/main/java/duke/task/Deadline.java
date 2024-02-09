@@ -3,6 +3,11 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a description, completion status and deadline.
+ * This class provides methods to retrieve information about the task
+ * to either be read or save to the hard disk.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
     protected DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -15,7 +20,7 @@ public class Deadline extends Task {
      * @param by a LocalDateTime representing the deadline for the task
      */
     public Deadline(String description, LocalDateTime by) {
-        super (description);
+        super(description);
         this.by = by;
     }
 

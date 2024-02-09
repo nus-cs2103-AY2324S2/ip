@@ -1,8 +1,12 @@
 package duke;
 
-import java.util.ArrayList;
 import duke.task.Task;
+import java.util.ArrayList;
 
+/**
+ * The TaskList class represents a collection of tasks and provides methods
+ * to manage and manipulate those tasks.
+ */
 public class TaskList {
     protected static ArrayList<Task> tasks;
     protected static int taskCount = 0;
@@ -51,9 +55,9 @@ public class TaskList {
     /**
      * Method to print all current tasks in the task list.
      */
-    public void listTasks () {
+    public void listTasks() {
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i+1) + "." +tasks.get(i).toString());
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 

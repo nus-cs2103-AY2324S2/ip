@@ -1,16 +1,24 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents a command to list all tasks in the task list.
+ * This class extends the Command class and overrides the execute method to print a list of tasks.
+ */
 public class ListCommand extends Command {
+    /**
+     * Constructs a new ListCommand object.
+     * This constructor does not require any parameters.
+     */
     public ListCommand() {
         //do nothing
     }
 
     /**
-     * Method that lists the task from the current task list within the program and on the hard disk.
+     * Method that lists the task from the current task list.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files

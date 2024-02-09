@@ -1,14 +1,22 @@
 package duke;
 
+/**
+ * The TaskList class handles the printing of messages to the console
+ * and provides methods to print strings in consistent format.
+ */
 public class Ui {
 
-    private static final String logo = " _  _   __    ____  ____ \n" +
-            "( \\/ ) /__\\  (  _ \\(  _ \\\n" +
-            " \\  / /(__)\\  )   / )   /\n" +
-            " (__)(__)(__)(_)\\_)(_)\\_)\n";
+    private static final String logo = " _  _   __    ____  ____ \n"
+            + "( \\/ ) /__\\  (  _ \\(  _ \\\n"
+            + " \\  / /(__)\\  )   / )   /\n"
+            + " (__)(__)(__)(_)\\_)(_)\\_)\n";
     private static final int dividerLength = 90;
     private static final char dividerChar = 0x2500;
 
+    /**
+     * Constructs a new Ui object.
+     * This constructor does not require any parameters.
+     */
     public Ui() {
         //do nothing
     }
@@ -16,7 +24,7 @@ public class Ui {
     /**
      * Method to print section dividers to the console.
      */
-    public void printDivider(){
+    public void printDivider() {
         for (int i = 0; i < dividerLength; i++) {
             System.out.print(dividerChar);
         }

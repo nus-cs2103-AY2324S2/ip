@@ -1,11 +1,17 @@
 package duke.task;
 
+/**
+ * Represents a task with a description and a completion status.
+ * This class provides methods to retrieve information about the task
+ * to either be read or save to the hard disk.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the specified description and sets the default isDone value to false.
+     * Constructs a new Task with the specified description.
+     * Sets the default isDone value to false.
      *
      * @param description a String for the task's description
      */
@@ -15,7 +21,7 @@ public class Task {
     }
 
     /**
-     * A method to print the task's details as a string to the console
+     * A method to print the task's details as a string to the console.
      *
      * @return a String displaying if the task is completed and its description
      */

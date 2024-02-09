@@ -1,9 +1,14 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents a command to delete a task from the task list.
+ * This class extends the Command class and overrides the execute method to perform
+ * the deletion operation.
+ */
 public class DeleteCommand extends Command {
     protected int index;
 
@@ -17,7 +22,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Method that deletes the task from the current task list within the program and on the hard disk.
+     * Method that deletes the task from the current task list
+     * within the program and on the hard disk.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files

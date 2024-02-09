@@ -1,16 +1,21 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Represents a command to mark or unmark a specific tasks in the task list.
+ * This class extends the Command class and overrides the execute method to
+ * mark or unmark a specific task.
+ */
 public class ToggleMarkCommand extends Command {
-
     protected int index;
     protected boolean isDone;
 
     /**
-     * Constructs a command that controls if a task at the specified index should be marked or unmarked.
+     * Constructs a command that controls if a task at the specified index
+     * should be marked or unmarked.
      *
      * @param index an int representing the 1-indexed location of the task
      * @param isDone a boolean representing if a task is to be marked as completed or incomplete
@@ -39,7 +44,8 @@ public class ToggleMarkCommand extends Command {
                     + super.tasks.printTask(index);
         } else {
             super.tasks.unmarkTask(index);
-            message = "The winds be shiftin', and I be lettin' this task sail with the breeze unmarked.\n"
+            message = "The winds be shiftin', and I be lettin' "
+                    + "this task sail with the breeze unmarked.\n"
                     + super.tasks.printTask(index);
         }
         super.storage.saveTaskListToFile(super.tasks.getTasks());

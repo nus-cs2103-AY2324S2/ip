@@ -1,6 +1,14 @@
 package duke;
 
-import java.io.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,11 +17,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
 
+/**
+ * Reads and writes task list data to file on the hard disk.
+ */
 public class Storage {
 
     protected static String FILE_PATH;
@@ -36,7 +43,7 @@ public class Storage {
      * @return an ArrayList object containing the read tasks from the filepath
      */
     public ArrayList<Task> loadData() {
-        try(Scanner dataScanner = new Scanner(new File(FILE_PATH))) {
+        try (Scanner dataScanner = new Scanner(new File(FILE_PATH))) {
             int lineNum = 1;
             ArrayList<Integer> corruptedLines = new ArrayList<>();
             while (dataScanner.hasNextLine()) {
@@ -50,7 +57,8 @@ public class Storage {
                         case "T":
                             //Check correct number of fields
                             if (data.length != 3) {
-                                throw new ParseException("Todo does not have 3 data fields.", lineNum);
+                                throw new ParseException("Todo does not have 3 data fields.",
+                                        lineNum);
                             }
 
                             Todo todo = new Todo(taskDescription);
@@ -61,7 +69,8 @@ public class Storage {
                             } else if (taskComplete.equals("1")) {
                                 todo.markAsDone();
                             } else {
-                                throw new ParseException("Task completion data is corrupted.", lineNum);
+                                throw new ParseException("Task completion data is corrupted.",
+                                        lineNum);
                             }
 
                             tasks.add(todo);
@@ -69,7 +78,8 @@ public class Storage {
                         case "D":
                             //Check correct number of fields
                             if (data.length != 4) {
-                                throw new ParseException("Deadline does not have 4 data fields.", lineNum);
+                                throw new ParseException("Deadline does not have 4 data fields.",
+                                        lineNum);
                             }
 
                             LocalDateTime deadlineBy = Parser.parseDate(data[3].trim());
@@ -82,7 +92,8 @@ public class Storage {
                             } else if (taskComplete.equals("1")) {
                                 deadline.markAsDone();
                             } else {
-                                throw new ParseException("Task completion data is corrupted.", lineNum);
+                                throw new ParseException("Task completion data is corrupted.",
+                                        lineNum);
                             }
 
                             tasks.add(deadline);
@@ -90,7 +101,8 @@ public class Storage {
                         case "E":
                             //check correct number of fields
                             if (data.length != 5) {
-                                throw new ParseException("Event does not have 5 data fields.", lineNum);
+                                throw new ParseException("Event does not have 5 data fields.",
+                                        lineNum);
                             }
 
                             LocalDateTime eventFrom = Parser.parseDate(data[3].trim());
@@ -104,11 +116,15 @@ public class Storage {
                             } else if (taskComplete.equals("1")) {
                                 event.markAsDone();
                             } else {
-                                throw new ParseException("Task completion data is corrupted.", lineNum);
+                                throw new ParseException("Task completion data is corrupted.",
+                                        lineNum);
                             }
 
                             tasks.add(event);
                             break;
+                        default:
+                            throw new ParseException("Task type data is corrupted.",
+                                    lineNum);
                     }
                 } catch (ParseException e) {
                     corruptedLines.add(lineNum);
@@ -151,9 +167,11 @@ public class Storage {
     }
 
     /**
-     * Helper function for loadData() to delete corrupted data lines from the .txt data file by line number.
+     * Helper function for loadData() to delete corrupted data lines from the
+     * .txt data file by line number.
      *
-     * @param indexes an ArrayList of Integer objects signifying corrupted file lines (1-based indexing) to be deleted
+     * @param indexes an ArrayList of Integer objects signifying corrupted
+     *                file lines (1-based indexing) to be deleted
      */
     private static void removeCorruptedData(ArrayList<Integer> indexes) {
         ArrayList<String> lines = new ArrayList<>();
@@ -190,7 +208,8 @@ public class Storage {
 
     /**
      * Solution below adapted from https://www.baeldung.com/java-write-to-file
-     * Helper function that appends the input Task data as a string to the file at the FILE_PATH and starts a new line.
+     * Helper function that appends the input Task data as a string to the file at the
+     * FILE_PATH and starts a new line.
      *
      * @param task a Task object signifying the Task to be appended to the file
      */

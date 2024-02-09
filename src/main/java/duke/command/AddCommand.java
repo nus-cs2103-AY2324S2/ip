@@ -1,10 +1,16 @@
 package duke.command;
 
-import duke.task.Task;
-import duke.TaskList;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
+import duke.task.Task;
 
+
+/**
+ * Represents a command to add a task to the task list.
+ * This class extends the Command class and overrides the execute method to perform
+ * the addition operation.
+ */
 public class AddCommand extends Command {
     protected Task task;
 
