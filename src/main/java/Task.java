@@ -1,8 +1,9 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 class Task {
-    protected SecretaryW.TaskType type;
+    protected TaskType type;
     protected String description;
     protected boolean isDone;
 
@@ -11,14 +12,14 @@ class Task {
     protected LocalDate endTime;
 
     //constructor for TODO
-    public Task(SecretaryW.TaskType type, String description) {
+    public Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
         this.isDone = false;
     }
 
     // Constructor for DEADLINE
-    public Task(SecretaryW.TaskType type, String description, String deadline) {
+    public Task(TaskType type, String description, String deadline) {
         this.type = type;
         this.description = description;
         this.isDone = false;
@@ -26,7 +27,7 @@ class Task {
     }
 
     //constructor for EVENT
-    public Task(SecretaryW.TaskType type, String description, String startTime, String endTime) {
+    public Task(TaskType type, String description, String startTime, String endTime) {
         this.type = type;
         this.description = description;
         this.isDone = false;
@@ -35,14 +36,14 @@ class Task {
     }
 
     // Constructor for creating TODO Task from file data
-    public Task(SecretaryW.TaskType type, String description, boolean isDone) {
+    public Task(TaskType type, String description, boolean isDone) {
         this.type = type;
         this.description = description;
         this.isDone = isDone;
     }
 
     // Constructor for creating DEADLINE Task from file data
-    public Task(SecretaryW.TaskType type, String description, String deadline, boolean isDone) {
+    public Task(TaskType type, String description, String deadline, boolean isDone) {
         this.type = type;
         this.description = description;
         this.isDone = isDone;
@@ -51,7 +52,7 @@ class Task {
 
 
     // Constructor for creating EVENT Task from file data
-    public Task(SecretaryW.TaskType type, String description, String startTime, String endTime, boolean isDone) {
+    public Task(TaskType type, String description, String startTime, String endTime, boolean isDone) {
         this.type = type;
         this.description = description;
         this.startTime = LocalDate.parse(startTime);
