@@ -24,6 +24,11 @@ public class Event extends Task {
         this.to = DateFormatter.formatDate(to.trim());
     }
 
+    /**
+     * Converts the Event object to a string format suitable for storing in a file.
+     *
+     * @return The string representation of the Deadline object for file storage.
+     */
     @Override
     public String convertTaskToFileString() {
         return String.format("E|%s|%s|%s|%s", super.getIsDone() ? "1" : "0", this.description.trim(), this.from, this.to);
