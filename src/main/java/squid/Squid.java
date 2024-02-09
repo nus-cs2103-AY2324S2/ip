@@ -421,7 +421,7 @@ public class Squid extends Application {
      * @return Whether the loop should continue (Usually true unless "bye" command is given).
      * @throws SquidException General exception thrown by Squid.
      */
-    private static Response parseInput(boolean isLoop, String input) {
+    public static Response parseInput(boolean isLoop, String input) {
         String[] messages = input.split(" ", 2);
         String command = messages[0];
         String res = "";
@@ -470,7 +470,7 @@ public class Squid extends Application {
             res = echo(e.getMessage());
         }
         res += "\n" + Messages.LINE_BREAK;
-        res =  Messages.LINE_BREAK + res;
+        res = Messages.LINE_BREAK + res;
         Tasks.save();
         return new Response(isLoop, res);
     }

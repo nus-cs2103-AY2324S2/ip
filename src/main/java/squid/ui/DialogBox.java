@@ -8,12 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * The class encapsulating a dialog box within the UI.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
-    public DialogBox(Label l, ImageView iv) {
+    private DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
 
@@ -35,10 +38,22 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Gets the dialog for user side.
+     * @param l Label for text.
+     * @param iv Image of user.
+     * @return user's DialogBox object.
+     */
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
+    /**
+     * Gets the dialog for Duke side.
+     * @param l Label for text.
+     * @param iv Image of duke.
+     * @return Duke's DialogBox object.
+     */
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();

@@ -1,5 +1,9 @@
 package squid.ui;
 
+import static squid.Squid.parseInput;
+
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,9 +17,6 @@ import squid.Response;
 import squid.Squid;
 import squid.tasks.Tasks;
 
-import java.util.Objects;
-
-import static squid.Squid.parseInput;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -32,8 +33,10 @@ public class MainWindow extends AnchorPane {
 
     private Squid squid;
 
-    private Image imageUser = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image imageDuke = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private Image imageUser = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private Image imageDuke = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     @FXML
     public void initialize() {
