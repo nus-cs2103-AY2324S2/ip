@@ -2,12 +2,15 @@ package task;
 
 import util.CsvUtil;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task.
  */
 public abstract class Task {
     protected final String description;
     protected boolean isMarked;
+    protected LocalDateTime startDate;
 
     /**
      * Constructs a task with the given description.
@@ -17,6 +20,7 @@ public abstract class Task {
     Task(String description) {
         this.description = description;
         this.isMarked = false;
+        this.startDate = null;
     }
 
     /**
@@ -25,9 +29,16 @@ public abstract class Task {
      * @param isMarked    The marked status of the task.
      * @param description The description of the task.
      */
-    Task(boolean isMarked, String description) {
+    Task(boolean isMarked, String description, LocalDateTime startDate) {
         this.description = description;
         this.isMarked = isMarked;
+        this.startDate = startDate;
+    }
+
+    public Task(String description, LocalDateTime startDate) {
+        this.description = description;
+        this.isMarked = false;
+        this.startDate = startDate;
     }
 
     /**
@@ -70,5 +81,9 @@ public abstract class Task {
 
     public boolean contains(String s) {
         return this.description.contains(s);
+    }
+
+    public LocalDateTime getDateTime() {
+        return this.startDate;
     }
 }

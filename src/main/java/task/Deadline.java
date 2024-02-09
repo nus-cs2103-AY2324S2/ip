@@ -9,17 +9,14 @@ import util.DateTimeUtil;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    protected LocalDateTime byDate;
-
     /**
      * Constructs a Deadline object with the given description and deadline.
      *
      * @param description the description of the deadline
-     * @param by the deadline date and time
+     * @param byDate the deadline date and time
      */
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
-        this.byDate = by;
+    public Deadline(String description, LocalDateTime byDate) {
+        super(description, byDate);
     }
 
     /**
@@ -27,11 +24,10 @@ public class Deadline extends Task {
      *
      * @param isMarked the marking status of the deadline
      * @param description the description of the deadline
-     * @param by the deadline date and time
+     * @param byDate the deadline date and time
      */
-    public Deadline(boolean isMarked, String description, LocalDateTime by) {
-        super(isMarked, description);
-        this.byDate = by;
+    public Deadline(boolean isMarked, String description, LocalDateTime byDate) {
+        super(isMarked, description, byDate);
     }
 
     /**
@@ -42,7 +38,7 @@ public class Deadline extends Task {
     @Override
     public CsvUtil format() {
         return new CsvUtil("D", String.valueOf(super.isMarked), super.description,
-            DateTimeUtil.format(byDate));
+            DateTimeUtil.format(super.startDate));
     }
 
     /**
@@ -53,7 +49,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),
-            DateTimeUtil.format(byDate));
+            DateTimeUtil.format(startDate));
     }
 
     /**
@@ -71,6 +67,6 @@ public class Deadline extends Task {
             return false;
         }
         Deadline d = (Deadline) o;
-        return isMarked == d.isMarked && description.equals(d.description) && d.byDate.equals(byDate);
+        return isMarked == d.isMarked && description.equals(d.description) && d.startDate.equals(startDate);
     }
 }

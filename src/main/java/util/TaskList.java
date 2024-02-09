@@ -3,6 +3,7 @@ package util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,6 +105,13 @@ public class TaskList {
         return tasks.stream()
                 .filter(t -> Arrays.stream(s).allMatch(t::contains))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Sorts the tasks in the task list based on their date and time.
+     */
+    public static void sort() {
+        tasks.sort(Comparator.comparing(Task::getDateTime));
     }
 
     /**

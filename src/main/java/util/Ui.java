@@ -1,14 +1,6 @@
 package util;
 
-import action.Action;
-import action.Add;
-import action.Delete;
-import action.Find;
-import action.Goodbye;
-import action.HandleError;
-import action.List;
-import action.Mark;
-import action.Unmark;
+import action.*;
 import exception.NarutoException;
 import task.Deadline;
 import task.Event;
@@ -91,6 +83,8 @@ public class Ui {
                 return new HandleError(e);
             }
             return new Find(tokens);
+        case "sort":
+            return new Sort(taskList);
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
         }

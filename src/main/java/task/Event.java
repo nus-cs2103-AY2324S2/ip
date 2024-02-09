@@ -21,7 +21,7 @@ public class Event extends Task {
      * @param to          the end time of the event
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
+        super(description, from);
         this.from = from;
         this.to = to;
     }
@@ -35,7 +35,7 @@ public class Event extends Task {
      * @param to          the end time of the event
      */
     public Event(boolean isMarked, String description, LocalDateTime from, LocalDateTime to) {
-        super(isMarked, description);
+        super(isMarked, description, from);
         this.from = from;
         this.to = to;
     }

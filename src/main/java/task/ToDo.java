@@ -23,7 +23,7 @@ public class ToDo extends Task {
      * @param description the description of the ToDo
      */
     public ToDo(boolean isMarked, String description) {
-        super(isMarked, description);
+        super(isMarked, description, null);
     }
 
     /**
