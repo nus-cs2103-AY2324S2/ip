@@ -34,7 +34,8 @@ public class Echon {
 
     /**
      * Processes the commands entered by the user.
-     * @param input
+     *
+     * @param input The command to be processed.
      */
     public void processCommand(String input) {
         try {

@@ -75,8 +75,8 @@ public class CommandCreator {
             return new AddTodoCommand(description, this.taskList);
         } else if (command.startsWith("deadline")) {
             String description = parseStringArgument(command);
-            String byDate = parseNamedArgument(command, "by");
-            return new AddDeadlineCommand(description, byDate, this.taskList);
+            String dueDate = parseNamedArgument(command, "by");
+            return new AddDeadlineCommand(description, dueDate, this.taskList);
         } else if (command.startsWith("event")) {
             String description = parseStringArgument(command);
             String fromDate = parseNamedArgument(command, "from");
