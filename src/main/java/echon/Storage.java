@@ -30,6 +30,7 @@ public class Storage {
                 throw new EchonException("Error creating new file");
             }
         }
+        assert this.file.exists() : "File should exist";
     }
 
     /**
