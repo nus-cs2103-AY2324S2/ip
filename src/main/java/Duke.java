@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -48,7 +50,7 @@ public class Duke {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
-    private static void createDeadline(String description, String by, ArrayList<Task> tasks) {
+    private static void createDeadline(String description, LocalDate by, ArrayList<Task> tasks) {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
         System.out.println("Got it. I've added this task:");
@@ -84,7 +86,7 @@ public class Duke {
                     task = new ToDo(taskInfo[2]);
                     break;
                 case "D":
-                    task = new Deadline(taskInfo[2], taskInfo[3]);
+                    task = new Deadline(taskInfo[2], LocalDate.parse(taskInfo[3]));
                     break;
                 case "E":
                     task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
@@ -198,7 +200,15 @@ public class Duke {
                     String task = message.split(" ", 2)[1];
                     String description = task.split(" /by ", 2)[0];
                     String by = task.split(" /by ", 2)[1];
-                    createDeadline(description, by, tasks);
+                    LocalDate byDate = null;
+                    try {
+                        byDate = LocalDate.parse(by);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Wrong date format");
+                    }
+                    if (byDate != null) {
+                        createDeadline(description, byDate, tasks);
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("The correct format is:");
                     System.out.println("deadline <description> /by <deadline time>\n");

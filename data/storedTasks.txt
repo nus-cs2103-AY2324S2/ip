@@ -1,4 +1,0 @@
-T/ /home
-D/X/work/Mon
-E/ /meet/Morning/Night
-T/ /dinner
