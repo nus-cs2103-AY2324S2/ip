@@ -68,6 +68,7 @@ public class Ui {
         int count = 1;
         for (Task task : tasks) {
             System.out.println(count + "." + task.toString());
+            count += 1;
         }
         printDivider();
     }
