@@ -35,6 +35,7 @@ public class Event extends Task implements Serializable {
      * @throws MissMinutesException If the given string is in incorrect format
      */
     public static Event fromStr(String input) throws MissMinutesException {
+        assert !input.isEmpty() : "Input string cannot be empty";
         Matcher matcher = Event.FORMATTER.matcher(input);
 
         if (matcher.find()) {
