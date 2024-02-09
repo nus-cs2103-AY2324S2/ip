@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,7 +27,10 @@ public class Storage {
     public Storage(String filePath) {
         try {
             hardDiskFile = new File(filePath);
-            hardDiskFile.createNewFile();
+            if (!hardDiskFile.exists()) {
+                Files.createDirectories(hardDiskFile.toPath().getParent());
+                hardDiskFile.createNewFile();
+            }
         } catch (IOException i) {
             ResponseHandler.appendLineToResponse(
                     "Sleepy encountered a serious error! Please restart the application :("

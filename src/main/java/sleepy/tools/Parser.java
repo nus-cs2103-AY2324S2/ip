@@ -16,11 +16,19 @@ public class Parser {
      */
     public static String[] parse(String command) throws IllegalArgumentException {
         switch (command) {
-        case "mark", "unmark", "delete":
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            // Fallthrough
+        case "delete":
             throw new IllegalArgumentException("You need to choose a task number to mark/unmark/delete!");
         case "find":
             throw new IllegalArgumentException("Your 'find' field cannot be empty!");
-        case "todo", "deadline", "event":
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
             throw new IllegalArgumentException("You forgot to include the description of your task at all!");
         case "list":
             return new String[]{"list"};

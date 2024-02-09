@@ -48,7 +48,11 @@ public class TaskList {
             case "list":
                 printTasks();
                 break;
-            case "mark", "unmark", "delete":
+            case "mark":
+                // Fallthrough
+            case "unmark":
+                // Fallthrough
+            case "delete":
                 int taskNumber = Integer.parseInt(parsedCommand[1]);
                 if (taskNumber < 1 || taskNumber > tasks.size()) {
                     throw new IllegalArgumentException("Invalid task number!");
