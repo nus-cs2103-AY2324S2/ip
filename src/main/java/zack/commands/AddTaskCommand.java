@@ -67,6 +67,7 @@ public class AddTaskCommand extends Command {
         }
         tasks.addTask(newTask);
         storage.save(tasks.getAllTasks());
+        assert tasks.getAllTasks().contains(newTask) : "Task list should contain the newly added task";
         return ui.showAddedTask(newTask, tasks.getSize());
     }
 }
