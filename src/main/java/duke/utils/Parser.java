@@ -102,6 +102,7 @@ public class Parser {
                 task = new Event(description, from, to);
                 break;
             default:
+                assert(task == null);
                 break;
             }
 

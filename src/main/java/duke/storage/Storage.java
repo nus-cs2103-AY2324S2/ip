@@ -28,6 +28,7 @@ public class Storage {
             Files.createDirectories(Paths.get(directoryPath));
             Files.createFile(this.filePath);
         }
+        assert(Files.exists(this.filePath));
     }
 
     /**

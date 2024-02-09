@@ -21,6 +21,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             Stage mainWindowStage = fxmlLoader.load();
             MainWindow mainWindow = fxmlLoader.getController();
+            assert(mainWindow != null);
             mainWindow.setDuke(duke);
             mainWindowStage.show();
             mainWindow.onStartUp();
