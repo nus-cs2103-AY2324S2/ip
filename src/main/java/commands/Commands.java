@@ -8,8 +8,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Contains methods to handle different commands for the Duke application.
+ */
 public class Commands {
 
+    /**
+     * Marks a task as done.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return A string representation of the task that was marked as done.
+     * @throws OutOfIntexException If the index provided is out of range.
+     */
     public static String markCommand(String input, Storage storage) throws OutOfIntexException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         if (Integer.parseInt(inputParts.get(1)) > storage.size()) {
@@ -20,6 +31,14 @@ public class Commands {
         return t.toString();
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return A string representation of the task that was marked as undone.
+     * @throws OutOfIntexException If the index provided is out of range.
+     */
     public static String unmarkCommand (String input, Storage storage) throws OutOfIntexException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         if (Integer.parseInt(inputParts.get(1)) > storage.size()) {
@@ -30,6 +49,14 @@ public class Commands {
         return t.toString();
     }
 
+    /**
+     * Deletes a task.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return A string representation of the task that was deleted.
+     * @throws OutOfIntexException If the index provided is out of range.
+     */
     public static String deleteCommand (String input, Storage storage) throws OutOfIntexException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         if (Integer.parseInt(inputParts.get(1)) > storage.size()) {
@@ -39,6 +66,14 @@ public class Commands {
         return t.toString();
     }
 
+    /**
+     * Finds tasks based on a given keyword.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return A string representation of tasks matching the keyword.
+     * @throws EmptyStringException If the keyword is empty.
+     */
     public static String findCommand (String input, Storage storage) throws EmptyStringException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         String identifier = "";
@@ -53,6 +88,14 @@ public class Commands {
         return output;
     }
 
+    /**
+     * Creates a new ToDos task.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return The newly created ToDos task.
+     * @throws EmptyTaskException If the task description is empty.
+     */
     public static ToDos todosCommand (String input, Storage storage) throws EmptyTaskException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         String descriptor = "";
@@ -68,6 +111,15 @@ public class Commands {
         return t;
     }
 
+    /**
+     * Creates a new Deadlines task.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return The newly created Deadlines task.
+     * @throws EmptyTaskException If the task description is empty.
+     * @throws WrongFormatException If the input format is incorrect.
+     */
     public static Deadlines deadlinesCommand (String input, Storage storage) throws EmptyTaskException, WrongFormatException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index = inputParts.indexOf("/by");
@@ -95,6 +147,15 @@ public class Commands {
         return d;
     }
 
+    /**
+     * Creates a new Events task.
+     *
+     * @param input The input command string.
+     * @param storage The storage object to interact with tasks.
+     * @return The newly created Events task.
+     * @throws DukeExceptions If any Duke-specific exception occurs.
+     * @throws WrongFormatException If the input format is incorrect.
+     */
     public static Events eventsCommand (String input, Storage storage) throws DukeExceptions, WrongFormatException {
         List<String> inputParts = Arrays.asList(input.split(" "));
         int index1 = inputParts.indexOf("/from");
