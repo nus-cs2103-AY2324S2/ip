@@ -3,12 +3,29 @@ package Martin;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Represents a command that can be executed by the chatbot.
+ * Each command is associated with a specific keyword and performs a specific action.
+ */
+/**
+ * Represents a command that can be executed by the chatbot.
+ * Each command is associated with a specific keyword and performs
+ * a corresponding action on the task list.
+ */
 public class Command {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs a Command object with the specified dependencies.
+     *
+     * @param taskList The task list to be operated on.
+     * @param storage The storage to save and load task data.
+     * @param ui The user interface for displaying messages.
+     * @param parser The parser for parsing user input.
+     */
     public Command(TaskList taskList, Storage storage, Ui ui, Parser parser) {
         this.taskList = taskList;
         this.storage = storage;
@@ -16,6 +33,13 @@ public class Command {
         this.parser = parser;
     }
 
+    /**
+     * Handles the specified command by performing the corresponding action.
+     *
+     * @param command The keyword representing the command.
+     * @param remainingWords The remaining words in the user input.
+     * @throws IOException If an I/O error occurs while accessing the storage.
+     */
     public void handleCommand(ChatbotKeyword command, String remainingWords) throws IOException {
         switch (command) {
             case LIST:
@@ -61,5 +85,4 @@ public class Command {
                 throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
         }
     }
-    
 }
