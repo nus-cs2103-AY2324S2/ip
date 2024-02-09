@@ -3,7 +3,6 @@ package jade.commands;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
-import jade.ui.Ui;
 
 /**
  * The <code>MarkCommand</code> object represents the command to mark a task as done.

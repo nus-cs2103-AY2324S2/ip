@@ -42,7 +42,7 @@ public class Jade {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            this.shouldExit = c.isExit() ? true : false;
+            this.shouldExit = c.isExit();
             return c.execute(taskList, storage);
         } catch (JadeException e) {
             return e.getMessage();

@@ -55,7 +55,7 @@ public class Parser {
      * @param length The expected length of the command array.
      * @throws JadeException If the command length is less than expected length.
      */
-    public static void checkEmptyDescription(String[] commands, int length) throws JadeException {
+    public static void checkEmptyDescription(int length, String... commands) throws JadeException {
         if (commands.length < length) {
             throw new JadeException("\tYour task description cannot be empty!");
         }
@@ -99,14 +99,14 @@ public class Parser {
             String[] commands = str.split(" ");
             switch (commands[0]) {
             case "todo":
-                checkEmptyDescription(commands, 2);
+                checkEmptyDescription(2, commands);
                 return new AddCommand(new Todo(concatDescription(commands, "", "")));
             case "deadline":
-                checkEmptyDescription(commands, 3);
+                checkEmptyDescription(3, commands);
                 return new AddCommand(new Deadline(concatDescription(commands, "", "/by"),
                         parseDate(concatDescription(commands, "/by", ""))));
             case "event":
-                checkEmptyDescription(commands, 4);
+                checkEmptyDescription(4, commands);
                 return new AddCommand(new Event(concatDescription(commands, "", "/from"),
                         parseDate(concatDescription(commands, "/from", "/to")),
                         parseDate(concatDescription(commands, "/to", ""))));
@@ -116,19 +116,19 @@ public class Parser {
                 }
                 return new ListCommand();
             case "mark":
-                checkEmptyDescription(commands, 2);
+                checkEmptyDescription(2, commands);
                 return new MarkCommand(parseInt(commands[1]));
             case "unmark":
-                checkEmptyDescription(commands, 2);
+                checkEmptyDescription(2, commands);
                 return new UnmarkCommand(parseInt(commands[1]));
             case "delete":
-                checkEmptyDescription(commands, 2);
+                checkEmptyDescription(2, commands);
                 return new DeleteCommand(parseInt(commands[1]));
             case "find":
-                checkEmptyDescription(commands, 2);
+                checkEmptyDescription(2, commands);
                 return new FindCommand(concatDescription(commands, "", ""));
             case "bye":
-                checkEmptyDescription(commands, 1);
+                checkEmptyDescription(1, commands);
                 return new ExitCommand();
             default:
                 return new InvalidCommand(new JadeException("\tInput is invalid, please retry.\n"));
