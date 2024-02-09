@@ -1,5 +1,8 @@
 package duke;
 
+import duke.task.Task;
+import java.util.ArrayList;
+
 /**
  * The TaskList class handles the printing of messages to the console
  * and provides methods to print strings in consistent format.
@@ -50,6 +53,22 @@ public class Ui {
     public void printMessage(String message) {
         printDivider();
         System.out.println(message);
+        printDivider();
+    }
+
+    /**
+     * Method that prints an ArrayList of Task objects and message as a numbered sequence of Strings.
+     *
+     * @param message a String containing the message to be printed before the list
+     * @param tasks an ArrayList of Task objects to be printed as a numbered list
+     */
+    public void displayList(String message, ArrayList<Task> tasks) {
+        printDivider();
+        System.out.println(message);
+        int count = 1;
+        for (Task task : tasks) {
+            System.out.println(count + "." + task.toString());
+        }
         printDivider();
     }
 }

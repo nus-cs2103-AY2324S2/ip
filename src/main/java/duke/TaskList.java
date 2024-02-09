@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.Task;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * The TaskList class represents a collection of tasks and provides methods
@@ -53,6 +54,7 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
      * Method to print all current tasks in the task list.
      */
     public void listTasks() {
@@ -62,6 +64,8 @@ public class TaskList {
     }
 
     /**
+=======
+>>>>>>> branch-Level-9
      * Method to mark a task at the specified 1-indexed index.
      *
      * @param taskNum an int representing the 1-indexed location of the task in the task list
@@ -114,5 +118,25 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Method to find case-insensitive matches in the task list with the keyword input.
+     *
+     * @param keyword a String representing the keyword to be searched for
+     * @return an ArrayList containing all matches found with the keyword
+     * @throws NoSuchElementException if there are no matches found in the task list
+     */
+    public ArrayList<Task> findTasks(String keyword) throws NoSuchElementException {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().toLowerCase().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        if (matches.size() == 0) {
+            throw new NoSuchElementException("Avast! I be not spyin' that task on me list, matey.");
+        }
+        return matches;
     }
 }

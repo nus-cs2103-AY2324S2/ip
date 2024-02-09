@@ -4,6 +4,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.ToggleMarkCommand;
 import duke.task.Deadline;
@@ -27,6 +28,7 @@ public class Parser {
     private static final String patternTodo = "^todo .+";
     private static final String patternDeadline = "^deadline .+ \\/by .+";
     private static final String patternEvent = "^event .+ \\/from .+ \\/to .+";
+    private static final String patternFind = "^find \\S+$";
 
 
     public Parser() {
@@ -107,7 +109,11 @@ public class Parser {
                 LocalDateTime to = parseDate(tempArray[1].trim());
                 Event event = new Event(description, from, to);
                 return new AddCommand(event);
-            } else {
+            } else if (matchesPattern(input, patternFind)) {
+                String[] wordArray = input.split(" ", 0);
+                String keyword = wordArray[1];
+                return new FindCommand(keyword);
+            }else {
                 throw new IllegalArgumentException("Arrr, me apologies! I cannot fathom that.");
             }
         } catch (NumberFormatException e) {
