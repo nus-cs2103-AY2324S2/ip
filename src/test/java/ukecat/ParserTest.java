@@ -2,12 +2,12 @@ package ukecat;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import static ukecat.Parser.parseDeleteTask;
 import static ukecat.Parser.parseTaskToCsv;
-import java.time.LocalDate;
 
 public class ParserTest {
     @Test
@@ -41,18 +41,16 @@ public class ParserTest {
 
     @Test
     public void parseTaskToCsv_validInput_success() {
-        // returns string representation of tasks for csv
-        assertEquals("T,0,watch lecture",
-                parseTaskToCsv(new ToDo("0", "watch lecture")));
+        assertEquals("T,NOT_DONE,watch lecture",
+                parseTaskToCsv(new ToDo(TaskStatus.NOT_DONE, "watch lecture")));
 
-        assertEquals("D,1,feed cat,2024-02-10",
-                parseTaskToCsv(new Deadline("1", "feed cat",
+        assertEquals("D,COMPLETE,feed cat,2024-02-10",
+                parseTaskToCsv(new Deadline(TaskStatus.COMPLETE, "feed cat",
                         LocalDate.parse("2024-02-10"))));
 
-        // lack of isDone -> isDone is automatically 0
-        assertEquals("E,0,holiday,2024-02-11,2024-02-11",
-                parseTaskToCsv(new Event("holiday", LocalDate.parse("2024-02-11"),
-                        LocalDate.parse("2024-02-11"))));
+        assertEquals("E,NOT_DONE,holiday,2024-02-11,2024-02-11",
+                parseTaskToCsv(new Event(TaskStatus.NOT_DONE, "holiday",
+                        LocalDate.parse("2024-02-11"), LocalDate.parse("2024-02-11"))));
     }
 
 }

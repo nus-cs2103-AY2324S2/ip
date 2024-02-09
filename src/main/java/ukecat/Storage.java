@@ -187,7 +187,6 @@ public class Storage {
      * If no tasks are present, a message indicating an empty list is displayed.
      *
      * @return A string representation of the tasks.
-     * @throws IllegalStateException if tasks or words is null.
      */
     public static String displayTasks() {
         if (taskCount == 0) {
