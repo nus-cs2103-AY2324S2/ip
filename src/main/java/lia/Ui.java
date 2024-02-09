@@ -26,13 +26,9 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public void showTasks(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            System.out.println("Your task list is currently empty.");
-        } else {
-            for (int j = 1; j <= tasks.size(); j++) {
-                Task task = tasks.get(j - 1);
-                System.out.println(j + ". " + task.toString());
-            }
+        for (int j = 1; j <= tasks.size(); j++) {
+            Task task = tasks.get(j - 1);
+            System.out.println(j + ". " + task.toString());
         }
     }
 
