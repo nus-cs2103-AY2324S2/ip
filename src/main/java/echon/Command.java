@@ -111,19 +111,25 @@ class AddDeadlineCommand extends AddTaskCommand {
 class AddEventCommand extends AddTaskCommand {
     private String fromDate;
     private String toDate;
+    private Boolean isTentative;
 
     public AddEventCommand(String description, String fromDate, String toDate,
-            TaskList taskList) {
+            Boolean isTentative, TaskList taskList) {
         super(description, taskList);
         assert fromDate != null : "fromDate should not be null";
         assert toDate != null : "toDate should not be null";
         this.fromDate = fromDate;
         this.toDate = toDate;
+        this.isTentative = isTentative;
     }
 
     @Override
     protected Task createTask() throws EchonException {
-        return new Event(this.description, this.fromDate, this.toDate);
+        if (this.isTentative) {
+            return new TentativeEvent(this.description, this.fromDate, this.toDate);
+        } else {
+            return new Event(this.description, this.fromDate, this.toDate);
+        }
     }
 }
 
@@ -224,6 +230,64 @@ class FindTaskCommand extends Command {
     public void execute(EchonUi ui) {
         ArrayList<String> messages = new ArrayList<String>(Arrays.asList(FOUND_MESSAGE));
         messages.addAll(this.taskList.findTasks(this.keyword));
+        ui.displayEchonMessages(messages);
+    }
+}
+
+class AddTentativeSlotCommand extends Command {
+    private static final String ADDED_MESSAGE = "Got it. I've added this tentative slot to the event:";
+
+    private int index;
+    private String fromDate;
+    private String toDate;
+    private TaskList taskList;
+
+    public AddTentativeSlotCommand(int index, String fromDate, String toDate, TaskList taskList) {
+        this.index = index;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(EchonUi ui) throws EchonException {
+        Task task = this.taskList.getTask(this.index);
+        if (!(task instanceof TentativeEvent)) {
+            throw new EchonException("This task is not a tentative event");
+        }
+        TentativeEvent event = (TentativeEvent) task;
+        event.addTentativeSlot(this.fromDate, this.toDate);
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList(ADDED_MESSAGE, "  " + event.toString()));
+        ui.displayEchonMessages(messages);
+    }
+}
+
+class ConfirmTentativeSlotCommand extends Command {
+    private static final String DECIDED_MESSAGE =
+            "Got it. I've confirmed this slot for the event:";
+
+    private int index;
+    private int slotIndex;
+    private TaskList taskList;
+
+    public ConfirmTentativeSlotCommand(int index, int slotIndex, TaskList taskList) {
+        this.index = index;
+        this.slotIndex = slotIndex;
+        this.taskList = taskList;
+    }
+
+    @Override
+    public void execute(EchonUi ui) throws EchonException {
+        Task task = this.taskList.getTask(this.index);
+        if (!(task instanceof TentativeEvent)) {
+            throw new EchonException("This task is not a tentative event");
+        }
+        TentativeEvent event = (TentativeEvent) task;
+        Event confirmedEvent = event.createEvent(this.slotIndex);
+        this.taskList.changeTask(this.index, confirmedEvent);
+        ArrayList<String> messages = new ArrayList<String>(
+                Arrays.asList(DECIDED_MESSAGE, "  " + confirmedEvent.toString()));
         ui.displayEchonMessages(messages);
     }
 }

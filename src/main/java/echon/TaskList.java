@@ -34,6 +34,16 @@ public class TaskList {
     }
 
     /**
+     * Changes a task in the task list to another task.
+     *
+     * @param index The index of the task to be changed.
+     * @param task The new task to replace the old task.
+     */
+    public void changeTask(int index, Task task) {
+        this.tasks.set(index, task);
+    }
+
+    /**
      * Lists all the tasks in the task list in their string representations.
      *
      * @return The list of tasks in their string representations.

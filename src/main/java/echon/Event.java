@@ -29,6 +29,19 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Creates an event task with dates in LocalDateTime type.
+     *
+     * @param description Description of the task.
+     * @param fromDate Start date of the task.
+     * @param toDate End date of the task.
+     */
+    public Event(String description, LocalDateTime fromDate, LocalDateTime toDate) {
+        super(description);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
     @Override
     public String toFileLine() {
         String fileLine = super.toFileLine();
