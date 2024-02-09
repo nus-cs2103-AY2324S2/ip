@@ -23,7 +23,6 @@ public class Processor {
     public Processor(TaskList taskList, Ui chatbotUi) {
         this.taskList = taskList;
         this.chatbotUi = chatbotUi;
-        //this.file = new File("src/data/tasks.txt");
         this.storage = new Storage("src/data/tasks.txt", taskList);
     }
 
@@ -52,6 +51,8 @@ public class Processor {
             System.out.println(chatbotUi.dividerWrapper("You must use a number to mark."));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(chatbotUi.dividerWrapper("You must select a number within the size of the Task List."));
+        } catch (IOException e) {
+            System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
         }
     }
 
@@ -155,7 +156,13 @@ public class Processor {
                 System.out.println(chatbotUi.dividerWrapper("Invalid command. Please enter a valid command."));
         }
 
-        storage.writeToFile();
+        try {
+            storage.writeToFile();
+
+        } catch (IOException e) {
+            System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
+
+        }
 
     }
 
@@ -199,7 +206,7 @@ public class Processor {
             }
             System.out.println(chatbotUi.dividerWrapper("You must select a number within the scope of the task list"));
         } catch (IOException e) {
-            System.out.println(chatbotUi.dividerWrapper("Error writing to file."));
+            System.out.println(chatbotUi.dividerWrapper("Error writing to file in storage."));
         }
     }
 

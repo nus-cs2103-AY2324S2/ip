@@ -39,7 +39,10 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
+
             System.out.println("Error writing list to file.");
+            System.out.println("Error writing to file.");
+
         }
     }
 
