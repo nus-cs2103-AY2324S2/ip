@@ -13,7 +13,6 @@ import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
 
-
 /**
  * Storage handles the loading and saving of task list data to a file.
  */

@@ -129,6 +129,7 @@ public class TaskList {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("Whats the task, yapper???");
                 }
+                break;
             default:
                 //should not reach here because of filter in main logic
                 task = new Task(message);

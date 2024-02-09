@@ -26,6 +26,7 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
+        ui.greet();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadTasks());
         run();
