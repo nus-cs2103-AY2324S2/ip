@@ -90,7 +90,7 @@ public class Huyang {
      * Supports other features such as list, mark, unmark and delete.
      */
     public void runCli() {
-        ui.print(ui.getGreetingMessage());
+        ui.print(Ui.getGreetingMessage());
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
 
