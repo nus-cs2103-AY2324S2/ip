@@ -1,4 +1,4 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

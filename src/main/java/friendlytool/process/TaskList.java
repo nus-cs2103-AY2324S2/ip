@@ -1,8 +1,8 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.command.CommandTypes;
-import FriendlyTool.command.Parser;
-import FriendlyTool.task.*;
+import friendlytool.command.CommandTypes;
+import friendlytool.command.Parser;
+import friendlytool.task.*;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

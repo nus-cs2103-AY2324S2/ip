@@ -1,4 +1,4 @@
-package FriendlyTool.task;
+package friendlytool.task;
 
 /**
  * Class that manages tasks.

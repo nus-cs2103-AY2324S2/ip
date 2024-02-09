@@ -1,4 +1,4 @@
-package FriendlyTool.task;
+package friendlytool.task;
 
 /**
  * Class for managing ToDo tasks.

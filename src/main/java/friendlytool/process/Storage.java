@@ -1,7 +1,7 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.command.Parser;
-import FriendlyTool.task.*;
+import friendlytool.command.Parser;
+import friendlytool.task.*;
 
 import java.io.File;
 import java.io.FileWriter;

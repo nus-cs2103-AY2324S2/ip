@@ -1,6 +1,6 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.command.CommandTypes;
+import friendlytool.command.CommandTypes;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,7 +1,7 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.command.CommandTypes;
-import FriendlyTool.command.Parser;
+import friendlytool.command.CommandTypes;
+import friendlytool.command.Parser;
 
 import java.util.Scanner;
 

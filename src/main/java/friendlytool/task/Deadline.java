@@ -1,6 +1,6 @@
-package FriendlyTool.task;
+package friendlytool.task;
 
-import FriendlyTool.process.Date;
+import friendlytool.process.Date;
 
 /**
  * Class for managing deadline tasks.

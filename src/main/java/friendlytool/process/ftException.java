@@ -1,4 +1,4 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
 /**
  * Handles Errors and Exceptions in the program.

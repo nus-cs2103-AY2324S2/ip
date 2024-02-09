@@ -1,4 +1,4 @@
-package FriendlyTool.command;
+package friendlytool.command;
 
 /**
  * Enum for all the command types.

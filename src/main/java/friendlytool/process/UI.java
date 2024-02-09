@@ -1,6 +1,6 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.task.Task;
+import friendlytool.task.Task;
 
 /**
  * UI for the program. Provides instructions to users.
