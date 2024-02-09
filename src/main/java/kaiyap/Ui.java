@@ -120,6 +120,16 @@ public class Ui {
         return output.toString();
     }
 
+    public String printTaskUnmarked(int numericIndex) {
+        return (
+                SEPARATOR
+                        + "\tOK, I've marked this task as not done yet:\n"
+                        + "\t\t" + taskList.get(numericIndex).toString()
+                        + "\n"
+                        + SEPARATOR
+            );
+    }
+
     /**
      * Displays the information about a newly added task.
      * It prints a message confirming that the task has been added to the list
