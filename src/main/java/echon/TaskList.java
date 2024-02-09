@@ -44,6 +44,7 @@ public class TaskList {
             messages.add(String.format(
                     "%d.%s", i + 1, this.tasks.get(i).toString()));
         }
+        assert messages.size() == this.tasks.size() : "The number of messages should match tasks";
         return messages;
     }
 

@@ -67,6 +67,7 @@ abstract class AddTaskCommand extends Command {
             throw new EchonException(e.getMessage());
         }
         this.taskList.addTask(task);
+        assert this.taskList.getSize() > 0 : "taskList should not be empty";
         ArrayList<String> messages = new ArrayList<String>(Arrays.asList(
                 "Got it. I've added this task:", "  " + task.toString(),
                 String.format("Now you have %d tasks in the list.",
@@ -92,6 +93,7 @@ class AddDeadlineCommand extends AddTaskCommand {
     public AddDeadlineCommand(String description, String byDate,
             TaskList taskList) {
         super(description, taskList);
+        assert byDate != null : "byDate should not be null";
         this.byDate = byDate;
     }
 
@@ -108,6 +110,8 @@ class AddEventCommand extends AddTaskCommand {
     public AddEventCommand(String description, String fromDate, String toDate,
             TaskList taskList) {
         super(description, taskList);
+        assert fromDate != null : "fromDate should not be null";
+        assert toDate != null : "toDate should not be null";
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
