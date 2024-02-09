@@ -1,14 +1,20 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+
 import javafx.util.Duration;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -62,9 +68,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ypxmm.getResponse(input);
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                userDialog,
+                dukeDialog
         );
         userInput.clear();
 
