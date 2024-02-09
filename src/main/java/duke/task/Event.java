@@ -51,8 +51,10 @@ public class Event extends Task {
      */
     @Override
     public String toDataString() {
-        return "E | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription()
-                + " /from " + this.from.format(Task.INPUT_DATETIME_FORMAT)
-                + " /to " + this.to.format(Task.INPUT_DATETIME_FORMAT);
+        StringBuilder sb = new StringBuilder();
+        sb.append("E | ").append(this.getIsDoneIndicator()).append(" | ").append(this.getDescription())
+                .append(" /from ").append(this.from.format(Task.INPUT_DATETIME_FORMAT))
+                .append(" /to ").append(this.to.format(Task.INPUT_DATETIME_FORMAT));
+        return sb.toString();
     }
 }

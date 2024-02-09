@@ -53,6 +53,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns isDone status in task saving format.
+     *
+     * @return String indicator of whether task is done.
+     */
+    public String getIsDoneIndicator() {
+        return this.isDone ? "1" : "0";
+    }
+
+    /**
      * Returns the task and its completion status.
      * Tasks that are done are marked with "[X]" whereas tasks that are not done are marked with "[ ]".
      *
