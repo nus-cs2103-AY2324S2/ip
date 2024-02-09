@@ -19,8 +19,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private Jiayou jiayou;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/JiaUser.png"));
-    private Image jiayouImage = new Image(this.getClass().getResourceAsStream("/images/JiaJiayou.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/JiaUser.PNG"));
+    private Image jiayouImage = new Image(this.getClass().getResourceAsStream("/images/JiaJiayou.PNG"));
 
     /**
      * Initializes the main window and prints out the greeting message.
@@ -58,11 +58,17 @@ public class MainWindow extends AnchorPane {
             delay.play();
         } else {
             String response = jiayou.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getJiayouDialog(response, jiayouImage)
+            dialogContainer.getChildren().add(
+                    DialogBox.getUserDialog(input, userImage)
             );
             userInput.clear();
+            PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+            delay.setOnFinished(event -> {
+                dialogContainer.getChildren().add(
+                        DialogBox.getJiayouDialog(response, jiayouImage)
+                );
+            });
+            delay.play();
         }
     }
 }

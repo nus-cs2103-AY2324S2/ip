@@ -48,7 +48,7 @@ public class Parser {
                 break;
             case MARK:
                 if (content.isEmpty()) {
-                    throw new JiayouException("OOPS!!! I don't know which task to mark. "
+                    throw new JiayouException("OOPS!!! I don't know which task to mark.\n"
                             + "Please add the index after the keyword mark!");
                 } else {
                     String[] taskIds = content.split(" ");
@@ -57,7 +57,7 @@ public class Parser {
                 }
             case UNMARK:
                 if (content.isEmpty()) {
-                    throw new JiayouException("OOPS!!! I don't know which task to unmark. "
+                    throw new JiayouException("OOPS!!! I don't know which task to unmark.\n"
                             + "Please add the index after the keyword unmark!");
                 } else {
                     String[] taskIds = content.split(" ");
@@ -66,7 +66,7 @@ public class Parser {
                 }
             case DELETE:
                 if (content.isEmpty()) {
-                    throw new JiayouException("OOPS!!! I don't know which task to delete. "
+                    throw new JiayouException("OOPS!!! I don't know which task to delete.\n"
                             + "Please add the index after the keyword delete!");
                 } else {
                     String[] taskIds = content.split(" ");
@@ -75,7 +75,7 @@ public class Parser {
                 }
             case TODO:
                 if (content.isEmpty()) {
-                    throw new JiayouException("OOPS!!! The description of a todo cannot be empty. "
+                    throw new JiayouException("OOPS!!! The description of a todo cannot be empty.\n"
                             + "Please add a description after the keyword todo!");
                 } else {
                     ToDo newToDo = new ToDo(content);
@@ -103,9 +103,10 @@ public class Parser {
                 break;
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return "OOPS!!! I'm sorry, but I don't know what that means :\")\n"
+                    + "Enter 'help' to know what functionalities are available! > <";
         } catch (JiayouException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
         return response;
     }
