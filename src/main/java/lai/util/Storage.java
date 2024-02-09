@@ -12,22 +12,38 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import static lai.util.Ui.printLine;
 
+/**
+ * Manages storage operations for tasks in the Lai application.
+ * This includes reading from and writing tasks to a specified file.
+ */
 public class Storage {
+    // Default file path
     protected String filePath = "data/tasks.txt";
 
+    /**
+     * Constructs a Storage object with a default file path.
+     */
     public Storage() {
 
     }
 
+    /**
+     * Constructs a Storage object with a specified file path.
+     *
+     * @param filePath The file path used for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public static void printDottedLine() {
-        System.out.println("---------------------------------------------------------");
-    }
-
+    /**
+     * Updates the task file with the current list of tasks.
+     * If the file or directories do not exist, they will be created.
+     *
+     * @param tasks The list of tasks to be written to the file.
+     */
     public void updateTasksFile(TaskList tasks) {
         File file = new File(this.filePath);
 
@@ -46,6 +62,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the storage file and returns them as a list of Task objects.
+     * If the file format is incorrect, a LaiException is thrown.
+     *
+     * @return A list of tasks read from the file.
+     */
     public List<Task> readTasksFile() {
         File file = new File(this.filePath);
         List<Task> tasks = new ArrayList<>();
@@ -78,9 +100,9 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         } catch (LaiException e) {
-            printDottedLine();
+            printLine();
             System.out.println(e);
-            printDottedLine();
+            printLine();
         }
 
         return tasks;
