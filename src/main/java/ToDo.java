@@ -6,12 +6,11 @@ public class ToDo extends Task {
         super(description);
     }
 
-    public static void addToDoTask(ArrayList<Task> tasks, int taskCounter, String description) {
-        tasks.add(new ToDo(description));
-        taskCounter++;
+    public static void addToDoTask(TaskList taskList, String description) throws DukeException {
+        taskList.addTask(new ToDo(description));
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(tasks.size() - 1).getStatusIcon());
-        System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() == 1 ? "" : "s") + " in the list.");
+        System.out.println(taskList.getTask(taskList.size() - 1).getStatusIcon());
+        System.out.println("Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.");
     }
 
     @Override

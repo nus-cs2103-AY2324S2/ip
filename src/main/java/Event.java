@@ -11,12 +11,11 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public static void addEventTask(ArrayList<Task> tasks, int taskCounter, String description, String start, String end) {
-        tasks.add(new Event(description, start, end));
-        taskCounter++;
+    public static void addEventTask(TaskList taskList, String description, String start, String end) throws DukeException {
+        taskList.addTask(new Event(description, start, end));
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(tasks.size() - 1).getStatusIcon());
-        System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() == 1 ? "" : "s") + " in the list.");
+        System.out.println(taskList.getTask(taskList.size() - 1).getStatusIcon());
+        System.out.println("Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.");
     }
 
     @Override

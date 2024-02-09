@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class CommandHandler {
-    public static void handleCommand(String userInput, ArrayList<Task> tasks, int taskCounter) throws DukeException {
+    public static void handleCommand(String userInput, TaskList tasks) throws DukeException {
         if (userInput.equalsIgnoreCase("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
@@ -19,7 +19,7 @@ public class CommandHandler {
                 throw new DukeException("Umm... The todo command is incomplete!");
             }
             String description = userInput.substring(5);
-            ToDo.addToDoTask(tasks, taskCounter, description);
+            ToDo.addToDoTask(tasks, description);
         } else if (userInput.startsWith("deadline")) {
             if (userInput.length() <= 9) {
                 throw new DukeException("Oops! The deadline command is incomplete.");
@@ -31,7 +31,7 @@ public class CommandHandler {
             }
 
             String dueBy = description[1];
-            Deadline.addDeadlineTask(tasks, taskCounter, description[0], dueBy);
+            Deadline.addDeadlineTask(tasks, description[0], dueBy);
         } else if (userInput.startsWith("event")) {
             if (userInput.length() <= 6) {
                 throw new DukeException("Uh oh! The event command is incomplete.");
@@ -45,7 +45,7 @@ public class CommandHandler {
 
             String start = description[1];
             String end = description[2];
-            Event.addEventTask(tasks, taskCounter, description[0], start, end);
+            Event.addEventTask(tasks, description[0], start, end);
         } else if (userInput.startsWith("delete")) {
             deleteTask(userInput, tasks);
         } else {
@@ -53,7 +53,8 @@ public class CommandHandler {
         }
     }
 
-    private static void listTasks(ArrayList<Task> tasks) {
+    private static void listTasks(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getTasks();
         if (tasks.isEmpty()) {
             System.out.println("There are no tasks in your list.");
         } else {
@@ -64,29 +65,29 @@ public class CommandHandler {
         }
     }
 
-    private static void markTaskAsDone(String userInput, ArrayList<Task> tasks) throws DukeException {
+    private static void markTaskAsDone(String userInput, TaskList taskList) throws DukeException {
         int index = getIndexFromUserInput(userInput, "mark") - 1;
-        validateIndex(index, tasks);
-        tasks.get(index).markAsDone();
+        validateIndex(index, taskList);
+        taskList.getTask(index).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(index).getStatusIcon());
+        System.out.println(taskList.getTask(index).getStatusIcon());
     }
 
-    private static void markTaskAsNotDone(String userInput, ArrayList<Task> tasks) throws DukeException {
+    private static void markTaskAsNotDone(String userInput, TaskList taskList) throws DukeException {
         int index = getIndexFromUserInput(userInput, "unmark") - 1;
-        validateIndex(index, tasks);
-        tasks.get(index).markAsNotDone();
+        validateIndex(index, taskList);
+        taskList.getTask(index).markAsNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks.get(index).getStatusIcon());
+        System.out.println(taskList.getTask(index).getStatusIcon());
     }
 
-    private static void deleteTask(String userInput, ArrayList<Task> tasks) throws DukeException {
+    private static void deleteTask(String userInput, TaskList taskList) throws DukeException {
         int index = getIndexFromUserInput(userInput, "delete") - 1;
-        validateIndex(index, tasks);
-        Task removedTask = tasks.remove(index);
+        validateIndex(index, taskList);
+        Task removedTask = taskList.deleteTask(index);
         System.out.println("Noted. I've removed this task:");
         System.out.println(removedTask.getStatusIcon());
-        System.out.println("Now you have " + tasks.size() + " " + (tasks.size() <= 1 ? "task" : "tasks") + " in the list.");
+        System.out.println("Now you have " + taskList.size() + " " + (taskList.size() <= 1 ? "task" : "tasks") + " in the list.");
     }
 
     private static int getIndexFromUserInput(String userInput, String command) throws DukeException {
@@ -97,8 +98,8 @@ public class CommandHandler {
         }
     }
 
-    private static void validateIndex(int index, ArrayList<Task> tasks) throws DukeException {
-        if (index < 0 || index >= tasks.size()) {
+    private static void validateIndex(int index, TaskList taskList) throws DukeException {
+        if (index < 0 || index >= taskList.size()) {
             throw new DukeException("Task not found. Please provide a valid task number.");
         }
     }

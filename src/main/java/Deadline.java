@@ -12,13 +12,12 @@ public class Deadline extends Task {
         this.dueByDate = dueByDate;
     }
 
-    public static void addDeadlineTask(ArrayList<Task> tasks, int taskCounter, String description, String dueBy) {
+    public static void addDeadlineTask(TaskList taskList, String description, String dueBy) throws DukeException{
         LocalDate dueByDate = parseDate(dueBy);
-        tasks.add(new Deadline(description, dueByDate));
-        taskCounter++;
+        taskList.addTask(new Deadline(description, dueByDate));
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(tasks.size() - 1).getStatusIcon());
-        System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() == 1 ? "" : "s") + " in the list.");
+        System.out.println(taskList.getTask(taskList.size() - 1).getStatusIcon());
+        System.out.println("Now you have " + taskList.size() + " task" + (taskList.size() == 1 ? "" : "s") + " in the list.");
     }
 
     @Override
