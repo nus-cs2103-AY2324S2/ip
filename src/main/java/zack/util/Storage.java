@@ -51,6 +51,7 @@ public class Storage {
      * @throws ZackException If there is an error in reading or parsing the file.
      */
     public ArrayList<Task> load() throws ZackException {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {
