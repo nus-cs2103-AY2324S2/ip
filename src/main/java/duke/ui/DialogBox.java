@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
