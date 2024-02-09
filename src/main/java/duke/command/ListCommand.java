@@ -21,9 +21,6 @@ public class ListCommand extends Command {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
-        super.ui.printDivider();
-        System.out.println("Behold, yer roster of endeavors!");
-        super.tasks.listTasks();
-        super.ui.printDivider();
+        super.ui.displayList("Behold, yer roster of endeavors!", super.tasks.getTasks());
     }
 }

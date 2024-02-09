@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import duke.task.Task;
 
 public class TaskList {
@@ -46,15 +47,6 @@ public class TaskList {
         }
         tasks.remove(taskNum - 1);
         taskCount -= 1;
-    }
-
-    /**
-     * Method to print all current tasks in the task list.
-     */
-    public void listTasks () {
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i+1) + "." +tasks.get(i).toString());
-        }
     }
 
     /**
@@ -110,5 +102,25 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Method to find case-insensitive matches in the task list with the keyword input.
+     *
+     * @param keyword a String representing the keyword to be searched for
+     * @return an ArrayList containing all matches found with the keyword
+     * @throws NoSuchElementException if there are no matches found in the task list
+     */
+    public ArrayList<Task> findTasks(String keyword) throws NoSuchElementException {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.toString().toLowerCase().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        if (matches.size() == 0) {
+            throw new NoSuchElementException("Avast! I be not spyin' that task on me list, matey.");
+        }
+        return matches;
     }
 }
