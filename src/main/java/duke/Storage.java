@@ -18,6 +18,12 @@ class Storage {
         this.file = file;
     }
 
+    /**
+     * Read the content of the file and returns a Task ArrayList.
+     * If no existing file is found or file is corrupted, returns empty ArrayList.
+     *
+     * @return ArrayList<Task> of the content of the file.
+     */
     ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         // If file doesn't exist, create the parent directories and the file
@@ -53,6 +59,11 @@ class Storage {
         return tasks;
     }
 
+    /**
+     * Write the content of the tasks into the file.
+     *
+     * @param tasks the TaskList that will be written into the file.
+     */
     void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(file);
