@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import nollid.tasks.Deadline;
 import nollid.tasks.Todo;
 
 public class TaskListTest {
