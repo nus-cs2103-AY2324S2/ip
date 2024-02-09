@@ -5,6 +5,7 @@ import java.io.IOException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.TaskListException;
+import duke.utils.Parser;
 
 /**
  * Class to run Delete Command.
@@ -21,9 +22,8 @@ public class DeleteCommand extends Command {
      * @throws CommandException Exception when input is not given in integer format.
      */
     public DeleteCommand(String input) throws CommandException {
-        input = input.trim();
         try {
-            this.indexToDelete = Integer.parseInt(input);
+            this.indexToDelete = Parser.parseInteger(input);
         } catch (NumberFormatException e) {
             throw new CommandException("Error. Delete expects the index of task to be deleted.");
         }

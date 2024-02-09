@@ -5,6 +5,7 @@ import java.io.IOException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.TaskListException;
+import duke.utils.Parser;
 
 /**
  * Class to run the Unmark Command
@@ -21,9 +22,8 @@ public class UnmarkCommand extends Command {
      * @throws CommandException Exception when input is not given in integer format.
      */
     public UnmarkCommand(String input) throws CommandException {
-        input = input.trim();
         try {
-            this.indexToUnmark = Integer.parseInt(input);
+            this.indexToUnmark = Parser.parseInteger(input);
         } catch (NumberFormatException e) {
             throw new CommandException("Error. Unmark expects the index of task to be unmarked.");
         }
