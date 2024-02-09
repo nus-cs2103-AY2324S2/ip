@@ -7,7 +7,9 @@ public class Ui {
     private static final String NAME = "Tartar";
 
     private static final String GREETING = String.format("Hello! I'm %s\n", NAME);
+
     private static final String DIVIDER = "____________________________________________________________\n";
+
     private static final String QUESTION = "What can I do for you?";
 
     private static final String BYE = " Bye. Hope to see you again soon!";
@@ -15,7 +17,10 @@ public class Ui {
     private static final String MARKED = "Nice! I've marked this task as done:";
 
     private static final String UNMARKED = "OK, I've marked this task as not done yet:";
+
     private static final String RECOMMENDER = "RECCOMENDATION";
+
+    private static final String QUOTE_STRING = ">  You must do the things you think you cannot do.\n>  - Eleanor Roosevelt";
 
     private Scanner sc;
 
@@ -31,7 +36,7 @@ public class Ui {
      *
      * @return a string containing the greeting string.
      */
-    public String greeting() {return GREETING;}
+    public String greeting() {return QUOTE_STRING + "\n" + GREETING;}
 
     /**
      * Returns a string containing the divider string.
@@ -113,6 +118,15 @@ public class Ui {
      */
     public String greetingBox() {
         return dividerWrapper(greeting() + question());
+    }
+
+    /**
+     * Returns a string containing the quote string.
+     *
+     * @return a string containing the quote string.
+     */
+    public String quote() {
+        return QUOTE_STRING;
     }
 
 
