@@ -55,8 +55,9 @@ public class Event extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() == Event.class) {
-            return (this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from))
-                    && this.to.equals((((Event) obj).to)));
+            boolean hasSameFields = this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from))
+                    && this.to.equals((((Event) obj).to));
+            return (hasSameFields);
         } else {
             return false;
         }
