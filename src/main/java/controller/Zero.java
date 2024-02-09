@@ -1,34 +1,34 @@
 package controller;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Command;
 import model.Deadline;
 import model.Event;
 import model.Storage;
 import model.Task;
+import view.MainWindow;
 import view.Ui;
 
 /**
  * Main control class for running the Zero bot.
  * 
- * <p>The bot can be run by creating a new instance and calling the {@link controller.Zero#run()} method.
- * 
- * <p>After the bot is done running, call {@link controller.Zero#close()} to properly terminate.
+ * <p>The bot starts a JavaFX {@link Application} UI and exits when the UI window is closed.
  */
-public class Zero {
+public class Zero extends Application {
     private static final String NAME_STRING = "Zero";
-    private static final Reader USER_INPUT = new InputStreamReader(System.in);
-    private static final Writer USER_OUTPUT = new OutputStreamWriter(System.out);
-    private static final String DIVIDER = "_".repeat(100) + "\n";
     private static final String SAVE_FILE_PATH = "data/save.ser";
     private static final DateTimeFormatter DATE_TIME_FORMATTER_INPUT =
             DateTimeFormatter.ofPattern("d/M/uu HHmm");
@@ -36,171 +36,154 @@ public class Zero {
     private static final DateTimeFormatter DATE_TIME_FORMATTER_OUTPUT =
             DateTimeFormatter.ofPattern("EEE, d MMM uuuu, hh:mm a");
 
-    private Ui ui;
     private Storage storage;
 
     /**
-     * Creates a new {@code Zero} instance which initializes the following:
+     * Initializes the {@code Zero} application with the following:
      * <ul>
      * <li>{@link controller.Parser#dtfInput} {@code LocalDateTime} format for user inputs.</li>
      * <li>{@link model.Deadline#dtf} {@code LocalDateTime} format for output.</li>
      * <li>{@link model.Event#dtf} {@code LocalDateTime} format for output.</li>
-     * <li>{@link view.Ui} Sets the input reader, output writer and divider displayed.</li>
      * <li>{@link model.Storage} Loads the save file.</li>
      * </ul>
      * 
      * @throws IOException If an I/O error occurs.
      */
-    public Zero() throws IOException {
+    @Override
+    public void init() throws IOException {
         // Set Date Time formats for relevant classes
         Parser.setDateTimeFormat(DATE_TIME_FORMATTER_INPUT);
         Deadline.setDateTimeFormat(DATE_TIME_FORMATTER_OUTPUT);
         Event.setDateTimeFormat(DATE_TIME_FORMATTER_OUTPUT);
-
-        ui = new Ui(USER_INPUT, USER_OUTPUT, DIVIDER);
+        
         storage = new Storage(SAVE_FILE_PATH);
     }
 
-    /**
-     * Closes Input reader and Output writer.
-     *
-     * @throws IOException If an I/O error occurs.
-     */
-    public void close() throws IOException {
-        ui.close();
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            MainWindow mwController = fxmlLoader.<MainWindow>getController();
+            mwController.setZero(this);
+            mwController.showGreet(Ui.showGreet(NAME_STRING));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * Runs Zero bot.
-     * 
-     * <p> Contains the main Zero bot logic and decision making.
-     *
-     * @return This {@code Zero} instance.
-     * @throws IOException If an I/O error occurs.
-     */
-    public Zero run() throws IOException {
-        // Startup message
-        ui.showGreet(NAME_STRING);
+    public String getResponse(String input) throws IOException {
+        if (input.isBlank()) {
+            return Ui.showEmptyCommand();
+        }
 
-        // Start command loop, exit on bye
-        boolean isExit = false;
-        while (!isExit) {
-            Hashtable<String, String> input = Parser.parseInput(ui.getUserInput());
-            String cmd = input.get("cmd");
-            Command c;
+        Hashtable<String, String> inputDict = Parser.parseInput(input);
+        String cmd = inputDict.get("cmd");
+        Command c;
 
+        try {
+            c = Command.valueOf(cmd.toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            // Command not recognised, wait for next user command
+            return Ui.showInvalidCommand(cmd);
+        }
+        
+        switch (c) {
+        case EXIT:
+            // Fallthrough
+        case BYE:
+            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+            return Ui.showBye();
+        case LIST:
+            return Ui.showTasks(storage.getTaskList());
+        case MARK:
             try {
-                c = Command.valueOf(cmd.toUpperCase());
-            } catch (IllegalArgumentException | NullPointerException e) {
-                // Command not recognised, wait for next user command
-                ui.showInvalidCommand(cmd);
-                continue;
+                int idx = Parser.parseIndex(inputDict.get("name"));
+                Task t = storage.getTaskList().mark(idx);
+                storage.saveTaskList();
+                return Ui.showMarkDone(t);
+            } catch (NumberFormatException e) {
+                return Ui.showIndexParseError();
+            } catch (IndexOutOfBoundsException e) {
+                return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
             }
-            
-            switch (c) {
-            case EXIT:
-                // Fallthrough
-            case BYE:
-                ui.showBye();
-                isExit = true;
-                break;
-            case LIST:
-                ui.showTasks(storage.getTaskList());
-                break;
-            case MARK:
-                try {
-                    int idx = Parser.parseIndex(input.get("name"));
-                    Task t = storage.getTaskList().mark(idx);
-                    storage.saveTaskList();
-                    ui.showMarkDone(t);
-                } catch (NumberFormatException e) {
-                    ui.showIndexParseError();
-                } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexOutOfBoundsError(storage.getTaskList().size());
-                }
-                break;
-            case UNMARK:
-                try {
-                    int idx = Parser.parseIndex(input.get("name"));
-                    Task t = storage.getTaskList().unmark(idx);
-                    storage.saveTaskList();
-                    ui.showUnmarkDone(t);
-                } catch (NumberFormatException e) {
-                    ui.showIndexParseError();
-                } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexOutOfBoundsError(storage.getTaskList().size());
-                }
-                break;
-            case DELETE:
-                try {
-                    int idx = Parser.parseIndex(input.get("name"));
-                    Task t = storage.getTaskList().deleteTask(idx);
-                    storage.saveTaskList();
-                    ui.showDeleteDone(t, storage.getTaskList().size());
-                } catch (NumberFormatException e) {
-                    ui.showIndexParseError();
-                } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexOutOfBoundsError(storage.getTaskList().size());
-                }
-                break;
-            case TODO:
-                try {
-                    String s = input.get("name");
-                    Parser.checkNullOrEmpty(s);
-                    Task t = storage.getTaskList().addTask(s);
-                    storage.saveTaskList();
-                    ui.showAddTaskDone(t, storage.getTaskList().size());
-                } catch (IllegalArgumentException e) {
-                    ui.showMissingTaskNameError();
-                }
-                break;
-            case DEADLINE:
-                try {
-                    String s = input.get("name");
-                    Parser.checkNullOrEmpty(s);
-                    LocalDateTime by = Parser.parseDateTime(input.get("/by"));
-                    Task t = storage.getTaskList().addTask(s, by);
-                    storage.saveTaskList();
-                    ui.showAddTaskDone(t, storage.getTaskList().size());
-                } catch (IllegalArgumentException e) {
-                    ui.showMissingTaskNameError();
-                } catch (NullPointerException | DateTimeParseException e) {
-                    ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", "BY DATE");
-                }
-                break;
-            case EVENT:
-                String error = "/from";
-                try {
-                    String s = input.get("name");
-                    Parser.checkNullOrEmpty(s);
-                    LocalDateTime from = Parser.parseDateTime(input.get("/from"));
-                    error = "/to"; // [from] date successfully parsed, change possible error to [to]
-                    LocalDateTime to = Parser.parseDateTime(input.get("/to"));
-                    Task t = storage.getTaskList().addTask(s, from, to);
-                    storage.saveTaskList();
-                    ui.showAddTaskDone(t, storage.getTaskList().size());
-                } catch (IllegalArgumentException e) {
-                    ui.showMissingTaskNameError();
-                } catch (NullPointerException | DateTimeParseException e) {
-                    ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", error);
-                }
-                break;
-            case FIND:
-                try {
-                    String s = input.get("name");
-                    Parser.checkNullOrEmpty(s);
-                    ui.showAllMatchingTasks(storage.getTaskList().match(s));
-                } catch (IllegalArgumentException e) {
-                    ui.showMissingFindArgError();
-                }
-                break;
-            default:
-                // For debugging purposes
-                System.err.println("Command(Enum) not yet implemented in switch case.");
-                break;
+        case UNMARK:
+            try {
+                int idx = Parser.parseIndex(inputDict.get("name"));
+                Task t = storage.getTaskList().unmark(idx);
+                storage.saveTaskList();
+                return Ui.showUnmarkDone(t);
+            } catch (NumberFormatException e) {
+                return Ui.showIndexParseError();
+            } catch (IndexOutOfBoundsException e) {
+                return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
             }
-        };
-
-        return this;
+        case DELETE:
+            try {
+                int idx = Parser.parseIndex(inputDict.get("name"));
+                Task t = storage.getTaskList().deleteTask(idx);
+                storage.saveTaskList();
+                return Ui.showDeleteDone(t, storage.getTaskList().size());
+            } catch (NumberFormatException e) {
+                return Ui.showIndexParseError();
+            } catch (IndexOutOfBoundsException e) {
+                return Ui.showIndexOutOfBoundsError(storage.getTaskList().size());
+            }
+        case TODO:
+            try {
+                String s = inputDict.get("name");
+                Parser.checkNullOrEmpty(s);
+                Task t = storage.getTaskList().addTask(s);
+                storage.saveTaskList();
+                return Ui.showAddTaskDone(t, storage.getTaskList().size());
+            } catch (IllegalArgumentException e) {
+                return Ui.showMissingTaskNameError();
+            }
+        case DEADLINE:
+            try {
+                String s = inputDict.get("name");
+                Parser.checkNullOrEmpty(s);
+                LocalDateTime by = Parser.parseDateTime(inputDict.get("/by"));
+                Task t = storage.getTaskList().addTask(s, by);
+                storage.saveTaskList();
+                return Ui.showAddTaskDone(t, storage.getTaskList().size());
+            } catch (IllegalArgumentException e) {
+                return Ui.showMissingTaskNameError();
+            } catch (NullPointerException | DateTimeParseException e) {
+                return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", "BY DATE");
+            }
+        case EVENT:
+            String error = "/from";
+            try {
+                String s = inputDict.get("name");
+                Parser.checkNullOrEmpty(s);
+                LocalDateTime from = Parser.parseDateTime(inputDict.get("/from"));
+                error = "/to"; // [from] date successfully parsed, change possible error to [to]
+                LocalDateTime to = Parser.parseDateTime(inputDict.get("/to"));
+                Task t = storage.getTaskList().addTask(s, from, to);
+                storage.saveTaskList();
+                return Ui.showAddTaskDone(t, storage.getTaskList().size());
+            } catch (IllegalArgumentException e) {
+                return Ui.showMissingTaskNameError();
+            } catch (NullPointerException | DateTimeParseException e) {
+                return Ui.showDateTimeParseError(DATE_TIME_INPUT_FORMAT, "Deadline", error);
+            }
+        case FIND:
+            try {
+                String s = inputDict.get("name");
+                Parser.checkNullOrEmpty(s);
+                return Ui.showAllMatchingTasks(storage.getTaskList().match(s));
+            } catch (IllegalArgumentException e) {
+                return Ui.showMissingFindArgError();
+            }
+        default:
+            // For debugging purposes
+            return "Command(Enum) not yet implemented in switch case.";
+        }
     }
 }
