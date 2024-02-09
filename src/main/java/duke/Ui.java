@@ -39,6 +39,7 @@ public class Ui {
      */
 
     public TaskList printMessage(String message, Parser parser, TaskList taskList) {
+        assert message != null : "No command received";
         Pair<TaskList, String> output =  parser.parse(taskList, message);
         System.out.println(output.getValue());
         return output.getKey();

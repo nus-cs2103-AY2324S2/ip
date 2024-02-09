@@ -1,9 +1,1 @@
 T | 1 | 1
-T | 0 | 2
-T | 0 | 3
-T | 0 | 4
-D | 0 | return book  | Feb 5 2024
-D | 1 | return book  | Feb 5 2024
-D | 0 | don't return book  | Feb 5 2024
-D | 0 | return book  | Feb 5 2024
-T | 1 | 9

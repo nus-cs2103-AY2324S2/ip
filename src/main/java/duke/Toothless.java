@@ -54,6 +54,8 @@ public class Toothless {
             System.err.println("Error creating the file: " + e.getMessage());
             e.printStackTrace();
         }
+
+
         FileParser fileParser = new FileParser(f);
         try {
             fileParser.parseFile(f);
@@ -72,6 +74,7 @@ public class Toothless {
     }
 
     public static void main(String[] args) {
+        ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
         new Toothless().run();
     }
 
@@ -82,6 +85,7 @@ public class Toothless {
         String message = "";
         ui.bye();
         Storage storage = new Storage(this.taskList);
+
         try {
             storage.store();
         } catch (IOException e) {
