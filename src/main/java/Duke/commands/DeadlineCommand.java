@@ -42,7 +42,7 @@ public class DeadlineCommand extends Command {
         }
         Task newTask = new Deadline(words[1].substring(0, deadlineStartIdx),
                 words[1].substring(deadlineStartIdx + 4));
-        ui.displayAdd(tasks.addTask(newTask), tasks.list().size());
+        ui.displayAdd(tasks.addTask(newTask), tasks.getItems().size());
         storage.addToWriteFile(newTask);
         return false;
     }

@@ -22,7 +22,7 @@ public class TaskList {
         items.add(t);
         return t;
     }
-    public ArrayList<Task> list() {
+    public ArrayList<Task> getItems() {
         return this.items;
     }
     public ArrayList<Task> findTaskWithDate(LocalDateTime toFind) {

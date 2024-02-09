@@ -18,11 +18,11 @@ public class Storage {
         this.filepath = filepath;
     }
     public ArrayList<Task> readFile () {
-        ArrayList<Task> res = new ArrayList<>();
+        ArrayList<Task> result = new ArrayList<>();
         try {
-            Scanner token = new Scanner(new File(this.filepath));
-            while (token.hasNextLine()) {
-                String line = token.nextLine();
+            Scanner readTextFile = new Scanner(new File(this.filepath));
+            while (readTextFile.hasNextLine()) {
+                String line = readTextFile.nextLine();
                 String[] splits = line.split(" [|] ");
                 Task readTask = null;
                 switch (splits[0]) {
@@ -36,13 +36,13 @@ public class Storage {
                         readTask = new Event(splits[1], splits[2], splits[3], splits[4]);
                         break;
                 }
-                res.add(readTask);
+                result.add(readTask);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find file, program will now exit");
-            return res;
+            return result;
         }
-        return res;
+        return result;
     }
     public void addToWriteFile (Task task) {
         try {

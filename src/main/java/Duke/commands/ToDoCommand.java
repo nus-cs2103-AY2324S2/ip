@@ -27,7 +27,7 @@ public class ToDoCommand extends Command {
             throw new EmptyDescriptionException("todo");
         }
         Task newTask = new ToDo(words[1]);
-        ui.displayAdd(tasks.addTask(newTask), tasks.list().size());
+        ui.displayAdd(tasks.addTask(newTask), tasks.getItems().size());
         storage.addToWriteFile(newTask);
         return false;
     }

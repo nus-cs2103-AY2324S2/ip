@@ -1,6 +1,6 @@
-package Duke.tasks;
+package duke.tasks;
 
-import Duke.exceptions.InvalidEventException;
+import duke.exceptions.InvalidEventException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

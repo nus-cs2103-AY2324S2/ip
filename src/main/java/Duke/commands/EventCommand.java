@@ -37,7 +37,7 @@ public class EventCommand extends Command {
         Task newTask = new Event(words[1].substring(0, startIdx),
                 dates[1],
                 dates[2]);
-        ui.displayAdd(tasks.addTask(newTask), tasks.list().size());
+        ui.displayAdd(tasks.addTask(newTask), tasks.getItems().size());
         storage.addToWriteFile(newTask);
         return false;
     }

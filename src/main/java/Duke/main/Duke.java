@@ -12,42 +12,42 @@ public class Duke {
     private final TaskList tasks;
     private static Command parseCommand(String s) throws IllegalArgumentException {
         String[] words = s.split(" ", 2);
-        Command res = null;
+        Command result = null;
         switch(words[0]) {
         case "bye":
-            res = new ByeCommand();
+            result = new ByeCommand();
             break;
         case "list":
-            res = new ListCommand();
+            result = new ListCommand();
             break;
         case "mark":
-            res = new MarkCommand(words);
+            result = new MarkCommand(words);
             break;
         case "unmark":
-            res = new UnMarkCommand(words);
+            result = new UnMarkCommand(words);
             break;
         case "delete":
-            res = new DeleteCommand(words);
+            result = new DeleteCommand(words);
             break;
         case "todo":
-            res = new ToDoCommand(words);
+            result = new ToDoCommand(words);
             break;
         case "deadline":
-            res = new DeadlineCommand(words);
+            result = new DeadlineCommand(words);
             break;
         case "event":
-            res = new EventCommand(words);
+            result = new EventCommand(words);
             break;
         case "date":
-            res = new DateCommand(words);
+            result = new DateCommand(words);
             break;
         case "find":
-            res = new FindCommand(words);
+            result = new FindCommand(words);
         }
-        if (res == null) {
+        if (result == null) {
             throw new IllegalArgumentException();
         }
-        return res;
+        return result;
     }
     public Duke (String filePath) {
         this.storage = new Storage(filePath);
