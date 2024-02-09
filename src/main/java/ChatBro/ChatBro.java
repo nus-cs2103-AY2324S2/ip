@@ -21,7 +21,7 @@ public class ChatBro {
                 }
             } catch (WrongFileFormatException e) {
                 Ui.printMessage(e.getMessage());
-                System.exit(0);
+                return;
             }
         }
         Ui.printWelcome();

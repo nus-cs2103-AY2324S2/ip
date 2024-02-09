@@ -4,6 +4,9 @@ package ChatBro;
  * Represents the user interface of the ChatBro.ChatBro.
  */
 public class Ui {
+    public static void printLine() {
+        System.out.println("____________________________");
+    }
     public static void printMessage(String message) {
         printLine();
         System.out.println(message);
@@ -17,10 +20,6 @@ public class Ui {
                 + "I'm ChatBro! What can I do for you bro?\n"
                 + "Type 'help' to see the list of available commands!");
     }
-    public static void printLine() {
-        System.out.println("_________________________");
-    }
-
     public static void printHelp() {
         printMessage("Here are the available commands bro:\n"
                 + "1. list (view your list of tasks)\n"
