@@ -14,12 +14,19 @@ public class FindCommand extends Command {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * The constructor of FindCommand.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
+     * @throws EmptyInputException If user did not input description.
+     */
     public FindCommand(TaskList taskList, Ui ui, Storage storage) {
 
         super(taskList, ui, storage);
     }
     @Override
-
     public String execute(TaskList taskList, Ui ui, Storage storage) throws EmptyInputException {
         String str;
         String input = ui.getInput();

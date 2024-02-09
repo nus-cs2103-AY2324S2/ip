@@ -18,6 +18,7 @@ public class InvalidCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
      * @throws InvalidCommandException If input is not valid.
      */
     public InvalidCommand(TaskList taskList, Ui ui, Storage storage) {

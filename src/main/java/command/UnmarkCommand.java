@@ -11,18 +11,20 @@ public class UnmarkCommand extends Command {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * The constructor for UnmarkCommand
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
+     */
     public UnmarkCommand(TaskList taskList, Ui ui, Storage storage) {
 
         super(taskList, ui, storage);
     }
 
-    /**
-     * Call unmark function
-     *
-     * @param taskList The task list which the command will modify.
-     * @param ui The ui to get the input of the user.
-     * @throws Exception If input is not valid.
-     */
+    @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String input = ui.getInput();
         String indexStr = input.split(" ")[1];
@@ -32,6 +34,7 @@ public class UnmarkCommand extends Command {
         return str;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

@@ -18,7 +18,8 @@ public class ByeCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
-     * @throws Exception If input is not valid.
+     * @param storage The storage to write task into.
+     * @throws DukeException If input is not valid.
      */
     public ByeCommand(TaskList taskList, Ui ui, Storage storage) {
 

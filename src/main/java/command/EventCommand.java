@@ -26,6 +26,7 @@ public class EventCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @param storage The storage to write task into.
      * @throws EmptyInputException If user did not input description.
      * @throws EmptyTimeException If user did not input time.
      * @throws InvalidFormatException If user's input invalid format.

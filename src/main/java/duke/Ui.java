@@ -6,11 +6,6 @@ import java.util.Scanner;
  * Ui deals with interactions with the user.
  */
 public class Ui {
-
-    public static final String SEPERATOR = "------------------------------------------------";
-    public static final String INDENT = "    ";
-    public static final String INDENT_SEPERATOR = INDENT + SEPERATOR;
-
     private Scanner scanner;
 
     private String input;
@@ -26,30 +21,17 @@ public class Ui {
      * Display the welcome message.
      */
     public static String showWelcome() {
-        String logo = " ____\n"
-                + "|  _ \\   ___   ___\n"
-                + "| |_| | / _ \\ / _ \\\n"
-                + "| |_| | | __/ | __/\n"
-                + "|____/  \\___| \\___|\n";
+        String msg = "\nHello! I'm Bee!\n"
+                + "What can I do for you?\n";
 
-        String msg = SEPERATOR
-                + "\nHello! I'm Bee!\n"
-                + "What can I do for you?\n"
-                + SEPERATOR;
-
-        return logo + "\n" + msg;
+        return msg;
     }
 
     /**
      * Display the goodbye message
      */
     public static String showGoodbyeMessage() {
-        String str;
-        str = INDENT_SEPERATOR
-                + "\n"
-                + INDENT
-                + "Bye. Hope to see you again soon!\n"
-                + INDENT_SEPERATOR;
+        String str = "Bye. Hope to see you again soon!\n";
         return str;
     }
 
