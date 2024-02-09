@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Storage;
-import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
@@ -23,17 +22,17 @@ public class ToDoCommand extends Command {
 
     /**
      * Executes the command, creating a new todo, adding it to the list, saving to storage.
-     * Also displays messages to user.
+     * Also updates response.
      *
      * @param list TaskList object containing current tasks.
-     * @param ui To send instructions on how to update the user interface.
      * @param storage To update storage with new todo task.
      */
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList list, Storage storage) {
         Task newTask = Task.createTask(TaskType.TODO, this.description, false);
         list.add(newTask);
         storage.save(list);
-        ui.showMessage("added new ToDo: " + newTask);
-        ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
+
+        super.setResponse("added new ToDo: " + newTask
+                + "\nLooks like you have " + list.countTasks() + " things left to do!");
     }
 }

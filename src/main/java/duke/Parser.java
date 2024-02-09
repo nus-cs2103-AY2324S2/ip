@@ -1,14 +1,14 @@
 package duke;
 
+import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.FindCommand;
+import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.EventCommand;
 import duke.command.UnmarkCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
-import duke.command.ByeCommand;
-import duke.command.DeadlineCommand;
 import duke.command.ToDoCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.IllegalParamException;
@@ -90,12 +90,12 @@ public class Parser {
         }
     }
 
-    private static Command parseDeleteCommand(String tokens) throws IllegalParamException{
+    private static Command parseDeleteCommand(String tokens) throws IllegalParamException {
         try {
             int taskId = Integer.parseInt(tokens.trim());
             return new DeleteCommand(taskId);
         } catch (NumberFormatException e) {
-            throw new IllegalParamException("I dont know which duke.command.task you are trying to delete! Try a number");
+            throw new IllegalParamException("I dont know which task you are trying to delete! Try a number");
         }
     }
 

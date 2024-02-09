@@ -1,19 +1,17 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
 import duke.exceptions.StorageException;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
-
-
-import java.io.File;
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.time.LocalDate;
-
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.time.format.DateTimeParseException;
 
 /**
  * Helper class to manage all storage related methods of duke.
@@ -81,14 +79,14 @@ public class Storage {
      * @return TaskList object.
      * @throws StorageException If file not found.
      */
-    public TaskList load() throws StorageException{
+    public TaskList load() throws StorageException {
         TaskList taskList = new TaskList();
 
         try {
             Scanner s = new Scanner(this.file);
             while (s.hasNext()) {
-                Task next_task = parseLineFromStorage(s.nextLine());
-                taskList.add(next_task);
+                Task nexTask = parseLineFromStorage(s.nextLine());
+                taskList.add(nexTask);
             }
         } catch (FileNotFoundException e) {
             throw new StorageException("File / Directory does not exist.");
