@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import handler.DataHandler;
 import msg.StdMsgs;
+import storage.Storage;
 import task.Task;
 import msg.Msg;
 import ui.Ui;
@@ -18,9 +19,32 @@ public class TaskList {
     private int taskCount = 0;
     /** ArrayList<task> to store tasks */
     private ArrayList<Task> taskList = new ArrayList<Task>();
+    /** Represents UI Sir Duke will use*/
     private Ui ui;
+    /** Represents storage Sir Duke will access*/
+    private Storage storage;
 
-    public TaskList() {}
+    /**
+     * Constructs TaskList object
+     * @param storage
+     * @param ui
+     */
+    public TaskList(Storage storage, Ui ui) {
+        this.storage = storage;
+        this.ui = ui;
+    }
+
+    /**
+     * Returns taskList object without storage set
+     * @param ui
+     */
+    public  TaskList(Ui ui) {
+        this.ui = ui;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     public int getTaskCount() {
         return taskCount;
@@ -42,6 +66,16 @@ public class TaskList {
                         String.format("Now you have %d tasks in the list.", this.taskCount)
         ).print();
         DataHandler.overWriteItems(this.toDataFormat());
+    }
+
+    /**
+     * Loads task from file. Difference between this and add is that there is no acknowledgement message
+     *
+     * @param item
+     */
+    public void load(Task item) {
+        this.taskList.add(item);
+        taskCount += 1;
     }
 
     /**

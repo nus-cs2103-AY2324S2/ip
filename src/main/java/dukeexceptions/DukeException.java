@@ -1,11 +1,11 @@
 package dukeexceptions;
 /** Class represents exceptions specific to Sir Duke */
-public class dukeExceptions extends Exception {
+public class DukeException extends Exception {
     /**
      * Constructs dukeExceptions object
      * @param err
      */
-    public dukeExceptions(String err) {
+    public DukeException(String err) {
         super(err);
     }
 }
