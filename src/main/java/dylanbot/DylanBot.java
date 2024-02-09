@@ -2,6 +2,19 @@ package dylanbot;
 
 import java.io.IOException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  * Represents a DylanBot
  */
@@ -10,6 +23,14 @@ public class DylanBot {
     private Storage st;
     private Parser ps;
     private TaskList tl;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/DylanBotUser.jpeg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DylanBotBot.jpeg"));
+
 
     /**
      * Creates a DylanBot with the specified save file at the provided filePath
@@ -28,6 +49,14 @@ public class DylanBot {
             this.tl = new TaskList(ui);
             Ui.print("No data to load, created new file");
         }
+    }
+
+    public DylanBot() {
+
+    }
+
+    public static void main(String[] args) {
+        new DylanBot("./data/DylanBotData.txt").run();
     }
 
     /**
@@ -52,7 +81,7 @@ public class DylanBot {
         ui.sendExit();
     }
 
-    public static void main(String[] args) {
-        new DylanBot("./data/DylanBotData.txt").run();
+    public String getResponse(String input) {
+        return "DylanBot heard: " + input;
     }
 }
