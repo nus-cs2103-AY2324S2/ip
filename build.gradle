@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("mona.Mona")
+    mainClass.set("mona.Launcher")
 }
 
 shadowJar {

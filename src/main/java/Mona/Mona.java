@@ -73,8 +73,9 @@ public class Mona {
         case FIND:
             return tasks.showRelevantTasks(inputArray[1]);
         default:
-            break;
+            assert false : currCommand;
         }
+        assert false : "Execution should not reach this point!";
         return "";
     }
 
