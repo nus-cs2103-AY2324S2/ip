@@ -18,8 +18,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
 
     private HeadCube headcube;
-    private static final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private static final Image HEADCUBE_IMAGE = new Image(this.getClass().getResourceAsStream("/images/headcube.png"));
+    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image HEADCUBE_IMAGE = new Image(this.getClass().getResourceAsStream("/images/headcube.png"));
 
     /**
      * Initializes the controller class. This method is automatically called

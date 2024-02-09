@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Storage {
     private Ui ui;
     private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH = "./data/HeadCube.txt"
+    private static final String FILE_PATH = "./data/HeadCube.txt";
 
     /**
      * Constructor a Storage object with a reference to the UI for displaying messages.
