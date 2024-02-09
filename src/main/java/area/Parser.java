@@ -1,5 +1,8 @@
 package area;
 
+/**
+ * Parser checks the instruction given and divides it into smaller chunks.
+ */
 public class Parser {
 
     public Parser(){

@@ -1,5 +1,9 @@
 package area;
 
+/**
+ * Event is a child class of Task. It is to register tasks that can only be done 
+ * within a specific timeframe.
+ */
 public class Event extends Task {
 
     protected String from;

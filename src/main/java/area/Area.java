@@ -2,7 +2,10 @@ package area;
 
 import java.util.Scanner;
 
-public class Duke {
+/**
+ * Represents the bot. An Area object corresponds to the chatbot.
+ */
+public class Area {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -13,7 +16,7 @@ public class Duke {
      * @param filePath
      * @throws Exception
      */
-    public Duke(String filePath) throws Exception {
+    public Area(String filePath) throws Exception {
         this.ui = new Ui();
         this.tasks = new TaskList();
         this.storage = new Storage(filePath,
@@ -78,7 +81,7 @@ public class Duke {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        new Duke("./data/duke.txt").run();
+        new Area("./data/duke.txt").run();
     }
 
 }

@@ -1,11 +1,14 @@
 package area;
 
+/**
+ * Represents a task . A Task object  corressponds to a correct command by user.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     *
+     *  Constructs a new task with the given description. The task is not done by default.
      * @param description
      */
     public Task(String description){
@@ -23,7 +26,7 @@ public class Task {
     }
 
     /**
-     * Get description of task
+     * Get description of task.
      * 
      * @return String
      */

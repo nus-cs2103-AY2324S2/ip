@@ -2,6 +2,10 @@ package area;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of Task objects. Each Task object corresponds to a task set
+ * for the bot by user.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks; // List of all the task objects in this list.
@@ -50,20 +54,32 @@ public class TaskList {
         this.tasks = t;
     }
 
-    public void findTask(String keyword){
+    /**
+     * Prints a list of tasks that contain the keyword used to search for them.
+     * If there are no matching tasks, a line is printed to inform user there 
+     * is no matching tasks.
+     * 
+     * @param keyword
+     */
+    public void findTask(String keyword) {
         ArrayList<Task> result = new ArrayList<Task>();
-        for(Task task: tasks){
-            if(task.description.contains(keyword)){
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
                 result.add(task);
             }
         }
 
-        System.out.println("Here are the matching tasks in your list:");
-        ui.showList(result);
+        if (result.size() == 0) {
+            System.out.println("There are no matching tasks.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            ui.showList(result);
+        }
     }
 
     /**
-     * add the task to the list of tasks
+     * add the task to the list of tasks. If instruction is incomplete, an error
+     * will be thrown to inform the user of the issue.
      * 
      * @param instruction
      */
@@ -91,11 +107,12 @@ public class TaskList {
     }
 
     /**
-     * Modify the task based on instruction
+     * Modify the task based on instruction. If instruction is incomplete, an error
+     * message will be printed to notify user of the problem.
      * 
      * @param instruction
      */
-    public void modifyTask(String instruction){
+    public void modifyTask(String instruction) {
         String command = parser.parseCommand(instruction);
         if (command.equals("mark")) {
             // marks a task as done

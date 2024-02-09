@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
+/**
+ * Stores the commands by user in a text file. The commands are to be executed when the user starts a new session to preserve data from previous sessions.
+ */
 public class Storage {
 
     private static ArrayList<String> taskList = new ArrayList<String>();
