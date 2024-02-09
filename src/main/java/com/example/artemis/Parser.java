@@ -7,14 +7,14 @@ import java.time.format.DateTimeParseException;
  * within the Artemis application.
  */
 public class Parser {
-
     public static final String INVALID_EVENT_INPUT = "Invalid event format. \n"
-            + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]";
+            + "     Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]";
     public static final String INVALID_TASK_NUMBER = "OOPS!!! Please provide a valid task number.";
     public static final String INVALID_DEADLINE_INPUT = "Invalid deadline format. \n"
-            + "Please use: deadline [description] /by [dd-mm-yyyy hhmm]";
+            + "     Please use: deadline [description] /by [dd-mm-yyyy hhmm]";
     public static final String INVALID_TODO_INPUT = "OOPS!!! The description of a todo cannot be empty.";
     public static final String INVALID_INPUT = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    public static final String TASK_ALREADY_EXISTS = "Task already exists: ";
 
     /**
      * Parses the user input and performs the corresponding action.
@@ -73,9 +73,6 @@ public class Parser {
 
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
-
-            assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
-
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsDone();
 
@@ -98,9 +95,6 @@ public class Parser {
 
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
-
-            assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
-
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsNotDone();
 
@@ -128,6 +122,10 @@ public class Parser {
                 throw new ArtemisException(INVALID_TODO_INPUT);
             }
 
+            if (tasks.containsTask(description)) {
+                return ui.showError(TASK_ALREADY_EXISTS + description);
+            }
+
             tasks.addTask(new Todo(description));
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | IndexOutOfBoundsException e) {
@@ -149,14 +147,16 @@ public class Parser {
         try {
             String[] tokens = input.split("/by");
 
-            assert tokens.length != 2 : "Invalid input format";
-
             if (tokens.length < 2) {
                 throw new ArtemisException(INVALID_DEADLINE_INPUT);
             }
 
             String description = tokens[0].replace("deadline ", "").trim();
             String by = tokens[1].trim();
+
+            if (tasks.containsTask(description)) {
+                return ui.showError(TASK_ALREADY_EXISTS + description);
+            }
 
             tasks.addTask(new Deadline(description, by));
 
@@ -180,8 +180,6 @@ public class Parser {
         try {
             String[] tokens = input.split("/from");
 
-            assert tokens.length != 2 : "Invalid input format";
-
             if (tokens.length < 2) {
                 throw new ArtemisException(INVALID_EVENT_INPUT);
             }
@@ -189,14 +187,16 @@ public class Parser {
             String description = tokens[0].replace("event ", "").trim();
             String[] fromTo = tokens[1].split("/to");
 
-            assert fromTo.length != 2 : "Invalid input format";
-
             if (fromTo.length < 2) {
                 throw new ArtemisException(INVALID_EVENT_INPUT);
             }
 
             String from = fromTo[0].trim();
             String to = fromTo[1].trim();
+
+            if (tasks.containsTask(description)) {
+                return ui.showError(TASK_ALREADY_EXISTS + description);
+            }
 
             tasks.addTask(new Event(description, from, to));
 
@@ -219,9 +219,6 @@ public class Parser {
 
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
-
-            assert taskIndex >= 0 && taskIndex < tasks.getTasks().size() : "Invalid task index";
-
             Task task = tasks.getTasks().get(taskIndex);
             tasks.deleteTask(taskIndex);
 
