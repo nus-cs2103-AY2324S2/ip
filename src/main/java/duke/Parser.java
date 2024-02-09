@@ -226,4 +226,70 @@ public class Parser {
         }
         return response.toString().trim();
     }
+
+    /**
+     * Adds a tag to a specific task in the task list. The tag is added with a "#" prefix.
+     * The input message is expected to be in the format "[task number] /tag [tag]",
+     * where [task number] is the 1-based index of the task in the list and [tag] is the tag to be added.
+     *
+     * @param list The task list to which the tag will be added.
+     * @param message The input message containing the task number and tag.
+     * @return A confirmation message indicating the tag has been added to the specified task.
+     * @throws DukeException If the input message format is incorrect, the task number is missing,
+     *                       the task number is invalid (less than 1 or greater than the size of the task list),
+     *                       or the tag is missing from the input message.
+     */
+    public static String handleTag(TaskList list, String message) throws DukeException {
+        // Split the message on " /tag " to separate the command with the task number from the tag
+        String[] parts = message.split(" /tag ");
+        if (parts.length < 2) {
+            throw new DukeException("OOPS!!! The tag is missing buddy.");
+        }
+
+        // Further split the first part to get the task number
+        String[] commandParts = parts[0].split(" ");
+        if (commandParts.length < 2) {
+            throw new DukeException("OOPS!!! The task number is missing buddy.");
+        }
+
+        // Parse the task number and validate it
+        int index = Integer.parseInt(commandParts[1].trim()) - 1;
+        if (index < 0 || index >= list.size()) {
+            throw new DukeException("OOPS!!! Task number is invalid buddy.");
+        }
+
+        // Retrieve the task and add the tag with a "#" prefix
+        Task task = list.get(index);
+        task.addTag("#" + parts[1].trim());
+
+        // Print the result and return the confirmation message
+        Ui.printWithLines("OK, I've added this tag to the task:", task.toString());
+        return String.format("OK, I've added this tag to the task:\n%s", task);
+    }
+
+    /**
+     * Removes a tag from a specific task in the task list. The task number is expected to be provided
+     * in the input message in the format "removetag [task number]", where [task number] is the 1-based index
+     * of the task in the list.
+     *
+     * @param list The task list from which the tag will be removed.
+     * @param message The input message containing the task number from which the tag should be removed.
+     * @return A confirmation message indicating the tag has been removed from the specified task.
+     * @throws DukeException If the input message format is incorrect, the task number is missing,
+     *                       or the task number is invalid (less than 1 or greater than the size of the task list).
+     */
+    public static String removeTag(TaskList list, String message) throws DukeException {
+        if (message.trim().equals("removetag")) {
+            throw new DukeException("OOPS!!! The task number is missing buddy.");
+        }
+        int index = Integer.parseInt(message.substring(10).trim()) - 1;
+        if (index < 0 || index >= list.size()) {
+            throw new DukeException("OOPS!!! Task number is invalid buddy.");
+        }
+        Task task = list.get(index);
+        task.removeTag();
+        Ui.printWithLines("OK, I've removed the tag from this task:", task.toString());
+        return String.format("OK, I've removed the tag from this task:\n%s", task);
+    }
+
 }

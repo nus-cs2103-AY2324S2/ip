@@ -11,6 +11,7 @@ public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
+    protected Tag tag;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -23,6 +24,7 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.tag = null;
     }
 
     /**
@@ -32,7 +34,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + (isDone ? "[X] " : "[ ] ") + super.description + " (from: " + from + " to: " + to + ")";
+        return "[E]" + (isDone ? "[X] " : "[ ] ") + super.description + " (from: " + from + " to: " + to + ")"
+                + (tag == null ? "" : " " + tag.getTagName());
     }
 
     /**
@@ -42,7 +45,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " - " + to;
+        return "E" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " - " + to
+                + (tag == null ? "" : " | " + tag.getTagName());
     }
 
     /**
@@ -71,6 +75,9 @@ public class Event extends Task {
         if (isDone) {
             event.markAsDone();
         }
+        if (parts.length > 4) {
+            event.tag = new Tag(parts[4].trim());
+        }
         return event;
     }
 
@@ -90,5 +97,13 @@ public class Event extends Task {
      */
     public String getToDate() {
         return to.toString();
+    }
+
+    public void addTag(String tag) {
+        this.tag = new Tag(tag);
+    }
+
+    public void removeTag() {
+        this.tag = null;
     }
 }

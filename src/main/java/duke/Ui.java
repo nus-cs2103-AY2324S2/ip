@@ -65,8 +65,12 @@ public class Ui {
                 return Parser.findTask(list, message);
             } else if (message.equals("bye")) {
                 return "Bye! Hope to see you again soon!";
+            } else if (message.startsWith("tag")) {
+                return Parser.handleTag(list, message);
+            } else if (message.startsWith("removetag")) {
+                return Parser.removeTag(list, message);
             } else {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means buddy.");
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
             throw e;

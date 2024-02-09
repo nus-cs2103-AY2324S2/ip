@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class Deadline extends Task {
 
     protected LocalDate by;
+    protected Tag tag;
 
     /**
      * Constructor for Deadline.
@@ -19,6 +20,7 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
+        this.tag = null;
     }
 
     /**
@@ -28,7 +30,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + (isDone ? "[X] " : "[ ] ") + super.description + " (by: " + by + ")";
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + super.description + " (by: " + by + ")"
+                + (tag == null ? "" : " " + tag.getTagName());
     }
 
     /**
@@ -38,7 +41,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by
+                + (tag == null ? "" : " | " + tag.getTagName());
     }
 
     /**
@@ -59,6 +63,9 @@ public class Deadline extends Task {
         if (isDone) {
             deadline.markAsDone();
         }
+        if (parts.length > 4) {
+            deadline.tag = new Tag(parts[4].trim());
+        }
         return deadline;
     }
 
@@ -69,5 +76,13 @@ public class Deadline extends Task {
      */
     public String getDate() {
         return by.toString();
+    }
+
+    public void addTag(String tag) {
+        this.tag = new Tag(tag);
+    }
+
+    public void removeTag() {
+        this.tag = null;
     }
 }

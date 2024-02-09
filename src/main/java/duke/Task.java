@@ -8,6 +8,8 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    protected Tag tag;
+
     /**
      * Constructs a Task with the specified description. The task is initially not done.
      *
@@ -16,6 +18,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = null;
     }
 
     /**
@@ -49,7 +52,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
+        return "[T]" + (isDone ? "[X] " : "[ ] ") + description + (tag == null ? "" : " " + tag.getTagName());
     }
 
     /**
@@ -59,7 +62,15 @@ public class Task {
      * @return A string formatted for file storage.
      */
     public String toFileString() {
-        return "T" + " | " + (isDone ? "1" : "0") + " | " + description;
+        return "T" + " | " + (isDone ? "1" : "0") + " | " + description + (tag == null ? "" : " | " + tag.getTagName());
+    }
+
+    public void addTag(String tag) {
+        this.tag = new Tag(tag);
+    }
+
+    public void removeTag() {
+        this.tag = null;
     }
 
     /**
@@ -78,6 +89,9 @@ public class Task {
         Task task = new Task(description);
         if (isDone) {
             task.markAsDone();
+        }
+        if (parts.length > 3) {
+            task.tag = new Tag(parts[3].trim());
         }
         return task;
     }
