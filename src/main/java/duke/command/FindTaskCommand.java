@@ -17,6 +17,10 @@ public class FindTaskCommand extends Command {
         this.searchTerm = searchTerm;
     }
 
+    public FindTaskCommand() {
+        this.searchTerm = "";
+    }
+
     @Override
     public String execute() {
         TaskOrm tm = new TaskOrm();

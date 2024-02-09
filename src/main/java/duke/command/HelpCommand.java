@@ -11,13 +11,17 @@ public class HelpCommand extends Command {
         this.input = input;
     }
 
+    public HelpCommand() {
+        this.input = "";
+    }
+
     @Override
     public String execute() {
         if (this.input == null || this.input.isEmpty()) {
             return this.explain();
         }
 
-        Command command = Command.interpret(this.input);
+        Command command = Command.interpretCommand(this.input);
         return command.explain();
     }
 

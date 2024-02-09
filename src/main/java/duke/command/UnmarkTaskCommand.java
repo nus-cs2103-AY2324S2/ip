@@ -15,6 +15,10 @@ public class UnmarkTaskCommand extends Command {
         this.taskID = taskID;
     }
 
+    public UnmarkTaskCommand() {
+        this.taskID = -1;
+    }
+
     @Override
     public String execute() {
         TaskOrm tm = new TaskOrm();

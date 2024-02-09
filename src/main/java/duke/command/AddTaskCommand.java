@@ -30,6 +30,14 @@ public class AddTaskCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * Constructs an AddTaskCommand with no command and description.
+     */
+    public AddTaskCommand(String command) {
+        this.command = command;
+        this.description = null;
+    }
+
     @Override
     public String execute() {
         TaskOrm tm = new TaskOrm();
@@ -102,18 +110,21 @@ public class AddTaskCommand extends Command {
 
     @Override
     public String explain() {
-        return "Adds a task to the task list."
-                + "Format: "
-                + ADD_TODO_COMMAND + " <description>\n"
-                + "Example: "
-                + ADD_TODO_COMMAND + " read book\n"
-                + "Format: "
-                + ADD_DEADLINE_COMMAND + " <description> /by <deadline>\n"
-                + "Example: "
-                + ADD_DEADLINE_COMMAND + " return book /by 2019-12-15\n"
-                + "Format: "
-                + ADD_EVENT_COMMAND + " <description> /from <start date> /to <end date>\n"
-                + "Example: "
-                + ADD_EVENT_COMMAND + " fun event /from 2019-12-1 /to 2019-12-15";
+        switch (this.command) {
+        case ADD_TODO_COMMAND:
+            return "Adds a todo to the task list.\n"
+                        + "Format: todo <description>\n"
+                        + "Example: todo read book";
+        case ADD_DEADLINE_COMMAND:
+            return "Adds a deadline to the task list.\n"
+                        + "Format: deadline <description> /by <deadline>\n"
+                        + "Example: deadline return book /by 2019-12-15";
+        case ADD_EVENT_COMMAND:
+            return "Adds an event to the task list.\n"
+                        + "Format: event <description> /from <start date> /to <end date>\n"
+                        + "Example: fun event /from 2019-12-1 /to 2019-12-15";
+        default:
+            return "Adds a task to the task list.";
+        }
     }
 }

@@ -15,6 +15,10 @@ public class MarkTaskCommand extends Command {
         this.taskID = taskID;
     }
 
+    public MarkTaskCommand() {
+        this.taskID = -1;
+    }
+
     @Override
     public String execute() {
         TaskOrm tm = new TaskOrm();

@@ -15,6 +15,10 @@ public class DeleteTaskCommand extends Command {
         this.taskID = taskID;
     }
 
+    public DeleteTaskCommand() {
+        this.taskID = -1;
+    }
+
     @Override
     public String execute() {
         TaskOrm tm = new TaskOrm();

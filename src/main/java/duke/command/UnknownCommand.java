@@ -10,6 +10,10 @@ public class UnknownCommand extends Command {
         this.command = command;
     }
 
+    public UnknownCommand() {
+        this.command = "";
+    }
+
     @Override
     public String execute() {
         return String.format("I'm sorry, but I don't know what \"%s\" means.\n", this.command);
