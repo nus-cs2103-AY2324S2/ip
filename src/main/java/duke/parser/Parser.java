@@ -283,7 +283,13 @@ public class Parser {
         String commandTypeStr = args[0];
         commandTypeStr = commandTypeStr.toUpperCase();
 
-        CommandType commandType = CommandType.valueOf(commandTypeStr);
+
+        CommandType commandType;
+        try {
+            commandType = CommandType.valueOf(commandTypeStr);
+        } catch (IllegalArgumentException illegalArgumentException) {
+            return parseCommandUnknown();
+        }
 
         Command command;
         switch (commandType) {

@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 /**
  * Represents the command for deleting a task from the task list in the Duke application.
@@ -26,17 +25,16 @@ public class CommandDelete extends Command {
      * saves the updated task list to storage, and displays a confirmation message to the user.
      *
      * @param tasks   The task list from which the task will be deleted.
-     * @param ui      The user interface component for displaying messages to the user.
      * @param storage The storage component for saving the updated task list.
      * @throws DukeException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.remove(this.taskIndex);
 
         storage.saveTasks(tasks);
 
-        ui.showMessage(String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
-            task, tasks.size()));
+        return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
+            task, tasks.size());
     }
 }

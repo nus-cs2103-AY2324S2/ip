@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 /**
  * Represents the command for marking a task as done in the Duke application.
@@ -25,17 +24,16 @@ public class CommandMark extends Command {
      * Executes the "mark" command, which marks the specified task as done in the task list.
      *
      * @param tasks   The task list containing the tasks to be marked.
-     * @param ui      The user interface component for displaying messages to the user.
      * @param storage The storage component for saving the updated task list.
      * @throws DukeException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.get(this.taskIndex);
         task.mark();
 
         storage.saveTasks(tasks);
 
-        ui.showMessage(String.format("Nice! I've marked this task as done:\n  %s", task));
+        return String.format("Nice! I've marked this task as done:\n  %s", task);
     }
 }

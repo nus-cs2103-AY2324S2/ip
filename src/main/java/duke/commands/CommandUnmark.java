@@ -4,7 +4,6 @@ import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 /**
  * Represents the command for marking a task as not done in the Duke application.
@@ -26,17 +25,16 @@ public class CommandUnmark extends Command {
      * Saves the updated task list to storage.
      *
      * @param tasks   The task list containing the tasks.
-     * @param ui      The user interface component for displaying messages to the user.
      * @param storage The storage component for saving the task list.
      * @throws DukeException If there is an error while un-marking the task or saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.get(this.taskIndex);
         task.unmark();
 
         storage.saveTasks(tasks);
 
-        ui.showMessage(String.format("OK, I've marked this task as not done yet:\n  %s", task));
+        return String.format("OK, I've marked this task as not done yet:\n  %s", task);
     }
 }
