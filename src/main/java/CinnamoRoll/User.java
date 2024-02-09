@@ -1,5 +1,8 @@
 package CinnamoRoll;
 
+/**
+ * Enumerates different types of comments can be made by the users
+ */
 public enum User {
         MARK,
         UNMARK,
@@ -9,4 +12,4 @@ public enum User {
         DEADLINE,
         EVENT,
         FIND
-    }
+}

@@ -2,7 +2,7 @@ package CinnamoRoll;
 
 abstract class Task {
     protected final String taskname;
-    boolean isMarked;
+    private boolean isMarked;
 
     Task(String str) {
         this.taskname = str;
@@ -31,6 +31,13 @@ abstract class Task {
      * Retrieve status icon in the form of [(task type)][(marked status)]
      */
     abstract String getStatusIcon();
+
+    /**
+     * Retrieve boolean variable isMarked for the child classes
+     */
+    protected boolean getMarked() {
+        return this.isMarked;
+    }
 
     /**
      * Prints the description and timing for the task with the status

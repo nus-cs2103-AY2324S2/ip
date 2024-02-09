@@ -17,14 +17,16 @@ class Parser {
      * Supported task types are "TODO," "DEADLINE," and "EVENT."
      * For "TODO," expects the task description.
      * For "DEADLINE," expects the task description and deadline in the format "yyyy-MM-dd HH:mm."
-     * For "EVENT," expects the task description and event schedule in the format "yyyy-MM-dd HH:mm /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm."
+     * For "EVENT," expects the task description and event schedule in the format
+     * "yyyy-MM-dd HH:mm /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm."
      *
      * @param arr The string array representing the task.
      * @return A Task object based on the parsed input.
      * @throws CinnamoTimeException If there is an error parsing the date and time information.
      */
-    // 1. Solution below, very specifically on how to do date-time formatting with hours, minutes and seconds in java
-    // with the user inputs were inspired by previous batch student's submission here:
+    // 1. Solution below, very specifically on how to do date-time formatting
+    // with hours, minutes and seconds in java with the user inputs were inspired
+    // by previous batch student's submission here:
     // https://github.com/david-eom/CS2103T-IP/releases/tag/Level-8.
 
     // 2. Conversion from the user input format to the output format required / specified by Level 8

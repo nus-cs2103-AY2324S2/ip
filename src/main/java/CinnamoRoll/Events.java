@@ -1,6 +1,6 @@
 package CinnamoRoll;
 
-import java.time.*;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 class Events extends Task {
@@ -21,7 +21,7 @@ class Events extends Task {
     }
 
     String getStatusIcon() {
-        return (this.isMarked ? "[E][X]" : "[E][ ]");
+        return (this.getMarked() ? "[E][X]" : "[E][ ]");
     }
 
     /**
@@ -32,8 +32,8 @@ class Events extends Task {
      * @param length denotes the length of the list
      */
     String addTask(int length) {
-        return String.format("Got it. I've added this task:%n   " +
-                "%s%nNow you have %d tasks in the list", this.toString(), length);
+        return String.format("Got it. I've added this task:%n   "
+                + "%s%nNow you have %d tasks in the list", this.toString(), length);
     }
 
     public String toString() {

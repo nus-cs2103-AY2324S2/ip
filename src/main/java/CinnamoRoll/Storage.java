@@ -1,17 +1,15 @@
 package CinnamoRoll;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
 class Storage {
-    private final String PATH = "src/main/java/Cinnamo.txt";
+    private final String path = "src/main/java/Cinnamo.txt";
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
@@ -35,48 +33,52 @@ class Storage {
     ArrayList<Task> loadData() throws IOException {
         try {
             ArrayList<Task> output = new ArrayList<>();
-            Scanner sc = new Scanner(new FileReader(PATH));
+            Scanner sc = new Scanner(new FileReader(path));
             String input;
             while ((input = sc.nextLine()) != null) {
                 Task task;
                 String[] info = input.split("\\|", 3);
                 boolean marked = false;
                 switch (info[1].trim()) {
-                    case "X":
-                        marked = true;
-                        break;
-                    case "":
-                        marked = false;
-                        break;
-                    default:
-                        System.out.println("Oops! No Markings Provided in Correct Format:(");
+                case "X":
+                    marked = true;
+                    break;
+                case "":
+                    marked = false;
+                    break;
+                default:
+                    System.out.println("Oops! No Markings Provided in Correct Format:(");
                 }
                 switch (info[0].trim().toUpperCase()) {
-                    case "T":
-                        task = new Todos(info[2].trim(), marked);
-                        output.add(task);
-                        break;
-                    case "D":
-                        String[] deadline = info[2].trim().split("/by");
-                        task = new Deadlines(deadline[0].trim(), LocalDateTime.parse(deadline[1].trim(),
-                                this.format), marked);
-                        output.add(task);
-                        break;
-                    case "E":
-                        String[] event = info[2].trim().split("/from | /to");
-                        task = new Events(event[0].trim(), LocalDateTime.parse(event[1].trim(), this.format),
-                                LocalDateTime.parse(event[2].trim(), this.format), marked);
-                        output.add(task);
-                        break;
+                case "T":
+                    task = new Todos(info[2].trim(), marked);
+                    output.add(task);
+                    break;
+                case "D":
+                    String[] deadline = info[2].trim().split("/by");
+                    task = new Deadlines(deadline[0].trim(), LocalDateTime.parse(deadline[1].trim(),
+                            this.format), marked);
+                    output.add(task);
+                    break;
+                case "E":
+                    String[] event = info[2].trim().split("/from | /to");
+                    task = new Events(event[0].trim(), LocalDateTime.parse(event[1].trim(), this.format),
+                            LocalDateTime.parse(event[2].trim(), this.format), marked);
+                    output.add(task);
+                    break;
+                default:
+                    System.out.println("Loading data unsuccessful: invalid event type or formatting");
                 }
             }
             return output;
-        } catch(FileNotFoundException ex){
-            File f = new File(PATH);
-            if (!f.getParentFile().exists())
+        } catch (FileNotFoundException ex) {
+            File f = new File(path);
+            if (!f.getParentFile().exists()) {
                 f.getParentFile().mkdirs();
-            if (!f.exists())
+            }
+            if (!f.exists()) {
                 f.createNewFile();
+            }
             return new ArrayList<Task>();
         }
     }

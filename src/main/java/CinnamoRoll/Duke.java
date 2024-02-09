@@ -15,12 +15,18 @@ import java.util.Scanner;
 // which are also explained and commented in a very detailed manner in parser class:
 // 1. https://github.com/david-eom/CS2103T-IP/releases/tag/Level-8.
 // 2. https://stackoverflow.com/questions/70384955/converting-one-date-time-format-into-another-in-java
-
+/**
+ * Runs Duke class
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList tasklist;
 
+    /**
+     * Constructs Duke class that contains Ui class to handle user inputs, storage to load / store the
+     * input, and tasklist to handle the tasks and perform operations
+     */
     public Duke() {
         this.ui = new Ui();
         storage = new Storage();
@@ -48,39 +54,38 @@ public class Duke {
      *
      * @param input
      * @return
-     * @throws Exception
      */
     public String getResponse(String input) throws Exception {
         try {
             Parser parse = new Parser();
             String[] userInput = parse.parseInput(input);
             switch (User.valueOf(userInput[0])) {
-                case MARK:
-                    return this.tasklist.markTask(userInput);
+            case MARK:
+                return this.tasklist.markTask(userInput);
 
-                case UNMARK:
-                    return this.tasklist.unmarkTask(userInput);
+            case UNMARK:
+                return this.tasklist.unmarkTask(userInput);
 
-                case LIST:
-                    return this.tasklist.listTask();
+            case LIST:
+                return this.tasklist.listTask();
 
-                case DELETE:
-                    return this.tasklist.deleteTask(userInput);
+            case DELETE:
+                return this.tasklist.deleteTask(userInput);
 
-                case TODO:
-                    return this.tasklist.executeTask(userInput);
+            case TODO:
+                return this.tasklist.executeTask(userInput);
 
-                case DEADLINE:
-                    return this.tasklist.executeTask(userInput);
+            case DEADLINE:
+                return this.tasklist.executeTask(userInput);
 
-                case EVENT:
-                    return this.tasklist.executeTask(userInput);
+            case EVENT:
+                return this.tasklist.executeTask(userInput);
 
-                case FIND:
-                    return this.tasklist.findTask(userInput[1]);
+            case FIND:
+                return this.tasklist.findTask(userInput[1]);
 
-                default:
-                    throw new CinnamoException();
+            default:
+                throw new CinnamoException();
             }
         } catch (CinnamoException cin) {
             return cin.toString();

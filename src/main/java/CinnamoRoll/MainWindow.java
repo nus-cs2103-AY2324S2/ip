@@ -1,19 +1,16 @@
 package CinnamoRoll;
 
-import javafx.fxml.FXML;
-
 import javafx.animation.PauseTransition;
-
-import javafx.util.Duration;
-
 import javafx.application.Platform;
-
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -32,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Cinnamo.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
 
+    /**
+     * Initializes GUi with the greeting messages, displaying the images for users and the chatbot
+     */
     // Code for greeting the user part was aided by chatgpt:
     // https://chat.openai.com/c/25edc1c9-5acb-422b-902a-05b3e9924510
     @FXML
@@ -63,7 +63,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-        if(input.equals("bye")) {
+
+        if (input.equals("bye")) {
             String exit = "See you again! Hope you had great time with me >.<";
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
