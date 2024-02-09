@@ -1,5 +1,9 @@
 package lindi;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import lindi.commands.Command;
 import lindi.parser.Parser;
 import lindi.storage.Storage;
@@ -11,11 +15,25 @@ import lindi.ui.Ui;
  * Entry point of Lindi Application.
  * Initializes the application and starts the interaction with the user.
  */
-public class Lindi {
+public class Lindi extends Application {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
     private final String name = "Lindi"; // Log It N Do It -> LINDI
+
+    /**
+     * No argument constructor for JavaFx compatibility
+     */
+    public Lindi() {
+        this.storage = new Storage("./.data", "LindiData.txt"); // hard-coded data file path
+        this.ui = new Ui(this.name);
+        try {
+            this.tasks = this.storage.loadFromFile();
+        } catch (StorageLoadException e) {
+            this.ui.displayError(e);
+            this.tasks = new TaskList();
+        }
+    }
 
     /**
      * Initializes Lindi
@@ -54,5 +72,13 @@ public class Lindi {
 
     public static void main(String[] args) {
         new Lindi("./.data", "LindiData.txt").run();
+    }
+    @Override
+    public void start(Stage primaryStage) {
+        Label helloWorld = new Label("Hello World");
+        Scene scene = new Scene(helloWorld);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
