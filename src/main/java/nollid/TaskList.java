@@ -113,4 +113,17 @@ public class TaskList implements Iterable<Task> {
             return "You now have " + listSize + " tasks in your list.";
         }
     }
+
+    /**
+     * Generates a success message for adding a new task.
+     *
+     * @param t The task that was added.
+     * @return The formatted success message.
+     */
+    public String getAddSuccessMessage(Task t) {
+        String message = "Alright, added:\n" + "\t" + t + "\n";
+        message += this.summary();
+
+        return message;
+    }
 }

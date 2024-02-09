@@ -40,17 +40,57 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
+        checkDescriptionNotEmpty();
+        checkDeadlineNotEmpty();
+
+        String taskDescription = getTaskDescription();
+        String deadlineString = getDeadlineString();
+
+        try {
+            LocalDateTime deadline = Parser.getLocalDateTimeFromString(deadlineString);
+            Deadline task = new Deadline(taskDescription, deadline);
+            tasks.add(task);
+
+            String returnMessage = tasks.getAddSuccessMessage(task);
+            storage.update(tasks);
+
+            return returnMessage;
+        } catch (DateTimeParseException e) {
+            throw new InvalidArgumentException("Unrecognized deadline format\n" + USAGE_HINT);
+        }
+    }
+
+    /**
+     * Checks if a deadline description is provided.
+     *
+     * @throws InvalidArgumentException If the deadline description is empty.
+     */
+    private void checkDescriptionNotEmpty() throws InvalidArgumentException {
         int byIndex = this.argsList.indexOf("/by");
         if (this.argsList.size() == 1 || byIndex == 1) {
-            throw new InvalidArgumentException("Deadline description cannot be empty!\n"
-                    + USAGE_HINT);
+            throw new InvalidArgumentException("Deadline description cannot be empty!\n" + USAGE_HINT);
         }
+    }
 
+    /**
+     * Checks if a deadline is provided after the "/by" argument.
+     *
+     * @throws InvalidArgumentException If the deadline is not provided.
+     */
+    private void checkDeadlineNotEmpty() throws InvalidArgumentException {
+        int byIndex = this.argsList.indexOf("/by");
         if (byIndex == this.argsList.size() - 1 || byIndex == -1) {
-            throw new InvalidArgumentException("Please input a deadline!\n"
-                    + USAGE_HINT);
+            throw new InvalidArgumentException("Please input a deadline!\n" + USAGE_HINT);
         }
+    }
 
+    /**
+     * Extracts the task description from the command-line arguments.
+     *
+     * @return The task description, consisting of the words before the "/by" argument.
+     */
+    private String getTaskDescription() {
+        int byIndex = this.argsList.indexOf("/by");
         StringBuilder taskDescription = new StringBuilder();
         for (int i = 1; i < byIndex; i++) {
             if (i != byIndex - 1) {
@@ -59,6 +99,17 @@ public class DeadlineCommand extends Command {
                 taskDescription.append(this.argsList.get(i));
             }
         }
+
+        return taskDescription.toString();
+    }
+
+    /**
+     * Retrieves the deadline string from the input arguments.
+     *
+     * @return The deadline string.
+     */
+    private String getDeadlineString() {
+        int byIndex = this.argsList.indexOf("/by");
 
         StringBuilder deadlineString = new StringBuilder();
         for (int i = byIndex + 1; i < this.argsList.size(); i++) {
@@ -69,19 +120,7 @@ public class DeadlineCommand extends Command {
             }
         }
 
-        try {
-            LocalDateTime deadline = Parser.getLocalDateTimeFromString(deadlineString.toString());
-            Deadline task = new Deadline(taskDescription.toString(), deadline);
-            tasks.add(task);
-
-            String message = "Alright, added:\n" + "\t" + task + "\n";
-            message += tasks.summary();
-            storage.update(tasks);
-
-            return message;
-        } catch (DateTimeParseException e) {
-            throw new InvalidArgumentException("Unrecognized deadline format\n"
-                    + USAGE_HINT);
-        }
+        return deadlineString.toString();
     }
 }
+
