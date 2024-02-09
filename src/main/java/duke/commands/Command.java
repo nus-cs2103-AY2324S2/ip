@@ -1,5 +1,5 @@
-package Duke.Commands;
-import Duke.DukeException;
+package duke.commands;
+import duke.DukeException;
 
 /**
  * Represents an abstract command class.

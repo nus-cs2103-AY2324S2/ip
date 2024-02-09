@@ -1,10 +1,10 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Tasks.Task;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.tasks.Task;
+import duke.Ui;
 
 /**
  * Represents a command to mark a task as done.

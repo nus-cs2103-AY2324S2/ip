@@ -1,6 +1,6 @@
-package Duke;
+package duke;
 
-import Duke.Commands.*;
+import duke.commands.*;
 
 /**
  * Represent a parser class that handles user commands.

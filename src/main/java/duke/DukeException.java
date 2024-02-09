@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * Represents the Duke Exception class to throw errors.

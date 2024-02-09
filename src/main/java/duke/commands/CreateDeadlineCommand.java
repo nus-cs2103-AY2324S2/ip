@@ -1,34 +1,32 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.tasks.Deadline;
+import duke.tasks.Task;
+import duke.Ui;
 
 import java.time.DateTimeException;
 
 /**
- * Represents a command to create an event task.
+ * Represents a command to create a deadline task.
  */
-public class CreateEventCommand extends Command {
+public class CreateDeadlineCommand extends Command {
     Ui ui;
     TaskList taskList;
     Storage storage;
     String input;
 
     /**
-     * Constructor for the CreateEventCommand class.
+     * Constructor for the DeadlineCommand class.
      *
      * @param ui The Ui object to interact with user.
      * @param taskList The taskList object to record the tasks.
      * @param storage The Storage object to save and load information.
      * @param input The user input.
      */
-    public CreateEventCommand(Ui ui, TaskList taskList, Storage storage, String input) {
+    public CreateDeadlineCommand(Ui ui, TaskList taskList, Storage storage, String input) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
@@ -41,8 +39,7 @@ public class CreateEventCommand extends Command {
         String[] inputArr = input.split(" ");
         String commandWord = inputArr[0];
         try {
-            addedTask = new Event(getTaskName(commandWord, this.input),
-                    getStartDate(this.input), getEndDate(commandWord, input));
+            addedTask = new Deadline(getTaskName(commandWord, this.input), getEndDate(commandWord, input));
             taskList.addTask(addedTask);
             this.ui.printAddMessage(taskList.size(), addedTask);
         } catch (DateTimeException dte) {

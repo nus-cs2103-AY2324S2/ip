@@ -1,9 +1,9 @@
-package Duke.Commands;
+package duke.commands;
 
-import Duke.DukeException;
-import Duke.Storage;
-import Duke.TaskList;
-import Duke.Ui;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 /**
  * Represent a command to find tasks.

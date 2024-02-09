@@ -1,13 +1,13 @@
-package Duke;
+package duke;
 
-import Duke.Commands.Command;
+import duke.commands.Command;
 
 /**
  * Represents a ChatBot class.
  */
 public class Duke {
     TaskList taskList;
-    private String filePath = "Duke/taskList.txt";
+    private String filePath = "duke/taskList.txt";
     private Storage storage;
     private Ui ui;
 
