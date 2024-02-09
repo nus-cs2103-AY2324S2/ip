@@ -31,40 +31,28 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Overloaded Method to add a {@code ToDo} task.
+     * Adds a {@code ToDo}, {@code Deadline} or {@code Event} task.
      * 
-     * @param name Name of the "To Do" task.
-     * @return {@code ToDo} task added to this {@code TaskList}.
-     */
-    public Task addTask(String name) {
-        Task t = new ToDo(name);
-        tasks.add(t);
-        return t;
-    }
-
-    /**
-     * Overloaded Method to add a {@code Deadline} task.
+     * <p> If {@code 0 LocalDateTime} is provided, creates a {@code ToDo} task.
+     * 
+     * <p> If {@code 1 LocalDateTime} is provided, creates a {@code Deadline} task.
+     * 
+     * <p> If {@code >=2 LocalDateTime} are provided, creates an {@code Event} task.
+     * Ignores any LocalDateTime supplied after 2.
      * 
      * @param name Name of the deadline task.
-     * @param deadline {@code LocalDateTime} object representing the deadline.
-     * @return {@code Deadline} task added to this {@code TaskList}.
+     * @param dateTimes {@code LocalDateTime} objects representing the task.
+     * @return The task added to this {@code TaskList}.
      */
-    public Task addTask(String name, LocalDateTime deadline) {
-        Task t = new Deadline(name, deadline);
-        tasks.add(t);
-        return t;
-    }
-
-    /**
-     * Overloaded Method to add an {@code Event} task.
-     * 
-     * @param name Name of the event task.
-     * @param start {@code LocalDateTime} object representing the start of the event.
-     * @param end {@code LocalDateTime} object representing the end of the event.
-     * @return {@code Event} task added to this {@code TaskList}.
-     */
-    public Task addTask(String name, LocalDateTime start, LocalDateTime end) {
-        Task t = new Event(name, start, end);
+    public Task addTask(String name, LocalDateTime ... dateTimes) {
+        Task t;
+        if (dateTimes.length == 0) {
+            t = new ToDo(name);
+        } else if (dateTimes.length == 1) {
+            t = new Deadline(name, dateTimes[0]);
+        } else {
+            t = new Event(name, dateTimes[0], dateTimes[1]);
+        }
         tasks.add(t);
         return t;
     }

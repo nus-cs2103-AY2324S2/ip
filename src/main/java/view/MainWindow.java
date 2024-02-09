@@ -3,7 +3,9 @@ package view;
 import java.io.IOException;
 
 import controller.Zero;
-
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 //@@author jeremiahlzz-reused
 //Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
@@ -62,6 +65,12 @@ public class MainWindow extends AnchorPane {
         if (response.equals(Ui.showBye())) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
+
+            // Close the application after some time
+            FadeTransition fadeToExit = new FadeTransition(Duration.seconds(2.5), dialogContainer);
+            fadeToExit.setToValue(0.2);
+            fadeToExit.setOnFinished(event -> Platform.exit());
+            fadeToExit.play();
         }
         userInput.clear();
     }
