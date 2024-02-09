@@ -43,7 +43,7 @@ public class TaskListTest {
     public void markTask_taskMarked() {
         taskList.addTask(todo);
         taskList.markTask(TASKLIST_LENGTH_AFTER_ADD_TASK - 1);
-        assertTrue(todo.getIsDone());
+        assertTrue(todo.isDone());
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskListTest {
     public void unMarkTask_taskUnmarked() {
         taskList.addTask(todo);
         taskList.unmarkTask(TASKLIST_LENGTH_AFTER_ADD_TASK - 1);
-        assertFalse(todo.getIsDone());
+        assertFalse(todo.isDone());
     }
 
     /**

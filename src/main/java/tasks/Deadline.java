@@ -28,7 +28,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertTaskToFileString() {
-        return String.format("D|%s|%s|%s", super.getIsDone() ? "1" : "0", this.description.trim(), this.deadline);
+        return String.format("D|%s|%s|%s", super.isDone() ? "1" : "0", this.description.trim(), this.deadline);
     }
 
     /**

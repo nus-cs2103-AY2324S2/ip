@@ -31,7 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String convertTaskToFileString() {
-        return String.format("E|%s|%s|%s|%s", super.getIsDone() ? "1" : "0", this.description.trim(), this.from, this.to);
+        return String.format("E|%s|%s|%s|%s", super.isDone() ? "1" : "0", this.description.trim(), this.from, this.to);
     }
 
     /**

@@ -34,7 +34,7 @@ public abstract class Task {
     /**
      * Getter for done class attribute.
      */
-    public boolean getIsDone() {
+    public boolean isDone() {
         return this.done;
     }
 

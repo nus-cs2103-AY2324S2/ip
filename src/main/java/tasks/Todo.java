@@ -22,7 +22,7 @@ public class Todo extends Task {
      */
     @Override
     public String convertTaskToFileString() {
-        return String.format("T|%s|%s", super.getIsDone() ? "1" : "0", this.description.trim());
+        return String.format("T|%s|%s", super.isDone() ? "1" : "0", this.description.trim());
     }
 
     /**
