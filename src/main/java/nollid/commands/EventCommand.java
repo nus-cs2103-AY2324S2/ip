@@ -19,8 +19,9 @@ public class EventCommand extends Command {
     /**
      * Constant string providing usage hint for the EventCommand.
      */
-    public static final String USAGE_HINT = "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} "
-            + "/to [d/m/yyyy] {hh:mm 24hr " + "format}";
+    public static final String USAGE_HINT =
+            "Usage: event [task description] /from [d/m/yyyy] {hh:mm 24hr format} " + "/to [d/m/yyyy] {hh:mm 24hr "
+                    + "format}";
 
     /**
      * ArrayList containing command arguments.
@@ -45,20 +46,9 @@ public class EventCommand extends Command {
         int fromIndex = this.argsList.indexOf("/from");
         int toIndex = this.argsList.indexOf("/to");
 
-        if (this.argsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
-            throw new InvalidArgumentException("Event description cannot be empty!\n"
-                    + USAGE_HINT);
-        }
-
-        if (fromIndex == -1 || fromIndex == this.argsList.size() - 1 || fromIndex == toIndex - 1) {
-            throw new InvalidArgumentException("Please enter the start of your event!\n"
-                    + USAGE_HINT);
-        }
-
-        if (toIndex == -1 || toIndex == this.argsList.size() - 1 || toIndex == fromIndex - 1) {
-            throw new InvalidArgumentException("Please enter the end of your event!\n"
-                    + USAGE_HINT);
-        }
+        checkDescriptionNotEmpty(fromIndex, toIndex);
+        checkStartNotEmpty(fromIndex, toIndex);
+        checkEndNotEmpty(fromIndex, toIndex);
 
         StringBuilder taskDescription = new StringBuilder();
         StringBuilder from = new StringBuilder();
@@ -77,14 +67,13 @@ public class EventCommand extends Command {
             Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
             tasks.add(task);
 
-            String message = "Alright, added:\n" + "\t" + task + "\n";
-            message += tasks.summary();
+            String message = tasks.getAddSuccessMessage(task);
+
             storage.update(tasks);
 
             return message;
         } catch (DateTimeParseException e) {
-            throw new InvalidArgumentException("Unrecognized start/end format\n"
-                    + USAGE_HINT);
+            throw new InvalidArgumentException("Unrecognized start/end format\n" + USAGE_HINT);
         }
     }
 
@@ -116,6 +105,45 @@ public class EventCommand extends Command {
             } else {
                 to.append(userInputAsList.get(i));
             }
+        }
+    }
+
+    /**
+     * Checks if the event description is provided.
+     *
+     * @param fromIndex The index of the "/from" argument.
+     * @param toIndex   The index of the "/to" argument.
+     * @throws InvalidArgumentException If the event description is empty.
+     */
+    private void checkDescriptionNotEmpty(int fromIndex, int toIndex) throws InvalidArgumentException {
+        if (this.argsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
+            throw new InvalidArgumentException("Event description cannot be empty!\n" + USAGE_HINT);
+        }
+    }
+
+    /**
+     * Checks if the start of the event is provided.
+     *
+     * @param fromIndex The index of the "/from" argument.
+     * @param toIndex   The index of the "/to" argument.
+     * @throws InvalidArgumentException If the event start is empty.
+     */
+    private void checkStartNotEmpty(int fromIndex, int toIndex) throws InvalidArgumentException {
+        if (fromIndex == -1 || fromIndex == this.argsList.size() - 1 || fromIndex == toIndex - 1) {
+            throw new InvalidArgumentException("Please enter the start of your event!\n" + USAGE_HINT);
+        }
+    }
+
+    /**
+     * Checks if the end of the event is provided.
+     *
+     * @param fromIndex The index of the "/from" argument.
+     * @param toIndex   The index of the "/to" argument.
+     * @throws InvalidArgumentException If the event start is empty.
+     */
+    private void checkEndNotEmpty(int fromIndex, int toIndex) throws InvalidArgumentException {
+        if (toIndex == -1 || toIndex == this.argsList.size() - 1 || toIndex == fromIndex - 1) {
+            throw new InvalidArgumentException("Please enter the end of your event!\n" + USAGE_HINT);
         }
     }
 }
