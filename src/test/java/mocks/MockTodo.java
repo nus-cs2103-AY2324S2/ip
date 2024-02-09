@@ -48,7 +48,7 @@ public class MockTodo extends Task {
      * @return True if the task is marked as done, false otherwise.
      */
     @Override
-    public boolean getIsDone() {
+    public boolean isDone() {
         return isDone;
     }
 }

@@ -38,4 +38,9 @@ public enum CommandType {
      * Command to delete a task.
      */
     DELETE,
+
+    /**
+     * Command to exit the application.
+     */
+    BYE
 }
