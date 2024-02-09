@@ -22,9 +22,14 @@ public class ListCommand extends Command {
 
         for (int i = 0; i < tasks.size(); i++) {
             if (i < tasks.size() - 1) {
-                response.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
+                response.append(i + 1)
+                        .append(".")
+                        .append(tasks.get(i).toString())
+                        .append("\n");
             } else {
-                response.append(i + 1).append(".").append(tasks.get(i).toString());
+                response.append(i + 1)
+                        .append(".")
+                        .append(tasks.get(i).toString());
             }
         }
         return response.toString();
