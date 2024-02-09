@@ -1,6 +1,6 @@
 package tasks;
 
-import helpers.DateFormatter;
+import utils.DateFormatter;
 
 /**
  * Represents a deadline, which is a specialized form of task.Task.

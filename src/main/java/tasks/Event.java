@@ -1,6 +1,6 @@
 package tasks;
 
-import helpers.DateFormatter;
+import utils.DateFormatter;
 
 /**
  * Represents an event, which is a specialized form of task.Task.

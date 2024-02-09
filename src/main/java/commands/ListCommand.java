@@ -1,7 +1,7 @@
 package commands;
 
-import helpers.TaskList;
-import helpers.Ui;
+import utils.TaskList;
+import utils.Ui;
 
 /**
  * The ListCommand class represents a command to list all tasks in the task list.

@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.InvalidInputFormatException;
-import helpers.TaskList;
-import helpers.Ui;
+import utils.TaskList;
+import utils.Ui;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;

@@ -1,8 +1,8 @@
 import commands.Command;
 import exceptions.InvalidInputFormatException;
-import helpers.Parser;
-import helpers.TaskList;
-import helpers.Ui;
+import utils.Parser;
+import utils.TaskList;
+import utils.Ui;
 
 /**
  * The Chitty class represents a chatbot-style application for managing tasks.

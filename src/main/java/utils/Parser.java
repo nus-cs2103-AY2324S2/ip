@@ -1,4 +1,4 @@
-package helpers;
+package utils;
 
 import commands.AddCommand;
 import commands.CommandType;

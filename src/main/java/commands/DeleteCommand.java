@@ -1,7 +1,7 @@
 package commands;
 
-import helpers.TaskList;
-import helpers.Ui;
+import utils.TaskList;
+import utils.Ui;
 import tasks.Task;
 
 /**

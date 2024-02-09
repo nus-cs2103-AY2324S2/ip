@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.InvalidInputFormatException;
-import helpers.TaskList;
-import helpers.Ui;
+import utils.TaskList;
+import utils.Ui;
 
 /**
  * The Command class represents a command that can be executed by the program.
