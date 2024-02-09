@@ -1,4 +1,7 @@
+package duke;
+
 import java.util.Scanner;
+import duke.command.Command;
 
 public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";
@@ -19,6 +22,7 @@ public class Duke {
         try {
             tasks = new TaskList(storage.loadData());
         } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't read from file");
             tasks = new TaskList();
         }
     }

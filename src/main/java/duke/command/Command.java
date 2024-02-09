@@ -1,4 +1,9 @@
-abstract class Command {
+package duke.command;
+import duke.TaskList;
+import duke.Storage;
+import duke.Ui;
+
+public abstract class Command {
     protected TaskList tasks;
     protected Storage storage;
     protected Ui ui;

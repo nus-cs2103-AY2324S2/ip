@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,11 +9,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 public class Storage {
 
     protected static String FILE_PATH;
-    protected static ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     /**
      * Constructs a new Storage object with the specified filePath value.

@@ -1,4 +1,7 @@
+package duke;
+
 import java.util.ArrayList;
+import duke.task.Task;
 
 public class TaskList {
     protected static ArrayList<Task> tasks;
@@ -18,6 +21,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> loadedTasks) {
         this.tasks = loadedTasks;
+        taskCount = loadedTasks.size();
     }
 
     /**
