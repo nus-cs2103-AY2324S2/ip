@@ -3,7 +3,7 @@ package bytebuddy.tasks;
 /**
  * The Task class represents a task with a description and completion status.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -76,13 +76,31 @@ public class Task {
     }
 
     /**
-     * Returns a formatted string representation of the task for writing into output file.
+     * Returns a formatted string representation of the task for writing into an output file.
+     * Subclasses must implement this method to provide specific formatting for each type of task.
      *
      * @return A formatted string representation of the task.
      */
-    public String getTextFormattedOutput() {
-        return "";
-    }
+    public abstract String getTextFormattedOutput();
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * Subclasses must override this method to define their own equality criteria.
+     *
+     * @param obj The reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
+    @Override
+    public abstract boolean equals(Object obj);
+
+    /**
+     * Returns a hash code value for the object.
+     * Subclasses must override this method to generate a hash code consistent with the equals method.
+     *
+     * @return A hash code value for this object.
+     */
+    @Override
+    public abstract int hashCode();
 
     /**
      * Returns a string representation of the task, including its status icon and description.

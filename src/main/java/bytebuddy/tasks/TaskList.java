@@ -1,5 +1,6 @@
 package bytebuddy.tasks;
 
+import static bytebuddy.constants.ExceptionErrorMessages.DUPLICATE_TASK_ERROR_MESSAGE;
 import static bytebuddy.constants.ExceptionErrorMessages.EMPTY_DESCRIPTION_ERROR_MESSAGE;
 import static bytebuddy.constants.ExceptionErrorMessages.EMPTY_KEYWORD_ERROR_MESSAGE;
 import static bytebuddy.constants.ExceptionErrorMessages.FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
@@ -15,6 +16,7 @@ import static bytebuddy.ui.Ui.printWithSolidLineBreak;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import bytebuddy.exceptions.ByteBuddyException;
@@ -26,6 +28,7 @@ import javafx.util.Pair;
  * provides methods to manipulate and interact with the task list.
  */
 public class TaskList {
+    private HashSet<Task> taskSet;
     private ArrayList<Task> taskList;
 
     /**
@@ -33,6 +36,7 @@ public class TaskList {
      */
     public TaskList() {
         taskList = new ArrayList<>();
+        taskSet = new HashSet<>();
     }
 
     /**
@@ -49,6 +53,7 @@ public class TaskList {
      */
     public void clear() {
         taskList.clear();
+        taskSet.clear();
     }
 
     /**
@@ -58,7 +63,8 @@ public class TaskList {
      * @return true if the task list contains the specified task, false otherwise.
      */
     public boolean contains(Task t) {
-        return taskList.contains(t);
+        // return taskList.contains(t);
+        return taskSet.contains(t);
     }
 
     /**
@@ -77,7 +83,12 @@ public class TaskList {
      * @param t The task to add.
      * @return true if the task was added successfully, false otherwise.
      */
-    public boolean add(Task t) {
+    public boolean add(Task t) throws ByteBuddyException {
+        if (this.contains(t)) {
+            throw new ByteBuddyException(DUPLICATE_TASK_ERROR_MESSAGE);
+        }
+
+        taskSet.add(t);
         return taskList.add(t);
     }
 
@@ -88,6 +99,7 @@ public class TaskList {
      * @return The removed task.
      */
     public Task remove(int index) {
+        taskSet.remove(this.get(index));
         return taskList.remove(index);
     }
 
@@ -165,6 +177,8 @@ public class TaskList {
                 // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
                 return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
+
+            taskSet.remove(this.get(deleteIndex));
             Task removed = taskList.remove(deleteIndex);
             printTaskRemovedWithSolidLineBreak(removed);
 
@@ -193,7 +207,7 @@ public class TaskList {
                 return "\t " + EMPTY_DESCRIPTION_ERROR_MESSAGE;
             }
             Task todo = new Todo(info);
-            taskList.add(todo);
+            this.add(todo);
             printTaskAddedWithSolidLineBreak(todo);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
@@ -202,6 +216,8 @@ public class TaskList {
         } catch (IOException e) {
             // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
             return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
+        } catch (ByteBuddyException e) {
+            return "\t " + e.getMessage();
         }
     }
 
@@ -219,7 +235,7 @@ public class TaskList {
             }
             List<String> deadlineInfo = splitStringWithTrim(info, "/by", 2);
             Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1));
-            taskList.add(deadline);
+            this.add(deadline);
             printTaskAddedWithSolidLineBreak(deadline);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
@@ -231,6 +247,8 @@ public class TaskList {
         } catch (IOException e) {
             // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
             return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
+        } catch (ByteBuddyException e) {
+            return "\t " + e.getMessage();
         }
     }
 
@@ -250,7 +268,7 @@ public class TaskList {
 
             List<String> eventInfo = splitStringWithTrim(info, "/from|/to", 3);
             Task event = new Event(eventInfo.get(0), eventInfo.get(1), eventInfo.get(2));
-            taskList.add(event);
+            this.add(event);
             printTaskAddedWithSolidLineBreak(event);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
@@ -262,6 +280,8 @@ public class TaskList {
         } catch (IOException e) {
             // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
             return FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
+        } catch (ByteBuddyException e) {
+            return "\t " + e.getMessage();
         }
     }
 

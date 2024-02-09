@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -102,6 +103,39 @@ public class Deadline extends Task {
     public String getTextFormattedOutput() {
         int intIsDone = isDone ? 1 : 0;
         return String.format("D | %d | %s | %s", intIsDone, description, by);
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * This method considers two Deadline objects equal if they have the same description, completion status,
+     * and deadline.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this Deadline is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Deadline deadline = (Deadline) obj;
+        return isDone == deadline.isDone
+                && Objects.equals(description, deadline.description)
+                && Objects.equals(by, deadline.by);
+    }
+
+    /**
+     * Returns a hash code value for the Deadline object. This method is supported for the benefit of
+     * hash tables such as those provided by HashMap.
+     *
+     * @return a hash code value for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, isDone, by);
     }
 
     /**

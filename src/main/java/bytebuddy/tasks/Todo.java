@@ -1,5 +1,7 @@
 package bytebuddy.tasks;
 
+import java.util.Objects;
+
 /**
  * The Todo class represents a simple task without a specified deadline or duration.
  * It extends the Task class and provides specific implementations for task creation and string representations.
@@ -34,6 +36,36 @@ public class Todo extends Task {
     public String getTextFormattedOutput() {
         int intIsDone = isDone ? 1 : 0;
         return String.format("T | %d | %s", intIsDone, description);
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * This method considers two Todo objects equal if they have the same description and completion status.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this Todo is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Todo todo = (Todo) obj;
+        return isDone == todo.isDone && Objects.equals(description, todo.description);
+    }
+
+    /**
+     * Returns a hash code value for the Todo object. This method is supported for the benefit of
+     * hash tables such as those provided by HashMap.
+     *
+     * @return a hash code value for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, isDone);
     }
 
     /**

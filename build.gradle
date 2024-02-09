@@ -63,7 +63,8 @@ tasks.withType(Test) {
 // to fix Error: Could not find or load main class seedu.duke.Duke
 // use package path
 application {
-    mainClassName = 'bytebuddy.ByteBuddy'
+    // mainClassName = 'bytebuddy.ByteBuddy'
+    mainClassName = 'bytebuddy.gui.Launcher'
 }
 
 // JAR output is in build/libs

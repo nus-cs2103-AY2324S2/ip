@@ -167,7 +167,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testPrintTaskList() {
+    public void testPrintTaskList() throws ByteBuddyException {
         // Redirect System.out for testing print output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
