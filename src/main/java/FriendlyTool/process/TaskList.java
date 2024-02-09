@@ -1,4 +1,4 @@
-package FriendlyTool.main;
+package FriendlyTool.process;
 
 import FriendlyTool.command.CommandTypes;
 import FriendlyTool.command.Parser;
@@ -59,7 +59,7 @@ public class TaskList {
                 }
                 break;
             default:
-                throw new ftException("Error: Invalid FriendlyTool.task.Task Type");
+                throw new ftException("Error: Invalid Task Type");
         }
         myList.add(task);
         UI.updateTaskMsg(task, myList.size());

@@ -1,6 +1,6 @@
 package FriendlyTool.task;
 
-import FriendlyTool.main.Date;
+import FriendlyTool.process.Date;
 
 public class Event extends Task {
     private Date from;

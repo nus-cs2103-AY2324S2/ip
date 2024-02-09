@@ -1,4 +1,4 @@
-package FriendlyTool.main;
+package FriendlyTool.process;
 
 import FriendlyTool.command.Parser;
 import FriendlyTool.task.*;

@@ -1,6 +1,6 @@
 package FriendlyTool.command;
 
-import FriendlyTool.main.ftException;
+import FriendlyTool.process.ftException;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -20,7 +20,7 @@ public class Parser {
             String token = st.nextToken().trim();
             sbTD.append(" ").append(token);
         }
-        return sbTD.toString();
+        return sbTD.toString().trim();
     }
 
     public static String[] parseDeadLine(String s) {
@@ -39,8 +39,8 @@ public class Parser {
                 sbDL.append(" ").append(token);
             }
         }
-        String dt = sbDL.toString();
-        String by = sbBy.toString();
+        String dt = sbDL.toString().trim();
+        String by = sbBy.toString().trim();
         return new String[]{dt, by};
     }
 
@@ -67,9 +67,9 @@ public class Parser {
                 sb.append(" ").append(token);
             }
         }
-        String name = sb.toString();
-        String from = sbFrom.toString();
-        String to = sbTo.toString();
+        String name = sb.toString().trim();
+        String from = sbFrom.toString().trim();
+        String to = sbTo.toString().trim();
         return new String[]{name, from , to};
     }
 

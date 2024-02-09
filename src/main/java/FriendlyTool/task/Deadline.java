@@ -1,6 +1,6 @@
 package FriendlyTool.task;
 
-import FriendlyTool.main.Date;
+import FriendlyTool.process.Date;
 
 public class Deadline extends Task {
     private Date by;

@@ -1,4 +1,4 @@
-package FriendlyTool.main;
+package FriendlyTool.process;
 
 import FriendlyTool.command.CommandTypes;
 import FriendlyTool.command.Parser;

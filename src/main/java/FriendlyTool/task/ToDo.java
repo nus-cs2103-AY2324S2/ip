@@ -14,4 +14,8 @@ public class ToDo extends Task {
     public String toSaveFormat() {
         return "T " + super.toSaveFormat() + "\n";
     }
+
+    public boolean equals(ToDo t) {
+        return t.getName() == this.getName();
+    }
 }
