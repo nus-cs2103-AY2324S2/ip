@@ -1,11 +1,11 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
-import duke.Ui;
+import duke.ui.Ui;
 
 import java.time.DateTimeException;
 
@@ -34,16 +34,16 @@ public class CreateDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         Task addedTask = null;
         String[] inputArr = input.split(" ");
         String commandWord = inputArr[0];
         try {
             addedTask = new Deadline(getTaskName(commandWord, this.input), getEndDate(commandWord, input));
             taskList.addTask(addedTask);
-            this.ui.printAddMessage(taskList.size(), addedTask);
+            return this.ui.printAddMessage(taskList.size(), addedTask);
         } catch (DateTimeException dte) {
-            this.ui.printDateErrorMessage("Please follow the format for date and time (d/M/yyyy HHmm).");
+            return this.ui.printDateErrorMessage("Please follow the format for date and time (d/M/yyyy HHmm).");
         }
     }
 

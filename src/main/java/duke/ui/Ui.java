@@ -1,5 +1,6 @@
-package duke;
+package duke.ui;
 
+import duke.TaskList;
 import duke.tasks.Task;
 import java.util.Scanner;
 
@@ -27,24 +28,30 @@ public class Ui {
 
     /**
      * Prints greeting message to the user.
+     *
+     * @return String Message for saying hello.
      */
-    public void sayHello() {
+    public String sayHello() {
         String greetMessage = String.format(
                 "____________________________________________________________\n" +
                         " Hello! I'm Corgi!\n" +
                         " What can I do for you?\n" +
                         "____________________________________________________________\n");
         System.out.println(greetMessage);
+        return greetMessage;
     }
 
     /**
      * Prints goodbye message to the user.
+     *
+     * @return String Message for goodbye.
      */
-    public void sayGoodbye() {
+    public String sayGoodbye() {
         String exitMessage = "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n";
         System.out.println(exitMessage);
+        return exitMessage;
     }
 
     /**
@@ -52,8 +59,9 @@ public class Ui {
      *
      * @param sizeOfTaskList Size of TaskList.
      * @param addedTask Task to be added to TaskList.
+     * @return String Message for add task.
      */
-    public void printAddMessage(int sizeOfTaskList, Task addedTask) {
+    public String printAddMessage(int sizeOfTaskList, Task addedTask) {
         String message = String.format(
                 "____________________________________________________________\n" +
                         " Got it. I've added this task:\n" +
@@ -63,6 +71,7 @@ public class Ui {
                 addedTask.getTaskType(), addedTask.getStatusIcon(),
                 addedTask.toString(), sizeOfTaskList);
         System.out.println(message);
+        return message;
     }
 
     /**
@@ -70,8 +79,9 @@ public class Ui {
      *
      * @param sizeOfTaskList Size of TaskList.
      * @param deletedTask Task to be deleted.
+     * @return String Message for delete task.
      */
-    public void printDeleteMessage(int sizeOfTaskList, Task deletedTask) {
+    public String printDeleteMessage(int sizeOfTaskList, Task deletedTask) {
         String deleteMessage = String.format(
                 "____________________________________________________________\n" +
                         " Noted. I've removed this task:\n" +
@@ -81,23 +91,30 @@ public class Ui {
                 deletedTask.getTaskType(), deletedTask.getStatusIcon(),
                 deletedTask.toString(), sizeOfTaskList);
         System.out.println(deleteMessage);
+        return deleteMessage;
     }
 
     /**
      * Prints print list message to the user.
      *
      * @param taskList TaskList to be printed.
+     * @return String Message containing list of tasks.
      */
-    public void printList(TaskList taskList) {
+    public String printList(TaskList taskList) {
+        String message = "____________________________________________________________\n" +
+                " Here are the tasks in your list:\n";
         System.out.println("____________________________________________________________\n" +
                 " Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            String currentTask = String.format("%d.[%s][%s] %s",
+            String currentTask = String.format("%d.[%s][%s] %s\n",
                     i + 1, taskList.getTask(i).getTaskType(),
                     taskList.getTask(i).getStatusIcon(), taskList.getTask(i).toString());
             System.out.println(currentTask);
+            message += currentTask;
         }
+        message += "____________________________________________________________\n";
         System.out.println("____________________________________________________________\n");
+        return message;
     }
 
     /**
@@ -105,8 +122,9 @@ public class Ui {
      *
      * @param taskToBeMarked Task to be marked.
      * @param taskNumber Index of the task to be marked.
+     * @return String Message for marking task.
      */
-    public void printMarkDoneMessage(Task taskToBeMarked, int taskNumber) {
+    public String printMarkDoneMessage(Task taskToBeMarked, int taskNumber) {
         String message = String.format(
                 "____________________________________________________________\n" +
                         " Nice! I've marked this task as done:\n" +
@@ -115,6 +133,7 @@ public class Ui {
                 taskToBeMarked.getTaskType(), taskToBeMarked.getStatusIcon(),
                 taskToBeMarked.getDescription());
         System.out.println(message);
+        return message;
     }
 
     /**
@@ -122,8 +141,9 @@ public class Ui {
      *
      * @param taskToBeUnmarked Task to be unmarked.
      * @param taskNumber Index of the task to be unmarked.
+     * @return String Message for unmarking task.
      */
-    public void printMarkUndoneMessage(Task taskToBeUnmarked, int taskNumber) {
+    public String printMarkUndoneMessage(Task taskToBeUnmarked, int taskNumber) {
         String message = String.format(
                 "____________________________________________________________\n" +
                         " OK, I've marked this task as not done yet:\n" +
@@ -132,28 +152,33 @@ public class Ui {
                 taskToBeUnmarked.getTaskType(), taskToBeUnmarked.getStatusIcon(),
                 taskToBeUnmarked.getDescription());
         System.out.println(message);
+        return message;
     }
 
     /**
      * Prints error message to the user.
      *
      * @param message Error message for user.
+     * @return String Message containing error.
      */
-    public void printErrorMessage(String message) {
+    public String printErrorMessage(String message) {
         String errorMessage = "____________________________________________________________\n" +
                 message + "\n____________________________________________________________\n";
         System.out.println(errorMessage);
+        return errorMessage;
     }
 
     /**
      * Prints date time error message to the user.
      *
      * @param message Error message for user.
+     * @return String Message containing date error.
      */
-    public void printDateErrorMessage(String message) {
+    public String printDateErrorMessage(String message) {
         String errorMessage = "____________________________________________________________\n" +
                 message + "\n____________________________________________________________\n";
         System.out.println(errorMessage);
+        return errorMessage;
     }
 
     /**
@@ -161,8 +186,11 @@ public class Ui {
      *
      * @param taskList
      * @param keyWord
+     * @return String Message containing found tasks.
      */
-    public void printFoundTasks(TaskList taskList, String keyWord) {
+    public String printFoundTasks(TaskList taskList, String keyWord) {
+        String message = "____________________________________________________________\n" +
+                " Here are the matching tasks in your list:\n";
         System.out.println("____________________________________________________________\n" +
                 " Here are the matching tasks in your list:\n");
         int count = 0;
@@ -170,13 +198,16 @@ public class Ui {
             if (!taskList.getTask(i).getDescription().contains(keyWord)) {
                 continue;
             }
-            String currentTask = String.format("%d.[%s][%s] %s",
+            String currentTask = String.format("%d.[%s][%s] %s\n",
                     count + 1, taskList.getTask(i).getTaskType(),
                     taskList.getTask(i).getStatusIcon(), taskList.getTask(i).toString());
             System.out.println(currentTask);
+            message += currentTask;
             count++;
         }
+        message += "____________________________________________________________\n";
         System.out.println("____________________________________________________________\n");
+        return message;
     }
 
 }

@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a command to print all task in taskList.
@@ -26,8 +26,8 @@ public class PrintListCommand extends Command {
         this.storage = storage;
     }
     @Override
-    public void execute() throws DukeException {
-        this.ui.printList(this.taskList);
+    public String execute() throws DukeException {
+        return this.ui.printList(this.taskList);
     }
     @Override
     public boolean isExit() {

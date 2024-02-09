@@ -1,10 +1,10 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Task;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a command to mark a task as done.
@@ -30,13 +30,13 @@ public class MarkDoneCommand extends Command {
         this.indexToMark = indexToMark;
     }
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         if (this.indexToMark < 1 || this.indexToMark > this.taskList.size()) {
             throw new DukeException("Invalid task number entered.");
         }
         this.taskList.setAsDone(this.indexToMark - 1);
         Task targetTask = taskList.getTask(this.indexToMark - 1);
-        this.ui.printMarkDoneMessage(targetTask, this.indexToMark);
+        return this.ui.printMarkDoneMessage(targetTask, this.indexToMark);
     }
     @Override
     public boolean isExit() {

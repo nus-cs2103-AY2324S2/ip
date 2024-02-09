@@ -1,6 +1,8 @@
 package duke;
 
 import duke.commands.*;
+import duke.exceptions.DukeException;
+import duke.ui.Ui;
 
 /**
  * Represent a parser class that handles user commands.

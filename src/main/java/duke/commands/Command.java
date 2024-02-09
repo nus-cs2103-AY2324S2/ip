@@ -1,5 +1,5 @@
 package duke.commands;
-import duke.DukeException;
+import duke.exceptions.DukeException;
 
 /**
  * Represents an abstract command class.
@@ -9,8 +9,9 @@ public abstract class Command {
      * Abstract method to perform action for a command.
      *
      * @throws  DukeException throws an exception when error arise in execute.
+     * @return String Message with corresponding command.
      */
-    public abstract void execute() throws DukeException;
+    public abstract String execute() throws DukeException;
 
     /**
      * Abstract method to check if command is exit command.

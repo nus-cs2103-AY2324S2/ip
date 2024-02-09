@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represent a command to find tasks.
@@ -29,12 +29,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         if (this.input.length() < 6) {
             throw new DukeException("Invalid input, please enter the task you want to search");
         }
         String keyWord = this.input.substring(5);
-        this.ui.printFoundTasks(this.taskList, keyWord);
+        return this.ui.printFoundTasks(this.taskList, keyWord);
     }
 
     @Override

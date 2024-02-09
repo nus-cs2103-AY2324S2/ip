@@ -1,11 +1,11 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a command to create a Todo task.
@@ -32,13 +32,13 @@ public class CreateTodoCommand extends Command {
     }
 
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         Task addedTask = null;
         String[] inputArr = input.split(" ");
         String commandWord = inputArr[0];
         addedTask = new Todo(getTaskName(commandWord, this.input));
         taskList.addTask(addedTask);
-        this.ui.printAddMessage(taskList.size(), addedTask);
+        return this.ui.printAddMessage(taskList.size(), addedTask);
     }
 
     @Override

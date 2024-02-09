@@ -1,23 +1,26 @@
-package duke;
+package duke.main;
 
+import duke.Parser;
+import duke.Storage;
+import duke.TaskList;
+import duke.ui.Ui;
 import duke.commands.Command;
+import duke.exceptions.DukeException;
 
 /**
  * Represents a ChatBot class.
  */
 public class Duke {
     TaskList taskList;
-    private String filePath = "duke/taskList.txt";
+    private String filePath = "./taskList.txt";
     private Storage storage;
     private Ui ui;
 
     /**
      * Constructor for the ChatBot class.
-     *
-     * @param filePath The filepath to the file that contains recorded tasks.
      */
-    public Duke(String filePath) {
-        this.storage = new Storage(filePath);
+    public Duke() {
+        this.storage = new Storage(this.filePath);
         this.taskList = this.storage.load();
         this.ui = new Ui();
     }
@@ -41,6 +44,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./taskList.txt").run();
+        new Duke().run();
     }
 }

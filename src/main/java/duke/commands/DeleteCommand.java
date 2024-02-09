@@ -1,10 +1,10 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Task;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a command to delete a task.
@@ -30,13 +30,13 @@ public class DeleteCommand extends Command {
         this.indexToDelete = indexToDelete;
     }
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         if (taskList.size() < this.indexToDelete) {
             throw new DukeException("Invalid task index to delete!");
         }
         Task taskToBeDeleted = taskList.getTask(this.indexToDelete - 1);
         taskList.deleteTask(this.indexToDelete - 1);
-        this.ui.printDeleteMessage(this.taskList.size(), taskToBeDeleted);
+        return this.ui.printDeleteMessage(this.taskList.size(), taskToBeDeleted);
     }
     @Override
     public boolean isExit() {

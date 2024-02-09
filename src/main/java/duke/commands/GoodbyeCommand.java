@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.ui.Ui;
 
 import java.io.IOException;
 
@@ -28,13 +28,13 @@ public class GoodbyeCommand extends Command {
         this.storage = storage;
     }
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         try {
             this.storage.save(this.taskList);
         } catch (IOException error) {
-            this.ui.printErrorMessage(error.getMessage());
+            return this.ui.printErrorMessage(error.getMessage());
         }
-        this.ui.sayGoodbye();
+        return this.ui.sayGoodbye();
     }
     @Override
     public boolean isExit() {

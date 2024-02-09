@@ -1,10 +1,10 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.tasks.Task;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a command to mark a task as not done.
@@ -30,13 +30,13 @@ public class MarkUndoneCommand extends Command {
         this.indexToUnmark = indexToUnmark;
     }
     @Override
-    public void execute() throws DukeException {
+    public String execute() throws DukeException {
         if (this.indexToUnmark < 1 || this.indexToUnmark > this.taskList.size()) {
             throw new DukeException("Invalid task number entered.");
         }
         taskList.setAsNotDone(this.indexToUnmark - 1);
         Task targetTask = taskList.getTask(this.indexToUnmark - 1);
-        this.ui.printMarkUndoneMessage(targetTask, indexToUnmark);
+        return this.ui.printMarkUndoneMessage(targetTask, indexToUnmark);
     }
     @Override
     public boolean isExit() {

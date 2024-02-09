@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.DukeException;
+import duke.exceptions.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
+import duke.ui.Ui;
 
 /**
  * Represents a command to print an error.
@@ -29,8 +29,8 @@ public class ErrorCommand extends Command {
         this.error = error;
     }
     @Override
-    public void execute() throws DukeException {
-        this.ui.printErrorMessage(this.error);
+    public String execute() throws DukeException {
+        return this.ui.printErrorMessage(this.error);
     }
     @Override
     public boolean isExit() {
