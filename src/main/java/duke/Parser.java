@@ -30,25 +30,24 @@ public class Parser {
         } else {
             String cmdWord = instr.split(" ")[0];
             try {
-                if (cmdWord.equals("unmark")) {
-                    res = tskLst.unmark(instr, storage);
-                } else if (cmdWord.equals("mark")) {
-                    res = tskLst.mark(instr, storage);
-                } else if (cmdWord.equals("delete")) {
-                    res = tskLst.delete(instr, storage);
-                } else if (cmdWord.equals("find")) {
-                    res = tskLst.find(instr);
-                } else {
-                    if (cmdWord.equals("todo")) {
-                        res = tskLst.addTask(TaskList.TaskCommand.TODO, instr, storage);
-                    } else if (cmdWord.equals("deadline")) {
-                        res = tskLst.addTask(TaskList.TaskCommand.DEADLINE, instr, storage);
-                    } else if (cmdWord.equals("event")) {
-                        res = tskLst.addTask(TaskList.TaskCommand.EVENT, instr, storage);
-                    } else {
-                        throw new DukeException("OOPS!!! What is that?"
-                            + "I'm sorry, but I don't recognise this command :-( \nTry another command!");
-                    }
+                switch(cmdWord) {
+                case("unmark"):
+                    return tskLst.unmark(instr, storage);
+                case("mark"):
+                    return tskLst.mark(instr, storage);
+                case("delete"):
+                    return tskLst.delete(instr, storage);
+                case("find"):
+                    return tskLst.find(instr);
+                case("todo"):
+                    return tskLst.addTask(TaskList.TaskCommand.TODO, instr, storage);
+                case("deadline"):
+                    return tskLst.addTask(TaskList.TaskCommand.DEADLINE, instr, storage);
+                case("event"):
+                    return tskLst.addTask(TaskList.TaskCommand.EVENT, instr, storage);
+                default:
+                    throw new DukeException("OOPS!!! What is that?"
+                        + "I'm sorry, but I don't recognise this command :-( \nTry another command!");
                 }
             } catch (DukeException e) {
                 return(e.toString());

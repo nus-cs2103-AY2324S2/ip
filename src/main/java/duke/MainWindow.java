@@ -58,8 +58,8 @@ public class MainWindow extends AnchorPane {
         Ui ui = new Ui(System.in);
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(
-                        ui.greet(),
-                        dukeImage
+                    ui.greet(),
+                    dukeImage
                 )
         );
     }
