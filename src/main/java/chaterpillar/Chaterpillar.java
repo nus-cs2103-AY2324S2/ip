@@ -14,9 +14,9 @@ import java.io.IOException;
  */
 public class Chaterpillar {
 
-    public Storage storage;
-    public TaskList tasks;
-    public Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     public Chaterpillar() throws ChaterpillarException, IOException {
         ui = new Ui();

@@ -20,6 +20,7 @@ public class TasksByDateCommand extends Command {
                     "Congrats! You have no tasks for today. :)");
         } else {
             ui.echo(String.format("For %s,kq", this.date));
+
             TaskList tasksNew = tasks.getTasksOnDate(this.date);
             new ListCommand(tasksNew).execute(tasks, ui, storage);
         }

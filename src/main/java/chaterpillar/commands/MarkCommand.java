@@ -17,13 +17,15 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException, IOException {
         if (index > tasks.size()) {
             throw new ChaterpillarException(
-                    "Sorry! That item does not exist in the list.\n" +
-                    "You currently have " + tasks.size() + " tasks in the list.");
+                    "Sorry! That item does not exist in the list.\n"
+                    + "You currently have " + tasks.size() + " tasks in the list.");
         } else {
-            ui.echo("Nice! I've marked this task as done:");
             Task currTask = tasks.get(index-1);
             currTask.mark();
+
+            ui.echo("Nice! I've marked this task as done:");
             ui.echo(currTask.toString());
+
             storage.saveAllToFile(tasks);
         }
     }
