@@ -11,6 +11,14 @@ public class AddCommand implements Command {
         this.description = description;
     }
 
+    /**
+     * Add the corresponding Task into the TaskList based on the command word
+     * and display the UI message
+     *
+     * @param tasks the TaskList for which the Task will be added to
+     * @param ui the UI that will be used to display the message
+     * @throws DukeException if format of the description does not match.
+     */
     public void execute(TaskList tasks, Ui ui) throws DukeException {
         Task task;
         String[] stringSplit;

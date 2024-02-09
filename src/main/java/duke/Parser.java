@@ -2,6 +2,14 @@ package duke;
 
 class Parser {
 
+    /**
+     * Parsed the line input and returns a Task.
+     *
+     * @param line the String input to be parsed
+     * @param splitFormat the separator for the input
+     * @return a Task corresponding to the input
+     * @throws DukeException if the format of the input does not match
+     */
     public static Task parseToTask(String line, String splitFormat) throws DukeException {
         Task task;
         String[] stringSplit = line.split(splitFormat);
@@ -26,6 +34,13 @@ class Parser {
         return task;
     }
 
+    /**
+     * Parsed the line input and returns a Command.
+     *
+     * @param line the String input to be parsed
+     * @return a Command corresponding to the input
+     * @throws DukeException if the format of the input does not match
+     */
     public static Command parseToCommand(String line) throws DukeException {
         String[] stringSplit = line.split(" ");
         String commandWord = stringSplit[0].trim();
