@@ -27,7 +27,6 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ZackException {
-        assert keyword != null : "keyword should not be null";
         TaskList foundTasks = tasks.findTasksByKeyword(keyword);
         return ui.showFoundTasks(foundTasks);
     }

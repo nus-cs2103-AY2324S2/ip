@@ -65,6 +65,7 @@ public class MainWindow extends AnchorPane {
                 taskInfoBuilder.append(taskInfo).append("\n");
             }
         }
+
         dialogContainer.getChildren().add(DialogBox.getZackDialog(taskInfoBuilder.toString(), zackImage));
     }
 

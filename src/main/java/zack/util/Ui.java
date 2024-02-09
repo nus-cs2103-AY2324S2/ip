@@ -140,9 +140,6 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public String showTaskList(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            return "The task list is currently empty. Try adding some tasks!";
-        }
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -158,9 +155,6 @@ public class Ui {
      * @param tasks The list of tasks happening on the specified date.
      */
     public String showTasksOnDate(LocalDate date, ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            return "It seems that are no tasks that correspond to this date. Try another date?";
-        }
         StringBuilder sb = new StringBuilder();
         sb.append("Tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))).append(":\n");
         for (Task task : tasks) {
