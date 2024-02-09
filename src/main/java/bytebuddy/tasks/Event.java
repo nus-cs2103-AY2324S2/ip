@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -133,6 +134,41 @@ public class Event extends Task {
         int intIsDone = isDone ? 1 : 0;
         return String.format("E | %d | %s | %s | %s", intIsDone, description, from, to);
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * This method considers two Event objects equal if they have the same description, completion status,
+     * start time, and end time.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this Event is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Event event = (Event) obj;
+        return isDone == event.isDone
+                && Objects.equals(description, event.description)
+                && Objects.equals(from, event.from)
+                && Objects.equals(to, event.to);
+    }
+
+    /**
+     * Returns a hash code value for the Event object. This method is supported for the benefit of
+     * hash tables such as those provided by HashMap.
+     *
+     * @return a hash code value for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, isDone, from, to);
+    }
+
 
     /**
      * Returns a string representation of the Event task.
