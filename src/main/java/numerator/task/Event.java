@@ -18,6 +18,10 @@ public class Event extends numerator.task.Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+
+        assert from != null;
+        assert to != null;
+
         this.from = Task.parseStringToLocalDatetime(from);
         this.to = Task.parseStringToLocalDatetime(to);
     }
