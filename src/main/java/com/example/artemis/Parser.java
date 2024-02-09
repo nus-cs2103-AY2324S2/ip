@@ -8,6 +8,14 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
+    public static final String INVALID_EVENT_INPUT = "Invalid event format. \n"
+            + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]";
+    public static final String INVALID_TASK_NUMBER = "OOPS!!! Please provide a valid task number.";
+    public static final String INVALID_DEADLINE_INPUT = "Invalid deadline format. \n"
+            + "Please use: deadline [description] /by [dd-mm-yyyy hhmm]";
+    public static final String INVALID_TODO_INPUT = "OOPS!!! The description of a todo cannot be empty.";
+    public static final String INVALID_INPUT = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+
     /**
      * Parses the user input and performs the corresponding action.
      *
@@ -48,7 +56,7 @@ public class Parser {
         case "delete":
             return handleDeleteTask(tokens, tasks, ui);
         default:
-            return ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return ui.showError(INVALID_INPUT);
         }
     }
 
@@ -70,9 +78,10 @@ public class Parser {
 
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsDone();
+
             return ui.showTaskMarkedAsDone(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return ui.showError("OOPS!!! Please provide a valid task number.");
+            return ui.showError(INVALID_TASK_NUMBER);
         }
     }
 
@@ -94,9 +103,10 @@ public class Parser {
 
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsNotDone();
+
             return ui.showTaskMarkedAsNotDone(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return ui.showError("OOPS!!! Please provide a valid task number.");
+            return ui.showError(INVALID_TASK_NUMBER);
         }
     }
 
@@ -115,12 +125,13 @@ public class Parser {
             String description = tokens[1].trim();
 
             if (description.isEmpty()) {
-                throw new ArtemisException("OOPS!!! The description of a todo cannot be empty.");
+                throw new ArtemisException(INVALID_TODO_INPUT);
             }
+
             tasks.addTask(new Todo(description));
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | IndexOutOfBoundsException e) {
-            return ui.showError("OOPS!!! The description of a todo cannot be empty.");
+            return ui.showError(INVALID_TODO_INPUT);
         }
     }
 
@@ -141,16 +152,17 @@ public class Parser {
             assert tokens.length != 2 : "Invalid input format";
 
             if (tokens.length < 2) {
-                throw new ArtemisException("Invalid deadline format. \n"
-                        + "Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
+                throw new ArtemisException(INVALID_DEADLINE_INPUT);
             }
 
             String description = tokens[0].replace("deadline ", "").trim();
             String by = tokens[1].trim();
+
             tasks.addTask(new Deadline(description, by));
+
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | DateTimeParseException e) {
-            return ui.showError("Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
+            return ui.showError(INVALID_DEADLINE_INPUT);
         }
     }
 
@@ -171,8 +183,7 @@ public class Parser {
             assert tokens.length != 2 : "Invalid input format";
 
             if (tokens.length < 2) {
-                throw new ArtemisException("Invalid event format. \n"
-                        + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                throw new ArtemisException(INVALID_EVENT_INPUT);
             }
 
             String description = tokens[0].replace("event ", "").trim();
@@ -181,16 +192,17 @@ public class Parser {
             assert fromTo.length != 2 : "Invalid input format";
 
             if (fromTo.length < 2) {
-                throw new ArtemisException("Invalid event format. \n"
-                        + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                throw new ArtemisException(INVALID_EVENT_INPUT);
             }
 
             String from = fromTo[0].trim();
             String to = fromTo[1].trim();
+
             tasks.addTask(new Event(description, from, to));
+
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | DateTimeParseException e) {
-            return ui.showError("Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+            return ui.showError(INVALID_EVENT_INPUT);
         }
     }
 
@@ -212,9 +224,10 @@ public class Parser {
 
             Task task = tasks.getTasks().get(taskIndex);
             tasks.deleteTask(taskIndex);
+
             return ui.showTaskDelete(task, tasks.getTasks().size());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return ui.showError("OOPS!!! Please provide a valid task number.");
+            return ui.showError(INVALID_TASK_NUMBER);
         }
     }
 }
