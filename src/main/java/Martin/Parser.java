@@ -24,6 +24,8 @@ public class Parser {
                 return ChatbotKeyword.EVENT;
             case "bye":
                 return ChatbotKeyword.BYE;
+            case "find":
+                return ChatbotKeyword.FIND;
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
         }
