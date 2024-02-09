@@ -34,10 +34,11 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'Duke.jar'
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+
 }
 
 run{
