@@ -1,6 +1,5 @@
 package kaiyap;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,6 +119,12 @@ public class Ui {
         return output.toString();
     }
 
+    /**
+     * Returns a message stating a task is not done, identified by its index.
+     *
+     * @param numericIndex Index of the task in task list.
+     * @return Formatted message indicating the task is not marked as done.
+     */
     public String printTaskUnmarked(int numericIndex) {
         return (
                 SEPARATOR

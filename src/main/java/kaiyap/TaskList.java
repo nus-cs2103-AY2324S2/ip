@@ -111,7 +111,8 @@ public class TaskList {
             String todoTask = input.substring(input.indexOf(' ') + 1);
             for (Task t : tasks) {
                 if (t instanceof Todo && todoTask.equals(t.getListItem())) {
-                    throw new InvalidInputException("\tAre you sure? Methinks this todo exists already.\nPlease try again! UwU :3");
+                    throw new InvalidInputException("\tAre you sure? Methinks this todo exists already."
+                            + "\nPlease try again! UwU :3");
                 }
             }
             return new Todo(todoTask, input);
@@ -131,7 +132,8 @@ public class TaskList {
             String deadlineTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/by")).strip();
             for (Task t : tasks) {
                 if (t instanceof Deadline && deadlineTask.equals(t.getListItem())) {
-                    throw new InvalidInputException("\tAre you sure? Methinks this deadline exists already.\nPlease try again! UwU :3");
+                    throw new InvalidInputException("\tAre you sure? Methinks this deadline exists already."
+                            + "\nPlease try again! UwU :3");
                 }
             }
             try {
@@ -164,7 +166,8 @@ public class TaskList {
             String eventTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/from")).strip();
             for (Task t : tasks) {
                 if (t instanceof Event && eventTask.equals(t.getListItem())) {
-                    throw new InvalidInputException("\tAre you sure? Methinks this event exists already.\nPlease try again! UwU :3");
+                    throw new InvalidInputException("\tAre you sure? Methinks this event exists already."
+                            + "\nPlease try again! UwU :3");
                 }
             }
             try {
@@ -187,7 +190,12 @@ public class TaskList {
             }
         }
     }
-
+    /**
+     * Searches for tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that contain the keyword.
+     */
     public List<Task> findTasks(String keyword) {
         return tasks
                 .stream()

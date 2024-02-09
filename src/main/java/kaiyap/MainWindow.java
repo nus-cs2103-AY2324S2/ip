@@ -2,7 +2,6 @@ package kaiyap;
 
 import java.util.Objects;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -54,7 +53,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws InterruptedException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = kaiyap.chatResponse(input);
         dialogContainer.getChildren().addAll(
