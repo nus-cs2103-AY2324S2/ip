@@ -1,7 +1,7 @@
-package Storage;
+package storage;
 
-import Commands.Command;
-import Parser.Parser;
+import commands.Command;
+import parser.Parser;
 
 import java.io.File;
 import java.io.FileWriter;

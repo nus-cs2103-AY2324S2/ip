@@ -1,12 +1,8 @@
-package Commands;
+package commands;
 
-import Exceptions.InvalidInputException;
 import TaskList.Tasks.Task;
-import TaskList.Tasks.ToDo;
-import Storage.Storage;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Represents a command to delete a task from the task list.

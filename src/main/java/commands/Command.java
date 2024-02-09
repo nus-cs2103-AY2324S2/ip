@@ -1,11 +1,8 @@
-package Commands;
+package commands;
 
-import Storage.Storage;
 import TaskList.TaskList;
-import TaskList.Tasks.Task;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Represents a command to be executed.

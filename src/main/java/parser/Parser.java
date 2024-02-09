@@ -1,16 +1,10 @@
-package Parser;
+package parser;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Commands.*;
-import Exceptions.InvalidInputException;
-import TaskList.Tasks.Deadline;
-import TaskList.Tasks.Event;
-import static Utils.StringUtils.parseDateTime;
-
-import static Utils.StringUtils.parseDateTime;
+import commands.*;
+import static utils.StringUtils.parseDateTime;
 
 /**
  * This class contains utility methods for parsing user input into commands.

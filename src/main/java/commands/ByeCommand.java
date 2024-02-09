@@ -1,6 +1,4 @@
-package Commands;
-
-import java.io.IOException;
+package commands;
 
 /**
  * Represents a command to exit the program.

@@ -1,8 +1,6 @@
-package Utils;
-import Parser.Parser;
+package utils;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
