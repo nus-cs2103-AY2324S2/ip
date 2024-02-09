@@ -383,6 +383,7 @@ public class Squid extends Application {
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     * Adapted from <a href="https://se-education.org/guides/tutorials/javaFxPart3.html">SE-EDU</a>
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */

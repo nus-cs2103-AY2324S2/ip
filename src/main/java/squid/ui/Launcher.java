@@ -1,7 +1,7 @@
 package squid.ui;
 
 import javafx.application.Application;
-import squid.Squid;
+import squid.Main;
 
 /**
  * A launcher class to workaround classpath issues.
@@ -9,6 +9,6 @@ import squid.Squid;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Squid.class, args);
+        Application.launch(Main.class, args);
     }
 }
