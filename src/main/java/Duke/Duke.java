@@ -18,20 +18,20 @@ public class Duke {
         }
     }
 
-    public void run() throws DukeException {
+    public void run() {
         ui.welcomeMessage();
         boolean isExit = false;
         while (!isExit) {
             String userInput = ui.readInput();
             String result = Parser.parse(userInput, tasks, ui, storage);
-            if (result.equals("1")) {
+            if (result != null && result.equals("1")) {
                 isExit = true;
                 ui.closeScanner();
             }
         }
     }
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }
 }

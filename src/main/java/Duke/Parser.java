@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
-    public static String parse(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public static String parse(String userInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             if (userInput.equals("bye") || userInput.equals("Bye")) {
                 storage.saveTasksToFile(TaskList.getTasks(), TaskList.getTaskNum());
@@ -40,7 +40,7 @@ public class Parser {
                         throw new DukeException("Invalid task number >:((");
                     }
                 }
-            } else if (userInput.startsWith("todo") || userInput.startsWith("Todo")) {
+            } else if (userInput.startsWith("todo") || userInput.startsWith("Duke.Todo")) {
                 int pos = userInput.indexOf(" ");
                 if (pos != -1 && pos + 1 < userInput.length()) {
                     String taskStr = userInput.substring(pos + 1);
@@ -56,7 +56,7 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:((");
                 }
-            } else if (userInput.startsWith("deadline") || userInput.startsWith("Deadline")) {
+            } else if (userInput.startsWith("deadline") || userInput.startsWith("Duke.Deadline")) {
                 int pos = userInput.indexOf(" ");
                 int posBy = userInput.indexOf("/by");
                 if (pos != -1 && pos + 1 < userInput.length() && posBy != -1 && posBy + 1 < userInput.length()) {
@@ -77,7 +77,7 @@ public class Parser {
                 } else {
                     throw new DukeException("Invalid command >:((");
                 }
-            } else if (userInput.startsWith("event") || userInput.startsWith("Event")) {
+            } else if (userInput.startsWith("event") || userInput.startsWith("Duke.Event")) {
                 int pos = userInput.indexOf(" ");
                 int posFrom = userInput.indexOf("/from");
                 int posTo = userInput.indexOf("/to");
@@ -111,9 +111,9 @@ public class Parser {
                     if (taskNumber >= 0 && taskNumber < TaskList.getTaskNum()) {
                         tasks.removeTask(taskNumber);
                         ui.showDeleteTask(TaskList.getTask(taskNumber), taskNumber);
+                    } else {
+                        throw new DukeException("Invalid command >:(");
                     }
-                } else {
-                    throw new DukeException("Invalid command >:(");
                 }
             } else if (userInput.startsWith("On") || userInput.startsWith("on")) {
                 int pos = userInput.indexOf(" ");
@@ -130,7 +130,7 @@ public class Parser {
                 throw new DukeException("Gurl I'm sorry, idk what that means :-(");
             }
         } catch (DukeException e) {
-            throw e;
+            return e.getMessage();
         }
         return "I'm sorry, but I don't understand that command.";
     }
