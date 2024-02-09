@@ -2,6 +2,7 @@ package tasklist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import exceptions.InvalidStatusUpdateException;
@@ -19,6 +20,7 @@ public class TaskList {
 
     /** The list of tasks managed by the TaskList. */
     private List<Task> tasks;
+    private HashSet<Task> hashTasks;
 
     /**
      * Constructs a TaskList based on the data provided.
@@ -27,6 +29,7 @@ public class TaskList {
      */
     public TaskList(List<String> data) {
         this.tasks = new ArrayList<>();
+        this.hashTasks = new HashSet<>();
         for (String line : data) {
             String[] words = line.split(",");
             try {
@@ -36,18 +39,21 @@ public class TaskList {
                         todo.updateStatus(true);
                     }
                     this.tasks.add(todo);
+                    this.hashTasks.add(todo);
                 } else if (words[0].equals("deadline")) {
                     Deadline deadline = new Deadline(words[1], LocalDate.parse(words[2]));
                     if (words[3].equals("true")) {
                         deadline.updateStatus(true);
                     }
                     this.tasks.add(deadline);
+                    this.hashTasks.add(deadline);
                 } else if (words[0].equals("event")) {
                     Event event = new Event(words[1], LocalDate.parse(words[2]), LocalDate.parse(words[3]));
                     if (words[4].equals("true")) {
                         event.updateStatus(true);
                     }
                     this.tasks.add(event);
+                    this.hashTasks.add(event);
                 }
             } catch (InvalidStatusUpdateException e) {
                 UI.print(e.getMessage());
@@ -61,7 +67,13 @@ public class TaskList {
      * @return true if the task is successfully added.
      */
     public boolean addTask(Task task) {
-        return this.tasks.add(task);
+        if (this.tasks.contains(task)) {
+            UI.print("Duplicate task detected");
+            return false;
+        } else {
+            this.hashTasks.add(task);
+            return this.tasks.add(task);
+        }
     }
 
     /**
@@ -79,7 +91,9 @@ public class TaskList {
      * @return The task that was removed from the TaskList.
      */
     public Task deleteTask(int index) {
-        return this.tasks.remove(index);
+        Task toDelete = this.tasks.get(index);
+        this.hashTasks.remove(toDelete);
+        return toDelete;
     }
 
     /**

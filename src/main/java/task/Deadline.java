@@ -42,4 +42,13 @@ public class Deadline extends Task {
         String by = this.endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         return String.format("[D]%s %s (by: %s)", (super.isMarked ? "[X]" : "[ ]"), super.name, by);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deadline) {
+            Deadline deadline = (Deadline) obj;
+            return this.name.equals(deadline.name) && this.endDate.equals(deadline.endDate);
+        }
+        return false;
+    }
 }

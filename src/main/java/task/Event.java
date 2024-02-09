@@ -49,4 +49,14 @@ public class Event extends Task {
         String to = this.endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         return String.format("[E]%s %s (from: %s to: %s)", (super.isMarked ? "[X]" : "[ ]"), super.name, from, to);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+            return this.name.equals(event.name) && this.startDate.equals(event.endDate)
+                    && this.endDate.equals(event.endDate);
+        }
+        return false;
+    }
 }

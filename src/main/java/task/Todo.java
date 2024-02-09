@@ -22,4 +22,13 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + (super.isMarked ? "[X] " : "[ ] ") + super.name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Todo) {
+            Todo todo = (Todo) obj;
+            return this.name.equals(todo.name);
+        }
+        return false;
+    }
 }

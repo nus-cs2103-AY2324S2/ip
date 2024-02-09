@@ -41,16 +41,19 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        tasks.addTask(this.task);
-        storage.writeLine(this.saveData);
-        UI.print("Got it. I've added this task:");
-        UI.print("\t" + this.task);
-        UI.print(String.format("Now you have %d tasks in the list.", tasks.getSize()));
+        if (tasks.addTask(this.task)) {
+            storage.writeLine(this.saveData);
+            UI.print("Got it. I've added this task:");
+            UI.print("\t" + this.task);
+            UI.print(String.format("Now you have %d tasks in the list.", tasks.getSize()));
 
-        String result = "Got it. I've added this task:\n";
-        result += "\t" + this.task + "\n";
-        result += String.format("Now you have %d tasks in the list.\n", tasks.getSize());
-        return result;
+            String result = "Got it. I've added this task:\n";
+            result += "\t" + this.task + "\n";
+            result += String.format("Now you have %d tasks in the list.\n", tasks.getSize());
+            return result;
+        }
+        UI.print("You have already added this task into the task list");
+        return "You have already added this task into the task list\n";
     }
 
     /**

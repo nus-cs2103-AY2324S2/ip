@@ -79,4 +79,11 @@ public class Task {
     public String toString() {
         return "[T]" + (this.isMarked ? "[X] " : "[ ] ") + this.name;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            return true;
+        }
+        return false;
+    }
 }
