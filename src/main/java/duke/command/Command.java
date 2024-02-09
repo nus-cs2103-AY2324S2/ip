@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
+import duke.task.TaskListException;
 
 /**
  * Base class for all Command types.
@@ -20,7 +21,8 @@ public abstract class Command {
      * @throws IOException Exception on failure in writing data to saved data.
      * @throws CommandException Exception if Command cannot run due to unexpected input.
      */
-    public abstract String run(TaskList taskList, Storage storage) throws IOException, CommandException;
+    public abstract String run(TaskList taskList, Storage storage) throws IOException, CommandException,
+            TaskListException;
 
     public boolean isExit() {
         return false;
