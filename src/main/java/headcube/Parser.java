@@ -29,6 +29,7 @@ public class Parser {
      * @return The response to the input
      */
     public String parse(String input) {
+        assert !input.isBlank() : "Input cannot be null or blank";
         try {
             String[] split = input.split(" ", 2);
 
