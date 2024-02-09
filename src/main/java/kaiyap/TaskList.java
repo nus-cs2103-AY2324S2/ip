@@ -106,9 +106,15 @@ public class TaskList {
      */
     public Todo createTodo(String input) throws KaiYapException {
         if (input.equals("todo")) {
-            throw new MissingInputException("\tYour todo needs a description. Please try again! UwU :3");
+            throw new MissingInputException("\tYour todo needs a description.\nPlease try again! UwU :3");
         } else {
-            return new Todo(input.substring(input.indexOf(' ') + 1), input);
+            String todoTask = input.substring(input.indexOf(' ') + 1);
+            for (Task t : tasks) {
+                if (t instanceof Todo && todoTask.equals(t.getListItem())) {
+                    throw new InvalidInputException("\tAre you sure? Methinks this todo exists already.\nPlease try again! UwU :3");
+                }
+            }
+            return new Todo(todoTask, input);
         }
     }
 
@@ -122,9 +128,15 @@ public class TaskList {
         if (input.equals("deadline")) {
             throw new MissingInputException("Your deadline needs a description. Please try again! UwU :3");
         } else {
+            String deadlineTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/by")).strip();
+            for (Task t : tasks) {
+                if (t instanceof Deadline && deadlineTask.equals(t.getListItem())) {
+                    throw new InvalidInputException("\tAre you sure? Methinks this deadline exists already.\nPlease try again! UwU :3");
+                }
+            }
             try {
                 return new Deadline(
-                        input.substring(input.indexOf(" ") + 1, input.indexOf("/by")).strip(),
+                        deadlineTask,
                         input,
                         LocalDateTime.parse(input.substring(
                                 input.indexOf("/by") + 3).strip(), DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
@@ -149,9 +161,15 @@ public class TaskList {
         if (input.equals("event")) {
             throw new MissingInputException("Your event needs a description. Please try again! UwU :3");
         } else {
+            String eventTask = input.substring(input.indexOf(" ") + 1, input.indexOf("/from")).strip();
+            for (Task t : tasks) {
+                if (t instanceof Event && eventTask.equals(t.getListItem())) {
+                    throw new InvalidInputException("\tAre you sure? Methinks this event exists already.\nPlease try again! UwU :3");
+                }
+            }
             try {
                 return new Event(
-                        input.substring(input.indexOf(" ") + 1, input.indexOf("/from")).strip(),
+                        eventTask,
                         input,
                         LocalDateTime.parse(
                                 input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).strip(),
