@@ -48,10 +48,15 @@ test {
 }
 
 application {
-    mainClass.set("kaiyap.KaiYap")
+    mainClass.set("kaiyap.Launcher")
 }
 
 shadowJar {
+    manifest {
+        attributes(
+                'Main-Class': 'kaiyap.Launcher'
+        )
+    }
     archiveBaseName = "kaiyap"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
