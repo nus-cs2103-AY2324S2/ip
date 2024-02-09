@@ -18,6 +18,9 @@ public class Deadline extends numerator.task.Task {
      */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
+
+        assert by != null;
+
         this.by = Task.parseStringToLocalDatetime(by);
     }
 

@@ -30,6 +30,8 @@ public abstract class Task {
      * @throws DateTimeParseException if the date and time is not in the correct format
      */
     static LocalDateTime parseStringToLocalDatetime(String datetimeString) throws DateTimeParseException {
+        assert datetimeString != null;
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         try {
             return LocalDateTime.parse(datetimeString, dateTimeFormatter);
@@ -46,6 +48,8 @@ public abstract class Task {
      * @throws DateTimeException if the date and time is not in the correct format
      */
     static String parseLocalDateTimeToString(LocalDateTime localDateTime) throws DateTimeException {
+        assert localDateTime != null;
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return localDateTime.format(formatter);
     }
