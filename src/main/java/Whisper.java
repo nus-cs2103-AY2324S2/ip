@@ -167,7 +167,7 @@ public class Whisper {
                 task.markAsDone();
             }
             return task;
-        } catch (WhisperException e) {
+        } catch (WhisperException | NumberFormatException | IndexOutOfBoundsException e) {
             throw new WhisperException("Error parsing task from file.");
         }
     }
