@@ -3,6 +3,8 @@ package command;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import storage.Storage;
 import task.Deadline;
@@ -115,11 +117,13 @@ public class QueryCommand extends Command {
         UI.print("Here are the matching tasks in your list:");
         String result = "Here are the matching tasks in your list:\n";
         int index = 1;
-        for (Task task : tasks.fetchAll()) {
-            if (task.getName().contains(this.query)) {
-                UI.print(index + "." + task);
-                result += index + "." + task + "\n";
-            }
+        List<Task> queriedTasks = tasks.fetchAll();
+        queriedTasks = queriedTasks.stream().filter(
+                task -> task.getName().toLowerCase().contains(this.query)).collect(Collectors.toList());
+        for (Task task : queriedTasks) {
+            UI.print(index + "." + task);
+            result += index + "." + task + "\n";
+            index++;
         }
         return result;
     }
