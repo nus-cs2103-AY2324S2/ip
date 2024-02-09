@@ -72,7 +72,7 @@ public class Squid extends Application {
     /**
      * Initializes Squid.
      */
-    private static String hello() {
+    public static String hello() {
         try {
             Tasks.read();
         } catch (ParseFailException | DuplicateTaskNameException | SquidDateException e) {

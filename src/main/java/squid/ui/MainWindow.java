@@ -4,6 +4,7 @@ import static squid.Squid.parseInput;
 
 import java.util.Objects;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,9 +39,15 @@ public class MainWindow extends AnchorPane {
     private Image imageDuke = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
+    /**
+     * Initialize the GUI.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(new Label(Squid.hello()), new ImageView(imageDuke))
+        );
     }
 
     public void setDuke(Squid d) {
@@ -52,17 +59,21 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws InterruptedException {
-
-        String input = userInput.getText();
-        Response response = parseInput(true, input);
-        Label userText = new Label(input);
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Response response = parseInput(true, userInput.getText());
         Label dukeText = new Label(response.getResponse());
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(imageUser)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(imageDuke))
         );
-        Tasks.save();
         userInput.clear();
+        boolean isLoop = response.getIsLoop();
+        Tasks.save();
+        if (!isLoop) {
+            Platform.exit();
+            System.exit(0);
+        }
     }
 }

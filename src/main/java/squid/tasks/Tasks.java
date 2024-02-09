@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import squid.constants.CorrectUsage;
 import squid.constants.Exceptions;
+import squid.constants.Filepath;
 import squid.constants.Regex;
 import squid.exceptions.DuplicateTaskNameException;
 import squid.exceptions.IncorrectIndexException;
@@ -162,6 +163,7 @@ public class Tasks {
             String s = arr.get(i).parseStr();
             stringBuilder.append((s));
         }
+        assert(SquidFile.doesFileExist(Filepath.FULL_PATH));
         try {
             SquidFile.writeToFile(stringBuilder.toString(), false);
         } catch (IOException ignored) {

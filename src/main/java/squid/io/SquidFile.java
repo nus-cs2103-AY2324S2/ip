@@ -22,7 +22,7 @@ public class SquidFile {
      * @param path the filepath to check
      * @return whether the file at the specified path exists.
      */
-    private static boolean doesFileExist(String path) {
+    public static boolean doesFileExist(String path) {
         File file = new File(path);
         return file.exists();
     }
