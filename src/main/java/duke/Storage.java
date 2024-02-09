@@ -24,6 +24,9 @@ public class Storage {
      * @param file The file path to save and load tasks.
      */
     public Storage(String file) {
+        assert file != null : "File path cannot be null";
+        assert file.exists() : "File does not exist";
+
         this.File_Path = file;
     }
 
