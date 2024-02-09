@@ -45,6 +45,7 @@ public class CommandHandler {
             String commandStr = words[0];
             throw new CommandNotFoundException(commandStr);
         }
+        assert command != null: "Command should have a value assigned to it, and not be null";
 
         String output = "";
         switch (command) {
@@ -84,6 +85,7 @@ public class CommandHandler {
                     output = TaskList.findTask(arguments);
                     break;
                 default:
+                    assert false: "Should not fall into default case of switch block for executeCommand method!";
                     output = "Error: Fell into default case in executeCommand method!";
                     break;
                 }
@@ -91,6 +93,7 @@ public class CommandHandler {
             // To store the updated Task List
             Storage.store();
 
+            assert output != null: "Output should not be null!";
             return output;
     }
 
@@ -105,6 +108,7 @@ public class CommandHandler {
     private static int processTaskIdx(String arguments) throws IndexOutOfRange{
         int idx = Integer.parseInt(arguments);
         int size = TaskList.listSize();
+        assert size>=0: "Size of TaskList should always be >= 0";
         if (idx <= 0 || idx > size) {
             throw new IndexOutOfRange(idx, size);
         }

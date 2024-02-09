@@ -135,6 +135,7 @@ public class Storage {
                 task = new Event(name, from2, to2);
                 break;
             default:
+                assert false: "Should not fall into default case of switch block for decode method!";
                 task = new ToDo("ERROR");
                 System.out.println("Error: Decoding Error, task does not match any of the known types");           
         } 
