@@ -54,7 +54,7 @@ public class Numerator {
      * @param response the input from the user
      * @return the response to the user
      */
-    public String getResponse(String response) {
+    public String getResponseFromInput(String response) {
         try {
             return Parser.parseArguments(response, taskList, storage);
         } catch (NumeratorException e) {
