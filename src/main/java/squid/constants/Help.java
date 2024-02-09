@@ -13,7 +13,13 @@ public class Help {
     public static final String DESC_DELETE = "delete: Deletes a task at the specified index.\n";
     public static final String DESC_FIND = "find: Finds tasks with matching keywords.\n";
     public static final String DESC_HELP = "help: Gets list of commands\n";
-    public static final String descMark(boolean isComplete) {
+
+    /**
+     * Creates and returns the description of mark or unmark command.
+     * @param isComplete whether it is a mark or unmark command.
+     * @return the string representation of the mark or unmark message.
+     */
+    private static final String descMark(boolean isComplete) {
         return isComplete
                 ? "mark: Marks a task as complete."
                 : "unmark: Marks a task as incomplete.";
