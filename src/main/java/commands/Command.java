@@ -31,7 +31,7 @@ public abstract class Command {
      * Sets this command as an exit command.
      */
     protected void setIsExit() {
-        this.isExit = true;
+        isExit = true;
     }
 
     /**

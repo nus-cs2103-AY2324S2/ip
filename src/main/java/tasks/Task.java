@@ -5,7 +5,7 @@ package tasks;
  */
 public abstract class Task {
     protected final String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a new task.Task with the given description.
@@ -14,28 +14,28 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description.trim();
-        this.done = false;
+        isDone = false;
     }
 
     /**
      * Marks the task as completed.
      */
     public void mark() {
-        this.done = true;
+        isDone = true;
     }
 
     /**
      * Unmarks the task, setting it to not completed.
      */
     public void unmark() {
-        this.done = false;
+        isDone = false;
     }
 
     /**
      * Getter for done class attribute.
      */
     public boolean isDone() {
-        return this.done;
+        return isDone;
     }
 
     public abstract String convertTaskToFileString();
@@ -47,7 +47,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String checkBox = this.done ? "[X]" : "[ ]";
-        return checkBox + " " + this.description;
+        String checkBox = isDone ? "[X]" : "[ ]";
+        return checkBox + " " + description;
     }
 }

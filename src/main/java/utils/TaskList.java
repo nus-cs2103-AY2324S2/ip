@@ -18,7 +18,7 @@ public class TaskList {
      * Constructs an empty helpers.TaskList.
      */
     public TaskList() {
-        this.list = new ArrayList<>();
+        list = new ArrayList<>();
     }
 
     /**
@@ -27,7 +27,7 @@ public class TaskList {
      * @param t The task to be added.
      */
     public void addTask(Task t) {
-        this.list.add(t);
+        list.add(t);
         FileManager.writeFile(FILE_NAME, this);
     }
 
@@ -35,7 +35,7 @@ public class TaskList {
      * Returns the number of tasks in the list.
      */
     public int getLength() {
-        return this.list.size();
+        return list.size();
     }
 
     /**
@@ -45,7 +45,7 @@ public class TaskList {
      * @return The marked task.
      */
     public Task markTask(int i) {
-        Task t = this.list.get(i);
+        Task t = list.get(i);
         t.mark();
         FileManager.writeFile(FILE_NAME, this);
         return t;
@@ -58,7 +58,7 @@ public class TaskList {
      * @return The unmarked task.
      */
     public Task unmarkTask(int i) {
-        Task t = this.list.get(i);
+        Task t = list.get(i);
         t.unmark();
         FileManager.writeFile(FILE_NAME, this);
         return t;
@@ -71,7 +71,7 @@ public class TaskList {
      * @return The deleted task.
      */
     public Task deleteTask(int i) {
-        return this.list.remove(i);
+        return list.remove(i);
     }
 
     public String convertTaskListToFileString() {
@@ -83,6 +83,7 @@ public class TaskList {
     }
 
     /**
+     * Converts a string representation of tasks from a file to a TaskList object.
      * Converts a string representation of tasks from a file to a TaskList object.
      *
      * @return The TaskList object containing tasks parsed from the file string.

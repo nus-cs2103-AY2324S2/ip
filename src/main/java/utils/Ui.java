@@ -25,10 +25,10 @@ public class Ui {
     private final Scanner scanner;
 
     /**
-     * Constructs a Ui object and initializes the scanner for user input.
+     * Constructs an Ui object and initializes the scanner for user input.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
     /**

@@ -28,7 +28,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertTaskToFileString() {
-        return String.format("D|%s|%s|%s", super.isDone() ? "1" : "0", this.description.trim(), this.deadline);
+        return String.format("D|%s|%s|%s", super.isDone() ? "1" : "0", description.trim(), deadline);
     }
 
     /**
@@ -38,6 +38,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return DEADLINE_PREFIX + super.toString() + " (by: " + this.deadline + ")";
+        return DEADLINE_PREFIX + super.toString() + " (by: " + deadline + ")";
     }
 }

@@ -15,8 +15,8 @@ public class Chitty {
      * Constructs a Chitty object.
      */
     Chitty() {
-        this.taskList = TaskList.convertFileStringToTaskList();
-        this.ui = new Ui();
+        taskList = TaskList.convertFileStringToTaskList();
+        ui = new Ui();
     }
 
     /**
