@@ -95,7 +95,8 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String keyword) {
         return tasks.stream()
-                .filter(task -> task.getTaskName().toLowerCase().contains(keyword.toLowerCase()))
+                .filter(task -> task.getTaskName().toLowerCase()
+                        .contains(keyword.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
