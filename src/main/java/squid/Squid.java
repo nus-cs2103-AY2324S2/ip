@@ -470,6 +470,7 @@ public class Squid extends Application {
         }
         res += "\n" + Messages.LINE_BREAK;
         res =  Messages.LINE_BREAK + res;
+        Tasks.save();
         return new Response(isLoop, res);
     }
 
