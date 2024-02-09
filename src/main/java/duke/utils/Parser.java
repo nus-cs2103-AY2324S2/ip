@@ -36,6 +36,7 @@ public class Parser {
      */
     public static Command parse(String input) throws NoSuchCommandException {
 
+
         // Splitting action from parameters
         String[] inputSplit = input.split(" ", 2);
 
@@ -55,6 +56,7 @@ public class Parser {
             paramsTable.put(paramLabel, paramInfo);
         }
 
+        assert !action.equals("");
 
         switch (action) {
         case "bye":

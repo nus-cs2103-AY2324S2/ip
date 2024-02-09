@@ -61,14 +61,17 @@ public class ModifyTaskCommand extends Command {
         case MARK:
             Task t1 = tasks.get(index);
             t1.doTask();
+            assert t1.toString().substring(0, 3).equals("[X]");
             return "Good job on finishing your task!:\n  " + t1;
         case UNMARK:
             Task t2 = tasks.get(index);
             t2.undoTask();
+            assert t2.toString().substring(0, 3).equals("[ ]");
             return "I've marked this task as undone:\n  " + t2;
         case DELETE:
             Task t3 = tasks.get(index);
             tasks.remove(t3);
+            assert !tasks.get(index).equals(t3);
             return "I've removed this task:\n  " + t3;
         default:
             return "Error Modifying Task: No such modification type";

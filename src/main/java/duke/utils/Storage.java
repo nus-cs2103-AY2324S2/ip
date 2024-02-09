@@ -86,6 +86,7 @@ public class Storage {
      */
     public String saveTodoData(TaskList data) throws IOException {
         this.checkAndCreateFile();
+        assert this.f.exists();
 
         FileWriter fw = new FileWriter(f);
 
