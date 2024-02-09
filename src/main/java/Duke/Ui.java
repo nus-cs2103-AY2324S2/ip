@@ -80,22 +80,6 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
-    public void showMatchingTasks(TaskList tasks, String keyword) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Here are the matching tasks in your list:");
-        int matchCount = 0;
-        for (Task task : tasks.getTasks()) {
-            if (task != null && task.description.contains(keyword)) {
-                System.out.println("     " + (matchCount + 1) + "." + task);
-                matchCount++;
-            }
-        }
-        if (matchCount == 0) {
-            System.out.println("     No matching tasks found.");
-        }
-        System.out.println("    ____________________________________________________________");
-    }
-
     public String readInput() {
         return inputs.nextLine();
     }
