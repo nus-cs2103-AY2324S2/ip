@@ -20,7 +20,6 @@ import task.ToDo;
  * The Ui class handles user interface related operations.
  */
 public class Ui {
-    private static final Scanner sc = new Scanner(System.in);
 
     private Ui() {
 

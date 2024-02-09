@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
  */
 public class DateTimeUtil {
     private static final DateTimeFormatter INPUT = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-    private static final DateTimeFormatter OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Formats the given string representation of a date and time into a LocalDateTime object.
