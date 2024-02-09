@@ -67,6 +67,11 @@ public class Storage {
         try {
             // Solution below adapted from https://stackoverflow.com/a/41514348
             if (!Files.exists(this.filepath)) {
+
+                // This assertion checks that the filepath does not conflict with existing files or directories
+                // in the path hierarchy
+                assert !Files.isRegularFile(this.filepath.getParent());
+
                 Files.createDirectories(this.filepath.getParent());
                 Files.createFile(this.filepath);
                 throw new LoadingException("File does not exist");
@@ -74,8 +79,7 @@ public class Storage {
 
             // Solution below adapted from https://www.baeldung.com/reading-file-in-java
             Stream<String> lines = Files.lines(this.filepath);
-            lines.forEach(readLineFromString(taskList)
-            );
+            lines.forEach(readLineFromString(taskList));
 
             lines.close();
             return taskList;

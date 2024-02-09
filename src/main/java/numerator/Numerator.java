@@ -47,6 +47,13 @@ public class Numerator {
         new Numerator().run();
     }
 
+    /**
+     * Gets the response from the Numerator program in response to a user's input
+     * This method can be used to link the UI to the Numerator program.
+     *
+     * @param response the input from the user
+     * @return the response to the user
+     */
     public String getResponseFromInput(String response) {
         try {
             return Parser.parseArguments(response, taskList, storage);

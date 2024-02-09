@@ -31,6 +31,9 @@ public class TaskList {
     public String findTasks(String pattern) {
         TaskList matchedTasks = new TaskList();
         for (Task t : this.taskList) {
+
+            assert t != null;
+
             if (t.containsKeyword(pattern)) {
                 matchedTasks.addTask(t);
             }
@@ -75,6 +78,9 @@ public class TaskList {
      */
     public Task removeTask(int idx) throws IndexOutOfBoundsException {
         Task t = this.taskList.get(idx);
+
+        assert t != null;
+
         this.taskList.remove(idx);
         return t;
     }

@@ -40,6 +40,12 @@ public class Parser {
      * @throws NumeratorException if the input is not recognised
      */
     public static String parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
+
+        assert taskList != null;
+        assert storage != null;
+        assert input != null;
+
+
         if (input.equals(INPUT_BYE)) {
             return BYE_STRING;
 
