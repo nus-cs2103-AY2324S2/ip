@@ -1,3 +1,8 @@
+package duke.task;
+
+
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +14,7 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String description) throws DukeException{
+    public Event(String description) throws DukeException {
         this.fullTaskDescription = description;
         try {
             String[] command = description.split(" /from ", 2);

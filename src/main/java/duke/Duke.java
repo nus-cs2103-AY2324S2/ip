@@ -1,3 +1,15 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.exception.DukeException;
+import duke.parser.Parser;
+
 public class Duke {
     private Storage storage;
     private TaskList tasks;
