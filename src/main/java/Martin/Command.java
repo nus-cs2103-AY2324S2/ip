@@ -42,14 +42,14 @@ public class Command {
                 storage.appendToFile(todo.toFileString());
                 break;
             case DEADLINE:
-                String[] deadlineArray = parser.deadlineParse(remainingWords);
+                String[] deadlineArray = parser.parseDeadline(remainingWords);
                 LocalDate deadlineTime = LocalDate.parse(deadlineArray[1]);
                 Deadline deadline = new Deadline(deadlineArray[0], deadlineTime);
                 taskList.add(deadline);
                 storage.appendToFile(deadline.toFileString());
                 break;
             case EVENT:
-                String[] eventArray = parser.eventParse(remainingWords);
+                String[] eventArray = parser.parseEvent(remainingWords);
                 Event event = new Event(eventArray[0], eventArray[1], eventArray[2]);
                 taskList.add(event);
                 storage.appendToFile(event.toFileString());

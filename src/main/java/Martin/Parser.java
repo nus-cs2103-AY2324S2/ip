@@ -29,14 +29,14 @@ public class Parser {
         }
     }
 
-    public String[] deadlineParse(String input) {
+    public String[] parseDeadline(String input) {
         String[] deadlineArray = input.split(" /by ");
         String deadlineDescription = deadlineArray[0];
 
         return new String[] { deadlineDescription, deadlineArray[1] };
     }
 
-    public String[] eventParse(String input) {
+    public String[] parseEvent(String input) {
         String[] eventArray = input.split(" /at ");
         String eventDescription = eventArray[0];
         String[] eventTime = eventArray[1].split("-");
