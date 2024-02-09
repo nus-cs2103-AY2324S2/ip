@@ -1,18 +1,18 @@
-package Duke.main;
+package duke.main;
 
-import Duke.util.TaskList;
-import Duke.util.UI;
-import Duke.util.Storage;
-import Duke.commands.*;
-import Duke.exceptions.*;
+import duke.util.TaskList;
+import duke.util.UI;
+import duke.util.Storage;
+import duke.commands.*;
+import duke.exceptions.*;
 
 public class Duke {
     private final Storage storage;
     private final UI ui;
     private final TaskList tasks;
-    private static Commands parseCommand(String s) throws IllegalArgumentException {
+    private static Command parseCommand(String s) throws IllegalArgumentException {
         String[] words = s.split(" ", 2);
-        Commands res = null;
+        Command res = null;
         switch(words[0]) {
         case "bye":
             res = new ByeCommand();
@@ -60,7 +60,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String echoInput = this.ui.receiveNextLine();
-                Commands token = parseCommand(echoInput.trim());
+                Command token = parseCommand(echoInput.trim());
                 isExit = token.execute(tasks, ui, storage);
             } catch (IllegalArgumentException e){
                 this.ui.displayExceptionMsg(new UnknownInputException());

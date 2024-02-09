@@ -1,15 +1,27 @@
-package Duke.tasks;
+/**
+ * Represents a task with a specific start and end time.
+ * This class extends the Task class and adds functionality for tasks with event timings.
+ */
+package duke.tasks;
 
-import Duke.exceptions.InvalidEventException;
+import duke.exceptions.InvalidEventException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
+
     private String start;
     private String end;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
+    /**
+     * Checks if the given deadline string has a valid date format.
+     *
+     * @param deadline The deadline string to be checked.
+     * @return True if the deadline string has a valid format, otherwise false.
+     */
     private static boolean isValidDateFormat(String deadline) {
         if (deadline.length() <= 12 || deadline.length() >= 16) {
             return false;
@@ -30,6 +42,15 @@ public class Event extends Task {
         }
         return true;
     }
+
+    /**
+     * Constructs an Event object with the given description, start, and end times.
+     *
+     * @param desc  The description of the event task.
+     * @param start The start time of the event.
+     * @param end   The end time of the event.
+     * @throws InvalidEventException If the end time is before the start time.
+     */
     public Event(String desc, String start, String end) throws InvalidEventException {
         super(desc);
         start = start.trim();
@@ -60,6 +81,15 @@ public class Event extends Task {
             throw new InvalidEventException();
         }
     }
+
+    /**
+     * Constructs an Event object with the given status, description, start, and end times.
+     *
+     * @param status      The status of the event task.
+     * @param description The description of the event task.
+     * @param start       The start time of the event.
+     * @param end         The end time of the event.
+     */
     public Event(String status, String description, String start, String end) {
         super(description);
         super.setStatus(status);
@@ -88,6 +118,12 @@ public class Event extends Task {
             this.end = end;
         }
     }
+
+    /**
+     * Writes the Event object into a string format for storage.
+     *
+     * @return A string representing the Event object.
+     */
     @Override
     public String writeObject() {
         if (startDate != null && endDate != null) {
@@ -98,6 +134,12 @@ public class Event extends Task {
         }
         return String.format("event %s | %s | %s \n", super.writeObject(), this.start, this.end);
     }
+
+    /**
+     * Converts the Event object into a string representation.
+     *
+     * @return A string representing the Event object.
+     */
     @Override
     public String toString() {
         String startString = startDate != null
@@ -107,8 +149,15 @@ public class Event extends Task {
                 ? this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
                 : this.end;
         return String.format("[E]%s(from: %s to: %s)",
-                super.toString(),startString, endString);
+                super.toString(), startString, endString);
     }
+
+    /**
+     * Checks if the Event object has the specified date.
+     *
+     * @param toFind The date to find in the Event object.
+     * @return True if the Event object has the specified date, otherwise false.
+     */
     @Override
     public boolean hasDate(LocalDateTime toFind) {
         return toFind.equals(this.startDate) || toFind.equals(this.endDate);

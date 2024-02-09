@@ -1,9 +1,9 @@
-package Duke.util;
+package duke.util;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import Duke.tasks.Task;
-import Duke.exceptions.DukeException;
+import duke.tasks.Task;
+import duke.exceptions.DukeException;
 
 public class UI {
     private static final String hRULER = "____________________________________________________________\n";

@@ -1,8 +1,8 @@
-package Duke.util;
+package duke.util;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import Duke.tasks.Task;
+import duke.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> items;

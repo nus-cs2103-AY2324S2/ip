@@ -1,11 +1,11 @@
-package Duke.commands;
+package duke.commands;
 
-import Duke.util.TaskList;
-import Duke.util.UI;
-import Duke.util.Storage;
-import Duke.exceptions.DukeException;
-import Duke.exceptions.InvalidTaskIndexException;
-public class MarkCommand extends Commands {
+import duke.util.TaskList;
+import duke.util.UI;
+import duke.util.Storage;
+import duke.exceptions.DukeException;
+import duke.exceptions.InvalidTaskIndexException;
+public class MarkCommand extends Command {
     private String[] words;
     private static boolean isNumeric(String s) {
         if (s == null) {
@@ -22,6 +22,14 @@ public class MarkCommand extends Commands {
         super();
         this.words = words;
     }
+    /**
+     * Executes the find command, searching for tasks containing the specified keyword.
+     *
+     * @param tasks The TaskList containing the list of tasks.
+     * @param ui The UI object for displaying messages.
+     * @param storage The Storage object for saving data to a file.
+     * @return False indicating that the program should continue running.
+     */
     @Override
     public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         int currentIdx = tasks.list().size();
