@@ -19,7 +19,7 @@ public class YoudonException extends Throwable {
         }
 
         public static void detectInvalidCommand(String input) throws InvalidCommandException {
-            for (validCommands command: validCommands.values()) {
+            for (ValidCommands command: ValidCommands.values()) {
                 if (input.contains(command.getCommand())) {
                     return;
                 }

@@ -3,30 +3,30 @@ package youdon;
 import java.util.ArrayList;
 
 public class TaskList {
-    protected ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
 
     public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+        this.tasks = taskList;
     }
 
     public int size() {
-        return taskList.size();
+        return tasks.size();
     }
 
     public Task get(int i) {
-        return taskList.get(i);
+        return tasks.get(i);
     }
 
     public void remove(int i) {
-        taskList.remove(i);
+        tasks.remove(i);
     }
 
     public void add(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
 }

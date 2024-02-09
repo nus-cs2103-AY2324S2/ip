@@ -1,15 +1,16 @@
 package youdon;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    // file path should be "./src/main/data/save.txt"
     private final String filepath;
     private final File saveFile;
 
@@ -17,6 +18,7 @@ public class Storage {
     public Storage(String filepath) {
         this.filepath = filepath;
         this.saveFile = new File(filepath);
+
         try {
             if (!saveFile.exists()) {
                 saveFile.getParentFile().mkdir();
@@ -30,10 +32,10 @@ public class Storage {
         }
     }
 
-    public void saveData(TaskList taskList) throws IOException {
+    public void saveData(TaskList tasks) throws IOException {
         try (FileWriter writer = new FileWriter(this.filepath)) {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
                 writer.write(task.toString() + "\n");
             }
         } catch (IOException e) {
@@ -42,7 +44,7 @@ public class Storage {
     }
 
     public ArrayList<Task> loadData() {
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             if (saveFile.length() > 0) {
                 Scanner scanner = new Scanner(saveFile);
@@ -56,7 +58,7 @@ public class Storage {
                         // identify task description
                         int startIndex = data.indexOf("[") + 7;
                         String description = data.substring(startIndex);
-                        taskList.add(new Todo(description));
+                        tasks.add(new Todo(description));
                     }
 
                     if (taskType.equals("D")) {
@@ -70,7 +72,7 @@ public class Storage {
                         String deadline = data.substring(startIndex, endIndex);
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
                         LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
-                        taskList.add(new Deadline(description, deadlineDateTime));
+                        tasks.add(new Deadline(description, deadlineDateTime));
                     }
 
                     if (taskType.equals("E")) {
@@ -89,7 +91,7 @@ public class Storage {
                         endIndex = data.indexOf(")", startIndex);
                         String end = data.substring(startIndex, endIndex);
                         LocalDateTime endDateTime = LocalDateTime.parse(end, formatter);
-                        taskList.add(new Event(description, startDateTime, endDateTime));
+                        tasks.add(new Event(description, startDateTime, endDateTime));
                     }
                 }
                 System.out.println("Save File loaded!");
@@ -99,6 +101,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Error!" + e.getMessage());
         }
-        return taskList;
+        return tasks;
     }
 }

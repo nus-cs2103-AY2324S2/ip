@@ -1,6 +1,6 @@
 package youdon;
 
-public enum validCommands {
+public enum ValidCommands {
     TODO("todo"),
     DEADLINE("deadline"),
     EVENT("event"),
@@ -14,7 +14,7 @@ public enum validCommands {
 
     private final String command;
 
-    validCommands(String command) {
+    ValidCommands(String command) {
         this.command = command;
     }
 

@@ -6,8 +6,8 @@ public class Youdon {
         // initialise ui and storage (filepath = "./data/save.txt")
         Ui ui = new Ui();
         Storage storage = new Storage("./data/save.txt");
-        TaskList taskList =  new TaskList(storage.loadData());
-        Parser parser = new Parser(ui, taskList, storage);
+        TaskList tasks =  new TaskList(storage.loadData());
+        Parser parser = new Parser(ui, tasks, storage);
 
         // chatbot welcome message
         ui.printWelcomeMsg();
