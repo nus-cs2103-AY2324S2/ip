@@ -15,7 +15,7 @@ public class Logic {
 
     private Scanner scan;
     private CommandProcessor cmd;
-    private boolean startUpSuccess = false;
+    private boolean isStartUpSuccess = false;
 
     /**
      * Initializes a new `UserInterface` object, sets up a scanner for user input,
@@ -28,7 +28,7 @@ public class Logic {
             String fileName = "savefile.txt";
             Storage storage = new Storage(fileDirectory, fileName);
             cmd = new CommandProcessor(storage);
-            startUpSuccess = true;
+            isStartUpSuccess = true;
         } catch (HalException e) {
             System.out.println(e.getMessage());
         }
@@ -56,7 +56,7 @@ public class Logic {
     }
 
     public String getResponse(String input) {
-        if (!startUpSuccess) {
+        if (!isStartUpSuccess) {
             startUpFailure();
             return "";
         }

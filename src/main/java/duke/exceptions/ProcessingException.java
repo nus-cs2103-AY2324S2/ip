@@ -15,7 +15,7 @@ public class ProcessingException extends HalException {
     }
 
     /**
-     * Creates an 'ProcessingException` for command execution with a specific command and cause.
+     * Creates an "ProcessingException" for command execution with a specific command and cause.
      *
      * @param command The command being executed when the exception occurred.
      * @param cause The cause of the exception (a Throwable object).
