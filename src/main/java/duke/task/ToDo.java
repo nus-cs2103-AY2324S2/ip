@@ -37,6 +37,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toDataString() {
-        return "T | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription();
+        StringBuilder sb = new StringBuilder();
+        sb.append("T | ").append(this.getIsDoneIndicator()).append(" | ").append(this.getDescription());
+        return sb.toString();
     }
 }

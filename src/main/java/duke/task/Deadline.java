@@ -44,7 +44,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toDataString() {
-        return "D | " + (this.getIsDone() ? 1 : 0) + " | " + this.getDescription()
-                + " /by " + this.by.format(Task.INPUT_DATETIME_FORMAT);
+        StringBuilder sb = new StringBuilder();
+        sb.append("D | ").append(this.getIsDoneIndicator()).append(" | ").append(this.getDescription())
+                .append(" /by ").append(this.by.format(Task.INPUT_DATETIME_FORMAT));
+        return sb.toString();
     }
 }
