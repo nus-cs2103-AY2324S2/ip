@@ -59,7 +59,7 @@ public class Duke {
                 return "Save file could not be generated: " + e.getMessage() + "\nMaking new task list";
             }
         }
-
+        assert !this.isRunning();
         return "Duke is not running";
     }
 
@@ -98,6 +98,8 @@ public class Duke {
                 return e.getMessage();
             }
         }
+
+        assert !this.isRunning();
         return "Duke is not running";
     }
 }

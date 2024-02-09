@@ -33,6 +33,7 @@ public class Parser {
     public static Command parse(String input) throws NoSuchCommandException {
 
         String action = input.split(" ")[0].toLowerCase();
+        assert !action.equals("");
 
         switch (action) {
         case "bye":

@@ -52,6 +52,8 @@ public class MainWindow extends AnchorPane {
             DialogBox.getDukeDialog(loadStatus, dukeImage),
             DialogBox.getDukeDialog(startupMessage, dukeImage)
         );
+
+        assert d.isRunning();
     }
 
     /**
