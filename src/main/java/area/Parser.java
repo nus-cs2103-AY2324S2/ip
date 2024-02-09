@@ -96,4 +96,13 @@ public class Parser {
         }
     }
 
+    public String parseKeyword(String instruction){
+        String[] sentence = instruction.split(" ",2);
+        if(sentence.length == 1){
+            throw new IllegalArgumentException("Your input is incomplete. I need a keyword to start my search.");
+        }else{
+            return sentence[1];
+        }
+    }
+
 }

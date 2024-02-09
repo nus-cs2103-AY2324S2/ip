@@ -50,6 +50,18 @@ public class TaskList {
         this.tasks = t;
     }
 
+    public void findTask(String keyword){
+        ArrayList<Task> result = new ArrayList<Task>();
+        for(Task task: tasks){
+            if(task.description.contains(keyword)){
+                result.add(task);
+            }
+        }
+
+        System.out.println("Here are the matching tasks in your list:");
+        ui.showList(result);
+    }
+
     /**
      * add the task to the list of tasks
      * 

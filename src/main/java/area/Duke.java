@@ -41,7 +41,7 @@ public class Duke {
                     isChatting = false;
                     break;
                 } else if (command.equals("list")) {
-                    ui.showList(tasks);
+                    ui.showList(tasks.getTaskList());
                 } else if (command.equals("todo")) {
                     tasks.addTask(instruction);
                     storage.addInstruction(instruction);
@@ -59,6 +59,9 @@ public class Duke {
                     storage.addInstruction(instruction);
                 } else if (command.equals("delete")) {
                     tasks.modifyTask(instruction);
+                }else if (command.equals("find")){
+                    String keyword = parser.parseKeyword(instruction);
+                    tasks.findTask(keyword);
                 }
             } catch (Exception e) {
                 System.out.println(e.toString() + "\n");

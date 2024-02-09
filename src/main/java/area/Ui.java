@@ -1,4 +1,5 @@
 package area;
+import java.util.ArrayList;
 
 public class Ui {
 
@@ -59,9 +60,9 @@ public class Ui {
      * 
      * @param tasks
      */
-    public void showList(TaskList tasks){
-        for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
-            System.out.println(i + 1 + "." + tasks.getTaskList().get(i).toString());
+    public void showList(ArrayList<Task> tasks){
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + "." + tasks.get(i).toString());
         }
         System.out.print("\n");
     }
