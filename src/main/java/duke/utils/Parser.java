@@ -12,14 +12,17 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.PriorityCommand;
 import duke.command.ToDoCommand;
 import duke.command.UnknownCommandException;
 import duke.command.UnmarkCommand;
 import duke.storage.LoadException;
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Priority;
 import duke.task.Task;
 import duke.task.ToDo;
+import javafx.util.Pair;
 
 /**
  * Class to parse information from one type to another.
@@ -55,6 +58,8 @@ public class Parser {
         } else if (input.startsWith("find ")) {
             // Account for space since parameters will not be trimmed.
             return new FindCommand(input.substring(5));
+        } else if (input.startsWith("priority")) {
+            return new PriorityCommand(input.substring(9));
         }
 
         throw new UnknownCommandException();
@@ -70,9 +75,10 @@ public class Parser {
      */
     public static Task parseData(String taskData) throws LoadException {
         try {
-            String[] tokens = taskData.split("\\|", 3);
+            String[] tokens = taskData.split("\\|", 4);
             Task task = null;
             boolean marked = Parser.parseInteger(tokens[1]) > 0;
+            Priority priority = Parser.parsePriorityFlag(tokens[3]);
             switch (tokens[0].trim()) {
             case "T":
                 task = parseToDoInput(tokens[2]);
@@ -92,6 +98,7 @@ public class Parser {
                 if (marked) {
                     task.markAsDone();
                 }
+                task.setPriority(priority);
                 return task;
             }
         } catch (Exception e) {
@@ -168,5 +175,50 @@ public class Parser {
      */
     public static int parseInteger(String input) throws NumberFormatException {
         return Integer.parseInt(input.trim());
+    }
+
+    /**
+     * Returns Priority based on given input
+     *
+     * @param input String representation of priority.
+     * @return Priority level from String.
+     * @throws FormatException Exception when priority String is not recognized.
+     */
+    public static Priority parsePriorityFlag(String input) throws FormatException {
+        String trimmedInput = input.trim();
+        // Treat no parameter as NONE and is the default value.
+        if (trimmedInput.isEmpty()) {
+            return Priority.NONE;
+        }
+        switch (trimmedInput) {
+        case "high":
+            return Priority.HIGH;
+        case "low":
+            return Priority.LOW;
+        case "none":
+            return Priority.NONE;
+        default:
+            throw new FormatException("Unknown argument detected. No such priority.");
+        }
+    }
+
+    /**
+     * Returns the index priority pair based on given input.
+     *
+     * @param input String input that represents index of task to modify and new priority.
+     * @return Index priority pair based on specified input.
+     * @throws FormatException Exception when priority is not recognized.
+     * @throws NumberFormatException Exception when index passed cannot be converted into an Integer.
+     */
+    public static Pair<Integer, Priority> parsePriorityInput(String input)
+            throws FormatException, NumberFormatException {
+        String[] tokens = input.trim().split(" ", 2);
+        Priority priority = Priority.NONE;
+        Integer index = Parser.parseInteger(tokens[0]);
+        if (tokens.length == 1) {
+            return new Pair<>(index, priority);
+        }
+        priority = parsePriorityFlag(tokens[1]);
+        return new Pair<>(index, priority);
     }
 }

@@ -52,9 +52,10 @@ public class Event extends Task {
     @Override
     public String toDataString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("E | ").append(this.getIsDoneIndicator()).append(" | ").append(this.getDescription())
+        sb.append("E | ").append(this.getIsDoneDataString()).append(" | ").append(this.getDescription())
                 .append(" /from ").append(this.from.format(Task.INPUT_DATETIME_FORMAT))
-                .append(" /to ").append(this.to.format(Task.INPUT_DATETIME_FORMAT));
+                .append(" /to ").append(this.to.format(Task.INPUT_DATETIME_FORMAT))
+                .append(" | ").append(this.getPriorityDataString());;
         return sb.toString();
     }
 }
