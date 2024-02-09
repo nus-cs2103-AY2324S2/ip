@@ -93,13 +93,15 @@ public class Storage {
     public void saveFile(TaskList taskLs) throws IOException {
         List<Task> tasks = taskLs.getList();
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(path.toString()));
+            FileWriter writer = new FileWriter("./data/data.txt");
+//            BufferedWriter bw = new BufferedWriter(new FileWriter(path.toString()));
             for (Task t : tasks) {
-                bw.write(t.encode());
-                bw.newLine();
+                writer.write(t.encode()+"\n");
+                //writer.newLine();
             }
-            bw.flush();
-            bw.close();
+//            bw.flush();
+//            bw.close();
+            writer.close();
         } catch (FileNotFoundException e) { //file not found
            Files.createDirectories(Paths.get("data")); //create file
            saveFile(taskLs); //run function again

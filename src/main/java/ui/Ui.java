@@ -75,6 +75,7 @@ public class Ui {
 //        System.out.println("Bye! I'll see you when I see you :)");
 //        printVLine();
 //        System.exit(0);
+        System.exit(0);
         return "Bye! I'll see you when I see you :)";
     }
 

@@ -1,3 +1,3 @@
-T|0|return book
-D|0|do cs2103T quick |tmr
-D|0|homework /to fewf |fwef
+T|0|homeowok
+T|0|swim
+T|0|run
