@@ -48,6 +48,10 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     /**
      * Deletes a task from the task list at the specified index.
      *

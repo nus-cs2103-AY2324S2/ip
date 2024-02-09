@@ -21,14 +21,10 @@ public class Ypxmm {
     /** The user interface. */
     private Ui ui;
 
-    /**
-     * Constructs a Ypxmm object.
-     *
-     * @param filePath the file path for storage
-     */
-    public Ypxmm(String filePath) {
+
+    public Ypxmm() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("/extra/Ypxmm.txt");
         try {
             tasks = new TaskList(storage.loadTasksIntoTaskList());
         } catch (YpxmmException y) {
@@ -37,37 +33,27 @@ public class Ypxmm {
     }
 
     /**
-     * Runs the Ypxmm application.
-     */
-    public void run() {
-        ui.sayHello();
-        ui.showLine();
-        boolean isRunning = true;
-        while (isRunning) {
-            String input = ui.readCommand();
-            ui.showLine();
-            try {
-                ArrayList<String> parsed = Parser.parse(input);
-                Command command = Command.valueOf(parsed.get(0).toUpperCase());
-                command.execute(tasks, ui, storage, parsed);
-                ui.showLine();
-                if (command.equals(Command.BYE)) {
-                    isRunning = false;
-                }
-            } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * Main method to start the Ypxmm application.
+     * Retrieves a response based on the input provided.
      *
-     * @param args command line arguments
-     * @throws YpxmmException if an error occurs in the Ypxmm application
+     * This method parses the input string, identifies the command to execute, and executes the command.
+     * The method catches any YpxmmException that may occur during command execution and returns the error message.
+     *
+     * @param input the input string containing the command to be executed
+     * @return a string representing the response to the input command
      */
-    public static void main(String[] args) throws YpxmmException {
-        new Ypxmm("/data/Ypxmm.txt").run();
+    public String getResponse(String input) {
+        try {
+            // Parse the input string
+            ArrayList<String> parsed = Parser.parse(input);
+
+            // Identify the command to execute
+            Command command = Command.valueOf(parsed.get(0).toUpperCase());
+
+            // Execute the command and return the response
+            return command.execute(tasks, ui, storage, parsed);
+        } catch (YpxmmException y) {
+            // Catch and handle YpxmmException
+            return y.getMessage();
+        }
     }
 }

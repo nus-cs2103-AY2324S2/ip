@@ -25,16 +25,19 @@ public enum Command {
      */
     LIST {
         /**
-         * Executes the command to list all tasks.
+         * Executes the command to list all tasks and returns the result as a string.
+         *
+         * This method executes the command to list all tasks and returns the result as a string.
          *
          * @param tasklist the list of tasks
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the list of tasks
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            ui.printList(tasklist.tasks);
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            return ui.printList(tasklist.tasks);
         }
     },
 
@@ -43,17 +46,20 @@ public enum Command {
      */
     FIND {
         /**
-         * Executes the command to find tasks with a certain keyword or keywords.
+         * Executes the command to find tasks with a certain keyword or keywords and returns the result as a string.
+         *
+         * This method executes the command to find tasks with a certain keyword or keywords and returns the result as a string.
          *
          * @param tasklist the list of tasks
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message for the found tasks
          * @throws YpxmmException if an error occurs during execution
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            ui.findMessage(tasklist.findTask(parsed.get(1)));
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            return ui.findMessage(tasklist.findTask(parsed.get(1)));
         }
     },
 
@@ -68,22 +74,23 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message for marking the task as done
          * @throws YpxmmException if an error occurs during execution
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {
             int index = Integer.parseInt(parsed.get(1));
             try {
                 Task task = tasklist.tasks.get(index - 1);
                 task.markTask();
                 storage.reWrite(tasklist);
-                ui.markMessage(task);
+                return ui.markMessage(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
                         (tasklist.tasks.isEmpty() ? "no tasks to mark." : tasklist.tasks.size() +
                                 " tasks, enter any number from 1 to " + tasklist.tasks.size()));
             } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
+                return y.getMessage();
             }
         }
     },
@@ -99,22 +106,23 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message for unmarking the task
          * @throws YpxmmException if an error occurs during execution
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {
             int index = Integer.parseInt(parsed.get(1));
             try {
                 Task task = tasklist.tasks.get(index - 1);
                 task.unmarkTask();
                 storage.reWrite(tasklist);
-                ui.unmarkMessage(task);
+                return ui.unmarkMessage(task);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
                         (tasklist.tasks.isEmpty() ? "no tasks to unmark." : tasklist.tasks.size() +
                                 " tasks, enter any number from 1 to " + tasklist.tasks.size()));
             } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
+                return y.getMessage();
             }
         }
     },
@@ -130,16 +138,17 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message that a todo task has been added
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
             try {
                 Task task = new ToDo(parsed.get(1));
                 tasklist.addTask(parsed, task);
                 storage.appendToFile(task.toWrite());
-                ui.addTaskMessage(task, tasklist);
+                return ui.addTaskMessage(task, tasklist);
             } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
+               return y.getMessage();
             }
         }
     },
@@ -155,18 +164,19 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message that a deadline task has been added
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
             try {
                 Task task = new Deadline(parsed.get(1).trim(), parsed.get(2).trim());
                 tasklist.addTask(parsed, task);
                 storage.appendToFile(task.toWrite());
-                ui.addTaskMessage(task, tasklist);
+                return ui.addTaskMessage(task, tasklist);
             } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
+                return y.getMessage();
             } catch (DateTimeParseException e) {
-                System.out.println("Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)");
+                return "Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)";
             }
         }
     },
@@ -182,18 +192,19 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message that a event task has been added
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
             try {
                 Task task = new Event(parsed.get(1).trim(), parsed.get(2).trim(), parsed.get(3).trim());
                 tasklist.addTask(parsed, task);
                 storage.appendToFile(task.toWrite());
-                ui.addTaskMessage(task, tasklist);
+                return ui.addTaskMessage(task, tasklist);
             } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
+                return y.getMessage();
             } catch (DateTimeParseException e) {
-                System.out.println("Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)");
+                return "Brother, follow format can or not? Enter dates in dd-mm-yyyy HHmm (24-08-2024 1800)";
             }
         }
     },
@@ -209,10 +220,11 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the commands and how they are used
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            ui.getCommands();
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            return ui.getCommands();
         }
     },
 
@@ -227,22 +239,23 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the message that a task has been deleted
          * @throws YpxmmException if an error occurs during execution
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {
             int index = Integer.parseInt(parsed.get(1));
             try {
                 Task task = tasklist.tasks.get(index - 1);
                 tasklist.deleteTask(index);
                 storage.reWrite(tasklist);
-                ui.deleteTaskMessage(task, tasklist);
+                return ui.deleteTaskMessage(task, tasklist);
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
                         (tasklist.tasks.isEmpty() ? "no tasks to delete." : tasklist.tasks.size() +
                                 " tasks, enter any number from 1 to " + tasklist.tasks.size()));
             } catch (YpxmmException y) {
-                System.out.println(y.getMessage());
+                return y.getMessage();
             }
         }
     },
@@ -258,10 +271,11 @@ public enum Command {
          * @param ui the user interface
          * @param storage the storage utility
          * @param parsed the parsed command arguments
+         * @return a string representing the goodbye message
          */
         @Override
-        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            ui.sayGoodbye();
+        public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            return ui.sayGoodbye();
         }
     };
 
@@ -272,7 +286,8 @@ public enum Command {
      * @param ui the user interface
      * @param storage the storage utility
      * @param parsed the parsed command arguments
+     * @return a string with its respective representation
      * @throws YpxmmException if an error occurs during execution
      */
-    public abstract void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException;
+    public abstract String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException;
 }

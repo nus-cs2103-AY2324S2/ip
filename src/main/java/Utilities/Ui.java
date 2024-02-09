@@ -20,38 +20,15 @@ public class Ui {
     }
 
     /**
-     * Displays the welcome message.
-     */
-    public void sayHello() {
-        System.out.println("Hello, I'm Ypxmm.\nNeed me do what for you?");
-    }
-
-    /**
-     * Reads user command from the console.
-     *
-     * @return the user input command
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
-     * Displays a horizontal line.
-     */
-    public void showLine() {
-        System.out.println("---------------------------------------------------------");
-    }
-
-    /**
      * Displays available commands.
      */
-    public void getCommands() {
-        System.out.println("Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format\n" +
+    public String getCommands() {
+        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format\n" +
                 "  todo <task> - adds todo\n  deadline <task>/<by when> - adds deadline\n" +
                 "  event <task>/<from when>/<to when> - adds event\n  list - lists out all tasks\n" +
                 "  mark <x> - marks task x as done\n  unmark <x> - unmarks task x as undone\n" +
                 "  delete <x> - deletes task x from the list\n" +  "  find <thing to search> - searches for tasks with the input word or phrase\n" +
-                "  bye - exit");
+                "  bye - exit";
     }
 
     /**
@@ -59,16 +36,18 @@ public class Ui {
      *
      * @param tasks the list of tasks to display
      */
-    public void printList(ArrayList<Task> tasks) {
+    public String printList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks yet la bro");
+            return "No tasks yet la bro";
         } else {
-            System.out.println("Ok wait ah, here are your tasks:");
+            String ans = "";
+            ans += "Ok wait ah, here are your tasks:\n";
             int count = 1;
             for (Task t : tasks) {
-                System.out.println(count + ". " + t.toString());
+                ans += (count + ". " + t.toString() + "\n");
                 count++;
             }
+            return ans;
         }
     }
 
@@ -78,9 +57,9 @@ public class Ui {
      * @param task the added task
      * @param tasklist the task list
      */
-    public void addTaskMessage(Task task, TaskList tasklist) {
-        System.out.println("Ok I help you add this one liao:\n" + task.toString() +
-                "\nNow your list got " + tasklist.tasks.size() + ((tasklist.tasks.size() == 1) ? " task." : " tasks."));
+    public String addTaskMessage(Task task, TaskList tasklist) {
+       return "Ok I help you add this one liao:\n" + task.toString() +
+                "\nNow your list got " + tasklist.tasks.size() + ((tasklist.tasks.size() == 1) ? " task." : " tasks.");
     }
 
     /**
@@ -89,9 +68,9 @@ public class Ui {
      * @param task the deleted task
      * @param tasklist the task list
      */
-    public void deleteTaskMessage(Task task, TaskList tasklist) {
-        System.out.println("Ok deleted liao:\n" + task.toString() + "\nNow your list got " +
-                (tasklist.tasks.isEmpty() ? "no tasks." : tasklist.tasks.size() + " tasks left."));
+    public String deleteTaskMessage(Task task, TaskList tasklist) {
+        return"Ok deleted liao:\n" + task.toString() + "\nNow your list got " +
+                (tasklist.tasks.isEmpty() ? "no tasks." : tasklist.tasks.size() + " tasks left.");
     }
 
     /**
@@ -99,9 +78,9 @@ public class Ui {
      *
      * @param task the marked task
      */
-    public void markMessage(Task task) {
-        System.out.println("Upz la, mark for you already!");
-        System.out.println(task.toString());
+    public String markMessage(Task task) {
+        return "Upz la, mark for you already!\n" +
+                task.toString();
     }
 
     /**
@@ -109,9 +88,9 @@ public class Ui {
      *
      * @param task the unmarked task
      */
-    public void unmarkMessage(Task task) {
-        System.out.println("Eh wake up your idea, faster finish can or not?? Unmark for you already la!");
-        System.out.println(task.toString());
+    public String unmarkMessage(Task task) {
+        return "Eh wake up your idea, faster finish can or not?? Unmark for you already la!\n" +
+                task.toString();
     }
 
     /**
@@ -120,23 +99,25 @@ public class Ui {
      *
      * @param tasks The list of tasks the user currently has.
      */
-    public void findMessage(ArrayList<Task> tasks) {
+    public String findMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks with that name la");
+            return "No tasks with that name la";
         } else {
-            System.out.println("Ok ah, this is what I found");
+            String ans = "";
+            ans += "Ok ah, this is what I found:\n";
             int count = 1;
             for (Task t : tasks) {
-                System.out.println(count + ". " + t.toString());
+                ans += count + ". " + t.toString();
                 count++;
             }
+            return ans;
         }
     }
 
     /**
      * Displays the goodbye message.
      */
-    public void sayGoodbye() {
-        System.out.println("Oh you need zao alr? Okok see you next time!");
+    public String sayGoodbye() {
+        return "Oh you need zao alr? Okok see you next time!";
     }
 }
