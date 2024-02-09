@@ -6,20 +6,13 @@ import seedu.duke.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Scanner;
 
 
 /**
  * The Ui class implements methods that display result to users with given format and read input from the user
  */
 public class Ui {
-    private static final String DIVIDER = "===================================================";
-    private final Scanner scanner = new Scanner(System.in);
     private String response;
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
 
 
     public String getResponse() {
@@ -122,7 +115,7 @@ public class Ui {
             this.response = String.format("You have no task due on %s\n",
                     localDate.format(DateTimeFormatter.ofPattern("MM dd yy")));
         } else {
-            this.response = String.format("You have no task due on %s\n",
+            this.response = String.format("You have the following tasks due on %s\n",
                     localDate.format(DateTimeFormatter.ofPattern("MM dd yy")));
             this.response += "\n" + getListView(tasks);
         }
