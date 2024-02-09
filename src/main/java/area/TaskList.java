@@ -83,7 +83,7 @@ public class TaskList {
      * 
      * @param instruction
      */
-    public void modifyTask(String instruction) {
+    public void modifyTask(String instruction){
         String command = parser.parseCommand(instruction);
         if (command.equals("mark")) {
             // marks a task as done

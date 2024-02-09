@@ -13,7 +13,8 @@ public class Deadline extends Task {
      * @param description
      * @param by
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description,
+            String by) {
         super(description);
         this.details = LocalDate.parse(by);
     }

@@ -7,7 +7,7 @@ public class Todo extends Task {
      * 
      * @param description
      */
-    public Todo(String description) {
+    public Todo(String description){
         super(description);
     }
 
@@ -17,7 +17,7 @@ public class Todo extends Task {
      * @return String
      */
     @Override
-    public String toString() {
+    public String toString(){
         return "[T]" + super.toString();
     }
 }

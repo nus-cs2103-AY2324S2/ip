@@ -20,12 +20,12 @@ public class Storage {
     private ArrayList<String> instructions;
 
     /**
-     * creates an object of type Storage
+     * Return an object of type Storage
      * 
      * @param path
      * @param tasks
      */
-    public Storage(String path, TaskList tasks) {
+    public Storage(String path, TaskList tasks){
         this.filePath = path;
         file = new File(path);
         folder = new File("./data");
@@ -34,11 +34,11 @@ public class Storage {
     }
 
     /**
-     * adds an instruction to a list of instructions
+     * Add an instruction to a list of instructions
      * 
      * @param instruction
      */
-    public void addInstruction(String instruction) {
+    public void addInstruction(String instruction){
         this.instructions.add(instruction);
     }
 
@@ -57,11 +57,11 @@ public class Storage {
     }
 
     /**
-     * get list of tasks
+     * Get list of tasks
      * 
      * @return ArrayList<String>
      */
-    public static ArrayList<String> getTasks() {
+    public static ArrayList<String> getTasks(){
         return taskList;
     }
 
@@ -89,7 +89,7 @@ public class Storage {
         }
     }
 
-    public void saveTasks() {
+    public void saveTasks(){
         try {
             FileWriter writer = new FileWriter(filePath, true);
             for (String instruction : this.instructions) {

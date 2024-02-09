@@ -28,9 +28,9 @@ public class Duke {
         // instruction for the chatbot to follow
         String instruction = "";
         ui.greetUser();
-        boolean chatting = true;
+        boolean isChatting = true;
         Parser parser = new Parser();
-        while (chatting) {
+        while (isChatting) {
             instruction = sc.nextLine();
             String command = parser.parseCommand(instruction);
             try {
@@ -38,7 +38,7 @@ public class Duke {
                     storage.saveTasks();
                     // command to end chat with chatbot
                     ui.endChat();
-                    chatting = false;
+                    isChatting = false;
                     break;
                 } else if (command.equals("list")) {
                     ui.showList(tasks);

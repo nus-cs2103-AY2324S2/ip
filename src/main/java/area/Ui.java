@@ -49,7 +49,7 @@ public class Ui {
      * @param deletedTask
      * @param tasks
      */
-    public void deleteTask(Task deletedTask, TaskList tasks) {
+    public void deleteTask(Task deletedTask, TaskList tasks){
         System.out.println("Noted. I've removed this task:\n" + deletedTask.toString() + "\n" + "Now you have "
                 + tasks.getNumberOfTasks() + " tasks in the list.\n");
     }
@@ -59,14 +59,14 @@ public class Ui {
      * 
      * @param tasks
      */
-    public void showList(TaskList tasks) {
+    public void showList(TaskList tasks){
         for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
             System.out.println(i + 1 + "." + tasks.getTaskList().get(i).toString());
         }
         System.out.print("\n");
     }
 
-    public void endChat() {
+    public void endChat(){
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -74,7 +74,7 @@ public class Ui {
      *
      * @param instruction
      */
-    public void instructionError(String instruction) {
+    public void instructionError(String instruction){
         DukeException error = new DukeException(instruction);
         System.out.println(error.toString());
     }
@@ -83,7 +83,7 @@ public class Ui {
      *
      * @throws Exception
      */
-    public void showLoadingError() throws Exception {
+    public void showLoadingError() throws Exception{
         System.out.println("Loading Error: Your file does not exist");
     }
 

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
-    public void parseCommandSuccess(){
+    public void parseCommand_addTasks_success(){
         Parser parser = new Parser();
         assertEquals("todo", parser.parseCommand("todo book"));
         assertEquals("deadline", parser.parseCommand("deadline assignment /by  2021-12-31"));
@@ -14,7 +14,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseDescriptionSuccess(){
+    public void parseDescription_addDescriptions_success(){
         Parser parser = new Parser();
         assertEquals("book", parser.parseDesription("todo book"));
         assertEquals("2", parser.parseDesription("unmark 2"));

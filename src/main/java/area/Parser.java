@@ -2,7 +2,7 @@ package area;
 
 public class Parser {
 
-    public Parser() {
+    public Parser(){
     }
 
     /**
@@ -11,7 +11,7 @@ public class Parser {
      * @param instruction
      * @return String
      */
-    public String parseCommand(String instruction) {
+    public String parseCommand(String instruction){
         String[] sentence = instruction.split(" ", 2);
         String command = sentence[0];
         return command;
@@ -23,7 +23,7 @@ public class Parser {
      * @param instruction
      * @return
      */
-    public String parseDesription(String instruction) {
+    public String parseDesription(String instruction){
         String[] sentence = instruction.split(" ", 2);
         String description = sentence[1];
         return description;
@@ -35,7 +35,7 @@ public class Parser {
      * @param instruction
      * @return String
      */
-    public String parseModify(String instruction) {
+    public String parseModify(String instruction){
         String[] sentence = instruction.split(" ", 2);
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Please enter an index.");
@@ -51,7 +51,7 @@ public class Parser {
      * @param instruction
      * @return String
      */
-    public String parseTodo(String instruction) {
+    public String parseTodo(String instruction){
         String[] sentence = instruction.split(" ", 2);
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
@@ -66,7 +66,7 @@ public class Parser {
      * @param instruction
      * @return String[]
      */
-    public String[] parseDeadline(String instruction) {
+    public String[] parseDeadline(String instruction){
         String[] sentence = instruction.split(" ", 2);
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
@@ -83,7 +83,7 @@ public class Parser {
      * @param instruction
      * @return String[]
      */
-    public String[] parseEvent(String instruction) {
+    public String[] parseEvent(String instruction){
         String[] sentence = instruction.split(" ", 2);
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);

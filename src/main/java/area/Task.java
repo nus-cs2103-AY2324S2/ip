@@ -8,45 +8,45 @@ public class Task {
      *
      * @param description
      */
-    public Task(String description) {
+    public Task(String description){
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     * gets status of task.
+     * Get status of task.
      * 
      * @return String
      */
-    public String getStatusIcon() {
+    public String getStatusIcon(){
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * gets description of task
+     * Get description of task
      * 
      * @return String
      */
-    public String getDescription() {
+    public String getDescription(){
         return this.description;
     }
 
     /**
-     * sets work as done
+     * Set work as done
      */
-    public void taskDone() {
+    public void taskDone(){
         isDone = true;
     }
 
     /**
-     * sets work as undone
+     * Set work as undone
      */
-    public void taskUndone() {
+    public void taskUndone(){
         isDone = false;
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }
