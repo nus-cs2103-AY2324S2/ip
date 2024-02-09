@@ -1,6 +1,5 @@
 package academicweapon.exceptions;
 
-import academicweapon.Duke;
 import academicweapon.task.Task;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class DukeExceptions extends Exception {
      * @param lst The task list to check
      * @throws DukeExceptions If the task list is empty
      */
-    public static void checkListNotEmpty (ArrayList<Task> lst) throws DukeExceptions {
+    public static void checkListNotEmpty(ArrayList<Task> lst) throws DukeExceptions {
         if (lst.size() == 0) {
             throw new DukeExceptions("OOPS!!! The list is empty.");
         }
@@ -64,16 +63,17 @@ public class DukeExceptions extends Exception {
     /**
      * Validates user input based on the specified action and parameters.
      *
-     * @param action The action to be performed
+     * @param action     The action to be performed
      * @param parameters The parameters associated with the action
      * @throws DukeExceptions If the input is invalid
      */
-    public static void validateInput(String action, String parameters) throws DukeExceptions{
-        switch(action) {
+    public static void validateInput(String action, String parameters) throws DukeExceptions {
+        switch (action) {
         case "FIND":
             if (parameters.equals(" ")) {
                 throw new DukeExceptions("Please enter the keyword");
             }
+            break;
         case "TODO":
             if (parameters.equals(" ")) {
                 throw new DukeExceptions("OOPS!!! The description of a todo cannot be empty.");

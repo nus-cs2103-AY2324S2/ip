@@ -56,7 +56,7 @@ public class DateTimeParser {
             year = Integer.parseInt(splitDayMonthYear[0]);
         }
 
-        int hour = Integer.parseInt(splitBy[1])/100;
+        int hour = Integer.parseInt(splitBy[1]) / 100;
         int min = Integer.parseInt(splitBy[1]) % 100;
 
         LocalDateTime ldt = LocalDateTime.of(year, month, day, hour, min);
