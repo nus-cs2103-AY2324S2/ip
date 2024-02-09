@@ -2,19 +2,19 @@ package duke.task;
 
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 /**
  * The TaskManager class handles the management of tasks, including adding, deleting,
  * marking as complete or incomplete, and displaying tasks.
  */
 public class TaskManager {
-    TaskDisplay taskDisplay = new TaskDisplay();
-    FileManager fileManager;
+    private TaskDisplay taskDisplay = new TaskDisplay();
+    private FileManager fileManager;
 
-    List<Task> taskList;
+    private List<Task> taskList;
 
     /**
      * Constructs a TaskManager with the specified username, initializing the FileManager
