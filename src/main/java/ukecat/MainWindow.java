@@ -26,9 +26,9 @@ public class MainWindow extends AnchorPane {
 
     private UkeCat ukeCat;
     private final Image USER_IMG = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/DaUser.png")));
+            "/images/User.png")));
     private final Image UKECAT_IMG = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/DaDuke.png")));
+            "/images/UkeCat.png")));
 
     @FXML
     public void initialize() {
