@@ -30,6 +30,8 @@ public class Find implements Action {
     @Override
     public String execute() {
         List<Task> list = TaskList.find(s);
+        assert list != null : "Task list cannot be null"; // Assertion to check if the task list is not null
+        assert !list.isEmpty() : "Task list cannot be empty"; // Assertion to check if the task list is not empty
         return PrintUtil.printList(list);
     }
 }

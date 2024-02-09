@@ -1,6 +1,7 @@
 package action;
 
 import exception.NarutoException;
+
 /**
  * This class represents an action to handle an error by printing the error message.
  */
@@ -23,6 +24,7 @@ public class HandleError implements Action {
      */
     @Override
     public String execute() {
+        assert err != null : "Error object cannot be null"; // Assertion
         return err.getMessage();
     }
 }

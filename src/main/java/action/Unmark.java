@@ -30,6 +30,9 @@ public class Unmark implements Action {
      */
     @Override
     public String execute() throws IOException {
+        assert taskList != null : "Task list cannot be null";
+        assert i >= 0 && i < taskList.size() : "Invalid task index";
+
         StringBuilder message = new StringBuilder();
         message.append("You know, sometimes things don't go as planned, but that's okay! ")
                 .append("\nWe'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ\n")

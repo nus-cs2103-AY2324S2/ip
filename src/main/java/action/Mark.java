@@ -31,6 +31,9 @@ public class Mark implements Action {
      */
     @Override
     public String execute() throws IOException {
+        assert taskList != null : "Task list cannot be null";
+        assert i >= 0 && i < taskList.size() : "Invalid task index";
+
         StringBuilder output = new StringBuilder();
         output.append("Great job! You marked that task off your list! Believe it! ᕕ( ᐛ )ᕗ\n")
                 .append("\n").append(this.taskList.mark(idx));
