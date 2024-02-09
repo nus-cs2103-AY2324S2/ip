@@ -58,7 +58,7 @@ public class Duke {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
-    private static void createEvent(String description, String from, String to, ArrayList<Task> tasks) {
+    private static void createEvent(String description, LocalDate from, LocalDate to, ArrayList<Task> tasks) {
         Event event = new Event(description, from, to);
         tasks.add(event);
         System.out.println("Got it. I've added this task:");
@@ -89,10 +89,11 @@ public class Duke {
                     task = new Deadline(taskInfo[2], LocalDate.parse(taskInfo[3]));
                     break;
                 case "E":
-                    task = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                    task = new Event(taskInfo[2], LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]));
                     break;
             }
-            if (task != null) {
+            if (task != null)
+            {
                 if (taskInfo[1].equals("X")) {
                     task.setDone();
                 }
@@ -107,7 +108,7 @@ public class Duke {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Something went wromg: " + e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
@@ -205,6 +206,7 @@ public class Duke {
                         byDate = LocalDate.parse(by);
                     } catch (DateTimeParseException e) {
                         System.out.println("Wrong date format");
+                        System.out.println("The correct format is: YYYY-MM-DD\n");
                     }
                     if (byDate != null) {
                         createDeadline(description, byDate, tasks);
@@ -220,7 +222,18 @@ public class Duke {
                     String fromBy = task.split(" /from ", 2)[1];
                     String from = fromBy.split(" /to ", 2)[0];
                     String to = fromBy.split(" /to ", 2)[1];
-                    createEvent(description, from, to, tasks);
+                    LocalDate fromDate = null;
+                    LocalDate toDate = null;
+                    try {
+                        fromDate = LocalDate.parse(from);
+                        toDate = LocalDate.parse(to);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Wrong date format");
+                        System.out.println("The correct format is: YYYY-MM-DD\n");
+                    }
+                    if (fromDate != null && toDate != null) {
+                        createEvent(description, fromDate, toDate, tasks);
+                    }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("The correct format is:");
                     System.out.println("event <description> /from <start time> /to <end time>\n");
