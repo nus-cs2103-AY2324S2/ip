@@ -14,7 +14,7 @@ public abstract class Command {
      * Returns the result string, i.e. the response from Jade by executing
      * the command with all the tasks, the program's ui, and the storage object.
      */
-    public abstract String execute(TaskList tasks, Storage storage) throws JadeException;
+    public abstract String execute(TaskList taskList, Storage storage) throws JadeException;
 
     /**
      * Checks whether the program should exit.

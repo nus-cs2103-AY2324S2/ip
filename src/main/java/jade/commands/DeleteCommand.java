@@ -31,6 +31,11 @@ public class DeleteCommand extends Command {
         taskList.remove(index - 1);
         String result = String.format("OK, I've deleted this task:\n\t  %s\n"
                 + "Now you have %d task(s) in the list.", deletedTask, taskList.size());
+        try {
+            storage.saveChange(taskList);
+        } catch (JadeException e) {
+            return e.getMessage();
+        }
         return result;
     }
 

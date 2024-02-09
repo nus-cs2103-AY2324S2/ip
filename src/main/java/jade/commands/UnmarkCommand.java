@@ -29,6 +29,11 @@ public class UnmarkCommand extends Command {
         taskList.unmark(index - 1);
         String result = String.format("Nice, I've marked this task "
                 + "as not done yet:\n\t  %s", taskList.get(index - 1));
+        try {
+            storage.saveChange(taskList);
+        } catch (JadeException e) {
+            return e.getMessage();
+        }
         return result;
     }
 

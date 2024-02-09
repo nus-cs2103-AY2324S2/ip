@@ -22,7 +22,7 @@ public class InvalidCommand extends Command {
      * @inheritDoc This implementation prints an error message to user
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         String result = "Input is invalid, please retry.";
         return result;
     }

@@ -31,26 +31,26 @@ public class ListCommand extends Command {
      * @inheritDoc This implementation prints all tasks with an option to specify a date.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
-        if (tasks.isEmpty()) {
+    public String execute(TaskList taskList, Storage storage) {
+        if (taskList.isEmpty()) {
             // Show user that there are no tasks now
             return "\tYou have no tasks now :-|";
         }
         if (selectedDate != null) {
-            return handleListWithDate(tasks); // print tasks on a specific date
+            return handleListWithDate(taskList); // print tasks on a specific date
         } else {
-            return handleListWithoutDate(tasks);
+            return handleListWithoutDate(taskList);
         }
     }
 
-    private String handleListWithDate(TaskList tasks) {
+    private String handleListWithDate(TaskList taskList) {
         int count = 0; // to track the number of tasks to be printed
         StringBuilder sb = new StringBuilder();
         String dateString = " on " + selectedDate;
         sb.append(String.format("Here are the task(s) in your list%s:", dateString));
-        for (int i = 1; i <= tasks.size(); i++) {
-            if (tasks.get(i - 1).isSameDate(selectedDate)) {
-                sb.append(String.format("\n\t%d. %s", i, tasks.get(i - 1)));
+        for (int i = 1; i <= taskList.size(); i++) {
+            if (taskList.get(i - 1).isSameDate(selectedDate)) {
+                sb.append(String.format("\n\t%d. %s", i, taskList.get(i - 1)));
                 count++;
             }
         }
@@ -60,11 +60,11 @@ public class ListCommand extends Command {
         }
         return sb.toString();
     }
-    private String handleListWithoutDate(TaskList tasks) {
+    private String handleListWithoutDate(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the task(s) in your list:");
-        for (int i = 1; i <= tasks.size(); i++) {
-            sb.append(String.format("\n\t%d. %s", i, tasks.get(i - 1)));
+        for (int i = 1; i <= taskList.size(); i++) {
+            sb.append(String.format("\n\t%d. %s", i, taskList.get(i - 1)));
         }
         return sb.toString();
     }

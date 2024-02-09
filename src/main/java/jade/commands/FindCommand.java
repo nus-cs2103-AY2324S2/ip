@@ -22,13 +22,13 @@ public class FindCommand extends Command {
      * @inheritDoc This implementation prints all tasks that contain the keyword.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws JadeException {
+    public String execute(TaskList taskList, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
         int count = 0; // track the number of matching tasks found
-        for (int i = 1; i <= tasks.size(); i++) {
-            if (tasks.get(i - 1).containsKeyword(keyword)) {
+        for (int i = 1; i <= taskList.size(); i++) {
+            if (taskList.get(i - 1).containsKeyword(keyword)) {
                 count++;
-                sb.append(String.format("\n\t%d. %s", count, tasks.get(i - 1)));
+                sb.append(String.format("\n\t%d. %s", count, taskList.get(i - 1)));
             }
         }
         if (count == 0) {
