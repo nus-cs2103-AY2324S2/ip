@@ -30,6 +30,8 @@ public class Parser {
             return Mona.Command.DELETE;
         case "find":
             return Mona.Command.FIND;
+        case "update":
+            return Mona.Command.UPDATE;
         default:
             throw new MonaException("Mona does not recognise this command!");
         }
