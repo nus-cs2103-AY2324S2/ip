@@ -31,7 +31,7 @@ public class Event implements Task {
      * @param startDate {@code LocalDateTime} object representing the start of the event.
      * @param endDate {@code LocalDateTime} object representing the end of the event.
      */
-    Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
+    public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
         done = false;
         this.startDate = startDate;

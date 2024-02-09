@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
 
 /**
- * Parser class for parsing user inputs in the Zero bot. 
+ * Parser class for parsing user inputs in the Zero bot.
  */
 public class Parser {
     private static DateTimeFormatter dtfInput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;

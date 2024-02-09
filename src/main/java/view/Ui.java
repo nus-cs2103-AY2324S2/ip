@@ -54,23 +54,56 @@ public class Ui {
         return br.readLine();
     }
 
+    /**
+     * Prints a generic error message with the detail message string of the exception into the UI.
+     * 
+     * <p>Informs the user that an unexpected error was encountered.
+     * 
+     * @param e Exception with detail message string.
+     */
     public void showError(Exception e) {
         pw.printf("Error Detected: %s", e.getMessage());
     }
 
+    /**
+     * Prints an error message with the user's input into the UI.
+     * 
+     * <p>Informs the user that the command entered is not a valid command.
+     * 
+     * @param cmd Invalid user input.
+     */
     public void showInvalidCommand(String cmd) {
         pw.printf("I don't understand what you mean by \"%s\"\nPlease request something like:\n"
                 + "  bye, list, mark, delete, todo, deadline, event.", cmd);
     }
 
+    /**
+     * Prints a greeting with the bot's name.
+     * 
+     * @param name Name of the bot.
+     */
     public void showGreet(String name) {
         pw.printf("Hello! I'm %s.\nWhat can I do for you?", name);
     }
 
+    /**
+     * Prints a goodbye message.
+     */
     public void showBye() {
         pw.printf("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints the tasks in the format:
+     * <blockquote><pre>
+     *  1.
+     *  2.
+     *  3.
+     * </pre></blockquote><p>
+     * if there are tasks in the supplied {@code TaskList}. Else, prints a no tasks message into the UI.
+     * 
+     * @param tasks {@code TaskList} object to print.
+     */
     public void showTasks(TaskList tasks) {
         if (tasks.size() == 0) {
             pw.printf("There are currently no tasks in your list.");
@@ -79,10 +112,22 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints an error message into the UI.
+     * 
+     * <p>Informs the user that the task selected does not exist.
+     * 
+     * @param nTasks Number of tasks in the {@code TaskList}.
+     */
     public void showIndexOutOfBoundsError(int nTasks) {
         pw.printf("Task selected does not exist.\nTask number must be between 1 to %d.", nTasks);
     }
 
+    /**
+     * Prints an error message into the UI.
+     * 
+     * <p>Informs the user that the task number entered contains illegal characters that could not be parsed.
+     */
     public void showIndexParseError() {
         pw.printf("Please enter a valid task number!\nOnly numerical letters [0-9] accepted.");
     }
@@ -109,6 +154,15 @@ public class Ui {
                 t, nTasks);
     }
 
+    /**
+     * Prints an error message into the UI.
+     * 
+     * <p> Informs the user that the input date and time in a field is in the wrong format.
+     * 
+     * @param format Date and time format the user should follow.
+     * @param taskType Type of task - Deadline / Event / etc.
+     * @param dateType The field the error was encountered in - By / To / From.
+     */
     public void showDateTimeParseError(String format, String taskType, String dateType) {
         pw.printf("Please enter a valid DATE and TIME (%s)\nfor your %s task's [%s] date.", format, taskType, dateType);
     }

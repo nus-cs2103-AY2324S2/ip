@@ -20,7 +20,8 @@ public class Storage {
     /**
      * Initializes the {@code Storage} instance with the {@code TaskList} in the save file.
      * 
-     * <p>Creates a new empty {@code TaskList} if the save file is not found, or an error occurs while loading the save file.
+     * <p>Creates a new empty {@code TaskList} if the save file is not found, or an error occurs
+     *  while loading the save file.
      * 
      * @param filePath The {@code String} path of the save file.
      * @throws IOException If an I/O error occurs.
@@ -56,10 +57,11 @@ public class Storage {
     /**
      * Saves the current {@code TaskList} into the save file.
      * 
+     * <p> Reopens and closes the ObjectOutputStream each time the method is called
+     *  to override the file and update properly.
+     * 
      * @throws IOException If an I/O error occurs.
      */
-    // Updates the save file with the task data
-    // Reopen and close the ObjectOutputStream each time to override the file and update properly
     public void saveTaskList() throws IOException {
         try {
             FileOutputStream fos = new FileOutputStream(saveFile);
