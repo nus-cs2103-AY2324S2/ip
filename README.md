@@ -13,7 +13,7 @@ Have you ever felt:
 
 If you answered yes to any of the above, then DukeYarr is perfect for you! DukeYarr can be your swashbuckling assistant on the high seas of productivity.
 
-## Downloading DukeYarr
+## Getting Started with DukeYarr
 To get acquainted with him:
 1. download the most recent release from [here](https://github.com/H4mes/ip/releases/tag/v0.1);
 2. run `java -jar duke.jar` from your terminal
