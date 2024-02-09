@@ -3,7 +3,6 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 /**
  * Represents an abstract command in the Duke application. All specific command
@@ -91,9 +90,8 @@ public abstract class Command {
      * method to define their behavior when executed.
      *
      * @param tasks   The task list containing tasks managed by the application.
-     * @param ui      The user interface component for displaying messages to the user.
      * @param storage The storage component responsible for saving and loading tasks.
      * @throws DukeException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 }

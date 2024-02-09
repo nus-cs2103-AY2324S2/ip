@@ -6,7 +6,6 @@ import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.ui.Ui;
 
 /**
  * Represents the command for finding tasks that contain a specific keyword in the Duke application.
@@ -28,12 +27,11 @@ public class CommandFind extends Command {
      * Executes the command to find tasks containing the specified keyword and displays the matching tasks to the user.
      *
      * @param tasks   The task list containing the tasks.
-     * @param ui      The user interface component for displaying messages to the user.
      * @param storage The storage component for saving the task list.
      * @throws DukeException If there is an error while searching for tasks or displaying the results.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the matching tasks in your list:\n");
 
@@ -47,6 +45,6 @@ public class CommandFind extends Command {
         String matchesOutput = String.join("\n", matches);
         stringBuilder.append(matchesOutput);
 
-        ui.showMessage(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 }

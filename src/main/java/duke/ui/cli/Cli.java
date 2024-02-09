@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.cli;
 
 import java.util.Scanner;
 
@@ -7,7 +7,7 @@ import java.util.Scanner;
  * This class is responsible for all user interactions, including reading user input
  * and displaying messages to the user.
  */
-public class Ui {
+public class Cli {
     /**
      * The name of the chat-bot, used in the welcome message.
      */
@@ -32,7 +32,7 @@ public class Ui {
      * Constructs a new Ui object.
      * Initializes the scanner used to read user input from the console.
      */
-    public Ui() {
+    public Cli() {
         this.scanner = new Scanner(System.in);
     }
 
