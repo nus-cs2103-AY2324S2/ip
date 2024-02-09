@@ -1,4 +1,4 @@
-package FriendlyTool.task;
+package friendlytool.task;
 
 public class Task {
     private String name;
@@ -29,6 +29,7 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + name;
     }
+
     public String toSaveFormat() {
         return "| " + (isDone ? "true" : "false") + " | " + name;
     }

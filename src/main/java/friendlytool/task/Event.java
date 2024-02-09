@@ -1,10 +1,11 @@
-package FriendlyTool.task;
+package friendlytool.task;
 
-import FriendlyTool.process.Date;
+import friendlytool.process.Date;
 
 public class Event extends Task {
     private Date from;
     private Date to;
+
     public Event(String name, boolean isDone, Date from, Date to) {
         super(name, isDone);
         this.from = from;
@@ -13,7 +14,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +" (from: " + from + " to: " + to +")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
     @Override

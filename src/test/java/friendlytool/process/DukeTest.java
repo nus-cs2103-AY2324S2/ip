@@ -1,6 +1,6 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.command.CommandTypes;
+import friendlytool.command.CommandTypes;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,8 +13,8 @@ public class DukeTest {
         try {
             list.addTask("todo task1", CommandTypes.TODO);
             String expected = "task1";
-             assertEquals(expected, list.get(0).getName());
-        } catch (ftException e) {
+            assertEquals(expected, list.get(0).getName());
+        } catch (FTException e) {
             System.out.println(e.getMessage());
         }
 
@@ -25,21 +25,21 @@ public class DukeTest {
         }
     }
 
-   @Test
+    @Test
     public void addEventTest() {
-       TaskList list = new TaskList();
+        TaskList list = new TaskList();
         try {
             list.addTask("event longEvent /from 2014-02-03T16:00 /to 2019-03-01T17:00", CommandTypes.EVENT);
             assertEquals("longEvent", list.get(0).getName());
-        } catch (ftException e) {
+        } catch (FTException e) {
             System.out.println(e.getMessage());
         }
 
-       try {
-           list.addTask("event longEvent2 /from 2014-02-03T16:00 /to 2019-03", CommandTypes.EVENT);
-       } catch (ftException e) {
-           assertEquals("Invalid date format. Please follow yyyy-mm-ddThh:mm format.", e.getMessage());
-       }
+        try {
+            list.addTask("event longEvent2 /from 2014-02-03T16:00 /to 2019-03", CommandTypes.EVENT);
+        } catch (FTException e) {
+            assertEquals("Invalid date format. Please follow yyyy-mm-ddThh:mm format.", e.getMessage());
+        }
     }
 
     @Test
@@ -49,13 +49,13 @@ public class DukeTest {
             list.addTask("event longEvent /from 2014-02-03T16:00 /to 2019-03-01T17:00", CommandTypes.EVENT);
             list.mark("mark 1");
             assertTrue(list.get(0).isDone());
-        } catch (ftException e) {
+        } catch (FTException e) {
             System.out.println(e.getMessage());
         }
 
         try {
             list.mark("mark 2");
-        } catch (ftException e) {
+        } catch (FTException e) {
             assertEquals("Error: Please provide valid index", e.getMessage());
         }
     }

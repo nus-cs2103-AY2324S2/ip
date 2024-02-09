@@ -1,6 +1,6 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
-import FriendlyTool.task.Task;
+import friendlytool.task.Task;
 
 public class UI {
     public static void initMsg() {
@@ -31,6 +31,7 @@ public class UI {
                 + "      " + task.toString()
                 + "\n    ____________________________________________________________\n");
     }
+
     public static void unmarkMsg(Task task) {
         System.out.println("    ____________________________________________________________\n"
                 + "    OK, I've marked this task as not done yet:\n"
@@ -54,11 +55,12 @@ public class UI {
     public static void loadSaveMsg() {
         System.out.println("    Successfully loaded the save data. ");
     }
+
     public static void showList(TaskList list) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Here are the tasks in your list:");
         for (int i = 1; i < list.size() + 1; i++) {
-            Task task = list.get(i-1);
+            Task task = list.get(i - 1);
             if (task.isDone()) {
                 System.out.println("    " + i + "." + task);
             } else {

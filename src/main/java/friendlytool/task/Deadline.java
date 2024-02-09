@@ -1,9 +1,10 @@
-package FriendlyTool.task;
+package friendlytool.task;
 
-import FriendlyTool.process.Date;
+import friendlytool.process.Date;
 
 public class Deadline extends Task {
     private Date by;
+
     public Deadline(String name, boolean isDone, Date by) {
         super(name, isDone);
         this.by = by;
@@ -11,7 +12,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
     @Override

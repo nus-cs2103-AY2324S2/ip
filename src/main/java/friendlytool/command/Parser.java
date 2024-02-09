@@ -1,6 +1,6 @@
-package FriendlyTool.command;
+package friendlytool.command;
 
-import FriendlyTool.process.ftException;
+import friendlytool.process.FTException;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -13,20 +13,20 @@ public class Parser {
     }
 
     public static String parseToDo(String s) {
-        StringBuilder sbTD = new StringBuilder();
+        StringBuilder sbTd = new StringBuilder();
         StringTokenizer st = new StringTokenizer(s);
         st.nextToken();
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
-            sbTD.append(" ").append(token);
+            sbTd.append(" ").append(token);
         }
-        return sbTD.toString().trim();
+        return sbTd.toString().trim();
     }
 
-    public static String[] parseDeadLine(String s) {
+    public static String[] parseDeadline(String s) {
         StringTokenizer st = new StringTokenizer(s);
         st.nextToken();
-        StringBuilder sbDL = new StringBuilder();
+        StringBuilder sbDl = new StringBuilder();
         StringBuilder sbBy = new StringBuilder();
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
@@ -36,10 +36,10 @@ public class Parser {
                 }
                 break;
             } else {
-                sbDL.append(" ").append(token);
+                sbDl.append(" ").append(token);
             }
         }
-        String dt = sbDL.toString().trim();
+        String dt = sbDl.toString().trim();
         String by = sbBy.toString().trim();
         return new String[]{dt, by};
     }
@@ -70,7 +70,7 @@ public class Parser {
         String name = sb.toString().trim();
         String from = sbFrom.toString().trim();
         String to = sbTo.toString().trim();
-        return new String[]{name, from , to};
+        return new String[]{name, from, to};
     }
 
     public static String[] parseSave(String s) {
@@ -79,11 +79,11 @@ public class Parser {
         return elements;
     }
 
-    public static int parseNumber(String s) throws ftException {
+    public static int parseNumber(String s) throws FTException {
         StringTokenizer st = new StringTokenizer(s);
         st.nextToken();
         if (!st.hasMoreTokens()) {
-            throw new ftException("Error: No index provided");
+            throw new FTException("Error: No index provided");
         }
         return Integer.parseInt(st.nextToken());
     }

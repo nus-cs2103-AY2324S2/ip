@@ -1,4 +1,4 @@
-package FriendlyTool.process;
+package friendlytool.process;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Date {
     LocalDateTime date;
     String dateStr;
+
     public Date(String date) {
         this.dateStr = date;
         this.date = LocalDateTime.parse(date.trim());
@@ -15,6 +16,7 @@ public class Date {
     public String toString() {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
+
     public String toSaveFormat() {
         return dateStr;
     }

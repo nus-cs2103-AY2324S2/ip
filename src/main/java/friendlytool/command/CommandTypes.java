@@ -1,4 +1,4 @@
-package FriendlyTool.command;
+package friendlytool.command;
 
 public enum CommandTypes {
     TODO, DEADLINE, EVENT, LIST, BYE, MARK, UNMARK, DELETE
