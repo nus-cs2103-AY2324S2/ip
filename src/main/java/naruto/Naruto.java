@@ -11,7 +11,6 @@ import util.PrintUtil;
 import util.TaskList;
 import util.Ui;
 
-
 /**
  * The Naruto class represents the main class of the Naruto application.
  * It manages the list of actions to be performed and handles exceptions.
@@ -33,6 +32,7 @@ public class Naruto {
     public Naruto() {
 
     }
+
     /**
      * Parses user input and adds the corresponding action to the list of actions.
      */
@@ -44,11 +44,13 @@ public class Naruto {
      * Executes the first action in the list of actions.
      * If an IOException occurs, it handles the exception by adding a HandleError action to the list.
      *
-     * @return
+     * @return the result of the executed action
      */
     public static String act() {
         try {
-            return Objects.requireNonNull(actions.pollFirst()).execute();
+            Action action = Objects.requireNonNull(actions.pollFirst());
+            assert action != null : "Action cannot be null";
+            return action.execute();
         } catch (IOException e) {
             handleException(NarutoException.createInvalidActionException());
         }
@@ -57,6 +59,7 @@ public class Naruto {
 
     /**
      * Handles the given NarutoException by adding a HandleError action to the list of actions.
+     *
      * @param err the NarutoException to handle.
      */
     public static void handleException(NarutoException err) {

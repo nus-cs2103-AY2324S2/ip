@@ -107,6 +107,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the size of the task list.
+     * 
+     * @return the size of the task list.
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
      * Returns a string representation of the task list.
      *
      * @return a string representation of the task list.
