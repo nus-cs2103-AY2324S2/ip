@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * UI class for this application. Handles all the printing of
+ * things to the CLI and GUI.
+ */
 public class Ui {
     private static final String LOGO =
             "                           .    .\n" +
@@ -43,6 +47,11 @@ public class Ui {
         printHorizontalLine();
     }
 
+    /**
+     * Reads the string of command in the input line.
+     * @return <code>String</code> of command.
+     * @throws IOException if an I/O error occurs.
+     */
     public String readCommand() throws IOException {
         return reader.readLine();
     }

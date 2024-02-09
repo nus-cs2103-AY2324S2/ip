@@ -6,7 +6,20 @@ import chaterpillar.exceptions.ChaterpillarException;
 import chaterpillar.tasks.*;
 import chaterpillar.commands.*;
 
+/**
+ * Utility class for parsing inputs by the user.
+ */
 public class Parser {
+
+    /**
+     * Parses the string read from the input of the user.
+     * Outputs the respective <code>Command</code> object.
+     * @param input command to be parsed
+     * @return <code>Command</code> objects corresponding to
+     * the instructions of the parsed line.
+     * @throws ChaterpillarException if there are any commands typed
+     * wrongly or if there are missing components in the command.
+     */
     public static Command parse(String input) throws ChaterpillarException {
         String[] inputSplit = input.split(" ");
 

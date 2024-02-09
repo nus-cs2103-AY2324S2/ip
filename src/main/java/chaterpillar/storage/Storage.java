@@ -9,11 +9,15 @@ import java.io.IOException;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
 
+/**
+ * Custom <code>Storage</code> for file reading/writing pero=sona.
+ */
 public class Storage {
     public static final String CHATBOT_PATH_NAME = "./data";
     public static final String CHATBOT_FILE_NAME = "history.txt";
@@ -23,27 +27,36 @@ public class Storage {
      * Creates the directory if it is not found.
      * Creates the file if it does not exist.
      * @return <code>Path</code> of the file
-     * @throws IOException if there are any input/output errors
+     * @throws ChaterpillarException if the path string cannot be converted
+     * to a path, or if the parent directory does not exist, or if an
+     * I/O error occurred.
      */
-    public static Path getHistoryFilePath() throws IOException {
-        Path chatbotDataFilePath = Paths.get(CHATBOT_PATH_NAME);
-        if (!Files.exists(chatbotDataFilePath)) {
-            Files.createDirectory(chatbotDataFilePath);
-        }
+    public static Path getHistoryFilePath() throws ChaterpillarException {
+        try {
+            Path chatbotDataFilePath = Paths.get(CHATBOT_PATH_NAME);
+            if (!Files.exists(chatbotDataFilePath)) {
+                Files.createDirectory(chatbotDataFilePath);
+            }
 
-        Path chatbotFilePath = chatbotDataFilePath.resolve(CHATBOT_FILE_NAME);
-        if (!Files.exists(chatbotFilePath)) {
-            Files.createFile(chatbotFilePath);
+            Path chatbotFilePath = chatbotDataFilePath.resolve(CHATBOT_FILE_NAME);
+            if (!Files.exists(chatbotFilePath)) {
+                Files.createFile(chatbotFilePath);
+            }
+            return chatbotFilePath;
+        } catch (InvalidPathException e) {
+            throw new ChaterpillarException("Error: path string cannot be converted to a Path");
+        } catch (IOException e) {
+            throw new ChaterpillarException("Error in I/O or the parent directory does not exist.");
         }
-        return chatbotFilePath;
     }
 
     /**
      * Loads the contents of the file and inputs it into the listOfTasks.
      * @return An <code>ArrayList</code> of <code>tasks.Task</code> objects.
-     * @throws IOException if there are any input/output errors.
+     * @throws ChaterpillarException if there is an error opening the file,
+     * or when the formatting of a line is in the wrong format.
      */
-    public TaskList loadFromFile() throws ChaterpillarException, IOException {
+    public TaskList loadFromFile() throws ChaterpillarException {
         Path path = getHistoryFilePath();
         ArrayList<Task> newList = new ArrayList<Task>();
         try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -81,15 +94,17 @@ public class Storage {
                     throw new ChaterpillarException("Error in formatting of this line: \n" + str);
                 }
             }
+        } catch (IOException e) {
+            throw new ChaterpillarException("Error in opening the file.");
         }
         return new TaskList(newList);
     }
 
     /**
      * Saves the entire list of Tasks into the file, by first clearing its contents.
-     * @throws IOException if there are any input/output errors.
+     * @throws ChaterpillarException if there are errors writing to the file.
      */
-    public void saveAllToFile(TaskList tasks) throws ChaterpillarException, IOException {
+    public void saveAllToFile(TaskList tasks) throws ChaterpillarException {
         Path path = getHistoryFilePath();
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.defaultCharset())) {
             writer.write("");   // clears the file

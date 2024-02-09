@@ -7,8 +7,27 @@ import chaterpillar.storage.Storage;
 
 import java.io.IOException;
 
+/**
+ * Abstract class for specific <code>Command</code> objects,
+ * such as ExitCommand or TaskCommand.
+ * @author marclamp
+ */
 public abstract class Command {
-    public abstract void execute(TaskList task, Ui ui, Storage storage) throws ChaterpillarException, IOException;
+    /**
+     * Executes the command (determined in the specific <code>Command</code>
+     * classes).
+     * @param task the list of tasks.
+     * @param ui object that handles the UI of this application.
+     * @param storage object that is used for storage.
+     * @throws ChaterpillarException custom <code>Exception</code> for this application.
+     */
+    public abstract void execute(TaskList task, Ui ui, Storage storage)
+            throws ChaterpillarException;
+
+    /**
+     * Default method to check if the command has exited the application.
+     * @return <code>boolean</code> which is default false.
+     */
     public boolean hasExited() {
         return false;
     }

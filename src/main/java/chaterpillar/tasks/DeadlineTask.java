@@ -34,8 +34,13 @@ public class DeadlineTask extends Task {
         this.dateTime = new DateTime(dateTime);
     }
 
+    /**
+     * Checks if the task falls on the same day as the date specified
+     * @param dt date specified
+     * @return <code>true</code> if the task falls on the same day
+     */
     @Override
-    public Boolean isWithinDate(DateTime dt) {
+    public boolean isWithinDate(DateTime dt) {
         return this.dateTime.isSameDay(dt);
     }
     @Override

@@ -56,7 +56,13 @@ public class Task {
     public String stringForSaving() {
         return this.isMarked + "|" + this.taskName;
     }
-    public Boolean isWithinDate(DateTime dt) {
+
+    /**
+     * checks if Task is within the date specified.
+     * @param dt date specified
+     * @return <code>false</code> by default.
+     */
+    public boolean isWithinDate(DateTime dt) {
         return false;
     }
     @Override

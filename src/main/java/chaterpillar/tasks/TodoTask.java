@@ -17,11 +17,11 @@ public class TodoTask extends Task {
 
     /**
      * Overloaded Constructor with isMarked status
-     * @param taskname name of task to be tracked
+     * @param taskName name of task to be tracked
      * @param isMarked status of task (marked or unmarked)
      */
-    public TodoTask(String taskname, Boolean isMarked) {
-        super(taskname, isMarked);
+    public TodoTask(String taskName, Boolean isMarked) {
+        super(taskName, isMarked);
     }
     @Override
     public String stringForSaving() {

@@ -16,12 +16,12 @@ public class EventTask extends Task {
     /**
      * Constructor with event start and end
      * date and/or time specified
-     * @param taskname name of task to be tracked
+     * @param taskName name of task to be tracked
      * @param dateTimeFrom start date and/or time of the event
      * @param dateTimeTo end date and/or time of the event
      */
-    public EventTask(String taskname, String dateTimeFrom, String dateTimeTo) throws ChaterpillarException {
-        super(taskname);
+    public EventTask(String taskName, String dateTimeFrom, String dateTimeTo) throws ChaterpillarException {
+        super(taskName);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
         this.hasDate = true;
@@ -42,8 +42,14 @@ public class EventTask extends Task {
         this.hasDate = true;
         this.isMarked = isMarked;
     }
+
+    /**
+     * Checks if the date specified overlaps with the event duration.
+     * @param dt date specified.
+     * @return <code>true</code> if there is an overlap.
+     */
     @Override
-    public Boolean isWithinDate(DateTime dt) {
+    public boolean isWithinDate(DateTime dt) {
         return dt.isWithinDate(this.dateTimeFrom, this.dateTimeTo);
     }
     @Override
