@@ -43,7 +43,7 @@ public class Storage {
         // Loops through taskList, appends them to string with the specified format
         tasks.getTasks().forEachRemaining(
                 task -> {
-                    String parsedTask = task.parsedFormatToSave();
+                    String parsedTask = task.toParsedFormat();
                     sb.append(parsedTask).append('\n');
                 }
         );

@@ -10,9 +10,9 @@ public abstract class Command {
     protected String statusMsg = "Not executed yet";
 
     /**
-     * Returns if the command is to exit. lindi.commands.ExitCommand overrides this method to return true.
+     * Returns if the command is to exit. ExitCommand overrides this method to return true.
      *
-     * @return true if it is an lindi.commands.ExitCommand
+     * @return true if it is an ExitCommand
      */
     public boolean isExit() {
         return false;
@@ -28,8 +28,8 @@ public abstract class Command {
     /**
      * Executes the command. Updates status msg accordingly.
      *
-     * @param tasks lindi.task.TaskList to be used in execution. May be modified.
-     * @param storage lindi.storage.Storage for automatic saving of changes
+     * @param tasks tasklist to be used in execution. May be modified.
+     * @param storage storage for automatic saving of changes
      */
     public abstract void execute(TaskList tasks, Storage storage);
 }

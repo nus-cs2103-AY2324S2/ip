@@ -14,7 +14,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String parsedFormatToSave() {
+    public String toParsedFormat() {
         return String.format("T | %c | %s",
                 this.isDone ? 'y' : 'n', this.description);
     }

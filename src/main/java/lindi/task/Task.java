@@ -81,17 +81,19 @@ public abstract class Task { // Adapted from Course Website
     }
 
     /**
-     * Returns a new lindi.task.Task created from the parsedString taken from the saved data file.
-     *
+     * Returns a new task created from the parsedString taken from the saved data file.
+     * <p></p>
+     * The parsedString is expected to be in the format:
+     * <p></p>
+     * * ToDo-> T | y or n | description <p></p>
+     * * Deadline-> D | y or n | description | by <p></p>
+     * * Event-> E | y or n | description | from | to <p></p>
      * @param parsedString string from data file
-     * @return a subclass of lindi.task.Task (lindi.task.ToDo, lindi.task.Event, lindi.task.Deadline)
+     * @return a subclass of Task (ToDo, Event, Deadline)
      * @throws CreateTaskException if save file corrupted or edited such that format is not what is expected
      */
     public static Task createFromParsedString(String parsedString) throws CreateTaskException {
         // Get trimmed tokens
-        // ToDos -> T | y or n | description
-        // Deadlines -> D | y or n | description | by
-        // Events -> E | y or n | description | from | to
         String[] parsedTokens = parsedString.split("\\|");
         for (int i = 0; i < parsedTokens.length; i++) {
             parsedTokens[i] = parsedTokens[i].trim();
@@ -102,7 +104,7 @@ public abstract class Task { // Adapted from Course Website
             throw new CreateTaskException("Token count not valid. File corrupted.");
         }
 
-        boolean taskIsDone = parsedTokens[1].equals("y");
+        boolean isTaskDone = parsedTokens[1].equals("y");
         String taskDescription = parsedTokens[2];
         String taskType = parsedTokens[0].equals("T") ? "todo"
                 : parsedTokens[0].equals("D") ? "deadline"
@@ -123,11 +125,11 @@ public abstract class Task { // Adapted from Course Website
         } else if (taskType.equals("event") && parsedTokens.length == 5) {
             newTask = Task.create(commandString + String.format("/from %s /to %s", parsedTokens[3], parsedTokens[4]));
         } else {
-            throw new CreateTaskException("lindi.task.Task type and token count not matched. File corrupted.");
+            throw new CreateTaskException("Task type and token count not matched. File corrupted.");
         }
 
         // Finally mark if lindi.task is done or not
-        if (taskIsDone) {
+        if (isTaskDone) {
             assert newTask != null;
             newTask.markDone();
         }
@@ -152,5 +154,5 @@ public abstract class Task { // Adapted from Course Website
                 isDone ? "X" : " ", this.description);
     }
 
-    public abstract String parsedFormatToSave();
+    public abstract String toParsedFormat();
 }

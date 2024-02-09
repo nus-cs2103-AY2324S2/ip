@@ -10,7 +10,7 @@ public class ListCommand extends Command {
     /**
      * {@inheritDoc}
      * <p>
-     * Loads the tasks in lindi.task list into status msg to be printed.
+     * Loads the tasks in task list into status msg to be printed.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {

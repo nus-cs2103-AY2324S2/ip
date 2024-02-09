@@ -32,7 +32,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String parsedFormatToSave() {
+    public String toParsedFormat() {
         return String.format("D | %c | %s | %s",
                 this.isDone ? 'y' : 'n', this.description,
                         this.by.format(Task.SAVE_LOAD_DATETIME_FORMAT));

@@ -38,7 +38,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String parsedFormatToSave() {
+    public String toParsedFormat() {
         return String.format("E | %c | %s | %s | %s",
                 this.isDone ? 'y' : 'n', this.description,
                         this.from.format(Task.SAVE_LOAD_DATETIME_FORMAT),

@@ -35,7 +35,7 @@ public class Lindi {
     }
 
     /**
-     * Runs the program. This loops until terminated by user with lindi.commands.ExitCommand.
+     * Runs the program. This loops until terminated by user with ExitCommand.
      */
     public void run() {
         this.ui.greeting();
