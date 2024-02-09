@@ -2,7 +2,13 @@ package FriendlyTool.process;
 
 import FriendlyTool.task.Task;
 
+/**
+ * UI for the program. Provides instructions to users.
+ */
 public class UI {
+    /**
+     * Prints a welcome message.
+     */
     public static void initMsg() {
         System.out.println("    ____________________________________________________________\n"
                 + "    Hello! I'm FriendlyTool\n"
@@ -11,12 +17,21 @@ public class UI {
         );
     }
 
+    /**
+     * Prints a bye message.
+     */
     public static void byeMsg() {
         System.out.println("    ____________________________________________________________\n"
                 + "    Bye. Hope to see you again soon!\n"
                 + "    ____________________________________________________________");
     }
 
+    /**
+     * Prints task updated message.
+     *
+     * @param task task updated.
+     * @param size number of elements in the list.
+     */
     public static void updateTaskMsg(Task task, int size) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Completed. I've added this task: \n    "
@@ -25,12 +40,23 @@ public class UI {
                 + "    ____________________________________________________________\n");
     }
 
+    /**
+     * Prints that a task is marked as done.
+     *
+     * @param task task given.
+     */
     public static void markMsg(Task task) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Nice! I've marked this task as done:\n"
                 + "      " + task.toString()
                 + "\n    ____________________________________________________________\n");
     }
+
+    /**
+     * Prints that a task is unmarked.
+     *
+     * @param task task given.
+     */
     public static void unmarkMsg(Task task) {
         System.out.println("    ____________________________________________________________\n"
                 + "    OK, I've marked this task as not done yet:\n"
@@ -38,6 +64,12 @@ public class UI {
                 + "\n    ____________________________________________________________\n");
     }
 
+    /**
+     * Print that the task is deleted.
+     *
+     * @param task task deleted.
+     * @param size number of elements in the list.
+     */
     public static void deleteMsg(String task, int size) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Great!, You have completed the task:\n"
@@ -46,14 +78,28 @@ public class UI {
                 + "    ____________________________________________________________\n");
     }
 
+    /**
+     * Prints whether the save data is created or not.
+     *
+     * @param isSuccessful save data creation is successful or not
+     */
     public static void createSaveMsg(Boolean isSuccessful) {
         System.out.println("    There was no save data.");
         System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
     }
 
+    /**
+     * Prints that save data is loaded.
+     */
     public static void loadSaveMsg() {
         System.out.println("    Successfully loaded the save data. ");
     }
+
+    /**
+     * Prints the whole list with index.
+     *
+     * @param list list to be printed.
+     */
     public static void showList(TaskList list) {
         System.out.println("    ____________________________________________________________\n"
                 + "    Here are the tasks in your list:");

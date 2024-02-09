@@ -5,6 +5,9 @@ import FriendlyTool.command.Parser;
 
 import java.util.Scanner;
 
+/**
+ * Main class for this app.
+ */
 public class Duke {
     private boolean isActive;
     private TaskList tasks;
@@ -17,6 +20,10 @@ public class Duke {
         Duke ft = new Duke();
         ft.init();
     }
+
+    /**
+     * Starts and load saved tasks.
+     */
     public void init() {
         UI.initMsg();
         try {
@@ -36,6 +43,12 @@ public class Duke {
         UI.byeMsg();
     }
 
+    /**
+     * Decides the next action based on the input.
+     *
+     * @param input user input.
+     * @throws ftException
+     */
     private void nextAction(String input) throws ftException {
         if (input.isEmpty()) {
             throw new ftException("Error: Please Type Command");
