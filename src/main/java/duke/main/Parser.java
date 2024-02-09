@@ -49,20 +49,20 @@ public class Parser {
             return new DeleteCommand(num);
         } else if (userInput.startsWith("on")) {
             String dateInput = userInput.replace("on", "").trim();
-            LocalDate targetDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            processEmptyDescription(dateInput, "on");
+            LocalDate targetDate = parseOnDateTime(dateInput);
             return new OnCommand(targetDate);
         } else if (userInput.startsWith("find")) {
             String findWord = userInput.replace("find", "").trim();
             processEmptyDescription(findWord, "find");
             return new FindCommand(findWord);
         } else {
-            throw new DukeException("\nError! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.\n");
+            throw new DukeException("Error! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.");
         }
     }
 
     /**
      * Extracts the task number from the user input, which is a command, and validates it.
-     * Throws a DukeException if the task number is empty or invalid.
      *
      * @param input User input, which is a command containing the task number.
      * @param command Type of task.
@@ -72,7 +72,7 @@ public class Parser {
     private static int parseTaskNumber(String input, String command) throws DukeException {
         String taskNumString = input.replace(command, "").trim();
         if (taskNumString.isEmpty() || !taskNumString.matches("\\d+")) {
-            throw new DukeException("\nError! Please provide a valid task number after '" + command + "'.");
+            throw new DukeException("Error! Please provide a valid task number after '" + command + "'.");
         }
         int taskNumber = Integer.parseInt(taskNumString);
         return taskNumber;
@@ -80,7 +80,6 @@ public class Parser {
 
     /**
      * Processes and validates that the description is not empty.
-     * Throws a DukeException if the description is empty.
      *
      * @param description Description to be checked.
      * @param task Type of task.
@@ -88,7 +87,16 @@ public class Parser {
      */
     private static void processEmptyDescription(String description, String task) throws DukeException {
         if (description.isEmpty()) {
-            throw new DukeException("\nError! The description of a " + task + " cannot be empty.\n");
+            throw new DukeException("Error! The description of a " + task + " cannot be empty.");
+        }
+    }
+
+    private static LocalDate parseOnDateTime(String dateInput) throws DukeException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            return LocalDate.parse(dateInput, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Error! Please provide a valid date format (MMM dd yyyy).");
         }
     }
 
@@ -104,13 +112,12 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(input, formatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("\nError! Please provide a valid date and time format (yyyy-MM-dd HHmm).\n");
+            throw new DukeException("Error! Please provide a valid date and time format (yyyy-MM-dd HHmm).");
         }
     }
 
     /**
      * Parses and validates the user input for deadline tasks.
-     * Throws a DukeException for invalid input or wrong formatting.
      *
      * @param input User input containing the description and deadline.
      * @param command Type of task.
@@ -121,7 +128,7 @@ public class Parser {
         String[] deadlineInput = input.replace(command, "").trim().split(" /by ");
 
         if (deadlineInput.length != 2) {
-            throw new DukeException("\nError! Please provide a valid description and deadline after '" + command + "'.\n");
+            throw new DukeException("Error! Please provide a valid description and deadline after '" + command + "'.");
         }
 
         String description = deadlineInput[0].trim();
@@ -134,7 +141,6 @@ public class Parser {
 
     /**
      * Parses and validates the user input for event tasks.
-     * Throws a DukeException for invalid input or wrong formatting.
      *
      * @param input User input for event tasks.
      * @param command Type of task.
@@ -145,14 +151,14 @@ public class Parser {
         String[] eventInput = input.replace(command, "").trim().split(" /from ");
 
         if (eventInput.length != 2) {
-            throw new DukeException("\nError! Please provide a valid description, start time, and end time after '" + command + "'.\n");
+            throw new DukeException("Error! Please provide a valid description, start time, and end time after '" + command + "'.");
         }
 
         String description = eventInput[0].trim();
         String[] timeInput = eventInput[1].split(" /to ");
 
         if (timeInput.length != 2) {
-            throw new DukeException("\nError! Please provide a valid start time and end time after '/from' and '/to'.\n");
+            throw new DukeException("Error! Please provide a valid start time and end time after '/from' and '/to'.");
         }
 
         LocalDateTime startTime = parseDateTimeInput(timeInput[0].trim());

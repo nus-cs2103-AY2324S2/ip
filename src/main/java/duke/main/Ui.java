@@ -6,7 +6,6 @@ import duke.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -45,7 +44,7 @@ public class Ui {
      * Displays an exit message.
      */
     public void sayBye() {
-        answer.append("\nBye. Hope to see you again soon!");
+        answer.append("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -55,7 +54,6 @@ public class Ui {
      * @param tasks ArrayList of tasks to be displayed.
      */
     public void displayList(ArrayList<Task> tasks) {
-        answer.append("\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
                 String task = String.format("%d. %s\n", i + 1, tasks.get(i));
@@ -73,9 +71,10 @@ public class Ui {
      */
     public void taskResponse(Task task, TaskList tasks) {
          int numTasks = tasks.getSize();
-         answer.append("\n");
          answer.append("Got it. I've added this task:");
+         answer.append("\n");
          answer.append(task);
+         answer.append("\n");
          if (numTasks == 1) {
              answer.append("Now you have " + numTasks + " task in the list.");
          }
@@ -92,9 +91,10 @@ public class Ui {
      */
     public void deleteResponse(Task task, TaskList tasks) {
         int numTasks = tasks.getSize();
-        answer.append("\n");
         answer.append("Noted. I've removed this task:");
+        answer.append("\n");
         answer.append(task);
+        answer.append("\n");
         if (numTasks == 1) {
             answer.append("Now you have " + numTasks + " task in the list.");
         }
@@ -111,26 +111,22 @@ public class Ui {
      * that occur on the given target date.
      */
     public void displayTasksOn(LocalDate targetDate, ArrayList<Task> tasks) {
-        try {
-            answer.append("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
-            for (Task task : tasks) {
-                if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    if (deadline.getBy().toLocalDate().equals(targetDate)) {
-                        answer.append("\n" + deadline);
-                    }
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    if (event.getStartTime().toLocalDate().equals(targetDate)
-                            || event.getEndTime().toLocalDate().equals(targetDate)
-                            || (targetDate.isAfter(event.getStartTime().toLocalDate())
-                            && targetDate.isBefore(event.getEndTime().toLocalDate()))) {
-                        answer.append("\n" + event);
-                    }
+        answer.append("Tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().toLocalDate().equals(targetDate)) {
+                    answer.append("\n" + deadline);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStartTime().toLocalDate().equals(targetDate)
+                        || event.getEndTime().toLocalDate().equals(targetDate)
+                        || (targetDate.isAfter(event.getStartTime().toLocalDate())
+                        && targetDate.isBefore(event.getEndTime().toLocalDate()))) {
+                    answer.append("\n" + event);
                 }
             }
-        } catch (DateTimeParseException e) {
-            answer.append("\nError! Please provide a valid date format (MMM dd yyyy).");
         }
     }
 
@@ -147,22 +143,13 @@ public class Ui {
                 foundTasks.add(task);
             }
         }
-        answer.append("\nHere are the matching tasks in your list:");
+        answer.append("Here are the matching tasks in your list:");
         for (int i = 0; i < foundTasks.size(); i++) {
             if (foundTasks.get(i) != null) {
                 String foundTask = String.format("%d. %s\n", i + 1, foundTasks.get(i));
                 answer.append(foundTask);
             }
         }
-    }
-
-    /**
-     * Displays an error message when there is a loading issue.
-     *
-     * @param message Error message to display.
-     */
-    void showLoadingError(String message) {
-        answer.append("\nLoading error: " + message);
     }
 
     /**

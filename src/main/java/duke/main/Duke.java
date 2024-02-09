@@ -34,8 +34,6 @@ public class Duke {
     /**
      * Constructs a Duke object.
      * Initialises the storage, user interface and task list.
-     *
-     * @throws DukeException If there is an error loading the task list from storage.
      */
     Duke() {
         storage = new Storage(filePath);
@@ -43,7 +41,7 @@ public class Duke {
         try {
             tasks = new TaskList(storage.loadList());
         } catch (DukeException e) {
-            ui.showLoadingError(e.getMessage());
+            System.out.println(e.getMessage());
             tasks = new TaskList();
         }
     }

@@ -56,7 +56,7 @@ public class Storage {
                 } else if (splitInput[0].equals("E")) {
                     task = new Event(splitInput[2], splitInput[3], splitInput[4]);
                 } else {
-                    throw new DukeException("\nError! Incorrect duke.txt format: unexpected task type.\n\n");
+                    throw new DukeException("Error! Incorrect duke.txt format: unexpected task type.");
                 }
                 if (Integer.parseInt(splitInput[1]) == 1) {
                     task.markAsDone();
@@ -64,9 +64,9 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new DukeException("\nError! An IOException occurred.\n\n");
+            throw new DukeException("Error! An IOException occurred.");
         } catch (NumberFormatException e) {
-            throw new DukeException("\nError! Incorrect duke.txt format: unexpected value. Value should be 1 for done or 0 for not done.\n\n");
+            throw new DukeException("Error! Incorrect duke.txt format: unexpected value. Value should be 1 for done or 0 for not done.");
         }
         return tasks;
     }
@@ -87,7 +87,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            throw new DukeException("\nAn IOException occurred.");
+            throw new DukeException("An IOException occurred.");
         }
     }
 }

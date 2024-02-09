@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
      * Displays a greeting message when the MainWindow is initialised.
      */
     private void sayHi() {
-        String greetingMessage = "\nHello! I'm myChats\n" + "What can I do for you?";
+        String greetingMessage = "Hello! I'm myChats\n" + "What can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingMessage, dukeImage));
     }
 
@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog("\n" + input, userImage),
+                DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();

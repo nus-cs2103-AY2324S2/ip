@@ -37,10 +37,10 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int oneItem = zeroItem + 1;
         if (oneItem < 1 || oneItem > tasks.getSize() || tasks.get(oneItem - 1) == null) {
-            throw new DukeException("\nError! Task number '" + oneItem + "' does not exist.");
+            throw new DukeException("Error! Task number '" + oneItem + "' does not exist.");
         }
         tasks.markAsDone(zeroItem);
-        ui.printToScreen("\nNice! I've marked this task as done:\n" +
+        ui.printToScreen("Nice! I've marked this task as done:\n" +
                 tasks.get(zeroItem));
         storage.saveList(tasks.getTasks());
     }

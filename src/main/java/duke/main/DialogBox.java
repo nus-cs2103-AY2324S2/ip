@@ -9,14 +9,22 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 
 /**
  * Represents a dialog box in the GUI.
@@ -47,6 +55,11 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         setMinHeight(Region.USE_PREF_SIZE);
         displayPicture.setImage(img);
+
+        StackPane dialogTextPane = (StackPane) this.getChildren().get(0);
+        dialogTextPane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, new CornerRadii(10), null)));
+        Insets padding = new Insets(0, 20, 0, 20); // Adjust the values as needed
+        dialogTextPane.setPadding(padding);
     }
 
     /**
