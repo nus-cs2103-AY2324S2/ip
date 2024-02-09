@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.dino.command.Dino")
+    mainClass.set("dino.command.Main")
 }
 
 shadowJar {
-    archiveBaseName = "dino"
+    archiveFileName = 'dino.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
