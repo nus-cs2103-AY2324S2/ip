@@ -1,5 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 class Task {
     private String taskDescription;
@@ -19,7 +23,7 @@ class Task {
     }
 
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + taskDescription;
+        return "|" + (isDone ? " 1 " : " 0 ") + "| " + taskDescription;
     }
 }
 
@@ -30,7 +34,7 @@ class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "T |" + super.toString();
     }
 }
 
@@ -44,7 +48,7 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "D |" + super.toString() + " | " + by ;
     }
 }
 
@@ -60,15 +64,27 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "E |" + super.toString() + " | " + from + "-" + to ;
     }
 }
 
 public class Duke {
     public static void main(String[] args) {
+        File file = new File("data/duke.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
-        
+
+        // Load existing tasks from file
+        loadTasksFromFile("data/duke.txt", tasks);
+
         System.out.println("Hello! I'm Bentley\n" + "What can I do for you?\n");
 
         while (true) {
@@ -162,11 +178,51 @@ public class Duke {
                 } else {
                     System.out.println("please input a valid task code");
                 }
+                writeTasksToFile("data/duke.txt", tasks);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
 
+        try {
+            FileWriter writer = new FileWriter("data/duke.txt");
+            for (Task task : tasks) {
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+            System.out.println("Tasks written to file successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         scanner.close();
+    }
+     // Method to load tasks from file
+     private static void loadTasksFromFile(String fileName, ArrayList<Task> tasks) {
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String taskDescription = scanner.nextLine();
+                tasks.add(new Task(taskDescription));
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+    }
+
+    // Method to write tasks to file
+    private static void writeTasksToFile(String fileName, ArrayList<Task> tasks) {
+        try {
+            FileWriter writer = new FileWriter(fileName);
+            for (Task task : tasks) {
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+            System.out.println("Tasks written to file successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
