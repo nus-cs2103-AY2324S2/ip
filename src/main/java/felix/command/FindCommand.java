@@ -16,13 +16,12 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Prints out tasks containing keyword to console.
+     * Returns String representation of tasks containing keyword.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
-        ui.println("Here are the matching tasks in your list:");
-        ui.println(tasks.filterByKeyword(this.keyword));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+        return ui.getFindMessage(tasks.filterByKeyword(this.keyword).toString());
     }
 }

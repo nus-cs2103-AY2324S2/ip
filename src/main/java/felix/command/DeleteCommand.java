@@ -19,20 +19,18 @@ public class DeleteCommand extends Command {
     /**
      * Deletes task at given index from task list.
      * Throws an exception if given index is not within range.
-     * Prints out corresponding messages to console.
      * Saves updated task list to storage file.
+     * Returns String representation of display message.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
         try {
             Task task = tasks.getTask(this.deleteIndex);
             tasks.deleteTask(deleteIndex);
-            ui.println("Noted. I've removed this task:");
-            ui.println(task);
-            ui.println(String.format("Now you have %d tasks in the list.", tasks.getCount()));
             storage.writeToFile(tasks);
+            return ui.getDeleteTaskMessage(task, tasks.getCount());
         } catch (IndexOutOfBoundsException err) {
             throw new FelixException(String.format("You have %d tasks, provide a valid index in the range [1,%d]",
                     tasks.getCount(), tasks.getCount()));

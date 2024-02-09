@@ -18,19 +18,18 @@ public class MarkCommand extends Command {
     /**
      * Marks task at given index as done.
      * Throws an exception if given index is out of range.
-     * Prints out corresponding messages to console.
      * Saves updated task list to storage file.
+     * Returns String representation of marked task.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
         try {
             Task task = tasks.getTask(this.indexToMark);
             task.markAsDone();
-            ui.println("Nice! I have marked this task as done:");
-            ui.println(task);
             storage.writeToFile(tasks);
+            return ui.getMarkMessage(task);
         } catch (IndexOutOfBoundsException err) {
             throw new FelixException(String.format("You have %d tasks, provide a valid index in the range [1,%d]",
                     tasks.getCount(), tasks.getCount()));

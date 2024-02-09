@@ -10,12 +10,12 @@ import felix.utils.Ui;
  */
 public class ListCommand extends Command {
     /**
-     * Prints out all tasks within task list to console.
+     * Returns String representation of all tasks within task list.
      * @param tasks List of tasks.
      * @param ui Abstraction for user interface.
      * @param storage Abstraction for storage file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
-        ui.println(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws FelixException {
+        return ui.toString(tasks);
     }
 }
