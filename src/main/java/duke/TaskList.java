@@ -71,7 +71,7 @@ public class TaskList {
     }
 
     /**
-     * Method to unmark a task at the specified 1-indexed index.
+     * Method to unmark a task at the specified 1-index.
      *
      * @param taskNum an int representing the 1-indexed location of the task in the task list
      */
@@ -84,7 +84,7 @@ public class TaskList {
     }
 
     /**
-     * Method to get the String describing a task at the specified 1-indexed index.
+     * Method to get the String describing a task at the specified 1-index.
      *
      * @param taskNum an int representing the 1-indexed location of the task in the task list
      */
