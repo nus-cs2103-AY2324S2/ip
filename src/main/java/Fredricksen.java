@@ -38,7 +38,8 @@ public class Fredricksen {
                 isLoop = false;
             } else {
                 Command command = new Command(task);
-                command.execute(task, list, ui, store);
+                String response = command.execute(task, list, ui, store);
+                System.out.println(response);
             }
         }
         store.updateFile(list);
@@ -50,8 +51,9 @@ public class Fredricksen {
      * Replace this stub with your completed method.
      */
 
-    public void getResponse() {
-        this.run();
+    public String getResponse(String input) {
+        Command command = new Command(input);
+        return command.execute(input, list, ui, store);
     }
 
     public static void main(String[] args) {

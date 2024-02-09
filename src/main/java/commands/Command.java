@@ -155,50 +155,52 @@ public class Command {
         return sb.toString();
     }
 
-    public void execute(String fullCommand, TaskList tasks, Ui ui, Storage store) {
+    public String execute(String fullCommand, TaskList tasks, Ui ui, Storage store) {
         String[] command = this.getKeywords(fullCommand);
         String symbol = this.getTaskSymbol(command[0]);
+        String output = "";
         if (command.length <= 1 && command[0].equals("help")) {
             ui.listOfCommands();
         } else {
             switch (command[0]) {
             case "list":
-                ui.output(currTaskList(tasks));
+                output = ui.output(currTaskList(tasks));
                 break;
             case "todo":
                 ToDo newTdTask = new ToDo(fullCommand, symbol, false);
                 tasks.addTask(newTdTask);
-                ui.output(displayTask(newTdTask, tasks));
+                output = ui.output(displayTask(newTdTask, tasks));
                 break;
             case "event":
                 Event newEventTask = new Event(fullCommand, symbol, false);
                 tasks.addTask(newEventTask);
-                ui.output(displayTask(newEventTask, tasks));
+                output = ui.output(displayTask(newEventTask, tasks));
                 break;
             case "deadline":
                 Deadline newDlTask = new Deadline(fullCommand, symbol, false);
                 tasks.addTask(newDlTask);
-                ui.output(displayTask(newDlTask, tasks));
+                output = ui.output(displayTask(newDlTask, tasks));
                 break;
             case "mark":
-                ui.output(mark(tasks, fullCommand));
+                output = ui.output(mark(tasks, fullCommand));
                 break;
             case "unmark":
-                ui.output(unmark(tasks, fullCommand));
+                output = ui.output(unmark(tasks, fullCommand));
                 break;
             case "delete":
-                ui.output(delete(tasks, fullCommand));
+                output = ui.output(delete(tasks, fullCommand));
                 break;
             case "find":
                 int keywordIndex = fullCommand.indexOf(command[1]);
                 String keyWord = fullCommand.substring(keywordIndex);
                 TaskList matchList = getKeywordMatchList(tasks, keyWord);
-                ui.output(findCommand(matchList));
+                output = ui.output(findCommand(matchList));
                 break;
             default:
-                System.out.println("Sorry Old Man Fredricksen don't recognise this input! Type \"help\" if you need a guide on input format!");
+                output = ui.output("Sorry Old Man Fredricksen don't recognise this input! Type \"help\" if you need a guide on input format!");
                 break;
             }
         }
+        return output;
     }
 }

@@ -35,8 +35,8 @@ public class Ui {
      *
      * @param content The String in between the 2 lines.
      */
-    public void output(String content) {
-        System.out.println(line + "\n" + content + "\n" + line + "\n");
+    public String output(String content) {
+        return line + "\n" + content + "\n" + line + "\n";
     }
 
     /**
