@@ -1,12 +1,12 @@
 package eggy.command;
 
+import java.util.List;
+
 import eggy.exception.IncompleteTaskException;
 import eggy.storage.Storage;
-import eggy.task.TaskList;
 import eggy.task.Task;
+import eggy.task.TaskList;
 import eggy.ui.Ui;
-
-import java.util.List;
 
 /**
  * Represents a command to find tasks in the task list.

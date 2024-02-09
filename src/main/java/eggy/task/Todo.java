@@ -9,7 +9,7 @@ public class Todo extends Task {
      *
      * @param name Name of the Todo.
      */
-    public Todo (String name) {
+    public Todo(String name) {
         super(name);
     }
 
@@ -19,7 +19,7 @@ public class Todo extends Task {
      * @param name Name of the Todo.
      * @param isDone Whether the Todo is done.
      */
-    public Todo (String name, boolean isDone) {
+    public Todo(String name, boolean isDone) {
         super(name, isDone);
     }
 

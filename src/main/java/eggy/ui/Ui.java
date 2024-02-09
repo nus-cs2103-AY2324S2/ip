@@ -1,17 +1,17 @@
 package eggy.ui;
 
-import eggy.task.Task;
-import eggy.task.TaskList;
-
 import java.util.List;
 import java.util.Scanner;
+
+import eggy.task.Task;
+import eggy.task.TaskList;
 
 /**
  * The user interface of the chatbot.
  */
 public class Ui {
     /** The divider line. */
-    private final String DIVIDER = "    ____________________________________________________________";
+    private static final String DIVIDER = "    ____________________________________________________________";
     /** The scanner to read user input. */
     private final Scanner sc = new Scanner(System.in);
 
