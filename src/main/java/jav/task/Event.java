@@ -1,5 +1,8 @@
 package jav.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import jav.exception.InvalidParamException;
 
 /**
@@ -7,11 +10,17 @@ import jav.exception.InvalidParamException;
 */
 public class Event extends Task {
     /** Non-date formatted start date. */
-    protected String startDate;
+    protected String startText;
 
     /** Non-date formatted end date. */
-    protected String endDate;
+    protected String endText;
     
+    /**Date formatted start date. */
+    protected LocalDate startDate;
+
+    /**Date formatted end date. */
+    protected LocalDate endDate;
+
     /**
      * Constructs a new Event.
      *
@@ -20,8 +29,10 @@ public class Event extends Task {
     public Event() {
         type = "Event";
         description = "event";
-        startDate = "(NOW)";
-        endDate = "(NOW)";
+        startText = "(NOW)";
+        endText = "(NOW)";
+        startDate = LocalDate.now(); 
+        endDate = LocalDate.now(); 
         isMarked = false;
     
     }
@@ -53,26 +64,31 @@ public class Event extends Task {
         String n = params.substring(start + 7);
         
         // Set the event values
-        startDate = n.substring(0, n.indexOf(" /to "));
-        endDate = n.substring(n.indexOf(" /to ") + 5);
+        startText = n.substring(0, n.indexOf(" /to "));
+        endText = n.substring(n.indexOf(" /to ") + 5);
+        try {
+            startDate = LocalDate.parse(startText);
+            endDate = LocalDate.parse(endText);
+        } catch (DateTimeParseException e) {
+            startDate = null;
+            endDate = null;
+        }
+
         this.isMarked = isMarked;
     } 
 
     @Override
-    public String toString() { 
-        String s = "[E][";
-        if (isMarked) {
-            s += "X";
-        } else {
-            s += " ";
-        }
-        s += "] " + description + " (from: " + startDate + " to: " + endDate + ")";
-
+    public String toString() {
+        String s = "[E]"
+                 + super.toString() 
+                 + String.format(" (from: %s to: %s)",
+                                startDate != null ? startDate.toString() : startText,
+                                endDate != null ? endDate.toString() : endText);
         return s;
     }
 
     @Override
     public String getFileFormatParam() {
-        return description + " /from " + startDate + " /to " + endDate;
+        return description + " /from " + startText + " /to " + endText;
     }
 }

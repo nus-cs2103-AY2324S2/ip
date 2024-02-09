@@ -66,6 +66,7 @@ Bot replies with a confirmation message and stores the string.
 | Sure I'll store it right away!
 
 
+
 ```
 
 ### `list` or `l` - Lists out all stored tasks
@@ -85,6 +86,7 @@ Bot replies with a confirmation message and prints all the stored strings in the
 > l
 | Here's everything that I'd stored!
 | 1.[ ] userinputedstring
+
 
 
 ```
@@ -115,6 +117,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 | Could you please check the parameters and give them another whirl?
 
 
+
 ```
 
 ### `unmark *` or `u *` - Marks a task as not done, where * is index of the task (starting from 1)
@@ -143,6 +146,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 | Could you please check the parameters and give them another whirl?
 
 
+
 ```
 
 ### `remove *` or `r *` - Deletes a task, where * is index of the task (starting from 1)
@@ -169,6 +173,7 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 > r 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
+
 
 
 ```
@@ -207,8 +212,5 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 | Shall we recalibrate our keyword quest to find a different task?
 
 
-```
-
-```sh {"id":"01HP40RHQHN8Q85SGQTM7H8N89"}
 
 ```

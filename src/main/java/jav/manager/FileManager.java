@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 /**
 * FileManager handles loading and storing of data in local files.
@@ -94,18 +95,17 @@ public class FileManager {
             // Read data from file
             FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
+            StringBuilder sb = new StringBuilder((int)file.length());
             String line;
-            String result = "";
             while((line = br.readLine()) != null) {
-                result += line;
-                result += '\n';
+                sb.append(line).append('\n');
             }
 
             // Don't leave the stream hanging
             br.close();
             fr.close();
 
-            return result;
+            return sb.toString();
         } catch (IOException e) {
             throw new IOException("FileManager cannot load data from " + fileName, e);
         }

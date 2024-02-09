@@ -14,7 +14,7 @@ import jav.manager.UiManager;
 * The main program.
 */
 public class Jav {
-    public static boolean isExiting = false;
+    private static boolean isExiting = false;
     public static void main(String[] args) {
         // Print any neccessary UI upon starting up
         String logo =
@@ -58,7 +58,7 @@ public class Jav {
                 
                 // Parse and execute command
                 Command c = ParserManager.getInstance().checkCommand(cmd, param);
-                c.Execute();
+                c.execute();
             } catch (InvalidCommandException e) {
                 UiManager.getInstance().printInvalidCommand();
                 UiManager.getInstance().echo(s);
@@ -75,7 +75,7 @@ public class Jav {
         scan.close();
     }
 
-    public static void Exit() {
+    public static void exit() {
         isExiting = true;
     }
 }

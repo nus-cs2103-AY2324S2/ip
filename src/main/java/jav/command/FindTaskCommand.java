@@ -20,7 +20,7 @@ public class FindTaskCommand extends TaskCommand {
     }
 
     @Override
-    public void Execute() throws InvalidParamException {
+    public void execute() throws InvalidParamException {
         if (param != "") {
             UiManager.getInstance().printFindTask(StorageManager.getInstance().findTask(param));
         } else {

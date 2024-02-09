@@ -25,10 +25,10 @@ public class DeleteTaskCommand extends TaskCommand {
             if (StorageManager.getInstance().deleteTask(Integer.parseInt(param) - 1)) {
                 UiManager.getInstance().printDeletingTask();
             } else {
-                throw new InvalidParamException("Cannot delete task", null);
+                throw new InvalidParamException("Cannot delete task, given num is out of scope", null);
             }
         } else {
-            throw new InvalidParamException("Cannot delete task", null);
+            throw new InvalidParamException("Cannot delete task, given num is -ve", null);
         }
     }
 }

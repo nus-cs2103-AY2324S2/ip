@@ -34,9 +34,11 @@ public class UpdateTaskMarkCommand extends TaskCommand {
                     UiManager.getInstance().printUnmarkingTask();
                 }
                 return;
+            } else {
+                throw new InvalidParamException("Cannot mark/unmark task, given num is out of scope", null);
             }
+        } else {
+            throw new InvalidParamException("Cannot mark/unmark task, given num is -ve", null);
         }
-
-        throw new InvalidParamException("Cannot mark/unmark task", null);
     }
 }

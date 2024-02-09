@@ -19,3 +19,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 bin;SavedDataStorageData.txt
+
+# VS Code specific
+/.vscode/

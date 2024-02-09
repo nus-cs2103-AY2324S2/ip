@@ -58,16 +58,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() { 
-        String s = "[D][";
-        if (isMarked) {
-            s += "X";
-        } else {
-            s += " ";
-        }
-        s += "] " + description
-          + " (by: "
-          + (dueDate != null ? dueDate.toString() : dueText)
-          + ")";
+        String s = "[D]"
+                 + super.toString() 
+                 + String.format(" (by: %s)", dueDate != null ? dueDate.toString() : dueText);
 
         if (dueDate != null) {
             Period p = Period.between(LocalDate.now(), dueDate);

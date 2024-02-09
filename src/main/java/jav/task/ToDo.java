@@ -32,15 +32,8 @@ public class ToDo extends Task {
 
     @Override
     public String toString() { 
-        String s = "[T][";
-        if (isMarked) {
-            s += "X";
-        } else {
-            s += " ";
-        }
-        s += "] " + description;
-
-        return s;
+        return "[T]" + super.toString();
+                                
     }
 
     @Override

@@ -67,15 +67,9 @@ public class Task {
      * @return a string representation of the task.
      */
     public String toString() { 
-        String s = "[";
-        if (isMarked) {
-            s += "X";
-        } else {
-            s += " ";
-        }
-        s += "] " + description;
-
-        return s;
+        return String.format("[%s] %s",
+                            isMarked ? "X" : " ",
+                            description);                                
     }
 
     /**
