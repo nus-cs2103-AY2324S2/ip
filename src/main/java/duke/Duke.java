@@ -40,7 +40,7 @@ public class Duke {
             if (userInput.equals("bye")) {
                 break;
             } else {
-            parser.processCommand(userInput);
+                parser.processCommand(userInput);
 
             }
 
@@ -49,27 +49,27 @@ public class Duke {
         System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
     }
 
-//    /**
-//     * Starts the chatbot.
-//     * @param stage the stage to be used for the chatbot
-//     * @throws IOException if an I/O error occurs while starting the chatbot
-//     * @see Application#start(Stage)
-//     */
-//    @Override
-//    public void start(Stage stage) {
-//        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-//        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
-//
-//        stage.setScene(scene); // Setting the stage to show our screen
-//        stage.show(); // Render the stage.
-//    }
+    //    /**
+    //     * Starts the chatbot.
+    //     * @param stage the stage to be used for the chatbot
+    //     * @throws IOException if an I/O error occurs while starting the chatbot
+    //     * @see Application#start(Stage)
+    //     */
+    //    @Override
+    //    public void start(Stage stage) {
+    //        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+    //        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+    //
+    //        stage.setScene(scene); // Setting the stage to show our screen
+    //        stage.show(); // Render the stage.
+    //    }
 
 
 
 
     public static void main(String[] args) throws IOException {
-         Duke d = new Duke();
-         d.run();
+        Duke d = new Duke();
+        d.run();
     }
 
 }

@@ -5,15 +5,15 @@ import java.io.IOException;
 import processor.Processor;
 
 /**
- * The Parser class is responsible for processing user commands and delegating them to the appropriate methods in the Processor class.
+ * The Parser class is responsible for processing user commands and delegating them
+ * to the appropriate methods in the Processor class.
  */
 public class Parser {
 
     private final Processor processor;
     
     /**
-     * Constructs a Parser object with the specified Processor.
-     * 
+     * * Constructs a Parser object with the specified Processor.
      * @param processor the Processor object to be used for processing user commands
      */
     public Parser(Processor processor) {

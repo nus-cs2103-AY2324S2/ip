@@ -8,7 +8,8 @@ public class Task {
     private String desc;
     private boolean isDone;
     private TaskType type;
-    private String start, end;
+    private String start;
+    private String end;
 
     /**
      * The TaskType enum represents the type of task.
@@ -27,14 +28,23 @@ public class Task {
         }
     }
 
-    // Constructor for Todo task
+    /**
+     * Constructor for the todo Task.
+     * @param desc
+     * @param isDone
+     */
     public Task(String desc, boolean isDone) {
         this.desc = desc;
         this.isDone = isDone;
         this.type = TaskType.TODO;
     }
 
-    // Constructor for Deadline task
+    /**
+     * Constructor for the deadline task.
+     * @param desc
+     * @param isDone
+     * @param start
+     */
     public Task(String desc, boolean isDone, String start) {
         this.desc = desc;
         this.isDone = isDone;
@@ -42,7 +52,13 @@ public class Task {
         this.start = start;
     }
 
-    // Constructor for Event task
+    /**
+     * Constructor for the event Task
+     * @param desc
+     * @param isDone
+     * @param start
+     * @param end
+     */
     public Task(String desc, boolean isDone, String start, String end) {
         this.desc = desc;
         this.isDone = isDone;

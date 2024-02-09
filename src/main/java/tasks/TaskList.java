@@ -71,7 +71,7 @@ public class TaskList {
      * @param index the index of the task to be deleted
      */
     public void deleteAtIndex(int index) {
-            taskList.remove(index);
+        taskList.remove(index);
     }
 
     /**
@@ -90,7 +90,6 @@ public class TaskList {
         taskList.get(index).unmark();
     }
 
-    
     /**
      * Adds a deadline task to the TaskList
      * @param desc description of the task
@@ -112,6 +111,11 @@ public class TaskList {
         taskList.add(eventTask);
     }
 
+    /**
+     * Finds a list of tasks through the keyword.
+     * @param keyword keyword to compare
+     * @return the tasks that contain the keyword
+     */
     public String findTask(String keyword) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
