@@ -1,7 +1,10 @@
 package duke.commands;
 
 import java.time.format.DateTimeParseException;
+import java.util.Hashtable;
 
+import duke.exceptions.MissingInformationException;
+import duke.exceptions.MissingParameterException;
 import duke.exceptions.TaskCreationException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -20,7 +23,7 @@ public class GenerateTaskCommand extends Command {
     public static enum TaskType { TODO, DEADLINE, EVENT }
 
     private TaskType taskType;
-    private String input;
+    private Hashtable<String, String> params;
 
     /**
      * Creates GenerateTaskCommand, basic constructor that takes in the type of task and the user input.
@@ -28,10 +31,10 @@ public class GenerateTaskCommand extends Command {
      * @param taskType The type of task to be generated based on the enum TaskType.
      * @param input user input to be parsed.
      */
-    public GenerateTaskCommand(TaskType taskType, String input) {
+    public GenerateTaskCommand(TaskType taskType, Hashtable<String, String> params) {
         super(false);
         this.taskType = taskType;
-        this.input = input;
+        this.params = params;
     }
 
     /**
@@ -43,20 +46,20 @@ public class GenerateTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage)
-            throws TaskCreationException, DateTimeParseException {
+            throws MissingInformationException, MissingParameterException, DateTimeParseException {
         switch (this.taskType) {
         case TODO:
-            Todo t = Todo.todoParse(false, input);
+            Todo t = Todo.todoParse(false, params);
             tasks.add(t);
             return "Todo Task added!\n" + t.toString() + "\n"
                    + "You now have " + tasks.size() + " tasks in the list.";
         case DEADLINE:
-            Deadline d = Deadline.deadlineParse(false, input);
+            Deadline d = Deadline.deadlineParse(false, params);
             tasks.add(d);
             return "Deadline Task added!\n" + d.toString() + "\n"
                    + "You now have " + tasks.size() + " tasks in the list.";
         case EVENT:
-            Event e = Event.eventParse(false, input);
+            Event e = Event.eventParse(false, params);
             tasks.add(e);
             return "Event Task added!\n" + e.toString() + "\n"
                    + "You now have " + tasks.size() + " tasks in the list.";

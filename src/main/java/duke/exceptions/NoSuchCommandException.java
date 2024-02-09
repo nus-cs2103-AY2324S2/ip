@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author delishad21
  */
-public class NoSuchCommandException extends Exception {
+public class NoSuchCommandException extends DukeException {
 
     /**
      * Creates a NoSuchCommandException, used when user inputs an invalid command.

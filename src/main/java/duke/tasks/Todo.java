@@ -1,6 +1,11 @@
 package duke.tasks;
 
-import duke.exceptions.TaskCreationException;
+import java.util.Hashtable;
+import java.util.stream.Stream;
+
+import duke.exceptions.MissingInformationException;
+import duke.exceptions.MissingParameterException;
+import duke.utils.Parser;
 
 /**
  * This class inplements the Todo task type for the bot.
@@ -9,6 +14,7 @@ import duke.exceptions.TaskCreationException;
  */
 public class Todo extends Task {
 
+    private static String REQUIRED_PARAMS[] = {"description"};
     /**
      * Creates Todo object.
      *
@@ -27,14 +33,14 @@ public class Todo extends Task {
      * @return Todo object.
      * @throws TaskCreationException
      */
-    public static Todo todoParse(boolean isDone, String input) throws TaskCreationException {
-        String[] stringSplit = input.split(" ", 2);
-        if (stringSplit.length == 1 || stringSplit[1].equals("")) {
-            throw new TaskCreationException("Missing Information: \"description\"" );
-        }
+    public static Todo todoParse(boolean isDone, Hashtable<String, String> params)
+            throws MissingInformationException, MissingParameterException {
 
-        Todo t = new Todo(false, stringSplit[1]);
-        return t;
+        Parser.checkParams(params, REQUIRED_PARAMS);
+
+        String[] filteredParams = Stream.of(REQUIRED_PARAMS).map(x -> params.get(x)).toArray(String[]::new);
+
+        return new Todo(false, filteredParams[0]);
     }
 
     /**

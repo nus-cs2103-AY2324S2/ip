@@ -3,6 +3,10 @@ package duke.commands;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+import duke.Duke;
+import duke.exceptions.DukeException;
+import duke.exceptions.MissingInformationException;
+import duke.exceptions.MissingParameterException;
 import duke.exceptions.TaskCreationException;
 import duke.exceptions.TaskModificationException;
 import duke.utils.Storage;
@@ -50,7 +54,7 @@ public abstract class Command {
      * @throws IOException
      */
     public abstract String execute(TaskList tasks, Storage storage)
-    throws TaskCreationException, DateTimeParseException, IndexOutOfBoundsException,
-    TaskModificationException, NumberFormatException, IOException;
+    throws DukeException, DateTimeParseException, IndexOutOfBoundsException,
+    NumberFormatException, IOException;
 
 }

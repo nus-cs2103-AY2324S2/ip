@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author delishad21
  */
-public class TaskModificationException extends Exception {
+public class TaskModificationException extends DukeException {
 
     /**
      * Creates a TaskModificationException, thrown when user tries to modify a task but fails to.
