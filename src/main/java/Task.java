@@ -116,32 +116,8 @@ public class Task {
     public String toString() {
         return "[" + category + "]" + getStatusIcon() + getDescription() +
                 category.getDetails(this);
-//        return "[" + category + "]" + getStatusIcon() + getDescription() +
-//                formatDateTime();
     }
 
-    // Enumeration for task categories
-//    public enum TaskCategory {
-//        T { // Todo
-//            @Override
-//            public String getDetails(Task task) {
-//                return "";
-//            }
-//        },
-//        E { // Events
-//            @Override
-//            public String getDetails(Task task) {
-//                return " (from: " + task.getFrom() + " to: " + task.getTo() + ")";
-//            }
-//        },
-//        D { // Deadline
-//            @Override
-//            public String getDetails(Task task) {
-//                return " (by: " + task.getBy() + ")";
-//            }
-//        };
-//        public abstract String getDetails(Task task);
-//    }
     public enum TaskCategory {
         T {
             @Override

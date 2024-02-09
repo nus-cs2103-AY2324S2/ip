@@ -84,7 +84,7 @@ public class Whisper {
                 Task task = parseTaskFromString(input);
                 taskList.add(task);
             }
-            System.out.println("File loaded successfully.");
+            System.out.println("File loaded successfully.\n");
         } catch (FileNotFoundException e) {
                 System.out.println("Error loading the file: \n" + e.getMessage());
                 e.printStackTrace();
@@ -249,16 +249,20 @@ public class Whisper {
                 throw WhisperException.invalidEvent();
             }
 
-            // parse event date and time
-            LocalDateTime fromDateTime = parseDateTime(from);
-            LocalDateTime toDateTime = parseDateTime(to);
+            try {
+                // parse event date and time
+                LocalDateTime fromDateTime = parseDateTime(from);
+                LocalDateTime toDateTime = parseDateTime(to);
 
-            // add new event to task list
-            //Task event = new Task(eventName, Task.TaskCategory.E).setFrom(from).setTo(to);
-            Task event = new Task(eventName, Task.TaskCategory.E, fromDateTime, toDateTime);
-            taskList.add(event);
-            System.out.println(line + "Got it. I've added this task:\n" + event.toString() +
-                    "\n" + printTaskCount(taskList.size()) + "\n" + line);
+                // add new event to task list
+                //Task event = new Task(eventName, Task.TaskCategory.E).setFrom(from).setTo(to);
+                Task event = new Task(eventName, Task.TaskCategory.E, fromDateTime, toDateTime);
+                taskList.add(event);
+                System.out.println(line + "Got it. I've added this task:\n" + event.toString() +
+                        "\n" + printTaskCount(taskList.size()) + "\n" + line);
+            } catch (WhisperException e) {
+                System.out.println(e.getMessage());
+            }
         } catch (WhisperException e) {
             System.out.println(e.getMessage());
         }
@@ -302,8 +306,12 @@ public class Whisper {
     }
 
     // parse date and time
-    private static LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    private static LocalDateTime parseDateTime(String dateTime) throws WhisperException {
+        try {
+            return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new WhisperException("Invalid datetime format. Please use the format: dd/MM/yyyy HH:mm\n");
+        }
     }
 
 
