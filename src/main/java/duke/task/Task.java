@@ -6,11 +6,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a task.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-
     protected static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
-
+    protected boolean isDone;
+    protected String description;
     /**
      * Constructor for Task.
      * @param description The description of the task.

@@ -1,12 +1,11 @@
 package duke.ui;
 
-import duke.DukeException;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-
 import java.util.Scanner;
 import java.util.function.Function;
 
+import duke.DukeException;
+import duke.task.Task;
+import duke.tasklist.TaskList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -172,6 +171,10 @@ public class Ui extends Application {
         System.out.println(message);
     }
 
+    /**
+     * Shows all tasks.
+     * @param tasks tasks to show.
+     */
     public void showTaskList(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -209,14 +212,14 @@ public class Ui extends Application {
         System.out.println("Now you have " + newSize + " tasks in the list.");
     }
 
+    /**
+     * Shows a deleted task.
+     * @param task The task that was deleted.
+     * @param newSize The new size of the task list.
+     */
     public void showTaskDeleted(Task task, int newSize) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         System.out.println("Now you have " + newSize + " tasks in the list.");
-    }
-
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
     }
 }
