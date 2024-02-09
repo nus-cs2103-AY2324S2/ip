@@ -1,3 +1,5 @@
+package Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +14,7 @@ public class Deadline extends Task {
      * Constructor for a Taskline object.
      *
      * @param name task name
-     * @param d deadline
+     * @param d    deadline
      */
     public Deadline(String name, LocalDate d) {
         super();
@@ -24,7 +26,7 @@ public class Deadline extends Task {
      * Constructor for loading from file.
      *
      * @param description of task
-     * @param b isDone
+     * @param b           isDone
      */
     public Deadline(String description, boolean b) {
         super(b);
@@ -34,10 +36,6 @@ public class Deadline extends Task {
         this.deadline = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    /**
-     * toString method for printing task description.
-     * @return task status + task type + task name + deadline
-     */
     @Override
     public String toString() {
         return super.toString() + "[D] " + this.name

@@ -1,3 +1,5 @@
+package Task;
+
 /**
  * Todos are tasks without any date/time attached to it.
  */
@@ -25,10 +27,6 @@ public class Todo extends Task {
         this.name = name;
     }
 
-    /**
-     * toString method for printing task description.
-     * @return task status + task type + task name
-     */
     @Override
     public String toString() {
         return super.toString() + "[T] " + this.name;

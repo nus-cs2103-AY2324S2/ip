@@ -1,13 +1,15 @@
+package Task;
+
 /**
  * Events are tasks that start at a specific date/time
  * and ends at a specific date/time.
  */
 public class Event extends Task {
-    // Task description consist of name, start and end of task.
+    // Task.Task description consist of name, start and end of task.
     protected String[] description = new String[3];
 
     /**
-     * Constructor for an Event object.
+     * Constructor for an Task.Event object.
      *
      * @param name task name
      * @param from start of event
@@ -35,10 +37,6 @@ public class Event extends Task {
         this.description[2] = description.substring(toIdx + 4);
     }
 
-    /**
-     * toString method for printing task description.
-     * @return task status + task type + task name + duration
-     */
     @Override
     public String toString() {
         return super.toString() + "[E] " + this.description[0]

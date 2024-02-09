@@ -1,20 +1,30 @@
+package Duke;
+
 import Exceptions.InvalidTaskNameException;
+import Task.Deadline;
+import Task.Event;
+import Task.TaskList;
+import Task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- *  This GUI class contains methods that print out chatbot
+ *  This UI class contains methods that print out chatbot
  *  messages in the console to the user.
  */
-public class Gui extends Duke {
+public class Ui extends TaskList {
     private final String line = "_____________________________________________________";
 
     /**
-     * Constructor for a GUI object.
+     * Constructor for a UI object.
      */
-    public Gui() { }
+    public Ui() { }
+
+    public Ui(TaskList tasks) {
+        super(tasks);
+    }
 
     /**
      * printIntro() prints the introduction of the chatbot when the user
@@ -68,13 +78,13 @@ public class Gui extends Duke {
      */
     public void printList() {
         System.out.println(line);
-        if (taskList.isEmpty()) {
+        if (super.isEmpty()) {
             System.out.println("Oink! There are no tasks! Yeehaww");
 
         } else {
             System.out.println("Oink! Here are the tasks:");
-            for (int i = 1; i <= taskList.size(); i++) {
-                System.out.println(i + ". " + taskList.get(i - 1));
+            for (int i = 1; i <= super.getSize(); i++) {
+                System.out.println(i + ". " + super.getTask(i - 1));
             }
         }
         System.out.println(line);
@@ -92,8 +102,7 @@ public class Gui extends Duke {
                     + " >> mark <task no.>\n");
         }
         int idx = userInput.charAt(5) - '0' - 1;
-        taskList.get(idx).markDone();
-        System.out.println(line);
+        System.out.println(super.markTask(idx) + line);
     }
 
     /**
@@ -108,8 +117,7 @@ public class Gui extends Duke {
                     + " >> unmark <task no.>\n");
         }
         int idx = userInput.charAt(7) - '0' - 1;
-        taskList.get(idx).markUndone();
-        System.out.println(line);
+        System.out.println(super.unmarkTask(idx) + line);
     }
 
     /**
@@ -124,9 +132,7 @@ public class Gui extends Duke {
                     + " >> delete <task no.>\n");
         }
         int idx = userInput.charAt(7) - '0'- 1;
-        taskList.get(idx).printDeleteTask(taskList.size());
-        taskList.remove(idx);
-        System.out.println(line);
+        System.out.println(super.deleteTask(idx) + line);
     }
 
     /**
@@ -141,10 +147,8 @@ public class Gui extends Duke {
             throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
                     + " >> todo ...\n");
         }
-        Todo t = new Todo(userInput.substring(5));
-        taskList.add(t);
-        t.printAddTask(taskList.size());
-        System.out.println(line);
+        Todo task = new Todo(userInput.substring(5));
+        System.out.println(super.addTask(task) + line);
     }
 
     /**
@@ -166,10 +170,8 @@ public class Gui extends Duke {
         String date = userInput.substring(idx + 4);
         try {
             LocalDate deadline = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));
-            Deadline d = new Deadline(name, deadline);
-            taskList.add(d);
-            d.printAddTask(taskList.size());
-            System.out.println(line);
+            Deadline task = new Deadline(name, deadline);
+            System.out.println(super.addTask(task) + line);
         } catch (DateTimeParseException e) {
             System.out.println("Oink! Invalid date format! Please follow:\n"
                     + ">> dd/MM/yyyy\n" + line);
@@ -196,9 +198,7 @@ public class Gui extends Duke {
         String name = userInput.substring(6, fromIdx - 1);
         String from = userInput.substring(fromIdx + 6, toIdx - 1);
         String to = userInput.substring(toIdx + 4);
-        Event e = new Event(name, from, to);
-        taskList.add(e);
-        e.printAddTask(taskList.size());
-        System.out.println(line);
+        Event task = new Event(name, from, to);
+        System.out.println(super.addTask(task) + line);
     }
 }
