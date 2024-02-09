@@ -11,6 +11,7 @@ public class CorrectUsage {
     public static final String DELETE = "delete [index]";
     public static final String DATE = "hh:mm:ss, DD-MM-YYYY";
     public static final String FIND = "find [keyword]";
+    public static final String HELP = "help";
     public static final String mark(boolean isMark) {
         return isMark ? "mark [task]" : "unmark [task]";
     }

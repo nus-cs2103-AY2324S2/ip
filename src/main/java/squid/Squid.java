@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import squid.constants.CorrectUsage;
 import squid.constants.Exceptions;
+import squid.constants.Help;
 import squid.constants.Messages;
 import squid.constants.Regex;
 import squid.exceptions.DuplicateTaskNameException;
@@ -413,6 +414,10 @@ public class Squid extends Application {
         return response.getIsLoop();
     }
 
+    private static String help() {
+        return Help.getHelpMessage();
+    }
+
     /**
      * Parse the user's input and assigns them to separate helper functions depending on command
      *
@@ -462,6 +467,9 @@ public class Squid extends Application {
                 break;
             case ("find"):
                 res = find(input);
+                break;
+            case ("help"):
+                res = help();
                 break;
             default:
                 throw new IncorrectInputException(Exceptions.INCORRECT_INPUT);
