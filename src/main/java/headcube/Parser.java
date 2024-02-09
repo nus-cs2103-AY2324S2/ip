@@ -49,26 +49,30 @@ public class Parser {
                 String[] string = input.split(" ", 2);
                 String event = string[0];
                 String description;
+                boolean isAdd = true;
 
                 if (event.equals("todo")) {
                     if (split.length < 2 || split[1].isBlank()) {
                         throw new HeadCubeException("Todo cannot be empty!!");
                     }
-                    taskList.add(new ToDos(split[1]));
+                    isAdd = taskList.add(new ToDos(split[1]));
                 } else if (event.equals("deadline")) {
                     String[] parts = split[1].split(" /by ", 2);
                     description = parts[0];
                     String by = parts[1];
-                    taskList.add(new Deadlines(description, by));
+                    isAdd = taskList.add(new Deadlines(description, by));
                 } else if (event.equals("event")) {
                     String[] parts = split[1].split(" /from ", 2);
                     description = parts[0];
                     String[] times = parts[1].split(" /to ", 2);
                     String start = times[0].trim();
                     String end = times[1].trim();
-                    taskList.add(new Events(description, start, end));
+                    isAdd = taskList.add(new Events(description, start, end));
                 } else {
                     throw new HeadCubeException("I do not understand what that means!!");
+                }
+                if (!isAdd) {
+                    return ui.duplicateMessage();
                 }
                 StringBuilder sb = new StringBuilder();
                 sb.append("Got it. I've added this task:\n  ")

@@ -47,6 +47,10 @@ public class Ui {
         return "Finished saving";
     }
 
+    public String duplicateMessage() {
+        return "The task is already in the list.";
+    }
+
     /**
      * Displays the list of tasks to the user.
      *

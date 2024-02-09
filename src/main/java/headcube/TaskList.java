@@ -20,10 +20,14 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void add(Task task) {
+    public boolean add(Task task) {
         int initialSize = tasks.size();
-        tasks.add(task);
-        assert tasks.size() == initialSize + 1 : "Task should be added to the list";
+        if (tasks.contains(task)) {
+            return false;
+        } else {
+            tasks.add(task);
+            return true;
+        }
     }
 
     /**
