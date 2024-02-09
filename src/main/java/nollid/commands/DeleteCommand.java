@@ -6,12 +6,17 @@ import nollid.Storage;
 import nollid.TaskList;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
+import nollid.tasks.Task;
 
 /**
  * DeleteCommand class represents a command for deleting a task.
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class DeleteCommand extends Command {
+    /**
+     * Constant string providing usage hint for the DeleteCommand.
+     */
+    public static final String USAGE_HINT = "Usage: delete [task number]";
     /**
      * ArrayList containing command arguments.
      */
@@ -32,29 +37,39 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        // This means that the user has not supplied any number with the command
+        int taskIndex = getTaskNumberFromArgument() - 1;
+        try {
+            Task removedTask = tasks.remove(taskIndex);
+
+            String message = "Alright, the following task has been removed:\n" + "\t" + removedTask + "\n";
+            message += tasks.summary();
+
+            storage.update(tasks);
+
+            return message;
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("Are you sure that's a valid task number? (Tip: use 'list' to "
+                    + "check the number of your task!)\n" + USAGE_HINT);
+        }
+    }
+
+    /**
+     * Retrieves the task number from the input arguments for the delete command.
+     *
+     * @return The task number to be deleted.
+     * @throws InvalidArgumentException If the task number is not provided or is not a valid integer.
+     */
+    private int getTaskNumberFromArgument() throws InvalidArgumentException {
         if (this.argsList.size() == 1) {
-            throw new InvalidArgumentException("Please enter the task you wish to delete!\n"
-                    + "Usage: delete [task number]");
-        } else {
-            try {
-                int taskIndex = Integer.parseInt(this.argsList.get(1));
+            throw new InvalidArgumentException(
+                    "Please enter the task you wish to delete.\n" + "Usage: delete [task number]");
+        }
 
-                String message = "Alright, the following task has been removed:\n"
-                        + "\t" + tasks.remove(taskIndex - 1).toString() + "\n";
-
-                message += tasks.summary();
-
-                storage.update(tasks);
-
-                return message;
-            } catch (NumberFormatException e) {
-                throw new InvalidArgumentException("Please enter a number for the delete command.\n"
-                        + "Usage: delete [task number]");
-            } catch (IndexOutOfBoundsException e) {
-                throw new InvalidArgumentException("Are you sure that's a valid task number? (Tip: use 'list' to "
-                        + "check the number of your task!)\n" + "Usage: delete [task number]");
-            }
+        try {
+            return Integer.parseInt(this.argsList.get(1));
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException(
+                    "Please enter a number for the delete command.\n" + "Usage: delete [task number]");
         }
     }
 }
