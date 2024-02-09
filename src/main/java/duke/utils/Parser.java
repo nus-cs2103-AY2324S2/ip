@@ -1,5 +1,7 @@
 package duke.utils;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Locale;
 
 import duke.commands.Command;
@@ -8,6 +10,8 @@ import duke.commands.FindCommand;
 import duke.commands.GenerateTaskCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.ModifyTaskCommand;
+import duke.exceptions.MissingInformationException;
+import duke.exceptions.MissingParameterException;
 import duke.exceptions.NoSuchCommandException;
 
 /**
@@ -32,7 +36,25 @@ public class Parser {
      */
     public static Command parse(String input) throws NoSuchCommandException {
 
-        String action = input.split(" ")[0].toLowerCase();
+        // Splitting action from parameters
+        String[] inputSplit = input.split(" ", 2);
+
+        // Checking for parameters. If not present, assign array with empty string
+        String action = inputSplit[0].toLowerCase();
+        String[] params = inputSplit.length == 2
+                          ? inputSplit[1].split(" /")
+                          : new String[]{""};
+
+        // Placing parameters into hashtable
+        Hashtable<String, String> paramsTable = new Hashtable<>();
+        paramsTable.put("description", params[0]);
+        for (int i = 1; i < params.length; i++) {
+            String[] paramSplit = params[i].split(" ", 2);
+            String paramLabel = paramSplit[0];
+            String paramInfo = paramSplit[1];
+            paramsTable.put(paramLabel, paramInfo);
+        }
+
 
         switch (action) {
         case "bye":
@@ -40,21 +62,47 @@ public class Parser {
         case "list":
             return new ListTaskCommand();
         case "find":
-            return new FindCommand(input);
+            return new FindCommand(paramsTable);
         case "todo":
-            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.TODO, input);
+            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.TODO, paramsTable);
         case "event":
-            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.EVENT, input);
+            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.EVENT, paramsTable);
         case "deadline":
-            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.DEADLINE, input);
+            return new GenerateTaskCommand(GenerateTaskCommand.TaskType.DEADLINE, paramsTable);
         case "mark":
-            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.MARK, input);
+            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.MARK, paramsTable);
         case "unmark":
-            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.UNMARK, input);
+            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.UNMARK, paramsTable);
         case "delete":
-            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.DELETE, input);
+            return new ModifyTaskCommand(ModifyTaskCommand.ModificationTypes.DELETE, paramsTable);
         default:
             throw new NoSuchCommandException(input);
+        }
+    }
+
+    public static void checkParams(Hashtable<String, String> params, String[] reqParams)
+        throws MissingInformationException, MissingParameterException {
+        //Checking for missing parameters and information
+        ArrayList<String> missingParams = new ArrayList<>();
+        ArrayList<String> missingInfo = new ArrayList<>();
+
+        for (String param : reqParams) {
+            if (!params.containsKey(param)) {
+                missingParams.add(param);
+                continue;
+            }
+
+            if (params.get(param).equals("")) {
+                missingInfo.add(param);
+            }
+
+        }
+
+        //Throwing exceptions if parameters/parameter description is missing
+        if (missingParams.size() != 0) {
+            throw new MissingParameterException(missingParams.toArray(String[]::new));
+        } else if (missingInfo.size() != 0) {
+            throw new MissingInformationException(missingInfo.toArray(String[]::new));
         }
     }
 

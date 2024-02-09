@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author delishad21
  */
-public class TaskCreationException extends Exception {
+public class TaskCreationException extends DukeException {
 
     /**
      * Creates a TaskCreationException, thrown when a user task is unable to be created.

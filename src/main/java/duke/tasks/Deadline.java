@@ -2,8 +2,11 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Hashtable;
+import java.util.stream.Stream;
 
-import duke.exceptions.TaskCreationException;
+import duke.exceptions.MissingInformationException;
+import duke.exceptions.MissingParameterException;
 import duke.utils.Parser;
 
 /**
@@ -12,6 +15,9 @@ import duke.utils.Parser;
  * @author delishad21
  */
 public class Deadline extends Task {
+
+    private static String REQUIRED_PARAMS[] = {"description", "by"};
+
     private LocalDateTime deadline;
 
     /**
@@ -35,30 +41,17 @@ public class Deadline extends Task {
      * @throws TaskCreationException
      * @throws DateTimeParseException
      */
-    public static Deadline deadlineParse(boolean isDone, String input)
-            throws TaskCreationException, DateTimeParseException {
-        if (!input.contains("/by")) {
-            throw new TaskCreationException("Missing parameters: /by");
-        }
+    public static Deadline deadlineParse(boolean isDone, Hashtable<String, String> params)
+            throws MissingInformationException, MissingParameterException, DateTimeParseException {
 
-        String description = input.substring(8, input.indexOf("/by")).trim();
-        String deadlineString = input.substring(input.indexOf("/by") + 3).trim();
-        // Check if inputs are blank
-        String missingInfo = "";
+        Parser.checkParams(params, REQUIRED_PARAMS);
 
-        if (description.equals("")) {
-            missingInfo = missingInfo + "\"description\" ";
-        }
-        if (deadlineString.equals("")) {
-            missingInfo = missingInfo + "\"by\" ";
-        }
-        if (!missingInfo.equals("")) {
-            throw new TaskCreationException("Missing information: " + missingInfo);
-        }
+        String[] filteredParams = Stream.of(REQUIRED_PARAMS).map(x -> params.get(x)).toArray(String[]::new);
 
-        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineString, Parser.INPUT_DT_FORMATTER);
-        Deadline d = new Deadline(isDone, description, deadlineDateTime);
-        return d;
+        String description = filteredParams[0];
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(filteredParams[1], Parser.INPUT_DT_FORMATTER);
+
+        return new Deadline(isDone, description, deadlineDateTime);
     }
 
 

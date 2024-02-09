@@ -1,5 +1,8 @@
 package duke.commands;
 
+import java.util.Hashtable;
+
+import duke.exceptions.MissingInformationException;
 import duke.tasks.Task;
 import duke.utils.Storage;
 import duke.utils.TaskList;
@@ -12,16 +15,16 @@ import duke.utils.TaskList;
  */
 public class FindCommand extends Command {
 
-    private String input;
+    private String description;
 
     /**
      * Creates a find command object to find tasks in tasklist based on matching string.
      *
-     * @param input string to be matched to task.
+     * @param params includes string to be matched to task.
      */
-    public FindCommand(String input) {
+    public FindCommand(Hashtable<String, String> params) {
         super(false);
-        this.input = input;
+        this.description = params.get("description");
     }
 
     /**
@@ -32,8 +35,12 @@ public class FindCommand extends Command {
      * @param storage Storage object with save file.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
-        String toFind = input.substring(5).trim();
+    public String execute(TaskList tasks, Storage storage) throws MissingInformationException {
+        if (description.equals("")) {
+            throw new MissingInformationException("description");
+        }
+
+        String toFind = description.trim();
         String foundtasks = "";
 
         for (int i = 1; i <= tasks.size(); i++) {

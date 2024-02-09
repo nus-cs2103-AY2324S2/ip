@@ -1,5 +1,7 @@
 package duke.commands;
 
+import java.util.Hashtable;
+
 import duke.exceptions.TaskModificationException;
 import duke.tasks.Task;
 import duke.utils.Storage;
@@ -23,10 +25,10 @@ public class ModifyTaskCommand extends Command {
      * @param modType Modification type based on enum ModificationTypes.
      * @param indexInput user input to be parsed into index.
      */
-    public ModifyTaskCommand(ModificationTypes modType, String indexInput) {
+    public ModifyTaskCommand(ModificationTypes modType, Hashtable<String, String> params) {
         super(false);
         this.modType = modType;
-        this.indexInput = indexInput;
+        this.indexInput = params.get("description");
     }
 
     /**
@@ -42,13 +44,12 @@ public class ModifyTaskCommand extends Command {
     public String execute(TaskList tasks, Storage storage)
             throws IndexOutOfBoundsException, NumberFormatException, TaskModificationException {
 
-        String[] inputSplit = indexInput.split(" ");
-        if (inputSplit.length < 1) {
+        if (indexInput.equals("")) {
             throw new TaskModificationException("Input is missing task number\nList is of current length: "
                                                 + tasks.size());
         }
 
-        int index = Integer.parseInt(indexInput.split(" ")[1]);
+        int index = Integer.parseInt(indexInput);
 
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Invalid Index " + index

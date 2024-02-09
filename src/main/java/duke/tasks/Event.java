@@ -2,8 +2,11 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.Hashtable;
+import java.util.stream.Stream;
 
-import duke.exceptions.TaskCreationException;
+import duke.exceptions.MissingInformationException;
+import duke.exceptions.MissingParameterException;
 import duke.utils.Parser;
 
 /**
@@ -12,6 +15,7 @@ import duke.utils.Parser;
  * @author delishad21
  */
 public class Event extends Task {
+    private static String REQUIRED_PARAMS[] = {"description", "from", "to"};
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -38,53 +42,19 @@ public class Event extends Task {
      * @throws TaskCreationException
      * @throws DateTimeParseException
      */
-    public static Event eventParse(boolean isDone, String input)
-            throws TaskCreationException, DateTimeParseException {
-        // Check missing parameters
-        String missingParams = "";
+    public static Event eventParse(boolean isDone, Hashtable<String, String> params)
+            throws MissingInformationException, MissingParameterException, DateTimeParseException {
 
-        if (!input.contains("/from")) {
-            missingParams = missingParams + "/from ";
-        }
-        if (!input.contains("/to")) {
-            missingParams = missingParams + "/to ";
-        }
-        if (!missingParams.equals("")) {
-            throw new TaskCreationException(" Missing parameters: " + missingParams);
-        }
+        Parser.checkParams(params, REQUIRED_PARAMS);
 
-        // Check order of parameters
-        if (input.indexOf("/from") > input.indexOf("/to")) {
-            throw new TaskCreationException("Bad order of parameters, correct order should be: /from, /to");
-        }
+        String[] filteredParams = Stream.of(REQUIRED_PARAMS).map(x -> params.get(x)).toArray(String[]::new);
 
-        String description = input.substring(5, input.indexOf("/from")).trim();
+        String description = filteredParams[0];
+        LocalDateTime startDateTime = LocalDateTime.parse(filteredParams[1], Parser.INPUT_DT_FORMATTER);
+        LocalDateTime endDateTime = LocalDateTime.parse(filteredParams[2], Parser.INPUT_DT_FORMATTER);
 
-        String startString = input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).trim();
-        String endString = input.substring(input.indexOf("/to") + 3).trim();
+        return new Event(isDone, description, startDateTime, endDateTime);
 
-        // Check if inputs are blank
-        String missingInfo = "";
-
-        if (description.equals("")) {
-            missingInfo = missingInfo + "\"description\" ";
-        }
-        if (startString.equals("")) {
-            missingInfo = missingInfo + "\"from\"  ";
-        }
-        if (endString.equals("")) {
-            missingInfo = missingInfo + "\"to\" ";
-        }
-
-        if (!missingInfo.equals("")) {
-            throw new TaskCreationException("Missing information: " + missingInfo);
-        }
-
-        LocalDateTime startDateTime = LocalDateTime.parse(startString, Parser.INPUT_DT_FORMATTER);
-        LocalDateTime endDateTime = LocalDateTime.parse(endString, Parser.INPUT_DT_FORMATTER);
-
-        Event e = new Event(isDone, description, startDateTime, endDateTime);
-        return e;
     }
 
     /**

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import duke.commands.Command;
-import duke.exceptions.NoSuchCommandException;
+import duke.exceptions.DukeException;
 import duke.exceptions.TaskCreationException;
 import duke.exceptions.TaskModificationException;
 import duke.utils.Parser;
@@ -48,6 +48,7 @@ public class Duke {
      * @return Status of loading filepath.
      */
     public String loadSave(String filePath) {
+
         if (isRunning) {
             try {
                 this.storage = new Storage(filePath);
@@ -70,6 +71,7 @@ public class Duke {
      * @return Response from bot.
      */
     public String getResponse(String input) {
+
         if (isRunning) {
             try {
                 Command c = Parser.parse(input);
@@ -81,14 +83,13 @@ public class Duke {
                     this.isRunning = false;
                 }
                 return response;
-            } catch (NoSuchCommandException e) {
-                return e.getMessage();
             } catch (TaskCreationException e) {
-                return "Error Creating Task: " + e.getMessage();
+                return "Error Creating Task! " + e.getMessage();
             } catch (DateTimeParseException e) {
                 return "Error parsing datetime: " + e.getMessage()
                         + "\nUse the format \"DD/MM/YYYY, HH:MM\" to enter date and time.";
             } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace(System.out);
                 return e.getMessage();
             } catch (NumberFormatException e) {
                 return "Invalid selection for marking or deletion: " + e;
@@ -96,8 +97,11 @@ public class Duke {
                 return "Error Modifying Task: " + e.getMessage();
             } catch (IOException e) {
                 return e.getMessage();
+            } catch (DukeException e) {
+                return e.getMessage();
             }
         }
+
         return "Duke is not running";
     }
 }
