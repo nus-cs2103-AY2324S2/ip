@@ -89,8 +89,9 @@ public class Task {
     public boolean equals(Object obj) {
         System.out.println("Gets called");
         if (Task.class.isAssignableFrom(obj.getClass())) {
-            return this.isDone == ((Task) obj).isDone && this.description
+            boolean hasSameFields = this.isDone == ((Task) obj).isDone && this.description
                     == ((Task) obj).description && this.type == ((Task) obj).type;
+            return hasSameFields;
         } else {
             return false;
         }
