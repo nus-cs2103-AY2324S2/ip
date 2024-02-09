@@ -128,6 +128,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
+        // to abstract out UI stuff using fxml
         Duke elias = new Duke();
         elias.parser = new Parser(elias.itemList);
         String out = "";
