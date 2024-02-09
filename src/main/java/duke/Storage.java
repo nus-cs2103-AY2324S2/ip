@@ -6,12 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class that can load and save the state of the tasks.
+ */
 public class Storage {
+
+    /**
+     * Enum to represent the type of task.
+     */
     enum TaskType {
         TODO,
         DEADLINE,
         EVENT,
     }
+
+    /**
+     * Saves the state of the tasks to a file.
+     *
+     * @param state The state of the app.
+     */
     public static void save(State state) {
         StringBuilder sb = new StringBuilder();
         for (Task t : state.getTasks()) {
@@ -44,6 +57,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the state of the tasks from a file.
+     *
+     * @return The state of the app.
+     */
     public static State load() {
         State s = new State();
         try {
@@ -67,8 +85,7 @@ public class Storage {
                                 description,
                                 LocalDate.parse(words[3]),
                                 LocalDate.parse(words[4]),
-                                done
-                        );
+                                done);
                         break;
                     case "DEADLINE":
                         t = new Deadline(description, LocalDate.parse(words[3]), done);
@@ -81,6 +98,7 @@ public class Storage {
                 s.getTasks().add(t);
 
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
 
         }
