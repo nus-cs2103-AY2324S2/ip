@@ -56,7 +56,6 @@ public class Storage {
     /**
      * Reads save data from save file.
      *
-     * @param ui Used for printing information.
      * @return TaskList read from save data.
      * @throws FileNotFoundException
      */
@@ -81,7 +80,6 @@ public class Storage {
      * Saves data from bot back to save file.
      *
      * @param data The data from the bot.
-     * @param ui Used for printing information.
      * @throws IOException
      */
     public String saveTodoData(TaskList data) throws IOException {

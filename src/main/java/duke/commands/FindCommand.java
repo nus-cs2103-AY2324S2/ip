@@ -31,7 +31,6 @@ public class FindCommand extends Command {
      * Executes the find command, finds item in the TaskList provided.
      *
      * @param tasks the current list of tasks.
-     * @param ui Ui object used by bot for printing information.
      * @param storage Storage object with save file.
      */
     @Override

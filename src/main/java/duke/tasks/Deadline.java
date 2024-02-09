@@ -16,7 +16,7 @@ import duke.utils.Parser;
  */
 public class Deadline extends Task {
 
-    private static String REQUIRED_PARAMS[] = {"description", "by"};
+    private static final String[] REQUIRED_PARAMS = {"description", "by"};
 
     private LocalDateTime deadline;
 
@@ -33,13 +33,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a Deadline object by taking in user input and parsing it.
+     * Returns a deadline object by taking in a Hashtable of parameters and parsing it.
      *
      * @param isDone Marks if task is completed.
-     * @param input User input to be parsed.
-     * @return Deadline object.
-     * @throws TaskCreationException
-     * @throws DateTimeParseException
+     * @param params Hashtable of parameters for the generation of task.
+     * @throws MissingInformationException Missing parameter information.
+     * @throws MissingParameterException Missing parameters.
+     * @throws DateTimeParseException Error parsing datetime passed as input.
      */
     public static Deadline deadlineParse(boolean isDone, Hashtable<String, String> params)
             throws MissingInformationException, MissingParameterException, DateTimeParseException {

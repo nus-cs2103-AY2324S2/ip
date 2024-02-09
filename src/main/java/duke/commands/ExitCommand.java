@@ -25,7 +25,6 @@ public class ExitCommand extends Command {
      * Executes exit command, saves data into save file using storage object.
      *
      * @param tasks the current list of tasks.
-     * @param ui Ui object used by bot for printing information.
      * @param storage Storage object with save file.
      */
     @Override

@@ -22,7 +22,6 @@ public class TaskList {
     /**
      * Prints out all items in the TaskList.
      *
-     * @param ui Used for printing.
      */
 
     @Override

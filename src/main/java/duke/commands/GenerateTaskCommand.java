@@ -5,7 +5,6 @@ import java.util.Hashtable;
 
 import duke.exceptions.MissingInformationException;
 import duke.exceptions.MissingParameterException;
-import duke.exceptions.TaskCreationException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
@@ -41,7 +40,6 @@ public class GenerateTaskCommand extends Command {
      * Executes task generation command, generates task based on user input and taskType.
      *
      * @param tasks the current list of tasks.
-     * @param ui Ui object used by bot for printing information.
      * @param storage Storage object with save file.
      */
     @Override

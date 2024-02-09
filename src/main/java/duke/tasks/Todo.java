@@ -14,7 +14,7 @@ import duke.utils.Parser;
  */
 public class Todo extends Task {
 
-    private static String REQUIRED_PARAMS[] = {"description"};
+    private static final String[] REQUIRED_PARAMS = {"description"};
     /**
      * Creates Todo object.
      *
@@ -26,12 +26,12 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a Todo object by taking in user input and parsing it.
+     * Returns a todo object by taking in user input and parsing it.
      *
      * @param isDone Marks if task is completed.
-     * @param input User input to be parsed.
-     * @return Todo object.
-     * @throws TaskCreationException
+     * @param params Hashtable of parameters for the generation of task.
+     * @throws MissingInformationException Missing parameter information
+     * @throws MissingParameterException Missing parameters
      */
     public static Todo todoParse(boolean isDone, Hashtable<String, String> params)
             throws MissingInformationException, MissingParameterException {

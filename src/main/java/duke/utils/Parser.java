@@ -20,19 +20,18 @@ import duke.exceptions.NoSuchCommandException;
  * @author delishad21
  */
 public class Parser {
+
     public static final DateTimeFormatter INPUT_DT_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm");
     public static final DateTimeFormatter OUTPUT_DT_FORMATTER =
         DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma", Locale.ENGLISH);
-
-
 
     /**
      * Parses user input and  into the appropriate commands for the bot to execute.
      *
      * @param input
      * @return Command
-     * @throws NoSuchCommandException
+     * @throws NoSuchCommandException when the input is not part of bot's functionality
      */
     public static Command parse(String input) throws NoSuchCommandException {
 
@@ -82,8 +81,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the Hashtable contains the required parameters.
+     *
+     * @param params Hashtable with parameters.
+     * @param reqParams Array with the required parameters
+     * @throws MissingInformationException if parameter information is missing
+     * @throws MissingParameterException if parameter is missing
+     */
     public static void checkParams(Hashtable<String, String> params, String[] reqParams)
-        throws MissingInformationException, MissingParameterException {
+            throws MissingInformationException, MissingParameterException {
         //Checking for missing parameters and information
         ArrayList<String> missingParams = new ArrayList<>();
         ArrayList<String> missingInfo = new ArrayList<>();

@@ -3,10 +3,7 @@ package duke.commands;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-import duke.Duke;
 import duke.exceptions.DukeException;
-import duke.exceptions.MissingInformationException;
-import duke.exceptions.MissingParameterException;
 import duke.exceptions.TaskCreationException;
 import duke.exceptions.TaskModificationException;
 import duke.utils.Storage;
@@ -44,7 +41,6 @@ public abstract class Command {
      * Executes command, left as abstract for inheriting classes to implement.
      *
      * @param tasks the current list of tasks
-     * @param ui Ui object used by bot for printing information
      * @param storage Storage object with save file.
      * @throws TaskCreationException
      * @throws DateTimeParseException
@@ -54,7 +50,7 @@ public abstract class Command {
      * @throws IOException
      */
     public abstract String execute(TaskList tasks, Storage storage)
-    throws DukeException, DateTimeParseException, IndexOutOfBoundsException,
-    NumberFormatException, IOException;
+            throws DukeException, DateTimeParseException, IndexOutOfBoundsException,
+            NumberFormatException, IOException;
 
 }

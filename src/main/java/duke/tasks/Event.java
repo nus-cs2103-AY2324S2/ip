@@ -15,7 +15,7 @@ import duke.utils.Parser;
  * @author delishad21
  */
 public class Event extends Task {
-    private static String REQUIRED_PARAMS[] = {"description", "from", "to"};
+    private static final String[] REQUIRED_PARAMS = {"description", "from", "to"};
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -33,14 +33,15 @@ public class Event extends Task {
         this.end = end;
     }
 
+
     /**
-     * Returns a deadline object by taking in user input and parsing it.
+     * Returns a event object by taking in user input and parsing it.
      *
      * @param isDone Marks if task is completed.
-     * @param input User input to be parsed.
-     * @return Event object.
-     * @throws TaskCreationException
-     * @throws DateTimeParseException
+     * @param params Hashtable of parameters for the generation of task.
+     * @throws MissingInformationException Missing parameter information
+     * @throws MissingParameterException Missing parameters
+     * @throws DateTimeParseException Error parsing datetime passed as input.
      */
     public static Event eventParse(boolean isDone, Hashtable<String, String> params)
             throws MissingInformationException, MissingParameterException, DateTimeParseException {

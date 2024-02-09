@@ -32,12 +32,10 @@ public class ModifyTaskCommand extends Command {
     }
 
     /**
-    /**
      * Executes modify task command, modifies tasks in list based on index and type.
      *
      *
      * @param tasks the current list of tasks.
-     * @param ui Ui object used by bot for printing information.
      * @param storage Storage object with save file.
      */
     @Override

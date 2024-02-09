@@ -19,7 +19,6 @@ public class ListTaskCommand extends Command {
      * Executes list task command, uses ui to print out tasks in provided TaskList.
      *
      * @param tasks the current list of tasks.
-     * @param ui Ui object used by bot for printing information.
      * @param storage Storage object with save file.
      */
     @Override

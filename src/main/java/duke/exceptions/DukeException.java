@@ -5,7 +5,7 @@ package duke.exceptions;
  *
  * @author delishad21
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
     /**
      * Creates a DukeException, thrown when an error specific to the dukebot happens.
      *
