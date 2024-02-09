@@ -14,12 +14,12 @@ public class TaskList implements Iterable<Task> {
     }
 
     public List<Task> add(Task newTask, Storage storage) {
-        tasks.add(newTask);
+        this.tasks.add(newTask);
         storage.updateTasksFile(this);
 
         Ui.printTaskAdded(newTask, this);
 
-        return tasks;
+        return this.tasks;
     }
 
     public int size() {
@@ -32,6 +32,18 @@ public class TaskList implements Iterable<Task> {
 
     public boolean remove(Task t) {
         return this.tasks.remove(t);
+    }
+
+    public List<Task> find(String query) throws LaiException {
+        List<Task> result  = new ArrayList<>();
+        for (Task task : this.tasks) {
+            int index = task.getDescription().indexOf(query);
+            if (index != -1) {
+                result.add(task);
+            }
+        }
+
+        return result;
     }
 
     @Override

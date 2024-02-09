@@ -4,6 +4,7 @@ import lai.task.Task;
 import lai.task.ToDo;
 import lai.util.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Lai {
@@ -85,6 +86,9 @@ public class Lai {
                     tasks.add(newTask, storage);
                 } else if (command.equals("list")) {
                     ui.listTasks(tasks);
+                } else if (command.equals("find")) {
+                    List<Task> result = tasks.find(desc);
+                    ui.listTasks(new TaskList(result));
                 } else {
                     throw new LaiException("I don't recognise this command at all. You likely made an extremely " +
                             "disappointing mistake, or I did. I can't tell for sure.");
