@@ -1,8 +1,7 @@
 T | 0 | read book
-D | 1 | return book | June 6th
-E | 1 | project meeting | Aug 6th 2-4pm
-D | 0 | return flowerpot | May 5th
-T | 1 | join sports club
-E | 1 | project meeting | Aug 6th 2-4pm
-T | 1 | todo CVWO
-E | 0 | celebrate bd | 7pm-10pm
+D | 1 | return book | 02/12/2019 18:00
+D | 0 | return flowerpot | 12/12/2014 13:00
+E | 1 | reunion dinner | 12/03/2023 18:00-22/12/2023 18:00
+T | 0 | todo play game
+D | 0 | submit proposal | 23/03/2012 09:00
+E | 1 | mj session  | 23/12/2023 12:00-23/12/2023 19:00
