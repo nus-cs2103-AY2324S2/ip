@@ -28,7 +28,7 @@ public class Deadline implements Task {
      * @param name Name of the deadline task.
      * @param deadline {@code LocalDateTime} object representing the deadline.
      */
-    Deadline(String name, LocalDateTime deadline) {
+    public Deadline(String name, LocalDateTime deadline) {
         this.name = name;
         done = false;
         this.deadline = deadline;

@@ -62,7 +62,7 @@ public class Zero {
     }
 
     /**
-     * Close Input reader and Output writer.
+     * Closes Input reader and Output writer.
      *
      * @throws IOException If an I/O error occurs.
      */
@@ -71,7 +71,7 @@ public class Zero {
     }
 
     /**
-     * Run Zero bot.
+     * Runs Zero bot.
      * 
      * <p> Contains the main Zero bot logic and decision making.
      *
@@ -88,6 +88,7 @@ public class Zero {
             Hashtable<String, String> input = Parser.parseInput(ui.getUserInput());
             String cmd = input.get("cmd");
             Command c;
+
             try {
                 c = Command.valueOf(cmd.toUpperCase());
             } catch (IllegalArgumentException | NullPointerException e) {
@@ -95,6 +96,7 @@ public class Zero {
                 ui.showInvalidCommand(cmd);
                 continue;
             }
+            
             switch (c) {
             case EXIT:
                 // Fallthrough

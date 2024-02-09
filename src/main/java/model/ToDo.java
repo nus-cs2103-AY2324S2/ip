@@ -20,7 +20,7 @@ public class ToDo implements Task {
      * 
      * @param name Name of the "To Do" task.
      */
-    ToDo(String name) {
+    public ToDo(String name) {
         this.name = name;
         done = false;
     }
