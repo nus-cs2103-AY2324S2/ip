@@ -2,6 +2,7 @@ package kaiyap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import exceptions.AlreadyExistsException;
 import exceptions.InvalidInputException;
@@ -107,12 +108,7 @@ public class KaiYap {
             );
         }
         String searchPhrase = input.substring(5).toUpperCase();
-        ArrayList<Task> tasksFound = new ArrayList<>();
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getListItem().toUpperCase().contains(searchPhrase)) {
-                tasksFound.add(taskList.get(i));
-            }
-        }
+        List<Task> tasksFound = taskList.findTasks(searchPhrase);
         if (tasksFound.isEmpty()) {
             throw new InvalidInputException("\tSorry, no such tasks exist. Please try again! UwU :3");
         } else {
