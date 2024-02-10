@@ -1,5 +1,7 @@
 package johnny.commands;
 
+import java.util.List;
+
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
 import johnny.tasks.Task;
@@ -11,16 +13,16 @@ import johnny.ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    /** Index of Task in TaskList being deleted. */
-    private int index;
+    /** Indices of Task in TaskList being deleted. */
+    private List<Integer> indices;
 
     /**
      * Constructor for DeleteCommand.
      *
-     * @param index Index of Task in TaskList being deleted.
+     * @param indices Indices of Tasks in TaskList being deleted.
      */
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(List<Integer> indices) {
+        this.indices = indices;
     }
 
     /**
@@ -34,9 +36,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JohnnyException {
-        Task task = tasks.delete(index);
+        List<Task> deletedTasks = tasks.delete(indices);
         storage.rewriteFile(tasks);
-        ui.showDelete(task, tasks);
+        ui.showDelete(deletedTasks, tasks);
     }
 
     /**

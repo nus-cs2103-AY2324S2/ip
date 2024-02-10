@@ -1,5 +1,7 @@
 package johnny.commands;
 
+import java.util.List;
+
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
 import johnny.tasks.Task;
@@ -11,21 +13,21 @@ import johnny.ui.Ui;
  */
 public class MarkCommand extends Command {
 
-    /** Index of Task in TaskList being marked. */
-    private int index;
+    /** Indices of Task in TaskList being marked. */
+    private List<Integer> indices;
 
     /**
      * Constructor for MarkCommand.
      *
-     * @param index Index of Task in TaskList being marked.
+     * @param indices Indices of Task in TaskList being marked.
      */
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(List<Integer> indices) {
+        this.indices = indices;
     }
 
     /**
      * Executes the process of a MarkCommand.
-     * Marks Task, rewrite TaskList to Storage and Ui shows appropriate response.
+     * Mark Tasks, rewrite TaskList to Storage and Ui shows appropriate response.
      *
      * @param tasks TaskList of tasks.
      * @param ui Ui to print responses.
@@ -34,9 +36,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JohnnyException {
-        Task task = tasks.mark(index);
+        List<Task> markedTasks = tasks.mark(indices);
         storage.rewriteFile(tasks);
-        ui.showMark(task);
+        ui.showMark(markedTasks);
     }
 
     /**

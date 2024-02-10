@@ -1,7 +1,10 @@
 package johnny.commands;
 
+import java.util.List;
+
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
+import johnny.tasks.Task;
 import johnny.tasks.TaskList;
 import johnny.ui.Ui;
 
@@ -33,7 +36,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JohnnyException {
-        TaskList foundTasks = tasks.find(keyword);
+        List<Task> foundTasks = tasks.find(keyword);
         ui.showFoundTasks(foundTasks);
     }
 

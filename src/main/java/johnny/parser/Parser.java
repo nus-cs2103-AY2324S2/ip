@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import johnny.commands.AddDeadlineCommand;
 import johnny.commands.AddEventCommand;
@@ -44,20 +46,17 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            int index = getIndexFromCommand(parsedCommand,
-                    "Which task do you want to mark bro?",
-                    "I can only mark 1 task bro.");
-            return new MarkCommand(index);
+            List<Integer> indices = getIndicesFromCommand(parsedCommand,
+                    "Which task do you want to mark bro?");
+            return new MarkCommand(indices);
         case "unmark":
-            index = getIndexFromCommand(parsedCommand,
-                    "Which task do you want to unmark bro?",
-                    "I can only unmark 1 task bro.");
-            return new UnmarkCommand(index);
+            indices = getIndicesFromCommand(parsedCommand,
+                    "Which task do you want to unmark bro?");
+            return new UnmarkCommand(indices);
         case "delete":
-            index = getIndexFromCommand(parsedCommand,
-                    "Which task am I supposed to delete bro?",
-                    "I can only delete 1 task bro.");
-            return new DeleteCommand(index);
+            indices = getIndicesFromCommand(parsedCommand,
+                    "Which task am I supposed to delete bro?");
+            return new DeleteCommand(indices);
         case "todo":
             return parseTodoCommand(parsedCommand);
         case "deadline":
@@ -83,18 +82,15 @@ public class Parser {
         }
     }
 
-    private static void checkIfCommandIsTooLong(List<String> command, String errorMessage) throws JohnnyException {
-        if (command.size() > 2) {
-            throw new JohnnyException(errorMessage);
-        }
-    }
-
-    private static int getIndexFromCommand(List<String> command, String commandTooShortError,
-                                                String commandTooLongError) throws JohnnyException {
+    private static List<Integer> getIndicesFromCommand(List<String> command, String commandTooShortError)
+            throws JohnnyException {
         try {
             checkIfCommandIsTooShort(command, commandTooShortError);
-            checkIfCommandIsTooLong(command, commandTooLongError);
-            return Integer.parseInt(command.get(1)) - 1;
+            return command.subList(1, command.size())
+                    .stream()
+                    .map(i -> Integer.parseInt(i) - 1)
+                    .sorted(Comparator.reverseOrder())
+                    .collect(Collectors.toList());
         } catch (NumberFormatException e) {
             throw new JohnnyException("Enter a valid number bro.");
         }
