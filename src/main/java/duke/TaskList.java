@@ -10,7 +10,7 @@ import duke.task.Task;
  * TaskList class represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.

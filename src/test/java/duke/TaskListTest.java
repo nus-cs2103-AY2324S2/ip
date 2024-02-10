@@ -15,17 +15,20 @@ public class TaskListTest {
     private static class UiMock extends Ui {
         private String output;
 
-        public void showError(String str) {
+        public String showError(String str) {
 
             output = " Error: " + str;
+            return output;
         }
 
-        public void deleteMessage(String str) {
+        public String deleteMessage(String str) {
             output = str;
+            return output;
         }
         @Override
-        public void showMessage(String str) {
+        public String showMessage(String str) {
             output = str;
+            return output;
         }
 
         public String getOutput() {
@@ -48,7 +51,7 @@ public class TaskListTest {
         taskList.addTasks(todo);
         UiMock uiMock = new UiMock();
         taskList.markTasks(1, uiMock);
-        assertTrue(todo.getStatusIcon().equals("X"));
+        assertEquals("X", todo.getStatusIcon());
 
     }
 

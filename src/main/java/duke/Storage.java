@@ -63,16 +63,16 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            //System.out.println("b");
+
             Scanner fileScanner = new Scanner(file);
             ArrayList<Task> tasks = new ArrayList<>();
 
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
-                //System.out.println(line);
+
                 Task task = Parser.parseTaskFromLine(line);
                 tasks.add(task);
-                //System.out.println("line");
+
             }
 
             fileScanner.close();
