@@ -12,12 +12,12 @@ public class TaskList {
      * The ArrayList containing the tasks in the task list.
      */
     private final ArrayList<Task> taskArrayList;
-
+  
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.taskArrayList = new ArrayList<>();
+        this.listOfTasks = new ArrayList<>();
     }
 
     /**
@@ -26,7 +26,7 @@ public class TaskList {
      * @param taskList The initial list of tasks to be added to the TaskList.
      */
     public TaskList(ArrayList<Task> taskList) {
-        this.taskArrayList = taskList;
+        this.listOfTasks = taskList;
     }
 
     /**
@@ -35,15 +35,15 @@ public class TaskList {
      * @param newTask The task to be added to the list.
      */
     public String add(Task newTask) {
-        this.taskArrayList.add(newTask);
-        return ResponseHandler.commandPrint(newTask, this.taskArrayList.size());
+        this.listOfTasks.add(newTask);
+        return ResponseHandler.commandPrint(newTask, this.listOfTasks.size());
     }
 
     /**
      * Prints the entire task list.
      */
     public String printList() {
-        return ResponseHandler.commandListPrint(this.taskArrayList);
+        return ResponseHandler.commandListPrint(this.listOfTasks);
     }
 
     /**
@@ -68,7 +68,6 @@ public class TaskList {
         Task taskToBeRemoved = taskArrayList.get(indexOfTask);
         this.taskArrayList.remove(indexOfTask);
         return ResponseHandler.removePrinter(taskToBeRemoved, taskArrayList.size());
-
     }
 
     /**
@@ -77,13 +76,13 @@ public class TaskList {
      * @param storage The Storage object used for writing to the hard drive.
      */
     public void writeToFile(Storage storage) {
-        storage.writeToTaskList(this.taskArrayList);
+        storage.writeToTaskList(this.listOfTasks);
     }
 
 
     public String findTasks(String taskPattern) {
         ArrayList<Task> tasksWithPattern = new ArrayList<>();
-        for (Task task : this.taskArrayList) {
+        for (Task task : this.listOfTasks) {
             String currTaskName = task.getTaskName();
             if (currTaskName.contains(taskPattern)) {
                 tasksWithPattern.add(task);
@@ -100,6 +99,6 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        return "Now you have " + taskArrayList.size() + " tasks in the list.";
+        return "Now you have " + listOfTasks.size() + " tasks in the list.";
     }
 }

@@ -125,5 +125,4 @@ public class Task {
                 + "It should be of length 2";
         return this.dateFromAndTo;
     }
-
 }

@@ -1,10 +1,9 @@
 package utilities;
 
+import commands.PatternParser;
 import exceptions.RyanGoslingException;
-import tasks.Deadline;
-import tasks.Events;
+
 import tasks.Task;
-import tasks.Todo;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,14 +12,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * The Storage class is responsible for loading and saving tasks to/from the hard drive.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -48,46 +45,11 @@ public class Storage {
             }
         }
 
-
-
         Scanner s = new Scanner(file);
-        String patternString = "^\\s*(\\w+)\\s*\\|\\s*(\\d+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*"
-                + "\\|\\s*(\\S+)\\s*\\|\\"
-                + "s*(\\S+)\\s*\\|\\s*(\\S+)\\s*$";
-        //Format is "T | 0 | lol | dateFrom | timeFrom | dateTo | timeTo";
         ArrayList<Task> listOfTasks = new ArrayList<>();
         while (s.hasNext()) {
             String currentLine = s.nextLine();
-            Pattern regex = Pattern.compile(patternString);
-            Matcher matcher = regex.matcher(currentLine);
-            if (!matcher.matches()) {
-                throw new RyanGoslingException("Task lists stored in hard drive is not in expected format!\n"
-                                                       + "It should follow (T/E/D) | (0/1) | Description | dateFrom | "
-                                                       + "timeFrom "
-                                                       + "| dateTo | timeTo");
-            } else {
-                String typeOfTask = matcher.group(1);
-                int isTaskDone = Integer.parseInt(matcher.group(2));
-                assert isTaskDone == 1 || isTaskDone == 0 : "Wrong isTaskDone input format in text file!";
-                String taskDescription = matcher.group(3);
-                String dateFrom = matcher.group(4);
-                String timeFrom = matcher.group(5);
-                String dateTo = matcher.group(6);
-                String timeTo = matcher.group(7);
-                switch (typeOfTask) {
-                case "T":
-                    listOfTasks.add(new Todo(taskDescription, isTaskDone));
-                    break;
-                case "D":
-                    listOfTasks.add(new Deadline(taskDescription, dateFrom, timeFrom, isTaskDone));
-                    break;
-                case "E":
-                    listOfTasks.add(new Events(taskDescription, dateFrom, timeFrom, dateTo, timeTo, isTaskDone));
-                    break;
-                default:
-
-                }
-            }
+            PatternParser.addTasktoList(listOfTasks, currentLine);
         }
         return listOfTasks;
     }

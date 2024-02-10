@@ -10,59 +10,14 @@ import java.util.HashMap;
  */
 public class ResponseHandler {
     /**
-     * The message to be printed or stored.
-     */
-    public String message;
-
-    /**
-     * Constructs a ResponseHandler with the given message.
-     *
-     * @param message The message to be printed or stored.
-     */
-    public ResponseHandler(String message) {
-        this.message = message;
-    }
-
-    /**
-     * Prints the stored message to the console.
-     *
-     * @return The stored message.
-     */
-    public String printStored() {
-        return this.message;
-    }
-
-    /**
-     * Generates a personalized reply based on the given message.
-     *
-     * @param message The message to be analyzed and replied to.
-     * @return A personalized reply.
-     */
-    public static String personalisedReply(String message) {
-        HashMap<String, String> responseMap = new HashMap<>();
-        responseMap.put("byee", "You meant bye?");
-        responseMap.put("byeee", "You meant bye?");
-        responseMap.put("hi", "Hi again!");
-        return responseMap.getOrDefault(message, message);
-    }
-
-    /**
-     * Prints a line separator to the console.
-     *
-     * @return A line separator.
-     */
-    public static String printLine() {
-        return "____________________________________________________________";
-    }
-
-    /**
      * Generates a greeting message.
      *
      * @param chatBotName The name of the chatbot.
      * @return A greeting message.
      */
     public static String greeting(String chatBotName) {
-        return "Hello! I'm " + chatBotName + "\nWhat can I do for you?";
+        return "I might be " + chatBotName
+                + "\nWhat can I do for you?";
     }
 
     /**
@@ -72,16 +27,6 @@ public class ResponseHandler {
      */
     public static String bye() {
         return "Goodbye. Hope to see you again!";
-    }
-
-    /**
-     * Generates a command message.
-     *
-     * @param command The command to be printed.
-     * @return The command message.
-     */
-    public static String commandPrint(String command) {
-        return command;
     }
 
     /**
@@ -183,5 +128,4 @@ public class ResponseHandler {
         }
         return stringResponse.toString();
     }
-
 }
