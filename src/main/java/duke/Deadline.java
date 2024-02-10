@@ -59,6 +59,7 @@ public class Deadline extends Task {
      */
     public static Deadline fromSaveFormat(String[] info) {
         Deadline loadedTask = new Deadline(info[2], LocalDate.parse(info[3]));
+        assert info[1].equals("0") || info[1].equals("1") : "Saved Deadline task is incorrectly marked";
         if (info[1].equals("1")) {
             loadedTask.markAsDone();
         }

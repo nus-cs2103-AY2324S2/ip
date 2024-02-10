@@ -48,6 +48,7 @@ public class Todo extends Task {
      */
     public static Todo fromSaveFormat(String[] info) {
         Todo loadedTask = new Todo(info[2]);
+        assert info[1].equals("0") || info[1].equals("1") : "Saved Todo task is incorrectly marked";
         if (info[1].equals("1")) {
             loadedTask.markAsDone();
         }

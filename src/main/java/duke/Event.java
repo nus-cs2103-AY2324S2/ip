@@ -67,6 +67,7 @@ public class Event extends Task {
      */
     public static Event fromSaveFormat(String[] info) {
         Event loadedTask = new Event(info[2], LocalDate.parse(info[3]), LocalDate.parse(info[4]));
+        assert info[1].equals("0") || info[1].equals("1") : "Saved Event task is incorrectly marked";
         if (info[1].equals("1")) {
             loadedTask.markAsDone();
         }
