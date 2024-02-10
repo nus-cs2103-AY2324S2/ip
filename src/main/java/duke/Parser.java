@@ -60,10 +60,16 @@ public class Parser {
         if (description.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty.");
         }
-        Todo todo = new Todo(description);
-        tasks.addTask(todo);
+        Todo newTodo = new Todo(description);
+
+        // Check for duplicates
+        if (tasks.getTasks().stream().anyMatch(task -> task.equals(newTodo))) {
+            return "This task already exists in your list.";
+        }
+
+        tasks.addTask(newTodo);
         storage.save(tasks.getTasks());
-        return ui.showTaskAdded(todo, tasks.getSize());
+        return ui.showTaskAdded(newTodo, tasks.getSize());
     }
 
     /**
@@ -76,16 +82,22 @@ public class Parser {
      * @return The response message after adding the task.
      * @throws DukeException If the command is invalid or execution fails.
      */
-    private static String addDeadline(String deadlineDescription, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] splitInput = deadlineDescription.split(" /by ");
+    private static String addDeadline(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String[] splitInput = input.split(" /by ");
         if (splitInput.length < 2 || splitInput[0].isEmpty() || splitInput[1].isEmpty()) {
-            throw new DukeException("The deadline description or date is missing.");
+            return "The deadline description or date is missing.";
         }
-        Deadline deadline = new Deadline(splitInput[0].trim(), splitInput[1].trim());
-        tasks.addTask(deadline);
-        storage.save(tasks.getTasks());
-        return ui.showTaskAdded(deadline, tasks.getSize());
+        Deadline newDeadline = new Deadline(splitInput[0].trim(), splitInput[1].trim());
+        if (!tasks.isDuplicate(newDeadline)) {
+            tasks.addTask(newDeadline);
+            storage.save(tasks.getTasks());
+            return ui.showTaskAdded(newDeadline, tasks.getSize());
+        } else {
+            return "This deadline is a duplicate and won't be added.";
+        }
     }
+
+
 
     /**
      * Adds a event task to the list of tasks.
@@ -97,19 +109,23 @@ public class Parser {
      * @return The response message after adding the task.
      * @throws DukeException If the command is invalid or execution fails.
      */
-    private static String addEvent(String eventDescription, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] splitInput = eventDescription.split(" /from ");
+    private static String addEvent(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String[] splitInput = input.split(" /from ");
         if (splitInput.length < 2 || splitInput[0].isEmpty() || splitInput[1].isEmpty()) {
-            throw new DukeException("The event description or start time is missing.");
+            return "The event description or start time is missing.";
         }
         String[] timeSplit = splitInput[1].split(" /to ");
         if (timeSplit.length < 2 || timeSplit[0].isEmpty() || timeSplit[1].isEmpty()) {
-            throw new DukeException("The event end time or details are missing.");
+            return "The event end time or details are missing.";
         }
-        Event event = new Event(splitInput[0].trim(), timeSplit[0].trim(), timeSplit[1].trim());
-        tasks.addTask(event);
-        storage.save(tasks.getTasks());
-        return ui.showTaskAdded(event, tasks.getSize());
+        Event newEvent = new Event(splitInput[0].trim(), timeSplit[0].trim(), timeSplit[1].trim());
+        if (!tasks.isDuplicate(newEvent)) {
+            tasks.addTask(newEvent);
+            storage.save(tasks.getTasks());
+            return ui.showTaskAdded(newEvent, tasks.getSize());
+        } else {
+            return "This event is a duplicate and won't be added.";
+        }
     }
 
     /**

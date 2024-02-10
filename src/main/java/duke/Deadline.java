@@ -21,6 +21,15 @@ public class Deadline extends Task {
         this.by = DateChecker.parseDate(by);
     }
 
+
+    /**
+     * Returns the due date of the deadline.
+     * @return
+     */
+    public LocalDate getBy() {
+        return by;
+    }
+
     /**
      * Returns the description of the saved task.
      *
@@ -40,4 +49,20 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + DateChecker.formatDate(this.by) + ")";
     }
+
+    /**
+     * Returns whether the task is equal to another object.
+     *
+     * @param obj The object to be compared.
+     * @return Whether the task is equal to the object.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Deadline deadline = (Deadline) obj;
+        return this.getDescription().equals(deadline.getDescription()) &&
+                this.getBy().equals(deadline.getBy());
+    }
+
 }

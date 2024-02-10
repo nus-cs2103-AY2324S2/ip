@@ -25,6 +25,24 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the start time of the event.
+     *
+     * @return The start time of the event.
+     */
+    public LocalDate getStart() {
+        return this.from;
+    }
+
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time of the event.
+     */
+    public LocalDate getEnd() {
+        return this.to;
+    }
+
+    /**
      * Returns the description of the saved task.
      *
      * @return The description of the saved task.
@@ -44,4 +62,21 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + DateChecker.formatDate(this.from)
                 + " to: " + DateChecker.formatDate(this.to) + ")";
     }
+
+    /**
+     * Returns whether the task is equal to another object.
+     *
+     * @param obj The object to be compared.
+     * @return Whether the task is equal to the object.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Event event = (Event) obj;
+        return this.getDescription().equals(event.getDescription()) &&
+                this.getStart().equals(event.getStart()) &&
+                this.getEnd().equals(event.getEnd());
+    }
+
 }

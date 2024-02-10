@@ -99,4 +99,19 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    /**
+     * Checks if a task is a duplicate of an existing task in the TaskList.
+     *
+     * @param task The task to be checked.
+     * @return True if the task is a duplicate, and false otherwise.
+     */
+    public boolean isDuplicate(Task task) {
+        for (Task existingTask : tasks) {
+            if (existingTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
