@@ -1,8 +1,8 @@
 package alastor;
 
-import alastor.task.Task;
-
 import java.util.Scanner;
+
+import alastor.task.Task;
 
 /**
  * Represents the user interface of the application.

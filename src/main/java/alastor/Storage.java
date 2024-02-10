@@ -1,13 +1,13 @@
 package alastor;
 
-import alastor.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import alastor.task.Task;
 
 /**
  * Represents a storage object that handles the loading and saving of tasks to a file.
