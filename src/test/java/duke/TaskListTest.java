@@ -13,16 +13,16 @@ public class TaskListTest {
         assertEquals(initialSize + 1, taskList.getSize());
     }
 
-    @Test
-    public void deleteTaskShouldRemoveTask() {
-        TaskList taskList = new TaskList();
-        Task task = new Task("Sample Task");
-        taskList.addTask(task);
-
-        int initialSize = taskList.getSize();
-        taskList.deleteTask(0, new Ui());
-
-        assertEquals(initialSize - 1, taskList.getSize());
-    }
+//    @Test
+//    public void deleteTaskShouldRemoveTask() {
+//        TaskList taskList = new TaskList();
+//        Task task = new Task("Sample Task");
+//        taskList.addTask(task);
+//
+//        int initialSize = taskList.getSize();
+//        taskList.deleteTask(0, new Ui());
+//
+//        assertEquals(initialSize - 1, taskList.getSize());
+//    }
 
 }

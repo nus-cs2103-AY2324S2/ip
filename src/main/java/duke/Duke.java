@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.List;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -36,11 +37,9 @@ public class Duke extends Application {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
-    public Duke() {};
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
 
     /**
      * Constructs a Duke object with the specified file path for task storage.
@@ -48,16 +47,28 @@ public class Duke extends Application {
      * @param filePath The file path for task storage.
      */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            List<Task> loadedTasks = storage.load();
+            this.tasks = new TaskList(loadedTasks);
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
-        }
+            this.tasks = new TaskList(); // Ensure tasks is always initialized to prevent NullPointerException
+            }
     }
+
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
+//}
+    public Duke() {
+    }
+
+
     /**
      * Runs the Duke program, starting the chatbot interaction.
      */
@@ -75,6 +86,7 @@ public class Duke extends Application {
 
         scanner.close();
     }
+
     /**
      * Processes the user command and executes the corresponding action.
      *
@@ -89,6 +101,7 @@ public class Duke extends Application {
             ui.showErrorMessage(e.getMessage());
         }
     }
+
     /**
      * The main method to start the Duke program.
      *
@@ -144,7 +157,7 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //More code to be added here later
@@ -174,6 +187,7 @@ public class Duke extends Application {
     /**
      * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
@@ -204,14 +218,33 @@ public class Duke extends Application {
 
         // Clear the user input TextField
         userInput.clear();
-    }
-
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Aether heard: " + input;
-    }
 }
+/**
+ * Gets the response from the user input.
+ *
+ * @param input The user input
+ * @return String representation of the response
+ */
+//    public String getResponse(String input, TaskList tasks, Ui ui, Storage storage) {
+//        try {
+//            Parser parser = new Parser(input);
+//            Command command = parser.parse();
+//            return command.execute(tasks, ui, storage);
+//        } catch (DukeException e) {
+//            return "Error: " + e.getMessage();
+//        }
+//  }
+    public String getResponse(String input) {
+        try {
+            Parser parser = new Parser(input);
+            Command command = parser.parse();
+            return command.execute(tasks, ui, storage); // Use the class member directly
+        } catch (DukeException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+
+
+}
+

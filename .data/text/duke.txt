@@ -1,2 +1,1 @@
-D | 1 | read a book | 2022-01-01 1200
-T | 0 | write a book
+D | 0 | read a book | 2022-09-09 1200

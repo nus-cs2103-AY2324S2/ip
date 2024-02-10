@@ -33,7 +33,11 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        tasks.add(task);
+
+        if (this.tasks == null) {
+            this.tasks = new ArrayList<>(); // Initialize the list if it's null
+        }
+        this.tasks.add(task);
     }
 
     /**
@@ -86,16 +90,23 @@ public class TaskList {
      * Deletes a task at the specified index and displays the deletion message using the given UI.
      *
      * @param taskIndex The index of the task to be deleted.
-     * @param ui The UI used to display messages.
      */
-    public void deleteTask(int taskIndex, Ui ui) {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task removedTask = tasks.remove(taskIndex);
-            ui.showTaskDeleted(removedTask, tasks.size());
+//    public void deleteTask(int taskIndex, Ui ui) {
+//        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+//            Task removedTask = tasks.remove(taskIndex);
+//            ui.showTaskDeleted(removedTask, tasks.size());
+//        } else {
+//            ui.showInvalidTaskIndex();
+//        }
+//    }
+    public Task deleteTask(int taskIndex) throws DukeException {
+        if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
+            return this.tasks.remove(taskIndex); // Assuming tasks is the List<Task> holding your tasks
         } else {
-            ui.showInvalidTaskIndex();
+            throw new DukeException("Invalid task index.");
         }
     }
+
 
     public List<Task> findTasksByKeyword(String keyword) {
         return tasks.stream()
