@@ -26,7 +26,7 @@ public class DeadlineCommand extends Command {
      * @throws IncompleteTaskException If the task description is incomplete.
      * @throws DateTimeFormatException If the date and time format is invalid.
      */
-    public DeadlineCommand(String[] commands) throws IncompleteTaskException, DateTimeFormatException {
+    public DeadlineCommand(String... commands) throws IncompleteTaskException, DateTimeFormatException {
         if (commands.length < 2) {
             throw new IncompleteTaskException("deadline");
         }

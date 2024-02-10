@@ -21,13 +21,13 @@ public class DeleteCommand extends Command {
     /**
      * Constructs a DeleteCommand.
      *
-     * @param commands The array of commands.
      * @param tasksSize The size of the task list.
+     * @param commands The array of commands.
      * @throws IncompleteCommandException If the command is incomplete.
      * @throws TaskNumberFormatException If the task number format is invalid.
      * @throws TaskListIndexOutOfBoundsException If the task number is out of bounds.
      */
-    public DeleteCommand(String[] commands, int tasksSize)
+    public DeleteCommand(int tasksSize, String... commands)
             throws IncompleteCommandException, TaskNumberFormatException, TaskListIndexOutOfBoundsException {
         if (commands.length < 2) {
             throw new IncompleteCommandException("delete");

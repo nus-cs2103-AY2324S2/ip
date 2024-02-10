@@ -21,7 +21,7 @@ public class TodoCommand extends Command {
      * @param commands The array of commands.
      * @throws IncompleteTaskException If the task description is incomplete.
      */
-    public TodoCommand(String[] commands) throws IncompleteTaskException {
+    public TodoCommand(String... commands) throws IncompleteTaskException {
         if (commands.length < 2) {
             throw new IncompleteTaskException("todo");
         }

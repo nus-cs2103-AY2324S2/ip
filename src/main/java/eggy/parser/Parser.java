@@ -40,11 +40,11 @@ public class Parser {
             case LIST:
                 return new ListCommand();
             case DELETE:
-                return new DeleteCommand(commands, tasksSize);
+                return new DeleteCommand(tasksSize, commands);
             case MARK:
-                return new MarkCommand(commands, tasksSize);
+                return new MarkCommand(tasksSize, commands);
             case UNMARK:
-                return new UnmarkCommand(commands, tasksSize);
+                return new UnmarkCommand(tasksSize, commands);
             case TODO:
                 return new TodoCommand(commands);
             case DEADLINE:

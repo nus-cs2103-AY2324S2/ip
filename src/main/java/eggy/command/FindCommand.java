@@ -21,7 +21,7 @@ public class FindCommand extends Command {
      * @param commands The array of commands.
      * @throws IncompleteFindCommandException If the task description is incomplete.
      */
-    public FindCommand(String[] commands) throws IncompleteFindCommandException {
+    public FindCommand(String... commands) throws IncompleteFindCommandException {
         if (commands.length < 2) {
             throw new IncompleteFindCommandException();
         }

@@ -28,7 +28,7 @@ public class EventCommand extends Command {
      * @throws IncompleteTaskException If the task description is incomplete.
      * @throws DateTimeFormatException If the date and time format is invalid.
      */
-    public EventCommand(String[] commands) throws IncompleteTaskException, DateTimeFormatException {
+    public EventCommand(String... commands) throws IncompleteTaskException, DateTimeFormatException {
         if (commands.length < 2) {
             throw new IncompleteTaskException("event");
         }
