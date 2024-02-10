@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class InvalidTaskNameException extends Exception {
     public InvalidTaskNameException(String errorMessage) {

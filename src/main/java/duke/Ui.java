@@ -1,10 +1,10 @@
-package Duke;
+package duke;
 
-import Exceptions.InvalidTaskNameException;
-import Task.Deadline;
-import Task.Event;
-import Task.TaskList;
-import Task.Todo;
+import exceptions.InvalidTaskNameException;
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

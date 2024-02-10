@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 /**
  * Events are tasks that start at a specific date/time

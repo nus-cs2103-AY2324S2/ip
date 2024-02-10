@@ -1,8 +1,8 @@
-package Duke;
+package duke;
 
-import Exceptions.DukeException;
-import Exceptions.InvalidTaskNameException;
-import Task.TaskList;
+import exceptions.DukeException;
+import exceptions.InvalidTaskNameException;
+import task.TaskList;
 
 import java.util.Scanner;
 

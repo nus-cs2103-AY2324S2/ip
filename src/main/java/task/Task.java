@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 /**
  * A Task.Task object contains the status of the task.
