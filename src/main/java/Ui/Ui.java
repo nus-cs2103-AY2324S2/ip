@@ -185,7 +185,6 @@ public class Ui {
             outputText += s + "\n";
         }
 
-
         return HORIZONTAL_LINE + "\n" + outputText + "\n" + HORIZONTAL_LINE;
     }
 
