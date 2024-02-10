@@ -1,10 +1,10 @@
 package command;
 
+
+import dook.DookException;
+import dook.Storage;
 import task.Task;
 import task.TaskList;
-import dook.Ui;
-import dook.Storage;
-import dook.DookException;
 
 public class MarkCommand extends Command {
 
@@ -18,12 +18,11 @@ public class MarkCommand extends Command {
      * Marks a task as done.
      *
      * @param tasks The bot TaskList.
-     * @param ui The user interface.
      * @param storage The storage interface.
      * @throws DookException If TaskList is empty or indexed out of bounds.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
+    public String execute(TaskList tasks, Storage storage) throws DookException {
         Task toMark;
         try {
             toMark = tasks.get(positionToMark - 1);
@@ -32,9 +31,9 @@ public class MarkCommand extends Command {
             if (tasks.size() == 0) {
                 err = new DookException("Nooo! You don't have any tasks to mark :(");
             } else {
-                err = new DookException(String.format("Nooo! " +
-                                "You have %d tasks!" +
-                                " Valid inputs for mark is in the range [1 - %d]",
+                err = new DookException(String.format("Nooo! "
+                                + "You have %d tasks!"
+                                + " Valid inputs for mark is in the range [1 - %d]",
                         tasks.size(), tasks.size()));
             }
             throw err;

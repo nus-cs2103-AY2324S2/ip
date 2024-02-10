@@ -1,30 +1,32 @@
 package dook;
 
-import command.AddCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.MarkCommand;
-import command.ByeCommand;
-import command.ListCommand;
-import command.UnmarkCommand;
-import command.FindCommand;
-import command.MeowCommand;
-import command.DanceCommand;
-import task.Deadline;
-import task.Event;
-import task.TaskType;
-import task.ToDo;
-import task.Task;
-
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import command.AddCommand;
+import command.ByeCommand;
+import command.Command;
+import command.DanceCommand;
+import command.DeleteCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.MeowCommand;
+import command.UnmarkCommand;
+
+import task.Deadline;
+import task.Event;
+import task.TaskType;
+import task.Task;
+import task.ToDo;
 
 public class Parser {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final ArrayList<String> TASK_TYPES = new ArrayList<String>(Arrays.asList("todo", "deadline", "event"));
+    private static final ArrayList<String> TASK_TYPES = new ArrayList<>(Arrays
+            .asList("todo", "deadline", "event"));
 
     /**
      * Parses a given command as a String.
