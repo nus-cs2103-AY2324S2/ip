@@ -49,14 +49,12 @@ public class TaskList {
 //        }
 //        System.out.println("\t____________________________________________________________\n");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\t____________________________________________________________\n");
-        stringBuilder.append("\tPer your request, I am outlining the tasks from your designated list:\n");
+        stringBuilder.append("Per your request, I am outlining the tasks from your designated list:\n");
         int index = 1;
         for (Task item : this.listItems) {
-            stringBuilder.append("\t").append(index).append(". ").append(item).append("\n");
+            stringBuilder.append(index).append(". ").append(item).append("\n");
             index++;
         }
-        stringBuilder.append("\t____________________________________________________________\n\n");
         return stringBuilder.toString();
     }
 
@@ -86,6 +84,7 @@ public class TaskList {
      */
     public Task deleteList(int index) {
         Task task = listItems.remove(index - 1);
+        storage.removeListStateRecord(index - 1);
         return task;
     }
 

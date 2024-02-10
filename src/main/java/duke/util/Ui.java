@@ -22,11 +22,11 @@ public class Ui {
      *
      * @param content the content to be printed.
      */
-    private static void printMessageWithLines(String content) {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t" + content);
-        System.out.println("\t____________________________________________________________\n");
-    }
+//    private static void printMessageWithLines(String content) {
+//        System.out.println("\t____________________________________________________________");
+//        System.out.println("\t" + content);
+//        System.out.println("\t____________________________________________________________\n");
+//    }
 
     /**
      * Displays a greeting message with the logo and the name of the chatbot and,
@@ -63,7 +63,7 @@ public class Ui {
      */
     public void informListMarked(Task task) {
         String message = "It is my pleasure to inform you that I have officially marked this particular task as"
-                + " 'completed':" + "\n\t   " + task;
+                + " 'completed':" + "\n" + task;
 //        printMessageWithLines(message);
         this.message = message;
     }
@@ -75,7 +75,7 @@ public class Ui {
      */
     public void informListUnmarked(Task task) {
         String message = "I wish to communicate that I have marked this particular task as 'incomplete' at this "
-                + "juncture:" + "\n\t   " + task;
+                + "juncture:" + "\n" + task;
 //        printMessageWithLines(message);
         this.message = message;
     }
@@ -89,7 +89,7 @@ public class Ui {
      */
     public void informItemAdded(Task task, TaskList taskList) {
         String message = "I am pleased to convey that the following task has been added to the outlined list:\n"
-                + "\t   " + task + "\n " + taskList;
+                + task + "\n " + taskList;
 //        printMessageWithLines(message);
         this.message = message;
     }
@@ -105,7 +105,6 @@ public class Ui {
             message = taskList.showList();
         } else {
             message = "I would like to inform you that the task list is empty.";
-            printMessageWithLines(message);
         }
         this.message = message;
     }
@@ -118,8 +117,8 @@ public class Ui {
      * @param size the list from which the task will be removed.
      */
     public void informItemRemoved(Task task, int size) {
-        String message = "I acknowledge your update. The specified task has been duly removed:\n\t" + task
-                + "\n\tCurrently, " + "the list comprises " + size + " tasks.";
+        String message = "I acknowledge your update. The specified task has been duly removed:\n" + task
+                + "\nCurrently, " + "the list comprises " + size + " tasks.";
 //        printMessageWithLines(message);
         this.message = message;
     }
@@ -136,12 +135,10 @@ public class Ui {
 //        }
 //        System.out.println("\t____________________________________________________________\n");
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\t____________________________________________________________\n");
-        stringBuilder.append("\tHere are the corresponding tasks that align with your criteria:\n");
+        stringBuilder.append("Here are the corresponding tasks that align with your criteria:\n");
         for (Task t : taskList) {
-            stringBuilder.append("\t").append(t).append("\n");
+            stringBuilder.append("").append(t).append("");
         }
-        stringBuilder.append("\t____________________________________________________________\n\n");
         this.message = stringBuilder.toString();;
     }
     /**
@@ -159,17 +156,17 @@ public class Ui {
      */
     public void informWrongInputFormat() {
         String message = "Please follow the correct format for adding tasks:\n"
-                + "\t\tTo add todos: todo <Task name>\n"
-                + "\t\tTo add deadlines: deadline <Task name> /by <deadline in yyyy-mm-dd HHmm format>\n"
-                + "\t\tTo add events: event <Task name> /from <start time in yyyy-mm-dd HHmm format> "
-                + "/to <end time in yyyy-mm-dd HHmm format>\n"
-                + "\tOther commands: \n"
-                + "\t\tlist : to list the full list\n"
-                + "\t\tmark <index>: to mark the task at index no <index> in the list as complete\n"
-                + "\t\tunmark <index>: to mark the task at index no <index> in the last as incomplete\n"
-                + "\t\tdelete <index>: to remove the taks at index no <index> in the last\n"
-                + "\t\tbye: to leave the program\n"
-                + "\t\tfind <keyword>: to find tasks with description that contains the keyword";
+                + "To add todos: todo <Task name>\n"
+                + "To add deadlines: deadline <Task name> /by <deadline in yyyy-mm-dd HHmm format>\n"
+                + "To add events: event <Task name> /from <start time in yyyy-mm-dd HHmm format> "
+                + "to <end time in yyyy-mm-dd HHmm format>\n"
+                + "Other commands: \n"
+                + "list : to list the full list\n"
+                + "mark <index>: to mark the task at index no <index> in the list as complete\n"
+                + "unmark <index>: to mark the task at index no <index> in the last as incomplete\n"
+                + "delete <index>: to remove the taks at index no <index> in the last\n"
+                + "bye: to leave the program\n"
+                + "find <keyword>: to find tasks with description that contains the keyword";
         this.message = message;
     }
 
