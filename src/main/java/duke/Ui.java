@@ -46,21 +46,8 @@ public class Ui {
         this.manager = manager;
         this.parser = parser;
         this.sc = new Scanner(System.in);
-        sayHi();
     }
-    /**
-     * Lets shuheng say hi to everyone! :)
-     *
-     * @return The output to print.
-     */
-    public String sayHi() {
-        String name = "shu heng";
-        String nameDisplay = "_________________________\n"
-            + "Hello! I'm " + name + "\n"
-            + "What can I do for you?\n"
-            + "_________________________\n";
-        return nameDisplay;
-    }
+
     /**
      * Lets shuheng say bye to everyone! :)
      *
