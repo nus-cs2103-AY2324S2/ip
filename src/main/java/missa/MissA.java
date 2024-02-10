@@ -20,8 +20,6 @@ public class MissA {
     private Ui ui = new Ui();
     private Storage storage;
     private Parser parser = new Parser();
-    private boolean isBye = false;
-    private Scene scene;
 
     /**
      * Create a MissA object.
@@ -68,7 +66,7 @@ public class MissA {
      * @return True if this is a bye command.
      */
     public boolean checkBye(String input) {
-        if (input.equals("bye")) {
+        if (input.toLowerCase().equals("bye")) {
             return true;
         }
         return false;
