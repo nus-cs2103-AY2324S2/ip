@@ -3,6 +3,7 @@ package duke.command;
 import duke.task.Todo;
 import duke.util.Parser;
 import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents the Command of adding a new todo to a task list.
@@ -27,9 +28,10 @@ public class AddTodoCommand extends Command {
      * @param taskList the given taskList to add the task to.
      */
     @Override
-    public void run(TaskList taskList) {
+    public void run(TaskList taskList, Ui ui) {
         Todo todo = new Todo(this.description);
         String[] data = {this.description};
         taskList.addTask(todo, "todo", data);
+        ui.informItemAdded(todo, taskList);
     }
 }

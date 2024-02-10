@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.util.Parser;
 import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents a Command for doing nothing.
@@ -23,6 +24,6 @@ public class NoActionCommand extends Command {
      * @param taskList the given taskList where nothing is done.
      */
     @Override
-    public void run(TaskList taskList) {
+    public void run(TaskList taskList, Ui ui) {
     }
 }

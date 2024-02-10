@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.util.Parser;
 import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents the Command of marking/unmarking a task in a list.
@@ -26,11 +27,12 @@ public class ToggleMarkTaskCommand extends Command {
      * @param taskList the given taskList to mark/unmark the task.
      */
     @Override
-    public void run(TaskList taskList) {
+    public void run(TaskList taskList, Ui ui) {
         if (this.type == Parser.Cmd.mark) {
-            taskList.markList(this.index);
+            ui.informListMarked(taskList.markList(this.index));
         } else {
             taskList.unmarkList(this.index);
+            ui.informListUnmarked(taskList.unmarkList(this.index));
         }
     }
 }

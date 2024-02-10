@@ -33,52 +33,59 @@ public class TaskList {
     public void addTask(Task task, String type, String[]data) {
         this.listItems.add(task);
         storage.addListStateRecord(type, data);
-        Ui.informItemAdded(task, this);
     }
 
     /**
      * Displays the details of each task.
      * The process is done using loops to go through all the tasks.
      */
-    public void showList() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
+    public String showList() {
+//        System.out.println("\t____________________________________________________________");
+//        System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
+//        int index = 1;
+//        for (Task item : this.listItems) {
+//            System.out.println("\t" + index + ". " + item);
+//            index++;
+//        }
+//        System.out.println("\t____________________________________________________________\n");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Per your request, I am outlining the tasks from your designated list:\n");
         int index = 1;
         for (Task item : this.listItems) {
-            System.out.println("\t" + index + ". " + item);
+            stringBuilder.append(index).append(". ").append(item).append("\n");
             index++;
         }
-        System.out.println("\t____________________________________________________________\n");
+        return stringBuilder.toString();
     }
 
     /**
      * Marks the task at the given index in the list.
      * @param index the given index of the task to be marked.
      */
-    public void markList(int index) {
+    public Task markList(int index) {
         this.listItems.get(index - 1).mark();
         storage.modifyStateRecord(true, index - 1);
-        Ui.informListMarked(listItems.get(index - 1));
+        return listItems.get(index - 1);
     }
 
     /**
      * Unmarks the task at the given index in the list.
      * @param index the given index of the task to be marked.
      */
-    public void unmarkList(int index) {
+    public Task unmarkList(int index) {
         this.listItems.get(index - 1).unmark();
         storage.modifyStateRecord(false, index - 1);
-        Ui.informListUnmarked(listItems.get(index - 1));
+        return listItems.get(index - 1);
     }
 
     /**
      * Removes the task at the given index in the list.
      * @param index the given index of the task to be marked.
      */
-    public void deleteList(int index) {
+    public Task deleteList(int index) {
         Task task = listItems.remove(index - 1);
         storage.removeListStateRecord(index - 1);
-        Ui.informItemRemoved(task, listItems.size());
+        return task;
     }
 
     /**
@@ -94,14 +101,14 @@ public class TaskList {
      *
      * @param keyword the keyword to be searched.
      */
-    public void searchAndDisplay(String keyword) {
+    public ArrayList<Task>  searchAndDisplay(String keyword) {
         ArrayList<Task> searchResult = new ArrayList<>();
         for (Task t : this.listItems) {
             if (t.contains(keyword)) {
                 searchResult.add(t);
             }
         }
-        Ui.displaySelectedList(searchResult);
+        return searchResult;
     }
 
     /**

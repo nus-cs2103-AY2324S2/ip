@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.command.Command;
 import duke.util.Parser;
 import duke.util.TaskList;
@@ -22,8 +20,8 @@ public class Duke {
      * This constructor initializes the Parser, Ui, and TaskList for the Duke application.
      */
     public Duke() {
-        this.parser = new Parser();
         this.ui = new Ui();
+        this.parser = new Parser(ui);
         this.taskList = new TaskList();
     }
 
@@ -33,22 +31,35 @@ public class Duke {
      * and continues execution until the user enters the "bye" command.
      * Handles invalid commands by informing the user.
      */
-    public void run() {
-        this.ui.greet();
-        Scanner scanner = new Scanner(System.in);
-        try {
-            Command command;
-            do {
-                command = this.parser.parse(scanner.nextLine());
-                command.run(this.taskList);
-            } while(!command.getType().equals(Parser.Cmd.bye));
-        } catch (IllegalArgumentException e) {
-            Ui.informInvalidCommand();
-        }
-    }
 
-    public static void main(String[] args) {
-        Duke alfred = new Duke();
-        alfred.run();
+//    public void run() {
+//        this.ui.greet();
+//        Scanner scanner = new Scanner(System.in);
+//        try {
+//            Command command;
+//            do {
+//                command = this.parser.parse(scanner.nextLine());
+//                command.run(this.taskList);
+//            } while(!command.getType().equals(Parser.Cmd.bye));
+//        } catch (IllegalArgumentException e) {
+//            Ui.informInvalidCommand();
+//        }
+//    }
+
+//    public static void main(String[] args) {
+//        Duke alfred = new Duke();
+//        alfred.run();
+//    }
+
+    public String getResponse(String input) {
+        Command command;
+        try{
+            command = this.parser.parse(input);
+            command.run(this.taskList, this.ui);
+        } catch (IllegalArgumentException e) {
+            return ui.getMessage();
+        }
+        return ui.getMessage();
+        //return "Duke heard: " + input;
     }
 }

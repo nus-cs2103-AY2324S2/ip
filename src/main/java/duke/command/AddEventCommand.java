@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import duke.task.Event;
 import duke.util.Parser;
 import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents the Command of adding a new event to a task list.
@@ -36,11 +37,12 @@ public class AddEventCommand extends Command {
      * @param taskList the given taskList to add the task to.
      */
     @Override
-    public void run(TaskList taskList) {
+    public void run(TaskList taskList, Ui ui) {
         Event event = new Event(this.description, this.fromDate, this.toDate);
         String fromTime = this.fromDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         String toTime = this.toDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         String[] data = {this.description, fromTime, toTime};
         taskList.addTask(event, "event", data);
+        ui.informItemAdded(event, taskList);
     }
 }
