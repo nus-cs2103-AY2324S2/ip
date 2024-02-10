@@ -1,4 +1,4 @@
-package dino.command;
+package dino;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = dino.parseCommand(input);
+        String response = dino.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDinoDialog(response, dinoImage)

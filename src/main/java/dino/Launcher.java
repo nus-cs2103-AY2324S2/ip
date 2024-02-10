@@ -1,4 +1,4 @@
-package dino.command;
+package dino;
 
 import javafx.application.Application;
 

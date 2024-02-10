@@ -1,4 +1,4 @@
-package dino.command;
+package dino;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package dino.command;
+package dino;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +37,6 @@ public class Storage {
         try {
             File file = new File(filePath);
             Scanner fileScanner = new Scanner(file);
-            Parser parser = new Parser(taskList);
 
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
@@ -48,18 +47,18 @@ public class Storage {
 
                     switch (taskTypeString) {
                     case "T":
-                        task = parser.createTaskFromInput(Dino.TaskType.TODO, parts[2].trim());
+                        task = Parser.createTaskFromInput(Dino.TaskType.TODO, parts[2].trim());
                         break;
                     case "D":
                         String[] deadlineParts = parts[3].split(" by: ");
-                        String deadlineDetails = parts[2].trim() + " /by " + parser.parseStringToNum(deadlineParts[1]);
-                        task = parser.createTaskFromInput(Dino.TaskType.DEADLINE, deadlineDetails);
+                        String deadlineDetails = parts[2].trim() + " /by " + Parser.parseStringToNum(deadlineParts[1]);
+                        task = Parser.createTaskFromInput(Dino.TaskType.DEADLINE, deadlineDetails);
                         break;
                     case "E":
                         String[] eventParts = parts[3].split("from:|to:");
-                        String eventDetails = parts[2].trim() + " /from " + parser.parseStringToNum(eventParts[1])
-                                + " /to " + parser.parseStringToNum(eventParts[2]);
-                        task = parser.createTaskFromInput(Dino.TaskType.EVENT, eventDetails);
+                        String eventDetails = parts[2].trim() + " /from " + Parser.parseStringToNum(eventParts[1])
+                                + " /to " + Parser.parseStringToNum(eventParts[2]);
+                        task = Parser.createTaskFromInput(Dino.TaskType.EVENT, eventDetails);
                         break;
                     default:
                         System.out.println("Unknown task type in file: " + taskTypeString);

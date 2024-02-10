@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Scanner;
 
+import dino.Dino;
+import dino.DinoException;
+import dino.Parser;
+import dino.TaskList;
 import org.junit.jupiter.api.Test;
 
 import dino.task.Task;

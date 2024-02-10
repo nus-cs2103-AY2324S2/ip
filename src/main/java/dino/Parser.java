@@ -1,12 +1,22 @@
-package dino.command;
+package dino;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Locale;
 
+import dino.command.Command;
+import dino.command.DeleteCommand;
+import dino.command.ExitCommand;
+import dino.command.FilterCommand;
+import dino.command.FindCommand;
+import dino.command.ListCommand;
+import dino.command.MarkCommand;
+import dino.command.TaskCommand;
+import dino.command.UnmarkCommand;
 import dino.task.Deadline;
 import dino.task.Event;
 import dino.task.Task;
@@ -29,40 +39,68 @@ public class Parser {
     }
 
     /**
-     * Handles the creation of tasks based on user input for tasks like ToDo, Deadline, and Event.
+     * Parses the given command and performs the corresponding action.
      *
-     * @param taskType The type of the task (ToDo, Deadline, or Event).
-     * @param description String description of the task.
-     * @return String representation of new task.
+     * @param input The user command to be parsed.
+     * @return String representation of command.
      */
-    public String handleTaskCreation(Dino.TaskType taskType, String description) {
-        StringBuilder printTask = new StringBuilder();
+    public static Command parseCommand(String input) throws DinoException {
+        assert input != null : "Input cannot be null";
 
-        try {
-            if (description.isEmpty()) {
-                throw new DinoException("Description cannot be empty.");
-            }
+        String[] parts = input.trim().split(" "); // Split into command and argument
+        String command = parts[0];
+        String argument = parts.length > 1
+                ? String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))
+                : "";
 
-            tasks.addTask(createTaskFromInput(taskType, description));
+        switch (command) {
+        case "list":
+            return new ListCommand();
 
-            printTask.append("Okay.\n");
-            printTask.append("  ").append(tasks.get(tasks.size() - 1)).append("\n");
-            printTask.append("Now you have ").append(tasks.size()).append(" in the list.\n");
-        } catch (DinoException e) {
-            printTask.append("Error: ").append(e.getMessage());
+        case "bye":
+            return new ExitCommand();
+
+        case "delete":
+            int taskToDelete = Integer.parseInt(argument);
+            return new DeleteCommand(taskToDelete);
+
+        case "todo":
+            return new TaskCommand(Dino.TaskType.TODO, argument);
+
+        case "deadline":
+            return new TaskCommand(Dino.TaskType.DEADLINE, argument);
+
+        case "event":
+            return new TaskCommand(Dino.TaskType.EVENT, argument);
+
+        case "filter":
+            return new FilterCommand(argument.trim());
+
+        case "mark":
+            int taskToMark = Integer.parseInt(argument);
+            return new MarkCommand(taskToMark);
+
+        case "unmark":
+            int taskToUnmark = Integer.parseInt(argument);
+            return new UnmarkCommand(taskToUnmark);
+
+        case "find":
+            return new FindCommand(argument);
+
+        default:
+            throw new DinoException("I don't understand ;;");
         }
-        return printTask.toString();
     }
 
     /**
      * Creates a Task object based on the provided task type and task details.
      *
-     * @param taskType     The type of the task (ToDo, Deadline, or Event).
-     * @param taskDetails  The details of the task.
+     * @param taskType    The type of the task (ToDo, Deadline, or Event).
+     * @param taskDetails The details of the task.
      * @return A Task object representing the created task.
      * @throws DinoException If there is an error creating the task.
      */
-    public Task createTaskFromInput(Dino.TaskType taskType, String taskDetails) throws DinoException {
+    public static Task createTaskFromInput(Dino.TaskType taskType, String taskDetails) throws DinoException {
         switch (taskType) {
         case TODO:
             return new ToDo(taskDetails);
@@ -118,7 +156,7 @@ public class Parser {
      * @param time The string representation of date and time.
      * @return A LocalDateTime object representing the parsed date and time.
      */
-    public LocalDateTime parseStringToTime(String time) {
+    public static LocalDateTime parseStringToTime(String time) {
         assert time != null : "Time cannot be null";
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
@@ -138,7 +176,7 @@ public class Parser {
      * @param time The string representation of date.
      * @return A formatted string representing the parsed date.
      */
-    public String parseStringToNum(String time) {
+    public static String parseStringToNum(String time) {
         assert time != null : "Time cannot be null";
         time = time.trim();
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
@@ -160,40 +198,4 @@ public class Parser {
 
         return formattedDate;
     }
-
-    /**
-     * Prints tasks for a specific date.
-     *
-     * @param dateString The string representation for user input.
-     * @return String representation of tasks for specified date.
-     */
-    String printTasksForDate(String dateString) {
-        assert dateString != null : "Date cannot be null";
-        StringBuilder result = new StringBuilder();
-
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-            LocalDate date = LocalDate.parse(dateString, dateFormatter);
-
-            result.append("Tasks for ").append(date).append(":\n");
-
-            tasks.getTaskList().stream()
-                    .filter(task -> task instanceof Deadline)
-                    .map(task -> (Deadline) task)
-                    .filter(deadline -> deadline.getDateTime().toLocalDate().equals(date))
-                    .forEach(deadline -> result.append(deadline).append("\n"));
-
-            tasks.getTaskList().stream()
-                    .filter(task -> task instanceof Event)
-                    .map(task -> (Event) task)
-                    .filter(event -> event.getStartTime().toLocalDate().equals(date)
-                            || event.getEndTime().toLocalDate().equals(date))
-                    .forEach(event -> result.append(event).append("\n"));
-
-        } catch (DateTimeParseException e) {
-            result.append("Error parsing date: ").append(e.getMessage());
-        }
-        return result.toString();
-    }
 }
-

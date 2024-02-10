@@ -1,7 +1,8 @@
-package dino.command;
+package dino;
 
 import java.util.ArrayList;
 
+import dino.DinoException;
 import dino.task.Task;
 
 /** Represents an ArrayList of Task. */

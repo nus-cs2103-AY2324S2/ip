@@ -1,4 +1,4 @@
-package dino.command;
+package dino;
 
 /**
  * Custom exception class for the Dino chatbot.
