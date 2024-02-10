@@ -1,3 +1,0 @@
-T |   | Buy groceries
-D |   | Submit assignment | by: 2021-09-17
-E |   | Team meeting | from: 2021-09-17 14:00 to: 2021-09-17 16:00

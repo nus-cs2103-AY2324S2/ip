@@ -34,7 +34,8 @@ public class Operator {
                     try {
                         botMarkTask(userInputArr);
                         // save to file
-                        // taskRepo.saveTasks(taskList);
+                        taskRepo.saveTasksToFile(taskList);
+                        System.out.println("Saved to file");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -42,8 +43,8 @@ public class Operator {
                 case "unmark":
                     try {
                         botUnmarkTask(userInputArr);
-                        // save to file
-                        // taskRepo.saveTasks(taskList);
+                        taskRepo.saveTasksToFile(taskList);
+                        System.out.println("Saved to file");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -51,10 +52,8 @@ public class Operator {
                 case "todo":
                     try {
                         handleTodoCommand(userInputArr);
-                        // System.out.println("reached here");
-                        // save to file
-                        // taskRepo.saveTasks(taskList);
-                        // System.out.println("reached here as well");
+                        taskRepo.saveTasksToFile(taskList);
+                        System.out.println("Saved to file");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -62,8 +61,8 @@ public class Operator {
                 case "deadline":
                     try {
                         handleDeadlineCommand(userInputArr);
-                        // save to file
-                        // taskRepo.saveTasks(taskList);
+                        taskRepo.saveTasksToFile(taskList);
+                        System.out.println("Saved to file");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -71,8 +70,8 @@ public class Operator {
                 case "event":
                     try {
                         handleEventCommand(userInputArr);
-                        // save to file
-                        // taskRepo.saveTasks(taskList);
+                        taskRepo.saveTasksToFile(taskList);
+                        System.out.println("Saved to file");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -80,8 +79,8 @@ public class Operator {
                 case "delete":
                     try {
                         handleDeleteCommand(userInputArr);
-                        // save to file
-                        // taskRepo.saveTasks(taskList);
+                        taskRepo.saveTasksToFile(taskList);
+                        System.out.println("Saved to file");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
