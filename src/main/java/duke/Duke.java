@@ -17,6 +17,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         storage = new Storage();
+        assert storage != null && ui != null : "Storage and UI must be initialized";
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
