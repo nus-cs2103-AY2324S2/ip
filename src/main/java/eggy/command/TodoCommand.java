@@ -2,11 +2,11 @@ package eggy.command;
 
 import eggy.exception.EggyException;
 import eggy.exception.IncompleteTaskException;
+import eggy.response.Response;
 import eggy.storage.Storage;
 import eggy.task.Task;
 import eggy.task.TaskList;
 import eggy.task.Todo;
-import eggy.ui.Ui;
 
 /**
  * Represents a command to add a todo to the task list.
@@ -32,15 +32,15 @@ public class TodoCommand extends Command {
      * Adds a todo to the task list and saves the task list to the storage.
      *
      * @param tasks The task list of the chatbot.
-     * @param ui The user interface of the chatbot.
+     * @param response The response of the chatbot.
      * @param storage The storage of the chatbot.
      * @throws EggyException If there is an error saving the task list to the storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EggyException {
+    public void execute(TaskList tasks, Response response, Storage storage) throws EggyException {
         Task newTodo = new Todo(this.name);
         tasks.addTask(newTodo);
-        ui.printTaskAdded(newTodo, tasks.getSize());
+        response.setTaskAddedResponse(newTodo, tasks.getSize());
         storage.save(tasks);
     }
 }

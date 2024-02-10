@@ -62,7 +62,7 @@ public class StorageTest {
     public void load_tasks_exceptionThrown() throws IOException {
         Files.write(tempFile, "A | 0 | read book\nD | 0 | return book | 2019-12-02T18:00\n".getBytes());
         Throwable exception = assertThrows(InvalidTaskTypeException.class, () -> storage.load());
-        assertEquals("OOPS!!! There is an invalid task type in the file :-(", exception.getMessage());
+        assertEquals("EGGIES!!! There is an invalid task type in the file :-(", exception.getMessage());
     }
 
     @Test

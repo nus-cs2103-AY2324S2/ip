@@ -93,7 +93,7 @@ public class TaskList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.getSize(); i++) {
-            sb.append("     ").append(i + 1).append(".").append(this.getTask(i));
+            sb.append("  ").append(i + 1).append(".").append(this.getTask(i));
             if (i != this.getSize() - 1) {
                 sb.append("\n");
             }
