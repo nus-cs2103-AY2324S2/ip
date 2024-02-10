@@ -88,11 +88,7 @@ public class Task {
      * @param action The action to be performed ("mark" to mark as done, other to mark as not done).
      */
     public String changeStatus(String action) {
-        if (action.equals("mark")) {
-            this.taskDone = true;
-        } else {
-            this.taskDone = false;
-        }
+        this.taskDone = action.equals("mark");
         return ResponseHandler.markActionPrint(action, this);
     }
 
@@ -102,11 +98,7 @@ public class Task {
      * @param action The action code (1 to mark as done, 0 to mark as not done).
      */
     public void changeStatus(int action) {
-        if (action == 1) {
-            this.taskDone = true;
-        } else {
-            this.taskDone = false;
-        }
+        this.taskDone = action == 1;
     }
 
     /**
@@ -121,5 +113,4 @@ public class Task {
     public String[] getDates() {
         return this.dateFromAndTo;
     }
-
 }
