@@ -28,11 +28,12 @@ public class Ui {
     public static final String INVALID_TASK_INDEX = "invalid task index. "
             + "task index is non-zero integer at most the number of tasks you have. "
             + "you gave me \"%s\".";
-
-    public static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    public static final String INVALID_DAY = "due in what?";
     public static final String INVALID_DATE_FORMAT = "i only understand " + Parser.INPUT_DATE_PATTERN + " bro";
     public static final String INVALID_DATETIME_FORMAT
             = "i only understand " + Parser.INPUT_DATETIME_PATTERN + " bro";
+
+    public static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
     public static final String LOADING_ERROR = "wait what happened i cant load any data";
 

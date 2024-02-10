@@ -26,6 +26,10 @@ public class Bob {
         TaskList.listOnDate(date);
     }
 
+    public static void handleListDueIn(int days) {
+        TaskList.listDueIn(days);
+    }
+
     private static void saveAndPrintAdded(Task task) {
         TaskList.save(true);
         Ui.add(task, TaskList.getSize());

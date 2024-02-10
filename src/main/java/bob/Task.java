@@ -30,6 +30,10 @@ public abstract class Task {
         return false;
     }
 
+    public boolean isDueIn(int days) {
+        return false;
+    }
+
     @Override
     public String toString() {
         return '[' + this.getStatusIcon() + "] " + this.description;

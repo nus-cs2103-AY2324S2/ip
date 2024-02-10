@@ -3,6 +3,7 @@ package bob;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
 
@@ -21,6 +22,13 @@ public class Deadline extends Task {
     @Override
     public boolean isOccurringOn(LocalDate date) {
         return by.toLocalDate().equals(date);
+    }
+
+    @Override
+    public boolean isDueIn(int days) {
+        boolean isUpcoming = by.isAfter(LocalDateTime.now());
+        boolean isWithin = ChronoUnit.DAYS.between(LocalDateTime.now(), by) <= days;
+        return isUpcoming && isWithin;
     }
 
     @Override

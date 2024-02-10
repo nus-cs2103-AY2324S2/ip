@@ -49,18 +49,29 @@ public class Parser {
         return result;
     }
 
-    private static void parseList(String[] commandArgs) throws DateTimeParseException, ParameterNotFoundException {
+    private static void parseList(
+            String[] commandArgs) throws DateTimeParseException, ParameterNotFoundException, NumberFormatException {
         if (commandArgs.length == 1) {
             Bob.handleList();
         } else {
             // TODO: use extractParameters once it has been generalised
             String remaining = commandArgs[1];
-            String onParameter = remaining.split("/on ", 2)[1];
-            if (onParameter.equals(remaining)) {
-                throw new ParameterNotFoundException("on");
-            } else {
-                LocalDate on = LocalDate.parse(onParameter, INPUT_DATE_FORMATTER);
+
+            String[] onSplit = remaining.split("/on ", 2);
+            String[] dueInSplit = remaining.split("/due_in ", 2);
+
+            boolean hasOn = onSplit.length > 1;
+            boolean hasDueIn = dueInSplit.length > 1;
+
+            if (hasOn) {
+                LocalDate on = LocalDate.parse(onSplit[1], INPUT_DATE_FORMATTER);
                 Bob.handleListOnDate(on);
+                throw new ParameterNotFoundException(new String[] { "on", "due_in" });
+            } else if (hasDueIn) {
+                int days = Integer.parseInt(dueInSplit[1]);
+                Bob.handleListDueIn(days);
+            } else {
+                throw new ParameterNotFoundException(new String[] { "on", "due_in" });
             }
         }
     }
@@ -123,9 +134,11 @@ public class Parser {
             try {
                 parseList(commandArgs);
             } catch (DateTimeParseException e) {
-                Ui.print(Ui.INVALID_DATETIME_FORMAT);
+                Ui.print(Ui.INVALID_DATE_FORMAT);
             } catch (ParameterNotFoundException e) {
                 Ui.print(e.getMessage());
+            } catch (NumberFormatException e) {
+                Ui.print(Ui.INVALID_DAY + " " + e.getMessage());
             }
             break;
         case Parser.DELETE:

@@ -3,6 +3,7 @@ package bob;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class TaskList {
     private static final ArrayList<Task> TASKS = new ArrayList<>();
@@ -35,18 +36,26 @@ public class TaskList {
         return task;
     }
 
-    public static void list() {
-        Ui.list(TASKS);
-    }
-
-    public static void listOnDate(LocalDate date) {
+    private static void listWithFilter(Predicate<Task> filter) {
         ArrayList<Task> filteredTask = new ArrayList<>();
         for (Task task : TASKS) {
-            if (task.isOccurringOn(date)) {
+            if (filter.test(task)) {
                 filteredTask.add(task);
             }
         }
         Ui.list(filteredTask);
+    }
+
+    public static void list() {
+        listWithFilter(task -> true);
+    }
+
+    public static void listOnDate(LocalDate date) {
+        listWithFilter(task -> task.isOccurringOn(date));
+    }
+
+    public static void listDueIn(int days) {
+        listWithFilter(task -> task.isDueIn(days));
     }
 
     public static Task addTodo(String description) {
