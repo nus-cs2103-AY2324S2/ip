@@ -10,13 +10,13 @@ import duke.task.Task;
  * TaskList class represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -26,7 +26,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
 
-        this.tasks = tasks;
+        TaskList.tasks = tasks;
     }
 
     /**
@@ -36,7 +36,7 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
 
-        return this.tasks;
+        return tasks;
     }
 
     /**
@@ -106,7 +106,7 @@ public class TaskList {
      * @param keyword The keyword to search for in task descriptions.
      * @return An ArrayList of tasks that contain the specified keyword.
      */
-    public ArrayList<Task> keywordSearch(String keyword) {
+    public static ArrayList<Task> keywordSearch(String keyword) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
 
         for (Task task : tasks) {
@@ -116,5 +116,15 @@ public class TaskList {
         }
 
         return matchedTasks;
+    }
+
+    public static String findTasks(String keyword, Ui ui) {
+        ArrayList<Task> matchingTasks = keywordSearch(keyword);
+        StringBuilder res;
+        res = new StringBuilder(ui.showMessage("Here are the matching tasks in your list:"));
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            res.append(ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString()));
+        }
+        return res.toString();
     }
 }

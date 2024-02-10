@@ -46,27 +46,7 @@ public class Duke extends Application {
     }
 
 
-    /*public void run() {
-        ui.showWelcomeMessage();
 
-        Scanner sc = new Scanner(System.in);
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                Ui.Command userInput = ui.getUserInput();
-                if (userInput.equals(Ui.Command.BYE)) {
-                    isExit = true;
-                }
-                //Parser.parseAndExecute(userInput, tasks, ui, storage);
-                storage.saveTasks(tasks.getTasks());
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-
-        ui.showGoodbyeMessage();
-    } */
 
     /**
      * Gets the response for a given input.
@@ -78,7 +58,9 @@ public class Duke extends Application {
 
         try {
 
-            String output = Parser.parseAndExecute(input, tasks, ui, storage);
+
+            String output =  Parser.parseAndExecute(input, tasks, ui);
+
             storage.saveTasks(tasks.getTasks());
             return output;
         } catch (DukeException e) {

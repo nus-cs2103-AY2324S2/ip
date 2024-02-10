@@ -9,14 +9,9 @@ import duke.task.Task;
  * Ui class represents the user interface for Duke.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
-    /**
-     * Contains enumeration of Commands
-     */
-    public enum Command {
-        BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
-    }
+
 
     /**
      * Constructs an Ui object with a Scanner for user input.
@@ -32,34 +27,9 @@ public class Ui {
         System.out.println("Hello! I'm Duke. What can I do for you?");
     }
 
-    /**
-     * Gets user input from the command line.
-     *
-     * @return The user's input command.
-     */
-    public Command getUserInput() {
-        System.out.print("Enter your command: ");
-        return getCommand(scanner.next());
-    }
-
-    public static Command getCommand(String input) {
-        try {
-            return Command.valueOf(input.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return Command.UNKNOWN;
-        }
-    }
 
 
-    /**
-     * Gets user input from the command line, allowing for multiple words.
-     *
-     * @return The user's input command as a String.
-     */
-    public String getUserInput3() {
-        //System.out.print("Enter your command: ");
-        return scanner.nextLine();
-    }
+
 
     /**
      * Displays a message indicating a deleted command.
@@ -72,24 +42,8 @@ public class Ui {
         return res;
     }
 
-    /**
-     * Gets user input from the command line, expecting a single word.
-     *
-     * @return The user's input command as a String.
-     */
-    public String getUserInput2() {
-        //System.out.print("Enter your command: ");
-        return scanner.next();
-    }
 
-    /**
-     * Gets user input as an integer from the command line.
-     *
-     * @return The user's input as an integer.
-     */
-    public int getUserInputInt() {
-        return scanner.nextInt();
-    }
+
 
     /**
      * Checks if the next input is an integer.
