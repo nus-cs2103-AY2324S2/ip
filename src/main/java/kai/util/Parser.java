@@ -18,11 +18,11 @@ public class Parser {
         if (inputCommand.equals("list")) {
             result = tasklist.listDownTask();
         } else if (inputCommand.startsWith("mark")) {
-            char pos = inputCommand.charAt(5);
+            String pos = inputCommand.substring(5);
             int index = Integer.parseInt(String.valueOf(pos));
             result = tasklist.markTask(index);
         } else if (inputCommand.startsWith("unmark")) {
-            char pos = inputCommand.charAt(7);
+            String pos = inputCommand.substring(7);
             int index = Integer.parseInt(String.valueOf(pos));
             result = tasklist.unmarkTask(index);
         } else if (inputCommand.startsWith("todo")) {
@@ -49,7 +49,7 @@ public class Parser {
             Task event = new Event(separate[0], separate[1]);
             result = tasklist.addTask(event);
         } else if (inputCommand.startsWith("delete")) {
-            char pos = inputCommand.charAt(7);
+            String pos = inputCommand.substring(7);
             int index = Integer.parseInt(String.valueOf(pos));
             result = tasklist.deleteTask(index);
         } else if (inputCommand.startsWith("find")) {
