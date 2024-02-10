@@ -34,13 +34,14 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    /** Find list of item based on input by matching the keywords */
     public String matchItem(String[] matches) {
-      for (String match: matches) {
-        if (item.contains(match)) {
-          return item;
+        for (String match: matches) {
+            if (item.contains(match)) {
+                return item;
+            }
         }
-      } 
-      return null;
+        return null;
     }
 
     public String toString() {

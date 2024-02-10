@@ -5,6 +5,7 @@ import tasklist.TaskList;
 import tasklist.Ui;
 import tasklist.tasks.Task;
 
+/** Represents a command to list all tasks in the tasklist. Implements the Command interface. */
 public class ListCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

@@ -1,8 +1,21 @@
 package tasklist;
 
-import tasklist.commands.*;
+import tasklist.commands.AddCommand;
+import tasklist.commands.Command;
+import tasklist.commands.DeleteCommand;
+import tasklist.commands.ExitCommand;
+import tasklist.commands.FindCommand;
+import tasklist.commands.HelpCommand;
+import tasklist.commands.InvalidCommand;
+import tasklist.commands.ListCommand;
+import tasklist.commands.MarkCommand;
 
+/**
+ * Handles all the parsing operations for input commands and text.
+ * Parse user input to specific commands.
+ */
 public class Parser {
+    /** enum constants representing commands in the program */
     public enum Commands {
         MARK,
         UNMARK,
@@ -25,13 +38,14 @@ public class Parser {
         }
     }
 
+    /** Parse input text to commands */
     public static Command parseCommand(String userInput) {
         String[] inputList = userInput.split(" ", 2);
         if (inputList.length != 1) { // indicates one of the other commands
             switch (getCommand(inputList[0])) {
-			case FIND: 
-				return new FindCommand(inputList[1]);
-				
+            case FIND:
+                return new FindCommand(inputList[1]);
+
             case MARK:
                 try {
                     return new MarkCommand(Integer.parseInt(inputList[1]), true);
@@ -82,7 +96,7 @@ public class Parser {
             switch (getCommand(userInput)) {
             case BYE:
                 return new ExitCommand();
-                
+
             case LIST:
                 return new ListCommand();
 

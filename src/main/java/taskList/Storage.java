@@ -10,6 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Handles all the storage operations such as saving and loading data to/from a file.
+ */
 public class Storage {
     private String filePath;
 
@@ -17,6 +20,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /** Store current task list to filepath */
     public void saveTasks(TaskList theList) {
         try (ObjectOutputStream objectOutputStream =
                 new ObjectOutputStream(new FileOutputStream(this.filePath))) {
@@ -26,6 +30,7 @@ public class Storage {
         }
     }
 
+    /** Load task list from file path to program */
     public TaskList loadTasks() {
         if (!Files.exists(Paths.get(filePath))) {
             try {
@@ -47,8 +52,9 @@ public class Storage {
                 return (TaskList) obj;
             }
         } catch (EOFException e) {
+            // Expected when end of file is reached, no action needed.
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace(); // Handle the exception according to your needs
+            e.printStackTrace();
         }
 
         return new TaskList(new ArrayList<>());
