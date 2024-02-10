@@ -18,6 +18,8 @@ public class Ui {
     private static final String UNMARK_TASK = "OK, I've marked this task as not done yet:\n";
     private static final String DELETE_TASK = "Noted. I've removed this task:\n";
     private static final String LIST_TASKS = "Here are the tasks in your list:\n";
+    private static final String FOUND_TASKS = "Here are the matching tasks in your list:\n";
+    private static final String FOUND_NO_TASKS = "I am sorry. There are no tasks that match your query!\n";
     private static final String INVALID_INPUT = "Invalid input, please double check your input values!\n";
     private static final String INVALID_COMMAND = "Invalid command, please only use the following commands:\n" +
             "todo, deadline, event, list, mark, unmark, delete, bye \n";
@@ -124,5 +126,10 @@ public class Ui {
      */
     public void listTasks(TaskList taskList) {
         System.out.println(SPACING + LIST_TASKS + taskList + SPACING);
+    }
+
+    public void listFoundTasks(TaskList filteredTaskList) {
+        String displayString = filteredTaskList.getLength() > 0 ? FOUND_TASKS : FOUND_NO_TASKS;
+        System.out.println(SPACING + displayString + filteredTaskList + SPACING);
     }
 }

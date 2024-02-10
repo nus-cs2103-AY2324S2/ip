@@ -17,6 +17,10 @@ public abstract class Task {
         isDone = false;
     }
 
+    public boolean hasQueryInDescription(String query) {
+        return description.contains(query);
+    }
+
     /**
      * Marks the task as completed.
      */

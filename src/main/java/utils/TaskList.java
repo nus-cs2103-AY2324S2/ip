@@ -31,6 +31,10 @@ public class TaskList {
         FileManager.writeFile(FILE_NAME, this);
     }
 
+    public void addTaskWithoutFileWrite(Task t) {
+        list.add(t);
+    }
+
     /**
      * Returns the number of tasks in the list.
      */
@@ -72,6 +76,16 @@ public class TaskList {
      */
     public Task deleteTask(int i) {
         return list.remove(i);
+    }
+
+    public TaskList findTasks(String query) {
+        TaskList filteredTask = new TaskList();
+        for (Task task: list) {
+            if (task.hasQueryInDescription(query)) {
+                filteredTask.addTaskWithoutFileWrite(task);
+            }
+        }
+        return filteredTask;
     }
 
     public String convertTaskListToFileString() {
