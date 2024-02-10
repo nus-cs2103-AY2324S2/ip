@@ -17,6 +17,7 @@ public class Ui {
             + "ToDos: e.g. todo clean my room\n"
             + "Deadlines: e.g. deadline submit homework /by 2021-4-1 21\n"
             + "Events: e.g. event lecture /from 2021-4-2 14 /to 2021-4-2 16\n"
+            + "DoAfter: e.g. return book /after this Sunday\n"
             + emptyLine
             + "Here are the commands that I can understand:)\n"
             + "\"list\": I will display the latest task list.\n"

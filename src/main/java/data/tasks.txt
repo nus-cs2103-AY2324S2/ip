@@ -8,3 +8,4 @@ D | 0 | wash cloth | 2024-03-03T09:00
 D | 0 | hw | 2021-03-14T08:00
 T | 0 | find room
 T | 0 | eat lunch
+DA | 0 | return sunglasses | hiking

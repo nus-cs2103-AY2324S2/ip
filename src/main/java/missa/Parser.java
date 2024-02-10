@@ -18,6 +18,7 @@ import missa.exception.NoContentException;
 import missa.exception.NoSuchTaskException;
 import missa.exception.NoTimingException;
 import missa.task.Deadline;
+import missa.task.DoAfter;
 import missa.task.Event;
 import missa.task.Task;
 import missa.task.ToDo;
@@ -64,9 +65,31 @@ public class Parser {
             return getAddDdlCommand(tasks, task);
         } else if (taskType.equals("event")) { // Checks if the task type is event.
             return getAddEventCommand(tasks, task);
+        } else if (input.contains("/after")) { // Checks if the task type is do-after.
+            return getAddDoAfterCommand(input, tasks);
         } else {
             throw new IncorrectTaskTypeException();
         }
+    }
+
+    /**
+     * Returns add command that adds a do-after task.
+     *
+     * @param input User input containing task content and condition.
+     * @param tasks Task list to store tasks.
+     * @return Add command to add tasks.
+     * @throws NoContentException Alerts users there is missing task info.
+     */
+    private static AddCommand getAddDoAfterCommand(String input, TaskList tasks)
+            throws NoContentException {
+        String[] taskInfo = input.split(" /after ");
+        if (taskInfo.length < 2) {
+            throw new NoContentException();
+        }
+        String content = taskInfo[0];
+        String taskCondition = taskInfo[1];
+        Task t1 = new DoAfter(content, taskCondition);
+        return new AddCommand(t1, tasks);
     }
 
     /**

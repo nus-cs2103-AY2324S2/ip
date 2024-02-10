@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import missa.exception.WrongTaskDataException;
 import missa.task.Deadline;
+import missa.task.DoAfter;
 import missa.task.Event;
 import missa.task.Task;
 import missa.task.ToDo;
@@ -59,9 +60,30 @@ public class Storage {
             return getDeadlineTask(taskContent);
         case "E":
             return getEventTask(taskContent);
+        case "DA":
+            return getDoAfterTask(taskContent);
         default:
             throw new WrongTaskDataException();
         }
+    }
+
+    /**
+     * Returns a do-after task
+     *
+     * @param taskContent Content and condition of the task.
+     * @return A do-after task.
+     * @throws WrongTaskDataException Alerts users that data file stores incorrect info.
+     */
+    private static Task getDoAfterTask(String[] taskContent)
+            throws WrongTaskDataException {
+        if (taskContent.length != 4) {
+            throw new WrongTaskDataException();
+        }
+        Task t4 = new DoAfter(taskContent[2], taskContent[3]);
+        if (taskContent[1].equals("1")) {
+            t4.mark();
+        }
+        return t4;
     }
 
     /**
