@@ -1,13 +1,6 @@
 package utils;
 
-import commands.AddCommand;
-import commands.CommandType;
-import commands.Command;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
-import commands.ListCommand;
-import commands.DeleteCommand;
-import commands.ExitCommand;
+import commands.*;
 
 /**
  * The Parser class parses user input and returns the corresponding command object.
@@ -38,6 +31,8 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(input[1]));
         case DELETE:
             return new DeleteCommand(Integer.parseInt(input[1]));
+        case FIND:
+            return new FindCommand(input[1]);
         default:
             return new ExitCommand();
         }

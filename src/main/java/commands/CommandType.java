@@ -40,6 +40,11 @@ public enum CommandType {
     DELETE,
 
     /**
+     * Command to find a task by searching for a keyword.
+     */
+    FIND,
+
+    /**
      * Command to exit the application.
      */
     BYE
