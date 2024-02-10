@@ -1,13 +1,13 @@
 package eggy.command;
 
-import eggy.exception.EggyException;
 import eggy.exception.IncompleteCommandException;
+import eggy.exception.SaveTasksException;
 import eggy.exception.TaskListIndexOutOfBoundsException;
 import eggy.exception.TaskNumberFormatException;
+import eggy.response.Response;
 import eggy.storage.Storage;
 import eggy.task.Task;
 import eggy.task.TaskList;
-import eggy.ui.Ui;
 
 /**
  * Represents a command to mark a task as done.
@@ -43,11 +43,19 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Marks a task as done from the task list and saves the task list to the storage.
+     *
+     * @param tasks The task list of the chatbot.
+     * @param response The response of the chatbot.
+     * @param storage The storage of the chatbot.
+     * @throws SaveTasksException If there is an error saving the task list to the storage.
+     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EggyException {
+    public void execute(TaskList tasks, Response response, Storage storage) throws SaveTasksException {
         Task task = tasks.getTask(index);
         task.markDone();
-        ui.printTaskMarkedDone(task);
+        response.setTaskMarkedDoneResponse(task);
         storage.save(tasks);
     }
 }

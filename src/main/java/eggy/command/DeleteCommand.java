@@ -4,10 +4,10 @@ import eggy.exception.IncompleteCommandException;
 import eggy.exception.SaveTasksException;
 import eggy.exception.TaskListIndexOutOfBoundsException;
 import eggy.exception.TaskNumberFormatException;
+import eggy.response.Response;
 import eggy.storage.Storage;
 import eggy.task.Task;
 import eggy.task.TaskList;
-import eggy.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -47,14 +47,14 @@ public class DeleteCommand extends Command {
      * Deletes a task from the task list and saves the task list to the storage.
      *
      * @param tasks The task list of the chatbot.
-     * @param ui The user interface of the chatbot.
+     * @param response The response of the chatbot.
      * @param storage The storage of the chatbot.
      * @throws SaveTasksException If there is an error saving the task list to the storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveTasksException {
+    public void execute(TaskList tasks, Response response, Storage storage) throws SaveTasksException {
         Task task = tasks.removeTask(index);
-        ui.printTaskRemoved(task, tasks.getSize());
+        response.setTaskRemovedResponse(task, tasks.getSize());
         storage.save(tasks);
     }
 }

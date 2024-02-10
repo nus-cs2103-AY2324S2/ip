@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import eggy.exception.DateTimeFormatException;
 import eggy.exception.IncompleteTaskException;
 import eggy.exception.SaveTasksException;
+import eggy.response.Response;
 import eggy.storage.Storage;
 import eggy.task.Deadline;
 import eggy.task.TaskList;
-import eggy.ui.Ui;
 
 /**
  * Represents a command to add a deadline to the task list.
@@ -42,15 +42,15 @@ public class DeadlineCommand extends Command {
      * Adds a deadline to the task list and saves the task list to the storage.
      *
      * @param tasks The task list of the chatbot.
-     * @param ui The user interface of the chatbot.
+     * @param response The response of the chatbot.
      * @param storage The storage of the chatbot.
      * @throws SaveTasksException If there is an error saving the task list to the storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveTasksException {
+    public void execute(TaskList tasks, Response response, Storage storage) throws SaveTasksException {
         Deadline newDeadline = new Deadline(this.name, this.by);
         tasks.addTask(newDeadline);
-        ui.printTaskAdded(newDeadline, tasks.getSize());
+        response.setTaskAddedResponse(newDeadline, tasks.getSize());
         storage.save(tasks);
     }
 
