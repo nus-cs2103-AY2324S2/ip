@@ -17,6 +17,10 @@ public class Task {
         this.isComplete = false;
     }
 
+    protected void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * Factory method for Tasks.
      *
@@ -26,25 +30,13 @@ public class Task {
      *                         invalid request.
      */
     public static Task taskFactory(String name, char taskType) throws NicoleException {
-        switch(taskType) {
-            case 'T':
-                return new Todo(name);
-            case 'D':
-                return new Deadline(name);
-            case 'E':
-                return new Event(name);
-            default:
-                assert(false);
-                return null;
+        if (taskType == 'T') {
+            return new Todo(name);
+        } else if (taskType == 'D') {
+            return new Deadline(name);
+        } else {
+            return new Event(name);
         }
-    }
-
-    /**
-     * Overwrites the name of this task.
-     *
-     */
-    public void updateName(String newTaskName) {
-        name = newTaskName;
     }
 
     /**
@@ -102,6 +94,14 @@ public class Task {
      */
     public LocalDateTime getToDateTime() {
         return LocalDateTime.parse("-999999999-01-01T00:00:00");
+    }
+
+    /**
+     * Overwrites the name of this task.
+     *
+     */
+    public void updateName(String newTaskName) {
+        name = newTaskName;
     }
 
     /**

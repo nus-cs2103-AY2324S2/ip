@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getNicoleDialog(Ui.greetUser(), nicoleImage)
+                DialogBox.getNicoleDialog(Ui.greet(), nicoleImage)
         );
     }
     public void setNicole(Nicole n) {
@@ -84,7 +84,7 @@ public class MainWindow extends AnchorPane {
         } else {
             try {
                 Ui ui = new Ui();
-                String response = ui.interactWithUser(input);
+                String response = ui.talkToUser(input);
                 dialogContainer.getChildren().addAll(
                         DialogBox.getUserDialog(input, userImage),
                         DialogBox.getNicoleDialog(response, nicoleImage)

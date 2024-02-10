@@ -30,7 +30,7 @@ public class Deadline extends Task {
         for (int i = 0; i < whiteSpaceSeparatedDate.length - 1; i++) {
             deadlineDescription.append(whiteSpaceSeparatedDate[i]).append(" ");
         }
-        super.updateName(deadlineDescription.toString().trim());
+        super.setName(deadlineDescription.toString().trim());
 
         String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
         try {
