@@ -18,7 +18,7 @@
             stylesheets="@styles.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="jmsandiegoo.tyrone.controllers.MainWindowController">
+            fx:controller="jmsandiegoo.tyrone.ui.MainWindowController">
     <top>
         <HBox
                 styleClass="chat-header-hbox"
@@ -43,7 +43,7 @@
                 xmlns="http://javafx.com/javafx/17"
                 xmlns:fx="http://javafx.com/fxml/1">
             <TextField fx:id="userInputTextField" HBox.hgrow="ALWAYS" onAction="#handleUserInput" styleClass="user-input-textfield"/>
-            <Button fx:id="userInputButton" text="Send" onAction="#handleUserInput" styleClass="user-input-button"/>
+            <Button fx:id="userInputSendButton" text="Send" onAction="#handleUserInput" styleClass="user-input-button"/>
         </HBox>
     </bottom>
 </BorderPane>

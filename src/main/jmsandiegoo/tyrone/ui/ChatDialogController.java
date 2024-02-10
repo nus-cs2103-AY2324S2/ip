@@ -1,4 +1,4 @@
-package jmsandiegoo.tyrone.controllers;
+package jmsandiegoo.tyrone.ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +14,10 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * Controller class for the ChatDialog fxml file. It represents the
+ * chat dialog messages in the application's gui.
+ */
 public class ChatDialogController extends HBox {
     @FXML
     private Label message;

@@ -2,16 +2,17 @@ package jmsandiegoo.tyrone.common;
 
 public class Messages {
     /* General messages */
-    public static String MESSAGE_LOGO = "████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n"
-            + "╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝\n"
-            + "   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗\n"
-            + "   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝\n"
-            + "   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗\n"
-            + "   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝";
-    public static String MESSAGE_GREET = "Yo, what's crackin' fam! I'm Tyrone, your digital homie.\n"
+//    public static String MESSAGE_LOGO = "████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n"
+//            + "╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝\n"
+//            + "   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗\n"
+//            + "   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝\n"
+//            + "   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗\n"
+//            + "   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝";
+
+    public static String MESSAGE_GREET = "Yo, what's crackin' fam! I'm Tyrone, your digital homie.\n\n"
             + "What's the word? So I can help you out today.";
 
-    public static String MESSAGE_ADD_TASK = "Got it added homie:\n%1s\n"
+    public static String MESSAGE_ADD_TASK = "Got it added homie:\n\n%1s\n"
             + "Now you have %2d in the list.";
 
     /* General Exception messages */
@@ -22,14 +23,14 @@ public class Messages {
     public static String MESSAGE_INCORRECT_COMMAND_INDEX = "Your %1s id is acting up.\n"
             + "Double check that: 1 <= id <= task list size";
     public static String MESSAGE_INITIALIZE_FAIL = "Hey fam, I messed up my system initialization. Exiting...";
-    public static String MESSAGE_ERROR = "Hey homie, we've got a hiccup...\n%1s";
+    public static String MESSAGE_ERROR = "Hey homie, we've got a hiccup...\n\n%1s";
     public static String MESSAGE_BYE = "Peace out! Crossin' my fingers for a speedy reunion, ya feel?";
 
     /* List command messages */
     public static String MESSAGE_LIST = "Peep the lineup, here's the rundown of tasks on your list:\n%1s";
 
     /* Todo command messages */
-    public static String MESSAGE_TODO_EMPTY_DESC = "Can't leave that to-do description hanging dry.\n"
+    public static String MESSAGE_TODO_EMPTY_DESC = "Can't leave that to-do description hanging dry. "
             + "Gotta drop some words in there!";
 
     /* Deadline command messages */
