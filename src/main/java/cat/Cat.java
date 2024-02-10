@@ -1,15 +1,15 @@
-package duke;
+package cat;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import duke.command.Command;
-import duke.ui.Ui;
+import cat.command.Command;
+import cat.ui.Ui;
 
 /**
  * The main class of the Duke program.
  */
-public class Duke {
+public class Cat {
     private static final String FILE_NAME = "duke.state";
 
     private TaskList tasks;
@@ -21,7 +21,7 @@ public class Duke {
      *
      * @param fileName file to store state to
      */
-    public Duke(String fileName) {
+    public Cat(String fileName) {
         assert fileName != null : "File name must not be null";
 
         storage = new Storage(fileName);
@@ -36,7 +36,7 @@ public class Duke {
     /**
      * Default constructor to launch from JavaFX.
      */
-    public Duke() {
+    public Cat() {
         this(FILE_NAME);
     }
 

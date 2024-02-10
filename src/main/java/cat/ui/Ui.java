@@ -1,8 +1,8 @@
-package duke.ui;
+package cat.ui;
 
 import java.util.Scanner;
 
-import duke.task.Task;
+import cat.task.Task;
 
 /**
  * The user interface management class. This class is the centralized interface for input and output to the program.

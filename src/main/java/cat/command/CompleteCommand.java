@@ -1,9 +1,9 @@
-package duke.command;
+package cat.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.task.Task;
-import duke.ui.Ui;
+import cat.Storage;
+import cat.TaskList;
+import cat.task.Task;
+import cat.ui.Ui;
 
 /**
  * A command to change the completion status of a task.

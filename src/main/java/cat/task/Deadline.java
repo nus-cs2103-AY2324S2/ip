@@ -1,4 +1,4 @@
-package duke.task;
+package cat.task;
 
 import java.time.LocalDateTime;
 import java.util.Map;

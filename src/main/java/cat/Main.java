@@ -1,8 +1,8 @@
-package duke;
+package cat;
 
 import java.io.IOException;
 
-import duke.ui.MainWindow;
+import cat.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * This sets up the main GUI window and hooks up a Duke instance to it.
  */
 public class Main extends Application {
-    private final Duke duke = new Duke();
+    private final Cat cat = new Cat();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(cat);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,6 +32,6 @@ public class Main extends Application {
 
     @Override
     public void stop() {
-        duke.save();
+        cat.save();
     }
 }

@@ -1,4 +1,4 @@
-package duke.task;
+package cat.task;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

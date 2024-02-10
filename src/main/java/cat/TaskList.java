@@ -1,11 +1,11 @@
-package duke;
+package cat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import duke.task.Task;
+import cat.task.Task;
 
 /**
  * The list of tasks in the program.

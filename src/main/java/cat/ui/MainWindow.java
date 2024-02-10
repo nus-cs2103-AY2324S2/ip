@@ -1,6 +1,6 @@
-package duke.ui;
+package cat.ui;
 
-import duke.Duke;
+import cat.Cat;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,7 +21,7 @@ public class MainWindow {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Cat cat;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -31,14 +31,14 @@ public class MainWindow {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Cat d) {
+        cat = d;
     }
 
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = cat.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

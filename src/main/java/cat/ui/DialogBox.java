@@ -1,4 +1,4 @@
-package duke.ui;
+package cat.ui;
 
 import java.io.IOException;
 

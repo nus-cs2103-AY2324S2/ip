@@ -1,14 +1,14 @@
-package duke.command;
+package cat.command;
 
 import java.util.HashMap;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.ui.Ui;
+import cat.Storage;
+import cat.TaskList;
+import cat.task.Deadline;
+import cat.task.Event;
+import cat.task.Task;
+import cat.task.Todo;
+import cat.ui.Ui;
 
 /**
  * A command to add a task to the task list.

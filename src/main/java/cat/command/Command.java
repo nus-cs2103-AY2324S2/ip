@@ -1,8 +1,8 @@
-package duke.command;
+package cat.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.ui.Ui;
+import cat.Storage;
+import cat.TaskList;
+import cat.ui.Ui;
 
 /**
  * An abstraction for the commands of the program.

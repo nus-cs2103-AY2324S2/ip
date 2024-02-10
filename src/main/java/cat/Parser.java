@@ -1,15 +1,15 @@
-package duke;
+package cat;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.CompleteCommand;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
+import cat.command.AddCommand;
+import cat.command.Command;
+import cat.command.CompleteCommand;
+import cat.command.DeleteCommand;
+import cat.command.ExitCommand;
+import cat.command.FindCommand;
+import cat.command.ListCommand;
 
 /**
  * Used to parse user commands.
