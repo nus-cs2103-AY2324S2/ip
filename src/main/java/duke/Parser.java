@@ -8,13 +8,28 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and executes corresponding actions in the Duke application.
+ */
 public class Parser {
+    /**
+     * The user input to be parsed and executed.
+     */
     private String input;
-    //constructor
+    /**
+     * Constructs a Parser object with the given user input.
+     *
+     * @param input The user input to be parsed and executed.
+     */
     public Parser(String input){
         this.input = input;
     }
-
+    /**
+     * Executes the corresponding action based on the parsed user input.
+     *
+     * @param tasks The task list to perform actions on.
+     * @param ui    The user interface to interact with the user.
+     */
     public void execute(TaskList tasks, Ui ui){
         String line = "------------------------------";
         String[] elems = input.split(" ", 2);
@@ -98,7 +113,6 @@ public class Parser {
                 }
                 System.out.println(line);
                 break;
-            //duke.Event
             case "event":
                 String[] fromto = elems[1].split("/", 3);
 
@@ -114,11 +128,9 @@ public class Parser {
                 }
                 if(toDate != null & fromDate!=null) {
                     Task e = new Event(fromto[0], fromDate, toDate);
-                    //lst[i] = e;
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e.toString());
                     i++;
-                    //saveToFile(i, lst);
                     tasks.addTask(e);
                     System.out.println("Now you have " + i + " task(s) in your list!");
                     System.out.println(line);
@@ -132,10 +144,6 @@ public class Parser {
                     tasks.deleteTask(toDelete);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(tasks.getTask(toDelete).toString());
-//                for(int p = toDelete; p< i; p++){
-//                    lst[p] = lst[p+1];
-//                    }
-//                    lst[i - 1] = null;
                     i--;
                     System.out.println("Now you have " + i + " task(s) in the list.");
                 } else {
