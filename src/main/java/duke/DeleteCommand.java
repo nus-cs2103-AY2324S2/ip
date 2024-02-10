@@ -21,11 +21,12 @@ public class DeleteCommand extends Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
+     * @return
      */
     @Override
-    public void execute(State state, Ui ui) {
+    public String execute(State state, Ui ui) {
         Task taskToRemove = state.getTask(index);
         state.getTasks().remove(index);
-        ui.say("Mamma-mia!\n" + taskToRemove + "\nRemoved!");
+        return "Mamma-mia!\n" + taskToRemove + "\nRemoved!";
     }
 }

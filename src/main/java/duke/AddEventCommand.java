@@ -26,15 +26,16 @@ public class AddEventCommand extends Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
+     * @return
      */
     @Override
-    public void execute(State state, Ui ui) {
+    public String execute(State state, Ui ui) {
         Task newEvent = new Event(
                 getText(),
                 start,
                 deadline,
                 false);
         state.addTask(newEvent);
-        ui.say("I added!–\n" + newEvent + "\n–Mamma-mia!");
+        return "I added!–\n" + newEvent + "\n–Mamma-mia!";
     }
 }

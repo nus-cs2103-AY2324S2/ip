@@ -52,6 +52,7 @@ public abstract class Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
+     * @return
      */
-    public abstract void execute(State state, Ui ui);
+    public abstract String execute(State state, Ui ui);
 }
