@@ -36,7 +36,7 @@ public class Bob {
 
         boolean isNotExit = true;
         while (isNotExit) {
-            isNotExit = Parser.listen();
+            isNotExit = Parser.parse();
         }
     }
 }

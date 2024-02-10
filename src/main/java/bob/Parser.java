@@ -40,7 +40,7 @@ public class Parser {
         return result;
     }
 
-    public static void processDeleteOrMarkCommands(String[] commandArgs) throws NumberFormatException,
+    public static void parseDeleteOrMarkCommands(String[] commandArgs) throws NumberFormatException,
             InvalidTaskIndexException, ArrayIndexOutOfBoundsException {
         int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
         if (commandArgs[0].equals(Parser.DELETE)) {
@@ -50,7 +50,7 @@ public class Parser {
         }
     }
 
-    public static void processAddCommands(String[] commandArgs) throws EmptyDescriptionException {
+    public static void parseAddCommands(String[] commandArgs) throws EmptyDescriptionException {
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
@@ -80,7 +80,7 @@ public class Parser {
         }
     }
 
-    public static boolean listen() {
+    public static boolean parse() {
         String command = SCANNER.nextLine();
         String[] commandArgs = command.split(" ", 2);
 
@@ -99,7 +99,7 @@ public class Parser {
             // Fallthrough
         case Parser.MARK:
             try {
-                processDeleteOrMarkCommands(commandArgs);
+                parseDeleteOrMarkCommands(commandArgs);
             } catch (NumberFormatException e) {
                 // The more "correct" way is to throw an InvalidTaskIndexException?
                 Ui.print(String.format(Ui.INVALID_TASK_INDEX, commandArgs[1]));
@@ -116,7 +116,7 @@ public class Parser {
             // Fallthrough
         case Parser.EVENT:
             try {
-                processAddCommands(commandArgs);
+                parseAddCommands(commandArgs);
             } catch (EmptyDescriptionException e) {
                 Ui.print(e.getMessage());
             }
