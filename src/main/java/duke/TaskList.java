@@ -46,6 +46,7 @@ public class TaskList {
      * @return Task that was deleted
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < this.tasks.size() : "Index out of bounds";
         return this.tasks.remove(index);
     }
 
@@ -55,6 +56,7 @@ public class TaskList {
      * @param index Index of the task to be marked as done
      */
     public void markTaskAsDone(int index) {
+        assert index >= 0 && index < this.tasks.size() : "Index out of bounds";
         this.tasks.get(index).markAsDone();
     }
 
@@ -64,6 +66,7 @@ public class TaskList {
      * @param index Index of the task to be marked as undone
      */
     public void markTaskAsUndone(int index) {
+        assert index >= 0 && index < this.tasks.size() : "Index out of bounds";
         this.tasks.get(index).markAsUndone();
     }
 
@@ -74,6 +77,7 @@ public class TaskList {
      * @return Task of the given index
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < this.tasks.size() : "Index out of bounds";
         return this.tasks.get(index);
     }
 

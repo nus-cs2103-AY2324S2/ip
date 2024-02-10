@@ -21,6 +21,7 @@ public class Parser {
      * @throws DukeException If the input string is not a valid command
      */
     public Command parse(String input) throws DukeException {
+        assert input != null : "Input string should not be null";
         String[] parts = input.split(" ");
         switch (parts[0]) {
             case "bye":
