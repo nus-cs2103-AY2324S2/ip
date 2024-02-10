@@ -40,9 +40,8 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
         dialog.setText(text);
-        dialog.setWrapText(true);
-        dialog.setPrefWidth(500);
         displayPicture.setImage(img);
+        this.setAlignment(Pos.TOP_RIGHT);
     }
 
     /**

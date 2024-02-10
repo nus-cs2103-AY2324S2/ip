@@ -1,30 +1,119 @@
-# Duke User Guide
+# KaiYap Task Manager
 
-// Update the title above to match the actual product name
+![KaiYap Application Screenshot](Ui.png)
 
-// Product screenshot goes here
+Welcome to **KaiYap Task Manager**, a straightforward and efficient tool designed to help you keep track of your tasks, deadlines, and events. Whether you need to manage your daily to-dos, keep up with important deadlines, or schedule events, KaiYap makes it easy and intuitive.
+___
+## Adding Tasks
 
-// Product intro goes here
+To add a task to your list, simply use the command associated with the type of task you want to add. KaiYap supports three types of tasks: Todos, Deadlines, and Events.
 
-## Adding deadlines
+### Adding Todos
 
-// Describe the action and its outcome.
+A Todo is a task without a specific deadline.
 
-// Give examples of usage
+**Example:** `todo Read a book`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+**Expected Outcome:**
 
 ```
-expected output
+_______________________________________
+Got it. I've added this task:
+    [T][] Read a book
+You now have X tasks in the list.
+_______________________________________
 ```
+___
+### Adding Deadlines
 
-## Feature ABC
+A Deadline is a task that needs to be completed by a certain date and time. The deadline is expected in dd/MM/yyyy HH:mm format. 
 
-// Feature details
+**Example:** `deadline Submit assignment /by 17/02/2024 2359`
 
+**Expected Outcome:**
 
-## Feature XYZ
+```
+_______________________________________
+Got it. I've added this task:
+    [D][] Submit assignment (by: 17/02/2024 23:59)
+You now have X tasks in the list.
+_______________________________________
+```
+___
+### Adding Events
 
-// Feature details
+An Event is a task that occurs at a specific time.
+
+**Example:** `event Project meeting /from 12/02/2024 1400 /to 12/02/2024 1600`
+
+**Expected Outcome:**
+```
+_______________________________________
+Got it. I've added this task:
+    [E][] Project meeting (from: 12/02/2024 14:00 to: 12/02/2024 16:00)
+You now have X tasks in the list.
+_______________________________________
+```
+___
+## Listing Tasks
+
+To view all your tasks, simply enter the command `list`.
+
+**Example:** `list`
+
+**Expected Outcome:**
+
+```
+_______________________________________
+Here are the tasks in your list:
+1. [T][] Read a book
+2. [D][] Submit assignment (by: 17/02/2024 23:59)
+3. [E][] Project meeting (from: 12/02/2024 14:00 to: 12/02/2024 16:00)
+_______________________________________
+```
+___
+## Marking Tasks as Done
+
+To mark a task as done, use the `mark` command followed by the task number(s).
+
+**Example:** `mark 1 2`
+
+**Expected Outcome:**
+```
+_______________________________________
+Nice! I've marked these tasks as done:
+    [T][X] Read a book
+    [D][X] Submit assignment (by: 17/02/2024 23:59)
+_______________________________________
+```
+---
+## Deleting Tasks
+
+To delete a task from your list, use the `delete` command followed by the task number.
+
+**Example:** `delete 1`
+
+**Expected Outcome:**
+```
+_______________________________________
+Noted. I've removed this task:
+    [T][X] Read a book
+You now have 2 tasks in the list.
+_______________________________________
+```
+___
+## Finding Tasks
+
+To search for tasks containing a specific keyword, use the `find` command followed by the keyword.
+
+**Example:** `find assignment`
+
+**Expected Outcome:**
+```
+_______________________________________
+Here are the matching tasks in your list:
+1. [D][X] Submit assignment (by: 17/02/2024 23:59)
+_______________________________________
+```
+---
+*This guide provides a basic overview of using KaiYap Task Manager. Explore further to discover more functionalities and customize your task management experience.*

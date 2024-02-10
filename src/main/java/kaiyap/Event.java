@@ -31,9 +31,9 @@ public class Event extends Task {
                 + (this.completedTask ? "[X] " : "[ ] ")
                 + this.listItem
                 + " (from: "
-                + this.startTime
+                + this.dtf.format(this.startTime)
                 + " to: "
-                + this.endTime
+                + this.dtf.format(this.endTime)
                 + ")";
     }
 }

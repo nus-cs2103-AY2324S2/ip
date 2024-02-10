@@ -26,15 +26,6 @@ public class KaiYap {
     private final Parser parser;
 
     /**
-     * Enumerates the types of tasks that can be managed by the KaiYap application.
-     * The task types include DEADLINE for tasks with a specific deadline,
-     * EVENT for scheduled events, and TODO for tasks without a specific time constraint.
-     */
-    public enum TaskType {
-        DEADLINE, EVENT, TODO
-    }
-
-    /**
      * Initializes a new instance of the KaiYap application.
      * This constructor sets up the user interface, task list, storage, and parser components,
      * and prepares the system for user interaction.
@@ -56,6 +47,19 @@ public class KaiYap {
         this.parser = new Parser();
 
         storage.loadData();
+    }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    /**
+     * Enumerates the types of tasks that can be managed by the KaiYap application.
+     * The task types include DEADLINE for tasks with a specific deadline,
+     * EVENT for scheduled events, and TODO for tasks without a specific time constraint.
+     */
+    public enum TaskType {
+        DEADLINE, EVENT, TODO
     }
 
     /**

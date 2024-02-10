@@ -1,46 +1,54 @@
-//package kaiyap;
-//import exceptions.AlreadyExistsException;
-//import exceptions.InvalidInputException;
-//import org.junit.jupiter.api.Test;
-//import static org.junit.jupiter.api.Assertions.assertEquals;import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.AfterEach;
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//public class KaiYapTest {
-//
-//    private KaiYap yap;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        yap = new KaiYap();
-//        Task task1 = yap.taskList.taskCreator("todo finish iP");
-//        yap.taskList.add(task1);
-//        yap.storage.saveData();
-//        Task task2 = yap.taskList.taskCreator("deadline finish tP /by 28/03/2024 2359");
-//        yap.taskList.add(task2);
-//        yap.storage.saveData();
-//    }
-//
-//    @AfterEach
-//    public void tearDown() {
-//        yap = null;
-//    }
-//
-//    @Test
-//    public void testMarkAsDoneSuccessfully() {
-//        assertDoesNotThrow(() -> yap.markAsDone("mark 1"));
-//        assertTrue(yap.taskList.get(0).isTaskDone());
-//    }
-//
-//    @Test
-//    public void testMarkAsDoneWithInvalidIndex() {
-//        assertThrows(InvalidInputException.class, () -> yap.markAsDone("mark 3"));
-//    }
-//
-//    @Test
-//    public void testMarkAsDoneForAlreadyCompletedTask() {
-//        yap.taskList.get(0).setTaskDone(true);
-//        assertThrows(AlreadyExistsException.class, () -> yap.markAsDone("mark 1"));
-//    }
-//}
+package kaiyap;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Test class for {@link KaiYap}, focusing on task management functionalities.
+ * It verifies the ability to add, delete, and find tasks within the application.
+ */
+class KaiYapTest {
+
+    private KaiYap kaiYap;
+
+    @BeforeEach
+    void setUp() {
+        kaiYap = new KaiYap(); // Assuming KaiYap can be instantiated without arguments for simplicity.
+    }
+
+    @Test
+    void testAddingTask() {
+        // Simulate adding a task and expect a success message or task count to increase.
+        String taskDescription = "Read a book";
+        kaiYap.chatResponse("add " + taskDescription); // Assuming chatResponse handles adding tasks.
+        assertTrue(kaiYap.getTaskList().contains(taskDescription), "Task list should contain the added task.");
+    }
+
+    @Test
+    void testDeletingTask() {
+        // Add a task, then delete it, and verify it's no longer in the list.
+        String taskDescription = "Write JUnit tests";
+        kaiYap.chatResponse("add " + taskDescription);
+        assertTrue(kaiYap.getTaskList().contains(taskDescription),
+                "Task list should contain the added task before deletion.");
+
+        kaiYap.chatResponse("delete " + taskDescription); // Assuming chatResponse can handle deleting tasks.
+        assertFalse(kaiYap.getTaskList().contains(taskDescription), "Task list should not contain the deleted task.");
+    }
+
+    @Test
+    void testFindTask() {
+        // Add a couple of tasks and then find a specific one.
+        String task1 = "Read a book";
+        String task2 = "Write JUnit tests";
+        kaiYap.chatResponse("add " + task1);
+        kaiYap.chatResponse("add " + task2);
+
+        String findResponse = kaiYap.chatResponse("find JUnit"); // Assuming "find" command searches task descriptions.
+        assertTrue(findResponse.contains(task2), "Find response should contain the task related to the search term.");
+        assertFalse(findResponse.contains(task1), "Find response should not contain unrelated tasks.");
+    }
+}

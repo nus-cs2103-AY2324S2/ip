@@ -202,4 +202,23 @@ public class TaskList {
                 .filter(t -> t.getListItem().toUpperCase().contains(keyword))
                 .collect(Collectors.toList());
     }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Determines if any task's description contains the given word.
+     *
+     * @param word The word to search for within task descriptions.
+     * @return true if the word is found in any description, false otherwise.
+     */
+    public boolean contains(String word) {
+        for (Task t : tasks) {
+            if (t.getListItem().contains(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

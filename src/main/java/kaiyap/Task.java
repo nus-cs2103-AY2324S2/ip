@@ -1,5 +1,7 @@
 package kaiyap;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a general task in the KaiYap application.
  * This class serves as a base for different types of tasks.
@@ -10,6 +12,7 @@ public class Task {
     protected String inputItem;
     protected String completed;
     protected boolean completedTask;
+    protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Constructs a new Task with the specified description and input.
@@ -39,4 +42,5 @@ public class Task {
     public String getInputItem() {
         return inputItem;
     }
+
 }

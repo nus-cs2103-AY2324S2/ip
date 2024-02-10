@@ -28,7 +28,7 @@ public class Deadline extends Task {
                 + (this.completedTask ? "[X] " : "[ ] ")
                 + this.listItem
                 + " (by: "
-                + this.deadline
+                + this.dtf.format(this.deadline)
                 + ")";
     }
 }
