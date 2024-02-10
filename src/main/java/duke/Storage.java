@@ -19,6 +19,7 @@ public class Storage {
      * @param filePath location of the state file
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path must not be null";
         file = new File(filePath);
     }
 

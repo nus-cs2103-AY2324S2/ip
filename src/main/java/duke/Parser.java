@@ -23,6 +23,8 @@ public class Parser {
      * @throws InvalidCommandData when the inputs of the command aren't as expected
      */
     public static Command parse(String commandText) throws InvalidCommandType, InvalidCommandData {
+        assert commandText != null : "Command to be parsed must not be null";
+
         Scanner scanner = new Scanner(commandText);
         String type = scanner.next();
 
@@ -71,6 +73,8 @@ public class Parser {
     }
 
     private static HashMap<String, String> parseComponents(String data) throws InvalidCommandData {
+        assert data != null : "data must not be null";
+
         HashMap<String, StringBuilder> builders = new HashMap<>();
 
         String key = "DESCRIPTION";
