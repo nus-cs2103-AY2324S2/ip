@@ -1,8 +1,5 @@
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TaskRepository {
     private final String FILE_PATH = "./data/taskStorage.txt";
@@ -10,63 +7,74 @@ public class TaskRepository {
 
     public TaskRepository() {
         try {
+            // Create the file if it does not exist
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
+            // init taskList
             this.taskList = new TaskList();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Populate the taskList with tasks from the file
     public TaskList loadTasks() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] splitOutput = line.split("\\|");
+                // System.out.println("Line: " + line);
+                String[] taskDetails = line.split("\\|");
+                String taskType = taskDetails[0].trim();
+                // System.out.println("Task Type: " + taskType);
+                String description = taskDetails[2].trim();
+                // System.out.println("Task Description: " + description);
+                switch (taskType) {
+                    case "T":
+                        // System.out.println("Adding Todo: " + description);
+                        taskList.addTodo(description);
+                        break;
+                    case "D":
+                        String dueDate = taskDetails[3].trim();
+                        // remove the "by:"
+                        dueDate = dueDate.substring(3);
+                        // System.out.println("Adding Deadline: " + description + " " + dueDate);
 
-                System.out.println("Reached");
-                System.out.println(Arrays.toString(splitOutput));
+                        taskList.addDeadline(description, dueDate);
+                        break;
+                    case "E":
+                        String timeBlock = taskDetails[3].trim();
+                        String[] parts = timeBlock.split("to:");
+                        String fromPart = parts[0]; // "from: 2021-09-17 14:00 "
+                        String toPart = parts[1]; // " 2021-09-17 16:00"
 
-                // switch (splitOutput[0]) {
-                // case "T":
-                // if (splitOutput[1].equals("X")) {
-                // taskList.addTodo(new Todo(true, splitOutput[2]));
-                // } else {
-                // TaskList.addTask(new Todo(false, splitOutput[2]));
-                // }
-                // break;
-                // case "D":
-                // if (splitOutput[1].equals("X")) {
-                // TaskList.addTask(new Deadline(true, splitOutput[2],splitOutput[3]));
-                // } else {
-                // TaskList.addTask(new Deadline(false, splitOutput[2],splitOutput[3]));
-                // }
-                // break;
-                // case "E":
-                // if (splitOutput[1].equals("X")) {
-                // TaskList.addTask(new Event(true, splitOutput[2],splitOutput[3],
-                // splitOutput[4]));
-                // } else {
-                // TaskList.addTask(new Event(false, splitOutput[2],splitOutput[3],
-                // splitOutput[4]));
-                // }
-                // break;
-                // }
+                        String startTime = fromPart.replace("from:", "").trim(); // "2021-09-17 14:00"
+                        String endTime = toPart.trim(); // "2021-09-17 16:00"
+                        // System.out.println("Adding Event: " + description + " " + startTime + " " +
+                        // endTime);
+                        taskList.addEvent(description, startTime, endTime);
+                        break;
+                }
             }
+            reader.close();
         } catch (IOException e) {
-            // System.out.println(MamtaException.IOException());
+            e.printStackTrace();
         }
         return taskList;
     }
 
-    public void saveTasks(TaskList taskList) {
+    public void saveTasksToFile(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (String task : taskList.listTasks()) {
-                fileWriter.write(task + "\n");
+                // System.out.println("Writing");
+                // Remove the number and space from the beginning of the task
+                String taskWithoutNumber = task.substring(task.indexOf(" ") + 1);
+                // System.out.println("Task: " + taskWithoutNumber);
+                fileWriter.write(taskWithoutNumber + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {
@@ -74,23 +82,20 @@ public class TaskRepository {
         }
     }
 
-    public static void main(String[] args) {
-        TaskRepository taskRepository = new TaskRepository();
+    // public static void main(String[] args) {
+    // TaskRepository taskRepository = new TaskRepository();
+    // // TaskList taskList = taskRepository.loadTasks();
+    // // taskList.addTodo("Buy groceries");
+    // // taskList.addDeadline("Submit assignment", "2021-09-17");
+    // // taskList.addEvent("Team meeting", "2021-09-17 14:00", "2021-09-17 16:00");
+    // // taskRepository.saveTasksToFile(taskList);
 
-        // Create a new task list with some tasks
-        TaskList originalTaskList = new TaskList();
-        originalTaskList.addTodo("read book");
-        originalTaskList.addDeadline("return book", "June 6th");
-        originalTaskList.addEvent("project meeting", "Aug 6th 2pm", "4pm");
-        originalTaskList.addTodo("join sports club");
+    // TaskList newTaskList = taskRepository.loadTasks();
+    // System.out.println("Tasks loaded from file:");
 
-        // Save the tasks to the file
-        taskRepository.saveTasks(originalTaskList);
-
-        // Load the tasks from the file
-        TaskList loadedTaskList = taskRepository.loadTasks();
-
-        // Check if the loaded tasks match the original tasks
-        System.out.println(loadedTaskList.listTasks());
-    }
+    // // for (String task : newTaskList.listTasks()) {
+    // // System.out.println(task.toString());
+    // // }
+    // System.out.println("TaskList: " + newTaskList.listTasks());
+    // }
 }

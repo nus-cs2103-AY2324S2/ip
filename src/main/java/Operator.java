@@ -34,7 +34,7 @@ public class Operator {
                     try {
                         botMarkTask(userInputArr);
                         // save to file
-                        taskRepo.saveTasks(taskList);
+                        // taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -43,7 +43,7 @@ public class Operator {
                     try {
                         botUnmarkTask(userInputArr);
                         // save to file
-                        taskRepo.saveTasks(taskList);
+                        // taskRepo.saveTasks(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -51,10 +51,10 @@ public class Operator {
                 case "todo":
                     try {
                         handleTodoCommand(userInputArr);
-                        System.out.println("reached here");
+                        // System.out.println("reached here");
                         // save to file
-                        taskRepo.saveTasks(taskList);
-                        System.out.println("reached here as well");
+                        // taskRepo.saveTasks(taskList);
+                        // System.out.println("reached here as well");
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
