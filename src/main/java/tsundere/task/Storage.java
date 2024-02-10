@@ -93,7 +93,7 @@ public class Storage {
      * @param saveString Stored data.
      * @return Task object to be created from saved data.
      */
-    private static Task parseTaskFromSaveString(String saveString) {
+    private static Task parseTaskFromSaveString(String saveString) throws GeneralException {
 
         String[] parsedData = saveString.split(",");
         String type = parsedData[0];
@@ -103,14 +103,27 @@ public class Storage {
         case ("T"):
             task = new ToDo(parsedData[2]);
             if (parsedData[1].equals("1")) task.markAsDone();
+
+            String[] x = parsedData[3].split(" ");
+            for (String tag : x) {
+                task.tagTask(tag);
+            }
             break;
         case ("E"):
             task = new Event(parsedData[2], parsedData[3], parsedData[4]);
             if (parsedData[1].equals("1")) task.markAsDone();
+            String[] y = parsedData[5].split(" ");
+            for (String tag : y) {
+                task.tagTask(tag);
+            }
             break;
         case ("D"):
             task = new Deadline(parsedData[2], parsedData[3]);
             if (parsedData[1].equals("1")) task.markAsDone();
+            String[] z = parsedData[4].split(" ");
+            for (String tag : z) {
+                task.tagTask(tag);
+            }
             break;
         default:
             assert task == null : "task should not be null";

@@ -195,6 +195,36 @@ public class TaskList {
 
     }
 
+    public static String tag() throws GeneralException {
+        if (TaskList.taskList.isEmpty()) throw new GeneralException("Theres's nothing to find here!");
+        try {
+            String[] x = Parser.name.split(" ");
+            int idx = Integer.parseInt(x[1]) - 1;
+            String tag = x[2];
+            Task t = TaskList.taskList.get(idx);
+            t.tagTask(tag);
+            return getListSize("tagged", t);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new GeneralException("Can't you even remember the proper format for this?\n"
+                    + "tag [task no.] [tagname]");
+        }
+    }
+
+    public static String untag() throws GeneralException {
+        if (TaskList.taskList.isEmpty()) throw new GeneralException("Theres's nothing to find here!");
+        try {
+            String[] x = Parser.name.split(" ");
+            int idx = Integer.parseInt(x[1]) - 1;
+            String tag = x[2];
+            Task t = TaskList.taskList.get(idx);
+            t.untagTask(tag);
+            return getListSize("untagged", t);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new GeneralException("Can't you even remember the proper format for this?\n"
+                    + "untag [task no.] [tagname]");
+        }
+    }
+
     /**
      * Prints number of Tasks in TaskList.
      */

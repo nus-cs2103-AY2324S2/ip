@@ -1,8 +1,13 @@
 package tsundere.task;
 
+import tsundere.exception.GeneralException;
+
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected ArrayList<String> taglist;
 
     /**
      * Initializes Task with its name.
@@ -14,8 +19,29 @@ public class Task {
         assert description != null : "description should not be null";
         this.description = description;
         this.isDone = false;
+        this.taglist = new ArrayList<>();
     }
 
+
+    public void tagTask(String tag) throws GeneralException {
+        if (taglist.size() > 2) {
+            throw new GeneralException("Too many tags! Try untagging some first!");
+        }
+        if (taglist.contains(tag)) {
+            throw new GeneralException("You already have this tag!");
+        }
+        taglist.add(tag);
+    }
+
+    public void untagTask(String tag) throws GeneralException {
+        if (taglist.isEmpty()) {
+            throw new GeneralException("No tags found! Try tagging some first!");
+        }
+        if (!taglist.contains(tag)) {
+            throw new GeneralException("Tag not found!");
+        }
+        taglist.remove(tag);
+    }
     /**
      * Returns completion status of Task.
      *
@@ -49,6 +75,14 @@ public class Task {
         return x + "," + this.description;
     }
 
+    public String getTagString() {
+        StringBuilder str = new StringBuilder();
+        for (String tag : taglist) {
+            str.append(tag).append(" ");
+        }
+        return str.toString();
+    }
+
     /**
      * Returns String representation of Task.
      *
@@ -56,7 +90,11 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        StringBuilder tags = new StringBuilder();
+        for (String tag : taglist) {
+            tags.append(" ").append("#").append(tag);
+        }
+        return "[" + this.getStatusIcon() + "] " + this.description + tags;
     }
 
 }

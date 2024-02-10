@@ -26,7 +26,7 @@ public class Event extends Task {
      */
     @Override
     public String toSaveString() {
-        return type + "," + super.toSaveString() + "," + from + "," + to;
+        return type + "," + super.toSaveString() + "," + from + "," + to + "," + this.getTagString();
     }
 
     /**

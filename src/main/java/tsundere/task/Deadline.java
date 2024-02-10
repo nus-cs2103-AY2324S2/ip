@@ -28,7 +28,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveString() {
-        return type + "," + super.toSaveString() + "," + by;
+        return type + "," + super.toSaveString() + "," + by + "," + this.getTagString();
     }
 
     /**
