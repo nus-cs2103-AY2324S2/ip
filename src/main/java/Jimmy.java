@@ -25,7 +25,7 @@ public class Jimmy {
         parser = new Parser();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage);
+            tasks = new TaskList(storage, ui);
         } catch (JimmyException e) {
             System.out.println(e.getMessage());
         }
@@ -55,10 +55,10 @@ public class Jimmy {
                         tasks.displayTasks();
                         break;
                     case "mark":
-                        tasks.markTaskComplete(details);
+                        tasks.markTask(details);
                         break;
                     case "unmark":
-                        tasks.markTaskIncomplete(details);
+                        tasks.unmarkTask(details);
                         break;
                     case "delete":
                         tasks.deleteTask(details);

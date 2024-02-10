@@ -18,4 +18,17 @@ public class Ui {
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
+    /**
+     * Display the number of tasks left after the deletion of a task.
+     *
+     * @param deletedTask The task that was deleted.
+     * @param tasksCount The number of tasks in the list.
+     */
+    public void showDeletedTask(String deletedTask, int tasksCount) {
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask);
+        System.out.println(tasksCount + "\n");
+    }
 }

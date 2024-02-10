@@ -15,14 +15,17 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private final Parser parser = new Parser();
+    private Ui ui;
 
     /**
      * Constructor for essentials.TaskList class.
      *
-     * @param storage The storage object.
-     * @throws JimmyException If the file cannot be loaded.
+     * @param storage The storage object to load the task list from.
+     * @param ui      The user interface object.
+     * @throws JimmyException If the file contents cannot be loaded.
      */
-    public TaskList(Storage storage) throws JimmyException {
+    public TaskList(Storage storage, Ui ui) throws JimmyException {
+        this.ui = ui;
         storage.loadFileContents(taskList);
     }
 
@@ -144,22 +147,20 @@ public class TaskList {
      * @throws JimmyException If the task index is invalid.
      */
     public void deleteTask(String taskIndex) throws JimmyException {
-        int deleteTask;
+        int taskToDelete;
         try {
-            deleteTask = Integer.parseInt(taskIndex) - 1;
+            taskToDelete = Integer.parseInt(taskIndex) - 1;
         } catch (NumberFormatException e) {
             throw new JimmyException("Please only enter an integer.");
         }
-        if (deleteTask < 0) {
+        if (taskToDelete < 0) {
             throw new JimmyException("Please only enter a positive integer.");
 
-        } else if (deleteTask >= getListSize()) {
+        } else if (taskToDelete >= getListSize()) {
             throw new JimmyException("The task you are looking for does not exist.");
         }
-        Task deletedTask = taskList.remove(deleteTask);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(deletedTask);
-        System.out.println(generateListCounter() + "\n");
+        Task deletedTask = taskList.remove(taskToDelete);
+        ui.showDeletedTask(deletedTask.toString(), getListSize());
     }
 
     /**
@@ -178,7 +179,7 @@ public class TaskList {
      * @param taskIndex The index of the task to be marked as complete.
      * @throws JimmyException If the task index is invalid.
      */
-    public void markTaskComplete(String taskIndex) throws JimmyException {
+    public void markTask(String taskIndex) throws JimmyException {
         int completeTask;
         try {
             completeTask = Integer.parseInt(taskIndex) - 1;
@@ -201,20 +202,20 @@ public class TaskList {
      * @param taskIndex The index of the task to be marked as incomplete.
      * @throws JimmyException If the task index is invalid.
      */
-    public void markTaskIncomplete(String taskIndex) throws JimmyException {
-        int incompleteTask;
+    public void unmarkTask(String taskIndex) throws JimmyException {
+        int taskToUnmark;
         try {
-            incompleteTask = Integer.parseInt(taskIndex) - 1;
+            taskToUnmark = Integer.parseInt(taskIndex) - 1;
         } catch (NumberFormatException e) {
             throw new JimmyException("Please only enter an integer.");
         }
-        if (incompleteTask < 0) {
+        if (taskToUnmark < 0) {
             throw new JimmyException("Please only enter a positive integer.");
 
-        } else if (incompleteTask >= getListSize()) {
+        } else if (taskToUnmark >= getListSize()) {
             throw new JimmyException("The task you are looking for does not exist.");
         }
-        Task curr = taskList.get(incompleteTask);
+        Task curr = taskList.get(taskToUnmark);
         curr.markAsIncomplete();
     }
 
