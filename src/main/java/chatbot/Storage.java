@@ -46,6 +46,7 @@ public class Storage {
       if (!Files.exists(path)) {
         Files.createDirectories(path.getParent());
         Files.createFile(path);
+        assert Files.exists(createdFile) : "File should exist after being created";
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -60,6 +61,7 @@ public class Storage {
    * @param tasks The list of tasks to be written to the file.
    */
   public void rewriteFile(ArrayList<Task> tasks) {
+    assert tasks != null : "Tasks list cannot be null"
     try (
       BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))
     ) {
