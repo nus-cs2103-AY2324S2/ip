@@ -83,6 +83,12 @@ public class TaskList {
         return removedTask;
     }
 
+    /**
+     * Update the task at the given index in the task list with the provided details
+     * @param taskIndex the index of the target task in the task list
+     * @param newDetails the new details to update the task with
+     * @return the updated task
+     */
     public Task updateTask(int taskIndex, String newDetails) {
         Task updatedTask = this.tasks.get(taskIndex);
         updatedTask.updateDetails(newDetails);
