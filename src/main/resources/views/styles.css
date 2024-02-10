@@ -1,0 +1,66 @@
+.h1-label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.chat-header-hbox {
+    -fx-background-color: #212121;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+.chat-log-scrollpane {
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: always;
+    -fx-arrows-visible: false;
+}
+
+.chat-log-container {
+    -fx-padding: 10px;
+    -fx-spacing: 20px;
+}
+
+.chat-dialog-hbox {
+    -fx-spacing: 10px;
+}
+
+.chat-dialog-message {
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+    -fx-background-color: #333333;
+    -fx-text-fill: #FFFFFF;
+    -fx-wrap-text: true;
+    -fx-max-height: 99999px;
+}
+
+.user-input-hbox {
+    -fx-background-color: #333333;
+    -fx-padding: 10px;
+    -fx-text-alignment: space-between;
+    -fx-spacing: 15px;
+}
+
+.user-input-textfield {
+    -fx-min-height: 41px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #333333;
+    -fx-padding: 10px;
+    -fx-border-color: #9a9a9a;
+    -fx-border-radius: 5px;
+    -fx-border-width: 0.2px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-width: 0.5px;
+}
+
+.user-input-button {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 20px;
+    -fx-effect: null;
+    -fx-font-size: 14px;
+}

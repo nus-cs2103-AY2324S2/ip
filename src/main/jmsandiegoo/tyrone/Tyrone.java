@@ -3,38 +3,23 @@ package jmsandiegoo.tyrone;
 import jmsandiegoo.tyrone.commands.ByeCommand;
 import jmsandiegoo.tyrone.commands.Command;
 import jmsandiegoo.tyrone.commands.CommandResult;
+import jmsandiegoo.tyrone.common.Messages;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
 import jmsandiegoo.tyrone.exceptions.IncorrectCommandException;
 import jmsandiegoo.tyrone.exceptions.StorageHelperException;
 import jmsandiegoo.tyrone.parser.Parser;
 import jmsandiegoo.tyrone.task.TaskList;
-import jmsandiegoo.tyrone.ui.Ui;
 
 /**
  * Represents the entry point of the application, the main class.
  */
 public class Tyrone {
-    private final Ui UI;
     private final TaskList taskList;
-
-    /**
-     * The main entry method of the application.
-     *
-     * @param args - to pass to the main method.
-     */
-    public static void main(String[] args) {
-        new Tyrone().run();
-    }
+    private boolean isExit;
 
     public Tyrone() {
-        this.UI = new Ui();
         this.taskList = new TaskList();
-    }
-
-    public void run() {
-        start();
-        runUntilExit();
-        System.exit(0);
+        this.isExit = false;
     }
 
     /**
@@ -46,36 +31,100 @@ public class Tyrone {
      * */
     public void start() {
         try {
-            this.UI.outputWelcomeMessage();
             taskList.loadTaskListFromFile();
         } catch (StorageHelperException e) {
-            this.UI.outputFailedInitMessage();
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Queries user input and handles it repeatedly until bye command.
+     * Set's class instance isExit property to true if bye command is processed.
+     *
+     * @param rawUserCommand - the raw user input from the gui.
+     * @return String.
+     */
+    public String processUserCommand(String rawUserCommand) {
+        try {
+            Command command = new Parser().parseRawUserCommand(rawUserCommand);
+            command.initData(this.taskList);
+            CommandResult result = command.execute();
+
+            if (command instanceof ByeCommand) {
+                this.isExit = true;
+            }
+
+            taskList.saveTaskListToFile();
+            return this.replyCommandResult(result);
+        } catch (IncorrectCommandException | CommandExecutionException e) {
+            return this.replyErrorOccurred(e);
+        } catch (StorageHelperException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * Queries user input and handles it repeatedly until bye command.
+     * Returns if tyrone should terminate / exit the program. So to exit the application.
+     *
+     * @return boolean.
      */
-    public void runUntilExit() {
-        boolean isActive = true;
-        while (isActive) {
-            try {
-                String rawUserCommand = this.UI.getRawUserCommand();
-                Command command = new Parser().parseRawUserCommand(rawUserCommand);
-                command.initData(this.taskList);
-                CommandResult result = command.execute();
-                this.UI.outputResultToUser(result);
-                if (command instanceof ByeCommand) {
-                    isActive = false;
-                }
-                taskList.saveTaskListToFile();
-            } catch (IncorrectCommandException | CommandExecutionException e) {
-                this.UI.outputExceptionToUser(e);
-            } catch (StorageHelperException e) {
-                this.UI.outputExceptionToUser(e);
-                throw new RuntimeException(e);
-            }
+    public boolean checkIfExit() {
+        return this.isExit;
+    }
+
+    /**
+     * Returns greeting message to the user.
+     *
+     * @return String.
+     */
+    public String greetUser() {
+        return this.generateMessageToUser(Messages.MESSAGE_GREET);
+    }
+
+    /**
+     * Returns fail init message to the user.
+     *
+     * @return String.
+     */
+    public String notifyFailToInit() {
+        return this.generateMessageToUser(Messages.MESSAGE_INITIALIZE_FAIL);
+    }
+
+    /**
+     * Returns exception message to the user.
+     *
+     * @param e - the exception that contains the message.
+     * @return String.
+     */
+    public String replyErrorOccurred(Exception e) {
+        return this.generateMessageToUser(
+                String.format(Messages.MESSAGE_ERROR, e.getMessage()));
+    }
+
+    /**
+     * Returns reply message to the user after successfully
+     * executing user command.
+     *
+     * @param commandResult - the result returned of the command execution.
+     * @return String.
+     */
+    public String replyCommandResult(CommandResult commandResult) {
+        return this.generateMessageToUser(commandResult.toString());
+    }
+
+    /**
+     * Returns concatenated list of message strings.
+     *
+     * @param messages - list of messages strings that would be concatenated.
+     * @return String.
+     */
+    public String generateMessageToUser(String... messages) {
+        StringBuilder outputStr = new StringBuilder();
+        for (String m : messages) {
+            outputStr.append(m);
         }
+
+        return outputStr.toString();
     }
 }
