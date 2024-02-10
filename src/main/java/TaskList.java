@@ -14,13 +14,13 @@ public class TaskList {
         String divider = "____________________________________________________________";
         string.append(divider + "\n");;
         for (int i = 0; i < items.size(); i++) {
-            string.append((i+1) + ". " + items.get(i));
+            string.append((i+1) + ". " + items.get(i) + "\n");
         }
         string.append("\n" + divider);
         return string.toString();
     }
 
-    public String add_to_list(String arg) throws RickException {
+    public String add_to_list(String arg, Storage storage) throws RickException {
         Item new_item;
         String[] splited = arg.split("\\s+");
         int last = splited.length - 1;
@@ -62,16 +62,19 @@ public class TaskList {
                 throw new RickException("It seems that you are missing the space in your instruction. Homesick alien?");
             }
         } catch (RickException e) {
+            throw e;
+        } catch (Exception e1) {
             throw new RickException("ERROR: Congratulations! You have input a message that the developer did not expect. " +
                     "Report this issue here: https://forms.gle/hnnDTA7qYMnhJvQ46.");
         }
+        storage.update();
         String output = "Got it. I've added this task:\n" +
                 new_item +
                 "\nNow you have " + items.size() + " tasks in the list.";
         return output;
     }
 
-    public String mark(String arg) throws RickException {
+    public String mark(String arg, Storage storage) throws RickException {
         String[] splited = arg.split("\\s+");
         if (splited.length != 2 || !Character.isDigit(arg.charAt(5))) {
             throw new RickException("You have to tell me the number to mark. Try 'mark 1'.");
@@ -82,12 +85,13 @@ public class TaskList {
         } else {
             Item item = this.items.get(i);
             item.mark();
+            storage.update();
             String output = "Nice! I've marked this task as done:\n"+ item;
             return output;
         }
     }
 
-    public String unmark(String arg) throws RickException {
+    public String unmark(String arg, Storage storage) throws RickException {
         String[] splited = arg.split("\\s+");
         if (splited.length != 2 || !Character.isDigit(arg.charAt(7))) {
             throw new RickException("You have to tell me the number to unmark. Try 'unmark 1'.");
@@ -98,19 +102,21 @@ public class TaskList {
         } else {
             Item item = this.items.get(i);
             item.unmark();
+            storage.update();
             String output = "OK, I've marked this task as not done yet:\n"+ item;
             return output;
         }
     }
 
-    public String delete(String arg) throws RickException {
+    public String delete(String arg, Storage storage) throws RickException {
         String[] splited = arg.split("\\s+");
         if (splited.length != 2 || !Character.isDigit(arg.charAt(7))) {
             throw new RickException("You have to tell me the number to delete. Try 'delete 1'.");
         }
         int i = arg.charAt(7) - 49;
         try {
-            Item item = this.items.remove(i - 1);
+            Item item = this.items.remove(i);
+            storage.update();
             String output = "Noted. I've removed this task:\n" +
                     item +
                     "\nNow you have " + this.items.size() + " tasks in the list.";

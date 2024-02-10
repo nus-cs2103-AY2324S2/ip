@@ -21,7 +21,7 @@ public class Storage {
             if (!Files.isDirectory(directoryPath)) {
                 Files.createDirectory(directoryPath);
             }
-            //If file duke.txt does not exist, create it
+            //If file tasks.txt does not exist, create it
             if (!Files.exists(filePath)) {
                 Ui. reply("Thank you for using Rick assistant! 어서 와, 리크은 처음이지?\n" +
                         "We are setting up your device for the first time!");
@@ -43,6 +43,7 @@ public class Storage {
                 case ("D"):
                     if (splited.length != 4) {throw new Exception("D length wrong");}
                     this.list.add(new Deadline(splited[2], splited[1], splited[3]));
+                    break;
                 case ("E"):
                     if (splited.length != 5) {throw new Exception("E length wrong");}
                     this.list.add(new Event(splited[2], splited[1], splited[3], splited[4]));
@@ -52,10 +53,10 @@ public class Storage {
                 }
             }
         } catch (Exception e) {
-//            throw new RickException(e.getMessage());
+            throw new RickException(e.getMessage());
             //TODO switch error message (for developer)
-            throw new RickException("There's something wrong with your local data... You might want to [check the file], " +
-            "or [clear local data]");
+            //throw new RickException("There's something wrong with your local data... You might want to [check the file], " +
+            //"or [clear local data]");
         }
         return this.list;
     }
