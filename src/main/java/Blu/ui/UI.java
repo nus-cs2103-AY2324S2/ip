@@ -14,7 +14,7 @@ import blu.task.TaskList;
  * Handles all user input/output operations for the Blu application.
  */
 public class UI {
-    private String showToUser(String... message) {
+    private String formatOutput(String... message) {
         return String.join("\n", message);
     }
 
@@ -23,10 +23,10 @@ public class UI {
      *
      * @param storageFilePath The file path of the storage used.
      */
-    public String showWelcomeMessage(String storageFilePath) {
+    public String getWelcomeMessage(String storageFilePath) {
         String storagePathString = String.format(MESSAGE_STORAGE_PATH, storageFilePath);
         String[] messages = {storagePathString, MESSAGE_GREET};
-        return showToUser(messages);
+        return formatOutput(messages);
     }
 
     /**
@@ -35,7 +35,7 @@ public class UI {
      * @param taskList The TaskList to be displayed.
      */
     public String showTaskList(TaskList taskList) {
-        return showToUser(taskList.toString());
+        return formatOutput(taskList.toString());
     }
 
     /**
@@ -50,7 +50,7 @@ public class UI {
             task.toString(),
             "You have " + taskList.getNumberOfTasks() + " tasks currently."
         };
-        return showToUser(messages);
+        return formatOutput(messages);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UI {
             task.toString(),
             "You have " + taskList.getNumberOfTasks() + " tasks currently"
         };
-        return showToUser(messages);
+        return formatOutput(messages);
     }
 
     /**
@@ -76,7 +76,7 @@ public class UI {
      */
     public String showTaskMarked(Task task, int taskIdx) {
         String[] messages = {"Marked task as done:", task.toString()};
-        return showToUser(messages);
+        return formatOutput(messages);
     }
 
     /**
@@ -85,7 +85,7 @@ public class UI {
      * @param taskIdx The index of the marked task.
      */
     public String showTaskAlreadyMarked(int taskIdx) {
-        return showToUser("Task number " + taskIdx + " is already marked as done");
+        return formatOutput("Task number " + taskIdx + " is already marked as done");
     }
 
     /**
@@ -94,7 +94,7 @@ public class UI {
      * @param taskIdx The index of the unmarked task.
      */
     public String showTaskAlreadyUnmarked(int taskIdx) {
-        return showToUser("Task number " + taskIdx + " is already unmarked as not done");
+        return formatOutput("Task number " + taskIdx + " is already unmarked as not done");
     }
 
     /**
@@ -104,7 +104,7 @@ public class UI {
      */
     public String showTaskUnmarked(Task task) {
         String[] messages = {"Unmarked task as not done:", task.toString()};
-        return showToUser(messages);
+        return formatOutput(messages);
     }
 
     /**
@@ -115,7 +115,7 @@ public class UI {
      */
     public String showTasksFound(List<Task> tasks, String searchString) {
         if (tasks.isEmpty()) {
-            return showToUser("No tasks found containing " + searchString);
+            return formatOutput("No tasks found containing " + searchString);
         }
         List<String> messagesList = new ArrayList<>();
         messagesList.add("There are " + tasks.size() + " tasks that contains " + searchString);
@@ -126,7 +126,7 @@ public class UI {
         }
         String[] messages = new String[messagesList.size()];
         messages = messagesList.toArray(messages);
-        return showToUser(messages);
+        return formatOutput(messages);
     }
 
     /**
@@ -135,13 +135,13 @@ public class UI {
      * @param errorMsg The error message to be displayed.
      */
     public String showErrorMessage(String errorMsg) {
-        return showToUser(errorMsg);
+        return formatOutput(errorMsg);
     }
 
     /**
      * Displays the exit message to the user.
      */
     public String showExitMessage() {
-        return showToUser(MESSAGE_EXIT);
+        return formatOutput(MESSAGE_EXIT);
     }
 }

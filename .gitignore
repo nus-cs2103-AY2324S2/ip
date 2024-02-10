@@ -19,3 +19,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # VSCode files
 .vscode
+
+# Saved tasks file created by Blu
+/data

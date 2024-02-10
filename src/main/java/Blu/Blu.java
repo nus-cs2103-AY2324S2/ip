@@ -24,11 +24,12 @@ import javafx.stage.Stage;
  * process user input commands, and manage the application's lifecycle.
  */
 public class Blu extends Application {
-    private static final String STORAGE_PATH = "../data/data.csv";
+    private static final String STORAGE_PATH = "./data/data.csv";
     private TaskList taskList;
     private Storage storage;
     private UI ui;
     private boolean isExit;
+    private String welcomeMessage;
 
     /**
      * This method is called when the application should initialize itself,
@@ -36,11 +37,12 @@ public class Blu extends Application {
     */
     @Override
     public void init() {
-        this.ui = new UI();
+        ui = new UI();
         isExit = false;
         try {
-            this.storage = new Storage(STORAGE_PATH);
-            this.taskList = storage.loadTasks();
+            storage = new Storage(STORAGE_PATH);
+            taskList = storage.loadTasks();
+            welcomeMessage = ui.getWelcomeMessage(storage.getAbsoluteFilePath());
         } catch (BluException e) {
             BluLogger.severe(e.getMessage());
             System.exit(1);
@@ -60,8 +62,10 @@ public class Blu extends Application {
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBlu(this);
+            MainWindow mainWindow = fxmlLoader.getController();
+            mainWindow.setBlu(this);
             stage.show();
+            mainWindow.showGreeting(welcomeMessage);
         } catch (IOException e) {
             BluLogger.severe(e.getMessage());
         }

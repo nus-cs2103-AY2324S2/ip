@@ -94,6 +94,14 @@ public class Storage implements AutoCloseable {
         return new TaskList(tasks);
     }
 
+    public String getAbsoluteFilePath() throws StorageException {
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            throw new StorageException("Error returning absolute file path");
+        }
+    }
+
     /**
      * Closes the writer associated with this Storage object.
      *
