@@ -44,7 +44,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return getDoneIcon() + " " + getDescription();
+        return getDoneIcon() + " | " + getDescription();
     }
 
 
