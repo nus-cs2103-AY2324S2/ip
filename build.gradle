@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("missa.MissA")
+    mainClass.set("missa.Main")
 }
 
 shadowJar {

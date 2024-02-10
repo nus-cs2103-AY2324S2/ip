@@ -43,91 +43,149 @@ public class Parser {
             return new ListCommand(tasks);
         }
         if (input.startsWith("mark")) { // Mark command.
-            String[] inputs = input.split(" ");
-            if (inputs.length < 2) {
-                throw new NoSuchTaskException();
-            }
-            int idx = Integer.valueOf(inputs[1]);
-            if (idx > tasks.getSize()) {
-                throw new NoSuchTaskException();
-            }
-            return new MarkCommand(tasks, idx - 1);
+            return getCommand(input, tasks, "mark");
         }
         if (input.startsWith("unmark")) { // Unmark command.
-            String[] inputs = input.split(" ");
-            if (inputs.length < 2) {
-                throw new NoSuchTaskException();
-            }
-            int idx = Integer.valueOf(inputs[1]);
-            if (idx > tasks.getSize()) {
-                throw new NoSuchTaskException();
-            }
-            return new UnmarkCommand(tasks, idx - 1);
+            return getCommand(input, tasks, "unmark");
         }
         if (input.startsWith("find")) { // Find command.
-            String[] inputs = input.split(" ", 2);
-            if (inputs.length < 2) {
-                throw new NoSuchTaskException();
-            }
-            return new FindCommand(inputs[1], tasks);
+            return getFindCommand(input, tasks);
         }
         if (input.startsWith("delete")) { // Delete command.
-            String[] inputs = input.split(" ");
-            if (inputs.length < 2) {
-                throw new NoSuchTaskException();
-            }
-            int idx = Integer.valueOf(inputs[1]);
-            if (idx > tasks.getSize()) {
-                throw new NoSuchTaskException();
-            }
+            return getCommand(input, tasks, "delete");
+        }
+        // Add command.
+        String[] task = input.split(" ", 2);
+        String taskType = task[0];
+
+        if (taskType.equals("todo")) { // Checks if the task type is todo.
+            return getAddTodoCommand(tasks, task);
+        } else if (taskType.equals("deadline")) { // Checks if the task type is deadline.
+            return getAddDdlCommand(tasks, task);
+        } else if (taskType.equals("event")) { // Checks if the task type is event.
+            return getAddEventCommand(tasks, task);
+        } else {
+            throw new IncorrectTaskTypeException();
+        }
+    }
+
+    /**
+     * Returns add command that adds a new Event task.
+     *
+     * @param tasks Task list of all tasks.
+     * @param task Task to be added later.
+     * @return Add command to be executed.
+     * @throws NoContentException Alerts users if no content is detected.
+     * @throws NoTimingException Alerts users if no duration is detected.
+     */
+    private AddCommand getAddEventCommand(TaskList tasks, String[] task)
+            throws NoContentException, NoTimingException {
+        Task nextTask;
+        if (task.length < 2) {
+            throw new NoContentException();
+        }
+        if (!task[1].contains("/from") || !task[1].contains("/to")) {
+            throw new NoTimingException();
+        }
+        String[] content = task[1].split(" /from ");
+        String text = content[0];
+        String[] interval = content[1].split(" /to ");
+
+        nextTask = new Event(
+                text,
+                strToDateTime(interval[0]),
+                strToDateTime(interval[1]));
+        return new AddCommand(nextTask, tasks);
+    }
+
+    /**
+     * Returns add command to add a new deadline task.
+     *
+     * @param tasks Task list containing all tasks.
+     * @param task Task to be added.
+     * @return Add command to be executed later.
+     * @throws NoContentException Alerts users if no content is given.
+     * @throws NoTimingException Alerts users if no deadline timing is given.
+     */
+    private AddCommand getAddDdlCommand(TaskList tasks, String[] task)
+            throws NoContentException, NoTimingException {
+        Task nextTask;
+        if (task.length < 2) {
+            throw new NoContentException();
+        }
+        if (!task[1].contains("/by")) {
+            throw new NoTimingException();
+        }
+        String[] content = task[1].split(" /by ");
+
+        nextTask = new Deadline(
+                content[0],
+                strToDateTime(content[1]));
+        return new AddCommand(nextTask, tasks);
+    }
+
+    /**
+     * Returns add command that adds a ToDo task.
+     *
+     * @param tasks Task list containing all tasks.
+     * @param task Task to be added.
+     * @return Add command for a new todo task.
+     * @throws NoContentException Alerts users if no content is given.
+     */
+    private static AddCommand getAddTodoCommand(TaskList tasks, String[] task)
+            throws NoContentException {
+        Task nextTask;
+        if (task.length < 2) {
+            throw new NoContentException();
+        }
+        String content = task[1];
+        nextTask = new ToDo(content);
+        return new AddCommand(nextTask, tasks);
+    }
+
+    /**
+     * Returns find command to execute.
+     *
+     * @param input User inputs containing keywords.
+     * @param tasks Task list containing all tasks.
+     * @return Relevant tasks.
+     * @throws NoSuchTaskException Alerts users if no keyword is given.
+     */
+    private static FindCommand getFindCommand(String input, TaskList tasks)
+            throws NoSuchTaskException {
+        String[] inputs = input.split(" ", 2);
+        if (inputs.length < 2) {
+            throw new NoSuchTaskException();
+        }
+        return new FindCommand(inputs[1], tasks);
+    }
+
+    /**
+     *  Returns mark/unmark/delete commands to execute.
+     *
+     * @param input User inputs containing index of task.
+     * @param tasks Task List that stores all tasks.
+     * @return Commands to be executed later.
+     * @throws NoSuchTaskException Alerts users if there is missing information.
+     */
+    private static Command getCommand(String input, TaskList tasks, String type)
+            throws NoSuchTaskException {
+        String[] inputs = input.split(" ");
+        if (inputs.length < 2) {
+            throw new NoSuchTaskException();
+        }
+        int idx = Integer.valueOf(inputs[1]);
+        if (idx > tasks.getSize()) {
+            throw new NoSuchTaskException();
+        }
+        if (type.equals("mark")) {
+            return new MarkCommand(tasks, idx - 1);
+        } else if (type.equals("unmark")) {
+            return new UnmarkCommand(tasks, idx - 1);
+        } else if (type.equals("delete")) {
             return new DeleteCommand(tasks, idx - 1);
-        } else { // Add missa.command.
-            String[] task = input.split(" ", 2);
-            String taskType = task[0];
-            Task nextTask = null;
-
-            if (taskType.equals("todo")) { // Checks if the task type is todo.
-                if (task.length < 2) {
-                    throw new NoContentException();
-                }
-                String content = task[1];
-                nextTask = new ToDo(content);
-                return new AddCommand(nextTask, tasks);
-
-            } else if (taskType.equals("deadline")) { // Checks if the task type is deadline.
-                if (task.length < 2) {
-                    throw new NoContentException();
-                }
-                if (!task[1].contains("/by")) {
-                    throw new NoTimingException();
-                }
-                String[] content = task[1].split(" /by ");
-
-                nextTask = new Deadline(
-                        content[0],
-                        strToDateTime(content[1]));
-                return new AddCommand(nextTask, tasks);
-
-            } else if (taskType.equals("event")) { // Checks if the task type is event.
-                if (task.length < 2) {
-                    throw new NoContentException();
-                }
-                if (!task[1].contains("/from") || !task[1].contains("/to")) {
-                    throw new NoTimingException();
-                }
-                String[] content = task[1].split(" /from ");
-                String text = content[0];
-                String[] interval = content[1].split(" /to ");
-
-                nextTask = new Event(
-                        text,
-                        strToDateTime(interval[0]),
-                        strToDateTime(interval[1]));
-                return new AddCommand(nextTask, tasks);
-
-            } else {
-                throw new IncorrectTaskTypeException();
-            }
+        } else {
+            throw new NoSuchTaskException();
         }
     }
 
