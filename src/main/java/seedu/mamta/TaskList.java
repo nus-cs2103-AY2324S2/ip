@@ -1,6 +1,8 @@
 package seedu.mamta;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 
 /**
  * Manages the list of tasks.
@@ -44,14 +46,10 @@ public class TaskList {
     }
 
     public static String searchOutput(String keyword) {
-        StringBuilder output = new StringBuilder();
-        assert tasks != null : "TaskList is not initialized";
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getContent().contains(keyword) ) {
-                output.append(String.format("%d. %s\n", i + 1, tasks.get(i).toString()));
-            }
-        }
-        return output.toString();
+        return tasks.stream()
+                .filter(task -> task.getContent().contains(keyword))
+                .map(task -> String.format("%d. %s\n", tasks.indexOf(task) + 1, task))
+                .collect(Collectors.joining());
     }
 
 }
