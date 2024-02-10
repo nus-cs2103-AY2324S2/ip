@@ -16,9 +16,6 @@ public class PatternParser {
     private static final Pattern eventPattern = Pattern.compile("event (.*?) /from (.*?) (.*?) /to (.*?) (.*?)");
     private static final Pattern findPattern = Pattern.compile("event (.*?) /from (.*?) (.*?) /to (.*?) (.*?)");
 
-
-
-
     public static String todoParser(String taskToParse, TaskList taskListManager, Storage taskLoader) throws RyanGoslingException {
         Matcher matcher = todoPattern.matcher(taskToParse);
         if (!matcher.matches()) {

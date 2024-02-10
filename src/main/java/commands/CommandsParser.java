@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommandsParser {
-    //Handles adding/removing to array of tasks
+    //Manages the encapsulated list of tasks
     private TaskList taskListManager;
     private String filePath;
     //Handles the loading and saving of tasks to text file
