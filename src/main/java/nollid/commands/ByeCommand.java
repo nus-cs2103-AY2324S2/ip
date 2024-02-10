@@ -14,7 +14,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        // TODO: Make this quit the app.
         System.exit(0);
         return "what";
     }
