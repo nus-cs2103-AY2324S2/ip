@@ -20,8 +20,6 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
-        assert filePath != null: "filePath cannot be empty";
-
         this.filePath = filePath;
     }
 
