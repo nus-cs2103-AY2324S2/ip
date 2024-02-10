@@ -1,11 +1,9 @@
 package bebot;
 
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 
 /**
@@ -29,7 +27,7 @@ public class Storage {
         createTaskList();
     }
 
-    /** 
+    /**
      * Loads taskList from file
      */
     public void loadTaskList() {
@@ -95,13 +93,13 @@ public class Storage {
         }
     }
 
-    /** 
+    /**
      * Saves taskList to file
      */
     public void saveTaskListToFile() {
         try {
             ArrayList<String> newTaskList = new ArrayList<>();
-            
+
             for (Task task : this.taskList) {
                 newTaskList.add(task.toString());
             }
@@ -112,7 +110,7 @@ public class Storage {
         }
     }
 
-    /** 
+    /**
      * Creates taskList and tasklist.txt if they do not exist
      */
     private void createTaskList() {

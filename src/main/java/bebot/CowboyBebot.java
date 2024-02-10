@@ -10,7 +10,6 @@ public class CowboyBebot {
     private TaskList tasks;
     private Parser parser;
     private Ui ui;
-    
     /**
      * Constructor for Duke
      */
@@ -24,7 +23,7 @@ public class CowboyBebot {
 
     /**
      * Starts the program
-     * 
+     *
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      * @throws StringIndexOutOfBoundsException if input is not a number
@@ -34,10 +33,8 @@ public class CowboyBebot {
         ui.showGreeting();
 
         String input = ui.getUserInput();
-        
         while (true) {
             ui.printLine();
-            
             if (!parser.executeUserInput(input)) {
                 break;
             }
@@ -50,11 +47,11 @@ public class CowboyBebot {
 
     /**
      * Main method
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
         CowboyBebot mainApp = new CowboyBebot();
         mainApp.start();
-    }    
+    }
 }

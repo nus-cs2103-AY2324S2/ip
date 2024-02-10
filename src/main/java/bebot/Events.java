@@ -26,10 +26,10 @@ public class Events extends Task {
         this.fromString = from;
         this.toString = to;
         try {
-            this.fromDate = parseDate(from, DATE_FORMAT_1, DATE_FORMAT_2, 
+            this.fromDate = parseDate(from, DATE_FORMAT_1, DATE_FORMAT_2,
                     DATE_FORMAT_3, DATE_FORMAT_4); // Parse the from string
-            this.toDate = parseDate( 
-                    to, DATE_FORMAT_1,DATE_FORMAT_2, 
+            this.toDate = parseDate(
+                    to, DATE_FORMAT_1, DATE_FORMAT_2,
                     DATE_FORMAT_3, DATE_FORMAT_4); // Parse the to string
         } catch (DateTimeException e) {
             throw new DateTimeException("Error parsing date in Events: " + e.getMessage());
@@ -44,7 +44,7 @@ public class Events extends Task {
     @Override
     public String toString() {
         DateTimeFormatter displayFormatter = DATE_FORMAT_4;
-        return super.toString() + " (from: " + fromDate.format(displayFormatter) + ", to: " 
+        return super.toString() + " (from: " + fromDate.format(displayFormatter) + ", to: "
                 + toDate.format(displayFormatter) + ")";
     }
 }

@@ -1,7 +1,7 @@
 package bebot;
 import java.util.ArrayList;
 
-/** 
+/**
  * TaskList class contains the task list
  */
 public class TaskList {
@@ -10,6 +10,12 @@ public class TaskList {
     private int taskIndex;
     private Storage storage;
 
+    /**
+     * Constructor for TaskList
+     *
+     * @param storage
+     * @param taskList
+     */
     public TaskList(Storage storage, ArrayList<Task> taskList) {
         this.taskList = taskList;
         this.ui = new Ui();
@@ -18,7 +24,7 @@ public class TaskList {
 
     /**
      * Adds task to taskList
-     * 
+     *
      * @param task task to be added
      */
     public void addTask(String task) {
@@ -53,53 +59,53 @@ public class TaskList {
 
     /**
      * Adds todoTask to taskList
-     * 
+     *
      * @param task task to be added
      */
     public void addTodoTask(String task) {
-    
+
         String todoDescription = task.substring(4).trim();
         if (todoDescription.isEmpty()) {
             System.out.println("\t" + "Invalid input. Please enter a valid todo task.");
         } else {
-            Todo newTodo = new Todo (todoDescription);
+            Todo newTodo = new Todo(todoDescription);
             this.taskList.add(newTodo);
-    
+
             System.out.println("\t" + "Added todo: " + todoDescription);
             storage.saveTaskListToFile();
         }
     }
 
-    /** 
+    /**
      * Adds deadline to taskList
-     * 
+     *
      * @param task task to be added
      */
     public void addDeadline(String task) {
-     
+
         String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
-        if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
+        if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty()
             || deadlineDescription[1].trim().isEmpty()) {
             System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <DEADLINE>'");
         } else {
             String description = deadlineDescription[0].trim();
             String by = deadlineDescription[1].trim();
-    
+
             Deadline newDeadline = new Deadline(description, by);
             this.taskList.add(newDeadline);
-               
+
             System.out.println("\t" + "Added deadline: " + newDeadline.toString());
             storage.saveTaskListToFile();
         }
     }
 
-    /** 
+    /**
      * Adds eventTask to taskList
-     * 
+     *
      * @param task task to be added
      */
     public void addEvent(String task) {
-    
+
         String[] eventParts = task.substring(6).trim().split("/from");
         if (eventParts.length == 2) {
             String[] durationParts = eventParts[1].trim().split("/to");
@@ -109,10 +115,10 @@ public class TaskList {
                 String to = durationParts[1].trim();
                 Events newEvent = new Events(desc, from, to);
                 this.taskList.add(newEvent);
-                   
+
                 System.out.println("\t" + "Added event: " + desc + " (from: " + from + ", to: " + to + ")");
                 storage.saveTaskListToFile();
-    
+
             } else {
                 System.out.println("\t" + "Invalid input for event. "
                         + "Please use the format: event <task> /from <start time> /to <end time>");
@@ -123,16 +129,16 @@ public class TaskList {
         }
     }
 
-    /** 
+    /**
      * Deletes task from taskList
-     * 
+     *
      * @param index index of task to be deleted
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
     public void deleteTask(int index) {
         try {
-            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t" 
+            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t"
                     + "[ " + this.taskList.get(index) + " ]");
             this.taskList.remove(index);
             System.out.println("\t" + "There are " + this.taskList.size() + " tasks in your list.");
@@ -146,7 +152,7 @@ public class TaskList {
 
     /**
      * Returns task type
-     * 
+     *
      * @param task task to be added
      * @return TaskType
      */
@@ -164,13 +170,13 @@ public class TaskList {
         }
     }
 
-    /** 
+    /**
      * Marks task as done
      * If task is already done, prints error message
      * If task is undone, marks as done
      * If task does not exist, prints error message
      * If input is not a number, prints error message
-     * 
+     *
      * @param index index of task to be marked as done
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
@@ -193,13 +199,13 @@ public class TaskList {
         }
     }
 
-    /** 
+    /**
      * Marks task as undone
      * If task is already undone, prints error message
      * If task is done, marks as undone
      * If task does not exist, prints error message
      * If input is not a number, prints error message
-     * 
+     *
      * @param index index of task to be marked as undone
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
@@ -220,7 +226,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             ui.printInvalidTaskIndex();
         }
-    }    
+    }
 
     /**
      * Find tasks that contain keyword
@@ -242,7 +248,7 @@ public class TaskList {
         ui.printLine();
     }
 
-    /** 
+    /**
      * Prints taskList
      */
     public void printList() {

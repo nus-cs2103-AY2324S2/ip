@@ -8,8 +8,8 @@ public class Parser {
     private TaskList taskList;
 
     /**
-     * Constructor for Parser   
-     * 
+     * Constructor for Parser
+     *
      * @param taskList
      */
     public Parser(TaskList taskList) {
@@ -19,10 +19,10 @@ public class Parser {
 
     /**
      * Executes user input
-     * 
+     *
      * @param input user input
      * @return boolean
-     */ 
+     */
     public boolean executeUserInput(String input) {
         if (input.equals("bye")) {
             return false;
@@ -51,7 +51,7 @@ public class Parser {
             } catch (StringIndexOutOfBoundsException e) {
                 ui.printInvalidKeyword();
             }
-        } else { 
+        } else {
             taskList.addTask(input);
         }
         return true;

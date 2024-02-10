@@ -1,24 +1,23 @@
 package bebot;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Locale;
 
 /**
  * Task class handles the tasks of the application
  */
 public class Task {
+    protected static final DateTimeFormatter DATE_FORMAT_1 = DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH);
+    protected static final DateTimeFormatter DATE_FORMAT_2 = DateTimeFormatter.ofPattern("yyyy-M-d", Locale.ENGLISH);
+    protected static final DateTimeFormatter DATE_FORMAT_3 = DateTimeFormatter.ofPattern("d-M-yyyy", Locale.ENGLISH);
+    protected static final DateTimeFormatter DATE_FORMAT_4 = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
     protected String task;
     protected boolean isDone;
-    protected DateTimeFormatter DATE_FORMAT_1 = DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH);
-    protected DateTimeFormatter DATE_FORMAT_2 = DateTimeFormatter.ofPattern("yyyy-M-d", Locale.ENGLISH);
-    protected DateTimeFormatter DATE_FORMAT_3 = DateTimeFormatter.ofPattern("d-M-yyyy", Locale.ENGLISH);
-    protected DateTimeFormatter DATE_FORMAT_4 = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
 
 
     /**
      * Constructor for Task
-     * 
+     *
      * @param task
      */
     public Task(String task) {
@@ -42,7 +41,7 @@ public class Task {
 
     /**
      * Check if task is done
-     * 
+     *
      * @return boolean
      */
     public boolean isDone() {
@@ -55,9 +54,9 @@ public class Task {
         return this.isDone ? "done" : "not done";
     }
 
-    /** 
+    /**
      * Parse the date string and return a LocalDate object
-     * 
+     *
      * @param by
      * @param formatters
      * @return LocalDate

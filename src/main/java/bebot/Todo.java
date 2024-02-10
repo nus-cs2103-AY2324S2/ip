@@ -5,10 +5,10 @@ package bebot;
 public class Todo extends Task {
     /**
      * Constructor for Todo
-     * 
+     *
      * @param description
      */
-    public Todo (String description) {
+    public Todo(String description) {
         super(description);
     }
     @Override

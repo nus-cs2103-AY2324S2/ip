@@ -13,7 +13,7 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    /** 
+    /**
      * Prints the greeting message
      */
     public void showGreeting() {
@@ -22,16 +22,16 @@ public class Ui {
         printLine();
     }
 
-    /** 
+    /**
      * Prints the exit message
      */
     public void showGoodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
     }
 
-    /** 
+    /**
      * Handles user input
-     * 
+     *
      * @return String user input
      */
     public String getUserInput() {
@@ -75,7 +75,7 @@ public class Ui {
         }
     }
 
-    /** 
+    /**
      * Invalid task index message
      */
     public void printInvalidTaskIndex() {
