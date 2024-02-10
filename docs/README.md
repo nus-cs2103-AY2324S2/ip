@@ -4,6 +4,7 @@
 </p>
 
 Welcome to **KaiYap Task Manager**, a straightforward and efficient tool designed to help you keep track of your tasks, deadlines, and events. Whether you need to manage your daily to-dos, keep up with important deadlines, or schedule events, KaiYap makes it easy and intuitive.
+
 ___
 ## Features
 
