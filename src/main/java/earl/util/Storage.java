@@ -39,7 +39,8 @@ public class Storage {
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
             if (isFolderMade || isFileMade) {
-                // file is surely missing
+                // file was surely missing
+                assert file.exists() : "File is missing but not made.";
                 throw new EarlException("Storage file missing... "
                         + "creating new file.");
             }
