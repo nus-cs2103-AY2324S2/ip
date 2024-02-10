@@ -57,10 +57,10 @@ public class TaskList {
      *
      * @param idx 1-based index
      */
-    public void mark(int idx) {
+    public String mark(int idx) {
         tasks.get(idx - 1).mark();
-        Ui.print("Aight marked this task as done:\n\t"
-                + tasks.get(idx - 1));
+        return "Aight marked this task as done:\n\t"
+                + tasks.get(idx - 1);
     }
 
     /**
@@ -68,10 +68,10 @@ public class TaskList {
      *
      * @param idx 1-based index
      */
-    public void unmark(int idx) {
+    public String unmark(int idx) {
         tasks.get(idx - 1).unmark();
-        Ui.print("Sian marked this task as undone:\n\t"
-                + tasks.get(idx - 1));
+        return "Sian marked this task as undone:\n\t"
+                + tasks.get(idx - 1);
     }
 
     /**
@@ -79,10 +79,10 @@ public class TaskList {
      *
      * @param desc Description of the TodoTask
      */
-    public void createTodo(String desc) {
+    public String createTodo(String desc) {
         Task curr = new TodoTask(desc);
         tasks.add(curr);
-        Ui.print("Roger doger, added this task: \n\t" + curr.toString());
+        return "Roger doger, added this task: \n\t" + curr.toString();
     }
 
     /**
@@ -92,13 +92,13 @@ public class TaskList {
      * @param deadlineStr Deadline of the DeadlineTask
      * @throws DateTimeParseException If deadlineStr is of an invalid format
      */
-    public void createDeadline(String desc, String deadlineStr) throws DateTimeParseException {
+    public String createDeadline(String desc, String deadlineStr) throws DateTimeParseException {
         try {
             DeadlineTask curr = new DeadlineTask(desc, Storage.convertStringToDateTime(deadlineStr));
             tasks.add(curr);
-            Ui.print("Roger doger, added this task: \n\t" + curr.toString());
+            return "Roger doger, added this task: \n\t" + curr.toString();
         } catch (DateTimeParseException e) {
-            Ui.print("Improper date format, TRY AGAIN!!!");
+            return "Improper date format, TRY AGAIN!!!";
         }
     }
 
@@ -109,14 +109,14 @@ public class TaskList {
      * @param fromStr Starting date of the EventTask
      * @param toStr Ending date of the EventTask
      */
-    public void createEvent(String desc, String fromStr, String toStr) {
+    public String createEvent(String desc, String fromStr, String toStr) {
         try {
             EventTask curr = new EventTask(desc, Storage.convertStringToDateTime(fromStr),
                     Storage.convertStringToDateTime(toStr));
             tasks.add(curr);
-            Ui.print("Roger doger, added this task: \n\t" + curr.toString());
+            return "Roger doger, added this task: \n\t" + curr.toString();
         } catch (DateTimeParseException e) {
-            Ui.print("Improper date format, TRY AGAIN!!!");
+            return "Improper date format, TRY AGAIN!!!";
         }
     }
 
@@ -125,10 +125,10 @@ public class TaskList {
      *
      * @param idx 1-based index
      */
-    public void deleteTask(int idx) {
+    public String deleteTask(int idx) {
         Task toRemove = tasks.get(idx - 1);
         tasks.remove(idx - 1);
-        Ui.print("Aight removed this task:\n\t" + toRemove.toString());
+        return "Aight removed this task:\n\t" + toRemove.toString();
     }
 
     /**
@@ -136,7 +136,7 @@ public class TaskList {
      *
      * @param term The specified search term
      */
-    public void findTerm(String term) {
+    public String findTerm(String term) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task t : tasks) {
             if (t.getDesc().contains(term)) {
@@ -144,10 +144,12 @@ public class TaskList {
             }
         }
         if (res.isEmpty()) {
-            Ui.print("Shag no results found for your search for: '" + term + "'");
+            return "Shag no results found for your search for: '" + term + "'";
         } else {
-            Ui.print("Here you go, results from your search for: '" + term + "'");
-            ui.displayTasks(res);
+            StringBuilder response = new StringBuilder();
+            response.append("Here you go, results from your search for: '" + term + "'");
+            response.append(ui.displayTasks(res));
+            return response.toString();
         }
     }
 }

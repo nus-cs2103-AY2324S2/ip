@@ -24,19 +24,20 @@ public class Parser {
      * @param command Provided user input
      * @throws DylanBotException If input provided is of an invalid format
      */
-    public void process(String command) throws DylanBotException {
+    public String process(String command) throws DylanBotException {
+        String response = "";
         try {
             if (command.equals("list")) {
                 if (tl.isEmpty()) {
                     throw new DylanBotException("No tasks to list right now! Add something first la");
                 }
-                ui.displayTasks(tl.getTasks());
+                response = ui.displayTasks(tl.getTasks());
             } else if (command.startsWith("find")) {
                 if (command.split(" ").length < 2) {
                     throw new DylanBotException("HEY no search term provided");
                 }
                 String term = command.split(" ")[1];
-                tl.findTerm(term);
+                response = tl.findTerm(term);
             } else if (command.startsWith("mark")) {
                 if (command.split(" ").length < 2) {
                     throw new DylanBotException("HEY no index specified for item to mark");
@@ -45,7 +46,7 @@ public class Parser {
                 if (idx > tl.getSize() || idx < 0) {
                     throw new DylanBotException("HEY index requested is out of bounds");
                 }
-                tl.mark(idx);
+                response = tl.mark(idx);
             } else if (command.startsWith("unmark")) {
                 if (command.split(" ").length < 2) {
                     throw new DylanBotException("HEY no index specified for item to mark");
@@ -54,13 +55,13 @@ public class Parser {
                 if (idx > tl.getSize() || idx < 0) {
                     throw new DylanBotException("HEY index requested is out of bounds");
                 }
-                tl.unmark(idx);
+                response = tl.unmark(idx);
             } else if (command.startsWith("todo")) {
                 String desc = command.substring(5);
                 if (desc.isEmpty()) {
                     throw new DylanBotException("HEY todo description cannot be empty!");
                 }
-                tl.createTodo(desc);
+                response = tl.createTodo(desc);
             } else if (command.startsWith("deadline")) {
                 String[] inputArr = command.split("/by");
                 String desc = inputArr[0].substring(9).trim();
@@ -71,7 +72,7 @@ public class Parser {
                 if (deadlineStr.isEmpty()) {
                     throw new DylanBotException("HEY deadline tasks need deadlines!");
                 }
-                tl.createDeadline(desc, deadlineStr);
+                response = tl.createDeadline(desc, deadlineStr);
             } else if (command.startsWith("event")) {
                 String[] inputArr = command.split("/from|/to");
                 String desc = inputArr[0].substring(6).trim();
@@ -86,17 +87,18 @@ public class Parser {
                 if (toStr.isEmpty()) {
                     throw new DylanBotException("HEY event tasks need ending dates!");
                 }
-                tl.createEvent(desc, fromStr, toStr);
+                response = tl.createEvent(desc, fromStr, toStr);
             } else if (command.startsWith("delete")) {
                 String[] inputArr = command.split(" ");
                 int idx = Integer.parseInt(inputArr[1]);
                 if (idx > tl.getSize() || idx < 0) {
                     throw new DylanBotException("HEY index requested is out of bounds");
                 }
-                tl.deleteTask(idx);
+                response = tl.deleteTask(idx);
             }
+            return response;
         } catch (DylanBotException e) {
-            ui.displayError(e);
+            return e.getMessage();
         }
     }
 }
