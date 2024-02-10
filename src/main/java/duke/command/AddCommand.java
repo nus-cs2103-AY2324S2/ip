@@ -40,24 +40,24 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            Task task;
-            switch (type) {
-            case Todo:
-                task = new Todo(components);
-                break;
-            case Deadline:
-                task = new Deadline(components);
-                break;
-            case Event:
-                task = new Event(components);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-            }
+            Task task = createTask();
             tasks.addTask(task);
             ui.showAddedTask(task);
         } catch (Task.InvalidComponents e) {
             ui.showError(e);
+        }
+    }
+
+    private Task createTask() throws Task.InvalidComponents {
+        switch (type) {
+        case Todo:
+            return new Todo(components);
+        case Deadline:
+            return new Deadline(components);
+        case Event:
+            return new Event(components);
+        default:
+            throw new IllegalStateException("Unexpected value: " + type);
         }
     }
 }

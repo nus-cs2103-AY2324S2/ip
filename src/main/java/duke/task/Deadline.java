@@ -10,16 +10,6 @@ public class Deadline extends Task {
     private final LocalDateTime by;
 
     /**
-     * Construct a task with a deadline.
-     * @param description the description of the task
-     * @param by the deadline date and time for the task
-     */
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
-        this.by = by;
-    }
-
-    /**
      * Construct a task with a deadline from parsed components. The expected components are DESCRIPTION and /by.
      * @throws InvalidComponents when the parsed components don't match the expected components
      */

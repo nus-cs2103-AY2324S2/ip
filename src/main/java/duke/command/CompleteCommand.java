@@ -27,11 +27,7 @@ public class CompleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task task = tasks.getTask(index);
-            if (isComplete) {
-                task.setComplete();
-            } else {
-                task.setPending();
-            }
+            task.setStatus(isComplete);
             ui.showNote("Set task to " + task.status() + ":\n  " + task + "\n");
         } catch (TaskList.TaskNotFound e) {
             ui.showError(e);
