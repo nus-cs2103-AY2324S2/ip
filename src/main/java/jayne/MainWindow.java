@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJayneDialog(response, jayneImage)
         );
-        if (Objects.equals(response, "Hey, Snowieeee, Bye. Hope to see you again soon!")) {
+        if (Objects.equals(response, "Hey, Snowieeee, Go to sleep ok, stop bullying Slurpee")) {
             this.isEnd = true;
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {

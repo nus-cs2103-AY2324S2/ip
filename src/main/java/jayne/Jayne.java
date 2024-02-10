@@ -41,7 +41,7 @@ public class Jayne {
                 throw new JayneException("Input cannot be empty.");
             }
             msg = parser.parse(input);
-            if (Objects.equals(msg, "Bye. Hope to see you again soon!")) {
+            if (Objects.equals(msg, "Go to sleep ok, stop bullying Slurpee")) {
                 this.isEnd = false;
             }
             return "Hey, Snowieeee, " + msg; //HERE

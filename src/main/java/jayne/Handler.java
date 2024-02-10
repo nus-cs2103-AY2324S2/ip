@@ -170,7 +170,7 @@ public class Handler {
      * Prints bye
      */
     public static String handleBye() {
-        return "Bye. Hope to see you again soon!";
+        return "Go to sleep ok, stop bullying Slurpee";
     }
     /**
      * prints task
