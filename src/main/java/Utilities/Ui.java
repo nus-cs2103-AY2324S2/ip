@@ -23,12 +23,12 @@ public class Ui {
      * Displays available commands.
      */
     public String getCommands() {
-        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format\n" +
-                "  todo <task> - adds todo\n  deadline <task>/<by when> - adds deadline\n" +
-                "  event <task>/<from when>/<to when> - adds event\n  list - lists out all tasks\n" +
-                "  mark <x> - marks task x as done\n  unmark <x> - unmarks task x as undone\n" +
-                "  delete <x> - deletes task x from the list\n" +  "  find <thing to search> - searches for tasks with the input word or phrase\n" +
-                "  bye - exit";
+        return "Take note ah, enter all time based commands are in <dd-mm-yyyy HHmm> format:\n" +
+                "-todo <task> -> adds todo\n-deadline <task>/<by when> -> adds deadline\n" +
+                "-event <task>/<from when>/<to when> -> adds event\n-list -> lists out all tasks\n" +
+                "-mark <x> -> marks task x as done\n-unmark <x> -> unmarks task x as undone\n" +
+                "-delete <x> -> deletes task x from the list\n" +  "-find <thing to search> -> searches for tasks with the input word or phrase\n" +
+                "-bye -> exits app";
     }
 
     /**
@@ -107,7 +107,7 @@ public class Ui {
             ans += "Ok ah, this is what I found:\n";
             int count = 1;
             for (Task t : tasks) {
-                ans += count + ". " + t.toString();
+                ans += count + ". " + t.toString() + "\n";
                 count++;
             }
             return ans;

@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -41,14 +42,16 @@ public class DialogBox extends HBox {
         setStyle("-fx-background-color: " + backgroundColor + ";");
         dialog.setStyle("-fx-text-fill: " + textColor + "; -fx-font-family: " + fontFamily + "; -fx-font-size: " + fontSize + "px;");
 
-        Label textLabel = new Label(text);
-        textLabel.setWrapText(true);
-        VBox.setVgrow(textLabel, Priority.ALWAYS);
-        HBox.setHgrow(textLabel, Priority.ALWAYS);
         setSpacing(10); // Adjust spacing as per requirement
 
         // Set padding around the dialog box
         setPadding(new Insets(10));
+
+        Circle clip = new Circle();
+        clip.setRadius(displayPicture.getFitWidth() / 2); // Radius should be half of the ImageView width
+        clip.setCenterX(displayPicture.getFitWidth() / 2); // Center X coordinate of the circle
+        clip.setCenterY(displayPicture.getFitHeight() / 2); // Center Y coordinate of the circle
+        displayPicture.setClip(clip);
     }
 
     /**

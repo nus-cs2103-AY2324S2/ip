@@ -5,9 +5,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import javafx.animation.KeyFrame;
@@ -38,6 +37,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         sayHello();
     }
@@ -55,6 +55,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void sayHello() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("Hello, I'm Ypxmm.\nNeed me do what for you?", dukeImage)
         );
@@ -71,6 +72,9 @@ public class MainWindow extends AnchorPane {
         DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
         DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
 
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        Label responseLabel = new Label(response);
+        responseLabel.setWrapText(true);
         dialogContainer.getChildren().addAll(
                 userDialog,
                 dukeDialog
