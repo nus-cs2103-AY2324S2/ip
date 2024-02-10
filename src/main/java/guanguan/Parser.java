@@ -1,5 +1,7 @@
 package guanguan;
 
+import java.util.List;
+
 /**
  * Responsible for parsing user input
  */
@@ -60,16 +62,20 @@ public class Parser {
      */
     static void markTask(String input, TaskList items, Ui ui, boolean isMark) throws GgException {
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            String parsedIndex = input.split(" ")[1];
+            List<Integer> indexToMark = Utils.reverse(parsedIndex.split(","));
 
-            if (isMark) {
-                items.get(index).markDone();
-                ui.markTask();
-            } else {
-                items.get(index).unmarkDone();
-                ui.unmarkTask();
+            for (int i : indexToMark) {
+                int index = i - 1;
+                if (isMark) {
+                    items.get(index).markDone();
+                    ui.markTask();
+                } else {
+                    items.get(index).unmarkDone();
+                    ui.unmarkTask();
+                }
+                ui.println(items.get(index).toString());
             }
-            ui.println(items.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
             throw new GgException("Invalid task ID to mark");
         }
@@ -174,11 +180,14 @@ public class Parser {
         }
 
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            String parsedIndex = input.split(" ")[1];
+            List<Integer> indexToDelete = Utils.reverse(parsedIndex.split(","));
 
-            Task task = items.remove(index);
             ui.deleteTask();
-            ui.println(task.toString());
+            for (int i : indexToDelete) {
+                Task task = items.remove(i - 1);
+                ui.println(task.toString());
+            }
             ui.countTasks(items.size());;
         } catch (IndexOutOfBoundsException e) {
             throw new GgException("Invalid task ID to delete");
