@@ -113,7 +113,7 @@ public class Parser {
                 int index = Integer.parseInt(input.substring(7));
                 String response = tasksList.delete(index);
                 output += (response);
-
+            //task name can partially contain keyword
             } else if (input.toLowerCase().startsWith("find")) {
                 String keyword = input.split(" ")[1];
                 //TaskList temp = new TaskList();
