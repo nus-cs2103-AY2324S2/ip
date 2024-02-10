@@ -50,14 +50,17 @@ public class Storage {
             String[] taskArr = s.nextLine().split(" \\| ");
             switch (taskArr[0]) {
             case "T":
+                assert taskArr.length == 3 : "Saved Todo task is invalid";
                 Task newTodo = Todo.fromSaveFormat(taskArr);
                 loadedLst.add(newTodo);
                 break;
             case "D":
+                assert taskArr.length == 4 : "Saved Deadline task is invalid";
                 Task newDeadline = Deadline.fromSaveFormat(taskArr);
                 loadedLst.add(newDeadline);
                 break;
             case "E":
+                assert taskArr.length == 5 : "Saved Event task is invalid";
                 Task newEvent = Event.fromSaveFormat(taskArr);
                 loadedLst.add(newEvent);
                 break;
