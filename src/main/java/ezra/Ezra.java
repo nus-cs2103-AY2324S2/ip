@@ -20,7 +20,7 @@ public class Ezra {
         this.storage = new Storage(filepath);
         try {
             this.tasks = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | WrongFormatException e) {
             this.tasks = new TaskList();
         }
     }
