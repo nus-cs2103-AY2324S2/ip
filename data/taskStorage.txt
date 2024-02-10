@@ -1,0 +1,3 @@
+T | X | hellooooo
+D |   | finish this | by: Jan 23 2050 00:50
+E |   | meeting with chatgpt | from: 05/06/2024 1500 to: 03/04/2025 1400

@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Todo class that extends the Task class
  * Represents a task without any date/time attached to it
