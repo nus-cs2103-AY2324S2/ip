@@ -32,7 +32,7 @@ public class Response {
      * Sets the goodbye message as the chatbot's response.
      */
     public void setGoodbyeResponse() {
-        this.response = "Bye\uD83D\uDC4B. Hope to see you again soon!";
+        this.response = "Bye \uD83D\uDC4B. Hope to see you again soon!";
     }
 
     /**
@@ -42,7 +42,7 @@ public class Response {
      * @param taskCount The number of tasks in the task list.
      */
     public void setTaskAddedResponse(Task task, int taskCount) {
-        this.response = "Got it. I've added this task:\n" + task.toString()
+        this.response = "Got it. I've added this task:\n  " + task.toString()
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -53,7 +53,7 @@ public class Response {
      * @param taskCount The number of tasks in the task list.
      */
     public void setTaskRemovedResponse(Task task, int taskCount) {
-        this.response = "Noted. I've removed this task:\n" + task.toString()
+        this.response = "Noted. I've removed this task:\n  " + task.toString()
                 + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
@@ -63,7 +63,7 @@ public class Response {
      * @param task The task marked as done.
      */
     public void setTaskMarkedDoneResponse(Task task) {
-        this.response = "Nice! I've marked this task as done:\n" + task.toString();
+        this.response = "Nice! I've marked this task as done:\n  " + task.toString();
     }
 
     /**
@@ -72,7 +72,7 @@ public class Response {
      * @param task The task marked as not done.
      */
     public void setTaskUnmarkedDoneResponse(Task task) {
-        this.response = "OK, I've marked this task as not done yet:\n" + task.toString();
+        this.response = "OK, I've marked this task as not done yet:\n  " + task.toString();
     }
 
     /**
@@ -102,7 +102,7 @@ public class Response {
         } else {
             this.response = "Here are the matching tasks in your list:";
             for (int i = 0; i < tasks.size(); i++) {
-                this.response += "\n" + (i + 1) + "." + tasks.get(i);
+                this.response += "\n  " + (i + 1) + "." + tasks.get(i);
             }
         }
     }

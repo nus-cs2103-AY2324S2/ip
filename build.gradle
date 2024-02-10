@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("eggy.Eggy")
+    mainClass.set("eggy.Launcher")
 }
 
 shadowJar {

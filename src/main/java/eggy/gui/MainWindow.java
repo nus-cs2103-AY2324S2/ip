@@ -1,6 +1,7 @@
 package eggy.gui;
 
 import eggy.Eggy;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,12 +28,17 @@ public class MainWindow extends AnchorPane {
 
     private Eggy eggy;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image eggyImage = new Image(this.getClass().getResourceAsStream("/images/DaEggy.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image eggyImage = new Image(this.getClass().getResourceAsStream("/images/DaEggy.jpg"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        userInput.setFont(Font.font("Arial", 14));
+        sendButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
     }
 
     public void setEggy(Eggy eggy) {
@@ -52,15 +61,19 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        if (eggy.isExit()) {
-            System.exit(0);
-        }
         String input = userInput.getText();
         String response = eggy.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getEggyDialog(response, eggyImage)
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.4));
+        pause.setOnFinished(event ->
+                dialogContainer.getChildren().addAll(DialogBox.getEggyDialog(response, eggyImage))
         );
+        pause.play();
         userInput.clear();
+        if (eggy.isExit()) {
+            PauseTransition exitPause = new PauseTransition(Duration.seconds(3));
+            exitPause.setOnFinished(event -> System.exit(0));
+            exitPause.play();
+        }
     }
 }
