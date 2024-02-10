@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
-    public void parseTest(){
+    public void parse_validInput_success() {
         String[] parsed = parse(new Scanner("todo read book"));
         assertEquals(parsed[0], "todo");
         assertEquals(parsed[1], "read book");

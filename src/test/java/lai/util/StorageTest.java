@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test
-    public void readTasksFileTest() throws IOException {
+    public void readTasksFile_validFile_success() throws IOException {
         File file = File.createTempFile( "test-tasks", "txt");
         file.deleteOnExit();
 

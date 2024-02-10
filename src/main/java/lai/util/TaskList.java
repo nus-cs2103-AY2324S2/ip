@@ -12,7 +12,7 @@ import java.util.List;
  * as well as to iterate over all tasks.
  */
 public class TaskList implements Iterable<Task> {
-    List<Task> tasks = new ArrayList<>();
+    protected List<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs a TaskList with a specified list of tasks.
