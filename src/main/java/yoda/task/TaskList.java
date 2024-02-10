@@ -9,6 +9,10 @@ import java.util.stream.Stream;
 public class TaskList {
     private final List<Task> TASKS; // List to store the tasks
 
+    public TaskList() {
+        this.TASKS = new ArrayList<>();
+    }
+
     public TaskList(List<Task> loadedTasks) {
         this.TASKS = loadedTasks != null ? new ArrayList<>(loadedTasks) : new ArrayList<>();
     }
