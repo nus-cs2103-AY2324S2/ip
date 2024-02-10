@@ -2,6 +2,8 @@ package Ui;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import Tasks.Task;
 import javafx.scene.Scene;
@@ -115,18 +117,12 @@ public class Ui {
     }
 
     public String printTaskKeyword(List<Task> userTaskList, String keyword) {
-        String tasks = "";
-
-        for (int i = 0; i < userTaskList.size(); i++) {
-            if (userTaskList.get(i).getDescription().contains(keyword)) {
-                tasks += i + ": " + userTaskList.get(i) + "\n";
-            }
-        }
+        String tasks = IntStream.range(0, userTaskList.size())
+                                .filter(i -> userTaskList.get(i).getDescription().contains(keyword))
+                                .mapToObj(i -> i + ": " + userTaskList.get(i))
+                                .collect(Collectors.joining("\n"));
         
-        return this.formatString(
-            "Here are the matching tasks in your list:\n" + 
-            tasks + "\n"
-        );
+        return this.formatString("Here are the matching tasks in your list:\n" + tasks);
     }
 
     public String printGoodBye() {
@@ -167,16 +163,11 @@ public class Ui {
     }
 
     public String printList(List<Task> taskList) {
-        String tastListStr = "";
+        String taskListStr = IntStream.range(0, taskList.size())
+                                      .mapToObj(i -> (i + 1) + ": " + taskList.get(i))
+                                      .collect(Collectors.joining("\n"));
 
-        for (int i = 1; i < taskList.size() + 1; i++) {
-            tastListStr += i + ": " + taskList.get(i - 1) + "\n";
-        }
-
-        return this.formatString(
-            "Here are the tasks in your list:\n" +
-            tastListStr
-        );
+        return formatString("Here are the tasks in your list:\n" + taskListStr);
     }
 
     public String formatString(String... msg) {
