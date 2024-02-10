@@ -16,8 +16,12 @@ bin/
 # java class files
 *.class
 
+# simple text UI test
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
+# local storage
 data/PersistentData.json
-!data/
+
+# jar binary
+*.jar

@@ -17,12 +17,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataHandler {
-    private static final String fileNamePath = "data/PersistentData.json";
+    private static final String DIRECTORY_PATH = "data/";
+    private static final String FILE_PATH = "data/PersistentData.json";
     static ArrayList<Task> tasks = new ArrayList<>();
     private DataHandler() {};
 
     private static void readFromJson() throws IOException {
-        FileReader fileReader = new FileReader(fileNamePath);
+        FileReader fileReader = new FileReader(FILE_PATH);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeHierarchyAdapter(Task.class, new TaskTypeAdapter());
         Gson gson = gsonBuilder.create();
@@ -32,7 +33,7 @@ public class DataHandler {
     }
 
     private static void saveToJson() throws IOException {
-        FileWriter fileWriter = new FileWriter(fileNamePath);
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeHierarchyAdapter(Task.class, new TaskTypeAdapter());
         Gson gson = gsonBuilder.create();
@@ -45,11 +46,15 @@ public class DataHandler {
         try {
             readFromJson();
         } catch (IOException e) {
-            Path newFilePath = Paths.get(fileNamePath);
+            Path newFilePath = Paths.get(FILE_PATH);
             try {
                 Files.createFile(newFilePath);
             } catch (IOException ex) {
-                PrintHandler.printException(ex);
+                try {
+                    Files.createDirectory(Paths.get(DIRECTORY_PATH));
+                } catch (IOException exc) {
+                    PrintHandler.printException(exc);
+                }
             }
         }
     }
