@@ -1,7 +1,9 @@
 package utils;
 
-import tasks.Task;
 import java.util.Scanner;
+
+import tasks.Task;
+
 
 /**
  * The Ui class handles user interface operations.
@@ -10,7 +12,8 @@ public class Ui {
     // Constants
     private static final String CHATBOT_NAME = "Chitty";
     private static final String SPACING = "----------------------------------------------------------\n";
-    private static final String GREETING_MESSAGE = String.format("Hello! I'm %s\nWhat can I do for you?\n", CHATBOT_NAME);
+    private static final String GREETING_MESSAGE = String.format("Hello! I'm %s\nWhat can I do for you?\n",
+            CHATBOT_NAME);
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!\n";
     private static final String ADD_TASK = "Got it. I've added this task:\n";
     private static final String TASK_LENGTH = "Now you have %d tasks in the list.\n";
@@ -21,8 +24,8 @@ public class Ui {
     private static final String FOUND_TASKS = "Here are the matching tasks in your list:\n";
     private static final String FOUND_NO_TASKS = "I am sorry. There are no tasks that match your query!\n";
     private static final String INVALID_INPUT = "Invalid input, please double check your input values!\n";
-    private static final String INVALID_COMMAND = "Invalid command, please only use the following commands:\n" +
-            "todo, deadline, event, list, mark, unmark, delete, bye \n";
+    private static final String INVALID_COMMAND = "Invalid command, please only use the following commands:\n"
+            + "todo, deadline, event, list, mark, unmark, delete, bye \n";
 
     private final Scanner scanner;
 
@@ -86,8 +89,8 @@ public class Ui {
      * @param length The number of tasks in the list after adding the task.
      */
     public void displayAddedTask(Task task, int length) {
-        System.out.println(SPACING + ADD_TASK + task + "\n" +
-                String.format(TASK_LENGTH, length) + SPACING);
+        System.out.println(SPACING + ADD_TASK + task + "\n"
+                + String.format(TASK_LENGTH, length) + SPACING);
     }
 
     /**
@@ -115,8 +118,8 @@ public class Ui {
      * @param length The number of tasks in the list after deleting the task.
      */
     public void displayDeletedTask(Task task, int length) {
-        System.out.println(SPACING + DELETE_TASK + task + "\n" +
-                String.format(TASK_LENGTH, length) + SPACING);
+        System.out.println(SPACING + DELETE_TASK + task + "\n"
+                + String.format(TASK_LENGTH, length) + SPACING);
     }
 
     /**
@@ -128,6 +131,11 @@ public class Ui {
         System.out.println(SPACING + LIST_TASKS + taskList + SPACING);
     }
 
+    /**
+     * Displays the list of found tasks in the filtered task list.
+     *
+     * @param filteredTaskList The filtered task list containing tasks to display.
+     */
     public void listFoundTasks(TaskList filteredTaskList) {
         String displayString = filteredTaskList.getLength() > 0 ? FOUND_TASKS : FOUND_NO_TASKS;
         System.out.println(SPACING + displayString + filteredTaskList + SPACING);

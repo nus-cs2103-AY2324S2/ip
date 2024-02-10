@@ -1,8 +1,8 @@
 package commands;
 
+import tasks.Task;
 import utils.TaskList;
 import utils.Ui;
-import tasks.Task;
 
 /**
  * The UnmarkCommand class represents a command to unmark a task as completed.

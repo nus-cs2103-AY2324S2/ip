@@ -1,22 +1,23 @@
 package utils;
 
-import mocks.MockTodo;
-import org.junit.jupiter.api.Test;
-import tasks.Task;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import mocks.MockTodo;
+import tasks.Task;
 
 /**
  * The TaskListTest class contains unit tests for the TaskList class.
  */
 public class TaskListTest {
+    private static final int TASKLIST_LENGTH_AFTER_ADD_TASK = 1;
+    private static final int TASKLIST_LENGTH_AFTER_DELETE_TASK = 0;
+    private static final String TODO_DESCRIPTION = "borrow book";
     private final TaskList taskList;
     private final Task todo = new MockTodo(TODO_DESCRIPTION);
-    private static final String TODO_DESCRIPTION = "borrow book";
-    private static final int TASKLIST_LENGTH_AFTER_DELETE_TASK = 0;
-    private static final int TASKLIST_LENGTH_AFTER_ADD_TASK = 1;
 
     /**
      * Constructs a TaskListTest object and initializes the task list.
