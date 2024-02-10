@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
+//Commit message:Released a updated JAR file with External Libs
 /**
  * Main class for the Mamta task manager application.
  */
