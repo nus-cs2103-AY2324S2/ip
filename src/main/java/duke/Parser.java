@@ -38,14 +38,13 @@ public class Parser {
         assert userInput != null : "User input cannot be null";
         assert tasks != null : "Task list cannot be null";
         assert ui != null : "UI object cannot be null";
-        assert storage != null : "Storage object cannot be null";
+
 
         String[] words = userInput.split(" ");
 
         assert words != null && words.length > 0 : "Parsed words array cannot be null or empty";
 
-       
-        System.out.println(words[0]);
+
 
         switch (words[0].toUpperCase()) {
         case "BYE":

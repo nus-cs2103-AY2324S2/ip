@@ -16,7 +16,7 @@ import java.io.IOException;
  * Storage class handles the loading and saving of tasks to a file.
  */
 public class Storage {
-    private final String File_Path;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -27,7 +27,7 @@ public class Storage {
         assert file != null : "File path cannot be null";
 
 
-        this.File_Path = file;
+        this.filePath = file;
     }
 
     /**
@@ -37,14 +37,14 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> store) {
         try {
-            File file = new File(File_Path);
+            File file = new File(filePath);
             assert file.exists() : "File does not exist";
             if (!file.exists()) {
                 file.getParentFile().mkdirs(); // Create parent directories if they don't exist
                 file.createNewFile(); // Create the file if it doesn't exist
             }
 
-            FileWriter fileWriter = new FileWriter(File_Path);
+            FileWriter fileWriter = new FileWriter(filePath);
             for (Task task : store) {
                 fileWriter.write(task.toFileString() + "\n");
             }
@@ -62,7 +62,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         try {
-            File file = new File(File_Path);
+            File file = new File(filePath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();

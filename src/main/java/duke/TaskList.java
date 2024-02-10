@@ -118,6 +118,11 @@ public class TaskList {
         return matchedTasks;
     }
 
+    /**
+     * @param keyword
+     * @param ui
+     * @return String of all tasks found
+     */
     public static String findTasks(String keyword, Ui ui) {
         ArrayList<Task> matchingTasks = keywordSearch(keyword);
         StringBuilder res;

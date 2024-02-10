@@ -59,7 +59,7 @@ public class Duke extends Application {
         try {
 
 
-            String output =  Parser.parseAndExecute(input, tasks, ui);
+            String output = Parser.parseAndExecute(input, tasks, ui);
 
             storage.saveTasks(tasks.getTasks());
             return output;
