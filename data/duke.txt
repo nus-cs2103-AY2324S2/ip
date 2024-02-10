@@ -8,3 +8,5 @@ T | 0 | fun
 T | 0 | next task
 T | 0 | ff
 T | 0 | e
+T | 0 | task2
+T | 0 | read book
