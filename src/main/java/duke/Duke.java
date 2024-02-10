@@ -5,7 +5,7 @@ package duke;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.Scanner;
+
 
 /**
  * Duke is a task management application that allows users to manage their tasks.
@@ -47,6 +47,7 @@ public class Duke extends Application {
 
 
 
+
     /**
      * Gets the response for a given input.
      *
@@ -57,7 +58,9 @@ public class Duke extends Application {
 
         try {
 
+
             String output =  Parser.parseAndExecute(input, tasks, ui);
+
             storage.saveTasks(tasks.getTasks());
             return output;
         } catch (DukeException e) {

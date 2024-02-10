@@ -24,6 +24,9 @@ public class Storage {
      * @param file The file path to save and load tasks.
      */
     public Storage(String file) {
+        assert file != null : "File path cannot be null";
+
+
         this.File_Path = file;
     }
 
@@ -35,6 +38,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> store) {
         try {
             File file = new File(File_Path);
+            assert file.exists() : "File does not exist";
             if (!file.exists()) {
                 file.getParentFile().mkdirs(); // Create parent directories if they don't exist
                 file.createNewFile(); // Create the file if it doesn't exist
