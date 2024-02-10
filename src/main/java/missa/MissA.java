@@ -30,6 +30,7 @@ public class MissA {
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadData());
+            assert tasks != null: "tasks should be initialised";
         } catch (WrongTaskDataException | FileNotFoundException e) {
             System.out.println(ui.showError(e));
             tasks = new TaskList();
@@ -45,6 +46,7 @@ public class MissA {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input, tasks);
+            assert command != null: "command should not be empty";
             tasks = command.execute();
             String newData = tasks.getUpdatedData();
             storage.writeBackData(newData);
@@ -69,6 +71,7 @@ public class MissA {
         if (input.toLowerCase().equals("bye")) {
             return true;
         }
+        assert input.toLowerCase() != "bye": "Bye command should be detected";
         return false;
     }
 

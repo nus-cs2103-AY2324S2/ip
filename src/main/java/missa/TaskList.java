@@ -77,6 +77,9 @@ public class TaskList {
      * @param idx Index of task to be marked as done.
      */
     public void markTask(int idx) {
+        assert idx >= 0: "index should be greater than or equal to 0";
+        assert idx < taskList.size(): "index should not exceed size of task list";
+
         Task t = taskList.get(idx);
         t.mark();
     }
@@ -87,6 +90,9 @@ public class TaskList {
      * @param idx Index of task to be marked as not done.
      */
     public void unmarkTask(int idx) {
+        assert idx >= 0: "index should be greater than or equal to 0";
+        assert idx < taskList.size(): "index should not exceed size of task list";
+
         Task t = taskList.get(idx);
         t.unmark();
     }
