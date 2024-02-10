@@ -128,6 +128,9 @@ public class TaskList {
         // Delete task numbers from largest to smallest so that there are no changes in task number after each deletion
         for (int i = sortedTaskNumbers.length - 1; i >= 0; i--) {
             int taskIndex = sortedTaskNumbers[i] - 1;
+            assert taskIndex >= -1: "sortedTaskNumbers[i] >= 0 so taskIndex >= -1";
+
+            // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
                 continue;
             }
@@ -187,6 +190,8 @@ public class TaskList {
         StringBuilder markedTasks = new StringBuilder(MARK_MESSAGE_START);
         for (String taskNumber : taskNumbers) {
             int taskIndex = Integer.parseInt(taskNumber) - 1;
+            assert taskIndex >= -1: "Integer.parseInt(taskNumber) >= 0 so taskIndex >= -1";
+
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
                 continue;
@@ -227,6 +232,8 @@ public class TaskList {
         StringBuilder unmarkedTasks = new StringBuilder(UNMARK_MESSAGE_START);
         for (String taskNumber : taskNumbers) {
             int taskIndex = Integer.parseInt(taskNumber) - 1;
+            assert taskIndex >= -1: "Integer.parseInt(taskNumber) >= 0 so taskIndex >= -1";
+
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
                 continue;
