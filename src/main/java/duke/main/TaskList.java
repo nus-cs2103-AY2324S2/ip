@@ -1,7 +1,8 @@
 package duke.main;
+import java.util.ArrayList;
+
 import duke.task.*;
 
-import java.util.ArrayList;
 
 /**
  * Represents the list of tasks generated from user inputs
@@ -70,6 +71,11 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    /**
+     * Finds and returns all tasks with name containing given keyword/key phrase
+     * @param keyword  String representation of a word/phrase to search for
+     * @return         Tasks in taskList with name containing keyword
+     */
     public TaskList find(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task t : taskList) {

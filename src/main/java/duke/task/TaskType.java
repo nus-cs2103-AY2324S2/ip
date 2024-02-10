@@ -36,7 +36,7 @@ public enum TaskType {
         deadline,
 
         /**
-         * append a new event task to task list 
+         * append a new event task to task list
          */
         event,
 
