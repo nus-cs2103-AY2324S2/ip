@@ -52,12 +52,16 @@ public class Task {
      * @return The status icon ("X" if the task is done, " " (space) otherwise).
      */
     public String getStatusIcon() {
-        return (this.taskDone ? "X" : " ");
+        String currentStatusIcon = this.taskDone ? "X" : " ";
+        assert (currentStatusIcon.equals("X") || currentStatusIcon.equals(" ")) : "Invalid getStatusIcon!";
+        return currentStatusIcon;
     }
 
-    public void setDate(String[] times) {
-        this.dateFromAndTo[0] = times[0];
-        this.dateFromAndTo[1] = times[1];
+    public void setDate(String[] dates) {
+        assert dates.length == 2 : "Invalid initialization of primitive dates array! "
+                + "It should be of length 2";
+        this.dateFromAndTo[0] = dates[0];
+        this.dateFromAndTo[1] = dates[1];
     }
 
     /**
@@ -66,6 +70,8 @@ public class Task {
      * @param times An array of times representing the start and end times of the task.
      */
     public void setTime(String[] times) {
+        assert times.length == 2 : "Invalid initialization of primitive times array! "
+                + "It should be of length 2";
         this.timeFromAndTo[0] = times[0];
         this.timeFromAndTo[1] = times[1];
     }
@@ -88,6 +94,8 @@ public class Task {
      * @param action The action to be performed ("mark" to mark as done, other to mark as not done).
      */
     public String changeStatus(String action) {
+        assert action.equals("mark") || action.equals("unmark") : "Action should be either "
+                + "mark or unmark!";
         this.taskDone = action.equals("mark");
         return ResponseHandler.markActionPrint(action, this);
     }
@@ -107,10 +115,14 @@ public class Task {
      * @return An array of times representing the start and end times of the task.
      */
     public String[] getTimes() {
+        assert timeFromAndTo.length == 2 : "Invalid initialization of primitive times array! "
+                + "It should be of length 2";
         return this.timeFromAndTo;
     }
 
     public String[] getDates() {
+        assert dateFromAndTo.length == 2 : "Invalid initialization of primitive dates array! "
+                + "It should be of length 2";
         return this.dateFromAndTo;
     }
 }

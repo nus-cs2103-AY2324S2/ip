@@ -33,8 +33,7 @@ public class Ui {
     public String performTaskFromSingleUserInput(String userInput) {
         CommandsParser commandsParser = new CommandsParser(this.taskList, this.filePath, this.taskLoader);
         try {
-            String returnedResponse = commandsParser.parseCommands(userInput);
-            return returnedResponse;
+            return commandsParser.parseCommands(userInput);
         } catch (DateTimeException e) {
             return "Problem with date or time format!\n"
                     + "Date should be in YYYY-MM-DD\n"
