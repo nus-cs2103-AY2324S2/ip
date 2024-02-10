@@ -9,10 +9,10 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
-    protected LocalDateTime start;
-    protected LocalDateTime end;
-    protected String startInput;
-    protected String endInput;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
+    protected String startString;
+    protected String endString;
 
     /**
      * Constructs an Event object with the specified description, start time, and end time.
@@ -24,10 +24,10 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
-        this.start = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        this.startInput = start;
-        this.endInput = end;
+        this.startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.endDateTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.startString = start;
+        this.endString = end;
     }
 
     /**
@@ -37,8 +37,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String startString = this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
-        String endString = this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+        String startString = this.startDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+        String endString = this.endDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
         return String.format(
                 "[E][%s] %s (from: %s to: %s)",
                 this.getStatusIcon(),
@@ -57,8 +57,8 @@ public class Event extends Task {
         return String.format("E | %d | %s | %s | %s",
                 this.isDone ? 1 : 0,
                 this.description,
-                this.startInput,
-                this.endInput);
+                this.startString,
+                this.endString);
     }
 
     /**
@@ -77,7 +77,14 @@ public class Event extends Task {
         }
         Event e = (Event) o;
         return this.description.equals(e.description)
-                && this.startInput.equals(e.startInput)
-                && this.endInput.equals(e.endInput);
+                && this.startString.equals(e.startString)
+                && this.endString.equals(e.endString);
+    }
+
+    @Override
+    public Event copy() {
+        Event copy = new Event(this.description, this.startString, this.endString);
+        copy.isDone = this.isDone;
+        return copy;
     }
 }

@@ -33,4 +33,6 @@ public abstract class Task {
      * @return A formatted string suitable for storage, including the completion status and description.
      */
     public abstract String toStorageString();
+
+    public abstract Task copy();
 }

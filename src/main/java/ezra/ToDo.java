@@ -51,4 +51,11 @@ public class ToDo extends Task {
         ToDo t = (ToDo) o;
         return this.description.equals(t.description);
     }
+
+    @Override
+    public ToDo copy() {
+        ToDo copy = new ToDo(this.description);
+        copy.isDone = this.isDone;
+        return copy;
+    }
 }
