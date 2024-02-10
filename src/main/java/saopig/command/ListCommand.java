@@ -101,6 +101,8 @@ public class ListCommand extends Command {
                             || ((Event) task).getEndTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
                         tasksOnDate.add(task);
                     }
+                } else {
+                    continue;
                 }
             }
             if (tasksOnDate.isEmpty()) {
@@ -149,8 +151,9 @@ public class ListCommand extends Command {
             return listTasks(tasks, ui);
         } else if (typeIndex == 1) {
             return listTasksOnDate(command, tasks, ui);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**

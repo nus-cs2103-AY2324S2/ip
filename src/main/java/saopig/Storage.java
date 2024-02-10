@@ -62,16 +62,17 @@ public class Storage {
                     String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
                     String isDone = task.getIsDoneState() ? "1" : "0";
                     String description = task.getDescription();
+                    String divideSymbol = " %&///&% ";
                     if (task instanceof Deadline) {
-                        description += " %&///&% "
+                        description += divideSymbol
                                 + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Deadline) task).getBy());
                     } else if (task instanceof Event) {
-                        description += " %&///&% "
+                        description += divideSymbol
                                 + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getStartTime())
-                                + " %&///&% "
+                                + divideSymbol
                                 + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getEndTime());
                     }
-                    fileWriter.write(taskType + " %&///&% " + isDone + " %&///&% " + description + "\n");
+                    fileWriter.write(taskType + divideSymbol + isDone + divideSymbol + description + "\n");
                 }
             }
             fileWriter.close();
@@ -102,7 +103,8 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
-                String[] splitInput = input.split(" %&///&% ");
+                String divideSymbol = " %&///&% ";
+                String[] splitInput = input.split(divideSymbol);
                 switch (splitInput[0]) {
                 case "T":
                     taskList.getTasks().add(new Todo(splitInput[2]));
