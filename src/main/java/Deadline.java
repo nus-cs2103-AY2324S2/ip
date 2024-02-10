@@ -1,9 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class represents a Deadline task
  * It extends the Task class, adding a due date to the task
  */
 public class Deadline extends Task {
-    protected String dueDate;
+    // protected String dueDate;
+    protected LocalDateTime dueDateTime;
 
     /**
      * Constructs a new Deadline task with a specified description and due date
@@ -13,7 +17,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String dueDate) {
         super(description);
-        this.dueDate = dueDate;
+        // this.dueDate = dueDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        this.dueDateTime = LocalDateTime.parse(dueDate, formatter);
     }
 
     /**
@@ -25,6 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "D" + super.toString() + " | by: " + this.dueDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return "D" + super.toString() + " | by: " + this.dueDateTime.format(formatter);
     }
 }
