@@ -79,8 +79,9 @@ public class Mona {
             Task updatedTask = tasks.updateTask(taskIndex, processedInput[1]);
             return ui.showListAfterUpdate(updatedTask);
         default:
-            break;
+            assert false : currCommand;
         }
+        assert false : "Execution should not reach this point!";
         return "";
     }
 

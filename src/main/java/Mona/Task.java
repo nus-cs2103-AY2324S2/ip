@@ -1,8 +1,16 @@
 package mona;
+
+/**
+ * This class represents a task which is the superclass of all other tasks
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for task
+     * @param description the description for the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -35,4 +43,3 @@ public class Task {
         this.isDone = false;
     }
 }
-

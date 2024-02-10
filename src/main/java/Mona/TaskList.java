@@ -108,6 +108,12 @@ public class TaskList {
     public int getNumberOfTasks() {
         return this.tasks.size();
     }
+
+    /**
+     * Shows tasks that contain the supplied keyword
+     * @param keyword the string that is supplied by the user to check against
+     * @return the tasks in the task list that contain the keyword
+     */
     public String showRelevantTasks(String keyword) {
         StringBuilder sb = new StringBuilder();
         sb.append("  ______________________________________\n");
