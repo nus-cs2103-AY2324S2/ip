@@ -44,11 +44,12 @@ public class Ui {
     public void showList(TaskList tasks) throws JohnnyException {
         if (tasks.size() == 0) {
             output.append("You have no tasks bro. Stop being lazy and add some tasks.");
-        } else {
-            output.append("Get all these done bro:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                output.append(i + 1 + ". " + tasks.get(i) + "\n");
-            }
+            return;
+        }
+
+        output.append("Get all these done bro:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
     }
 
@@ -58,8 +59,7 @@ public class Ui {
      * @param task Task to be marked.
      */
     public void showMark(Task task) {
-        output.append("Finally done bro.\n");
-        output.append(task);
+        output.append("Finally done bro.\n").append(task);
     }
 
     /**
@@ -68,8 +68,7 @@ public class Ui {
      * @param task Task to be unmarked.
      */
     public void showUnmark(Task task) {
-        output.append("Why are you not done yet bro?\n");
-        output.append(task);
+        output.append("Why are you not done yet bro?\n").append(task);
     }
 
     /**
@@ -79,9 +78,8 @@ public class Ui {
      * @param tasks TaskList that the Task belonged to.
      */
     public void showDelete(Task task, TaskList tasks) {
-        output.append("Task removed. Why so lazy bro?\n");
-        output.append(task + "\n");
-        output.append("You still have " + tasks.size() + " tasks in your list bro.");
+        output.append("Task removed. Why so lazy bro?\n").append(task).append("\n")
+                .append("You still have ").append(tasks.size()).append(" tasks in your list bro.");
     }
 
     /**
@@ -91,9 +89,8 @@ public class Ui {
      * @param tasks Tasks left in TaskList.
      */
     public void showAddTask(Task task, TaskList tasks) {
-        output.append("Go get this done bro: \n");
-        output.append(task + "\n");
-        output.append("You still have " + tasks.size() + " tasks in your list bro.");
+        output.append("Go get this done bro: \n").append(task).append("\n").append("You still have ")
+                .append(tasks.size()).append(" tasks in your list bro.");
     }
 
     /**
@@ -105,11 +102,11 @@ public class Ui {
     public void showFoundTasks(TaskList foundTasks) throws JohnnyException {
         if (foundTasks.size() == 0) {
             output.append("No matches bro.");
-        } else {
-            output.append("All these tasks match bro:\n");
-            for (int i = 0; i < foundTasks.size(); i++) {
-                output.append(i + 1 + ". " + foundTasks.get(i) + "\n");
-            }
+        }
+
+        output.append("All these tasks match bro:\n");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            output.append(i + 1).append(". ").append(foundTasks.get(i)).append("\n");
         }
     }
 
@@ -120,6 +117,7 @@ public class Ui {
      */
     public String getOutput() {
         String temp = output.toString();
+        assert !temp.equals("") : "Output should not be empty";
         output = new StringBuilder();
         return temp;
     }
