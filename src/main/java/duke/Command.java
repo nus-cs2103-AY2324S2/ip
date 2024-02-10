@@ -194,13 +194,39 @@ public class Command {
             }
             break;
         case MARK:
+            try {
+                int indexToMark = Integer.parseInt(argument) - 1;
+                Task markedTask = tasks.markTaskAsDone(indexToMark);
+                storage.saveTasks(tasks.getTasks());
+                response.append("Nice! I've marked this task as done:\n  ").append(markedTask);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please specify a valid task number to mark as done.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Task not found. Please specify a valid task number.");
+            }
+            break;
         case UNMARK:
-            // Implement MARK and UNMARK logic here, similar to DELETE
-            response.append("Mark/Unmark functionality is not implemented yet.");
+            try {
+                int indexToUnmark = Integer.parseInt(argument) - 1;
+                Task unmarkedTask = tasks.unmarkTaskAsDone(indexToUnmark);
+                storage.saveTasks(tasks.getTasks());
+                response.append("Okay! I've marked this task as not done:\n  ").append(unmarkedTask);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please specify a valid task number to unmark.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Task not found. Please specify a valid task number.");
+            }
             break;
         case FIND:
-            // Implement FIND logic here
-            response.append("Find functionality is not implemented yet.");
+            List<Task> matchingTasks = tasks.findTasksByKeyword(argument);
+            if (matchingTasks.isEmpty()) {
+                response.append("No matching tasks found.");
+            } else {
+                response.append("Here are the matching tasks:\n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    response.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
+                }
+            }
             break;
         case INVALID:
             response.append("I'm sorry, but I don't know what that means :-(");

@@ -64,9 +64,11 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @throws DukeException If the index is invalid.
      */
-    public void markTaskAsDone(int index) throws DukeException {
+    public Task markTaskAsDone(int index) throws DukeException {
         if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsDone();
+            Task task = tasks.get(index);
+            task.markAsDone();
+            return task;
         } else {
             throw new DukeException("Invalid task index.");
         }
@@ -78,9 +80,11 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      * @throws DukeException If the index is invalid.
      */
-    public void unmarkTaskAsDone(int index) throws DukeException {
+    public Task unmarkTaskAsDone(int index) throws DukeException {
         if (index >= 0 && index < tasks.size()) {
-            tasks.get(index).markAsNotDone();
+            Task task = tasks.get(index);
+            task.markAsNotDone();
+            return task;
         } else {
             throw new DukeException("Invalid task index.");
         }

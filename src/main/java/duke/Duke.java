@@ -66,6 +66,11 @@ public class Duke extends Application {
 //        }
 //}
     public Duke() {
+        String defaultFilePath = "data/tasks.txt"; // Default file path for storage
+        this.ui = new Ui(); // Initialize Ui
+        this.storage = new Storage(defaultFilePath); // Initialize Storage with default file path
+        this.tasks = new TaskList(); // Initialize TaskList
+
     }
 
 
