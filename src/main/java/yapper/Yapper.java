@@ -8,11 +8,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import yapper.tasks.Deadline;
 import yapper.tasks.Event;
 import yapper.tasks.Task;
@@ -33,17 +28,7 @@ public class Yapper {
     private Scanner userScanner;
     private Storage storage;
 
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox dialogContainer;
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private volatile boolean isRunning = true;
-    private MainWindow mainWindow;
 
     /**
      * Constructs a new Yapper instance.
@@ -64,18 +49,6 @@ public class Yapper {
             tasks = new TaskList();
         }
         userScanner = new Scanner(inputStream);
-    }
-    public Ui getUi() {
-        return ui;
-    }
-    /**
-     * Starts the application by initiating the application loop in a separate thread.
-     * The application loop is executed by invoking the {@link #run()} method.
-     */
-    public void start() {
-        // Start the application loop in a separate thread
-        Thread yapperThread = new Thread(this::run);
-        yapperThread.start();
     }
     /**
      * Runs the Yapper application, displaying welcome messages and handling user input.
@@ -182,29 +155,6 @@ public class Yapper {
         }
         return responseBuilder.toString();
     }
-
-    /**
-     * Main method to start the Yapper application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-
-        new Yapper(FILE_PATH, System.in).run();
-    }
-
-    /**
-     * Prints the list of tasks.
-     *
-     * @param tasks List of tasks based on user inputs.
-     * @return List of tasks.
-     */
-    private static void printTaskList(List<Task> tasks) {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
-    }
-
     /**
      * Returns the list of tasks.
      *
