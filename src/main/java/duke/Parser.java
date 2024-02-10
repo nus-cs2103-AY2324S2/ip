@@ -123,7 +123,8 @@ public class Parser {
                 key = word;
                 continue;
             }
-            componentBuilders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
+            componentBuilders
+                    .compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
         }
 
         HashMap<String, String> components = new HashMap<>();

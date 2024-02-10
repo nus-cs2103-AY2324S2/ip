@@ -62,18 +62,27 @@ public class Ui {
         outputBuffer.append("─".repeat(72)).append('\n');
     }
 
+    /**
+     * Shows the error encountered by the program to the user.
+     */
     public void showError(Exception e) {
         assert e != null : "The exception must not be null";
 
         outputBuffer.append("The cat tilts its head and hands you an error report:\n").append(e.getMessage());
     }
 
+    /**
+     * Shows a note to the user.
+     */
     public void showNote(String str) {
         assert str != null : "Note string must not be null";
 
         outputBuffer.append("The cat hands a note to you, it reads:\n").append(str);
     }
 
+    /**
+     * Tells the user that the command used is not recognized.
+     */
     public void showCommandNotFound(String command) {
         assert command != null : "Command name must not be null";
         outputBuffer.append("The cat tilts its head. It doesn't know what command \"").append(command).append("\" is.");
