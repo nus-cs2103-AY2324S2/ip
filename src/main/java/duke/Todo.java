@@ -48,7 +48,8 @@ public class Todo extends Task {
      */
     public static Todo fromSaveFormat(String[] info) {
         Todo loadedTask = new Todo(info[2]);
-        if (info[1].equals("1")) {
+        boolean isSavedTaskDone = info[1].equals("1");
+        if (isSavedTaskDone) {
             loadedTask.markAsDone();
         }
         return loadedTask;

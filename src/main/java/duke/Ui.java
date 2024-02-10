@@ -6,6 +6,21 @@ package duke;
  * It provides methods to print various types of messages to the console.
  */
 public class Ui {
+
+    /**
+     * This enum represents a UI command.
+     */
+    public enum Command {
+        LIST,
+        FIND,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+    }
+
     /**
      * Displays a greeting message to the user.
      * This includes an ASCII art representation of a snowman and a welcome message.
@@ -41,22 +56,23 @@ public class Ui {
      */
     public static String checkCmd(TaskList tl, String cmd) throws DukeException {
         String[] commandArr = cmd.split(" ");
-        switch (commandArr[0]) {
-        case "list":
+        Command cmdType = Parser.parseCmdType(commandArr);
+        switch (cmdType) {
+        case LIST:
             return Parser.printLst(tl);
-        case "find":
+        case FIND:
             return Parser.findTask(tl, cmd, commandArr);
-        case "mark":
+        case MARK:
             return Parser.markTask(tl, commandArr);
-        case "unmark":
+        case UNMARK:
             return Parser.unmarkTask(tl, commandArr);
-        case "todo":
+        case TODO:
             return Parser.addTodo(tl, cmd, commandArr);
-        case "deadline":
+        case DEADLINE:
             return Parser.addDeadline(tl, cmd, commandArr);
-        case "event":
+        case EVENT:
             return Parser.addEvent(tl, cmd, commandArr);
-        case "delete":
+        case DELETE:
             return Parser.deleteTask(tl, commandArr);
         default:
             throw new DukeException(String.format(" Sorry, %s is not a valid command :(", cmd));
