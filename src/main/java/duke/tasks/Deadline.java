@@ -26,7 +26,7 @@ public class Deadline extends Task {
 
     @Override
     public String convertToFileFormat(DateTimeFormatter storeFormatter) {
-        return "D | " + super.convertToFileFormat(storeFormatter) + " | " + this.deadline;
+        return "D | " + super.convertToFileFormat(storeFormatter) + " | " + this.deadline.format(storeFormatter);
     }
 
 }
