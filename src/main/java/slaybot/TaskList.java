@@ -41,16 +41,10 @@ public class TaskList {
     /**
      * Iterates through the tasks in the TaskList and prints their information.
      */
-//    public void iterate() {
-//        for (int i = 0; i < tasks.size(); i++) {
-//            System.out.println(i + 1 + ". " + tasks.get(i));
-//        }
-//    }
     public String iterate() {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             output += i + 1 + ". " + tasks.get(i) + "\n";
-            //System.out.println(i + 1 + ". " + tasks.get(i));
         }
 
         return output;

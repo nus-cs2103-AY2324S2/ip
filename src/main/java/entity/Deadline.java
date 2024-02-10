@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * The Deadline class which extends the Task class and includes a deadline represented by a LocalDateTime object.
  */
 public class Deadline extends Task {
-    private LocalDateTime dateTime;
+    protected LocalDateTime dateTime;
 
     /**
      * Constructor for Deadline class
@@ -26,7 +26,7 @@ public class Deadline extends Task {
      */
     @Override
     public String save() {
-        if (this.marked) {
+        if (this.getMarked()) {
             return "D | Done | " + this.title;
         } else {
             return "D | Not Done | " + this.title;
@@ -35,7 +35,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
 
-        if (this.marked) {
+        if (this.getMarked()) {
             return "[D][X] " + this.title + "by " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else {
             return "[D][ ] " + this.title + "by " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
