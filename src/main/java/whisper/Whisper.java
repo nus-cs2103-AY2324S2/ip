@@ -1,3 +1,5 @@
+package whisper;
+
 public class Whisper {
 
     private Storage storage;

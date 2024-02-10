@@ -1,3 +1,4 @@
+package whisper;
 import java.util.*;
 
 public class WhisperException extends Exception {
