@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 import duke.command.AddCommand;
@@ -16,6 +15,8 @@ import duke.command.ListCommand;
  * Used to parse user commands.
  */
 public class Parser {
+    private static final String DESCRIPTION_IDENTIFIER = "description";
+
     private enum CommandType {
         Todo,
         Deadline,
@@ -73,10 +74,7 @@ public class Parser {
             // continue to other commands
         }
 
-        if (!scanner.hasNextLine()) {
-            throw new InvalidCommandData();
-        }
-        String parameter = scanner.nextLine().trim();
+        String parameter = getParameter(scanner);
 
         switch (type) {
         case Todo:
@@ -98,30 +96,37 @@ public class Parser {
         }
     }
 
+    private static String getParameter(Scanner scanner) throws InvalidCommandData {
+        if (!scanner.hasNextLine()) {
+            throw new InvalidCommandData();
+        }
+        return scanner.nextLine().trim();
+    }
+
     private static int parseIndex(String input) {
         return Integer.parseInt(input.trim()) - 1;
     }
 
     private static HashMap<String, String> parseComponents(String data) throws InvalidCommandData {
-        HashMap<String, StringBuilder> builders = new HashMap<>();
+        HashMap<String, StringBuilder> componentBuilders = new HashMap<>();
 
-        String key = "DESCRIPTION";
+        String key = DESCRIPTION_IDENTIFIER;
         String[] words = data.split(" +");
         for (String word : words) {
             if (word.startsWith("/")) {
-                // Check if the previous key had any data given to it
-                if (builders.get(key) == null) {
+                boolean isPreviousBuilderNull = componentBuilders.get(key) == null;
+                if (isPreviousBuilderNull) {
                     throw new InvalidCommandData(key);
                 }
 
                 key = word;
-            } else {
-                builders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
+                continue;
             }
+            componentBuilders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
         }
 
         HashMap<String, String> components = new HashMap<>();
-        builders.forEach((k, v) -> components.put(k, v.toString()));
+        componentBuilders.forEach((k, v) -> components.put(k, v.toString()));
         return components;
     }
 
