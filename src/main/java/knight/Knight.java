@@ -11,7 +11,7 @@ public class Knight {
     public static void main(String[] args) {
         tasks = Storage.readFromFile();
         Ui.speak("Greetings, Your Excellency! Thy humble\n"
-                + Ui.logo
+                + Ui.LOGO
                 + "doth stand before thee. How may I serve thee on this day?");
 
         Scanner scan = new Scanner(System.in);

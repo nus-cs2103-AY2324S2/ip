@@ -5,7 +5,7 @@ package knight;
  */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
-    static final String logo = "┓┏┓  •  ┓  \n"
+    static final String LOGO = "┓┏┓  •  ┓  \n"
             + "┃┫ ┏┓┓┏┓┣┓╋\n"
             + "┛┗┛┛┗┗┗┫┛┗┗\n"
             + "       ┛\n";

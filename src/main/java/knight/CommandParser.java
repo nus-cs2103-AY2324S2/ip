@@ -40,32 +40,32 @@ public class CommandParser {
             throw new NonstandardCommandException("Though canst view thy list simply with:\nlist");
         } else if (s.matches("find")) {
             throw new NonstandardCommandException(
-                    "Thou shouldst specify a keyword to search for in thy list of tasks:\n" +
-                            "find [keyword]");
+                    "Thou shouldst specify a keyword to search for in thy list of tasks:\n"
+                            + "find [keyword]");
         } else if (s.startsWith("mark")) {
             throw new NonstandardCommandException(
-                    "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n" +
-                            "mark [index]");
+                    "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n"
+                            + "mark [index]");
         } else if (s.startsWith("unmark")) {
             throw new NonstandardCommandException(
-                    "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n" +
-                            "unmark [index]");
+                    "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n"
+                            + "unmark [index]");
         } else if (s.startsWith("delete")) {
             throw new NonstandardCommandException(
-                    "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n" +
-                            "delete [index]");
+                    "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n"
+                            + "delete [index]");
         } else if (s.startsWith("todo")) {
             throw new NonstandardCommandException(
-                    "Thou shouldst forge a todo task such as so:\n" +
-                            "todo [description]");
+                    "Thou shouldst forge a todo task such as so:\n"
+                            + "todo [description]");
         } else if (s.startsWith("deadline")) {
             throw new NonstandardCommandException(
-                    "Thou shouldst forge a deadline task such as so:\n" +
-                            "deadline [description] /by [time]");
+                    "Thou shouldst forge a deadline task such as so:\n"
+                            + "deadline [description] /by [time]");
         } else if (s.startsWith("event")) {
             throw new NonstandardCommandException(
-                    "Thou shouldst forge an event task such as so:\n" +
-                            "event [description] /from [start time] /to [end time]");
+                    "Thou shouldst forge an event task such as so:\n"
+                            + "event [description] /from [start time] /to [end time]");
         } else {
             throw new NonstandardCommandException(
                     "I beg thine pardon, but I am clueless of the meaning of your utterance.");

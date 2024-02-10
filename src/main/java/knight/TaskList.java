@@ -40,7 +40,8 @@ public class TaskList {
             try {
                 task = tasks.get(index - 1);
             } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
+                Ui.speak("I regret to inform thee, Your Excellency, "
+                        + "that thou lackest a task bearing this index in thy list.");
                 return;
             }
 
@@ -53,7 +54,8 @@ public class TaskList {
             try {
                 task = tasks.get(index - 1);
             } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
+                Ui.speak("I regret to inform thee, Your Excellency, "
+                        + "that thou lackest a task bearing this index in thy list.");
                 return;
             }
 
@@ -66,7 +68,8 @@ public class TaskList {
             try {
                 task = tasks.get(index - 1);
             } catch (IndexOutOfBoundsException e) {
-                Ui.speak("I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.");
+                Ui.speak("I regret to inform thee, Your Excellency,"
+                        + "that thou lackest a task bearing this index in thy list.");
                 return;
             }
 
@@ -92,7 +95,9 @@ public class TaskList {
             String[] params = message.split(" /");
             Task task;
             try {
-                task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
+                task = new Event(params[0].substring(6),
+                        params[1].substring(5),
+                        params[2].substring(3));
             } catch (DateTimeParseException e) {
                 Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
                         + "yyyy-mm-dd");
@@ -109,7 +114,8 @@ public class TaskList {
                 }
             }
             if (output.equals("")) {
-                Ui.speak("I regret to inform thee, Your Excellency, that no tasks bearing this keyword exist in thy list.");
+                Ui.speak("I regret to inform thee, Your Excellency, "
+                        + "that no tasks bearing this keyword exist in thy list.");
             } else {
                 Ui.speak("Behold, the tasks that match thy keyword:\n" + output);
             }
@@ -139,7 +145,9 @@ public class TaskList {
             String[] params = message.split(" /");
             Task task;
             try {
-                task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
+                task = new Event(params[0].substring(6),
+                        params[1].substring(5),
+                        params[2].substring(3));
             } catch (DateTimeParseException e) {
                 return;
             }
