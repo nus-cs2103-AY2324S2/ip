@@ -1,5 +1,6 @@
 package bob;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -36,6 +37,16 @@ public class TaskList {
 
     public static void list() {
         Ui.list(TASKS);
+    }
+
+    public static void listOnDate(LocalDate date) {
+        ArrayList<Task> filteredTask = new ArrayList<>();
+        for (Task task : TASKS) {
+            if (task.isOccurringOn(date)) {
+                filteredTask.add(task);
+            }
+        }
+        Ui.list(filteredTask);
     }
 
     public static Task addTodo(String description) {

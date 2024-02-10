@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -39,12 +38,12 @@ public class Storage {
                 TaskList.addTodo(description);
                 break;
             case Parser.DEADLINE:
-                LocalDateTime by = LocalDateTime.parse(parameters[3], Parser.INPUT_DATE_FORMATTER);
+                LocalDateTime by = LocalDateTime.parse(parameters[3], Parser.INPUT_DATETIME_FORMATTER);
                 TaskList.addDeadline(description, by);
                 break;
             default:
-                LocalDateTime from = LocalDateTime.parse(parameters[3], Parser.INPUT_DATE_FORMATTER);
-                LocalDateTime to = LocalDateTime.parse(parameters[4], Parser.INPUT_DATE_FORMATTER);
+                LocalDateTime from = LocalDateTime.parse(parameters[3], Parser.INPUT_DATETIME_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parameters[4], Parser.INPUT_DATETIME_FORMATTER);
                 TaskList.addEvent(description, from, to);
         }
         TaskList.mark(lineIndex, isDone);

@@ -1,6 +1,7 @@
 // TODO: divide into multiple packages
 package bob;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -19,6 +20,10 @@ public class Bob {
 
     public static void handleList() {
         TaskList.list();
+    }
+
+    public static void handleListOnDate(LocalDate date) {
+        TaskList.listOnDate(date);
     }
 
     private static void saveAndPrintAdded(Task task) {

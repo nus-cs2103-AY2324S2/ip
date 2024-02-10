@@ -1,5 +1,7 @@
 package bob;
 
+import java.lang.reflect.Parameter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,10 +18,15 @@ public class Parser {
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
 
-    public static final String INPUT_DATE_PATTERN = "d/M/yyyy HHmm";
-    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern(INPUT_DATE_PATTERN);
+    public static final String INPUT_DATE_PATTERN = "d/M/yyyy";
+    public static final DateTimeFormatter INPUT_DATE_FORMATTER
+            = DateTimeFormatter.ofPattern(INPUT_DATE_PATTERN);
 
-    public static String[] extractParameters(String parametersString,
+    public static final String INPUT_DATETIME_PATTERN = INPUT_DATE_PATTERN + " HHmm";
+    public static final DateTimeFormatter INPUT_DATETIME_FORMATTER
+            = DateTimeFormatter.ofPattern(INPUT_DATETIME_PATTERN);
+
+    private static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
         // TODO: generalise the method to any given parametersString, desiredParameters and separator
         // TODO: perform ParameterNotFoundException checks correctly
@@ -32,8 +39,6 @@ public class Parser {
             splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
             if (splitString.length == 1) {
                 // This implies the last missing parameter will be displayed, rather than the first
-                // "deadline /by 2019-10-11" will trigger parameter "by" not found
-                // "event /from 2019-10-02 /to 2019-10-02" will trigger parameter "from" not found
                 throw new ParameterNotFoundException(parameters[i]);
             }
             result[i + 1] = splitString[1];
@@ -44,7 +49,23 @@ public class Parser {
         return result;
     }
 
-    public static void parseDeleteOrMark(String[] commandArgs) throws NumberFormatException,
+    private static void parseList(String[] commandArgs) throws DateTimeParseException, ParameterNotFoundException {
+        if (commandArgs.length == 1) {
+            Bob.handleList();
+        } else {
+            // TODO: use extractParameters once it has been generalised
+            String remaining = commandArgs[1];
+            String onParameter = remaining.split("/on ", 2)[1];
+            if (onParameter.equals(remaining)) {
+                throw new ParameterNotFoundException("on");
+            } else {
+                LocalDate on = LocalDate.parse(onParameter, INPUT_DATE_FORMATTER);
+                Bob.handleListOnDate(on);
+            }
+        }
+    }
+
+    private static void parseDeleteOrMark(String[] commandArgs) throws NumberFormatException,
             InvalidTaskIndexException, ArrayIndexOutOfBoundsException {
         int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
         if (commandArgs[0].equals(Parser.DELETE)) {
@@ -54,7 +75,7 @@ public class Parser {
         }
     }
 
-    public static void parseAdd(String[] commandArgs) throws EmptyDescriptionException {
+    private static void parseAdd(String[] commandArgs) throws EmptyDescriptionException, ParameterNotFoundException {
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
@@ -63,32 +84,26 @@ public class Parser {
         // Undefined behaviour when there are multiple instances of the same parameter
         // e.g. event project meeting /from 2019-10-02 /to 2019-10-02 /from 2019-10-04 /to 2019-10-04
         String taskType = commandArgs[0];
-        try {
-            String[] parameters;
-            String description;
-            switch (taskType) {
-            case TODO:
-                parameters = Parser.extractParameters(commandArgs[1], new String[]{});
-                description = parameters[0];
-                Bob.handleAddTodo(description);
-                break;
-            case DEADLINE:
-                parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
-                description = parameters[0];
-                LocalDateTime by = LocalDateTime.parse(parameters[1], INPUT_DATE_FORMATTER);
-                Bob.handleAddDeadline(description, by);
-                break;
-            default:
-                parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
-                description = parameters[0];
-                LocalDateTime from = LocalDateTime.parse(parameters[1], INPUT_DATE_FORMATTER);
-                LocalDateTime to = LocalDateTime.parse(parameters[2], INPUT_DATE_FORMATTER);
-                Bob.handleAddEvent(description, from, to);
-            }
-        } catch (ParameterNotFoundException e) {
-            Ui.print(e.getMessage());
-        } catch (DateTimeParseException e) {
-            Ui.print(Ui.INVALID_DATE_FORMAT);
+        String[] parameters;
+        String description;
+        switch (taskType) {
+        case TODO:
+            parameters = Parser.extractParameters(commandArgs[1], new String[]{});
+            description = parameters[0];
+            Bob.handleAddTodo(description);
+            break;
+        case DEADLINE:
+            parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
+            description = parameters[0];
+            LocalDateTime by = LocalDateTime.parse(parameters[1], INPUT_DATETIME_FORMATTER);
+            Bob.handleAddDeadline(description, by);
+            break;
+        default:
+            parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
+            description = parameters[0];
+            LocalDateTime from = LocalDateTime.parse(parameters[1], INPUT_DATETIME_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(parameters[2], INPUT_DATETIME_FORMATTER);
+            Bob.handleAddEvent(description, from, to);
         }
     }
 
@@ -96,14 +111,22 @@ public class Parser {
         String command = SCANNER.nextLine();
         String[] commandArgs = command.split(" ", 2);
 
-        if (commandArgs[0].equals(Parser.EXIT)) {
+        command = commandArgs[0];
+
+        if (command.equals(Parser.EXIT)) {
             Ui.print(Ui.EXIT);
             return false;
         }
 
-        switch (commandArgs[0]) {
+        switch (command) {
         case Parser.LIST:
-            Bob.handleList();
+            try {
+                parseList(commandArgs);
+            } catch (DateTimeParseException e) {
+                Ui.print(Ui.INVALID_DATETIME_FORMAT);
+            } catch (ParameterNotFoundException e) {
+                Ui.print(e.getMessage());
+            }
             break;
         case Parser.DELETE:
             // Fallthrough
@@ -119,7 +142,7 @@ public class Parser {
                 Ui.print(String.format(e.getMessage(), commandArgs[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
                 // TODO: processParameterisedCommands, which is any command other than exit and list
-                Ui.print(String.format(Ui.EMPTY_DESCRIPTION, commandArgs[0]));
+                Ui.print(String.format(Ui.EMPTY_DESCRIPTION, command));
             }
             break;
         case Parser.TODO:
@@ -129,8 +152,10 @@ public class Parser {
         case Parser.EVENT:
             try {
                 parseAdd(commandArgs);
-            } catch (EmptyDescriptionException e) {
+            } catch (EmptyDescriptionException | ParameterNotFoundException e) {
                 Ui.print(e.getMessage());
+            } catch (DateTimeParseException e) {
+                Ui.print(Ui.INVALID_DATETIME_FORMAT);
             }
             break;
         default:

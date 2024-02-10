@@ -1,5 +1,7 @@
 package bob;
 
+import java.time.LocalDate;
+
 public abstract class Task {
     private static final String DONE_ICON = "X";
     private static final String NOT_DONE_ICON = " ";
@@ -12,11 +14,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public Task(String description, String isDone) {
-        this.description = description;
-        this.isDone = isDone.equals("1");
-    }
-
     public String getStatusIcon() {
         return (isDone ? DONE_ICON : NOT_DONE_ICON);
     }
@@ -27,6 +24,10 @@ public abstract class Task {
 
     public String toStorageFormat() {
         return (isDone ? "true" : "false") + " | " + this.description;
+    }
+
+    public boolean isOccurringOn(LocalDate date) {
+        return false;
     }
 
     @Override
