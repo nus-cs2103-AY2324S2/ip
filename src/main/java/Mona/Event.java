@@ -33,4 +33,12 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.start.format(outputFormatter)
                 + " to: " + this.end.format(outputFormatter) + ")";
     }
+    @Override
+    public void updateDetails(String newDetails) {
+        String[] subDetails = newDetails.split(" /from ");
+        String[] startAndEnd = subDetails[1].split(" /to ");
+        this.description = subDetails[0];
+        this.start = LocalDateTime.parse(startAndEnd[0], formatter);
+        this.end = LocalDateTime.parse(startAndEnd[1], formatter);
+    }
 }

@@ -19,7 +19,8 @@ public class Mona {
         MARK,
         UNMARK,
         DELETE,
-        FIND
+        FIND,
+        UPDATE
     }
 
     /**
@@ -72,6 +73,11 @@ public class Mona {
             return ui.showListAfterQuantityChange(removedTask, tasks.getNumberOfTasks(), false);
         case FIND:
             return tasks.showRelevantTasks(inputArray[1]);
+        case UPDATE:
+            String[] processedInput = input.split(" /new ");
+            int taskIndex = Integer.parseInt(inputArray[1]) - 1;
+            Task updatedTask = tasks.updateTask(taskIndex, processedInput[1]);
+            return ui.showListAfterUpdate(updatedTask);
         default:
             assert false : currCommand;
         }

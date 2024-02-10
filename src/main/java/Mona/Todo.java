@@ -21,4 +21,8 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+    @Override
+    public void updateDetails(String newDetails) {
+        this.description = newDetails;
+    }
 }

@@ -33,6 +33,8 @@ public class Task {
         return this.toString();
     }
 
+    public void updateDetails(String newDetails) { return; }
+
     public void markAsDone() {
         this.isDone = true;
     }

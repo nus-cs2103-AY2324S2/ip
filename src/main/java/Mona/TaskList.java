@@ -83,6 +83,13 @@ public class TaskList {
         return removedTask;
     }
 
+    public Task updateTask(int taskIndex, String newDetails) {
+        Task updatedTask = this.tasks.get(taskIndex);
+        updatedTask.updateDetails(newDetails);
+        storage.writeToFile(tasks);
+        return updatedTask;
+    }
+
     /**
      * Deletes the task at the given index in the task list for unit testing
      * @param taskIndex the index of the target task in the task list
@@ -90,6 +97,7 @@ public class TaskList {
      */
     public Task deleteTaskTest(int taskIndex) {
         Task removedTask = this.tasks.remove(taskIndex);
+        storage.writeToFile(tasks);
         return removedTask;
     }
 

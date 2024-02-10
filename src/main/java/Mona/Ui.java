@@ -63,6 +63,18 @@ public class Ui {
     }
 
     /**
+     * Mona updates a task
+     * @param task the task that was updated
+     */
+    public String showListAfterUpdate(Task task) {
+        String response = "  ______________________________________\n"
+                + "     Got it! I've updated this task:\n"
+                + "     " + task + "\n"
+                + "  ______________________________________\n";
+        return response;
+    }
+
+    /**
      * Mona echoes the message when an exception is thrown
      * @param message the message from the exception
      */

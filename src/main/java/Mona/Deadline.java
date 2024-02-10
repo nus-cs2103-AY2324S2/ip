@@ -29,4 +29,10 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(outputFormatter) + ")";
     }
+    @Override
+    public void updateDetails(String newDetails) {
+        String[] parts = newDetails.split(" /by ");
+        this.description = parts[0];
+        this.by = LocalDateTime.parse(parts[1], formatter);
+    }
 }
