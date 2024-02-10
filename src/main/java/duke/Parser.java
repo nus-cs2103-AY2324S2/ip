@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 
-import java.util.ArrayList;
+
 
 /**
  * Parser class parses user input and executes corresponding commands.
@@ -92,7 +92,7 @@ public class Parser {
 
 
         case "FIND":
-            return parseFind(words, tasks, ui);
+            return parseFind(words, ui);
             //break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means.");
@@ -302,10 +302,9 @@ public class Parser {
      * Parses the "find" command, searching for tasks containing a specified keyword.
      * Retrieves user input for the keyword and displays matching tasks.
      *
-     * @param tasks The TaskList containing the tasks to search.
      * @param ui    The Ui object for handling user interface interactions.
      */
-    public static String parseFind(String[] words, TaskList tasks, Ui ui) {
+    public static String parseFind(String[] words, Ui ui) {
 
         if (words.length < 2) {
             try {
@@ -314,15 +313,10 @@ public class Parser {
                 System.out.println(e.getMessage());
             }
         }
+
         String keyword = words[1];
 
+        return TaskList.findTasks(keyword, ui);
 
-        ArrayList<Task> matchingTasks = tasks.keywordSearch(keyword);
-        StringBuilder res;
-        res = new StringBuilder(ui.showMessage("Here are the matching tasks in your list:"));
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            res.append(ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString()));
-        }
-        return res.toString();
     }
 }
