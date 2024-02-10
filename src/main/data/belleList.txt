@@ -1,16 +1,2 @@
 T , false , abc
-T , false , abc
-E , false , project meeting , Mon 2pm , 4pm
-T , false , abc
-E , true , project meeting , Mon 2pm , 4pm
-T , false , abc
-D , true , swim , 6pm
-E , false , project meeting , Mon 2pm , 4pm
-T , false , eat ban
-E , true , pm event project meeting , Mon 2pm , 4pm
-T , true , prawn
-T , false , abc
-T , false , fgh
-D , false , apple , 6pm
-T , false , abc
 D , false , corgi , 6pm
