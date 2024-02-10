@@ -56,7 +56,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for adding a Todo task based on the input.
      */
-    public Command parseTodo(String input) {
+    public static Command parseTodo(String input) {
         String[] sections = input.split(" ", 2);
             if (sections.length <= 1) {
                 return new InvalidCommand("Oops! You have not entered a task.");
@@ -71,7 +71,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for marking a task as done based on the input.
      */
-    public Command parseMark(String input) {
+    public static Command parseMark(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task number to mark.");
@@ -89,7 +89,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for unmarking a task as done based on the input.
      */
-    public Command parseUnmark(String input) {
+    public static Command parseUnmark(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task number to mark.");
@@ -107,7 +107,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for deleting a task based on the input.
      */
-    public Command parseDelete(String input) {
+    public static Command parseDelete(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1 || sections[1].isEmpty()) {
             return new InvalidCommand("Oops! Please enter a task number to delete.");
@@ -125,7 +125,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for adding a deadline task based on the input.
      */
-    public Command parseDeadline(String input) {
+    public static Command parseDeadline(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task description.");
@@ -151,7 +151,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for adding an event task based on the input.
      */
-    public Command parseEvent(String input) {
+    public static Command parseEvent(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task description.");
@@ -179,7 +179,7 @@ public class Parser {
      * @param input The user input string.
      * @return A command object for finding tasks based on the input.
      */
-    public Command parseFind(String input) {
+    public static Command parseFind(String input) {
         String[] sections = input.split(" ", 2);
         if (sections.length <= 1) {
             return new InvalidCommand("Oops! Please enter a task to find.");
@@ -195,7 +195,7 @@ public class Parser {
      * @return The LocalDateTime object parsed from the date string.
      * @throws ChatBotException If the date string is in an invalid format.
      */
-    public LocalDateTime parseDate(String dateString) throws ChatBotException {
+    public static LocalDateTime parseDate(String dateString) throws ChatBotException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {

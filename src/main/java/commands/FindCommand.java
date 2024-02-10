@@ -28,11 +28,13 @@ public class FindCommand extends Command {
      * @param storage  The storage component for saving task data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            taskList.findTasks(this.taskDescription);
+            TaskList matchingTasks = taskList.findTasks(this.taskDescription);
+            return new UserCommand("\tHere are the list of tasks: ", matchingTasks.listTasks());
         } catch (ChatBotException e) {
             System.out.println("Oops! No matching tasks found.");
+            return new UserCommand("Oops! No matching tasks found.");
         }
     }
 }

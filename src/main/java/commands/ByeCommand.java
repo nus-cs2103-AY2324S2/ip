@@ -19,8 +19,8 @@ public class ByeCommand extends Command {
      * @param storage The Storage instance for saving tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printByeMessage();
-        System.exit(0);
+        return new UserCommand("Exiting the program...");
     }
 }

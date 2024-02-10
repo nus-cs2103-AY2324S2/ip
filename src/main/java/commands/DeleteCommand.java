@@ -3,6 +3,7 @@ package commands;
 import util.Ui;
 import util.TaskList;
 import util.Storage;
+import tasks.Task;
 import exceptions.ChatBotException;
 
 /**
@@ -31,12 +32,14 @@ public class DeleteCommand extends Command {
      * @param storage  The Storage instance for saving tasks or loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            taskList.deleteTask(this.index);
+            Task task = taskList.deleteTask(this.index);
             storage.saveToFile(taskList);
+            return new UserCommand("\tSuccessfully removed task: " + task, taskList.getTaskSummary());
         } catch (ChatBotException e) {
             System.out.println("\tAn error occurred when deleting");
+            return new UserCommand("\tAn error occurred when deleting");
         }
     }
 }

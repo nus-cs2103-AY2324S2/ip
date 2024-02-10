@@ -35,9 +35,8 @@ public class Ui {
     /**
      * Prints a farewell message when the chatbot exits.
      */
-    public void printByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printDivider();
+    public String printByeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

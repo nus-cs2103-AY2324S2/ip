@@ -30,12 +30,14 @@ public class MarkCommand extends Command {
      * @param storage  The Storage instance for saving tasks or loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.markTask(this.index);
             storage.saveToFile(taskList);
+            return new UserCommand("\tI have marked this task as done", "\t" + taskList.getTaskIndex(this.index - 1));
         } catch (ChatBotException e) {
-            System.out.println("\tAn error occurred when marking tasks");
+            System.out.println("\t Oops! An error occurred when marking tasks");
+            return new UserCommand("\t Oops! An error occurred when marking tasks.");
         }
     }
 }

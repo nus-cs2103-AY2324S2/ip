@@ -30,9 +30,10 @@ public class TodoCommand extends Command {
      * @param storage  The Storage instance for saving tasks or loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         ToDo todo = new ToDo(this.taskDescription);
         taskList.addTask(todo);
         storage.saveToFile(taskList);
+        return new UserCommand("\tAdded todo: ", "\t" + todo, taskList.getTaskSummary());
     }
 }

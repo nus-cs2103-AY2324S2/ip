@@ -29,7 +29,8 @@ public class InvalidCommand extends Command {
      * @param storage  The Storage instance for saving tasks or loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         ui.printMessage(this.message);
+        return new UserCommand("\t" + this.message);
     }
 }

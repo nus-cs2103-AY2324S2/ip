@@ -35,10 +35,11 @@ public class DeadlineCommand extends Command {
      * @param storage  The Storage instance for saving tasks or loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(this.taskDescription, this.due);
         taskList.addTask(deadline);
         storage.saveToFile(taskList);
+        return new UserCommand("\tAdded deadline: ", "\t" + deadline, taskList.getTaskSummary());
     }
 }
 

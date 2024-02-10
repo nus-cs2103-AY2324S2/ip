@@ -20,6 +20,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(List<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+    }
+
     /**
      * Retrieves the list of tasks.
      *
@@ -27,6 +31,10 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return this.tasks;
+    }
+
+    public Task getTaskIndex(int index) {
+        return this.tasks.get(index);
     }
 
     /**
@@ -37,10 +45,10 @@ public class TaskList {
     public void addTask(Task task) {
         if (this.tasks.size() < MAX_TASKS) {
             this.tasks.add(task);
-            System.out.println("Got it. I've added this task:");
+            /*System.out.println("Got it. I've added this task:");
             System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
             System.out.println("Now you have " + this.tasks.size() + " task" +
-                    (this.tasks.size() == 1 ? "" : "s") + " in the list");
+                    (this.tasks.size() == 1 ? "" : "s") + " in the list"); */
         }
     }
 
@@ -50,7 +58,7 @@ public class TaskList {
      * @param number The index of the task to be deleted.
      * @throws ChatBotException If the task list is empty or the specified index is invalid.
      */
-    public void deleteTask(int number) throws ChatBotException {
+    public Task deleteTask(int number) throws ChatBotException {
         if (this.tasks.size() == 0) {
             throw new ChatBotException("Oops! There are no tasks in the list.");
         }
@@ -58,11 +66,18 @@ public class TaskList {
             throw new ChatBotException("Oops! Number entered does not exist in the list.");
         }
         Task remainingTasks = this.tasks.remove(number - 1);
-        System.out.println("Noted. I've removed this task:");
+       /* System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + remainingTasks.toString());
         System.out.println("Now you have " + this.tasks.size() + " task" +
-                (this.tasks.size() == 1 ? "" : "s") + " in the list");
+                (this.tasks.size() == 1 ? "" : "s") + " in the list"); */
+        return remainingTasks;
     }
+
+    public String getTaskSummary() {
+        return "\tNow you have " + this.tasks.size() + " task"
+                + (this.tasks.size() == 1 ? "" : "s") + " in the list";
+    }
+
 
     /**
      * Marks a task in the task list as done.
@@ -79,8 +94,9 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + currTask.toString());
+        currTask.toString();
+       /* System.out.println("Nice! I've marked this task as done:");
+        System.out.println("\t" + currTask.toString()); */
     }
 
 
@@ -99,24 +115,25 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t" + currTask.toString());
+        currTask.toString();
+       // System.out.println("OK, I've marked this task as not done yet:");
+        // System.out.println("\t" + currTask.toString());
     }
 
     /**
      * Prints all tasks in the task list.
      * If the task list is empty, prints a message indicating that the list is empty.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (this.tasks.size() == 0) {
-            //throw new exceptions.ChatBotException("Oops! The task list is currently empty.");
-            System.out.println("Oops! The task list is currently empty.");
+            return "\tThe task list is empty.";
         } else {
-            System.out.println("Here are the tasks in your list: ");
+            String result = "\tHere are the tasks in your list: \n";
             for (int i = 0; i < this.tasks.size(); i++) {
                 Task currTask = this.tasks.get(i);
-                System.out.println((i + 1) + "." + currTask.toString());
+                result += "\t" + (i + 1) + "." + currTask.toString() + "\n";
             }
+            return result;
         }
     }
 
@@ -127,7 +144,7 @@ public class TaskList {
      * @return A list of tasks containing the keyword.
      * @throws ChatBotException If no tasks match the keyword.
      */
-    public List<Task> findTasks(String keyWord) throws ChatBotException {
+    public TaskList findTasks(String keyWord) throws ChatBotException {
         List<Task> matchingTasks = new ArrayList<>();
         boolean isFound = false;
         for (Task task : tasks) {
@@ -145,7 +162,7 @@ public class TaskList {
                 System.out.println("\t" + (i + 1) + "." + currTask.toString());
             }
         }
-        return matchingTasks;
+        return new TaskList(matchingTasks);
     }
 }
 

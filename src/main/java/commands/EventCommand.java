@@ -38,9 +38,10 @@ public class EventCommand extends Command {
      * @param storage  The Storage instance for saving tasks or loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         Event event = new Event(this.event, this.start, this.end);
         taskList.addTask(event);
         storage.saveToFile(taskList);
+        return new UserCommand("\tAdded event: ", "\t" + event, taskList.getTaskSummary());
     }
 }

@@ -17,5 +17,5 @@ public abstract class Command {
      * @param ui      The Ui instance for user interaction and output.
      * @param storage The Storage instance for saving tasks or loading data.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract UserCommand execute(TaskList tasks, Ui ui, Storage storage);
 }
