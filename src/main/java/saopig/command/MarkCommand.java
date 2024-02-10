@@ -1,12 +1,12 @@
 package saopig.command;
 
+import java.util.Objects;
+
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
 import saopig.task.Task;
 import saopig.task.TaskList;
-
-import java.util.Objects;
 
 /**
  * Represents a command to mark tasks as done.
