@@ -12,6 +12,6 @@ public class BotException extends Exception {
      * @param errMessage The error message for this exception
      */
     public BotException(String errMessage) {
-        super(TerminalUI.wrapWithSepLine("Error: " + errMessage));
+        super(Ui.wrapWithSepLine("Error: " + errMessage));
     }
 }

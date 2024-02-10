@@ -4,7 +4,7 @@ import java.util.List;
  * TerminalUI is a utility class that provides methods for printing formatted
  * output to the terminal
  */
-public class TerminalUI {
+public class Ui {
     // Separator line to be used in the terminal
     private static final String SEPARATOR_LINE = "________________________________________________________________________________";
 
