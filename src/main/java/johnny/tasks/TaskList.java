@@ -104,7 +104,7 @@ public class TaskList {
     }
 
     /**
-     * Find all Tasks in TaskList that name contains keyword.
+     * Find all Tasks in TaskList whose names contains specified keyword.
      *
      * @param keyword String to be matched to Task name.
      * @return TaskList of all Tasks that contains keyword.
@@ -135,7 +135,7 @@ public class TaskList {
                 return false;
             }
             for (int i = 0; i < this.size(); i++) {
-                if (this.tasks.get(i) != t.tasks.get(i)) {
+                if (!this.tasks.get(i).equals(t.tasks.get(i))) {
                     return false;
                 }
             }

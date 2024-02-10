@@ -1,7 +1,5 @@
 package johnny.ui;
 
-import java.util.Scanner;
-
 import johnny.exceptions.JohnnyException;
 import johnny.tasks.Task;
 import johnny.tasks.TaskList;
@@ -78,6 +76,7 @@ public class Ui {
      * Prints deleted Task to user.
      *
      * @param task Task to be deleted.
+     * @param tasks TaskList that the Task belonged to.
      */
     public void showDelete(Task task, TaskList tasks) {
         output.append("Task removed. Why so lazy bro?\n");
