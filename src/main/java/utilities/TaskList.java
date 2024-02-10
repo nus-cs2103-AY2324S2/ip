@@ -11,7 +11,7 @@ public class TaskList {
     /**
      * The ArrayList containing the tasks in the task list.
      */
-    private final ArrayList<Task> taskArrayList;
+    private final ArrayList<Task> listOfTasks;
   
     /**
      * Constructs an empty TaskList.
@@ -53,9 +53,9 @@ public class TaskList {
      * @param indexOfTask  The index of the task in the list.
      */
     public String changeStatusOfItem(String taskAction, int indexOfTask) {
-        assert !(indexOfTask >= taskArrayList.size() || indexOfTask < 0) : "Invalid index range!";
+        assert !(indexOfTask >= listOfTasks.size() || indexOfTask < 0) : "Invalid index range!";
         assert taskAction.equals("mark") || taskAction.equals("unmark") : "Action should be either mark or unmark!";
-        return this.taskArrayList.get(indexOfTask).changeStatus(taskAction);
+        return this.listOfTasks.get(indexOfTask).changeStatus(taskAction);
     }
 
     /**
@@ -64,10 +64,10 @@ public class TaskList {
      * @param indexOfTask The index of the task to be removed.
      */
     public String removeIndex(int indexOfTask) {
-        assert !(indexOfTask >= taskArrayList.size() || indexOfTask < 0) : "Invalid index range!";
-        Task taskToBeRemoved = taskArrayList.get(indexOfTask);
-        this.taskArrayList.remove(indexOfTask);
-        return ResponseHandler.removePrinter(taskToBeRemoved, taskArrayList.size());
+        assert !(indexOfTask >= listOfTasks.size() || indexOfTask < 0) : "Invalid index range!";
+        Task taskToBeRemoved = listOfTasks.get(indexOfTask);
+        this.listOfTasks.remove(indexOfTask);
+        return ResponseHandler.removePrinter(taskToBeRemoved, listOfTasks.size());
     }
 
     /**
