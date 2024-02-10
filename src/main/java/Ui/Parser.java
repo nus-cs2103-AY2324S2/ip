@@ -22,6 +22,8 @@ public class Parser {
     public Parser() {}
 
     public Command parseUserMsg(String[] userMsg) {
+        assert userMsg != null && userMsg.length > 0 : "User message should not be null or empty";
+        
         switch (userMsg[0]) {
             case "bye":
                 return Command.BYE;
@@ -47,6 +49,9 @@ public class Parser {
     }
 
     public boolean checkValidMarkCommand(String[] userMsg, List<Task> userTaskList) {
+        assert userMsg != null && userMsg.length > 1 : "User message should contain at least two elements";
+        assert userTaskList != null : "User task list should not be null";
+
         return userMsg.length > 1 &&
             userMsg[1].chars().allMatch(Character::isDigit) &&
             Integer.parseInt(userMsg[1]) <= userTaskList.size() &&
