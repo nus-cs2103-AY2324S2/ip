@@ -23,7 +23,7 @@ public class Parser {
      */
     public String parseInstr(TaskList tskLst, Storage storage, String instr) {
         String res = "";
-        assert instr.length() != 0: "Instructions must contain some form of command.";
+        assert instr.length() != 0 : "Instructions must contain some form of command.";
         if (instr.equals("list")) {
             res = tskLst.listOut();
         } else {
@@ -49,7 +49,7 @@ public class Parser {
                         + "I'm sorry, but I don't recognise this command :-( \nTry another command!");
                 }
             } catch (DukeException e) {
-                return(e.toString());
+                return (e.toString());
             }
         }
         return res;

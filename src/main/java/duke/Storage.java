@@ -28,7 +28,8 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        assert this.filePath.length() != 0: "File Path must be defined";
+
+        assert this.filePath.length() != 0 : "File Path must be defined";
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -48,7 +49,8 @@ public class Storage {
      */
     public void saveTaskList(ArrayList<Task> instrList) throws DukeException {
         try {
-            assert this.filePath.length() != 0: "File Path must be defined";
+
+            assert this.filePath.length() != 0 : "File Path must be defined";
             FileWriter fw = new FileWriter(this.filePath);
             for (Task tsk : instrList) {
                 fw.write(tsk.toSave());

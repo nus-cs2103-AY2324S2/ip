@@ -92,9 +92,9 @@ public class TaskList {
         case EVENT:
             try {
                 String eventDescription = instr.substring(6);
-                String[] instrsubString = eventDescription.split(" /from ");
-                String name = instrsubString[0];
-                String[] startAndEnd = instrsubString[1].split(" /to ");
+                String[] instrSubString = eventDescription.split(" /from ");
+                String name = instrSubString[0];
+                String[] startAndEnd = instrSubString[1].split(" /to ");
                 Event taskEvent = new Event(name, startAndEnd[0], startAndEnd[1]);
                 this.instrList.add(taskEvent);
                 thisStorage.saveTaskList(this.instrList);
