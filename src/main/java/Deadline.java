@@ -14,7 +14,7 @@ public class Deadline extends Task{
         try {
             this.deadline = LocalDate.parse(deadline, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DateFormatException(deadline);
+            throw new DateFormatException("Illegal date format: " + deadline);
         }
     }
 
@@ -23,7 +23,7 @@ public class Deadline extends Task{
         try {
             this.deadline = LocalDate.parse(deadline, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DateFormatException(deadline);
+            throw new DateFormatException("Illegal date format: " + deadline);
         }
     }
 
@@ -36,13 +36,13 @@ public class Deadline extends Task{
         try {
             this.deadline = LocalDate.parse(userString, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateException(userString);
+            throw new InvalidDateException("Illegal date format: " + deadline);
         }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " | " + deadline;
+        return "[D]" + super.toString() + " | " + deadline.format(DATE_TIME_FORMATTER);
     }
 
     @Override

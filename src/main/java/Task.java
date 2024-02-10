@@ -1,7 +1,7 @@
 /**
  * class that represents a task instantiated in the tasklist of aaronbot
  */
-public class Task {
+public abstract class Task {
     private boolean isDone;
     private String taskString;
 
@@ -15,26 +15,17 @@ public class Task {
         this.taskString = taskString;
     }
 
-    /**
-     * function that marks the task as done
-     * @return boolean value representing whether the task was newly marked
-     */
-    public boolean markDone() {
+    public void markDone() throws DoubleMarkException{
         if (isDone) {
-            return false;
-        } else {
+            throw new DoubleMarkException("Task is already marked \n " + this.toString());
+        } else { 
             isDone = true;
-            return true;
         }
     }
 
-    /**
-     * function that unmarks the task as done
-     * @return boolean value representing whether the task was newly unmarked
-     */
-    public boolean unmarkDone() {
+    public boolean unmarkDone() throws DoubleMarkException{
         if (!isDone) {
-            return false;
+            throw new DoubleMarkException("Task is already unmarked \n " + this.toString());
         } else {
             isDone = false;
             return true;
