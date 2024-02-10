@@ -26,8 +26,8 @@ public class Ui extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image loki = new Image(this.getClass().getResourceAsStream("/images/loki.png"));
-    private Image thor = new Image(this.getClass().getResourceAsStream("/images/thor.png"));
+    private Image loki = new Image(this.getClass().getResourceAsStream("/images/Loki.png"));
+    private Image thor = new Image(this.getClass().getResourceAsStream("/images/Thor.png"));
 
     private Function<String, String> commandHandler;
 
