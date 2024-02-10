@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDo;
-import ui.Ui;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 

@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 
-import exceptions.DukeException;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 public class markTaskCommand extends Command{
     private int index;

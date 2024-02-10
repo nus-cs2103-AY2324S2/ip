@@ -1,6 +1,7 @@
-package commands;
-import tasks.TaskList;
-import ui.Ui;
+package duke.commands;
+
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 public class exitCommand extends Command{
 
     public exitCommand() {

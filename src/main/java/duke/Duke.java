@@ -1,10 +1,12 @@
-import commands.Command;
-import parsers.Parser;
-import storage.Storage;
-import tasks.*;
-import ui.Ui;
+package duke;
 
-import static constants.Constant.RELATIVE_PATH;
+import duke.commands.Command;
+import duke.parsers.Parser;
+import duke.storage.Storage;
+import duke.tasks.*;
+import duke.ui.Ui;
+
+import static duke.constants.Constant.RELATIVE_PATH;
 
 
 public class Duke {

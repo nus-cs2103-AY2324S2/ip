@@ -1,9 +1,9 @@
-package storage;
+package duke.storage;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static constants.Constant.DATE_TIME_FORMATTER;
-import static constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
+import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 
 public class Storage {
     private String filePath;

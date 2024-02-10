@@ -1,4 +1,4 @@
-package constants;
+package duke.constants;
 
 import java.time.format.DateTimeFormatter;
 

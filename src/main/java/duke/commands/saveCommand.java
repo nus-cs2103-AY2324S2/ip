@@ -1,8 +1,8 @@
-package commands;
+package duke.commands;
 
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,8 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static constants.Constant.RELATIVE_PATH;
-import static constants.Constant.DATE_TIME_FORMATTER;
+import static duke.constants.Constant.RELATIVE_PATH;
+import static duke.constants.Constant.DATE_TIME_FORMATTER;
 
 public class saveCommand extends Command{
     public saveCommand() {

@@ -1,15 +1,15 @@
-package commands;
+package duke.commands;
 
-import tasks.Deadline;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDo;
-import ui.Ui;
+import duke.tasks.Deadline;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
+import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 
 public class createDeadlineCommand extends Command{
     private String description;

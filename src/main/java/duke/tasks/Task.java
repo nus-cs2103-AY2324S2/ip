@@ -1,6 +1,6 @@
-package tasks;
+package duke.tasks;
 
-import ui.Ui;
+import duke.ui.Ui;
 
 import java.time.format.DateTimeFormatter;
 
