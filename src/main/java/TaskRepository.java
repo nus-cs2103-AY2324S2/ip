@@ -33,22 +33,30 @@ public class TaskRepository {
      *
      * @return The populated TaskList object
      */
-    public TaskList loadTasks() {
+    public TaskList loadTasks() throws BotException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] taskDetails = line.split("\\|");
+                String isDone = taskDetails[1].trim();
+                Boolean isTaskDone = isDone.equals("X");
                 String taskType = taskDetails[0].trim();
                 String description = taskDetails[2].trim();
                 switch (taskType) {
                     case "T":
                         taskList.addTodo(description);
+                        if (isTaskDone) {
+                            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
+                        }
                         break;
                     case "D":
                         String dueDate = taskDetails[3].trim();
-                        dueDate = dueDate.substring(3);
+                        dueDate = dueDate.substring(3).trim();
                         taskList.addDeadline(description, dueDate);
+                        if (isTaskDone) {
+                            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
+                        }
                         break;
                     case "E":
                         String timeBlock = taskDetails[3].trim();
@@ -58,6 +66,9 @@ public class TaskRepository {
                         String startTime = fromPart.replace("from:", "").trim();
                         String endTime = toPart.trim();
                         taskList.addEvent(description, startTime, endTime);
+                        if (isTaskDone) {
+                            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
+                        }
                         break;
                 }
             }
