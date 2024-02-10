@@ -6,25 +6,17 @@ import duke.ui.Ui;
 import duke.tasklist.TaskList;
 import duke.task.Task;
 import duke.exception.DukeException;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.io.File;
+import javafx.application.Platform;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 /**
- * Represents the main class of the Duke application, a personal assistant chatbot
- * that helps users to keep track of various tasks. The application is capable of
- * understanding commands to add, delete, mark, and list tasks among other functionalities.
- *
- * Duke uses a combination of components to manage tasks:
- * - {@link duke.storage.Storage} for loading from and saving tasks to a file.
- * - {@link duke.parser.Parser} for interpreting user input.
- * - {@link duke.ui.Ui} for handling interactions with the user.
- * - {@link duke.tasklist.TaskList} for storing and managing a list of tasks.
- *
- * The application supports tasks of types: Todo, Deadline, and Event, which can be
- * added, marked as done, deleted, and listed. It operates in a loop, processing user
- * commands until a termination command is received.
+ * Represents the main logic of the Duke application, a personal assistant chatbot designed to help users manage tasks.
+ * It supports operations such as adding, deleting, marking, and listing tasks, among others. The application combines
+ * various components for task management, including storage, parsing, user interface, and task list management.
  */
 public class Duke {
     
@@ -47,6 +39,16 @@ public class Duke {
         this.list = new TaskList(new ArrayList<>());
         this.storage = new Storage(filePath, parser);
         
+    }
+    
+    /**
+     * Initializes a Duke instance with a default file path for data storage.
+     */
+    public Duke() {
+        this.parser = new Parser();
+        this.ui = new Ui();
+        this.list = new TaskList(new ArrayList<>());
+        this.storage = new Storage(FILE_PATH, parser);
     }
     
     /**
@@ -87,118 +89,85 @@ public class Duke {
     }
     
     /**
-     * Starts the Duke application. This method sets up necessary components,
-     * loads existing tasks from storage, and processes user input until the "bye"
-     * command is received.
+     * Processes a given input from the user, executing the corresponding task operation and returning a response.
+     * This method handles all user commands, managing tasks according to the specified instructions.
      *
-     * @throws DukeException If the application encounters an error it cannot recover from.
+     * @param inputFromUser The user's input command.
+     * @return A string response indicating the outcome of the command.
      */
-    public void run() throws DukeException {
-        Scanner sc = new Scanner(System.in);
-        Duke duke = new Duke(FILE_PATH);
-        boolean isRunning = true;
-        try {
-            duke.storage.loadFile(duke.list);
-        } catch (IOException e) {
-            duke.ui.loadingError();
-        }
-    
-        duke.ui.greeting();
-    
-        while(isRunning) {
-            String inputFromUser = sc.nextLine();
-            Instruction instruction = duke.getInstr(inputFromUser);
+    public String getResponse(String inputFromUser) {
+        String response;
         
+        try {
+            Duke duke = new Duke(FILE_PATH);
+            Instruction instruction = duke.getInstr(inputFromUser);
+            duke.storage.loadFile(duke.list);
+            
             switch (instruction) {
             case LIST:
-                duke.ui.listing(duke.list);
+                response = duke.ui.listing(duke.list);
                 break;
             case MARK:
                 duke.ui.handleMarkError(inputFromUser, duke.list);
                 Task taskToBeMarked = duke.parser.getTaskTobeMarked(inputFromUser, duke.list);
                 taskToBeMarked.markDone();
-                duke.ui.marking(taskToBeMarked);
-                try {
-                    duke.storage.changeFileContent(duke.list);
-                } catch (IOException e) {
-                    duke.ui.changingFileError();
-                }
+                response = duke.ui.marking(taskToBeMarked);
+                duke.storage.changeFileContent(duke.list);
                 break;
             case UNMARK:
                 duke.ui.handleUnmarkError(inputFromUser, duke.list);
                 Task taskToBeUnmarked = duke.parser.getTaskToBeUnmarked(inputFromUser, duke.list);
                 taskToBeUnmarked.markUndone();
-                duke.ui.unmarking(taskToBeUnmarked);
-                try {
-                    duke.storage.changeFileContent(duke.list);
-                } catch (IOException e) {
-                    duke.ui.changingFileError();
-                }
+                response = duke.ui.unmarking(taskToBeUnmarked);
+                duke.storage.changeFileContent(duke.list);
                 break;
             case TODO:
                 duke.ui.handleTodoError(inputFromUser);
                 Task todoTask = duke.parser.createToDo(inputFromUser);
-                duke.ui.echo(todoTask, duke.list);
-                try {
-                    duke.storage.addTaskToFile((todoTask));
-                } catch (IOException e) {
-                    duke.ui.changingFileError();
-                }
+                response = duke.ui.echo(todoTask, duke.list);
+                duke.storage.addTaskToFile((todoTask));
                 break;
             case DEADLINE:
                 duke.ui.handleDeadlineError(inputFromUser);
-                Task deadlineTask = duke.parser.createDeadline(inputFromUser, duke.ui);
-                duke.ui.echo(deadlineTask, duke.list);
-                try {
-                    duke.storage.addTaskToFile((deadlineTask));
-                } catch (IOException e) {
-                    duke.ui.changingFileError();
-                }
+                Task deadlineTask = duke.parser.createDeadline(inputFromUser);
+                response = duke.ui.echo(deadlineTask, duke.list);
+                duke.storage.addTaskToFile((deadlineTask));
                 break;
             case EVENT:
                 duke.ui.handleEventError(inputFromUser);
-                Task eventTask = duke.parser.createEvent(inputFromUser, duke.ui);
-                duke.ui.echo(eventTask, duke.list);
-                try {
-                    duke.storage.addTaskToFile((eventTask));
-                } catch (IOException e) {
-                    duke.ui.changingFileError();
-                }
+                Task eventTask = duke.parser.createEvent(inputFromUser);
+                response = duke.ui.echo(eventTask, duke.list);
+                duke.storage.addTaskToFile((eventTask));
                 break;
             case DELETE:
                 int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
                 duke.ui.handleDeleteError(duke.list,indexOfTaskToDelete);
                 Task taskToDelete = duke.parser.getTaskToDelete(inputFromUser, duke.list);
-                duke.ui.deleting(taskToDelete, duke.list);
+                response = duke.ui.deleting(taskToDelete, duke.list);
                 duke.list.delete(taskToDelete);
-                try {
-                    duke.storage.changeFileContent(duke.list);
-                } catch (IOException e) {
-                    duke.ui.changingFileError();
-                }
+                duke.storage.changeFileContent(duke.list);
                 break;
             case FIND:
                 String keyword = duke.parser.getKeywordForFind(inputFromUser);
-                duke.ui.finding(duke.list, keyword);
+                response = duke.ui.finding(duke.list, keyword);
                 break;
             case BYE:
-                duke.ui.bye();
-                isRunning = false;
+                response = duke.ui.bye();
+                PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                delay.setOnFinished(event -> {
+                    Platform.exit();
+                    System.exit(0);
+                });
+                delay.play();
                 break;
             default:
-                throw new DukeException("Can't understand your instruction");
+                 response = "Can't understand your instruction";
             }
+        } catch (DukeException e) {
+            response = e.getMessage();
+        } catch (IOException e) {
+            response = "Error accessing storage file: " + e.getMessage();
         }
-        sc.close();
-    }
-    
-    /**
-     * The main entry point of the Duke application.
-     *
-     * @param args Command line arguments (not used).
-     * @throws DukeException If the application encounters an unrecoverable error during startup.
-     */
-    public static void main(String[] args) throws DukeException {
-        new Duke(FILE_PATH).run();
+        return response;
     }
 }

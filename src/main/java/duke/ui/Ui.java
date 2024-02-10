@@ -3,135 +3,104 @@ package duke.ui;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.exception.DukeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
- * The Ui class handles all user interactions for the Duke application. It is responsible
- * for displaying messages to the user, including greetings, task operations feedback, and errors.
+ * Manages user interactions in the Duke application, handling the display of messages for various operations
+ * including task addition, deletion, marking, unmarking, and listing, as well as providing error feedback.
  */
 public class Ui {
     
     /**
-     * Prints a message to the user indicating a task has been added, and displays the current
-     * total number of tasks.
+     * Generates a message indicating a task has been added to the list, displaying the task and the updated total count.
      *
-     * @param task The task that has been added.
+     * @param task The newly added task.
      * @param list The task list to which the task was added.
+     * @return A string containing the confirmation message and the current task count.
      */
-    public void echo(Task task, TaskList list) {
+    public String echo(Task task, TaskList list) {
         String echo = "Got it. I've added this task:\n" + "  " + task.toString() + "\n"
             + "Now you have " + (list.size() + 1) + " tasks in the list"
             + "\n___________________________________" ;
-        System.out.println(echo);
         list.add(task);
+        return echo;
     }
     
     /**
-     * Prints a greeting message to the user when the application starts.
-     */
-    public void greeting() {
-        String greeting = "___________________________________\n"
-            + "Hello! I'm Jinni\n"
-            + "What can I do for you?\n"
-            + "___________________________________" ;
-        System.out.println(greeting);
-    }
-    
-    /**
-     * Lists all tasks currently in the task list, displaying each task's status and description.
+     * Compiles and returns a string listing all tasks currently in the task list.
      *
      * @param list The task list containing the tasks to be listed.
+     * @return A formatted string listing all tasks with their status and description.
      */
-    public void listing(TaskList list) {
-        System.out.println("Here are the tasks in your list\n");
-        if (list.size() == 0) {
-            System.out.println("\n___________________________________");
-        } else {
+    public String listing(TaskList list) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list").append(System.lineSeparator());
+        if (list.size() != 0) {
             int num = 1;
             for (Task t : list.getList()) {
-                System.out.println(num + "." + t.toString() + "\n");
+                sb.append(num + "." + t.toString()).append(System.lineSeparator());
                 num++;
             }
-            System.out.println("___________________________________");
         }
+        return sb.toString();
     }
     
     /**
-     * Prints a message to the user indicating that a specific task has been marked as done.
+     * Creates a message indicating a specific task has been marked as completed.
      *
      * @param t The task that has been marked as done.
+     * @return A confirmation message stating the task is done.
      */
-    public void marking(Task t) {
-        System.out.println("Nice! I have marked this task as done\n");
-        System.out.println(t.toString());
-        System.out.println("___________________________________");
+    public String marking(Task t) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I have marked this task as done\n").append(t.toString());
+        return sb.toString();
     }
     
     /**
-     * Prints a message to the user indicating that a specific task has been unmarked.
+     * Generates a message indicating a specific task has been unmarked, implying it is not completed.
      *
      * @param t The task that has been unmarked.
+     * @return A message stating the task is marked as not done.
      */
-    public void unmarking(Task t) {
-        System.out.println("Ok, I've marked this task as not done yet\n");
-        System.out.println(t.toString());
-        System.out.println("___________________________________");
+    public String unmarking(Task t) {
+        return "Ok, I've marked this task as not done yet\n" + t.toString();
     }
     
     /**
-     * Prints a message to the user indicating a task has been deleted, and displays the current
-     * total number of tasks.
+     * Produces a message confirming the deletion of a task and shows the new total count of tasks.
      *
      * @param t The task that has been deleted.
-     * @param list The task list from which the task was deleted.
+     * @param list The task list from which the task was removed.
+     * @return A string confirming the task's deletion and the updated task count.
      */
-    public void deleting(Task t, TaskList list) {
+    public String deleting(Task t, TaskList list) {
         String toPrint = "Noted. I've removed this task:\n" + "  " + t.toString() + "\n"
-            + "Now you have " + (list.size() - 1) + " tasks in the list"
-            + "\n___________________________________" ;
-        System.out.println(toPrint);
+            + "Now you have " + (list.size() - 1) + " tasks in the list";
+        return toPrint;
     }
     
     /**
-     * Prints a message to the user indicating the tasks the user is finding, and displays the tasks
-     * in a list format.
+     * Searches for and lists tasks containing the specified keyword in their description.
      *
-     * @param list The task list from which the user is finding in.
-     * @param keyword The description string that the user is finding in the task description of the tasks
-     *                in the task list.
+     * @param list The task list to search within.
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A string listing all tasks that match the search criterion.
      */
-    public void finding(TaskList list, String keyword) {
+    public String finding(TaskList list, String keyword) {
         String result = list.findTask(keyword);
         String toPrint = "Here are the matching tasks in your list:\n"
-                + result
-                + "\n___________________________________" ;
-        System.out.println(toPrint);
+                + result;
+        return toPrint;
     }
     
     /**
-     * Prints a goodbye message to the user when the application exits.
+     * Generates a farewell message to be displayed when the application is exited.
+     *
+     * @return A goodbye message.
      */
-    public void bye() {
-        String bye = "___________________________________\n"
-            + "Bye. Hope to see you again soon!\n"
-            + "___________________________________";
-        System.out.println(bye);
-    }
-    
-    /**
-     * Prints an error message to the user if the application fails to load the task file.
-     */
-    public void loadingError() {
-        System.out.println("File not found");
-    }
-    
-    /**
-     * Prints an error message to the user if the application encounters an error while attempting
-     * to modify the task file.
-     */
-    public void changingFileError() {
-        System.out.println("File not found");
+    public String bye() {
+        String bye = "Bye. Hope to see you again soon!";
+        return bye;
     }
     
     /**
@@ -144,6 +113,7 @@ public class Ui {
     public void handleMarkError(String inputFromUser, TaskList list) throws DukeException {
         if (Integer.parseInt(inputFromUser.substring(5)) > list.size()) {
             throw new DukeException("You do not have that many tasks");
+            
         }
         if (Integer.parseInt(inputFromUser.substring(5)) < 1) {
             throw new DukeException("No negative task number");
@@ -215,20 +185,6 @@ public class Ui {
         }
         if (indexOfTaskToDelete > list.size() || indexOfTaskToDelete < 1) {
             throw new DukeException("Check you task number");
-        }
-    }
-    
-    /**
-     * Validates a date input by the user, ensuring it matches the expected format.
-     *
-     * @param inputDate The date string input by the user.
-     * @param formatter The DateTimeFormatter against which to validate the input date.
-     * @param date The LocalDate object parsed from the inputDate.
-     * @throws DukeException If the input date does not match the expected format.
-     */
-    public void handleInvalidInputDate(String inputDate, DateTimeFormatter formatter, LocalDate date) throws DukeException {
-        if (!(inputDate.equals(date.format(formatter)))) {
-            throw new DukeException("Did you enter a valid date or is the date entered of format <dd/mm/yyyy>");
         }
     }
     

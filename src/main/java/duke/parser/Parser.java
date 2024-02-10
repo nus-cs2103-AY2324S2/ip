@@ -9,6 +9,7 @@ import duke.exception.DukeException;
 import duke.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is responsible for interpreting user input and converting it into
@@ -78,16 +79,22 @@ public class Parser {
      * Creates a Deadline task from the input command, including parsing the due date.
      *
      * @param input The user input string.
-     * @param ui The UI instance to handle user interactions.
      * @return A new Deadline Task.
      * @throws DukeException If the input date is invalid or the input format is incorrect.
      */
-    public Task createDeadline(String input, Ui ui) throws DukeException{
+    public Task createDeadline(String input) throws DukeException{
         int indexOfBy = input.indexOf("/by");
+        if (indexOfBy == -1) {
+            throw new DukeException("Invalid command format for deadline. Use: deadline <description> /by <date>");
+        }
         String deadlineDescription = input.substring(9, indexOfBy - 1);
         String deadline = input.substring(indexOfBy + 4);
-        LocalDate by = this.formatInputDate(deadline);
-        ui.handleInvalidInputDate(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy"), by);
+        LocalDate by;
+        try {
+            by = formatInputDate(deadline);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use dd/MM/yyyy.");
+        }
         return new Deadline(deadlineDescription, by);
     }
     
@@ -95,20 +102,32 @@ public class Parser {
      * Creates an Event task from the input command, including parsing the start and end dates.
      *
      * @param input The user input string.
-     * @param ui The UI instance to handle user interactions.
      * @return A new Event Task.
      * @throws DukeException If any input date is invalid or the input format is incorrect.
      */
-    public Task createEvent(String input, Ui ui) throws DukeException{
+    public Task createEvent(String input) throws DukeException{
         int indexOfFrom = input.indexOf("/from");
         int indexOfTo = input.indexOf("/to");
+        if (indexOfFrom == -1 || indexOfTo == -1) {
+            throw new DukeException("Invalid command format for event. Use: event <description> /from <start date> /to <end date>");
+        }
         String eventDescription = input.substring(6, indexOfFrom - 1);
         String startString = input.substring(indexOfFrom + 6, indexOfTo - 1);
         String endString = input.substring(indexOfTo + 4);
-        LocalDate start = this.formatInputDate(startString);
-        LocalDate end = this.formatInputDate(endString);
-        ui.handleInvalidInputDate(startString, DateTimeFormatter.ofPattern("dd/MM/yyyy"), start);
-        ui.handleInvalidInputDate(endString, DateTimeFormatter.ofPattern("dd/MM/yyyy"), end);
+    
+        LocalDate start, end;
+        try {
+            start = formatInputDate(startString);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid start date format for event. Please use dd/MM/yyyy.");
+        }
+    
+        try {
+            end = formatInputDate(endString);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid end date format for event. Please use dd/MM/yyyy.");
+        }
+    
         return new Event(eventDescription, start, end);
     }
     
@@ -174,4 +193,6 @@ public class Parser {
         String acceptedDate = date.format(storageFormatter);
         return LocalDate.parse(acceptedDate);
     }
+    
+    
 }
