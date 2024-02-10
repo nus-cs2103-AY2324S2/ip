@@ -1,9 +1,13 @@
 package mona;
-import java.io.*;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -11,7 +15,6 @@ import java.util.stream.Stream;
  * This class contains the logic for interacting with the data logs
  */
 public class Storage {
-    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
     private String filePath;
 
     /**
