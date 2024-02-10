@@ -35,10 +35,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Nicole nicole;
 
-    private final Image userImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/user.JPG")));
-    private final Image nicoleImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/raiden.jpeg")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.JPG")));
+    private final Image nicoleImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/raiden.jpeg")));
 
     @FXML
     public void initialize() {
