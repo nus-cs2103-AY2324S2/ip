@@ -1,5 +1,2 @@
-T/ /this
-D/X/that/2024-07-07
-E/ /those/2024-05-14/2024-05-15
-T/ /these
-D/ /another that/2024-02-10
+T/X/this
+D/ /that/2024-04-04

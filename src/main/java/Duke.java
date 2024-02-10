@@ -9,63 +9,6 @@ import java.util.ArrayList;
 public class Duke {
     private static String storedTasksPath = "./data/storedTasks.txt";
 
-    private static void mark(int n, ArrayList<Task> tasks) {
-        if ((n > 0) && (tasks.get(n - 1) != null)) {
-            tasks.get(n - 1).setDone();
-            System.out.println("Nice! I've marked this task done:");
-            System.out.println("[" + tasks.get(n - 1).getStatusIcon() + "] "
-                    + tasks.get(n - 1).getDescription() + "\n");
-        } else {
-            System.out.println("You don't have that task!\n");
-        }
-    }
-
-    private static void unmark(int n, ArrayList<Task> tasks) {
-        if ((n > 0) && (tasks.get(n - 1) != null)) {
-            tasks.get(n - 1).setUndone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + tasks.get(n - 1).getStatusIcon() + "] "
-                    + tasks.get(n - 1).getDescription() + "\n");
-        } else {
-            System.out.println("You don't have that task!\n");
-        }
-    }
-
-    private static void delete(int n, ArrayList<Task> tasks) {
-        if ((n > 0) && (tasks.get(n - 1) != null)) {
-            Task removed = tasks.remove(n - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(removed);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
-        } else {
-            System.out.println("You don't have that task!\n");
-        }
-    }
-
-    private static void createToDo(String task, ArrayList<Task> tasks) {
-        ToDo todo = new ToDo(task);
-        tasks.add(todo);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(todo);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
-    }
-
-    private static void createDeadline(String description, LocalDate by, ArrayList<Task> tasks) {
-        Deadline deadline = new Deadline(description, by);
-        tasks.add(deadline);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(deadline);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
-    }
-
-    private static void createEvent(String description, LocalDate from, LocalDate to, ArrayList<Task> tasks) {
-        Event event = new Event(description, from, to);
-        tasks.add(event);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(event);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
-    }
-
     private static void storeTasks(ArrayList<Task> tasks) {
         for (Task task : tasks) {
             try {
@@ -76,29 +19,25 @@ public class Duke {
         }
     }
 
-    private static void loadTasks(Scanner sc, ArrayList<Task> tasks) {
+    private static void loadTasks(Scanner sc, TaskList tasks) {
         while (sc.hasNext()) {
             String current = sc.nextLine();
             String[] taskInfo = current.split("/");
-            Task task = null;
             switch (taskInfo[0]) {
                 case "T":
-                    task = new ToDo(taskInfo[2]);
+                    tasks.createToDo(taskInfo[2], false);
                     break;
                 case "D":
-                    task = new Deadline(taskInfo[2], LocalDate.parse(taskInfo[3]));
+                    tasks.createDeadline(taskInfo[2], LocalDate.parse(taskInfo[3]), false);
                     break;
                 case "E":
-                    task = new Event(taskInfo[2], LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]));
+                    tasks.createEvent(taskInfo[2], LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]), false);
                     break;
             }
-            if (task != null)
-            {
-                if (taskInfo[1].equals("X")) {
-                    task.setDone();
-                }
-                tasks.add(task);
+            if (taskInfo[1].equals("X")) {
+                tasks.mark(tasks.size(), false);
             }
+
         }
     }
 
@@ -114,7 +53,9 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList taskList = new TaskList();
+        Ui ui = new Ui();
+//        ArrayList<Task> taskList = new ArrayList<>();
 
         File directory = new File("./data");
         if (!directory.exists()) {
@@ -138,7 +79,7 @@ public class Duke {
         }
 
         if (fileScanner != null) {
-            loadTasks(fileScanner, tasks);
+            loadTasks(fileScanner, taskList);
             resetTasksFile();
         }
 
@@ -148,15 +89,15 @@ public class Duke {
         while (!message.equalsIgnoreCase("bye")) {
             if (message.equalsIgnoreCase("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i + 1) + ". " + taskList.get(i));
                 }
                 System.out.println();
             } else if (message.split(" ")[0].equalsIgnoreCase("mark")) {
                 try {
                     String number = message.split(" ")[1];
                     int n = Integer.parseInt(number);
-                    mark(n, tasks);
+                    taskList.mark(n);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("You forgot to type which task!");
                     System.out.println("Type: 'mark n' to mark the n-th task.\n");
@@ -168,7 +109,7 @@ public class Duke {
                 try {
                     String number = message.split(" ")[1];
                     int n = Integer.parseInt(number);
-                    unmark(n, tasks);
+                    taskList.unmark(n);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("You forgot to type which task!");
                     System.out.println("Type: 'unmark n' to unmark the n-th task.\n");
@@ -180,7 +121,7 @@ public class Duke {
                 try {
                     String number = message.split(" ")[1];
                     int n = Integer.parseInt(number);
-                    delete(n, tasks);
+                    taskList.delete(n);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("You forgot to type which task!");
                     System.out.println("Type: 'delete n' to delete the n-th task.\n");
@@ -191,7 +132,8 @@ public class Duke {
             } else if (message.split(" ")[0].equalsIgnoreCase("todo")) {
                 try {
                     String task = message.split(" ", 2)[1];
-                    createToDo(task, tasks);
+                    taskList.createToDo(task);
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("The correct format is:");
                     System.out.println("todo <description>\n");
@@ -209,7 +151,7 @@ public class Duke {
                         System.out.println("The correct format is: YYYY-MM-DD\n");
                     }
                     if (byDate != null) {
-                        createDeadline(description, byDate, tasks);
+                        taskList.createDeadline(description, byDate);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("The correct format is:");
@@ -232,7 +174,7 @@ public class Duke {
                         System.out.println("The correct format is: YYYY-MM-DD\n");
                     }
                     if (fromDate != null && toDate != null) {
-                        createEvent(description, fromDate, toDate, tasks);
+                        taskList.createEvent(description, fromDate, toDate);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("The correct format is:");
@@ -247,7 +189,7 @@ public class Duke {
             message = sc.nextLine();
         }
 
-        storeTasks(tasks);
+        storeTasks(taskList.tasks);
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
