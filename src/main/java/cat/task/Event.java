@@ -12,11 +12,11 @@ public class Event extends Task {
 
     /**
      * Construct a task with a start and an end from parsed components.
-     * The expected components are DESCRIPTION, /from and /to.
+     * The expected components are /from and /to.
      * @throws InvalidComponents when the parsed components don't match the expected components
      */
-    public Event(Map<String, String> components) throws InvalidComponents {
-        super(components.get("DESCRIPTION"));
+    public Event(String description, Map<String, String> components) throws InvalidComponents {
+        super(description);
         validateComponentKeys(keys("/from", "/to"), components.keySet());
         from = parseDateTime(components.get("/from"));
         to = parseDateTime(components.get("/to"));

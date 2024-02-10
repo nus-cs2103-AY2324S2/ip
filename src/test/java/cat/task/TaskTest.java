@@ -8,14 +8,6 @@ import org.junit.jupiter.api.Test;
 
 class TaskTest {
     @Test
-    public void validateComponentKeys_noDescription_invalidComponentsThrown() {
-        Task.InvalidComponents e = Assertions.assertThrows(Task.InvalidComponents.class, ()
-                -> Task.validateComponentKeys(new HashSet<>(), new HashSet<>()));
-
-        Assertions.assertEquals("No description given", e.getMessage());
-    }
-
-    @Test
     public void validateComponentKeys_notMatch_invalidComponentsThrown() {
         List<HashSet<String>> expecteds = List.of(
                 new HashSet<>(),
@@ -46,8 +38,8 @@ class TaskTest {
         );
 
         List<HashSet<String>> actuals = List.of(
-                new HashSet<>(List.of("DESCRIPTION")),
-                new HashSet<>(List.of("DESCRIPTION", "/from", "/to"))
+                new HashSet<>(List.of()),
+                new HashSet<>(List.of("/from", "/to"))
         );
 
         for (int i = 0; i < expecteds.size(); i++) {

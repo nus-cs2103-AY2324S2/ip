@@ -16,6 +16,7 @@ import cat.ui.Ui;
 public class AddCommand extends Command {
     private final Type type;
     private final HashMap<String, String> components;
+    private final String description;
 
     /**
      * The possible types of tasks.
@@ -32,9 +33,11 @@ public class AddCommand extends Command {
      * @param type       the type of the task
      * @param components the components parsed from the user command
      */
-    public AddCommand(Type type, HashMap<String, String> components) {
-        assert components != null : "Components must not be null";
+    public AddCommand(Type type, String description, HashMap<String, String> components) {
+        assert description != null : "AddCommand description must not be null";
+        assert components != null : "AddCommand Components must not be null";
 
+        this.description = description;
         this.type = type;
         this.components = components;
     }
@@ -53,11 +56,11 @@ public class AddCommand extends Command {
     private Task createTask() throws Task.InvalidComponents {
         switch (type) {
         case Todo:
-            return new Todo(components);
+            return new Todo(description, components);
         case Deadline:
-            return new Deadline(components);
+            return new Deadline(description, components);
         case Event:
-            return new Event(components);
+            return new Event(description, components);
         default:
             throw new IllegalStateException("Unexpected value: " + type);
         }

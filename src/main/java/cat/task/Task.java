@@ -101,19 +101,8 @@ public abstract class Task implements Serializable {
      */
     protected static void validateComponentKeys(
             Set<String> expected, Set<String> actual) throws InvalidComponents {
-        // DESCRIPTION is assumed to be implicit
-        if (!actual.remove("DESCRIPTION")) {
-            throw new InvalidComponents();
-        }
-
-        if (expected.size() != actual.size()) {
+        if (!expected.equals(actual)) {
             throw new InvalidComponents(actual, expected);
-        }
-
-        for (String component : expected) {
-            if (!actual.contains(component)) {
-                throw new InvalidComponents(actual, expected);
-            }
         }
     }
 

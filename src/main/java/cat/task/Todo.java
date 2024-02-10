@@ -7,11 +7,11 @@ import java.util.Map;
  */
 public class Todo extends Task {
     /**
-     * Construct a task with a start and an end from parsed components. The expected components are only DESCRIPTION.
+     * Construct a task with a start and an end from parsed components. There are no expected components.
      * @throws InvalidComponents when the parsed components don't match the expected components
      */
-    public Todo(Map<String, String> components) throws InvalidComponents {
-        super(components.get("DESCRIPTION"));
+    public Todo(String description, Map<String, String> components) throws InvalidComponents {
+        super(description);
         validateComponentKeys(keys(), components.keySet());
     }
 

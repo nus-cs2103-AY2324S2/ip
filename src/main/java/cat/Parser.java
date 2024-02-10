@@ -76,29 +76,30 @@ public class Parser {
             // continue to other commands
         }
 
-        String parameter = getParameter(scanner);
+        String input = getCommandInput(scanner);
+        var components = parseComponents(input);
 
         switch (type) {
         case Todo:
-            return new AddCommand(AddCommand.Type.Todo, parseComponents(parameter));
+            return new AddCommand(AddCommand.Type.Todo, components.description, components.parameters);
         case Deadline:
-            return new AddCommand(AddCommand.Type.Deadline, parseComponents(parameter));
+            return new AddCommand(AddCommand.Type.Deadline, components.description, components.parameters);
         case Event:
-            return new AddCommand(AddCommand.Type.Event, parseComponents(parameter));
+            return new AddCommand(AddCommand.Type.Event, components.description, components.parameters);
         case Mark:
-            return new CompleteCommand(parseIndex(parameter), true);
+            return new CompleteCommand(parseIndex(input), true);
         case Unmark:
-            return new CompleteCommand(parseIndex(parameter), false);
+            return new CompleteCommand(parseIndex(input), false);
         case Delete:
-            return new DeleteCommand(parseIndex(parameter));
+            return new DeleteCommand(parseIndex(input));
         case Find:
-            return new FindCommand(parameter);
+            return new FindCommand(input);
         default:
             throw new IllegalStateException("Unexpected type: " + type);
         }
     }
 
-    private static String getParameter(Scanner scanner) throws InvalidCommandData {
+    private static String getCommandInput(Scanner scanner) throws InvalidCommandData {
         if (!scanner.hasNextLine()) {
             throw new InvalidCommandData();
         }
@@ -109,27 +110,31 @@ public class Parser {
         return Integer.parseInt(input.trim()) - 1;
     }
 
-    private static HashMap<String, String> parseComponents(String data) throws InvalidCommandData {
+    private static Components parseComponents(String data) throws InvalidCommandData {
         assert data != null : "data must not be null";
 
-        HashMap<String, StringBuilder> componentBuilders = new HashMap<>();
+        HashMap<String, StringBuilder> parameterBuilders = new HashMap<>();
 
         String key = DESCRIPTION_IDENTIFIER;
         String[] words = data.split(" +");
         for (String word : words) {
             if (word.startsWith("/")) {
-                validateBuilderNotNull(componentBuilders, key);
+                validateBuilderNotNull(parameterBuilders, key);
 
                 key = word;
                 continue;
             }
-            componentBuilders
+            parameterBuilders
                     .compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
         }
 
-        HashMap<String, String> components = new HashMap<>();
-        componentBuilders.forEach((k, v) -> components.put(k, v.toString()));
-        return components;
+        HashMap<String, String> parameters = new HashMap<>();
+        parameterBuilders.forEach((k, v) -> parameters.put(k, v.toString()));
+
+        String description = parameters.remove(DESCRIPTION_IDENTIFIER);
+        assert description != null : "Description must not be null after extracting from parsed parameters";
+
+        return new Components(description, parameters);
     }
 
     private static void validateBuilderNotNull(
@@ -174,6 +179,16 @@ public class Parser {
 
         public InvalidCommandData(String key) {
             super("No value given to " + key);
+        }
+    }
+
+    private static class Components {
+        protected String description;
+        protected HashMap<String, String> parameters;
+
+        public Components(String description, HashMap<String, String> parameters) {
+            this.description = description;
+            this.parameters = parameters;
         }
     }
 }
