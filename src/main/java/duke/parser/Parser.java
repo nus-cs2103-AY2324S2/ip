@@ -1,5 +1,8 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import duke.command.AddCommand;
@@ -25,15 +28,16 @@ public class Parser {
             List<String> arguments = parts.length > 1 ? List.of(parts[1].split("\\s+")) : List.of();
 
             String taskDescription = extractTaskDescription(arguments);
-            String deadline = "Error: No deadline set.";
-            String start = "Error: No start time set.";
-            String end = "Error: No end time set.";
+            LocalDateTime deadlineDateTime = null;
+            LocalDateTime startDateTime = null;
+            LocalDateTime endDateTime = null;
 
             // Get Deadline
             if (arguments.contains("/by")) {
                 int index = arguments.indexOf("/by");
                 if (index < arguments.size() - 1) {
-                    deadline = String.join(" ", arguments.subList(index + 1, arguments.size()));
+                    String deadline = String.join(" ", arguments.subList(index + 1, arguments.size()));
+                    deadlineDateTime = parseDateTime(deadline);
                 } else {
                     throw new DukeException("Error: Missing deadline after /by. Correct format: /by <deadline>");
                 }
@@ -46,8 +50,10 @@ public class Parser {
                 int fromIndex = arguments.indexOf("/from");
                 int toIndex = arguments.indexOf("/to");
                 if (fromIndex < toIndex && toIndex < arguments.size() - 1) {
-                    start = String.join(" ", arguments.subList(fromIndex + 1, toIndex));
-                    end = String.join(" ", arguments.subList(toIndex + 1, arguments.size()));
+                    String start = String.join(" ", arguments.subList(fromIndex + 1, toIndex));
+                    String end = String.join(" ", arguments.subList(toIndex + 1, arguments.size()));
+                    startDateTime = parseDateTime(start);
+                    endDateTime = parseDateTime(end);
                 } else {
                     throw new DukeException("Error: Missing /from or /to after event command. Correct format: event <description> /from <start> /to <end>");
                 }
@@ -79,21 +85,32 @@ public class Parser {
                     if (taskDescription.isEmpty()) {
                         throw new DukeException("Error: Deadline description cannot be empty.");
                     }
-                    return new AddCommand(new Deadline(taskDescription, deadline));
+                    if (deadlineDateTime == null) {
+                        throw new DukeException("Error: Deadline date/time cannot be empty.");
+                    }
+                    return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
                 case "event":
                     if (taskDescription.isEmpty()) {
                         throw new DukeException("Error: Event description cannot be empty.");
-                    } else if (start.equals("Error: No start time set.") || end.equals("Error: No end time set.")) {
+                    }
+                    if (startDateTime == null || endDateTime == null) {
                         throw new DukeException("Error: Both start and end times are required for the event command. Correct format: /from <start> /to <end>");
                     }
-                    return new AddCommand(new Event(taskDescription, start, end));
-
+                    return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
                 default:
-                    throw new DukeException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(");
+                    throw new DukeException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(\n");
             }
         } catch (DukeException e) {
             System.out.printf("\n%s", e.getMessage());
             return new UnknownCommand();
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+        try {
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date/time format. Please use yyyy-MM-dd HH:mm format.");
         }
     }
 

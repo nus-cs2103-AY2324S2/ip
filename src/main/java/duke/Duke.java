@@ -34,7 +34,7 @@ public class Duke {
         Command currentCommand = null;
 
 
-        while (sc.hasNext()) {
+        while (true) {
             try {
                 System.out.printf("\n-> ");
 

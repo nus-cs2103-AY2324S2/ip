@@ -1,9 +1,12 @@
 package duke.task;
 
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline) {
         super(description, TaskType.D);
         this.deadline = deadline;
     }
@@ -13,11 +16,11 @@ public class Deadline extends Task {
         // Format the task status, task information, and deadline into a single string
         String isCompleted = this.isDone() ? "[X]" : "[ ]";
         return String.format("[D] | %s | %s | %s", isCompleted, this.getDescription().trim(),
-                this.deadline);
+                this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        return String.format("[D]%s (by: %s)", super.toString(), this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
     }
 }

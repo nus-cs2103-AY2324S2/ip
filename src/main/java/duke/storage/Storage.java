@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import duke.task.Deadline;
@@ -38,16 +40,19 @@ public class Storage {
                 }
                 list.addTask(todo);
             } else if (taskType.equals("[D]")) {
-                String date = args[3];
-                Deadline deadline = new Deadline(description, date);
+                String dateString = args[3];
+                LocalDateTime dateTime = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                Deadline deadline = new Deadline(description, dateTime);
                 if (isDone) {
                     deadline.markAsDone();
                 }
                 list.addTask(deadline);
             } else {
-                String from = args[3];
-                String to = args[4];
-                Event event = new Event(description, from, to);
+                String fromString = args[3];
+                String toString = args[4];
+                LocalDateTime fromDateTime = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime toDateTime = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                Event event = new Event(description, fromDateTime, toDateTime);
                 if (isDone) {
                     event.markAsDone();
                 }
