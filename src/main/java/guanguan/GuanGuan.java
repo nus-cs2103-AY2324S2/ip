@@ -3,7 +3,7 @@ package guanguan;
 import java.util.Scanner;
 
 /**
- * Main class of chatbot.
+ * Main class of GuanGuan chatbot.
  */
 public class GuanGuan {
     private final Storage storage;
@@ -45,6 +45,7 @@ public class GuanGuan {
         ui.welcome();
 
         while (isValid) {
+            assert scanner.hasNextLine() : "No more lines to read!";
             String input = scanner.nextLine();
             try {
                 isValid = Parser.parse(input, items, ui);
@@ -65,6 +66,8 @@ public class GuanGuan {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
+        assert input != null : "Input cannot be null";
+        assert !input.isEmpty() : "Input cannot be empty";
         try {
             Parser.parse(input, items, ui);
             storage.saveData(items);
