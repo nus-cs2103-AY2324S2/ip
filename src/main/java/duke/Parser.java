@@ -10,7 +10,6 @@ public class Parser {
      * Constructor to create an instance.
      */
     public Parser() {
-
     }
 
     /**
