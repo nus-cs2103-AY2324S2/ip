@@ -22,15 +22,6 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message to the user.
-     */
-    public void showWelcome() {
-        this.showLine();
-        System.out.println("Hello! I'm Zack\nWhat can I do for you?");
-        this.showNewLineLine();
-    }
-
-    /**
      * Reads the command from the user.
      *
      * @return The command input by the user.
@@ -39,25 +30,11 @@ public class Ui {
     public String readCommand() throws ZackException {
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            this.showLine();
             throw new ZackException("The input cannot be empty.");
         }
         return input;
     }
 
-    /**
-     * Prints a line divider.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Prints a line divider with an additional new line.
-     */
-    public void showNewLineLine() {
-        System.out.println("____________________________________________________________\n");
-    }
 
     /**
      * Displays the specified error message to the user.
@@ -66,27 +43,6 @@ public class Ui {
      */
     public void showError(String errorMessage) {
         System.out.println("OOPS!!! " + errorMessage);
-    }
-
-    /**
-     * Shows a message when tasks are loaded, including the loaded tasks.
-     *
-     * @param tasks The list of loaded tasks.
-     * @throws ZackException If there is an error in loading tasks.
-     */
-    public void showLoadedTasks(TaskList tasks) throws ZackException {
-        if (tasks.getSize() == 0) {
-            this.showLine();
-            System.out.println("Task file successfully loaded but it is currently empty.");
-            this.showNewLineLine();
-            return;
-        }
-        this.showLine();
-        System.out.println("Here are the tasks that I have loaded from storage:");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + "." + tasks.getTask(i));
-        }
-        this.showNewLineLine();
     }
 
     /**

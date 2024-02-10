@@ -19,60 +19,61 @@ import zack.util.Parser;
 public class ParserTest {
 
     @Test
-    public void parse_byeCommand_byeCommandReturned() throws Exception {
+    public void parse_bye_byeCommandReturned() throws Exception {
         Command command = Parser.parse("bye");
         assertTrue(command instanceof ByeCommand);
     }
 
     @Test
-    public void parse_markCommandWithNumericIndex_markCommandReturned() throws Exception {
+    public void parse_markWithNumber_markCommandReturned() throws Exception {
         Command command = Parser.parse("mark 1");
         assertTrue(command instanceof MarkCommand);
     }
 
     @Test
-    public void parse_unmarkCommandWithNumericIndex_markCommandReturned() throws Exception {
+    public void parse_unmarkWithNumber_markCommandReturned() throws Exception {
         Command command = Parser.parse("unmark 1");
         assertTrue(command instanceof MarkCommand); // Assuming MarkCommand is used for both marking and unmarking
     }
 
     @Test
-    public void parse_listCommand_listCommandReturned() throws Exception {
+    public void parse_list_listCommandReturned() throws Exception {
         assertTrue(Parser.parse("list") instanceof ListCommand);
     }
 
     @Test
-    public void parse_todoCommandWithDescription_addTaskCommandReturned() throws Exception {
+    public void parse_todoWithDescription_addTaskCommandReturned() throws Exception {
         Command command = Parser.parse("todo read book");
         assertTrue(command instanceof AddTaskCommand);
     }
 
     @Test
-    public void parse_deadlineCommandWithDescriptionAndDate_addTaskCommandReturned() throws Exception {
+    public void parse_deadlineWithTime_addTaskCommandReturned() throws Exception {
         Command command = Parser.parse("deadline submit assignment /by 2022-12-25");
         assertTrue(command instanceof AddTaskCommand);
     }
 
     @Test
-    public void parse_eventCommandWithDescriptionAndDate_addTaskCommandReturned() throws Exception {
-        Command command = Parser.parse("event project meeting /at 2022-12-26");
+    public void parse_eventWithTime_addTaskCommandReturned() throws Exception {
+        Command command = Parser.parse("event project meeting /from 2024-08-01 2200 "
+                + "/to 2024-08-01 2200");
         assertTrue(command instanceof AddTaskCommand);
     }
 
     @Test
-    public void parse_deleteCommandWithNumericIndex_deleteCommandReturned() throws Exception {
+    public void parse_delete_deleteCommandReturned() throws Exception {
         Command command = Parser.parse("delete 1");
         assertTrue(command instanceof DeleteCommand);
     }
 
     @Test
-    public void parse_dateCommandWithValidDate_dateCommandReturned() throws Exception {
+    public void parse_dateWithValidDate_dateCommandReturned() throws Exception {
         Command command = Parser.parse("date 2022-12-25");
         assertTrue(command instanceof DateCommand);
     }
 
     @Test
-    public void parse_findCommandWithValidKeyword_findCommandReturned() throws Exception {
+    public void parse_findWithValidKeyword_findCommandReturned() throws Exception {
         Command command = Parser.parse("find home");
         assertTrue(command instanceof FindCommand);
     }
@@ -85,14 +86,14 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_markCommandWithInvalidIndex_exceptionThrown() {
+    public void parse_markWithInvalidIndex_exceptionThrown() {
         Exception exception = assertThrows(ZackException.class, () -> Parser.parse("mark xyz"));
         String expectedMessage = "Invalid task index. Please enter a valid number.";
         assertTrue(exception.getMessage().contains(expectedMessage));
     }
 
     @Test
-    public void parse_dateCommandWithInvalidDateFormat_exceptionThrown() {
+    public void parse_dateWithInvalidDateFormat_exceptionThrown() {
         Exception exception = assertThrows(ZackException.class, () -> Parser.parse("date 2022/12/25"));
         String expectedMessage = "Invalid date format. Please enter a date in yyyy-MM-dd format.";
         assertTrue(exception.getMessage().contains(expectedMessage));
