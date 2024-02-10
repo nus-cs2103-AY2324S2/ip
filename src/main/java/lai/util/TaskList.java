@@ -32,12 +32,12 @@ public class TaskList implements Iterable<Task> {
      * @return The updated list of tasks.
      */
     public List<Task> add(Task newTask, Storage storage) {
-        tasks.add(newTask);
+        this.tasks.add(newTask);
         storage.updateTasksFile(this);
 
         Ui.printTaskAdded(newTask, this);
 
-        return tasks;
+        return this.tasks;
     }
 
     /**
@@ -67,6 +67,26 @@ public class TaskList implements Iterable<Task> {
      */
     public boolean remove(Task t) {
         return this.tasks.remove(t);
+    }
+
+    /**
+     * Searches for tasks that contain the specified query in their description.
+     * This method iterates over all tasks in the list and checks if the task's description contains the query string.
+     * If a match is found, the task is added to the result list.
+     *
+     * @param query The string to search for within task descriptions.
+     * @return A list of {@code Task} objects whose descriptions contain the specified query.
+     */
+    public List<Task> find(String query) {
+        List<Task> result  = new ArrayList<>();
+        for (Task task : this.tasks) {
+            int index = task.getDescription().indexOf(query);
+            if (index != -1) {
+                result.add(task);
+            }
+        }
+
+        return result;
     }
 
     /**

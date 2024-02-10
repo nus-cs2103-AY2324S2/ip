@@ -38,6 +38,15 @@ public class Task {
     }
 
     /**
+     * Retrieves the description of the task.
+     *
+     * @return The description of the task as a {@code String}.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns a string representation of the task's completion status.
      * Returns "X" if the task is done, or a space character otherwise.
      *
