@@ -35,6 +35,8 @@ public class Parser {
             return Ui.Command.DELETE;
         case "find":
             return Ui.Command.FIND;
+        case "help":
+            return Ui.Command.HELP;
         default:
             throw new DukeException(" Sorry, I don't understand that command :(");
         }
@@ -266,5 +268,23 @@ public class Parser {
         tl.deleteTask(toDelete - 1);
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
         return toPrint;
+    }
+
+    /**
+     * Shows the help page to the user.
+     *
+     */
+    public static String showHelpPage() {
+        return " Here are the commands you can use:\n"
+                + "   1. todo <description>\n"
+                + "   2. event <description> /from <start date> /to <end date>\n"
+                + "   3. deadline <description> /by <date>\n"
+                + "   4. list\n"
+                + "   5. find <keyword>\n"
+                + "   6. mark <index>\n"
+                + "   7. unmark <index>\n"
+                + "   8. delete <index>\n"
+                + "   9. help\n"
+                + "   10. bye";
     }
 }

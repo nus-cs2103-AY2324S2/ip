@@ -19,14 +19,15 @@ public class Ui {
         DEADLINE,
         EVENT,
         DELETE,
+        HELP,
     }
 
     /**
-     * Displays a greeting message to the user.
-     * This includes an ASCII art representation of a snowman and a welcome message.
+     * Displays a greeting message to the user and shows the command for help.
+     *
      */
     public static String greet() {
-        return " Hello! I'm SnowBoy\n" + " What can I do for you?";
+        return "Hello, I'm SnowBoy, at your service!\n" + "To see the list of commands available, type 'help' below!";
     }
 
     /**
@@ -74,6 +75,8 @@ public class Ui {
             return Parser.addEvent(tl, cmd, commandArr);
         case DELETE:
             return Parser.deleteTask(tl, commandArr);
+        case HELP:
+            return Parser.showHelpPage();
         default:
             throw new DukeException(String.format(" Sorry, %s is not a valid command :(", cmd));
         }
