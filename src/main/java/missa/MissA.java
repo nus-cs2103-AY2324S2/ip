@@ -3,7 +3,6 @@ package missa;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javafx.scene.Scene;
 import missa.command.Command;
 import missa.exception.IncorrectTaskTypeException;
 import missa.exception.NoContentException;
@@ -46,7 +45,7 @@ public class MissA {
         try {
             Command command = parser.parse(input, tasks);
             tasks = command.execute();
-            assert tasks != null: "Task list needs to be initialised";
+            assert tasks != null : "Task list needs to be initialised";
             String newData = tasks.getUpdatedData();
             storage.writeBackData(newData);
             return command.getReply(ui);
