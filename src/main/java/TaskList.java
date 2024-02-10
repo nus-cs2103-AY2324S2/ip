@@ -1,21 +1,19 @@
-import java.io.File;
+import exceptions.DukeException;
+import exceptions.InvalidDateException;
+import exceptions.StorageException;
+
+import java.io.*;
 import java.util.ArrayList;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.util.Arrays;
 
 public class TaskList extends ArrayList<Task> {
     private static TaskList instance;
     private final String filePath;
 
-    public TaskList(String filePath) {
+    public TaskList(String filePath) throws StorageException {
         this.filePath = filePath;
         loadTasks();
     }
-    public static TaskList getInstance(String filePath) {
+    public static TaskList getInstance(String filePath) throws StorageException {
         if (instance == null) {
             instance = new TaskList(filePath);
         }
@@ -32,7 +30,7 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
-    private void loadTasks() {
+    private void loadTasks() throws StorageException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -42,7 +40,7 @@ public class TaskList extends ArrayList<Task> {
                     CommandScanner.stringToTaskParser(textSections, this);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | InvalidDateException e) {
             try {
                 File file = new File(filePath);
                 File directory = file.getParentFile();
@@ -61,10 +59,8 @@ public class TaskList extends ArrayList<Task> {
                     }
                 }
             } catch (IOException ex) {
-                System.out.println("Error creating file: " + ex.getMessage());
+                throw new StorageException();
             }
-        } catch (DukeException e) {
-            throw new RuntimeException("Error parsing tasks: " + e.getMessage(), e);
         }
     }
 
