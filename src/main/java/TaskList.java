@@ -14,111 +14,19 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
-    public TaskList(String path){ //read from file
+    public TaskList(TaskList taskList){ //read from file
 
-        tasks = new ArrayList<Task>();
-
-        File file;
-        Scanner scanner;
-
-        try{
-
-            file = new File(path);
-
-            file.createNewFile(); //if file exists, does nothing
-            scanner = new Scanner(file);
-
-        } catch(IOException e) {
-
-            System.out.println("An exception was thrown!");
-            return;
-        }
-
-        while(scanner.hasNextLine()){
-
-            String line = scanner.nextLine();
-
-            if(line.length() < 3){
-
-                System.out.println("File format error! May have been corrupted");
-                return;
-            }
-
-            String taskName;
-            boolean isDone;
-
-            if(line.charAt(1) == '1'){
-
-                isDone = true;
-            }
-            else{
-
-                isDone = false;
-            }
-
-            switch(line.charAt(0)){
-
-                case 'T':
-
-                    taskName = line.substring(2);
-                    addTodo(taskName, isDone);
-
-                    break;
-
-                case 'D':
-
-                    int index = line.indexOf("/");
-                    taskName = line.substring(2, index);
-                    String deadline = line.substring(index+1);
-
-                    addDeadline(taskName, deadline, isDone);
-
-                    break;
-
-                case 'E':
-
-                    int firstIndex = line.indexOf("/");
-                    taskName = line.substring(2, firstIndex);
-                    String interval = line.substring(firstIndex+1);
-                    int secondIndex = interval.indexOf("/");
-                    String startTime = interval.substring(0, secondIndex);
-                    String endTime = interval.substring(secondIndex+1);
-
-                    addEvent(taskName, startTime, endTime, isDone);
-
-                    break;
-
-                default:
-
-                    System.out.println("File corrupted");
-
-            }
-        }
-
+       this.tasks = taskList.tasks;
     }
 
-    public void save(String path) {
+    public Task get(Integer i){
 
-        try{
+        return tasks.get(i);
+    }
 
-            FileWriter writer = new FileWriter(path);
+    public Integer size(){
 
-            for(int i=0;i<tasks.size();++i){
-
-                writer.write(tasks.get(i).header()+tasks.get(i).getName());
-
-                writer.write(tasks.get(i).additionalInfo());
-
-                writer.write("\n");
-            }
-
-            writer.close();
-
-        } catch (IOException e){
-
-            System.out.println("File format error! May have been corrupted");
-            return;
-        }
+        return tasks.size();
     }
 
     private void parse(){
