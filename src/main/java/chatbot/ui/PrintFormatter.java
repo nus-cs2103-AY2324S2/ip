@@ -10,36 +10,8 @@ import java.util.Queue;
  * @author Titus Chew
  */
 public final class PrintFormatter {
-    /** The indentation size. */
-    private static final String INDENT = "    ";
-
     /** Stores the messages to print. */
     private static final Queue<String> FORMATTER_QUEUE = new LinkedList<>();
-
-    /**
-     * Returns a horizontal line.
-     *
-     * @return the line
-     */
-    private static String insertLine() {
-        return INDENT + "____________________________________________________________";
-    }
-
-    /**
-     * Prints an indented message to the console.
-     *
-     * @param message the message to print in the console
-     */
-    private static String formatMessage(String message) {
-        StringBuilder formattedMessage = new StringBuilder();
-
-        String[] lines = message.split("\n");
-        for (String line : lines) {
-            formattedMessage.append(INDENT + line);
-        }
-
-        return formattedMessage.toString();
-    }
 
     /**
      * Prints multiple lines of indented messages to the console.
@@ -50,14 +22,15 @@ public final class PrintFormatter {
         StringBuilder formattedMessage = new StringBuilder();
 
         while (!FORMATTER_QUEUE.isEmpty()) {
-            formattedMessage.append(formatMessage(FORMATTER_QUEUE.remove()));
-            formattedMessage.append(insertLine());
+            formattedMessage.append(FORMATTER_QUEUE.remove());
+            formattedMessage.append("\n\n");
         }
 
         for (String message : messages) {
-            formattedMessage.append(formatMessage(message));
+            formattedMessage.append(message);
+            formattedMessage.append("\n\n");
         }
-        return formattedMessage.toString();
+        return formattedMessage.toString().trim();
     }
 
     /**
