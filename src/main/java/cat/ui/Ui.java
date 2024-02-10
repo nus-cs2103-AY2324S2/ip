@@ -110,4 +110,31 @@ public class Ui {
         }
         return scanner.nextLine();
     }
+
+    /**
+     * Show the help info to the user
+     */
+    public void showHelp() {
+        showTerminology();
+        showCommands();
+    }
+
+    private void showTerminology() {
+        outputBuffer.append("Words wrapped with <> represent required parameters.\n");
+    }
+
+    /**
+     * Show the command the program understands
+     */
+    private void showCommands() {
+        outputBuffer.append("The allowed commands are as follows: \n")
+                .append("todo <description>\n")
+                .append("deadline <description> /by <time>\n")
+                .append("event <description> /from <time> /by <time>\n")
+                .append("mark <index>\n")
+                .append("unmark <index>\n")
+                .append("delete <index>\n")
+                .append("list\n")
+                .append("bye");
+    }
 }
