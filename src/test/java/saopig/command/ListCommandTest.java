@@ -1,9 +1,6 @@
 package saopig.command;
 
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;

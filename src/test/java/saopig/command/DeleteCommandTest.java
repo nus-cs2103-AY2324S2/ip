@@ -1,7 +1,6 @@
 package saopig.command;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -58,7 +57,7 @@ class DeleteCommandTest {
         String inputCommand = "delete"; // Too short, missing index
         deleteCommand = new DeleteCommand(inputCommand, 0);
         String result;
-        result =  deleteCommand.deleteTask(inputCommand, mockTaskList, mockUi, mockStorage);
+        result = deleteCommand.deleteTask(inputCommand, mockTaskList, mockUi, mockStorage);
 
         // Verify that an error message is shown
         assert result.contains("Oopses daisy!") || result.contains("Oh, splendid!");

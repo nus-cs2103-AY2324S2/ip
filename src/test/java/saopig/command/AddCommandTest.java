@@ -1,8 +1,6 @@
 package saopig.command;
 
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -14,8 +12,6 @@ import saopig.Ui;
 import saopig.task.Deadline;
 import saopig.task.Event;
 import saopig.task.TaskList;
-import saopig.task.Todo;
-
 class AddCommandTest {
 
     private TaskList mockTaskList;
