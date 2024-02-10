@@ -48,6 +48,7 @@ public class MissA {
             Command command = parser.parse(input, tasks);
             assert command != null: "command should not be empty";
             tasks = command.execute();
+            assert tasks != null: "Task list needs to be initialised";
             String newData = tasks.getUpdatedData();
             storage.writeBackData(newData);
             return command.getReply(ui);
