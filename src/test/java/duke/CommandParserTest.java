@@ -1,22 +1,27 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import duke.action.Action;
 import duke.action.Delete;
 import duke.action.Echo;
 import duke.action.Farewell;
 import duke.action.Mark;
-import duke.action.Unmark;
-import duke.action.TaskList;
 import duke.action.MyList;
+import duke.action.TaskList;
+import duke.action.Unmark;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.NoIndexException;
 import duke.exception.UnknownCommandException;
 import duke.exception.WrongDateFormatException;
 import duke.exception.WrongDateOrderingException;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+
 
 public class CommandParserTest {
 
