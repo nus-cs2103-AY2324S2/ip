@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import main.RyanGosling;
+import utilities.ResponseHandler;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -25,13 +26,14 @@ public class MainWindow extends AnchorPane {
     private RyanGosling ryanGosling;
 
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/AlPacinoUser.png"));
-    private Image ryanGoslingImage = new Image(this.getClass().getResourceAsStream("/images/RyanGoslingBot.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/AlPacinoUser.png"));
+    private final Image ryanGoslingImage = new Image(this.getClass().getResourceAsStream("/images/RyanGoslingBot.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog("I'm literally Ryan Gosling.", ryanGoslingImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ResponseHandler.greeting("Ryan Gosling"),
+                                                                  ryanGoslingImage));
     }
 
     public void setRyanGosling(RyanGosling ryanGosling) {
