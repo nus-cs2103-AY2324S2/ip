@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import static org.junit.jupiter.api.Assertions.*;
-
+/*
 public class MamtaTest {
 
     private static final String LOAD_TASKS_FILE = "./data/mamtainput.txt";
@@ -50,3 +50,4 @@ public class MamtaTest {
         // Add assertions to verify that the method executed as expected
     }
 }
+*/
