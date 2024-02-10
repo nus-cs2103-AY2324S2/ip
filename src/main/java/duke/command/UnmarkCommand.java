@@ -24,11 +24,15 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
+            assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
+            assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
             Task doingtask = t.getTask(Integer.valueOf(index) - 1);
             doingtask.setTaskUndone();
             String printStatement = "--------------------------" + "\n"
                     + "OK, I've marked this task as not done yet:" + "\n"
                     + doingtask.toString() + "\n" + "--------------------------";
+
+            //high-level step that saves new list to harddisk
             s.save(t.getList());
             return printStatement;
         } catch (IndexOutOfBoundsException e) {
