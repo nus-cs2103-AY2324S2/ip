@@ -73,6 +73,8 @@ class Task {
   private boolean isDone;
 
   public Task(String description) {
+    assert description != null &&
+    !description.trim().isEmpty() : "Task description cannot be null or empty";
     this.description = description;
     this.isDone = false;
   }
@@ -123,6 +125,7 @@ class Deadline extends Task {
 
   public Deadline(String description, String dateString) {
     super(description);
+    assert dateString != null : "Deadline date cannot be null";
     LocalDate date = LocalDate.parse(dateString);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
     this.by = date.format(formatter);
@@ -144,6 +147,7 @@ class Event extends Task {
 
   public Event(String description, String from, String to) {
     super(description);
+    assert from != null && to != null : "Event times cannot be null";
     this.from = from;
     this.to = to;
   }

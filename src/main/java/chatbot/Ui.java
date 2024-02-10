@@ -49,6 +49,7 @@ public class Ui {
       "Hello! I'm TFamilyBot\n" +
       "What can I do for you? \n" +
       "____________________________________________________________\n";
+    assert prompt != null : "Prompt should not be null";
     pw.println(prompt);
   }
 
@@ -63,6 +64,7 @@ public class Ui {
    */
   public boolean reply(Storage st) throws IOException {
     String io = br.readLine().trim();
+    assert io != null : "Input read from BufferedReader should not be null";
     String[] words = io.split("\\s+", 2);
     String detail = words.length > 1 ? words[1] : "";
 
