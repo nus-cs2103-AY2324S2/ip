@@ -6,8 +6,8 @@ import util.Storage;
 import exceptions.ChatBotException;
 
 /**
- * The UnmarkCommand class represents a command to mark a task as not done in the task list.
- * It extends the Command class and implements the execute method to perform the unmarking operation.
+ * Represents a command to mark a task as not done in the task list.
+ * Extends the Command class and implements the execute method to perform the unmarking operation.
  */
 public class UnmarkCommand extends Command {
     private int index;
@@ -28,16 +28,17 @@ public class UnmarkCommand extends Command {
      * @param taskList The TaskList containing the current tasks.
      * @param ui       The Ui instance for user interaction and output.
      * @param storage  The Storage instance for saving tasks or loading data.
+     * @return A UserCommand indicating the result of the unmarking operation.
      */
     @Override
     public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.unmarkTask(this.index);
             storage.saveToFile(taskList);
-            return new UserCommand("\tI have unmarked this task", "\t" + taskList.getTaskIndex(this.index - 1));
+            return new UserCommand("\tOK, I've marked this task as not done yet:", "\t"
+                    + taskList.getTaskIndex(this.index - 1));
         } catch (ChatBotException e) {
-            System.out.println("\tAn error occurred when unmarking");
-            return new UserCommand("\tAn error occurred when unmarking");
+            return new UserCommand("\tOops! Number entered does not exist in the list.");
         }
     }
 }

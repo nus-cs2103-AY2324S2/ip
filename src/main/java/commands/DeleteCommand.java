@@ -7,8 +7,8 @@ import tasks.Task;
 import exceptions.ChatBotException;
 
 /**
- * The DeleteCommand class represents a command to delete a task from the task list.
- * It extends the Command class and implements the execute method to execute the command.
+ * Represents a command to delete a task from the task list.
+ * Extends the Command class and implements the execute method to execute the command.
  */
 public class DeleteCommand extends Command {
 
@@ -30,16 +30,17 @@ public class DeleteCommand extends Command {
      * @param taskList The TaskList containing the current tasks.
      * @param ui       The Ui instance for user interaction and output.
      * @param storage  The Storage instance for saving tasks or loading data.
+     * @return A UserCommand indicating the success or failure of the deletion operation.
      */
     @Override
     public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.deleteTask(this.index);
             storage.saveToFile(taskList);
-            return new UserCommand("\tSuccessfully removed task: " + task, taskList.getTaskSummary());
+            return new UserCommand("\tNoted. I've removed this task: " + "\n" + "\t"
+                    + task, taskList.getTaskSummary());
         } catch (ChatBotException e) {
-            System.out.println("\tAn error occurred when deleting");
-            return new UserCommand("\tAn error occurred when deleting");
+            return new UserCommand("\tOops! Number entered does not exist in the list.");
         }
     }
 }

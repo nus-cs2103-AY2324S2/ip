@@ -5,18 +5,17 @@ import util.TaskList;
 import util.Storage;
 
 /**
- * The ByeCommand class represents a command to exit the chatbot application.
- * It extends the Command class and provides the execute method to perform the exit action.
+ * Represents a command to exit the program.
  */
 public class ByeCommand extends Command {
 
     /**
-     * Executes the ByeCommand.
-     * Prints a goodbye message using the Ui, then exits the application.
+     * Executes the command to exit the program.
      *
-     * @param tasks   The TaskList containing the current tasks (not used in this command).
-     * @param ui      The Ui instance for user interaction and output.
-     * @param storage The Storage instance for saving tasks (not used in this command).
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage component.
+     * @return A user command indicating the program is exiting.
      */
     @Override
     public UserCommand execute(TaskList tasks, Ui ui, Storage storage) {

@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import tasks.Event;
 
 /**
- * The EventCommand class represents a command to add an event task to the task list.
- * It extends the Command class and implements the execute method to execute the command.
+ * Represents a command to add an event task to the task list.
+ * Extends the Command class and implements the execute method to execute the command.
  */
 public class EventCommand extends Command {
 
@@ -36,12 +36,14 @@ public class EventCommand extends Command {
      * @param taskList The TaskList containing the current tasks.
      * @param ui       The Ui instance for user interaction and output.
      * @param storage  The Storage instance for saving tasks or loading data.
+     * @return A UserCommand indicating the success of the event addition operation.
      */
     @Override
     public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         Event event = new Event(this.event, this.start, this.end);
         taskList.addTask(event);
         storage.saveToFile(taskList);
-        return new UserCommand("\tAdded event: ", "\t" + event, taskList.getTaskSummary());
+        return new UserCommand("\tGot it. I've added this task: "
+                , "\t" + event, taskList.getTaskSummary());
     }
 }

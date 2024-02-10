@@ -7,8 +7,8 @@ import tasks.Deadline;
 import java.time.LocalDateTime;
 
 /**
- * The DeadlineCommand class represents a command to add a deadline task.
- * It extends the Command class and implements the execute method to execute the command.
+ * Represents a command to add a deadline task.
+ * Extends the Command class and implements the execute method to execute the command.
  */
 public class DeadlineCommand extends Command {
 
@@ -33,13 +33,15 @@ public class DeadlineCommand extends Command {
      * @param taskList The TaskList containing the current tasks.
      * @param ui       The Ui instance for user interaction and output.
      * @param storage  The Storage instance for saving tasks or loading data.
+     * @return A UserCommand indicating the addition of the deadline task and its summary.
      */
     @Override
     public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(this.taskDescription, this.due);
         taskList.addTask(deadline);
         storage.saveToFile(taskList);
-        return new UserCommand("\tAdded deadline: ", "\t" + deadline, taskList.getTaskSummary());
+        return new UserCommand("\tGot it. I've added this task: ",
+                "\t" + deadline, taskList.getTaskSummary());
     }
 }
 

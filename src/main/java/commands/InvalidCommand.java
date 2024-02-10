@@ -5,8 +5,8 @@ import util.TaskList;
 import util.Storage;
 
 /**
- * The InvalidCommand class represents a command that is invalid or not recognized by the chatbot.
- * It extends the Command class and implements the execute method to handle the invalid command.
+ * Represents a command that is invalid or not recognized by the chatbot.
+ * Extends the Command class and implements the execute method to handle the invalid command.
  */
 public class InvalidCommand extends Command {
 
@@ -27,6 +27,7 @@ public class InvalidCommand extends Command {
      * @param taskList The TaskList containing the current tasks.
      * @param ui       The Ui instance for user interaction and output.
      * @param storage  The Storage instance for saving tasks or loading data.
+     * @return A UserCommand containing the error message.
      */
     @Override
     public UserCommand execute(TaskList taskList, Ui ui, Storage storage) {
@@ -34,3 +35,4 @@ public class InvalidCommand extends Command {
         return new UserCommand("\t" + this.message);
     }
 }
+
