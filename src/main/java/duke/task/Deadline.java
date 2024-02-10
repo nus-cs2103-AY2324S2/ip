@@ -36,6 +36,19 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the type of the Deadline
+     *
+     * @return Type of the Deadline
+     */
+    @Override
+    public String getType() {
+        return "D";
+    }
+
+    public LocalDateTime getDateTime() {
+        return this.dueDate;
+    }
+    /**
      * Returns the due date of the Deadline in String format
      */
     public String formatDueDate() {

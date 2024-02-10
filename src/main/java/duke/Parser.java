@@ -27,7 +27,7 @@ public class Parser {
             case "bye":
                 return new Command(Duke.CommandType.BYE);
             case "list":
-                return new Command(Duke.CommandType.LIST);
+                return parseList(input);
             case "mark":
                 return parseMarkings(input, Duke.CommandType.MARK);
             case "unmark":
@@ -47,6 +47,18 @@ public class Parser {
         }
     }
 
+    public Command parseList(String input) throws DukeException {
+        String[] parts = input.split(" ");
+        if (parts.length > 1) {
+            if (parts.length > 2) {
+                throw new DukeException("Unknown usage - \"list\" command should not have more than 2 arguments");
+            } else {
+                return new Command(Duke.CommandType.LIST, new String[]{parts[1]});
+            }
+        } else {
+            return new Command(Duke.CommandType.LIST);
+        }
+    }
     public Command parseMarkings(String input, Duke.CommandType commandType) throws DukeException {
         String[] parts = input.split(" ");
         try {

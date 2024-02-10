@@ -34,7 +34,7 @@ public class Duke extends Application {
      * Represents the type of command
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
     }
 
     /**
@@ -192,7 +192,11 @@ public class Duke extends Application {
             case BYE:
                 return ui.showGoodbye();
             case LIST:
-                return ui.showTaskList(tasks.getTaskStrings());
+                if (cmd.args.length > 0) {
+                    return ui.showTaskList(tasks.getTaskStrings(cmd.args[0]));
+                } else {
+                    return ui.showTaskList(tasks.getTaskStrings(""));
+                }
             case MARK:
                 int toMark = Integer.parseInt(cmd.args[0]) - 1;
                 tasks.markTaskAsDone(toMark);

@@ -62,7 +62,7 @@ public class Ui {
         stringBuilder.append(" Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.length; i++) {
-            stringBuilder.append(String.format(" %d.%s%n", i + 1, tasks[i]));
+            stringBuilder.append(String.format("%s%n", tasks[i]));
         }
 
         return stringBuilder.toString();

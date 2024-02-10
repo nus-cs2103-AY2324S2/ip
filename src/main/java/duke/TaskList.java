@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents the list of tasks
@@ -95,10 +96,26 @@ public class TaskList {
      *
      * @return List of tasks to be printed to the user
      */
-    public String[] getTaskStrings() {
-        String[] taskStrings = new String[this.tasks.size()];
-        for (int i = 0; i < this.tasks.size(); i++) {
-            taskStrings[i] = this.tasks.get(i).toString();
+    public String[] getTaskStrings(String sortBy) throws DukeException{
+        ArrayList<Task> sortedTasks = new ArrayList<Task>(this.tasks);
+        if (sortBy.equals("bytype")) {
+            sortedTasks.sort(Comparator.comparing(Task::getType));
+        } else if (sortBy.equals("bydate")) {
+            sortedTasks.sort(Comparator.comparing(Task::getDateTime));
+        } else if (sortBy.equals("bydesc")) {
+            sortedTasks.sort(Comparator.comparing(Task::getDescription));
+        } else if (!sortBy.equals("")){
+            throw new DukeException("list usage: list [bytype/bydate/bydescription]");
+        }
+        String[] taskStrings = new String[sortedTasks.size()];
+        if (sortBy.equals("")) {
+            for (int i = 0; i < sortedTasks.size(); i++) {
+                taskStrings[i] = String.format("%d. %s", i + 1, sortedTasks.get(i).toString());
+            }
+        } else {
+            for (int i = 0; i < sortedTasks.size(); i++) {
+                taskStrings[i] = String.format("- %s", sortedTasks.get(i).toString());
+            }
         }
         return taskStrings;
     }

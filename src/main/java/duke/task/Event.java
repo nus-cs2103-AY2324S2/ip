@@ -45,6 +45,19 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the type of the Event
+     *
+     * @return Type of the Event
+     */
+    @Override
+    public String getType() {
+        return "E";
+    }
+
+    public LocalDateTime getDateTime() {
+        return this.startDate;
+    }
+    /**
      * Returns the start date of the Event in String format
      */
     public String formatStartDate() {

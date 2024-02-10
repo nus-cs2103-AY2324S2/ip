@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a Task
  */
@@ -30,6 +32,12 @@ abstract public class Task {
         this.isDone = false;
     }
 
+    abstract public String getType();
+    abstract public LocalDateTime getDateTime();
+
+    public String getDescription() {
+        return this.description;
+    }
     /**
      * Returns the status icon of the Task
      *
