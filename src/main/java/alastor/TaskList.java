@@ -1,8 +1,8 @@
 package alastor;
 
-import alastor.task.Task;
-
 import java.util.ArrayList;
+
+import alastor.task.Task;
 
 /**
  * Represents a list of tasks.

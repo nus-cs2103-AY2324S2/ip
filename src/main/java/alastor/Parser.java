@@ -1,28 +1,31 @@
 package alastor;
 
-import alastor.command.AddCommand;
-import alastor.command.Command;
-import alastor.command.DeleteCommand;
-import alastor.command.ExitCommand;
-import alastor.command.InvalidCommand;
-import alastor.command.ListCommand;
-import alastor.command.MarkCommand;
-import alastor.command.FindCommand;
-import alastor.task.Deadline;
-import alastor.task.Event;
-import alastor.task.Task;
-import alastor.task.ToDo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import alastor.command.AddCommand;
+import alastor.command.Command;
+import alastor.command.DeleteCommand;
+import alastor.command.ExitCommand;
+import alastor.command.FindCommand;
+import alastor.command.InvalidCommand;
+import alastor.command.ListCommand;
+import alastor.command.MarkCommand;
+import alastor.task.Deadline;
+import alastor.task.Event;
+import alastor.task.Task;
+import alastor.task.ToDo;
 
 /**
  * Represents a parser that parses the user input and file input.
  */
 public class Parser {
 
+    /**
+     * Represents the type of the parsing.
+     */
     public enum ParseType {
         FILE {
             @Override
