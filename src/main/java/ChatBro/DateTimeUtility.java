@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Utility class that contains method for parsing user input for date and time
+ * Utility class with method for parsing user input into a valid date and time format.
  */
 public class DateTimeUtility {
     public static String parseDateTime(String input) throws InvalidDateTimeException {
@@ -13,14 +13,14 @@ public class DateTimeUtility {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         if (input.contains(" ")) {
-            try { // ddmmyyyy HHmm
+            try { // input is: dd-mm-yyyy HHmm
                 LocalDateTime dateWithTime = LocalDateTime.parse(input, dateTimeFormatter);
                 return dateWithTime.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm"));
             } catch (DateTimeParseException e) {
                 throw new InvalidDateTimeException("Hey bro, that's an invalid date and time format.");
             }
         } else {
-            try { // ddmmyyyy
+            try { // input is: dd-mm-yyyy
                 LocalDate date = LocalDate.parse(input, dateFormatter);
                 return date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
             } catch (DateTimeParseException e2) {

@@ -13,6 +13,9 @@ public class Parser {
     public static String readInput() {
         return sc.nextLine();
     }
+    /**
+     * Parses the user input and executes the appropriate command.
+     */
     public static void parseCommand() {
         String input = readInput();
         String command = input.split(" ")[0].toLowerCase();

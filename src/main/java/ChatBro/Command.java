@@ -188,6 +188,6 @@ public enum Command {
         }
     };
     public void execute(String userInput) {
-        // Empty method
+        // Empty method - to be overridden by each command
     }
 }

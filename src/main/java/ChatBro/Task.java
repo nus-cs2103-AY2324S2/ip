@@ -1,7 +1,7 @@
 package ChatBro;
 
 /**
- * Represents a user's task.
+ * Task class that represents a user's task.
  */
 public abstract class Task {
     protected String description;

@@ -11,6 +11,8 @@ public class Event extends Task {
      * Constructor for ChatBro.Event class.
      *
      * @param description Description of ChatBro.Event object.
+     * @param startTime the starting time of the Event object.
+     * @param endTime the ending time of the Event object.
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
