@@ -49,7 +49,7 @@ public class Storage {
     public void createLog() {
         File logFile = new File(this.path);
         try {
-            boolean response = logFile.createNewFile();
+            logFile.createNewFile();
         } catch (IOException e) {
             System.out.println("Problem creating log! " + e.getMessage());
         }
