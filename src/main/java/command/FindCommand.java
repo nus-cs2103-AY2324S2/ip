@@ -1,9 +1,10 @@
 package command;
 
+import java.util.ArrayList;
+
+import dook.Storage;
 import task.Task;
 import task.TaskList;
-import dook.Storage;
-import java.util.ArrayList;
 
 public class FindCommand extends Command {
 
