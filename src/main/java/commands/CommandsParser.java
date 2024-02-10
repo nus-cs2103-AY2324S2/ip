@@ -26,6 +26,7 @@ public class CommandsParser {
 
 
     public String parseCommands(String task) throws RyanGoslingException {
+        assert task != null : "Task input should not be null!";
         String[] commandSplit = task.split(" ");
         if (task.equals(String.valueOf(CommandsEnum.bye))) {
             return ResponseHandler.bye();

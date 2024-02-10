@@ -36,6 +36,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, String deadline, String time, int isTaskDone) {
         super(taskName, "D");
+        assert (isTaskDone == 1 || isTaskDone == 0) : "Invalid isTaskDone feed!";
         this.dateBy = LocalDate.parse(deadline);
         this.timeBy = DateTimeParser.parseTimeAsLocalTime(time);
         changeStatus(isTaskDone);

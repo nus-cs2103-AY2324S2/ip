@@ -68,6 +68,7 @@ public class Storage {
             } else {
                 String typeOfTask = matcher.group(1);
                 int isTaskDone = Integer.parseInt(matcher.group(2));
+                assert isTaskDone == 1 || isTaskDone == 0 : "Wrong isTaskDone input format in text file!";
                 String taskDescription = matcher.group(3);
                 String dateFrom = matcher.group(4);
                 String timeFrom = matcher.group(5);

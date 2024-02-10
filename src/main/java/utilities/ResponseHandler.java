@@ -109,7 +109,7 @@ public class ResponseHandler {
         }
         StringBuilder stringOfAddedCommands = new StringBuilder();
         for (int i = 0; i < list.size(); i += 1) {
-            stringOfAddedCommands.append(i + 1 + ". ");
+            stringOfAddedCommands.append(i + 1).append(". ");
             stringOfAddedCommands.append("\n");
             stringOfAddedCommands.append(list.get(i));
             if (i != list.size() - 1) {
@@ -175,7 +175,7 @@ public class ResponseHandler {
         } else {
             stringResponse.append("Found! Here they are!\n");
             for (int i = 0; i < listOfFoundTasks.size(); i += 1) {
-                stringResponse.append((i + 1 + "." + listOfFoundTasks.get(i)));
+                stringResponse.append(i + 1).append(".").append(listOfFoundTasks.get(i));
                 if (i != listOfFoundTasks.size() - 1) {
                     stringResponse.append("\n");
                 }

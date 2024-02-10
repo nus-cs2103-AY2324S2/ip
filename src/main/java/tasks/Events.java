@@ -46,6 +46,7 @@ public class Events extends Task {
      */
     public Events(String taskName, String dateFrom, String timeFrom, String dateTo, String timeTo, int isTaskDone) {
         super(taskName, "E");
+        assert (isTaskDone == 1 || isTaskDone == 0) : "Invalid isTaskDone feed!";
         changeStatus(isTaskDone);
         this.startDate = LocalDate.parse(dateFrom);
         this.endDate = LocalDate.parse(dateTo);

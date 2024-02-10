@@ -28,6 +28,7 @@ public class DateTimeParser {
      * @throws DateTimeParseException If the time string cannot be parsed.
      */
     public static String parseTime(LocalTime timeString) {
+        assert timeString != null : "LocalTime object should not be null!";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
         return timeString.format(formatter);
     }
@@ -40,6 +41,7 @@ public class DateTimeParser {
      * @throws DateTimeParseException If the time string cannot be parsed.
      */
     public static LocalTime parseTimeAsLocalTime(String timeString) {
+        assert timeString != null : "String timeString should not be null!";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
         return LocalTime.parse(timeString, formatter);
     }
