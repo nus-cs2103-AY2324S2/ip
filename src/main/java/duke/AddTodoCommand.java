@@ -18,7 +18,7 @@ public class AddTodoCommand extends Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
-     * @return
+     * @return Text output of the command
      */
     @Override
     public String execute(State state, Ui ui) {
