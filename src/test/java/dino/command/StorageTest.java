@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import dino.Storage;
+import dino.TaskList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

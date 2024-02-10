@@ -1,7 +1,8 @@
-package dino.command;
+package dino;
 
 import java.util.ArrayList;
 
+import dino.DinoException;
 import dino.task.Task;
 
 /** Represents an ArrayList of Task. */
@@ -85,7 +86,7 @@ public class TaskList {
      * Gets the Task of the specified index.
      *
      * @param index Index of the Task.
-     * @return      Task in the taskList.
+     * @return Task in the taskList.
      */
     public Task get(int index) {
         return taskList.get(index);
@@ -95,7 +96,7 @@ public class TaskList {
      * Searches for Tasks with the specified keyword.
      *
      * @param keyword String value input.
-     * @return        An ArrayList with the filtered Tasks.
+     * @return An ArrayList with the filtered Tasks.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
