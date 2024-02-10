@@ -1,4 +1,4 @@
-package duke;
+package bebot;
 /**
  * Todo class handles the todo tasks of the application
  */

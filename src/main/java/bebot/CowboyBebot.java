@@ -1,10 +1,10 @@
-package duke;
+package bebot;
 import java.util.ArrayList;
 
 /**
  * Main class
  */
-public class Duke {
+public class CowboyBebot {
     private Storage storage;
     private ArrayList<Task> taskList = new ArrayList<>();
     private TaskList tasks;
@@ -14,7 +14,7 @@ public class Duke {
     /**
      * Constructor for Duke
      */
-    public Duke() {
+    public CowboyBebot() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
         storage.loadTaskList();
@@ -54,7 +54,7 @@ public class Duke {
      * @param args
      */
     public static void main(String[] args) {
-        Duke mainApp = new Duke();
+        CowboyBebot mainApp = new CowboyBebot();
         mainApp.start();
     }    
 }

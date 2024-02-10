@@ -1,4 +1,4 @@
-package duke;
+package bebot;
 
 import java.io.IOException;
 
