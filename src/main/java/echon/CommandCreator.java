@@ -16,7 +16,12 @@ public class CommandCreator {
             throw new EchonException("OOPS!!! The index of a " + tokens[0]
                     + " cannot be empty.");
         }
-        return Integer.parseInt(tokens[1]) - 1;
+        try {
+            return Integer.parseInt(tokens[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new EchonException("OOPS!!! The index of a " + tokens[0]
+                    + " must be a number.");
+        }
     }
 
     private String parseStringArgument(String command) throws EchonException {

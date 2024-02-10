@@ -2,6 +2,7 @@ package echon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
@@ -34,18 +35,26 @@ public class TaskListTest {
     public void addTask_normalInput_taskAdded() {
         TaskList taskList = this.setupThreeTasks();
         assertEquals(3, taskList.getSize());
-        assertEquals("A", taskList.getTask(0).toString());
-        assertEquals("B", taskList.getTask(1).toString());
-        assertEquals("C", taskList.getTask(2).toString());
+        try {
+            assertEquals("A", taskList.getTask(0).toString());
+            assertEquals("B", taskList.getTask(1).toString());
+            assertEquals("C", taskList.getTask(2).toString());
+        } catch (EchonException e) {
+            fail();
+        }
     }
 
     @Test
     public void deleteTask_normalInput_taskDeleted() {
         TaskList taskList = this.setupThreeTasks();
-        taskList.deleteTask(1);
-        assertEquals(2, taskList.getSize());
-        assertEquals("A", taskList.getTask(0).toString());
-        assertEquals("C", taskList.getTask(1).toString());
+        try {
+            taskList.deleteTask(1);
+            assertEquals(2, taskList.getSize());
+            assertEquals("A", taskList.getTask(0).toString());
+            assertEquals("C", taskList.getTask(1).toString());
+        } catch (EchonException e) {
+            fail();
+        }
     }
 
     @Test
@@ -61,7 +70,7 @@ public class TaskListTest {
     @Test
     public void getTask_outOfRange_exceptionThrown() {
         TaskList taskList = this.setupThreeTasks();
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.getTask(3));
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.getTask(-1));
+        assertThrows(EchonException.class, () -> taskList.getTask(3));
+        assertThrows(EchonException.class, () -> taskList.getTask(-1));
     }
 }

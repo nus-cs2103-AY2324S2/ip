@@ -29,7 +29,10 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws EchonException {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new EchonException("OOPS!!! The task index is invalid.");
+        }
         this.tasks.remove(index);
     }
 
@@ -39,7 +42,10 @@ public class TaskList {
      * @param index The index of the task to be changed.
      * @param task The new task to replace the old task.
      */
-    public void changeTask(int index, Task task) {
+    public void changeTask(int index, Task task) throws EchonException {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new EchonException("OOPS!!! The task index is invalid.");
+        }
         this.tasks.set(index, task);
     }
 
@@ -83,7 +89,10 @@ public class TaskList {
      * @param index The index of the task.
      * @return The task at the given index.
      */
-    public Task getTask(int index) {
+    public Task getTask(int index) throws EchonException {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new EchonException("OOPS!!! The task index is invalid.");
+        }
         return this.tasks.get(index);
     }
 

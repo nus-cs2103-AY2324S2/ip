@@ -162,7 +162,7 @@ class MarkAsDoneCommand extends Command {
     }
 
     @Override
-    public void execute(EchonUi ui) {
+    public void execute(EchonUi ui) throws EchonException {
         Task task = this.taskList.getTask(this.index);
         task.markAsDone();
         ArrayList<String> messages = new ArrayList<String>(
@@ -183,7 +183,7 @@ class UnmarkAsDoneCommand extends Command {
     }
 
     @Override
-    public void execute(EchonUi ui) {
+    public void execute(EchonUi ui) throws EchonException {
         Task task = this.taskList.getTask(this.index);
         task.unmarkAsDone();
         ArrayList<String> messages = new ArrayList<String>(
@@ -205,7 +205,7 @@ class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void execute(EchonUi ui) {
+    public void execute(EchonUi ui) throws EchonException {
         Task task = this.taskList.getTask(index);
         this.taskList.deleteTask(index);
         ArrayList<String> messages = new ArrayList<String>(
