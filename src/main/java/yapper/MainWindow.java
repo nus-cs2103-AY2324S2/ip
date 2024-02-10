@@ -71,21 +71,6 @@ public class MainWindow extends AnchorPane {
         yapper = yap;
         yapper.setUi(new Ui());
     }
-
-    private void exit() {
-        int delayInMillis = 1000;
-        Timer timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.exit();
-                System.exit(0);
-            }
-        }, delayInMillis);
-    }
-
-
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -101,7 +86,7 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getYapperDialog("Bye. Hope to yap with you again soon!", yapperImage)
             );
-            this.exit();
+            System.exit(0);
         } else {
             yapper.setUi(new Ui());
             String response = yapper.processUserInput(input);
@@ -114,9 +99,5 @@ public class MainWindow extends AnchorPane {
                 userInput.clear();
             });
         }
-    }
-
-    public void updateDialogContainerWithWelcomeMessage(String welcomeMessage) {
-        dialogContainer.getChildren().add(DialogBox.getYapperDialog(welcomeMessage, yapperImage));
     }
 }
