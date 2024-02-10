@@ -1,4 +1,4 @@
-
+package duke.ui;
 
 /**
  * This class contains ASCII art messages generated online.
@@ -6,7 +6,6 @@
  *
  * @author @AmanZainal
  */
-package duke.ui;
 
 public class Messages {
 
@@ -31,9 +30,9 @@ public class Messages {
             " |___/\\__,_|\\__, |___/ |_|  |_|\\___|_|_|\\___/(_)                   \n" +
             "             __/ |                                                     \n" +
             "            |___/                                                      \n" +
-            "\nWhat are we doing today? ~(^o.o^)\nSay 'help' if you want to know the tricks I can do!";
+            "\nWhat are we doing today? ~(^o.o^)\nSay 'help' if you want to know the tricks I can do!\n";
 
     public static final String EXIT =
-    "Aw, see you soon! :3\n";
+        "Aw, see you soon! :3\n";
 
 }
