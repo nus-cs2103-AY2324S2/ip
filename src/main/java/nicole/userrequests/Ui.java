@@ -16,7 +16,7 @@ public class Ui {
      * @return nicole's response to the request or stringified NicoleExceptions that are caught.
      * @throws IOException if there are issues saving or loading tasks from Storage.
      */
-    public String talkToUser(String request) throws IOException {
+    public String interactWithUser(String request) throws IOException {
         try {
             Request requestHandler = new Request(request);
             return requestHandler.handleRequest(request);
@@ -30,7 +30,7 @@ public class Ui {
      *
      * @return a greeting.
      */
-    public static String greet() {
+    public static String greetUser() {
         DateTimeFormatter digitalTime = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter parseHour = DateTimeFormatter.ofPattern("HH");
         LocalDateTime now = LocalDateTime.now();
