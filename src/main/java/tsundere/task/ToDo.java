@@ -20,7 +20,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveString() {
-        return type + "," + super.toSaveString();
+        return type + "," + super.toSaveString() + "," + this.getTagString();
     }
 
     /**
