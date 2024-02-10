@@ -32,7 +32,9 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        int initialSize = tasks.size();
         tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "Task list size should increase by 1";
     }
 
     /**
@@ -43,10 +45,15 @@ public class TaskList {
      * @throws DukeException If the index is out of range.
      */
     public Task removeTask(int index) throws DukeException {
+        int initialSize = tasks.size();
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("The task index is out of range.");
         }
-        return tasks.remove(index);
+        Task removed = tasks.remove(index);
+        assert tasks.size() == initialSize - 1 : "Task list size should decrease by 1";
+        // Ensures that a task is actually removed
+        assert removed != null : "Removed task should not be null";
+        return removed;
     }
 
     /**

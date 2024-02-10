@@ -23,6 +23,7 @@ public class Storage {
      * Constructs a Storage object with a given file path.
      */
     public Storage() {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path cannot be null or empty";
         this.filePath = FILE_PATH;
     }
 
