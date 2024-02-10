@@ -109,7 +109,8 @@ public abstract class Action {
      * and may print to the console.
      *
      * @param taskList the {@link TaskList} that is used with the chatbot
+     * @return the success message from performing the action
      * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
-    public abstract void execute(TaskList taskList) throws ActionException;
+    public abstract String execute(TaskList taskList) throws ActionException;
 }

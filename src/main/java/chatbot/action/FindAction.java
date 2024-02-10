@@ -6,7 +6,7 @@ import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 
 /**
  * This encapsulates the finding of a {@link Task} by name,
@@ -34,16 +34,17 @@ public class FindAction extends Action {
      * Finds matching {@link Task}(s) from the {@link TaskList}.
      *
      * @param taskList the {@link TaskList} that is used with the {@link chatbot.ChatBot}
+     * @return the success message from performing the action
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         String pattern = findDefaultArgument().toString();
 
         // Perform behaviour
-        int[] matchingTasks = taskList.findMatchingTasks(pattern);
-        Printer.printMessages(
+        int[] matchingTaskIndices = taskList.findMatchingTasks(pattern);
+        return PrintFormatter.formatMessages(
                 "Here are the matching tasks in your list: ",
-                taskList.toString(matchingTasks)
+                taskList.toString(matchingTaskIndices)
         );
     }
 

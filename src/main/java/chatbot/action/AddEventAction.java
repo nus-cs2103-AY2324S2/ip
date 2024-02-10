@@ -7,7 +7,7 @@ import chatbot.action.util.ExpectedArgument;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 import chatbot.value.DateStringValue;
 
 /**
@@ -39,16 +39,17 @@ public final class AddEventAction extends Action {
      * Add an {@link Event} to the {@link TaskList}.
      *
      * @param taskList the {@link TaskList} to modify
+     * @return the success message from performing the action
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
         DateStringValue from = new DateStringValue(findArgument("from"));
         DateStringValue to = new DateStringValue(findArgument("to"));
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);
-        Printer.printMessages(
+        return PrintFormatter.formatMessages(
                 "Got it. I've added this event:",
                 "    " + task,
                 taskList.getSizeMessage()

@@ -7,7 +7,7 @@ import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 
 /**
  * This encapsulates the behaviour when listing the {@link Task}.
@@ -34,15 +34,16 @@ public final class ListAction extends Action {
      * Prints the user's list.
      *
      * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
+     * @return the success message from performing the action
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         if (taskList.isEmpty()) {
-            Printer.printMessages(
+            return PrintFormatter.formatMessages(
                     "Your list is empty."
             );
         } else {
-            Printer.printMessages(
+            return PrintFormatter.formatMessages(
                     "Here are the tasks in your list:",
                     taskList.toString()
             );

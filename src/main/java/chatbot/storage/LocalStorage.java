@@ -12,7 +12,7 @@ import chatbot.parse.TaskParser;
 import chatbot.task.Deadline;
 import chatbot.task.TaskList;
 import chatbot.task.exception.InvalidTaskStringException;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 
 /**
  * This saves the {@link TaskList} into local storage in the directory {@value RELATIVE_PATH}
@@ -103,12 +103,12 @@ public final class LocalStorage {
             while ((line = br.readLine()) != null) {
                 taskList.add(TaskParser.parseTaskListItem(line));
             }
-            Printer.addToPrintQueue("I have found and loaded a previous save file successfully!");
+            PrintFormatter.addToFormatterQueue("I have found and loaded a previous save file successfully!");
             return taskList;
         } catch (IOException e) {
-            Printer.addToPrintQueue("I cannot read the save file! Invalid file format!");
+            PrintFormatter.addToFormatterQueue("I cannot read the save file! Invalid file format!");
         } catch (InvalidTaskStringException e) {
-            Printer.addToPrintQueue("I cannot understand the save file! Invalid task format!");
+            PrintFormatter.addToFormatterQueue("I cannot understand the save file! Invalid task format!");
         }
         return new TaskList();
     }

@@ -8,7 +8,7 @@ import chatbot.action.util.ExpectedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.exception.OutOfBoundsException;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 import chatbot.value.IntegerStringValue;
 import chatbot.value.exception.InvalidValueTypeException;
 
@@ -35,10 +35,11 @@ public final class DeleteAction extends Action {
      * Deletes the {@link Task} from the {@link TaskList}.
      *
      * @param taskList the {@link TaskList} that is used with the {@link chatbot.ChatBot}
+     * @return the success message from performing the action
      * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
-    public void execute(TaskList taskList) throws InvalidArgumentValueException {
+    public String execute(TaskList taskList) throws InvalidArgumentValueException {
         // Validate indexString as an integer
         int index;
         try {
@@ -64,7 +65,7 @@ public final class DeleteAction extends Action {
             );
         }
 
-        Printer.printMessages(
+        return PrintFormatter.formatMessages(
                 "Noted. I've removed this task:",
                 "    " + task
         );
