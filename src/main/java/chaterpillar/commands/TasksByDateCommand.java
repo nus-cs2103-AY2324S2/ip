@@ -15,7 +15,7 @@ public class TasksByDateCommand extends Command {
     /**
      * Constructor for when class is invoked with a String for the date specified.
      * @param date displays the list of tasks on this date.
-     * @throws ChaterpillarException
+     * @throws ChaterpillarException if date string provided is invalid
      */
     public TasksByDateCommand(String date) throws ChaterpillarException {
         this.date = new DateTime(date);
@@ -36,12 +36,11 @@ public class TasksByDateCommand extends Command {
      * @param ui object that handles the UI of this application.
      * @param storage object that is used for storage.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ChaterpillarException {
+        ui.echo(String.format("For %s,", this.date));
         if (tasks.size() == 0) {
             ui.echo("Congrats! You have no tasks for today. :)");
         } else {
-            ui.echo(String.format("For %s,kq", this.date));
-
             TaskList tasksNew = tasks.getTasksOnDate(this.date);
             new ListCommand(tasksNew).execute(tasks, ui, storage);
         }

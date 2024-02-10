@@ -95,6 +95,9 @@ public class Parser {
                         "Sorry, the format for this command is wrong.\n"
                         + "The correct way to use the command is: delete number");
             }
+        case "find":
+            String keyword = input.substring(5);
+            return new FindCommand(keyword);
         case "today":
             return new TasksTodayCommand();
         case "help":
