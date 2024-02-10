@@ -1,5 +1,8 @@
 package ChatBro;
 
+/**
+ * Main class of the ChatBro chatbot.
+ */
 public class ChatBro {
     static boolean isRunning;
     public static void main(String[] args) {
@@ -29,5 +32,6 @@ public class ChatBro {
         while (isRunning) {
             Parser.parseCommand();
         }
+        Parser.closeScanner();
     }
 }

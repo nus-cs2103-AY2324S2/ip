@@ -7,6 +7,11 @@ public class Ui {
     public static void printLine() {
         System.out.println("____________________________");
     }
+
+    /**
+     * Prints the message sandwiched between two lines.
+     * @param message The message to be printed.
+     */
     public static void printMessage(String message) {
         printLine();
         System.out.println(message);
@@ -38,7 +43,10 @@ public class Ui {
     public static void printBye() {
         printMessage("I have saved your tasks. Hasta la vista bro!");
     }
-
+    /**
+     * Prints an error message when the user input does not follow the required format.
+     * @param format The required format for user input.
+     */
     public static void printFormatError(String format) {
         printMessage("Hey bro, make sure to follow the format:\n" + format);
     }

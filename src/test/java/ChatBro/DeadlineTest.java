@@ -2,6 +2,9 @@ package ChatBro;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for the Deadline class toString() and toStorageFormat() methods.
+ */
 public class DeadlineTest {
     @Test
     public void testDeadlineToString() {
