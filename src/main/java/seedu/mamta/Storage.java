@@ -16,6 +16,7 @@ public class Storage {
      * @param filePath The path to the file containing task data.
      */
     public static void loadTaskData(String filePath) {
+        assert !filePath.isEmpty() : "File path is not empty";
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -55,6 +56,7 @@ public class Storage {
      * @param filePath The path to the file where tasks will be saved.
      */
     public static void saveTasks(String filePath) {
+        assert !filePath.isEmpty() : "File path is not empty";
         //prepare the output to be saved first
         StringBuilder output = new StringBuilder();
         for (Task task: TaskList.getTasks()) {

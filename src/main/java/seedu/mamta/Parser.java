@@ -11,9 +11,8 @@ public class Parser {
      * @return Transformed output for further processing.
      */
     public static String transformText(String userOutput) {
-
+        assert !userOutput.isEmpty() : "Output can not be split!";
         String[] splitOutput = userOutput.split(" ");
-
         String word = "";
         int taskNum = -1;
         String output = "";

@@ -54,6 +54,7 @@ public class Mamta extends Application  {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage is not initialized";
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -68,6 +69,7 @@ public class Mamta extends Application  {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         Scene scene = new Scene(mainLayout);
+        assert scene != null : "Scene is not initialized";
 
         stage.setTitle("Mamta Dum Dum");
         stage.setResizable(false);
@@ -218,6 +220,7 @@ public class Mamta extends Application  {
                     TaskList.addTask(myEve);
                     output = String.format("------------------------------------------\nGot it. I've added this task: \n%s\nNow you have %d tasks in the list\n------------------------------------------", myEve, TaskList.getTasks().size());
                 } else {
+                    assert MamtaException.incompleteTaskDescription() != null : "Incomplete task description message is empty";
                     output = String.valueOf(MamtaException.incompleteTaskDescription());
                 }
             } else {
