@@ -16,6 +16,6 @@ public class ExitCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList taskList) {
         ui.displayGoodByeMessage(); // Display farewell message to the user
-        this.setIsExit(); // Set this command as an exit command
+        setIsExit(); // Set this command as an exit command
     }
 }

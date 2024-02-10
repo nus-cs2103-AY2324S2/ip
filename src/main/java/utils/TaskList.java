@@ -15,7 +15,7 @@ public class TaskList {
     private static final String FILE_NAME = "data/task_list.txt";
 
     /**
-     * Constructs an empty helpers.TaskList.
+     * Constructs an empty taskList.
      */
     public TaskList() {
         list = new ArrayList<>();
@@ -84,7 +84,6 @@ public class TaskList {
 
     /**
      * Converts a string representation of tasks from a file to a TaskList object.
-     * Converts a string representation of tasks from a file to a TaskList object.
      *
      * @return The TaskList object containing tasks parsed from the file string.
      */
@@ -120,7 +119,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a string representation of the helpers.TaskList.
+     * Returns a string representation of the taskList.
      * Each task in the list is converted to a string and appended to the result.
      * Tasks are numbered and listed in the order they are stored in the list.
      */

@@ -37,9 +37,9 @@ public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param ui       The user interface object.
-     * @param taskList The task list object.
-     * @throws InvalidInputFormatException If the input format is invalid.
+     * @param ui                            The user interface object.
+     * @param taskList                      The task list object.
+     * @throws InvalidInputFormatException  If the input format is invalid.
      */
     public abstract void execute(Ui ui, TaskList taskList) throws InvalidInputFormatException;
 }

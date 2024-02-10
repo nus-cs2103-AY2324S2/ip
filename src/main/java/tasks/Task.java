@@ -41,7 +41,7 @@ public abstract class Task {
     public abstract String convertTaskToFileString();
 
     /**
-     * Returns a string representation of the task.Task.
+     * Returns a string representation of the task.
      * The string includes the task's completion status and its description.
      * The completion status is represented by '[X]' for a completed task and '[ ]' for an incomplete task.
      */

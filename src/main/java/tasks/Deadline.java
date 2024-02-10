@@ -3,7 +3,7 @@ package tasks;
 import utils.DateFormatter;
 
 /**
- * Represents a deadline, which is a specialized form of task.Task.
+ * Represents a deadline, which is a specialized form of a Task
  * This class adds a specific deadline to the task description.
  */
 public class Deadline extends Task {
@@ -13,8 +13,8 @@ public class Deadline extends Task {
     /**
      * Constructs a new task.Deadline with the given description and deadline.
      *
-     * @param description The description of the deadline.
-     * @param deadline The deadline date as a String.
+     * @param description   The description of the deadline.
+     * @param deadline      The deadline date as a String.
      */
     public Deadline(String description, String deadline) {
         super(description);
@@ -32,9 +32,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the task.Deadline.
-     * The string includes the task.Deadline identifier, followed by the task.Task's string representation,
-     * and the specified deadline.
+     * Returns a string representation of the Deadline
+     * The string includes the deadline identifier, followed by the task's string representation and the
+     * specified deadline.
      */
     @Override
     public String toString() {

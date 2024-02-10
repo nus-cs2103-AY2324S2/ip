@@ -1,7 +1,7 @@
 package tasks;
 
 /**
- * Represents a to-do item, which is a specialized form of task.Task.
+ * Represents a to-do item, which is a specialized form of a task.
  */
 public class Todo extends Task {
     private static final String TODO_PREFIX = "[T]";
@@ -27,7 +27,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the To-do.
-     * The string includes the To-do identifier, followed by the task.Task's string representation.
+     * The string includes the To-do identifier, followed by the To-do's string representation.
      */
     @Override
     public String toString() {

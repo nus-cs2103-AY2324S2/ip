@@ -28,6 +28,6 @@ public class MarkCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList taskList) {
         Task updatedTask = taskList.markTask(i - 1); // Adjusting index to match 0-based indexing
-        ui.displayMarkedTask(updatedTask); // Display the updated task to the user
+        ui.displayMarkedTask(updatedTask);
     }
 }

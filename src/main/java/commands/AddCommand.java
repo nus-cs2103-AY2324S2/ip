@@ -29,9 +29,9 @@ public class AddCommand extends Command {
     /**
      * Executes the add command based on the command type.
      *
-     * @param ui       The user interface object.
-     * @param taskList The task list object.
-     * @throws InvalidInputFormatException If the input format is invalid.
+     * @param ui                            The user interface object.
+     * @param taskList                      The task list object.
+     * @throws InvalidInputFormatException  If the input format is invalid.
      */
     @Override
     public void execute(Ui ui, TaskList taskList) throws InvalidInputFormatException {
@@ -51,16 +51,16 @@ public class AddCommand extends Command {
     /**
      * Adds a todo task to the task list.
      *
-     * @param taskDescription The description of the todo task.
-     * @param taskList        The task list object.
-     * @param ui              The user interface object.
-     * @throws InvalidInputFormatException If the input format is invalid.
+     * @param todoDetails                   The description of the todo task.
+     * @param taskList                      The task list object.
+     * @param ui                            The user interface object.
+     * @throws InvalidInputFormatException  If the input format is invalid.
      */
-    private void addTodo(String taskDescription, TaskList taskList, Ui ui) throws InvalidInputFormatException {
-        if (taskDescription.trim().isEmpty()) {
+    private void addTodo(String todoDetails, TaskList taskList, Ui ui) throws InvalidInputFormatException {
+        if (todoDetails.trim().isEmpty()) {
             throw new InvalidInputFormatException("todo");
         }
-        Task newTask = new Todo(taskDescription);
+        Task newTask = new Todo(todoDetails);
         taskList.addTask(newTask);
         ui.displayAddedTask(newTask, taskList.getLength());
     }
@@ -68,10 +68,10 @@ public class AddCommand extends Command {
     /**
      * Adds a deadline task to the task list.
      *
-     * @param deadlineDetails The details of the deadline task.
-     * @param taskList        The task list object.
-     * @param ui              The user interface object.
-     * @throws InvalidInputFormatException If the input format is invalid.
+     * @param deadlineDetails               The details of the deadline task.
+     * @param taskList                      The task list object.
+     * @param ui                            The user interface object.
+     * @throws InvalidInputFormatException  If the input format is invalid.
      */
     private void addDeadline(String[] deadlineDetails, TaskList taskList, Ui ui) throws InvalidInputFormatException {
         if (deadlineDetails.length < 2 || deadlineDetails[1].split(" ", 2).length < 2) {
@@ -87,10 +87,10 @@ public class AddCommand extends Command {
     /**
      * Adds an event task to the task list.
      *
-     * @param eventDetails The details of the event task.
-     * @param taskList     The task list object.
-     * @param ui           The user interface object.
-     * @throws InvalidInputFormatException If the input format is invalid.
+     * @param eventDetails                  The details of the event task.
+     * @param taskList                      The task list object.
+     * @param ui                            The user interface object.
+     * @throws InvalidInputFormatException  If the input format is invalid.
      */
     private void addEvent(String[] eventDetails, TaskList taskList, Ui ui) throws InvalidInputFormatException {
         if (eventDetails.length < 2) {

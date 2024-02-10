@@ -44,8 +44,6 @@ public class Chitty {
 
     /**
      * The main method to start the application.
-     *
-     * @param args The command-line arguments (not used).
      */
     public static void main(String[] args) {
         new Chitty().run();
