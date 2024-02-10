@@ -67,7 +67,8 @@ public class Event extends Task {
      */
     public static Event fromSaveFormat(String[] info) {
         Event loadedTask = new Event(info[2], LocalDate.parse(info[3]), LocalDate.parse(info[4]));
-        if (info[1].equals("1")) {
+        boolean isSavedTaskDone = info[1].equals("1");
+        if (isSavedTaskDone) {
             loadedTask.markAsDone();
         }
         return loadedTask;

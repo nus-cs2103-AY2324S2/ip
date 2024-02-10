@@ -11,7 +11,6 @@ public class Duke {
 
     private final Storage storage;
     private TaskList tasks;
-    private final Ui ui;
 
     /**
      * Constructs a new Duke object.
@@ -20,8 +19,8 @@ public class Duke {
      *
      * @param filePath The file path where tasks are stored and retrieved from.
      */
-    public Duke(String filePath) {
-        ui = new Ui();
+    public Duke(String filePath) throws DukeException {
+        Ui ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());

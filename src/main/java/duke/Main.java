@@ -13,7 +13,17 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke("data/tasks.txt");
+    private final Duke duke;
+
+    /**
+     * Constructor for Main class.
+     * Assigns duke field with new Duke instance with a fixed file path.
+     *
+     * @throws DukeException if the Duke instance cannot be initialised.
+     */
+    public Main() throws DukeException {
+        duke = new Duke("data/duke.txt");
+    }
 
     @Override
     public void start(Stage stage) {

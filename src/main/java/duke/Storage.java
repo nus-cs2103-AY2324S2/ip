@@ -20,8 +20,15 @@ public class Storage {
      *
      * @param filePath The file path used for storing and retrieving task data.
      */
-    public Storage(String filePath) {
-        this.f = new File(filePath);
+    public Storage(String filePath) throws DukeException {
+        try {
+            this.f = new File(filePath);
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new DukeException("Sorry, file does not exist and cannot be created");
+        }
     }
 
     /**
@@ -62,6 +69,18 @@ public class Storage {
     }
 
     /**
+     * Writes the provided string to the file associated with this Storage object.
+     *
+     * @param createdFileString The string to be written to the file.
+     * @throws IOException If an I/O error occurs during writing to the file.
+     */
+    public void writeToSavedFile(String createdFileString) throws IOException {
+        FileWriter cfw = new FileWriter(f);
+        cfw.write(createdFileString);
+        cfw.close();
+    }
+
+    /**
      * Saves tasks to the file associated with this Storage object.
      * Writes the list of tasks from the provided TaskList into the file in a specified format.
      *
@@ -69,11 +88,11 @@ public class Storage {
      * @throws IOException If an I/O error occurs during writing to the file.
      */
     public void save(TaskList tl) throws IOException {
-        f.getParentFile().mkdirs();
-        FileWriter cfw = new FileWriter(f);
+        StringBuilder createdFileString = new StringBuilder();
         for (Task t : tl.getLst()) {
-            cfw.write(t.toSaveFormat() + "\n");
+            createdFileString.append(t.toSaveFormat());
+            createdFileString.append("\n");
         }
-        cfw.close();
+        writeToSavedFile(createdFileString.toString());
     }
 }

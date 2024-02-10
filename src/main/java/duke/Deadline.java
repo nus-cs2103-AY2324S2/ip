@@ -59,7 +59,8 @@ public class Deadline extends Task {
      */
     public static Deadline fromSaveFormat(String[] info) {
         Deadline loadedTask = new Deadline(info[2], LocalDate.parse(info[3]));
-        if (info[1].equals("1")) {
+        boolean isSavedTaskDone = info[1].equals("1");
+        if (isSavedTaskDone) {
             loadedTask.markAsDone();
         }
         return loadedTask;

@@ -11,6 +11,36 @@ import java.util.ArrayList;
 public class Parser {
 
     /**
+     * Determines what type of command the user has input.
+     *
+     * @param cmdArr The array to parse.
+     * @return A correct command enum assigned to the array.
+     * @throws DukeException When the command does not match any of the enums.
+     */
+    public static Ui.Command parseCmdType(String[] cmdArr) throws DukeException {
+        switch (cmdArr[0]) {
+        case "todo":
+            return Ui.Command.TODO;
+        case "event":
+            return Ui.Command.EVENT;
+        case "deadline":
+            return Ui.Command.DEADLINE;
+        case "list":
+            return Ui.Command.LIST;
+        case "unmark":
+            return Ui.Command.UNMARK;
+        case "mark":
+            return Ui.Command.MARK;
+        case "delete":
+            return Ui.Command.DELETE;
+        case "find":
+            return Ui.Command.FIND;
+        default:
+            throw new DukeException(" Sorry, I don't understand that command :(");
+        }
+    }
+
+    /**
      * Prints all tasks in the TaskList.
      * Outputs a formatted list of tasks or a message if the list is empty.
      *
@@ -43,7 +73,8 @@ public class Parser {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description of a todo cannot be empty :(");
         }
-        String todo = cmd.substring(5);
+        int startIdxOfDesc = cmd.indexOf(" ") + 1;
+        String todo = cmd.substring(startIdxOfDesc);
         Task newTodo = new Todo(todo);
         tl.addTask(newTodo);
         String toPrint = " Got it. I've added this task:\n";
@@ -65,7 +96,17 @@ public class Parser {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and date of a deadline cannot be empty :(");
         }
-        String[] deadlineArr = cmd.substring(9).split(" /by ");
+        Task newDeadline = getDeadlineParams(cmd);
+        tl.addTask(newDeadline);
+        String toPrint = " Got it. I've added this task:\n";
+        toPrint += "   " + newDeadline + "\n";
+        toPrint += " Now you have " + tl.size() + " tasks in the list.";
+        return toPrint;
+    }
+
+    private static Task getDeadlineParams(String cmd) throws DukeException {
+        int startIdxOfDesc = cmd.indexOf(" ") + 1;
+        String[] deadlineArr = cmd.substring(startIdxOfDesc).split(" /by ");
         if (deadlineArr.length == 1) {
             throw new DukeException(" Sorry, the date of a deadline cannot be empty :(\n%s");
         }
@@ -75,12 +116,7 @@ public class Parser {
         } catch (DateTimeParseException dateTimeParseE) {
             throw new DukeException(" Sorry, please input the date of a deadline in the format YYYY-MM-DD");
         }
-        Task newDeadline = new Deadline(deadlineArr[0], by);
-        tl.addTask(newDeadline);
-        String toPrint = " Got it. I've added this task:\n";
-        toPrint += "   " + newDeadline + "\n";
-        toPrint += " Now you have " + tl.size() + " tasks in the list.";
-        return toPrint;
+        return new Deadline(deadlineArr[0], by);
     }
 
     /**
@@ -96,10 +132,20 @@ public class Parser {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and start and end dates of an event cannot be empty :(");
         }
-        String[] eventFromArr = cmd.substring(6).split(" /from ");
+        int startIdxOfDesc = cmd.indexOf(" ") + 1;
+        String[] eventFromArr = cmd.substring(startIdxOfDesc).split(" /from ");
         if (eventFromArr.length == 1) {
             throw new DukeException(" Sorry, the start and end dates of an event cannot be empty :(");
         }
+        Task newEvent = getEventParams(eventFromArr);
+        tl.addTask(newEvent);
+        String toPrint = " Got it. I've added this task:\n";
+        toPrint += "   " + newEvent + "\n";
+        toPrint += " Now you have " + tl.size() + " tasks in the list.";
+        return toPrint;
+    }
+
+    private static Task getEventParams(String[] eventFromArr) throws DukeException {
         String[] eventToArr = eventFromArr[1].split(" /to ");
         if (eventToArr.length == 1) {
             throw new DukeException(" Sorry, the end date of an event cannot be empty :(");
@@ -115,12 +161,7 @@ public class Parser {
         if (from.isAfter(to)) {
             throw new DukeException(" Sorry, please input the start date of an event before/on the end date");
         }
-        Task newEvent = new Event(eventFromArr[0], from, to);
-        tl.addTask(newEvent);
-        String toPrint = " Got it. I've added this task:\n";
-        toPrint += "   " + newEvent + "\n";
-        toPrint += " Now you have " + tl.size() + " tasks in the list.";
-        return toPrint;
+        return new Event(eventFromArr[0], from, to);
     }
 
     /**
