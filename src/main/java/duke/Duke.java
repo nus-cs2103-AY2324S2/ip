@@ -51,69 +51,11 @@ public class Duke {
     }
 
     /**
-     * The read-eval-print loop of the program.
-     */
-    // Solution below adapted from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
-    public void repl() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (Parser.InvalidCommandType e) {
-                ui.showCommandNotFound(e.getCommand());
-            } catch (Parser.InvalidCommandData e) {
-                ui.showError(e);
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
      * Saves the state to storage.
      */
     public void save() {
         try {
             storage.writeTaskList(tasks);
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
-        } catch (IOException e) {
-            System.out.println("Cannot write to state file \"" + FILE_NAME + "\"");
-        }
-    }
-
-    /**
-     * The main loop.
-     *
-     * @param args program parameters
-     */
-    public static void main(String[] args) {
-        Duke duke = new Duke();
-        boolean successful = false;
-        try {
-            duke.tasks = duke.storage.readTaskList();
-            successful = true;
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
-        } catch (IOException e) {
-            System.out.println("Cannot read from state file \"" + FILE_NAME + "\"");
-        } catch (ClassNotFoundException e) {
-            System.out.println("The data has been corrupted");
-        } finally {
-            if (!successful) {
-                System.out.println("Continuing with no saved state.");
-            }
-        }
-
-        duke.repl();
-
-        try {
-            duke.storage.writeTaskList(duke.tasks);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find state file \"" + FILE_NAME + "\"");
         } catch (IOException e) {

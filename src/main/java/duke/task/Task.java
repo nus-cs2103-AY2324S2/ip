@@ -55,13 +55,6 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets the task to pending.
-     */
-    public final void setPending() {
-        status = Status.Incomplete;
-    }
-
-    /**
      * Returns a description of the status of the Task
      *
      * @return the status description
