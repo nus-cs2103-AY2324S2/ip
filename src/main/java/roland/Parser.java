@@ -1,10 +1,5 @@
 package roland;
-import command.AddCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.ListCommand;
-import command.MarkCommand;
+import command.*;
 import task.Deadlines;
 import task.Events;
 import task.ToDos;
@@ -34,6 +29,9 @@ public class Parser {
             return new ExitCommand();
         } else if (fullCommand.startsWith("list")) {
             return new ListCommand();
+        } else if (fullCommand.startsWith("find")) {
+            String keyword = fullCommand.substring(5, fullCommand.length());
+            return new FindCommand(keyword);
         } else if (fullCommand.startsWith("mark")) {
             int index = Integer.parseInt(fullCommand.replaceAll("[\\D]", ""));
             return new MarkCommand(index, true);
@@ -65,7 +63,7 @@ public class Parser {
                 LocalDate date = LocalDate.parse(by);
                 return new AddCommand(new Deadlines(description, date));
             } catch (DateTimeParseException e) {
-                throw new RolandException("Please include when is the deadline by with /by <YYYY-mm-dd>");
+                throw new RolandException("Please include when is the deadline with /by <YYYY-mm-dd>");
             }
         } else if (fullCommand.startsWith("event")) {
             if (fullCommand.length() <= 6) {
