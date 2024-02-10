@@ -21,34 +21,48 @@ public class Deadline extends Task {
             throw new NicoleException("Describe your deadline like this: deadline [task] by YYYY-MM-DD");
         }
         this.parseDate(name);
-        super.setName(name);
     }
     private void parseDate(String name) throws NicoleException {
         String[] whiteSpaceSeparatedDate = name.split(" ");
-        String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
 
+        StringBuilder deadlineDescription = new StringBuilder();
+        for (int i = 0; i < whiteSpaceSeparatedDate.length - 1; i++) {
+            deadlineDescription.append(whiteSpaceSeparatedDate[i]).append(" ");
+        }
+        super.setName(deadlineDescription.toString().trim());
+
+        String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
         try {
-            this.deadlineDateLocalDate = LocalDate.parse(date);
+            deadlineDateLocalDate = LocalDate.parse(date);
         } catch (DateTimeParseException e) {
             throw new NicoleException("Are you sure your date is in the proper [YYYY-MM-DD] format...?");
         }
-        if (LocalDate.now().isAfter(this.deadlineDateLocalDate)) {
+        if (LocalDate.now().isAfter(deadlineDateLocalDate)) {
             throw new NicoleException("Erm, the deadline can't be before now right...");
         }
 
-        this.deadlineDateReformattedString = ""
-                + this.deadlineDateLocalDate.getDayOfMonth() + " "
-                + this.deadlineDateLocalDate.getMonth().toString() + " "
-                + this.deadlineDateLocalDate.getYear();
+        deadlineDateReformattedString = ""
+                + deadlineDateLocalDate.getDayOfMonth() + " "
+                + deadlineDateLocalDate.getMonth().toString() + " "
+                + deadlineDateLocalDate.getYear();
     }
 
     @Override
     public LocalDate getDate() {
-        return this.deadlineDateLocalDate;
+        return deadlineDateLocalDate;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString();
+        return "[D]" + super.toString() + " " + deadlineDateLocalDate;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Deadline)) {
+            return false;
+        }
+        Deadline task = (Deadline)object;
+        return super.equals(object) && this.getDate().equals(task.getDate());
     }
 }
