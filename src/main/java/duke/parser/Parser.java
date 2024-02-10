@@ -1,5 +1,6 @@
 package duke.parser;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,6 +15,7 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
+import duke.command.ViewByDateCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -76,6 +78,8 @@ public class Parser {
                     return new UnmarkCommand(arguments);
                 case "delete":
                     return new DeleteCommand(arguments);
+                case "remove":
+                    return new DeleteCommand(arguments);
                 case "todo":
                     if (taskDescription.isEmpty()) {
                         throw new DukeException("Error: Todo description cannot be empty.");
@@ -97,12 +101,30 @@ public class Parser {
                         throw new DukeException("Error: Both start and end times are required for the event command. Correct format: /from <start> /to <end>");
                     }
                     return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
+                case "viewbydate":
+                    if (taskDescription.isEmpty()) {
+                        throw new DukeException("Please specify a date for viewing tasks!");
+                    }
+                    try {
+                        LocalDate viewDate = LocalDate.parse(taskDescription);
+                        return new ViewByDateCommand(viewDate);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
+                    }
                 default:
                     throw new DukeException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(\n");
             }
         } catch (DukeException e) {
             System.out.printf("\n%s", e.getMessage());
             return new UnknownCommand();
+        }
+    }
+
+    public static LocalDate parseDate(String input) throws DukeException {
+        try {
+            return LocalDate.parse(input);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
         }
     }
 

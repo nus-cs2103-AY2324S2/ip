@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +16,10 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> list) {
         this.tasks = list;
+    }
+
+    public TaskList(List<Task> list) {
+        this.tasks = new ArrayList<>(list);
     }
 
     public TaskList(TaskList other) {
@@ -48,6 +54,24 @@ public class TaskList {
 
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Task> getTasksByDate(LocalDate date) {
+        List<Task> tasksByDate = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.getBy().toLocalDate().equals(date)) {
+                    tasksByDate.add(task);
+                }
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                if (eventTask.getFrom().toLocalDate().equals(date) || eventTask.getTo().toLocalDate().equals(date)) {
+                    tasksByDate.add(task);
+                }
+            }
+        }
+        return tasksByDate;
     }
 
     public boolean isEmpty() {
