@@ -11,6 +11,10 @@ import java.io.FileWriter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Storage Class to perform file actions
+ */
 public class Storage {
     private  String filepath= "";
     private File f;
@@ -23,7 +27,7 @@ public class Storage {
      *
      * @param filepath the filepath
      */
-    public Storage (String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
         this.f = new File(filepath);
         this.doesExist = f.exists();
@@ -32,7 +36,7 @@ public class Storage {
             parentDirectory.mkdirs(); // Creates parent directories if they don't exist
         }
         if (!f.exists()) {
-            try{
+            try {
                 f.createNewFile();
             } catch(java.io.IOException e) {
                 e.printStackTrace();
@@ -47,7 +51,7 @@ public class Storage {
      * @return ArrayList<Task> that contains the tasks in the file
      * @throws FileNotFoundException if file not found
      */
-    public ArrayList<Task> load() throws FileNotFoundException{
+    public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> list = new ArrayList<>();
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
@@ -59,14 +63,14 @@ public class Storage {
                     list.add(new Todo(data.substring(4), isDone));
                     break;
                 case 'D':
-                    int dateIndex = Util.findNthDividerIndex(data,'|', 3);
-                    list.add(new Deadline(data.substring(4,dateIndex), isDone, data.substring(dateIndex+1)));
+                    int dateIndex = Util.findNthDividerIndex(data, '|', 3);
+                    list.add(new Deadline(data.substring(4, dateIndex), isDone, data.substring(dateIndex + 1)));
                         break;
                 case 'E':
-                    int dateStartIndex = Util.findNthDividerIndex(data,'|', 3);
-                    int dateEndIndex = Util.findNthDividerIndex(data,'|',4);
-                    list.add(new Event(data.substring(4,dateStartIndex), isDone,
-                            data.substring(dateStartIndex+1, dateEndIndex), data.substring(dateEndIndex+1)));
+                    int dateStartIndex = Util.findNthDividerIndex(data, '|', 3);
+                    int dateEndIndex = Util.findNthDividerIndex(data, '|',4);
+                    list.add(new Event(data.substring(4, dateStartIndex), isDone,
+                            data.substring(dateStartIndex + 1, dateEndIndex), data.substring(dateEndIndex + 1)));
                     break;
                 default:
                     break;

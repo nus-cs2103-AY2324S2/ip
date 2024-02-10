@@ -93,17 +93,15 @@ public class Ui {
         System.out.println("You entered:" );
         System.out.println(task);
     }
-<<<<<<< HEAD
 
+    public void printNotFound() {
+        System.out.println("Task not found!");
+    }
     /**
      * Print the number of tasks
      * @param num
      */
-=======
-    public void printNotFound() {
-        System.out.println("Task not found!");
-    }
->>>>>>> branch-Level-9
+
     public void printNumberOfTasks(int num) {
         if (num == 1) {
             System.out.println("You now have 1 task remaining");
