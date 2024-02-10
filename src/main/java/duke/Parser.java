@@ -69,15 +69,15 @@ public class Parser {
     /**
      * Adds a deadline task to the list of tasks.
      *
-     * @param input  The input command to parse.
+     * @param deadlineDescription  The input command to parse.
      * @param tasks   The list of tasks.
      * @param ui      The UI for user interactions.
      * @param storage The storage for tasks.
      * @return The response message after adding the task.
      * @throws DukeException If the command is invalid or execution fails.
      */
-    private static String addDeadline(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] splitInput = input.split(" /by ");
+    private static String addDeadline(String deadlineDescription, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String[] splitInput = deadlineDescription.split(" /by ");
         if (splitInput.length < 2 || splitInput[0].isEmpty() || splitInput[1].isEmpty()) {
             throw new DukeException("The deadline description or date is missing.");
         }
@@ -90,15 +90,15 @@ public class Parser {
     /**
      * Adds a event task to the list of tasks.
      *
-     * @param input  The input command to parse.
+     * @param eventDescription  The input command to parse.
      * @param tasks   The list of tasks.
      * @param ui      The UI for user interactions.
      * @param storage The storage for tasks.
      * @return The response message after adding the task.
      * @throws DukeException If the command is invalid or execution fails.
      */
-    private static String addEvent(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] splitInput = input.split(" /from ");
+    private static String addEvent(String eventDescription, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        String[] splitInput = eventDescription.split(" /from ");
         if (splitInput.length < 2 || splitInput[0].isEmpty() || splitInput[1].isEmpty()) {
             throw new DukeException("The event description or start time is missing.");
         }
@@ -115,17 +115,17 @@ public class Parser {
     /**
      * Marks or unmarks a task in the list of tasks.
      *
-     * @param input  The input command to parse.
+     * @param description  The input command to parse.
      * @param tasks   The list of tasks.
      * @param ui      The UI for user interactions.
      * @param storage The storage for tasks.
      * @return The response message after marking or unmarking the task.
      * @throws DukeException If the command is invalid or execution fails.
      */
-    private static String markOrUnmarkTask(String input, TaskList tasks, Ui ui,
+    private static String markOrUnmarkTask(String description, TaskList tasks, Ui ui,
                                            Storage storage, boolean isMark) throws DukeException {
         try {
-            int idx = Integer.parseInt(input) - 1;
+            int idx = Integer.parseInt(description) - 1;
             Task task = tasks.getTask(idx);
             if (isMark) {
                 task.markAsDone();
