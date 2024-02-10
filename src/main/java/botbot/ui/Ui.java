@@ -1,4 +1,4 @@
-package botbot;
+package botbot.ui;
 
 import botbot.Storage;
 import botbot.exception.BotBotException;
