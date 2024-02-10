@@ -1,2 +1,2 @@
 E , false , project meeting , Mon 2pm , 4pm
-D , true , j , 7pm
+D, true, j, 7pm
