@@ -1,5 +1,7 @@
 package johnny.ui;
 
+import java.util.List;
+
 import johnny.exceptions.JohnnyException;
 import johnny.tasks.Task;
 import johnny.tasks.TaskList;
@@ -54,32 +56,41 @@ public class Ui {
     }
 
     /**
-     * Prints marked Task to user.
+     * Prints marked Tasks to user.
      *
-     * @param task Task to be marked.
+     * @param markedTasks Tasks to be marked.
      */
-    public void showMark(Task task) {
-        output.append("Finally done bro.\n").append(task);
+    public void showMark(List<Task> markedTasks) {
+        output.append("Finally done bro:\n");
+        for (int i = 0; i < markedTasks.size(); i++) {
+            output.append(i + 1).append(". ").append(markedTasks.get(i)).append("\n");
+        }
     }
 
     /**
-     * Prints unmarked Task to user.
+     * Prints unmarked Tasks to user.
      *
-     * @param task Task to be unmarked.
+     * @param unmarkedTasks Tasks to be unmarked.
      */
-    public void showUnmark(Task task) {
-        output.append("Why are you not done yet bro?\n").append(task);
+    public void showUnmark(List<Task> unmarkedTasks) {
+        output.append("Why are you not done yet bro: \n");
+        for (int i = 0; i < unmarkedTasks.size(); i++) {
+            output.append(i + 1).append(". ").append(unmarkedTasks.get(i)).append("\n");
+        }
     }
 
     /**
-     * Prints deleted Task to user.
+     * Prints deleted Tasks to user.
      *
-     * @param task Task to be deleted.
+     * @param deletedTasks Tasks to be deleted.
      * @param tasks TaskList that the Task belonged to.
      */
-    public void showDelete(Task task, TaskList tasks) {
-        output.append("Task removed. Why so lazy bro?\n").append(task).append("\n")
-                .append("You still have ").append(tasks.size()).append(" tasks in your list bro.");
+    public void showDelete(List<Task> deletedTasks, TaskList tasks) {
+        output.append("Tasks removed. Why so lazy bro: \n");
+        for (int i = 0; i < deletedTasks.size(); i++) {
+            output.append(i + 1).append(". ").append(deletedTasks.get(i)).append("\n");
+        }
+        output.append("You still have ").append(tasks.size()).append(" tasks in your list bro.");
     }
 
     /**
@@ -99,7 +110,7 @@ public class Ui {
      * @param foundTasks List of Tasks that matches user query.
      * @throws JohnnyException Ignore as loop prevents error from being thrown.
      */
-    public void showFoundTasks(TaskList foundTasks) throws JohnnyException {
+    public void showFoundTasks(List<Task> foundTasks) {
         if (foundTasks.size() == 0) {
             output.append("No matches bro.");
         }

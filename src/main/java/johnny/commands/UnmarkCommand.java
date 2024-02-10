@@ -1,5 +1,7 @@
 package johnny.commands;
 
+import java.util.List;
+
 import johnny.exceptions.JohnnyException;
 import johnny.storage.Storage;
 import johnny.tasks.Task;
@@ -11,21 +13,21 @@ import johnny.ui.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    /** Index of Task in TaskList being unmarked. */
-    private int index;
+    /** Indices of Task in TaskList being unmarked. */
+    private List<Integer> indices;
 
     /**
      * Constructor for UnmarkCommand.
      *
-     * @param index Index of Task in TaskList being unmarked.
+     * @param indices Indices of Task in TaskList being unmarked.
      */
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(List<Integer> indices) {
+        this.indices = indices;
     }
 
     /**
      * Executes the process of a UnmarkCommand.
-     * Unmarks Task, rewrite TaskList to Storage and Ui shows appropriate response.
+     * Unmark Tasks, rewrite TaskList to Storage and Ui shows appropriate response.
      *
      * @param tasks TaskList of tasks.
      * @param ui Ui to print responses.
@@ -34,9 +36,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JohnnyException {
-        Task task = tasks.unmark(index);
+        List<Task> unmarkedTasks = tasks.unmark(indices);
         storage.rewriteFile(tasks);
-        ui.showUnmark(task);
+        ui.showUnmark(unmarkedTasks);
     }
 
     /**

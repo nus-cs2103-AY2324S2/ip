@@ -47,41 +47,66 @@ public class TaskList {
     /**
      * Marks a specific Task using the index in the TaskList.
      *
-     * @param index Index of Task to be marked.
+     * @param indices Indices of Task to be marked.
      * @return Task at the given index.
      * @throws JohnnyException If no Task exists at given index.
      */
-    public Task mark(int index) throws JohnnyException {
-        Task task = get(index);
-        task.mark();
-        return task;
+    public List<Task> mark(List<Integer> indices) throws JohnnyException {
+        try {
+            List<Task> markedTasks = new ArrayList<>();
+            for (int i = 0; i < indices.size(); i++) {
+                int index = indices.get(i);
+                Task task = tasks.get(index);
+                task.mark();
+                markedTasks.add(task);
+            }
+            return markedTasks;
+        } catch (IndexOutOfBoundsException e) {
+            throw new JohnnyException("Some of the tasks do not exist bro.");
+        }
     }
 
     /**
      * Unmarks a specific Task using the index in the TaskList.
      *
-     * @param index Index of Task to be unmarked.
+     * @param indices Indices of Task to be unmarked.
      * @return Task at the given index.
      * @throws JohnnyException If no Task exists at given index.
      */
-    public Task unmark(int index) throws JohnnyException {
-        Task task = get(index);
-        task.unmark();
-        return task;
+    public List<Task> unmark(List<Integer> indices) throws JohnnyException {
+        try {
+            List<Task> unmarkedTasks = new ArrayList<>();
+            for (int i = 0; i < indices.size(); i++) {
+                int index = indices.get(i);
+                Task task = tasks.get(index);
+                task.unmark();
+                unmarkedTasks.add(task);
+            }
+            return unmarkedTasks;
+        } catch (IndexOutOfBoundsException e) {
+            throw new JohnnyException("Some of the tasks do not exist bro.");
+        }
+
     }
 
     /**
      * Deletes a specific Task using the index in the TaskList.
      *
-     * @param index Index of Task to be deleted.
+     * @param indices Indices of Task to be deleted.
      * @return Task at the given index.
      * @throws JohnnyException If no Task exists at given index.
      */
-    public Task delete(int index) throws JohnnyException {
+    public List<Task> delete(List<Integer> indices) throws JohnnyException {
         try {
-            return tasks.remove(index);
+            List<Task> deletedTasks = new ArrayList<>();
+            for (int i = 0; i < indices.size(); i++) {
+                int index = indices.get(i);
+                Task deletedTask = tasks.remove(index);
+                deletedTasks.add(deletedTask);
+            }
+            return deletedTasks;
         } catch (IndexOutOfBoundsException e) {
-            throw new JohnnyException("This task does not exist bro.");
+            throw new JohnnyException("Some of the tasks do not exist bro.");
         }
     }
 
@@ -107,13 +132,13 @@ public class TaskList {
      * Find all Tasks in TaskList whose names contains specified keyword.
      *
      * @param keyword String to be matched to Task name.
-     * @return TaskList of all Tasks that contains keyword.
+     * @return All Tasks that contains keyword.
      */
-    public TaskList find(String keyword) {
-        TaskList foundTasks = new TaskList();
+    public List<Task> find(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
         for (Task task: tasks) {
             if (task.contains(keyword)) {
-                foundTasks.addTask(task);
+                foundTasks.add(task);
             }
         }
         return foundTasks;
