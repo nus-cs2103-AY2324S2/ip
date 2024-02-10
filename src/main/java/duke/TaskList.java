@@ -2,6 +2,9 @@ package duke;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.task.Task;
 
@@ -19,6 +22,13 @@ public class TaskList implements Serializable {
     }
 
     /**
+     * Constructor with an already defined array of tasks.
+     */
+    private TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
      * Adds a task to the list.
      */
     public void addTask(Task task) {
@@ -27,6 +37,7 @@ public class TaskList implements Serializable {
 
     /**
      * Gets the tasks at the given index.
+     *
      * @return the requested task
      * @throws TaskNotFound if the task with the given index doesn't exist
      */
@@ -40,6 +51,7 @@ public class TaskList implements Serializable {
 
     /**
      * Deletes the task at the given index.
+     *
      * @throws TaskNotFound if the task with the given index doesn't exist
      */
     public void deleteTask(int index) throws TaskNotFound {
@@ -54,27 +66,17 @@ public class TaskList implements Serializable {
      * Finds all tasks containing the given query string.
      */
     public TaskList find(String query) {
-        TaskList tasks = new TaskList();
-        for (Task task : this.tasks) {
-            if (task.inDescription(query)) {
-                tasks.addTask(task);
-            }
-        }
-        return tasks;
+        var filteredTasks = tasks.stream()
+                .filter(task -> task.inDescription(query))
+                .collect(Collectors.toList());
+        return new TaskList(new ArrayList<>(filteredTasks));
     }
 
     @Override
     public String toString() {
-        if (tasks.isEmpty()) {
-            return "";
-        }
-
-        StringBuilder s = new StringBuilder();
-        s.append("1").append(". ").append(tasks.get(0));
-        for (int i = 1; i < tasks.size(); i++) {
-            s.append("\n").append(i + 1).append(". ").append(tasks.get(i));
-        }
-        return s.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i) + "\n")
+                .collect(Collectors.joining()).stripTrailing();
     }
 
     /**
