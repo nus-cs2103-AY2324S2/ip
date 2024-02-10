@@ -1,4 +1,7 @@
-D |   | return book | by: Dec 02 2019 18:00
+D | X | return book | by: Dec 02 2019 18:00
 D |   | this and that and what | by: Jun 01 2027 10:00
-D |   | this | by: Jun 05 2024 00:00
+D | X | this | by: Jun 05 2024 00:00
 D | X | this | by: Mar 05 2023 00:10
+E |   | awesome event | from: 2300 to: 06/02/2024 0000
+E | X | awesome event | from: 2300 to: 1500
+E |   | another awesome event | from: 04/05/2030 2300 to: 04/05/2050 1500

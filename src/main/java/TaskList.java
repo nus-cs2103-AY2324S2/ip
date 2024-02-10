@@ -45,7 +45,7 @@ public class TaskList {
      * @param startTime   The start time of the event
      * @param endTime     The end time of the event
      */
-    public void addEvent(String description, String startTime, String endTime) {
+    public void addEvent(String description, String startTime, String endTime) throws BotException {
         this.tasks.add(new TimeBlock(description, startTime, endTime));
         taskCount++;
     }
