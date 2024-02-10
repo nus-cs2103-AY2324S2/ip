@@ -1,6 +1,7 @@
 package dylanbot.controllers;
 
 import dylanbot.DylanBot;
+import dylanbot.DylanBotException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -40,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws DylanBotException {
         String input = userInput.getText();
         String response = dylanBot.getResponse(input);
         dialogContainer.getChildren().addAll(

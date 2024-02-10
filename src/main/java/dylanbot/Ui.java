@@ -51,11 +51,14 @@ public class Ui { // deals with interactions with the user
      *
      * @param tasks The ArrayList of tasks to be printed
      */
-    public void displayTasks(ArrayList<Task> tasks) {
+    public String displayTasks(ArrayList<Task> tasks) {
+        StringBuilder response = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
-            System.out.println("\t" + (i + 1) + ". " + curr.toString());
+            String currStr = "\t" + (i + 1) + ". " + curr.toString() + "\n";
+            response.append(currStr);
         }
+        return response.toString();
     }
 
     /**

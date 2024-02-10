@@ -30,7 +30,7 @@ public class DylanBot {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DylanBotUser.jpeg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DylanBotBot.jpeg"));
-
+    private static final String FILE_PATH = "./data/DylanBotData.txt";
 
     /**
      * Creates a DylanBot with the specified save file at the provided filePath
@@ -52,12 +52,23 @@ public class DylanBot {
     }
 
     public DylanBot() {
-
+        this.ui = new Ui();
+        this.st = new Storage(FILE_PATH, ui);
+        try {
+            this.tl = new TaskList(this.st.loadDataFromFile(), ui);
+            Ui.print("Loaded data from file");
+        } catch (IOException e) {
+            System.out.println(e);
+            ui.displayIoError();
+            this.tl = new TaskList(ui);
+            Ui.print("No data to load, created new file");
+        }
+        this.ps = new Parser(ui, tl);
     }
 
-    public static void main(String[] args) {
-        new DylanBot("./data/DylanBotData.txt").run();
-    }
+//    public static void main(String[] args) {
+//        new DylanBot("./data/DylanBotData.txt").run();
+//    }
 
     /**
      * Runs DylanBot based on the provided user input
@@ -81,7 +92,17 @@ public class DylanBot {
         ui.sendExit();
     }
 
-    public String getResponse(String input) {
-        return "DylanBot heard: " + input;
+    public String getResponse(String input) throws DylanBotException {
+        String response;
+        try {
+            if (input.equals("bye")) {
+                response = "Bye! Hope to see you again soon";
+            } else {
+                response = ps.process(input);
+            }
+            return response;
+        } catch (DylanBotException e) {
+            return e.getMessage();
+        }
     }
 }
