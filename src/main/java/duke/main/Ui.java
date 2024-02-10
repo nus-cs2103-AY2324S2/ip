@@ -13,6 +13,10 @@ public class Ui {
     private TaskList taskList;
     private Scanner scanner;
 
+    /**
+     * constructor for a new UI
+     * @param taskList  container for current list of tasks
+     */
     public Ui(TaskList taskList) {
         this.taskList = taskList;
         this.scanner = new Scanner(System.in);
@@ -32,7 +36,7 @@ public class Ui {
      *
      * @param index  the index of the task in the task list that has been marked
      */
-    public void printOnMark (int index) {
+    public void printOnMark(int index) {
         System.out.println("Task marked as done. Good job!");
         System.out.println(taskList.get(index).toString());
     }
@@ -42,7 +46,7 @@ public class Ui {
      *
      * @param index  the index of the task in the task list that has been unmarked
      */
-    public void printOnUnmark(int index){
+    public void printOnUnmark(int index) {
         System.out.println("Alright! Task marked as not done");
         System.out.println(taskList.get(index).toString());
     }
@@ -69,9 +73,9 @@ public class Ui {
     /**
      * Iterates through the task list and prints out each task
      */
-    public void printList() {
-        for (int i = 0; i < taskList.getSize(); i++) {
-            System.out.println((i + 1) + ": " + taskList.get(i).toString());
+    public void printList(TaskList list) {
+        for (int i = 0; i < list.getSize(); i++) {
+            System.out.println((i + 1) + ": " + list.get(i).toString());
         }
     }
 
@@ -90,12 +94,10 @@ public class Ui {
         System.out.println("Goodbye!");
     }
 
-    public void printList(TaskList list) {
-        for (int i = 0; i < list.getSize(); i++) {
-            System.out.println((i + 1) + ": " + list.get(i).toString());
-        }
-    }
-
+    /**
+     * Prints the list of found tasks returned after a "find" command has been executed
+     * @param list  list of found tasks
+     */
     public void printOnFind(TaskList list) {
         System.out.println("Here are the matching tasks in your list: ");
         this.printList(list);
@@ -113,7 +115,7 @@ public class Ui {
      * Prints error message when an exception is thrown elsewhere in the program
      * @param exception  exception thrown during program execution
      */
-    public void printException (Exception exception) {
+    public void printException(Exception exception) {
         System.out.println(exception);
     }
 }

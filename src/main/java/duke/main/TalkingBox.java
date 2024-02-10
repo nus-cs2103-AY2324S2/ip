@@ -1,14 +1,16 @@
 package duke.main;
-import duke.exception.*;
-
 import java.io.IOException;
 
+import duke.exception.*;
+
+/**
+ *  Main executable for programme
+ */
 public class TalkingBox {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
-
     public TalkingBox(String path) {
         taskList = new TaskList();
         ui = new Ui(taskList);
@@ -20,6 +22,10 @@ public class TalkingBox {
         }
     }
 
+    /**
+     * Method that executes the main programme
+     * @throws IOException
+     */
     public void run() throws IOException {
         this.ui.printWelcomeMessage();
         boolean isExit = false;
@@ -34,7 +40,6 @@ public class TalkingBox {
                 isError = true;
             }
         }
-        
         this.storage.store();
         this.ui.printExitMessage();
     }

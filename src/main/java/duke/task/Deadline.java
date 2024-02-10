@@ -1,16 +1,24 @@
 package duke.task;
 
-import duke.exception.DateFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+
+import duke.exception.DateFormatException;
+
 
 /**
  * Represents a task with a user-defined deadline
  */
 public class Deadline extends Task {
-    LocalDateTime dueDate;
+    private LocalDateTime dueDate;
+
+    /**
+     * constructor for a new Deadline task
+     * @param name     name of new deadline task
+     * @param dueDate  due date of new deadline task
+     * @throws DateFormatException
+     */
     public Deadline(String name, String dueDate) throws DateFormatException {
         super(name, "D");
         String[] dateString = dueDate.split("/");
@@ -24,9 +32,14 @@ public class Deadline extends Task {
             throw new DateFormatException();
         }
     }
+
+    /**
+     * returns String representation of current deadline task
+     * @return  current deadline object as String
+     */
     public String toString() {
-        String status = this.isComplete ? "[x]" : "[ ]";
+        String status = this.isComplete() ? "[x]" : "[ ]";
         DateTimeFormatter returnFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        return "[D] " + status + " " + this.name + " (" + returnFormat.format(this.dueDate) + ")";
+        return "[" + this.getType() + "] " + status + " " + this.getName() + " (" + returnFormat.format(this.dueDate) + ")";
     }
 }
