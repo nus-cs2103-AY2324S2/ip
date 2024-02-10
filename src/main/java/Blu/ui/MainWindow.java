@@ -26,19 +26,32 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Blu blu;
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/account.png"));
     private Image bluImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.png"));
 
+    /**
+     * Initializes the main window controller.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the reference to the main application class. This connection allows the UI to communicate with
+     * the application logic.
+     *
+     * @param b The main application class.
+     */
     public void setBlu(Blu b) {
         blu = b;
     }
 
+    /**
+     * Displays a greeting message in the dialog container at application startup.
+     *
+     * @param greeting The greeting message to display.
+     */
     public void showGreeting(String greeting) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getBluDialog(greeting, bluImage)
