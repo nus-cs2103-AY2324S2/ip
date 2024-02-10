@@ -1,4 +1,9 @@
+package tasks;
+
+import ui.Ui;
+
 import java.time.format.DateTimeFormatter;
+
 
 public class Task {
     private String description;
@@ -18,20 +23,20 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void markDone(String line) {
+    public void markDone(Ui ui) {
         isDone = true;
-        System.out.println(line);
+        ui.showLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.toString());
-        System.out.println(line);
+        ui.showLine();
     }
 
-    public void unmark(String line) {
+    public void unmark(Ui ui) {
         isDone = false;
-        System.out.println(line);
+        ui.showLine();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.toString());
-        System.out.println(line);
+        ui.showLine();
     }
 
     public void displayTask(int size) {

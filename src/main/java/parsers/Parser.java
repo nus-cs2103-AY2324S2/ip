@@ -1,0 +1,167 @@
+package parsers;
+
+import commands.*;
+import exceptions.DukeException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public class Parser {
+    public final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    public static Command parse(String userInput) {
+        String[] parts = userInput.split(" ", 2);
+        String commandWord = parts[0].toLowerCase();
+        String commandArguments = "";
+        if (parts.length == 2) {
+            commandArguments = parts[1].trim();
+        }
+        switch (commandWord) {
+        case "bye":
+            return new exitCommand();
+        case "list":
+            return new listCommand();
+        case "mark":
+            try {
+                return new markTaskCommand(prepareTask(commandArguments, "mark"));
+            } catch (DukeException e) {
+                System.err.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.err.println("Unable to parse the input as an integer. Please put a number after " + commandWord);
+            }
+            return new helpCommand();
+        case "unmark":
+            try {
+                return new unmarkTaskCommand(prepareTask(commandArguments, "unmark"));
+            } catch (DukeException e) {
+                System.err.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.err.println("Unable to parse the input as an integer. Please put a number after " + commandWord);
+            }
+            return new helpCommand();
+        case "todo":
+            try {
+                return prepareCreateTodo(commandArguments);
+            } catch (DukeException e) {
+                System.err.println(e.getMessage());
+            }
+            return new helpCommand();
+        case "deadline":
+            try {
+                return prepareCreateDeadline(commandArguments);
+            } catch (DukeException e) {
+                System.err.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.err.println("OPPS! The format for the inputted deadline is not accepted here. " +
+                        "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+            }
+            return new helpCommand();
+        case "event":
+            try {
+                return prepareCreateEvent(commandArguments);
+            } catch (DukeException e) {
+                System.err.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.err.println("OPPS! The format for the inputted start and end time is not accepted here. " +
+                        "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+            }
+            return new helpCommand();
+        case "delete":
+            try {
+                return new deleteCommand(prepareTask(commandArguments, "delete"));
+            } catch (DukeException e) {
+                System.err.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.err.println("Unable to parse the input as an integer. "
+                        + "Please put a number after 'delete'.");
+            }
+            return new Command();
+        case "save":
+            return new saveCommand();
+        default:
+            System.err.println("OOPS! This command doesn't exist. Retry!");
+            return new helpCommand();
+        }
+    }
+
+    public static int prepareTask(String number, String type) throws DukeException, NumberFormatException {
+        if (number.isBlank()) {
+            throw new DukeException("Please state which task you want to " + type + ".");
+        }
+        try {
+            return Integer.parseInt(number) - 1;
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException();
+        }
+    }
+
+    public static Command prepareCreateTodo(String arguments) throws DukeException {
+        if (arguments.isBlank()) {
+            throw new DukeException("OOPS! The description of a todo cannot be empty.");
+        }
+        return new createTodoCommand(arguments);
+    }
+
+    public static Command prepareCreateDeadline(String arguments) throws DukeException {
+        if (arguments.isBlank()) {
+            throw new DukeException("OOPS! The description of a todo cannot be empty.");
+        }
+        if (!arguments.contains("by")) {
+            throw new DukeException("OOPS! 'by' keyword is missing. You are required "
+                    + "to state the deadline using the 'by' keyword.");
+        }
+        String[] instruction = arguments.split(" by ", 2);
+        if (instruction.length < 2) {
+            if (arguments.startsWith("by")) {
+                throw new DukeException("OOPS! You forget to write the task description. " +
+                        "Please follow this format: '<task_description> by <deadline>' " +
+                        "in yyyy-mm-dd HHmm 24-hr format");
+            }
+            throw new DukeException("OOPS! You forget to write do the task by when");
+        }
+        String description = instruction[0];
+        String deadlineStr = instruction[1];
+        // convert deadline from string to DateTime
+        // Accepted date time format is yyyy-MM-dd HHmm
+        LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
+        return new createDeadlineCommand(description, deadline);
+    }
+
+    public static Command prepareCreateEvent(String arguments) throws DukeException {
+        if (arguments.isBlank()) {
+            throw new DukeException("OOPS! The description of a todo cannot be empty.");
+        }
+        if (!arguments.contains("from") || !arguments.contains("to")) {
+            throw new DukeException("OOPS! 'from' and/or 'to' keywords are missing. You are required to "
+                    + "state the starting and ending time using these two keywords.");
+        }
+        String[] instruction = arguments.split(" from ", 2);
+        if (instruction.length < 2) {
+            if (arguments.startsWith("from")) {
+                throw new DukeException("OOPS! You forget to write the task description. " +
+                        "Please follow this format: '<task_description> from <start_time> to <end_time>' " +
+                        "in yyyy-mm-dd HHmm 24-hr format ");
+            }
+            System.out.println("inside");
+        } else if (instruction.length < 3 && instruction[1].startsWith("to")) {
+            throw new DukeException("OOPS! You forget to write the starting time of this event.");
+        }
+        String description = instruction[0];
+        String[] subInstruction = instruction[1].split(" to ", 2);
+        if (subInstruction.length < 2) {
+            throw new DukeException("OOPS! You forget to write the ending time of this event.");
+        }
+        String startTimeStr = subInstruction[0];
+        String endTimeStr = subInstruction[1];
+        // convert start and end time from string to DateTime
+        // Accepted date time format is yyyy-MM-dd HHmm
+        LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);
+        LocalDateTime endTime = LocalDateTime.parse(endTimeStr, DATE_TIME_FORMATTER);
+        if (!startTime.isBefore(endTime)) {
+            throw new DukeException("The start time of the event has to be before the end time.");
+        }
+        return new createEventCommand(description, startTime, endTime);
+    }
+}
+
