@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * This class represents a Deadline task
@@ -17,9 +18,13 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String dueDate) {
         super(description);
-        // this.dueDate = dueDate;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.dueDateTime = LocalDateTime.parse(dueDate, formatter);
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        try {
+            this.dueDateTime = LocalDateTime.parse(dueDate, formatter1);
+        } catch (DateTimeParseException e) {
+            this.dueDateTime = LocalDateTime.parse(dueDate, formatter2);
+        }
     }
 
     /**

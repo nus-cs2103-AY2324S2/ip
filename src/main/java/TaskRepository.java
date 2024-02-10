@@ -47,7 +47,7 @@ public class TaskRepository {
                         break;
                     case "D":
                         String dueDate = taskDetails[3].trim();
-                        dueDate = dueDate.substring(3);
+                        dueDate = dueDate.substring(3).trim();
                         taskList.addDeadline(description, dueDate);
                         break;
                     case "E":
