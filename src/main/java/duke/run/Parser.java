@@ -1,13 +1,6 @@
 package duke.run;
 
-import duke.command.AddTaskCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.others.BelleException;
 
 /**
@@ -52,6 +45,12 @@ public class Parser {
         } else if (inputlist[0].equals("find")) {
             assert (!input.equals("find")) : "Please enter a keyword to find";
             return new FindCommand(inputlist[1]);
+        } else if (inputlist[0].equals("snooze")) {
+            String[] deadlinelist = input.split("to");
+            if (deadlinelist.length != 2) {
+                throw new BelleException("Please enter command in the format ( snooze [index] to [new deadline] )");
+            }
+            return new SnoozeCommand(inputlist[1], deadlinelist[1]);
         } else {
             throw new BelleException("Not a valid belle command");
         }

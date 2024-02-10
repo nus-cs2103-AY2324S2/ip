@@ -38,6 +38,9 @@ public class EventTask extends Task {
         return "E";
     }
 
+    public void setDeadline(String newdeadline) {
+        this.end = newdeadline;
+    }
     @Override
     public String toString() {
         return " [E]" + super.toString()
