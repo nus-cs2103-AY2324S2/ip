@@ -25,6 +25,10 @@ public class CompleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "The task list must not be null";
+        assert ui != null : "The ui must not be null";
+        assert storage != null : "The storage must not be null";
+
         try {
             Task task = tasks.getTask(index);
             task.setStatus(isComplete);

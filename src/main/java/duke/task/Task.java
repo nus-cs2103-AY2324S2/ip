@@ -39,6 +39,8 @@ public abstract class Task implements Serializable {
      * @param description the description of the task
      */
     protected Task(String description) {
+        assert description != null : "Description must not be null";
+
         this.description = description;
         status = Status.Incomplete;
     }

@@ -22,6 +22,7 @@ public class TaskList implements Serializable {
      * Adds a task to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task must not be null";
         tasks.add(task);
     }
 

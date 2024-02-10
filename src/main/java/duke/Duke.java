@@ -22,6 +22,8 @@ public class Duke {
      * @param fileName file to store state to
      */
     public Duke(String fileName) {
+        assert fileName != null : "File name must not be null";
+
         storage = new Storage(fileName);
         ui = new Ui();
         try {

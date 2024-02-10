@@ -33,6 +33,8 @@ public class AddCommand extends Command {
      * @param components the components parsed from the user command
      */
     public AddCommand(Type type, HashMap<String, String> components) {
+        assert components != null : "Components must not be null";
+
         this.type = type;
         this.components = components;
     }

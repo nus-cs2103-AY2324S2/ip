@@ -63,14 +63,19 @@ public class Ui {
     }
 
     public void showError(Exception e) {
+        assert e != null : "The exception must not be null";
+
         outputBuffer.append("The cat tilts its head and hands you an error report:\n").append(e.getMessage());
     }
 
     public void showNote(String str) {
+        assert str != null : "Note string must not be null";
+
         outputBuffer.append("The cat hands a note to you, it reads:\n").append(str);
     }
 
     public void showCommandNotFound(String command) {
+        assert command != null : "Command name must not be null";
         outputBuffer.append("The cat tilts its head. It doesn't know what command \"").append(command).append("\" is.");
     }
 
@@ -80,6 +85,7 @@ public class Ui {
      * @param task task that was added
      */
     public void showAddedTask(Task task) {
+        assert task != null : "Task must not be null";
         outputBuffer.append("The cat scratches a mark on the wall and then hands you a receipt:\nAdded task ")
                 .append(task.describe());
     }
