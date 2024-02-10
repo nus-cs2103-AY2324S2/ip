@@ -33,9 +33,7 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
-    /**
-     * @inheritDoc
-     */
+
     @Override
     public String toDataFormat() {
         String isDone = this.isDone ? "1 | " : "0 | ";

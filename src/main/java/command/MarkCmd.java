@@ -2,6 +2,7 @@ package command;
 
 public class MarkCmd extends Command{
     private int index;
+    @Override
     public void execute() {
         tasks.mark(index);
     }

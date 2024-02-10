@@ -23,6 +23,7 @@ public class Parser {
         EVENT,
         ADD,
         DELETE,
+        FIND
     }
 
     /**
@@ -76,6 +77,8 @@ public class Parser {
                 return new AddCmd(cmdInput);
             case DELETE:
                 return new DeleteCmd(Integer.parseInt(cmdInput.substring(7)));
+            case FIND:
+                return new FindCmd(cmdInput.substring(5));
             default:
                 throw new InvalidCmd(cmdInput);
         }

@@ -55,7 +55,6 @@ public class SirDuke {
      * Runs Sir Duke
      *
      * @param args String arguments to be passes by User
-     * @throws InvalidCmd If command is not in Commands
      */
     public static void main(String[] args) {
         new SirDuke("data/sirDuke.txt").run();

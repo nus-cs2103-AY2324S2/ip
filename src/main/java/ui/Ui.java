@@ -1,6 +1,7 @@
 package ui;
 import msg.Msg;
 import msg.StdMsgs;
+import tasklist.BarebonesTaskList;
 import tasklist.TaskList;
 
 import java.util.Scanner;
@@ -46,6 +47,9 @@ public class Ui {
     }
 
     public void printTasks() {
+        new Msg(tasks.toString()).print();
+    }
+    public void printTasks(BarebonesTaskList tasks) {
         new Msg(tasks.toString()).print();
     }
 

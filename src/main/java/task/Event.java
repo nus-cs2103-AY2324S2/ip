@@ -53,7 +53,8 @@ public class Event extends Task{
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     * @return
      */
     @Override
     public String toDataFormat() {

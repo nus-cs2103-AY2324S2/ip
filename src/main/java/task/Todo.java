@@ -27,7 +27,7 @@ public class Todo extends Task{
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toDataFormat() {
