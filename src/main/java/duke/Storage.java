@@ -37,19 +37,19 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException {
         ensureDirectoryExists();
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(this.filePath);
+        File storageFile = new File(this.filePath);
 
         // Create the file if it does not exist
-        if (!file.exists()) {
+        if (!storageFile.exists()) {
             try {
-                file.createNewFile();
+                storageFile.createNewFile();
             } catch (IOException e) {
                 throw new DukeException("Error Creating File: " + e.getMessage());
             }
         }
 
         // Load tasks from the file
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(storageFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = parseLineToTask(line);
