@@ -40,11 +40,11 @@ public class Duke {
     public void run() {
         String line = "------------------------------";
         Scanner obj = new Scanner(System.in);
-        System.out.println("\n Hello! I'm Leo\n" +
-                " What can I do for you?");
+        System.out.println("\n Hello! I'm Leo\n"
+                + " What can I do for you?");
         System.out.println(line);
 
-        while(obj.hasNextLine()){
+        while (obj.hasNextLine()) {
             String res = obj.nextLine();
             if (res.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");

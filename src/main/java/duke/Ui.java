@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
 /**
  * Handles interactions with the user
  */
@@ -11,11 +10,11 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to be printed.
      * @param size  The number of tasks to be printed.
      */
-    public void printList(TaskList tasks, int size){
+    public void printList(TaskList tasks, int size) {
         System.out.println("Here are the tasks in your list!");
         for (int j = 0; j < size; j++) {
             int nr = j + 1;
-            System.out.println(nr +"." + tasks.getTask(j).toString()+ ".");
+            System.out.println(nr + "." + tasks.getTask(j).toString() + ".");
         }
     }
     /**
@@ -23,7 +22,7 @@ public class Ui {
      *
      * @param msg The message to be printed.
      */
-    public void printMessage(String msg){
+    public void printMessage(String msg) {
         System.out.println(msg);
     }
 }

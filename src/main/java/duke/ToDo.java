@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Task;
 /**
  * Represents a to-do task in the task list.
  * Subclass of the Task class.
@@ -30,7 +29,7 @@ public class ToDo extends Task {
      * @return The type of the task.
      */
     @Override
-    public String getType(){
+    public String getType() {
         return "T";
     }
 }

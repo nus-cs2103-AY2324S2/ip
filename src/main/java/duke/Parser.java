@@ -1,8 +1,5 @@
 package duke;
 
-import duke.Deadline;
-import duke.Event;
-import duke.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +19,7 @@ public class Parser {
      *
      * @param input The user input to be parsed and executed.
      */
-    public Parser(String input){
+    public Parser(String input) {
         this.input = input;
     }
     /**
@@ -31,17 +28,17 @@ public class Parser {
      * @param tasks The task list to perform actions on.
      * @param ui    The user interface to interact with the user.
      */
-    public void execute(TaskList tasks, Ui ui){
+    public void execute(TaskList tasks, Ui ui) {
         String line = "------------------------------";
         String[] elems = input.split(" ", 2);
         String action = elems[0];
         String[] dateFormats = {"dd/MM/yyyy", "MMM dd yyyy"};
         int i = 0;
-        while(tasks.getTask(i)!= null){
+        while (tasks.getTask(i) != null) {
             i++;
         }
 
-        switch (action){
+        switch (action) {
         case "list":
             ui.printList(tasks, i);
             break;
@@ -50,8 +47,8 @@ public class Parser {
             System.out.println(line);
             break;
         case "mark":
-            for(int k =0; k < i ; k++){
-                if (tasks.getTask(k) != null){
+            for (int k = 0; k < i; k++) {
+                if (tasks.getTask(k) != null) {
                     Task t = tasks.getTask(k);
                     String str = t.description;
                     if (str.equals(elems[1])) {
@@ -64,8 +61,8 @@ public class Parser {
             break;
 
         case "unmark":
-            for(int k =0; k < i ; k++){
-                if (tasks.getTask(k) != null){
+            for (int k = 0; k < i; k++) {
+                if (tasks.getTask(k) != null) {
                     Task t = tasks.getTask(k);
                     String str = t.description;
                     if (str.equals(elems[1])) {
@@ -97,7 +94,7 @@ public class Parser {
                 } catch (DateTimeParseException ignored) {
                 }
             }
-            if(deadlineDate != null) {
+            if (deadlineDate != null) {
                 Task dline = new Deadline(by[0], deadlineDate);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(dline.toString());
@@ -122,7 +119,7 @@ public class Parser {
                 } catch (DateTimeParseException ignored) {
                 }
             }
-            if(toDate != null & fromDate!=null) {
+            if (toDate != null & fromDate != null) {
                 Task e = new Event(fromto[0], fromDate, toDate);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(e.toString());
@@ -136,8 +133,8 @@ public class Parser {
             }
             break;
         case "delete":
-            int toDelete = Integer.valueOf(elems[1]) -1;
-            if(toDelete >=0 && toDelete< i){
+            int toDelete = Integer.valueOf(elems[1]) - 1;
+            if (toDelete >= 0 && toDelete < i) {
                 tasks.deleteTask(toDelete);
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(tasks.getTask(toDelete).toString());

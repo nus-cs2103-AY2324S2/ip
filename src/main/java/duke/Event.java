@@ -33,8 +33,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-//        String[] arr1 = from.split(" ", 2);
-//        String[] arr2 = to.split(" ", 2);
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
     /**
@@ -43,7 +41,7 @@ public class Event extends Task {
      * @return The type of the task.
      */
     @Override
-    public String getType(){
+    public String getType() {
         return "E";
     }
     /**
@@ -51,7 +49,7 @@ public class Event extends Task {
      *
      * @return A formatted string for writing the Event object to a file.
      */
-    public String toFileString(){
-        return String.format("%s |  %d | %s | %s | %s", getType(), isDone? 1:0, description, from, to);
+    public String toFileString() {
+        return String.format("%s |  %d | %s | %s | %s", getType(), isDone ? 1 : 0, description, from, to);
     }
 }

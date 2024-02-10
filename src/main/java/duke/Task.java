@@ -56,7 +56,7 @@ public class Task {
     /**
      * Unmarks the task (marks as not done).
      */
-    public void unMark(){
+    public void unMark() {
         this.isDone = false;
     }
     /**
@@ -64,8 +64,8 @@ public class Task {
      *
      * @return A string representation of the task.
      */
-    public String toString(){
-        return "["+ this.getStatusIcon() +"] " + this.description;
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -73,8 +73,8 @@ public class Task {
      *
      * @return A formatted string for writing the task to a file.
      */
-    public String toFileString(){
-        return String.format("%s |  %d | %s", getType(), isDone? 1:0, description);
+    public String toFileString() {
+        return String.format("%s |  %d | %s", getType(), isDone ? 1 : 0, description);
     }
     /**
      * Creates a Task object from a string representation in a file.
@@ -82,33 +82,33 @@ public class Task {
      * @param fileString The string representation of the task in the file.
      * @return A Task object created from the file string.
      */
-    public static Task fromFileString(String fileString){
+    public static Task fromFileString(String fileString) {
         String[] elements = fileString.split("\\s*\\|\\s*");
         Boolean done = Integer.parseInt(elements[1]) == 1;
         //for each type of task
         switch(elements[0]) {
-            case "T":
-                ToDo todo = new ToDo((elements[2]));
-                todo.isDone = done;
-                return todo;
-            case "D":
-                Deadline dline = null;
-                if(elements.length >=4) {
-                    LocalDate deadlineDate = LocalDate.parse(elements[3], DateTimeFormatter.ISO_DATE);
+        case "T":
+            ToDo todo = new ToDo((elements[2]));
+            todo.isDone = done;
+            return todo;
+        case "D":
+            Deadline dline = null;
+            if (elements.length >= 4) {
+                LocalDate deadlineDate = LocalDate.parse(elements[3], DateTimeFormatter.ISO_DATE);
 
-                    dline = new Deadline(elements[2], deadlineDate);
-                    dline.isDone = done;
-                }
-                return dline;
-            case "E":
-                LocalDate fromDate = LocalDate.parse(elements[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                LocalDate toDate = LocalDate.parse(elements[4], DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                Event event = new Event(elements[2], fromDate, toDate);
-                event.isDone = done;
-                return event;
-            default:
-                throw new IllegalArgumentException("Invalid task type in file");
+                dline = new Deadline(elements[2], deadlineDate);
+                dline.isDone = done;
             }
+            return dline;
+        case "E":
+            LocalDate fromDate = LocalDate.parse(elements[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            LocalDate toDate = LocalDate.parse(elements[4], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            Event event = new Event(elements[2], fromDate, toDate);
+            event.isDone = done;
+            return event;
+        default:
+            throw new IllegalArgumentException("Invalid task type in file");
+        }
 
     }
     /**
@@ -116,7 +116,7 @@ public class Task {
      *
      * @return The type of the task.
      */
-    public String getType(){
+    public String getType() {
         return " ";
     }
 }

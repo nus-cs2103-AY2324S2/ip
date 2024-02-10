@@ -1,5 +1,6 @@
 package duke;
 
+
 import java.time.LocalDate;
 /**
  * Represents a task with a deadline in the task list.
@@ -37,7 +38,7 @@ public class Deadline extends Task {
      * @return The type of the task.
      */
     @Override
-    public String getType(){
+    public String getType() {
         return "D";
     }
     /**
@@ -46,7 +47,7 @@ public class Deadline extends Task {
      * @return A formatted string for writing the Deadline object to a file.
      */
     @Override
-    public String toFileString(){
-        return String.format("%s |  %d | %s | %s", getType(), isDone? 1:0, description, by);
+    public String toFileString() {
+        return String.format("%s |  %d | %s | %s", getType(), isDone ? 1 : 0 , description, by);
     }
 }
