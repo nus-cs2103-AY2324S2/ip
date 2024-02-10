@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     private String input;
-    //constructor
     public Parser(String input){
         this.input = input;
     }
@@ -26,126 +25,114 @@ public class Parser {
         }
 
         switch (action){
-            case "list":
-                ui.printList(tasks, i);
-                break;
-            case "bye":
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println(line);
-                break;
-            case "mark":
-                for(int k =0; k < i ; k++){
-                    if (tasks.getTask(k) != null){
-                        Task t = tasks.getTask(k);
-                        String str = t.description;
-                        if (str.equals(elems[1])) {
-                            t.markAsDone();
-                        }
+        case "list":
+            ui.printList(tasks, i);
+            break;
+        case "bye":
+            System.out.println("Bye. Hope to see you again soon!");
+            System.out.println(line);
+            break;
+        case "mark":
+            for(int k =0; k < i ; k++){
+                if (tasks.getTask(k) != null){
+                    Task t = tasks.getTask(k);
+                    String str = t.description;
+                    if (str.equals(elems[1])) {
+                        t.markAsDone();
                     }
                 }
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[X] " + elems[1]);
-                break;
+            }
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("[X] " + elems[1]);
+            break;
 
-            case "unmark":
-                for(int k =0; k < i ; k++){
-                    if (tasks.getTask(k) != null){
-                        Task t = tasks.getTask(k);
-                        String str = t.description;
-                        if (str.equals(elems[1])) {
-                            t.unMark();
-                        }
+        case "unmark":
+            for(int k =0; k < i ; k++){
+                if (tasks.getTask(k) != null){
+                    Task t = tasks.getTask(k);
+                    String str = t.description;
+                    if (str.equals(elems[1])) {
+                        t.unMark();
                     }
                 }
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[ ] " + elems[1] );
-                break;
-            case "todo":
-                Task item = new ToDo(elems[1]);
-                //tasks.setTask(i, item);
+            }
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("[ ] " + elems[1] );
+            break;
+        case "todo":
+            Task item = new ToDo(elems[1]);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(item.toString());
+            i++;
+            tasks.addTask(item);
+            System.out.println("Now you have " + i + " task(s) in your list!");
+            System.out.println(line);
+            break;
+        case "deadline":
+            String[] by = elems[1].split("/by ", 2);
+            String[] dateTime = by[1].split(" ", 2);
+            LocalDate deadlineDate = null;
+            for (String format : dateFormats) {
+                try {
+                    deadlineDate = LocalDate.parse(by[1].trim(),
+                            DateTimeFormatter.ofPattern(format));
+                    break;
+                } catch (DateTimeParseException ignored) {
+                }
+            }
+            if(deadlineDate != null) {
+                Task dline = new Deadline(by[0], deadlineDate);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(item.toString());
+                System.out.println(dline.toString());
                 i++;
-                tasks.addTask(item);
+                tasks.addTask(dline);
+                System.out.println("Now you have " + i + " task(s) in your list!");
+            } else {
+                System.out.println("Invalid date and time format -_-");
+            }
+            System.out.println(line);
+            break;
+
+        case "event":
+            String[] fromto = elems[1].split("/", 3);
+            LocalDate fromDate = null;
+            LocalDate toDate = null;
+            for (String format : dateFormats) {
+                try {
+                    fromDate = LocalDate.parse(fromto[1], DateTimeFormatter.ofPattern(format));
+                    toDate = LocalDate.parse(fromto[2], DateTimeFormatter.ofPattern(format));
+                    break;
+                } catch (DateTimeParseException ignored) {
+                }
+            }
+            if(toDate != null & fromDate!=null) {
+                Task e = new Event(fromto[0], fromDate, toDate);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(e.toString());
+                i++;
+                tasks.addTask(e);
                 System.out.println("Now you have " + i + " task(s) in your list!");
                 System.out.println(line);
-                break;
-            case "deadline":
-                String[] by = elems[1].split("/by ", 2);
-                String[] dateTime = by[1].split(" ", 2);
-                //LocalDate deadlineDate = LocalDate.parse(by[1].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            } else {
+                System.out.println("Invalid date and time format -_-");
+            }
+            break;
+        case "delete":
+            int toDelete = Integer.valueOf(elems[1]) -1;
+            if(toDelete >=0 && toDelete< i){
+                tasks.deleteTask(toDelete);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(tasks.getTask(toDelete).toString());
+                i--;
+                System.out.println("Now you have " + i + " task(s) in the list.");
+            } else {
+                System.out.println("That is an invalid task to delete sir??");
+            }
+            System.out.println(line);
+            break;
 
-                LocalDate deadlineDate = null;
-                for (String format : dateFormats) {
-                    try {
-                        deadlineDate = LocalDate.parse(by[1].trim(),
-                                DateTimeFormatter.ofPattern(format));
-                        break;
-                    } catch (DateTimeParseException ignored) {
-                    }
-                }
-                if(deadlineDate != null) {
-                    Task dline = new Deadline(by[0], deadlineDate);
-                    //lst[i] = dline;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(dline.toString());
-                    i++;
-                    //saveToFile(i, lst);
-                    tasks.addTask(dline);
-                    System.out.println("Now you have " + i + " task(s) in your list!");
-                } else {
-                    System.out.println("Invalid date and time format -_-");
-                }
-                System.out.println(line);
-                break;
-            //duke.Event
-            case "event":
-                String[] fromto = elems[1].split("/", 3);
-
-                LocalDate fromDate = null;
-                LocalDate toDate = null;
-                for (String format : dateFormats) {
-                    try {
-                        fromDate = LocalDate.parse(fromto[1], DateTimeFormatter.ofPattern(format));
-                        toDate = LocalDate.parse(fromto[2], DateTimeFormatter.ofPattern(format));
-                        break;
-                    } catch (DateTimeParseException ignored) {
-                    }
-                }
-                if(toDate != null & fromDate!=null) {
-                    Task e = new Event(fromto[0], fromDate, toDate);
-                    //lst[i] = e;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e.toString());
-                    i++;
-                    //saveToFile(i, lst);
-                    tasks.addTask(e);
-                    System.out.println("Now you have " + i + " task(s) in your list!");
-                    System.out.println(line);
-                } else {
-                    System.out.println("Invalid date and time format -_-");
-                }
-                break;
-            case "delete":
-                int toDelete = Integer.valueOf(elems[1]) -1;
-                if(toDelete >=0 && toDelete< i){
-                    tasks.deleteTask(toDelete);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(tasks.getTask(toDelete).toString());
-//                for(int p = toDelete; p< i; p++){
-//                    lst[p] = lst[p+1];
-//                    }
-//                    lst[i - 1] = null;
-                    i--;
-                    System.out.println("Now you have " + i + " task(s) in the list.");
-                } else {
-                    System.out.println("That is an invalid task to delete sir??");
-                }
-                System.out.println(line);
-                break;
-
-            default:
-                System.out.println("Sorry what??, I did not get that!");
+        default:
+            System.out.println("Sorry what??, I did not get that!");
 
         }
     }
