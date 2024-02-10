@@ -1,7 +1,10 @@
 package dino;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import dino.task.Deadline;
+import dino.task.Event;
 import dino.task.Task;
 
 /** Represents an ArrayList of Task. */
@@ -18,9 +21,46 @@ public class TaskList {
      * Adds the Task into the TaskList.
      *
      * @param task The Task to be added.
+     * @throws DinoException If there's a scheduling conflict with an existing task.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DinoException {
+        if (task instanceof Deadline || task instanceof Event) {
+            if (isConflict(task)) {
+                throw new DinoException("Scheduling conflict: "
+                        + "The new task conflicts with an existing task.");
+            }
+        }
         this.taskList.add(task);
+    }
+
+    /**
+     * Checks if this task conflicts with another task.
+     *
+     * @param newTask The other task to check for conflicts with.
+     * @return true if there is a conflict, false otherwise.
+     */
+    public boolean isConflict(Task newTask) {
+        if (newTask instanceof Event || newTask instanceof Deadline) {
+            LocalDateTime newStart = newTask instanceof Event ? ((Event) newTask).getStartTime()
+                    : ((Deadline) newTask).getDateTime();
+            LocalDateTime newEnd = newTask instanceof Event ? ((Event) newTask).getEndTime()
+                    : ((Deadline) newTask).getDateTime();
+
+            for (Task existingTask : taskList) {
+                if (existingTask instanceof Event || existingTask instanceof Deadline) {
+                    LocalDateTime existingStart = existingTask instanceof Event ? ((Event) existingTask).getStartTime()
+                            : ((Deadline) existingTask).getDateTime();
+                    LocalDateTime existingEnd = existingTask instanceof Event ? ((Event) existingTask).getEndTime()
+                            : ((Deadline) existingTask).getDateTime();
+
+                    boolean isOverlap = newStart.isBefore(existingEnd) && newEnd.isAfter(existingStart);
+                    if (isOverlap) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**

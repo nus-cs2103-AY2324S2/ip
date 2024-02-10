@@ -33,15 +33,12 @@ public class ParserTest {
     @Test
     public void testCreateTaskFromInputWithInvalidDeadlineFormat() {
         TaskList taskList = new TaskList();
-
-        Parser parser = new Parser(taskList);
-
         String inputTaskDetails = "InvalidDeadlineFormat\n";
         Dino.TaskType taskType = Dino.TaskType.DEADLINE;
         System.setIn(new java.io.ByteArrayInputStream(inputTaskDetails.getBytes()));
 
         try {
-            Task createdTask = parser.createTaskFromInput(taskType, new Scanner(System.in).nextLine().trim());
+            Task createdTask = Parser.createTaskFromInput(taskType, new Scanner(System.in).nextLine().trim());
 
             fail("Expected DinoException, but no exception was thrown.");
         } catch (DinoException e) {

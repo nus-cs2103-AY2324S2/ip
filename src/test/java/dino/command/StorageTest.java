@@ -56,7 +56,7 @@ public class StorageTest {
         try (PrintStream printStream = new PrintStream(new FileOutputStream(file))) {
             printStream.println(" T | 0 | Read book");
             printStream.println(" D | 0 | Return book | by: Jan 01 2022 12:34");
-            printStream.println(" E | 0 | School | from: Jan 01 2022 12:00 to: Jan 01 2022 14:00");
+            printStream.println(" E | 0 | School | from: Jan 02 2022 12:00 to: Jan 03 2022 14:00");
         }
     }
 }
