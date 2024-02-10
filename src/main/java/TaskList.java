@@ -98,4 +98,13 @@ public class TaskList {
             ui.showCreateTask(event, tasks.size());
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        for (int i = 0; i < size(); i++) {
+            string.append(i + 1).append(". ").append(get(i)).append("\n");
+        }
+        return string.toString();
+    }
 }
