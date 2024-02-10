@@ -3,37 +3,66 @@ import main.java.emis.command.*;
 import main.java.emis.task.*;
 import java.util.Scanner;
 
-// Ui class, deals with interactions with the user
+/**
+ * The Ui class deals with interactions with the user in the EMIS application.
+ */
 public class Ui {
+    /** The scanner object for reading user input. */
     private static Scanner sc;
+
+    /**
+     * Constructs a new Ui object and initializes the scanner for reading user input.
+     */
     public Ui () {
         sc = new Scanner(System.in);
     }
 
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcome() {
         showLine();
         System.out.println("\tHello! I'm Emis!\n \tWhat can I do for you?");
         showLine();
     }
 
+    /**
+     * Displays a line separator.
+     */
     public static void showLine() {
         System.out.println("\t____________________________________________________________");
     }
 
+    /**
+     * Reads the user command from the console.
+     * 
+     * @return The user command as a string.
+     */
     public String readCommand() {
         return sc.nextLine().trim();
     }
 
+    /**
+     * Displays an error message indicating a loading error.
+     */
     public void showLoadingError() {
         showLine();
         System.out.println("\t There was an error loading the file.");
         showLine();
     }
 
+    /**
+     * Displays an error message.
+     * 
+     * @param str The error message to display.
+     */
     public void showError(String str) {
         System.out.println(str);
     }
 
+    /**
+     * Displays a help message providing instructions on how to use the application.
+     */
     public void showHelp() {
         showLine();
         System.out.println("\tEmis is happy to help with printing a list of tasks with the command 'list'.");
@@ -47,6 +76,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Closes the scanner and exits the application.
+     */
     public static void exit() {
         sc.close();
         showLine();
