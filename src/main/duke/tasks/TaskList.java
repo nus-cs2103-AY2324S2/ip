@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.duke.Duke;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,13 +26,15 @@ public class TaskList {
     /**
      * Prints a list containing the current tasks.
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder reply = new StringBuilder("Here are the tasks in your list:\n");
         int number = 1;
         for (Task t : this.list) {
-            System.out.printf("%d. %s", number, t);
+            reply.append(String.format("%d. %s", number, t));
             number++;
         }
+
+        return reply.toString();
     }
 
     public void add(Task t) {
@@ -45,26 +49,39 @@ public class TaskList {
         return this.list.size();
     }
 
+    public void set(int idx, Task t) {
+        this.list.set(idx, t);
+    }
+
+    public Task remove(int idx) {
+        return this.list.remove(idx);
+    }
+
+    public List<Task> getList() {
+        return this.list;
+    }
+
     /**
      * Marks a task as done.
      *
      * @param in The index of the task that should be marked as done.
      */
-    public void mark(String in) {
-        int i;
+    public String mark(String in) {
+        String s;
         try {
-            i = Integer.parseInt(in.substring(5));
-            Task t = this.list.get(i - 1);
+            int i = Integer.parseInt(in);
+            Task t = Duke.tasks.get(i - 1);
             t.markAsDone();
-            System.out.print("Nice! I've marked this task as done:\n  ");
-            System.out.print(t);
-            this.list.set(i - 1, t);
+            Duke.tasks.set(i - 1, t);
+            s = "Nice! I've marked this task as done:\n  " + t;
 
         } catch (NumberFormatException e) {
-            System.out.println("Not a valid number!");
+            s = "Not a valid number!\n";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Sorry, index out of range!");
+            s = "Sorry, index out of range!\n";
         }
+
+        return s;
     }
 
     /**
@@ -72,20 +89,22 @@ public class TaskList {
      *
      * @param in The index of the task that should be marked as not done.
      */
-    public void unmark(String in) {
+    public String unmark(String in) {
+        String s;
         try {
-            int i = Integer.parseInt(in.substring(7));
-            Task t = this.list.get(i - 1);
+            int i = Integer.parseInt(in);
+            Task t = Duke.tasks.get(i - 1);
             t.markAsNotDone();
-            System.out.print("OK, I've marked this task as not done yet:\n  ");
-            System.out.print(t);
-            this.list.set(i - 1, t);
+            Duke.tasks.set(i - 1, t);
+            s = "OK, I've marked this task as not done yet:\n  " + t;
 
         } catch (NumberFormatException e) {
-            System.out.println("Not a valid number!");
+            s = "Not a valid number!\n";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Sorry, index out of range!");
+            s = "Sorry, index out of range!\n";
         }
+
+        return s;
     }
 
     /**
@@ -93,19 +112,21 @@ public class TaskList {
      *
      * @param in The index of the task that should be deleted.
      */
-    public void delete(String in) {
+    public String delete(String in) {
+        String s = "";
         try {
-            int i = Integer.parseInt(in.substring(7));
-            Task t = this.list.remove(i - 1);
-            System.out.print("Noted. I've removed this task::\n  ");
-            System.out.println(t);
-            System.out.printf("Now you have %d tasks in the list.\n", this.list.size());
+            int i = Integer.parseInt(in);
+            Task t = Duke.tasks.remove(i - 1);
+            s = "Noted. I've removed this task:\n  " + t;
+            s += String.format("\nNow you have %d tasks in the list.\n", Duke.tasks.size());
 
         } catch (NumberFormatException e) {
-            System.out.println("Not a valid number! Or perhaps add a ' '");
+            s = "Not a valid number! Or perhaps add a ' '\n";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Sorry, index out of range!");
+            s = "Sorry, index out of range!\n";
         }
+
+        return s;
     }
 
     /**
@@ -124,16 +145,17 @@ public class TaskList {
      *
      * @param in A string in the format of "find x" where x is the substring to find.
      */
-    public void find(String in) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String find(String in) {
+        StringBuilder s = new StringBuilder("Here are the matching tasks in your list:");
         int number = 1;
-        String toFind = in.substring(5);
-        for (Task t : this.list) {
-            if (t.has(toFind)) {
-                System.out.printf("%d. %s", number, t);
+        for (Task t : Duke.tasks.getList()) {
+            if (t.has(in)) {
+                s.append(String.format("%d. %s", number, t));
                 number++;
             }
         }
+
+        return s.toString();
     }
 
     @Override
@@ -148,8 +170,7 @@ public class TaskList {
 
         TaskList tl = (TaskList) obj;
 
-        return this.list.equals(tl.list);
+        return Duke.tasks.equals(tl.list);
     }
-
 
 }

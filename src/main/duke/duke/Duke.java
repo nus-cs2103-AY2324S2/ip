@@ -1,6 +1,7 @@
 package duke.duke;
 
 import duke.tasks.TaskList;
+import duke.ui.Skibidi;
 
 /**
  * Class that runs the chatbot.
@@ -9,13 +10,16 @@ import duke.tasks.TaskList;
  */
 public class Duke {
     /** The storage object that is used in Duke. */
-    private Storage storage;
+    public static Storage storage;
 
     /** A list that contains all your tasks. */
-    private TaskList tasks = new TaskList();
+    public static TaskList tasks = new TaskList();
 
     /** The class that prints to screen and chat. */
-    private Ui ui;
+    private Skibidi skibidi = new Skibidi();
+
+    /** The parser that understands the input and generates the reply. */
+    private Parser parser = new Parser();
 
     /**
      * Creates a Duke object that is capable of running a chatbot.
@@ -24,21 +28,16 @@ public class Duke {
      * @param fileName The name of the saved data file.
      */
     public Duke(String filePath, String fileName) {
-        ui = new Ui();
         storage = new Storage(filePath, fileName);
     }
 
     /**
-     * Runs the main flow of the program. Greet -> Load saved file -> Chat -> Exit/Bye.
+     * Takes in a String input and outputs the corresponding output.
+     * @param input User's String input.
+     * @return The reply from the bot to the user.
      */
-    public void run() {
-        ui.greet();
-        tasks = storage.load();
-        ui.chat(tasks, storage);
-        ui.bye();
-    }
-
-    public static void main(String[] args) {
-        new Duke("/data/", "duke.txt").run();
+    public String getResponse(String input) {
+        String response = parser.parse(input);
+        return skibidi.formatOutput(response);
     }
 }

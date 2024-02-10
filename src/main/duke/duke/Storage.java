@@ -13,6 +13,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
+import duke.ui.Skibidi;
 
 /**
  * The storage class contains the file paths and methods to load and save task lists.
@@ -41,22 +42,22 @@ public class Storage {
      *
      * @return The saved TaskList if it exists or an empty one if there is none.
      */
-    public TaskList load() {
+    public String load() {
+        String s;
         try {
             List<String> read = Files.readAllLines(pathFile);
             List<Task> list = read.stream()
                     .map(this::stringToTask)
                     .collect(Collectors.toList());
-            TaskList tl = new TaskList(list);
-            System.out.println("Your current list:");
-            tl.printList();
-            Ui.printLine();
-            return tl;
+            Duke.tasks = new TaskList(list); // Set the TaskList store in duke if it exists
+            s = "Your current list:\n";
+            s += Duke.tasks.printList();
+
         } catch (IOException e) {
-            System.out.println("You do not have a saved list.");
-            Ui.printLine();
+            s = "You do not have a saved list.\n";
         }
-        return new TaskList();
+
+        return s;
     }
 
     /**
@@ -102,7 +103,7 @@ public class Storage {
      * @param tl The TaskList to be saved.
      * @throws IOException If directory or file at the paths do not exist.
      */
-    public void save(TaskList tl) throws IOException {
+    public String save(TaskList tl) throws IOException {
         // Check if the directory exists
         if (!Files.exists(pathDir)) {
             Files.createDirectories(pathDir);
@@ -114,6 +115,6 @@ public class Storage {
         Files.createFile(pathFile);
         // Writing to the file
         writeToFile(pathFile, tl);
-        System.out.println("Your list has been saved to " + pathFile);
+        return "Your list has been saved to " + pathFile;
     }
 }

@@ -2,6 +2,7 @@ package duke.duke;
 
 import java.io.IOException;
 import java.time.DateTimeException;
+import java.util.Objects;
 
 import duke.exceptions.DukeEmptyArgumentException;
 import duke.exceptions.DukeErroneousArgumentException;
@@ -11,6 +12,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
+import duke.ui.Skibidi;
 
 
 /**
@@ -19,121 +21,159 @@ import duke.tasks.Todo;
  * @author Lim Zi Jia
  */
 public class Parser {
+    enum Command {
+        BYE, LIST, SAVE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND, UNKNOWN
+    }
+
+    private Command parseUserMsg(String in) {
+        switch (in) {
+        case "bye":
+            return Command.BYE;
+        case "list":
+            return Command.LIST;
+        case "save":
+            return Command.SAVE;
+        case "todo":
+            return Command.TODO;
+        case "deadline":
+            return Command.DEADLINE;
+        case "event":
+            return Command.EVENT;
+        case "mark":
+            return Command.MARK;
+        case "unmark":
+            return Command.UNMARK;
+        case "delete":
+            return Command.DELETE;
+        case "find":
+            return Command.FIND;
+        default:
+            return Command.UNKNOWN;
+        }
+    }
+
     /**
      * The main parsing logic. Takes the input and calls the relevant functions for the desired outputs.
      *
      * @param in The string input that the user has passed into the program.
-     * @param tasks A list of the current tasks that maybe needed to modify.
-     * @param storage The place where the task list might be needed to be stored.
      * @return A TaskList that has been altered if there is a need to. The value is null if the command is 'bye'
      */
-    public TaskList parse(String in, TaskList tasks, Storage storage) {
-        if (in.equals("bye")) {
-            return null;
-        } else if (in.equals("list")) {
-            tasks.printList();
-        } else if (in.equals("save")) {
-            try {
-                storage.save(tasks);
-            } catch (IOException e) {
-                System.out.println("I/O Exception");
+    public String parse(String in) {
+        String[] inputParsed = in.split(" ");
+        Command command = parseUserMsg(inputParsed[0]);
+
+        String reply = "";
+
+        try {
+            switch (command) {
+            case BYE:
+                reply = Skibidi.BYE;
+                break;
+            case LIST:
+                reply = Duke.tasks.printList();
+                break;
+            case SAVE:
+                reply = Duke.storage.save(Duke.tasks);
+                break;
+            case MARK:
+                reply = Duke.tasks.mark(inputParsed[1]);
+                break;
+            case UNMARK:
+                reply = Duke.tasks.unmark(inputParsed[1]);
+                break;
+            case DELETE:
+                reply = Duke.tasks.delete(inputParsed[1]);
+                break;
+            case FIND:
+                reply = Duke.tasks.find(inputParsed[1]);
+                break;
+            case UNKNOWN:
+                reply = "Unknown command\n";
+                break;
+            default:
+                reply = addTask(inputParsed, command);
             }
-        } else if (in.startsWith("mark ")) {
-            tasks.mark(in);
-        } else if (in.startsWith("unmark ")) {
-            tasks.unmark(in);
-        } else if (in.startsWith("delete ")) {
-            tasks.delete(in);
-        } else if (in.startsWith("find ")) {
-            tasks.find(in);
-        } else {
-            try {
-                tasks = addTask(in, tasks);
-            } catch (DukeInvalidInputException e) {
-                System.out.println("This is not a valid input!!!");
-            } catch (DukeEmptyArgumentException e) {
-                System.out.println("There is an argument that is empty!!!");
-            } catch (DukeErroneousArgumentException e) {
-                System.out.println("There is an argument in the wrong format!!!");
-            } catch (DateTimeException e) {
-                System.out.println("The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.");
-                System.out.println("More specifically: \n" + e.getMessage());
-            } catch (DukeWrongDateOrderException e) {
-                System.out.println("The end date should be after the start date");
-            }
+        } catch (IOException e) {
+            reply = "I/O Exception";
+        } catch (DukeInvalidInputException e) {
+            reply = "This is not a valid input!!!";
+        } catch (DukeEmptyArgumentException e) {
+            reply = String.valueOf(inputParsed.length);
+            //reply = "There is an argument that is empty!!!";
+        } catch (DukeErroneousArgumentException e) {
+            reply = "There is an argument in the wrong format!!!";
+        } catch (DateTimeException e) {
+            reply = "The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.\n";
+            reply += "More specifically: \n" + e.getMessage();
+        } catch (DukeWrongDateOrderException e) {
+            reply = "The end date should be after the start date";
         }
-        return tasks;
+        return reply;
     }
 
     /**
      * A helper function that is dedicated to adding tasks.
      *
-     * @param s String of input to be parsed.
-     * @param tasks The original task list to be added onto.
+     * @param inputs Array of Strings of inputs to be parsed.
+     * @param command The command
      * @return The edited task list.
      */
-    public TaskList addTask(String s, TaskList tasks) {
-        // Todo_
-        if (s.startsWith("todo ")) {
-            // Get name and if it is empty, throw exception
-            String n = s.substring(5);
-            if (n.isEmpty()) {
-                throw new DukeEmptyArgumentException();
-            }
+    public String addTask(String[] inputs, Command command) {
+        String s;
+        checkValidFormat(inputs, command); // Throws various exceptions corresponding to some foreseeable errors.
 
-            tasks.add(new Todo(n));
-
-            // tasks.Deadline
-        } else if (s.startsWith("deadline ")) {
-            // Try to get the index of the first '/', if it does not exist, the statement is invalid.
-            // Also, it should adhere to "/by"
-            int first = s.indexOf('/');
-            if (first == -1) {
-                throw new DukeErroneousArgumentException();
-            } else if (!s.startsWith("/by ", first)) {
-                throw new DukeErroneousArgumentException();
-            }
-
-            // Get name and time. If empty, throw exception
-            String n = s.substring(9, Math.max(first - 1, 9));
-            String t = s.substring(first + 4);
-            if (n.isEmpty() || t.isEmpty()) {
-                throw new DukeEmptyArgumentException();
-            }
-
-            tasks.add(new Deadline(n, t));
-
-            // tasks.Event
-        } else if (s.startsWith("event ")) {
-            // Try to get the index of the first  and second '/', if it does not exist, the statement is invalid.
-            // Also, the format should adhere to "/from" and "/to"
-            int first = s.indexOf('/');
-            int second = s.indexOf('/', first + 1);
-            if (first == -1) {
-                throw new DukeErroneousArgumentException();
-            } else if (!s.startsWith("/from ", first)
-                    || !s.startsWith("/to ", second)) {
-                throw new DukeErroneousArgumentException();
-            }
-
-            String n = s.substring(6, Math.max(first - 1, 6));
-            String f = s.substring(first + 6, Math.max(second - 1, first + 6));
-            String t = s.substring(second + 4);
-            if (n.isEmpty() || f.isEmpty() || t.isEmpty()) {
-                throw new DukeEmptyArgumentException();
-            }
-            Event e = new Event(n, f, t);
+        switch (command) {
+        case TODO:
+            Duke.tasks.add(new Todo(inputs[1])); // Todo(name)
+            break;
+        case DEADLINE:
+            Duke.tasks.add(new Deadline(inputs[1], inputs[3])); // Deadline(name, by)
+            break;
+        case EVENT:
+            Event e = new Event(inputs[1], inputs[3], inputs[5]); // Event(name, from, to)
             if (!e.isCorrectOrder()) {
                 throw new DukeWrongDateOrderException();
             }
-            tasks.add(e);
-
-        } else {
-            throw new DukeInvalidInputException();
+            Duke.tasks.add(e);
+            break;
+        default:
+            return "Some catastrophic error has occurred!";
         }
 
-        System.out.print("Got it added this task:\n  " + tasks.get(tasks.size() - 1));
-        System.out.printf("Now you have %d tasks in the list.", tasks.size());
-        return tasks;
+        s = "Got it added this task:\n  " + Duke.tasks.get(Duke.tasks.size() - 1);
+        s += String.format("Now you have %d tasks in the list.", Duke.tasks.size());
+
+        return s;
     }
+
+    private void checkValidFormat(String[] inputs, Command command) {
+        switch (command) {
+        // Command: todo taskname
+        case TODO:
+            if (inputs.length < 2) {
+                throw new DukeEmptyArgumentException();
+            } else if (inputs.length > 2) {
+                throw new DukeErroneousArgumentException();
+            }
+            break;
+        // Command: deadline taskname /by when
+        case DEADLINE:
+            if (inputs.length < 4) {
+                throw new DukeEmptyArgumentException();
+            } else if (!inputs[2].equals("/by") || inputs.length > 4) {
+                throw new DukeErroneousArgumentException();
+            }
+            break;
+        // Command: event taskname /from start /to end
+        case EVENT:
+            if (inputs.length < 6) {
+                throw new DukeEmptyArgumentException();
+            } else if (inputs.length > 6 || !(inputs[2].equals("/from") && inputs[4].equals("/to"))) {
+                throw new DukeErroneousArgumentException();
+            }
+            break;
+        default:
+        }
+    }
+
 }
