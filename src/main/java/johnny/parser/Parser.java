@@ -103,6 +103,7 @@ public class Parser {
     private static AddTodoCommand parseTodoCommand(List<String> command) throws JohnnyException {
         checkIfCommandIsTooShort(command, "What is your todo bro?");
         String name = String.join(" ", command.subList(1, command.size()));
+        assert !name.equals("") : "Name should not be empty";
         return new AddTodoCommand(name);
     }
 
@@ -125,6 +126,7 @@ public class Parser {
         int i = command.indexOf("/by");
         checkIfIndexNotFound(i, "When is your deadline by bro?");
         String name = String.join(" ", command.subList(1, i));
+        assert !name.equals("") : "Name should not be empty";
         String by = String.join(" ", command.subList(i + 1, command.size()));
         return new AddDeadlineCommand(name, parseToLocalDateTime(by));
     }
@@ -137,6 +139,7 @@ public class Parser {
         checkIfIndexNotFound(j, "When does your event last to bro?");
 
         String name = String.join(" ", command.subList(1, i));
+        assert !name.equals("") : "Name should not be empty";
         String from = String.join(" ", command.subList(i + 1, j));
         String to = String.join(" ", command.subList(j + 1, command.size()));
         return new AddEventCommand(name, parseToLocalDateTime(from), parseToLocalDateTime(to));
