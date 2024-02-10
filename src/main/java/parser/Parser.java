@@ -24,7 +24,18 @@ public class Parser {
         ADD,
         DELETE,
     }
-    public Command parseCommand(String cmdInput) throws DukeException {
+
+    /**
+     * Takes Command Input and returns a command object with the relevant execute code
+     * @param cmdInput
+     * @return a command object
+     * @throws InvalidCmd For when command is not recognised
+     * @throws InvalidDateTimeFormat for when the user gives the date time in an incorrect format
+     * @throws EventEmptyException for when any of the fields of the event cmd is empty
+     * @throws DeadlineEmptyException for when any of the fields of the deadline cmd is empty
+     */
+    public Command parseCommand(String cmdInput)
+            throws InvalidCmd, InvalidDateTimeFormat, EventEmptyException, DeadlineEmptyException {
         Commands cmd;
         try {
             cmd = Commands.valueOf(cmdInput.split(" ", 2)[0].toUpperCase());
@@ -70,6 +81,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses through cmdInput and returns valid parameters an event constructor would accept
+     * @param cmdInput
+     * @return
+     * @throws EventEmptyException
+     */
     public String[] parseEvent(String cmdInput) throws EventEmptyException {
         // 0 has description, 1 has from, 2 has to
         String[] inputs = cmdInput.substring(6).split("\\s/", 3);
@@ -86,6 +103,12 @@ public class Parser {
         return inputs;
     }
 
+    /**
+     * Parses through cmdInput and returns valid parameters a deadline constructor would accept
+     * @param cmdInput
+     * @return
+     * @throws DeadlineEmptyException
+     */
     public String[] parseDeadline(String cmdInput) throws DeadlineEmptyException {
         String[] inputs = cmdInput.substring(9).split("\\s/by\\s", 2);
         if (inputs.length != 2) {
@@ -99,6 +122,13 @@ public class Parser {
         D, // Deadline
         E // Event
     }
+
+    /**
+     * Takes String of the correct data format and returns task object. Used for loading tasks
+     * @param dataFormat
+     * @return
+     * @throws InvalidDataFormat
+     */
     public static Task parseDataFormat(String dataFormat) throws InvalidDataFormat {
         String[] inputsToCmd;
         TaskTag tag;
