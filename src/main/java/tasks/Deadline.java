@@ -50,8 +50,14 @@ public class Deadline extends Task {
      * @return A formatted string containing task details.
      */
     public String toString() {
+        String[] currentDates = this.getDates();
+        String[] currentTimes = this.getTimes();
+        String parsedFirstDate = DateTimeParser.parseDate(LocalDate.parse(currentDates[0]));
+        String parsedFirstTime = DateTimeParser.parseTime(DateTimeParser.parseTimeAsLocalTime(currentTimes[0]));
         return "[D]" + "[" + this.getStatusIcon() + "] " + super.getTaskName()
-                + " (by: " + DateTimeParser.parseDate(this.dateBy)
-                + " " + DateTimeParser.parseTime(this.timeBy) + ")";
+                + " (by: "
+                + parsedFirstDate
+                + " "
+                + parsedFirstTime + ")";
     }
 }

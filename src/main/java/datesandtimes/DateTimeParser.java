@@ -53,6 +53,7 @@ public class DateTimeParser {
      */
     public static void main(String[] args) {
         // Example usage of parseDate
-        System.out.println(parseDate(LocalDate.parse("2045-02-28")));
+        System.out.println((LocalDate.parse("2023-02-23")));
+        System.out.println(parseTimeAsLocalTime("09:00"));
     }
 }
