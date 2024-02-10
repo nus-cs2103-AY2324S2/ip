@@ -15,7 +15,7 @@ public class Todo extends Task {
         if (name == null) {
             throw new NicoleException("What exactly do you want me to note...tell me in the form of: todo [task]");
         }
-        super.setName(name);
+        super.updateName(name);
     }
 
     @Override

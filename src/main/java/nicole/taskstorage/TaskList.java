@@ -22,7 +22,7 @@ public class TaskList {
     public TaskList() {
     }
 
-    private void crudChecker(int taskNumber) throws NicoleException {
+    private void checkValidTaskNumber(int taskNumber) throws NicoleException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new NicoleException("Huh? That's not a valid item number :')");
         }
@@ -35,7 +35,7 @@ public class TaskList {
      * @throws NicoleException if the unmark index is out of bounds of the list or the task is already unmarked.
      */
     public String unmarkTask(int taskNumber) throws NicoleException {
-        crudChecker(taskNumber);
+        checkValidTaskNumber(taskNumber);
         String unmarkedMessage = TASKS.get(taskNumber - 1).markUndone();
         STORAGE.saveTasksToFile();
         return unmarkedMessage;
@@ -48,7 +48,7 @@ public class TaskList {
      * @throws NicoleException if the mark index is out of bounds of the list or the task is already marked.
      */
     public String markTask(int taskNumber) throws NicoleException {
-        crudChecker(taskNumber);
+        checkValidTaskNumber(taskNumber);
         String markedMessage = TASKS.get(taskNumber - 1).markDone();
         STORAGE.saveTasksToFile();
         return markedMessage;
@@ -61,7 +61,7 @@ public class TaskList {
      * @throws NicoleException if the delete index is out of bounds of the list.
      */
     public String deleteTask(int taskNumber) throws NicoleException {
-        crudChecker(taskNumber);
+        checkValidTaskNumber(taskNumber);
         TASKS.remove(taskNumber - 1);
         STORAGE.saveTasksToFile();
         return "Phew...deleted  :>";
@@ -121,7 +121,7 @@ public class TaskList {
      * @throws NicoleException if the delete index is out of bounds of the list.
      */
     public String updateTask(String newTaskName, int taskNumber) throws NicoleException {
-        crudChecker(taskNumber);
+        checkValidTaskNumber(taskNumber);
         TASKS.get(taskNumber - 1).updateName(newTaskName);
         STORAGE.saveTasksToFile();
         return "Okie I updated the name";
@@ -170,7 +170,6 @@ public class TaskList {
         } else {
             savedTasks.append("Here's the tasks I saved so far,").append("\n");
         }
-
         for (int i = 0; i < TASKS.size(); i++) {
             savedTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
         }

@@ -57,7 +57,6 @@ public class Storage {
                     String taskDescription = task.substring(7);
                     Task recreatedTask = Task.taskFactory(taskDescription, taskType);
                     if (taskCompleted == 'C') {
-                        assert recreatedTask != null;
                         recreatedTask.markDone();
                     }
                     TaskList.TASKS.add(recreatedTask);

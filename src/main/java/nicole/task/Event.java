@@ -42,7 +42,7 @@ public class Event extends Task {
         for (int i = 0; i < whiteSpaceSeparatedDate.length - 4; i++) {
             eventDescription.append(whiteSpaceSeparatedDate[i]).append(" ");
         }
-        super.setName(eventDescription.toString());
+        super.updateName(eventDescription.toString());
 
         try {
             for (int i = 0; i < whiteSpaceSeparatedDate.length; i++) {

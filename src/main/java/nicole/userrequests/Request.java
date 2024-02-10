@@ -68,8 +68,9 @@ public class Request {
                     + "4. list\n"
                     + "5. priority\n"
                     + "6. find [keyword]\n"
-                    + "7. bye\n"
-                    + "8. help";
+                    + "7. update [tasknumber] [new task name]"
+                    + "8. bye\n"
+                    + "9. help";
         } else if (request.equals("sort by date")) {
             return taskList.sortTasksByDate();
         } else if (request.contains("find")) {
