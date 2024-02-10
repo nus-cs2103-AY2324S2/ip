@@ -1,19 +1,6 @@
 package johnny;
 
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import johnny.commands.Command;
 import johnny.exceptions.JohnnyException;
 import johnny.parser.Parser;
@@ -59,8 +46,6 @@ public class Johnny {
      * Print welcome message and reads command from user and responds with the appropriate response.
      * Ui will print any error caught in the chatbot to the user.
      */
-
-
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);

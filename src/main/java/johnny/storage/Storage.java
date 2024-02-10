@@ -49,39 +49,41 @@ public class Storage {
 
             if (!file.isFile() && file.getParentFile().mkdir()) {
                 file.createNewFile();
-            } else {
-                Scanner scanner = new Scanner(file);
-
-                while (scanner.hasNext()) {
-                    String input = scanner.nextLine();
-                    String[] parsedInput = input.split(" \\| ");
-                    Task task;
-                    String taskType = parsedInput[0];
-
-                    switch(taskType) {
-                    case "T":
-                        task = new ToDo(parsedInput[2]);
-                        break;
-                    case "D":
-                        LocalDateTime by = LocalDateTime.parse(parsedInput[3], INPUT_DATE_FORMAT);
-                        task = new Deadline(parsedInput[2], by);
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(parsedInput[3], INPUT_DATE_FORMAT);
-                        LocalDateTime to = LocalDateTime.parse(parsedInput[4], INPUT_DATE_FORMAT);
-                        task = new Event(parsedInput[2], from, to);
-                        break;
-                    default:
-                        throw new JohnnyException("The file has been corrupted bro.");
-                    }
-
-                    if (parsedInput[1].equals("1")) {
-                        task.mark();
-                    }
-                    tasks.add(task);
-                }
-                scanner.close();
+                return tasks;
             }
+
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNext()) {
+                String input = scanner.nextLine();
+                String[] parsedInput = input.split(" \\| ");
+                Task task;
+                String taskType = parsedInput[0];
+
+                switch(taskType) {
+                case "T":
+                    task = new ToDo(parsedInput[2]);
+                    break;
+                case "D":
+                    LocalDateTime by = LocalDateTime.parse(parsedInput[3], INPUT_DATE_FORMAT);
+                    task = new Deadline(parsedInput[2], by);
+                    break;
+                case "E":
+                    LocalDateTime from = LocalDateTime.parse(parsedInput[3], INPUT_DATE_FORMAT);
+                    LocalDateTime to = LocalDateTime.parse(parsedInput[4], INPUT_DATE_FORMAT);
+                    task = new Event(parsedInput[2], from, to);
+                    break;
+                default:
+                    throw new JohnnyException("The file has been corrupted bro.");
+                }
+
+                if (parsedInput[1].equals("1")) {
+                    task.mark();
+                }
+                tasks.add(task);
+            }
+
+            scanner.close();
             return tasks;
         } catch (IOException e) {
             throw new JohnnyException("I can't create a new file bro: " + e.getMessage());
