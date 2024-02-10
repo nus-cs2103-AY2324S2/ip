@@ -1,0 +1,17 @@
+#dialog{
+    -fx-padding: 10 10 10 10; /* 10 pixels of padding at the top */
+}
+
+#dialogContainer{
+    -fx-background-color: #D5F2E3;
+}
+
+#dialog{
+    -fx-background-color: rgb(255, 252, 249, 0.4);
+    -fx-pref-width: 388px;
+}
+
+#name{
+    -fx-padding: 5 0 5 0; /* 10 pixels of padding at the top */
+    -fx-font-size: 11;
+}

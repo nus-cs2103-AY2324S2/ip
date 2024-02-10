@@ -3,7 +3,7 @@ package duke.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import duke.Duke;
+import duke.ui.gui.Main;
 import duke.storage.Storage;
 import duke.task.*;
 import duke.ui.Ui;
@@ -16,7 +16,6 @@ public class Parser {
             DateTimeFormatter.ofPattern("ddMMyy'T'HHmm");
     private static Parser instance = null;
     private Ui ui = null;
-    private Duke duke = null;
     private TaskList taskList = null;
     private Storage storage = null;
 
@@ -32,7 +31,6 @@ public class Parser {
      */
     public void initParser() {
         ui = Ui.getInstance();
-        duke = duke.getInstance();
         taskList = TaskList.getInstance();
         storage = Storage.getInstance();
     }
@@ -167,7 +165,7 @@ public class Parser {
         }
 
         if (input.equals("close")) {
-            duke.close();
+            Main.getStage().close();
             return "close";
         }
 

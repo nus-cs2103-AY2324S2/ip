@@ -1,4 +1,4 @@
-Initial planning for the implementation of the duke.Duke project Chatbot
+Initial planning for the implementation of the dukeGUI.Duke project Chatbot
 
 date: 25 Jan 2024
 
@@ -45,7 +45,7 @@ Requirements:
 	- the index by which it is listed must provide access to the item when searching/deleting
 
 Design:
-- item: implement as class duke.task.Task
+- item: implement as class dukeGUI.task.Task
 - list: implement with LinkedList
 	- rationale: to allow ease of access and update
 
@@ -59,7 +59,7 @@ Requirements:
 - mark task as not done
 
 Design:
-- add isDone boolean field to duke.task.Task class and implement relevant functions
+- add isDone boolean field to dukeGUI.task.Task class and implement relevant functions
 
 
 
