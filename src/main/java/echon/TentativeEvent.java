@@ -52,7 +52,10 @@ public class TentativeEvent extends Task {
     /**
      * Creates an event with only one selected tentative slot.
      */
-    public Event createEvent(int index) {
+    public Event createEvent(int index) throws EchonException {
+        if (index < 0 || index >= this.fromDates.size()) {
+            throw new EchonException("OOPS!!! The slot index is invalid.");
+        }
         LocalDateTime fromDate = this.fromDates.get(index);
         LocalDateTime toDate = this.toDates.get(index);
         return new Event(this.getDescription(), fromDate, toDate);
