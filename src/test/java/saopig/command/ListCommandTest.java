@@ -32,44 +32,49 @@ public class ListCommandTest {
 
     @Test
     void testListTasksWithEmptyTaskList() {
+        String result;
         when(mockTaskList.getTasks()).thenReturn(new ArrayList<>());
         listCommand = new ListCommand("", 0);
-        listCommand.listTasks(mockTaskList, mockUi);
-        verify(mockUi).printMessage(contains("no tasks yet"));
+        result = listCommand.listTasks(mockTaskList, mockUi);
+        assert result.contains("no tasks yet");
     }
 
     @Test
     void testListTasksWithNonEmptyTaskList() {
+        String result;
         Task mockTask = mock(Task.class);
         when(mockTask.toString()).thenReturn("Task Details");
         when(mockTaskList.getTasks()).thenReturn(new ArrayList<>(Arrays.asList(mockTask, mockTask)));
         listCommand = new ListCommand("", 0);
-        listCommand.listTasks(mockTaskList, mockUi);
-        verify(mockUi, times(2)).printMessage(contains("Task Details"));
+        result = listCommand.listTasks(mockTaskList, mockUi);
+        assert result.contains("Task Details");
     }
 
     @Test
     void testListTasksOnDateInvalidInputLength() {
+        String result;
         listCommand = new ListCommand("listtaskondate 2022-01-01", 1);
-        listCommand.listTasksOnDate("listtaskondate", mockTaskList, mockUi);
-        verify(mockUi).printMessage(contains("Oopses daisy!"));
+        result = listCommand.listTasksOnDate("listtaskondate", mockTaskList, mockUi);
+        assert result.contains("Oopses daisy!");
     }
 
     @Test
     void testListTasksOnDateNoTasks() {
         String command = "listtaskondate 2022-01-01";
+        String result;
         listCommand = new ListCommand(command, 1);
         when(mockTaskList.getTasks()).thenReturn(new ArrayList<>());
-        listCommand.listTasksOnDate(command, mockTaskList, mockUi);
-        verify(mockUi).printMessage(contains("no tasks on 2022-01-01"));
+        result = listCommand.listTasksOnDate(command, mockTaskList, mockUi);
+        assert result.contains("no tasks on 2022-01-01");
     }
 
     @Test
     void testListTasksOnDateInvalidDateFormat() {
         String command = "listtaskondate invalid-date";
+        String result;
         listCommand = new ListCommand(command, 1);
-        listCommand.listTasksOnDate(command, mockTaskList, mockUi);
-        verify(mockUi).printMessage(contains("invalid date time format"));
+        result = listCommand.listTasksOnDate(command, mockTaskList, mockUi);
+        assert result.contains("invalid date time format");
     }
 
 }

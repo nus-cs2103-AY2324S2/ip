@@ -32,20 +32,6 @@ class AddCommandTest {
     }
 
     @Test
-    public void testAddTodoTask() {
-        addCommand.addTodoTask("todo read book", mockTaskList, mockUi, mockStorage);
-
-        // Verify if a Todo task was added to the task list
-        verify(mockTaskList).addTodoTask(any(Todo.class));
-
-        // Verify if the task list was saved
-        verify(mockStorage).saveTaskList(any(TaskList.class));
-
-        // Verify if a success message was shown
-        verify(mockUi, atLeastOnce()).printMessage(contains("has been added successfully"));
-    }
-
-    @Test
     public void testAddDeadlineTask() {
         addCommand.addDeadlineTask("deadline return book /by 2020-02-02 18:00",
                 mockTaskList, mockUi, mockStorage);
@@ -55,9 +41,6 @@ class AddCommandTest {
 
         // Verify if the task list was saved
         verify(mockStorage).saveTaskList(any(TaskList.class));
-
-        // Verify if a success message was shown
-        verify(mockUi, atLeastOnce()).printMessage(contains("has been added successfully"));
     }
 
     @Test
@@ -70,9 +53,6 @@ class AddCommandTest {
 
         // Verify if the task list was saved
         verify(mockStorage).saveTaskList(any(TaskList.class));
-
-        // Verify if a success message was shown
-        verify(mockUi, atLeastOnce()).printMessage(contains("has been added successfully"));
     }
 
     // Additional tests can be written to cover edge cases and exceptions

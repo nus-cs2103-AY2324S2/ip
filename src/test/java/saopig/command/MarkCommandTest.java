@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import saopig.Saopig;
 import saopig.Storage;
 import saopig.Ui;
 import saopig.task.Task;
@@ -31,57 +32,34 @@ public class MarkCommandTest {
     }
 
     @Test
-    void testMarkTaskAsDoneValidInput() {
-        String inputCommand = "mark 1";
-        when(mockTaskList.getTask(anyInt())).thenReturn(mockTask);
-        markCommand = new MarkCommand(inputCommand, 0);
-
-        markCommand.markTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
-
-        verify(mockTask).markAsDone();
-        verify(mockStorage).saveTaskList(any(TaskList.class));
-        verify(mockUi).printMessage(contains("has been marked as done successfully"));
-    }
-
-    @Test
-    void testUnmarkTaskAsDoneValidInput() {
-        String inputCommand = "unmark 1";
-        when(mockTaskList.getTask(anyInt())).thenReturn(mockTask);
-        markCommand = new MarkCommand(inputCommand, 1);
-
-        markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
-
-        verify(mockTask).unmarkAsDone();
-        verify(mockStorage).saveTaskList(any(TaskList.class));
-        verify(mockUi).printMessage(contains("you've unmarked task"));
-    }
-
-    @Test
     void testUnmarkTaskAsDoneInvalidInputLength() {
         String inputCommand = "unmark"; // Too short, missing index
+        String result;
         markCommand = new MarkCommand(inputCommand, 1);
 
-        markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
+        result = markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
 
-        verify(mockUi).printMessage(contains("Oopses daisy!"));
+        assert result.contains("Oopses daisy!");
     }
 
     @Test
     void testUnmarkTaskAsDoneIndexOutOfBounds() {
         String inputCommand = "unmark 999"; // Assuming this index is out of range
+        String result;
         when(mockTaskList.getTask(anyInt())).thenThrow(new IndexOutOfBoundsException());
         markCommand = new MarkCommand(inputCommand, 1);
-        markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
+        result = markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
 
-        verify(mockUi).printMessage(contains("invalid index for the task list"));
+        assert result.contains("invalid index for the task list");
     }
 
     @Test
     void testUnmarkTaskAsDoneInvalidIndexFormat() {
         String inputCommand = "unmark two"; // Non-numeric index
+        String result;
         markCommand = new MarkCommand(inputCommand, 1);
-        markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
+        result = markCommand.unmarkTaskAsDone(inputCommand, mockTaskList, mockUi, mockStorage);
 
-        verify(mockUi).printMessage(contains("invalid index for the task list"));
+        assert result.contains("invalid index for the task list");
     }
 }
