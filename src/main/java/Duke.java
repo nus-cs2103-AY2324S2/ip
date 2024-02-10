@@ -1,6 +1,11 @@
 import java.io.IOException;
 
 public class Duke {
+    // Main method to start the bot
+    // Duke uses the Operator to connect the user to the bot
+    // A separate operator gives us flexibility to change the way the bot is
+    // operated
+    // and even add more bots in the future
     public static void main(String[] args) throws BotException, IOException {
         // Name of the bot
         String botName = "WannaBeSkynet";
@@ -18,8 +23,8 @@ public class Duke {
         // Initial
         System.out.println(TerminalUI.wrapWithSepLine(defaultGreeting + "\n" + warning + "\n"));
 
-        // Starting Operation
+        // Starting Operator to work with bot
         Operator operator = new Operator();
-        operator.goLive();
+        operator.startBot();
     }
 }

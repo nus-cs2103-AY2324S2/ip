@@ -13,8 +13,8 @@ public class Operator {
         this.taskList = taskRepo.loadTasks();
     }
 
-    // Entry point of the bot
-    public void goLive() throws BotException, IOException {
+    // Starts the bot, and handles user input and output
+    public void startBot() throws BotException, IOException {
         while (true) {
             String userInput = scanner.nextLine();
             String[] userInputArr = userInput.split(" ");
@@ -94,6 +94,10 @@ public class Operator {
             }
         }
     }
+
+    // All the methods below are private and are used to handle the different
+    // commands
+    // helper functions
 
     private void handleInvalidCommand() throws BotException {
         // System.out.println("Reached haere");

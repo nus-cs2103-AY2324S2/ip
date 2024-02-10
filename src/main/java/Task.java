@@ -1,34 +1,51 @@
+/**
+ * Represents a Task with a description and a completion status
+ */
 public class Task {
     private String description;
     private boolean isComplete;
 
-    // Private constructor to create a new Task with the given description
+    /**
+     * Constructs a new Task with the given description
+     *
+     * @param description The description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isComplete = false;
     }
 
-    // The description of the task
+    /**
+     * @return The description of the task
+     */
     public String getDescription() {
         return description;
     }
 
-    // Mark task as done
+    /**
+     * Marks the task as done
+     */
     public void markAsDone() {
         this.isComplete = true;
     }
 
-    // Unmark task as done
+    /**
+     * Unmarks the task as done
+     */
     public void markAsUndone() {
         this.isComplete = false;
     }
 
-    // True if the task is done, else no
+    /**
+     * @return True if the task is done, false otherwise
+     */
     public boolean isDone() {
         return isComplete;
     }
 
-    // To string
+    /**
+     * @return A string representation of the task
+     */
     @Override
     public String toString() {
         return " | " + (isComplete ? "X" : " ") + " | " + description;
