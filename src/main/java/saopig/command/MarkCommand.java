@@ -6,6 +6,8 @@ import saopig.Ui;
 import saopig.task.Task;
 import saopig.task.TaskList;
 
+import java.util.Objects;
+
 /**
  * Represents a command to mark tasks as done.
  */
@@ -21,6 +23,7 @@ public class MarkCommand extends Command {
      * @param typeIndex The type index.
      */
     public MarkCommand(String command, int typeIndex) {
+        assert typeIndex == 0 || typeIndex == 1 : "typeIndex should be 0 or 1";
         this.command = command;
         this.typeIndex = typeIndex;
     }
@@ -45,9 +48,11 @@ public class MarkCommand extends Command {
         try {
             StringBuilder response = new StringBuilder();
             checkValue(input.length(), 6, Integer.MAX_VALUE);
+            assert input.length() >= 6 : "Input length should be at least 6";
             int index = Integer.parseInt(input.substring(5)) - 1;
             Task task = taskList.getTask(index);
             task.markAsDone();
+            assert Objects.equals(task.getStatusIcon(), "X") : "Task should be marked as done";
             storage.saveTaskList(taskList);
             response.append("\n" + "Oh, splendid! Your task: {")
                     .append(task.toString())
@@ -89,9 +94,11 @@ public class MarkCommand extends Command {
         try {
             StringBuilder response = new StringBuilder();
             checkValue(input.length(), 8, Integer.MAX_VALUE);
+            assert input.length() >= 8 : "Input length should be at least 8";
             int index = Integer.parseInt(input.substring(7)) - 1;
             Task task = taskList.getTask(index);
             task.unmarkAsDone();
+            assert Objects.equals(task.getStatusIcon(), " ") : "Task should be marked as not done";
             storage.saveTaskList(taskList);
             response.append("\n" + "Oh, you've unmarked task: {")
                     .append(task.toString()).append("}?\n ")

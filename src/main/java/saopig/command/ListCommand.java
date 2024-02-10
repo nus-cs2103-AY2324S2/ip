@@ -33,6 +33,7 @@ public class ListCommand extends Command {
      * @param typeIndex The type index.
      */
     public ListCommand(String command, int typeIndex) {
+        assert typeIndex == 0 || typeIndex == 1 : "typeIndex should be 0 or 1";
         this.command = command;
         this.typeIndex = typeIndex;
     }
@@ -59,6 +60,7 @@ public class ListCommand extends Command {
                     + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
                     + "Let's make it a magical journey together!");
         }
+        assert !taskList.getTasks().isEmpty() : "Task list should not be empty";
         StringBuilder response = new StringBuilder();
         for (int i = 0; i < taskList.getTasks().size(); i++) {
             Task task = taskList.getTasks().get(i);
@@ -84,6 +86,7 @@ public class ListCommand extends Command {
         try {
             StringBuilder response = new StringBuilder();
             checkValue(input.length(), 16, Integer.MAX_VALUE);
+            assert input.length() >= 16 : "Input length should be at least 16";
             String date = input.substring(15);
             response.append("\n" + "Oh, splendid! Let me check my calendar for tasks on ").append(date).append("...");
             LocalDateTime dateTime = LocalDateTime.parse(date + " 00:00", DATE_TIME_FORMATTER);

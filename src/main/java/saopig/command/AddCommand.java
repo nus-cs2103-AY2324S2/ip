@@ -34,6 +34,7 @@ public class AddCommand extends Command {
      * @param typeIndex The type of task to be added.
      */
     public AddCommand(String command, int typeIndex) {
+        assert typeIndex == 0 || typeIndex == 1 || typeIndex == 2 : "Invalid type index";
         this.command = command;
         this.typeIndex = typeIndex;
     }
@@ -61,6 +62,7 @@ public class AddCommand extends Command {
     public String addTodoTask(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
             checkValue(input.length(), 6, Integer.MAX_VALUE);
+            assert input.length() >= 6 : "Input length should be at least 6";
             String processedInput = input.substring(5);
             Todo task = new Todo(processedInput);
             taskList.addTodoTask(task);
@@ -97,6 +99,7 @@ public class AddCommand extends Command {
         try {
             StringBuilder response = new StringBuilder();
             checkValue(input.length(), 10, Integer.MAX_VALUE);
+            assert input.length() >= 10 : "Input length should be at least 10";
             String splitInput = input.substring(9);
             String[] splitArguments = splitInput.split(" /by ");
             if (splitArguments.length != 2) {
@@ -162,6 +165,7 @@ public class AddCommand extends Command {
         try {
             StringBuilder response = new StringBuilder();
             checkValue(input.length(), 7, Integer.MAX_VALUE);
+            assert input.length() >= 7 : "Input length should be at least 7";
             String splitInput = input.substring(6);
             String[] splitArguments = splitInput.split("/");
             if (splitArguments.length != 3) {
@@ -169,6 +173,7 @@ public class AddCommand extends Command {
                         + "Whoopsie!\n "
                         + "It seems like you may have forgotten to write the event start or end time ");
             }
+            assert splitArguments.length == 3 : "Split arguments length should be 3";
             String description = splitArguments[0].trim();
             String fromTime = splitArguments[1].trim().substring(5);
             String toTime = splitArguments[2].trim().substring(3);
