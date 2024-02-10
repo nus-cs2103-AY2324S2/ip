@@ -5,7 +5,6 @@ import java.time.LocalDate;
 /**
  * Represents a Deadline class inherited from Task.
  */
-@SuppressWarnings("checkstyle:Regexp")
 public class Deadline extends Task {
     protected LocalDate by;
 
