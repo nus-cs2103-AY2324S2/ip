@@ -24,6 +24,6 @@ public class ToDo extends Task {
 
     @Override
     public String getFullStatus() {
-        return this.getStatusIcon() + " " + this.getDescription();
+        return this.getStatusIcon() + " " + this.getDescription() + " [" + this.getPriority() + "]";
     }
 }

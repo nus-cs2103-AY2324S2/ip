@@ -87,7 +87,7 @@ public abstract class Task {
 
     public String getFullStatus() {
         return this.getStatusIcon() + " " + this.getDescription() + " " + this.getTimeData()
-            + this.getPriority();
+            + " [" + this.getPriority() + "]";
     }
 
 }
