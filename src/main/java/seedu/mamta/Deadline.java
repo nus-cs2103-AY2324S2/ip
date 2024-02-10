@@ -1,6 +1,7 @@
 package seedu.mamta;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a deadline.
@@ -82,6 +83,23 @@ public class Deadline extends Task {
     public Deadline unmarkTask() {
         return new Deadline(false, this.content, this.deadline);
     }
+
+    @Override
+    public int getStartDate() {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy");
+            LocalDate startDate = LocalDate.parse(deadline, formatter);
+
+            // Convert LocalDate to an integer representation (yyyyMMdd)
+            int year = startDate.getYear();
+            int month = startDate.getMonthValue();
+            int day = startDate.getDayOfMonth();
+            return year * 10000 + month * 100 + day;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * Returns a string representation of the Deadline object.

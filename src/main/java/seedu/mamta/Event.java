@@ -1,6 +1,7 @@
 package seedu.mamta;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task with a scheduled start and end time.
@@ -83,6 +84,22 @@ public class Event extends Task {
     @Override
     public Event markDone() {
         return new Event(true, this.content, this.startTime, this.endTime);
+    }
+
+    @Override
+    public int getStartDate() {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy");
+            LocalDate startDate = LocalDate.parse(startTime, formatter);
+
+            // Convert LocalDate to an integer representation (yyyyMMdd)
+            int year = startDate.getYear();
+            int month = startDate.getMonthValue();
+            int day = startDate.getDayOfMonth();
+            return year * 10000 + month * 100 + day;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

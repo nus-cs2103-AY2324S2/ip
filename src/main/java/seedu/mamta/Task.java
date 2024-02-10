@@ -60,6 +60,10 @@ public class Task {
         return new Task(false, this.content);
     }
 
+     public int getStartDate() {
+        return 0;
+    }
+
     /**
      * Returns a string representation of the Task object.
      * @return A string representation of the Task object.

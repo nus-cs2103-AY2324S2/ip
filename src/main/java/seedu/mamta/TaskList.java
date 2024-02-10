@@ -35,7 +35,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public static ArrayList<Task> getTasks() {
-        return tasks;
+        return TaskList.sortTaskListByDates();
     }
 
     /**
@@ -50,6 +50,31 @@ public class TaskList {
                 .filter(task -> task.getContent().contains(keyword))
                 .map(task -> String.format("%d. %s\n", tasks.indexOf(task) + 1, task))
                 .collect(Collectors.joining());
+    }
+
+    public static ArrayList<Task> sortTaskListByDates() {
+        ArrayList<Task> sortedTasks = new ArrayList<Task>();
+        //add tasks without explicit dates at the top before sorting
+        for (Task t: tasks) {
+            if (t instanceof Todo) {
+                sortedTasks.add(t);
+                tasks.remove(t);
+            }
+        }
+        //O(n^2)
+        for (int i = 0; i < tasks.size()-1; i++) {
+            for (int j = i+1; j < tasks.size(); j++) {
+                if (tasks.get(i).getStartDate() > tasks.get(j).getStartDate()) {
+                    Task temp = tasks.get(i);
+                    tasks.set(i, tasks.get(j));
+                    tasks.set(j, temp);
+                }
+            }
+        }
+        //append the sorted list to sortedTasks
+        sortedTasks.addAll(tasks);
+        tasks = sortedTasks;
+        return tasks;
     }
 
 }
