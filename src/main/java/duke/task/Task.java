@@ -46,8 +46,12 @@ public abstract class Task implements Serializable {
     /**
      * Sets the task to complete.
      */
-    public final void setComplete() {
-        status = Status.Complete;
+    public final void setStatus(boolean isComplete) {
+        if (isComplete) {
+            status = Status.Complete;
+        } else {
+            status = Status.Incomplete;
+        }
     }
 
     /**
