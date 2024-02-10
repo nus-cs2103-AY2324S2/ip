@@ -46,6 +46,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String deleteTask(int deletedIndex) throws IOException {
+        assert deletedIndex >= 0 && deletedIndex < l.size();
         if (deletedIndex >= 0 && deletedIndex < l.size()) {
             Task removedTask = l.remove(deletedIndex);
             storage.saveToFile(l);
@@ -62,6 +63,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public void addEventTask(Task task) throws IOException {
+        assert task != null;
         System.out.println("______________________________________________________");
         System.out.println("Got it. I've added this task:");
         //System.out.println(" " + task);
@@ -82,6 +84,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String addTodoTask(Task task) throws IOException {
+        assert task != null;
         l.add(task);
         storage.saveToFile(l);
         String response = "Got it. I've added this task:\n" + task.toString() +
@@ -96,6 +99,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String addDeadlineTask(Task task) throws IOException {
+        assert task != null;
         l.add(task);
         storage.saveToFile(l);
         String response = "Got it. I've added this task:\n" + task.toString() +
@@ -130,6 +134,7 @@ public class TaskList {
      * @return
      */
     public String findTask(String user_keyword) {
+        assert user_keyword != null;
         StringBuilder response = new StringBuilder();
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : l) {
@@ -155,6 +160,7 @@ public class TaskList {
      * @throws IOException If an I/O error occurs.
      */
     public String listTasks() {
+        assert l != null;
         StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < l.size(); i++) {
             response.append(i + 1).append(". ").append(l.get(i)).append("\n");
@@ -169,6 +175,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String markTask(int index) throws IOException {
+        assert index >= 0 && index < l.size();
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
             task.markDone();
@@ -186,6 +193,7 @@ public class TaskList {
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     public String unmarkTask(int index) throws IOException {
+        assert index >= 0 && index < l.size();
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
             task.mark_not_done();

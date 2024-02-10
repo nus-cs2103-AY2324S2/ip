@@ -54,6 +54,9 @@ public class Duke extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert storage != null : "Storage should not be null";
+        assert taskList != null : "TaskList should not be null";
+        assert parser != null : "Parser should not be null";
     }
 
     /**
@@ -157,6 +160,7 @@ public class Duke extends Application {
     }
     public String getResponse(String input) {
         try {
+            assert input != null : "Input should not be null";
             return parser.processCommand(input);
         } catch (DukeException | IOException e) {
             return e.getMessage();

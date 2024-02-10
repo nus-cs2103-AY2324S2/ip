@@ -57,6 +57,7 @@ public class Parser {
     }
 
     private String handleTodo(String userWord) throws DukeException, IOException {
+        assert userWord != null;
         if (userWord.trim().equals("todo")) {
             throw new DukeException("ERROR!! Please give the description of todo.");
         }
@@ -67,6 +68,7 @@ public class Parser {
     }
 
     private String handleEvent(String userWord) throws DukeException, IOException {
+        assert userWord != null;
         if (!userWord.contains("/from") || !userWord.contains("/to")) {
             throw new DukeException("ERROR!! Please provide both start and end dates for the event using '/from' and '/to'.");
         }
@@ -87,6 +89,7 @@ public class Parser {
 
 
     private String handleDeadline(String userWord) throws DukeException, IOException {
+        assert userWord != null && userWord.contains("/by");
         if (!userWord.contains("/by")) {
             throw new DukeException("ERROR!! Please provide a deadline using '/by'.");
         }
@@ -107,6 +110,7 @@ public class Parser {
     }
 
     private String handleDelete(String userWord) throws DukeException {
+        assert userWord != null && userWord.startsWith("delete");
         try {
             int deletedIndex = Integer.parseInt(userWord.split(" ")[1]) - 1;
             return taskList.deleteTask(deletedIndex);
@@ -116,6 +120,7 @@ public class Parser {
     }
 
     private String handleMark(String userWord) throws DukeException {
+        assert userWord != null && userWord.startsWith("mark");
         try {
             int elementIndex = Integer.parseInt(userWord.split(" ")[1]) - 1;
             return taskList.markTask(elementIndex);
@@ -125,6 +130,7 @@ public class Parser {
     }
 
     private String handleUnmark(String userWord) throws DukeException {
+        assert userWord != null && userWord.startsWith("unmark");
         try {
             int elementIndex = Integer.parseInt(userWord.split(" ")[1]) - 1;
             return taskList.unmarkTask(elementIndex);
@@ -134,6 +140,7 @@ public class Parser {
     }
 
     private String handleList(String userWord) throws IOException {
+        assert userWord != null && userWord.equals("list");
         return taskList.listTasks();
     }
 
