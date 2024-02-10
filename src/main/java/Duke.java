@@ -11,9 +11,9 @@ import java.io.FileNotFoundException;
  *  ChrisP Bacon is a chatbot that manages the user's list of tasks.
  */
 public class Duke {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Initialises new ui and storage objects, loads tasks into a new task list object.
@@ -42,7 +42,8 @@ public class Duke {
 
     /**
      * Initialises and run duke program.
-     * @param args
+     *
+     * @param args arguments
      */
     public static void main(String[] args) {
         new Duke("data/list.txt").run();
