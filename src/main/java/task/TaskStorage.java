@@ -10,13 +10,13 @@ import util.Messages;
  * such as addition, deletion, and editing Tasks.
  */
 public class TaskStorage {
-    private ArrayList<Task> sl;
+    private ArrayList<Task> storageList;
 
     /**
      * Constructs an empty ArrayList to store Task objects.
      */
     public TaskStorage() {
-        this.sl = new ArrayList<>();
+        this.storageList = new ArrayList<>();
     }
 
     /**
@@ -26,9 +26,9 @@ public class TaskStorage {
      */
     public TaskStorage(ArrayList<Task> taskList) {
         if (taskList != null) {
-            this.sl = taskList;
+            this.storageList = taskList;
         } else {
-            this.sl = new ArrayList<>();
+            this.storageList = new ArrayList<>();
         }
     }
 
@@ -38,7 +38,7 @@ public class TaskStorage {
      * @param t The Task object to be added to the ArrayList.
      */
     public void addTask(Task t) {
-        this.sl.add(t);
+        this.storageList.add(t);
     }
 
     /**
@@ -49,11 +49,11 @@ public class TaskStorage {
     public String removeTask(int id) {
         Task t;
         try {
-            t = this.sl.get(id - 1);
+            t = this.storageList.get(id - 1);
         } catch (IndexOutOfBoundsException e) {
             return Messages.MESSAGE_NO_SUCH_ELEMENTS;
         }
-        this.sl.remove(id - 1);
+        this.storageList.remove(id - 1);
         return t.toString();
     }
 
@@ -66,7 +66,7 @@ public class TaskStorage {
     public String markTask(int id, boolean mark) {
         Task t;
         try {
-            t = this.sl.get(id - 1);
+            t = this.storageList.get(id - 1);
         } catch (IndexOutOfBoundsException e) {
             return Messages.MESSAGE_NO_SUCH_ELEMENTS;
         }
@@ -88,7 +88,7 @@ public class TaskStorage {
         ArrayList<Task> keywordHits = new ArrayList<>();
         ArrayList<Integer> keywordHitIndexes = new ArrayList<>();
         int counter = 1;
-        for (Task task:this.sl) {
+        for (Task task:this.storageList) {
             if (task.toString().contains(keyword)) {
                 keywordHits.add(task);
                 keywordHitIndexes.add(counter);
@@ -110,14 +110,14 @@ public class TaskStorage {
      * Returns the size of the ArrayList.
      */
     public int size() {
-        return this.sl.size();
+        return this.storageList.size();
     }
 
     /**
      * To get the ArrayList stored for printing purposes.
      */
     public ArrayList<Task> getStorage() {
-        return this.sl;
+        return this.storageList;
     }
 
     /**
@@ -129,9 +129,9 @@ public class TaskStorage {
     @Override
     public String toString() {
         String totalAns = "";
-        for (int i = 0; i < sl.size(); i++) {
-            totalAns += (i + 1) + "." + sl.get(i);
-            if (i != sl.size() - 1) {
+        for (int i = 0; i < this.storageList.size(); i++) {
+            totalAns += (i + 1) + "." + this.storageList.get(i);
+            if (i != this.storageList.size() - 1) {
                 totalAns += "\n";
             }
         }
