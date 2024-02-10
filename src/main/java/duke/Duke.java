@@ -1,32 +1,27 @@
 package duke;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Class that represents the main instance of the app.
  */
 public class Duke {
-    public static void main(String[] args) {
-        System.out.println("Hello it's a-me! Mario!\nWhat-a can I do fo' ya!");
-        Scanner scanner = new Scanner(System.in);
-        Ui ui = new Ui();
-        State state = Storage.load();
-        while (true) {
-            String line = scanner.nextLine();
-            if (line.equals("bye")) {
-                break;
-            }
-            try {
-                Command c = Parser.parse(line, state);
-                c.execute(state, ui);
-                Storage.save(state);
-            } catch (DukeException e) {
-                ui.say("Uh Oh! " + e.getMessage());
-            } catch (DateTimeParseException e) {
-                ui.say("Uh Oh! Format your date as yyyy-mm-dd!");
-            }
+    Ui ui = new Ui();
+    State state = Storage.load();
+
+    String getResponse(String input) {
+        if (input.equals("bye")) {
+            return "bye!";
         }
-        scanner.close();
+        try {
+            Command c = Parser.parse(input, state);
+            String output = c.execute(state, ui);
+            Storage.save(state);
+            return output;
+        } catch (DukeException e) {
+            return "Uh Oh! " + e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Uh Oh! Format your date as yyyy-mm-dd!";
+        }
     }
 }

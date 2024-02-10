@@ -21,17 +21,16 @@ public class MarkCommand extends Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
+     * @return Text output of the command
      */
     @Override
-    public void execute(State state, Ui ui) {
+    public String execute(State state, Ui ui) {
         int taskNo = this.index - 1;
         Task task = state.getTask(taskNo);
         if (task == null) {
-            System.out.println("Mamma-mia! This task no exist-o!");
-            return;
+            return "Mamma-mia! This task no exist-o!";
         }
         task.setDone(true);
-        ui.say("Mamma-mai! I've marked it done!");
-        ui.say(task.toString());
+        return String.format("Mamma-mai! I've marked it done!\n%s", task);
     }
 }

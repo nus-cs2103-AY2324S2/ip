@@ -18,11 +18,12 @@ public class AddTodoCommand extends Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
+     * @return Text output of the command
      */
     @Override
-    public void execute(State state, Ui ui) {
+    public String execute(State state, Ui ui) {
         Task newTodo = new Todo(getText(), false);
         state.addTask(newTodo);
-        ui.say("I added!–\n" + newTodo + "\n–Mamma-mia!");
+        return "I added!–\n" + newTodo + "\n–Mamma-mia!";
     }
 }

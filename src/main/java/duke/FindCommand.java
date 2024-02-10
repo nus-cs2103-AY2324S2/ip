@@ -13,14 +13,13 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute(State state, Ui ui) {
+    public String execute(State state, Ui ui) {
         List<Task> tasks = state.getTasks();
         for (Task t : tasks) {
             if (t.getDescription().contains(getText())) {
-                ui.say("Found!\n" + t);
-                return;
+                return "Found!\n" + t;
             }
         }
-        ui.say("Mamma-mia! No find :(");
+        return "Mamma-mia! No find :(";
     }
 }

@@ -24,14 +24,15 @@ public class AddDeadlineCommand extends Command {
      *
      * @param state The state of the app.
      * @param ui    The user interface of the app.
+     * @return Text output of the command
      */
     @Override
-    public void execute(State state, Ui ui) {
+    public String execute(State state, Ui ui) {
         Task newDeadline = new Deadline(
                 getText(),
                 deadline,
                 false);
         state.addTask(newDeadline);
-        ui.say("I added!–\n" + newDeadline + "\n–Mamma-mia!");
+        return "I added!–\n" + newDeadline + "\n–Mamma-mia!";
     }
 }
