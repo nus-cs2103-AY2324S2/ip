@@ -16,9 +16,11 @@ class AddCommand implements Command {
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
         try {
+            // Add the task directly to the original tasks list
             tasks.add(taskToAdd);
-            ui.printTaskAdded(taskToAdd, tasks.size());
+            // Save the updated tasks list to the file
             storage.saveFile(tasks);
+            ui.printTaskAdded(taskToAdd, tasks.size());
         } catch (WhisperException e) {
             e.printStackTrace();
         }
@@ -39,13 +41,17 @@ class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) {
+    public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws WhisperException {
         try {
-            ui.printRemovedTask(tasks.get(taskIndex), tasks.size());
-            tasks.remove(taskIndex);
-            storage.saveFile(tasks);
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task removedTask = tasks.remove(taskIndex);
+                ui.printRemovedTask(removedTask, tasks.size());
+                storage.saveFile(tasks);
+            } else {
+                throw WhisperException.invalidTaskID();
+            }
         } catch (WhisperException e) {
-            e.printStackTrace();
+            throw new WhisperException("Invalid task number.");
         }
     }
 
@@ -91,9 +97,17 @@ class MarkCommand implements Command {
 
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws WhisperException {
-        tasks.get(taskIndex).markAsDone();
-        ui.printTaskAsDone(tasks.get(taskIndex));
-        storage.saveFile(tasks);
+        try {
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsDone();
+                ui.printTaskAsDone(tasks.get(taskIndex));
+                storage.saveFile(tasks);
+            } else {
+                ui.printError("Invalid task number. Please choose between task 1 - " + tasks.size() + "\n");
+            }
+        } catch (WhisperException e) {
+                throw WhisperException.invalidTaskID();
+        }
     }
 
     @Override
@@ -112,9 +126,17 @@ class UnmarkCommand implements Command {
 
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, Storage storage) throws WhisperException {
-        tasks.get(taskIndex).markAsUndone();
-        ui.printTaskAsUndone(tasks.get(taskIndex));
-        storage.saveFile(tasks);
+        try {
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsUndone();
+                ui.printTaskAsUndone(tasks.get(taskIndex));
+                storage.saveFile(tasks);
+            } else {
+                ui.printError("Invalid task number. Please choose between task 1 - " + tasks.size() + "\n");
+            }
+        } catch (WhisperException e) {
+            throw WhisperException.invalidTaskID();
+        }
     }
 
     @Override

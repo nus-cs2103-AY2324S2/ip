@@ -25,7 +25,8 @@ public class Parser {
         case "unmark":
             return createUnmarkCommand(parts);
         default:
-            throw new WhisperException("Invalid command. Please enter a valid command.");
+            //throw new WhisperException("Invalid command. Please enter a valid command.");
+            throw WhisperException.unknownCommand();
         }
     }
 
