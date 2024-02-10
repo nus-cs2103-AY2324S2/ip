@@ -1,18 +1,18 @@
 package utils;
 
+import java.util.ArrayList;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-import java.util.ArrayList;
-
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> list;
     private static final String FILE_NAME = "data/task_list.txt";
+    private final ArrayList<Task> list;
 
     /**
      * Constructs an empty taskList.
@@ -78,6 +78,12 @@ public class TaskList {
         return list.remove(i);
     }
 
+    /**
+     * Finds tasks in the task list that contain the specified query in their descriptions.
+     *
+     * @param query The query to search for within task descriptions.
+     * @return A new TaskList containing tasks that match the query.
+     */
     public TaskList findTasks(String query) {
         TaskList filteredTask = new TaskList();
         for (Task task: list) {
@@ -88,6 +94,11 @@ public class TaskList {
         return filteredTask;
     }
 
+    /**
+     * Converts the task list to a string in a file-compatible format.
+     *
+     * @return A string representation of the task list suitable for writing to a file.
+     */
     public String convertTaskListToFileString() {
         StringBuilder fileStringBuilder = new StringBuilder();
         for (Task task: list) {
@@ -112,17 +123,17 @@ public class TaskList {
             String[] taskDetails = taskString.split("\\|");
             Task newTask;
             switch (taskDetails[0]) {
-                case "T":
-                    newTask = new Todo(taskDetails[2]);
-                    break;
-                case "D":
-                    newTask = new Deadline(taskDetails[2], taskDetails[3]);
-                    break;
-                case "E":
-                    newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + taskDetails[0]);
+            case "T":
+                newTask = new Todo(taskDetails[2]);
+                break;
+            case "D":
+                newTask = new Deadline(taskDetails[2], taskDetails[3]);
+                break;
+            case "E":
+                newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + taskDetails[0]);
             }
             if (taskDetails[1].equals("1")) {
                 newTask.mark();

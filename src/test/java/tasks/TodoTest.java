@@ -1,17 +1,17 @@
 package tasks;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * The TodoTest class contains unit tests for the Todo class.
  */
 public class TodoTest {
-    private final Task todo;
-    private static final String TODO_DESCRIPTION = "borrow book";
-    private static final String EXPECTED_FILE_STRING = "T|0|borrow book";
     private static final String EXPECTED_DISPLAY_STRING = "[T][ ] borrow book";
+    private static final String EXPECTED_FILE_STRING = "T|0|borrow book";
+    private static final String TODO_DESCRIPTION = "borrow book";
+    private final Task todo;
 
     /**
      * Constructs a TodoTest object and initializes the todo task.

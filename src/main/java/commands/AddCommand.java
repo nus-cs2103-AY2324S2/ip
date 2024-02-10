@@ -1,12 +1,12 @@
 package commands;
 
 import exceptions.InvalidInputFormatException;
-import utils.TaskList;
-import utils.Ui;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import utils.TaskList;
+import utils.Ui;
 
 /**
  * The AddCommand class represents a command to add tasks to the task list.
@@ -44,6 +44,8 @@ public class AddCommand extends Command {
             break;
         case EVENT:
             addEvent(input[1].split("/", 2), taskList, ui);
+            break;
+        default:
             break;
         }
     }

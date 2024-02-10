@@ -1,8 +1,8 @@
 package commands;
 
+import tasks.Task;
 import utils.TaskList;
 import utils.Ui;
-import tasks.Task;
 
 /**
  * The MarkCommand class represents a command to mark a task as completed.

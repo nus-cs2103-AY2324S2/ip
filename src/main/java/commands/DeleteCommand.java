@@ -1,8 +1,8 @@
 package commands;
 
+import tasks.Task;
 import utils.TaskList;
 import utils.Ui;
-import tasks.Task;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the task list.
