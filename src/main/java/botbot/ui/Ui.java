@@ -7,6 +7,26 @@ import botbot.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
+
+    public String getResponseAndExecute(String input, TaskList list, Storage storage) throws BotBotException {
+        if (input.startsWith("bye")) {
+            return "Goodbye! See you soon!";
+        } else if (input.startsWith("mark")) {
+            return "Good job on completing the task:\n" + list.mark(Integer.parseInt(input.split(" ", 2)[1]));
+        } else if (input.startsWith("unmark")) {
+            return "I have unmarked a task:\n" + list.unmark(Integer.parseInt(input.split(" ", 2)[1]));
+        } else if (input.startsWith("list")) {
+            return "These are the tasks in your list:\n" + list.printList();
+        } else if (input.startsWith("delete")) {
+            return list.deleteTask(Integer.parseInt(input.split(" ", 2)[1]));
+        } else if (input.startsWith("find")){
+            return "These are the matching tasks in your list:\n" + list.printFind(input.split(" ", 2)[1]);
+        } else {
+            return list.addTask(input);
+        }
+    }
+
+    // Mostly obsolete code from when it was run on commandline
     /**
      * User interface loop to get user input
      * @param list

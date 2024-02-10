@@ -29,12 +29,13 @@ public class BotBot  {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String getResponse(String input) throws BotBotException {
+        return ui.getResponseAndExecute(input, taskList, storage);
     }
 
     /**
      * Executes the User input loop of the bot
+     * !!OBSOLETE - FOR RUNNING ON COMMANDLINE
      * @throws IOException
      * @throws BotBotException
      */
