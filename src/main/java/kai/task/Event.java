@@ -19,8 +19,8 @@ public class Event extends Task {
      * @return New String format.
      */
     @Override
-    public String outputString() {
-        return "E | " + super.outputString() + " | " + at;
+    public String formatStringForSaveFile() {
+        return "E | " + super.formatStringForSaveFile() + " | " + at;
     }
 
     @Override

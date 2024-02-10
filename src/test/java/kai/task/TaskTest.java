@@ -17,6 +17,6 @@ public class TaskTest {
 
     @Test
     public void testOutputStringConversion() {
-        assertEquals("O" + " | " + "read book", new Task("read book", true).outputString());
+        assertEquals("O" + " | " + "read book", new Task("read book", true).formatStringForSaveFile());
     }
 }

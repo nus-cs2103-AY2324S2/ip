@@ -15,8 +15,8 @@ public class Todo extends Task {
      * @return New String format.
      */
     @Override
-    public String outputString() {
-        return "T | " + super.outputString();
+    public String formatStringForSaveFile() {
+        return "T | " + super.formatStringForSaveFile();
     }
 
     @Override

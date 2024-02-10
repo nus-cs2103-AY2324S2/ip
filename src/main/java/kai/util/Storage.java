@@ -122,7 +122,7 @@ public class Storage {
             FileWriter fw = new FileWriter(fileLocation);
             for (int i = 0; i < tasklist.getSize(); i++) {
                 Task task = tasklist.getTask(i);
-                fw.write(task.outputString() + "\n");
+                fw.write(task.formatStringForSaveFile() + "\n");
             }
             fw.close();
         } catch (IOException e) {
