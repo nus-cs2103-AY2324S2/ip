@@ -17,6 +17,7 @@ public class Gui extends Ui {
      * Get accumulated output from the UI.
      * @return Text output accumulated so far.
      */
+    @Override
     public String getTextOutput() {
         String out = this.buffer.toString();
         this.buffer.delete(0, this.buffer.length());
