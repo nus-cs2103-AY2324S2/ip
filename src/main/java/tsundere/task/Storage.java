@@ -113,6 +113,7 @@ public class Storage {
             if (parsedData[1].equals("1")) task.markAsDone();
             break;
         default:
+            assert task == null : "task should not be null";
             break;
         }
         return task;
