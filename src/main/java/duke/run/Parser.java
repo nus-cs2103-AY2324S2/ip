@@ -30,7 +30,7 @@ public class Parser {
      */
     public Command parse(String input) throws BelleException {
         String[] inputlist = input.split(" ");
-
+        assert (inputlist != null) : "input list is null";
         if (inputlist[0].equals("delete")) {
             return new DeleteCommand(inputlist[1]);
         } else if (input.equals("list")) {

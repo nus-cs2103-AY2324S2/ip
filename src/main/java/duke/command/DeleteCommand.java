@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
+            assert (Integer.valueOf(index) > 0) : "index cannot be negative";
             String printStatement;
             assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
             assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
