@@ -1,3 +1,5 @@
+package duke;
+
 /*
  * This class represents 
  * the bot in the Duke application.

@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * This class represents a custom exception for the bot
  * It extends the Exception class, allowing us to throw it when the bot
