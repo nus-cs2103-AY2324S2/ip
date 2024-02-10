@@ -42,15 +42,22 @@ public class Storage {
                 numTasksInFile++;
             }
             numTasksReader.close();
+
             Scanner userTaskFileReader = new Scanner(tasksFile);
             while (userTaskFileReader.hasNextLine()) {
                 String task = userTaskFileReader.nextLine();
+                /*
+                    Checking for size < numTasks prevents us from creating duplicate tasks since we call the
+                    loadTasksFromFile method both at initialisation when the file is empty and during when
+                    running operations on tasks (add, update, delete, etc)
+                 */
                 if (TaskList.TASKS.size() < numTasksInFile) {
                     char taskType = task.charAt(1);
                     char taskCompleted = task.charAt(4);
                     String taskDescription = task.substring(7);
                     Task recreatedTask = Task.taskFactory(taskDescription, taskType);
                     if (taskCompleted == 'C') {
+                        assert recreatedTask != null;
                         recreatedTask.markDone();
                     }
                     TaskList.TASKS.add(recreatedTask);

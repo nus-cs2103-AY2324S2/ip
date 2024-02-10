@@ -32,13 +32,17 @@ public class Event extends Task {
     }
 
     private void parseDateTime(String name) throws NicoleException {
+        /*
+         The expected structure of this array is [..., from, date, at, time, to, date, at, time] where the
+         ... are the event description words
+         */
         String[] whiteSpaceSeparatedDate = name.split(" ");
 
         StringBuilder eventDescription = new StringBuilder();
         for (int i = 0; i < whiteSpaceSeparatedDate.length - 4; i++) {
             eventDescription.append(whiteSpaceSeparatedDate[i]).append(" ");
         }
-        super.updateName(eventDescription.toString());
+        super.setName(eventDescription.toString());
 
         try {
             for (int i = 0; i < whiteSpaceSeparatedDate.length; i++) {

@@ -22,7 +22,7 @@ public class TaskList {
     public TaskList() {
     }
 
-    private void checkValidTaskNumber(int taskNumber) throws NicoleException {
+    private void crudChecker(int taskNumber) throws NicoleException {
         if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new NicoleException("Huh? That's not a valid item number :')");
         }
@@ -35,7 +35,7 @@ public class TaskList {
      * @throws NicoleException if the unmark index is out of bounds of the list or the task is already unmarked.
      */
     public String unmarkTask(int taskNumber) throws NicoleException {
-        checkValidTaskNumber(taskNumber);
+        crudChecker(taskNumber);
         String unmarkedMessage = TASKS.get(taskNumber - 1).markUndone();
         STORAGE.saveTasksToFile();
         return unmarkedMessage;
@@ -48,7 +48,7 @@ public class TaskList {
      * @throws NicoleException if the mark index is out of bounds of the list or the task is already marked.
      */
     public String markTask(int taskNumber) throws NicoleException {
-        checkValidTaskNumber(taskNumber);
+        crudChecker(taskNumber);
         String markedMessage = TASKS.get(taskNumber - 1).markDone();
         STORAGE.saveTasksToFile();
         return markedMessage;
@@ -61,7 +61,7 @@ public class TaskList {
      * @throws NicoleException if the delete index is out of bounds of the list.
      */
     public String deleteTask(int taskNumber) throws NicoleException {
-        checkValidTaskNumber(taskNumber);
+        crudChecker(taskNumber);
         TASKS.remove(taskNumber - 1);
         STORAGE.saveTasksToFile();
         return "Phew...deleted  :>";
@@ -98,14 +98,17 @@ public class TaskList {
         int numMatchingTasks = 0;
         namesMatchingTasks.append("Hmmm let me see...").append("\n");
         for (int i = 0; i < TASKS.size(); i++) {
+            // This method looks for a full match of the keyword not just partial
             if (TASKS.get(i).contains(name)) {
                 namesMatchingTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
                 numMatchingTasks += 1;
             }
         }
+
         if (numMatchingTasks == 0) {
             throw new NicoleException("Sorry I couldn't find any matching tasks");
         }
+
         return namesMatchingTasks.toString();
     }
 
@@ -118,7 +121,7 @@ public class TaskList {
      * @throws NicoleException if the delete index is out of bounds of the list.
      */
     public String updateTask(String newTaskName, int taskNumber) throws NicoleException {
-        checkValidTaskNumber(taskNumber);
+        crudChecker(taskNumber);
         TASKS.get(taskNumber - 1).updateName(newTaskName);
         STORAGE.saveTasksToFile();
         return "Okie I updated the name";
@@ -134,15 +137,20 @@ public class TaskList {
 
     private void checkClashingTasks(Task newTask) throws NicoleException {
         long numClashingTasks = TASKS.stream().filter(task -> {
+            // The datetime clashes only apply to Events since items can logically have the same deadline
             return task instanceof Event
+                    // Case when two event intervals are exactly the same
                     && (newTask.getFromDateTime().isEqual(task.getFromDateTime())
-                    && newTask.getToDateTime().isEqual(task.getToDateTime()))
+                        && newTask.getToDateTime().isEqual(task.getToDateTime()))
+                    // Case when the new event starts after but ends before an existing event
                     || (newTask.getFromDateTime().isAfter(task.getFromDateTime())
-                    && newTask.getFromDateTime().isBefore(task.getToDateTime()))
+                        && newTask.getFromDateTime().isBefore(task.getToDateTime()))
+                    // Case when the new event starts before and continues into an existing event
                     ||  (newTask.getFromDateTime().isBefore(task.getFromDateTime())
-                    && newTask.getToDateTime().isAfter(task.getFromDateTime()))
+                        && newTask.getToDateTime().isAfter(task.getFromDateTime()))
+                    // Case when the new event starts before an existing event ends but after it begins
                     ||  (newTask.getFromDateTime().isBefore(task.getToDateTime())
-                    && newTask.getToDateTime().isAfter(task.getToDateTime()));
+                        && newTask.getToDateTime().isAfter(task.getToDateTime()));
         }).count();
         if (numClashingTasks > 0) {
             throw new NicoleException("Careful! You already have " + numClashingTasks + " items at the same time.");
@@ -162,6 +170,7 @@ public class TaskList {
         } else {
             savedTasks.append("Here's the tasks I saved so far,").append("\n");
         }
+
         for (int i = 0; i < TASKS.size(); i++) {
             savedTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
         }
@@ -174,6 +183,7 @@ public class TaskList {
      * @return a success message.
      */
     public String sortTasksByDate() {
+        // This sorter doesn't meaningfully sort Todos, whose Date is by default the maximum possible date
         Comparator<Task> dateSorter = (task1, task2) -> {
             if (task1.getDate().isBefore(task2.getDate())) {
                 return -1;

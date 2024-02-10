@@ -23,13 +23,14 @@ public class Deadline extends Task {
         this.parseDate(name);
     }
     private void parseDate(String name) throws NicoleException {
+        // The expected structure of this array is [..., date] where the ... are the deadline description words
         String[] whiteSpaceSeparatedDate = name.split(" ");
 
         StringBuilder deadlineDescription = new StringBuilder();
         for (int i = 0; i < whiteSpaceSeparatedDate.length - 1; i++) {
             deadlineDescription.append(whiteSpaceSeparatedDate[i]).append(" ");
         }
-        super.updateName(deadlineDescription.toString().trim());
+        super.setName(deadlineDescription.toString().trim());
 
         String date = whiteSpaceSeparatedDate[whiteSpaceSeparatedDate.length - 1];
         try {
