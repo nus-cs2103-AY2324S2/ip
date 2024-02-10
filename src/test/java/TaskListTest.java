@@ -1,8 +1,5 @@
 
-import duke.Tasks.TaskList;
-import duke.Tasks.ToDo;
-
-import org.junit.jupiter.api.Test;
+import duke.tasks.TaskList;
 
 import java.util.ArrayList;
 

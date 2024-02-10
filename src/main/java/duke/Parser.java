@@ -1,10 +1,14 @@
 package duke;
 
-import duke.Exceptions.InvalidInstructionException;
-import duke.Exceptions.MissingTaskToMarkException;
-import duke.Exceptions.MissingToDoNameException;
-import duke.Parsers.DateTimeParser;
-import duke.Tasks.*;
+import duke.exceptions.InvalidInstructionException;
+import duke.exceptions.MissingTaskToMarkException;
+import duke.exceptions.MissingToDoNameException;
+import duke.parsers.DateTimeParser;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
 import javafx.util.Pair;
 
 import java.io.IOException;

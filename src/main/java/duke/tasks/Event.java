@@ -1,6 +1,6 @@
-package duke.Tasks;
+package duke.tasks;
 
-import duke.Parsers.DateTimeParser;
+import duke.parsers.DateTimeParser;
 
 import java.time.LocalDate;
 
