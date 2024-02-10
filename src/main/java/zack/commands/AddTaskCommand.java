@@ -48,7 +48,7 @@ public class AddTaskCommand extends Command {
             String[] parts = description.split(" /by ");
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new ZackException("The deadline command is incomplete or incorrectly formatted. "
-                        + "Please include '/by' followed by the deadline.");
+                        + "Please include the description, '/by', followed by the deadline.");
             }
             newTask = new Deadline(parts[0], parts[1], false);
         } else {
@@ -56,12 +56,12 @@ public class AddTaskCommand extends Command {
             String[] parts = description.split(" /from ");
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new ZackException("The event command is incomplete. "
-                        + "Please include '/from' followed by the start time.");
+                        + "Please include the description, '/from', followed by the start time.");
             }
             String[] times = parts[1].split(" /to ");
             if (times.length < 2 || times[1].trim().isEmpty()) {
                 throw new ZackException("The event command is incomplete. "
-                        + "Please include '/to' followed by the end time.");
+                        + "Please include the description, '/from', '/to', followed by the end time.");
             }
             newTask = new Event(parts[0], times[0], times[1], false);
         }

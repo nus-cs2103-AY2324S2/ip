@@ -42,7 +42,6 @@ public class MainWindow extends AnchorPane {
      */
     public void showWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Zack\nWhat can I do for you?";
-        // Assuming DialogBox.getZackDialog() is a method that creates a dialog box for Zack's messages
         dialogContainer.getChildren().add(DialogBox.getZackDialog(welcomeMessage, zackImage));
     }
 
@@ -53,7 +52,7 @@ public class MainWindow extends AnchorPane {
      * @throws ZackException If there is an issue with Zack while retrieving tasks.
      */
     public void displayTasks() throws ZackException {
-        TaskList tasks = zack.getTasks(); // Get tasks from the Zack instance
+        TaskList tasks = zack.getTasks();
         StringBuilder taskInfoBuilder = new StringBuilder();
 
         if (tasks.getSize() == 0) {

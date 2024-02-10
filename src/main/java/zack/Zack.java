@@ -51,24 +51,6 @@ public class Zack extends Application {
         tasks = new TaskList(); // Initialize with an empty task list
         try {
             tasks = new TaskList(storage.load());
-            ui.showLoadedTasks(tasks);
-        } catch (ZackException e) {
-            ui.showLoadingError(e);
-            tasks = new TaskList();
-        }
-    }
-
-    /**
-     * Constructs a Zack instance with the specified file path for data storage.
-     *
-     * @param filePath The file path where task data is stored.
-     */
-    public Zack(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-            ui.showLoadedTasks(tasks);
         } catch (ZackException e) {
             ui.showLoadingError(e);
             tasks = new TaskList();
@@ -209,12 +191,10 @@ public class Zack extends Application {
      * Runs the Zack program, handling user input and task execution.
      */
     public void run() {
-        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
@@ -222,18 +202,7 @@ public class Zack extends Application {
                 ui.showError(e.getMessage());
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-                ui.showNewLineLine();
             }
         }
-    }
-
-    /**
-     * The main method to start the Zack program.
-     *
-     * @param args Command-line arguments (not used in this program).
-     */
-    public static void main(String[] args) {
-        new Zack("data/tasks.txt").run();
     }
 }
