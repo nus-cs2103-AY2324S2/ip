@@ -7,6 +7,7 @@ import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidTaskException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.PriorityLevel;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
@@ -81,6 +82,7 @@ public class Ui {
     public String run(String currentInput) {
         String[] currentInputSplit = currentInput.split(" ");
         Command currentCommand = null;
+        PriorityLevel priority;
         try {
             currentCommand = parser.getCommand(currentInputSplit);
         } catch (InvalidTaskException e) {
@@ -126,11 +128,13 @@ public class Ui {
             String[] data;
             try {
                 data = parser.extractDescriptionData(currentInputSplit);
+                priority = Parser.getPriority(data[3]);
             } catch (InvalidInputException e) {
                 return "That's not a valid input! " + e.getMessage();
             }
             try {
-                event = new Event(data[0], parser.parseDate(data[1]), parser.parseDate(data[2]));
+                event = new Event(data[0], parser.parseDate(data[1]), parser.parseDate(data[2]),
+                    priority);
                 output = history.addTask(event);
                 return output;
             } catch (InvalidInputException e) {
@@ -140,20 +144,22 @@ public class Ui {
             event = null;
             try {
                 data = parser.extractDescriptionData(currentInputSplit);
+                priority = Parser.getPriority(data[3]);
             } catch (InvalidInputException e) {
                 return "Invalid input: " + e.getMessage();
             }
-            event = new ToDo(data[0]);
+            event = new ToDo(data[0], priority);
             output = history.addTask(event);
             return output;
         case DEADLINE:
             try {
                 data = parser.extractDescriptionData(currentInputSplit);
+                priority = Parser.getPriority(data[3]);
             } catch (InvalidInputException e) {
                 return "Invalid input: " + e.getMessage();
             }
             try {
-                event = new Deadline(data[0], parser.parseDate(data[1]));
+                event = new Deadline(data[0], parser.parseDate(data[1]), priority);
                 output = history.addTask(event);
                 return output;
             } catch (InvalidInputException e) {

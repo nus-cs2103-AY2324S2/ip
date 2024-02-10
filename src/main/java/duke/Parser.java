@@ -8,6 +8,7 @@ import duke.exceptions.InvalidDateTimeException;
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidParametersException;
 import duke.exceptions.InvalidTaskException;
+import duke.tasks.PriorityLevel;
 
 /**
  * This class represents the parser used to receive and handle user inputs to the UI.
@@ -45,6 +46,22 @@ public class Parser {
         }
     }
     /**
+     * Generates the priority level of a input.
+     * @param p The string denoting the priority of the input.
+     */
+    public static PriorityLevel getPriority(String p) throws InvalidInputException {
+        switch (p) {
+        case "1":
+            return PriorityLevel.HIGH;
+        case "2":
+            return PriorityLevel.MEDIUM;
+        case "3":
+            return PriorityLevel.LOW;
+        default:
+            throw new InvalidInputException("Priority must be 1, 2 or 3!");
+        }
+    }
+    /**
      * Generates the index with respect to a zero-indexed task array.
      *
      * @param s The index in question.
@@ -71,9 +88,21 @@ public class Parser {
         String taskDesc;
         switch(descriptionArray[0]) {
         case "todo":
+            Integer startIndex = -1;
+            for (int i = 0; i < descriptionArray.length; i++) {
+                if (descriptionArray[i].equals("/priority")) {
+                    startIndex = i;
+                }
+            }
+            if (startIndex.equals(-1)) { // we cannot find start or end.
+                throw new InvalidParametersException();
+            }
+            String priority = String.join(" ",
+                Arrays.copyOfRange(descriptionArray, startIndex + 1, descriptionArray.length));
             taskDesc = String.join(" ",
-                Arrays.copyOfRange(descriptionArray, 1, descriptionArray.length));
+                Arrays.copyOfRange(descriptionArray, 1, startIndex));
             returnArray[0] = taskDesc;
+            returnArray[3] = priority;
             break;
         case "find":
             String searchDesc = String.join(" ",
@@ -81,8 +110,9 @@ public class Parser {
             returnArray[0] = searchDesc;
             break;
         case "event":
-            Integer startIndex = -1;
+            startIndex = -1;
             Integer endIndex = -1;
+            Integer startIndexPriority = -1;
             for (int i = 0; i < descriptionArray.length; i++) {
                 if (descriptionArray[i].equals("/from")) {
                     startIndex = i;
@@ -90,8 +120,12 @@ public class Parser {
                 if (descriptionArray[i].equals("/to")) {
                     endIndex = i;
                 }
+                if (descriptionArray[i].equals("/priority")) {
+                    startIndexPriority = i;
+                }
             }
-            if (startIndex.equals(-1) || endIndex.equals(-1)) { // we cannot find start or end.
+            if (startIndex.equals(-1) || endIndex.equals(-1)
+                || startIndexPriority.equals(-1)) { // we cannot find start or end.
                 throw new InvalidParametersException();
             }
             taskDesc = String.join(" ",
@@ -99,27 +133,38 @@ public class Parser {
             String start = String.join(" ",
                 Arrays.copyOfRange(descriptionArray, startIndex + 1, endIndex));
             String end = String.join(" ",
-                Arrays.copyOfRange(descriptionArray, endIndex + 1, descriptionArray.length));
+                Arrays.copyOfRange(descriptionArray, endIndex + 1, startIndexPriority));
+            priority = String.join(" ",
+              Arrays.copyOfRange(descriptionArray,
+                    startIndexPriority + 1, descriptionArray.length));
             returnArray[0] = taskDesc;
             returnArray[1] = start;
             returnArray[2] = end;
+            returnArray[3] = priority;
             break;
         case "deadline":
             startIndex = -1;
+            startIndexPriority = -1;
             for (int i = 0; i < descriptionArray.length; i++) {
                 if (descriptionArray[i].equals("/by")) { // we cannot find by event.
                     startIndex = i;
                 }
+                if (descriptionArray[i].equals("/priority")) {
+                    startIndexPriority = i;
+                }
             }
-            if (startIndex.equals(-1)) {
+            if (startIndex.equals(-1) || startIndexPriority.equals(-1)) {
                 throw new InvalidParametersException();
             }
             taskDesc = String.join(" ",
               Arrays.copyOfRange(descriptionArray, 1, startIndex));
             start = String.join(" ",
-              Arrays.copyOfRange(descriptionArray, startIndex + 1, descriptionArray.length));
+              Arrays.copyOfRange(descriptionArray, startIndex + 1, startIndexPriority));
+            priority = String.join(" ",
+              Arrays.copyOfRange(descriptionArray, startIndexPriority + 1, descriptionArray.length));
             returnArray[0] = taskDesc;
             returnArray[1] = start;
+            returnArray[3] = priority;
             break;
         default:
             return returnArray;

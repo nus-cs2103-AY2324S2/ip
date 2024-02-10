@@ -4,8 +4,8 @@ package duke.tasks;
  * This class represents a task without a deadline.
  */
 public class ToDo extends Task {
-    public ToDo(String description) {
-        super(description, "[T]");
+    public ToDo(String description, PriorityLevel priority) {
+        super(description, "[T]", priority);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class ToDo extends Task {
         if (this.isDone) {
             completeStatus = "T";
         }
-        return "T" + "," + completeStatus + "," + this.description;
+        return "T" + "," + completeStatus + "," + this.description + "," + this.getPriority();
     }
 
     @Override

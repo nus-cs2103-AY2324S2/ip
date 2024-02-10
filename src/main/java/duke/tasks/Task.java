@@ -12,17 +12,32 @@ public abstract class Task {
 
     protected String icon;
 
+    protected PriorityLevel priority;
+
     /**
      * Constructor for a task.
      * @param description The description of the task.
      * @param icon The icon (symbol) representing the task.
      */
-    public Task(String description, String icon) {
+    public Task(String description, String icon, PriorityLevel priority) {
         this.description = description;
         this.isDone = false;
         this.icon = icon;
+        this.priority = priority;
     }
 
+    public String getPriority() {
+        switch (this.priority) {
+        case LOW:
+            return "Low";
+        case HIGH:
+            return "High";
+        case MEDIUM:
+            return "Medium";
+        default:
+            return "Priority has not been assigned!";
+        }
+    }
 
     public String getIcon() {
         return this.icon;
@@ -71,7 +86,8 @@ public abstract class Task {
     public abstract String getLogRepresentation();
 
     public String getFullStatus() {
-        return this.getStatusIcon() + " " + this.getDescription() + " " + this.getTimeData();
+        return this.getStatusIcon() + " " + this.getDescription() + " " + this.getTimeData()
+            + this.getPriority();
     }
 
 }
