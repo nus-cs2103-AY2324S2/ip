@@ -35,14 +35,14 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Nicole nicole;
 
-    private final Image USER_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.JPG")));
-    private final Image NICOLE_IMAGE = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/raiden.jpeg")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.JPG")));
+    private final Image nicoleImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/raiden.jpeg")));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getNicoleDialog(Ui.greet(), NICOLE_IMAGE)
+                DialogBox.getNicoleDialog(Ui.greet(), nicoleImage)
         );
     }
     public void setNicole(Nicole n) {
@@ -75,8 +75,8 @@ public class MainWindow extends AnchorPane {
 
         if (input.equalsIgnoreCase("bye")) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, USER_IMAGE),
-                    DialogBox.getNicoleDialog("Bye, for now ;)", NICOLE_IMAGE)
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getNicoleDialog("Bye, for now ;)", nicoleImage)
             );
             this.exit();
         } else {
@@ -84,8 +84,8 @@ public class MainWindow extends AnchorPane {
                 Ui ui = new Ui();
                 String response = ui.talkToUser(input);
                 dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, USER_IMAGE),
-                        DialogBox.getNicoleDialog(response, NICOLE_IMAGE)
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getNicoleDialog(response, nicoleImage)
                 );
                 userInput.clear();
             } catch (IOException e) {

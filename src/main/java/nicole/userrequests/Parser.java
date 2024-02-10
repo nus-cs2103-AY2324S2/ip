@@ -23,10 +23,10 @@ public class Parser {
         Pattern eventPattern = Pattern.compile("^event(?: (.*?))?(?: "
                 + "from (\\d{4}-\\d{2}-\\d{2}) at (\\d{2}:\\d{2}:\\d{2}) "
                 + "to (\\d{4}-\\d{2}-\\d{2}) at (\\d{2}:\\d{2}:\\d{2}))?$");
-
         Matcher todoMatcher = todoPattern.matcher(name);
         Matcher deadlineMatcher = deadlinePattern.matcher(name);
         Matcher eventMatcher = eventPattern.matcher(name);
+
         if (todoMatcher.matches()) {
             return Task.taskFactory(todoMatcher.group(1), 'T');
         } else if (deadlineMatcher.matches()) {
@@ -41,7 +41,7 @@ public class Parser {
                         + eventMatcher.group(4) + " at " + eventMatcher.group(5), 'E');
         } else {
             throw new NicoleException("What does this mean? "
-                    + "Send 'help' if you want to know what commands I can help you with");
+                    + "Send \"help\" if you want to know what commands I can help you with");
         }
     }
 }

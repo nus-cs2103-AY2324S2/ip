@@ -8,22 +8,22 @@ import java.util.Comparator;
 import java.util.List;
 
 import nicole.nicoleexceptions.NicoleException;
+import nicole.task.Event;
 import nicole.task.Task;
 
 public class TaskList {
     protected static final List<Task> TASKS = new ArrayList<>();
-    private final Storage STORAGE;
+    private static final Storage STORAGE = new Storage();
 
     /**
      * Initialises a TaskList and creates Storage for tasks.
      *
      */
     public TaskList() {
-        this.STORAGE = new Storage();
     }
 
     private void crudChecker(int taskNumber) throws NicoleException {
-        if (taskNumber <= 0 || taskNumber > TaskList.TASKS.size()) {
+        if (taskNumber <= 0 || taskNumber > TASKS.size()) {
             throw new NicoleException("Huh? That's not a valid item number :')");
         }
     }
@@ -35,9 +35,9 @@ public class TaskList {
      * @throws NicoleException if the unmark index is out of bounds of the list or the task is already unmarked.
      */
     public String unmarkTask(int taskNumber) throws NicoleException {
-        this.crudChecker(taskNumber);
-        String unmarkedMessage = TaskList.TASKS.get(taskNumber - 1).markUndone();
-        this.STORAGE.saveTasksToFile();
+        crudChecker(taskNumber);
+        String unmarkedMessage = TASKS.get(taskNumber - 1).markUndone();
+        STORAGE.saveTasksToFile();
         return unmarkedMessage;
     }
 
@@ -48,9 +48,9 @@ public class TaskList {
      * @throws NicoleException if the mark index is out of bounds of the list or the task is already marked.
      */
     public String markTask(int taskNumber) throws NicoleException {
-        this.crudChecker(taskNumber);
-        String markedMessage = TaskList.TASKS.get(taskNumber - 1).markDone();
-        this.STORAGE.saveTasksToFile();
+        crudChecker(taskNumber);
+        String markedMessage = TASKS.get(taskNumber - 1).markDone();
+        STORAGE.saveTasksToFile();
         return markedMessage;
     }
 
@@ -61,9 +61,9 @@ public class TaskList {
      * @throws NicoleException if the delete index is out of bounds of the list.
      */
     public String deleteTask(int taskNumber) throws NicoleException {
-        this.crudChecker(taskNumber);
-        TaskList.TASKS.remove(taskNumber - 1);
-        this.STORAGE.saveTasksToFile();
+        crudChecker(taskNumber);
+        TASKS.remove(taskNumber - 1);
+        STORAGE.saveTasksToFile();
         return "Phew...deleted  :>";
     }
 
@@ -74,7 +74,8 @@ public class TaskList {
      * @throws NicoleException if there are write issues to tasks.txt
      */
     public String addTask(Task newTask) throws NicoleException {
-        TaskList.TASKS.add(newTask);
+        checkClashingTasks(newTask);
+        TASKS.add(newTask);
         try {
             FileWriter taskFileWriter = new FileWriter("tasks.txt", true);
             taskFileWriter.write(newTask.toString() + "\n");
@@ -96,8 +97,8 @@ public class TaskList {
         StringBuilder namesMatchingTasks = new StringBuilder();
         int numMatchingTasks = 0;
         namesMatchingTasks.append("Hmmm let me see...").append("\n");
-        for (int i = 0; i < TaskList.TASKS.size(); i++) {
-            if (TaskList.TASKS.get(i).contains(name)) {
+        for (int i = 0; i < TASKS.size(); i++) {
+            if (TASKS.get(i).contains(name)) {
                 namesMatchingTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
                 numMatchingTasks += 1;
             }
@@ -109,6 +110,46 @@ public class TaskList {
     }
 
     /**
+     * Updates a task's name in the list.
+     *
+     * @param newTaskName the new task name
+     * @param taskNumber the index of the task to update
+     * @return a success response if the task is deleted.
+     * @throws NicoleException if the delete index is out of bounds of the list.
+     */
+    public String updateTask(String newTaskName, int taskNumber) throws NicoleException {
+        crudChecker(taskNumber);
+        TASKS.get(taskNumber - 1).updateName(newTaskName);
+        STORAGE.saveTasksToFile();
+        return "Okie I updated the name";
+    }
+
+    private void checkDuplicateTasks(Task newTask, String oldTaskName) throws NicoleException {
+        boolean existsDuplicateTask = TASKS.stream().anyMatch(task -> task.equals(newTask));
+        if (existsDuplicateTask) {
+            newTask.updateName(oldTaskName);
+            throw new NicoleException("Ouh sorry a task with that description already exists");
+        }
+    }
+
+    private void checkClashingTasks(Task newTask) throws NicoleException {
+        long numClashingTasks = TASKS.stream().filter(task -> {
+            return task instanceof Event
+                    && (newTask.getFromDateTime().isEqual(task.getFromDateTime())
+                    && newTask.getToDateTime().isEqual(task.getToDateTime()))
+                    || (newTask.getFromDateTime().isAfter(task.getFromDateTime())
+                    && newTask.getFromDateTime().isBefore(task.getToDateTime()))
+                    ||  (newTask.getFromDateTime().isBefore(task.getFromDateTime())
+                    && newTask.getToDateTime().isAfter(task.getFromDateTime()))
+                    ||  (newTask.getFromDateTime().isBefore(task.getToDateTime())
+                    && newTask.getToDateTime().isAfter(task.getToDateTime()));
+        }).count();
+        if (numClashingTasks > 0) {
+            throw new NicoleException("Careful! You already have " + numClashingTasks + " items at the same time.");
+        }
+    }
+
+    /**
      * Lists the present tasks. Sorts the list by task date if the user requests it
      * before printing the tasks.
      *
@@ -116,14 +157,14 @@ public class TaskList {
      */
     public String listTasks() {
         StringBuilder savedTasks = new StringBuilder();
-        if (TaskList.TASKS.size() == 0) {
+        if (TASKS.size() == 0) {
             savedTasks.append("No tasks yet. Let's make some moves BD");
         } else {
             savedTasks.append("Here's the tasks I saved so far,").append("\n");
         }
 
-        for (int i = 0; i < TaskList.TASKS.size(); i++) {
-            savedTasks.append(i + 1).append(". ").append(TaskList.TASKS.get(i)).append("\n");
+        for (int i = 0; i < TASKS.size(); i++) {
+            savedTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
         }
         return savedTasks.toString();
     }
@@ -131,10 +172,10 @@ public class TaskList {
     /**
      * Sorts the list by task date if the user requests priority ordering.
      *
-     * @return a success message if the tasklist is sorted.
+     * @return a success message.
      */
-    public String sortTasksByPriority() {
-        Comparator<Task> sorter = (task1, task2) -> {
+    public String sortTasksByDate() {
+        Comparator<Task> dateSorter = (task1, task2) -> {
             if (task1.getDate().isBefore(task2.getDate())) {
                 return -1;
             } else if (task1.getDate().isEqual(task2.getDate())) {
@@ -143,7 +184,7 @@ public class TaskList {
                 return 1;
             }
         };
-        TaskList.TASKS.sort(sorter);
+        TASKS.sort(dateSorter);
         return "Alriiiiighty sorted by date :6";
     }
 }

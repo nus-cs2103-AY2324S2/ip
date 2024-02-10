@@ -4,6 +4,8 @@ import nicole.nicoleexceptions.NicoleException;
 import nicole.task.Task;
 import nicole.taskstorage.TaskList;
 
+import java.util.Arrays;
+
 public class Request {
     private Task newTask;
 
@@ -20,10 +22,11 @@ public class Request {
                 || request.contains("unmark")
                 || request.contains("help")
                 || request.contains("delete")
-                || request.contains("priority")
-                || request.contains("find")) {
+                || request.contains("sort by date")
+                || request.contains("find")
+                || request.contains("update")) {
         } else {
-            this.newTask = Parser.parseRequest(request);
+            newTask = Parser.parseRequest(request);
         }
     }
 
@@ -67,14 +70,22 @@ public class Request {
                     + "6. find [keyword]\n"
                     + "7. bye\n"
                     + "8. help";
-        } else if (request.equals("priority")) {
-            return taskList.sortTasksByPriority();
+        } else if (request.equals("sort by date")) {
+            return taskList.sortTasksByDate();
         } else if (request.contains("find")) {
             try {
                 String taskKeyWord = request.substring(6);
                 return taskList.findTasks(taskKeyWord);
             } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
                 throw new NicoleException("find [keyword] pls...");
+            }
+        } else if (request.contains("update")) {
+            try {
+                int taskNumber = Integer.parseInt(request.substring(7, 8));
+                String newTaskName = request.substring(9);
+                return taskList.updateTask(newTaskName, taskNumber);
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                throw new NicoleException("update [task number] [name] pls...");
             }
         } else if (!request.equals("list")) {
             return taskList.addTask(newTask);

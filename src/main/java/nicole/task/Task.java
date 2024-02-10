@@ -1,11 +1,12 @@
 package nicole.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import nicole.nicoleexceptions.NicoleException;
 
 public class Task {
-    private boolean taskCompleted;
+    private boolean isComplete;
     private String name;
 
     /**
@@ -13,7 +14,7 @@ public class Task {
      *
      */
     public Task() {
-        this.taskCompleted = false;
+        this.isComplete = false;
     }
 
     protected void setName(String name) {
@@ -44,10 +45,10 @@ public class Task {
      * @throws NicoleException if the task is already marked completed.
      */
     public String markDone() throws NicoleException {
-        if (this.taskCompleted) {
+        if (isComplete) {
             throw new NicoleException("That is already marked complete -_-");
         } else {
-            this.taskCompleted = true;
+            isComplete = true;
             return "Marked as completed! Good job :3";
         }
     }
@@ -58,10 +59,10 @@ public class Task {
      * @throws NicoleException if the task is already marked incomplete.
      */
     public String markUndone() throws NicoleException {
-        if (!this.taskCompleted) {
+        if (!isComplete) {
             throw new NicoleException("That is already marked incomplete -_-");
         } else {
-            this.taskCompleted = false;
+            isComplete = false;
             return "Marked as incomplete. We'll get em next time";
         }
     }
@@ -76,16 +77,53 @@ public class Task {
     }
 
     /**
+     * Retrieves the "from" datetime associated with the Task object. This method is not not implemented by the
+     * Todo subtype.
+     *
+     * @return the maximum LocalDateTime by default.
+     */
+    public LocalDateTime getFromDateTime() {
+        return LocalDateTime.parse("+999999999-12-31T23:59:59.999999999");
+    }
+
+    /**
+     * Retrieves the "to" datetime associated with the Task object. This method is only implemented for the Event
+     * subtype.
+     *
+     * @return the minimum LocalDateTime by default.
+     */
+    public LocalDateTime getToDateTime() {
+        return LocalDateTime.parse("-999999999-01-01T00:00:00");
+    }
+
+    /**
+     * Overwrites the name of this task.
+     *
+     */
+    public void updateName(String newTaskName) {
+        name = newTaskName;
+    }
+
+    /**
      * Verifies if there is a keyword match with this task.
      *
-     * @param name the keyword.
+     * @param keyword the partial or full keyword.
      */
-    public boolean contains(String name) {
-        return this.name.contains(name);
+    public boolean contains(String keyword) {
+        return this.name.contains(keyword);
     }
 
     @Override
     public String toString() {
-        return this.taskCompleted ? "[C] " + this.name : "[I] " + this.name;
+        return isComplete ? "[C] " + name : "[I] " + name;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Task)) {
+            return false;
+        }
+        Task task = (Task)object;
+        return this.name.equals(task.name);
     }
 }

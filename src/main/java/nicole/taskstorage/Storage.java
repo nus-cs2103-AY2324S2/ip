@@ -37,11 +37,11 @@ public class Storage {
         File tasksFile = new File("tasks.txt");
         try {
             int numTasksInFile = 0;
-            BufferedReader reader = new BufferedReader(new FileReader(tasksFile));
-            while (reader.readLine() != null) {
+            BufferedReader numTasksReader = new BufferedReader(new FileReader(tasksFile));
+            while (numTasksReader.readLine() != null) {
                 numTasksInFile++;
             }
-
+            numTasksReader.close();
             Scanner userTaskFileReader = new Scanner(tasksFile);
             while (userTaskFileReader.hasNextLine()) {
                 String task = userTaskFileReader.nextLine();
@@ -56,8 +56,9 @@ public class Storage {
                     TaskList.TASKS.add(recreatedTask);
                 }
             }
+            userTaskFileReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Nicole: I have no past data with you, let's start something ;)");
+            throw new NicoleException("I have no past data with you, let's start something ;)");
         } catch (IOException e) {
             throw new NicoleException("Sorry sorry I have trouble loading your tasks from storage....");
         }
