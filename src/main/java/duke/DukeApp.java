@@ -42,6 +42,11 @@ public class DukeApp extends Application {
      * @return the result to show as a string.
      */
     public String handler(String input) {
+
+        assert tasks != null : "tasks should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
+
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         PrintStream newOut = new PrintStream(outContent);
