@@ -141,4 +141,15 @@ public class Ui {
     public static void showDateTimeParseErrorMsg(Exception e) {
         System.err.println("Unable to parse the date and time string: " + e.getMessage());
     }
+
+    public void displayFoundTasks(ArrayList<Task> foundTasks) {
+        System.out.println("    -----------------------------------");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + foundTasks.get(i).toString());
+        }
+        if (foundTasks.size() == 0) {
+            System.out.println("    No tasks found");
+        }
+        System.out.println("    -----------------------------------");
+    }
 }

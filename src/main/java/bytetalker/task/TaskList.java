@@ -187,4 +187,20 @@ public class TaskList {
             this.tasks.add(task);
         }
     }
+
+    public void findTask(String[] splitMessage, Ui ui) {
+        if (splitMessage.length != 2) {
+            System.out.println("    Please use the correct format");
+            return;
+        }
+        String content = splitMessage[1];
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task currentTask = this.tasks.get(i);
+            if (currentTask.getTask().contains(content)) {
+                foundTasks.add(currentTask);
+            }
+        }
+        ui.displayFoundTasks(foundTasks);
+    }
 }
