@@ -13,28 +13,26 @@ public class Parser {
     public static String transformText(String userOutput) {
         assert !userOutput.isEmpty() : "Output can not be split!";
         String[] splitOutput = userOutput.split(" ");
-        String word = "";
         int taskNum = -1;
         String output = "";
+        String TaskCommand = splitOutput[0];
 
         //in the case user wants to mark/unmark , export this into a helper later
-        switch (splitOutput[0]) {
+        switch (TaskCommand) {
         case "find":
-            word = splitOutput[0];
             StringBuilder searchQuery = new StringBuilder();
             for (int i = 1; i < splitOutput.length; i++) {
                 searchQuery.append(splitOutput[i]);
             }
-            String echoOut = Mamta.echo(searchQuery.toString(), word, taskNum, "", "");
+            String echoOut = Mamta.echo(searchQuery.toString(), TaskCommand, taskNum, "", "");
             System.out.println(echoOut);
             return echoOut;
         case "mark":
         case "unmark":
         case "delete":
-             word = splitOutput[0];
              taskNum = Integer.parseInt(splitOutput[1]);
              System.out.println(output);
-             return Mamta.echo("default", word, taskNum, "", "");
+             return Mamta.echo("default", TaskCommand, taskNum, "", "");
         case "todo": {
             StringBuilder task = new StringBuilder();
             for (int i = 1; i < splitOutput.length; i++) {

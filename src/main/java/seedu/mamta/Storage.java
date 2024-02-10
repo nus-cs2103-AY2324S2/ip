@@ -21,27 +21,31 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] splitOutput = line.split("\\|");
+                String TaskType = splitOutput[0];
+                String TaskContent = splitOutput[2];
+                int StartDateIndex = 3;
+                int EndDateIndex = 4;
 
-                switch (splitOutput[0]) {
+                switch (TaskType) {
                 case "T":
                     if (splitOutput[1].equals("X")) {
-                        TaskList.addTask(new Todo(true, splitOutput[2]));
+                        TaskList.addTask(new Todo(true, TaskContent));
                     } else {
-                        TaskList.addTask(new Todo(false, splitOutput[2]));
+                        TaskList.addTask(new Todo(false, TaskContent));
                     }
                     break;
                case "D":
                    if (splitOutput[1].equals("X")) {
-                       TaskList.addTask(new Deadline(true, splitOutput[2],splitOutput[3]));
+                       TaskList.addTask(new Deadline(true, TaskContent,splitOutput[StartDateIndex]));
                    } else {
-                       TaskList.addTask(new Deadline(false, splitOutput[2],splitOutput[3]));
+                       TaskList.addTask(new Deadline(false, TaskContent,splitOutput[StartDateIndex]));
                    }
                    break;
                case "E":
                    if (splitOutput[1].equals("X")) {
-                       TaskList.addTask(new Event(true, splitOutput[2],splitOutput[3], splitOutput[4]));
+                       TaskList.addTask(new Event(true, TaskContent,splitOutput[StartDateIndex], splitOutput[EndDateIndex]));
                    } else {
-                       TaskList.addTask(new Event(false, splitOutput[2],splitOutput[3], splitOutput[4]));
+                       TaskList.addTask(new Event(false, TaskContent,splitOutput[StartDateIndex], splitOutput[EndDateIndex]));
                    }
                    break;
                 }
