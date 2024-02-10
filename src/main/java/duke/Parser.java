@@ -16,20 +16,61 @@ import duke.command.ListCommand;
  * Used to parse user commands.
  */
 public class Parser {
+    private enum CommandType {
+        Todo,
+        Deadline,
+        Event,
+        Mark,
+        Unmark,
+        Delete,
+        Find,
+        List,
+        Bye;
+
+        private static CommandType parse(String command) throws InvalidCommandType {
+            switch (command) {
+            case "todo":
+                return Todo;
+            case "deadline":
+                return Deadline;
+            case "event":
+                return Event;
+            case "mark":
+                return Mark;
+            case "unmark":
+                return Unmark;
+            case "delete":
+                return Delete;
+            case "find":
+                return Find;
+            case "list":
+                return List;
+            case "bye":
+                return Bye;
+            default:
+                throw new InvalidCommandType(command);
+            }
+        }
+    }
+
     /**
      * Parse one user command.
      * The user command is parsed from a string into a subclass of {@link Command} which can be then executed.
+     *
      * @throws InvalidCommandType when the given command (first word) is unknown
      * @throws InvalidCommandData when the inputs of the command aren't as expected
      */
     public static Command parse(String commandText) throws InvalidCommandType, InvalidCommandData {
         Scanner scanner = new Scanner(commandText);
-        String type = scanner.next();
+        var type = CommandType.parse(scanner.next());
 
-        if (Objects.equals(type, "bye")) {
+        switch (type) {
+        case Bye:
             return new ExitCommand();
-        } else if (Objects.equals(type, "list")) {
+        case List:
             return new ListCommand();
+        default:
+            // continue to other commands
         }
 
         if (!scanner.hasNextLine()) {
@@ -37,33 +78,24 @@ public class Parser {
         }
         String parameter = scanner.nextLine().trim();
 
-        Command command;
         switch (type) {
-        case "todo":
-            command = new AddCommand(AddCommand.Type.Todo, parseComponents(parameter));
-            break;
-        case "deadline":
-            command = new AddCommand(AddCommand.Type.Deadline, parseComponents(parameter));
-            break;
-        case "event":
-            command = new AddCommand(AddCommand.Type.Event, parseComponents(parameter));
-            break;
-        case "mark":
-            command = new CompleteCommand(parseIndex(parameter), true);
-            break;
-        case "unmark":
-            command = new CompleteCommand(parseIndex(parameter), false);
-            break;
-        case "delete":
-            command = new DeleteCommand(parseIndex(parameter));
-            break;
-        case "find":
-            command = new FindCommand(parameter);
-            break;
+        case Todo:
+            return new AddCommand(AddCommand.Type.Todo, parseComponents(parameter));
+        case Deadline:
+            return new AddCommand(AddCommand.Type.Deadline, parseComponents(parameter));
+        case Event:
+            return new AddCommand(AddCommand.Type.Event, parseComponents(parameter));
+        case Mark:
+            return new CompleteCommand(parseIndex(parameter), true);
+        case Unmark:
+            return new CompleteCommand(parseIndex(parameter), false);
+        case Delete:
+            return new DeleteCommand(parseIndex(parameter));
+        case Find:
+            return new FindCommand(parameter);
         default:
-            throw new InvalidCommandType(type);
+            throw new IllegalStateException("Unexpected type: " + type);
         }
-        return command;
     }
 
     private static int parseIndex(String input) {
@@ -101,6 +133,7 @@ public class Parser {
 
         /**
          * Creates an exception about an unknown command string.
+         *
          * @param command The name of the unknown command
          */
         public InvalidCommandType(String command) {
