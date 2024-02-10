@@ -175,6 +175,17 @@ public enum Command {
         public void execute(String userInput) {
             Ui.printHelp();
         }
+    },
+    FIND {
+        @Override
+        public void execute(String userInput) {
+            try {
+                String keyword = userInput.substring(5);
+                Finder.findTask(keyword);
+            } catch (StringIndexOutOfBoundsException e) {
+                Ui.printFormatError("find <keyword>");
+            }
+        }
     };
     public void execute(String userInput) {
         // Empty method

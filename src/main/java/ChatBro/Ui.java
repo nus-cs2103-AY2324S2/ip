@@ -7,6 +7,9 @@ public class Ui {
     public static void printLine() {
         System.out.println("____________________________");
     }
+    public static void printWithoutLine(String message) {
+        System.out.println(message);
+    }
     public static void printMessage(String message) {
         printLine();
         System.out.println(message);
@@ -33,7 +36,9 @@ public class Ui {
                 + "7. deadline <description> /by <deadline time>\n"
                 + "8. event <description> /from <start time> /to <end time>\n"
                 + "Deadline and start/end times must follow the format:\n"
-                + "'DD-MM-YYYY HHmm' (HHmm is *optional* and in 24hr format)");
+                + "'DD-MM-YYYY HHmm' (HHmm is *optional* and in 24hr format)\n"
+                + "Find tasks using:\n"
+                + "9. find <keyword> (finds tasks containing keyword in the description)");
     }
     public static void printBye() {
         printMessage("I have saved your tasks. Hasta la vista bro!");

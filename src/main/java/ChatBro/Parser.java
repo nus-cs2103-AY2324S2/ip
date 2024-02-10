@@ -44,6 +44,9 @@ public class Parser {
         case "help":
             Command.HELP.execute(input);
             break;
+        case "find":
+            Command.FIND.execute(input);
+            break;
         default:
             Ui.printMessage("Sorry bro, I don't understand that command.");
         }
