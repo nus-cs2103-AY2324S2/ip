@@ -34,10 +34,12 @@ public class MarkCommand extends Command {
             ui.echo("Sorry! That item does not exist in the list.\n" +
                     "You currently have " + tasks.size() + " tasks in the list.");
         } else {
-            ui.echo("Nice! I've marked this task as done:");
             Task currTask = tasks.get(index-1);
             currTask.mark();
+
+            ui.echo("Nice! I've marked this task as done:");
             ui.echo(currTask.toString());
+
             storage.saveAllToFile(tasks);
         }
     }

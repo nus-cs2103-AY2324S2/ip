@@ -20,9 +20,9 @@ import java.time.temporal.TemporalAccessor;
  */
 
 public class DateTime {
-    public LocalDateTime dateTime;
-    public Boolean dateOnly;
-    public Boolean timeOnly;
+    private final LocalDateTime dateTime;
+    private boolean dateOnly;
+    private boolean timeOnly;
 
     /**
      * Constructor for this class.
@@ -144,8 +144,8 @@ public class DateTime {
             return getDate(str.trim(), dateTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new ChaterpillarException(
-                    "Invalid date format! I accept quite a number of common date format, " +
-                    "but here is one you can use: DD/MM/YYY HH:MM");
+                    "Invalid date format! I accept quite a number of common date format, "
+                    + "but here is one you can use: DD/MM/YYY HH:MM");
         }
     }
 
@@ -155,7 +155,8 @@ public class DateTime {
      * @param format <code>DateTimeFormatter</code> object
      * @return <code>LocalDateTime</code> object
      */
-    private LocalDateTime getDate(String s, DateTimeFormatter format) throws ChaterpillarException {
+    private LocalDateTime getDate(String s, DateTimeFormatter format)
+            throws ChaterpillarException {
         try {
             TemporalAccessor dt = format.parseBest(
                     s, LocalDateTime::from, LocalDate::from, LocalTime::from, YearMonth::from);

@@ -10,7 +10,7 @@ import chaterpillar.exceptions.ChaterpillarException;
  * a String representing the date and/or time of deadline.
  */
 public class DeadlineTask extends Task {
-    public DateTime dateTime;
+    private final DateTime dateTime;
 
     /**
      * Basic constructor
@@ -19,7 +19,6 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String taskName, String date_time) throws ChaterpillarException {
         super(taskName);
         this.dateTime = new DateTime(date_time);
-        this.hasDate = true;
     }
 
     /**

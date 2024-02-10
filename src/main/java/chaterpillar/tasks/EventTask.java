@@ -11,8 +11,8 @@ import chaterpillar.exceptions.ChaterpillarException;
  * a String representing the end date and/or time of the event.
  */
 public class EventTask extends Task {
-    public DateTime dateTimeFrom;
-    public DateTime dateTimeTo;
+    private final DateTime dateTimeFrom;
+    private final DateTime dateTimeTo;
     /**
      * Constructor with event start and end
      * date and/or time specified
@@ -20,11 +20,11 @@ public class EventTask extends Task {
      * @param dateTimeFrom start date and/or time of the event
      * @param dateTimeTo end date and/or time of the event
      */
-    public EventTask(String taskName, String dateTimeFrom, String dateTimeTo) throws ChaterpillarException {
+    public EventTask(String taskName, String dateTimeFrom, String dateTimeTo)
+            throws ChaterpillarException {
         super(taskName);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
-        this.hasDate = true;
     }
 
     /**
@@ -35,11 +35,11 @@ public class EventTask extends Task {
      * @param dateTimeFrom start date and/or time of the event
      * @param dateTimeTo end date and/or time of the event
      */
-    public EventTask(String taskname, Boolean isMarked, String dateTimeFrom, String dateTimeTo) throws ChaterpillarException {
+    public EventTask(String taskname, Boolean isMarked, String dateTimeFrom, String dateTimeTo)
+            throws ChaterpillarException {
         super(taskname,isMarked);
         this.dateTimeFrom = new DateTime(dateTimeFrom);
         this.dateTimeTo = new DateTime(dateTimeTo);
-        this.hasDate = true;
         this.isMarked = isMarked;
     }
 

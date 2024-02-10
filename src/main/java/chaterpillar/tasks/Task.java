@@ -8,9 +8,8 @@ import chaterpillar.datetime.DateTime;
  * indicating whether the task is marked.
  */
 public class Task {
-    public String taskName;
-    public boolean isMarked;
-    public boolean hasDate;
+    private final String taskName;
+    boolean isMarked;
 
     /**
      * Basic constructor
@@ -19,7 +18,6 @@ public class Task {
     public Task(String taskName) {
         this.taskName = taskName.trim();
         this.isMarked = false;
-        this.hasDate = false;
     }
 
     /**

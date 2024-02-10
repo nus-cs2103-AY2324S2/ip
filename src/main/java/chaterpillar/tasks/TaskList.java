@@ -17,7 +17,7 @@ public class TaskList {
      * <code>TaskList</code> object.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**

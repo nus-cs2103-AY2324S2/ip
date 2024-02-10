@@ -36,12 +36,12 @@ public class DeleteCommand extends Command {
             tasks.deleteTaskAtIndex(index);
         } catch (NumberFormatException e) {
             throw new ChaterpillarException(
-                    "Sorry, there is no number detected.\n" +
-                    "The correct way to use the command is: delete number");
+                    "Sorry, there is no number detected.\n"
+                    + "The correct way to use the command is: delete number");
         } catch (IndexOutOfBoundsException e) {
             throw new ChaterpillarException(
-                    "Sorry, the item does not exist in the list.\n" +
-                    "The correct way to use the command is: delete number");
+                    "Sorry, the item does not exist in the list.\n"
+                    + "The correct way to use the command is: delete number");
         }
         storage.saveAllToFile(tasks);
     }

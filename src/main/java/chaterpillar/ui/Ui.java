@@ -10,11 +10,11 @@ import java.io.InputStreamReader;
  */
 public class Ui {
     private static final String LOGO =
-            "                           .    .\n" +
-            "                            )  (\n" +
-            "      _ _ _ _ _ _ _ _ _ _ _(.--.)\n" +
-            "    {{ { { { { { { { { { { ( 'v')\n" +
-            "     >>>>>>>>>>>>>>>>>>>>>>>`--'>";
+              "                           .    .\n"
+            + "                            )  (\n"
+            + "      _ _ _ _ _ _ _ _ _ _ _(.--.)\n"
+            + "    {{ { { { { { { { { { { ( 'v')\n"
+            + "     >>>>>>>>>>>>>>>>>>>>>>>`--'>";
     private static final BufferedReader reader = new BufferedReader(
             new InputStreamReader((System.in)));
 
