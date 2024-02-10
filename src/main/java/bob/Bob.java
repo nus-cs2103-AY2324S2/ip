@@ -1,6 +1,7 @@
 // TODO: divide into multiple packages
 package bob;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Bob {
@@ -8,13 +9,11 @@ public class Bob {
         Task task = TaskList.mark(taskIndex, isDone);
 
         TaskList.save(false);
-
         Ui.mark(task, isDone);
     }
 
     public static void handleDelete(int taskIndex) throws InvalidTaskIndexException {
         Task task = TaskList.delete(taskIndex);
-
         Ui.delete(task, TaskList.getSize());
     }
 
@@ -22,12 +21,25 @@ public class Bob {
         TaskList.list();
     }
 
-    public static void handleAdd(String taskType, String[] parameters) throws DateTimeParseException {
-        Task task = TaskList.add(taskType, parameters);
-
+    private static void saveAndPrintAdded(Task task) {
         TaskList.save(true);
-
         Ui.add(task, TaskList.getSize());
+    }
+
+    public static void handleAddTodo(String description) throws DateTimeParseException {
+        Task task = TaskList.addTodo(description);
+        saveAndPrintAdded(task);
+    }
+
+    public static void handleAddDeadline(String description, LocalDateTime by) throws DateTimeParseException {
+        Task task = TaskList.addDeadline(description, by);
+        saveAndPrintAdded(task);
+    }
+
+    public static void handleAddEvent(
+            String description, LocalDateTime from, LocalDateTime to) throws DateTimeParseException {
+        Task task = TaskList.addEvent(description, from, to);
+        saveAndPrintAdded(task);
     }
 
     public static void main(String[] args) {

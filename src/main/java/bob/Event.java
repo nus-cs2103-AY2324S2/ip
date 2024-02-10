@@ -7,14 +7,15 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    public Event(String description, String from, String to) throws DateTimeParseException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws DateTimeParseException {
         super(description);
-        this.from = LocalDateTime.parse(from, Parser.INPUT_DATE_FORMATTER);
-        this.to = LocalDateTime.parse(to, Parser.INPUT_DATE_FORMATTER);
+        this.from = from;
+        this.to = to;
     }
 
-    public String format() {
-        return "event | " + super.format() + " | " + this.from.format(Parser.INPUT_DATE_FORMATTER)
+    @Override
+    public String toStorageFormat() {
+        return "event | " + super.toStorageFormat() + " | " + this.from.format(Parser.INPUT_DATE_FORMATTER)
                 + " | " + this.to.format(Ui.OUTPUT_DATE_FORMATTER);
     }
 

@@ -30,7 +30,7 @@ public class Ui {
             + "you gave me \"%s\".";
 
     public static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-    public static final String INVALID_DATE_FORMAT = "i only understand yyyy-mm-dd bro";
+    public static final String INVALID_DATE_FORMAT = "i only understand " + Parser.INPUT_DATE_PATTERN + " bro";
 
     public static final String LOADING_ERROR = "wait what happened i cant load any data";
 

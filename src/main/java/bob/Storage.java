@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -27,17 +28,35 @@ public class Storage {
         return path.toFile();
     }
 
+    // TODO: Once extractParameter is more generalised, we can move this to Parser
+    private static void parseStorageLine(String line, int lineIndex) throws InvalidTaskIndexException {
+        String[] parameters = line.split(" \\| ");
+        String taskType = parameters[0];
+        boolean isDone = Boolean.parseBoolean(parameters[1]);
+        String description = parameters[2];
+        switch (taskType) {
+            case Parser.TODO:
+                TaskList.addTodo(description);
+                break;
+            case Parser.DEADLINE:
+                LocalDateTime by = LocalDateTime.parse(parameters[3], Parser.INPUT_DATE_FORMATTER);
+                TaskList.addDeadline(description, by);
+                break;
+            default:
+                LocalDateTime from = LocalDateTime.parse(parameters[3], Parser.INPUT_DATE_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parameters[4], Parser.INPUT_DATE_FORMATTER);
+                TaskList.addEvent(description, from, to);
+        }
+        TaskList.mark(lineIndex, isDone);
+    }
+
     public static void load() {
         try {
             dataFile = createOrRetrieve();
             Scanner s = new Scanner(dataFile);
 
             for (int i = 0; s.hasNext(); i++) {
-                String formattedTask = s.nextLine();
-                String[] parameters = formattedTask.split(" \\| ");
-
-                TaskList.add(parameters[0], Arrays.copyOfRange(parameters, 2, parameters.length));
-                TaskList.mark(i, parameters[1].equals("1"));
+                parseStorageLine(s.nextLine(), i);
             }
         } catch (Exception e) {
             // Regardless of what went wrong, print the exception name and message, then quit.
@@ -51,11 +70,11 @@ public class Storage {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), isAppend);
             BufferedWriter bw = new BufferedWriter(fw);
             if (isAppend) {
-                bw.write(tasks.get(tasks.size() - 1).format());
+                bw.write(tasks.get(tasks.size() - 1).toStorageFormat());
                 bw.newLine();
             } else {
                 for (Task task : tasks) {
-                    bw.write(task.format());
+                    bw.write(task.toStorageFormat());
                     bw.newLine();
                 }
             }

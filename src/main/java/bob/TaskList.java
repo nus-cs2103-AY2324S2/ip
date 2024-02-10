@@ -1,5 +1,6 @@
 package bob;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -37,22 +38,21 @@ public class TaskList {
         Ui.list(TASKS);
     }
 
-    public static Task add(String taskType, String[] parameters) {
-        // TODO: Might be better to have addTodo, addDeadline and addEvent separately
-        Task task;
-        switch (taskType) {
-            case Parser.TODO:
-                task = new Todo(parameters[0]);
-                break;
-            case Parser.DEADLINE:
-                task = new Deadline(parameters[0], parameters[1]);
-                break;
-            default:
-                task = new Event(parameters[0], parameters[1], parameters[2]);
-        }
-
+    public static Task addTodo(String description) {
+        Task task = new Todo(description);
         TASKS.add(task);
+        return task;
+    }
 
+    public static Task addDeadline(String description, LocalDateTime by) {
+        Task task = new Deadline(description, by);
+        TASKS.add(task);
+        return task;
+    }
+
+    public static Task addEvent(String description, LocalDateTime from, LocalDateTime to) {
+        Task task = new Event(description, from, to);
+        TASKS.add(task);
         return task;
     }
 

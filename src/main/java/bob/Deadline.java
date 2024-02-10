@@ -7,13 +7,14 @@ public class Deadline extends Task {
 
     protected LocalDateTime by;
 
-    public Deadline(String description, String by) throws DateTimeParseException {
+    public Deadline(String description, LocalDateTime by) throws DateTimeParseException {
         super(description);
-        this.by = LocalDateTime.parse(by, Parser.INPUT_DATE_FORMATTER);
+        this.by = by;
     }
 
-    public String format() {
-        return "deadline | " + super.format() + " | " + this.by.format(Parser.INPUT_DATE_FORMATTER);
+    @Override
+    public String toStorageFormat() {
+        return "deadline | " + super.toStorageFormat() + " | " + this.by.format(Parser.INPUT_DATE_FORMATTER);
     }
 
     @Override

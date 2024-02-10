@@ -25,8 +25,8 @@ public abstract class Task {
         this.isDone = done;
     }
 
-    public String format() {
-        return (isDone ? '1' : '0') + " | " + this.description;
+    public String toStorageFormat() {
+        return (isDone ? "true" : "false") + " | " + this.description;
     }
 
     @Override

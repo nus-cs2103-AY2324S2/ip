@@ -1,5 +1,6 @@
 package bob;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -15,11 +16,14 @@ public class Parser {
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
 
-    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    public static final String INPUT_DATE_PATTERN = "d/M/yyyy HHmm";
+    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern(INPUT_DATE_PATTERN);
 
     public static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
-        // TODO: return a HashMap rather than a String[]
+        // TODO: generalise the method to any given parametersString, desiredParameters and separator
+        // TODO: perform ParameterNotFoundException checks correctly
+        // TODO: return a HashMap that maps each desiredParameter to its value
         int n = parameters.length;
         String[] result = new String[n + 1];
 
@@ -58,20 +62,28 @@ public class Parser {
         // TODO: map each task type to a list of parameters
         // Undefined behaviour when there are multiple instances of the same parameter
         // e.g. event project meeting /from 2019-10-02 /to 2019-10-02 /from 2019-10-04 /to 2019-10-04
+        String taskType = commandArgs[0];
         try {
             String[] parameters;
-            switch (commandArgs[0]) {
-                case Parser.TODO:
-                    parameters = Parser.extractParameters(commandArgs[1], new String[]{});
-                    Bob.handleAdd(commandArgs[0], parameters);
-                    break;
-                case Parser.DEADLINE:
-                    parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
-                    Bob.handleAdd(commandArgs[0], parameters);
-                    break;
-                default:
-                    parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
-                    Bob.handleAdd(commandArgs[0], parameters);
+            String description;
+            switch (taskType) {
+            case TODO:
+                parameters = Parser.extractParameters(commandArgs[1], new String[]{});
+                description = parameters[0];
+                Bob.handleAddTodo(description);
+                break;
+            case DEADLINE:
+                parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
+                description = parameters[0];
+                LocalDateTime by = LocalDateTime.parse(parameters[1], INPUT_DATE_FORMATTER);
+                Bob.handleAddDeadline(description, by);
+                break;
+            default:
+                parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
+                description = parameters[0];
+                LocalDateTime from = LocalDateTime.parse(parameters[1], INPUT_DATE_FORMATTER);
+                LocalDateTime to = LocalDateTime.parse(parameters[2], INPUT_DATE_FORMATTER);
+                Bob.handleAddEvent(description, from, to);
             }
         } catch (ParameterNotFoundException e) {
             Ui.print(e.getMessage());

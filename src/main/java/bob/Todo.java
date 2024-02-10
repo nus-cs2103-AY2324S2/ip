@@ -5,8 +5,8 @@ public class Todo extends Task {
         super(description);
     }
 
-    public String format() {
-        return "todo | " + super.format();
+    public String toStorageFormat() {
+        return "todo | " + super.toStorageFormat();
     }
 
     @Override
