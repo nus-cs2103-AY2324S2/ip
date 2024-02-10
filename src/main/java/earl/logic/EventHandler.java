@@ -1,8 +1,7 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
-import earl.tasks.Event;
-import earl.util.Parser;
+import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;
 
@@ -11,18 +10,15 @@ import earl.util.Ui;
  */
 public class EventHandler extends Handler {
 
-    private final String[] command;
-
-    public EventHandler(String[] command) {
-        this.command = command;
+    /** Class constructor. */
+    public EventHandler(String... args) {
+        super(args);
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            String[] args = Parser.parseUserInput(command[1],
-                    "\\s/(from|to)\\s");
-            tasks.add(new Event(args[0], args[1], args[2]));
+            tasks.add(TaskType.EVENT.createTask(args));
             ui.makeResponse("Added new event.",
                     "\t" + tasks.get(tasks.getSize() - 1),
                     "There are " + tasks.getSize() + " task(s) tracked.");

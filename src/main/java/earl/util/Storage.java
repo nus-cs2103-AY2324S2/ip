@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import earl.exceptions.EarlException;
 import earl.tasks.Task;
+import earl.util.parsers.StorageParser;
 
 /**
  * Class responsible for reading and writing data to disk.
@@ -15,7 +17,7 @@ import earl.tasks.Task;
 public class Storage {
 
     private final String filePath;
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Class constructor.
@@ -33,8 +35,9 @@ public class Storage {
      * @return an {@code ArrayList} of {@code Task} read
      * @throws EarlException if the file could not be created or read
      */
-    public ArrayList<Task> load() throws EarlException {
+    public List<Task> load() throws EarlException {
         try {
+            // check if file exists
             File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
@@ -43,14 +46,15 @@ public class Storage {
                 throw new EarlException("Storage file missing... "
                         + "creating new file.");
             }
+            // read from file
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String entry = sc.nextLine();
-                tasks.add(Parser.parseStorageEntry(entry));
+                Task task = StorageParser.parse(entry);
+                tasks.add(task);
             }
         } catch (EarlException e) {
-            throw new EarlException("Storage file is corrupted... "
-                    + "starting with empty list.");
+            throw e;
         } catch (Exception e) {
             throw new EarlException("Unknown exception occurred "
                     + "when attempting to create or access "
@@ -62,10 +66,10 @@ public class Storage {
     /**
      * Saves given list of {@code Task} onto the disk.
      *
-     * @param tasks an {@code ArrayList} of {@code Task} to be saved
+     * @param tasks a {@code List} of {@code Task} to be saved
      * @throws EarlException if the file could not be written to
      */
-    public void save(ArrayList<Task> tasks) throws EarlException {
+    public void save(List<Task> tasks) throws EarlException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 fw.write(task.toStorageString() + "\n");

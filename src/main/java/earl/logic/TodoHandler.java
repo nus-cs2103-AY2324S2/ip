@@ -1,7 +1,7 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
-import earl.tasks.Todo;
+import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;
 
@@ -10,21 +10,15 @@ import earl.util.Ui;
  */
 public class TodoHandler extends Handler {
 
-    private final String[] command;
-
-    /**
-     * Class constructor.
-     *
-     * @param command  the user input that invoked this handler
-     */
-    public TodoHandler(String[] command) {
-        this.command = command;
+    /** Class constructor. */
+    public TodoHandler(String... args) {
+        super(args);
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            tasks.add(new Todo(command[1]));
+            tasks.add(TaskType.TODO.createTask(args));
             ui.makeResponse("Added new todo.",
                     "\t" + tasks.get(tasks.getSize() - 1),
                     "There are " + tasks.getSize() + " task(s) tracked.");

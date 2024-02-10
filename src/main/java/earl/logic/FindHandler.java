@@ -10,21 +10,15 @@ import earl.util.Ui;
  */
 public class FindHandler extends Handler {
 
-    private final String [] command;
-
-    /**
-     * Class constructor.
-     *
-     * @param command  the user input that invoked this handler
-     */
-    public FindHandler(String[] command) {
-        this.command = command;
+    /** Class constructor. */
+    public FindHandler(String... args) {
+        super(args);
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) {
         int n = tasks.getSize();
-        String pattern = command[1];
+        String pattern = args[0];
         ArrayList<String> temp = new ArrayList<>();
         int c = 0;
         for (int i = 0; i < n; ++i) {

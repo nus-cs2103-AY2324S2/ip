@@ -4,6 +4,8 @@ package earl.tasks;
  * Abstract class encapsulating a task to be tracked.
  */
 public abstract class Task {
+
+    protected TaskType taskType;
     protected String description;
     protected boolean isDone;
 
@@ -15,17 +17,6 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         isDone = false;
-    }
-
-    /**
-     * Class constructor specifying the current completion status.
-     *
-     * @param status       a {@code String} that is either "X" or " "
-     * @param description  a {@code String} naming the task
-     */
-    public Task(String status, String description) {
-        this.description = description;
-        isDone = status.equals("X");
     }
 
     /** Returns a visual indicator of completion. */

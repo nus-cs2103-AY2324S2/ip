@@ -25,6 +25,13 @@ public class Ui {
         System.out.println(PADDING + DIVIDER);
     }
 
+    /** Prints each element of input on a new line. */
+    private static void printStrings(String... arr) {
+        for (String s : arr) {
+            System.out.println(PADDING + s);
+        }
+    }
+
     /**
      * Formats and prints the arguments for the user to read.
      * <p>
@@ -35,12 +42,14 @@ public class Ui {
      * @param arr  a vararg of strings to print
      */
     public void makeResponse(String... arr) {
+        setPrevResponse(arr);
+        printDivider();
+        printStrings(arr);
+        printDivider();
+    }
+
+    private void setPrevResponse(String... arr) {
         prevResponse = arr;
-        printDivider();
-        for (String s : arr) {
-            System.out.println(PADDING + s);
-        }
-        printDivider();
     }
 
     public String getUserInput() {
@@ -55,6 +64,12 @@ public class Ui {
         makeResponse("Goodbye! See you soon.");
     }
 
+    /**
+     * Returns the previous response made for GUI interactions.
+     *
+     * @return  the previous response appearing as it would on a
+     *          text based UI
+     */
     public String getResponse() {
         StringBuilder res = new StringBuilder(PADDING + DIVIDER + "\n");
         for (String line: prevResponse) {

@@ -1,23 +1,26 @@
 package earl.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import earl.tasks.Task;
 
 /**
  * Class encapsulating the list of tasks.
  * <p>
- * Functionally a wrapper of the {@code ArrayList} class.
+ * Functionally a wrapper of the {@code List} class.
  */
 public class TaskList {
 
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
 
+    /** Class constructor. */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
+    /** Class constructor specifying existing list. */
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -34,18 +37,8 @@ public class TaskList {
     }
 
     /** Return list as an {@code ArrayList}. */
-    public ArrayList<Task> getList() {
+    public List<Task> getList() {
         return tasks;
-    }
-
-    /** Marks the task at the given index as done. Returns success. */
-    public boolean mark(int idx) {
-        return tasks.get(idx).markAsDone();
-    }
-
-    /** Marks the task at the given index as undone. Returns success. */
-    public boolean unmark(int idx) {
-        return tasks.get(idx).markUndone();
     }
 
     public void add(Task task) {

@@ -4,12 +4,10 @@ package earl.tasks;
  * Class representing a task of type todo.
  */
 public class Todo extends Task {
+
     public Todo(String description) {
         super(description);
-    }
-
-    public Todo(String status, String description) {
-        super(status, description);
+        taskType = TaskType.TODO;
     }
 
     @Override
@@ -19,6 +17,9 @@ public class Todo extends Task {
 
     @Override
     public String toStorageString() {
-        return "T," + super.getStatusIcon() + "," + description;
+        return String.format("%s,%s,%s",
+                taskType.toString(),
+                super.getStatusIcon(),
+                description);
     }
 }

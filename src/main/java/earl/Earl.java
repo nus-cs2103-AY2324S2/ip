@@ -1,11 +1,11 @@
 package earl;
 
 import earl.exceptions.EarlException;
-import earl.logic.HandlerFactory;
-import earl.util.Parser;
+import earl.logic.Handler;
 import earl.util.Storage;
 import earl.util.TaskList;
 import earl.util.Ui;
+import earl.util.parsers.InputParser;
 
 /**
  * The main class of the Earl application.
@@ -36,7 +36,7 @@ public class Earl {
     }
 
     /**
-     * Main program execution of the Earl class.
+     * Main program execution of the Earl class for TUI mode.
      * <p>
      * Contains main program loop and displaying of greeting
      * and goodbye messages. Attempts to save to storage on exit.
@@ -44,11 +44,10 @@ public class Earl {
     public void run() {
         // main loop
         String input = ui.getUserInput();
-        String[] command;
         while (!input.equals("bye")) {
             try {
-                command = Parser.parseUserInput(input);
-                HandlerFactory.of(command).handle(tasks, ui);
+                Handler handler = InputParser.parse(input);
+                handler.handle(tasks, ui);
             } catch (EarlException e) {
                 ui.makeResponse(e.getMessage());
             } finally {
@@ -73,8 +72,8 @@ public class Earl {
     public String getResponse(String input) {
         try {
             if (!input.equals("bye")) {
-                String[] command = Parser.parseUserInput(input);
-                HandlerFactory.of(command).handle(tasks, ui);
+                Handler handler = InputParser.parse(input);
+                handler.handle(tasks, ui);
             } else {
                 storage.save(tasks.getList());
                 ui.showGoodbye();
@@ -86,7 +85,7 @@ public class Earl {
     }
 
     /**
-     * Entry point of the Earl class. File path is decided here.
+     * Main function for TUI mode.
      */
     public static void main(String[] args) {
         new Earl("data/earl.txt").run();
