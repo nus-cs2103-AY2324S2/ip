@@ -20,7 +20,14 @@ public class TaskList extends ArrayList<Task> {
         super(tasks);
     }
 
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param task The task to be added.
+     * @throws AssertionError If the task to add is null.
+     */
     public void addTask(Task task) {
+        assert task != null : "Task to add should not be null";
         this.add(task);
     }
 

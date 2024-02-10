@@ -17,7 +17,14 @@ import yapper.tasks.Task;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The file path for the storage file.
+     * @throws AssertionError If the file path is null.
+     */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -29,6 +36,7 @@ public class Storage {
     public List<Task> load() throws YapperException {
         List<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            assert reader != null : "BufferedReader should not be null";
             String line;
             while ((line = reader.readLine()) != null) {
                 tasks.add(Parser.parseTask(line));
@@ -46,6 +54,7 @@ public class Storage {
      * @param tasks yapper.tasks.Task input extracted from user input.
      */
     public void saveTasks(List<Task> tasks) throws YapperException {
+        assert tasks != null : "Task list should not be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(task.toFileString());

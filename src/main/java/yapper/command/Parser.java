@@ -26,11 +26,14 @@ public class Parser {
      * @throws YapperException If parsing encounters an error.
      */
     public static Task parseTask(String taskString) throws YapperException {
+        assert taskString != null : "Task string should not be null";
 
         String[] parts = taskString.split("\\|");
         String taskType = parts[0];
+        assert taskType != null : "Task type should not be null";
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
+        assert description != null : "Task description should not be null";
 
         switch (taskType) {
         case "T":

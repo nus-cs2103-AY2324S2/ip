@@ -15,6 +15,7 @@ public class Todo extends Task {
     }
     @Override
     public String toFileString() {
+        assert getDescription() != null : "Task description should not be null";
         return "T | " + (isDone ? "1" : "0") + " | "
                 + getDescription();
     }
