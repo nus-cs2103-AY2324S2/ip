@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 public class Ui {
 
     final static String HORIZONTAL_LINE = "____________________________________________________________";
+    final static String DUKE_IMG = "/images/DaUser.png";
+    final static String USER_IMG = "/images/DaDuke.png";
     final static String NAME = "Kewgy";
 
     private Scanner reader;
@@ -28,8 +30,8 @@ public class Ui {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private Scene scene;
-    private Image user;
-    private Image duke;
+    private Image userImg;
+    private Image dukeImg;
 
     public TextField userInput;
     public Button sendButton;
@@ -46,8 +48,8 @@ public class Ui {
 
         System.out.println(this.getClass().getResource("/").getPath());
 
-        user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-        duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+        userImg = new Image(this.getClass().getResourceAsStream(DUKE_IMG));
+        dukeImg = new Image(this.getClass().getResourceAsStream(USER_IMG));
 
         userInput = new TextField();
         sendButton = new Button("Send");
@@ -92,8 +94,8 @@ public class Ui {
     
     public void addConversation(Label userText, Label dukeText) {
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(userText, new ImageView(user)),
-            DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+            DialogBox.getUserDialog(userText, new ImageView(userImg)),
+            DialogBox.getDukeDialog(dukeText, new ImageView(dukeImg))
         );
         userInput.clear();
     }
@@ -168,14 +170,12 @@ public class Ui {
         return formatString("Here are the tasks in your list:\n" + taskListStr);
     }
 
-
     public String formatString(String... msg) {
         String outputText = "";
 
         for (String s: msg) {
             outputText += s + "\n";
         }
-
 
         return HORIZONTAL_LINE + "\n" + outputText + "\n" + HORIZONTAL_LINE;
     }
@@ -187,7 +187,7 @@ public class Ui {
     public void printDukeText(String msg) {
         Label dukeText = new Label(this.formatString(msg)); 
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+            DialogBox.getDukeDialog(dukeText, new ImageView(dukeImg))
         );
     }
 }
