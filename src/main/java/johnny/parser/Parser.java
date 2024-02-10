@@ -81,6 +81,7 @@ public class Parser {
                 }
 
                 String name = String.join(" ", parsedCommand.subList(1, parsedCommand.size()));
+                assert !name.equals("") : "Name should not be empty";
                 return new AddTodoCommand(name);
             case "deadline":
                 if (parsedCommand.size() < 2) {
@@ -94,6 +95,7 @@ public class Parser {
                 }
 
                 name = String.join(" ", parsedCommand.subList(1, i));
+                assert !name.equals("") : "Name should not be empty";
                 String by = String.join(" ", parsedCommand.subList(i + 1, parsedCommand.size()));
                 LocalDateTime byDate = LocalDateTime.parse(by, INPUT_DATE_FORMAT);
                 return new AddDeadlineCommand(name, byDate);
@@ -115,6 +117,7 @@ public class Parser {
                 }
 
                 name = String.join(" ", parsedCommand.subList(1, i));
+                assert !name.equals("") : "Name should not be empty";
                 String from = String.join(" ", parsedCommand.subList(i + 1, j));
                 String to = String.join(" ", parsedCommand.subList(j + 1, parsedCommand.size()));
                 LocalDateTime fromDate = LocalDateTime.parse(from, INPUT_DATE_FORMAT);
