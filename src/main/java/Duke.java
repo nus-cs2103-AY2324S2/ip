@@ -56,7 +56,7 @@ public class Duke extends Application {
 
         switch (nextCommand) {
             case LIST:
-            dukeText = ui.printList(userTaskList);
+                dukeText = ui.printList(userTaskList);
                 break;
             case MARK:
                 if (parser.checkValidMarkCommand(userMsgParsed, userTaskList)) {
@@ -126,6 +126,7 @@ public class Duke extends Application {
                 break;
             case BYE:
                 dukeText = ui.printGoodBye();
+                break;
             case UNKNOWN:
                 dukeText = ui.printUnknownCommand();
                 break;
