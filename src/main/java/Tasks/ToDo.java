@@ -22,4 +22,11 @@ public class ToDo extends Task {
     public String toString() {
         return "[" + TaskType.T + "][" + super.getStatusIcon() + "] " + super.description;
     }
+
+    @Override
+    public void updateTime(String... times) throws DukeException {
+        if (times.length != 0) {
+            throw new DukeException("Invalid times given for ToDo");
+        }
+    }
 }

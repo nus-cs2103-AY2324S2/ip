@@ -18,7 +18,9 @@ public class Event extends Task {
      * @throws DukeException
      */
     public Event(String description) throws DukeException {
-        super(parseEventDescription(description));
+        super(description);
+
+        parseEventDescription(description);
     }
 
     /**
@@ -28,7 +30,7 @@ public class Event extends Task {
      * @return formatted event description
      * @throws DukeException if there's an issue with the description format
      */
-    private static String parseEventDescription(String description) throws DukeException {
+    private void parseEventDescription(String description) throws DukeException {
         if (!description.contains("/from") || !description.contains("/to")) {
             throw new DukeException("Dates missing in description!");
         }
@@ -40,16 +42,28 @@ public class Event extends Task {
             throw new DukeException("Invalid dates!");
         }
 
+        super.description = descParsed[0].trim();
+        updateTime(dateParsed);
+    }
+
+    @Override
+    public void updateTime(String... times) throws DukeException {
+        if (times.length != 2) {
+            throw new DukeException("Invalid times given for Event");
+        }
+
         try {
-            LocalDate date1 = LocalDate.parse(dateParsed[0].trim());
-            LocalDate date2 = LocalDate.parse(dateParsed[1].trim());
+            LocalDate date1 = LocalDate.parse(times[0].trim());
+            LocalDate date2 = LocalDate.parse(times[1].trim());
 
             String formattedDate1 = formatDate(date1);
             String formattedDate2 = formatDate(date2);
 
-            return descParsed[0].trim() + " (from: " + formattedDate1 + " to: " + formattedDate2 + ")";
+            super.time1 = formattedDate1;
+            super.time2 = formattedDate2;
         } catch (Exception e) {
-            return descParsed[0].trim() + " (from: " + dateParsed[0].trim() + " to: " + dateParsed[1].trim() + ")";
+            super.time1 = times[0].trim();
+            super.time2 = times[1].trim();
         }
     }
 
@@ -65,6 +79,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + TaskType.E + "][" + super.getStatusIcon() + "] " + super.getDescription();
+        return "[" + TaskType.E + "][" + super.getStatusIcon() + "] " + 
+            super.getDescription() + " (from: " + super.time1 + " to: " + super.time2 + ")";
     }
 }

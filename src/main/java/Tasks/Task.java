@@ -5,6 +5,8 @@ import Exceptions.DukeException;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String time1;
+    protected String time2;
 
     public enum TaskType {
         T,
@@ -46,8 +48,9 @@ public class Task {
         this.isDone = done;
     }
 
-    @Override
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+    public void updateDescription(String description) {
+        this.description = description;
     }
+
+    public void updateTime(String... times) throws DukeException { }
 }

@@ -127,6 +127,19 @@ public class Duke extends Application {
             case BYE:
                 dukeText = ui.printGoodBye();
                 break;
+            case UPDATE_TIME:
+                String[] updateTimeParsed = userMsg.split(" ", 3);
+                if (parser.checkValidMarkCommand(updateTimeParsed, userTaskList)) {
+                    int taskInt = Integer.parseInt(updateTimeParsed[1]) - 1;
+                    
+                    try {
+                        userTaskList.get(taskInt).updateTime(updateTimeParsed[2]);;
+                        dukeText = ui.printUpdateTime(userTaskList.get(taskInt));
+                    } catch (DukeException e) {
+                        dukeText = ui.printError(e);
+                    }
+                } 
+                break;
             case UNKNOWN:
                 dukeText = ui.printUnknownCommand();
                 break;
