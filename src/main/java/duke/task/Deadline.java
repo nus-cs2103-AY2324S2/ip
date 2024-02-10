@@ -56,4 +56,17 @@ public class Deadline extends Task {
         String strDone = this.isDone ? "1" : "0";
         return "D|" + strDone + "|" + this.description + "|" + this.by;
     }
+
+    /**
+     * Updates the by parameter of this class.
+     *
+     * @param newBy
+     *
+     * @return A string representation of the work done.
+     */
+    public String updateBy(String newBy) {
+        String response = "Updated " + this.description + "'s deadline from: " + this.by + "to: " + newBy;
+        this.by = newBy;
+        return response;
+    }
 }

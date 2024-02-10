@@ -44,6 +44,12 @@ public class Parser {
                     return tskLst.addTask(TaskList.TaskCommand.DEADLINE, instr, storage);
                 case("event"):
                     return tskLst.addTask(TaskList.TaskCommand.EVENT, instr, storage);
+                case("edit"):
+                    String validDescription = instr.substring(5);
+                    String descriptionCommand = validDescription.split("/")[0];
+                    String descriptionDetails = validDescription.split("/")[1];
+                    int tsk = Integer.parseInt(validDescription.split("/")[2]);
+                    return tskLst.edit(descriptionCommand, descriptionDetails, tsk);
                 default:
                     throw new DukeException("OOPS!!! What is that?"
                         + "I'm sorry, but I don't recognise this command :-( \nTry another command!");

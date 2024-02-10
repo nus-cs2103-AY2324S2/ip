@@ -83,4 +83,17 @@ public class Task {
         String strDone = this.isDone ? "1" : "0";
         return strDone + "|" + this.description;
     }
+
+    /**
+     * Update the description parameter of the task class.
+     *
+     * @param newDescription
+     *
+     * @return A string representation of the work done.
+     */
+    public String updateDescription(String newDescription) {
+        String response = "Updated " + this.description + " to " + newDescription;
+        this.description = newDescription;
+        return response;
+    }
 }

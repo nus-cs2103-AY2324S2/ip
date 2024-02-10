@@ -195,6 +195,47 @@ public class TaskList {
     }
 
     /**
+     * Edits the details for the different tasks.
+     *
+     * @param cmdWord Command word informing what detail to be edited.
+     * @param newDetails Representing the new details to be added.
+     * @param ptr Representing the task number to be edited.
+     *
+     * @return A string representing the work that has been done.
+     */
+    public String edit(String cmdWord, String newDetails, int ptr) {
+        Task tsk = this.instrList.get(ptr - 1);
+        try {
+            switch (cmdWord) {
+            case("description"):
+                return tsk.updateDescription(newDetails);
+            case("start"):
+                if (tsk instanceof Event) {
+                    return ((Event) tsk).updateStart(newDetails);
+                } else {
+                    throw new DukeException("OOPSIE! Task you are trying to edit is NOT AN EVENT!!!");
+                }
+            case("end"):
+                if (tsk instanceof Event) {
+                    return ((Event) tsk).updateStart(newDetails);
+                } else {
+                    throw new DukeException("OOPSIE! Task you are trying to edit is NOT AN EVENT!!!");
+                }
+            case("by"):
+                if (tsk instanceof Deadline) {
+                    return ((Deadline) tsk).updateBy(newDetails);
+                } else {
+                    throw new DukeException("OOPSIE! Task you are trying to edit is NOT A DEADLINE!!!");
+                }
+            default:
+                throw new DukeException("Invalid details to be edited");
+            }
+        } catch (DukeException e) {
+            return e.toString();
+        }
+    }
+
+    /**
      * Finds the list of task that matches the key words.
      *
      * @param instr The string with the task information.

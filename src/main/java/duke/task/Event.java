@@ -61,4 +61,30 @@ public class Event extends Task {
         String strDone = this.isDone ? "1" : "0";
         return "E|" + strDone + "|" + this.description + "|" + this.start + "|" + this.end;
     }
+
+    /**
+     * Update the start parameter of this class.
+     *
+     * @param newStart
+     *
+     * @return A string representation of the work done.
+     */
+    public String updateStart(String newStart) {
+        String response = "Updated " + this.description + "'s end date from: " + this.start + "to: " + newStart;
+        this.start = newStart;
+        return response;
+    }
+
+    /**
+     * Update the end parameter of this class.
+     *
+     * @param newEnd
+     *
+     * @return A string representation of the work done.
+     */
+    public String updateEnd(String newEnd) {
+        String response = "Updated " + this.description + "'s end date from: " + this.end + "to: " + newEnd;
+        this.end = newEnd;
+        return response;
+    }
 }
