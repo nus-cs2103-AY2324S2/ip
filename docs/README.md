@@ -16,6 +16,7 @@ KaiYap Task Manager comes packed with features designed to help you stay organiz
 - **Search Functionality:** Quickly find tasks by searching for keywords.
 - **Persistence:** Save your task list between sessions so you never lose track of your responsibilities.
 ___
+
 ## Adding Tasks
 
 To add a task to your list, simply use the command associated with the type of task you want to add. KaiYap supports three types of tasks: Todos, Deadlines, and Events.
