@@ -1,15 +1,16 @@
 package checkbot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.Scanner;
 
-import checkbot.task.Todo;
-import checkbot.task.TodoList;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import checkbot.task.Todo;
+import checkbot.task.TodoList;
 
 public class StorageTest {
     @Test

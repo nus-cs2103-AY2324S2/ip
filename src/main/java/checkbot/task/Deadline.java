@@ -1,5 +1,7 @@
 package checkbot.task;
 
+import java.util.Objects;
+
 /**
  * Represents a deadline task in the task list.
  * A deadline task is a task that contains a "due date".
@@ -26,5 +28,22 @@ public class Deadline extends Task {
     @Override
     public String formatForFile() {
         return String.format("D | %s | %s", super.formatForFile(), this.to);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Deadline) || !super.equals(o)) {
+            return false;
+        }
+        Deadline deadline = (Deadline) o;
+        return Objects.equals(to, deadline.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(to);
     }
 }

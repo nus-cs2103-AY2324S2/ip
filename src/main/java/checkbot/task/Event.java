@@ -1,5 +1,7 @@
 package checkbot.task;
 
+import java.util.Objects;
+
 /**
  * Represents an event task in the task list.
  * An event task is a task that contains a "from" and "to" date.
@@ -29,5 +31,17 @@ public class Event extends Task {
     @Override
     public String formatForFile() {
         return String.format("E | %s | %s | %s", super.formatForFile(), this.from, this.to);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Event) || !super.equals(o)) {
+            return false;
+        }
+        Event event = (Event) o;
+        return Objects.equals(from, event.from) && Objects.equals(to, event.to);
     }
 }

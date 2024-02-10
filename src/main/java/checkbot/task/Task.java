@@ -3,6 +3,7 @@ package checkbot.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * Represents a task in the task list.
@@ -44,13 +45,13 @@ public abstract class Task {
      * @return Formatted date, or the original string if parsing fails.
      */
     public static String tryParseDate(String dateString) {
-        final String[] FORMATS = {
+        final String[] formats = {
                 "dd-MM-yyyy",
                 "d-M-yyyy",
                 "d/M/yyyy",
                 "dd/MM/yyyy"
         };
-        for (String format : FORMATS) {
+        for (String format : formats) {
             try {
                 LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(format));
                 return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
@@ -83,5 +84,17 @@ public abstract class Task {
      */
     public boolean nameContains(String substr) {
         return this.name.toLowerCase().contains(substr.toLowerCase());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Task)) {
+            return false;
+        }
+        Task task = (Task) o;
+        return Objects.equals(name, task.name);
     }
 }
