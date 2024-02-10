@@ -15,8 +15,8 @@ public class Storage {
         this.FILE_PATH = FILE_PATH;
     }
 
-    public List<Task> load() throws WhisperException {
-        List<Task> tasks = new ArrayList<>();
+    public ArrayList<Task> load() throws WhisperException {
+        ArrayList<Task> tasks = new ArrayList<>();
 
         try (Scanner sc = new Scanner(new File(FILE_PATH))) {
             while (sc.hasNextLine()) {
@@ -30,7 +30,7 @@ public class Storage {
         return tasks;
     }
 
-    public void saveFile(List<Task> tasks) throws WhisperException {
+    public void saveFile(ArrayList<Task> tasks) throws WhisperException {
         try (FileWriter fw = new FileWriter(FILE_PATH)) {
             for (Task task : tasks) {
                 fw.write(taskToFormattedString(task) + System.lineSeparator());

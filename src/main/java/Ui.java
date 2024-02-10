@@ -58,6 +58,7 @@ public class Ui {
         printLine();
     }
 
+
     public void printExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
