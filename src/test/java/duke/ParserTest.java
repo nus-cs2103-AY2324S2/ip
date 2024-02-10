@@ -41,7 +41,7 @@ class ParserTest {
             "It should throw a InvalidParameterException"
         );
         String[] testArray3 = new String[]{"todo", "do stuff",
-          "/priority", "1"};
+            "/priority", "1"};
         assertEquals(4, Parser.extractDescriptionData(testArray3).length);
         assertEquals("do stuff",
             Parser.extractDescriptionData(testArray3)[0]);
