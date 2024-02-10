@@ -5,10 +5,10 @@ public class Todo extends Task {
      * Constructor for Todo class.
      *
      * @param description The description of the task.
-     * @param done        The status of the task.
+     * @param isDone        The status of the task.
      */
-    public Todo(String description, boolean done) {
-        super(description, done);
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     /**

@@ -16,10 +16,10 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline.
      * @param byWhen      The end date of the deadline.
-     * @param done        The status of the deadline.
+     * @param isDone        The status of the deadline.
      */
-    public Deadline(String description, LocalDate byWhen, boolean done) {
-        super(description, done);
+    public Deadline(String description, LocalDate byWhen, boolean isDone) {
+        super(description, isDone);
         this.byWhen = byWhen;
     }
 

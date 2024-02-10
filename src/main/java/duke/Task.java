@@ -2,17 +2,17 @@ package duke;
 
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructor for Task class.
      *
      * @param description The description of the task.
-     * @param done        The status of the task.
+     * @param isDone        The status of the task.
      */
-    public Task(String description, boolean done) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
@@ -39,16 +39,16 @@ public class Task {
      * @return The status of the task.
      */
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
     /**
      * Sets the status of the task.
      *
-     * @param done The status of the task.
+     * @param isDone The status of the task.
      */
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Task {
      * @return A string saying if a task is done or not.
      */
     public String getDoneMarker() {
-        return done ? "[X]" : "[]";
+        return isDone ? "[X]" : "[]";
     }
 
     /**

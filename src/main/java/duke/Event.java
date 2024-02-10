@@ -16,10 +16,10 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param start       The start date of the event.
      * @param deadline    The end date of the event.
-     * @param done        The status of the event.
+     * @param isDone        The status of the event.
      */
-    public Event(String description, LocalDate start, LocalDate deadline, boolean done) {
-        super(description, done);
+    public Event(String description, LocalDate start, LocalDate deadline, boolean isDone) {
+        super(description, isDone);
         this.start = start;
         this.deadline = deadline;
     }
