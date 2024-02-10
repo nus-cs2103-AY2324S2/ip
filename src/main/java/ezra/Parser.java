@@ -23,6 +23,8 @@ public class Parser {
                 return "Bye. Hope to see you again soon!";
             } else if (input.equals("list")) {
                 return tasks.listTasks();
+            } else if (input.equals("undo")) {
+                return tasks.undo(storage);
             } else if (input.startsWith("mark")) {
                 return tasks.mark(storage, Parser.parseMark(input));
             } else if (input.startsWith("unmark")) {
