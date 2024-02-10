@@ -114,10 +114,7 @@ public class Parser {
         String[] words = data.split(" +");
         for (String word : words) {
             if (word.startsWith("/")) {
-                boolean isPreviousBuilderNull = componentBuilders.get(key) == null;
-                if (isPreviousBuilderNull) {
-                    throw new InvalidCommandData(key);
-                }
+                validateBuilderNotNull(componentBuilders, key);
 
                 key = word;
                 continue;
@@ -128,6 +125,14 @@ public class Parser {
         HashMap<String, String> components = new HashMap<>();
         componentBuilders.forEach((k, v) -> components.put(k, v.toString()));
         return components;
+    }
+
+    private static void validateBuilderNotNull(
+            HashMap<String, StringBuilder> componentBuilders, String key) throws InvalidCommandData {
+        boolean isPreviousBuilderNull = componentBuilders.get(key) == null;
+        if (isPreviousBuilderNull) {
+            throw new InvalidCommandData(key);
+        }
     }
 
     /**
