@@ -13,7 +13,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        //String[] arr = by.split(" ", 2);
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
     @Override
