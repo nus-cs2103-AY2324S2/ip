@@ -103,9 +103,9 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
 
-        //Step 1. Setting up required components
+        // Step 1. Setting up required components
 
-        //The container for the content of the chat to scroll.
+        // The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -121,7 +121,7 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        // Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -136,7 +136,7 @@ public class Duke extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
+        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -151,8 +151,8 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Step 3. Add functionality to handle user input.
-        //Part 3. Add functionality to handle user input.
+        // Step 3. Add functionality to handle user input.
+        // Part 3. Add functionality to handle user input.
 //        sendButton.setOnMouseClicked((event) -> {
 //            handleUserInput();
 //        });
@@ -161,7 +161,7 @@ public class Duke extends Application {
 //            handleUserInput();
 //        });
 
-        //Scroll down to the end every time dialogContainer's height changes.
+        // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
@@ -189,38 +189,38 @@ public class Duke extends Application {
             Command cmd = parser.parse(input);
             assert cmd != null : "Command should not be null";
             switch (cmd.type) {
-                case BYE:
-                    return ui.showGoodbye();
-                case LIST:
-                    return ui.showTaskList(tasks.getTaskStrings());
-                case MARK:
-                    int toMark = Integer.parseInt(cmd.args[0]) - 1;
-                    tasks.markTaskAsDone(toMark);
-                    return ui.showTaskMarked(tasks.getTask(toMark));
-                case UNMARK:
-                    int toUnmark = Integer.parseInt(cmd.args[0]) - 1;
-                    tasks.markTaskAsUndone(toUnmark);
-                    return ui.showTaskUnmarked(tasks.getTask(toUnmark));
-                case TODO:
-                    Todo newTodo = createTodo(cmd.args[0]);
-                    tasks.addTask(newTodo);
-                    return ui.showTaskAdded(newTodo, tasks.getSize());
-                case DEADLINE:
-                    Deadline newDeadline = createDeadline(cmd.args[0], cmd.args[1]);
-                    tasks.addTask(newDeadline);
-                    return ui.showTaskAdded(newDeadline, tasks.getSize());
-                case EVENT:
-                    Event newEvent = createEvent(cmd.args[0], cmd.args[1], cmd.args[2]);
-                    tasks.addTask(newEvent);
-                    return ui.showTaskAdded(newEvent, tasks.getSize());
-                    //numList(duke.tasks.getSize());
-                case DELETE:
-                    Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
-                    return ui.showTaskDeleted(deletedTask, tasks.getSize());
-                case FIND:
-                    return ui.showMatchingTasks(tasks.getMatchingTasks(cmd.args[0]));
-                default:
-                    throw new DukeException("Unknown command");
+            case BYE:
+                return ui.showGoodbye();
+            case LIST:
+                return ui.showTaskList(tasks.getTaskStrings());
+            case MARK:
+                int toMark = Integer.parseInt(cmd.args[0]) - 1;
+                tasks.markTaskAsDone(toMark);
+                return ui.showTaskMarked(tasks.getTask(toMark));
+            case UNMARK:
+                int toUnmark = Integer.parseInt(cmd.args[0]) - 1;
+                tasks.markTaskAsUndone(toUnmark);
+                return ui.showTaskUnmarked(tasks.getTask(toUnmark));
+            case TODO:
+                Todo newTodo = createTodo(cmd.args[0]);
+                tasks.addTask(newTodo);
+                return ui.showTaskAdded(newTodo, tasks.getSize());
+            case DEADLINE:
+                Deadline newDeadline = createDeadline(cmd.args[0], cmd.args[1]);
+                tasks.addTask(newDeadline);
+                return ui.showTaskAdded(newDeadline, tasks.getSize());
+            case EVENT:
+                Event newEvent = createEvent(cmd.args[0], cmd.args[1], cmd.args[2]);
+                tasks.addTask(newEvent);
+                return ui.showTaskAdded(newEvent, tasks.getSize());
+                //numList(duke.tasks.getSize());
+            case DELETE:
+                Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
+                return ui.showTaskDeleted(deletedTask, tasks.getSize());
+            case FIND:
+                return ui.showMatchingTasks(tasks.getMatchingTasks(cmd.args[0]));
+            default:
+                throw new DukeException("Unknown command");
             }
         } catch (duke.DukeException e) {
             return e.getMessage();
@@ -236,6 +236,7 @@ public class Duke extends Application {
         try {
             storage.updateFile(tasks.getFileStrings());
         } catch (DukeException e) {
+            // do nothing
         }
     }
 
@@ -286,7 +287,6 @@ public class Duke extends Application {
             }
         }
         return null;
-
     }
 
     /**
