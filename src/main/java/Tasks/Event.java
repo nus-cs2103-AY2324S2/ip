@@ -62,8 +62,8 @@ public class Event extends Task {
             super.time1 = formattedDate1;
             super.time2 = formattedDate2;
         } catch (Exception e) {
-            super.time1 = times[0];
-            super.time2 = times[1];
+            super.time1 = times[0].trim();
+            super.time2 = times[1].trim();
         }
     }
 
@@ -79,6 +79,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + TaskType.E + "][" + super.getStatusIcon() + "] " + super.getDescription();
+        return "[" + TaskType.E + "][" + super.getStatusIcon() + "] " + 
+            super.getDescription() + " (from: " + super.time1 + " to: " + super.time2 + ")";
     }
 }
