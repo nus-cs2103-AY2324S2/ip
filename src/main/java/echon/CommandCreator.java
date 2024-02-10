@@ -48,16 +48,17 @@ public class CommandCreator {
     private String parseNamedArgument(String command, String name) throws EchonException {
         String[] tokens = command.split(" ");
         for (int i = 0; i < tokens.length - 1; i++) {
-            if (tokens[i].equals("/" + name)) {
-                String argument = tokens[i + 1];
-                for (int j = i + 2; j < tokens.length; j++) {
-                    if (tokens[j].startsWith("/")) {
-                        break;
-                    }
-                    argument += " " + tokens[j];
-                }
-                return argument;
+            if (!tokens[i].equals("/" + name)) {
+                continue;
             }
+            String argument = tokens[i + 1];
+            for (int j = i + 2; j < tokens.length; j++) {
+                if (tokens[j].startsWith("/")) {
+                    break;
+                }
+                argument += " " + tokens[j];
+            }
+            return argument;
         }
         throw new EchonException("OOPS!!! The argument /" + name + " is missing.");
     }
