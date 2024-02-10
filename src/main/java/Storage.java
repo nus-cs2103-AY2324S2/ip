@@ -45,6 +45,7 @@ public class Storage {
             fileScanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             System.out.println("Stored tasks file does not exists: " + e.getMessage());
+            tasks = new TaskList();
         }
         if (fileScanner != null) {
             while (fileScanner.hasNext()) {
