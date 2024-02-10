@@ -75,6 +75,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTasksIntoTaskList() throws YpxmmException {
         File file = new File(filePath);
+        System.out.println(file.getAbsolutePath());
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             if (!file.exists()) {

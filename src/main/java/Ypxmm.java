@@ -24,7 +24,7 @@ public class Ypxmm {
 
     public Ypxmm() {
         ui = new Ui();
-        storage = new Storage("/extra/Ypxmm.txt");
+        storage = new Storage("/data/Ypxmm.txt");
         try {
             tasks = new TaskList(storage.loadTasksIntoTaskList());
         } catch (YpxmmException y) {

@@ -1,14 +1,19 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+
 import javafx.util.Duration;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -32,6 +37,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         sayHello();
     }
@@ -49,6 +55,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void sayHello() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("Hello, I'm Ypxmm.\nNeed me do what for you?", dukeImage)
         );
@@ -62,9 +69,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ypxmm.getResponse(input);
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox dukeDialog = DialogBox.getDukeDialog(response, dukeImage);
+
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        Label responseLabel = new Label(response);
+        responseLabel.setWrapText(true);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                userDialog,
+                dukeDialog
         );
         userInput.clear();
 

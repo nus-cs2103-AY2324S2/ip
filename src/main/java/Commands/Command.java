@@ -37,7 +37,7 @@ public enum Command {
          */
         @Override
         public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            return ui.printList(tasklist.tasks);
+            return ui.printList(tasklist.tasks).trim();
         }
     },
 
@@ -59,7 +59,7 @@ public enum Command {
          */
         @Override
         public String execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
-            return ui.findMessage(tasklist.findTask(parsed.get(1)));
+            return ui.findMessage(tasklist.findTask(parsed.get(1))).trim();
         }
     },
 
