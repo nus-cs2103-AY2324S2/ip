@@ -88,12 +88,12 @@ public class TaskList {
      * Deletes the tasks corresponding to the give task numbers.
      *
      * @param storage The storage to update after deletion.
-     * @param taskNumbers The array of task numbers to be deleted.
+     * @param taskIndices The array of task indices to be deleted.
      * @return A message to be displayed after the delete operation.
      */
-    public String delete(Storage storage, String... taskNumbers) {
-        String invalidTaskNumbers = getInvalidTaskNumbers(taskNumbers);
-        String deletedTasks = getDeletedTasks(taskNumbers);
+    public String delete(Storage storage, int... taskIndices) {
+        String invalidTaskNumbers = getInvalidTaskNumbers(taskIndices);
+        String deletedTasks = getDeletedTasks(taskIndices);
         boolean hasDeletedTasks = !deletedTasks.equals(DELETE_MESSAGE_START);
 
         if (!hasDeletedTasks) {
@@ -109,10 +109,9 @@ public class TaskList {
         return invalidTaskNumbers + deletedTasks;
     }
 
-    public String getInvalidTaskNumbers(String... taskNumbers) {
+    public String getInvalidTaskNumbers(int... taskIndices) {
         StringBuilder invalidTaskNumbers = new StringBuilder();
-        for (String taskNumber : taskNumbers) {
-            int taskIndex = Integer.parseInt(taskNumber) - 1;
+        for (int taskIndex : taskIndices) {
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
                 invalidTaskNumbers.append(String.format("%d is an invalid task number.\n", taskIndex + 1));
@@ -121,14 +120,14 @@ public class TaskList {
         return invalidTaskNumbers.toString();
     }
 
-    public String getDeletedTasks(String... taskNumbers) {
-        int[] sortedTaskNumbers = Arrays.stream(taskNumbers).mapToInt(Integer::parseInt).sorted().toArray();
+    public String getDeletedTasks(int... taskIndices) {
         StringBuilder deletedTasks = new StringBuilder(DELETE_MESSAGE_START);
 
         // Delete task numbers from largest to smallest so that there are no changes in task number after each deletion
-        for (int i = sortedTaskNumbers.length - 1; i >= 0; i--) {
-            int taskIndex = sortedTaskNumbers[i] - 1;
-            assert taskIndex >= -1: "sortedTaskNumbers[i] >= 0 so taskIndex >= -1";
+        Arrays.sort(taskIndices);
+        for (int i = taskIndices.length - 1; i >= 0; i--) {
+            int taskIndex = taskIndices[i];
+            assert taskIndex >= -1: "taskNumber >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
@@ -165,12 +164,12 @@ public class TaskList {
      * Marks the tasks corresponding to the give task numbers as done.
      *
      * @param storage The storage to update after marking.
-     * @param taskNumbers The array of task numbers to be marked as done.
+     * @param taskIndices The array of task indices to be marked as done.
      * @return A message to be displayed after marking the task.
      */
-    public String mark(Storage storage, String... taskNumbers) {
-        String invalidTaskNumbers = getInvalidTaskNumbers(taskNumbers);
-        String markedTasks = getMarkedTasks(taskNumbers);
+    public String mark(Storage storage, int... taskIndices) {
+        String invalidTaskNumbers = getInvalidTaskNumbers(taskIndices);
+        String markedTasks = getMarkedTasks(taskIndices);
         boolean hasMarkedTasks = !markedTasks.equals(MARK_MESSAGE_START);
 
         if (!hasMarkedTasks) {
@@ -186,11 +185,10 @@ public class TaskList {
         return invalidTaskNumbers + markedTasks;
     }
 
-    public String getMarkedTasks(String... taskNumbers) {
+    public String getMarkedTasks(int... taskIndices) {
         StringBuilder markedTasks = new StringBuilder(MARK_MESSAGE_START);
-        for (String taskNumber : taskNumbers) {
-            int taskIndex = Integer.parseInt(taskNumber) - 1;
-            assert taskIndex >= -1: "Integer.parseInt(taskNumber) >= 0 so taskIndex >= -1";
+        for (int taskIndex : taskIndices) {
+            assert taskIndex >= -1: "taskNumber >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
@@ -206,13 +204,13 @@ public class TaskList {
     /**
      * Marks the tasks corresponding to the give task numbers as not done.
      *
-     * @param taskNumbers The array of task numbers to be marked as not done.
+     * @param taskIndices The array of task indices to be marked as not done.
      * @param storage The storage to update after marking.
      * @return A message to be displayed after unmarking the task.
      */
-    public String unmark(Storage storage, String... taskNumbers) {
-        String invalidTaskNumbers = getInvalidTaskNumbers(taskNumbers);
-        String unmarkedTasks = getUnmarkedTasks(taskNumbers);
+    public String unmark(Storage storage, int... taskIndices) {
+        String invalidTaskNumbers = getInvalidTaskNumbers(taskIndices);
+        String unmarkedTasks = getUnmarkedTasks(taskIndices);
         boolean hasUnmarkedTasks = !unmarkedTasks.equals(UNMARK_MESSAGE_START);
 
         if (!hasUnmarkedTasks) {
@@ -228,11 +226,10 @@ public class TaskList {
         return invalidTaskNumbers + unmarkedTasks;
     }
 
-    public String getUnmarkedTasks(String... taskNumbers) {
+    public String getUnmarkedTasks(int... taskIndices) {
         StringBuilder unmarkedTasks = new StringBuilder(UNMARK_MESSAGE_START);
-        for (String taskNumber : taskNumbers) {
-            int taskIndex = Integer.parseInt(taskNumber) - 1;
-            assert taskIndex >= -1: "Integer.parseInt(taskNumber) >= 0 so taskIndex >= -1";
+        for (int taskIndex : taskIndices) {
+            assert taskIndex >= -1: "taskNumber >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {

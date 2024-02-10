@@ -37,10 +37,10 @@ public class ParserTest {
      */
     @Test
     public void testParseDelete() throws WrongFormatException {
-        assertArrayEquals(new String[]{"1"}, Parser.parseDelete("delete 1"));
-        assertArrayEquals(new String[]{"10"}, Parser.parseDelete("delete 10"));
-        assertArrayEquals(new String[]{"1", "2", "3"}, Parser.parseDelete("delete 1 2 3"));
-        assertArrayEquals(new String[]{"10", "11", "12", "13"}, Parser.parseDelete("delete 10 11 12 13"));
+        assertArrayEquals(new int[]{0}, Parser.parseDelete("delete 1"));
+        assertArrayEquals(new int[]{9}, Parser.parseDelete("delete 10"));
+        assertArrayEquals(new int[]{0, 1, 2}, Parser.parseDelete("delete 1 2 3"));
+        assertArrayEquals(new int[]{9, 10, 11, 12}, Parser.parseDelete("delete 10 11 12 13"));
         assertThrows(WrongFormatException.class, () ->
                 Parser.parseDelete("delete -1"));
         assertThrows(WrongFormatException.class, () ->

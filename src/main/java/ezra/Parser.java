@@ -129,18 +129,19 @@ public class Parser {
      * @return The indices of the tasks to be deleted. Invalid index is handled by delete in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
-    public static String[] parseDelete(String input) throws WrongFormatException {
+    public static int[] parseDelete(String input) throws WrongFormatException {
         boolean isValidDeleteCommand = Pattern.matches("delete(\\s\\d+)+", input);
         if (!isValidDeleteCommand) {
             throw new WrongFormatException("Invalid 'delete' command format. Usage: delete <existing task numbers>");
         }
-        return extractIndices(input);
+        return extractTaskIndices(input);
     }
 
-    public static String[] extractIndices(String input) {
+    public static int[] extractTaskIndices(String input) {
         String[] splitArray = input.split("\\s");
         // First element in splitArray is the name of the command
-        return Arrays.copyOfRange(splitArray, 1, splitArray.length);
+        String[] taskNumbers = Arrays.copyOfRange(splitArray, 1, splitArray.length);
+        return Arrays.stream(taskNumbers).mapToInt(x -> Integer.parseInt(x) - 1).toArray();
     }
 
     /**
@@ -150,12 +151,12 @@ public class Parser {
      * @return The indices of the tasks to be marked as done. Invalid index is handled by mark in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
-    public static String[] parseMark(String input) throws WrongFormatException {
+    public static int[] parseMark(String input) throws WrongFormatException {
         boolean isValidMarkCommand = Pattern.matches("mark(\\s\\d+)+", input);
         if (!isValidMarkCommand) {
             throw new WrongFormatException("Invalid 'mark' command format. Usage: mark <existing task numbers>");
         }
-        return extractIndices(input);
+        return extractTaskIndices(input);
     }
 
     /**
@@ -165,12 +166,12 @@ public class Parser {
      * @return The indices of the tasks to be marked as not done. Invalid index is handled by unmark in TaskList.
      * @throws WrongFormatException If the command format is invalid.
      */
-    public static String[] parseUnmark(String input) throws WrongFormatException {
+    public static int[] parseUnmark(String input) throws WrongFormatException {
         boolean isValidUnmarkCommand = Pattern.matches("unmark(\\s\\d+)+", input);
         if (!isValidUnmarkCommand) {
             throw new WrongFormatException("Invalid 'unmark' command format. Usage: unmark <existing task numbers>");
         }
-        return extractIndices(input);
+        return extractTaskIndices(input);
     }
 
     /**
