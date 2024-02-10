@@ -1,13 +1,24 @@
 package duke.parser;
 
 import java.util.List;
-import duke.task.*;
-import duke.command.*;
-import duke.exception.*;
-import duke.ui.*;
+
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnknownCommand;
+import duke.command.UnmarkCommand;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 
 public class Parser {
-    public static Command<List<Task>> parseInput(String userInput) throws DukeException {
+    public static Command parseInput(String userInput) throws DukeException {
         try {
             String[] parts = userInput.split(" ", 2);
             String command = parts[0].toLowerCase();

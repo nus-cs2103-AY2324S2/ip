@@ -1,23 +1,25 @@
 package duke.command;
 
-import duke.exception.*;
-import duke.task.*;
-import duke.ui.*;
 import java.util.List;
 
-public class UnmarkCommand extends Command<List<Task>> {
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.TaskList;
+
+
+public class UnmarkCommand extends Command {
     public UnmarkCommand(List<String> arguments) {
         super("unmark", arguments);
     }
 
     @Override
-    public List<Task> execute(List<Task> tasks) throws DukeException {
+    public TaskList execute(TaskList tasks) throws DukeException {
         // Assuming arguments is a list of one string
         if (!arguments.isEmpty()) {
             try {
                 int index = Integer.parseInt(arguments.get(0)) - 1;
-                if (index >= 0 && index < tasks.size()) {
-                    Task task = tasks.get(index);
+                if (index >= 0 && index < tasks.getNoOfTasks()) {
+                    Task task = tasks.getTask(index);
                     if (task.isDone()) {
                         task.markUndone();
                         System.out.printf("Oh no.. Marked task %d as undone: %s\n", index + 1, task.getDescription());

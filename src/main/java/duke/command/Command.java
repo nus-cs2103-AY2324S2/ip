@@ -1,12 +1,10 @@
 package duke.command;
 
 import java.util.List;
-import duke.exception.*;
-import duke.task.*;
-import duke.ui.*;
 
+import duke.task.TaskList;
 
-public abstract class Command<T> {
+public abstract class Command {
     protected String command;
     protected List<String> arguments;
 
@@ -15,9 +13,11 @@ public abstract class Command<T> {
         this.arguments = arguments;
     }
 
-    public abstract T execute(List<Task> tasks);
+    public abstract TaskList execute(TaskList tasks);
 
     public String getCommand() {
         return this.command;
     }
+
+    //  equals method to compare string
 }

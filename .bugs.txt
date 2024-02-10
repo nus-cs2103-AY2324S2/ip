@@ -1,0 +1,7 @@
+
+
+todo desc /to asd
+returns error both /from and /to are required
+
+deadline desc /by asd
+asd is null

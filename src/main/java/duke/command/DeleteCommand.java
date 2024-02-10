@@ -1,17 +1,17 @@
 package duke.command;
 
-import duke.exception.*;
-import duke.task.*;
-import duke.ui.*;
 import java.util.List;
 
-public class DeleteCommand extends Command<List<Task>> {
+import duke.exception.DukeException;
+import duke.task.TaskList;
+
+public class DeleteCommand extends Command {
     public DeleteCommand(List<String> arguments) {
         super("delete", arguments);
     }
 
     @Override
-    public List<Task> execute(List<Task> tasks) throws DukeException {
+    public TaskList execute(TaskList tasks) throws DukeException {
         try {
             if (arguments.isEmpty()) {
                 throw new DukeException("Hey, you need to tell me which one to delete! Try 'delete <NUMBER>'. ~(>_<)\n");
@@ -19,8 +19,8 @@ public class DeleteCommand extends Command<List<Task>> {
 
             int index = Integer.parseInt(arguments.get(0)) - 1;
 
-            if (index >= 0 && index < tasks.size()) {
-                tasks.remove(index);
+            if (index >= 0 && index < tasks.getNoOfTasks()) {
+                tasks.deleteTask(index);
                 System.out.printf("\nDeleted task %d ~(^-^)\n ", index + 1);
             } else {
                 throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n", arguments.get(0)));

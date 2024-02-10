@@ -1,17 +1,16 @@
 package duke.command;
 
-import duke.exception.*;
-import duke.task.*;
-import duke.ui.*;
 import java.util.List;
 
-public class HelpCommand extends Command<List<Task>> {
+import duke.task.TaskList;
+
+public class HelpCommand extends Command {
     public HelpCommand() {
         super("help", List.of());
     }
 
     @Override
-    public List<Task> execute(List<Task> tasks) {
+    public TaskList execute(TaskList tasks) {
         System.out.printf("\nHere's all the things I can do for you! ~(^o.o^)\n");
         System.out.println("1. todo <description> - Add a reminder to do something!");
         System.out.println("2. deadline <description> /by <deadline> - Add a reminder.. with a deadline!");

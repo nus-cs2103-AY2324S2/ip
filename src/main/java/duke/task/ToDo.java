@@ -1,15 +1,20 @@
 package duke.task;
 
 public class ToDo extends Task {
-    private TaskType type;
 
     public ToDo(String description) {
-        super(description);
-        this.type = TaskType.T;
+        super(description, TaskType.T);
+    }
+
+    @Override
+    public String storageString() {
+        // Format the task status, task information, and deadline into a single string
+        String isCompleted = this.isDone() ? "[X]" : "[ ]";
+        return String.format("[T] | %s | %s", isCompleted, this.getDescription().trim());
     }
 
     @Override
     public String toString() {
-        return String.format("[%s]%s", type, super.toString());
+        return String.format("[T]%s", super.toString());
     }
 }

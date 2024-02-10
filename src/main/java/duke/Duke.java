@@ -1,52 +1,67 @@
 package duke;
 
-import duke.command.*;
-import duke.exception.*;
-import duke.parser.*;
-import duke.ui.*;
-import duke.task.*;
-
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Optional;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+import duke.command.Command;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Messages;
 
 
 public class Duke {
+    private static final Storage storage = new Storage();
+
     public static void main(String[] args) {
         System.out.printf(Messages.WELCOME);
 
-        Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
-        Command<List<Task>> currentCommand = null;
+        TaskList tasks;
+        try {
+            tasks = storage.load();
+            System.out.println(tasks);
+        } catch (FileNotFoundException e) {
+            System.out.printf("Warning: something went wrong when loading the TaskList\n" +
+                    e.getMessage());
+            tasks = new TaskList();
+        }
 
-        while (true) {
+        Scanner sc = new Scanner(System.in);
+        Command currentCommand = null;
+
+
+        while (sc.hasNext()) {
             try {
                 System.out.printf("\n-> ");
-                String userInput = scanner.nextLine();
+
+
+                String userInput = sc.nextLine();
 
                 // Parse user input
-                Command<List<Task>> parsedCommand = Parser.parseInput(userInput);
+                Command command = Parser.parseInput(userInput
+                    );
+
 
                 // Execute the command
-                if (parsedCommand != null) {
-                    currentCommand = parsedCommand;
-                    currentCommand.execute(tasks);
-                }
+                command.execute(tasks);
+                storage.save(tasks);
 
                 // Exit condition
-                if (parsedCommand.getCommand().equals("bye")) {
+                if (command.getCommand().equals("bye")) {
                     System.out.printf(Messages.EXIT);
                     break;
                 }
             } catch (NoSuchElementException e) {
                 System.out.println("Error reading user input. Exiting.");
                 break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-
         }
-
-        scanner.close();
+        sc.close();
     }
 }
