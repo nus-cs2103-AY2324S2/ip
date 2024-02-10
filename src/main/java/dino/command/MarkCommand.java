@@ -7,8 +7,10 @@ import dino.Storage;
 import dino.TaskList;
 import dino.task.Task;
 
+/**
+ * Represents a command to mark a task from the task list.
+ */
 public class MarkCommand extends Command {
-
     private int index;
     public MarkCommand(int index) {
         this.index = index;

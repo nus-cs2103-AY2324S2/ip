@@ -7,7 +7,9 @@ import dino.Storage;
 import dino.TaskList;
 import javafx.application.Platform;
 
-
+/**
+ * Represents a command to exit the application.
+ */
 public class ExitCommand extends Command {
 
     @Override

@@ -12,6 +12,9 @@ import dino.TaskList;
 import dino.task.Deadline;
 import dino.task.Event;
 
+/**
+ * Represents a command to filter a task from the task list based on specified date.
+ */
 public class FilterCommand extends Command {
 
     private String argument;

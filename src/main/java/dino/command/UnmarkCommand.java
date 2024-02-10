@@ -7,8 +7,10 @@ import dino.Storage;
 import dino.TaskList;
 import dino.task.Task;
 
+/**
+ * Represents a command to unmark a task from the task list.
+ */
 public class UnmarkCommand extends Command {
-
     private int index;
     public UnmarkCommand(int index) {
         this.index = index;

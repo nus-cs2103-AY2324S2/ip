@@ -7,6 +7,9 @@ import dino.Storage;
 import dino.TaskList;
 import dino.task.Task;
 
+/**
+ * Represents a command to find a task from the task list.
+ */
 public class FindCommand extends Command {
     private String argument;
 

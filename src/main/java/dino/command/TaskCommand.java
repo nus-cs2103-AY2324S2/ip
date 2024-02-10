@@ -6,10 +6,20 @@ import dino.Parser;
 import dino.Storage;
 import dino.TaskList;
 
+/**
+ * Represents a command to add a new task to the task list.
+ */
 public class TaskCommand extends Command {
 
     private Dino.TaskType taskType;
     private String description;
+
+    /**
+     * Constructs a TaskCommand object with the specified task type and description.
+     *
+     * @param taskType The type of task to be added.
+     * @param description The description of the task.
+     */
     public TaskCommand(Dino.TaskType taskType, String description) {
         this.taskType = taskType;
         this.description = description;

@@ -4,6 +4,9 @@ import dino.DinoException;
 import dino.Storage;
 import dino.TaskList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
 
     private int index;
