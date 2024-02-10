@@ -50,6 +50,8 @@ public class ByteTalker {
                 this.tasks.unmarkTask(splitMessage, storage, ui);
             } else if (splitMessage[0].equals("delete")) {
                 this.tasks.deleteTask(Integer.parseInt(splitMessage[1]), storage, ui);
+            } else if (splitMessage[0].equals("find")) {
+                this.tasks.findTask(splitMessage, ui);
             } else {
                 this.tasks.addTask(splitMessage, storage, ui);
             }
