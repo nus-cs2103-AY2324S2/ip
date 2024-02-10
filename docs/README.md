@@ -1,8 +1,19 @@
 # KaiYap Task Manager
-
-![KaiYap Application Screenshot](Ui.png)
+<p align="center">
+<img src="Ui.png" alt="KaiYap Application Screenshot" width="50%" align="center"/>
+</p>
 
 Welcome to **KaiYap Task Manager**, a straightforward and efficient tool designed to help you keep track of your tasks, deadlines, and events. Whether you need to manage your daily to-dos, keep up with important deadlines, or schedule events, KaiYap makes it easy and intuitive.
+___
+## Features
+
+KaiYap Task Manager comes packed with features designed to help you stay organized and efficient. Here are some of the key features:
+
+- **Task Management:** Easily add, delete, and mark tasks as completed.
+- **Multiple Task Types:** Support for Todos, Deadlines, and Events, each with customisable details.
+- **Batch Operations:** Mark multiple tasks as done with a single command.
+- **Search Functionality:** Quickly find tasks by searching for keywords.
+- **Persistence:** Save your task list between sessions so you never lose track of your responsibilities.
 ___
 ## Adding Tasks
 
