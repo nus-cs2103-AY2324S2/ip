@@ -1,10 +1,3 @@
-T | 0 | test
 T | 0 | potato
-T | 0 | eat
 D | 0 | potato | 2024-03-02
-T | 0 | potato
-T | 0 | sleep
-T | 0 | msdmas
-D | 0 | dnsdns | 2024-03-02
-T | 0 | sdasdasd
-T | 0 | amsdmasm
+D | 0 | potato | 2023-02-03
