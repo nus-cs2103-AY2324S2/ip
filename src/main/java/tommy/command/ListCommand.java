@@ -11,7 +11,7 @@ import tommy.task.TaskList;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
-        ui.displayAllTasks(taskList);
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
+        return ui.displayAllTasks(taskList);
     }
 }

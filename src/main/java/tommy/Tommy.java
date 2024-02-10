@@ -4,6 +4,8 @@ import tommy.command.Command;
 import tommy.task.TaskList;
 import tommy.exception.TommyException;
 
+import javafx.scene.image.Image;
+
 /**
  * Represents the Chatbot.
  */
@@ -14,46 +16,39 @@ public class Tommy {
 
     // deals with interactions with the user
     private Ui ui;
+    private boolean isActive = true;
+
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/bobIcon.png"));
+    private Image tommy = new Image(this.getClass().getResourceAsStream("/images/bearIcon.png"));
 
     /**
      * Constructor for the Chatbot and retrieve the past log from the storage.
-     *
-     * @param filePath String of the path of the file to retrieve the past log taskList from.
      */
-    public Tommy(String filePath) {
+    public Tommy() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("./data/tasks.txt");
+
         try {
             tasks = new TaskList(storage.load());
         } catch (TommyException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+
     }
 
-    /**
-     * Runs the Chatbot and takes in input while it is active. Terminates when input
-     * command is BYE
-     */
-    public void run() {
-        boolean isActive = true;
-        ui.greet();
 
-        while (isActive) {
-            try {
-                String userInput = this.ui.getInput();
-                Command command = Parser.parseCommand(userInput);
-                command.execute(this.storage, this.tasks, this.ui);
-                isActive = command.isActive();
-            } catch (TommyException e) {
-                Ui.printError(e);
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            String response = command.execute(this.storage, this.tasks, this.ui);
+            isActive = command.isActive();
+            return response;
+        } catch (TommyException e) {
+            return "Error: " + e.getMessage();
+
         }
-
-    }
-
-    public static void main(String[] args) {
-        new Tommy("./data/tasks.txt").run();
     }
 }
 

@@ -31,5 +31,5 @@ public abstract class Command {
      * @param ui User interface to call its methods to print the relevant information.
      * @throws InvalidArgumentException If input argument does not satisfy the specified task's format.
      */
-    public abstract void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException;
+    public abstract String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException;
 }

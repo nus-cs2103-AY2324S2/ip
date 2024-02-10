@@ -26,11 +26,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             taskList.markTask(positionToMark);
-            ui.displayMarkedTask(taskList, positionToMark);
             Storage.save(taskList);
+            return ui.displayMarkedTask(taskList, positionToMark);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("The index is out of range >.<");
         }

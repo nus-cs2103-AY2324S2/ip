@@ -10,8 +10,8 @@ import tommy.task.TaskList;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
-        ui.farewell();
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
+        return ui.farewell();
     }
 
     /**

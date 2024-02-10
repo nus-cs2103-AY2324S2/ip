@@ -27,7 +27,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             String[] components = this.description.split(" /by ", 2);
             String deadlineDetails = components[0];
@@ -40,7 +40,7 @@ public class AddDeadlineCommand extends Command {
 
             taskList.addTask(deadline);
             Storage.save(taskList);
-            ui.displayNewTask(deadline, taskList);
+            return ui.displayNewTask(deadline, taskList);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("DEADLINE");
         }

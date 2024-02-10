@@ -12,8 +12,9 @@ import tommy.exception.TommyException;
  */
 public class Ui {
 
-    private static final String name = "Tommy";
+    private static final String NAME = "Tommy";
     private Scanner scanner;
+//    private static final String DIVIDER = "____________________________";
 
     /**
      * Constructor for an Ui object that initialises the scanner.
@@ -24,22 +25,23 @@ public class Ui {
 
     /**
      * Prints the greeting message for the user when the Chatbot boots up.
+     *
+     * @return Greeting messages for the user.
      */
-    public void greet() {
+    public String greet() {
         //Greetings
-        printDivider();
-        System.out.println("Hello! I'm " + this.name);
-        System.out.println("What can I do for you?");
-        printDivider();
+
+        return "\nHello! I'm " + this.NAME + "\nWhat can I do for you?\n";
     }
 
     /**
      * Prints the farewell message for the user when the Chatbot terminates.
+     *
+     * @return Farewell message to user.
      */
-    public void farewell() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printDivider();
+    public String farewell() {
         this.scanner.close();
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -57,17 +59,17 @@ public class Ui {
      *
      * @param taskList List of tasks to be printed.
      */
-    public static void displayAllTasks(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+    public static String displayAllTasks(TaskList taskList) {
+        StringBuilder acc = new StringBuilder("Here are the tasks in your list:\n");
 
         int length = taskList.getSize();
 
         for (int i = 0; i < length; i++) {
             Task task = taskList.getTaskAtPosition(i + 1);
-            System.out.println(i + 1 + "." + task.toString());
+            acc.append(i + 1 + "." + task.toString() + "\n");
         }
 
-        printDivider();
+        return acc.toString();
     }
 
     /**
@@ -76,14 +78,12 @@ public class Ui {
      * @param taskList List of tasks after deletion.
      * @param task Task that is deleted.
      */
-    public static void displayDeletedTask(TaskList taskList, Task task) {
+    public static String displayDeletedTask(TaskList taskList, Task task) {
         String descOfTaskToDelete = task.toString();
+        String descToDisplay = "Noted. I've removed this task:\n  " + descOfTaskToDelete +
+                "\nNow you have " + taskList.getSize() + " tasks in the list.";
 
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + descOfTaskToDelete);
-        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
-
-        printDivider();
+        return descToDisplay;
     }
 
     /**
@@ -92,13 +92,12 @@ public class Ui {
      * @param taskList List of tasks from which the task was marked.
      * @param position Position of the task that was marked in the taskList.
      */
-    public static void displayMarkedTask(TaskList taskList, int position) {
+    public static String displayMarkedTask(TaskList taskList, int position) {
         Task markedTask = taskList.getTaskAtPosition(position);
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + markedTask.toString());
+        String descToDisplay = "Nice! I've marked this task as done:\n" + "  " + markedTask.toString();
 
-        printDivider();
+        return descToDisplay;
     }
 
     /**
@@ -107,12 +106,13 @@ public class Ui {
      * @param taskList List of tasks from which the task was unmarked.
      * @param position Position of the task that was unmarked in the taskList.
      */
-    public static void displayUnmarkedTask(TaskList taskList, int position) {
+    public static String displayUnmarkedTask(TaskList taskList, int position) {
         Task unmarkedTask = taskList.getTaskAtPosition(position);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + unmarkedTask.toString());
 
-        printDivider();
+        String descToDisplay = "OK, I've marked this task as not done yet:\n" +
+                "  " + unmarkedTask.toString();
+
+        return descToDisplay;
     }
 
     /**
@@ -121,13 +121,11 @@ public class Ui {
      * @param task Newly created task.
      * @param taskList List of tasks from which the task was added to.
      */
-    public static void displayNewTask(Task task, TaskList taskList) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+    public static String displayNewTask(Task task, TaskList taskList) {
+        String descToDisplay = "Got it. I've added this task:\n" +
+                "  " + task.toString() + "\nNow you have " + taskList.getSize() + " tasks in the list.";
 
-        printDivider();
-
+        return descToDisplay;
     }
 
     /**
@@ -136,29 +134,28 @@ public class Ui {
      * @param taskList List of tasks to match the keyword with.
      * @param keyword Keyword to match the task description with.
      */
-    public static void displayMatchingTasks(TaskList taskList, String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
-
+    public static String displayMatchingTasks(TaskList taskList, String keyword) {
+        StringBuilder descToDisplay = new StringBuilder("Here are the matching tasks in your list:");
         int length = taskList.getSize();
         int counter = 0;
+
 
         for (int i = 1; i < length + 1; i++) {
             Task task = taskList.getTaskAtPosition(i);
             if (task.toString().contains(keyword)) {
                 counter++;
-                System.out.println(counter + "." + task);
+                descToDisplay.append(counter + "." + task + "\n");
             }
         }
 
-        printDivider();
+        return descToDisplay.toString();
     }
 
     /**
      * Prints the relevant error message for the TommyException thrown.
      */
-    public static void printError(TommyException e) {
-        System.out.println(e.errorMessage());
-        printDivider();
+    public static String printError(TommyException e) {
+        return e.errorMessage() ;
     }
 
     /**
@@ -166,12 +163,5 @@ public class Ui {
      */
     public static void showLoadingError() {
         System.out.println("There is an error loading the Storage");
-    }
-
-    /**
-     * Prints a divider that separates different segments for aesthetic purposes.
-     */
-    private static void printDivider() {
-        System.out.println("____________________________");
     }
 }
