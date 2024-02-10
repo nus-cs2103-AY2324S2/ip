@@ -28,25 +28,27 @@ public class Parser {
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
-                System.err.println("Unable to parse the input as an integer. Please put a number after " + commandWord);
+                System.err.println("Unable to parse the input as an integer. Please put a number after "
+                        + commandWord + ".");
             }
-            return new helpCommand();
+            return new Command();
         case "unmark":
             try {
                 return new unmarkTaskCommand(prepareTask(commandArguments, "unmark"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
-                System.err.println("Unable to parse the input as an integer. Please put a number after " + commandWord);
+                System.err.println("Unable to parse the input as an integer. Please put a number after "
+                        + commandWord + ".");
             }
-            return new helpCommand();
+            return new Command();
         case "todo":
             try {
                 return prepareCreateTodo(commandArguments);
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             }
-            return new helpCommand();
+            return new Command();
         case "deadline":
             try {
                 return prepareCreateDeadline(commandArguments);
@@ -56,7 +58,7 @@ public class Parser {
                 System.err.println("OPPS! The format for the inputted deadline is not accepted here. " +
                         "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
             }
-            return new helpCommand();
+            return new Command();
         case "event":
             try {
                 return prepareCreateEvent(commandArguments);
@@ -66,7 +68,7 @@ public class Parser {
                 System.err.println("OPPS! The format for the inputted start and end time is not accepted here. " +
                         "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
             }
-            return new helpCommand();
+            return new Command();
         case "delete":
             try {
                 return new deleteCommand(prepareTask(commandArguments, "delete"));
@@ -105,7 +107,7 @@ public class Parser {
 
     public static Command prepareCreateDeadline(String arguments) throws DukeException {
         if (arguments.isBlank()) {
-            throw new DukeException("OOPS! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS! The description of a deadline cannot be empty.");
         }
         if (!arguments.contains("by")) {
             throw new DukeException("OOPS! 'by' keyword is missing. You are required "
@@ -130,7 +132,7 @@ public class Parser {
 
     public static Command prepareCreateEvent(String arguments) throws DukeException {
         if (arguments.isBlank()) {
-            throw new DukeException("OOPS! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS! The description of a event cannot be empty.");
         }
         if (!arguments.contains("from") || !arguments.contains("to")) {
             throw new DukeException("OOPS! 'from' and/or 'to' keywords are missing. You are required to "
