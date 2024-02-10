@@ -14,7 +14,18 @@ import duke.storage.Storage;
 public class UnmarkTask {
     private Storage storage;
     private int index;
-
+    /**
+     * Constructs a new UnmarkTask object to manage the unmarking of tasks within the Duke application.
+     * <p>
+     * This constructor initializes an instance of the UnmarkTask class with references to the storage where tasks
+     * are maintained and the index of the task to be updated. It is used to instantiate objects that provide the
+     * functionality to change the status of a specific task from "completed" to "not completed" based on its index in
+     * the task list. This action is part of the application's task management capabilities, allowing users to
+     * dynamically adjust task statuses as needed.
+     * </p>
+     * @param storage The storage instance where tasks are maintained.
+     * @param index   The index of the task to be updated within the task list.
+     */
     public UnmarkTask(Storage storage, int index) {
         this.storage = storage;
         this.index = index;

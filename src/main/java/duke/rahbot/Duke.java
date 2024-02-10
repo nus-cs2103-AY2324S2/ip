@@ -14,21 +14,27 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 
-public class Duke extends Application {
 
+
+/**
+ * Main application class for Duke, a JavaFX application that facilitates interactive chat.
+ * <p>
+ * Duke is a GUI-based chatbot that allows users to interact with the application through
+ * a graphical interface. It supports adding, deleting, and listing tasks, among other functionalities.
+ * This class sets up the primary stage and scene for the application, initializing the chat interface.
+ * </p>
+ */
+public class Duke extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -36,15 +42,23 @@ public class Duke extends Application {
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/me.jpg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/brothers.jpeg"));
-    
+    /**
+     * Initializes images for the user and Duke, and sets up other necessary components.
+     * This constructor is used to prepare any preliminary data or resources required by the application.
+     */
     public Duke() {
         // ...
     }
 
+    /**
+     * Starts the main application stage, setting up the layout, scene, and event handlers.
+     * This method initializes the graphical user interface, including input fields, buttons,
+     * and display areas for messages.
+     * @param stage The primary stage for this application, onto which the scene is set.
+     */
     @Override
     public void start(Stage stage) {
         // Step 1. Setting up required components
-
         // The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -97,6 +111,11 @@ public class Duke extends Application {
         stage.show();
     }
 
+    /**
+     * Adds event handlers for user input, including button clicks and text field submissions.
+     * This method ensures that when the user interacts with the input controls, the appropriate
+     * actions are taken to process and respond to the input.
+     */
     private void addInputHandlers() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -109,50 +128,53 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-    
+    /**
+     * Displays a welcome message to the user upon application start.
+     * This method is called during the initialization phase to greet the user.
+     */
     private void showWelcomeMessage() {
         Output output = new Output(new Parser(new Storage()), new Storage());
         String welcomeMsg = output.welcome();
         HBox dialogHBox = createDialogHBox(welcomeMsg, duke); // Use the duke Image object
         dialogContainer.getChildren().add(dialogHBox); // Add HBox to the dialog container
     }
-    // Inside your Duke class
-
+    /**
+     * Creates a horizontal box containing a message and an associated image.
+     * This method is used to format the display of messages in the chat interface.
+     * @param text The message text to be displayed.
+     * @param image The image associated with the message.
+     * @return An HBox containing the message and image.
+     */
     private HBox createDialogHBox(String text, Image image) {
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
-
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(100); // Adjust based on your UI needs
         imageView.setFitWidth(100); // Adjust based on your UI needs
         imageView.setPreserveRatio(true);
-
         HBox hbox = new HBox(10); // 10 is the spacing between elements in the HBox
         hbox.setAlignment(Pos.CENTER_LEFT); // Aligns children within the HBox
         hbox.getChildren().addAll(imageView, textToAdd);
-
         return hbox;
     }
 
-
-        /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+    /**
+     * Generates a label with specified text, enabling word wrapping.
+     * This utility method is used to create labels for displaying messages in the chat.
+     * @param text The text to be displayed in the label.
+     * @return A label configured to display the specified text.
      */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
-
         return textToAdd;
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Processes user input, generates a response, and updates the chat interface.
+     * This method handles the logic for receiving user input, generating a response
+     * from Duke, and displaying both the user's message and Duke's reply in the chat.
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -166,8 +188,11 @@ public class Duke extends Application {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to the user's input.
+     * This method encapsulates the logic for processing user commands and generating
+     * responses. It is a key part of the chatbot's functionality.
+     * @param input The user's input as a String.
+     * @return A String containing Duke's response to the input.
      */
     private String getResponse(String input) {
         Storage storage = new Storage();

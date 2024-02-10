@@ -6,18 +6,16 @@ import java.time.LocalDate;
  * An abstract class representing a generic Task in a task management application.
  * All specific task types should extend this class.
  * Provides basic functionality for task manipulation such as marking and retrieving deadlines.
- * 
  * @author SITHANATHAN RAHUL
  * @version CS2103T AY23/24 Semester 2
  */
-abstract public class Task {
+public abstract class Task {
     private String description;
     private boolean marked;
 
     /**
      * Constructs a Task with the given description.
      * The task is initially marked as not completed.
-     *
      * @param description A String describing the task.
      */
     Task(String description) {
@@ -41,7 +39,6 @@ abstract public class Task {
 
     /**
      * Checks if the task is marked as completed.
-     *
      * @return true if the task is marked as completed, false otherwise.
      */
     public boolean isMarked() {
@@ -54,7 +51,6 @@ abstract public class Task {
 
     /**
      * Returns a String representation of the task.
-     *
      * @return A String describing the task.
      */
     @Override
@@ -65,17 +61,15 @@ abstract public class Task {
     /**
      * Abstract method to be implemented by subclasses.
      * Returns a String identifier specific to the type of task.
-     *
      * @return A String identifier for the task type.
      */
-    abstract public String identifier();
+    public abstract String identifier();
 
     /**
      * Abstract method to be implemented by subclasses.
      * Returns the deadline of the task.
-     *
      * @return LocalDate representing the deadline of the task.
      */
-    abstract public LocalDate getDeadline();
+    public abstract LocalDate getDeadline();
 }
 

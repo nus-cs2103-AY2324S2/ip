@@ -19,6 +19,18 @@ public class DeleteTask {
     private int index;
     private String task;
 
+    /**
+     * Creates a {@code DeleteTask} action with specified storage and the index of the task to be deleted.
+     * <p>
+     * This constructor initializes a {@code DeleteTask} object with a reference to the storage system from where
+     * the task will be deleted and the index of the task in the list. It is important to note that the index
+     * should be based on user-visible numbering (typically starting from 1) which will be adjusted internally
+     * to match the zero-based indexing of Java collections. The task's string representation is initially empty
+     * and will be populated upon deletion.
+     * </p>
+     * @param storage The storage system of the Duke application from which the task will be deleted.
+     * @param index   The index of the task to be deleted, as seen by the user, starting from 1.
+     */
     public DeleteTask(Storage storage, int index) {
         this.storage = storage;
         this.index = index;
@@ -38,6 +50,15 @@ public class DeleteTask {
         storage.load().remove(index - 1);
     }
 
+    /**
+     * Returns a string representation of the task deletion action.
+     * <p>
+     * After a task is deleted, this method generates a confirmation message including the details of the deleted task
+     * and the updated total number of tasks remaining in storage. This feedback is essential for informing the user
+     * about the outcome of their delete command, ensuring clarity in the application's state changes.
+     * </p>
+     * @return A string message detailing the task that was removed and the current total number of tasks in storage.
+     */
     @Override
     public String toString() {
         String temp = "Noted. I've removed this task: \n";

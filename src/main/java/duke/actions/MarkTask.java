@@ -15,6 +15,17 @@ public class MarkTask {
     private Storage storage;
     private int index;
 
+    /**
+     * Constructs a {@code MarkTask} action with specified storage and the index of the task to be marked as completed.
+     * <p>
+     * This constructor initializes a {@code MarkTask} object with a reference to the storage
+     * system where the tasks are managed and the index of the task that
+     * needs to be marked as done. The index provided should correspond to the position of the task
+     * in the user-visible list, which is then adjusted internally to accommodate zero-based indexing used in storage.
+     * </p>
+     * @param storage The storage system of the Duke application, responsible for managing tasks.
+     * @param index   The 1-based index of the task to be marked as completed, as viewed by the user.
+     */
     public MarkTask(Storage storage, int index) {
         this.storage = storage;
         this.index = index;
@@ -27,7 +38,6 @@ public class MarkTask {
      * It retrieves the task by its index (adjusted for zero-based indexing) from the storage's list of tasks,
      * marks the task as done, and returns a message indicating the task has been successfully marked.
      * </p>
-     *
      * @return A string message confirming the task has been marked as done, along with the task's details.
      */
     public String mark() {

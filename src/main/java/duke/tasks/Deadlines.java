@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
  * A class representing a Deadlines task, a type of Task in a task management application.
  * Inherits from the Task class.
  * Provides additional functionality to handle tasks with specific deadlines.
- * 
  * @author SITHANATHAN RAHUL
  * @version CS2103T AY23/24 Semester 2
  */

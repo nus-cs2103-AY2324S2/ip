@@ -1,13 +1,13 @@
 package duke.actions;
 
+import java.util.ArrayList;
+
 import duke.storage.Storage;
 import duke.tasks.Task;
-import java.util.ArrayList;
 
 /**
  * A class representing the action of finding tasks in a task management application.
  * Searches for tasks based on a specified keyword and provides a list of matching tasks.
- * 
  * @author SITHANATHAN RAHUL
  * @version CS2103T AY23/24 Semester 2
  */
@@ -18,7 +18,6 @@ public class FindTask {
 
     /**
      * Constructs a FindTask object with the given storage and task keyword.
-     * 
      * @param storage The Storage object responsible for loading tasks.
      * @param task    A String representing the keyword to search for in tasks.
      */
@@ -29,9 +28,7 @@ public class FindTask {
     }
 
     /**
-     * Creates a list of tasks that match the specified keyword.
-     * 
-     * @return An ArrayList of Task objects matching the specified keyword.
+     * Fills the list of tasks with tasks that match the specified keyword.
      */
     public void createMatches() {
         ArrayList<Task> inventory = storage.load();
@@ -45,7 +42,6 @@ public class FindTask {
 
     /**
      * Returns a formatted String representation of the matching tasks.
-     * 
      * @return A String displaying the matching tasks or an apology if none are found.
      */
     @Override
