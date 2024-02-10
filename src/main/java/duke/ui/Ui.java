@@ -19,8 +19,7 @@ public class Ui {
      */
     public String echo(Task task, TaskList list) {
         String echo = "Got it. I've added this task:\n" + "  " + task.toString() + "\n"
-            + "Now you have " + (list.size() + 1) + " tasks in the list"
-            + "\n___________________________________" ;
+            + "Now you have " + (list.size() + 1) + " tasks in the list";
         list.add(task);
         return echo;
     }
