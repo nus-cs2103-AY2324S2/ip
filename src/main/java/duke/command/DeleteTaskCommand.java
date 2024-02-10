@@ -1,7 +1,9 @@
 package duke.command;
 
+import duke.task.Task;
 import duke.util.Parser;
 import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents the Command of deleting a task in a list.
@@ -26,7 +28,8 @@ public class DeleteTaskCommand extends Command {
      * @param taskList the given taskList from which the task is removed.
      */
     @Override
-    public void run(TaskList taskList) {
-        taskList.deleteList(this.index);
+    public void run(TaskList taskList, Ui ui) {
+        Task task = taskList.deleteList(this.index);
+        ui.informItemRemoved(task, taskList.getSize());
     }
 }

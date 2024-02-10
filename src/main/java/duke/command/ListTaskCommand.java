@@ -24,7 +24,7 @@ public class ListTaskCommand extends Command {
      * @param taskList the given taskList to be listed.
      */
     @Override
-    public void run(TaskList taskList) {
-        Ui.displayFullList(taskList);
+    public void run(TaskList taskList, Ui ui) {
+        ui.displayFullList(taskList);
     }
 }

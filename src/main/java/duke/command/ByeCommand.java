@@ -24,7 +24,7 @@ public class ByeCommand extends Command {
      * @param taskList the given taskList to run the function on.
      */
     @Override
-    public void run(TaskList taskList) {
-        Ui.leave();
+    public void run(TaskList taskList, Ui ui) {
+        ui.leave();
     }
 }

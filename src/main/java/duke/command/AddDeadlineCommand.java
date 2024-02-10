@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import duke.task.Deadline;
 import duke.util.Parser;
 import duke.util.TaskList;
+import duke.util.Ui;
 
 /**
  * Represents the Command of adding a new deadline to a task list.
@@ -33,10 +34,11 @@ public class AddDeadlineCommand extends Command {
      * @param taskList the given taskList to add the task to.
      */
     @Override
-    public void run(TaskList taskList) {
+    public void run(TaskList taskList, Ui ui) {
         Deadline ddl = new Deadline(this.description, this.date);
         String date = this.date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         String[] data = {this.description, date};
         taskList.addTask(ddl, "deadline", data);
+        ui.informItemAdded(ddl, taskList);
     }
 }

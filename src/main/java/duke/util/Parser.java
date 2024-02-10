@@ -31,6 +31,11 @@ public class Parser {
     public enum Cmd {
         list, todo, deadline, event, mark, unmark, delete, find, bye, none;
     }
+
+    private Ui ui;
+    public Parser(Ui ui){
+        this.ui = ui;
+    }
     /**
      * Initializes the given Task ArrayList with given input,
      * by adding the tasks from each line of input into the ArrayList.
@@ -124,11 +129,11 @@ public class Parser {
                 break;
             }
         } catch (IllegalArgumentException e) {
-            Ui.informInvalidCommand();
+            ui.informInvalidCommand();
         } catch (DateTimeParseException e) {
-            Ui.informWrongDateFormat();
+            ui.informWrongDateFormat();
         } catch (ArrayIndexOutOfBoundsException e) {
-            Ui.informWrongInputFormat();
+            ui.informWrongInputFormat();
         }
         return command;
     }
