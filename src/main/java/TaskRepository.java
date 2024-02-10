@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class TaskRepository {
     private final String FILE_PATH = "./data/taskStorage.txt";
@@ -72,6 +71,7 @@ public class TaskRepository {
                         break;
                 }
             }
+            System.out.println("Your tasks have been loaded from storage.");
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,6 +96,7 @@ public class TaskRepository {
                 String taskWithoutNumber = task.substring(task.indexOf(" ") + 1);
                 fileWriter.write(taskWithoutNumber + "\n");
             }
+            System.out.println("Your tasks have been saved to storage.");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
