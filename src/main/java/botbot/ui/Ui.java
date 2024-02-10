@@ -4,13 +4,15 @@ import botbot.Storage;
 import botbot.exception.BotBotException;
 import botbot.task.TaskList;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
 
-    public String getResponseAndExecute(String input, TaskList list, Storage storage) throws BotBotException {
+    public String getResponseAndExecute(String input, TaskList list, Storage storage) throws BotBotException, IOException {
         if (input.startsWith("bye")) {
-            return "Goodbye! See you soon!";
+            storage.save(list);
+            return "Goodbye! See you soon!\nYour list has been saved! You may now exit the program";
         } else if (input.startsWith("mark")) {
             return "Good job on completing the task:\n" + list.mark(Integer.parseInt(input.split(" ", 2)[1]));
         } else if (input.startsWith("unmark")) {
