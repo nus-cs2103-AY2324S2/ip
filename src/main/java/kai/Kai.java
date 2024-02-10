@@ -23,7 +23,7 @@ public class Kai {
         taskList = new TaskList(storage.load());
     }
 
-    public String getResponse(String input) {
+    public String getResponse(String input) throws DukeException {
         String response = "";
         response = response + Parser.parse(input, taskList);
         storage.writeFile(taskList);

@@ -69,6 +69,7 @@ public class Storage {
             task = new Event(description, eventAt, isDone);
             break;
         default:
+            assert false : "Unrecognized task type: " + taskType;
             throw new IllegalStateException("I cannot recognize this duke.task type!" + taskType);
         }
         return task;
@@ -79,6 +80,7 @@ public class Storage {
      */
     public void createFile() {
         File file = new File(fileLocation);
+        assert file.exists() : "File was not created successfully";
         if (!file.exists()) {
             try {
                 file.createNewFile();
