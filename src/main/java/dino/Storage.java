@@ -16,7 +16,6 @@ import dino.task.Task;
  */
 public class Storage {
     private String filePath;
-    private Task task;
 
     /**
      * Constructs a new Storage instance with the specified file path.
@@ -40,37 +39,7 @@ public class Storage {
 
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
-                String[] parts = taskData.split("\\|");
-
-                if (parts.length > 0) {
-                    String taskTypeString = parts[0].trim();
-
-                    switch (taskTypeString) {
-                    case "T":
-                        task = Parser.createTaskFromInput(Dino.TaskType.TODO, parts[2].trim());
-                        break;
-                    case "D":
-                        String[] deadlineParts = parts[3].split(" by: ");
-                        String deadlineDetails = parts[2].trim() + " /by " + Parser.parseStringToNum(deadlineParts[1]);
-                        task = Parser.createTaskFromInput(Dino.TaskType.DEADLINE, deadlineDetails);
-                        break;
-                    case "E":
-                        String[] eventParts = parts[3].split("from:|to:");
-                        String eventDetails = parts[2].trim() + " /from " + Parser.parseStringToNum(eventParts[1])
-                                + " /to " + Parser.parseStringToNum(eventParts[2]);
-                        task = Parser.createTaskFromInput(Dino.TaskType.EVENT, eventDetails);
-                        break;
-                    default:
-                        System.out.println("Unknown task type in file: " + taskTypeString);
-                        break;
-                    }
-                }
-
-                if (task != null) {
-                    taskList.addTask(task);
-                } else {
-                    System.out.println("Error loading task from file. Skipping invalid task.");
-                }
+                parseTaskData(taskData, taskList);
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
@@ -79,6 +48,74 @@ public class Storage {
             throw new RuntimeException(e);
         }
         return taskList;
+    }
+
+    /**
+     * Parses task data and adds the parsed task to the given task list.
+     *
+     * @param taskData The data representing a task.
+     * @param taskList The TaskList to which the parsed task will be added.
+     */
+    private void parseTaskData(String taskData, TaskList taskList) throws DinoException {
+        Task task = null;
+        String[] parts = taskData.split("\\|");
+        if (parts.length > 0) {
+            String taskTypeString = parts[0].trim();
+            switch (taskTypeString) {
+            case "T":
+                task = parseTodoTask(parts);
+                break;
+            case "D":
+                task = parseDeadlineTask(parts);
+                break;
+            case "E":
+                task = parseEventTask(parts);
+                break;
+            default:
+                System.out.println("Unknown task type in file: " + taskTypeString);
+                break;
+            }
+        }
+        if (task != null) {
+            taskList.addTask(task);
+        } else {
+            System.out.println("Error loading task from file. Skipping invalid task.");
+        }
+    }
+
+    /**
+     * Parses a todo task from the given parts and returns the corresponding Task.
+     *
+     * @param parts The parts of the todo task.
+     * @return The parsed TodoTask.
+     */
+    private Task parseTodoTask(String[] parts) throws DinoException {
+        return Parser.createTaskFromInput(Dino.TaskType.TODO, parts[2].trim());
+    }
+
+    /**
+     * Parses a deadline task from the given parts and returns the corresponding Task.
+     *
+     * @param parts The parts of the deadline task.
+     * @return The parsed DeadlineTask.
+     */
+    private Task parseDeadlineTask(String[] parts) throws DinoException {
+        String[] deadlineParts = parts[3].split(" by: ");
+        String deadlineDetails = parts[2].trim() + " /by " + Parser.parseStringToNum(deadlineParts[1]);
+        return Parser.createTaskFromInput(Dino.TaskType.DEADLINE, deadlineDetails);
+    }
+
+    /**
+     * Parses an event task from the given parts and returns the corresponding Task.
+     *
+     * @param parts The parts of the event task.
+     * @return The parsed EventTask.
+     */
+    private Task parseEventTask(String[] parts) throws DinoException {
+        String[] eventParts = parts[3].split("from:|to:");
+        String eventDetails = parts[2].trim() + " /from " + Parser.parseStringToNum(eventParts[1])
+                + " /to " + Parser.parseStringToNum(eventParts[2]);
+        return Parser.createTaskFromInput(Dino.TaskType.EVENT, eventDetails);
     }
 
     /**
