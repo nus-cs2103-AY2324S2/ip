@@ -98,14 +98,17 @@ public class TaskList {
         int numMatchingTasks = 0;
         namesMatchingTasks.append("Hmmm let me see...").append("\n");
         for (int i = 0; i < TASKS.size(); i++) {
+            // This method looks for a full match of the keyword not just partial
             if (TASKS.get(i).contains(name)) {
                 namesMatchingTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
                 numMatchingTasks += 1;
             }
         }
+
         if (numMatchingTasks == 0) {
             throw new NicoleException("Sorry I couldn't find any matching tasks");
         }
+
         return namesMatchingTasks.toString();
     }
 
@@ -134,15 +137,20 @@ public class TaskList {
 
     private void checkClashingTasks(Task newTask) throws NicoleException {
         long numClashingTasks = TASKS.stream().filter(task -> {
+            // The datetime clashes only apply to Events since items can logically have the same deadline
             return task instanceof Event
+                    // Case when two event intervals are exactly the same
                     && (newTask.getFromDateTime().isEqual(task.getFromDateTime())
-                    && newTask.getToDateTime().isEqual(task.getToDateTime()))
+                        && newTask.getToDateTime().isEqual(task.getToDateTime()))
+                    // Case when the new event starts after but ends before an existing event
                     || (newTask.getFromDateTime().isAfter(task.getFromDateTime())
-                    && newTask.getFromDateTime().isBefore(task.getToDateTime()))
+                        && newTask.getFromDateTime().isBefore(task.getToDateTime()))
+                    // Case when the new event starts before and continues into an existing event
                     ||  (newTask.getFromDateTime().isBefore(task.getFromDateTime())
-                    && newTask.getToDateTime().isAfter(task.getFromDateTime()))
+                        && newTask.getToDateTime().isAfter(task.getFromDateTime()))
+                    // Case when the new event starts before an existing event ends but after it begins
                     ||  (newTask.getFromDateTime().isBefore(task.getToDateTime())
-                    && newTask.getToDateTime().isAfter(task.getToDateTime()));
+                        && newTask.getToDateTime().isAfter(task.getToDateTime()));
         }).count();
         if (numClashingTasks > 0) {
             throw new NicoleException("Careful! You already have " + numClashingTasks + " items at the same time.");
@@ -174,6 +182,7 @@ public class TaskList {
      * @return a success message.
      */
     public String sortTasksByDate() {
+        // This sorter doesn't meaningfully sort Todos, whose Date is by default the maximum possible date
         Comparator<Task> dateSorter = (task1, task2) -> {
             if (task1.getDate().isBefore(task2.getDate())) {
                 return -1;
