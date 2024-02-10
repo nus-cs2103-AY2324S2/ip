@@ -33,7 +33,7 @@ public class TaskList {
      * @param description The description of the task
      * @param dueDate     The due date of the task
      */
-    public void addDeadline(String description, String dueDate) {
+    public void addDeadline(String description, String dueDate) throws BotException {
         this.tasks.add(new Deadline(description, dueDate));
         taskCount++;
     }

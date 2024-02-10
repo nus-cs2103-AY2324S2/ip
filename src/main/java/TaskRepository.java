@@ -33,7 +33,7 @@ public class TaskRepository {
      *
      * @return The populated TaskList object
      */
-    public TaskList loadTasks() {
+    public TaskList loadTasks() throws BotException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line;
