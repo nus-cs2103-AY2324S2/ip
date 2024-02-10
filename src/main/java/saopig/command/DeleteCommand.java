@@ -20,6 +20,7 @@ public class DeleteCommand extends Command {
      * @param typeIndex The type of task to be deleted.
      */
     public DeleteCommand(String command, int typeIndex) {
+        assert typeIndex == 0 : "typeIndex should be 0";
         this.command = command;
         this.typeIndex = typeIndex;
     }
@@ -44,6 +45,7 @@ public class DeleteCommand extends Command {
     public String deleteTask(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
             checkValue(input.length(), 8, Integer.MAX_VALUE);
+            assert input.length() >= 8 : "Input length should be at least 8";
             int index = Integer.parseInt(input.substring(7)) - 1;
             taskList.deleteTask(index);
             storage.saveTaskList(taskList);

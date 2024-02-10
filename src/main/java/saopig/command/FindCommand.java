@@ -22,6 +22,7 @@ public class FindCommand extends Command {
      * @param typeIndex The type index.
      */
     public FindCommand(String command, int typeIndex) {
+        assert typeIndex == 0 : "typeIndex should be 0";
         this.command = command;
         this.typeIndex = typeIndex;
     }
@@ -35,6 +36,7 @@ public class FindCommand extends Command {
     private String findTask(String input, TaskList tasks, Ui ui) {
         try {
             checkValue(input.length(), 6, Integer.MAX_VALUE);
+            assert input.length() >= 6 : "Input length should be at least 6";
             String processedInput = input.substring(5);
             ArrayList<Task> matchingTasks = new ArrayList<>();
             for (Task task : tasks.getTasks()) {
