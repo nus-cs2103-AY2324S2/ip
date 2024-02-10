@@ -82,23 +82,23 @@ public class Storage {
                 String description = words[2];
                 Task t;
                 switch (words[1]) {
-                    case "TODO":
-                        t = new Todo(description, isDone);
-                        break;
-                    case "EVENT":
-                        t = new Event(
-                                description,
-                                LocalDate.parse(words[3]),
-                                LocalDate.parse(words[4]),
-                                isDone);
-                        break;
-                    case "DEADLINE":
-                        t = new Deadline(description, LocalDate.parse(words[3]), isDone);
-                        break;
-                    default:
-                        t = new Task("UNKNOWN FORMAT", false);
-                        System.out.println("Unexpected case");
-                        break;
+                case "TODO":
+                    t = new Todo(description, isDone);
+                    break;
+                case "EVENT":
+                    t = new Event(
+                            description,
+                            LocalDate.parse(words[3]),
+                            LocalDate.parse(words[4]),
+                            isDone);
+                    break;
+                case "DEADLINE":
+                    t = new Deadline(description, LocalDate.parse(words[3]), isDone);
+                    break;
+                default:
+                    t = new Task("UNKNOWN FORMAT", false);
+                    System.out.println("Unexpected case");
+                    break;
                 }
                 s.getTasks().add(t);
 
