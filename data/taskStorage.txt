@@ -1,3 +1,4 @@
-T | X | hellooooo
-D |   | finish this | by: Jan 23 2050 00:50
-E | X | meeting with chatgpt | from: 05/06/2024 1500 to: 03/04/2025 1400
+T |   | Test task
+E |   | description | from: 1/1/2022 1200 to: 1/1/2022 1300
+E | X | description | from: 01/01/2022 1200 to: 01/01/2022 1300
+D |   | this | by: Jan 01 2022 13:00
