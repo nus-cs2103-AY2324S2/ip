@@ -62,10 +62,18 @@ public class Events extends Task {
      * @return A formatted string containing task details.
      */
     public String toString() {
+        String[] currentDates = this.getDates();
+        String[] currentTimes = this.getTimes();
+        String parsedFirstDate = DateTimeParser.parseDate(LocalDate.parse(currentDates[0]));
+        String parsedSecondDate = DateTimeParser.parseDate(LocalDate.parse(currentDates[1]));
+        String parsedFirstTime = DateTimeParser.parseTime(DateTimeParser.parseTimeAsLocalTime(currentTimes[0]));
+        String parsedSecondTime = DateTimeParser.parseTime(DateTimeParser.parseTimeAsLocalTime(currentTimes[1]));
         return "[E]" + "[" + getStatusIcon() + "] " + getTaskName()
                 + " (from: "
-                + DateTimeParser.parseDate(this.startDate) + " " + DateTimeParser.parseTime(this.startTime)
+                + parsedFirstDate + " "
+                + parsedFirstTime
                 + " to: "
-                + DateTimeParser.parseDate(this.endDate) + " " + DateTimeParser.parseTime(this.endTime) + ")";
+                + parsedSecondDate + " "
+                + parsedSecondTime + ")";
     }
 }

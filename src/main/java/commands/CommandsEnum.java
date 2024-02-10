@@ -3,7 +3,8 @@ package commands;
 import java.util.ArrayList;
 
 public enum CommandsEnum {
-    bye, list, mark, unmark, todo, deadline, event, delete, find, help;
+    bye, list, mark, unmark, todo, deadline, event, delete, find, help,
+    update;
 
     public static String getAllCommands() {
         StringBuilder commandsString = new StringBuilder();

@@ -29,6 +29,15 @@ public class Task {
     }
 
     /**
+     * Updates the name of the task.
+     *
+     * @param newName
+     */
+    public void updateTaskName(String newName) {
+        this.taskName = newName;
+    }
+
+    /**
      * Gets the type of the task.
      *
      * @return The type of the task.

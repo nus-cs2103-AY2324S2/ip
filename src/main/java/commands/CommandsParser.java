@@ -64,7 +64,12 @@ public class CommandsParser {
                                             taskListManager);
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.help))) {
             return CommandsEnum.getAllCommands();
-        } else {
+        } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.update))) {
+            String responseReturn = PatternParser.updateTaskParser(taskListManager, taskInputByUser, taskLoader);
+            taskListManager.writeToFile(taskLoader);
+            return responseReturn;
+        }
+        else {
             throw new RyanGoslingException("I am artificially intelligent but not in a smart way. \nTry a valid "
                                                    + "command! or check them out by typing help");
         }

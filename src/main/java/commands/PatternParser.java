@@ -27,6 +27,9 @@ public class PatternParser {
             + "\\|\\s*(\\S+)\\s*\\|\\"
             + "s*(\\S+)\\s*\\|\\s*(\\S+)\\s*$";
 
+    private static final String updatePattern = "^update\\s+(\\d+)\\s+(\\S+)\\s+(\\d{4}-\\d{2}-\\d{2}|NA)\\s+(\\d{4}-\\d{2}-"
+            + "\\d{2}|NA)\\s+(\\d{4}|NA)\\s+(\\d{4}|NA)$";
+
     /**
      * Parses a "todo" command and adds the corresponding task to the task list.
      *
@@ -144,6 +147,57 @@ public class PatternParser {
         default:
 
         }
+    }
+
+    public static String updateTaskParser(TaskList taskListManager, String inputLine, Storage taskLoader) throws RyanGoslingException {
+        Pattern pattern = Pattern.compile(updatePattern);
+        Matcher matcher = pattern.matcher(inputLine);
+        if (!matcher.matches()) {
+            throw new RyanGoslingException("Invalid update command!\n update <index> <new_name> <dateFrom> <dateTo> "
+                                                   + "<timeFrom> <timeTo>\nIrrelevant fields can be input as NA");
+        }
+        String indexNumber = matcher.group(1);
+        String newTaskName = matcher.group(2);
+        String dateFrom = handleNA(matcher.group(3));
+        String dateTo = handleNA(matcher.group(4));
+        String timeFrom = handleNA(matcher.group(5));
+        String timeTo = handleNA(matcher.group(6));
+
+        StringBuilder responseReturn = new StringBuilder();
+        int indexOfTask = Integer.parseInt(indexNumber)-1;
+        if (!taskListManager.validateIndex(indexOfTask)) {
+            throw new RyanGoslingException("Invalid range of index!");
+        }
+
+        if (!newTaskName.equals("NA")) {
+            taskListManager.updateNameOfTask(indexOfTask, newTaskName, taskLoader);
+            responseReturn.append("Successfully updated task name to \n").append(newTaskName);
+        }
+        String taskType = taskListManager.getTaskType(indexOfTask);
+        switch (taskType) {
+        case "T":
+            boolean doesTodoHaveInvalidDateTimeInput = !(dateFrom.equals("NA") && dateTo.equals("NA")
+                                  && timeFrom.equals("NA") && timeTo.equals("NA"));
+            if (doesTodoHaveInvalidDateTimeInput) {
+                throw new RyanGoslingException(responseReturn + "\nTodo cannot have any non NA time/date fields!");
+            }
+            break;
+        case "D":
+            taskListManager.updateDatesOfTask(indexOfTask, new String[]{dateFrom, "NA"}, taskLoader);
+            taskListManager.updateTimesOfTask(indexOfTask, new String[]{timeFrom, "NA"}, taskLoader);
+            break;
+        case "E":
+            taskListManager.updateDatesOfTask(indexOfTask, new String[] {dateFrom, dateTo}, taskLoader);
+            taskListManager.updateTimesOfTask(indexOfTask, new String[] {timeFrom, timeTo}, taskLoader);
+            break;
+        }
+        responseReturn.append("\nUpdated all fields (if any were input) successfully!");
+        return responseReturn.toString();
+    }
+
+    // Helper method to handle "NA", with help from ChatGPT
+    private static String handleNA(String value) {
+        return (value == null) ? "NA" : value;
     }
 
 

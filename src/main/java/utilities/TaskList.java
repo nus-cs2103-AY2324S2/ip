@@ -1,7 +1,9 @@
 package utilities;
 
+import datesandtimes.DateTimeParser;
 import tasks.Task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -89,6 +91,61 @@ public class TaskList {
             }
         }
         return ResponseHandler.printFoundTasks(tasksWithPattern);
+    }
+
+
+    public void updateNameOfTask(int index, String newTaskName, Storage taskStorage) {
+        this.listOfTasks.get(index).updateTaskName(newTaskName);
+        this.writeToFile(taskStorage);
+    }
+
+    public String getTaskType(int index) {
+        return this.listOfTasks.get(index).getTaskType();
+    }
+
+    public void updateDatesOfTask(int index, String[] listOfDates, Storage taskStorage) {
+        String firstDate = listOfDates[0];
+        String secondDate = listOfDates[1];
+        String[] originalDateList = this.listOfTasks.get(index).getDates();
+        if (!firstDate.equals("NA")) {
+            LocalDate.parse(firstDate);
+            listOfDates[0] = firstDate;
+        } else {
+            listOfDates[0] = originalDateList[0];
+        }
+        if (!secondDate.equals("NA")) {
+            LocalDate.parse(secondDate);
+            listOfDates[1] = secondDate;
+        } else {
+            listOfDates[1] = originalDateList[1];
+        }
+        this.listOfTasks.get(index).setDate(listOfDates);
+        this.writeToFile(taskStorage);
+    }
+
+    public void updateTimesOfTask(int index, String[] listOfTimes, Storage taskStorage) {
+        String firstTime = listOfTimes[0];
+        String secondTime = listOfTimes[1];
+        String[] originalTimeList = this.listOfTasks.get(index).getTimes();
+        if (!firstTime.equals("NA")) {
+            DateTimeParser.parseTimeAsLocalTime(firstTime);
+            listOfTimes[0] = firstTime;
+        } else {
+            listOfTimes[0] = originalTimeList[0];
+        }
+        if (!secondTime.equals("NA")) {
+            DateTimeParser.parseTimeAsLocalTime(secondTime);
+            listOfTimes[1] = secondTime;
+        } else {
+            listOfTimes[1] = originalTimeList[1];
+        }
+
+        this.listOfTasks.get(index).setTime(listOfTimes);
+        this.writeToFile(taskStorage);
+    }
+
+    public boolean validateIndex(int index) {
+        return index >= 0 && index < listOfTasks.size();
     }
 
 
