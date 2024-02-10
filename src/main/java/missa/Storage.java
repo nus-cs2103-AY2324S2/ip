@@ -13,6 +13,7 @@ import missa.task.Deadline;
 import missa.task.Event;
 import missa.task.Task;
 import missa.task.ToDo;
+
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
  */
@@ -28,7 +29,8 @@ public class Storage {
      *
      * @return A taskList stored in data file.
      */
-    public ArrayList<Task> loadData() throws FileNotFoundException, WrongTaskDataException {
+    public ArrayList<Task> loadData()
+            throws FileNotFoundException, WrongTaskDataException {
         ArrayList<Task> tasks = new ArrayList<>(100);
 
         // Scans stored data.
@@ -49,43 +51,79 @@ public class Storage {
      * @throws WrongTaskDataException Alerts users when wrong data detected.
      */
     public Task getTasksFromData(String task) throws WrongTaskDataException {
-        String[] temp = task.split(" \\| ", 5);
-        switch (temp[0]) {
+        String[] taskContent = task.split(" \\| ", 5);
+        switch (taskContent[0]) {
         case "T":
-            if (temp.length != 3) {
-                throw new WrongTaskDataException();
-            }
-            Task t1 = new ToDo(temp[2]);
-            if (temp[1].equals("1")) {
-                t1.mark();
-            }
-            return t1;
+            return getTodoTask(taskContent);
         case "D":
-            if (temp.length != 4) {
-                throw new WrongTaskDataException();
-            }
-            Task t2 = new Deadline(
-                    temp[2],
-                    LocalDateTime.parse(temp[3]));
-            if (temp[1].equals("1")) {
-                t2.mark();
-            }
-            return t2;
+            return getDeadlineTask(taskContent);
         case "E":
-            if (temp.length != 5) {
-                throw new WrongTaskDataException();
-            }
-            Task t3 = new Event(
-                    temp[2],
-                    LocalDateTime.parse(temp[3]),
-                    LocalDateTime.parse(temp[4]));
-            if (temp[1].equals("1")) {
-                t3.mark();
-            }
-            return t3;
+            return getEventTask(taskContent);
         default:
             throw new WrongTaskDataException();
         }
+    }
+
+    /**
+     * Returns an event task.
+     *
+     * @param taskContent Task content and duration.
+     * @return An event task.
+     * @throws WrongTaskDataException Alerts user if data file contains wrong data format.
+     */
+    private static Task getEventTask(String[] taskContent)
+            throws WrongTaskDataException {
+        if (taskContent.length != 5) {
+            throw new WrongTaskDataException();
+        }
+        Task t3 = new Event(
+                taskContent[2],
+                LocalDateTime.parse(taskContent[3]),
+                LocalDateTime.parse(taskContent[4]));
+        if (taskContent[1].equals("1")) {
+            t3.mark();
+        }
+        return t3;
+    }
+
+    /**
+     * Returns a deadline task.
+     *
+     * @param taskContent Task content and deadline timing.
+     * @return A deadline task.
+     * @throws WrongTaskDataException Alerts user if data file stores wrong data format.
+     */
+    private static Task getDeadlineTask(String[] taskContent)
+            throws WrongTaskDataException {
+        if (taskContent.length != 4) {
+            throw new WrongTaskDataException();
+        }
+        Task t2 = new Deadline(
+                taskContent[2],
+                LocalDateTime.parse(taskContent[3]));
+        if (taskContent[1].equals("1")) {
+            t2.mark();
+        }
+        return t2;
+    }
+
+    /**
+     * Returns a todo task.
+     *
+     * @param taskContent Content of the task.
+     * @return A todo task.
+     * @throws WrongTaskDataException Alerts user if data file does not contain task content.
+     */
+    private static Task getTodoTask(String[] taskContent)
+            throws WrongTaskDataException {
+        if (taskContent.length != 3) {
+            throw new WrongTaskDataException();
+        }
+        Task t1 = new ToDo(taskContent[2]);
+        if (taskContent[1].equals("1")) {
+            t1.mark();
+        }
+        return t1;
     }
 
     /**
