@@ -40,48 +40,69 @@ public class AddTaskCommand extends Command {
     public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         Task curr;
         String printStatement;
+
         if (type.equals("todo")) {
-            try {
-                curr = new TodoTask(msg.substring(5), false);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify a title for this todo task");
-            }
+            curr = generateTodo();
         } else if (type.equals("deadline")) {
-            try {
-                String[] deadlinelist = msg.substring(9).split(" /by ");
-                curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify "
-                        + "all the required information for deadline task.");
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not specify "
-                        + "all the required information for deadline task.");
-            }
+            curr = generateDeadline();
         } else {
-            try {
-                String[] eventlist = msg.substring(6).split(" /from ");
-                String[] startend = eventlist[1].split(" /to ");
-                curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new BelleException("You did not "
-                        + "specify all the required information for deadline task.");
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new BelleException("You did not "
-                        + "specify all the required information for deadline task.");
-            }
+            curr = generateEvent();
         }
         t.addTask(curr);
-        printStatement = "--------------------------" + "\n"
-                + "Got it. I've added this task:" + "\n" + curr.toString()
-                + "\n" + "Now you have " + t.getSize() + " tasks in the list."
-                + "\n" + "--------------------------";
         s.save(t.getList());
-        return printStatement;
-
+        return generatePrintStatement(t, curr);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    public Task generateTodo() throws BelleException {
+        try {
+            int todoLength = 5;
+            Task curr = new TodoTask(this.msg.substring(todoLength), false);
+            return curr;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new BelleException("You did not specify a title for this todo task");
+        }
+    }
+
+    public Task generateDeadline() throws BelleException {
+        try {
+            int deadlineLength = 9;
+            String[] deadlinelist = msg.substring(deadlineLength).split(" /by ");
+            Task curr = new DeadlineTask(deadlinelist[0], false, deadlinelist[1]);
+            return curr;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BelleException("You did not specify "
+                    + "all the required information for deadline task.");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new BelleException("You did not specify "
+                    + "all the required information for deadline task.");
+        }
+    }
+    public Task generateEvent() throws BelleException {
+        assert (type.equals("event")) : "task is of an invalid type";
+        try {
+            int eventLength = 6;
+            String[] eventlist = msg.substring(eventLength).split(" /from ");
+            String[] startend = eventlist[1].split(" /to ");
+            Task curr = new EventTask(eventlist[0], false, startend[0], startend[1]);
+            return curr;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BelleException("You did not "
+                    + "specify all the required information for deadline task.");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new BelleException("You did not "
+                    + "specify all the required information for deadline task.");
+        }
+    }
+
+    public String generatePrintStatement(TaskList t, Task curr) {
+        return "--------------------------" + "\n"
+                + "Got it. I've added this task:" + "\n" + curr.toString()
+                + "\n" + "Now you have " + t.getSize() + " tasks in the list."
+                + "\n" + "--------------------------";
     }
 }

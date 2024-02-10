@@ -30,6 +30,8 @@ public class DeleteCommand extends Command {
         try {
             assert (Integer.valueOf(index) > 0) : "index cannot be negative";
             String printStatement;
+            assert (Integer.valueOf(this.index) >= 0) : "this index is negative";
+            assert (Integer.valueOf(this.index) <= t.getSize()) : "this index is too big";
             Task deletetask = t.getTask(Integer.valueOf(index) - 1);
             t.removeTask(Integer.parseInt(index) - 1);
             printStatement = "--------------------------" + "\n"
@@ -37,6 +39,8 @@ public class DeleteCommand extends Command {
                     + deletetask.toString() + "\n" + "Now you have "
                     + t.getSize() + " tasks in the list." + "\n"
                     + "--------------------------";
+
+            //high-level step that saves new list to harddisk
             s.save(t.getList());
             return printStatement;
         } catch (IndexOutOfBoundsException e) {

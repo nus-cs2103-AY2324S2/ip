@@ -14,7 +14,6 @@ import duke.others.BelleException;
  * Deals with making sense of the user command.
  */
 public class Parser {
-
     /**
      * Constructs Parser.
      */
@@ -51,6 +50,7 @@ public class Parser {
                 return new AddTaskCommand("event", input);
             }
         } else if (inputlist[0].equals("find")) {
+            assert (!input.equals("find")) : "Please enter a keyword to find";
             return new FindCommand(inputlist[1]);
         } else {
             throw new BelleException("Not a valid belle command");

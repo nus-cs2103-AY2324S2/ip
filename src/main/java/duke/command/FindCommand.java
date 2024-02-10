@@ -27,10 +27,11 @@ public class FindCommand extends Command {
                 + "Here are the matching tasks in your list:" + "\n";
         for (int i = 0; i < t.getSize(); i++) {
             Task currTask = t.getTask(i);
-            if (currTask.getName().contains(this.keyword)) {
-                printStatement += String.valueOf(index) + "." + t.getTask(i).toString() + "\n";
-                index += 1;
+            if (!currTask.getName().contains(this.keyword)) {
+                continue;
             }
+            printStatement += String.valueOf(index) + "." + t.getTask(i).toString() + "\n";
+            index += 1;
         }
         printStatement += "--------------------------";
         return printStatement;
