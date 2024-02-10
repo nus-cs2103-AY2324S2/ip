@@ -62,6 +62,12 @@ public class Parser {
         return new ToDo(extractToDoDescription(input));
     }
 
+    /**
+     * Extracts the description from a 'todo' command.
+     *
+     * @param input The user input command.
+     * @return The description of the 'todo' task.
+     */
     public static String extractToDoDescription(String input) {
         return input.split("\\s", 2)[1];
     }
@@ -82,11 +88,23 @@ public class Parser {
         return new Deadline(extractDeadlineDescription(input), extractDeadlineBy(input));
     }
 
+    /**
+     * Extracts the description from a 'deadline' command.
+     *
+     * @param input The user input command.
+     * @return The description of the 'deadline' task.
+     */
     public static String extractDeadlineDescription(String input) {
         String deadlineSpaceDescription = input.split("\\s/by\\s")[0];
         return deadlineSpaceDescription.split("\\s", 2)[1];
     }
 
+    /**
+     * Extracts the deadline from a 'deadline' command.
+     *
+     * @param input The user input command.
+     * @return The deadline of the 'deadline' task.
+     */
     public static String extractDeadlineBy(String input) {
         return input.split("\\s/by\\s")[1];
     }
@@ -108,16 +126,34 @@ public class Parser {
         return new Event(extractEventDescription(input), extractEventFrom(input), extractEventTo(input));
     }
 
+    /**
+     * Extracts the description from an 'event' command.
+     *
+     * @param input The user input command.
+     * @return The description of the 'event' task.
+     */
     public static String extractEventDescription(String input) {
         String eventSpaceDescription = input.split("\\s/from\\s")[0];
         return eventSpaceDescription.split("\\s", 2)[1];
     }
 
+    /**
+     * Extracts the start datetime from an 'event' command.
+     *
+     * @param input The user input command.
+     * @return The start datetime of the 'event' task.
+     */
     public static String extractEventFrom(String input) {
         String inputWithoutTo = input.split("\\s/to\\s")[0];
         return inputWithoutTo.split("\\s/from\\s")[1];
     }
 
+    /**
+     * Extracts the end datetime from an 'event' command.
+     *
+     * @param input The user input command.
+     * @return The end datetime of the 'event' task.
+     */
     public static String extractEventTo(String input) {
         return input.split("\\s/to\\s")[1];
     }
@@ -137,6 +173,12 @@ public class Parser {
         return extractTaskIndices(input);
     }
 
+    /**
+     * Extracts task indices from a 'delete', 'mark', or 'unmark' command.
+     *
+     * @param input The user input command.
+     * @return The indices of the tasks to be deleted.
+     */
     public static int[] extractTaskIndices(String input) {
         String[] splitArray = input.split("\\s");
         // First element in splitArray is the name of the command
@@ -189,6 +231,12 @@ public class Parser {
         return extractKeyword(input);
     }
 
+    /**
+     * Extracts the keyword from a 'find' command.
+     *
+     * @param input The user input command.
+     * @return The keyword to search for in task descriptions.
+     */
     public static String extractKeyword(String input) {
         return input.split("\\s", 2)[1];
     }

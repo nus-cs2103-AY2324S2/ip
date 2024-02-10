@@ -1,7 +1,6 @@
 package ezra;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * Main class for the Ezra chatbot.

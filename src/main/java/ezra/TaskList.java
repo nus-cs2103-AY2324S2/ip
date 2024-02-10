@@ -12,12 +12,12 @@ import java.util.Scanner;
  */
 public class TaskList {
 
-    protected ArrayList<Task> tasks = new ArrayList<>();
     protected static final String LIST_MESSAGE_START = "Here are the tasks in your list:\n";
     protected static final String DELETE_MESSAGE_START = "I've removed the following task(s):\n";
     protected static final String MARK_MESSAGE_START = "I've marked the following task(s) as done:\n";
     protected static final String UNMARK_MESSAGE_START = "I've marked the following task(s) as not done:\n";
     protected static final String FIND_MESSAGE_START = "Here are the matching tasks in your list:\n";
+    protected ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs an empty TaskList.
@@ -109,6 +109,12 @@ public class TaskList {
         return invalidTaskNumbers + deletedTasks;
     }
 
+    /**
+     * Returns a string representing the invalid task numbers.
+     *
+     * @param taskIndices The array of task indices.
+     * @return A string containing information about invalid task numbers.
+     */
     public String getInvalidTaskNumbers(int... taskIndices) {
         StringBuilder invalidTaskNumbers = new StringBuilder();
         for (int taskIndex : taskIndices) {
@@ -120,6 +126,12 @@ public class TaskList {
         return invalidTaskNumbers.toString();
     }
 
+    /**
+     * Returns a string representing the deleted tasks.
+     *
+     * @param taskIndices The array of task indices.
+     * @return A string containing information about deleted tasks.
+     */
     public String getDeletedTasks(int... taskIndices) {
         StringBuilder deletedTasks = new StringBuilder(DELETE_MESSAGE_START);
 
@@ -127,7 +139,7 @@ public class TaskList {
         Arrays.sort(taskIndices);
         for (int i = taskIndices.length - 1; i >= 0; i--) {
             int taskIndex = taskIndices[i];
-            assert taskIndex >= -1: "taskNumber >= 0 so taskIndex >= -1";
+            assert taskIndex >= -1 : "taskNumber >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
@@ -185,10 +197,16 @@ public class TaskList {
         return invalidTaskNumbers + markedTasks;
     }
 
+    /**
+     * Returns a string representing the marked tasks.
+     *
+     * @param taskIndices The array of task indices.
+     * @return A string containing information about marked tasks.
+     */
     public String getMarkedTasks(int... taskIndices) {
         StringBuilder markedTasks = new StringBuilder(MARK_MESSAGE_START);
         for (int taskIndex : taskIndices) {
-            assert taskIndex >= -1: "taskNumber >= 0 so taskIndex >= -1";
+            assert taskIndex >= -1 : "taskNumber >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
@@ -226,10 +244,16 @@ public class TaskList {
         return invalidTaskNumbers + unmarkedTasks;
     }
 
+    /**
+     * Returns a string representing the unmarked tasks.
+     *
+     * @param taskIndices The array of task indices.
+     * @return A string containing information about unmarked tasks.
+     */
     public String getUnmarkedTasks(int... taskIndices) {
         StringBuilder unmarkedTasks = new StringBuilder(UNMARK_MESSAGE_START);
         for (int taskIndex : taskIndices) {
-            assert taskIndex >= -1: "taskNumber >= 0 so taskIndex >= -1";
+            assert taskIndex >= -1 : "taskNumber >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
@@ -253,6 +277,12 @@ public class TaskList {
         return getMatchingTasks(matchingTaskIndices);
     }
 
+    /**
+     * Returns a list of task indices matching the given keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of Integer containing matching task indices.
+     */
     public ArrayList<Integer> getMatchingTaskIndices(String keyword) {
         ArrayList<Integer> matchingTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -263,6 +293,12 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Returns a string representing the matching tasks.
+     *
+     * @param matchingTaskIndices The list of task indices that match the keyword.
+     * @return A string containing information about matching tasks.
+     */
     public String getMatchingTasks(ArrayList<Integer> matchingTaskIndices) {
         if (matchingTaskIndices.isEmpty()) {
             return "There are no matching tasks in your list.";
