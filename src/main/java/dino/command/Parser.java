@@ -119,6 +119,7 @@ public class Parser {
      * @return A LocalDateTime object representing the parsed date and time.
      */
     public LocalDateTime parseStringToTime(String time) {
+        assert time != null : "Time cannot be null";
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
 
@@ -138,6 +139,7 @@ public class Parser {
      * @return A formatted string representing the parsed date.
      */
     public String parseStringToNum(String time) {
+        assert time != null : "Time cannot be null";
         time = time.trim();
         DateTimeFormatter dateOnlyFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
@@ -166,6 +168,7 @@ public class Parser {
      * @return String representation of tasks for specified date.
      */
     String printTasksForDate(String dateString) {
+        assert dateString != null : "Date cannot be null";
         StringBuilder result = new StringBuilder();
 
         try {

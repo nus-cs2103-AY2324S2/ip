@@ -16,6 +16,7 @@ public class Main extends Application {
     private Dino dino = new Dino();
     @Override
     public void start(Stage stage) {
+        assert dino != null : "Dino cannot be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
