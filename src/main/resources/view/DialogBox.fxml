@@ -13,7 +13,7 @@
          <effect>
             <InnerShadow />
          </effect></ImageView>
-        <Label fx:id="dialog" lineSpacing="1.0" style="-fx-background-color: #F3F3F3;" text="Label" wrapText="true">
+        <Label fx:id="dialog" lineSpacing="1.0" style="-fx-background-color: #F3F3F3;" text="Label" wrapText="true" minHeight="-Infinity">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
