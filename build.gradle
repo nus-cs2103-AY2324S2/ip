@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("lindi.Lindi")
+    mainClass.set("lindi.Launcher")
 }
 
 shadowJar {

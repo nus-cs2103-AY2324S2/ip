@@ -1,10 +1,7 @@
 package lindi;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import lindi.commands.Command;
+import lindi.gui.DialogBox;
 import lindi.parser.Parser;
 import lindi.storage.Storage;
 import lindi.storage.StorageLoadException;
@@ -15,7 +12,8 @@ import lindi.ui.Ui;
  * Entry point of Lindi Application.
  * Initializes the application and starts the interaction with the user.
  */
-public class Lindi extends Application {
+public class Lindi {
+    // Lindi private attributes for chatbot logic
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -70,15 +68,18 @@ public class Lindi extends Application {
         }
     }
 
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        Command c = Parser.parse(input);
+        c.execute(this.tasks, this.storage);
+        String response = c.status();
+        return response;
+    }
+
     public static void main(String[] args) {
         new Lindi("./.data", "LindiData.txt").run();
-    }
-    @Override
-    public void start(Stage primaryStage) {
-        Label helloWorld = new Label("Hello World");
-        Scene scene = new Scene(helloWorld);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 }
