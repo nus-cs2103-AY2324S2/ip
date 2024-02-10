@@ -1,10 +1,15 @@
 package duke.command;
 
+import java.util.NoSuchElementException;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import java.util.NoSuchElementException;
 
+/**
+ * Represents a command to find all tasks with a matching keyword in the current task list.
+ * This class extends the Command class and overrides the execute method to print a list of tasks.
+ */
 public class FindCommand extends Command {
     protected String keyword;
 
@@ -31,7 +36,7 @@ public class FindCommand extends Command {
         super.ui = ui;
         try {
             super.ui.displayList("Land ho! I've spied these tasks over yonder!", super.tasks.findTasks(this.keyword));
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             super.ui.printMessage(e.getMessage());
         }
     }

@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         super.storage.saveTaskListToFile(super.tasks.getTasks());
         String message = "As ye command, this one has walked the plank:\n"
                 + tempTask + "\nOnly "
-                +  super.tasks.getTaskCount() + " tasks remain, captain!";
+                + super.tasks.getTaskCount() + " tasks remain, captain!";
         super.ui.printMessage(message);
     }
 }

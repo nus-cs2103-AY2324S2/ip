@@ -1,7 +1,8 @@
 package duke;
 
-import duke.task.Task;
 import java.util.ArrayList;
+
+import duke.task.Task;
 
 /**
  * The TaskList class handles the printing of messages to the console

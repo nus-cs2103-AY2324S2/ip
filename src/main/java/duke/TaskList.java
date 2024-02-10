@@ -1,8 +1,9 @@
 package duke;
 
-import duke.task.Task;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
+import duke.task.Task;
 
 /**
  * The TaskList class represents a collection of tasks and provides methods
@@ -16,7 +17,7 @@ public class TaskList {
      * Constructs a TaskList and instantiates tasks as an empty ArrayList.
      */
     public TaskList() {
-        this.tasks =  new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -54,7 +55,6 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
      * Method to print all current tasks in the task list.
      */
     public void listTasks() {
@@ -64,8 +64,6 @@ public class TaskList {
     }
 
     /**
-=======
->>>>>>> branch-Level-9
      * Method to mark a task at the specified 1-indexed index.
      *
      * @param taskNum an int representing the 1-indexed location of the task in the task list

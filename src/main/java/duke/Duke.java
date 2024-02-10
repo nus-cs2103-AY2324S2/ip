@@ -1,7 +1,8 @@
 package duke;
 
-import duke.command.Command;
 import java.util.Scanner;
+
+import duke.command.Command;
 
 /**
  * Duke is a simple chatbot application that allows users to manage tasks.
@@ -66,6 +67,4 @@ public class Duke {
     public static void main(String[] args) {
         new Duke(FILE_PATH).run();
     }
-
-
 }

@@ -1,5 +1,11 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
@@ -10,11 +16,6 @@ import duke.command.ToggleMarkCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses user input and returns corresponding Command objects for execution.
@@ -113,7 +114,7 @@ public class Parser {
                 String[] wordArray = input.split(" ", 0);
                 String keyword = wordArray[1];
                 return new FindCommand(keyword);
-            }else {
+            } else {
                 throw new IllegalArgumentException("Arrr, me apologies! I cannot fathom that.");
             }
         } catch (NumberFormatException e) {
