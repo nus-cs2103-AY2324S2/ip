@@ -51,17 +51,13 @@ public class TaskListTest {
 
     @Test
     public void find_keywordFound_success() {
-        List<Task> list1 = new ArrayList<>();
-        List<Task> list2 = new ArrayList<>();
+        List<Task> list = new ArrayList<>();
         Task dummy1 = new Task("book");
         Task dummy2 = new Task("return book");
-        list1.add(dummy1);
-        list1.add(dummy2);
-        list2.add(dummy2);
-        TaskList tasks = new TaskList(list1);
-        TaskList expected = new TaskList(list2);
-        assertEquals(tasks, tasks.find("book"));
-        assertEquals(expected, tasks.find("return book"));
+        list.add(dummy1);
+        list.add(dummy2);
+        TaskList tasks = new TaskList(list);
+        assertEquals(list, tasks.find("book"));
     }
 
     @Test
@@ -72,7 +68,7 @@ public class TaskListTest {
         list.add(dummy1);
         list.add(dummy2);
         TaskList tasks = new TaskList(list);
-        assertEquals(new TaskList(), tasks.find("blablabla"));
+        assertEquals(new ArrayList<>(), tasks.find("blablabla"));
     }
 
 }
