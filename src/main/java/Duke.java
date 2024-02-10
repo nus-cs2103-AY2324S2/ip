@@ -1,11 +1,10 @@
-
-import parser.ParseExecutionable;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import parser.Parser;
-import task.ActionTask;
 import task.TaskStorage;
+import ui.ChatManager;
+import ui.UiManager;
 import util.DataReader;
-import util.DataWriter;
-import util.Messages;
 import util.TextUi;
 
 /**
@@ -14,7 +13,17 @@ import util.TextUi;
  * This class is a front to manage user input, displaying the corresponding output,
  * and managed the conditional statements for the prompting.
 **/
-public class Duke {
+public class Duke extends Application {
+    @Override
+    public void start(Stage stage) {
+        TaskStorage taskStorage = new DataReader().readDataFile(new TextUi());
+        Parser parser = new Parser();
+        UiManager uiManager = new UiManager(stage);
+        ChatManager chatController = new ChatManager(uiManager, parser, taskStorage);
+
+        uiManager.setupUI();
+        chatController.setupHandlers();
+    }
 
     /**
      * Main function to start the Chatbot.
@@ -22,23 +31,6 @@ public class Duke {
      * @param args arguments for the method.
      */
     public static void main(String[] args) {
-        TextUi textUi = new TextUi();
-        Parser parser = new Parser();
-        textUi.printMessage(Messages.MESSAGE_START_BOT);
-        TaskStorage ts = new DataReader().readDataFile(textUi);
-        ParseExecutionable actionable = null;
-        Boolean isExit = false;
-        do {
-            String userInput = textUi.readNextLine();
-            actionable = parser.parseInput(userInput);
-            textUi.printMessage(actionable.execute(ts));
-            if (actionable instanceof ActionTask) {
-                ActionTask actionTask = (ActionTask) actionable;
-                isExit = actionTask.isItExitAction();
-            }
-        } while (!isExit);
-        DataWriter dataWriter = new DataWriter();
-        dataWriter.saveData(ts);
-        textUi.closeReader();
+        launch(args);
     }
 }
