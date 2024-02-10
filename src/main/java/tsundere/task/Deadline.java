@@ -15,6 +15,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+        assert by != null : "by should not be null";
         this.by = by;
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MMM d yyyy");
         this.date = LocalDate.parse(by, f);
