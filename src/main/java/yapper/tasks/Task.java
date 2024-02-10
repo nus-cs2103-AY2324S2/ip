@@ -15,6 +15,7 @@ public abstract class Task {
      * @param isDone      The initial completion status of the task.
      */
     public Task(String description, boolean isDone) {
+        assert description != null : "Task description should not be null";
         this.description = description;
         this.isDone = false;
     }
@@ -63,6 +64,7 @@ public abstract class Task {
      * @return A formatted string representing the task.
      */
     public String toString() {
+        assert getType() != null : "Task type should not be null";
         return "[" + getType() + "] " + "[" + getStatusIcon() + "] "
                 + description;
     }

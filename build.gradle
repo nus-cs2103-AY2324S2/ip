@@ -14,7 +14,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'yapper.jar'
+    archiveFileName = 'yapper2.jar'
 }
 
 dependencies {

@@ -52,6 +52,9 @@ public class Yapper {
      * @param inputStream The input stream for user input.
      */
     public Yapper(String filePath, InputStream inputStream) {
+        assert filePath != null : "File path should not be null";
+        assert inputStream != null : "Input stream should not be null";
+
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
@@ -75,17 +78,10 @@ public class Yapper {
         yapperThread.start();
     }
     /**
-     * Stops the application by setting the termination condition to stop the application loop.
-     * The application loop will terminate gracefully when this method is called.
-     */
-    public void stop() {
-        // Set the termination condition to stop the application loop
-        isRunning = false;
-    }
-    /**
      * Runs the Yapper application, displaying welcome messages and handling user input.
      */
     public void run() {
+        assert !isRunning : "Yapper is already running";
         this.ui.showWelcomeMessage();
 
         try {
@@ -114,6 +110,7 @@ public class Yapper {
      * @throws YapperException If any of user inputs is invalid.
      */
     public String processUserInput(String userInput) throws YapperException {
+        assert userInput != null : "User input should not be null";
         StringBuilder responseBuilder = new StringBuilder();
         try {
             if (userInput.equalsIgnoreCase("list")) {
@@ -180,6 +177,7 @@ public class Yapper {
                 throw new YapperException("Sorry but I don't know what you're yapping about :(");
             }
         } catch (YapperException e) {
+            String errorMessage = "yapper: " + e.getMessage();
             responseBuilder.append(this.ui.showError(e.toString()));
         }
         return responseBuilder.toString();
@@ -247,6 +245,7 @@ public class Yapper {
     public String showWelcomeMessage() {
         String message = "Hello! I'm Yapper. \n"
                 + "What would you like to yap about today? :-)";
+        assert message != null : "Welcome message should not be null";
         System.out.println(message);
         return message;
     }

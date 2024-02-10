@@ -28,9 +28,11 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Yapper");
-
+            assert fxmlLoader.getController() != null : "FXMLLoader controller should not be null";
             fxmlLoader.<MainWindow>getController().setYapper(yapper);
+            assert stage != null : "Stage should not be null";
             stage.show();
+            assert fxmlLoader.getController() != null : "FXMLLoader controller should not be null";
             fxmlLoader.<MainWindow>getController().showWelcomeMessage();
         } catch (IOException e) {
             e.printStackTrace();

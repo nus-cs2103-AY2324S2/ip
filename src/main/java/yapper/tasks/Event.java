@@ -21,12 +21,15 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
+        assert from != null : "Event start date and time should not be null";
+        assert to != null : "Event end date and time should not be null";
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toString() {
+        assert getDescription() != null : "Task description should not be null";
         return "[" + getType() + "]" + "[" + getStatusIcon() + "] "
                 + getDescription() + " " + getFormattedDateRange();
     }
@@ -38,11 +41,14 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
+        assert getDescription() != null : "Task description should not be null";
         return "E | " + (isDone ? "1" : "0") + " | "
                 + getDescription() + " | " + from + " | " + to;
     }
 
     protected String getFormattedDateRange() {
+        assert from != null : "Event start date and time should not be null";
+        assert to != null : "Event end date and time should not be null";
         return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma"))
                 + " to " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma"));
     }

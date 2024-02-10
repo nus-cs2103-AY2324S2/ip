@@ -15,6 +15,7 @@ public class Ui {
         String message = "Hello! I'm Yapper. /n"
                 + "What would you like to yap about today? :-)";
         System.out.println(message);
+        assert message != null : "Welcome message should not be null";
         return message;
     }
     /**
@@ -23,6 +24,7 @@ public class Ui {
     public String showUserPrompt() {
         String message = "User: ";
         System.out.println(message);
+        assert message != null : "User prompt should not be null";
         return message;
     }
     /**
@@ -33,6 +35,7 @@ public class Ui {
     public String showError(String errorMessage) {
         String message = errorMessage;
         System.out.println(message);
+        assert message != null : "Error message should not be null";
         return message;
     }
     /**
@@ -41,6 +44,7 @@ public class Ui {
     public String showLoadingError() {
         String message = "Error loading tasks from file. Creating a new task list.";
         System.out.println(message);
+        assert message != null : "Loading error message should not be null";
         return message;
     }
     /**
@@ -55,6 +59,7 @@ public class Ui {
         }
         String message = result.toString();
         System.out.println(message);
+        assert message != null : "Task list message should not be null";
         return message;
     }
     /**

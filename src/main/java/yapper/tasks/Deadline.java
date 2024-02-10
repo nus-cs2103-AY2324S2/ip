@@ -20,11 +20,14 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
+        assert by != null : "Deadline date and time should not be null";
         this.by = by;
     }
 
     @Override
     public String toString() {
+        assert getDescription() != null : "Task description should not be null";
+        assert by != null : "Deadline date and time should not be null";
         return "[" + getType() + "]" + "[" + getStatusIcon() + "] "
                 + getDescription() + " (by: " + getFormattedDate() + ")";
     }
@@ -36,11 +39,13 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
+        assert getDescription() != null : "Task description should not be null";
         return "D | " + (isDone ? "1" : "0") + " | "
                 + getDescription() + " | " + by;
     }
 
     protected String getFormattedDate() {
+        assert by != null : "Deadline date and time should not be null";
         return by.format(
                 DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma"));
     }
