@@ -23,7 +23,6 @@ public class CommandsParser {
         this.taskLoader = taskLoader;
     }
 
-
     public String parseCommands(String taskInputByUser) throws RyanGoslingException {
         String[] commandSplit = taskInputByUser.split(" ");
         switch (taskInputByUser) {

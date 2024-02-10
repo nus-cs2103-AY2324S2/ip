@@ -12,6 +12,7 @@ public class RyanGosling {
 
     public RyanGosling() {
         botDispatcher = new Ui();
+        assert botDispatcher != null : "Dispatcher object should not be null!";
         botDispatcher.oneTimeLoadAllTasks();
     }
 
