@@ -143,6 +143,13 @@ public class Ui {
         );
     }
 
+    public String printUpdateTime(Task task) {
+        return this.formatString(
+            "Nice! I've updated this task:\n" +
+            task.toString()
+        );
+    }
+
     public String printAddTask(Task task, int taskSize) {
         return this.formatString(
             "Got it. I've added this task to your list.\n" +
