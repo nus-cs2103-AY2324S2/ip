@@ -27,13 +27,17 @@ public class CommandsParser {
 
     public String parseCommands(String task) throws RyanGoslingException {
         String[] commandSplit = task.split(" ");
-        if (task.equals(String.valueOf(CommandsEnum.bye))) {
+        switch (task) {
+        case "bye":
             return ResponseHandler.bye();
-        } else if (task.equals(String.valueOf(CommandsEnum.list))) {
+        case "list":
             return taskList.printList();
-        } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.mark))
+        default:
+        }
+
+        //Items are 0-indexed, unless otherwise stated.
+        if (commandSplit[0].equals(String.valueOf(CommandsEnum.mark))
                 || commandSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
-            //All items to be 0-index referenced other than user input.
             try {
                 String responseReturn = taskList.changeStatusOfItem(commandSplit[0],
                                                                     Integer.parseInt(commandSplit[1]) - 1);
@@ -103,7 +107,6 @@ public class CommandsParser {
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.help))) {
             return CommandsEnum.getAllCommands();
         } else {
-
             throw new RyanGoslingException("I am artificially intelligent but not in a smart way. \nTry a valid "
                                                    + "command! or check them out by typing help");
         }
