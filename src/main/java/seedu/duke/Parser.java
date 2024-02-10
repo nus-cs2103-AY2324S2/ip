@@ -1,8 +1,8 @@
-package duke;
+package seedu.duke;
 
-import exceptions.DukeException;
-import exceptions.InvalidTaskNameException;
-import task.TaskList;
+import seedu.exceptions.DukeException;
+import seedu.exceptions.InvalidTaskNameException;
+import seedu.task.TaskList;
 
 import java.util.Scanner;
 

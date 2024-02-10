@@ -1,10 +1,10 @@
-package task;
+package seedu.task;
 
 /**
- * A Task.Task object contains the status of the task.
+ * A Task.Task object contains the status of the seedu.task.
  */
 public class Task {
-    // Whether the task is completed.
+    // Whether the seedu.task is completed.
     protected boolean isDone = false;
 
     /**
@@ -22,14 +22,14 @@ public class Task {
     }
 
     /**
-     * Marks the task done.
+     * Marks the seedu.task done.
      */
     public void markDone() {
         isDone = true;
     }
 
     /**
-     * Unchecks the task.
+     * Unchecks the seedu.task.
      */
     public void markUndone() {
         isDone = false;

@@ -1,4 +1,4 @@
-package task;
+package seedu.task;
 
 /**
  * Todos are tasks without any date/time attached to it.
@@ -9,7 +9,7 @@ public class Todo extends Task {
     /**
      * Constructor for a todo object.
      *
-     * @param name task name
+     * @param name seedu.task name
      */
     public Todo(String name) {
         super();
@@ -19,7 +19,7 @@ public class Todo extends Task {
     /**
      * Constructor for a loading from file.
      *
-     * @param name task name
+     * @param name seedu.task name
      * @param b isDone
      */
     public Todo(String name, boolean b) {

@@ -1,4 +1,4 @@
-package task;
+package seedu.task;
 
 import java.util.ArrayList;
 
@@ -34,52 +34,52 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the list and print out the details.
+     * Removes a seedu.task from the list and print out the details.
      *
-     * @param idx task number
+     * @param idx seedu.task number
      * @return message to be printed by ui
      */
     public String deleteTask(int idx) {
         int taskCount = this.getSize() - 1;
-        String message = "Oink! Yosh I have removed this task:\n"
-                + " >> " + this.getTask(idx) + "\nOink's task count: " + taskCount + "\n";
+        String message = "Oink! Yosh I have removed this seedu.task:\n"
+                + " >> " + this.getTask(idx) + "\nOink's seedu.task count: " + taskCount + "\n";
         this.tasks.remove(idx);
         return message;
     }
 
     /**
-     * Adds a task to the list and print out the details.
+     * Adds a seedu.task to the list and print out the details.
      *
-     * @param task new task to be added
+     * @param task new seedu.task to be added
      * @return message to be printed by ui
      */
     public String addTask(Task task) {
         this.tasks.add(task);
-        return "Oink! Nice I have added this task:\n"
-                + " >> " + task + "\nOink's task count: " + this.getSize() + "\n";
+        return "Oink! Nice I have added this seedu.task:\n"
+                + " >> " + task + "\nOink's seedu.task count: " + this.getSize() + "\n";
     }
 
     /**
-     * Marks the task done and prints out that the user has completed the task.
+     * Marks the seedu.task done and prints out that the user has completed the seedu.task.
      *
-     * @param idx task number
+     * @param idx seedu.task number
      * @return message to be printed by ui
      */
     public String markTask(int idx) {
         this.getTask(idx).markDone();
-        return "Oink! You have completed this task! Nice nice nice\n"
+        return "Oink! You have completed this seedu.task! Nice nice nice\n"
                 + " >> " + this.getTask(idx) + "\n";
     }
 
     /**
-     * Marks the task done and prints out that the user has completed the task.
+     * Marks the seedu.task done and prints out that the user has completed the seedu.task.
      *
-     * @param idx task number
+     * @param idx seedu.task number
      * @return message to be printed by ui
      */
     public String unmarkTask(int idx) {
         this.getTask(idx).markUndone();
-        return "Oink! You have unmarked this task! Why why why\n"
+        return "Oink! You have unmarked this seedu.task! Why why why\n"
                 + " >> " + this.getTask(idx) + "\n";
     }
 }

@@ -1,6 +1,6 @@
-package duke;
+package seedu.duke;
 
-import task.TaskList;
+import seedu.task.TaskList;
 
 
 import java.io.FileNotFoundException;
@@ -10,14 +10,14 @@ import java.io.FileNotFoundException;
  *  ChrisP Bacon is a chatbot that manages the user's list of tasks.
  */
 public class Duke {
-    private final Storage storage;
+    private final seedu.duke.Storage storage;
     private TaskList tasks;
-    private final Ui ui;
+    private final seedu.duke.Ui ui;
 
     /**
-     * Initialises new ui and storage objects, loads tasks into a new task list object.
+     * Initialises new ui and storage objects, loads tasks into a new seedu.task list object.
      *
-     * @param filePath of the saved task list
+     * @param filePath of the saved seedu.task list
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -40,7 +40,7 @@ public class Duke {
     }
 
     /**
-     * Initialises and run duke program.
+     * Initialises and run seedu.duke program.
      *
      * @param args arguments
      */

@@ -14,29 +14,29 @@ What can I do for you today? :D
 _____________________________________________________
 _____________________________________________________
 Oink! Here are the Command Words:
-'list' - displays the list of task
-'todo ...' - to add new task
-'deadline ... /by ...' - to add task with deadline
+'list' - displays the list of seedu.task
+'todo ...' - to add new seedu.task
+'deadline ... /by ...' - to add seedu.task with deadline
 'event ... /from ... /to ...' - to add an event
-'mark <task no.>' - to mark a task done
-'unmark <task no.>' - to unmark a task
-'delete <task no.>' - to delete a task
+'mark <seedu.task no.>' - to mark a seedu.task done
+'unmark <seedu.task no.>' - to unmark a seedu.task
+'delete <seedu.task no.>' - to delete a seedu.task
 'bye' - to exit the chatbot
 _____________________________________________________
 _____________________________________________________
-Oink! Nice I have added this task:
+Oink! Nice I have added this seedu.task:
  >> [T][ ] drink bbt
-Oink's task count: 1
+Oink's seedu.task count: 1
 _____________________________________________________
 _____________________________________________________
-Oink! Nice I have added this task:
+Oink! Nice I have added this seedu.task:
  >> [D][ ] make bbt (by: tonight)
-Oink's task count: 2
+Oink's seedu.task count: 2
 _____________________________________________________
 _____________________________________________________
-Oink! Nice I have added this task:
+Oink! Nice I have added this seedu.task:
  >> [E][ ] sell bbt (from: tmr to: next monday)
-Oink's task count: 3
+Oink's seedu.task count: 3
 _____________________________________________________
 _____________________________________________________
 Oink! Here are the tasks:
@@ -45,7 +45,7 @@ Oink! Here are the tasks:
 3. [E][ ] sell bbt (from: tmr to: next monday)
 _____________________________________________________
 _____________________________________________________
-Oink! You have completed this task! Nice nice nice
+Oink! You have completed this seedu.task! Nice nice nice
  >> [T][x] drink bbt
 _____________________________________________________
 _____________________________________________________
@@ -55,7 +55,7 @@ Oink! Here are the tasks:
 3. [E][ ] sell bbt (from: tmr to: next monday)
 _____________________________________________________
 _____________________________________________________
-Oink! You have unmarked this task! Why why why
+Oink! You have unmarked this seedu.task! Why why why
  >> [T][ ] drink bbt
 _____________________________________________________
 _____________________________________________________
@@ -65,9 +65,9 @@ Oink! Here are the tasks:
 3. [E][ ] sell bbt (from: tmr to: next monday)
 _____________________________________________________
 _____________________________________________________
-Oink! Yosh I have removed this task:
+Oink! Yosh I have removed this seedu.task:
  >> [D][ ] make bbt (by: tonight)
-Oink's task count: 2
+Oink's seedu.task count: 2
 _____________________________________________________
 _____________________________________________________
 Oink! Here are the tasks:

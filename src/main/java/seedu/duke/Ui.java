@@ -1,10 +1,10 @@
-package duke;
+package seedu.duke;
 
-import exceptions.InvalidTaskNameException;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.Todo;
+import seedu.exceptions.InvalidTaskNameException;
+import seedu.task.Deadline;
+import seedu.task.Event;
+import seedu.task.TaskList;
+import seedu.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -65,11 +65,11 @@ public class Ui extends TaskList {
      * printHelp() prints the list of commands available.
      */
     public void printHelp() {
-        String help = "Oink! Here are the Command Words:\n'list' - displays the list of task\n"
-                + "'todo ...' - to add new task\n'deadline ... /by dd/MM/yyyy' - to add task with deadline\n"
+        String help = "Oink! Here are the Command Words:\n'list' - displays the list of seedu.task\n"
+                + "'todo ...' - to add new seedu.task\n'deadline ... /by dd/MM/yyyy' - to add seedu.task with deadline\n"
                 + "'event ... /from ... /to ...' - to add an event\n"
-                + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
-                + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot\n";
+                + "'mark <seedu.task no.>' - to mark a seedu.task done\n'unmark <seedu.task no.>' - to unmark a seedu.task\n"
+                + "'delete <seedu.task no.>' - to delete a seedu.task\n'bye' - to exit the chatbot\n";
         System.out.println(line + "\n" + help + line);
     }
 
@@ -91,7 +91,7 @@ public class Ui extends TaskList {
     }
 
     /**
-     * printMark() prints the task marked completed.
+     * printMark() prints the seedu.task marked completed.
      *
      * @param userInput a string
      */
@@ -99,14 +99,14 @@ public class Ui extends TaskList {
         System.out.println(line);
         if (userInput.length() < 6) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
-                    + " >> mark <task no.>\n");
+                    + " >> mark <seedu.task no.>\n");
         }
         int idx = userInput.charAt(5) - '0' - 1;
         System.out.println(super.markTask(idx) + line);
     }
 
     /**
-     * printUnmark() prints the task unmarked completed.
+     * printUnmark() prints the seedu.task unmarked completed.
      *
      * @param userInput a string
      */
@@ -114,14 +114,14 @@ public class Ui extends TaskList {
         System.out.println(line);
         if (userInput.length() < 8) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
-                    + " >> unmark <task no.>\n");
+                    + " >> unmark <seedu.task no.>\n");
         }
         int idx = userInput.charAt(7) - '0' - 1;
         System.out.println(super.unmarkTask(idx) + line);
     }
 
     /**
-     * printDelete() deletes and prints the deleted task.
+     * printDelete() deletes and prints the deleted seedu.task.
      *
      * @param userInput a string
      */
@@ -129,22 +129,22 @@ public class Ui extends TaskList {
         System.out.println(line);
         if (userInput.length() < 8) {
             throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
-                    + " >> delete <task no.>\n");
+                    + " >> delete <seedu.task no.>\n");
         }
         int idx = userInput.charAt(7) - '0'- 1;
         System.out.println(super.deleteTask(idx) + line);
     }
 
     /**
-     * printTodo() adds a todo task and prints the new task.
+     * printTodo() adds a todo seedu.task and prints the new seedu.task.
      *
      * @param userInput a string
      */
     public void printTodo(String userInput) throws InvalidTaskNameException {
         System.out.println(line);
         if (userInput.length() < 6) {
-            // If user did not input task name.
-            throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
+            // If user did not input seedu.task name.
+            throw new InvalidTaskNameException("Ooink oink! What's the name of your seedu.task?\n"
                     + " >> todo ...\n");
         }
         Todo task = new Todo(userInput.substring(5));
@@ -152,7 +152,7 @@ public class Ui extends TaskList {
     }
 
     /**
-     * printDeadline() adds a deadline task and prints the new task.
+     * printDeadline() adds a deadline seedu.task and prints the new seedu.task.
      *
      * @param userInput a string
      */
@@ -162,7 +162,7 @@ public class Ui extends TaskList {
         int idx = userInput.indexOf("/by");
         boolean isWrongInput = len < 10 || idx < 0 || len < idx + 4;
         if (isWrongInput) {
-            // If user did not input task description.
+            // If user did not input seedu.task description.
             throw new InvalidTaskNameException("Ooink oink! Please describe your deadline >.<\n"
                     + " >> deadline ... /by dd/MM/yyyy\n");
         }
@@ -179,7 +179,7 @@ public class Ui extends TaskList {
     }
 
     /**
-     * printEvent() adds an event and prints the new task.
+     * printEvent() adds an event and prints the new seedu.task.
      *
      * @param userInput a string
      */
@@ -191,7 +191,7 @@ public class Ui extends TaskList {
         boolean isWrongInput = len < 7 || fromIdx < 0 || toIdx < 0
                 || len < fromIdx + 6 || len < toIdx + 4;
         if (isWrongInput) {
-            // If user did not input task description.
+            // If user did not input seedu.task description.
             throw new InvalidTaskNameException("Ooink oink! Please describe your event >.<\n"
                     + " >> event ... /from ... /to ...\n");
         }

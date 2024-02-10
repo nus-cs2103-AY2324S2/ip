@@ -1,4 +1,4 @@
-package task;
+package seedu.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ public class Deadline extends Task {
     /**
      * Constructor for a Taskline object.
      *
-     * @param name task name
+     * @param name seedu.task name
      * @param d    deadline
      */
     public Deadline(String name, LocalDate d) {
@@ -25,7 +25,7 @@ public class Deadline extends Task {
     /**
      * Constructor for loading from file.
      *
-     * @param description of task
+     * @param description of seedu.task
      * @param b           isDone
      */
     public Deadline(String description, boolean b) {

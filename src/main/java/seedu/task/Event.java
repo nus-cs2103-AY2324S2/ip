@@ -1,17 +1,17 @@
-package task;
+package seedu.task;
 
 /**
  * Events are tasks that start at a specific date/time
  * and ends at a specific date/time.
  */
 public class Event extends Task {
-    // Task.Task description consist of name, start and end of task.
+    // Task.Task description consist of name, start and end of seedu.task.
     protected String[] description = new String[3];
 
     /**
      * Constructor for an Task.Event object.
      *
-     * @param name task name
+     * @param name seedu.task name
      * @param from start of event
      * @param to end of event
      */
