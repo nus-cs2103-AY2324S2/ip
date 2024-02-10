@@ -21,13 +21,13 @@ public class MarkCommand extends Command {
     /**
      * Constructs a MarkCommand.
      *
-     * @param commands The array of commands.
      * @param tasksSize The size of the task list.
+     * @param commands The array of commands.
      * @throws IncompleteCommandException If the command is incomplete.
      * @throws TaskNumberFormatException If the task number is not a number.
      * @throws TaskListIndexOutOfBoundsException If the task number is out of bounds.
      */
-    public MarkCommand(String[] commands, int tasksSize)
+    public MarkCommand(int tasksSize, String... commands)
             throws IncompleteCommandException, TaskNumberFormatException, TaskListIndexOutOfBoundsException {
         if (commands.length < 2) {
             throw new IncompleteCommandException("mark");
