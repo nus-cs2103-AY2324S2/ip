@@ -187,6 +187,7 @@ public class Duke extends Application {
     public String getResponse(String input) {
         try {
             Command cmd = parser.parse(input);
+            assert cmd != null : "Command should not be null";
             switch (cmd.type) {
                 case BYE:
                     return ui.showGoodbye();
