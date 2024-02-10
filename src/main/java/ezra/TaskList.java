@@ -13,6 +13,11 @@ import java.util.Scanner;
 public class TaskList {
 
     protected ArrayList<Task> tasks = new ArrayList<>();
+    protected static final String LIST_MESSAGE_START = "Here are the tasks in your list:\n";
+    protected static final String DELETE_MESSAGE_START = "I've removed the following task(s):\n";
+    protected static final String MARK_MESSAGE_START = "I've marked the following task(s) as done:\n";
+    protected static final String UNMARK_MESSAGE_START = "I've marked the following task(s) as not done:\n";
+    protected static final String FIND_MESSAGE_START = "Here are the matching tasks in your list:\n";
 
     /**
      * Constructs an empty TaskList.
@@ -27,7 +32,7 @@ public class TaskList {
      * @param f The file containing tasks.
      * @throws FileNotFoundException If the specified file is not found.
      */
-    public TaskList(File f) throws FileNotFoundException {
+    public TaskList(File f) throws FileNotFoundException, WrongFormatException {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             // Extract command, isDone and description from input
@@ -37,21 +42,27 @@ public class TaskList {
             boolean isDone = arr[1].equals("1");
             String description = arr[2];
 
-            if (command.equals("T")) {
+            switch (command) {
+            case "T":
                 ToDo todo = new ToDo(description);
                 todo.isDone = isDone;
                 this.tasks.add(todo);
-            } else if (command.equals("D")) {
+                break;
+            case "D":
                 String by = arr[3];
                 Deadline deadline = new Deadline(description, by);
                 deadline.isDone = isDone;
                 this.tasks.add(deadline);
-            } else {
+                break;
+            case "E":
                 String from = arr[3];
                 String to = arr[4];
                 Event event = new Event(description, from, to);
                 event.isDone = isDone;
                 this.tasks.add(event);
+                break;
+            default:
+                throw new WrongFormatException("Cannot load task from file");
             }
         }
     }
@@ -62,17 +73,13 @@ public class TaskList {
      * @return A string representing the list of tasks.
      */
     public String listTasks() {
-        StringBuilder message = new StringBuilder();
         if (this.tasks.isEmpty()) {
-            message.append("There are no tasks in your list.");
-        } else {
-            message.append("Here are the tasks in your list:\n");
-            for (int i = 0; i < this.tasks.size(); i++) {
-                message.append(String.format(
-                        "%d. %s\n",
-                        i + 1,
-                        this.tasks.get(i)));
-            }
+            return "There are no tasks in your list.";
+        }
+
+        StringBuilder message = new StringBuilder(LIST_MESSAGE_START);
+        for (int i = 0; i < this.tasks.size(); i++) {
+            message.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
         }
         return message.toString();
     }
@@ -85,11 +92,38 @@ public class TaskList {
      * @return A message to be displayed after the delete operation.
      */
     public String delete(Storage storage, String... taskNumbers) {
-        int[] sortedTaskNumbers = Arrays.stream(taskNumbers).mapToInt(Integer::parseInt).toArray();
-        Arrays.sort(sortedTaskNumbers);
-        StringBuilder deletedTasks = new StringBuilder("I've removed the following task(s):\n");
+        String invalidTaskNumbers = getInvalidTaskNumbers(taskNumbers);
+        String deletedTasks = getDeletedTasks(taskNumbers);
+        boolean hasDeletedTasks = !deletedTasks.equals(DELETE_MESSAGE_START);
+
+        if (!hasDeletedTasks) {
+            return invalidTaskNumbers;
+        }
+
+        // Update tasks in storage
+        try {
+            storage.writeToFile(this);
+        } catch (IOException e) {
+            return String.format("Something went wrong: %s\n", e.getMessage());
+        }
+        return invalidTaskNumbers + deletedTasks;
+    }
+
+    public String getInvalidTaskNumbers(String... taskNumbers) {
         StringBuilder invalidTaskNumbers = new StringBuilder();
-        boolean hasDeletedTasks = false;
+        for (String taskNumber : taskNumbers) {
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            // Check for invalid taskIndex
+            if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
+                invalidTaskNumbers.append(String.format("%d is an invalid task number.\n", taskIndex + 1));
+            }
+        }
+        return invalidTaskNumbers.toString();
+    }
+
+    public String getDeletedTasks(String... taskNumbers) {
+        int[] sortedTaskNumbers = Arrays.stream(taskNumbers).mapToInt(Integer::parseInt).sorted().toArray();
+        StringBuilder deletedTasks = new StringBuilder(DELETE_MESSAGE_START);
 
         // Delete task numbers from largest to smallest so that there are no changes in task number after each deletion
         for (int i = sortedTaskNumbers.length - 1; i >= 0; i--) {
@@ -98,25 +132,12 @@ public class TaskList {
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-                invalidTaskNumbers.append(String.format("%d is an invalid task number\n", sortedTaskNumbers[i]));
-            } else {
-                deletedTasks.append(this.tasks.get(taskIndex)).append("\n");
-                this.tasks.remove(taskIndex);
-                hasDeletedTasks = true;
-
-                // Update tasks in storage
-                try {
-                    storage.writeToFile(this);
-                } catch (IOException e) {
-                    return String.format("Something went wrong: %s\n", e.getMessage());
-                }
+                continue;
             }
+            deletedTasks.append(this.tasks.get(taskIndex)).append("\n");
+            this.tasks.remove(taskIndex);
         }
-
-        if (hasDeletedTasks) {
-            invalidTaskNumbers.append(deletedTasks);
-        }
-        return invalidTaskNumbers.toString();
+        return deletedTasks.toString();
     }
 
     /**
@@ -129,18 +150,15 @@ public class TaskList {
     public String updateTasks(Storage storage, Task task) {
         this.tasks.add(task);
 
-        // Print task that was added and number of tasks remaining
-        StringBuilder message = new StringBuilder();
-        message.append(String.format("Got it. I've added this task:\n%s\n", task));
-        message.append(String.format("Now you have %d tasks in the list.\n", this.tasks.size()));
-
         // Update tasks in storage
         try {
             storage.writeToFile(this);
         } catch (IOException e) {
             return String.format("Something went wrong: %s\n", e.getMessage());
         }
-        return message.toString();
+
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
+                task, this.tasks.size());
     }
 
     /**
@@ -151,35 +169,38 @@ public class TaskList {
      * @return A message to be displayed after marking the task.
      */
     public String mark(Storage storage, String... taskNumbers) {
-        StringBuilder markedTasks = new StringBuilder("I've marked the following task(s) as done:\n");
-        StringBuilder invalidTaskNumbers = new StringBuilder();
-        boolean hasMarkedTasks = false;
+        String invalidTaskNumbers = getInvalidTaskNumbers(taskNumbers);
+        String markedTasks = getMarkedTasks(taskNumbers);
+        boolean hasMarkedTasks = !markedTasks.equals(MARK_MESSAGE_START);
 
+        if (!hasMarkedTasks) {
+            return invalidTaskNumbers;
+        }
+
+        // Update tasks in storage
+        try {
+            storage.writeToFile(this);
+        } catch (IOException e) {
+            return String.format("Something went wrong: %s\n", e.getMessage());
+        }
+        return invalidTaskNumbers + markedTasks;
+    }
+
+    public String getMarkedTasks(String... taskNumbers) {
+        StringBuilder markedTasks = new StringBuilder(MARK_MESSAGE_START);
         for (String taskNumber : taskNumbers) {
             int taskIndex = Integer.parseInt(taskNumber) - 1;
             assert taskIndex >= -1: "Integer.parseInt(taskNumber) >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-                invalidTaskNumbers.append(String.format("%d is an invalid task number\n", taskIndex + 1));
-            } else {
-                this.tasks.get(taskIndex).isDone = true;
-                markedTasks.append(this.tasks.get(taskIndex)).append("\n");
-                hasMarkedTasks = true;
-
-                // Update tasks in storage
-                try {
-                    storage.writeToFile(this);
-                } catch (IOException e) {
-                    return String.format("Something went wrong: %s\n", e.getMessage());
-                }
+                continue;
             }
-        }
 
-        if (hasMarkedTasks) {
-            invalidTaskNumbers.append(markedTasks);
+            this.tasks.get(taskIndex).isDone = true;
+            markedTasks.append(this.tasks.get(taskIndex)).append("\n");
         }
-        return invalidTaskNumbers.toString();
+        return markedTasks.toString();
     }
 
     /**
@@ -190,35 +211,38 @@ public class TaskList {
      * @return A message to be displayed after unmarking the task.
      */
     public String unmark(Storage storage, String... taskNumbers) {
-        StringBuilder unmarkedTasks = new StringBuilder("I've marked the following task(s) as not done:\n");
-        StringBuilder invalidTaskNumbers = new StringBuilder();
-        boolean hasUnmarkedTasks = false;
+        String invalidTaskNumbers = getInvalidTaskNumbers(taskNumbers);
+        String unmarkedTasks = getUnmarkedTasks(taskNumbers);
+        boolean hasUnmarkedTasks = !unmarkedTasks.equals(UNMARK_MESSAGE_START);
 
+        if (!hasUnmarkedTasks) {
+            return invalidTaskNumbers;
+        }
+
+        // Update tasks in storage
+        try {
+            storage.writeToFile(this);
+        } catch (IOException e) {
+            return String.format("Something went wrong: %s\n", e.getMessage());
+        }
+        return invalidTaskNumbers + unmarkedTasks;
+    }
+
+    public String getUnmarkedTasks(String... taskNumbers) {
+        StringBuilder unmarkedTasks = new StringBuilder(UNMARK_MESSAGE_START);
         for (String taskNumber : taskNumbers) {
             int taskIndex = Integer.parseInt(taskNumber) - 1;
             assert taskIndex >= -1: "Integer.parseInt(taskNumber) >= 0 so taskIndex >= -1";
 
             // Check for invalid taskIndex
             if (taskIndex < 0 || taskIndex >= this.tasks.size()) {
-                invalidTaskNumbers.append(String.format("%d is an invalid task number\n", taskIndex + 1));
-            } else {
-                this.tasks.get(taskIndex).isDone = false;
-                unmarkedTasks.append(this.tasks.get(taskIndex)).append("\n");
-                hasUnmarkedTasks = true;
-
-                // Update tasks in storage
-                try {
-                    storage.writeToFile(this);
-                } catch (IOException e) {
-                    return String.format("Something went wrong: %s\n", e.getMessage());
-                }
+                continue;
             }
-        }
 
-        if (hasUnmarkedTasks) {
-            invalidTaskNumbers.append(unmarkedTasks);
+            this.tasks.get(taskIndex).isDone = false;
+            unmarkedTasks.append(this.tasks.get(taskIndex)).append("\n");
         }
-        return invalidTaskNumbers.toString();
+        return unmarkedTasks.toString();
     }
 
     /**
@@ -228,25 +252,28 @@ public class TaskList {
      * @return A string representing the matching tasks.
      */
     public String find(String keyword) {
-        ArrayList<Integer> matchingTasks = new ArrayList<>();
-        StringBuilder message = new StringBuilder();
+        ArrayList<Integer> matchingTaskIndices = getMatchingTaskIndices(keyword);
+        return getMatchingTasks(matchingTaskIndices);
+    }
 
+    public ArrayList<Integer> getMatchingTaskIndices(String keyword) {
+        ArrayList<Integer> matchingTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).description.contains(keyword)) {
                 matchingTasks.add(i);
             }
         }
+        return matchingTasks;
+    }
 
-        if (matchingTasks.isEmpty()) {
-            message.append("There are no matching tasks in your list:");
-        } else {
-            message.append("Here are the matching tasks in your list:\n");
-            for (Integer i : matchingTasks) {
-                message.append(String.format(
-                        "%d. %s\n",
-                        i + 1,
-                        this.tasks.get(i)));
-            }
+    public String getMatchingTasks(ArrayList<Integer> matchingTaskIndices) {
+        if (matchingTaskIndices.isEmpty()) {
+            return "There are no matching tasks in your list.";
+        }
+
+        StringBuilder message = new StringBuilder(FIND_MESSAGE_START);
+        for (Integer i : matchingTaskIndices) {
+            message.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
         }
         return message.toString();
     }

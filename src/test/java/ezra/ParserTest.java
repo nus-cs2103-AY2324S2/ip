@@ -1,5 +1,6 @@
 package ezra;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -36,10 +37,14 @@ public class ParserTest {
      */
     @Test
     public void testParseDelete() throws WrongFormatException {
-        assertEquals(0, Parser.parseDelete("delete 1"));
-        assertEquals(9, Parser.parseDelete("delete 10"));
+        assertArrayEquals(new String[]{"1"}, Parser.parseDelete("delete 1"));
+        assertArrayEquals(new String[]{"10"}, Parser.parseDelete("delete 10"));
+        assertArrayEquals(new String[]{"1", "2", "3"}, Parser.parseDelete("delete 1 2 3"));
+        assertArrayEquals(new String[]{"10", "11", "12", "13"}, Parser.parseDelete("delete 10 11 12 13"));
         assertThrows(WrongFormatException.class, () ->
                 Parser.parseDelete("delete -1"));
+        assertThrows(WrongFormatException.class, () ->
+                Parser.parseDelete("delete 1 2 3 -1"));
         assertThrows(WrongFormatException.class, () ->
                 Parser.parseDelete("delete abc"));
         assertThrows(WrongFormatException.class, () ->
