@@ -1,16 +1,16 @@
 package bob;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        this.from = LocalDate.parse(from, Parser.INPUT_DATE_FORMATTER);
-        this.to = LocalDate.parse(to, Parser.INPUT_DATE_FORMATTER);
+        this.from = LocalDateTime.parse(from, Parser.INPUT_DATE_FORMATTER);
+        this.to = LocalDateTime.parse(to, Parser.INPUT_DATE_FORMATTER);
     }
 
     public String format() {

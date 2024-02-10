@@ -17,8 +17,6 @@ public class TaskList {
         Task task = TASKS.get(taskIndex);
         task.setDone(isDone);
 
-        Storage.save(TASKS, false);
-
         return task;
     }
 
@@ -55,8 +53,10 @@ public class TaskList {
 
         TASKS.add(task);
 
-        Storage.save(TASKS, true);
-
         return task;
+    }
+
+    public static void save(boolean isAppend) {
+        Storage.save(TASKS, isAppend);
     }
 }

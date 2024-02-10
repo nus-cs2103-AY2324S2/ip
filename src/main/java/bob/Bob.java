@@ -7,6 +7,8 @@ public class Bob {
     public static void handleMark(int taskIndex, boolean isDone) throws InvalidTaskIndexException {
         Task task = TaskList.mark(taskIndex, isDone);
 
+        TaskList.save(false);
+
         Ui.mark(task, isDone);
     }
 
@@ -22,6 +24,8 @@ public class Bob {
 
     public static void handleAdd(String taskType, String[] parameters) throws DateTimeParseException {
         Task task = TaskList.add(taskType, parameters);
+
+        TaskList.save(true);
 
         Ui.add(task, TaskList.getSize());
     }

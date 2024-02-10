@@ -40,8 +40,8 @@ public class Storage {
                 TaskList.mark(i, parameters[1].equals("1"));
             }
         } catch (Exception e) {
-            // Regardless of what went wrong, print the error message and quit.
-            Ui.print(new String[] { Ui.LOADING_ERROR, e.getMessage() });
+            // Regardless of what went wrong, print the exception name and message, then quit.
+            Ui.print(new String[] { Ui.LOADING_ERROR, e.getClass().getName() + ": " + e.getMessage() });
             System.exit(-1);
         }
     }

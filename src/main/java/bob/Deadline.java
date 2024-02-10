@@ -1,15 +1,15 @@
 package bob;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    protected LocalDateTime by;
 
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = LocalDate.parse(by, Parser.INPUT_DATE_FORMATTER);
+        this.by = LocalDateTime.parse(by, Parser.INPUT_DATE_FORMATTER);
     }
 
     public String format() {

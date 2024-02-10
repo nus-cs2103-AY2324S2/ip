@@ -29,7 +29,7 @@ public class Ui {
             + "task index is non-zero integer at most the number of tasks you have. "
             + "you gave me \"%s\".";
 
-    public static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    public static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
     public static final String INVALID_DATE_FORMAT = "i only understand yyyy-mm-dd bro";
 
     public static final String LOADING_ERROR = "wait what happened i cant load any data";

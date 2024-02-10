@@ -15,7 +15,7 @@ public class Parser {
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
 
-    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {

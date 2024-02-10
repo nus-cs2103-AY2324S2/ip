@@ -6,8 +6,8 @@
     .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.
      list of tasks:
      1. [T][X] read book
-     2. [D][ ] return book (by: Jun 06 2024)
-     3. [E][ ] project meeting (from: Aug 06 2024 to: Aug 06 2024)
+     2. [D][ ] return book (by: Jun 06 2024 0000)
+     3. [E][ ] project meeting (from: Aug 06 2024 0000 to: Aug 06 2024 0000)
      4. [T][X] join sports club
     .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.
 
