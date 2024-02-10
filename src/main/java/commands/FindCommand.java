@@ -21,7 +21,6 @@ public class FindCommand extends AbstractCommand {
             TaskList foundTasks = taskList.findTasks(this.name);
             return new UserCommand("\tHere are the list of tasks: ", foundTasks.listTasks());
         } catch (DukeException e) {
-            System.out.println("\tNo task with " + this.name + " found");
             return new UserCommand("\tNo task with " + this.name + " found");
         }
     }

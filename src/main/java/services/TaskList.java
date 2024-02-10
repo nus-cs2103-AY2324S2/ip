@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import exceptions.DukeException;
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 
 /**
@@ -44,9 +46,12 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DukeException {
         assert task != null : "Task to add cannot be null";
         assert this.tasks.size() < MAX_ITEMS : "Task list is at maximum capacity";
+        if (checkForDuplicateTask(task)) {
+            throw new DukeException("A task with the same name already exists.");
+        }
         this.tasks.add(task);
     }
 
@@ -140,5 +145,37 @@ public class TaskList {
             throw new DukeException("No tasks with " + word + " found");
         }
         return new TaskList(foundTasks);
+    }
+
+    /**
+     * Checks if the task list already contains a task with the same name.
+     *
+     * @param task The task to be checked.
+     * @return true if a duplicate task exists, false otherwise.
+     */
+    public boolean checkForDuplicateTask(Task task) {
+        return this.tasks.stream().anyMatch(t -> {
+            // Check if the task is a Deadline and compare by name and deadline time
+            if (task instanceof Deadline && t instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                Deadline existingDeadline = (Deadline) t;
+                return existingDeadline.getName().equalsIgnoreCase(deadlineTask.getName()) &&
+                        existingDeadline.getBy().isEqual(deadlineTask.getBy());
+            }
+
+            // Check if the task is an Event and compare by name, start time, or end time
+            else if (task instanceof Event && t instanceof Event) {
+                Event eventTask = (Event) task;
+                Event existingEvent = (Event) t;
+                return existingEvent.getName().equalsIgnoreCase(eventTask.getName()) &&
+                        (existingEvent.getStart().isEqual(eventTask.getStart()) ||
+                                existingEvent.getEnd().isEqual(eventTask.getEnd()));
+            }
+
+            // For other tasks, compare by name only
+            else {
+                return t.getName().equalsIgnoreCase(task.getName());
+            }
+        });
     }
 }

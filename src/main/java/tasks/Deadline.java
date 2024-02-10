@@ -30,4 +30,8 @@ public class Deadline extends Task {
     public String fileString() {
         return "D " + super.fileString() + " | " + this.by;
     }
+
+    public LocalDateTime getBy() {
+        return by;
+    }
 }

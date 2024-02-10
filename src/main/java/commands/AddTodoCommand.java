@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.DukeException;
 import services.Storage;
 import services.TaskList;
 import services.UI;
@@ -20,7 +21,11 @@ public class AddTodoCommand extends AbstractCommand {
     @Override
     public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         ToDo todo = new ToDo(this.name);
-        taskList.addTask(todo);
+        try {
+            taskList.addTask(todo);
+        } catch (DukeException e) {
+            return new UserCommand("\tA todo with the same name already exists.");
+        }
         storage.saveTasks(taskList);
         return new UserCommand("\tAdded todo: ", "\t" + todo, taskList.getTaskSummary());
     }

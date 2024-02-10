@@ -2,6 +2,7 @@ package commands;
 
 import java.time.LocalDateTime;
 
+import exceptions.DukeException;
 import services.Storage;
 import services.TaskList;
 import services.UI;
@@ -28,7 +29,11 @@ public class AddEventCommand extends AbstractCommand {
     @Override
     public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         Event event = new Event(this.name, this.start, this.end);
-        taskList.addTask(event);
+        try {
+            taskList.addTask(event);
+        } catch (DukeException e) {
+            return new UserCommand("\tAn event with the same name / times already exists.");
+        }
         storage.saveTasks(taskList);
         return new UserCommand("\tAdded event: ", "\t" + event, taskList.getTaskSummary());
     }

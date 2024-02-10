@@ -60,8 +60,7 @@ public class Parser {
         case "BYE":
             return new ExitCommand();
         default:
-            // return new HelpCommand();
-            return new InvalidCommand("INVALID");
+            return new InvalidCommand("Invalid command added");
         }
     }
     /**

@@ -2,6 +2,7 @@ package commands;
 
 import java.time.LocalDateTime;
 
+import exceptions.DukeException;
 import services.Storage;
 import services.TaskList;
 import services.UI;
@@ -25,7 +26,11 @@ public class AddDeadlineCommand extends AbstractCommand {
     @Override
     public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         Deadline deadline = new Deadline(this.name, this.by);
-        taskList.addTask(deadline);
+        try {
+            taskList.addTask(deadline);
+        } catch (DukeException e) {
+            return new UserCommand("\tA deadline with the same name / time already exists.");
+        }
         storage.saveTasks(taskList);
         return new UserCommand("\tAdded deadline: ", "\t" + deadline, taskList.getTaskSummary());
     }
