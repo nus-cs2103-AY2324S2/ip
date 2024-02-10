@@ -113,6 +113,7 @@ public class Parser {
                 tasks.addTask(e);
                 System.out.println("Now you have " + i + " task(s) in your list!");
                 System.out.println(line);
+
             } else {
                 System.out.println("Invalid date and time format -_-");
             }
@@ -127,6 +128,24 @@ public class Parser {
                 System.out.println("Now you have " + i + " task(s) in the list.");
             } else {
                 System.out.println("That is an invalid task to delete sir??");
+            }
+            System.out.println(line);
+            break;
+
+        case "find":
+            String key = elems[1].toLowerCase();
+            System.out.println("Here are the matching tasks in your list:");
+            int found = 0;
+            for (int k = 0; k < i; k++) {
+                Task task = tasks.getTask(k);
+                if (task != null && task.description.toLowerCase().contains(key)) {
+                    int nr = found + 1;
+                    System.out.println(nr + "." + task.toString() + ".");
+                    found++;
+                }
+            }
+            if (found == 0) {
+                System.out.println("No matching tasks found.");
             }
             System.out.println(line);
             break;
