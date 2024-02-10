@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 import duke.command.AddCommand;
@@ -16,9 +15,49 @@ import duke.command.ListCommand;
  * Used to parse user commands.
  */
 public class Parser {
+    private static final String DESCRIPTION_IDENTIFIER = "description";
+
+    private enum CommandType {
+        Todo,
+        Deadline,
+        Event,
+        Mark,
+        Unmark,
+        Delete,
+        Find,
+        List,
+        Bye;
+
+        private static CommandType parse(String command) throws InvalidCommandType {
+            switch (command) {
+            case "todo":
+                return Todo;
+            case "deadline":
+                return Deadline;
+            case "event":
+                return Event;
+            case "mark":
+                return Mark;
+            case "unmark":
+                return Unmark;
+            case "delete":
+                return Delete;
+            case "find":
+                return Find;
+            case "list":
+                return List;
+            case "bye":
+                return Bye;
+            default:
+                throw new InvalidCommandType(command);
+            }
+        }
+    }
+
     /**
      * Parse one user command.
      * The user command is parsed from a string into a subclass of {@link Command} which can be then executed.
+     *
      * @throws InvalidCommandType when the given command (first word) is unknown
      * @throws InvalidCommandData when the inputs of the command aren't as expected
      */
@@ -26,46 +65,44 @@ public class Parser {
         assert commandText != null : "Command to be parsed must not be null";
 
         Scanner scanner = new Scanner(commandText);
-        String type = scanner.next();
+        var type = CommandType.parse(scanner.next());
 
-        if (Objects.equals(type, "bye")) {
+        switch (type) {
+        case Bye:
             return new ExitCommand();
-        } else if (Objects.equals(type, "list")) {
+        case List:
             return new ListCommand();
+        default:
+            // continue to other commands
         }
 
+        String parameter = getParameter(scanner);
+
+        switch (type) {
+        case Todo:
+            return new AddCommand(AddCommand.Type.Todo, parseComponents(parameter));
+        case Deadline:
+            return new AddCommand(AddCommand.Type.Deadline, parseComponents(parameter));
+        case Event:
+            return new AddCommand(AddCommand.Type.Event, parseComponents(parameter));
+        case Mark:
+            return new CompleteCommand(parseIndex(parameter), true);
+        case Unmark:
+            return new CompleteCommand(parseIndex(parameter), false);
+        case Delete:
+            return new DeleteCommand(parseIndex(parameter));
+        case Find:
+            return new FindCommand(parameter);
+        default:
+            throw new IllegalStateException("Unexpected type: " + type);
+        }
+    }
+
+    private static String getParameter(Scanner scanner) throws InvalidCommandData {
         if (!scanner.hasNextLine()) {
             throw new InvalidCommandData();
         }
-        String parameter = scanner.nextLine().trim();
-
-        Command command;
-        switch (type) {
-        case "todo":
-            command = new AddCommand(AddCommand.Type.Todo, parseComponents(parameter));
-            break;
-        case "deadline":
-            command = new AddCommand(AddCommand.Type.Deadline, parseComponents(parameter));
-            break;
-        case "event":
-            command = new AddCommand(AddCommand.Type.Event, parseComponents(parameter));
-            break;
-        case "mark":
-            command = new CompleteCommand(parseIndex(parameter), true);
-            break;
-        case "unmark":
-            command = new CompleteCommand(parseIndex(parameter), false);
-            break;
-        case "delete":
-            command = new DeleteCommand(parseIndex(parameter));
-            break;
-        case "find":
-            command = new FindCommand(parameter);
-            break;
-        default:
-            throw new InvalidCommandType(type);
-        }
-        return command;
+        return scanner.nextLine().trim();
     }
 
     private static int parseIndex(String input) {
@@ -75,26 +112,31 @@ public class Parser {
     private static HashMap<String, String> parseComponents(String data) throws InvalidCommandData {
         assert data != null : "data must not be null";
 
-        HashMap<String, StringBuilder> builders = new HashMap<>();
+        HashMap<String, StringBuilder> componentBuilders = new HashMap<>();
 
-        String key = "DESCRIPTION";
+        String key = DESCRIPTION_IDENTIFIER;
         String[] words = data.split(" +");
         for (String word : words) {
             if (word.startsWith("/")) {
-                // Check if the previous key had any data given to it
-                if (builders.get(key) == null) {
-                    throw new InvalidCommandData(key);
-                }
+                validateBuilderNotNull(componentBuilders, key);
 
                 key = word;
-            } else {
-                builders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
+                continue;
             }
+            componentBuilders.compute(key, (k, v) -> (v == null) ? new StringBuilder(word) : v.append(" ").append(word));
         }
 
         HashMap<String, String> components = new HashMap<>();
-        builders.forEach((k, v) -> components.put(k, v.toString()));
+        componentBuilders.forEach((k, v) -> components.put(k, v.toString()));
         return components;
+    }
+
+    private static void validateBuilderNotNull(
+            HashMap<String, StringBuilder> componentBuilders, String key) throws InvalidCommandData {
+        boolean isPreviousBuilderNull = componentBuilders.get(key) == null;
+        if (isPreviousBuilderNull) {
+            throw new InvalidCommandData(key);
+        }
     }
 
     /**
@@ -105,6 +147,7 @@ public class Parser {
 
         /**
          * Creates an exception about an unknown command string.
+         *
          * @param command The name of the unknown command
          */
         public InvalidCommandType(String command) {

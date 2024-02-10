@@ -21,6 +21,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         assert ui != null : "The ui must not be null";
-        ui.showNote("Found tasks:\n" + tasks.find(query));
+        TaskList matchingTasks = tasks.find(query);
+        ui.showNote("Found tasks:\n" + matchingTasks);
     }
 }

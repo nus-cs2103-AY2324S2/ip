@@ -18,6 +18,6 @@ class ParserTest {
                 Assertions.assertThrows(Parser.InvalidCommandData.class, ()
                         -> Parser.parse("deadline /by 12/12/2023 1200"));
 
-        Assertions.assertEquals("No value given to DESCRIPTION", thrown.getMessage());
+        Assertions.assertEquals("No value given to description", thrown.getMessage());
     }
 }

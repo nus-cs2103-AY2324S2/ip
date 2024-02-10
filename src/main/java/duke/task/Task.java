@@ -48,15 +48,12 @@ public abstract class Task implements Serializable {
     /**
      * Sets the task to complete.
      */
-    public final void setComplete() {
-        status = Status.Complete;
-    }
-
-    /**
-     * Sets the task to pending.
-     */
-    public final void setPending() {
-        status = Status.Incomplete;
+    public final void setStatus(boolean isComplete) {
+        if (isComplete) {
+            status = Status.Complete;
+        } else {
+            status = Status.Incomplete;
+        }
     }
 
     /**

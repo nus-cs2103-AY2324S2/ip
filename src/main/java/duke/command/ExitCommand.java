@@ -14,6 +14,5 @@ public class ExitCommand extends Command {
         assert ui != null : "The ui must not be null";
 
         ui.showBye();
-        super.setExit();
     }
 }
