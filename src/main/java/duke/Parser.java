@@ -11,6 +11,10 @@ import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 import javafx.util.Pair;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.ArrayList;
+
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -112,18 +116,15 @@ public class Parser {
 
             } else if (input.toLowerCase().startsWith("find")) {
                 String keyword = input.split(" ")[1];
-                TaskList temp = new TaskList();
-                for (Task t : tasksList.getTasksList()) {
-                    if (t.getTaskName().contains(keyword)) {
-                        temp.add(t);
-                    }
-
-                }
+                //TaskList temp = new TaskList();
+                TaskList temp = new TaskList(tasksList.getTasksList().stream()
+                        .filter(t -> t.getTaskName().contains(keyword))
+                        .collect(Collectors
+                                .toCollection(ArrayList::new)));
                 output += this.line;
                 output += "Here are the matching tasks in your list:\n";
                 output += temp.toString();
                 output += ("\n" + this.line);
-
             } else {
                 output += ("Try entering a valid instruction! Eg. 'Todo Chores' or 'Mark 2'\n");
             }
