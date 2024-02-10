@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.util.List;
+
 public class Ui {
     private static final String LINE = "-------------------------------------------------\n";
+    public static String NAME = "Whisper";
     public void showWelcomeMsg() {
-        static String name = "Whisper";
-        System.out.println("Hello! I'm " + name + " , your personal chatbot!\n" +
+        System.out.println("Hello! I'm " + NAME + " , your personal chatbot!\n" +
                 "What can I do for you?\n");
         printLine();
     }
@@ -29,7 +31,7 @@ public class Ui {
     public void printTasks(List<Task> tasks) {
         System.out.println("Here are your tasks:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + tasks.get(i));
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         printLine();
     }
