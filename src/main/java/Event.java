@@ -16,8 +16,8 @@ public class Event extends Task{
             this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);
             this.endTime = LocalDate.parse(endTime, DATE_TIME_FORMATTER);
             if (this.startTime.isAfter(this.endTime)) {
-                throw new DateMismatchException(startTime + " " +
-                        endTime);   
+                throw new DateMismatchException("Mismatched date: " + startTime + " " +
+                        endTime);  
             }
         } catch (DateTimeParseException e) {
             throw new DateFormatException(startTime + " " +
@@ -31,7 +31,7 @@ public class Event extends Task{
             this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);
             this.endTime = LocalDate.parse(endTime, DATE_TIME_FORMATTER);
             if (this.startTime.isAfter(this.endTime)) {
-                throw new DateMismatchException(startTime + " " +
+                throw new DateMismatchException("Mismatched date: " + startTime + " " +
                         endTime);   
             }
         } catch (DateTimeParseException e) {
@@ -42,8 +42,8 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " | " + startTime
-                + " | " + endTime;
+        return "[E]" + super.toString() + " | " + startTime.format(DATE_TIME_FORMATTER)
+                + " | " + endTime.format(DATE_TIME_FORMATTER);
     }
 
     @Override
