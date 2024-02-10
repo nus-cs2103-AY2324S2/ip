@@ -1,7 +1,10 @@
+import exceptions.DukeException;
+import exceptions.StorageException;
+
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws StorageException {
         String logo =   "       **   *******       **         **     **      ** **      ** **      **   ******     *******   **********   **      \n" +
                         "      **   /**////**     ****       ****   /**     /**/**     /**/**     /**  /*////**   **/////** /////**///   //**     \n" +
                         "     **    /**   /**    **//**     **//**  /**     /**/**     /**/**     /**  /*   /**  **     //**    /**       //**    \n" +
@@ -24,22 +27,21 @@ public class Duke {
         System.out.println("What can I do for you today?\n");
         System.out.println("_________________________________________\n");
 
-        String relativePath = "./data/tasks.txt";
+        String relativePath = "./src/main/data/tasks.txt";
         TaskList tasksList = TaskList.getInstance(relativePath);
 
         Scanner scanner = new Scanner(System.in);
         boolean runBot = true;
         while (runBot) {
-            String userInput = scanner.nextLine().trim();
-            String[] words = userInput.split("\\s+");
+            String[] userInput = scanner.nextLine().trim().split("\\s+");
 
-            if (words[0].equalsIgnoreCase("BYE")) {
+            if (userInput[0].equalsIgnoreCase("BYE")) {
                 System.out.println("Sayonara! Do visit again. RAHHHHH 0.0");
                 runBot = false;
             }
 
             try {
-                CommandScanner.scanCommand(words);
+                Parser.parseUserInput(userInput);
             } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
             } catch (IndexOutOfBoundsException e) {
