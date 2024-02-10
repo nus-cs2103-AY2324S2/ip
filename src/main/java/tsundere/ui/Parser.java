@@ -33,6 +33,10 @@ public class Parser {
             return TaskList.addToDo();
         } else if (name.contains("find")) {
             return TaskList.find();
+        } else if (name.contains("untag")) {
+            return TaskList.untag();
+        } else if (name.contains("tag")) {
+            return TaskList.tag();
         } else {
             return ("Don't talk to me!\nGive me proper instructions!");
         }
