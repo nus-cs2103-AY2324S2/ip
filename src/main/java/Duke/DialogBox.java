@@ -20,6 +20,8 @@ public class DialogBox extends HBox {
         this.getChildren().addAll(l, iv);
     }
 
+
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -35,7 +37,7 @@ public class DialogBox extends HBox {
     }
 
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    public static DialogBox getShirminDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

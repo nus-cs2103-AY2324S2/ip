@@ -6,7 +6,7 @@ package Duke;
  * This class is responsible for initializing and running the Duke application.
  * It integrates various classes in an OOP structure - Storage, TaskList, Parser, and Ui.
  */
-public class Duke {
+public class Shirmin {
     private final TaskList taskList;
 
     /**
@@ -14,7 +14,7 @@ public class Duke {
      * <p>
      * This constructor initializes the Ui, Parser, Storage, and TaskList components of the Duke application.
      */
-    public Duke() {
+    public Shirmin() {
         Parser parser = new Parser();
         Storage storage = new Storage(parser);
         this.taskList = new TaskList(parser, storage);

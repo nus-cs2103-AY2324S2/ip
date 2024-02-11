@@ -17,7 +17,7 @@ public class MainApp extends Application{
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-    private Duke duke;
+    private Shirmin shirmin;
     final int imageSize = 50; // square image so only one field
     final int closeWaitTime = 1000;
     final int stageMinHeight = 600;
@@ -28,7 +28,7 @@ public class MainApp extends Application{
     final int sendButtonWidth = 55;
     @Override
     public void init() throws Exception {
-        duke = new Duke();
+        shirmin = new Shirmin();
     }
 
     @Override
@@ -140,14 +140,14 @@ public class MainApp extends Application{
         DialogBox userInputBox = DialogBox.getUserDialog(userText, userImageView);
 
 
-        String response = duke.runCommand(input);
-        Label dukeText = new Label(response);
-        ImageView dukeImageView = new ImageView(min);
-        dukeImageView.setFitHeight(imageSize);
-        dukeImageView.setFitWidth(imageSize);
-        DialogBox dukeResponseBox = DialogBox.getDukeDialog(dukeText, dukeImageView);
+        String response = shirmin.runCommand(input);
+        Label shirminText = new Label(response);
+        ImageView shirminImageView = new ImageView(min);
+        shirminImageView.setFitHeight(imageSize);
+        shirminImageView.setFitWidth(imageSize);
+        DialogBox shirminResponseBox = DialogBox.getShirminDialog(shirminText, shirminImageView);
 
-        dialogContainer.getChildren().addAll(userInputBox, dukeResponseBox);
+        dialogContainer.getChildren().addAll(userInputBox, shirminResponseBox);
     }
 
 
