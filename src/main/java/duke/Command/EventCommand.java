@@ -3,7 +3,6 @@ package duke.Command;
 
 import duke.Tasks.EventTask;
 import duke.Tasks.TaskList;
-import duke.Ui;
 import duke.Storage;
 import duke.DukeException;
 import duke.Tasks.Task;
@@ -41,24 +40,11 @@ public class EventCommand extends Command {
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    /*@Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Task task = new EventTask(description, startTime, endTime);
-        tasks.addTask(task);
-        int count = tasks.size();
-        ui.showAddedMessage(task, count);
-        storage.save(tasks.getAllTasks());
-    }*/
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = new EventTask(description, startTime, endTime);
         tasks.addTask(task);
         int count = tasks.size();
-
-        /*String addedMessage =  "   ____________________________________________________________\n" +
-                "    Got it. I've added this task:\n" + "      " + task + "\n" +
-                "    Now you have " + count + " tasks in the list.\n"
-                + "   ____________________________________________________________";*/
 
         String addedMessage = "    Got it. I've added this task:\n" + "      " + task + "\n" +
                 "    Now you have " + count + " tasks in the list.\n";

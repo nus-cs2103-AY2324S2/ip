@@ -7,7 +7,6 @@ import duke.Tasks.EventTask;
 import duke.Tasks.EventTaskLoad;
 import duke.Tasks.DeadlineTaskLoad;
 
-
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;

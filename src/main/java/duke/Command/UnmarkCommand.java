@@ -1,6 +1,5 @@
 package duke.Command;
 
-import duke.Ui;
 import duke.Storage;
 import duke.DukeException;
 import duke.Tasks.Task;
@@ -10,7 +9,7 @@ import duke.Tasks.TaskList;
  * Represents a command to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    private int INDEX;
+    private int index;
 
     /**
      * Constructs an UnmarkCommand object with the given task index.
@@ -18,7 +17,7 @@ public class UnmarkCommand extends Command {
      * @param TASK_INDEX The index of the task to mark as not done.
      */
     public UnmarkCommand(int TASK_INDEX) {
-        this.INDEX = TASK_INDEX;
+        this.index = TASK_INDEX;
     }
 
 
@@ -29,44 +28,16 @@ public class UnmarkCommand extends Command {
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    /*@Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
-            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
-        }
-
-        Task task = tasks.get(INDEX - 1);
-        task.markNotDone();
-        ui.showUnmarkedMessage(task);
-        storage.save(tasks.getAllTasks());
-    }*/
-
-    /*@Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
-            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
-        }
-
-        Task task = tasks.get(INDEX - 1);
-        task.markNotDone();
-        ui.showUnmarkedMessage(task);
-        storage.save(tasks.getAllTasks());
-    }*/
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }
 
-        Task task = tasks.get(INDEX - 1);
+        Task task = tasks.get(index - 1);
         task.markNotDone();
-
-        /*String unmarkedMessage = "   ____________________________________________________________\n" +
-                "    OK, I've marked this task as not done yet:\n" + "      " + task + "\n"
-                + "   ____________________________________________________________";*/
         String unmarkedMessage = "    OK, I've marked this task as not done yet:\n" + "      " + task + "\n";
-
 
         storage.save(tasks.getAllTasks());
 

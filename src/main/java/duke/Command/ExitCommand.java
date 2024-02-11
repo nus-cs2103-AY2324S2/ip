@@ -2,12 +2,10 @@ package duke.Command;
 
 import duke.Storage;
 import duke.Tasks.TaskList;
-import duke.Ui;
 
 /**
  * Represents a command to exit the application.
  */
-//package duke.command;
 public class ExitCommand extends Command {
 
     /**
@@ -18,12 +16,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-
-        /*String goodbyeMessage =  "   ____________________________________________________________\n" +
-                "    Bye. Hope to see you again soon!\n"
-                + "   ____________________________________________________________";*/
-
-        String goodbyeMessage = "    Bye. Hope to see you again soon!\n";
+        String goodbyeMessage = "Bye. Hope to see you again soon!\n";
 
         return goodbyeMessage;
     }

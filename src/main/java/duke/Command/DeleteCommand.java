@@ -1,6 +1,5 @@
 package duke.Command;
 
-import duke.Ui;
 import duke.Storage;
 import duke.DukeException;
 import duke.Tasks.Task;
@@ -11,7 +10,7 @@ import duke.Tasks.TaskList;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command {
-    private int INDEX;
+    private int index;
 
     /**
      * Constructs a DeleteCommand object with the given task index.
@@ -19,7 +18,7 @@ public class DeleteCommand extends Command {
      * @param TASK_INDEX The index of the task to be deleted.
      */
     public DeleteCommand(int TASK_INDEX) {
-        this.INDEX = TASK_INDEX;
+        this.index = TASK_INDEX;
     }
 
 
@@ -30,33 +29,15 @@ public class DeleteCommand extends Command {
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-    /*@Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
-            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
-        }
-
-        Task deletedTask = tasks.get(INDEX - 1);
-        int count = tasks.size() - 1;
-        tasks.delete(INDEX - 1);
-        Ui.showDeletedMessage(deletedTask, count);
-        storage.save(tasks.getAllTasks());
-
-    }*/
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }
 
-        Task deletedTask = tasks.get(INDEX - 1);
+        Task deletedTask = tasks.get(index - 1);
         int count = tasks.size() - 1;
-        tasks.delete(INDEX - 1);
-
-        /*String deletedMessage =  "   ____________________________________________________________\n" +
-                "    Noted. I've removed this task:\n" + "      " + deletedTask + "\n" +
-                "    Now you have " + count + " tasks in the list.\n"
-                + "   ____________________________________________________________";*/
+        tasks.delete(index - 1);
 
         String deletedMessage = "    Noted. I've removed this task:\n" + "      " + deletedTask + "\n" +
                 "    Now you have " + count + " tasks in the list.\n";

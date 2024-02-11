@@ -1,14 +1,9 @@
 package duke.Command;
 
-
-import duke.Ui;
 import duke.Storage;
 import duke.DukeException;
 import duke.Tasks.Task;
 import duke.Tasks.TaskList;
-
-
-
 
 /**
  * Represents a command to mark a task as done.
@@ -34,18 +29,6 @@ public class MarkCommand extends Command {
      * @param storage The storage handler.
      * @throws DukeException If an error occurs during command execution.
      */
-   /* @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
-            throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
-        }
-
-        Task task = tasks.get(INDEX - 1);
-        task.markDone();
-        ui.showMarkedMessage(task);
-        storage.save(tasks.getAllTasks());
-    }*/
-
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         if (INDEX < 1 || INDEX > tasks.size()) {
@@ -55,17 +38,12 @@ public class MarkCommand extends Command {
         Task task = tasks.get(INDEX - 1);
         task.markDone();
 
-        /*String markedMessage = "   ____________________________________________________________\n" +
-                "    Nice! I've marked this task as done:\n" + "      " + task + "\n"
-                + "   ____________________________________________________________";*/
-
         String markedMessage = "    Nice! I've marked this task as done:\n" + "      " + task + "\n";
 
         storage.save(tasks.getAllTasks());
 
         return markedMessage;
     }
-
 
 
     /**

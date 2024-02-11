@@ -3,7 +3,6 @@ package duke.Command;
 
 import duke.Tasks.DeadlineTask;
 import duke.Tasks.TaskList;
-import duke.Ui;
 import duke.Storage;
 import duke.DukeException;
 import duke.Tasks.Task;

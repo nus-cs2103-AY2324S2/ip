@@ -129,14 +129,6 @@ public class Parser {
         String description = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
         return new TodoCommand(description);
     }
-    /*private static Command parseTodoCommand(String[] parts) throws DukeException {
-        if (parts.length < 2) {
-            throw new DukeException("OOPS!!! The description of a todo task cannot be empty.");
-        }
-
-        String description = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-        return new TodoCommand(description);
-    }*/
 
 
     /**
@@ -151,7 +143,6 @@ public class Parser {
         String by = null;
 
         if (parts.length < 2) {
-            //throw new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
             DukeException errorMessage = new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
 
         }
