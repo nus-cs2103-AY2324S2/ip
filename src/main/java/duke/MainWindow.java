@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,6 +28,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        showWelcomeMessage(); // Call method to show welcome message
+    }
+
+    /**
+     * Displays the welcome message in the dialog container.
+     */
+    private void showWelcomeMessage() {
+        String welcomeMsg = "Hello! I'm BotYue.\n" + " What can I do for you?";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMsg, dukeImage));
     }
 
     public void setDuke(Duke d) {
