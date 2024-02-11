@@ -1,7 +1,5 @@
 package duke.parser;
 
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,15 +8,17 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.DukeException;
+
 /**
  * Handles parsing and identifying DateTime in String Commands
  */
 public class DateHandler {
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
-    private static final Pattern PATTERN_DATE =
-            Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
-    private static final Pattern TIME_PATTERN =
-            Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
+    private static final Pattern PATTERN_DATE = Pattern.compile(
+            "([a-zA-Z]+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
+    private static final Pattern TIME_PATTERN = Pattern.compile(
+            "(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
 
     //For formatting of the date
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

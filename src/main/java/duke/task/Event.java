@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.parser.DateHandler;
-
 import java.time.LocalDateTime;
+
+import duke.parser.DateHandler;
 
 
 /**
@@ -45,9 +45,11 @@ public class Event extends Task {
     @Override
     public String saveFile() {
         if (byDateTime == null) {
-            return "E" + "|" + super.done() + "|" + super.description + "|" + by + "|" + from + "|" + "null" + "|" + "null";
+            return "E" + "|" + super.done() + "|" + super.description + "|" + by + "|" + from + "|" + "null" + "|"
+                   + "null";
         } else {
-            return "E" + "|" + super.done() + "|" + super.description + "|" + by + "|" + from + "|" + byDateTime.toString() + "|" + fromDateTime.toString();
+            return "E" + "|" + super.done() + "|" + super.description + "|" + by + "|" + from + "|"
+                   + byDateTime.toString() + "|" + fromDateTime.toString();
         }
 
     }
@@ -57,8 +59,8 @@ public class Event extends Task {
         if (byDateTime == null) {
             return "[E]" + super.toString() + " (from: " + from + " to " + by + ")";
         } else {
-            return "[E]" + super.toString() + " (from: " + DateHandler.formatDate(
-                    fromDateTime) + " to " + DateHandler.formatDate(byDateTime) + ")";
+            return "[E]" + super.toString() + " (from: " + DateHandler.formatDate(fromDateTime) + " to "
+                   + DateHandler.formatDate(byDateTime) + ")";
         }
     }
 }

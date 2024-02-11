@@ -23,7 +23,7 @@ public class TaskManager {
     //String and variables for task
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
-    private ArrayList<Task> items;
+    private final ArrayList<Task> items;
     private boolean hasChanged = false;
 
 
@@ -78,9 +78,13 @@ public class TaskManager {
                 throw new DukeException("by");
             }
             Optional<LocalDate> testDate = DateHandler.checkDate(by);
-            item = testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, DateHandler
-                    .checkTime(by)
-                    .orElse(LocalTime.of(0, 0))))).orElseGet(() -> new Deadline(description, by));
+            item = testDate
+                    .map(localDate -> new Deadline(description,
+                                                   LocalDateTime.of(localDate,
+                                                                    DateHandler
+                                                                            .checkTime(by)
+                                                                            .orElse(LocalTime.of(0, 0)))))
+                    .orElseGet(() -> new Deadline(description, by));
             break;
         case EVENT:
             Matcher eventMatch = eventFormat.matcher(instruction);
@@ -109,9 +113,11 @@ public class TaskManager {
                 LocalTime time = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
                 return Optional.of(LocalDateTime.of(fromDate, time));
             });
-            item = combineByDate.flatMap(byDate -> combineFromDate.flatMap(
-                    fromDate -> Optional.of(new Event(description, fromDate, byDate)))).orElseGet(
-                    () -> new Event(description, from, by));
+            item = combineByDate
+                    .flatMap(byDate -> combineFromDate.flatMap(fromDate -> Optional.of(new Event(description,
+                                                                                                 fromDate,
+                                                                                                 byDate))))
+                    .orElseGet(() -> new Event(description, from, by));
             break;
         default:
             throw new DukeException("Invalid");
@@ -206,7 +212,7 @@ public class TaskManager {
      *
      * @return An ArrayList of String of the all the items.
      */
-    public ArrayList<String> ListItems() {
+    public ArrayList<String> listItems() {
 
         int i = 1;
         ArrayList<String> ret = new ArrayList<>();
@@ -230,6 +236,12 @@ public class TaskManager {
         this.hasChanged = hasChanged;
     }
 
+    /**
+     * Find the task in the current list.
+     *
+     * @param search The keywords to search.
+     * @return A list of items containing the search results.
+     */
     public ArrayList<String> findTask(String search) {
         ArrayList<String> foundTask = new ArrayList<>();
         int count = 1;

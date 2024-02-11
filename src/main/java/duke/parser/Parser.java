@@ -40,7 +40,7 @@ public class Parser {
             return returnString;
         }
         if (command.matches("((?i)list)")) {
-            return manager.ListItems();
+            return manager.listItems();
         } else {
             if (manageMatch.matches()) {
                 Manage act = Manage.valueOf(manageMatch.group(1).toUpperCase());
