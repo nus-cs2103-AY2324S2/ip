@@ -35,14 +35,20 @@ public class Campus {
      * @return the appropriate response of type string
      */
     public String parseMessage(String input) {
-        return this.parser.parseMessage(input);
+        String message = this.parser.parseMessage(input);
+        assert (message != null);
+        return message;
     }
 
     public String printGreeting() {
-        return this.ui.printGreeting();
+        String message = this.ui.printGreeting();
+        assert (message != null);
+        return message;
     }
 
     public String printExiting() {
-        return this.ui.printExiting();
+        String message = this.ui.printExiting();
+        assert (message != null);
+        return message;
     }
 }

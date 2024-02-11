@@ -90,10 +90,12 @@ public class TaskList {
     }
 
     public Task getIthTaskInteger(int index) {
+        assert(index < this.tasks.size());
         return this.tasks.get(index);
     }
 
     public Task getIthTaskString(String userInput) {
+        assert(userInput != null);
         String listNumber = userInput.substring(userInput.length() - 1);
         int index = Integer.parseInt(listNumber) - 1;
         return this.tasks.get(index);
@@ -108,10 +110,12 @@ public class TaskList {
 
     public void markDone(Task task) {
         task.markComplete();
+        assert(task.completed);
     }
 
     public void markUndone(Task task) {
         task.markIncomplete();
+        assert(!task.completed);
     }
 
     public void addTask(Task task) {
