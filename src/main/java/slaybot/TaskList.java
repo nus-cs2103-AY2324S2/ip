@@ -76,6 +76,9 @@ public class TaskList {
     public Task markTask(int index) {
         Task taskToMark = tasks.get(index);
         taskToMark.setMarked(true);
+
+        assert taskToMark.getMarked() == true;
+
         return taskToMark;
     }
 
@@ -87,6 +90,9 @@ public class TaskList {
     public Task unmarkTask(int index) {
         Task taskToUnmark = tasks.get(index);
         taskToUnmark.setMarked(false);
+
+        assert taskToUnmark.getMarked() == false;
+
         return taskToUnmark;
     }
 
