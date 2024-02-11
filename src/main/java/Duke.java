@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
 
 public class Duke {
     private static HashSet<String> validCommands;
+    private static Storage storage;
     private static TaskList taskList;
     private static Ui ui;
 
@@ -48,6 +49,8 @@ public class Duke {
     }
 
     private static void initialSetup() {
+        storage = new Storage("./src/main/data",
+                "./src/main/data/duke.txt");
         taskList = new TaskList();
         ui = new Ui();
         validCommands = new HashSet<String>();
@@ -60,7 +63,11 @@ public class Duke {
                 "event",
                 "delete"));
         try {
-            readTaskListData();
+            ArrayList<String> tasksFromFile = storage.readTaskListData();
+            for (int i = 0; i < tasksFromFile.size(); i++) {
+                Task reconstructedTask = taskList.reconstructTask(tasksFromFile.get(i));
+                taskList.addTask(reconstructedTask);
+            }
         } catch (FileNotFoundException e) {
             ui.printFileNotFoundError();
         } catch (IOException e) {
@@ -107,7 +114,7 @@ public class Duke {
         }
         try {
             if (!identifier.equals("list")) {
-                writeTaskListData();
+                storage.writeTaskListData(taskList);
             }
         } catch (IOException e) {
             ui.printIoException();
@@ -236,49 +243,4 @@ public class Duke {
         System.out.println(toDelete.toString() + "\n");
         ui.printDivider();
     }
-
-    private static void writeTaskListData() throws IOException {
-        String filePath = "./src/main/data/duke.txt";
-        File save = new File(filePath);
-        try {
-            if (!save.exists()) {
-                save.createNewFile();
-            }
-            FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < taskList.getTaskCount(); i++) {
-                fw.write(taskList.getTask(i).toTaskSaveString() + System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("An error has occurred.");
-            e.getStackTrace();
-        }
-    }
-
-    private static void readTaskListData() throws FileNotFoundException, IOException {
-        String filePath = "./src/main/data/duke.txt";
-        String directoryPath = "./src/main/data";
-        File read = new File(filePath);
-        Path directory = Paths.get(directoryPath);
-        try {
-            if (!Files.exists(directory)) {
-                Files.createDirectories(directory);
-            }
-            if (!read.exists()) {
-                read.createNewFile();
-            }
-            Scanner sc = new Scanner(read);
-            while (sc.hasNextLine()) {
-                String data = sc.nextLine();
-                Task savedTask = taskList.reconstructTask(data);
-                taskList.addTask(savedTask);
-            }
-        } catch (FileNotFoundException e) {
-            ui.printFileNotFoundError();
-        } catch (IOException e) {
-            ui.printIoException();
-        }
-    }
-
-
 }
