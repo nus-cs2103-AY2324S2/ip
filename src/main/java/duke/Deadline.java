@@ -37,7 +37,7 @@ public class Deadline extends Task {
                 dueByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
-    private static LocalDate parseDate(String dateString) {
+    public static LocalDate parseDate(String dateString) {
         try {
             return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
