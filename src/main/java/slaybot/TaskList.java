@@ -1,6 +1,8 @@
 package slaybot;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import entity.Task;
@@ -94,6 +96,10 @@ public class TaskList {
         assert taskToUnmark.getMarked() == false;
 
         return taskToUnmark;
+    }
+
+    public void sortTask() {
+        this.tasks.sort(new TaskComparator());
     }
 
 }

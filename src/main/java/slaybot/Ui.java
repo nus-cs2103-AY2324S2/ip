@@ -136,6 +136,9 @@ public class Ui {
                         findText = "No Results Found";
                     }
                     return findText;
+                case SORT:
+                    tasks.sortTask();
+                    return "Tasks have been sorted.";
                 default:
                     return "Enter a command to begin";
             }

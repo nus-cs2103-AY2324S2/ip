@@ -1,5 +1,7 @@
 package entity;
 
+import java.time.LocalDateTime;
+
 /**
  * The ToDo class which extends the Task class
  */
@@ -33,5 +35,10 @@ public class ToDo extends Task {
         } else {
             return "[T][ ] " + this.title;
         }
+    }
+
+    @Override
+    public LocalDateTime getDate() {
+        return null;
     }
 }
