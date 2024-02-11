@@ -6,35 +6,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
     @Test
-    public void testEventToString() {
+    public void eventToString_success() {
         Event event = new Event("test ", "1 ", "2");
         assertEquals("[E][ ] test (from: 1 to: 2)", event.toString());
     }
 
     @Test
-    public void testEventToSaveString() {
+    public void eventToSaveString_success() {
         Event event = new Event("test ", "1 ", "2");
         assertEquals("E,0,test ,1 ,2", event.toSaveString());
     }
 
     @Test
-    public void testEventGetStatusIcon() {
+    public void eventGetStatusIcon_success() {
         Event event = new Event("test ", "1 ", "2");
         assertEquals(" ", event.getStatusIcon());
     }
 
     @Test
-    public void testEventMarkAsDone() {
+    public void eventMarkAsDone_success() {
         Event event = new Event("test ", "1 ", "2");
-        event.markAsDone();
+        event.markTaskAsDone();
         assertEquals("X", event.getStatusIcon());
     }
 
     @Test
-    public void testEventUnMark() {
+    public void eventUnMark_success() {
         Event event = new Event("test ", "1 ", "2");
-        event.markAsDone();
-        event.unMark();
+        event.markTaskAsDone();
+        assertEquals("X", event.getStatusIcon());
+        event.unMarkTask();
         assertEquals(" ", event.getStatusIcon());
     }
 }

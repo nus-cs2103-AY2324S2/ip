@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
     private final Image TSUN_IMAGE = new Image(Objects.requireNonNull(this.getClass().
             getResourceAsStream("/images/chitoge.png")));
 
+    /**
+     * Creates GUI with an initial dialog box with the greeting statement.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -47,6 +50,12 @@ public class MainWindow extends AnchorPane {
     public void setTsundere(Tsundere t) {
     }
 
+    /**
+     * Saves current session data, closes GUI and exits program.
+     *
+     * @throws InterruptedException if Thread is interrupted while running.
+     * @throws IOException if savefile cannot be created.
+     */
     private void exit() throws InterruptedException, IOException {
         Tsundere.storage.saveTasksToFile();
         TimeUnit.SECONDS.sleep(1);
@@ -61,7 +70,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
 
-
         String input = userInput.getText();
 
         if (input.equalsIgnoreCase("bye")) {
@@ -75,7 +83,7 @@ public class MainWindow extends AnchorPane {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         } else {
             Ui ui = new Ui();

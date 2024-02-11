@@ -49,10 +49,16 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box such that the ImageView is on the right and text on the left.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box such that the ImageView is on the left and text on the right.
+     */
     public static DialogBox getTsundereDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

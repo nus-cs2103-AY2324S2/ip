@@ -6,35 +6,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ToDoTest {
     @Test
-    public void testToDoToString() {
+    public void toDoToString_success() {
         ToDo todo = new ToDo("test");
         assertEquals("[T][ ] test", todo.toString());
     }
 
     @Test
-    public void testToDoToSaveString() {
+    public void toDoToSaveString_success() {
         ToDo todo = new ToDo("test");
         assertEquals("T,0,test", todo.toSaveString());
     }
 
     @Test
-    public void testToDoGetStatusIcon() {
+    public void toDoGetStatusIcon_success() {
         ToDo todo = new ToDo("test");
         assertEquals(" ", todo.getStatusIcon());
     }
 
     @Test
-    public void testToDoMarkAsDone() {
+    public void toDoMarkAsDone_success() {
         ToDo todo = new ToDo("test");
-        todo.markAsDone();
+        todo.markTaskAsDone();
         assertEquals("X", todo.getStatusIcon());
     }
 
     @Test
-    public void testToDoUnMark() {
+    public void toDoUnMark_success() {
         ToDo todo = new ToDo("test");
-        todo.markAsDone();
-        todo.unMark();
+        todo.markTaskAsDone();
+        assertEquals("X", todo.getStatusIcon());
+        todo.unMarkTask();
         assertEquals(" ", todo.getStatusIcon());
     }
 }

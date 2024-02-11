@@ -1,8 +1,11 @@
 package tsundere.task;
 
+/**
+ * Encapsulates a ToDo object.
+ */
 public class ToDo extends Task {
 
-    protected static final String type = "T";
+    protected static final String TYPE = "T";
 
     /**
      * Initializes ToDo task with its name.
@@ -20,7 +23,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveString() {
-        return type + "," + super.toSaveString() + "," + this.getTagString();
+        return TYPE + "," + super.toSaveString() + "," + this.getTagString();
     }
 
     /**

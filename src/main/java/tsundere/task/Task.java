@@ -1,9 +1,11 @@
 package tsundere.task;
 
 import tsundere.exception.GeneralException;
-
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a Task object.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -22,7 +24,12 @@ public class Task {
         this.taglist = new ArrayList<>();
     }
 
-
+    /**
+     * Adds a new tag to taglist.
+     *
+     * @param tag Name of tag to be added.
+     * @throws GeneralException if tag is not unique or taglist is full.
+     */
     public void tagTask(String tag) throws GeneralException {
         if (taglist.size() > 2) {
             throw new GeneralException("Too many tags! Try untagging some first!");
@@ -33,6 +40,12 @@ public class Task {
         taglist.add(tag);
     }
 
+    /**
+     * Removes a tag from taglist.
+     *
+     * @param tag Name of tag to be removed.
+     * @throws GeneralException if tag is not found or taglist is empty.
+     */
     public void untagTask(String tag) throws GeneralException {
         if (taglist.isEmpty()) {
             throw new GeneralException("No tags found! Try tagging some first!");
@@ -42,6 +55,7 @@ public class Task {
         }
         taglist.remove(tag);
     }
+
     /**
      * Returns completion status of Task.
      *
@@ -54,19 +68,19 @@ public class Task {
     /**
      * Sets Task completion status to true.
      */
-    public void markAsDone() {
+    public void markTaskAsDone() {
         this.isDone = true;
     }
 
     /**
      * Sets Task completion status to false.
      */
-    public void unMark() {
+    public void unMarkTask() {
         this.isDone = false;
     }
 
     /**
-     * Returns formatted String for storage purposes.
+     * Returns formatted String for Task storage purposes.
      *
      * @return formatted saveString.
      */
@@ -75,6 +89,11 @@ public class Task {
         return x + "," + this.description;
     }
 
+    /**
+     * Returns formatted String for tag storage purposes
+     *
+     * @return formatted TagString
+     */
     public String getTagString() {
         StringBuilder str = new StringBuilder();
         for (String tag : taglist) {

@@ -3,10 +3,13 @@ package tsundere.task;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+/**
+ * Encapsulates a Deadline object.
+ */
 public class Deadline extends Task {
     protected String by;
     protected LocalDate date;
-    protected static final String type = "D";
+    protected static final String TYPE = "D";
 
     /**
      * Initializes Deadline task with its name.
@@ -28,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveString() {
-        return type + "," + super.toSaveString() + "," + by + "," + this.getTagString();
+        return TYPE + "," + super.toSaveString() + "," + by + "," + this.getTagString();
     }
 
     /**

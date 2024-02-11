@@ -11,9 +11,15 @@ import java.util.Scanner;
 
 import tsundere.exception.GeneralException;
 
+/**
+ * Encapsulates a Storage object that manages loading and saving of data.
+ */
 public class Storage {
 
-    private static final String filepath = "./data/data.txt";
+    private static final String FILEPATH = "./data/data.txt";
+    private final String SAVED_SUCCESS_MSG = "Your session has been saved.";
+    private final String LOADED_SUCCESS_MSG = "Your previous session has been restored. Enjoy your chat.";
+    private final String LOADED_FAILURE_MSG = "Something went wrong with loading your previous session data!";
 
     /**
      * Initializes Storage.
@@ -24,7 +30,7 @@ public class Storage {
             new File("./data").mkdirs();
             TaskList.taskList = loadTasksFromFile();
         } catch (IOException | GeneralException e) {
-            System.out.println("Something went wrong with loading your previous session data!");
+            System.out.println(LOADED_FAILURE_MSG);
         }
 
     }
@@ -37,23 +43,22 @@ public class Storage {
      */
     public void saveTasksToFile() throws IOException {
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter(filepath), true)) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILEPATH), true)) {
 
             for (Task task : TaskList.taskList) {
                 pw.println(task.toSaveString());
             }
-            System.out.println("Your session has been saved.");
+            System.out.println(SAVED_SUCCESS_MSG);
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("hello there");
-            File file = new File(filepath);
+            File file = new File(FILEPATH);
 
             if (file.createNewFile()) {
                 saveTasksToFile();
-                System.out.println("Your session has been saved.");
+                System.out.println(SAVED_SUCCESS_MSG);
             } else {
-                throw new IOException("Unable to create the file: " + filepath);
+                throw new IOException("Unable to create the file: " + FILEPATH);
             }
 
         }
@@ -71,7 +76,7 @@ public class Storage {
     private ArrayList<Task> loadTasksFromFile() throws IOException, GeneralException {
 
         ArrayList<Task> tasks = new ArrayList<>();
-        File f = new File(Storage.filepath);
+        File f = new File(Storage.FILEPATH);
 
         if (f.exists()) {
             Scanner scanner = new Scanner(f);
@@ -81,7 +86,7 @@ public class Storage {
                 Task task = parseTaskFromSaveString(line);
                 tasks.add(task);
             }
-            System.out.println("Your previous session has been restored. Enjoy your chat.");
+            System.out.println(LOADED_SUCCESS_MSG);
         }
         return tasks;
 
@@ -102,7 +107,7 @@ public class Storage {
         switch (type) {
         case ("T"):
             task = new ToDo(parsedData[2]);
-            if (parsedData[1].equals("1")) task.markAsDone();
+            if (parsedData[1].equals("1")) task.markTaskAsDone();
 
             String[] x = parsedData[3].split(" ");
             for (String tag : x) {
@@ -111,7 +116,7 @@ public class Storage {
             break;
         case ("E"):
             task = new Event(parsedData[2], parsedData[3], parsedData[4]);
-            if (parsedData[1].equals("1")) task.markAsDone();
+            if (parsedData[1].equals("1")) task.markTaskAsDone();
             String[] y = parsedData[5].split(" ");
             for (String tag : y) {
                 task.tagTask(tag);
@@ -119,7 +124,7 @@ public class Storage {
             break;
         case ("D"):
             task = new Deadline(parsedData[2], parsedData[3]);
-            if (parsedData[1].equals("1")) task.markAsDone();
+            if (parsedData[1].equals("1")) task.markTaskAsDone();
             String[] z = parsedData[4].split(" ");
             for (String tag : z) {
                 task.tagTask(tag);

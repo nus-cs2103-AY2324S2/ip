@@ -6,35 +6,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
     @Test
-    public void testTaskToString() {
+    public void taskToString_success() {
         Task task = new Task("test");
         assertEquals("[ ] test", task.toString());
     }
 
     @Test
-    public void testTaskToSaveString() {
+    public void taskToSaveString_success() {
         Task task = new Task("test");
         assertEquals("0,test", task.toSaveString());
     }
 
     @Test
-    public void testTaskGetStatusIcon() {
+    public void taskGetStatusIcon_success() {
         Task task = new Task("test");
         assertEquals(" ", task.getStatusIcon());
     }
 
     @Test
-    public void testTaskMarkAsDone() {
+    public void taskMarkAsDone_success() {
         Task task = new Task("test");
-        task.markAsDone();
+        task.markTaskAsDone();
         assertEquals("X", task.getStatusIcon());
     }
 
     @Test
-    public void testTaskUnMark() {
+    public void taskUnMark_success() {
         Task task = new Task("test");
-        task.markAsDone();
-        task.unMark();
+        task.markTaskAsDone();
+        assertEquals("X", task.getStatusIcon());
+        task.unMarkTask();
         assertEquals(" ", task.getStatusIcon());
     }
 }
