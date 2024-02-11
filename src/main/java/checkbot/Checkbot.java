@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 public class Checkbot extends Application {
     public static final String TASK_FILE_DIR = "./tasks.txt";
 
+    private static final String CHECKBOT_AVATAR_DIR = "/images/checkbot.png";
+    private static final String USER_AVATAR_DIR = "/images/DaUser.png";
     private final TodoList todoList;
     private final Storage storage;
     private final Parser parser;
@@ -29,8 +31,8 @@ public class Checkbot extends Application {
         this.todoList = this.storage.loadTasks();
         this.parser = new Parser();
         this.ui = new Ui(
-                new Image(this.getClass().getResourceAsStream("/images/checkbot.png")),
-                new Image(this.getClass().getResourceAsStream("/images/DaUser.png")),
+                new Image(this.getClass().getResourceAsStream(CHECKBOT_AVATAR_DIR)),
+                new Image(this.getClass().getResourceAsStream(USER_AVATAR_DIR)),
                 this::parseUserInput);
     }
 
@@ -44,7 +46,7 @@ public class Checkbot extends Application {
     private void parseUserInput(String input) {
         try {
             Command c = parser.parse(input);
-            c.execute(todoList, storage, ui);
+            c.executeCommand(todoList, storage, ui);
             if (c.isBye()) {
                 Platform.exit();
             }

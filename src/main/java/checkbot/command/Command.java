@@ -22,5 +22,5 @@ public abstract class Command {
      * @param ui       The user interface.
      * @throws CheckbotException If an error occurs during execution.
      */
-    public abstract void execute(TodoList todoList, Storage storage, Ui ui) throws CheckbotException;
+    public abstract void executeCommand(TodoList todoList, Storage storage, Ui ui) throws CheckbotException;
 }

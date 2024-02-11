@@ -15,7 +15,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) {
         ui.showGoodbye();
     }
 }

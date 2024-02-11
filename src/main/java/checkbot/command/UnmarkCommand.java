@@ -18,7 +18,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
         Task task = todoList.unmarkTask(index);
         storage.saveTasks(todoList);
         ui.showUnmarkedTaskMessage(task);

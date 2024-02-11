@@ -9,7 +9,7 @@ import checkbot.task.TodoList;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) {
         ui.printList(todoList);
     }
 }
