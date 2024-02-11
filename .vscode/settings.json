@@ -1,0 +1,9 @@
+{
+  "java.format.enabled": true,
+  "java.format.settings.url": "file:///Users/saiutkarsh33/ip/eclipse_format.xml",
+  "java.format.settings.profile": "Eclipse",
+  "editor.formatOnSave": true,
+  "[java]": {
+    "editor.defaultFormatter": null
+  }
+}
