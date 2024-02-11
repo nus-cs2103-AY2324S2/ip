@@ -34,11 +34,11 @@ public class Bob {
     public Bob start() {
 
         try {
-            this.taskList.setList(this.storage.loadSavedTasks());
+            taskList.setList(storage.loadSavedTasks());
         } catch (BobException.FileAccessError e) {
-            this.ui.getErrorText(e);
+            ui.getErrorText(e);
         } catch (BobException.CorruptedSaveData e) {
-            this.ui.getErrorText(e);
+            ui.getErrorText(e);
         }
 
         return this;
@@ -69,6 +69,6 @@ public class Bob {
      * @return Chat bot response as String.
      */
     public String getResponse(String input) {
-        return this.parser.processInput(input);
+        return parser.processInput(input);
     }
 }

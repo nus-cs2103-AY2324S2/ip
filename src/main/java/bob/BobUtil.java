@@ -13,7 +13,7 @@ public class BobUtil {
         String[] date = args[0].split("\\/");
         if (date.length != 3) {
             throw new BobException.InvalidDateTimeFormat(
-                    "Date specified is of the wrong format (expects dd/mm/yyyy i.e 01/01/1990).");
+                    BobErrorMessages.INVALID_DATE_FORMAT);
         }
 
         LocalDateTime dateTime;
@@ -31,7 +31,7 @@ public class BobUtil {
 
         } catch (Exception e) {
             throw new BobException.InvalidDateTimeFormat(
-                    "Date specified is of the wrong format (expects dd/mm/yyyy i.e 01/01/1990).");
+                    BobErrorMessages.INVALID_DATE_FORMAT);
         }
         return dateTime;
     }

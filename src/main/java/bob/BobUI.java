@@ -20,7 +20,7 @@ public class BobUI {
 
         if (!summarized) {
 
-            listTexts += "Here ere are the tasks in your list:\r\n";
+            listTexts += "Here are the tasks in your list:\r\n";
 
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
@@ -55,7 +55,7 @@ public class BobUI {
         String response = "";
         response += "Here is your newly added task:";
         response += t.getType() + t.getStatus() + " " + t + "\r\n";
-        response += this.getTaskListText(true, list);
+        response += getTaskListText(true, list);
 
         return response;
     }
@@ -71,7 +71,7 @@ public class BobUI {
         String response = "";
         response += "You have removed the current task:";
         response += t.getType() + t.getStatus() + " " + t + "\r\n";
-        response += this.getTaskListText(true, list);
+        response += getTaskListText(true, list);
 
         return response;
     }
