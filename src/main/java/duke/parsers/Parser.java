@@ -1,6 +1,17 @@
 package duke.parsers;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.CreateDeadlineCommand;
+import duke.commands.CreateEventCommand;
+import duke.commands.CreateTodoCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkTaskCommand;
+import duke.commands.SaveCommand;
+import duke.commands.UnmarkTaskCommand;
 import duke.exceptions.DukeException;
 
 import java.time.LocalDateTime;
@@ -19,12 +30,12 @@ public class Parser {
         }
         switch (commandWord) {
         case "bye":
-            return new exitCommand();
+            return new ExitCommand();
         case "list":
-            return new listCommand();
+            return new ListCommand();
         case "mark":
             try {
-                return new markTaskCommand(prepareTask(commandArguments, "mark"));
+                return new MarkTaskCommand(prepareTask(commandArguments, "mark"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -34,7 +45,7 @@ public class Parser {
             return new Command();
         case "unmark":
             try {
-                return new unmarkTaskCommand(prepareTask(commandArguments, "unmark"));
+                return new UnmarkTaskCommand(prepareTask(commandArguments, "unmark"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -71,7 +82,7 @@ public class Parser {
             return new Command();
         case "delete":
             try {
-                return new deleteCommand(prepareTask(commandArguments, "delete"));
+                return new DeleteCommand(prepareTask(commandArguments, "delete"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -80,10 +91,10 @@ public class Parser {
             }
             return new Command();
         case "save":
-            return new saveCommand();
+            return new SaveCommand();
         default:
             System.err.println("OOPS! This command doesn't exist. Retry!");
-            return new helpCommand();
+            return new HelpCommand();
         }
     }
 
@@ -102,7 +113,7 @@ public class Parser {
         if (arguments.isBlank()) {
             throw new DukeException("OOPS! The description of a todo cannot be empty.");
         }
-        return new createTodoCommand(arguments);
+        return new CreateTodoCommand(arguments);
     }
 
     public static Command prepareCreateDeadline(String arguments) throws DukeException {
@@ -124,10 +135,11 @@ public class Parser {
         }
         String description = instruction[0];
         String deadlineStr = instruction[1];
+
         // convert deadline from string to DateTime
         // Accepted date time format is yyyy-MM-dd HHmm
         LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
-        return new createDeadlineCommand(description, deadline);
+        return new CreateDeadlineCommand(description, deadline);
     }
 
     public static Command prepareCreateEvent(String arguments) throws DukeException {
@@ -156,6 +168,7 @@ public class Parser {
         }
         String startTimeStr = subInstruction[0];
         String endTimeStr = subInstruction[1];
+
         // convert start and end time from string to DateTime
         // Accepted date time format is yyyy-MM-dd HHmm
         LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);
@@ -163,7 +176,7 @@ public class Parser {
         if (!startTime.isBefore(endTime)) {
             throw new DukeException("The start time of the event has to be before the end time.");
         }
-        return new createEventCommand(description, startTime, endTime);
+        return new CreateEventCommand(description, startTime, endTime);
     }
 }
 

@@ -1,13 +1,12 @@
 package duke.commands;
 
-import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-public class deleteCommand extends Command{
+public class DeleteCommand extends Command{
     private int index;
 
-    public deleteCommand(int number) {
+    public DeleteCommand(int number) {
         this.index = number;
     }
 

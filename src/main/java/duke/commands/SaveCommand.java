@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
@@ -13,9 +12,8 @@ import java.util.List;
 
 import static duke.constants.Constant.RELATIVE_PATH;
 import static duke.constants.Constant.DATE_TIME_FORMATTER;
-
-public class saveCommand extends Command{
-    public saveCommand() {
+public class SaveCommand extends Command{
+    public SaveCommand() {
 
     }
 
