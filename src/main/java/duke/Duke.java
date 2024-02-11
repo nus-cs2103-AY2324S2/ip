@@ -1,20 +1,18 @@
 package duke;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
-public class Duke extends Application {
+public class Duke {
 
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image tofu = new Image(this.getClass().getResourceAsStream("/images/tofu.png"));
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -35,7 +33,7 @@ public class Duke extends Application {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
     }
-
+/*
     @Override
     public void start(Stage stage) {
 
@@ -73,6 +71,7 @@ public class Duke extends Application {
         scrollPane.setFitToWidth(true); // Automatically adjust the width of the content to match the scrollbar
         // The VBox height is set to adjust based on its content
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.setPadding(new Insets(10,0,10,0));
         // Set preferred width of userInput and sendButton
         userInput.setPrefWidth(325.0);
         sendButton.setPrefWidth(55.0);
@@ -94,18 +93,19 @@ public class Duke extends Application {
         //  (-) less flexible since it doesn't allow precise positioning of components
 
         //Step 3. Add functionality to handle user input.
+        //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
         userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
         });
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
     }
+
+ */
 
     /**
      * Iteration 1:
@@ -119,6 +119,31 @@ public class Duke extends Application {
         textToAdd.setWrapText(true);
 
         return textToAdd;
+    }
+
+    /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    /*
+    private void handleUserInput() {
+        Label userText = new Label(userInput.getText());
+        Label dukeText = new Label(getResponse(userInput.getText()));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(tofu))
+        );
+        userInput.clear();
+    }
+    */
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     public void run() {
