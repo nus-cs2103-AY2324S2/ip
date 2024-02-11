@@ -20,15 +20,6 @@ public final class ListHandler extends Handler {
             ui.makeResponse("There is nothing to list.");
             return;
         }
-        String[] response = list(tasks);
-        ui.makeResponse(response);
-    }
-
-    /** Returns the contents of tasks in printable format. */
-    private static String[] list(TaskList tasks) {
-        assert tasks.getSize() > 0;
-        return IntStream.range(0, tasks.getSize())
-                .mapToObj((x) -> x + 1 + "." + tasks.get(x))
-                .toArray(String[]::new);
+        ui.makeResponse(tasks.getAsIndexedList());
     }
 }

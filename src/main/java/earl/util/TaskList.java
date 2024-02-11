@@ -2,7 +2,7 @@ package earl.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 import earl.tasks.Task;
 
@@ -48,5 +48,11 @@ public class TaskList {
 
     public Task delete(int idx) {
         return tasks.remove(idx);
+    }
+
+    public String[] getAsIndexedList() {
+        return IntStream.range(0, tasks.size())
+                .mapToObj((idx) -> idx + 1 + "." + tasks.get(idx))
+                .toArray(String[]::new);
     }
 }

@@ -1,8 +1,5 @@
 package earl.logic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import earl.util.TaskList;
@@ -20,8 +17,7 @@ public class FindHandler extends Handler {
 
     @Override
     public void handle(TaskList tasks, Ui ui) {
-        String[] matches = IntStream.range(0, tasks.getSize())
-                .mapToObj((idx) -> idx + 1 + "." + tasks.get(idx))
+        String[] matches = Stream.of(tasks.getAsIndexedList())
                 .filter((str) -> str.contains(args))
                 .toArray(String[]::new);
         if (matches.length == 0) {
