@@ -17,13 +17,19 @@ public class Jelly {
     public static void main(String[] args) {
 
         storage = new Storage(path);
+
         ui = new Ui();
+
         try {
+
             list = new TaskList(storage.load());
+
         } catch (JellyException e) {
+
             list = new TaskList();
             ui.printLoadingError(e);
         }
+
         parser = new Parser(list, ui);
 
         ui.printLine();

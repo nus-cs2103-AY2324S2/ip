@@ -96,6 +96,11 @@ public class TaskList {
         printListSize();
     }
 
+    public void add(Task task){
+
+        tasks.add(task);
+    }
+
     /**
      * @param index index of task to delete
      */
@@ -128,6 +133,25 @@ public class TaskList {
         task.unmark();
         System.out.println("(ᗒᗣᗕ) OK, I've marked this task as not done yet:");
         System.out.println(task);
+    }
+
+    /**
+     * @param keyword keyword to be searched in the TaskList
+     * @return An array of Task entries whose name contains keyword.
+     */
+    public TaskList find(String keyword){
+
+        TaskList result = new TaskList();
+
+        for(int i=0;i<tasks.size();++i){
+
+            if(tasks.get(i).getName().contains(keyword)){
+
+                result.add(tasks.get(i));
+            }
+        }
+
+        return result;
     }
 
     @Override

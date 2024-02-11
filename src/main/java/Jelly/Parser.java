@@ -180,6 +180,13 @@ public class Parser {
 
                 break;
 
+            case "find":
+
+                ui.printMessage("(@_@) Here are the tasks that match your keyword!");
+                ui.printSearchResults(taskList, lines[1]);
+
+                break;
+
             default:
 
                 ui.printMessage("(O_o) Huh? What does that even mean?");
