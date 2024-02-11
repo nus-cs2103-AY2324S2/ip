@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import DukeTask;
 
 public class Duke {
     public class Task {
