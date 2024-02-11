@@ -13,12 +13,17 @@ import academicweapon.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 
 /**
  * Duke is a task management application that allows users to interact with tasks through a command-line interface.
  * It supports various command for managing tasks such as adding, listing, marking and deleting tasks.
  */
-public class Duke {
+public class Duke extends Application {
 
     private Storage storage;
     private TaskList tasks;
@@ -26,10 +31,9 @@ public class Duke {
 
     /**
      * Constructs a Duke object with the specified file path for storage
-     *
-     * @param filePath The file path for task storage
      */
-    public Duke(String filePath) {
+    public Duke() {
+        String filePath = "./src/main/data/acadList.txt";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -38,6 +42,15 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!");
+        Scene scene = new Scene(helloWorld);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -135,12 +148,12 @@ public class Duke {
         }
     }
 
-    /**
-     * Main method to start the Duke application
-     *
-     * @param args Command-line arguments (not used)
-     */
-    public static void main(String[] args) {
-        new Duke("./src/main/data/acadList.txt").run();
-    }
+//    /**
+//     * Main method to start the Duke application
+//     *
+//     * @param args Command-line arguments (not used)
+//     */
+//    public static void main(String[] args) {
+//        new Duke("./src/main/data/acadList.txt").run();
+//    }
 }
