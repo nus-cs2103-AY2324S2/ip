@@ -1,8 +1,8 @@
 package duke.task;
 
-import duke.parser.DateHandler;
-
 import java.time.LocalDateTime;
+
+import duke.parser.DateHandler;
 
 /**
  * Deadline task to keep track of a task with one deadline.

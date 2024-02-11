@@ -21,7 +21,7 @@ public class Ui {
     private static final String[] GREET = new String[]{BAR, FIRST, SECOND, BAR};
     private static final String[] BYE = new String[]{BAR, MESSAGE_BYE, BAR};
 
-    private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader INPUT_READER = new BufferedReader(new InputStreamReader(System.in));
 
     /**
      * Creates the GUI handler.
@@ -62,7 +62,7 @@ public class Ui {
     public String readInstructions() throws DukeException {
         String test = "";
         try {
-            test = READER.readLine();
+            test = INPUT_READER.readLine();
         } catch (IOException e) {
             throw new DukeException("Gigaboom");
         }
