@@ -38,6 +38,7 @@ public class Parser {
      *
      */
     public Command parseCommand(String userInput) {
+        assert userInput != null : "User input should not be null";
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(Messages.MESSAGE_INCORRECT);

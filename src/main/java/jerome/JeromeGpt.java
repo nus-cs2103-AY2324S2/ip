@@ -84,6 +84,10 @@ public class JeromeGpt {
         do {
             // Keep reading user input until they type "bye"
             String userInput = ui.readCommand();
+
+            // Check that userInput is not null.
+            assert(userInput != null);
+
             command = new Parser().parseCommand(userInput);
 
             CommandResult commandResult = executeCommand(command);

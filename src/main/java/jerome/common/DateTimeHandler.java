@@ -43,7 +43,7 @@ public class DateTimeHandler {
             // Monday
             // Monday 2 PM
             // Monday 2:00 PM
-            localDate = LocalDate.parse(dateTime, DATE_INPUT_FORMAT);
+            this.localDate = LocalDate.parse(dateTime, DATE_INPUT_FORMAT);
 
         } catch (DateTimeException dateTimeException) {
             throw new MalformedUserInputException("\t Invalid date time format.\n"
