@@ -1,7 +1,6 @@
 package earl.logic;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.IntStream;
 
 import earl.util.TaskList;
 import earl.util.Ui;
@@ -26,11 +25,10 @@ public final class ListHandler extends Handler {
     }
 
     /** Returns the contents of tasks in printable format. */
-    public static String[] list(TaskList tasks) {
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < tasks.getSize(); ++i) {
-            result.add(i + 1 + "." + tasks.get(i));
-        }
-        return result.toArray(new String[tasks.getSize()]);
+    private static String[] list(TaskList tasks) {
+        assert tasks.getSize() > 0;
+        return IntStream.range(0, tasks.getSize())
+                .mapToObj((x) -> x + 1 + "." + tasks.get(x))
+                .toArray(String[]::new);
     }
 }

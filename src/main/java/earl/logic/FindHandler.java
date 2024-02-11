@@ -1,6 +1,9 @@
 package earl.logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import earl.util.TaskList;
 import earl.util.Ui;
@@ -17,20 +20,17 @@ public class FindHandler extends Handler {
 
     @Override
     public void handle(TaskList tasks, Ui ui) {
-        int n = tasks.getSize();
-        ArrayList<String> matches = new ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < n; ++i) {
-            if (tasks.get(i).toString().contains(args)) {
-                matches.add(i + 1 + "." + tasks.get(i).toString());
-                ++count;
-            }
-        }
-        if (matches.isEmpty()) {
+        String[] matches = IntStream.range(0, tasks.getSize())
+                .mapToObj((idx) -> idx + 1 + "." + tasks.get(idx))
+                .filter((str) -> str.contains(args))
+                .toArray(String[]::new);
+        if (matches.length == 0) {
             ui.makeResponse("There are no matches.");
             return;
         }
-        matches.add(0, "There are " + count + " matching entries.");
-        ui.makeResponse(matches.toArray(new String[count + 1]));
+        String header = "There are " + matches.length + " matching entries.";
+        String[] result = Stream.concat(Stream.of(header), Stream.of(matches))
+                .toArray(String[]::new);
+        ui.makeResponse(result);
     }
 }
