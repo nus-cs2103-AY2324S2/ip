@@ -37,7 +37,8 @@ class TaskList {
     public void writeInto() {
         try {
             FileWriter filewriter = new FileWriter(this.path);
-            filewriter.write(this.storeTask());
+            String writeinto = this.storeTask();
+            filewriter.write(writeinto);
             filewriter.close();
         } catch (IOException ex) {
             System.out.println("No input provided!");

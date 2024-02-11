@@ -48,7 +48,11 @@ abstract class Task {
      * Checks whether task's taskname contains the given string for find method
      */
     protected boolean containString(String str) {
-        return (this.taskname.contains(str) ? true : false);
+        if (this.taskname.contains(str)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String toString() {
