@@ -12,6 +12,12 @@ public abstract class Task {
     private boolean isDone;
     private final TaskType type;
 
+    /**
+     * Constructs a task with the given description and type.
+     *
+     * @param description The description of the task.
+     * @param type        The type of the task, represented by {@link TaskType}.
+     */
     public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
