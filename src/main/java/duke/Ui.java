@@ -62,6 +62,7 @@ public class Ui {
             + "_________________________\n";
         return nameDisplay;
     }
+
     /**
      * Lets shuheng say bye to everyone! :)
      *
