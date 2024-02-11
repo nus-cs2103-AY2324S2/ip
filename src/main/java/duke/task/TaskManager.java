@@ -180,16 +180,18 @@ public class TaskManager {
             break;
         }
         hasChanged = true;
-        ArrayList<String> returnString = new ArrayList<>();
+        ArrayList<String> ret = new ArrayList<>();
+        //StringBuilder ret = new StringBuilder();
+
         if (act.equals(Manage.MARK) || act.equals(Manage.UNMARK)) {
-            returnString.add(response);
-            returnString.add(item.toString());
-            return returnString;
+            ret.add(response);
+            ret.add(item.toString());
+            return ret;
         } else {
-            returnString.add(response);
-            returnString.add(item.toString());
-            returnString.add(numOfTask());
-            return returnString;
+            ret.add(response);
+            ret.add(item.toString());
+            ret.add(numOfTask());
+            return ret;
         }
     }
 
@@ -213,16 +215,16 @@ public class TaskManager {
      * @return An ArrayList of String of the all the items.
      */
     public ArrayList<String> listItems() {
-
         int i = 1;
         ArrayList<String> ret = new ArrayList<>();
+        //StringBuilder returnString = new StringBuilder();
         if (items.isEmpty()) {
             ret.add("Your list is empty!!!!Add something! ");
             return ret;
         }
         ret.add(listingResponse);
         for (Task item : items) {
-            ret.add(" " + i + "." + item);
+            ret.add(i + "." + item);
             i++;
         }
         return ret;
@@ -244,6 +246,7 @@ public class TaskManager {
      */
     public ArrayList<String> findTask(String search) {
         ArrayList<String> foundTask = new ArrayList<>();
+        //StringBuilder foundTask = new StringBuilder();
         int count = 1;
         for (Task item : items) {
             if (item.toString().contains(search)) {
