@@ -35,12 +35,15 @@ public class MainWindow extends AnchorPane {
 
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/shuheng.png"));
 
+    /**
+     * Initialises our javaFX components.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String dukeText = duke.sayHi();
         dialogContainer.getChildren().addAll(
-          DialogBox.getDukeDialog(dukeText, dukeImage)
+            DialogBox.getDukeDialog(dukeText, dukeImage)
         );
     }
 
@@ -57,8 +60,8 @@ public class MainWindow extends AnchorPane {
         String userText = userInput.getText();
         String dukeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-          DialogBox.getUserDialog(userText, userImage),
-          DialogBox.getDukeDialog(dukeText, dukeImage)
+            DialogBox.getUserDialog(userText, userImage),
+            DialogBox.getDukeDialog(dukeText, dukeImage)
         );
         try {
             isExit =

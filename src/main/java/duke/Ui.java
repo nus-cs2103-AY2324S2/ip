@@ -54,7 +54,7 @@ public class Ui {
      *
      * @return The output to print.
      */
-    public String sayHi() {
+    public static String sayHi() {
         String name = "shu heng";
         String nameDisplay = "_________________________\n"
             + "Hello! I'm " + name + "\n"
