@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -34,8 +35,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
         dialog.setText(text);
+        dialog.setPadding(new Insets(0, 20, 0, 0));
         displayPicture.setImage(img);
     }
 
@@ -53,6 +54,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
+        dialog.setPadding(new Insets(0, 0, 0, 20));
         setAlignment(Pos.TOP_LEFT);
     }
 }
