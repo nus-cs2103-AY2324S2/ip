@@ -1,7 +1,10 @@
 package Gluti.helpers;
 
-import Gluti.utils.*;
-
+import Gluti.utils.Task;
+import Gluti.utils.Event;
+import Gluti.utils.Deadline;
+import Gluti.utils.Todo;
+import Gluti.utils.GlutiException;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +39,6 @@ public class Parser {
                 case "bye":
                     break;
                 case "list":
-                    int num = 1;
                     if (!storage.isEmpty()) {
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < storage.size(); i++) {
@@ -68,10 +70,10 @@ public class Parser {
                         return "Make sure that you have selected the correct task!";
                     }
                 case "todo":
-                    String[] tempinput = word.split(" ", 2);
+                    String[] todoTempInput = word.split(" ", 2);
                     try {
-                        assert tempinput.length > 2;
-                        Todo toDo = new Todo(tempinput[1]);
+                        assert todoTempInput .length > 2;
+                        Todo toDo = new Todo(todoTempInput[1]);
                         storage.add(toDo);
                         StringBuilder sb = new StringBuilder();
                         sb.append("Got it. I've added this task:\n").append(toDo).append("\n");
@@ -81,12 +83,12 @@ public class Parser {
                         return "Todo must have a description!";
                     }
                 case "event":
-                    String[] tempinpute = word.split(" ", 2);
+                    String[] eventTempInput  = word.split(" ", 2);
                     try {
-                        assert tempinpute.length == 2 ;
-                        assert tempinpute[0].length() > 1 ;
-                        String description = tempinpute[1].split("/from",2)[0];
-                        String[] period = tempinpute[1].split("/from",2)[1].split("/to",2);
+                        assert eventTempInput .length == 2 ;
+                        assert eventTempInput [0].length() > 1 ;
+                        String description = eventTempInput [1].split("/from",2)[0];
+                        String[] period = eventTempInput [1].split("/from",2)[1].split("/to",2);
                         Event event = new Event(description, period);
                         storage.add(event);
                         StringBuilder sb = new StringBuilder();
@@ -98,12 +100,12 @@ public class Parser {
                         return("Event must be in this format event <description> /from <date+time> /to <time>");
                     }
                 case "deadline":
-                    String[] tempinputd = word.split(" ", 2);//[1].split(" /by ", 2);
+                    String[] deadlineTempInput = word.split(" ", 2);//[1].split(" /by ", 2);
                     try {
-                        assert tempinputd.length == 2;
-                        assert tempinputd[0].length() > 3;
-                        String description = tempinputd[1].split("/by", 2)[0];
-                        String time = tempinputd[1].split("/by", 2)[1];
+                        assert deadlineTempInput.length == 2;
+                        assert deadlineTempInput[0].length() > 3;
+                        String description = deadlineTempInput[1].split("/by", 2)[0];
+                        String time = deadlineTempInput[1].split("/by", 2)[1];
                         Deadline deadline = new Deadline(description, time);
                         StringBuilder sb = new StringBuilder();
                         storage.add(deadline);
@@ -149,8 +151,7 @@ public class Parser {
                 default:
                     break;
             }
-        //}
         fstorage.saveList(storage);
         return "";
     }
-    };
+    }
