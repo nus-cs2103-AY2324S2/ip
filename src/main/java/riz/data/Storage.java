@@ -92,15 +92,16 @@ public class Storage {
      * The method prints out all the current tasks that are stored in memory.
      */
     public String printFromFile() {
+        StringBuilder sb = new StringBuilder();
         File file = new File(this.filePath);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
-                return scanner.nextLine();
+                sb.append(scanner.nextLine()).append("\n");
             }
         } catch (FileNotFoundException e) {
             return "File is not found...";
         }
-        return null;
+        return sb.toString();
     }
 
     /**

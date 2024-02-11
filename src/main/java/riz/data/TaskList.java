@@ -70,16 +70,18 @@ public class TaskList {
      * Given a word, prints out all the tasks whose description contains the word.
      * @param word The input which we want to search if there are any matching tasks.
      */
-    public void find(String word) {
-        System.out.println("Here are the tasks matching " + "\"" + word + "\"...");
+    public String find(String word) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks matching " + "\"" + word + "\"...");
         int count = 1;
         for (Task task : this.taskList) {
             if (task.find(word)) {
-                System.out.print(count + ". ");
-                System.out.println(task);
+                sb.append(count).append( ". ");
+                sb.append(task.toString()).append("\n");
                 count++;
             }
         }
+        return sb.toString();
     }
 
 }

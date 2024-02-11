@@ -32,7 +32,10 @@ public class Riz extends Application{
     private TaskList taskList;
     private Storage storage;
 
-    public Riz() {}
+    public Riz() {
+        this.storage = new Storage("riz/data/riz.txt");
+        this.taskList = new TaskList(this.storage.loadFromFile());
+    }
 
     /**
      * The constructor initialises a Storage object with the filepath given
@@ -110,7 +113,7 @@ public class Riz extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput () {
-        Label userText = new Label(userInput.getText());
+        Label userText = new Label(userInput.getText() + " ");
         Label RizText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
@@ -124,10 +127,11 @@ public class Riz extends Application{
      * Replace this stub with your completed method.
      */
     private String getResponse (String input){
-        return input;
+        return " " + Parser.parse(this.taskList, this.storage, input);
     }
 
 
+    /*
     /**
      * The run method initialises a scanner and make sures the correct input is
      * being fed to the Parser class. It also terminates the program when
@@ -146,11 +150,11 @@ public class Riz extends Application{
                 running = false;
                 Ui.printGoodbye();
             } else {
-                Parser.parse(scanner, this.taskList, this.storage, input);
+                Parser.parse(this.taskList, this.storage, input);
             }
         }
     }
-
+/*
     /**
      * Main method.
      * Initializes the RizBot with a filepath.
