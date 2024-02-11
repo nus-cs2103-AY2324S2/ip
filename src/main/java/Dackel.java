@@ -30,9 +30,10 @@ public class Dackel {
     /** Scanner for receiving user input*/
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    /** Memory for storing task data */
+    /** Memory for storing task and instruction data */
     private static Task[] storedTasks = new Task[100];
     private static int numberOfTasks = 0;
+    private static HashMap<String, String> commandArgs = new HashMap<>();
 
     /**
      * Simulates Dackel speaking to the user ala a chatroom interface
@@ -42,17 +43,6 @@ public class Dackel {
     private static void speak(String message) {
         // TODO: make this take in String[] args
         System.out.println(NAME + ": " + message);
-    }
-
-    /**
-     * Prompts user for input and returns it
-     * 
-     * @return User-inputted string
-     */
-    private static String receiveInput() {
-        System.out.print("> ");
-        String input = SCANNER.nextLine();
-        return input;
     }
 
     // TODO: perhaps collapse the three add task methods into a single method
@@ -135,6 +125,17 @@ public class Dackel {
     }
 
     /**
+     * Prompts user for input and returns it
+     * 
+     * @return User-inputted string
+     */
+    private static String receiveInput() {
+        System.out.print("> ");
+        String input = SCANNER.nextLine();
+        return input;
+    }
+
+    /**
      * Parses the arguments of the user input and separates them into elements of a String array
      * 
      * @param input user input as a single String
@@ -164,6 +165,43 @@ public class Dackel {
         return parsedInput;
     }
 
+    /**
+     * Executes a command based on the input String
+     * 
+     * @param input user input String
+     * @return boolean representing if Dackel is to terminate after executeInput returns
+     */
+    private static boolean executeInput(String input) {
+        commandArgs = parseInput(input);
+        switch (commandArgs.get(COMMAND)) {
+        case QUIT:
+            return false;
+        case LIST:
+            listTasks();
+            break;
+        case MARK:
+            int index = Integer.valueOf(commandArgs.get(BODY)) - 1;
+            markTask(index);
+            break;
+        case UNMARK:
+            int index = Integer.valueOf(commandArgs.get(BODY)) - 1;
+            unmarkTask(index);
+            break;
+        case TODO:
+            addTodo(commandArgs.get(BODY));
+            break;
+        case DEADLINE:
+            addDeadline(commandArgs.get(BODY), commandArgs.get(BY));
+            break;
+        case EVENT:
+            addEvent(commandArgs.get(BODY), commandArgs.get(FROM), commandArgs.get(UNTIL));
+            break;
+        default:
+            break;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         // title cards, etc.
         System.out.println(LINE);
@@ -181,46 +219,7 @@ public class Dackel {
         boolean isNotQuit = true;
         while (isNotQuit) {
             String input = receiveInput();
-            HashMap<String, String> parsedInput = parseInput(input);
-            switch (parsedInput.get(COMMAND)) {
-            case QUIT:
-                isNotQuit = false;
-                break;
-            case LIST:
-                listTasks();
-                break;
-            case MARK:
-                // TODO: clean up error handling, maybe via an abstraction over try and catch?
-                try {
-                    int index = Integer.valueOf(parsedInput.get(BODY)) - 1;
-                    markTask(index);
-                }
-                catch (Exception e) {
-                    speak("the arugment for " + MARK + " must be a number!");
-                }
-                break;
-            case UNMARK:
-                // TODO: clean up error handling, maybe via an abstraction over try and catch?
-                try {
-                    int index = Integer.valueOf(parsedInput.get(BODY)) - 1;
-                    unmarkTask(index);
-                }
-                catch (Exception e) {
-                    speak("the arugment for " + UNMARK + " must be a number!");
-                }
-                break;
-            case TODO:
-                addTodo(parsedInput.get(BODY));
-                break;
-            case DEADLINE:
-                addDeadline(parsedInput.get(BODY), parsedInput.get(BY));
-                break;
-            case EVENT:
-                addEvent(parsedInput.get(BODY), parsedInput.get(FROM), parsedInput.get(UNTIL));
-                break;
-            default:
-                addTodo(input);
-            }
+            isNotQuit = executeInput(input);
         }
 
         // goodbye message
