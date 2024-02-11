@@ -84,27 +84,6 @@ public class Storage {
             Scanner sc = new Scanner(file);
             ArrayList<Task> savedTaskList = new ArrayList<>();
             while (sc.hasNext()) {
-                String[] task = sc.nextLine().split(" \\| ");
-                assert task.length > 0 : "Saved task strings should not be empty.";
-                boolean isDone = task[1].equals("1");
-                switch (task[0]) {
-                case "T":
-                    savedTaskList.add(new Todo(task[2], isDone));
-                    break;
-                case "D":
-                    savedTaskList.add(new Deadline(task[2], LocalDateTime.parse(task[3],
-                            DateTimeFormatter.ofPattern("MMM d yyyy hmma")), isDone));
-                    break;
-                case "E":
-                    String[] dateTimes = task[3].split(" - ");
-                    savedTaskList.add(new Event(task[2], LocalDateTime.parse(dateTimes[0], DateTimeFormatter
-                            .ofPattern("MMM d yyyy hmma")), LocalDateTime.parse(dateTimes[1], DateTimeFormatter
-                            .ofPattern("MMM d yyyy hmma")), isDone));
-                    break;
-                default:
-                    assert false : task[0];
-                    break;
-                }
                 addTask(savedTaskList, sc.nextLine());
             }
             sc.close();
@@ -118,6 +97,7 @@ public class Storage {
      */
     private void addTask(ArrayList<Task> taskList, String line) throws JadeException {
         String[] task = line.split(" \\| ");
+        assert task.length > 0 : "Saved task strings should not be empty.";
         // local tasks indicate done status in binary
         boolean isDone = task[1].equals("1");
         switch (task[0]) {
