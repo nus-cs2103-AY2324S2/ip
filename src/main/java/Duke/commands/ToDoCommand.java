@@ -1,14 +1,23 @@
 package duke.commands;
 
-import duke.util.TaskList;
-import duke.util.UI;
-import duke.util.Storage;
 import duke.exceptions.DukeException;
 import duke.exceptions.EmptyDescriptionException;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.UI;
+
+/**
+ * Class to execute ToDoCommand
+ */
 public class ToDoCommand extends Command {
     private String[] words;
+
+    /**
+     * Constructor for toDo command
+     * @param words
+     */
     public ToDoCommand(String[] words) {
         super();
         this.words = words;

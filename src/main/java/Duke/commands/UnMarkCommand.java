@@ -1,27 +1,37 @@
 package duke.commands;
 
-import duke.util.TaskList;
-import duke.util.UI;
-import duke.util.Storage;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.UI;
+
+/**
+ * Class to execute UnMarkCommand
+ */
 public class UnMarkCommand extends Command {
     private String[] words;
+
+    /**
+     * Constructor for UnMarkCommand
+     * @param words words from userInput containing information to execute
+     */
+    public UnMarkCommand(String[] words) {
+        super();
+        this.words = words;
+    }
     private static boolean isNumeric(String s) {
         if (s == null) {
             return false;
         }
         try {
             Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         return true;
     }
-    public UnMarkCommand(String[] words) {
-        super();
-        this.words = words;
-    }
+
     /**
      * Executes the find command, searching for tasks containing the specified keyword.
      *

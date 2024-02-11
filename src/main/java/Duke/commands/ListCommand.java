@@ -1,8 +1,12 @@
 package duke.commands;
 
+import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
-import duke.util.Storage;
+
+/**
+ * Class to execute ListCommand
+ */
 public class ListCommand extends Command {
     public ListCommand() {
         super();
@@ -17,7 +21,7 @@ public class ListCommand extends Command {
      * @return False indicating that the program should continue running.
      */
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage s) {
+    public boolean execute(TaskList tasks, UI ui, Storage storage) {
         ui.displayList(tasks.getItems());
         return false;
     }

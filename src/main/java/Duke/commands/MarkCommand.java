@@ -1,26 +1,35 @@
 package duke.commands;
 
-import duke.util.TaskList;
-import duke.util.UI;
-import duke.util.Storage;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.UI;
+
+/**
+ * Class to execute MarkCommand
+ */
 public class MarkCommand extends Command {
     private String[] words;
+
+    /**
+     * Constructor for MarkCommand
+     * @param words words of user input containing the information to execute command
+     */
+    public MarkCommand(String[] words) {
+        super();
+        this.words = words;
+    }
     private static boolean isNumeric(String s) {
         if (s == null) {
             return false;
         }
         try {
             Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         return true;
-    }
-    public MarkCommand(String[] words) {
-        super();
-        this.words = words;
     }
     /**
      * Executes the find command, searching for tasks containing the specified keyword.

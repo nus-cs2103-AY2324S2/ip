@@ -4,6 +4,9 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
 
+/**
+ * Class to execute FindCommand
+ */
 public class FindCommand extends Command {
     private String[] words;
     /**
@@ -11,9 +14,9 @@ public class FindCommand extends Command {
      *
      * @param words The array of strings containing the command and its arguments.
      */
-    public FindCommand(String[] s) {
+    public FindCommand(String[] words) {
         super();
-        this.words = s;
+        this.words = words;
     }
     /**
      * Executes the find command, searching for tasks containing the specified keyword.
@@ -24,7 +27,7 @@ public class FindCommand extends Command {
      * @return False indicating that the program should continue running.
      */
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage s) {
+    public boolean execute(TaskList tasks, UI ui, Storage storage) {
         ui.displayFoundTask(tasks.findTasksWithString(words[1].trim()));
         return false;
     }

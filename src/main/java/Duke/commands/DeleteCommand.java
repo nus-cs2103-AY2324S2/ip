@@ -1,18 +1,26 @@
 package duke.commands;
 
-import duke.util.TaskList;
-import duke.util.UI;
-import duke.util.Storage;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidTaskIndexException;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.UI;
 
 /**
- * Constructs a DeleteCommand with the given array of words.
- *
- * @param words An array of words representing the command and its arguments.
+ * Class to execute Delete Command
  */
 public class DeleteCommand extends Command {
     private String[] words;
+
+    /**
+     * Constructor for DeleteCommand class
+     * @param words words in UserInput to execute the command
+     */
+    public DeleteCommand(String[] words) {
+        super();
+        this.words = words;
+    }
     /**
      * Checks if a string is numeric.
      *
@@ -25,14 +33,10 @@ public class DeleteCommand extends Command {
         }
         try {
             Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         return true;
-    }
-    public DeleteCommand(String[] words) {
-        super();
-        this.words = words;
     }
     /**
      * Executes the delete command.
