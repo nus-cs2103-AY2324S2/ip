@@ -9,6 +9,8 @@ import jade.storage.Storage;
  * search for tasks that contain the keyword.
  */
 public class FindCommand extends Command {
+    private static final String RESULT_MSG_FORMATTED = "Here are the matching tasks in your list:%s";
+    private static final String EMPTY_RESULT_MSG = "There are no matching results!";
     private final String keyword; // the keyword of the description to be searched
 
     /**
@@ -32,9 +34,9 @@ public class FindCommand extends Command {
             }
         }
         if (count == 0) {
-            return "There are no matching results!";
+            return EMPTY_RESULT_MSG;
         } else {
-            return String.format("Here are the matching tasks in your list:%s", sb);
+            return String.format(RESULT_MSG_FORMATTED, sb);
         }
     }
 

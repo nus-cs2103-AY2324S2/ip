@@ -4,12 +4,13 @@ import jade.data.Task;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
-import jade.ui.Ui;
 
 /**
  * The <code>AddCommand</code> object represents the command to add a task.
  */
 public class AddCommand extends Command {
+    private static final String RESULT_MSG_FORMATTED = "Got it. I've added this task:\n\t %s\n"
+            + "Now you have %d task(s) in the list.";
     private final Task task; // the task to be added.
 
     /**
@@ -23,15 +24,10 @@ public class AddCommand extends Command {
      * @inheritDoc This implementation prints an add message after the task is added.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws JadeException {
         taskList.add(task);
-        String result = String.format("Got it. I've added this task:\n\t %s\n"
-                + "Now you have %d task(s) in the list.", task, taskList.size());
-        try {
-            storage.saveChange(taskList);
-        } catch (JadeException e) {
-            return e.getMessage();
-        }
+        String result = String.format(RESULT_MSG_FORMATTED, task, taskList.size());
+        storage.saveChange(taskList);
         return result;
     }
 
