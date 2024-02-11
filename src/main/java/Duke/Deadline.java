@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * It extends the Task class with a specific due date and a specific string representation.
  */
 public class Deadline extends Task {
-    private LocalDate date;
+    protected LocalDate date;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
     private static final DateTimeFormatter NEW_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -65,5 +65,20 @@ public class Deadline extends Task {
         String date = detailParts[1].substring(0, detailParts[1].length() - 1).trim();
         String dateFormatted = LocalDate.parse(date, FORMATTER).format(NEW_DATE_FORMAT);
         return new Deadline(name, dateFormatted);
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        if (otherTask instanceof ToDo) {
+            return -1;
+        } else if (otherTask instanceof Deadline) {
+            return this.date.compareTo(((Deadline) otherTask).date);
+        } else if (otherTask instanceof Event) {
+            return this.date.compareTo(((Event) otherTask).to);
+        } else {
+            assert false: "None of the types of tasks found in compareTo!";
+            System.out.println("None of the types of tasks found in compareTo!");
+            return 0;
+        }
     }
 }

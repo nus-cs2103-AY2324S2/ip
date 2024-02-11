@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     private LocalDate from;
-    private LocalDate to;
+    protected LocalDate to;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
     private static final DateTimeFormatter NEW_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -72,5 +72,20 @@ public class Event extends Task {
         String fromDateFormatted = LocalDate.parse(fromDate, FORMATTER).format(NEW_DATE_FORMAT);
         String toDateFormatted = LocalDate.parse(toDate, FORMATTER).format(NEW_DATE_FORMAT);
         return new Event(name, fromDateFormatted, toDateFormatted);
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        if (otherTask instanceof ToDo) {
+            return -1;
+        } else if (otherTask instanceof Deadline) {
+            return this.to.compareTo(((Deadline) otherTask).date);
+        } else if (otherTask instanceof Event) {
+            return this.to.compareTo(((Event) otherTask).to);
+        } else {
+            assert false: "None of the types of tasks found in compareTo!";
+            System.out.println("None of the types of tasks found in compareTo!");
+            return 0;
+        }
     }
 }
