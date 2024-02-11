@@ -3,7 +3,6 @@ package duke.commands;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-
 public class ListCommand extends Command{
     public ListCommand() {
 

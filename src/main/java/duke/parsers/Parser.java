@@ -1,6 +1,17 @@
 package duke.parsers;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.CreateDeadlineCommand;
+import duke.commands.CreateEventCommand;
+import duke.commands.CreateTodoCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkTaskCommand;
+import duke.commands.SaveCommand;
+import duke.commands.UnmarkTaskCommand;
 import duke.exceptions.DukeException;
 
 import java.time.LocalDateTime;
@@ -81,8 +92,6 @@ public class Parser {
             return new Command();
         case "save":
             return new SaveCommand();
-        case "find":
-            return new FindCommand(commandArguments);
         default:
             System.err.println("OOPS! This command doesn't exist. Retry!");
             return new HelpCommand();
@@ -126,6 +135,7 @@ public class Parser {
         }
         String description = instruction[0];
         String deadlineStr = instruction[1];
+
         // convert deadline from string to DateTime
         // Accepted date time format is yyyy-MM-dd HHmm
         LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
@@ -139,7 +149,6 @@ public class Parser {
         if (!arguments.contains("from") || !arguments.contains("to")) {
             throw new DukeException("OOPS! 'from' and/or 'to' keywords are missing. You are required to "
                     + "state the starting and ending time using these two keywords.");
-
         }
         String[] instruction = arguments.split(" from ", 2);
         if (instruction.length < 2) {
@@ -159,6 +168,7 @@ public class Parser {
         }
         String startTimeStr = subInstruction[0];
         String endTimeStr = subInstruction[1];
+
         // convert start and end time from string to DateTime
         // Accepted date time format is yyyy-MM-dd HHmm
         LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);

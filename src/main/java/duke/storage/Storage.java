@@ -43,16 +43,18 @@ public class Storage {
                                 try {
                                     tasks.add(convertToDeadline(line));
                                 } catch (DateTimeParseException e) {
-                                    System.err.println("OPPS! The format for the inputted deadline is not accepted here. " +
-                                            "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+                                    System.err.println("OPPS! The format for the inputted deadline is not " +
+                                            "accepted here. Please follow this format: 'yyyy-MM-dd HHmm' " +
+                                            "when you are creating the task.");
                                 }
                                 break;
                             case "E":
                                 try {
                                     tasks.add(convertToEvent(line));
                                 } catch (DateTimeParseException e) {
-                                    System.err.println("OPPS! The format for the inputted start and end time is not accepted here. " +
-                                            "Please follow this format: 'yyyy-MM-dd HHmm' when you are creating the task.");
+                                    System.err.println("OPPS! The format for the inputted start and end time is " +
+                                            "not accepted here. Please follow this format: 'yyyy-MM-dd HHmm' " +
+                                            "when you are creating the task.");
                                 }
                                 break;
                             }

@@ -22,6 +22,4 @@ public class CreateTodoCommand extends Command{
         ui.showLine();
         return true;
     }
-
-
 }

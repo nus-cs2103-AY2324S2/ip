@@ -28,5 +28,4 @@ public class Deadline extends Task {
     public String convertToFileFormat(DateTimeFormatter storeFormatter) {
         return "D | " + super.convertToFileFormat(storeFormatter) + " | " + this.deadline.format(storeFormatter);
     }
-
 }

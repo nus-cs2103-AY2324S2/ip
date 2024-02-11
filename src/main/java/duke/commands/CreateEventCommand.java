@@ -30,6 +30,4 @@ public class CreateEventCommand extends Command{
         ui.showLine();
         return true;
     }
-
-
 }

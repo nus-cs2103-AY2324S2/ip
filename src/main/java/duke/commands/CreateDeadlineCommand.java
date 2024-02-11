@@ -13,8 +13,6 @@ public class CreateDeadlineCommand extends Command{
     private String description;
     private LocalDateTime deadline;
 
-
-
     public CreateDeadlineCommand(String description, LocalDateTime deadline) {
         this.description = description;
         this.deadline = deadline;
@@ -30,6 +28,4 @@ public class CreateDeadlineCommand extends Command{
         ui.showLine();
         return true;
     }
-
-
 }
