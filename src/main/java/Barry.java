@@ -116,7 +116,7 @@ public class Barry {
     // List all available commands
     private static void help() {
         System.out.println("\t____________________________________________________________");
-        System.out.println("\t Here's a list of available commands:\n");
+        System.out.println("\t Here's a list of available commands:");
         System.out.println("\t   help                                           List all available commands");
         System.out.println("\t   bye                                            Quit");
         System.out.println("\t   list                                           List all tasks in your list");
