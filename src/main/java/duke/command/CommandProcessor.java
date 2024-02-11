@@ -24,6 +24,7 @@ public class CommandProcessor {
 
     /**
      * Processes the given command and input, executing the corresponding action.
+     * An assertion will check if the command to execute falls through the switch case.
      *
      * @param command The command to execute.
      * @param input   The user input associated with the command.
@@ -67,6 +68,7 @@ public class CommandProcessor {
             break;
 
         default:
+            assert false : command;
             break;
         }
         storage.update();
