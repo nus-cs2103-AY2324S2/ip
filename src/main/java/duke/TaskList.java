@@ -4,6 +4,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -34,7 +35,9 @@ public class TaskList {
     }
 
     public ArrayList<Task> getAllTasks() {
-        return tasks;
+        ArrayList<Task> sortedTasks = new ArrayList<>(this.tasks);
+        Collections.sort(sortedTasks, new TaskComparator());
+        return sortedTasks;
     }
 
     public Task get(int index) {
@@ -64,14 +67,17 @@ public class TaskList {
                 }
             }
         }
+        Collections.sort(filteredTasks, new TaskComparator());
         return filteredTasks;
     }
     public ArrayList<Task> findTasks(String... keywords) {
 
-        return tasks.stream()
+        ArrayList<Task> filteredTasks = tasks.stream()
                 .filter(task -> Arrays.stream(keywords)
                         .anyMatch(keyword -> task.getDescription().contains(keyword)))
                 .collect(Collectors.toCollection(ArrayList::new));
+        Collections.sort(filteredTasks, new TaskComparator());
+        return filteredTasks;
     }
 
 }
