@@ -224,11 +224,131 @@ public class Parser {
             return new FindCommand(keyWord);
         } else if (command.equals("bye")) {
             return new ExitCommand();
+        } else if (command.startsWith("tag")) {
+            int size = tasks.taskNum();
+
+            if (size == 0) {
+                throw new TobiasException("Your list is empty at the moment, add some todos/events/deadlines to TAG them!");
+            }
+
+            if (command.equals("tag")) {
+                throw new TobiasException("No index provided! Please give a valid index from 1 to " + size +" !!");
+            }
+
+            if (command.length() == 5) {
+                throw new TobiasException("No tag provided! Please give a valid tag !!");
+            }
+
+            String blank = command.substring(3,4);
+
+            if (!blank.isBlank()) {
+                throw new TobiasException("Kindly type your task a space after tag!");
+            }
+
+            String blankAgain = command.substring(5,6);
+
+            if (!blankAgain.isBlank()) {
+                throw new TobiasException("Kindly type your task a space after the task index!");
+            }
+
+            int index = Integer.parseInt(command.substring(4, 5)) - 1;
+            String taskTag = command.substring(6);
+
+
+            if (index < 0 || index >= size) {
+                throw new TobiasException("Invalid number provided! Please give a valid index from 1 to " + size +" !!");
+            }
+
+            return new TagCommand(index, taskTag);
+
+        } else if (command.startsWith("untag")) {
+            int size = tasks.taskNum();
+
+            if (size == 0) {
+                throw new TobiasException("Your list is empty at the moment, add some todos/events/deadlines to UNTAG them!");
+            }
+
+            if (command.equals("untag")) {
+                throw new TobiasException("No index provided! Please give a valid index from 1 to " + size +" !!");
+            }
+
+            if (command.length() == 7) {
+                throw new TobiasException("Kindly type the tag index you want to untag!");
+            }
+
+            String blank = command.substring(5,6);
+
+            if (!blank.isBlank()) {
+                throw new TobiasException("Kindly type your task a space after untag!");
+            }
+
+            int index = Integer.parseInt(command.substring(6,7)) - 1;
+
+            blank = command.substring(7,8);
+
+            if (!blank.isBlank()) {
+                throw new TobiasException("Kindly type your task a space after task index!");
+            }
+
+            int tagIndex = Integer.parseInt(command.substring(8)) - 1;
+
+            if (index >= 0 && index < size) {
+                return new UntagCommand(index, tagIndex);
+            } else {
+                throw new TobiasException("Invalid number provided! Please give a valid index from 1 to " + size +" !!");
+            }
         } else {
-            throw new TobiasException(
-                    "You can ask me  stuff like : 'bye', 'list', 'mark', 'unmark','delete'"
-                            + System.lineSeparator()
-                            + "You can ask me to create these  : 'todo', 'deadline', 'event'");
+
+            String info = "You can ask me to do the following quests for you m8 :"
+                    + System.lineSeparator()
+                    + "list: I will print the list of tasks you have at the moment sire..."
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "todo: I will create a todo :"
+                    + System.lineSeparator()
+                    + "todo conquer the world"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "deadline: I will create a deadline with well... a deadline :"
+                    + System.lineSeparator()
+                    + "deadline Issue a worldwide threat /by 15-02-2024 1600"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "event: I will create an event with from and to :"
+                    + System.lineSeparator()
+                    + "event World Domination /from 11-02-2024 1000 /to 22-02-2030 2359"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "mark: Suppose you finish a task, I can mark it if you give me the task index :"
+                    + System.lineSeparator()
+                    + "mark 1"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "unmark: Suppose you un-finished a task, I can unmark it if you give me the task index :"
+                    + System.lineSeparator()
+                    + "unmark 1"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "delete: If you want to ELIMINATE a task, give me the task index and watch it burn :"
+                    + System.lineSeparator()
+                    + "delete 1"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "find: Give me the task index and I will find it :"
+                    + System.lineSeparator()
+                    + "find ham"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "tag: You can add some unique tags to some tasks (you can use this command repeatedly for a task) :"
+                    + System.lineSeparator()
+                    + "tag 1 urgent"
+                    + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "untag: You can remove a tag of a task by providing the taskIndex followed by tagIndex :"
+                    + System.lineSeparator()
+                    + "untag 1 2";
+
+            throw new TobiasException(info);
         }
     }
 }

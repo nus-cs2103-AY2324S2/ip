@@ -24,7 +24,13 @@ public class ToDo extends Task {
      * */
     @Override
     public String taskPrinter() {
-        String result = "    " + "[T][ ]" + " " + description;
+        String result = "    " + "[T][ ]" + " " + description
+                + System.lineSeparator()
+                + "        " + this.printTags();
+
+        if (this.tags.isEmpty()) {
+            result = "    " + "[T][ ]" + " " + description;
+        }
         return result;
     }
 
@@ -33,7 +39,13 @@ public class ToDo extends Task {
      * */
     @Override
     public String taskPrinter(int index) {
-        String result = "    " + (index+1) + ".[T]" + getStatusIcon() + " " + description;
+        String result = "    " + (index+1) + ".[T]" + getStatusIcon() + " " + description
+                + System.lineSeparator()
+                + "        " + this.printTags();
+
+        if (this.tags.isEmpty()) {
+            result = "    " + (index+1) + ".[T]" + getStatusIcon() + " " + description;
+        }
         return result;
     }
 
@@ -42,6 +54,17 @@ public class ToDo extends Task {
      * */
     @Override
     public String storagePrinter() {
-        return "T" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description;
+
+        if (this.tags.isEmpty()) {
+            return "T" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description;
+        }
+
+        String tagString = "|tag";
+
+        for (String t : this.tags) {
+            tagString += "_" + t;
+        }
+
+        return "T" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + tagString ;
     }
 }

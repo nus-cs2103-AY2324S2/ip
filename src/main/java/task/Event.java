@@ -39,7 +39,22 @@ public class Event extends Task {
     @Override
     public String taskPrinter() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
-        String result = "    " + "[E][ ]" + " " + description + "(from: " + from.format(output) + " to: " + to.format(output) +")";
+
+        String result = "    " + ".[E]" + getStatusIcon() + " " + description
+                + System.lineSeparator()
+                + "        " + "FROM: " + from.format(output)
+                + System.lineSeparator()
+                + "        " + "TO: " + to.format(output)
+                + System.lineSeparator()
+                + "        " + this.printTags();
+
+        if (this.tags.isEmpty()) {
+            result = "    " + ".[E]" + getStatusIcon() + " " + description
+                    + System.lineSeparator()
+                    + "        " + "FROM: " + from.format(output)
+                    + System.lineSeparator()
+                    + "        " + "TO: " + to.format(output);
+        }
         return result;
     }
 
@@ -49,7 +64,22 @@ public class Event extends Task {
     @Override
     public String taskPrinter(int index) {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
-        String result = "    " + (index+1) + ".[E]" + getStatusIcon() + " " + description  + "(from: " + from.format(output) + " to: " + to.format(output) +")";
+
+        String result = "    " + (index+1) + ".[E]" + getStatusIcon() + " " + description
+                + System.lineSeparator()
+                + "        " + "FROM: " + from.format(output)
+                + System.lineSeparator()
+                + "        " + "TO: " + to.format(output)
+                + System.lineSeparator()
+                + "        " + this.printTags();
+
+        if (this.tags.isEmpty()) {
+            result = "    " + (index+1) + ".[E]" + getStatusIcon() + " " + description
+                    + System.lineSeparator()
+                    + "        " + "FROM: " + from.format(output)
+                    + System.lineSeparator()
+                    + "        " + "TO: " + to.format(output);
+        }
         return result;
     }
 
@@ -59,7 +89,16 @@ public class Event extends Task {
     @Override
     public String storagePrinter() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        return "E" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|from" + from.format(output) + "|to" + to.format(output);
+        String tagString = "|tag";
+
+        if (this.tags.isEmpty()) {
+            return "E" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|from" + from.format(output) + "|to" + to.format(output);
+        }
+
+        for (String t : this.tags) {
+            tagString += "_" + t;
+        }
+        return "E" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|from" + from.format(output) + "|to" + to.format(output) + tagString;
     }
 
     /**

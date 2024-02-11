@@ -144,4 +144,8 @@ public class TaskList {
 
         return result.toString();
     }
+
+    public void replaceTask(int index, Task task) {
+        tasks.set(index, task);
+    }
 }
