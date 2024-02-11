@@ -26,8 +26,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
-    private Button sendButton;
-
     private Campus campus;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
@@ -51,7 +49,7 @@ public class MainWindow extends AnchorPane {
 
         String input = userInput.getText();
 
-        String response = campus.respond(input);
+        String response = campus.parseMessage(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -64,13 +62,8 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    public void greet() {
-        String msg = campus.greet();
-        dialogContainer.getChildren().add(DialogBox.getCampusDialog(msg, campusImage));
-    }
-
-    public void exit() {
-        String msg = campus.exit();
+    public void printGreetMessage() {
+        String msg = campus.printGreeting();
         dialogContainer.getChildren().add(DialogBox.getCampusDialog(msg, campusImage));
     }
 

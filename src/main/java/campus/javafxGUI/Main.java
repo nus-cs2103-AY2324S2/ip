@@ -19,7 +19,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setCampus(campus);
-            fxmlLoader.<MainWindow>getController().greet();
+            fxmlLoader.<MainWindow>getController().printGreetMessage();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
