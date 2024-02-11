@@ -1,7 +1,8 @@
 package tsundere.task;
 
-import tsundere.exception.GeneralException;
 import java.util.ArrayList;
+
+import tsundere.exception.GeneralException;
 
 /**
  * Encapsulates a Task object.

@@ -5,7 +5,7 @@ package tsundere.task;
  */
 public class ToDo extends Task {
 
-    protected static final String TYPE = "T";
+    private static final String TYPE = "T";
 
     /**
      * Initializes ToDo task with its name.

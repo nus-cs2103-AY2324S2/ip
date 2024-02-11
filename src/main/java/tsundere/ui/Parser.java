@@ -8,11 +8,14 @@ import tsundere.task.TaskList;
  */
 public class Parser {
 
-    public static String name;
+    private static String name;
     public Parser(String name) {
         Parser.name = name;
     }
 
+    public static String getName() {
+        return Parser.name;
+    }
     /**
      * Parses command given and executes corresponding action.
      *

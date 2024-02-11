@@ -1,15 +1,17 @@
 package tsundere.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Encapsulates a Deadline object.
  */
 public class Deadline extends Task {
+
+    private static final String TYPE = "D";
     protected String by;
     protected LocalDate date;
-    protected static final String TYPE = "D";
+
 
     /**
      * Initializes Deadline task with its name.

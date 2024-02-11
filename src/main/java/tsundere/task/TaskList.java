@@ -1,22 +1,22 @@
 package tsundere.task;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
-
 import java.util.ArrayList;
 
-import tsundere.ui.Parser;
 import tsundere.exception.GeneralException;
+import tsundere.ui.Parser;
 
 /**
  * Encapsulates a TaskList object that contains all Task objects.
  */
 public class TaskList {
-    public static ArrayList<Task> taskList = new ArrayList<>();
+    protected static ArrayList<Task> taskList = new ArrayList<>();
+    protected static String name = Parser.getName();
 
-    private static final String INVALID_TASK_NUMBER_INPUTTED_MSG = "Im pretty sure that's the wrong task number! " +
-            "Check again!";
+    private static final String INVALID_TASK_NUMBER_INPUTTED_MSG = "Im pretty sure that's the wrong task number! "
+            + "Check again!";
 
     /**
      * Sets selected Task's status to undone.
@@ -30,17 +30,17 @@ public class TaskList {
             throw new GeneralException("What you tryna unmark huh?");
         }
         try {
-            Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(7, 8)) - 1);
+            Task t = TaskList.taskList.get(Integer.parseInt(TaskList.name.substring(7, 8)) - 1);
             if (t.getStatusIcon().equals(" ")) {
-                return("You haven't even started this task dummy!");
+                return "You haven't even started this task dummy!";
             } else {
                 t.unMarkTask();
-                return(t.toString());
+                return t.toString();
             }
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "unmark [task no.]");
-        } catch (IndexOutOfBoundsException e ) {
+        } catch (IndexOutOfBoundsException e) {
             throw new GeneralException(INVALID_TASK_NUMBER_INPUTTED_MSG);
         }
 
@@ -58,12 +58,12 @@ public class TaskList {
             throw new GeneralException("What you tryna mark huh?");
         }
         try {
-            Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(5, 6)) - 1);
+            Task t = TaskList.taskList.get(Integer.parseInt(TaskList.name.substring(5, 6)) - 1);
             if (t.isDone) {
-                return("You already finished this!");
+                return "You already finished this!";
             } else {
                 t.markTaskAsDone();
-                return(t.toString());
+                return t.toString();
             }
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
@@ -87,7 +87,7 @@ public class TaskList {
         }
 
         try {
-            int idx = Integer.parseInt(Parser.name.substring(7, 8)) - 1;
+            int idx = Integer.parseInt(TaskList.name.substring(7, 8)) - 1;
             Task t = TaskList.taskList.get(idx);
             TaskList.taskList.remove(idx);
             return getListSize("deleted", t);
@@ -129,7 +129,7 @@ public class TaskList {
     public static String addToDoTask() throws GeneralException {
 
         try {
-            String todo = Parser.name.split(" ", 2)[1];
+            String todo = TaskList.name.split(" ", 2)[1];
 
             Task t = new ToDo(todo);
             TaskList.taskList.add(t);
@@ -150,7 +150,7 @@ public class TaskList {
     public static String addEventTask() throws GeneralException {
 
         try {
-            String event = Parser.name.split(" ", 2)[1];
+            String event = TaskList.name.split(" ", 2)[1];
             String[] x = event.split(",");
 
             Task t = new Event(x[0], x[1].trim().split(" ", 2)[1], x[2].trim().split(" ", 2)[1]);
@@ -172,7 +172,7 @@ public class TaskList {
     public static String addDeadlineTask() throws GeneralException {
 
         try {
-            String deadline = Parser.name.split(" ", 2)[1];
+            String deadline = TaskList.name.split(" ", 2)[1];
             String[] x = deadline.split(",");
             LocalDate d1 = LocalDate.parse(x[1].trim().split(" ", 2)[1]);
             String date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
@@ -203,7 +203,7 @@ public class TaskList {
         StringBuilder response = new StringBuilder();
         try {
             int count = 0;
-            String keyword = Parser.name.split(" ", 2)[1];
+            String keyword = TaskList.name.split(" ", 2)[1];
             for (int i = 0; i < size; i++) {
                 Task t = TaskList.taskList.get(i);
                 if (t.description.contains(keyword)) {
@@ -212,7 +212,7 @@ public class TaskList {
                 }
             }
             if (count == 0) {
-                return("I couldn't find anything related to that!");
+                return "I couldn't find anything related to that!";
             } else {
                 return response.toString();
             }
@@ -233,7 +233,7 @@ public class TaskList {
             throw new GeneralException("Theres's nothing to find here!");
         }
         try {
-            String[] x = Parser.name.split(" ");
+            String[] x = TaskList.name.split(" ");
             int idx = Integer.parseInt(x[1]) - 1;
             String tag = x[2];
             Task t = TaskList.taskList.get(idx);
@@ -258,7 +258,7 @@ public class TaskList {
             throw new GeneralException("Theres's nothing to find here!");
         }
         try {
-            String[] x = Parser.name.split(" ");
+            String[] x = TaskList.name.split(" ");
             int idx = Integer.parseInt(x[1]) - 1;
             String tag = x[2];
             Task t = TaskList.taskList.get(idx);
@@ -280,13 +280,13 @@ public class TaskList {
     public static String getListSize(String str, Task t) {
         String response = "";
         int size = TaskList.taskList.size();
-        response += ("Noted...");
-        response += (" " + t.toString() + " has been " + str + "\n");
+        response += "Noted...";
+        response += " " + t.toString() + " has been " + str + "\n";
 
         if (size > 0) {
-            response += ("Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!");
+            response += "Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!";
         } else {
-            response += ("You finally have free time?");
+            response += "You finally have free time?";
         }
         return response;
 

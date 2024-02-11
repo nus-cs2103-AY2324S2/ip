@@ -1,5 +1,9 @@
 package tsundere.gui;
 
+import java.io.IOException;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,12 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import tsundere.Tsundere;
 import tsundere.ui.Ui;
-
-import java.io.IOException;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
-
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,10 +28,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private final Image USER_IMAGE = new Image(Objects.requireNonNull(this.getClass().
-            getResourceAsStream("/images/ok.png")));
-    private final Image TSUN_IMAGE = new Image(Objects.requireNonNull(this.getClass().
-            getResourceAsStream("/images/chitoge.png")));
+    private Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/ok.png")));
+    private Image tsunImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/chitoge.png")));
 
     /**
      * Creates GUI with an initial dialog box with the greeting statement.
@@ -43,7 +41,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getTsundereDialog("Don't get the wrong idea!\n"
-                        + "I'm not doing this to help you or anything!\n", TSUN_IMAGE)
+                        + "I'm not doing this to help you or anything!\n", tsunImage)
         );
     }
 
@@ -57,7 +55,7 @@ public class MainWindow extends AnchorPane {
      * @throws IOException if savefile cannot be created.
      */
     private void exit() throws InterruptedException, IOException {
-        Tsundere.storage.saveTasksToFile();
+        Tsundere.getStorage().saveTasksToFile();
         TimeUnit.SECONDS.sleep(1);
         Platform.exit();
         System.exit(0);
@@ -74,9 +72,9 @@ public class MainWindow extends AnchorPane {
 
         if (input.equalsIgnoreCase("bye")) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, USER_IMAGE),
+                    DialogBox.getUserDialog(input, userImage),
                     DialogBox.getTsundereDialog("Don't forget about me!\n"
-                            + "You better come back soon!\n", TSUN_IMAGE)
+                            + "You better come back soon!\n", tsunImage)
             );
             try {
                 this.exit();
@@ -89,8 +87,8 @@ public class MainWindow extends AnchorPane {
             Ui ui = new Ui();
             String response = ui.chat(input);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, USER_IMAGE),
-                    DialogBox.getTsundereDialog(response, TSUN_IMAGE)
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getTsundereDialog(response, tsunImage)
             );
             userInput.clear();
         }

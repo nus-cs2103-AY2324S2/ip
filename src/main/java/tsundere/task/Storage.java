@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,9 +16,6 @@ import tsundere.exception.GeneralException;
 public class Storage {
 
     private static final String FILEPATH = "./data/data.txt";
-    private final String SAVED_SUCCESS_MSG = "Your session has been saved.";
-    private final String LOADED_SUCCESS_MSG = "Your previous session has been restored. Enjoy your chat.";
-    private final String LOADED_FAILURE_MSG = "Something went wrong with loading your previous session data!";
 
     /**
      * Initializes Storage.
@@ -30,7 +26,7 @@ public class Storage {
             new File("./data").mkdirs();
             TaskList.taskList = loadTasksFromFile();
         } catch (IOException | GeneralException e) {
-            System.out.println(LOADED_FAILURE_MSG);
+            System.out.println("Something went wrong with loading your previous session data!");
         }
 
     }
@@ -48,7 +44,7 @@ public class Storage {
             for (Task task : TaskList.taskList) {
                 pw.println(task.toSaveString());
             }
-            System.out.println(SAVED_SUCCESS_MSG);
+            System.out.println("Your session has been saved.");
 
         } catch (FileNotFoundException e) {
 
@@ -56,7 +52,7 @@ public class Storage {
 
             if (file.createNewFile()) {
                 saveTasksToFile();
-                System.out.println(SAVED_SUCCESS_MSG);
+                System.out.println("Your session has been saved.");
             } else {
                 throw new IOException("Unable to create the file: " + FILEPATH);
             }
@@ -86,7 +82,7 @@ public class Storage {
                 Task task = parseTaskFromSaveString(line);
                 tasks.add(task);
             }
-            System.out.println(LOADED_SUCCESS_MSG);
+            System.out.println("Your previous session has been restored. Enjoy your chat.");
         }
         return tasks;
 

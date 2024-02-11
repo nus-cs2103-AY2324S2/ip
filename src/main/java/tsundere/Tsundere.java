@@ -1,7 +1,6 @@
 package tsundere;
 
 import javafx.application.Application;
-
 import tsundere.task.Storage;
 
 /**
@@ -9,13 +8,17 @@ import tsundere.task.Storage;
  */
 public class Tsundere {
 
-    public static Storage storage;
+    private static Storage storage;
 
     /**
      * Initializes Tsundere with Storage.
      */
     public Tsundere() {
         storage = new Storage();
+    }
+
+    public static Storage getStorage() {
+        return Tsundere.storage;
     }
 
     /**
