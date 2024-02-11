@@ -33,7 +33,6 @@ public class MainApp extends Application{
         stage.setScene(scene);
         stage.show();
 
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -74,6 +73,7 @@ public class MainApp extends Application{
 
         sendButton.setOnMouseClicked((event) -> handleUserInput());
         userInput.setOnAction((event) -> handleUserInput());
+
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
@@ -97,30 +97,29 @@ public class MainApp extends Application{
     private void handleUserInput() {
         String input = userInput.getText();
 
-        if (input.isEmpty()) {
-            return;
-        }
-
         if (input.trim().equalsIgnoreCase("bye")) {
-            Label goodbyeText = new Label("Goodbye! See you again!");
-            ImageView dukeImageView = new ImageView(min);
-            dukeImageView.setFitHeight(imageSize);
-            dukeImageView.setFitWidth(imageSize);
-            DialogBox goodbyeBox = new DialogBox(goodbyeText, dukeImageView);
-            dialogContainer.getChildren().add(goodbyeBox);
-
-            Platform.runLater(() -> {
-                try {
-                    Thread.sleep(closeWaitTime);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
-                Platform.exit();
-            });
+            sayGoodbye();
             return;
         }
         handleOtherInputs(input);
         userInput.clear();
+    }
+    private void sayGoodbye() {
+        Label goodbyeText = new Label("Goodbye! See you again!");
+        ImageView dukeImageView = new ImageView(min);
+        dukeImageView.setFitHeight(imageSize);
+        dukeImageView.setFitWidth(imageSize);
+        DialogBox goodbyeBox = new DialogBox(goodbyeText, dukeImageView);
+        dialogContainer.getChildren().add(goodbyeBox);
+
+        Platform.runLater(() -> {
+            try {
+                Thread.sleep(closeWaitTime);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+            Platform.exit();
+        });
     }
 
     /**
@@ -130,8 +129,8 @@ public class MainApp extends Application{
 
     private void handleOtherInputs(String input) {
         Label userText = new Label(input);
-        ImageView userImageView = new ImageView(user); // Assuming 'user' is the Image for the user
-        userImageView.setFitHeight(imageSize); // Adjust size as needed
+        ImageView userImageView = new ImageView(user);
+        userImageView.setFitHeight(imageSize);
         userImageView.setFitWidth(imageSize);
         DialogBox userInputBox = DialogBox.getUserDialog(userText, userImageView);
 

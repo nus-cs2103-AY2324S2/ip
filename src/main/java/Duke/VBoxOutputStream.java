@@ -12,6 +12,8 @@ public class VBoxOutputStream extends OutputStream {
     private final StringBuilder buffer = new StringBuilder();
     private final BlockingQueue<String> lines = new LinkedBlockingQueue<>();
 
+
+
     public VBoxOutputStream(VBox dialogContainer) {
         this.dialogContainer = dialogContainer;
         Thread thread = new Thread(this::updateDialogContainer);

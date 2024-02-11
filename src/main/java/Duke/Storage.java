@@ -53,7 +53,6 @@ public class Storage {
      * @param taskList The list of Task objects to be saved.
      */
     public void saveAllTasksToFile(ArrayList<Task> taskList) {
-        // overwrites all files for mark/unmark functions
         try {
             FileWriter fileWriter = new FileWriter("./data/duke.txt", false);
             for (Task task : taskList) {

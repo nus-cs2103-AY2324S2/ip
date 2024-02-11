@@ -37,17 +37,15 @@ public class TaskList {
         try {
             file.createNewFile();
             Scanner fileScanner = new Scanner(file);
-            // int lines = 0;
             while (fileScanner.hasNext()) {
                 String taskLine = fileScanner.nextLine();
                 Task task = parser.parseTask(taskLine); // Implement this method based on your task format
                 if (task != null) {
                     this.taskList.add(task);
                 }
-                // lines++;
                 this.currIndex++;
             }
-        } catch(IOException ignored){
+        } catch(IOException ignored){ // exception should not occur at all
 
         }
     }
@@ -71,19 +69,17 @@ public class TaskList {
                 response = listBuilder.toString();
                 break;
             case MARK:
-                // Parse index from commandParts[1], mark the task, and generate response
                 int markIndex = Integer.parseInt(commandParts[1]) - 1;
                 Task taskToMark = taskList.get(markIndex);
                 taskToMark.markDone();
-                storage.saveAllTasksToFile(this.taskList); // Save changes
+                storage.saveAllTasksToFile(this.taskList);
                 response = "Marked as done: " + taskToMark;
                 break;
             case UNMARK:
-                // Similar to MARK, but for unmarking
                 int unmarkIndex = Integer.parseInt(commandParts[1]) - 1;
                 Task taskToUnmark = taskList.get(unmarkIndex);
                 taskToUnmark.markUndone();
-                storage.saveAllTasksToFile(this.taskList); // Save changes
+                storage.saveAllTasksToFile(this.taskList);
                 response = "Marked as not done: " + taskToUnmark;
                 break;
             case TODO:
@@ -102,23 +98,20 @@ public class TaskList {
                 }
                 return handleAddTask(commandParts[1], TaskType.EVENT);
             case DELETE:
-                // Parse index for deletion and update response
                 int deleteIndex = Integer.parseInt(commandParts[1]) - 1;
                 Task taskToDelete = taskList.remove(deleteIndex);
-                storage.saveAllTasksToFile(this.taskList); // Save changes
+                storage.saveAllTasksToFile(this.taskList);
                 response = "Deleted task: " + taskToDelete.toString();
                 break;
-            // Implement other cases as needed
             case FIND:
                 try {
-                    // Other cases remain unchanged...
                     if (commandParts.length < 2) {
                         return "Error: Missing search keyword for FIND command.";
                     }
                     String keyword = commandParts[1];
                     response = findTasksByKeyword(keyword);
 
-                    // The rest of your switch cases...
+
                 } catch (Exception e) {
                     response = "Error processing command: " + e.getMessage();
                 }
@@ -162,7 +155,7 @@ public class TaskList {
             return "Error creating task.";
         }
         taskList.add(newTask);
-        storage.saveTaskToFile(newTask); // Assumes this method handles individual task saving
+        storage.saveTaskToFile(newTask);
         return "Added: " + newTask;
     }
 
@@ -175,7 +168,6 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                // Task found, append it to the result string
                 foundTasksBuilder.append(i + 1).append(". ").append(task).append("\n");
                 found = true;
             }
