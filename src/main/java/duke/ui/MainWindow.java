@@ -1,5 +1,7 @@
-package duke;
+package duke.ui;
 
+import duke.Duke;
+import duke.ui.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,12 +32,25 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        // Bind scrollPane to dialogContainer height
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Print default message
+        printDefaultMessage();
     }
 
     public void setDuke(Duke d) {
         duke = d;
     }
+
+    // Method to print default message
+    private void printDefaultMessage() {
+        String defaultMessage = "Hi there! I'm Sophia :)\n" +
+                "I'm your AI Assistant and I'm here\n" +
+                "to help you with anything.";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(defaultMessage, dukeImage));
+    }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to

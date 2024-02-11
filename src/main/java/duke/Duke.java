@@ -1,9 +1,6 @@
 package duke;
 
 import duke.command.CommandParser;
-import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * The Duke class represents the main application that interacts with the user.
@@ -11,14 +8,13 @@ import java.util.Scanner;
  */
 public class Duke  {
 
-    private final Ui ui;
-    CommandParser parser = new CommandParser("tester");
+    CommandParser parser;
 
     /**
      * Constructs a Duke instance and initializes the UI.
      */
     public Duke() {
-       ui = new Ui();
+        parser = new CommandParser("tester");
     }
 
 
@@ -26,7 +22,7 @@ public class Duke  {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    String getResponse(String input) {
+    public String getResponse(String input) {
         return parser.parseInput(input);
     }
 

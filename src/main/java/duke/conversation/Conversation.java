@@ -1,7 +1,5 @@
 package duke.conversation;
 
-import duke.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;

@@ -136,7 +136,7 @@ public class FileManager {
                             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     return new Event(taskDescription, isMarked, fromDate, toDate);
                 default:
-                    System.err.println("Sorry, there's no such duke.task in my system. " +
+                    System.err.println("Sorry, there's no such task in my system. " +
                             "Try these: todo, deadline, event");
                     break;
             }

@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.ui.Ui;
-
 /**
  * The TaskManager class handles the management of tasks, including adding, deleting,
  * marking as complete or incomplete, and displaying tasks.
