@@ -49,7 +49,7 @@ public class TaskList {
                 lines++;
                 this.currIndex++;
             }
-            ui.loadFiles(lines);
+            // ui.loadFiles(lines); // uncomment for CLI
         } catch(IOException e){
             ui.createFileError(e);
         }

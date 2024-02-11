@@ -164,7 +164,6 @@ public class MainApp extends Application{
                 // Handle other inputs as before
                 handleOtherInputs(input);
             }
-
             userInput.clear(); // Clear the input field after processing
         }
     }

@@ -47,7 +47,7 @@ public class Duke {
         return taskList.runCommand(command);
     }
     public static void main(String[] args){
-        new Duke().run();
+        // new Duke().run(); // uncomment for CLI app
     }
 
 
