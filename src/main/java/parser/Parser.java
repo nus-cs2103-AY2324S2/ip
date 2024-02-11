@@ -24,14 +24,15 @@ public class Parser {
      * @param ui the ui
      * @throws JuxException
      */
-    public static void parsingInput(String input, TaskList taskList, Ui ui) throws JuxException {
+    public static String parsingInput(String input, TaskList taskList, Ui ui) throws JuxException {
         String command = findCommand(input);
+        String output = "";
         switch (command) {
         case "list":
             if (taskList.isEmpty()) {
                 throw new JuxException(" YOUR LIST IS EMPTY");
             }
-            taskList.showListWithIndexing(ui);
+            output = taskList.showListWithIndexing(ui);
             break;
         case "mark":
             if (input.length() > 5) {
@@ -48,7 +49,7 @@ public class Parser {
                     throw new JuxException("TASK ALREADY MARKED");
                 }
                 taskList.toggleIndexedTask(convertedToNumber);
-                taskList.printTaskMarked(ui, convertedToNumber);
+                output = taskList.printTaskMarked(ui, convertedToNumber);
             } else {
                 throw new JuxException("PLEASE INSERT NUMBER TO MARK");
             }
@@ -67,7 +68,7 @@ public class Parser {
                 throw new JuxException("TASK ALREADY UNMARKED");
             }
             taskList.toggleIndexedTask(convertedToNumber);
-            taskList.printTaskUnMarked(ui, convertedToNumber);
+            output = taskList.printTaskUnMarked(ui, convertedToNumber);
             break;
         case "delete":
             String deleteListStringNumber =  input.substring(7);
@@ -79,24 +80,25 @@ public class Parser {
                         "CHOOSE A DIFFERENT NUMBER WITHIN 1 AND"
                         + taskList.getSize());
             }
-            taskList.deleteTask(ui,deleteConvertedToNumber);
+            output = taskList.deleteTask(ui, deleteConvertedToNumber);
             break;
         case "add":
             String typeOfTask = Parser.typeOfTask(input);
-            taskList.addTask(ui, typeOfTask, input);
+            output = taskList.addTask(ui, typeOfTask, input);
             break;
         case "find":
             String findTask = Parser.parseFind(input);
             ArrayList<Task> tasksFound = taskList.findTask(findTask);
             if (tasksFound.isEmpty()) {
-                ui.printNotFound();
+                output = ui.printNotFound();
             } else {
-                ui.printList(tasksFound);
+                output = ui.printList(tasksFound);
             }
             break;
         default:
             break;
         }
+        return output;
     }
     public static  String parseFind(String input) {
         return input.substring(5);
