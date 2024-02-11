@@ -22,6 +22,7 @@ public class Storage{
 //            e.printStackTrace();
         }
     }
+    @SuppressWarnings("unchecked")
     public ArrayList<task> load() {
         try {
             FileInputStream file = new FileInputStream(filePath);

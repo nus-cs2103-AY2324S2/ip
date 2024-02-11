@@ -21,7 +21,7 @@ public class task implements Serializable {
     protected boolean access_state(){
         return state;
     }
-    protected String access_message(){
+    public String access_message(){
         return message;
     }
     @Override
