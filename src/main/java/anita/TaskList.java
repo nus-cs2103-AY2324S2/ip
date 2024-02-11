@@ -37,10 +37,10 @@ public class TaskList {
      *
      * @param index Index of the task to be set to "done".
      */
-    public void setDone(int index) {
+    public String setDone(int index) {
         Task curr = this.get(index);
         curr.isDone = true;
-        ui.setDoneMessage(curr);
+        return ui.setDoneMessage(curr);
     }
 
     /**
@@ -48,10 +48,10 @@ public class TaskList {
      *
      * @param index Index of the task to be set to not "done".
      */
-    public void setNotDone(int index) {
+    public String setNotDone(int index) {
         Task curr = this.get(index);
         curr.isDone = false;
-        ui.setNotDoneMessage(curr);
+        return ui.setNotDoneMessage(curr);
     }
 
     /**
@@ -60,12 +60,12 @@ public class TaskList {
      * @param task Task to be added.
      * @throws ArrayIndexOutOfBoundsException If the index is not within the available range.
      */
-    public void addTask(Task task) throws ArrayIndexOutOfBoundsException {
+    public String addTask(Task task) throws ArrayIndexOutOfBoundsException {
         taskList.add(task);
         if (!Duke.initialize) {
-            ui.addTask(task);
-            getNumberOfTasks();
+            return ui.addTask(task) + getNumberOfTasks();
         }
+        return "";
     }
 
     /**
@@ -73,20 +73,21 @@ public class TaskList {
      *
      * @param index Index of task to be removed.
      */
-    public void removeTask(int index) {
+    public String removeTask(int index) {
         Task curr = taskList.remove(index - 1);
         database.deleteLine(index);
-        ui.removeTaskMessage(curr);
-        getNumberOfTasks();
+        return ui.removeTaskMessage(curr) + getNumberOfTasks();
     }
 
     /**
      * Iterates through the taskList and prints out each task in it.
      */
-    public void listTask() {
+    public String listTask() {
+        String res = "";
         for (int i = 0; i < taskList.size(); i++) {
-            ui.listTaskMessage(i + 1, taskList.get(i));
+            res += ui.listTaskMessage(i + 1, taskList.get(i));
         }
+        return res;
     }
 
     /**
@@ -95,23 +96,24 @@ public class TaskList {
      *
      * @param sequence The substring to be compared when finding tasks.
      */
-    public void findTask(String sequence) {
+    public String findTask(String sequence) {
         ArrayList<Task> matchingTaskArray = new ArrayList<>();
         for (Task task : taskList) {
             if (task.description.contains(sequence)) {
                 matchingTaskArray.add(task);
             }
         }
-
+        String res = "";
         for (int i = 0; i < matchingTaskArray.size(); i++) {
-            ui.listTaskMessage(i + 1, matchingTaskArray.get(i));
+            res += ui.listTaskMessage(i + 1, matchingTaskArray.get(i));
         }
+        return res;
     }
 
     /**
      * Prints out the number of tasks in the taskList.
      */
-    public void getNumberOfTasks() {
-        ui.getNumberOfTasksMessage(taskList.size());
+    public String getNumberOfTasks() {
+        return ui.getNumberOfTasksMessage(taskList.size());
     }
 }

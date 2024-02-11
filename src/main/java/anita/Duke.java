@@ -1,9 +1,5 @@
 package anita;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * The main class.
  */
@@ -16,11 +12,9 @@ public class Duke {
 
     /**
      * The constructor for the Duke class.
-     *
-     * @param filePath The path of the database used to store task data.
      */
-    public Duke(String filePath) {
-        database = new Database(filePath, this);
+    public Duke() {
+        database = new Database(this);
         ui = new Ui();
         taskList = new TaskList(database);
         database.createFile();
@@ -32,51 +26,40 @@ public class Duke {
      * Main driver code for executing commands.
      * If user command is not valid, throws the respective exception.
      *
-     * @throws IOException
+     * @return String command.
      */
-    public void run() throws IOException {
-        ui.greet();
-        taskList.listTask();
-
+    public String allocateTask(String command, String description) {
         Parser parser = new Parser();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        boolean isRunning = true;
-
-        while (isRunning) {
-            String description = br.readLine();
-            String command = parser.parseCommand(description);
-            ui.line();
-            try {
-                switch (command) {
-                case "bye":
-                    isRunning = false;
-                    ui.bye();
-                    break;
-                case "list":
-                    taskList.listTask();
-                    break;
-                case "mark":
-                    taskList.setDone(parser.indexParser(description));
-                    break;
-                case "unmark":
-                    taskList.setNotDone(parser.indexParser(description));
-                    break;
-                case "delete":
-                    taskList.removeTask(parser.removeParser(description));
-                    break;
-                case "find":
-                    taskList.findTask(parser.findParser(description));
-                    break;
-                default:
-                    addingTask(command, description);
-                    break;
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+        String res = ui.line();
+        try {
+            switch (command) {
+            case "bye":
+                res += ui.bye();
+                break;
+            case "list":
+                res += taskList.listTask();
+                break;
+            case "mark":
+                res += taskList.setDone(parser.indexParser(description));
+                break;
+            case "unmark":
+                res += taskList.setNotDone(parser.indexParser(description));
+                break;
+            case "delete":
+                res += taskList.removeTask(parser.removeParser(description));
+                break;
+            case "find":
+                res += taskList.findTask(parser.findParser(description));
+                break;
+            default:
+                res += addingTask(command, description);
+                break;
             }
-            ui.line();
+        } catch (Exception e) {
+            return e.getMessage();
         }
+        res += ui.line();
+        return res;
     }
 
     /**
@@ -87,31 +70,44 @@ public class Duke {
      * @param description The details of the task.
      * @throws Exception If command is not valid.
      */
-    public void addingTask(String command, String description) throws Exception {
+    public String addingTask(String command, String description) throws Exception {
         Parser parser = new Parser();
         switch (command) {
         case "todo":
             String[] parsedTodo = parser.todoParser(description);
             database.writeFile(description);
-            taskList.addTask(new Todo(parsedTodo[0]));
-            break;
+            return taskList.addTask(new Todo(parsedTodo[0]));
         case "deadline":
             String[] parsedDeadline = parser.deadlineParser(description);
             database.writeFile(description);
-            taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
-            break;
+            return taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
         case "event":
             String[] parsedEvent = parser.eventParser(description);
             database.writeFile(description);
-            taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
-            break;
+            return taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
         default:
             throw new IllegalArgumentException("Please enter a valid command.");
         }
-
     }
 
-    public static void main(String[] args) throws IOException {
-        new Duke("./data/saved-data").run();
+    /**
+     * Outputs the greeting message.
+     *
+     * @return String of the greeting message.
+     */
+    public String getGreeting() {
+        return ui.greet() + taskList.listTask();
+    }
+
+    /**
+     * Takes in raw user input and returns the UI output.
+     *
+     * @param input The raw user input.
+     * @return The UI output for each task.
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser();
+        String command = parser.parseCommand(input);
+        return allocateTask(command, input);
     }
 }

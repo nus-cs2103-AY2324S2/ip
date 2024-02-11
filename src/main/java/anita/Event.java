@@ -12,7 +12,7 @@ public class Event extends Task {
 
     /**
      * The constructor for the Event class.
-     * Creates a Event task.
+     * Creates an Event task.
      *
      * @param description The raw user input.
      */

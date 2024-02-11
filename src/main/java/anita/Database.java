@@ -19,11 +19,10 @@ public class Database {
     /**
      * The constructor for the database class.
      *
-     * @param filePath String of the path to the data file.
      * @param duke The main class object.
      */
-    public Database(String filePath, Duke duke) {
-        myFile = new File(filePath);
+    public Database(Duke duke) {
+        myFile = new File("./data/saved-data");
         this.duke = duke;
     }
 

@@ -6,9 +6,11 @@ package anita;
 public class Ui {
 
     /**
-     * Prints the start-up message when launching the task bot.
+     * Returns the start-up message when launching the task bot.
+     *
+     * @return The start-up message.
      */
-    public void greet() {
+    public String greet() {
         String logo = "$$\\      $$\\  $$$$$$\\  $$\\   $$\\       $$\\      $$\\ $$$$$$\\ $$\\   $$\\ \n"
                 + "$$$\\    $$$ |$$  __$$\\ $$ |  $$ |      $$ | $\\  $$ |\\_$$  _|$$$\\  $$ | \n"
                 + "$$$$\\  $$$$ |$$ /  $$ |\\$$\\ $$  |      $$ |$$$\\ $$ |  $$ |  $$$$\\ $$ | \n"
@@ -17,82 +19,89 @@ public class Ui {
                 + "$$ |\\$  /$$ |$$ |  $$ |$$  /\\$$\\       $$$  / \\$$$ |  $$ |  $$ |\\$$$ | \n"
                 + "$$ | \\_/ $$ |$$ |  $$ |$$ /  $$ |      $$  /   \\$$ |$$$$$$\\ $$ | \\$$ | \n"
                 + "\\__|     \\__|\\__|  \\__|\\__|  \\__|      \\__/     \\__|\\______|\\__|  \\__| \n";
-        System.out.println("Hello from\n" + logo);
-        line();
-        System.out.println("Hello! I'm Anita MaxWynn");
-        System.out.println("What can I do for you?");
-        line();
+        logo += "\n";
+        logo += "Hello! I'm Anita MaxWynn\n";
+        logo += "What can I do for you?\n";
+        logo += line();
+        return logo;
     }
 
     /**
-     * Prints the bye message when closing the task bot.
+     * Returns the bye message when closing the task bot.
+     *
+     * @return The bye message.
      */
-    public void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String bye() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
-     * Prints the default line spacer between tasks.
+     * Returns the default line spacer between tasks.
+     *
+     * @return The default line spacer.
      */
-    public void line() {
-        System.out.println("____________________________________________________________");
+    public String line() {
+        return "____________________________________________________________\n";
     }
 
     /**
-     * Prints the add task message with the details of the task.
+     * Returns the add task message with the details of the task.
      *
      * @param task The task to be added.
+     * @return The add task message.
      */
-    public void addTask(Task task) {
-        System.out.println("Yer task has been added: \n  " + task);
+    public String addTask(Task task) {
+        return "Yer task has been added: \n  " + task + "\n";
     }
 
     /**
-     * Prints the task complete message with the details of the task.
+     * Returns the task complete message with the details of the task.
      *
      * @param task The complete task.
+     * @return The task complete message.
      */
-    public void setDoneMessage(Task task) {
-        System.out.println("Cha Ching! Task Completed.");
-        System.out.println(task);
+    public String setDoneMessage(Task task) {
+        return "Cha Ching! Task Completed. \n" + task + "\n";
     }
 
     /**
-     * Prints the task incomplete message with the details of the task.
+     * Returns the task incomplete message with the details of the task.
      *
      * @param task The incomplete task.
+     * @return The task incomplete message.
      */
-    public void setNotDoneMessage(Task task) {
-        System.out.println("$$$ Task Incomplete :(");
-        System.out.println(task);
+    public String setNotDoneMessage(Task task) {
+        return "$$$ Task Incomplete :( \n" + task + "\n";
     }
 
     /**
-     * Prints the deleted task message with the details of the deleted task.
+     * Returns the deleted task message with the details of the deleted task.
      *
      * @param task The deleted task.
+     * @return The deleted task message.
      */
-    public void removeTaskMessage(Task task) {
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println("  " + task);
+    public String removeTaskMessage(Task task) {
+        return "Noted. I've removed this task: \n" + "  " + task + "\n";
     }
 
     /**
-     * Prints the task in the specified format.
+     * Returns the task in the specified format.
      *
      * @param index The index of the task in the list.
      * @param task The task to be printed.
+     * @return String of the task in the specified format.
      */
-    public void listTaskMessage(int index, Task task) {
-        System.out.println(index + ". " + task);
+    public String listTaskMessage(int index, Task task) {
+        return index + ". " + task + "\n";
     }
 
     /**
      * Prints the message showing the number of remaining tasks.
      *
      * @param size The number of remaining tasks.
+     * @return Message on remaining tasks.
      */
-    public void getNumberOfTasksMessage(int size) {
-        System.out.println("Now you have " + size + " task(s) in the list.");
+    public String getNumberOfTasksMessage(int size) {
+        return "Now you have " + size + " task(s) in the list.\n";
     }
 }
