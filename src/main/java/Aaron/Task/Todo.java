@@ -1,10 +1,13 @@
 package Aaron.Task;
+
+import Aaron.Exception.AaronBotException;
+
 /**
  * class that represents a todo type of task in aaronbot
  */
 public class Todo extends Task{
     
-    public Todo(String taskString) {
+    public Todo(String taskString) throws AaronBotException{
         super(taskString);
     }
 

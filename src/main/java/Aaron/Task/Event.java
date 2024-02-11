@@ -3,9 +3,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import Aaron.Exception.AaronBotException;
 import Aaron.Exception.DateFormatException;
 import Aaron.Exception.DateMismatchException;
-import Aaron.Exception.InvalidDateException;
 /**
  * class that represents an event type task 
  */
@@ -15,7 +15,7 @@ public class Event extends Task{
     private LocalDate startTime;
     private LocalDate endTime;
     
-    public Event(String taskString, String startTime, String endTime) throws InvalidDateException {
+    public Event(String taskString, String startTime, String endTime) throws AaronBotException {
         super(taskString);
         try {
             this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);
@@ -30,7 +30,7 @@ public class Event extends Task{
         }
     }
 
-    public Event(String taskString, String startTime, String endTime, boolean isDone) throws InvalidDateException{
+    public Event(String taskString, String startTime, String endTime, boolean isDone) throws AaronBotException{
         super(taskString, isDone);
         try {
             this.startTime = LocalDate.parse(startTime, DATE_TIME_FORMATTER);

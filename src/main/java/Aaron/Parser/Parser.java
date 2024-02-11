@@ -14,7 +14,6 @@ public class Parser {
         try {
             commandLengthCheck(userInput);
         } catch (InvalidCommandFormatException e) {
-            ui.errorMessage(e);
             throw new ParsingException("Invalid command format: " + userInput);
         }
 
@@ -22,7 +21,6 @@ public class Parser {
             TokenizedUserInputs = userInput.split(" ", 2);
             commandType = getCommandType(TokenizedUserInputs[0]);
         } catch (NonsenseCommandException e) {
-            ui.errorMessage(e);
             throw new ParsingException("Invalid command type: " + userInput);
         }
         return Executer.execute(commandType, userInput, taskList, ui);

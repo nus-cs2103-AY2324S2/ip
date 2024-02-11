@@ -31,15 +31,21 @@ public class TaskList {
         Task task;
         switch(taskType) {
         case TODO:
-            task = new Todo(newTask);
+            try {
+                task = new Todo(newTask);
+            } catch (AaronBotException e) {
+                throw new TaskErrorException(e.getMessage());
+            }
             break;
         case DEADLINE:
             String[] tokenizedTask = newTask.split(" /by ", 2);
+            if (tokenizedTask.length < 2) {
+                throw new TaskErrorException("Invalid format: " + newTask);
+            }
             try {
                 task = new Deadline(tokenizedTask[0], tokenizedTask[1]);
-            } catch (InvalidDateException e) {
-                System.out.println("Dear Stdent, invalid dates entered! \n" + e);
-                throw new TaskListAddException(newTask);
+            } catch (AaronBotException e) {
+                throw new TaskErrorException(e.getMessage());
             }
             break;
         case EVENT:
@@ -53,9 +59,8 @@ public class TaskList {
             }
             try {
                 task = new Event(taskTimingSplit[0], startEndSplit[0], startEndSplit[1]);
-            } catch (InvalidDateException e) {
-                System.out.println("Dear Student, invalid dates entered! \n" + e);
-                throw new TaskListAddException(newTask);
+            } catch (AaronBotException e) {
+                throw new TaskErrorException(e.getMessage());
             }
             break;
         default:

@@ -3,17 +3,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import Aaron.Exception.AaronBotException;
 import Aaron.Exception.DateFormatException;
 import Aaron.Exception.InvalidDateException;
 /**
  * class that represents a deadline type of task instantiated in an Aaronbot tasklist
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = 
             DateTimeFormatter.ofPattern("dd-MM-uuuu");
     private LocalDate deadline;
     
-    public Deadline(String taskString, String deadline) throws DateFormatException{
+    public Deadline(String taskString, String deadline) throws AaronBotException {
         super(taskString);
         try {
             this.deadline = LocalDate.parse(deadline, DATE_TIME_FORMATTER);
@@ -22,7 +23,7 @@ public class Deadline extends Task{
         }
     }
 
-    public Deadline(String taskString, String deadline, boolean isDone) throws DateFormatException{
+    public Deadline(String taskString, String deadline, boolean isDone) throws AaronBotException{
         super(taskString, isDone);
         try {
             this.deadline = LocalDate.parse(deadline, DATE_TIME_FORMATTER);
@@ -36,7 +37,7 @@ public class Deadline extends Task{
      * @param userString new desired date
      * @throws InvalidDateException if userString is in the wrong format
      */
-    public void changeDeadline(String userString) throws InvalidDateException {
+    public void changeDeadline(String userString) throws AaronBotException {
         try {
             this.deadline = LocalDate.parse(userString, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {

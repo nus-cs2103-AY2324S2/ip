@@ -1,5 +1,6 @@
 package Aaron.Task;
 import Aaron.Exception.DoubleMarkException;
+import Aaron.Exception.TaskNoNameException;
 
 /**
  * class that represents a task instantiated in the tasklist of aaronbot
@@ -8,9 +9,13 @@ public abstract class Task {
     private boolean isDone;
     private String taskString;
 
-    public Task(String taskString) {
+    public Task(String taskString) throws TaskNoNameException {
         this.isDone = false;
-        this.taskString = taskString;
+        if (taskString.trim().isEmpty()) {
+            throw new TaskNoNameException("STUDENT!! You need a task description :)");
+        } else {
+            this.taskString = taskString;
+        }
     }
 
     public Task(String taskString, boolean isDone) {

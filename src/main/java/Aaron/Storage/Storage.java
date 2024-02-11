@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Aaron.Exception.InvalidDateException;
+import Aaron.Exception.AaronBotException;
 import Aaron.Task.Deadline;
 import Aaron.Task.Event;
 import Aaron.Task.Task;
@@ -63,7 +63,7 @@ public class Storage {
                 try {
                     Event eventTask = new Event(taskStartEnd[0], taskStartEnd[1], taskStartEnd[2], isDone);
                     loadTaskList.add(eventTask);
-                } catch (InvalidDateException e) {
+                } catch (AaronBotException e) {
                     System.out.println("Error reading a task: " + task);
                 }
                 break;
@@ -74,7 +74,7 @@ public class Storage {
                     System.out.println("task deadline \n" + taskDeadline[1]);
                     Deadline deadlineTask = new Deadline(taskDeadline[0], taskDeadline[1], isDone);
                     loadTaskList.add(deadlineTask);
-                } catch (InvalidDateException e) {
+                } catch (AaronBotException e) {
                     System.out.println("Error reading a task: " + task);
                 }
                 break;
