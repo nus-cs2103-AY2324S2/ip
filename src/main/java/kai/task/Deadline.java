@@ -33,8 +33,8 @@ public class Deadline extends Task {
      * @return New String format.
      */
     @Override
-    public String outputString() {
-        return "D | " + super.outputString() + " | " + outputDateStringFormat(deadlineDate);
+    public String formatStringForSaveFile() {
+        return "D | " + super.formatStringForSaveFile() + " | " + outputDateStringFormat(deadlineDate);
     }
 
 

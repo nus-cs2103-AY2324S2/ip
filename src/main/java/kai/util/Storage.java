@@ -19,6 +19,11 @@ import java.util.Scanner;
 public class Storage {
     private String fileLocation;
 
+    private final int TASK_TYPE_INDEX = 0;
+    private final int ISDONE_STATUS_INDEX = 1;
+    private final int DESCRIPTION_INDEX = 2;
+    private final int DATE_INDEX = 3;
+
     /**
      * Creates a new Storage object, storing the filePath information.
      *
@@ -51,9 +56,9 @@ public class Storage {
      */
     public Task parseInput(String inputCommand) {
         String[] tokens = inputCommand.split(" \\| ");
-        String taskType = tokens[0];
-        boolean isDone = tokens[1].equals("O");
-        String description = tokens[2];
+        String taskType = tokens[TASK_TYPE_INDEX];
+        boolean isDone = tokens[ISDONE_STATUS_INDEX].equals("O");
+        String description = tokens[DESCRIPTION_INDEX];
         Task task;
 
         switch(taskType) {
@@ -61,11 +66,11 @@ public class Storage {
             task = new Todo(description, isDone);
             break;
         case "D":
-            String deadlineBy = convertDateFormat(tokens[3]);
+            String deadlineBy = convertDateFormat(tokens[DATE_INDEX]);
             task = new Deadline(description, deadlineBy, isDone);
             break;
         case "E":
-            String eventAt = tokens[3];
+            String eventAt = tokens[DATE_INDEX];
             task = new Event(description, eventAt, isDone);
             break;
         default:
@@ -79,15 +84,15 @@ public class Storage {
      */
     public void createFile() {
         File file = new File(fileLocation);
-        if (!file.exists()) {
+        if (file.exists()) {
+            System.out.println("File already exists, you can continue");
+        } else {
             try {
                 file.createNewFile();
                 System.out.println("File created!!");
             } catch (IOException e) {
                 System.out.println("Error creating the file...");
             }
-        } else {
-            System.out.println("File already exists, you can continue");
         }
     }
 
@@ -122,7 +127,7 @@ public class Storage {
             FileWriter fw = new FileWriter(fileLocation);
             for (int i = 0; i < tasklist.getSize(); i++) {
                 Task task = tasklist.getTask(i);
-                fw.write(task.outputString() + "\n");
+                fw.write(task.formatStringForSaveFile() + "\n");
             }
             fw.close();
         } catch (IOException e) {

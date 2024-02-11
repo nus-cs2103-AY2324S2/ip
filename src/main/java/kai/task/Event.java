@@ -1,16 +1,16 @@
 package kai.task;
 
 public class Event extends Task {
-    protected String at;
+    protected String startDate;
 
-    public Event(String description, String at) {
+    public Event(String description, String startDate) {
         super(description);
-        this.at = at;
+        this.startDate = startDate;
     }
 
-    public Event(String description, String at, boolean isDone) {
+    public Event(String description, String startDate, boolean isDone) {
         super(description, isDone);
-        this.at = at;
+        this.startDate = startDate;
     }
 
     /**
@@ -19,12 +19,12 @@ public class Event extends Task {
      * @return New String format.
      */
     @Override
-    public String outputString() {
-        return "E | " + super.outputString() + " | " + at;
+    public String formatStringForSaveFile() {
+        return "E | " + super.formatStringForSaveFile() + " | " + startDate;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at +  ")";
+        return "[E]" + super.toString() + " (at: " + startDate +  ")";
     }
 }

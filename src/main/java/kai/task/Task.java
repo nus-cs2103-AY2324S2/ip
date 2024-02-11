@@ -45,7 +45,7 @@ public class Task {
         this.isDone = done;
     }
 
-    public String outputString() {
+    public String formatStringForSaveFile() {
         return getIsDoneStatus() + " | " + description;
     }
 
