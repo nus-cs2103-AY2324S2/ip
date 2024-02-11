@@ -63,6 +63,7 @@ public class Parser {
     private static Command parseMarkCommand(String[] parts) throws DukeException {
         // Implementation for parsing mark command
         // Ensure parts[1] is a valid task index and return new MarkCommand(index)
+        assert parts != null: "parts should not be null";
         try {
             if (parts.length == 2) {
                 return new MarkCommand(Integer.parseInt(parts[1]) - 1);
@@ -80,6 +81,7 @@ public class Parser {
 
     private static Command parseUnmarkCommand(String[] parts) throws DukeException {
         // Similar to parseMarkCommand
+        assert parts != null: "parts should not be null";
         try {
             if (parts.length == 2) {
                 return new UnMarkCommand(Integer.parseInt(parts[1]) - 1);
@@ -116,6 +118,7 @@ public class Parser {
 
     private static Command parseDeadlineCommand(String parts) throws DukeException {
         // Split parts[1] to extract description and date, and return new AddCommand(new Deadline(...))
+        assert parts != null: "parts should not be null";
         String[] parts2 = parts.split(" /by ");
         Task task = null;
         if (parts2.length != 2 || parts2[0].length() <= 9) { // Check for correct format and description length
@@ -126,6 +129,7 @@ public class Parser {
         String by = parts2[1];
         try {
             task = new Deadline(description, by);
+            assert task != null : "Deadline task should not be null";
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());
         }
@@ -137,6 +141,7 @@ public class Parser {
 
     private static Command parseEventCommand(String parts) throws DukeException {
         // Split parts[1] to extract description and date/time, and
+        assert parts != null: "parts should not be null";
         String[] parts2 = parts.split(" /from ");
         Task task = null;
         if (parts2.length != 2) {
@@ -161,6 +166,7 @@ public class Parser {
     }
 
     private static Command parseTasksCommand(TaskList tasks, String[] parts) throws DukeException {
+        assert parts != null: "parts should not be null";
         if (parts.length == 3 && parts[1].toLowerCase().equals("on")) {
             String dateInput = parts[2];
             return new ListTasksOnDateCommand(dateInput);
