@@ -28,13 +28,6 @@ public class Storage {
     }
 
     /**
-     * Returns an instance of a Storage object that will load/save to the default filepath "./adam.txt".
-     */
-    public Storage() {
-        this("./adam.txt");
-    }
-
-    /**
      * Returns the list of tasks loaded from the storage file.
      *
      * @return The list of tasks loaded in an ArrayList.
@@ -47,27 +40,32 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
             }
+
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                String[] task = line.split("," );
-                Task t = null;
-                switch (task[0]) {
+                // Splits the line into details of the task
+                String[] taskSymbols = line.split("," );
+                Task t;
+                switch (taskSymbols[0]) {
                     case "T":
-                        t = new Todo(task[2]);
+                        t = new Todo(taskSymbols[2]);
                         break;
                     case "D":
-                        t = new Deadline(task[2], task[3]);
+                        t = new Deadline(taskSymbols[2], taskSymbols[3]);
                         break;
                     case "E":
-                        t = new Event(task[2], task[3], task[4]);
+                        t = new Event(taskSymbols[2], taskSymbols[3], taskSymbols[4]);
                         break;
+                    default:
+                        throw new AdamException("Unknown task type in storage");
                 }
-                if (task[1].equals("1")) {
+                if (taskSymbols[1].equals("1")) {
                     t.mark();
                 }
                 tasks.add(t);
             }
+
             fileScanner.close();
         } catch (IOException e) {
             throw new AdamException("Unable to load file");
@@ -84,15 +82,18 @@ public class Storage {
     public void save(TaskList tasklist) throws AdamException {
         try {
             ArrayList<Task> tasks = tasklist.getTasks();
+
             File file = new File(filepath);
             if (!file.exists()) {
                 file.createNewFile();
                 System.out.println("created file");
             }
+
             PrintWriter writer = new PrintWriter(file);
             for (Task t: tasks) {
                 writer.println(t.toFileString());
             }
+
             writer.close();
         } catch (IOException e) {
             throw new AdamException("Unable to save file");

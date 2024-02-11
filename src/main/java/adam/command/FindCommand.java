@@ -16,8 +16,15 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
         ArrayList<String> matches = taskList.find(keyword);
-        matches.add(0, "Here are the matching tasks in your list:");
-        return ui.showResult(matches.toArray(new String[0]));
+        String[] results = new String[matches.size() + 1];
+
+        results[0] = "Here are the matching tasks in your list:";
+        // Copy the matches into results
+        for (int i = 1; i < results.length; i++) {
+            results[i] = matches.get(i - 1);
+        }
+
+        return ui.showResult(results);
     }
 
     @Override

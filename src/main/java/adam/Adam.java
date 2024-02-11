@@ -28,24 +28,6 @@ public class Adam {
         }
     }
 
-    /**
-     * Runs the program by accepting text input from the user in the command line.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (AdamException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
     public String welcome() {
         return ui.showWelcome();
     }
