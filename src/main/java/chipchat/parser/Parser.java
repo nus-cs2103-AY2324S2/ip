@@ -14,7 +14,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents a utility class used to parse user inputs and data inputs given to the main Chipchat application.
+ */
 public class Parser {
+
+    /**
+     * Returns an action parsed from the user input.
+     *
+     * @param userInput user input given from standard input
+     * @return an action that can be executed on-demand
+     * @throws ArgumentException
+     */
     public static Action parseAction(String userInput) throws ArgumentException {
         String[] tokens = userInput.trim().split(" ");
         if (tokens.length == 0) {
@@ -112,6 +123,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Returns a task parsed from saved data.
+     *
+     * @param line the data-format string retrieved from storage file
+     * @return parsed action that has been initialized based on stored data
+     */
     public static Task parseLoadedTask(String line) {
         String[] tokens = line.split(" ");
         CommandType taskType = parseCommand(tokens[1]);
@@ -133,6 +150,12 @@ public class Parser {
         return null;
     }
 
+    /**
+     * A simple data parser that uses yyyy-MM-dd format.
+     *
+     * @param date a string representing a date
+     * @return parsed date
+     */
     public static LocalDate parseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
         return LocalDate.parse(date, formatter);

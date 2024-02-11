@@ -1,3 +1,6 @@
 0. TODO /isDone false /description work
 1. DEADLINE /isDone false /description quiz /dueBy 2023-01-01
 2. EVENT /isDone false /description class /from 2023-01-01 /to 2023-01-02
+3. TODO /isDone false /description study
+4. DEADLINE /isDone false /description homework /dueBy 2024-01-01
+5. EVENT /isDone false /description trip /from 2024-01-01 /to 2024-01-02

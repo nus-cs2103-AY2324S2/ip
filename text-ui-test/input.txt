@@ -1,13 +1,6 @@
-todo read book
-todo do homework
+todo study
+deadline homework /by 2024-01-01
+event trip /from 2024-01-01 /to 2024-01-02
+todo word
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-delete 2
-list
-
-mark
-mark
-todo
-todo
 bye

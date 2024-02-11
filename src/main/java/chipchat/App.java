@@ -7,11 +7,17 @@ import chipchat.storage.Storage;
 import chipchat.task.TaskList;
 import chipchat.ui.Ui;
 
+/**
+ * Encapsulates the main program application.
+ */
 public class App {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs the App. Retrieves saved data from storage at initialization.
+     */
     public App() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -26,6 +32,9 @@ public class App {
         this.tasks = tmp;
     }
 
+    /**
+     * Runs the main program through a Read-Eval-Print loop.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -44,6 +53,11 @@ public class App {
         }
     }
 
+    /**
+     * Starting point of main program.
+     *
+     * @param args system input
+     */
     public static void main(String[] args) {
         new App().run();
     }
