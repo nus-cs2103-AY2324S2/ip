@@ -1,5 +1,6 @@
 package cat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -93,11 +94,11 @@ public class Parser {
         case Event:
             return new AddCommand(AddCommand.Type.Event, components.description, components.parameters);
         case Mark:
-            return new CompleteCommand(parseIndex(input), true);
+            return new CompleteCommand(parseIndices(input), true);
         case Unmark:
-            return new CompleteCommand(parseIndex(input), false);
+            return new CompleteCommand(parseIndices(input), false);
         case Delete:
-            return new DeleteCommand(parseIndex(input));
+            return new DeleteCommand(parseIndices(input));
         case Find:
             return new FindCommand(input);
         default:
@@ -112,8 +113,28 @@ public class Parser {
         return scanner.nextLine().trim();
     }
 
-    private static int parseIndex(String input) {
-        return Integer.parseInt(input.trim()) - 1;
+    private static ArrayList<Integer> parseIndices(String input) {
+        var indices = new ArrayList<Integer>();
+
+        String trimmed = input.trim();
+        String[] splits = trimmed.split(" +");
+        for (String value : splits) {
+            parseRangeOrIndex(value, indices);
+        }
+
+        return indices;
+    }
+
+    private static void parseRangeOrIndex(String value, ArrayList<Integer> indices) {
+        boolean isRange = value.matches("\\d+-\\d+");
+        if (isRange) {
+            String[] rangeEnds = value.split("-");
+            for (int i = Integer.parseInt(rangeEnds[0]) - 1; i <= Integer.parseInt(rangeEnds[1]) - 1; i++) {
+                indices.add(i);
+            }
+        } else {
+            indices.add(Integer.parseInt(value) - 1);
+        }
     }
 
     private static Components parseComponents(String data) throws InvalidCommandData {

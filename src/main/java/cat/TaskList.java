@@ -54,9 +54,9 @@ public class TaskList implements Serializable {
      *
      * @throws TaskNotFound if the task with the given index doesn't exist
      */
-    public void deleteTask(int index) throws TaskNotFound {
+    public Task deleteTask(int index) throws TaskNotFound {
         try {
-            tasks.remove(index);
+            return tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNotFound(index, e);
         }
