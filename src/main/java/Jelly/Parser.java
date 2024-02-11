@@ -11,6 +11,10 @@ public class Parser {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * @param taskList TaskList to store parsed data
+     * @param ui UI to interact with user
+     */
     public Parser(TaskList taskList, Ui ui) {
 
         this.scanner = new Scanner(System.in);
@@ -18,11 +22,18 @@ public class Parser {
         this.ui = ui;
     }
 
+    /**
+     * Reads each input given by user until user sends a terminating message
+     */
     public void loop(){
 
         while(!read().equals("bye"));
     }
 
+    /**
+     * Reads a single user command/message and parses it.
+     * @return initial message given by user (first word)
+     */
     public String read(){
 
         String message = scanner.nextLine();

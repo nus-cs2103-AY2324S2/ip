@@ -2,31 +2,51 @@ package Jelly;
 public class Task {
     private String name;
     protected Boolean isDone;
+
+    /**
+     * @param name name of task
+     * @param isDone whether task is done
+     */
     public Task(String name, boolean isDone){
 
         this.name = name;
         this.isDone = isDone;
     }
 
+    /**
+     * @return Storage header of task in the format: [type][isDone]
+     */
     public String header(){
 
         return "NULL";
     }
 
+    /**
+     * @return Type of task
+     */
     public String type(){
 
         return "N";
     }
 
+    /**
+     * @return Additional information for tasks that have deadlines, time periods, other info.
+     */
     public String additionalInfo(){
 
         return "";
     }
 
+    /**
+     * Marks task as done
+     */
     public void mark(){
         isDone = true;
     }
 
+    /**
+     * Marks task as not done
+     */
     public void unmark(){
         isDone = false;
     }

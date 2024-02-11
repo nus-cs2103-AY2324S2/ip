@@ -1,6 +1,12 @@
 package Jelly;
 public class Todo extends Task{
+
+    /**
+     * @param name name of todo
+     * @param isDone whether task is done
+     */
     public Todo(String name, boolean isDone){
+
         super(name, isDone);
     }
 

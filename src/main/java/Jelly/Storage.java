@@ -10,11 +10,18 @@ public class Storage {
 
     String path;
 
+    /**
+     * @param filePath Path of file to read from/write to
+     */
     public Storage(String filePath){
 
         this.path = filePath;
     }
 
+    /**
+     * @return TaskList created from reading existing storage file
+     * @throws JellyException Exception thrown when file cannot be correctly parsed/read
+     */
     public TaskList load() throws JellyException {
 
         TaskList tasks = new TaskList();
@@ -100,6 +107,9 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * @param taskList TaskList to write to storage file
+     */
     public void save(TaskList taskList){
 
         try{

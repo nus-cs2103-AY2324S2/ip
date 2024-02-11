@@ -12,6 +12,7 @@ public class Jelly {
     private static String farewell = "(•︿•) Bye. Hope to see you again soon!";
 
     private static String path = "jelly.txt";
+
     public static void main(String[] args) {
 
         storage = new Storage(path);

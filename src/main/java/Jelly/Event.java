@@ -10,6 +10,13 @@ public class Event extends Task{
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isParsed = false;
+
+    /**
+     * @param name Name of event
+     * @param start start date/time of event
+     * @param end end date/time of event
+     * @param isDone whether task is done
+     */
     public Event(String name, String start, String end, boolean isDone){
         super(name, isDone);
         this.start = start;

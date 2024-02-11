@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"Jelly","l":"Deadline"},{"p":"Jelly","l":"Event"},{"p":"Jelly","l":"Jelly"},{"p":"Jelly","l":"JellyException"},{"p":"Jelly","l":"Parser"},{"p":"Jelly","l":"Storage"},{"p":"Jelly","l":"Task"},{"p":"Jelly","l":"TaskList"},{"p":"Jelly","l":"Todo"},{"p":"Jelly","l":"Ui"}]

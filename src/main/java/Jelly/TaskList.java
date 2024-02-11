@@ -10,31 +10,53 @@ public class TaskList {
     private static String taskAdded = "(˃.˂) Got it. I've added this task:";
     private ArrayList<Task> tasks;
 
+    /**
+     * Default constructor of TaskList, creates empty TaskList.
+     */
     public TaskList(){
 
         tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Copy constructor of TaskList, SHALLOW copies contents of taskList
+     * @param taskList TaskList to copy from
+     */
     public TaskList(TaskList taskList){ //read from file
 
        this.tasks = taskList.tasks;
     }
 
+    /**
+     * @param i index of element to get
+     * @return returns the task at index i
+     */
     public Task get(Integer i){
 
         return tasks.get(i);
     }
 
+    /**
+     * @return current number of tasks in the TaskList
+     */
     public Integer size(){
 
         return tasks.size();
     }
 
+    /**
+     * Prints message containing number of tasks in the TaskList
+     */
     public void printListSize(){
 
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * @param name name of deadline
+     * @param deadline date/time of deadline
+     * @param isDone whether task is done
+     */
     public void addDeadline(String name, String deadline, boolean isDone){
 
         Task task = new Deadline(name, deadline, isDone);
@@ -44,6 +66,10 @@ public class TaskList {
         printListSize();
     }
 
+    /**
+     * @param name name of todo
+     * @param isDone whether task is done
+     */
     public void addTodo(String name, boolean isDone){
 
         Task task = new Todo(name, isDone);
@@ -53,6 +79,12 @@ public class TaskList {
         printListSize();
     }
 
+    /**
+     * @param name name of event
+     * @param start start date/time of event
+     * @param end end date/time of event
+     * @param isDone whether task is done
+     */
     public void addEvent(String name, String start, String end, boolean isDone){
 
         Task task = new Event(name, start, end, isDone);
@@ -62,6 +94,9 @@ public class TaskList {
         printListSize();
     }
 
+    /**
+     * @param index index of task to delete
+     */
     public void deleteTask(Integer index){
 
         Task task = tasks.get(index-1);
@@ -71,6 +106,9 @@ public class TaskList {
         printListSize();
     }
 
+    /**
+     * @param index index of task to mark as done
+     */
     public void markTask(Integer index){
 
         Task task = tasks.get(index-1);
@@ -79,6 +117,9 @@ public class TaskList {
         System.out.println(task);
     }
 
+    /**
+     * @param index index of task to mark as not done
+     */
     public void unmarkTask(Integer index){
 
         Task task = tasks.get(index-1);

@@ -8,6 +8,11 @@ public class Deadline extends Task{
     private LocalDate deadlineDate;
     private boolean isParsed = false;
 
+    /**
+     * @param name Name of deadline
+     * @param deadline date/time of deadline
+     * @param isDone whether task is done
+     */
     public Deadline(String name, String deadline, boolean isDone){
 
         super(name, isDone);
