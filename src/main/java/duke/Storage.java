@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -18,7 +20,6 @@ public class Storage {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-                //System.out.println("File doesn't exist, creating a new file...");
             } else {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNext()) {
@@ -27,7 +28,6 @@ public class Storage {
                     if (task != null) {
                         tasks.add(task);
                     }
-                    //System.out.println("read");
                 }
                 scanner.close();
             }

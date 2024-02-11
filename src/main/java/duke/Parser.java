@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
 
     private TaskList tasks;
@@ -11,27 +13,6 @@ public class Parser {
     }
 
     public void parse(String input) throws DukeException {
-//        String[] parts = userInput.trim().split("\\s+", 2);
-//        String commandWord = parts[0].toLowerCase();
-//        String arguments = parts.length > 1 ? parts[1] : "";
-//
-//        switch (commandWord) {
-//            case "bye":
-//                handleExit();
-//                break;
-//            case "list":
-//                handleList();
-//                break;
-//            case "done":
-//                handleDone(parseIndex(arguments));
-//                break;
-//            case "delete":
-//                handleDelete(parseIndex(arguments));
-//                break;
-//            // Add cases for other commands
-//            default:
-//                ui.showError("I'm sorry, but I don't know what that means :-(");
-//        }
 
         if ("bye".equals(input)) {
             handleExit();
