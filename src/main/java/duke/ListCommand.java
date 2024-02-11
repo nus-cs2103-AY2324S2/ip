@@ -8,8 +8,8 @@ class ListCommand implements Command {
      * @param tasks the TaskList where the Task are in
      * @param ui the UI that will be used to display the message
      */
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
-        ui.listMessage(tasks.toString());
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
+        return ui.listMessage(tasks.toString());
     }
 
     public boolean isExit() {

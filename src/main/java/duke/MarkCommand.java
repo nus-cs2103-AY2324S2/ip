@@ -17,17 +17,17 @@ public class MarkCommand implements Command {
      * @param ui the UI that will be used to display the message
      * @throws DukeException if the index is greater than the number of Task in the TaskList
      */
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public String execute(TaskList tasks, Ui ui) throws DukeException {
         if (index + 1 > tasks.size()) {
             throw new DukeException("You only have " + tasks.size() + " tasks in the list.");
         }
         Task task = tasks.get(index);
         if (isDone) {
             task.mark();
-            ui.markMessage(task.toString());
+            return ui.markMessage(task.toString());
         } else {
             task.unmark();
-            ui.unmarkMessage(task.toString());
+            return ui.unmarkMessage(task.toString());
         }
     }
 

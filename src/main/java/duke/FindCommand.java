@@ -8,9 +8,9 @@ public class FindCommand implements Command {
         this.keyword = keyword;
     }
 
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         TaskList foundList = tasks.find(keyword);
-        ui.findMessage(foundList.toString());
+        return ui.findMessage(foundList.toString());
     }
 
     public boolean isExit() {

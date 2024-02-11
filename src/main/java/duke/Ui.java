@@ -26,34 +26,29 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    void addMessage(String str, int taskSize) {
-        String out = "Got it. I've added this task:\n" + str
-                + "\nNow you have " + taskSize + " tasks in this list.";
-        System.out.println(out);
+    String addMessage(String str, int taskSize) {
+        return "Got it. I've added this task:\n" + str + "\nNow you have "
+                + taskSize + " tasks in this list.";
     }
 
-    void deleteMessage(String str, int taskSize) {
-        String out = "Noted. I've removed this task:\n" + str + "\nNow you have " + taskSize + " tasks in the list.";
-        System.out.println(out);
+    String deleteMessage(String str, int taskSize) {
+        return "Noted. I've removed this task:\n" + str + "\nNow you have "
+                + taskSize + " tasks in the list.";
     }
 
-    void markMessage(String str) {
-        String out = "Nice! I've marked this task as done:\n" + str;
-        System.out.println(out);
+    String markMessage(String str) {
+        return "Nice! I've marked this task as done:\n" + str;
     }
 
-    void unmarkMessage(String str) {
-        String out = "OK, I've marked this task as not done yet:\n" + str;
-        System.out.println(out);
+    String unmarkMessage(String str) {
+        return "OK, I've marked this task as not done yet:\n" + str;
     }
 
-    void listMessage(String str) {
-        String out = "Here are the tasks in your list:\n" + str;
-        System.out.print(out);
+    String listMessage(String str) {
+        return "Here are the tasks in your list:\n" + str;
     }
 
-    void findMessage(String str) {
-        String out = "Here are the matching tasks in your list:\n" + str;
-        System.out.print(str);
+    String findMessage(String str) {
+        return "Here are the matching tasks in your list:\n" + str;
     }
 }
