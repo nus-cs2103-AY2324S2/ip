@@ -29,10 +29,10 @@ public class Mike {
     public void run() {
         ui.displayWelcome();
 
-        boolean exitSeen = false;
+        boolean isExit = false;
 
         // Referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
-        while (!exitSeen) {
+        while (!isExit) {
             try {
                 String userInput = ui.scanInput();
                 Ui.displayLine();
@@ -45,7 +45,7 @@ public class Mike {
                 Ui.display(response);
 
                 if (command.isExit()) {
-                    exitSeen = true;
+                    isExit = true;
                 }
             } catch (MikeException e) {
                 Ui.displayError(e.getMessage());

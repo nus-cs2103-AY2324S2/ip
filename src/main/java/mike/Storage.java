@@ -88,7 +88,7 @@ class Storage {
         String[] taskInformation = line.split(",");
         String taskType = taskInformation[0];
         String taskDescription = taskInformation[1];
-        boolean taskIsCompleted = taskInformation[2].equals("true");
+        boolean isTaskCompleted = taskInformation[2].equals("true");
 
         Task newTask;
 
@@ -109,7 +109,7 @@ class Storage {
             throw new MikeException("File corrupted. Unable to load saved data.");
         }
 
-        if (taskIsCompleted) {
+        if (isTaskCompleted) {
             newTask.markAsDone();
         }
 
