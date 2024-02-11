@@ -60,13 +60,13 @@ public class Storage {
      */
     public void updateFileFromList(TaskList taskList) {
         String filePath = this.filePath;
+        assert (filePath != null);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             List<Task> listOfTasks = taskList.getListOfTasks();
             for (Task task : listOfTasks) {
                 writer.write(task.toDBFormat());
                 writer.newLine();
             }
-            // System.out.println("Tasks written to file successfully");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -39,7 +39,9 @@ public class Parser {
      */
     public String parseMessage(String userInput) {
         try {
-            return this.processCommand(userInput);
+            String message = this.processCommand(userInput);
+            assert (message != null);
+            return message;
         } catch (CampusException e) {
             return this.ui.displayErrorMessage(e);
         }
@@ -98,6 +100,7 @@ public class Parser {
                     + "please check for potential spelling errors");
         }
         this.storage.updateFileFromList(this.taskList);
+        assert (msg != null);
         return msg;
     }
 
@@ -135,6 +138,7 @@ public class Parser {
         default:
             break;
         }
+        assert(msg != null);
         return msg;
     }
 
