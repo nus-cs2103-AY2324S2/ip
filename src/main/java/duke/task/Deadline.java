@@ -53,4 +53,22 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + this.getBy();
     }
+
+
+    /**
+     * @param t The task to be checked
+     * @return if the task is a duplicate
+     */
+    @Override
+    public boolean equals(Task t) {
+        if (!(t instanceof Deadline)) {
+            return false;
+        }
+
+        if (!t.toString().equals(this.toString())) {
+            return false;
+        }
+
+        return true;
+    }
 }

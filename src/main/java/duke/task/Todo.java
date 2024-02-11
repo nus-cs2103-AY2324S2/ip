@@ -36,4 +36,21 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * @param t The task to be checked
+     * @return if the task is a duplicate
+     */
+    @Override
+    public boolean equals(Task t) {
+        if (!(t instanceof Todo)) {
+            return false;
+        }
+
+        if (!t.toString().equals(this.toString())) {
+            return false;
+        }
+
+        return true;
+    }
 }

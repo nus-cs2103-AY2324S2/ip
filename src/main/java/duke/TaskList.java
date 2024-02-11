@@ -44,9 +44,30 @@ public class TaskList {
      *
      * @param t The task to be added.
      */
-    public void addTasks(Task t) {
+    public String addTasks(Task t) {
+        try {
+            if (!detectDuplicates(t)) {
+                tasks.add(t);
+            } else {
+                return "Duplicate task found. Task not added.";
+            }
+        } catch (NullPointerException e) {
+            return "Error: Task is null.";
+        }
+        return "task added successfully";
+    }
 
-        tasks.add(t);
+    /**
+     * @param t task to be checked.
+     * @return whether t is a duplicate
+     */
+    public boolean detectDuplicates(Task t) {
+        for (Task task : tasks) {
+            if (task.equals(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

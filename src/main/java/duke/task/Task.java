@@ -79,4 +79,21 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * @param t The task to be checked
+     * @return if the task is a duplicate
+     */
+
+    public boolean equals(Task t) {
+        if (!(t instanceof Task)) {
+            return false;
+        }
+
+        if (!t.toString().equals(this.toString())) {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -52,4 +52,21 @@ public class Event extends Task {
         // Format: E | 0/1 | description | at from to
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + getAt();
     }
+
+    /**
+     * @param t The task to be checked
+     * @return if the task is a duplicate
+     */
+    @Override
+    public boolean equals(Task t) {
+        if (!(t instanceof Event)) {
+            return false;
+        }
+
+        if (!t.toString().equals(this.toString())) {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -157,8 +157,8 @@ public class Parser {
             }
         }
         String time = timeBuilder.toString().trim();
-        tasks.addTasks(new Deadline(description, time));
-        return "added deadline";
+        return tasks.addTasks(new Deadline(description, time));
+
 
     }
 
@@ -221,8 +221,7 @@ public class Parser {
         }
         String fromTime = fromTimeBuilder.toString().trim();
         String toTime = toTimeBuilder.toString().trim();
-        tasks.addTasks(new Event(description, fromTime, toTime));
-        return "added event";
+        return tasks.addTasks(new Event(description, fromTime, toTime));
 
     }
 
@@ -249,10 +248,9 @@ public class Parser {
             descriptionBuilder.append(words[i]).append(" ");
         }
         String description = descriptionBuilder.toString().trim();
-        tasks.addTasks(new Todo(description));
+        return tasks.addTasks(new Todo(description));
 
-        res += "added todo";
-        return res;
+
 
     }
 
