@@ -130,6 +130,7 @@ public class Parser {
             case "bye":
                 return parseBye(commands);
             default:
+                assert false : commands[0];
                 return parseInvalid();
             }
         } catch (JadeException e) {

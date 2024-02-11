@@ -21,4 +21,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
       |  | | |_| | | |  | | | |____|
    |\ |  | | ___ | | |__| | | |____
     \ ___| |_| |_| |_____/  \_|____\
-  ```
+   ```

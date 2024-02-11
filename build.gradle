@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("jade.Jade")
+    mainClass.set("jade.gui.Launcher")
 }
 
 shadowJar {
