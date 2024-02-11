@@ -44,6 +44,8 @@ public class Parser {
    * @throws EmptyEventException If an "event" command is given without a description or event time.
    * @throws InvalidException If an invalid command is given.
    */
+  String end =
+    "\n____________________________________________________________\n";
 
   public String parseThrough(
     String io,
@@ -181,25 +183,13 @@ public class Parser {
         throw new InvalidException();
       }
     } catch (EmptyTodoException e) {
-      return (
-        e.getMessage() +
-        "\n____________________________________________________________\n"
-      );
+      return (e.getMessage() + end);
     } catch (EmptyDeadlineException e) {
-      return (
-        e.getMessage() +
-        "\n____________________________________________________________\n"
-      );
+      return (e.getMessage() + end);
     } catch (EmptyEventException e) {
-      return (
-        e.getMessage() +
-        "\n____________________________________________________________\n"
-      );
+      return (e.getMessage() + end);
     } catch (InvalidException e) {
-      return (
-        e.getMessage() +
-        "\n____________________________________________________________\n"
-      );
+      return (e.getMessage() + end);
     }
   }
 }

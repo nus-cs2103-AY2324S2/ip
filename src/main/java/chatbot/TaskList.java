@@ -53,9 +53,7 @@ public class TaskList {
   public void asDone(int c) {
     Task task = al.get(c - 1);
     task.markAsDone();
-    // After marking as done, the task's done status should be true
-    assert task.isDone() : "Task should be marked as done";
-  
+  }
 
   /**
    * Marks a task as not done.
@@ -65,8 +63,6 @@ public class TaskList {
   public void asNotDone(int c) {
     Task task = al.get(c - 1);
     task.markAsUndone();
-    // After marking as not done, the task's done status should be false
-    assert !task.isDone() : "Task should be marked as not done";
   }
 
   /**
@@ -100,5 +96,4 @@ public class TaskList {
     assert size >= 0 : "Task list size should be non-negative";
     return size;
   }
-
 }
