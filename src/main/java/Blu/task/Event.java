@@ -57,6 +57,8 @@ public class Event extends Task {
             return false;
         }
         Event other = (Event) obj;
-        return from.equals(other.from) && to.equals(other.to) && super.equals(other);
+        boolean isSameFromDateTime = from.equals(other.from);
+        boolean isSameToDateTime = to.equals(other.to);
+        return isSameFromDateTime && isSameToDateTime && super.equals(other);
     }
 }

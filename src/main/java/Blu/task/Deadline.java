@@ -52,6 +52,7 @@ public class Deadline extends Task {
             return false;
         }
         Deadline other = (Deadline) obj;
-        return by.equals(other.by) && super.equals(other);
+        boolean isSameDateTime = by.equals(other.by);
+        return isSameDateTime && super.equals(other);
     }
 }

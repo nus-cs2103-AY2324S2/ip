@@ -107,7 +107,7 @@ public class TaskList {
      * @param searchString The substring to search for within each task of the task list.
      * @return A list of task that contain the specified substring.
      */
-    public List<Task> searhForTasksContaining(String searchString) {
+    public List<Task> searchForTasksContaining(String searchString) {
         return tasks.stream()
                 .filter(t -> t.getTitle().contains(searchString))
                 .collect(Collectors.toList());

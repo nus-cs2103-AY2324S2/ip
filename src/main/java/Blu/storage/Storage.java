@@ -89,6 +89,7 @@ public class Storage implements AutoCloseable {
         } catch (BluException e) {
             throw new StorageException(e.getLocalizedMessage() + " at line " + lineNumber);
         }
+
         if (tasks.isEmpty()) {
             return new TaskList();
         }
