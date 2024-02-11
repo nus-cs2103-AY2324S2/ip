@@ -97,6 +97,9 @@ public class Parser {
                         System.out.println(e.getMessage());
                     }
                     break;
+                case "find":
+                    handleFindCommand(userInputArr);
+                    break;
                 default:
                     try {
                         handleInvalidCommand();
@@ -124,6 +127,24 @@ public class Parser {
     }
 
     /**
+     * Handles the "find" command by searching for tasks that contain a specified
+     * keyword
+     *
+     * @param userInputArr the array of user input tokens
+     * @throws BotException if the keyword is not provided
+     */
+    private void handleFindCommand(String[] userInputArr) throws BotException {
+        if (userInputArr.length < 2) {
+            throw new BotException("Please enter a keyword to search for.");
+        }
+        String keyword = userInputArr[1];
+        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        Bot.printFindTaskMsg();
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+    }
+
      * Handles the delete command by removing a task from the task list
      * 
      * @param userInputArr the array containing the user input

@@ -90,4 +90,11 @@ public class Bot {
     public static void printUnmarkTaskMsg() {
         System.out.println("Guess who didn't commit to this task. I'll mark it as undone...");
     }
+  
+    /**
+     * Prints the bot's message for finding a task
+     */
+    public static void printFindTaskMsg() {
+        System.out.println("Here's what I found. You're welcome.");
+    }
 }

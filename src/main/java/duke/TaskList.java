@@ -87,6 +87,25 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks in the task list that contain the specified keyword in their
+     * description
+     * Assumption here is that keyword would be valid
+     *
+     * @param keyword the keyword to search for in the task descriptions
+     * @return a list of tasks that contain the specified keyword in their
+     *         description
+     */
+    public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
      * Method to mark task as done
      * Just need number of task, index is
      * adjusted automatically by this method
