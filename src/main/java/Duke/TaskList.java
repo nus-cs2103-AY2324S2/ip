@@ -62,7 +62,7 @@ public class TaskList {
      *
      * @param task the task to add
      */
-    public static void addTaskSilent(Task task) {
+    public static void addTaskSilently(Task task) {
         taskList.add(task);
     }
 
@@ -83,7 +83,7 @@ public class TaskList {
      *
      * @param idx the 1-based index of the task to mark
      */
-    public static void markTaskSilent(int idx) {
+    public static void markTaskSilently(int idx) {
         Task task = taskList.get(idx - 1);
         task.done();
     }
@@ -136,7 +136,7 @@ public class TaskList {
     public static String findTask(String search) {
         StringBuilder result = new StringBuilder();
         boolean isThereMatch = false; // Flag to track if any matching tasks are found
-        int number = 1; // Counter for displaying the index of matching tasks
+        int count = 1; // Counter for displaying the index of matching tasks
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
@@ -148,11 +148,10 @@ public class TaskList {
                     result.append("Here are the matching tasks in your list: \n");
                     isThereMatch = true;
                 }
-                result.append(number).append(". ").append(task).append("\n");
-                number++;
+                result.append(count).append(". ").append(task).append("\n");
+                count++;
             }
         }
-
         // Append a message if no matching tasks are found
         if (!isThereMatch) {
             result.append("No matching tasks found!");

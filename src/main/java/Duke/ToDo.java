@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+
 /**
  * This class represents a ToDo task.
  * It extends the Task class with a specific string representation.
@@ -25,4 +27,24 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Returns the encoded version of ToDo
+     *
+     * @return Encoded String version of the ToDo. Currently, uses toString() to encode.
+     */
+    public String encode() {
+        return toString();
+    }
+
+    /**
+     * Decodes the task details into a ToDo object.
+     *
+     * @param taskDetails the details of the task to decode
+     * @return a new ToDo object with the decoded details
+     */
+    public static ToDo decode(String taskDetails) {
+        return new ToDo(taskDetails);
+    }
+
 }

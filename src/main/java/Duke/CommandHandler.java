@@ -6,7 +6,6 @@ package duke;
  * It provides methods to execute commands.
  */
 public class CommandHandler {
-    private Bird bird;
 
     public enum Command {
         BYE,
@@ -21,15 +20,6 @@ public class CommandHandler {
     }
 
     /**
-     * Constructs a new CommandHandler with the specified user interface.
-     *
-     * @param bird the chatbot to use
-     */
-    public CommandHandler(Bird bird) {
-        this.bird = bird;
-    }
-
-    /**
      * Executes the specified command.
      *
      * @param userInput the command to execute
@@ -38,65 +28,99 @@ public class CommandHandler {
      */
     public String executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
-        Command command;
-        try {
-            command = Command.valueOf(words[0].toUpperCase());
-        } catch (IllegalArgumentException e) {
-            String commandStr = words[0];
-            throw new CommandNotFoundException(commandStr);
-        }
-        assert command != null: "Command should have a value assigned to it, and not be null";
+        Command command = getCommand(words[0]);
 
-        String output = "";
-        switch (command) {
-            case BYE:
-                output = "bye";
-                break;
-            case LIST:
-                output = TaskList.list();
-                break;
-            default:
-                String arguments;
-                try {
-                    arguments = userInput.substring(command.name().length() + 1);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new ArgumentNotFoundException(command.name());
-                }
-                switch (command) {
-                case MARK:
-                    output = TaskList.markTask(processTaskIdx(arguments));
-                    break;
-                case UNMARK:
-                    output = TaskList.unmarkTask(processTaskIdx(arguments));
-                    break;
-                case DELETE:
-                    output = TaskList.deleteTask(processTaskIdx(arguments));
-                    break;
-                case TODO:
-                    output = TaskList.addTask(processToDo(arguments));
-                    break;
-                case DEADLINE:
-                    output = TaskList.addTask(processDeadline(arguments));
-                    break;
-                case EVENT:
-                    output = TaskList.addTask(processEvent(arguments));
-                    break;
-                case FIND:
-                    output = TaskList.findTask(arguments);
-                    break;
-                default:
-                    assert false: "Should not fall into default case of switch block for executeCommand method!";
-                    output = "Error: Fell into default case in executeCommand method!";
-                    break;
-                }
+        String output;
+        if (command == Command.BYE || command == Command.LIST) {
+            output = handleSimpleCommands(command);
+        } else {
+            String arguments = getCommandArguments(userInput, command);
+            output = handleComplexCommands(command, arguments);
         }
-            // To store the updated Task List
-            Storage.store();
 
-            assert output != null: "Output should not be null!";
-            return output;
+        Storage.store();
+        assert output != null: "Output should not be null!";
+        return output;
     }
 
+    /**
+     * Retrieves the command from the user input.
+     *
+     * @param commandString the string representation of the command
+     * @return the Command corresponding to the command string
+     * @throws CommandNotFoundException if the command string does not correspond to a valid command
+     */
+    private Command getCommand(String commandString) throws CommandNotFoundException {
+        try {
+            return Command.valueOf(commandString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new CommandNotFoundException(commandString);
+        }
+    }
+
+    /**
+     * Handles simple commands that do not require additional arguments.
+     *
+     * @param command the command to handle
+     * @return the response of the chatbot
+     * @throws IllegalArgumentException if the command is not a simple command
+     */
+    private String handleSimpleCommands(Command command) {
+        switch (command) {
+            case BYE:
+                return "bye";
+            case LIST:
+                return TaskList.list();
+            default:
+                throw new IllegalArgumentException("Invalid command: " + command);
+        }
+    }
+
+    /**
+     * Retrieves the arguments for a command from the user input.
+     *
+     * @param userInput the user input
+     * @param command the command to retrieve arguments for
+     * @return the arguments for the command
+     * @throws ArgumentNotFoundException if the user input does not contain the required arguments for the command
+     */
+    private String getCommandArguments(String userInput, Command command) throws ArgumentNotFoundException {
+        try {
+            return userInput.substring(command.name().length() + 1);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new ArgumentNotFoundException(command.name());
+        }
+    }
+
+    /**
+     * Handles complex commands that require additional arguments.
+     *
+     * @param command the command to handle
+     * @param arguments the arguments for the command
+     * @return the response of the chatbot
+     * @throws DukeException if the arguments are invalid
+     */
+    private String handleComplexCommands(Command command, String arguments) throws DukeException {
+        switch (command) {
+            case MARK:
+                return TaskList.markTask(processTaskIdx(arguments));
+            case UNMARK:
+                return TaskList.unmarkTask(processTaskIdx(arguments));
+            case DELETE:
+                return TaskList.deleteTask(processTaskIdx(arguments));
+            case TODO:
+                return TaskList.addTask(processToDo(arguments));
+            case DEADLINE:
+                return TaskList.addTask(processDeadline(arguments));
+            case EVENT:
+                return TaskList.addTask(processEvent(arguments));
+            case FIND:
+                return TaskList.findTask(arguments);
+            default:
+                assert false: "Should not fall into default case of switch block for executecomnand method! ";
+                return "Error: Fell into default case in executeCommand method!";
+        }
+    }
 
     /**
      * Processes the argument of a command that operates on a task by index.

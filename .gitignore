@@ -16,3 +16,4 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 data/taskList.txt
+text-ui-test/input.txt
