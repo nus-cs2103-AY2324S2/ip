@@ -1,5 +1,6 @@
 package toothless;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import toothless.tasks.*;
 
@@ -9,79 +10,77 @@ import toothless.tasks.*;
  * and task lists, as well as reading user input.
  */
 public class Ui {
-
-    private String splitLine = "____________________________________________________________";
     private String chatBotName = "Toothless";
     private String greetingString = "Hi! "+ chatBotName +" is " + chatBotName + "!\n"
-            + "What can " + chatBotName + " do for human?\n" + splitLine;
+            + "What can " + chatBotName + " do for human?\n";
     private String exitString = "Bye. Hope to see you again soon!";
 
     /**
      * Displays the welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println(greetingString);
+    public String showWelcome() {
+        return greetingString;
     }
 
     /**
      * Displays the exit message to the user.
      */
-    public void showFarewell() {
-        System.out.println(exitString);
-    }
-
-    /**
-     * Displays the line separator to the user.
-     */
-    public void showLine() {
-        System.out.println(splitLine);
-    }
-
-    /**
-     * Displays a single task to the user.
-     * @param task The task to be displayed.
-     */
-    public void showTask(Task task) {
-        System.out.println(" ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task);
-    }
-
-    /**
-     * Displays a single task with its index to the user.
-     * @param task The task to be displayed.
-     * @param index The index of the task to be displayed.
-     */
-    public void showTask(Task task, int index) {
-        System.out.format("%d. ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
+    public String showFarewell() {
+        return exitString;
     }
 
     /**
      * Displays a loading message indicating that previous tasks are being loaded from the file.
      */
-    public void showLoadingTasks() {
-        System.out.println("Loading previous recorded tasks...\n" + splitLine);
+    public String showLoadingTasks() {
+        return "Loading previous recorded tasks...\n";
+    }
+
+    public String showDeletedTask(Task task, int size) {
+        return "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
+    }
+
+    public String showAddedTask(Task task, int size) {
+        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
+    }
+
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.toString();
+    }
+
+    public String showUnmarkedTask(Task task) {
+        return "Nice! I've marked this task as undone:\n" + task.toString();
+    }
+
+    public String showFoundTasks(ArrayList<Task> tasks) {
+        String message = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            message += (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+        return message;
+    }
+
+    public String showAllTasks(TaskList tasks) {
+        String message = "Here are the tasks in your list:\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            message += (i + 1) + ". " + tasks.getTask(i) + "\n";
+        }
+        return message;
     }
 
     /**
      * Displays all incomplete tasks to the user.
      * @param tasks The TaskList containing the tasks to be displayed.
      */
-    public void showIncompleteTask(TaskList tasks) {
+    public String showIncompleteTask(TaskList tasks) {
+        String message = "You have these unmarked tasks:\n";
         System.out.println("You have these unmarked tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
             if (!t.isDone()) {
-                this.showTask(t);
+                message += (i + 1) + ". " + t + "\n";
             }
         }
-        this.showLine();
-    }
-
-    /**
-     * Reads a command from the user.
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
+        return message;
     }
 }

@@ -36,7 +36,7 @@ public class UnmarkCommand extends Command {
      *  or if the detail string is empty.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
         if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
             throw new ToothlessException("Human trying to unmark nothing ^O^. Silly");
@@ -45,9 +45,15 @@ public class UnmarkCommand extends Command {
         Task t = taskList.getTask(taskIndex);
         t.markAsNotDone();
 
-        System.out.println("OK, I've marked this task as not done yet:");
-        ui.showTask(t, taskIndex);
+        return ui.showUnmarkedTask(t);
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }

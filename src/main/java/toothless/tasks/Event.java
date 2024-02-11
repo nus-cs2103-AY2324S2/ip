@@ -63,7 +63,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return description + " (from: " + super.dateTimeFormat(startDate)
+        return super.toString() + " (from: " + super.dateTimeFormat(startDate)
                 + " to: " + super.dateTimeFormat(endDate) + ")";
     }
 }

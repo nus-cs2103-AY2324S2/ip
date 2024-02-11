@@ -32,7 +32,7 @@ public class FindCommand extends Command{
      * @throws ToothlessException If the task list is empty or no tasks match the search criteria.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (taskList.size() == 0) {
             throw new ToothlessException("Human list is empty like my tummy right now :/");
         }
@@ -49,11 +49,15 @@ public class FindCommand extends Command{
             throw new ToothlessException("No matching tasks in your list!");
         }
 
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            ui.showTask(list.get(i), i);
-        }
+        return ui.showFoundTasks(list);
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }

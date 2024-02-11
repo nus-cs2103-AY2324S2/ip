@@ -33,7 +33,7 @@ public class TodoCommand extends Command {
      * @throws ToothlessException If the task description is missing.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {
             throw new ToothlessException("Human task no name :(");
         }
@@ -41,10 +41,15 @@ public class TodoCommand extends Command {
         Task t = new Todo(detail);
         taskList.addTask(t);
 
-        System.out.println("Got it. I've added this task:");
-        ui.showTask(t, taskList.size() - 1);
-        System.out.format("Now you have %d tasks in the list.\n", taskList.size());
+        return ui.showAddedTask(t, taskList.size());
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }
