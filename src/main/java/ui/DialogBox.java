@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
+import javafx.scene.shape.Circle;
 public class DialogBox extends HBox {
 
     private Label text;
@@ -22,8 +22,11 @@ public class DialogBox extends HBox {
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
+        Circle clip = new Circle(50, 50, 50);
+        displayPicture.setClip(clip);
+
         this.setAlignment(Pos.TOP_RIGHT);
-        this.setPadding(new Insets(10)); // Set padding around the DialogBox
+        this.setPadding(new Insets(10));
         this.setSpacing(10);
         this.getChildren().addAll(text, displayPicture);
     }
