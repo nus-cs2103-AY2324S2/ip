@@ -15,6 +15,7 @@ public class NothingCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks) {
+        assert tasks != null;
         return "";
     }
 

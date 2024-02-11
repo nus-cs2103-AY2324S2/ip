@@ -28,6 +28,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks) {
+        assert tasks != null;
         Task task = new ToDo(this.todo);
         tasks.add(task);
         return tasks.standardize(task);

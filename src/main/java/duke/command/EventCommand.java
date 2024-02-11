@@ -36,6 +36,7 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks) {
+        assert tasks != null;
         Task task = new duke.task.Event(this.event, this.fromDate, this.toDate);
         tasks.add(task);
         return tasks.standardize(task);

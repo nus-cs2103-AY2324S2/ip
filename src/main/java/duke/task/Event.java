@@ -18,6 +18,9 @@ public class Event extends Task {
      */
     public Event(String event, LocalDateTime from, LocalDateTime to) {
         super();
+        assert event != null;
+        assert from != null;
+        assert to != null;
         this.event = event;
         this.from = from;
         this.to = to;
@@ -27,11 +30,11 @@ public class Event extends Task {
     public String toString() {
         String isDone = this.done ? "X" : " ";
         return String.format(
-                "[E][%s] %s (from: %s to: %s)",
-                isDone,
-                this.event,
-                this.dateFormat(this.from),
-                this.dateFormat(this.to)
+            "[E][%s] %s (from: %s to: %s)",
+            isDone,
+            this.event,
+            this.dateFormat(this.from),
+            this.dateFormat(this.to)
         );
     }
 }
