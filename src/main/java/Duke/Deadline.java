@@ -32,15 +32,6 @@ public class Deadline extends Task {
     }
 
     /**
-     * Checks if the deadline has a valid date set.
-     *
-     * @return true if the deadline date is non-null, false otherwise.
-     */
-    public boolean hasValidDate() {
-        return by != null;
-    }
-
-    /**
      * Returns a string representation of the Deadline task.
      * <p>
      * The format includes the type of task ('[D]'), the description, and the deadline time.
