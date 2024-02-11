@@ -20,7 +20,7 @@ public enum TaskType {
     EVENT {
         @Override
         public Task createTask(String... args) {
-            return new Event(args[0], args[1] ,args[2]);
+            return new Event(args[0], args[1], args[2]);
         }
     };
 

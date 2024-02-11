@@ -1,5 +1,7 @@
 package earl.util;
 
+import static java.util.stream.Collectors.toCollection;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -7,10 +9,12 @@ import java.util.stream.Stream;
 
 import earl.tasks.Task;
 
+
 /**
  * Class encapsulating the list of tasks.
  * <p>
- * Functionally a wrapper of the {@code List} class.
+ * Functionally a wrapper of the {@code List} class. Passes information
+ * as a {@code Stream}.
  */
 public class TaskList {
 
@@ -22,8 +26,8 @@ public class TaskList {
     }
 
     /** Class constructor specifying existing list. */
-    public TaskList(List<Task> tasks) {
-        this.tasks = tasks;
+    public TaskList(Stream<Task> tasks) {
+        this.tasks = tasks.collect(toCollection(ArrayList::new));
     }
 
     public boolean isEmpty() {
@@ -46,13 +50,12 @@ public class TaskList {
         return tasks.remove(idx);
     }
 
-    public String[] getAsIndexedArray() {
+    public Stream<String> getAsIndexedStream() {
         return IntStream.range(0, tasks.size())
-                .mapToObj((idx) -> idx + 1 + "." + tasks.get(idx))
-                .toArray(String[]::new);
+                .mapToObj((idx) -> idx + 1 + "." + tasks.get(idx));
     }
 
-    public Stream<Task> getAsStream() {
-        return tasks.stream();
+    public Stream<String> getAsStorageStringStream() {
+        return tasks.stream().map(Task::toStorageString);
     }
 }

@@ -6,6 +6,7 @@ import earl.util.Storage;
 import earl.util.TaskList;
 import earl.util.Ui;
 import earl.util.parsers.InputParser;
+import earl.util.parsers.TaskStorageParser;
 
 /**
  * The main class of the Earl application.
@@ -24,7 +25,7 @@ public class Earl {
     public Earl(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        tasks = new TaskList(storage.load(new TaskStorageParser()));
         if (!storage.wasLoadSuccessful()) {
             ui.makeResponse("Failed to read from storage.",
                     "Starting with empty file...");
@@ -60,7 +61,7 @@ public class Earl {
         }
         // save to file
         try {
-            storage.save(tasks.getAsStream());
+            storage.save(tasks.getAsStorageStringStream());
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
         }
@@ -76,7 +77,7 @@ public class Earl {
     public String getResponse(String input) {
         try {
             if (input.equals("bye")) { // terminate execution
-                storage.save(tasks.getAsStream());
+                storage.save(tasks.getAsStorageStringStream());
                 ui.showGoodbye();
                 return ui.getResponse();
             }

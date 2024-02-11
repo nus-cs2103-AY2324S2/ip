@@ -17,7 +17,7 @@ public class FindHandler extends Handler {
 
     @Override
     public void handle(TaskList tasks, Ui ui) {
-        String[] matches = Stream.of(tasks.getAsIndexedArray())
+        String[] matches = tasks.getAsIndexedStream()
                 .filter((str) -> str.contains(args))
                 .toArray(String[]::new);
         if (matches.length == 0) {

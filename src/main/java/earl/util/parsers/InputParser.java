@@ -7,7 +7,7 @@ import earl.logic.HandlerType;
 /**
  * Class responsible for interpreting the user input.
  */
-public class InputParser implements Parser {
+public class InputParser implements Parser<Handler> {
 
     /**
      * Returns a new {@code Handler} object based on user input.

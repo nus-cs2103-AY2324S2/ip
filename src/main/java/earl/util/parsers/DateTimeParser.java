@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class responsible for interpreting date time information.
  */
-public class DateTimeParser implements Parser {
+public class DateTimeParser implements Parser<LocalDateTime> {
 
     private static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter
             .ofPattern("dd/MM/yyyy HHmm");

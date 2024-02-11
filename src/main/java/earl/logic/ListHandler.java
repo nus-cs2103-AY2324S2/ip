@@ -1,7 +1,5 @@
 package earl.logic;
 
-import java.util.stream.IntStream;
-
 import earl.util.TaskList;
 import earl.util.Ui;
 
@@ -20,6 +18,6 @@ public final class ListHandler extends Handler {
             ui.makeResponse("There is nothing to list.");
             return;
         }
-        ui.makeResponse(tasks.getAsIndexedArray());
+        ui.makeResponse(tasks.getAsIndexedStream().toArray(String[]::new));
     }
 }

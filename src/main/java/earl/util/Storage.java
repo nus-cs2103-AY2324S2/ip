@@ -3,13 +3,10 @@ package earl.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.Files;
 import java.util.stream.Stream;
 
 import earl.exceptions.EarlException;
-import earl.tasks.Task;
 import earl.util.parsers.StorageParser;
 
 /**
@@ -18,7 +15,7 @@ import earl.util.parsers.StorageParser;
 public class Storage {
 
     private final String filePath;
-    private final List<Task> tasks = new ArrayList<>();
+
     private boolean wasLoadSuccessful = false;
 
     /**
@@ -29,32 +26,34 @@ public class Storage {
     }
 
     /**
-     * Returns an {@code ArrayList} of {@code Task} read from the disk.
+     * Returns a {@code Stream} of {@code T} read from the disk.
      * <p>
      * Attempts to find the storage file at the given file path.
      * Starts with an empty file if no existing file is found.
      *
-     * @return an {@code ArrayList} of {@code Task} read
+     * @return  a {@code Stream} of {@code T} read
      */
-    public List<Task> load() {
+    public <T> Stream<T> load(StorageParser<T> parser) {
         try {
             File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
             assert file.exists();
             if (isFolderMade || isFileMade) {
-                return tasks; // file is surely missing
+                return Stream.empty();
             }
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                String entry = sc.nextLine();
-                Task task = StorageParser.parse(entry);
-                tasks.add(task);
-            }
+            Stream<T> result = Files.lines(file.toPath())
+                    .map((x) -> {
+                        try {
+                            return parser.parse(x);
+                        } catch (EarlException e) {
+                            throw new RuntimeException(e.getMessage());
+                        }
+                    });
             wasLoadSuccessful = true;
-            return tasks;
+            return result;
         } catch (Exception e) {
-            return new ArrayList<>(); // start with empty list
+            return Stream.empty();
         }
     }
 
@@ -64,15 +63,14 @@ public class Storage {
     }
 
     /**
-     * Saves given list of {@code Task} onto the disk.
+     * Saves given stream of {@code String} onto the disk.
      *
-     * @param tasks a {@code List} of {@code Task} to be saved
-     * @throws EarlException if the file could not be written to
+     * @param dataStream      a {@code Stream} of {@code String} to be saved
+     * @throws EarlException  if the file could not be written to
      */
-    public void save(Stream<Task> tasks) throws EarlException {
+    public void save(Stream<String> dataStream) throws EarlException {
         try (FileWriter fw = new FileWriter(filePath)) {
-            String[] data = tasks.map(Task::toStorageString)
-                    .map((str) -> str + "\n")
+            String[] data = dataStream.map((str) -> str + "\n")
                     .toArray(String[]::new);
             for (String line : data) {
                 fw.write(line);
