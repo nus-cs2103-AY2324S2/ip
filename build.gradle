@@ -48,10 +48,10 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Launcher")
 }
 
-mainClassName = 'seedu.duke.Main'
+mainClassName = 'Launcher'
 
 shadowJar {
     archiveBaseName = "duke"
