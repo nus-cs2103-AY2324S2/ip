@@ -84,7 +84,7 @@ public class TaskList {
         if (taskList.isEmpty()) {
             output += "\n" + ui.printEmptyTaskList();
         } else {
-            output = "\n" + ui.printNumberOfTasks(getSize());
+            output += "\n" + ui.printNumberOfTasks(getSize());
         }
         return output;
     }
