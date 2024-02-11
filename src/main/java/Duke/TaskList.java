@@ -36,18 +36,18 @@ public class TaskList {
         try {
             file.createNewFile();
             Scanner fileScanner = new Scanner(file);
-            int lines = 0;
+            // int lines = 0;
             while (fileScanner.hasNext()) {
                 String taskLine = fileScanner.nextLine();
                 Task task = parser.parseTask(taskLine); // Implement this method based on your task format
                 if (task != null) {
                     this.taskList.add(task);
                 }
-                lines++;
+                // lines++;
                 this.currIndex++;
             }
         } catch(IOException e){
-//            ui.createFileError(e);
+
         }
     }
 

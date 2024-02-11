@@ -16,10 +16,8 @@ public class Parser {
     /**
      * Initializes a new Parser instance.
      *
-     * @param ui The UI component of the application to display parsing errors.
      */
     public Parser() {
-
     }
 
     /**
@@ -35,7 +33,6 @@ public class Parser {
     public Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
-            //ui.taskFormatError(line);
             return null;
         }
         try {
@@ -52,7 +49,6 @@ public class Parser {
                 return todo;
             case "D":
                 if (parts.length < 4) {
-                    //ui.deadlineMissingBy(line);
                     return null;
                 }
                 String by = parts[3].trim();
@@ -63,7 +59,6 @@ public class Parser {
                 return deadline;
             case "E":
                 if (parts.length < 5) { // missing from/to or both
-                    //ui.eventMissingParam(line);
                     return null;
                 }
                 String from = parts[3].trim();
@@ -72,11 +67,9 @@ public class Parser {
                 if (isDone) event.markDone();
                 return event;
             default:
-                //ui.unknownTaskType(type);
                 return null;
             }
         } catch (Exception e) {
-            //ui.genericTaskError(e, line);
             return null;
         }
     }
@@ -97,7 +90,6 @@ public class Parser {
             LocalDateTime date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
-            // ui.parseDateError(dateString);
             return null;
         }
     }
