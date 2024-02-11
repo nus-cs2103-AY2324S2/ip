@@ -2,6 +2,9 @@ package Thames;
 
 import java.io.FileNotFoundException;
 
+
+
+
 import Thames.command.Command;
 
 /**
@@ -53,7 +56,19 @@ public class Thames {
     /**
      * Runs the chat bot.
      */
-    public static void main(String[] args) {
-        new Thames("data/tasks.txt").run();
+//    public static void main(String[] args) {
+//        new Thames("data/tasks.txt").run();
+//    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (ThamesException e) {
+            return e.getMessage();
+        }
     }
+
+
+
 }

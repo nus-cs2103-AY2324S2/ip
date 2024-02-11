@@ -1,6 +1,12 @@
 package Thames;
 
-import Thames.command.;
+import Thames.command.AddCommand;
+import Thames.command.FindCommand;
+import Thames.command.DeleteCommand;
+import Thames.command.ExitCommand;
+import Thames.command.EditCommand;
+import Thames.command.Command;
+import Thames.command.ListCommand;
 import Thames.task.ToDo;
 import Thames.task.Deadline;
 import Thames.task.Event;

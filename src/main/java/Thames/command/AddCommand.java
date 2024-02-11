@@ -29,11 +29,11 @@ public class AddCommand extends Command {
      * @throws ThamesException If error occurs while saving new task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
-        tasks.add(task);
-        ui.addTask(task, tasks.size());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
+            tasks.add(task);
             storage.save(tasks);
+            return ui.addTask(task, tasks.size());
         } catch(IOException e) {
             throw new ThamesException("There was an error saving the file. Please try again.");
         }

@@ -32,17 +32,18 @@ public class EditCommand extends Command {
      * @throws ThamesException If error occurs while saving new task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
             Task task = tasks.get(index);
             if (isMark) {
                 task.mark();
-                ui.mark(task);
+                storage.save(tasks);
+                return ui.mark(task);
             } else {
                 task.unmark();
-                ui.mark(task);
+                storage.save(tasks);
+                return ui.mark(task);
             }
-            storage.save(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new ThamesException("Task list index is out of bounds!");
         } catch (IOException e) {
