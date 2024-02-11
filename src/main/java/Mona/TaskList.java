@@ -15,7 +15,9 @@ public class TaskList {
      */
     public TaskList(Storage storage) {
         this.storage = storage;
-        storage.readLog(this.tasks);
+        if (storage != null) {
+            storage.readLog(this.tasks);
+        }
     }
 
     /**
@@ -103,7 +105,6 @@ public class TaskList {
      */
     public Task deleteTaskTest(int taskIndex) {
         Task removedTask = this.tasks.remove(taskIndex);
-        storage.writeToFile(tasks);
         return removedTask;
     }
 

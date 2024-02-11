@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 public class TaskListTest {
     @Test
     public void testInsert() {
-        Storage storage = new Storage("");
-        TaskList taskList = new TaskList(storage);
+        TaskList taskList = new TaskList(null);
         Todo toAdd = new Todo("first todo");
         Todo toAdd2 = new Todo("second todo");
         taskList.addTaskTest(toAdd);
@@ -18,8 +17,7 @@ public class TaskListTest {
     }
     @Test
     public void testRemove() {
-        Storage storage = new Storage("");
-        TaskList taskList = new TaskList(storage);
+        TaskList taskList = new TaskList(null);
         Todo toAdd = new Todo("first todo");
         Todo toAdd2 = new Todo("second todo");
         taskList.addTaskTest(toAdd);
