@@ -72,8 +72,10 @@ public class BobStorage {
 
             if (!this.SAVE_DATA.exists()) {
                 this.instantiateDirectory();
-                return new ArrayList<Task>();
+                return new ArrayList<>();
             }
+
+            assert this.SAVE_DATA.exists(); // File should be created.
 
             try (BufferedReader br = new BufferedReader(new FileReader(this.SAVE_DATA))) {
 

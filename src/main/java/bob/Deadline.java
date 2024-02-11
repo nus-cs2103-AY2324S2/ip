@@ -62,6 +62,7 @@ public class Deadline extends Task {
     public String toString() {
 
         String deadline = this.deadline;
+
         if (dateTime != null) {
 
             String format = "MMM dd yyyy HH:mm";

@@ -15,14 +15,8 @@ public class BobParser {
     public static final String DELETE_COMMAND = "delete";
     public static final String FIND_COMMAND = "find";
 
-    private Bob self;
     private BobUI ui;
     private BobTaskList taskList;
-
-    public BobParser setSelf(Bob self) {
-        this.self = self;
-        return this;
-    }
 
     public BobParser setUi(BobUI ui) {
         this.ui = ui;
@@ -40,6 +34,8 @@ public class BobParser {
      * @param input User input in plain text.
      */
     public String processInput(String input) {
+
+        assert !input.trim().isEmpty(); // should not accept empty input.
 
         String command = input.split("\\s+")[0];
 

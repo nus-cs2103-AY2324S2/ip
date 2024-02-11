@@ -103,7 +103,7 @@ public class BobTaskList {
         try {
             if (input.contains(BobParser.TODO_COMMAND)) {
 
-                if (input.length() == BobParser.TODO_COMMAND.length()) {
+                if (input.trim().length() == BobParser.TODO_COMMAND.length()) {
                     throw new BobException("The command " + BobParser.TODO_COMMAND + " requires a task description.");
                 }
 
@@ -164,6 +164,8 @@ public class BobTaskList {
             throw new BobException("Incorrect usage of command.");
         }
 
+        assert t != null; // Task should be populated by now.
+
         return this.ui.getTaskAddText(t, this.list);
     }
 
@@ -173,7 +175,9 @@ public class BobTaskList {
      * @param input User input when calling the command.
      */
     public String handleTaskDeletion(String input) throws BobException {
+
         String[] args = input.split("\\s+");
+
         if (args.length < 2) {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }

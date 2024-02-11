@@ -1,18 +1,11 @@
 package bob;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Class that renders the user interface of the chat bot.
  */
 public class BobUI {
-
-    private Scanner scanner;
-
-    public BobUI(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     /**
      * List items in list.
@@ -26,7 +19,7 @@ public class BobUI {
 
         if (!summarized) {
 
-            listTexts += "Here ere are the tasks in your list:\r\n";
+            listTexts += "Here are the tasks in your list:\r\n";
 
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);

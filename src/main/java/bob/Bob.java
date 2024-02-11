@@ -51,13 +51,21 @@ public class Bob {
      * @returns the Bot class object.
      */
     public static Bob init() {
-        BobUI ui = new BobUI(new Scanner(System.in));
+
+        BobUI ui = new BobUI();
         BobStorage storage = new BobStorage(ui);
         BobParser parser = new BobParser();
         BobTaskList taskList = new BobTaskList(storage, ui);
 
         Bob bob = new Bob(ui, storage, parser, taskList);
-        parser.setSelf(bob).setUi(ui).setTaskList(taskList);
+
+        parser.setUi(ui).setTaskList(taskList);
+
+        // Components should be initialized.
+        assert bob.ui != null;
+        assert bob.storage != null;
+        assert bob.parser != null;
+        assert bob.taskList != null;
 
         return bob;
     }
