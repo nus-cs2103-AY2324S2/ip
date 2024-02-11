@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import harvard.exceptions.HarvardException;
 import harvard.tasks.Deadline;
 import harvard.tasks.Event;
+import harvard.tasks.Task;
 import harvard.tasks.Todo;
 
 /**
@@ -36,7 +37,7 @@ public class Parser {
      * @param commandLine The user command to be parsed.
      * @throws HarvardException If an error occurs during parsing or task manipulation.
      */
-    public void parse(String commandLine) throws HarvardException {
+    public String parse(String commandLine) throws HarvardException {
         String command = commandLine.split(" ")[0];
 
         if (!command.equals("list") && !command.equals("todo")
@@ -47,21 +48,24 @@ public class Parser {
         }
 
         if (command.equals("list")) {
-            this.ui.printTasks(tasks);
+            return this.ui.printTasks(tasks);
         }
 
         if (command.equals("find")) {
             String[] commandItems = commandLine.split(" ");
             TaskList filteredTasks = tasks.find(commandItems[1]);
 
-            this.ui.printFindTasks(filteredTasks);
+            return this.ui.printFindTasks(filteredTasks);
         }
 
         if (command.equals("delete")) {
             int index = Integer.parseInt(commandLine.split(" ")[1]);
+            int tasksLeft = tasks.getSize() - 1;
+            Task taskLeft = tasks.getTask(index - 1);
 
-            this.ui.printDeleteTask(tasks.getTask(index - 1), tasks.getSize() - 1);
             this.tasks.delete(index - 1);
+            this.storage.store(this.tasks);
+            return this.ui.printDeleteTask(taskLeft, tasksLeft);
         }
 
         if (command.equals("todo")) {
@@ -71,7 +75,8 @@ public class Parser {
                 }
                 Todo todoTask = new Todo(commandLine.substring(commandLine.indexOf(' ') + 1));
                 this.tasks.add(todoTask);
-                this.ui.printAddTask(todoTask, tasks.getSize());
+                this.storage.store(this.tasks);
+                return this.ui.printAddTask(todoTask, tasks.getSize());
             } catch (HarvardException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(e.getMessage());
@@ -86,7 +91,8 @@ public class Parser {
 
             Deadline deadlineTask = new Deadline(desc, by);
             this.tasks.add(deadlineTask);
-            this.ui.printAddTask(deadlineTask, tasks.getSize());
+            this.storage.store(this.tasks);
+            return this.ui.printAddTask(deadlineTask, tasks.getSize());
         }
 
         if (command.equals("event")) {
@@ -98,7 +104,8 @@ public class Parser {
 
             Event eventTask = new Event(desc, from, to);
             this.tasks.add(eventTask);
-            this.ui.printAddTask(eventTask, tasks.getSize());
+            this.storage.store(this.tasks);
+            return this.ui.printAddTask(eventTask, tasks.getSize());
         }
 
         if (command.equals("mark") || command.equals("unmark")) {
@@ -106,14 +113,15 @@ public class Parser {
 
             if (command.equals("mark")) {
                 this.tasks.mark(index);
-                this.ui.printMark(this.tasks.getTask(index));
+                this.storage.store(this.tasks);
+                return this.ui.printMark(this.tasks.getTask(index));
             } else {
                 this.tasks.unmark(index);
-                this.ui.printUnmark(this.tasks.getTask(index));
+                this.storage.store(this.tasks);
+                return this.ui.printUnmark(this.tasks.getTask(index));
             }
 
         }
-
-        this.storage.store(this.tasks);
+        return "";
     }
 }

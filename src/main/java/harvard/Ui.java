@@ -42,12 +42,11 @@ public class Ui {
      * @param task The task that was added.
      * @param tasksLeft The number of tasks left in the list.
      */
-    public void printAddTask(Task task, int tasksLeft) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + tasksLeft + " tasks in the list.");
-        System.out.println("____________________________________________________________\n");
+    public String printAddTask(Task task, int tasksLeft) {
+        String str = "Got it. I've added this task:\n";
+        str += task.toString();
+        str += "Now you have " + tasksLeft + " tasks in the list.\n";
+        return str;
     }
 
     /**
@@ -56,12 +55,11 @@ public class Ui {
      * @param task The task that was removed.
      * @param tasksLeft The number of tasks left in the list.
      */
-    public void printDeleteTask(Task task, int tasksLeft) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + tasksLeft + " tasks in the list.");
-        System.out.println("____________________________________________________________\n");
+    public String printDeleteTask(Task task, int tasksLeft) {
+        String str = "Noted. I've removed this task:\n";
+        str += task.toString();
+        str += "Now you have " + tasksLeft + " tasks in the list.";
+        return str;
     }
 
     /**
@@ -69,11 +67,10 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void printMark(Task task) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
-        System.out.println("____________________________________________________________\n");
+    public String printMark(Task task) {
+        String str = "Nice! I've marked this task as done:\n";
+        str += task.toString();
+        return str;
     }
 
     /**
@@ -81,20 +78,10 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void printUnmark(Task task) {
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        System.out.println("____________________________________________________________\n");
-    }
-
-    /**
-     * Prints a message for an unrecognized command.
-     */
-    public void printUnrecognisedCommand() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bro... Idk what that is man.");
-        System.out.println("____________________________________________________________");
+    public String printUnmark(Task task) {
+        String str = "OK, I've marked this task as not done yet:\n";
+        str += task.toString();
+        return str;
     }
 
     /**
@@ -102,17 +89,16 @@ public class Ui {
      *
      * @param tasks The TaskList containing the tasks to be printed.
      */
-    public void printTasks(TaskList tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the tasks in your list:");
+    public String printTasks(TaskList tasks) {
+        String str = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
-                System.out.println(i + 1 + ". " + tasks.printString(i));
+                str += i + 1 + ". " + tasks.printString(i) + "\n";
             } catch (HarvardException e) {
-                System.out.println(e.getMessage());
+                str += e.getMessage();
             }
         }
-        System.out.println("____________________________________________________________\n");
+        return str;
     }
 
     /**
@@ -122,17 +108,15 @@ public class Ui {
      *
      * @param tasks the TaskList containing tasks to be printed
      */
-    public void printFindTasks(TaskList tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+    public String printFindTasks(TaskList tasks) {
+        String str = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.getSize(); i++) {
             try {
-                System.out.println(i + 1 + ". " + tasks.printString(i));
+                str += i + 1 + ". " + tasks.printString(i) + "\n";
             } catch (HarvardException e) {
-                System.out.println(e.getMessage());
+                str += e.getMessage();
             }
         }
-        System.out.println("____________________________________________________________\n");
+        return str;
     }
-
 }
