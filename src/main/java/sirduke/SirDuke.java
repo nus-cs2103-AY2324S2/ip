@@ -79,8 +79,8 @@ public class SirDuke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/LeUser.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/SirDuke.png"));
 
     /**
      * Iteration 2:
@@ -101,7 +101,7 @@ public class SirDuke extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    String getResponse(String input) {
         return "Duke heard: " + input;
     }
 
