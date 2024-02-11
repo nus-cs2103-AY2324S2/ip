@@ -15,8 +15,10 @@ public class UkeCat {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the same input string as the response, to be displayed on GUI.
+     *
+     * @param input The reply string.
+     * @return The response generated based on the reply.
      */
     public String getResponse(String input) {
         return input;

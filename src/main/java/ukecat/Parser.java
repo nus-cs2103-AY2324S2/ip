@@ -51,6 +51,7 @@ public class Parser {
     public static void parseDeadline(String input) throws UkeCatException {
         Pattern pattern = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
         Matcher matcher = pattern.matcher(input);
+
         if (matcher.matches()) {
             Storage.desc = matcher.group(1);
             Storage.by = LocalDate.parse(matcher.group(2));
