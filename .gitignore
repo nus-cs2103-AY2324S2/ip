@@ -27,3 +27,4 @@ build
 
 # Ignore local data storage files
 /data/
+.bugs.txt
