@@ -1,4 +1,5 @@
 package skyler.main;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,11 +17,13 @@ public class Parser {
      * @param userInput The user input to be processed.
      * @throws SkylerException If there is an error processing the user input.
      */
-    public static void processUserInput(String userInput) throws SkylerException {
+    public static String processUserInput(String userInput) throws SkylerException {
+        String result = ""; 
+
         if (userInput.equals("list")) {
-            TaskList.listTasks();
+            result = TaskList.listTasks();
         } else if (userInput.startsWith("todo")) {
-            TaskList.addTask(new ToDo(getTaskDescription(userInput, 4), false));
+            result = TaskList.addTask(new ToDo(getTaskDescription(userInput, 4), false));
         } else if (userInput.startsWith("deadline")) {
             String[] parts = userInput.split("/by", 2);
 
@@ -32,7 +35,7 @@ public class Parser {
             String description = parts[0].substring(9).trim();
             String by = parts[1].trim();
             LocalDate byDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            TaskList.addTask(new Deadline(description, byDate, false));
+            result = TaskList.addTask(new Deadline(description, byDate, false));
         } else if (userInput.startsWith("event")) {
             String[] parts = userInput.split("/from", 2);
 
@@ -45,20 +48,22 @@ public class Parser {
             String to = parts[1].split("/to")[1].trim();
             LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            TaskList.addTask(new Event(description, fromDate, toDate, false));
+            result = TaskList.addTask(new Event(description, fromDate, toDate, false));
         } else if (userInput.startsWith("delete")) {
-            TaskList.deleteTask(userInput);
+            result = TaskList.deleteTask(userInput);
         } else if (userInput.startsWith("mark")) {
-            TaskList.markTask(userInput);
+            result = TaskList.markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
-            TaskList.unmarkTask(userInput);
+            result = TaskList.unmarkTask(userInput);
         } else if (userInput.startsWith("find")) {
-            TaskList.findTasks(userInput.substring(5).trim());
+            result = TaskList.findTasks(userInput.substring(5).trim());
         } else if (userInput.startsWith("view")) {
-            TaskList.viewTasksOnDate(userInput);
+            result = TaskList.viewTasksOnDate(userInput);
         } else {
             throw new SkylerException("I'm sorry, I don't understand that command.");
         }
+
+        return result; 
     }
 
     /**
