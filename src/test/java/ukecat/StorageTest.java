@@ -10,10 +10,10 @@ public class StorageTest {
         // checks if task is added successfully
         Storage.setTaskCount(0);
         Storage.setInput("todo buy bread");
+        Storage.setDesc("buy bread");
         Storage.setWords(new String[]{"todo", "buy bread"});
-        System.out.println(Storage.getTaskCount());
-        Storage.addTask();
-        assertEquals(1, Storage.getTaskCount());
+        assertEquals("  Task added: [T][ ] buy bread" + System.lineSeparator() +
+                        "  You have 1 task in the list now.", Storage.addTask());
     }
 
     @Test
@@ -21,9 +21,9 @@ public class StorageTest {
         // throws exception if input not correct format
         Storage.setTaskCount(0);
         Storage.setInput("buy bread");
+        Storage.setDesc("buy bread");
         Storage.setWords(new String[]{"todo", "buy bread"});
         System.out.println(Storage.getTaskCount());
-        Storage.addTask();
-        assertEquals(0, Storage.getTaskCount());
+        assertEquals("Error adding task: Wrong format, use: todo <desc>", Storage.addTask());
     }
 }

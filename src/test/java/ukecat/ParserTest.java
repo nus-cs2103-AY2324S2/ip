@@ -23,19 +23,19 @@ public class ParserTest {
             assertEquals(0, parseDeleteTask(new String[]{"mark", "2", "now"}));
             fail();
         } catch (UkeCatException e) {
-            assertEquals("Wrong format, use: mark / unmark <task#>", e.getMessage());
+            assertEquals("Wrong format, use: delete <task#>", e.getMessage());
         }
         try {
             assertEquals(0, parseDeleteTask(new String[]{"mark", "me"}));
             fail();
         } catch (UkeCatException e) {
-            assertEquals("Wrong format, use: mark / unmark <task#>", e.getMessage());
+            assertEquals("Wrong format, use: delete <task#>", e.getMessage());
         }
         try {
             assertEquals(0, parseDeleteTask(new String[]{"mark"}));
             fail();
         } catch (UkeCatException e) {
-            assertEquals("Wrong format, use: mark / unmark <task#>", e.getMessage());
+            assertEquals("Wrong format, use: delete <task#>", e.getMessage());
         }
     }
 
