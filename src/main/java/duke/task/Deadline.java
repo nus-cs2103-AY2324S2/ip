@@ -3,6 +3,9 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+
+import duke.exception.DukeException;
 
 /**
  * Represents a task with a deadline in the Duke chatbot application.
@@ -20,14 +23,20 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by           The deadline in the format "yyyy-MM-dd hh:mma".
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = by;
-        DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
-        builder.parseCaseInsensitive();
-        builder.appendPattern("yyyy-MM-dd hh:mma");
-        DateTimeFormatter format = builder.toFormatter();
-        this.dueDate = LocalDateTime.parse(by, format);
+        try {
+            DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
+            builder.parseCaseInsensitive();
+            builder.appendPattern("yyyy-MM-dd hh:mma");
+            DateTimeFormatter format = builder.toFormatter();
+            this.dueDate = LocalDateTime.parse(by, format);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Input date/time is not in expected format.\n"
+            + "Please enter 'help' for more info.\n");
+        }
+
     }
 
     /**

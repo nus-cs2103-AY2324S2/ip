@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage The Storage to save or load tasks from/to a file.
      * @throws DukeException If there is an error while executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Checks if the command is an exit command.

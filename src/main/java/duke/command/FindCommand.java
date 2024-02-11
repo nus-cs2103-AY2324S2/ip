@@ -31,9 +31,9 @@ public class FindCommand extends Command {
      * @throws DukeException If the keyword is not found in the list of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (!tasks.findTasksByKeyword(keyword).isEmpty()) {
-            ui.showFindMsg(tasks.findTasksByKeyword(keyword));
+            return ui.showFindMsg(tasks.findTasksByKeyword(keyword));
         } else {
             throw new DukeException("Keyword is not found.");
         }

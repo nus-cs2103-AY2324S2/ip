@@ -33,11 +33,11 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index <= tasks.getTaskSize() && this.index > 0) {
             tasks.unmark(this.index);
-            ui.showUnmarkMsg(tasks.getTasks().get(this.index - 1));
             storage.save(tasks);
+            return ui.showUnmarkMsg(tasks.getTasks().get(this.index - 1));
         } else {
             throw new DukeException("Invalid index. "
                     + "Please provide a valid index within the range 1 to "

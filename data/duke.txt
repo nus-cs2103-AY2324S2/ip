@@ -1,4 +1,4 @@
-T |   | erfewsd
-T |   | wefdsx
-T |   | read book
-D |   | return book  | Feb 03 2024 at 12:00PM
+E |   | meeting  |  Monday 8pm - 9pm
+T |   | gerdfv
+D |   | ip  | Feb 15 2024 at 12:00PM
+T |   | fewdswedsa
