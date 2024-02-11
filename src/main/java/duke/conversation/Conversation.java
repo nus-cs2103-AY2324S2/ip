@@ -42,7 +42,7 @@ public class Conversation {
      */
     public void initializeDialogues(String username) {
         addDialogue("starter", "Hello, " + username +
-                ". Nice to meet you!\n" + Ui.INDENTATION +
+                ". Nice to meet you!\n" +
                 "So, what can I do for you today?");
         addDialogue("bye", "Bye bye! See you later!");
         addDialogue("hello", "Hi there! How can I help you?");

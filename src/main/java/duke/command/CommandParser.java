@@ -88,12 +88,14 @@ public class CommandParser {
     }
 
     private String handleDeleteCommand(String[] userMessage, TaskManager taskManager, String input) {
+        String deletedTask = "";
         if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             return printError(input);
         } else {
+            deletedTask = taskManager.displayTask(input);
             taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
         }
-        return taskManager.displayTask(input);
+        return deletedTask;
     }
 
     private String handleFindCommand(String[] userMessage, TaskManager taskManager) {
@@ -105,13 +107,11 @@ public class CommandParser {
         String keyword = userMessage[1];
         List<Task> matchingTasks = taskManager.findTask(keyword);
 
+        String findTask = "";
         if (!matchingTasks.isEmpty()) {
-            taskDisplay.printFindTaskList(matchingTasks);
+           findTask = taskDisplay.printFindTaskList(matchingTasks);
         }
-
-        return "I don't think there is anything in your list " +
-                "that matches: " + keyword;
-
+        return findTask;
     }
 
     public void saveAllTasks() {
@@ -139,32 +139,9 @@ public class CommandParser {
      * @param input The input command causing the error.
      */
     private String printError(String input) {
-        return "Sorry " + username.toUpperCase() + ", the TASK NUMBER\n" +
-                "is missing after " + input.toLowerCase() + ".\n" +
-                "Can you please specify a valid task number from the list?\n";
-    }
-
-    /**
-     * Prints a message indicating that a task has been deleted.
-     *
-     * @param taskList The list of tasks.
-     * @param index    The index of the task in the list.
-     * @return A string containing the message.
-     */
-    private String printDeletedTask(List<Task> taskList, int index) {
-        StringBuilder message = new StringBuilder();
-        if (index < 0 || index >= taskList.size()) {
-            message.append("Sorry, I believe the TASK NUMBER")
-                    .append(" you specified doesn't exist.\n");
-            return message.toString();
-        }
-        Task deletedTask = taskList.get(index);
-        message.append("Noted. I've removed this task:\n")
-                .append("    ").append(deletedTask.getTaskIcon())
-                .append(deletedTask.getStatusIcon()).append(deletedTask.getTaskDescription()).append("\n")
-                .append("Now you have ").append(taskList.size() - 1)
-                .append(" tasks left in this list.\n");
-        return message.toString();
+        return "Sorry " + username.toUpperCase() + ", the TASK NUMBER" +
+                "is missing after " + input.toLowerCase() + "." +
+                "\nCan you please specify a valid task number\n from the list?";
     }
 }
 

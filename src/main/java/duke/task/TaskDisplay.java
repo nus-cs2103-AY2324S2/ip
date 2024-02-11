@@ -59,20 +59,24 @@ public class TaskDisplay {
      */
     private String printTaskList(List<Task> taskList) {
         StringBuilder message = new StringBuilder();
-        message.append("Here are the tasks in your list:\n");
-        int count = 1;
-        for (Task task : taskList) {
-            message.append("   ").append(count).append(". ")
-                    .append(task.getTaskIcon()).append(task.getStatusIcon()).append(" ")
-                    .append(task.getTaskDescription()).append("\n");
-            count++;
+        if (taskList.isEmpty()) {
+            message.append("Your task list is empty. :(\n");
+        } else {
+            message.append("Here are the tasks in your list:\n");
+            int count = 1;
+            for (Task task : taskList) {
+                message.append("   ").append(count).append(". ")
+                        .append(task.getTaskIcon()).append(task.getStatusIcon()).append(" ")
+                        .append(task.getTaskDescription()).append("\n");
+                count++;
+            }
         }
         return message.toString();
     }
 
     public String printFindTaskList(List<Task> taskList) {
         StringBuilder message = new StringBuilder();
-        message.append("\nHere are the matching tasks in your list:\n");
+        message.append("Here are the matching tasks in your list:\n");
         int count = 1;
         for (Task task : taskList) {
             message.append("   ").append(count).append(". ")
@@ -121,6 +125,7 @@ public class TaskDisplay {
         return message.toString();
     }
 
+
     /**
      * Prints a message indicating that a task has been deleted.
      *
@@ -131,15 +136,15 @@ public class TaskDisplay {
     private String printDeletedTask(List<Task> taskList, int index) {
         StringBuilder message = new StringBuilder();
         if (index < 0 || index >= taskList.size()) {
-            message.append("Sorry, I believe the TASK NUMBER")
+            message.append("  Sorry, I believe the TASK NUMBER")
                     .append(" you specified doesn't exist.\n");
             return message.toString();
         }
         Task deletedTask = taskList.get(index);
-        message.append("Noted. I've removed this task:\n")
-                .append("    ").append(deletedTask.getTaskIcon())
+        message.append("  Noted. I've removed this task:\n")
+                .append("     ").append(deletedTask.getTaskIcon())
                 .append(deletedTask.getStatusIcon()).append(deletedTask.getTaskDescription()).append("\n")
-                .append("Now you have ").append(taskList.size() - 1)
+                .append("  Now you have ").append(taskList.size() - 1)
                 .append(" tasks left in this list.\n");
         return message.toString();
     }
