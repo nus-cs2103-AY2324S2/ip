@@ -60,6 +60,23 @@ public class Storage {
     }
 
     /**
+     * Converts a Task object to the saved format.
+     *
+     * @param currentTask Current task to be converted.
+     * @return String representation of converted task.
+     */
+    public String convertTaskToSave(Task currentTask) {
+        String taskCode = currentTask.getTaskCode();
+        String taskStatus = Integer.toString(currentTask.getStatusInt());
+        String taskDescription = currentTask.getDescription();
+        String date = "";
+        if (!taskCode.equals("T")) {
+            date = currentTask.getDate();
+        }
+        return taskCode + " | " + taskStatus + " | " + taskDescription + " | " + date;
+    }
+
+    /**
      * Loads the saved tasks from the text file.
      *
      * @return ArrayList of Task objects converted from task details stored.
@@ -100,14 +117,7 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task currentTask = tasks.getTask(i - 1);
-            String taskCode = currentTask.getTaskCode();
-            String taskStatus = Integer.toString(currentTask.getStatusInt());
-            String taskDescription = currentTask.getDescription();
-            String date = "";
-            if (!taskCode.equals("T")) {
-                date = currentTask.getDate();
-            }
-            fw.write(taskCode + " | " + taskStatus + " | " + taskDescription + " | " + date + "\n");
+            fw.write(convertTaskToSave(currentTask) + "\n");
         }
         fw.close();
     }

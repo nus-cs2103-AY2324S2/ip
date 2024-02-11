@@ -123,11 +123,11 @@ public class Parser {
                         String description = token[1];
                         tasks.addToDo(description, ui);
                         storage.saveTasksToFile(tasks);
+                        return 1;
                     }
                 } catch (exception.MissingDescriptionException e) {
                     System.out.println(e.getMessage());
                 }
-                return 1;
             case "deadline":
                 try {
                     if (!token[1].contains("/by")) {
