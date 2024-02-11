@@ -19,6 +19,7 @@ import jerome.exception.MalformedUserInputException;
 
 /**
  * Represents a Parser class that parses user input and converts it into executable commands.
+ *
  * @@author se-edu
  * Reuse from https://github.com/se-edu/addressbook-level2
  * with modifications to suit the context of my program.
@@ -35,11 +36,11 @@ public class Parser {
      *
      * @param userInput the user input string
      * @return Command object based on user input
-     *
      */
     public Command parseCommand(String userInput) {
         assert userInput != null : "User input should not be null";
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+
         if (!matcher.matches()) {
             return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
@@ -90,7 +91,6 @@ public class Parser {
     }
 
     private Command prepareMarkCommand(String arguments) {
-
         if (arguments.trim().isEmpty()) {
             return new IncorrectCommand(MarkCommand.MESSAGE_INVALID_ID);
         } else {
@@ -120,14 +120,14 @@ public class Parser {
     private Command prepareDeleteCommand(String arguments) {
         if (arguments.trim().isEmpty()) {
             return new IncorrectCommand(DeleteCommand.MESSAGE_INVALID_ID);
-        } else {
-            try {
-                int targetIndex = Integer.valueOf(arguments.trim()) - 1;
-                return new DeleteCommand(targetIndex);
-            } catch (NumberFormatException nfe) {
-                return new IncorrectCommand(DeleteCommand.MESSAGE_INVALID_ID);
-            }
         }
+        try {
+            int targetIndex = Integer.valueOf(arguments.trim()) - 1;
+            return new DeleteCommand(targetIndex);
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand(DeleteCommand.MESSAGE_INVALID_ID);
+        }
+
     }
 
 
@@ -145,12 +145,11 @@ public class Parser {
             return new IncorrectCommand(DeadlineCommand.MESSAGE_BLANK_EVENT);
         } else if (endTime.isEmpty()) {
             return new IncorrectCommand(DeadlineCommand.MESSAGE_BLANK_END_TIME);
-        } else {
-            try {
-                return new DeadlineCommand(eventName, endTime);
-            } catch (MalformedUserInputException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
+        }
+        try {
+            return new DeadlineCommand(eventName, endTime);
+        } catch (MalformedUserInputException e) {
+            return new IncorrectCommand(e.getMessage());
         }
 
     }
@@ -172,21 +171,21 @@ public class Parser {
             return new IncorrectCommand(EventCommand.MESSAGE_BLANK_EVENT);
         } else if (endTime.isEmpty()) {
             return new IncorrectCommand(EventCommand.MESSAGE_BLANK_END_TIME);
-        } else {
-            try {
-                return new EventCommand(eventName, startTime, endTime);
-            } catch (MalformedUserInputException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
         }
+        try {
+            return new EventCommand(eventName, startTime, endTime);
+        } catch (MalformedUserInputException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+
     }
 
     private Command prepareTodo(String arguments) {
         String eventName = arguments.trim();
         if (eventName.isEmpty()) {
             return new IncorrectCommand(TodoCommand.MESSAGE_BLANK_EVENT);
-        } else {
-            return new TodoCommand(eventName);
         }
+        return new TodoCommand(eventName);
+
     }
 }

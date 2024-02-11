@@ -37,21 +37,15 @@ public class DataStorage {
         this.maxTask = maxTask;
         this.tasksList = new ArrayList<>();
         this.taskCount = 0;
-
         this.file = new File(fileName);
-
 
         // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
         try {
-
-            if (this.file.createNewFile()) {
-            } else {
+            if (!this.file.createNewFile()) {
                 // This means that the file already exists here.
                 // System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
-                this.tasksList = readFromDatabaseIfAlreadyCreated();
+                this.tasksList = readTextFileIfAlreadyCreated();
             }
-
-
         } catch (IOException e) {
             System.err.println("An error occurred while opening the file. \n"
                     + "An error occurred on your device; "
@@ -70,12 +64,12 @@ public class DataStorage {
      */
     public Task getTask(int index) {
         // To check if there is an improper reduction in internal task count.
-        assert(this.taskCount >= 0);
+        assert (this.taskCount >= 0);
+
         if (index < 0 || index > this.taskCount) {
             throw new IndexOutOfBoundsException();
-        } else {
-            return this.tasksList.get(index);
         }
+        return this.tasksList.get(index);
     }
 
     /**
@@ -83,12 +77,12 @@ public class DataStorage {
      *
      * @param task the task to be added.
      */
-    public void addTask(Task task) {
+    public void addTaskToTextFile(Task task) {
         // To check if there is an improper reduction in internal task count.
-        assert(this.taskCount >= 0);
+        assert (this.taskCount >= 0);
 
         this.tasksList.add(task);
-        addTaskToFile(task.toStorageString(), true);
+        addTaskToTextFile(task.toStorageString(), true);
         this.taskCount++;
     }
 
@@ -99,7 +93,7 @@ public class DataStorage {
      * @param line     the entry to be added to the file.
      * @param isAppend flag to select append the line to the end of the file or overwrite the file (completely).
      */
-    public void addTaskToFile(String line, boolean isAppend) {
+    public void addTaskToTextFile(String line, boolean isAppend) {
         try {
             // Solution below adapted from: https://www.w3schools.com/java/java_files_create.asp
             FileWriter myWriter = new FileWriter(this.file, isAppend);
@@ -118,7 +112,7 @@ public class DataStorage {
      *
      * @return ArrayList of Task objects read from the database.
      */
-    public ArrayList<Task> readFromDatabaseIfAlreadyCreated() {
+    public ArrayList<Task> readTextFileIfAlreadyCreated() {
         ArrayList<Task> tasksList = new ArrayList<>();
 
         try {
@@ -129,7 +123,7 @@ public class DataStorage {
 
             // Continuously read until the end of file.
             while ((line = bufferedReader.readLine()) != null) {
-                Task task = parseTask(line);
+                Task task = parseTaskStoredInFile(line);
                 tasksList.add(task);
                 this.taskCount++;
             }
@@ -148,7 +142,7 @@ public class DataStorage {
         return tasksList;
     }
 
-    private Task parseTask(String line) throws MalformedUserInputException {
+    private Task parseTaskStoredInFile(String line) throws MalformedUserInputException {
         String[] splitTask = line.split(" \\| ");
         int length = splitTask.length;
 
@@ -191,11 +185,11 @@ public class DataStorage {
         } else if (taskIndex >= taskCount) {
             // It is a valid index, but there is no task there yet.
             throw new MalformedUserInputException("\t The task has not been created yet.");
-        } else {
-            this.tasksList.get(taskIndex).setDone(status);
-            // We rebuild the dataStorage again
-            rebuildStorage();
         }
+        this.tasksList.get(taskIndex).setDone(status);
+        // We rebuild the dataStorage again
+        rebuildStorage();
+
     }
 
 
@@ -212,7 +206,7 @@ public class DataStorage {
         // TODO: might not be a very good idea to rebuild the entire database.
         for (int i = 0; i < this.taskCount; i++) {
             // i != 0 means that refresh the whole file.
-            addTaskToFile(tasksList.get(i).toStorageString(), i != 0);
+            addTaskToTextFile(tasksList.get(i).toStorageString(), i != 0);
         }
     }
 
@@ -230,16 +224,15 @@ public class DataStorage {
         } else if (indexToDelete >= this.taskCount) {
             // It is a valid index, but there is no task there yet.
             throw new MalformedUserInputException("There are no task stored at the specified location.");
-        } else {
-            // If we reach here, it means that there is no problem.
-            this.tasksList.remove(indexToDelete);
-            this.taskCount--;
-
-            // To check if there is an improper reduction in internal task count.
-            assert(this.taskCount >= 0);
-
-            // We rebuild the dataStorage again
-            rebuildStorage();
         }
+        // If we reach here, it means that there is no problem.
+        this.tasksList.remove(indexToDelete);
+        this.taskCount--;
+
+        // To check if there is an improper reduction in internal task count.
+        assert (this.taskCount >= 0);
+
+        // We rebuild the dataStorage again.
+        rebuildStorage();
     }
 }

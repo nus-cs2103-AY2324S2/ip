@@ -9,6 +9,7 @@ import jerome.ui.Ui;
 
 /**
  * Duke is a command-line application that allows users to interact with it by entering commands.
+ * This class is used for testing the command line interface.
  * @@author se-edu
  * Reuse from https://github.com/se-edu/addressbook-level2
  * with minor modifications to cater for differences in
