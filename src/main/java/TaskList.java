@@ -39,6 +39,7 @@ public class TaskList {
             Task currTask = taskList.get(i);
             System.out.println((i + 1) + currTask.toString());
         }
+        System.out.println();
     }
 
     public void printTaskCount() {
