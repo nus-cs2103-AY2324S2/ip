@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Dackel {
     /** Command aliases */
     private static final String QUIT = "bye";
+    private static final String LIST = "list";
 
     /** Other String constants */
     private static final String NAME = "DACKEL";
@@ -15,6 +16,10 @@ public class Dackel {
 
     /** Scanner for receiving user input*/
     private static final Scanner SCANNER = new Scanner(System.in);
+
+    /** Memory for storing task data */
+    private static String[] storedTasks = new String[100];
+    private static int numberOfTasks = 0;
 
     /**
      * Simulates Dackel speaking to the user ala a chatroom interface
@@ -37,6 +42,28 @@ public class Dackel {
         return input;
     }
 
+    /**
+     * Adds a task to storedTasks
+     * 
+     * @param task Task to be added
+     */
+    private static void addTask(String task) {
+        storedTasks[numberOfTasks] = task;
+        numberOfTasks++;
+        speak("added task \"" + task + "\"");
+    }
+
+    /**
+     * Lists all tasks in storedTasks
+     */
+    private static void listTasks() {
+        String s = "";
+        for (int i = 0; i < numberOfTasks; i++) {
+            s += "\n" + String.format(" %2d " + storedTasks[i], i + 1);
+        }
+        speak(s);
+    }
+
     public static void main(String[] args) {
         // title cards, etc.
         System.out.println(LINE);
@@ -51,14 +78,18 @@ public class Dackel {
         
         // main command entry loop
         // TODO: make dackel read its lines from a file
-        while (true) {
+        boolean isNotQuit = true;
+        while (isNotQuit) {
             String input = receiveInput();
-            if (input.equals(QUIT)) {
+            switch (input) {
+            case QUIT:
+                isNotQuit = false;
                 break;
-            }
-            else {
-                speak(input);
-                // TODO: make a separate command for echo?
+            case LIST:
+                listTasks();
+                break;
+            default:
+                addTask(input);
             }
         }
 
