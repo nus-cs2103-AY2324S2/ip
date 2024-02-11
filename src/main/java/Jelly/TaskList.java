@@ -71,7 +71,7 @@ public class TaskList {
 
         Task task = tasks.get(index-1);
         tasks.remove(index-1);
-        System.out.println("(•̀-•́) Noted, I've removed this task:");
+        System.out.println("(•-•) Noted, I've removed this task:");
         System.out.println(task);
         printListSize();
     }
@@ -80,7 +80,7 @@ public class TaskList {
 
         Task task = tasks.get(index-1);
         task.mark();
-        System.out.println("(•̀ᗜ•́) Nice, I've marked this task as done:");
+        System.out.println("(•ᗜ•) Nice, I've marked this task as done:");
         System.out.println(task);
     }
 

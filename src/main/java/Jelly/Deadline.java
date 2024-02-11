@@ -48,4 +48,9 @@ public class Deadline extends Task{
 
         return "/" + deadline;
     }
+
+    public boolean hasValidDate(){
+
+        return isParsed;
+    }
 }

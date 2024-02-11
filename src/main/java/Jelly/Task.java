@@ -42,4 +42,9 @@ public class Task {
 
         return checkbox + " " + name;
     }
+
+    public boolean isDone(){
+
+        return this.isDone;
+    }
 }
