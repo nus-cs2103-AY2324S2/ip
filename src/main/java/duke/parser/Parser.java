@@ -57,62 +57,66 @@ public class Parser {
                     startDateTime = parseDateTime(start);
                     endDateTime = parseDateTime(end);
                 } else {
-                    throw new DukeException("Error: Missing /from or /to after event command. Correct format: event <description> /from <start> /to <end>");
+                    throw new DukeException("Error: Missing /from or /to after event command. "
+                        + "Correct format: event <description> /from <start> /to <end>");
                 }
             } else if (arguments.contains("/from") || arguments.contains("/to")) {
-                throw new DukeException("Error: Both /from and /to are required for the event command. Correct format: /from <start> /to <end>");
+                throw new DukeException("Error: Both /from and /to are required for the event command. "
+                    + " Correct format: /from <start> /to <end>");
             }
 
             switch (command) {
-                case "help":
-                    return new HelpCommand();
-                case "list":
-                    return new ListCommand();
-                case "mark":
-                    return new MarkCommand(arguments);
-                case "bye":
-                    return new ByeCommand();
-                case "exit":
-                    return new ByeCommand();
-                case "unmark":
-                    return new UnmarkCommand(arguments);
-                case "delete":
-                    return new DeleteCommand(arguments);
-                case "remove":
-                    return new DeleteCommand(arguments);
-                case "todo":
-                    if (taskDescription.isEmpty()) {
-                        throw new DukeException("Error: Todo description cannot be empty.");
-                    }
-                    return new AddCommand(new ToDo(taskDescription));
-                case "deadline":
-                    if (taskDescription.isEmpty()) {
-                        throw new DukeException("Error: Deadline description cannot be empty.");
-                    }
-                    if (deadlineDateTime == null) {
-                        throw new DukeException("Error: Deadline date/time cannot be empty.");
-                    }
-                    return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
-                case "event":
-                    if (taskDescription.isEmpty()) {
-                        throw new DukeException("Error: Event description cannot be empty.");
-                    }
-                    if (startDateTime == null || endDateTime == null) {
-                        throw new DukeException("Error: Both start and end times are required for the event command. Correct format: /from <start> /to <end>");
-                    }
-                    return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
-                case "viewbydate":
-                    if (taskDescription.isEmpty()) {
-                        throw new DukeException("Please specify a date for viewing tasks!");
-                    }
-                    try {
-                        LocalDate viewDate = LocalDate.parse(taskDescription);
-                        return new ViewByDateCommand(viewDate);
-                    } catch (DateTimeParseException e) {
-                        throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
-                    }
-                default:
-                    throw new DukeException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(\n");
+            case "help":
+                return new HelpCommand();
+            case "list":
+                return new ListCommand();
+            case "mark":
+                return new MarkCommand(arguments);
+            case "bye":
+                return new ByeCommand();
+            case "exit":
+                return new ByeCommand();
+            case "unmark":
+                return new UnmarkCommand(arguments);
+            case "delete":
+                return new DeleteCommand(arguments);
+            case "remove":
+                return new DeleteCommand(arguments);
+            case "todo":
+                if (taskDescription.isEmpty()) {
+                    throw new DukeException("Error: Todo description cannot be empty.");
+                }
+                return new AddCommand(new ToDo(taskDescription));
+            case "deadline":
+                if (taskDescription.isEmpty()) {
+                    throw new DukeException("Error: Deadline description cannot be empty.");
+                }
+                if (deadlineDateTime == null) {
+                    throw new DukeException("Error: Deadline date/time cannot be empty.");
+                }
+                return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
+            case "event":
+                if (taskDescription.isEmpty()) {
+                    throw new DukeException("Error: Event description cannot be empty.");
+                }
+                if (startDateTime == null || endDateTime == null) {
+                    throw new DukeException("Error: Both start and end times are required for the event command. "
+                        + "Correct format: /from <start> /to <end>");
+                }
+                return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
+            case "viewbydate":
+                if (taskDescription.isEmpty()) {
+                    throw new DukeException("Please specify a date for viewing tasks!");
+                }
+                try {
+                    LocalDate viewDate = LocalDate.parse(taskDescription);
+                    return new ViewByDateCommand(viewDate);
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
+                }
+            default:
+                throw new DukeException("Sorry.. I don't know what that means! "
+                    + "If you want to leave, just say 'bye'! :(\n");
             }
         } catch (DukeException e) {
             System.out.printf("\n%s", e.getMessage());

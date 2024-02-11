@@ -24,10 +24,12 @@ public class UnmarkCommand extends Command {
                         task.markUndone();
                         System.out.printf("Oh no.. Marked task %d as undone: %s\n", index + 1, task.getDescription());
                     } else {
-                        throw new DukeException(String.format("I can't do that.. Task %d is already undone! ~(T_T)\n", index + 1));
+                        throw new DukeException(String.format("I can't do that.. Task %d is already undone! ~(T_T)\n",
+                            index + 1));
                     }
                 } else {
-                    throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n", arguments.get(0)));
+                    throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n",
+                        arguments.get(0)));
                 }
             } catch (DukeException e) {
                 System.out.printf("%s", e.getMessage());

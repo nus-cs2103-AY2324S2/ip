@@ -22,12 +22,15 @@ public class MarkCommand extends Command {
                     Task task = tasks.getTask(index);
                     if (!task.isDone()) {
                         task.markAsDone();
-                        System.out.printf("Marked task %d as done: %s\nGood job! ~(^-^)\n", index + 1, task.getDescription());
+                        System.out.printf("Marked task %d as done: %s\nGood job! ~(^-^)\n",
+                            index + 1, task.getDescription());
                     } else {
-                        throw new DukeException(String.format("I can't do that.. Task %d is already done! ~(T_T)\n", index + 1));
+                        throw new DukeException(String.format("I can't do that.. Task %d is already done! ~(T_T)\n",
+                            index + 1));
                     }
                 } else {
-                    throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n", arguments.get(0)));
+                    throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n",
+                        arguments.get(0)));
                 }
             } catch (DukeException e) {
                 System.out.printf("%s", e.getMessage());

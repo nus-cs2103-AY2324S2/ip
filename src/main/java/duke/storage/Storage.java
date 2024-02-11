@@ -41,7 +41,8 @@ public class Storage {
                 list.addTask(todo);
             } else if (taskType.equals("[D]")) {
                 String dateString = args[3];
-                LocalDateTime dateTime = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime dateTime = LocalDateTime.parse(dateString,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 Deadline deadline = new Deadline(description, dateTime);
                 if (isDone) {
                     deadline.markAsDone();
@@ -50,8 +51,10 @@ public class Storage {
             } else {
                 String fromString = args[3];
                 String toString = args[4];
-                LocalDateTime fromDateTime = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                LocalDateTime toDateTime = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime fromDateTime = LocalDateTime.parse(fromString,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime toDateTime = LocalDateTime.parse(toString,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 Event event = new Event(description, fromDateTime, toDateTime);
                 if (isDone) {
                     event.markAsDone();

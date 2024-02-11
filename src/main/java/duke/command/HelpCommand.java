@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
         System.out.println("5. viewbydate - List all your tasks and events on a specific date");
         System.out.println("6. mark <index> - Mark a task as done");
         System.out.println("7. unmark <index> - Mark a task as undone");
-        System.out.println("8. delete <index> - Delete a task. Warning! I have bad memory. (I can't restore deleted tasks)");
+        System.out.println("8. delete <index> - Delete a task. Warning! I can't restore deleted tasks");
         System.out.println("9. help - Show this list of commands");
         System.out.println("10. bye - Leave :(");
         return tasks;
