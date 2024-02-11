@@ -36,7 +36,8 @@ class Storage {
             Scanner sc = new Scanner(new FileReader(path));
             String input;
 
-            while ((input = sc.nextLine()) != null) {
+            while (sc.hasNextLine()) {
+                input = sc.nextLine();
                 Task task;
                 String[] info = input.split("\\|", 3);
                 boolean isMarked = false;
