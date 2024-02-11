@@ -1,15 +1,16 @@
 package yapper;
 
-import org.junit.jupiter.api.Test;
 import yapper.tasks.TaskList;
 import yapper.tasks.Todo;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 class TaskListTest {
 
     @Test
 
-    void testAddTask_ShouldIncreaseTaskListSize() {
+    void testAddTaskShouldIncreaseTaskListSize() {
         // Arrange
         TaskList taskList = new TaskList();
         Todo todo = new Todo("todo test", false);

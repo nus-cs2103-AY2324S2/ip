@@ -1,10 +1,12 @@
 package yapper;
-import org.junit.jupiter.api.Test;
-import yapper.Ui;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 
 
@@ -12,7 +14,7 @@ class UiTest {
 
     @Test
     @DisplayName("testShowWelcomeMessageShouldReturnCorrectMessage")
-    void testShowWelcomeMessageShouldReturnCorrectMessage(){
+    void testShowWelcomeMessageShouldReturnCorrectMessage() {
         // Arrange
         Ui ui = new Ui();
 

@@ -104,7 +104,9 @@ public class Yapper {
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     throw new YapperException("Please provide a valid task number to mark as not done.");
                 }
-            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+            } else if (userInput.startsWith("todo")
+                    || userInput.startsWith("deadline")
+                    || userInput.startsWith("event")) {
                 String description = userInput.substring(userInput.indexOf(" ") + 1).trim();
                 if (isDuplicateTask(description)) {
                     throw new YapperException("Task already exists: " + description);
