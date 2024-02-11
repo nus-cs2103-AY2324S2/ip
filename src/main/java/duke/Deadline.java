@@ -1,6 +1,4 @@
 package duke;
-
-
 import java.time.LocalDate;
 /**
  * Represents a task with a deadline in the task list.
