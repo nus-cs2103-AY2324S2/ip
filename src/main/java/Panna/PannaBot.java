@@ -1,18 +1,11 @@
 package Panna;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 
 // to add: tag for A-Classes
 // to add: tag for A-Collections
-public class Panna {
+public class PannaBot {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -21,7 +14,7 @@ public class Panna {
     private static String filePath;
     private static String command = "";
 
-    public Panna(String filePath) {
+    public PannaBot(String filePath) {
         this.filePath = filePath;
         this.storage = new Storage();
         this.ui = new Ui();
@@ -36,37 +29,37 @@ public class Panna {
         this.ui.launchMessage();
         Scanner s = new Scanner(System.in);
 
-        Panna.command = s.nextLine();
+        PannaBot.command = s.nextLine();
 
-        while (!Panna.command.equals("bye")) {
+        while (!PannaBot.command.equals("bye")) {
 
-            if (Panna.command.equals("list")) {
+            if (PannaBot.command.equals("list")) {
                 this.ui.listMessage(this.taskList);
             }
 
 
-            else if (Panna.command.equals("mark")) {
+            else if (PannaBot.command.equals("mark")) {
                 this.ui.mark(this.taskList);
             }
 
-            else if (Panna.command.equals("unmark")) {
+            else if (PannaBot.command.equals("unmark")) {
                 this.ui.unmark(this.taskList);
             }
 
-            else if (Panna.command.equals("event")) {
+            else if (PannaBot.command.equals("event")) {
                 this.ui.eventMessage(this.taskList, this.parser);
             }
 
-            else if (Panna.command.equals("todo")) {
+            else if (PannaBot.command.equals("todo")) {
                 this.ui.todoMessage(this.taskList);
 
             }
 
-            else if (Panna.command.equals("deadline")) {
+            else if (PannaBot.command.equals("deadline")) {
                 this.ui.deadlineMessage(this.taskList, this.parser);
 
             }
-            else if (Panna.command.equals("delete")) {
+            else if (PannaBot.command.equals("delete")) {
                 this.ui.deleteMessage(this.taskList);
             }
 
@@ -75,7 +68,7 @@ public class Panna {
 
 
 
-            Panna.command = s.nextLine();
+            PannaBot.command = s.nextLine();
         }
 
 
@@ -85,7 +78,7 @@ public class Panna {
 
 
     public static void main(String[] args) throws PannaException {
-        Panna bot = new Panna("./panna.txt");
+        PannaBot bot = new PannaBot("./panna.txt");
         bot.run();
     }
 }
