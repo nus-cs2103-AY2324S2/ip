@@ -1,7 +1,34 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello I am dylanbot.DylanBot!
+What can I do for you?
+Roger doger, added this task:
+	[T] [ ] todo read
+Wow! Now you have 1 tasks in your list
+Roger doger, added this task:
+	[T] [ ] todo return
+Wow! Now you have 2 tasks in your list
+Roger doger, added this task:
+	[D] [ ] finish book (by: Sunday )
+Wow! Now you have 3 tasks in your list
+Roger doger, added this task:
+	[E] [ ] meeting (from: Mon 10am  to: Mon 11am )
+Wow! Now you have 4 tasks in your list
+	1. [T] [ ] todo read
+	2. [T] [ ] todo return
+	3. [D] [ ] finish book (by: Sunday )
+	4. [E] [ ] meeting (from: Mon 10am  to: Mon 11am )
+Wow! Now you have 4 tasks in your list
+Aight marked this task as done:
+	[T] [X] todo read
+Wow! Now you have 4 tasks in your list
+Aight marked this task as done:
+	[T] [X] todo return
+Wow! Now you have 4 tasks in your list
+	1. [T] [X] todo read
+	2. [T] [X] todo return
+	3. [D] [ ] finish book (by: Sunday )
+	4. [E] [ ] meeting (from: Mon 10am  to: Mon 11am )
+Wow! Now you have 4 tasks in your list
+Sian marked this task as undone:
+	[T] [ ] todo read
+Wow! Now you have 4 tasks in your list
+Bye! Hope to see you again soon
