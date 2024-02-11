@@ -3,6 +3,7 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import duke.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.InvalidTaskException;
@@ -14,8 +15,8 @@ public class TaskListTest {
             TaskList tasks = new TaskList();
             tasks.addTask(null, "deadline", "testing title", "Oct 09 2024");
             fail();
-        } catch (InvalidTaskException te) {
-            assertEquals(te.getMessage(), "Date not in format: yyyy-MM-dd, please try again.");
+        } catch (DukeException de) {
+            assertEquals(de.getMessage(), "Date not in format: yyyy-MM-dd, please try again.");
         }
     }
 
@@ -24,8 +25,8 @@ public class TaskListTest {
         try {
             TaskList tasks = new TaskList();
             tasks.mark(null, "-1");
-        } catch (IllegalArgumentException ie) {
-            assertEquals(ie.getMessage(), "Index number cannot be out of bounds.");
+        } catch (DukeException de) {
+            assertEquals(de.getMessage(), "Index number cannot be out of bounds.");
         }
     }
 }

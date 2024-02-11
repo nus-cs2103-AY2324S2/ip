@@ -63,7 +63,7 @@ public class DialogBox extends HBox {
 
     /**
      * Creates a dialog box containing the reply and image
-     * for <code>Duke</code></code> when command is processed.
+     * for <code>Duke</code> when command is processed.
      *
      * @param text Reply from processed command.
      * @param img Duke image.

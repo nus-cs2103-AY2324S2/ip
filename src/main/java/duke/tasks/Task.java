@@ -4,7 +4,7 @@ package duke.tasks;
  * Bare task that has a task name and a boolean condition on whether the task is done.
  */
 public class Task {
-    protected String taskName;
+    protected String name;
     protected boolean isDone;
 
     /**
@@ -13,7 +13,7 @@ public class Task {
      * @param n Specified task name.
      */
     public Task(String n) {
-        this.taskName = n;
+        this.name = n;
         this.isDone = false;
     }
 
@@ -24,28 +24,28 @@ public class Task {
      * @param d Specifying if the task is done.
      */
     public Task(String n, boolean d) {
-        this.taskName = n;
-        this.isDone = d;
+        name = n;
+        isDone = d;
     }
 
     @Override
     public String toString() {
-        String d = (this.isDone) ? "X" : " ";
-        return String.format("[%s] %s", d, taskName);
+        String d = (isDone) ? "X" : " ";
+        return String.format("[%s] %s", d, name);
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as undone.
      */
     public void markUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Task {
      * @return Task name.
      */
     public String getTaskName() {
-        return this.taskName;
+        return name;
     }
 
     /**
@@ -63,6 +63,6 @@ public class Task {
      * @return True or false.
      */
     public boolean isDone() {
-        return this.isDone;
+        return isDone;
     }
 }

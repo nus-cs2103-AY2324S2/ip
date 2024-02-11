@@ -27,23 +27,32 @@ public class Parser {
      * Returns a Command class for execution after parsing the command
      * string with relevant arguments.
      *
-     * @param cmd Command String to parse.
+     * @param input String to parse into <code>Command</code>.
      * @return Command class for execution.
      * @throws InvalidCmdException If command is unknown, or if parameters / arguments are
      *     missing.
      */
-    protected static Command parse(String cmd) throws InvalidCmdException {
-        String[] token = cmd.split(" ");
-        if (!Parser.CMD_LIST.containsKey(token[0])) {
+    protected static Command parse(String input) throws InvalidCmdException {
+        String verifiedCommand = verifyMainCommand(input);
+        List<String> parameters = Parser.CMD_LIST.get(verifiedCommand);
+        return new Command(verifiedCommand, getArguments(parameters, input));
+    }
+
+    private static String verifyMainCommand(String input) throws InvalidCmdException {
+        String[] token = input.split(" ");
+        String possibleCommand = token[0];
+        if (!Parser.CMD_LIST.containsKey(possibleCommand)) {
             throw new InvalidCmdException("Unknown command, please try again.");
         }
-        String actualCmd = token[0];
-        List<String> parameters = Parser.CMD_LIST.get(actualCmd);
+        return possibleCommand;
+    }
+
+    private static String[] getArguments(List<String> parameters, String input) throws InvalidCmdException {
         String delimiter = "";
         if (parameters != null) {
             int count = 0;
             for (String param : parameters) {
-                if (!cmd.contains(param)) {
+                if (!input.contains(param)) {
                     throw new InvalidCmdException("Missing parameter: " + param);
                 }
                 if (count == 0) {
@@ -53,11 +62,12 @@ public class Parser {
                 }
                 count++;
             }
-            token = cmd.split(delimiter);
+            String[] token = input.split(delimiter);
             if (token.length != parameters.size() + 1) {
                 throw new InvalidCmdException("Missing arguments in parameters.");
             }
+            return Arrays.copyOfRange(token, 1, token.length);
         }
-        return new Command(actualCmd, Arrays.copyOfRange(token, 1, token.length));
+        return new String[0];
     }
 }
