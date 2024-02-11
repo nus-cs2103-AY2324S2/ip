@@ -101,7 +101,7 @@ public class Duke {
         while (isActive()) {
             // should start the cycle talking
             String userInput = ui.StartListening();
-            try{
+            try {
                 parser.ProcessInput(userInput);
             } catch (InputException e) {
                 ui.speak(e.getMessage());
