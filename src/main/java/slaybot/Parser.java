@@ -27,6 +27,8 @@ public class Parser {
         UNMARK,
         DELETE,
         FIND,
+        SORT,
+
 
     }
 
@@ -157,6 +159,8 @@ public class Parser {
             return Command.DELETE;
         case "find":
             return Command.FIND;
+        case "sort":
+            return Command.SORT;
         default:
             throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

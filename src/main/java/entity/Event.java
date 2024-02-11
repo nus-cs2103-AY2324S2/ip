@@ -50,4 +50,9 @@ public class Event extends Task {
         }
     }
 
+    @Override
+    public LocalDateTime getDate() {
+        return this.startTime;
+    }
+
 }
