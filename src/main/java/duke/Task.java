@@ -26,6 +26,9 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+    public void updateDescription(String description) {
+        this.description = description;
+    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

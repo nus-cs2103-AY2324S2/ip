@@ -21,7 +21,20 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
-
+    /**
+     * Updates the from for a task
+     * @param from The new LocalDate for from
+     */
+    public void updateFrom(LocalDate from) {
+        this.from = from;
+    }
+    /**
+     * Updates the to for a task
+     * @param to The new LocalDate for to
+     */
+    public void updateTo(LocalDate to) {
+        this.to = to;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

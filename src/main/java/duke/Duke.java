@@ -152,6 +152,8 @@ public class Duke {
             return Options.find;
         case "help":
             return Options.help;
+        case "update":
+            return Options.update;
         default:
             return Options.error;
         }
@@ -159,5 +161,27 @@ public class Duke {
 }
 
 enum Options {
-    help, bye, list, mark, unmark, todo, deadline, event, delete, find, save, error
+    help("Display all commands and its usage."),
+    bye("Exit the application."),
+    list("List all tasks."),
+    mark("Mark a task as completed. \nSyntax: mark (TaskId)"),
+    unmark("Unmark a task. \nSyntax: unmark (TaskId)"),
+    todo("Add a todo task. \nSyntax: todo (TaskName)"),
+    deadline("Add a deadline task. \nSyntax: deadline (TaskName) /by (deadline)"),
+    event("Add an event task. \nSyntax: event (TaskName) /from (start date) /to (end date)"),
+    delete("Delete a task. \nSyntax: delete (TaskId)"),
+    find("Find tasks by keyword. \nSyntax: find (TaskName)"),
+    save("Save tasks to file."),
+    error("Error option"),
+    update("Update a task. \nSyntax: update (TaskId) (name/by/from/to) (update value)");
+
+    private final String description;
+
+    Options(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

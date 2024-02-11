@@ -47,7 +47,6 @@ public class Ui {
             throws DukeException, IOException {
         LocalDate now = LocalDate.now(); // Current date
         Task add;
-        String taskName;
         String output;
         trail.remove(0);
 
@@ -107,9 +106,6 @@ public class Ui {
                 if (d3.isBefore(d2)) {
                     throw new DukeException("To must be after From!");
                 }
-                if (d2.isBefore(now)) {
-                    throw new DukeException("From must be after today!");
-                }
                 add = new Event(trail.get(0), d2, d3);
                 output = taskList.add(add);
                 System.out.println(padding(output));
@@ -130,12 +126,50 @@ public class Ui {
             System.out.println(padding(output));
             return output;
         case help:
-            String text = "Commands available:\n";
+            output = "Commands available:\n";
             for (Options option : Options.values()) {
-                text += "\t" + option.name() + "\n";
+                output += "\t" + option.name() + ": " + option.getDescription() + "\n";
             }
-            System.out.println(padding(text));
-            return text;
+            System.out.println(padding(output));
+            return output;
+        case update: // format: update taskid (field) (update value)
+            String[] parts = trail.get(0).split("\\s+", 3);
+            Task toUpdate = taskList.getTaskList().get(Integer.parseInt(parts[0]) - 1);
+            try {
+                String updateField = parts[1];
+                String updateValue = parts[2];
+                LocalDate updateDate;
+
+                if (updateField.equals("name")) {
+                    toUpdate.updateDescription(updateValue);
+                } else if (updateField.equals("by") && toUpdate instanceof Deadline) {
+                    updateDate = LocalDate.parse(updateValue);
+                    if (updateDate.isBefore(now)) {
+                        throw new DukeException("Deadline must be after today!");
+                    }
+                    Deadline deadline = (Deadline) toUpdate;
+                    deadline.updateBy(updateDate);
+                } else if (updateField.equals("from")) {
+                    Event event = (Event) toUpdate;
+                    updateDate = LocalDate.parse(updateValue);
+                    if (updateDate.isAfter(event.to)) {
+                        throw new DukeException("From must be before to!");
+                    }
+                    event.updateFrom(updateDate);
+                } else if (updateField.equals("to")) {
+                    Event event = (Event) toUpdate;
+                    updateDate = LocalDate.parse(updateValue);
+                    if (updateDate.isBefore(event.from)) {
+                        throw new DukeException("To must be after From!");
+                    }
+                    event.updateTo(updateDate);
+                } else {
+                    throw new DukeException("Invalid field to update! Available fields are (name/by/to/from)");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("Please enter valid field and value to update!");
+            }
+            return "Task updated!";
         case error:
             throw new DukeException("Command not found! Please try again.");
         default:
