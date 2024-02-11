@@ -34,7 +34,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
         dialog.setText(text);
         displayPicture.setImage(img);
     }
