@@ -49,13 +49,11 @@ public class Duke {
      * @return Dialogue for Duke after command processing.
      */
     public String readCommand(String command) {
-        String reply = "";
         try {
             Command c = Parser.parse(command);
-            reply = c.execute(tasks, storage);
+            return c.execute(tasks, storage);
         } catch (DukeException de) {
-            reply = de.getMessage();
+            return de.getMessage();
         }
-        return reply;
     }
 }

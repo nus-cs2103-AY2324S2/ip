@@ -46,29 +46,38 @@ public class TaskList {
     protected String addTask(Storage st, String task, String... args) throws DukeException {
         Task t = null;
         if (task.equals("todo")) {
-            t = new Todo(args[0]);
+            t = createTodoTask(args[0]);
         } else if (task.equals("deadline")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-            try {
-                LocalDate d = LocalDate.parse(args[1], formatter);
-                t = new Deadline(args[0], d);
-            } catch (DateTimeParseException de) {
-                throw new InvalidTaskException("Date not in format: yyyy-MM-dd, please try again.");
-            }
+            t = createDeadlineTask(args[0], args[1]);
         } else if (task.equals("event")) {
-            t = new Event(args[0], args[1], args[2]);
+            t = createEventTask(args[0], args[1], args[2]);
         } else {
             throw new InvalidTaskException("Invalid task syntax for " + task + ".");
         }
 
-        if (t != null) {
-            tasks.add(t);
-            st.save(tasks);
-            return "Got it. I've added this task:\n  "
-                    + t + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list.";
+        tasks.add(t);
+        st.save(tasks);
+        return "Got it. I've added this task:\n  "
+                + t + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
+    }
+
+    private Task createTodoTask(String name) {
+        return new Todo(name);
+    }
+
+    private Task createDeadlineTask(String name, String deadline) throws InvalidTaskException {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        try {
+            LocalDate d = LocalDate.parse(deadline, formatter);
+            return new Deadline(name, d);
+        } catch (DateTimeParseException de) {
+            throw new InvalidTaskException("Date not in format: yyyy-MM-dd, please try again.");
         }
-        return "";
+    }
+
+    private Task createEventTask(String name, String from, String to) {
+        return new Event(name, from, to);
     }
 
     /**
