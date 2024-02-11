@@ -1,7 +1,6 @@
 package podz.commands;
 
 import podz.task.Todo;
-import podz.ui.Ui;
 
 /**
  * Represents a command to add a todo task in the task manager.
@@ -24,10 +23,11 @@ public class TodoCommand extends Command {
      * @param ui the user interface that interacts with the user
      */
     @Override
-    public void execute(Ui ui) {
+    public String execute() {
         super.taskList.addTask(this.todo);
-        ui.printToUser("\tGot it. I've added this task:",
-                        "\t" + this.todo,
-                        super.taskList.getListCounter());
+        super.response = "Got it. I've added this task:\n"
+                        + this.todo + "\n"
+                        + super.taskList.getListCounter();
+        return super.response;
     }
 }

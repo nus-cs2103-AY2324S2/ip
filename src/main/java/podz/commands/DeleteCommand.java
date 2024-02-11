@@ -2,7 +2,6 @@ package podz.commands;
 
 import podz.exceptions.PodzException;
 import podz.task.Task;
-import podz.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task manager.
@@ -26,15 +25,15 @@ public class DeleteCommand extends Command {
      * @throws PodzException if the task index is invalid
      */
     @Override
-    public void execute(Ui ui) throws PodzException {
+    public String execute() throws PodzException {
         if (this.index < 0 || this.index >= super.taskList.getSize()) {
             throw new PodzException("Oh no!!! Invalid task index!");
         }
         Task taskDeleted = super.taskList.getTask(this.index);
         super.taskList.deleteTask(this.index);
-        ui.printToUser("\tNoted. I've removed this task:",
-                        "\t" + taskDeleted,
-                        super.taskList.getListCounter());
-        
+        super.response = "Noted. I've removed this task:\n"
+                        + taskDeleted + "\n"
+                        + super.taskList.getListCounter();
+        return super.response;
     }    
 }

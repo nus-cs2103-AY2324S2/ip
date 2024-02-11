@@ -2,13 +2,13 @@ package podz.commands;
 
 import podz.exceptions.PodzException;
 import podz.task.TaskList;
-import podz.ui.Ui;
 
 /**
  * Represents a command to be executed in the task manager.
  */
 public abstract class Command {
     protected TaskList taskList;
+    protected String response;
 
     /**
      * Sets the task list for the command.
@@ -25,5 +25,5 @@ public abstract class Command {
      * @param ui the user interface for interaction
      * @throws PodzException if there is an issue executing the command
      */
-    public abstract void execute(Ui ui) throws PodzException;
+    public abstract String execute() throws PodzException;
 }

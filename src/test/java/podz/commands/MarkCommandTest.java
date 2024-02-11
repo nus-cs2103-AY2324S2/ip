@@ -1,17 +1,16 @@
 package podz.commands;
 
-import org.junit.jupiter.api.Test;
-
-import podz.exceptions.PodzException;
-import podz.stubs.TaskListStub;
-import podz.task.Task;
-import podz.ui.Ui;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import podz.exceptions.PodzException;
+import podz.stubs.TaskListStub;
+import podz.task.Task;
 
 public class MarkCommandTest {
     
@@ -27,7 +26,7 @@ public class MarkCommandTest {
         MarkCommand cmd = new MarkCommand(indexMarked);
         cmd.setTasks(taskListStub);
         try {
-            cmd.execute(new Ui());
+            cmd.execute();
         } catch (PodzException e) {
             fail();
         }
@@ -47,7 +46,7 @@ public class MarkCommandTest {
 
         Exception tc1 = assertThrows(
             PodzException.class, 
-            () -> cmd.execute(new Ui())
+            () -> cmd.execute()
         );
         
         assertEquals("Oh no!!! Invalid task index!", tc1.getMessage());
@@ -57,7 +56,7 @@ public class MarkCommandTest {
         cmd2.setTasks(taskListStub);
         Exception tc2 = assertThrows(
             PodzException.class, 
-            () -> cmd2.execute(new Ui())
+            () -> cmd2.execute()
         );
         
         assertEquals("Oh no!!! Invalid task index!", tc2.getMessage());

@@ -5,7 +5,6 @@ import podz.commands.Command;
 import podz.parser.Parser;
 import podz.storage.Storage;
 import podz.task.TaskList;
-import podz.ui.Ui;
 
 /**
  * Represents the entry of a task management application.
@@ -13,48 +12,41 @@ import podz.ui.Ui;
 public class Podz {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
     private Parser parser;
+    private boolean isExit;
 
-    private Podz() {
+    public Podz() {
         storage = new Storage("./data/podz.txt");
         tasks = new TaskList(this.storage.loadTasks());
-        ui = new Ui();
         parser = new Parser();
+        this.isExit = false;
     }
 
+
     /**
-     * The main method to start the Podz application.
-     * 
-     * @param args the command line arguments
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public static void main(String[] args) {
-        Podz podz = new Podz();
-        podz.run();
+    public String getResponse(String input) {
+        try {
+            Command command = this.parser.parseCommand(input);
+            command.setTasks(this.tasks);
+            String responseStr = command.execute();
+            if (command instanceof ByeCommand) {
+                isExit = true;
+            }
+            return responseStr;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    /**
-     * Runs the Podz application, allowing user to interact with the task manager.
-     */
-    public void run() {
-        ui.printGreeting();
+    public String getGreeting() {
+        return "Hello! I'm Podz.\n"
+                + "What can I do for you?";
+    }
 
-        while (true) {
-            boolean isExit = false;
-            try {
-                String input = this.ui.getInput();
-                Command command = this.parser.parseCommand(input);
-                command.setTasks(this.tasks);
-                command.execute(this.ui);
-                if (command instanceof ByeCommand) {
-                    isExit = true;
-                }
-            } catch (Exception e) {
-                this.ui.printError(e);
-            }
-            if (isExit) {
-                break;
-            }
-        }        
+    public boolean hasExit() {
+        return this.isExit;
     }
 }

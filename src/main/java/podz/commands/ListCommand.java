@@ -1,7 +1,5 @@
 package podz.commands;
 
-import podz.ui.Ui;
-
 /**
  * Represents a command to list all tasks in the task manager.
  */
@@ -13,7 +11,8 @@ public class ListCommand extends Command {
      * @param ui the user interface that interacts with the user
      */
     @Override
-    public void execute(Ui ui) {
-        ui.printToUser(super.taskList.toString());
+    public String execute() {
+        super.response = super.taskList.toString();
+        return super.response;
     }
 }

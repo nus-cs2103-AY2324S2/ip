@@ -1,7 +1,6 @@
 package podz.commands;
 
 import podz.task.Deadline;
-import podz.ui.Ui;
 
 /**
  * Represents a command to add a deadline task to the task manager.
@@ -22,10 +21,11 @@ public class DeadlineCommand extends Command {
      * Executes the deadline command to add the Deadline task to the task manager.
      */
     @Override
-    public void execute(Ui ui) {
+    public String execute() {
         super.taskList.addTask(deadline);
-        ui.printToUser("\tGot it. I've added this task:",
-                        "\t" + this.deadline,
-                        super.taskList.getListCounter());
+        super.response = "Got it. I've added this task:\n"
+                        + this.deadline + "\n"
+                        + super.taskList.getListCounter();
+        return super.response;
     }
 }
