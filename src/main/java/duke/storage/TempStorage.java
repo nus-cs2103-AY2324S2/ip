@@ -129,14 +129,13 @@ public class TempStorage {
     public String displayList() {
         if (list.isEmpty()) {
             return "Your list is empty! Try adding tasks (eg. todo homework)";
-        } else {
-            StringJoiner joiner = new StringJoiner("\n");
-            for (int i = 0; i < list.size(); i++) {
-                Task task = list.get(i);
-                joiner.add(String.format("%d. %s", i + 1, task));
-            }
-            return joiner.toString();
         }
+        StringJoiner joiner = new StringJoiner("\n");
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            joiner.add(String.format("%d. %s", i + 1, task));
+        }
+        return joiner.toString();
     }
 
     /**
@@ -148,14 +147,13 @@ public class TempStorage {
         ArrayList<Task> resultList = Search.search(list, query);
         if (resultList.isEmpty()) {
             return "Your search was fruitless. Trying looking again";
-        } else {
-            StringJoiner joiner = new StringJoiner("\n");
-            joiner.add("Here are your matching search results");
-            for (int i = 0; i < resultList.size(); i++) {
-                Task task = resultList.get(i);
-                joiner.add(String.format("%d. %s", i + 1, task));
-            }
-            return joiner.toString();
         }
+        StringJoiner joiner = new StringJoiner("\n");
+        joiner.add("Here are your matching search results");
+        for (int i = 0; i < resultList.size(); i++) {
+            Task task = resultList.get(i);
+            joiner.add(String.format("%d. %s", i + 1, task));
+        }
+        return joiner.toString();
     }
 }
