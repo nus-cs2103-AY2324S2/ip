@@ -3,7 +3,7 @@
  * https://se-education.org/guides/tutorials/javaFxPart4.html
  * Full credits to them.
  * */
-package duke.Gui;
+package duke.gui;
 
 import java.io.IOException;
 import java.util.Collections;
