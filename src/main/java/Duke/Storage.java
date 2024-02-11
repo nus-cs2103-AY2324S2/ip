@@ -63,6 +63,7 @@ public class Storage {
     public void saveTaskToFile(Task task) {
         try {
             FileWriter fileWriter = new FileWriter("./data/duke.txt", true);
+            assert fileWriter != null : "FileWriter should not be null";
             String taskLine = formatTaskForFile(task);
             fileWriter.write(taskLine + "\n");
             fileWriter.close();
@@ -84,6 +85,7 @@ public class Storage {
         // overwrites all files for mark/unmark functions
         try {
             FileWriter fileWriter = new FileWriter("./data/duke.txt", false);
+            assert fileWriter != null : "FileWriter should not be null";
             for (Task task : taskList) {
                 String taskLine = formatTaskForFile(task);
                 fileWriter.write(taskLine + "\n");
