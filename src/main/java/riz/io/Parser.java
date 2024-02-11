@@ -5,8 +5,20 @@ import riz.data.*;
 
 import java.util.Scanner;
 
+/**
+ * Parser class takes in the inputs and processes them
+ * to call the appropriate functions in order.
+ */
 public class Parser {
 
+    /**
+     * The main parser class that takes in the input from the user and separates
+     * the commands from the data, and create the appropriate task types.
+     * @param scanner Scanner that was passed in from main class.
+     * @param taskList List of all the Tasks at hand currently.
+     * @param storage The Storage object that loads and writes to save the data.
+     * @param input The user input that
+     */
     public static void parse(Scanner scanner, TaskList taskList, Storage storage, String input) {
         String[] token = input.split(" ", 2);
         if (token[0].equals("clear")) {
@@ -15,6 +27,13 @@ public class Parser {
                 taskList.clear();
                 storage.writeToFile(taskList.getTaskList());
                 Ui.printAllCleared();
+            }
+        } else if (token[0].equals("find")) {
+            if (token.length != 2) {
+                Ui.findError();
+            } else {
+                String word = token[1];
+                taskList.find(word);
             }
         } else if (token[0].equals("mark")) {
             boolean isNumber = true;
