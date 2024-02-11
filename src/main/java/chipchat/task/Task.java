@@ -33,6 +33,16 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the name/description of this task matches the query.
+     *
+     * @param query string that is queried
+     * @return result of query
+     */
+    public boolean matchByString(String query) {
+        return this.description.contains(query);
+    }
+
+    /**
      * Returns the string representation of the task.
      *
      * @return a string representation of the task

@@ -62,6 +62,22 @@ public class TaskList {
     }
 
     /**
+     * Returns a list of tasks that contains the queried string.
+     *
+     * @param query the string to be queried
+     * @return list of tasks
+     */
+    public List<Task> queryByString(String query) {
+        ArrayList<Task> candidates = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.matchByString(query)) {
+                candidates.add(task);
+            }
+        }
+        return candidates;
+    }
+
+    /**
      * Returns the string representation of the task in the list specified by the index
      *
      * @param index index of task in the list to be printed

@@ -5,6 +5,7 @@ import chipchat.action.AddTask;
 import chipchat.action.Bye;
 import chipchat.action.CommandType;
 import chipchat.action.Delete;
+import chipchat.action.Find;
 import chipchat.action.ListTasks;
 import chipchat.action.Mark;
 import chipchat.action.Unmark;
@@ -45,6 +46,8 @@ public class Parser {
             return new Bye();
         case LIST:
             return new ListTasks();
+        case FIND:
+            return parseFindAction(command, tokens);
         case DELETE:
         case MARK:
         case UNMARK:
@@ -88,6 +91,13 @@ public class Parser {
         // Add remaining currArg to args list
         args.add(currArg.toString().trim());
         return args;
+    }
+
+    private static Action parseFindAction(CommandType command, String[] tokens) {
+        if (tokens.length < 2) {
+            throw new MissingArgumentException("Error: Missing query\nPlease enter the query (text) of the task to find");
+        }
+        return new Find(tokens[1]);
     }
 
     private static Action parseEditAction(CommandType command, String[] tokens) {
