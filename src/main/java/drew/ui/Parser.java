@@ -1,5 +1,9 @@
 package drew.ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import drew.command.Command;
 import drew.exceptions.InsufficientArgumentsException;
 import drew.exceptions.UnknownCommandException;
@@ -9,9 +13,6 @@ import drew.task.Event;
 import drew.task.Task;
 import drew.task.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 /**
  * This class handles the interpretation and execution of user input.
@@ -47,7 +48,7 @@ public class Parser {
             userCommand = Command.DEADLINE;
         } else if (inputLength >= 5 && input.substring(0, 5).equalsIgnoreCase("event")) {
             userCommand = Command.EVENT;
-        } else if (inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("find")){
+        } else if (inputLength >= 4 && input.substring(0, 4).equalsIgnoreCase("find")) {
             userCommand = Command.FIND;
         } else {
             userCommand = Command.UNKNOWN;
@@ -82,6 +83,7 @@ public class Parser {
             if (inputNoWhitespaceLength == 6) {
                 throw new InsufficientArgumentsException("'Delete index' cannot be empty");
             }
+            break;
         case DEADLINE:
             if (inputNoWhitespaceLength == 8) {
                 throw new InsufficientArgumentsException("'Deadline task' cannot be empty");
@@ -96,6 +98,9 @@ public class Parser {
             if (inputNoWhitespaceLength == 4) {
                 throw new InsufficientArgumentsException("'Find' String cannot be empty");
             }
+            break;
+        default:
+            System.out.println("Shouldn't make it here.");
         }
         return userCommand;
     }
@@ -117,8 +122,8 @@ public class Parser {
             case LIST: {
                 reply = reply + "Here are the tasks in your list:" + "\n";
                 for (int i = 0; i < listLength; i++) {
-                    reply = reply + Integer.toString(i + 1) + ". " +
-                            ls.get(i).toStatusString() + "\n";
+                    reply = reply + Integer.toString(i + 1) + ". "
+                            + ls.get(i).toStatusString() + "\n";
                 }
                 reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
                 break;
@@ -130,8 +135,8 @@ public class Parser {
                     throw new IllegalArgumentException("This task does not exist!");
                 }
                 ls.get(taskIndex - 1).setDone();
-                reply = "Well done! I have marked this task as done:\n" +
-                        ls.get(taskIndex - 1).toStatusString() + "\n";
+                reply = "Well done! I have marked this task as done:\n"
+                        + ls.get(taskIndex - 1).toStatusString() + "\n";
                 break;
             }
             case UNMARK: {
@@ -141,8 +146,8 @@ public class Parser {
                     throw new IllegalArgumentException("This task does not exist!");
                 }
                 ls.get(taskIndex - 1).setNotDone();
-                reply = "Ok. I have marked this task as not done yet:\n" +
-                        ls.get(taskIndex - 1).toStatusString() + "\n";
+                reply = "Ok. I have marked this task as not done yet:\n"
+                        + ls.get(taskIndex - 1).toStatusString() + "\n";
                 break;
             }
             case DELETE:
@@ -151,8 +156,8 @@ public class Parser {
                 if (taskIndex > listLength) {
                     throw new IllegalArgumentException("This task does not exist!");
                 }
-                reply = "Ok. I have deleted this task :\n" +
-                        ls.get(taskIndex - 1).toStatusString() + "\n";
+                reply = "Ok. I have deleted this task :\n"
+                        + ls.get(taskIndex - 1).toStatusString() + "\n";
                 ls.remove(taskIndex - 1);
                 listLength--;
                 break;
@@ -191,7 +196,8 @@ public class Parser {
                     throw new IllegalArgumentException("Incorrect input. Ensure that end date begins with /to");
                 }
                 String eventDescription = input.substring(6, firstBackslashIndex);
-                LocalDate startDate = LocalDate.parse(input.substring(firstBackslashIndex + 5, secondBackslashIndex).trim());
+                LocalDate startDate = LocalDate.parse(
+                        input.substring(firstBackslashIndex + 5, secondBackslashIndex).trim());
                 LocalDate endDate = LocalDate.parse(input.substring(secondBackslashIndex + 3).trim());
                 Event newTask = new Event(eventDescription, startDate, endDate);
                 ls.add(newTask);
@@ -212,11 +218,13 @@ public class Parser {
                     }
                 }
                 for (int i = 0; i < matchedTasks.size(); i++) {
-                    reply = reply + Integer.toString(i + 1) + ". " +
-                            matchedTasks.get(i).toStatusString() + "\n";
+                    reply = reply + Integer.toString(i + 1) + ". "
+                            + matchedTasks.get(i).toStatusString() + "\n";
                 }
                 break;
             }
+            default:
+                System.out.println("Shouldn't make it here.");
             }
         } catch (UnknownCommandException e) {
             reply = "That does not seem to be a valid command. Please try again.\n";
@@ -227,7 +235,7 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             reply = e.getMessage() + "\n";
         } catch (DateTimeParseException e) {
-            reply =  "Incorrect date. Please enter date in YYYY-MM-DD format\n";
+            reply = "Incorrect date. Please enter date in YYYY-MM-DD format\n";
         }
         return reply;
     }

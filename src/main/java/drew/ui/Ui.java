@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class Ui {
     public static final String DELIMITER = "______________________________________";
-    Scanner sc;
+    private Scanner sc;
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -41,7 +41,7 @@ public class Ui {
         System.out.println(DELIMITER);
     }
 
-    public String readInput(){
+    public String readInput() {
         return sc.nextLine();
     }
 
