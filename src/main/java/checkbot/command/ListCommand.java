@@ -1,8 +1,8 @@
 package checkbot.command;
 
 import checkbot.Storage;
-import checkbot.task.TodoList;
 import checkbot.Ui;
+import checkbot.task.TodoList;
 
 /**
  * Represents a command to list all tasks in the list.

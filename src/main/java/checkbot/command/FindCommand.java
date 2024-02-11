@@ -5,6 +5,9 @@ import checkbot.Ui;
 import checkbot.exception.CheckbotException;
 import checkbot.task.TodoList;
 
+/**
+ * Represents a command to look for tasks that contain the specified substring.
+ */
 public class FindCommand extends Command {
     private final String substr;
 

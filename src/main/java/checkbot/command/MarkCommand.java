@@ -1,11 +1,11 @@
 package checkbot.command;
 
-import checkbot.exception.InvalidIndexException;
 import checkbot.Storage;
+import checkbot.Ui;
+import checkbot.exception.InvalidIndexException;
 import checkbot.exception.SaveFileException;
 import checkbot.task.Task;
 import checkbot.task.TodoList;
-import checkbot.Ui;
 
 /**
  * Represents a command to mark a task as completed given an index.
