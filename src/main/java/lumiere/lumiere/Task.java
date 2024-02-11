@@ -1,6 +1,4 @@
-// package lumiere.tasks;
-
-// import lumiere.*;
+package lumiere;
 
 public class Task {
     private boolean marked;

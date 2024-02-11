@@ -1,6 +1,4 @@
-// package lumiere.tasks;
-
-// import lumiere.*;
+package lumiere;
 
 public class Event extends Task {
     private String start;

@@ -1,8 +1,7 @@
-// package main.java.lumiere;
+package lumiere;
 
 import java.util.Scanner;
 import java.io.IOException;
-// import lumiere.*;
 
 public class Ui {
     public void run(TaskList tasks, Storage storage) throws IOException {

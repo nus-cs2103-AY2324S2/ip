@@ -1,14 +1,10 @@
-// package main.java.lumiere;
+package lumiere;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
-
-/* import lumiere.tasks.Deadline;
-import lumiere.tasks.Task;
-import lumiere.tasks.Todo; */
 
 public class Storage {
     private final String path;

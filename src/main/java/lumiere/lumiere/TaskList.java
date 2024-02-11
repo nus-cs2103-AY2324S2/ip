@@ -1,12 +1,8 @@
-// package main.java.lumiere;
+package lumiere;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-
-/* import lumiere.tasks.Deadline;
-import lumiere.tasks.Task;
-import lumiere.tasks.Todo; */
 
 public class TaskList {
     List<Task> list = new ArrayList<>();

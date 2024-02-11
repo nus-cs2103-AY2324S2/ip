@@ -1,6 +1,4 @@
-// package lumiere.tasks;
-
-// import lumiere.*;
+package lumiere;
 
 public class Todo extends Task {
     public Todo(String item, boolean marked) {

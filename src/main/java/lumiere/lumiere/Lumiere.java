@@ -1,7 +1,4 @@
-// package lumiere;
-
-// import lumiere.tasks.*;
-// import lumiere.*;
+package lumiere;
 
 import java.io.IOException;
 
