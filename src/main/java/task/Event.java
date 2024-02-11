@@ -68,4 +68,21 @@ public class Event extends Task{
                 " | " +
                 to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+
+        Event other = (Event) obj;
+        return
+                this.description.equals(other.description) &&
+                        this.from.equals(other.from) &&
+                        this.to.equals(other.to);
+    }
 }

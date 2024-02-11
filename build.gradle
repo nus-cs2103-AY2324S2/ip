@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'application'
-    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -9,9 +8,7 @@ repositories {
     mavenCentral()
 }
 
-checkstyle {
-    toolVersion = '8.29'
-}
+
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
@@ -33,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("sirduke.SirDuke")
 }
 
 shadowJar {
