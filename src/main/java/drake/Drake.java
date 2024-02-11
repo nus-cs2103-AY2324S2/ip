@@ -67,8 +67,11 @@ public class Drake {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/drake.jpeg"));
+    private static final String USER_IMAGE_PATH = "/images/user.jpeg";
+    private static final String DRAKE_IMAGE_PATH = "/images/drake.jpeg";
+
+    private Image user = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+    private Image duke = new Image(this.getClass().getResourceAsStream(DRAKE_IMAGE_PATH));
 
     /**
      * Constructs a new instance of the Drake application.
