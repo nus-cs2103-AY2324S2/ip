@@ -1,10 +1,13 @@
 package tsundere.task;
 
+/**
+ * Encapsulates an Event object.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
 
-    protected static final String type = "E";
+    protected static final String TYPE = "E";
 
     /**
      * Initializes Event task with its name.
@@ -26,7 +29,7 @@ public class Event extends Task {
      */
     @Override
     public String toSaveString() {
-        return type + "," + super.toSaveString() + "," + from + "," + to + "," + this.getTagString();
+        return TYPE + "," + super.toSaveString() + "," + from + "," + to + "," + this.getTagString();
     }
 
     /**

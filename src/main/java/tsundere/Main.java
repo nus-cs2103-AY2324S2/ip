@@ -16,6 +16,9 @@ public class Main extends Application {
 
     private Tsundere tsun = new Tsundere();
 
+    /**
+     * Sets up resources required for GUI.
+     */
     @Override
     public void start(Stage stage) {
         try {

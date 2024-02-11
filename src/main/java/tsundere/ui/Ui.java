@@ -1,24 +1,19 @@
 package tsundere.ui;
 
-import java.util.Scanner;
-
 import tsundere.exception.GeneralException;
 
+/**
+ * Encapsulates a UI object that generates a response from user input.
+ */
 public class Ui {
-    private static final Scanner sc = new Scanner(System.in);
 
     public Ui() {
     }
 
-//    private void exit() {
-//        System.out.println("_________________________________________________________________________________\n"
-//                + "Don't forget about me!\n" + "You better come back soon!\n"
-//                +"_________________________________________________________________________________");
-//    }
-
     /**
      * Initializes Parser to read commands from command line for execution.
-     * Exits program when "bye" command is given.
+     *
+     * @return response to given input.
      */
     public String chat(String input) {
 
