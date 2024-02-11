@@ -53,9 +53,11 @@ class TaskList {
      */
     public String executeTask(String[] instruction) throws CinnamoException {
         try {
+            int arraysize = this.tasks.size();
             Task task = this.parser.parseTasks(instruction);
             this.tasks.add(task);
             this.writeInto();
+            assert this.tasks.size() == arraysize + 1 : "length of array must have increased by 1";
             return task.addTask(this.tasks.size());
         } catch (ArrayIndexOutOfBoundsException exception) {
             if (instruction[0].equals("TODO")) {
@@ -148,6 +150,7 @@ class TaskList {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).markTask();
             this.writeInto();
+            assert this.tasks.get(index).getMarked() == true : "the marking status must be true";
             return String.format("Nice! I've marked this task as done:%n   %s",
                     this.tasks.get(index).toString());
 
@@ -169,6 +172,7 @@ class TaskList {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).unmarkTask();
             this.writeInto();
+            assert this.tasks.get(index).getMarked() == false : "the marking status must be false";
             return String.format("Ok! I've marked this task as not done yet:%n      %s",
                     this.tasks.get(index).toString());
 
