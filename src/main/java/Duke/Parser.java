@@ -7,8 +7,8 @@ import Duke.task.*;
 public class Parser{
     public static LocalDate parseDate(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date1 = LocalDate.parse(date, formatter);
-        return date1;
+        LocalDate formattedTime = LocalDate.parse(date, formatter);
+        return formattedTime;
     }
     public static Command parse(String msg){
         if (msg.equals("bye")) {
