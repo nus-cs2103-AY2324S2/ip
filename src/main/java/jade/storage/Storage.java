@@ -59,6 +59,7 @@ public class Storage {
             ArrayList<Task> savedTaskList = new ArrayList<>();
             while (sc.hasNext()) {
                 String[] task = sc.nextLine().split(" \\| ");
+                assert task.length > 0 : "Saved task strings should not be empty.";
                 boolean isDone = task[1].equals("1");
                 switch (task[0]) {
                 case "T":
@@ -75,6 +76,7 @@ public class Storage {
                             .ofPattern("MMM d yyyy hmma")), isDone));
                     break;
                 default:
+                    assert false : task[0];
                     break;
                 }
             }

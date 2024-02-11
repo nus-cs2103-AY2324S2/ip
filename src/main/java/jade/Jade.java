@@ -16,7 +16,7 @@ import jade.ui.Ui;
  * @since 2024-01-23
  */
 public class Jade {
-    private static final String USER_TASKS_File_PATH = "data/jadeList.txt";
+    private static final String USER_TASKS_FILE_PATH = "data/jadeList.txt";
     private TaskList taskList; // list that stores all user tasks
     private final Storage storage; // storage object to load from and save to local file
     private boolean shouldExit;
@@ -25,7 +25,7 @@ public class Jade {
      */
     public Jade() {
         this.taskList = new TaskList();
-        this.storage = new Storage(USER_TASKS_File_PATH);
+        this.storage = new Storage(USER_TASKS_FILE_PATH);
         this.shouldExit = false;
         try {
             this.taskList = new TaskList(storage.load());

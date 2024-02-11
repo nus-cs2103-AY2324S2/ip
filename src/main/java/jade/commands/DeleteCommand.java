@@ -4,7 +4,6 @@ import jade.data.Task;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
-import jade.ui.Ui;
 
 /**
  * The <code>DeleteCommand</code> object represents the command to delete a task.

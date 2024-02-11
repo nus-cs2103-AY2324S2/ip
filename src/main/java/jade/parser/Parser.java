@@ -143,6 +143,7 @@ public class Parser {
                 checkEmptyDescription(1, commands);
                 return new ExitCommand();
             default:
+                assert false : commands[0];
                 return new InvalidCommand();
             }
         } catch (JadeException e) {
