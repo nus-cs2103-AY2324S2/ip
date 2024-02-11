@@ -35,7 +35,10 @@ public class Storage {
     public void saveTaskToFile(Task task) {
         try {
             FileWriter fileWriter = new FileWriter("./data/duke.txt", true);
+
             String taskLine = parser.formatTaskForFile(task);
+
+
             fileWriter.write(taskLine + "\n");
             fileWriter.close();
         } catch (IOException ignored) {

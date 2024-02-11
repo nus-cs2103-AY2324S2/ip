@@ -12,7 +12,10 @@ public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private final Storage storage;
     private int currIndex = 0;
+
     public TaskList(Parser parser, Storage storage) {
+        assert parser != null : "Parser should not be null";
+        assert storage != null : "Storage should not be null";
         this.parser = parser;
         this.storage = storage;
         loadTasksFromFile();
@@ -30,19 +33,23 @@ public class TaskList {
     }
     public void loadTasksFromFile() {
         File directory = new File("./data");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+
+
+        assert directory.exists() || directory.mkdirs() : "Failed to create directory";
+
+
         File file = new File(directory, "duke.txt");
         try {
+            assert file.createNewFile() : "Failed to create duke.txt file";
+
             file.createNewFile();
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String taskLine = fileScanner.nextLine();
                 Task task = parser.parseTask(taskLine); // Implement this method based on your task format
-                if (task != null) {
-                    this.taskList.add(task);
-                }
+                assert task != null : "Failed to parse task";
+
+                this.taskList.add(task);
                 this.currIndex++;
             }
         } catch(IOException ignored){ // exception should not occur at all
