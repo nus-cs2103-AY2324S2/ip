@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Alpa {
   private static final List<Task> tasks = new ArrayList<>();
@@ -62,7 +64,7 @@ public class Alpa {
     }
     System.out.println("Hello Human! I am your fluffy assistant, \n" + logo + "\n the Alpaca! \n" + scaledArt);
     System.out.println("I'm here to help you sort through the woolly world of tasks.\n");
-    System.out.println("෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴⚘෴෴⚘෴෴⚘\n");
+    System.out.println("෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴෴⚘෴⚘෴෴⚘෴\n");
     
     boolean exit = false;
     while (!exit) {
@@ -241,40 +243,54 @@ public class Alpa {
 
   private static Task handleDeadline(String[] parts) throws AlpaException {
     String input = String.join(" ", parts);
-    String[] inputParts = input.split("/by", 2);
+    // Handle '/by' with flexible spacing
+    String[] inputParts = input.split("\\s*/by\\s*", 2);
     if (inputParts.length < 2) {
-        throw new AlpaException("Invalid deadline format, human! Use '/by' to specify the deadline.");
+        throw new AlpaException("\nInvalid deadline format, human! Use '/by' to specify the deadline.");
     }
     String description = inputParts[0].trim();
-    String deadline = inputParts[1].trim();
+    String deadlineStr = inputParts[1].trim();
+    
     try {
-        LocalDateTime parsedDeadlineDateTime = DateTimeUtils.parseDateTime(deadline);
+        LocalDateTime parsedDeadlineDateTime = DateTimeUtils.parseDeadlineDateTime(deadlineStr);
         return new Deadline(description, parsedDeadlineDateTime);
     } catch (DateTimeParseException e) {
-        throw new AlpaException("Invalid date or time format, human!!");
-    }  
+        throw new AlpaException("\nInvalid date or time format, human!!");
+    }
   }
 
   private static Task handleEvent(String[] parts) throws AlpaException {
     String input = String.join(" ", parts);
-    int fromIndex = input.indexOf("/from ");
-    int toIndex = input.indexOf(" /to ");
-
-    if (fromIndex == -1 || toIndex == -1 || fromIndex >= toIndex) {
+    // Pattern to find '/from' and '/to' with flexible spacing
+    Pattern fromPattern = Pattern.compile("\\s*/from\\s*");
+    Pattern toPattern = Pattern.compile("\\s*/to\\s*");
+    Matcher fromMatcher = fromPattern.matcher(input);
+    Matcher toMatcher = toPattern.matcher(input);
+    
+    // Check if both markers are present
+    if (!fromMatcher.find() || !toMatcher.find()) {
         throw new AlpaException("\nInvalid event format, human! Please use '/from' and '/to' to specify the event time.");
     }
+    
+    int fromIndex = fromMatcher.start();
+    int toIndex = toMatcher.start();
 
     String description = input.substring(0, fromIndex).trim();
-    String startStr = input.substring(fromIndex + 6, toIndex).trim(); // +6 to skip "/from "
-    String endStr = input.substring(toIndex + 4).trim(); // +4 to skip " /to "
+    String startStr = input.substring(fromIndex + fromMatcher.group().length(), toIndex).trim();
+    String endStr = input.substring(toIndex + toMatcher.group().length()).trim();
 
     try {
-        LocalDateTime startDateTime = DateTimeUtils.parseDateTime(startStr);
-        LocalDateTime endDateTime = DateTimeUtils.parseDateTime(endStr);
-        return new Event(description, startDateTime, endDateTime);
+      LocalDateTime startDateTime = DateTimeUtils.parseDateTime(startStr);
+      LocalDateTime endDateTime = DateTimeUtils.tryParseEndDateTime(endStr, startDateTime.toLocalDate());
+      
+      if (endDateTime.isBefore(startDateTime)) {
+        throw new AlpaException("\nEnd time cannot be before start time, human!");
+      }
+
+      return new Event(description, startDateTime, endDateTime);
     } catch (DateTimeParseException e) {
-        throw new AlpaException("\nInvalid date and time format, human!!");
-    }  
+        throw new AlpaException("\nInvalid date and time format, human!! Start: '" + startStr + "', End: '" + endStr + "'.");
+    }      
   }
 
   private static void deleteTask(String[] parts) throws AlpaException {
