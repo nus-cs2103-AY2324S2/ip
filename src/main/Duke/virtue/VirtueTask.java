@@ -1,8 +1,10 @@
-public class DukeTask {
+package virtue;
+
+abstract public class VirtueTask {
     private String description;
     private boolean isDone;
 
-    public DukeTask(String description) {
+    public VirtueTask(String description) {
         this.description = description;
         this.isDone = false;
     }
