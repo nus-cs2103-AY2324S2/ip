@@ -112,6 +112,7 @@ public class TempStorage {
      * @throws ProcessingException If there is an issue decoding and loading tasks.
      */
     public void load(ArrayList<String> encodedTasks) throws ProcessingException {
+        assert list.isEmpty();
         for (String encodedTask : encodedTasks) {
             Task decodedTask = codec.decode(encodedTask);
             list.add(decodedTask);

@@ -66,7 +66,6 @@ public class Storage {
 
         } catch (IOException e) {
             String message = "An error occurred while trying to update the save file. Try again";
-            e.printStackTrace();
             throw new ProcessingException(message);
         }
     }

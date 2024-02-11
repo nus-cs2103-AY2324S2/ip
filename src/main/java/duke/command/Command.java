@@ -35,6 +35,9 @@ public enum Command {
     public static Command processCommand(String input) throws InputException {
         try {
             String commandString = input.split(" ")[0];
+            if (!input.toLowerCase().equals(input)) {
+                throw new InputException("Your command should be in all lower case!\n" + commandString);
+            }
             return Command.valueOf(commandString.toUpperCase());
         } catch (IndexOutOfBoundsException e) {
             String message = "Something went wrong when processing your command: \n"
