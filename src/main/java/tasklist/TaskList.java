@@ -29,7 +29,6 @@ public class TaskList extends BarebonesTaskList {
         this.ui = ui;
     }
     public  TaskList() {
-
     }
 
     public void setStorage(Storage storage) {

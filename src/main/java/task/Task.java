@@ -68,4 +68,18 @@ public class Task {
     public String toDataFormat() {
         return "";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+
+        Task other = (Task) obj;
+        return this.description.equals(other.description);
+    }
 }
