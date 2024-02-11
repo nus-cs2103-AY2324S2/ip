@@ -26,12 +26,8 @@ public class Parser {
         this.ui = ui;
         this.storage = storage;
 
-        try {
-            this.taskList = taskList;
-            this.taskList.updateListFromFile(storage.getListOfStrings());
-        } catch (CampusException e) {
-            this.ui.displayErrorMessage(e);
-        }
+        this.taskList = taskList;
+        this.taskList.updateListFromFile(storage.getListOfStrings());
     }
 
     /**

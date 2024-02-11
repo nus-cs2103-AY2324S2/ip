@@ -2,6 +2,8 @@ package campus.infrastructure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import campus.exceptions.CampusException;
 import campus.tasks.Deadline;
@@ -26,52 +28,60 @@ public class TaskList {
      * @throws CampusException In the event that the file is corrupted and the List of String type does not match the
      *      accepted txt file formatting for its data
      */
-    public void updateListFromFile(List<String> listOfStrings) throws CampusException {
+    public void updateListFromFile(List<String> listOfStrings) {
         if (listOfStrings == null) {
             return;
         }
 
-        List<Task> task = new ArrayList<>();
+        this.tasks = listOfStrings.stream()
+                .map(this::parseTaskFromStringSafe)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
 
-        for (String string : listOfStrings) {
-            String[] parts = string.split("\\|");
-            String typeOfTask = parts[0].trim();
-            switch (typeOfTask) {
-            case "T":
-                if (parts.length != 3) {
-                    throw new CampusException("File is Corrupted, Check Formatting for 'T'");
-                } else {
-                    String todoName = parts[2].trim();
-                    Boolean isCompleted = parts[1].trim().equals("1");
-                    task.add(new ToDos(todoName, isCompleted));
-                }
-                break;
-            case "D":
-                if (parts.length != 4) {
-                    throw new CampusException("File is Corrupted, Check Formatting for 'D'");
-                } else {
-                    String deadlineName = parts[2].trim();
-                    Boolean isCompleted = parts[1].trim().equals("1");
-                    String deadlineEndTime = parts[3].trim();
-                    task.add(new Deadline(deadlineName, isCompleted, deadlineEndTime));
-                }
-                break;
-            case "E":
-                if (parts.length != 5) {
-                    throw new CampusException("File is Corrupted, Check Formatting for 'E'");
-                } else {
-                    String eventName = parts[2].trim();
-                    Boolean isCompleted = parts[1].trim().equals("1");
-                    String eventStartTime = parts[3].trim();
-                    String eventEndTime = parts[4].trim();
-                    task.add(new Event(eventName, isCompleted, eventStartTime, eventEndTime));
-                }
-                break;
-            default:
-                break;
-            }
+    private Task parseTaskFromStringSafe(String string) {
+        try {
+            return parseTaskFromString(string);
+        } catch (CampusException e) {
+            System.err.println("Error parsing task from string: " + e.getMessage());
+            return null; // or handle it differently
         }
-        this.tasks = task;
+    }
+
+    private Task parseTaskFromString(String string) throws CampusException {
+        String[] parts = string.split("\\|");
+        String typeOfTask = parts[0].trim();
+        switch (typeOfTask) {
+        case "T":
+            if (parts.length != 3) {
+                throw new CampusException("File is Corrupted, Check Formatting for 'T'");
+            } else {
+                String todoName = parts[2].trim();
+                Boolean isCompleted = parts[1].trim().equals("1");
+                return new ToDos(todoName, isCompleted);
+            }
+        case "D":
+            if (parts.length != 4) {
+                throw new CampusException("File is Corrupted, Check Formatting for 'D'");
+            } else {
+                String deadlineName = parts[2].trim();
+                Boolean isCompleted = parts[1].trim().equals("1");
+                String deadlineEndTime = parts[3].trim();
+                return new Deadline(deadlineName, isCompleted, deadlineEndTime);
+            }
+        case "E":
+            if (parts.length != 5) {
+                throw new CampusException("File is Corrupted, Check Formatting for 'E'");
+            } else {
+                String eventName = parts[2].trim();
+                Boolean isCompleted = parts[1].trim().equals("1");
+                String eventStartTime = parts[3].trim();
+                String eventEndTime = parts[4].trim();
+                return new Event(eventName, isCompleted, eventStartTime, eventEndTime);
+            }
+        default:
+            throw new CampusException("Invalid task type");
+        }
     }
 
     public List<Task> getListOfTasks() {
@@ -80,18 +90,17 @@ public class TaskList {
 
     public TaskList getTaskListWhere(String string) {
         TaskList temp = new TaskList();
-
-        for (Task task : this.tasks) {
-            if (task.taskName.contains(string)) {
-                temp.addTask(task);
-            }
-        }
+        temp.tasks = this.tasks.stream()
+            .filter(task -> task.taskName.contains(string))
+            .collect(Collectors.toList());
         return temp;
     }
 
     public Task getIthTaskInteger(int index) {
-        assert(index < this.tasks.size());
-        return this.tasks.get(index);
+        return this.tasks.stream()
+            .skip(index)
+            .findFirst()
+            .orElse(null);
     }
 
     public Task getIthTaskString(String userInput) {
