@@ -56,7 +56,7 @@ public class MainApp extends Application{
         stage.setMinHeight(stageMinHeight);
         stage.setMinWidth(stageMinWidth);
 
-        mainLayout.setPrefSize(stageMinWidth, stageMinWidth);
+        mainLayout.setPrefSize(stageMinWidth, stageMinHeight);
 
         scrollPane.setPrefSize(panePrefWidth, panePrefHeight);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);

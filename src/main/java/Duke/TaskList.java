@@ -58,7 +58,6 @@ public class TaskList {
         String[] commandParts = input.split(" ", 2);
         CommandType commandType = CommandType.getCommandType(commandParts[0]);
         String response;
-        assert commandParts.length > 0 : "Invalid commandParts length";
         assert commandType != null : "Invalid commandType";
 
         try {
