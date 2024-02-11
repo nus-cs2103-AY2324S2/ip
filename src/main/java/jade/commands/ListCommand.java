@@ -2,6 +2,7 @@ package jade.commands;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.IntStream;
 
 import jade.data.TaskList;
 import jade.storage.Storage;
@@ -51,17 +52,17 @@ public class ListCommand extends Command {
      * @inheritDoc This implementation prints all tasks with an option to specify a date.
      */
     private String handleListWithDate(TaskList taskList) {
-        int count = 0; // to track the number of tasks to be printed
         StringBuilder sb = new StringBuilder();
         String dateString = " on " + selectedDate;
         sb.append(String.format(RESULT_MSG_FORMATTED, dateString));
-        for (int i = 1; i <= taskList.size(); i++) {
-            if (taskList.get(i - 1).isSameDate(selectedDate)) {
-                sb.append(String.format(LIST_INDEX_FORMATTED, i, taskList.get(i - 1)));
-                count++;
-            }
-        }
-        if (count == 0) {
+        int[] count = {0}; // to track the number of tasks to be printed
+        IntStream.range(0, taskList.size())
+                .filter(x -> taskList.get(x).isSameDate(selectedDate))
+                .forEach(x -> {
+                    count[0]++;
+                    sb.append(String.format(LIST_INDEX_FORMATTED, x + 1, taskList.get(x)));
+                });
+        if (count[0] == 0) {
             return String.format(EMPTY_RESULT_MSG_FORMATTED, selectedDate
                     .format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
@@ -70,9 +71,8 @@ public class ListCommand extends Command {
     private String handleListWithoutDate(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
         sb.append(RESULT_MSG_FORMATTED);
-        for (int i = 1; i <= taskList.size(); i++) {
-            sb.append(String.format(LIST_INDEX_FORMATTED, i, taskList.get(i - 1)));
-        }
+        IntStream.range(1, taskList.size() + 1).forEach(x ->
+                sb.append(String.format(LIST_INDEX_FORMATTED, x, taskList.get(x - 1))));
         return sb.toString();
     }
 
