@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import duke.exceptions.ChatException;
-import duke.task.Deadline;
 import duke.task.Task;
 
 
