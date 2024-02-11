@@ -1,7 +1,6 @@
 package duke;
 
 import duke.command.Command;
-
 import java.io.FileNotFoundException;
 
 /**
@@ -11,53 +10,44 @@ import java.io.FileNotFoundException;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final String FILEPATH = "data/tasks.txt";
+
+    private boolean newTaskListCreatedInStorage = false;
 
     /**
      * Creates an instance of the bot.
-     * @param filePath List of tasks are stored at / retrieved from specified filepath.
      */
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    public Duke() {
+        storage = new Storage(FILEPATH);
         try {
             tasks = new TaskList(storage, storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
+        } catch (DukeException | FileNotFoundException e) {
+            newTaskListCreatedInStorage = true;
             tasks = new TaskList(storage);
-        } catch (FileNotFoundException e) {
-            // something went wrong
-            ui.showError("File not found.");
         }
     }
 
     /**
-     * Runs Duke.
+     * Given user input, tries to parse it as a command and executes the command.
+     * @param input
+     * @return Response from Duke
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage);
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
 
-
     /**
-     * Main method which starts the bot.
-     * @param args Any command line arguments.
+     * Returns the welcome message when user opens Duke.
+     * @return The welcome message.
      */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+    public String getWelcome() {
+        return "Hello! I'm MR WONG. How may I help you today?" + (newTaskListCreatedInStorage ?
+                "\nYou did not have a task list saved in storage, so I've created one for you :)" : "");
     }
+
 }

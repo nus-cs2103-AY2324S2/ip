@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 import duke.task.Task;
 
 public class DeleteCommand extends Command {
@@ -11,9 +10,9 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Task deleted = tasks.delete(index);
-        ui.say("OK! I've deleted this task:\n" + deleted.toString() +
-                "\nNow you have " + tasks.getSize() + " tasks in the list.");
+        return "OK! I've deleted this task:\n" + deleted.toString() +
+                "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 }

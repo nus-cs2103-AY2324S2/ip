@@ -2,11 +2,10 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
+    public String execute(TaskList tasks, Storage storage) {
+        return "Here are the tasks in your list:\n" + tasks.toString();
     }
 }

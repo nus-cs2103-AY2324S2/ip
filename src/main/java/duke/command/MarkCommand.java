@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.Ui;
 
 public class MarkCommand extends Command {
     private boolean mark;
@@ -14,9 +13,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         tasks.mark(index, mark);
-        ui.say("Ok! I've " + (mark ? "marked " : "unmarked ") + "this task:\n"
-            + tasks.getTaskByIndex(index).toString());
+        return "Ok! I've " + (mark ? "marked " : "unmarked ") + "this task:\n"
+            + tasks.getTaskByIndex(index).toString();
     }
 }
