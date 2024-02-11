@@ -10,8 +10,8 @@ import fishstock.Command.Keyword;
  * Encapsulates parsing methods.
  */
 class Parser {
-    protected static DateTimeFormatter inDateFormat = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
-    protected static DateTimeFormatter outDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    protected static final DateTimeFormatter IN_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
+    protected static final DateTimeFormatter OUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
      * Check if given input starts with a command.
@@ -80,7 +80,7 @@ class Parser {
      */
     protected static LocalDateTime parseDate(String date) throws FishStockException {
         try {
-            return LocalDateTime.parse(date, inDateFormat);
+            return LocalDateTime.parse(date, IN_DATE_FORMAT);
         } catch (DateTimeParseException e) {
             throw new FishStockException("OH NOSE! Dates should be of the format <dd/mm/yyyy hh:mm>");
         }
@@ -92,7 +92,7 @@ class Parser {
      * @return The String with input format.
      */
     protected static String inDate(LocalDateTime date) {
-        return date.format(inDateFormat);
+        return date.format(IN_DATE_FORMAT);
     }
 
     /**
@@ -101,6 +101,6 @@ class Parser {
      * @return The String with output format.
      */
     protected static String outDate(LocalDateTime date) {
-        return date.format(outDateFormat);
+        return date.format(OUT_DATE_FORMAT);
     }
 }
