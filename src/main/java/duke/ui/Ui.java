@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import java.util.Scanner;
 
@@ -17,42 +17,38 @@ public class Ui {
         System.out.println(out);
     }
 
-    String readCommand() {
+    public String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
-    void showLine() {
-        System.out.println(LINE);
-    }
-
-    void addMessage(String str, int taskSize) {
+    public void addMessage(String str, int taskSize) {
         String out = "Got it. I've added this task:\n" + str
                 + "\nNow you have " + taskSize + " tasks in this list.";
         System.out.println(out);
     }
 
-    void deleteMessage(String str, int taskSize) {
+    public void deleteMessage(String str, int taskSize) {
         String out = "Noted. I've removed this task:\n" + str + "\nNow you have " + taskSize + " tasks in the list.";
         System.out.println(out);
     }
 
-    void markMessage(String str) {
+    public void markMessage(String str) {
         String out = "Nice! I've marked this task as done:\n" + str;
         System.out.println(out);
     }
 
-    void unmarkMessage(String str) {
+    public void unmarkMessage(String str) {
         String out = "OK, I've marked this task as not done yet:\n" + str;
         System.out.println(out);
     }
 
-    void listMessage(String str) {
+    public void listMessage(String str) {
         String out = "Here are the tasks in your list:\n" + str;
         System.out.print(out);
     }
 
-    void findMessage(String str) {
+    public void findMessage(String str) {
         String out = "Here are the matching tasks in your list:\n" + str;
         System.out.print(str);
     }

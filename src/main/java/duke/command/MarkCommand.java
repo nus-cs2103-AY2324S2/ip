@@ -1,10 +1,15 @@
-package duke;
+package duke.command;
+
+import duke.DukeException;
+import duke.TaskList;
+import duke.ui.Ui;
+import duke.task.Task;
 
 public class MarkCommand implements Command {
     int index;
     boolean isDone;
 
-    MarkCommand(int index, boolean isDone) {
+    public MarkCommand(int index, boolean isDone) {
         this.index = index;
         this.isDone = isDone;
     }

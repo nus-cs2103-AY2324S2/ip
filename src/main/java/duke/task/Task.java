@@ -1,15 +1,15 @@
-package duke;
+package duke.task;
 
 public class Task {
     private String desc;
     private boolean isDone;
 
-    Task(String desc) {
+    public Task(String desc) {
         this.desc = desc;
         this.isDone = false;
     }
 
-    Task(String desc, boolean isDone) {
+    public Task(String desc, boolean isDone) {
         this.desc = desc;
         this.isDone = isDone;
     }
@@ -22,7 +22,7 @@ public class Task {
         }
     }
 
-    boolean contains(String keyword) {
+    public boolean contains(String keyword) {
         return desc.contains(keyword);
     }
 

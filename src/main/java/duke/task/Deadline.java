@@ -1,17 +1,17 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    LocalDate by;
+    private LocalDate by;
 
-    Deadline(String desc, String by) {
+    public Deadline(String desc, String by) {
         super(desc);
         this.by = LocalDate.parse(by);
     }
 
-    Deadline(String desc, boolean isDone, String by) {
+    public Deadline(String desc, boolean isDone, String by) {
         super(desc, isDone);
         this.by = LocalDate.parse(by);
     }

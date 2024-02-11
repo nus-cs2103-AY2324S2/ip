@@ -1,32 +1,33 @@
 package duke;
 
 import java.util.ArrayList;
+import duke.task.Task;
 import java.util.List;
 
 public class TaskList {
 
     private ArrayList<Task> tasks;
 
-    TaskList(List<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
     }
 
-    void add(Task task) {
+    public void add(Task task) {
         tasks.add(task);
     }
 
-    int size() {
+    public int size() {
         return tasks.size();
     }
 
-    void remove(int index) {
+    public void remove(int index) {
         tasks.remove(index);
     }
-    Task get(int index) {
+    public Task get(int index) {
         return tasks.get(index);
     }
 
-    TaskList find(String str) {
+    public TaskList find(String str) {
         ArrayList<Task> foundList = new ArrayList<>();
         for (Task task: tasks) {
             if (task.contains(str)) {
@@ -36,7 +37,7 @@ public class TaskList {
         return new TaskList(foundList);
     }
 
-    String toStore() {
+    public String toStore() {
         String out = "";
         for (Task task: tasks) {
             out += task.toStore() + "\n";

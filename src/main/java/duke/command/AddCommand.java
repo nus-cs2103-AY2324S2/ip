@@ -1,11 +1,16 @@
-package duke;
+package duke.command;
+
+import duke.task.*;
+import duke.DukeException;
+import duke.ui.Ui;
+import duke.TaskList;
 
 public class AddCommand implements Command {
 
     private String commandWord;
     private String description;
 
-    AddCommand(String commandWord, String description) {
+    public AddCommand(String commandWord, String description) {
         this.commandWord = commandWord;
         this.description = description;
     }

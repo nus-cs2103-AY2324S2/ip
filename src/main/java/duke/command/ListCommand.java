@@ -1,6 +1,10 @@
-package duke;
+package duke.command;
 
-class ListCommand implements Command {
+import duke.DukeException;
+import duke.TaskList;
+import duke.ui.Ui;
+
+public class ListCommand implements Command {
 
     /**
      * Display all the Task in TaskList.

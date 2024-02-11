@@ -1,12 +1,12 @@
-package duke;
+package duke.task;
 
 public class ToDo extends Task {
 
-    ToDo(String desc) {
+    public ToDo(String desc) {
         super(desc);
     }
 
-    ToDo(String desc, boolean isDone) {
+    public ToDo(String desc, boolean isDone) {
         super(desc, isDone);
     }
 

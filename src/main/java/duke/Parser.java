@@ -1,5 +1,10 @@
 package duke;
 
+import duke.task.Task;
+import duke.command.*;
+import duke.task.*;
+
+
 class Parser {
 
     /**

@@ -1,6 +1,10 @@
-package duke;
+package duke.command;
 
-class ExitCommand implements Command {
+import duke.DukeException;
+import duke.TaskList;
+import duke.ui.Ui;
+
+public class ExitCommand implements Command {
 
     public void execute(TaskList tasks, Ui ui) throws DukeException {
     }
