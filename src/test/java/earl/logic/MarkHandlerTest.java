@@ -28,8 +28,8 @@ class MarkHandlerTest {
     void handle_normalCommand_success() throws Exception {
         Handler handler = HandlerType.mark.createHandler("1");
         handler.handle(new TaskListStub(), new UiStub());
-        assertEquals("Item marked as done.\r\n"
-                + "\t[ ] TaskStub\r\n",
+        assertEquals("Item(s) marked as done.\r\n"
+                + "1.[ ] TaskStub\r\n",
                 testingOut.toString());
     }
 
@@ -40,8 +40,8 @@ class MarkHandlerTest {
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (Exception e) {
-            assertEquals("Error, not a valid item number within range.\n"
-                    + "\tExample use:\n\tmark 3", e.getMessage());
+            assertEquals("Error, indices format invalid.\n"
+                    + "\tExample format: 1 4-7 9-10", e.getMessage());
         }
     }
 
