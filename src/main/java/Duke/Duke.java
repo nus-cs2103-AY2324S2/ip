@@ -7,10 +7,7 @@ package Duke;
  * It integrates various classes in an OOP structure - Storage, TaskList, Parser, and Ui.
  */
 public class Duke {
-    private Storage storage;
-    private TaskList taskList;
-    private Parser parser;
-    private Ui ui;
+    private final TaskList taskList;
 
     /**
      * Initializes a new Duke application.
@@ -18,36 +15,23 @@ public class Duke {
      * This constructor initializes the Ui, Parser, Storage, and TaskList components of the Duke application.
      */
     public Duke() {
-        this.ui = new Ui();
-        this.parser = new Parser(this.ui);
-        this.storage = new Storage(this.ui, this.parser);
-        this.taskList = new TaskList(this.ui, this.parser, this.storage);
+        Parser parser = new Parser();
+        Storage storage = new Storage(parser);
+        this.taskList = new TaskList(parser, storage);
     }
 
-    /**
-     * Starts the execution of the Duke application.
-     * <p>
-     * This method triggers the main functionality of the application,
-     * starting with the task list functionalities.
-     */
-    public void run() {
-        this.taskList.listFunction();
-    }
+
 
     /**
      * The entry point of the Duke application.
      * <p>
      * This main method initializes a new Duke instance and starts its execution.
      *
-     * @param args The command-line arguments.
      */
 
     public String runCommand(String command) {
         // run a single command in TaskList
         return taskList.runCommand(command);
-    }
-    public static void main(String[] args){
-        // new Duke().run(); // uncomment for CLI app
     }
 
 
