@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 
@@ -19,11 +18,10 @@ public class MarkCommand extends Command {
      * Mark a task.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return Which task was marked.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         Task task = tasks.get(this.idx);
         task.mark();
         return "Nice! I've marked this task as done:\n" + task + "\n";

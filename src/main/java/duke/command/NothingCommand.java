@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 
 /**
@@ -12,11 +11,10 @@ public class NothingCommand extends Command {
      * Execute nothing..
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return Nothing.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         return "";
     }
 

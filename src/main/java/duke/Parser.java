@@ -63,7 +63,7 @@ public class Parser {
      * @return A LocalDateTime object of the parse input.
      * @throws ChatException if the input is invalid
      */
-    private static LocalDateTime dateParse(String date) {
+    private static LocalDateTime parseDate(String date) {
         try {
             return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
         } catch (DateTimeParseException e) {
@@ -100,11 +100,11 @@ public class Parser {
             return new TodoCommand(Parser.getContents(line, 4));
         case "deadline": {
             String[] res = Parser.getContents(line, 8).split(" /by ");
-            return new DeadlineCommand(res[0], Parser.dateParse(res[1]));
+            return new DeadlineCommand(res[0], Parser.parseDate(res[1]));
         }
         case "event": {
             String[] res = Parser.getContents(line, 5).split(" ((/from)|(/to)) ");
-            return new EventCommand(res[0], Parser.dateParse(res[1]), Parser.dateParse(res[2]));
+            return new EventCommand(res[0], Parser.parseDate(res[1]), Parser.parseDate(res[2]));
         }
         case "find":
             return new FindCommand(Parser.getContents(line, 4));
