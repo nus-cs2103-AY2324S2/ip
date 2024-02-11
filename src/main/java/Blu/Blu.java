@@ -1,5 +1,6 @@
 package blu;
 
+import java.io.File;
 import java.io.IOException;
 
 import blu.command.ByeCommand;
@@ -16,6 +17,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -24,7 +26,7 @@ import javafx.stage.Stage;
  * process user input commands, and manage the application's lifecycle.
  */
 public class Blu extends Application {
-    private static final String STORAGE_PATH = "./data/data.csv";
+    private static final String DEFAULT_STORAGE_PATH = "./data/data.csv";
     private TaskList taskList;
     private Storage storage;
     private UI ui;
@@ -39,14 +41,26 @@ public class Blu extends Application {
     public void init() {
         ui = new UI();
         isExit = false;
+    }
+
+    private void initStorage(String storagePath) {
         try {
-            storage = new Storage(STORAGE_PATH);
+            storage = new Storage(storagePath);
             taskList = storage.loadTasks();
             welcomeMessage = ui.getWelcomeMessage(storage.getAbsoluteFilePath());
         } catch (BluException e) {
             BluLogger.severe(e.getMessage());
             System.exit(1);
         }
+    }
+
+    private File getSelectedFile(Stage stage) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Storage File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        return selectedFile;
     }
 
     /**
@@ -57,6 +71,12 @@ public class Blu extends Application {
      */
     @Override
     public void start(Stage stage) {
+        File selectedFile = getSelectedFile(stage);
+        if (selectedFile == null) {
+            initStorage(DEFAULT_STORAGE_PATH);
+        } else {
+            initStorage(selectedFile.getAbsolutePath());
+        }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Blu.class.getResource("/view/MainWindow.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
