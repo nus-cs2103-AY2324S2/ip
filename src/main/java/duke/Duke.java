@@ -1,12 +1,19 @@
 package duke;
+
 import java.io.IOException;
 
+/**
+ * The Duke class is the main entry point for the bot application itself
+ * It uses an Operator to connect the user to the bot
+ * The operator is responsible for handling user input and bot output
+ * It's the entry point for the bot
+ */
 public class Duke {
-    // Main method to start the bot
-    // Duke uses the Operator to connect the user to the bot
-    // A separate operator gives us flexibility to change the way the bot is
-    // operated
-    // and even add more bots in the future
+    /**
+     * The main method to start the bot.
+     * It initializes the bot, prints a greeting, and starts the operator to parse
+     * user input
+     */
     public static void main(String[] args) throws BotException, IOException {
         // Initial
         System.out.println(Ui.wrapWithSepLine(Bot.getGreeting()));
