@@ -4,10 +4,23 @@ import java.util.List;
 
 import duke.task.TaskList;
 
+/**
+ * An abstract class representing a command in the Duke application.
+ *
+ * <p>The {@code Command} class serves as the base class for all specific command classes
+ * in the Duke application. It provides common functionality and structure for executing
+ * different commands.</p>
+ */
 public abstract class Command {
     protected String command;
     protected List<String> arguments;
 
+    /**
+    * Constructs a command object with the specified command keyword and arguments.
+    *
+    * @param command   The command keyword representing the type of command.
+    * @param arguments The list of arguments associated with the command.
+    */
     public Command(String command, List<String> arguments) {
         this.command = command;
         this.arguments = arguments;

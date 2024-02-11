@@ -5,6 +5,13 @@ import java.util.List;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
+/**
+ * A command class representing the action of deleting a task from the task list.
+ *
+ * <p>The {@code DeleteCommand} class encapsulates the information and actions
+ * required to delete a task from the task list. It inherits from the {@code Command}
+ * class and implements the behavior specific to deleting a task.</p>
+ */
 public class DeleteCommand extends Command {
     public DeleteCommand(List<String> arguments) {
         super("delete", arguments);

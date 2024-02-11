@@ -4,6 +4,13 @@ import java.util.List;
 
 import duke.task.TaskList;
 
+/**
+ * A command class representing the action of listing all tasks.
+ *
+ * <p>The {@code ListCommand} class encapsulates the information and actions
+ * required to list all tasks stored in the task list. It inherits from the {@code Command}
+ * class and implements the behavior specific to listing tasks.</p>
+ */
 public class ListCommand extends Command {
     public ListCommand() {
         super("list", List.of());

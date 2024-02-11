@@ -6,7 +6,13 @@ import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
-
+/**
+ * A command class representing the action of marking a task as undone.
+ *
+ * <p>The {@code UnmarkCommand} class encapsulates the information and actions
+ * required to mark a task in the task list as done. It inherits from the {@code Command}
+ * class and implements the behavior specific to marking a task as done.</p>
+ */
 public class UnmarkCommand extends Command {
     public UnmarkCommand(List<String> arguments) {
         super("unmark", arguments);

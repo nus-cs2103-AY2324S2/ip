@@ -21,8 +21,23 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 
-
+/**
+ * A utility class for parsing user input and generating corresponding commands.
+ *
+ * <p>The {@code Parser} class provides static methods for parsing user input strings
+ * and generating corresponding command objects to perform specific actions in the Duke chatbot.
+ * It handles the parsing of various command types, such as adding tasks, marking tasks as done,
+ * listing tasks, and more.</p>
+ */
 public class Parser {
+
+    /**
+     * Parses the user input string and generates the corresponding command object.
+     *
+     * @param userInput The user input string to parse.
+     * @return A {@link Command} object representing the parsed command.
+     * @throws DukeException If there is an error parsing the input or generating the command.
+     */
     public static Command parseInput(String userInput) throws DukeException {
         try {
             String[] parts = userInput.split(" ", 2);
@@ -124,6 +139,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string into a LocalDate object.
+     *
+     * @param input The input string representing a date in the format "YYYY-MM-DD".
+     * @return A {@link LocalDate} object parsed from the input string.
+     * @throws DukeException If there is an error parsing the input string.
+     */
     public static LocalDate parseDate(String input) throws DukeException {
         try {
             return LocalDate.parse(input);

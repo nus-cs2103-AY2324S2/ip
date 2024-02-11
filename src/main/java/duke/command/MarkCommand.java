@@ -6,7 +6,13 @@ import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
-
+/**
+ * A command class representing the action of marking a task as done.
+ *
+ * <p>The {@code MarkCommand} class encapsulates the information and actions
+ * required to mark a task in the task list as done. It inherits from the {@code Command}
+ * class and implements the behavior specific to marking a task as done.</p>
+ */
 public class MarkCommand extends Command {
     public MarkCommand(List<String> arguments) {
         super("mark", arguments);
