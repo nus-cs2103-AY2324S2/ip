@@ -2,7 +2,6 @@ package duke.command;
 
 import java.time.LocalDateTime;
 
-import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 
@@ -33,11 +32,10 @@ public class EventCommand extends Command {
      * Adds the event to the task list.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return The updated task list as a string.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         Task task = new duke.task.Event(this.event, this.fromDate, this.toDate);
         tasks.add(task);
         return tasks.standardize(task);

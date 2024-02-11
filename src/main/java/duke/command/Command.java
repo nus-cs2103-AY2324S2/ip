@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 
 /**
@@ -11,10 +10,9 @@ public abstract class Command {
      * Execute a command.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return The reply to the user.
      */
-    public abstract String execute(TaskList tasks, Storage storage);
+    public abstract String execute(TaskList tasks);
 
     /**
      * Whether this command signals to exit the Chatbot.
