@@ -21,6 +21,7 @@ public class TaskList {
     }
 
     public Task removeTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds for removal";
         return tasks.remove(index);
     }
 
@@ -66,6 +67,7 @@ public class TaskList {
         return filteredTasks;
     }
     public ArrayList<Task> findTasks(String... keywords) {
+
         return tasks.stream()
                 .filter(task -> Arrays.stream(keywords)
                         .anyMatch(keyword -> task.getDescription().contains(keyword)))
