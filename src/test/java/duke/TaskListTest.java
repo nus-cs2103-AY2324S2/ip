@@ -3,10 +3,10 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import duke.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.InvalidTaskException;
+import duke.exceptions.DukeException;
+
 
 public class TaskListTest {
     @Test
