@@ -13,12 +13,13 @@ import javafx.stage.Stage;
  * A GUI for Jade using FXML.
  */
 public class Main extends Application {
-    private Jade jade = new Jade();
+    private static final String FXML_FILE_PATH = "/view/MainWindow.fxml";
+    private final Jade jade = new Jade();
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(FXML_FILE_PATH));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
