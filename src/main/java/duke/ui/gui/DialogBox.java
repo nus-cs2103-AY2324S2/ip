@@ -9,12 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * An example of a custom control using FXML.
@@ -23,16 +23,14 @@ import javafx.scene.text.Font;
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Text dialog;
     @FXML
     private VBox profileContainer;
     @FXML
     private ImageView displayPicture;
-    @FXML
-    private Label name;
 
 
-    private DialogBox(String text, Image img, String speakerName) {
+    private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -44,7 +42,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        name.setText(speakerName);
+        this.setMaxHeight(Double.MAX_VALUE);
     }
 
     /**
@@ -58,11 +56,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img, "User");
+        return new DialogBox(text, img);
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img, "Liv");
+        var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
