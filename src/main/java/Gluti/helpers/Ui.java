@@ -1,18 +1,9 @@
 package Gluti.helpers;
 
-import Gluti.Gui.DialogBox;
-import Gluti.utils.GlutiException;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-
 /**
  * Represents the control hub for user input and filestorage for user
  */
 public class Ui {
-    private Parser parser;
 
     /**
      * Initializes a Ui instance and sets the status to "working"
