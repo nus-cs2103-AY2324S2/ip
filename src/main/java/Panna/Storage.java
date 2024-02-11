@@ -8,8 +8,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Encapsulates all the file methods of PannaBot
+ */
 public class Storage {
 
+    /**
+     * Reads in the tasks from the file
+     * @param filePath
+     * @param tasks
+     * @throws PannaException
+     */
     public static void read(String filePath, TaskList tasks) throws PannaException {
         Parser df = new Parser("yyyy-MM-dd");
 
@@ -51,6 +60,13 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Writes into the file after execution of a command
+     * @param filePath
+     * @param tasks
+     * @throws PannaException
+     */
     public static void write(String filePath, TaskList tasks) throws PannaException {
 
         try {

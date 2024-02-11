@@ -4,7 +4,9 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * The main parent class for each of the tasks!
+ */
 public class Task {
     protected String taskName;
     protected boolean isDone;
@@ -21,59 +23,105 @@ public class Task {
     // for deadline: taskName + deadline
     // for event: taskName + start + end
 
+    /**
+     * Empty constructor to represent a null task
+     */
     public Task() {
 
 
     }
 
+    /**
+     * Represents a ToDo task
+     * @param taskName
+     */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.isDone = false;
-        this.taskType = 'T';
+        isDone = false;
+        taskType = 'T';
     }
 
+    /**
+     * Represents a deadline task
+     * @param taskName
+     * @param deadline
+     */
     public Task(String taskName, LocalDate deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
-        this.isDone = false;
-        this.taskType = 'D';
+        isDone = false;
+        taskType = 'D';
     }
 
+    /**
+     * Represents an event task
+     * @param taskName
+     * @param start
+     * @param end
+     */
     public Task(String taskName, LocalDate start, LocalDate end) {
         this.taskName = taskName;
         this.start = start;
         this.end = end;
-        this.isDone = false;
-        this.taskType = 'E';
+        isDone = false;
+        taskType = 'E';
     }
 
+    /**
+     * Generates the status icon corresponding to if a task is marked or not
+     * @return corresponding icon
+     */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Gets the start time for events
+     * @return start timing
+     */
     public LocalDate getStart() {
-        return this.start;
+        return tstart;
     }
 
+    /**
+     * Gets the end time for events
+     * @return end timing
+     */
     public LocalDate getEnd() {
-        return this.end;
+        return end;
     }
 
+    /**
+     * Gets the deadline time for deadlines
+     * @return deadline timing
+     */
     public LocalDate getDeadline() {
-        return this.deadline;
+        return deadline;
     }
 
+    /**
+     * Sets the done-ness of the event (marked or unmarked)
+     * @param isDone
+     */
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
+    /**
+     * Recovers the done-ness of an event
+     * @return boolean representing doneness
+     */
     public boolean getDone() {
-        return this.isDone;
+        return isDone;
     }
 
+    /**
+     * String representation of all tasks
+     * @return String representation
+     */
     @Override
     public String toString() {
-        return "[" + this.taskType + "] [" + this.getStatusIcon() + "] " + this.taskName;
+        return "[" + taskType + "] [" + getStatusIcon() + "] " + taskName;
     }
 }
 

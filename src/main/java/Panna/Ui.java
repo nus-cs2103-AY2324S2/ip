@@ -2,13 +2,24 @@ package Panna;
 
 import java.util.Scanner;
 import java.time.LocalDate;
+
+/**
+ * Encapsulates all the Ui elements of the bot.
+ */
 public class Ui {
     private Scanner s;
 
+    /**
+     * Constructor method which initializes scanner
+     */
     public Ui() {
-        this.s = new Scanner(System.in);
+        s = new Scanner(System.in);
     }
 
+
+    /**
+     * Message to be displayed on launching the bot.
+     */
     public void launchMessage() {
         System.out.println("----------------------------------------------------------\n"
                 + "Hello! I'm Panna.\n" +
@@ -16,18 +27,31 @@ public class Ui {
                 "----------------------------------------------------------");
     }
 
+    /**
+     * Message to be displayed on leaving the bot.
+     */
+
     public void farewellMessage() {
         System.out.println("----------------------------------------------------------\n"  +
                 "Bye. Hope to see you again soon!\n\n" +
                 "----------------------------------------------------------");
     }
 
+    /**
+     * Message to be displayed upon calling the list functionality of the bot
+     * @param tl
+     */
     public void listMessage(TaskList tl) {
         System.out.println("----------------------------------------------------------");
         tl.printList();
         System.out.println("----------------------------------------------------------");
     }
 
+    /**
+     * Displays message and marks the relevant task.
+     * @param tasks
+     * @throws PannaException
+     */
     public void mark(TaskList tasks) throws PannaException {
         System.out.println("Which one should I mark? Write the label number :] ");
         try {
@@ -46,6 +70,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays message and unmarks the relevant task.
+     * @param tasks
+     * @throws PannaException
+     */
+
     public void unmark(TaskList tasks) throws PannaException {
         System.out.println("Which one should I unmark? Write the label number :] ");
         try {
@@ -63,6 +93,12 @@ public class Ui {
         }
 
     }
+
+    /**
+     * Deletes the relevant task and displays a message.
+     * @param tasks
+     * @throws PannaException
+     */
 
     public void deleteMessage(TaskList tasks) throws PannaException {
         System.out.println("Which one should I delete? Write the label number :] ");
@@ -83,6 +119,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message corresponding to a new Todo task.
+     * @param tasks
+     * @throws PannaException
+     */
     public void todoMessage(TaskList tasks) throws PannaException{
         try {
             System.out.println("What kind of todo? ");
@@ -98,6 +139,13 @@ public class Ui {
         }
 
     }
+
+    /**
+     * Displays the message corresponding to a new deadline task.
+     * @param tasks
+     * @param p
+     * @throws PannaException
+     */
 
     public void deadlineMessage(TaskList tasks, Parser p) throws PannaException{
         try {
@@ -122,6 +170,13 @@ public class Ui {
 
     }
 
+    /**
+     * Displays the message corresponding to a new event task.
+     * @param tasks
+     * @param p
+     * @throws PannaException
+     */
+
     public void eventMessage(TaskList tasks, Parser p) throws PannaException {
         try {
             System.out.println("What kind of event? ");
@@ -142,5 +197,21 @@ public class Ui {
             throw new PannaException("Please ensure all your formats are correct! ");
         }
 
+    }
+
+
+    public void find(TaskList tasks) throws PannaException {
+        System.out.println("What shall I find for you! ");
+        String k = s.nextLine();
+
+        TaskList newList = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).taskName.contains(k)) {
+                newList.add(tasks.get(i));
+
+            }
+        }
+        System.out.println("The matches are: ");
+        newList.printList();
     }
 }
