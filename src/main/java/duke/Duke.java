@@ -15,8 +15,8 @@ import duke.ui.Ui;
 
 public class Duke {
 
-    private Storage storage;
-    private Ui ui;
+    private static boolean isExit;
+    private final Storage storage;
     private TaskManager manager;
 
     /**
@@ -27,8 +27,8 @@ public class Duke {
      */
     public Duke(String filePath, int saveFrequency) {
 
-        ui = new Ui();
         Timer saveTimer = new Timer();
+        isExit = false;
         storage = new Storage(filePath);
         try {
             manager = storage.loadFile();
@@ -45,40 +45,31 @@ public class Duke {
 
         saveTimer.schedule(savingTask, 0, saveFrequency); //update at 2 seconds
 
-
     }
 
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt", 2000).run();
+    public String getResponse(String input) {
+        String response;
+        try {
+            response = Ui.convertToString(Parser.parse(input, manager));
+            isExit = Parser.isExit();
+
+        } catch (DukeException e) {
+            response = Ui.handleError(e.getMessage());
+        } catch (NumberFormatException e) {
+            response = " OPPPS!!!!That is not a number!!!!!!!!!!";
+        }
+        return response;
 
     }
 
     /**
-     * Executes and start running the Duke chatbot.
+     * Checks if you should exit your program.
+     *
+     * @return Returns the state if you should exit your program.
      */
-
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String next = ui.readInstructions();
-                ui.showLine();
-                ui.printOutput(Parser.parse(next, manager));
-                ui.showLine();
-                isExit = Parser.isExit();
-
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (NumberFormatException e) {
-                ui.showError(" OPPPS!!!!That is not a number!!!!!!!!!!");
-            } finally {
-                ui.spacer();
-                storage.saveFile(manager);
-            }
-        }
-
-        System.exit(0);
-
+    public boolean hasExit() {
+        return isExit;
     }
+
+
 }
