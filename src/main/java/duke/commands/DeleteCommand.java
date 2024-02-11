@@ -3,9 +3,17 @@ package duke.commands;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command{
     private int index;
 
+    /**
+     * Constructs a new DeleteCommand object with the given task index.
+     *
+     * @param number The index of the task to be deleted.
+     */
     public DeleteCommand(int number) {
         this.index = number;
     }

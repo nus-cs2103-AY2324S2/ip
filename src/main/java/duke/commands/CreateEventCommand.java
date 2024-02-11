@@ -9,11 +9,21 @@ import java.time.LocalDateTime;
 
 import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 
+/**
+ * Represents a command to create an event task.
+ */
 public class CreateEventCommand extends Command{
     private String description;
     private LocalDateTime start;
     private LocalDateTime end;
 
+    /**
+     * Constructs a new CreateEventCommand object with the given description, start, and end date and time.
+     *
+     * @param description The description of the event task.
+     * @param start The start date and time of the event.
+     * @param end The end date and time of the event.
+     */
     public CreateEventCommand(String description, LocalDateTime start, LocalDateTime end) {
         this.description = description;
         this.start = start;

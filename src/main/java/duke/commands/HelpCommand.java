@@ -3,7 +3,14 @@ package duke.commands;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to display helps.
+ */
 public class HelpCommand extends Command{
+
+    /**
+     * Constructs a new ExitCommand object.
+     */
     public HelpCommand() {
 
     }
