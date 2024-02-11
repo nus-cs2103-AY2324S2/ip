@@ -9,7 +9,17 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * Reads tasks from a file and populates a task list.
+ */
 public class TaskReader {
+
+    /**
+     * Loads tasks from the file specified by the file path and adds them to the given task list.
+     *
+     * @param tasks    The task list to which tasks will be added.
+     * @param filePath The file path from which tasks will be loaded.
+     */
     public static void loadTasksFromFile(ArrayList<Task> tasks, String filePath) {
         createDirectory(filePath);
 

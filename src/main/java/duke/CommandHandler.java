@@ -2,7 +2,18 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Handles user commands and performs corresponding actions on the task list.
+ */
 public class CommandHandler {
+
+    /**
+     * Handles the user input command.
+     *
+     * @param userInput The user input command.
+     * @param tasks     The task list to be modified.
+     * @throws DukeException If there is an issue handling the command.
+     */
     public static void handleCommand(String userInput, TaskList tasks) throws DukeException {
         String[] parsedCommand = Parser.parse(userInput);
         String commandType = parsedCommand[0].toLowerCase();

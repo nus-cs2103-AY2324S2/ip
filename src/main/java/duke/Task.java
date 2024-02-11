@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents a generic task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -14,6 +17,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks whether the task is marked as done.
+     *
+     * @return True if the task is done, False otherwise.
+     */
     public boolean isDone() {
         return isDone;
     }
