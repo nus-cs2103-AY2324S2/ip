@@ -20,7 +20,7 @@ public class DeadlineCommand extends Command {
      * @param description The description of the deadline task.
      * @param by          The date/time by which the task should be completed.
      */
-    public DeadlineCommand(String description, String by) {
+    public DeadlineCommand(String description, String by) throws DukeException {
         this.deadline = new Deadline(description, by);
     }
 
@@ -35,10 +35,10 @@ public class DeadlineCommand extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.add(deadline);
-        ui.showAddMsg(deadline, tasks.getTaskSize());
         storage.save(tasks);
+        return ui.showAddMsg(deadline, tasks.getTaskSize());
     }
 
     /**

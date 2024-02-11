@@ -1,6 +1,16 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 
 /**
@@ -20,7 +30,6 @@ public class Parser {
      * @return A Command object representing the parsed command.
      * @throws DukeException When the command is invalid.
      */
-    @SuppressWarnings("checkstyle:MissingSwitchDefault")
     public static Command parse(String userInput) throws DukeException {
         String[] inputs = userInput.split(" ", 2);
 
@@ -42,7 +51,7 @@ public class Parser {
             case UNMARK:
                 return parseUnmarkCommand(inputs);
             case TODO:
-                return parseTodoCommand(inputs);
+                return parseToDoCommand(inputs);
             case DEADLINE:
                 return parseDeadlineCommand(inputs);
             case EVENT:
@@ -54,8 +63,24 @@ public class Parser {
             }
         } catch (IllegalArgumentException e) {
             throw new DukeException("An error occurred: Invalid command.\n"
-                    + "Please enter 'help' for a list of valid commands.");
+                    + "Please enter 'help' for a list of valid commands.\n");
         }
+    }
+
+    /**
+     * To check if the string array contains an empty string.
+     *
+     * @param inputs The string array containing the user input.
+     * @return true if there is an empty string, false otherwise.
+     */
+    private static boolean containsEmptyString(String[] inputs) {
+        boolean isEmpty = false;
+        for (String str : inputs) {
+            if (str.equals("")) {
+                isEmpty = true;
+            }
+        }
+        return isEmpty;
     }
 
     /**
@@ -65,10 +90,10 @@ public class Parser {
      * @return A ToDoCommand.
      * @throws DukeException If the description of the todo is missing.
      */
-    private static Command parseTodoCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+    private static Command parseToDoCommand(String[] inputs) throws DukeException {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("OOPS! The description of a todo cannot be left blank.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         String description = inputs[1];
         return new ToDoCommand(description);
@@ -82,9 +107,9 @@ public class Parser {
      * @throws DukeException If the index of the task to delete is missing.
      */
     private static Command parseDeleteCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("Please indicate the index of task you want to delete.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
         return new DeleteCommand(index);
@@ -98,9 +123,9 @@ public class Parser {
      * @throws DukeException If the index is not provided.
      */
     private static Command parseMarkCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("Please indicate the index of task you want to mark as done.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
         return new MarkCommand(index);
@@ -114,9 +139,9 @@ public class Parser {
      * @throws DukeException If the index is not provided.
      */
     private static Command parseUnmarkCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("Please indicate the index of task you want to mark as not done.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         int index = Integer.parseInt(inputs[1]);
         return new UnmarkCommand(index);
@@ -130,12 +155,12 @@ public class Parser {
      * @throws DukeException If the description or date/time is missing in the input.
      */
     private static Command parseDeadlineCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("OOPS! The description of a deadline cannot be left blank.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         } else if (!inputs[1].contains("/by")) {
             throw new DukeException("OOPS! The date/time for the deadline cannot be left blank.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         String[] descriptions = inputs[1].split("/by ");
         return new DeadlineCommand(descriptions[0], descriptions[1]);
@@ -149,12 +174,12 @@ public class Parser {
      * @throws DukeException If the description or start/end time is missing in the input.
      */
     private static Command parseEventCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("OOPS! The description of an event cannot be left blank.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         } else if (!inputs[1].contains("/from") && !inputs[1].contains("/to")) {
             throw new DukeException("OOPS! The start time and end time cannot be left blank.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         String[] descriptions = inputs[1].split("/from|/to");
         return new EventCommand(descriptions[0], descriptions[1], descriptions[2]);
@@ -168,9 +193,9 @@ public class Parser {
      * @throws DukeException If the keyword is left blank.
      */
     public static Command parseFindCommand(String[] inputs) throws DukeException {
-        if (inputs.length == 1) {
+        if (inputs.length == 1 || containsEmptyString(inputs)) {
             throw new DukeException("OOPS! The keyword to find cannot be left blank.\n"
-                    + "Please enter 'help' command to find out more.");
+                    + "Please enter 'help' command to find out more.\n");
         }
         return new FindCommand(inputs[1]);
     }

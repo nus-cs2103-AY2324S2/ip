@@ -3,6 +3,8 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.exception.DukeException;
+
 /**
  * Represents a task in the Duke chatbot application.
  * It can be a ToDo, Deadline, or Event task.
@@ -53,7 +55,7 @@ public class Task {
      * @param task A string representation of the task.
      * @return A Task object parsed from the input string.
      */
-    public static Task fromString(String task) {
+    public static Task fromString(String task) throws DukeException {
         String[] inputs = task.split(" \\| ", 4);
         String type = inputs[0];
         String status = inputs[1];

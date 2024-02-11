@@ -33,15 +33,16 @@ public class DeleteCommand extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (this.index <= tasks.getTaskSize() && this.index > 0) {
-            ui.showDeleteMsg(tasks.getTasks().get(this.index - 1), tasks.getTaskSize());
+            String s = ui.showDeleteMsg(tasks.getTasks().get(this.index - 1), tasks.getTaskSize());
             tasks.delete(this.index);
             storage.save(tasks);
+            return s;
         } else {
-            throw new DukeException("Invalid index."
+            throw new DukeException("Invalid index. \n"
                     + "Please provide a valid index within the range 1 to "
-                    + tasks.getTaskSize() + ".");
+                    + tasks.getTaskSize() + "." + "\n");
         }
     }
 

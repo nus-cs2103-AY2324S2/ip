@@ -21,8 +21,8 @@ public class HelpCommand extends Command {
      * @throws DukeException If there is an error while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.showHelpMsg();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        return ui.showHelpMsg();
     }
 
     /**

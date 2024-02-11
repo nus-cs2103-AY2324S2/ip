@@ -6,24 +6,22 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-
 /**
  * A Personal Assistant Chatbot that helps a person to keep track of various things.
  */
 public class Duke {
 
+    private static final String FILE_PATH = "./data/duke.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
      * Constructs a Duke object with the specified file path for storage.
-     *
-     * @param filePath The file path for storing tasks.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -38,27 +36,26 @@ public class Duke {
      * Recognized commands include list, mark, unmark, todo, deadline, event, and more.
      * Further carry out the following functions based on the command entered.
      */
-    public void run() {
-        ui.welcomeMsg();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String run(String userInput) {
+        String response = "";
+        try {
+            response += ui.showLine();
+            Command c = Parser.parse(userInput);
+            response += c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            response += ui.showError(e.getMessage());
+        } finally {
+            response += ui.showLine();
         }
+        return response;
     }
 
-    public static void main(String[] args) {
-        Duke duke = new Duke("./data/duke.txt");
-        duke.run();
+    /**
+     * A method to show the welcome message.
+     *
+     * @return A welcome message.
+     */
+    public String greet() {
+        return ui.showWelcomeMsg();
     }
 }
-

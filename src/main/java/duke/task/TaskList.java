@@ -46,10 +46,12 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      */
-    public void list() {
+    public String list() {
+        String lists = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            lists += (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
+        return lists;
     }
 
     /**

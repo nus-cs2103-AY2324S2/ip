@@ -18,9 +18,9 @@ import duke.task.TaskList;
  */
 public class Storage {
 
+    private static final String DIRECTORY_PATH = "./data/";
     private String filePath;
 
-    private String directoryPath;
 
     /**
      * Constructs a Storage object with the specified file path for storage.
@@ -29,7 +29,6 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.directoryPath = "./data/";
     }
 
     /**
@@ -70,7 +69,7 @@ public class Storage {
      * @throws DukeException If an error occurs during the saving process.
      */
     public void save(TaskList tasks) throws DukeException {
-        File directory = new File(directoryPath);
+        File directory = new File(DIRECTORY_PATH);
 
         // Create a directory if it doesn't exist.
         if (!directory.exists()) {
