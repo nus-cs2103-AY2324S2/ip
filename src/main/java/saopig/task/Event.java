@@ -52,7 +52,45 @@ public class Event extends Task {
     public LocalDateTime getEndTime() {
         return this.endTime;
     }
-
+    /**
+     * Changes the start time and end time of the Event task to the new start time and end time.
+     *
+     * @param newStartTime New start time of the Event task.
+     * @param newEndTime New end time of the Event task.
+     */
+    public void changeTime(LocalDateTime newStartTime, LocalDateTime newEndTime) {
+        this.startTime = newStartTime;
+        this.endTime = newEndTime;
+        this.startZonedDateTime = newStartTime.atZone(userZoneId);
+        this.endZonedDateTime = newEndTime.atZone(userZoneId);
+    }
+    /**
+     * Changes the start time of the Event task to the new start time.
+     *
+     * @param newStartTime New start time of the Event task.
+     */
+    public void changeStartTime(LocalDateTime newStartTime) {
+        this.startTime = newStartTime;
+        this.startZonedDateTime = newStartTime.atZone(userZoneId);
+    }
+    /**
+     * Changes the end time of the Event task to the new end time.
+     *
+     * @param newEndTime New end time of the Event task.
+     */
+    public void changeEndTime(LocalDateTime newEndTime) {
+        this.endTime = newEndTime;
+        this.endZonedDateTime = newEndTime.atZone(userZoneId);
+    }
+    /**
+     * Returns the type of the task.
+     *
+     * @return "D" representing the Deadline task.
+     */
+    @Override
+    public String getType() {
+        return "E";
+    }
     /**
      * Returns a string which displays the Event task in FULL format.
      *

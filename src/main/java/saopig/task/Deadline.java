@@ -39,6 +39,24 @@ public class Deadline extends Task {
     public LocalDateTime getBy() {
         return this.by;
     }
+    /**
+     * Changes the deadline of the Deadline task to the new deadline.
+     *
+     * @param newBy New deadline of the Deadline task.
+     */
+    public void changeDeadline(LocalDateTime newBy) {
+        this.by = newBy;
+        this.byZonedDateTime = newBy.atZone(userZoneId);
+    }
+    /**
+     * Returns the type of the task.
+     *
+     * @return "D" representing the Deadline task.
+     */
+    @Override
+    public String getType() {
+        return "D";
+    }
 
     /**
      * Returns a string which displays the Deadline task in FULL format.
