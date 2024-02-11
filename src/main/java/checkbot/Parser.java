@@ -1,5 +1,8 @@
 package checkbot;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import checkbot.command.AddCommand;
 import checkbot.command.ByeCommand;
 import checkbot.command.Command;
@@ -15,9 +18,6 @@ import checkbot.exception.InvalidIndexException;
 import checkbot.exception.MissingDeadlineException;
 import checkbot.exception.MissingFromException;
 import checkbot.exception.MissingToException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Handles the parsing of user input.
@@ -85,6 +85,7 @@ public class Parser {
                     throw new MissingDeadlineException();
                 }
             }
+            assert input.startsWith("event") : "Command should have started with 'event'";
             Pattern pattern = Pattern.compile("event (.*) /(from|to)(.*) /(from|to)(.*)");
             Matcher matcher = pattern.matcher(input);
             if (matcher.find()) {
