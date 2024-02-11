@@ -27,7 +27,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             String[] components = this.description.split(" /from | /to ", 3);
             String eventDetails = components[0];
@@ -44,7 +44,7 @@ public class AddEventCommand extends Command {
 
             taskList.addTask(event);
             Storage.save(taskList);
-            ui.displayNewTask(event, taskList);
+            return ui.displayNewTask(event, taskList);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("EVENT");
         }

@@ -26,11 +26,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             taskList.unmarkTask(positionToUnmark);
-            ui.displayUnmarkedTask(taskList, positionToUnmark);
             Storage.save(taskList);
+            return ui.displayUnmarkedTask(taskList, positionToUnmark);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("The index is out of range >.<");
         }

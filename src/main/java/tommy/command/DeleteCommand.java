@@ -28,12 +28,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+    public String execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             // Delete the task
             Task taskToDelete = taskList.getTaskAtPosition(positionToDelete);
             taskList.deleteTaskAtPosition(positionToDelete);
-            ui.displayDeletedTask(taskList, taskToDelete);
+            return ui.displayDeletedTask(taskList, taskToDelete);
         } catch (IndexOutOfBoundsException e){
             throw new InvalidArgumentException("The index is out of range >.<");
         }

@@ -22,7 +22,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
-        ui.displayMatchingTasks(taskList, this.keyword);
+    public String execute(Storage storage, TaskList taskList, Ui ui) {
+        return ui.displayMatchingTasks(taskList, this.keyword);
     }
 }
