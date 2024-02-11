@@ -3,6 +3,7 @@ package duke;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * Parser handles the user input and output Parses the user input and calls the
@@ -98,7 +99,7 @@ public class Parser {
                     }
                     break;
                 case "find":
-                    handleFindCommand(userInputArr);
+                    handleFindCommand(userInputArray);
                     break;
                 default:
                     try {
@@ -145,11 +146,13 @@ public class Parser {
         }
     }
 
+    /*
      * Handles the delete command by removing a task from the task list
      * 
      * @param userInputArr the array containing the user input
+     * 
      * @throws BotException if the user input is invalid or the task number is out
-     *                      of range
+     * of range
      */
     private void handleDeleteCommand(String[] userInputArray) throws BotException {
         if (userInputArray.length < 2) {
@@ -210,7 +213,6 @@ public class Parser {
         taskList.addDeadline(deadlineTask, dueDate);
         addTaskMsg();
     }
-
 
     /**
      * Handles the event command by extracting the event task, start time, and end
