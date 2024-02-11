@@ -25,8 +25,8 @@ public class PannaBot {
 
 
     public void run() throws PannaException {
-        this.storage.read(filePath, this.taskList);
-        this.ui.launchMessage();
+        storage.read(filePath, taskList);
+        ui.launchMessage();
         Scanner s = new Scanner(System.in);
 
         PannaBot.command = s.nextLine();
@@ -34,36 +34,36 @@ public class PannaBot {
         while (!PannaBot.command.equals("bye")) {
 
             if (PannaBot.command.equals("list")) {
-                this.ui.listMessage(this.taskList);
+                ui.listMessage(taskList);
             }
 
 
             else if (PannaBot.command.equals("mark")) {
-                this.ui.mark(this.taskList);
+                ui.mark(taskList);
             }
 
             else if (PannaBot.command.equals("unmark")) {
-                this.ui.unmark(this.taskList);
+                ui.unmark(taskList);
             }
 
             else if (PannaBot.command.equals("event")) {
-                this.ui.eventMessage(this.taskList, this.parser);
+                ui.eventMessage(taskList, parser);
             }
 
             else if (PannaBot.command.equals("todo")) {
-                this.ui.todoMessage(this.taskList);
+                ui.todoMessage(taskList);
 
             }
 
             else if (PannaBot.command.equals("deadline")) {
-                this.ui.deadlineMessage(this.taskList, this.parser);
+                ui.deadlineMessage(taskList, parser);
 
             }
             else if (PannaBot.command.equals("delete")) {
-                this.ui.deleteMessage(this.taskList);
+                ui.deleteMessage(taskList);
             }
 
-            this.storage.write(filePath, this.taskList);
+            storage.write(filePath, taskList);
 
 
 
@@ -72,7 +72,7 @@ public class PannaBot {
         }
 
 
-        this.ui.farewellMessage();
+        ui.farewellMessage();
 
     }
 

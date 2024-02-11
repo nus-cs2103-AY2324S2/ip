@@ -5,7 +5,7 @@ public class TaskList  {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     public void printList() {
@@ -24,7 +24,7 @@ public class TaskList  {
 
     public Task get(int i) throws PannaException {
         try {
-            return this.tasks.get(i);
+            return tasks.get(i);
         }
         catch (Exception e) {
             throw new PannaException("Index out of bounds!");
@@ -36,7 +36,7 @@ public class TaskList  {
             tasks.remove(label);
         }
         catch (Exception e) {
-            throw new PannaException("Invalid label! The number of tasks now is " + this.size() +
+            throw new PannaException("Invalid label! The number of tasks now is " + size() +
                     "\nPlease try with a more appropriate value! ");
         }
 

@@ -28,39 +28,39 @@ public class Task {
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.isDone = false;
-        this.taskType = 'T';
+        isDone = false;
+        taskType = 'T';
     }
 
     public Task(String taskName, LocalDate deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
-        this.isDone = false;
-        this.taskType = 'D';
+        isDone = false;
+        taskType = 'D';
     }
 
     public Task(String taskName, LocalDate start, LocalDate end) {
         this.taskName = taskName;
         this.start = start;
         this.end = end;
-        this.isDone = false;
-        this.taskType = 'E';
+        isDone = false;
+        taskType = 'E';
     }
 
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     public LocalDate getStart() {
-        return this.start;
+        return tstart;
     }
 
     public LocalDate getEnd() {
-        return this.end;
+        return end;
     }
 
     public LocalDate getDeadline() {
-        return this.deadline;
+        return deadline;
     }
 
     public void setDone(boolean isDone) {
@@ -68,12 +68,12 @@ public class Task {
     }
 
     public boolean getDone() {
-        return this.isDone;
+        return isDone;
     }
 
     @Override
     public String toString() {
-        return "[" + this.taskType + "] [" + this.getStatusIcon() + "] " + this.taskName;
+        return "[" + taskType + "] [" + getStatusIcon() + "] " + taskName;
     }
 }
 

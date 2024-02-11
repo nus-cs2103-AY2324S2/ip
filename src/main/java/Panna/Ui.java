@@ -6,7 +6,7 @@ public class Ui {
     private Scanner s;
 
     public Ui() {
-        this.s = new Scanner(System.in);
+        s = new Scanner(System.in);
     }
 
     public void launchMessage() {

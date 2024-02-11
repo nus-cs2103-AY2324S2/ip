@@ -15,6 +15,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return super.toString() + " (By: " + this.getDeadline().format(df) + ")";
+        return super.toString() + " (By: " + getDeadline().format(df) + ")";
     }
 }
