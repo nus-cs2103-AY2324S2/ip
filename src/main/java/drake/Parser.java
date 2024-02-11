@@ -19,6 +19,7 @@ public class Parser {
      * @throws IllegalArgumentException If the input does not contain valid 'from' and 'to' times for the event.
      */
     public static int parseTaskIndex(String input) throws NumberFormatException {
+        assert input != null && input.contains(" ") : "Invalid input format for parsing task index.";
         String[] words = input.split(" ", 2);
         if (words.length < 2) {
             throw new IllegalArgumentException("No task index provided.");
@@ -34,6 +35,7 @@ public class Parser {
      * @throws TodoLeftBlank if the description part of the input is empty.
      */
     public static String parseDescription(String input) {
+        assert input != null && input.contains(" ") : "Invalid input format for parsing description.";
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new TodoLeftBlank("Looks like you left the description of the todo empty. This isn't allowed!");
@@ -48,6 +50,7 @@ public class Parser {
      * @throws Exception if the deadline format is incorrect or if the 'deadline' keyword is misspelled.
      */
     public static Object[] parseDeadline(String input) throws Exception {
+        assert input != null && input.contains(" /by ") : "Input must contain '/by' to specify the deadline.";
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
             throw new IllegalArgumentException("Deadline time not provided.");
@@ -75,6 +78,7 @@ public class Parser {
      *     the second element is the start time, and the third element is the end time.
      */
     public static String[] parseEvent(String input) {
+        assert input != null && input.length() > 5 : "Event parsing requires non-null input with sufficient length.";
         String[] parts = input.substring(6).split("/");
         String title = parts[0];
         String from = "";
@@ -99,6 +103,7 @@ public class Parser {
      * @throws IllegalArgumentException If the keyword for search is missing or empty.
      */
     public static String parseKeyword(String input) {
+        assert input != null && input.contains(" ") : "Invalid input format for parsing search keyword.";
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new IllegalArgumentException("Keyword for search is missing.");
