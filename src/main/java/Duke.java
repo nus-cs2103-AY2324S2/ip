@@ -19,7 +19,7 @@ import java.util.StringTokenizer;
 
 public class Duke {
     private static HashSet<String> validCommands;
-    private static ArrayList<Task> tasks;
+    private static TaskList taskList;
     private static Ui ui;
 
     public static void main(String[] args) {
@@ -49,7 +49,7 @@ public class Duke {
     }
 
     private static void initialSetup() {
-        tasks = new ArrayList<Task>();
+        taskList = new TaskList();
         validCommands = new HashSet<String>();
         validCommands.addAll(Arrays.asList("bye",
                 "list",
@@ -81,7 +81,7 @@ public class Duke {
             exitProgram();
             break;
         case "list":
-            printTaskList(arguments);
+            printTasks();
             break;
         case "mark":
             markTask(arguments);
@@ -112,7 +112,7 @@ public class Duke {
         } catch (IOException e) {
             ui.printIoException();
         }
-        System.out.println("Total task count: " + tasks.size() + ".\n");
+        taskList.printTaskCount();
         ui.printDivider();
     }
 
@@ -123,45 +123,34 @@ public class Duke {
         System.exit(0);
     }
 
-    private static void printTaskList(String arguments) throws DukeException {
-        if (!arguments.isEmpty()) {
-            throw new DukeException("list command does not accept arguments.\n"
-                    + "Enter 'list' to view the current list of tasks");
-        }
-        String taskList = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task curr = tasks.get(i);
-            taskList += ((i+1) + ". " + curr.toString() + "\n");
-        }
+    private static void printTasks() {
         ui.printDivider();
-        System.out.println("Here are your tasks:\n" + taskList);
+        taskList.printTaskList();
         ui.printDivider();
     }
 
     private static void markTask(String arguments) throws DukeException {
         int taskNum = Integer.parseInt(arguments) - 1;
-        Task selectedTask = tasks.get(taskNum);
-        selectedTask.markDone();
+        taskList.markTask(taskNum);
         ui.printDivider();
         ui.printMarkTaskSuccess();
-        System.out.println(selectedTask.toString() + "\n");
+        System.out.println(taskList.getTask(taskNum).toString() + "\n");
         ui.printDivider();
     }
 
     private static void unmarkTask(String arguments) throws DukeException {
         int taskNum = Integer.parseInt(arguments) - 1;
-        Task selectedTask = tasks.get(taskNum);
-        selectedTask.markNotDone();
+        taskList.unmarkTask(taskNum);
         ui.printDivider();
         ui.printUnmarkTaskSuccess();
-        System.out.println(selectedTask.toString() + "\n");
+        System.out.println(taskList.getTask(taskNum).toString() + "\n");
         ui.printDivider();
     }
 
     private static void createToDoTask(String arguments) throws DukeException {
         if (!arguments.isEmpty()) {
             ToDo newToDo = new ToDo(arguments);
-            tasks.add(newToDo);
+            taskList.addTask(newToDo);
             ui.printDivider();
             ui.printCreateTaskSuccess();
             System.out.println(newToDo.toString() + "\n");
@@ -189,7 +178,7 @@ public class Duke {
             }
             by = by.trim();
             Deadline newDeadline = new Deadline(deadlineDesc, by);
-            tasks.add(newDeadline);
+            taskList.addTask(newDeadline);
             ui.printDivider();
             ui.printCreateTaskSuccess();
             System.out.println(newDeadline.toString() + "\n");
@@ -225,7 +214,7 @@ public class Duke {
             }
             end = end.trim();
             Event newEvent = new Event(eventDesc, from, end);
-            tasks.add(newEvent);
+            taskList.addTask(newEvent);
             ui.printDivider();
             ui.printCreateTaskSuccess();
             System.out.println(newEvent.toString() + "\n");
@@ -240,11 +229,11 @@ public class Duke {
 
     private static void deleteTask(String arguments) throws DukeException {
         int delIndex = Integer.parseInt(arguments) - 1;
-        Task toDelete = tasks.remove(delIndex);
+        Task toDelete = taskList.getTask(delIndex);
+        taskList.deleteTask(delIndex);
         ui.printDivider();
         ui.printDeleteTaskSuccess();
-        System.out.println(toDelete.toString());
-        System.out.println("\nTasks remaining: " + tasks.size() + ".\n");
+        System.out.println(toDelete.toString() + "\n");
         ui.printDivider();
     }
 
@@ -256,8 +245,8 @@ public class Duke {
                 save.createNewFile();
             }
             FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < tasks.size(); i++) {
-                fw.write(tasks.get(i).toTaskSaveString() + System.lineSeparator());
+            for (int i = 0; i < taskList.getTaskCount(); i++) {
+                fw.write(taskList.getTask(i).toTaskSaveString() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {
@@ -281,8 +270,8 @@ public class Duke {
             Scanner sc = new Scanner(read);
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
-                Task savedTask = reconstructTask(data);
-                tasks.add(savedTask);
+                Task savedTask = taskList.reconstructTask(data);
+                taskList.addTask(savedTask);
             }
         } catch (FileNotFoundException e) {
             ui.printFileNotFoundError();
@@ -291,28 +280,5 @@ public class Duke {
         }
     }
 
-    private static Task reconstructTask(String saveString) {
-        String[] taskArgs = saveString.split("\\|");
-        String identifier = taskArgs[0];
-        Task reconstructedTask = null;
-        switch (identifier) {
-        case "T":
-            reconstructedTask = new ToDo(taskArgs[2]);
-            break;
-        case "D":
-            reconstructedTask = new Deadline(taskArgs[2], taskArgs[3]);
-            break;
-        case "E":
-            reconstructedTask = new Event(taskArgs[2], taskArgs[3], taskArgs[4]);
-            break;
-        default:
-            System.out.println("Unable to reconstruct task.");
-            break;
-        }
-        Boolean isDone = taskArgs[1].equals("1");
-        if (isDone) {
-            reconstructedTask.markDone();
-        }
-        return reconstructedTask;
-    }
+
 }
