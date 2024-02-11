@@ -10,6 +10,7 @@ import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -64,6 +65,8 @@ public class Parser {
             }
 
             switch (command) {
+                case "find":
+                    return new FindCommand(String.join(" ", arguments));
                 case "help":
                     return new HelpCommand();
                 case "list":
