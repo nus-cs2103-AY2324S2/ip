@@ -32,8 +32,8 @@ public class DeleteCommand extends Command {
      * @throws InvalidArgsException If the provided task index number is invalid
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgsException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgsException {
         Task currTask = taskList.deleteTask(this.taskNumber);
-        ui.printDeleteTask(currTask, taskList.getSize());
+        return ui.printDeleteTask(currTask, taskList.getSize());
     }
 }

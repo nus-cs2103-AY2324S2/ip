@@ -32,9 +32,9 @@ public class UnmarkCommand extends Command {
      * @throws InvalidArgsException If the provided task number is invalid
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgsException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidArgsException {
         Task currTask = taskList.unmarkTask(this.taskNumber);
-        ui.printUnmarkTask(currTask);
+        return ui.printUnmarkTask(currTask);
     }
 
 }

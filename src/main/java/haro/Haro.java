@@ -57,7 +57,12 @@ public class Haro {
     }
 
     public String getResponse(String userInput) {
-        return userInput;
+        try {
+            Command c = Parser.parseCommand(userInput);
+            return c.execute(taskList, haroUi, haroStorage);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 }
 
