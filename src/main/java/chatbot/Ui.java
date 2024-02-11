@@ -38,6 +38,8 @@ public class Ui {
     this.tl = tl;
   }
 
+  String end = "____________________________________________________________\n";
+
   /**
    * Starts the chatbot by displaying a welcome message to the user. This method should be called
    * to initiate the interaction with the user.
@@ -46,9 +48,7 @@ public class Ui {
    */
   public void start() throws IOException {
     String prompt =
-      "Hello! I'm TFamilyBot\n" +
-      "What can I do for you? \n" +
-      "____________________________________________________________\n";
+      "Hello! I'm TFamilyBot\n" + "What can I do for you? \n" + end;
     assert prompt != null : "Prompt should not be null";
     pw.println(prompt);
   }
@@ -68,18 +68,14 @@ public class Ui {
     String[] words = io.split("\\s+", 2);
     String detail = words.length > 1 ? words[1] : "";
 
-    pw.println(
-      "____________________________________________________________\n"
-    );
+    pw.println(end);
 
     boolean done = p.isItDone(words);
 
     String answer = p.parseThrough(io, words, detail, this.tl, st);
 
     pw.println(answer);
-    pw.println(
-      "____________________________________________________________\n"
-    );
+    pw.println(end);
 
     if (done) {
       return false;
