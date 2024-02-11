@@ -68,7 +68,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         AtomicInteger index = new AtomicInteger(1);
         this.list.forEach(
-                (Task element) -> sb.append(index.getAndIncrement() + ". " + element.toString()));
+                element -> sb.append(index.getAndIncrement() + ". " + element.toString()));
         return sb.toString();
     }
 
