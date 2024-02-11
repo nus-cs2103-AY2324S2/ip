@@ -22,7 +22,7 @@ public class ToDo extends Task {
      */
     @Override
     public String save() {
-        if (this.marked) {
+        if (this.getMarked()) {
             return "T | Done | " + this.title;
         } else {
             return "T | Not Done | " + this.title;
@@ -30,7 +30,7 @@ public class ToDo extends Task {
     }
     @Override
     public String toString() {
-        if (this.marked) {
+        if (this.getMarked()) {
             return "[T][X] " + this.title;
         } else {
             return "[T][ ] " + this.title;

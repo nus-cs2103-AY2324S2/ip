@@ -43,16 +43,10 @@ public class TaskList {
     /**
      * Iterates through the tasks in the TaskList and prints their information.
      */
-//    public void iterate() {
-//        for (int i = 0; i < tasks.size(); i++) {
-//            System.out.println(i + 1 + ". " + tasks.get(i));
-//        }
-//    }
     public String iterate() {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             output += i + 1 + ". " + tasks.get(i) + "\n";
-            //System.out.println(i + 1 + ". " + tasks.get(i));
         }
 
         return output;
@@ -84,6 +78,9 @@ public class TaskList {
     public Task markTask(int index) {
         Task taskToMark = tasks.get(index);
         taskToMark.setMarked(true);
+
+        assert taskToMark.getMarked() == true;
+
         return taskToMark;
     }
 
@@ -95,6 +92,9 @@ public class TaskList {
     public Task unmarkTask(int index) {
         Task taskToUnmark = tasks.get(index);
         taskToUnmark.setMarked(false);
+
+        assert taskToUnmark.getMarked() == false;
+
         return taskToUnmark;
     }
 
