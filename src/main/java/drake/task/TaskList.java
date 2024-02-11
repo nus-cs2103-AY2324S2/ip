@@ -29,6 +29,7 @@ public class TaskList {
      * @param task The Task object to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add a null task to the task list.";
         tasks.add(task);
     }
 
@@ -40,6 +41,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of the range of the task list.
      */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
+        assert !tasks.isEmpty() : "Cannot delete a task from an empty task list.";
         if (index < 0 || index >= tasks.size()) {
             throw new IndexOutOfBoundsException("Task index is out of bounds.");
         }
@@ -85,6 +87,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of the range of the task list.
      */
     public void markTask(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 && index < tasks.size() : "Task index is out of bounds.";
         getTask(index).isDone = true;
     }
 
@@ -95,6 +98,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the index is out of the range of the task list.
      */
     public void unmarkTask(int index) throws IndexOutOfBoundsException {
+        assert index >= 0 && index < tasks.size() : "Task index is out of bounds.";
         getTask(index).isDone = false;
     }
 
@@ -105,6 +109,7 @@ public class TaskList {
      * @return An {@code ArrayList<Task>} containing all tasks that have the specified keyword in their description.
      */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Search keyword cannot be null or empty.";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.description.contains(keyword)) {

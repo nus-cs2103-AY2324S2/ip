@@ -143,6 +143,7 @@ public class Drake {
 
     private String handleMark(String input) {
         int markIndex = Parser.parseTaskIndex(input);
+        assert markIndex >= 0 && markIndex < tasks.size() : "Invalid task index for marking";
         tasks.markTask(markIndex);
         return ui.showMarkTask(tasks.getTask(markIndex));
     }

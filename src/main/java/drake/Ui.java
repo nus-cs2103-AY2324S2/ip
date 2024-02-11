@@ -33,6 +33,7 @@ public class Ui {
      * @param message The error message to be returned.
      */
     public String showError(String message) {
+        assert message != null && !message.isEmpty() : "Error message cannot be null or empty.";
         return "____________________________________________________________\n"
                 + message + "\n"
                 + "____________________________________________________________";
@@ -44,6 +45,7 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to display.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "TaskList object cannot be null.";
         StringBuilder sb = new StringBuilder();
         sb.append("____________________________________________________________\n");
         sb.append("You asked for the tasks in your list? Here:\n");
@@ -62,6 +64,7 @@ public class Ui {
      * @param size The new total number of tasks in the list.
      */
     public String showAddTask(Task task, int size) {
+        assert task != null : "Task object cannot be null.";
         return "____________________________________________________________\n"
                 + "Got it. I've added this task:\n"
                 + task + "\n"
