@@ -11,7 +11,6 @@ public class DukeException extends Exception {
 
     @Override
     public String toString() {
-        String line = "\n-----------------------------\n";
-        return line + super.toString() + line;
+        return super.toString();
     }
 }

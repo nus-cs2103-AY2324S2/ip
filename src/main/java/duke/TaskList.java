@@ -33,7 +33,7 @@ public class TaskList {
      * @param cmd array of strings containing the task type and the parameters.
      * @throws DukeException when deadline parameter is not a valid date.
      */
-    public void addItem(String[] cmd) throws DukeException {
+    public String addItem(String[] cmd) throws DukeException {
         Task t;
 
         if (cmd[0].equals("todo")) {
@@ -47,7 +47,7 @@ public class TaskList {
             list.add(t);
         }
 
-        ui.showAddMsg(t, list.size());
+        return ui.showAddMsg(t, list.size());
     }
 
     /**
@@ -56,7 +56,7 @@ public class TaskList {
      * @param str array of strings containing the delete command and the index to be deleted.
      * @throws DukeException when index does is out of bounds.
      */
-    public void deleteItem(String[] str) throws DukeException {
+    public String deleteItem(String[] str) throws DukeException {
         int index = Integer.parseInt(str[1]) - 1;
 
         try {
@@ -65,9 +65,9 @@ public class TaskList {
             throw new DukeException("Index does not exist!");
         }
 
-        ui.showDeleteMsg(list.get(index), list.size());
-
+        String out = ui.showDeleteMsg(list.get(index), list.size());
         list.remove(index);
+        return out;
     }
 
     /**
@@ -76,7 +76,7 @@ public class TaskList {
      * @param cmd an array of strings containing mark/unmark command and the index to be marked.
      * @throws DukeException when index is out of bounds.
      */
-    public void marked(String[] cmd) throws DukeException {
+    public String marked(String[] cmd) throws DukeException {
         int index = Integer.parseInt(cmd[1]);
 
         index--;
@@ -88,11 +88,13 @@ public class TaskList {
         }
 
         if (cmd[0].equals("mark")) {
-            ui.showMark(list.get(index).getDesc());
+            String out = ui.showMark(list.get(index).getDesc());
             list.get(index).setCheck(true);
+            return out;
         } else {
-            ui.showUnmark(list.get(index).getDesc());
+            String out = ui.showUnmark(list.get(index).getDesc());
             list.get(index).setCheck(false);
+            return out;
         }
     }
 
@@ -101,7 +103,7 @@ public class TaskList {
      *
      * @param cmd an array of strings containing find and the keyword.
      */
-    public void findItem(String[] cmd) {
+    public String findItem(String[] cmd) {
         String search = cmd[1];
         ArrayList<Task> task = new ArrayList<>();
         for (Task t : list) {
@@ -110,7 +112,7 @@ public class TaskList {
             }
         }
 
-        ui.printFindList(task);
+        return ui.printFindList(task);
     }
 
     public ArrayList<Task> get() {

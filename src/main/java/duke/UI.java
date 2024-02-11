@@ -11,91 +11,82 @@ import duke.task.Task;
  */
 
 public class UI {
-    public BufferedReader br;
-    public final String LINE = "-----------------------------";
     public UI() {
-        br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    private void line() {
-        System.out.println(LINE);
+
+    public String startMsg() {
+        return "Greetings friend! I am Datuk\n"
+                + "How can I serve you today? ^_^' \n";
     }
 
-    public void startMsg() {
-        line();
-        System.out.println("Greetings friend! I am Datuk");
-        System.out.println("How can I serve you today? ^_^' \n");
-        line();
+    public String byeMsg() throws IOException {
+        return "Farewell!\n"
+                + "Please use the x on the top right corner to exit!";
     }
 
-    public void byeMsg() throws IOException {
-        line();
-        System.out.println("Farewell!");
-        line();
-
-        br.close();
+    public String showError(DukeException de) {
+        return de.toString();
     }
 
-    public String read() throws IOException {
-        return br.readLine();
-    }
+    public String printList(ArrayList<Task> taskList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("These are all your tasks:\n");
 
-    public void showError(DukeException de) {
-        System.out.println(de.toString());
-    }
-
-    public void printList(ArrayList<Task> taskList) {
-        line();
-        System.out.println("These are all your tasks:");
-        if (taskList.isEmpty()) System.out.println("\tOh noes! The list is empty! :(");
-
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + taskList.get(i));
-        }
-        line();
-    }
-
-    public void printFindList(ArrayList<Task> taskList) {
-        line();
         if (taskList.isEmpty()) {
-            System.out.println("\tOh noes! The list is empty! :(");
-            line();
-            return;
+            sb.append("\tOh noes! The list is empty! :(");
+            return sb.toString();
         }
-
-        System.out.println("These are all the tasks related:");
 
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + taskList.get(i));
+            sb.append("\t" + (i + 1) + ". " + taskList.get(i) + "\n");
         }
-        line();
+
+        return sb.toString();
     }
 
-    public void showAddMsg(Task t, int size) {
-        line();
-        System.out.println("Understood. Added the following:");
-        System.out.println("\t " + t);
-        System.out.println("You have " + size + " remaining tasks.");
-        line();
+    public String printFindList(ArrayList<Task> taskList) {
+        StringBuilder sb = new StringBuilder();
+        if (taskList.isEmpty()) {
+            sb.append("\tOh noes! The list is empty! :(");
+            return sb.toString();
+        }
+
+        sb.append("These are all the tasks related:\n");
+
+        for (int i = 0; i < taskList.size(); i++) {
+            sb.append("\t" + (i + 1) + ". " + taskList.get(i) + "\n");
+        }
+
+        return sb.toString();
     }
 
-    public void showDeleteMsg(Task t, int size) {
-        line();
-        System.out.println("Removed the following: ");
-        System.out.println("\t" + t);
-        System.out.println((size-1) + " tasks remaining.");
-        line();
+    public String showAddMsg(Task t, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Understood. Added the following:\n");
+        sb.append("\t " + t + "\n");
+        sb.append("You have " + size + " remaining tasks.");
+
+        return sb.toString();
     }
 
-    public void showMark(String desc) {
-        line();
-        System.out.println("I have set this task < " + desc + " > as completed." );
-        line();
+    public String showDeleteMsg(Task t, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Removed the following: \n");
+        sb.append("\t" + t + "\n");
+        sb.append((size-1) + " tasks remaining.");
+        return sb.toString();
     }
 
-    public void showUnmark(String desc) {
-        line();
-        System.out.println("I have set this task < " + desc + " > as incomplete." );
-        line();
+    public String showMark(String desc) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("I have set this task < " + desc + " > as completed." );
+        return sb.toString();
+    }
+
+    public String showUnmark(String desc) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("I have set this task < " + desc + " > as incomplete." );
+        return sb.toString();
     }
 }
