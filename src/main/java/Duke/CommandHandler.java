@@ -10,6 +10,7 @@ public class CommandHandler {
     public enum Command {
         BYE,
         LIST,
+        SORT,
         MARK,
         UNMARK,
         DELETE,
@@ -31,7 +32,7 @@ public class CommandHandler {
         Command command = getCommand(words[0]);
 
         String output;
-        if (command == Command.BYE || command == Command.LIST) {
+        if (command == Command.BYE || command == Command.LIST || command == Command.SORT) {
             output = handleSimpleCommands(command);
         } else {
             String arguments = getCommandArguments(userInput, command);
@@ -71,6 +72,8 @@ public class CommandHandler {
                 return "bye";
             case LIST:
                 return TaskList.list();
+            case SORT:
+                return TaskList.sortTasks();
             default:
                 throw new IllegalArgumentException("Invalid command: " + command);
         }
@@ -117,7 +120,7 @@ public class CommandHandler {
             case FIND:
                 return TaskList.findTask(arguments);
             default:
-                assert false: "Should not fall into default case of switch block for executecomnand method! ";
+                assert false: "Should not fall into default case of switch block for executecommand method!";
                 return "Error: Fell into default case in executeCommand method!";
         }
     }

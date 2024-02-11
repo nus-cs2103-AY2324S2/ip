@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * This class represents a task.
  * Each task has a name and a status indicating whether it is done.
  */
-public abstract class Task {
-    private String name;
+public abstract class Task implements Comparable<Task> {
+    protected String name;
     private boolean isDone;
 
 
@@ -73,4 +73,7 @@ public abstract class Task {
      * @return Encoded String version of the Task. Currently, uses toString() to encode.
      */
     public abstract String encode();
+
+    @Override
+    public abstract int compareTo(Task other);
 }

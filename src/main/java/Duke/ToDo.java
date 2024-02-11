@@ -47,4 +47,12 @@ public class ToDo extends Task {
         return new ToDo(taskDetails);
     }
 
+    @Override
+    public int compareTo(Task otherTask) {
+        if (otherTask instanceof ToDo) {
+            return this.name.compareTo(otherTask.name);
+        } else {
+            return 1;
+        }
+    }
 }

@@ -159,6 +159,11 @@ public class TaskList {
 
         return result.toString();
     }
+
+    public static String sortTasks() {
+        taskList.sort(null);
+        return list();
+    }
 }
 
 
