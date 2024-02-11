@@ -61,7 +61,7 @@ public class Storage {
         LocalDate start;
         LocalDate finish;
         int index;
-        Task t;
+        Task task;
 
         while (s.hasNext()) {
             curr = s.nextLine();
@@ -76,21 +76,21 @@ public class Storage {
             taskName = curr.substring(7, index - 1);
 
             if (taskType.equals("T")) { // To Do
-                t = new ToDo(taskName);
+                task = new ToDo(taskName);
             } else if (taskType.equals("D")) { // Deadline
                 finish = LocalDate.parse(curr.substring(curr.indexOf("by: ") + 4, curr.lastIndexOf(")")));
-                t = new Deadline(taskName, finish);
+                task = new Deadline(taskName, finish);
             } else { // Event, assuming input file is always correct format
                 start = LocalDate.parse(curr.substring(curr.indexOf("from: ") + 6, curr.lastIndexOf("to:") - 1));
                 finish = LocalDate.parse(curr.substring(curr.indexOf("to: ") + 4, curr.lastIndexOf(")")));
-                t = new Event(taskName, start, finish);
+                task = new Event(taskName, start, finish);
             }
 
             if (isMarked.equals("X")) {
-                t.mark();
+                task.mark();
             }
 
-            taskList.add(t);
+            taskList.add(task);
         }
         return taskList;
     }

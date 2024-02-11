@@ -5,7 +5,6 @@ import java.util.List;
 /**
  * TaskList to handle all operations related to tasks.
  */
-
 public class TaskList {
     private List<Task> taskList;
     public TaskList(List<Task> taskList) {
