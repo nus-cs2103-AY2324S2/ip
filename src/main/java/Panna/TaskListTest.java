@@ -22,6 +22,7 @@ public class TaskListTest {
         assertEquals(tasks.get(0).taskName, "Task2");
     }
 
+    
     @Test
     public void sizeTest() {
         TaskList tasks = new TaskList();
