@@ -37,7 +37,7 @@ public final class DeleteHandler extends Handler implements MassOperable {
             throw e;
         } catch (Exception e) {
             throw new EarlException("Error, unknown use of delete.\n"
-                    + e.getMessage());
+                    + "\t" + e.getMessage());
         }
     }
 }

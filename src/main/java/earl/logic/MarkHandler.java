@@ -7,7 +7,7 @@ import earl.util.Ui;
 /**
  * Class responsible for the mark command.
  */
-public final class MarkHandler extends Handler {
+public final class MarkHandler extends Handler implements MassOperable {
 
     /**
      * Class constructor.
@@ -19,22 +19,27 @@ public final class MarkHandler extends Handler {
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            int idx = Integer.parseInt(args) - 1;
-            boolean success = tasks.get(idx).markAsDone();
-            if (!success) {
-                ui.makeResponse("Item already marked as done.",
-                        "\t" + tasks.get(idx).toString());
+            Integer[] indices = getValidIndices(tasks, args);
+            if (indices.length == 0) {
+                ui.makeResponse("Error, no valid indices in range.");
                 return;
             }
-            ui.makeResponse("Item marked as done.",
-                    "\t" + tasks.get(idx).toString());
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new EarlException(
-                    "Error, not a valid item number within range.\n"
-                            + "\tExample use:\n\tmark 3");
+            for (int idx : indices) {
+                boolean success = tasks.get(idx).markAsDone();
+                if (!success) {
+                    addDisplayEntry(idx + 1 + "." + tasks.get(idx)
+                            + " already marked as done.");
+                    continue;
+                }
+                addDisplayEntry(idx + 1 + "." + tasks.get(idx));
+            }
+            addDisplayEntry("Item(s) marked as done.");
+            ui.makeResponse(getDisplay());
+        } catch (EarlException e) {
+            throw e;
         } catch (Exception e) {
             throw new EarlException("Error, unknown use of mark.\n"
-                    + e.getMessage());
+                    + "\t" + e.getMessage());
         }
     }
 }
