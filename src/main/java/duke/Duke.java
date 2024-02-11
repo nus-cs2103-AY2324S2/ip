@@ -10,7 +10,6 @@ import duke.exceptions.DukeException;
 public class Duke {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructs a <code>Duke</code> to start the program.
@@ -18,12 +17,10 @@ public class Duke {
      * @param filePath File path for persistent task storage.
      */
     public Duke(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (IOException ie) {
-            this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
     }
@@ -31,24 +28,36 @@ public class Duke {
     /**
      * Runs an instance of <code>Duke</code>.
      */
-    public void run() {
-        this.ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (DukeException de) {
-                System.out.println(de);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+    public String greet() {
+        return "Hello! I'm Hatsune Miku!\n"
+                + " What can I do for you?";
     }
 
-    public static void main(String[] args) {
-        new Duke("./data/duke.txt").run();
+    /**
+     * Returns a goodbye message.
+     *
+     * @return Goodbye message string.
+     */
+    public String goodbye() {
+        return "Bye, Hope to see you again soon!";
+    }
+
+    /**
+     * Reads command String off of user input in <code>MainWindow</code>.
+     *
+     * @param command command String to be parsed.
+     * @return Dialogue for Duke after command processing.
+     */
+    public String readCommand(String command) {
+        String reply = "";
+        try {
+            Command c = Parser.parse(command);
+            reply = c.execute(this.tasks, this.storage);
+        } catch (DukeException de) {
+            return de.getMessage();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        return reply;
     }
 }

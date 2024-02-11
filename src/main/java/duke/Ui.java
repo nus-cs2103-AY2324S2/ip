@@ -4,14 +4,11 @@ import java.util.Scanner;
 
 /**
  * Ui class that displays several ui elements onto the command-line.
+ *     Not in use if application is using JavaFX GUI.
  */
 public class Ui {
     private Scanner sc;
     private String hLine = "________________________________________________";
-    private String logo = "                            ╱|、\n"
-            + "                          (˚ˎ 。7  \n"
-            + "                           |、˜〵          \n"
-            + "                          じしˍ,)ノ\n";
     private String greetMsg = "Hello! I'm Hatsune Miku!\n"
             + " What can I do for you?";
 
@@ -25,11 +22,8 @@ public class Ui {
     /**
      * Shows a greeting message.
      */
-    protected void greet() {
-        System.out.println(logo);
-        System.out.println(hLine);
-        System.out.println(greetMsg);
-        System.out.println(hLine);
+    protected String greet() {
+        return greetMsg;
     }
 
     /**
