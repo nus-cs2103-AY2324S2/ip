@@ -1,5 +1,8 @@
 package checkbot;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import checkbot.command.AddCommand;
 import checkbot.command.ByeCommand;
 import checkbot.command.Command;
@@ -15,9 +18,6 @@ import checkbot.exception.InvalidIndexException;
 import checkbot.exception.MissingDeadlineException;
 import checkbot.exception.MissingFromException;
 import checkbot.exception.MissingToException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Handles the parsing of user input.
@@ -92,7 +92,9 @@ public class Parser {
                 String firstValue = matcher.group(3).strip();
                 String secondValue = matcher.group(5).strip();
 
-                String from, to;
+                String from;
+                String to;
+
                 if (firstLabel.equals("from")) {
                     from = firstValue;
                     to = secondValue;
