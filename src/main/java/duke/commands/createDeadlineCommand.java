@@ -11,12 +11,20 @@ import java.time.format.DateTimeFormatter;
 
 import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 
+/**
+ * Represents a command to create a deadline task.
+ */
 public class createDeadlineCommand extends Command{
     private String description;
     private LocalDateTime deadline;
 
 
-
+    /**
+     * Constructs a new CreateDeadlineCommand object with the given description and deadline.
+     *
+     * @param description The description of the deadline task.
+     * @param deadline The deadline date and time of the task.
+     */
     public createDeadlineCommand(String description, LocalDateTime deadline) {
         this.description = description;
         this.deadline = deadline;

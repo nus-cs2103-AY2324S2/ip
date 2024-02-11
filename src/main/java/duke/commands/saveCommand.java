@@ -14,7 +14,13 @@ import java.util.List;
 import static duke.constants.Constant.RELATIVE_PATH;
 import static duke.constants.Constant.DATE_TIME_FORMATTER;
 
+/**
+ * Represents a command to save all the tasks to a file.
+ */
 public class saveCommand extends Command{
+    /**
+     * Constructs a new SaveCommand object.
+     */
     public saveCommand() {
 
     }

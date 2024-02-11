@@ -4,8 +4,14 @@ import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-
+/**
+ * Represents a command to list down all the tasks.
+ */
 public class listCommand extends Command{
+
+    /**
+     * Constructs a new ExitCommand object.
+     */
     public listCommand() {
 
     }

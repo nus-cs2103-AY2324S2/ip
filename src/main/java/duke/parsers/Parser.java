@@ -7,9 +7,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and generates corresponding Command objects.
+ */
 public class Parser {
     public final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param userInput The user input to be parsed.
+     * @return The Command object corresponding to the parsed user input.
+     */
     public static Command parse(String userInput) {
         String[] parts = userInput.split(" ", 2);
         String commandWord = parts[0].toLowerCase();
@@ -87,6 +96,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task number string and returns the corresponding task index.
+     *
+     * @param number The string representing the task number.
+     * @param type The type of task (e.g., "mark", "unmark", "delete").
+     * @return The index of the task.
+     * @throws DukeException If the task number is blank or cannot be parsed as an integer.
+     * @throws NumberFormatException If the task number cannot be parsed as an integer.
+     */
     public static int prepareTask(String number, String type) throws DukeException, NumberFormatException {
         if (number.isBlank()) {
             throw new DukeException("Please state which task you want to " + type + ".");
@@ -98,6 +116,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task description string and returns a command to create a todo task.
+     *
+     * @param arguments The arguments provided for parsing.
+     * @return The CreateTodoCommand object corresponding to the provided arguments.
+     * @throws DukeException If the description of the todo task is empty.
+     */
     public static Command prepareCreateTodo(String arguments) throws DukeException {
         if (arguments.isBlank()) {
             throw new DukeException("OOPS! The description of a todo cannot be empty.");
@@ -105,6 +130,14 @@ public class Parser {
         return new createTodoCommand(arguments);
     }
 
+    /**
+     * Parses the user input to corresponding parameters and returns a command to create a deadline task.
+     *
+     * @param arguments The arguments provided for creating the deadline task.
+     * @return The CreateDeadlineCommand object corresponding to the provided arguments.
+     * @throws DukeException If the description of the deadline task is empty or if the input format is incorrect.
+     * @throws DateTimeParseException If the input date and time cannot be parsed.
+     */
     public static Command prepareCreateDeadline(String arguments) throws DukeException {
         if (arguments.isBlank()) {
             throw new DukeException("OOPS! The description of a deadline cannot be empty.");
@@ -130,6 +163,14 @@ public class Parser {
         return new createDeadlineCommand(description, deadline);
     }
 
+    /**
+     * Parses the user input to corresponding parameters and returns a command to create an event task.
+     *
+     * @param arguments The arguments provided for creating the event task.
+     * @return The CreateEventCommand object corresponding to the provided arguments.
+     * @throws DukeException If the description of the event task is empty or if the input format is incorrect.
+     * @throws DateTimeParseException If the input start and end time cannot be parsed.
+     */
     public static Command prepareCreateEvent(String arguments) throws DukeException {
         if (arguments.isBlank()) {
             throw new DukeException("OOPS! The description of a event cannot be empty.");

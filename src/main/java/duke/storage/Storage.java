@@ -18,12 +18,26 @@ import java.util.Scanner;
 import static duke.constants.Constant.DATE_TIME_FORMATTER;
 import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 
+/**
+ * Handles the loading and conversion of task data from a file.
+ */
 public class Storage {
     private String filePath;
+
+    /**
+     * Constructs a new Storage object with the given file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads task data from the file and converts it into a list of Task objects.
+     *
+     * @return A list of Task objects loaded from the file.
+     */
     public List<Task> load() {
         Path path = Paths.get(filePath);
         boolean directoryExists = Files.exists(path);
@@ -67,6 +81,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts a string representation of a todo task into a ToDo object.
+     *
+     * @param string The string representation of the todo task.
+     * @return The ToDo object converted from the string representation.
+     */
     public ToDo convertToTodo(String string) {
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
@@ -74,6 +94,13 @@ public class Storage {
         return new ToDo(description, status);
     }
 
+    /**
+     * Converts a string representation of a deadline task into a Deadline object.
+     *
+     * @param string The string representation of the deadline task.
+     * @return The Deadline object converted from the string representation.
+     * @throws DateTimeParseException If the input date and time cannot be parsed.
+     */
     public Deadline convertToDeadline(String string) throws DateTimeParseException{
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
@@ -83,6 +110,13 @@ public class Storage {
         return new Deadline(description, status, deadline, DATE_TIME_FORMATTER_FOR_PRINT);
     }
 
+    /**
+     * Converts a string representation of an event task into an Event object.
+     *
+     * @param string The string representation of the event task.
+     * @return The Event object converted from the string representation.
+     * @throws DateTimeParseException If the input start and end time cannot be parsed.
+     */
     public Event convertToEvent(String string) throws DateTimeParseException{
         String[] parts = string.split("\\|");
         boolean status = parts[1].trim().equals("1");
