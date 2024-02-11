@@ -24,6 +24,6 @@ public class MarkUncompletedCommand extends Command{
         this.taskList.getTask(this.index).markUncompleted();
         String outputString = "I've marked this task as uncompleted:\n"
                 + this.taskList.getTask(this.index).toString();
-        return outputString.toString();
+        return outputString;
     }
 }

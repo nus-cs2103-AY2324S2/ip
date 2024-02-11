@@ -17,12 +17,4 @@ public class ByeCommand extends Command{
         return "Bye! Hope to see you again.";
     }
 
-    /**
-     * Returns true if the command is an exit command.
-     * @param command the command to be checked
-     * @return true if the command is an exit command
-     */
-    public static boolean isExit(Command command) {
-        return command instanceof ByeCommand; // instanceof returns false if it is null
-    }
 }

@@ -56,7 +56,7 @@ public class Parser {
             case MarkUncompletedCommand.COMMAND_WORD:
                 return prepareMarkUncompleted(arguments);
 
-                case FindCommand.COMMAND_WORD:
+            case FindCommand.COMMAND_WORD:
                 return new FindCommand(arguments);
 
             default:
@@ -69,9 +69,7 @@ public class Parser {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
             return new DeleteCommand(targetIndex);
-        } catch (ParseException pe) {
-            return new InvalidCommand("Could not parse command.");
-        } catch (NumberFormatException nfe) {
+        } catch (ParseException | NumberFormatException pe) {
             return new InvalidCommand("Could not parse command.");
         }
     }
@@ -81,9 +79,7 @@ public class Parser {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
             return new MarkCompletedCommand(targetIndex);
-        } catch (ParseException pe) {
-            return new InvalidCommand("Could not parse command.");
-        } catch (NumberFormatException nfe) {
+        } catch (ParseException | NumberFormatException pe) {
             return new InvalidCommand("Could not parse command.");
         }
     }
@@ -92,9 +88,7 @@ public class Parser {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
             return new MarkUncompletedCommand(targetIndex);
-        } catch (ParseException pe) {
-            return new InvalidCommand("Could not parse command.");
-        } catch (NumberFormatException nfe) {
+        } catch (ParseException | NumberFormatException pe) {
             return new InvalidCommand("Could not parse command.");
         }
     }
@@ -105,12 +99,11 @@ public class Parser {
             String regex = "(.*?)\\s*/from\\s+(.+)\\s*/to\\s+(.+)";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(args.trim());
-            if (matcher.find()) {
-                String eventName = matcher.group(1);
-                return new AddEventCommand(eventName, parseDateTime(matcher.group(2).trim()), parseDateTime(matcher.group(3).trim()));
-            } else {
+            if (!matcher.find()) {
                 return new InvalidCommand("Invalid input for event. Input your event as such:\nevent <name_of_event> /from <start_time> /to <end_time>");
             }
+            String eventName = matcher.group(1);
+            return new AddEventCommand(eventName, parseDateTime(matcher.group(2).trim()), parseDateTime(matcher.group(3).trim()));
         } catch (Exception e){
             return new InvalidCommand(e.getMessage());
         }
@@ -122,13 +115,12 @@ public class Parser {
             String regex = "\\s+(\\S+(?:\\s+\\S+)*)\\s*/by\\s+(.+)";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(args);
-            if (matcher.find()) {
-                String taskName = matcher.group(1);
-                LocalDateTime deadline= parseDateTime(matcher.group(2));
-                return new AddDeadlineCommand(taskName, deadline);
-            } else {
+            if (!matcher.find()) {
                 return new InvalidCommand("Invalid input for deadline. Input your deadline as such:\ndeadline <name_of_deadline> /by <due_date>");
             }
+            String taskName = matcher.group(1);
+            LocalDateTime deadline= parseDateTime(matcher.group(2));
+            return new AddDeadlineCommand(taskName, deadline);
         } catch (Exception e){
             return new InvalidCommand("Invalid input for deadline. Input your deadline as such:\ndeadline <name_of_deadline> /by <due_date>");
         }
