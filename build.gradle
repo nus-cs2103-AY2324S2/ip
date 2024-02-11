@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("ukecat.UkeCat")
+    mainClass.set("ukecat.Launcher")
 }
 
 shadowJar {
