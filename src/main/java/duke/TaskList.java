@@ -59,6 +59,7 @@ public class TaskList {
      * @return String of output to be used if needed.
      */
     public String add(Task add) {
+        assert add != null; // ensure that task to be added exists
         this.taskList.add(add);
         String word = " task";
         if (this.taskList.size() != 1) {
@@ -98,6 +99,7 @@ public class TaskList {
             }
         }
         if (i != 1) {
+            assert !found.equals(""); // ensure that listing for a task must be added
             return found;
         } else {
             return "\tNo tasks matching \"" + text + "\" found!\n";
