@@ -21,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-//    private Button sendButton;
 
     private UkeCat ukeCat;
     private final Image USER_IMG = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
@@ -30,6 +28,7 @@ public class MainWindow extends AnchorPane {
     private final Image UKECAT_IMG = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
             "/images/UkeCat.png")));
 
+    private final int EXIT_WAIT_TIME = 1;
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -63,7 +62,7 @@ public class MainWindow extends AnchorPane {
 
         if (response.equals(Ui.BYE)) {
             // If the user entered "bye," add a pause before system exit
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            PauseTransition pause = new PauseTransition(Duration.seconds(EXIT_WAIT_TIME));
             pause.setOnFinished(event -> System.exit(0));
             pause.play();
         }

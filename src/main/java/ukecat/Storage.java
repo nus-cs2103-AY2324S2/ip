@@ -30,7 +30,7 @@ public class Storage {
      * @return A string message indicating the result of the addition.
      */
     public static String addTask() {
-        Task t = null;
+        Task t;
         try {
             switch (words[0]) {
             case "todo":
@@ -50,33 +50,42 @@ public class Storage {
                 t = new Event(desc, start, end);
                 tasks.add(t);
                 break;
+
+            default:
+                return "Invalid task type. Please provide a valid task type (todo, deadline, event).";
             }
             taskCount++;
             String message = String.format("  Task added: %s%n%s", t, generateReport());
             FileManager.updateTasks();
             return message;
         } catch (Exception e) {
-            return e.getMessage();
+            return "Error adding task: " + e.getMessage();
         }
     }
 
     /**
      * Deletes a task based on the user input and updates the task list.
-     * Handles exceptions such as UkeCatException and IndexOutOfBoundsException.
+     * Handles exceptions such as UkeCatException and checks for IndexOutOfBoundsException.
      *
      * @return A string message indicating the result of the deletion.
      */
     public static String deleteTask() {
         try {
             int deleteIndex = Parser.parseDeleteTask(words);
+
+            // Guard case: Check if the deleteIndex is within the valid range
+            boolean isValidIndex = deleteIndex < 0 || deleteIndex >= tasks.size();
+
+            if (isValidIndex) {
+                return "Task not found. Please delete a valid task from the list:\n" + displayTasks();
+            }
+
             Task deletedTask = tasks.remove(deleteIndex);
             taskCount--;
             FileManager.updateTasks();
             return String.format("  Task removed: %s%n%s", deletedTask, generateReport());
         } catch (UkeCatException e) {
             return e.getMessage();
-        } catch (IndexOutOfBoundsException e) {
-            return "Task not found. Please mark a valid task from the list:\n" + displayTasks();
         }
     }
 
@@ -165,6 +174,9 @@ public class Storage {
                 Parser.parseEvent(input);
                 t = new Event(status, desc, start, end);
                 break;
+
+            default:
+                System.out.println("Unknown task type: " + words[0]);
             }
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
