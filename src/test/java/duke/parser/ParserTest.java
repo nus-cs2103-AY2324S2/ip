@@ -1,9 +1,8 @@
 package duke.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +21,12 @@ class ParserTest {
         TaskManager assertManager = new TaskManager();
         Task testItem = new Todo("Haha");
         assertManager.addItem(testItem);
-        ArrayList<String> testValues = new ArrayList<>();
-        testValues.add(RESPONSE_ADD);
-        testValues.add(testItem.toString());
-        testValues.add(assertManager.numOfTask());
+        String[] testValues = new String[3];
+        testValues[0] = RESPONSE_ADD;
+        testValues[1] = testItem.toString();
+        testValues[2] = assertManager.numOfTask();
         TaskManager testManager = new TaskManager();
-        assertEquals(testValues, Parser.parse("todo Haha", testManager));
+        assertArrayEquals(testValues, Parser.parse("todo Haha", testManager));
     }
 
     @Test
@@ -35,12 +34,12 @@ class ParserTest {
         TaskManager assertManager = new TaskManager();
         Task testItem = new Deadline("math test ", LocalDateTime.of(2023, 4, 12, 18, 0));
         assertManager.addItem(testItem);
-        ArrayList<String> testValues = new ArrayList<>();
-        testValues.add(RESPONSE_ADD);
-        testValues.add(testItem.toString());
-        testValues.add(assertManager.numOfTask());
+        String[] testValues = new String[3];
+        testValues[0] = RESPONSE_ADD;
+        testValues[1] = testItem.toString();
+        testValues[2] = assertManager.numOfTask();
         TaskManager testManager = new TaskManager();
-        assertEquals(testValues, Parser.parse("deadline math test /by 12-04-23 1800", testManager));
+        assertArrayEquals(testValues, Parser.parse("deadline math test /by 12-04-23 1800", testManager));
     }
 
 }
