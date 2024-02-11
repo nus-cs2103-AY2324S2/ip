@@ -2,6 +2,11 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class that handles everything related to storing tasks.
+ * Contains methods to add tasks, delete tasks, get task, mark tasks as done/undone,
+ * show tasks, find tasks, get task list size, and get the whole list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> myList;
 
@@ -25,12 +30,17 @@ public class TaskList {
         myList.remove(index - 1);
     }
 
-    public void showTasks() {
+    /**
+     * Method to call to get all tasks in a String
+     * @return All the tasks contained in the task list object in a String
+     */
+    public String showTasks() {
+        String tasks = "";
         int index = 1;
         for (Task task : this.myList) {
-            System.out.println(index + "." + task);
-            index++;
+            tasks = tasks + index + ". " + task.toString() + "\n";
         }
+        return tasks;
     }
 
     public int getSize() {
@@ -49,13 +59,20 @@ public class TaskList {
         this.myList.get(index).setNotDone();
     }
 
-    public void findTask(String text) {
+    /**
+     * Method to find a particular task using matching task name
+     * @param text The keyword text to be matched in the task list
+     * @return The matching tasks in a string
+     */
+    public String findTask(String text) {
+        String matchingTasks = "";
         int index = 1;
         for (Task task : this.myList) {
             if (task.toString().contains(text)) {
-                System.out.println(index + ". " + task);
+                matchingTasks = index + ". " + task.toString() + "\n";
             }
         }
+        return matchingTasks;
     }
 
 

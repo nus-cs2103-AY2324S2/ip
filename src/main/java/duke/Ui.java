@@ -1,73 +1,91 @@
 package duke;
 
+/**
+ * Ui Class to handle any output to user
+ */
 public class Ui {
-    public static final String DIVIDER = "____________________________________________________________";
+    public static final String DIVIDER = "________________________________________";
     public Ui() {
 
     }
 
-    public void showWelcome() {
-        System.out.println(DIVIDER + "\nHello! I'm Homie");
-        System.out.println("What can I do for you?\n" + DIVIDER);
+    public String showWelcome() {
+        return DIVIDER + "\nHello! I'm Homie" + "What can I do for you?\n" + DIVIDER;
     }
 
-    public void showGoodbye() {
-        System.out.println(DIVIDER + "\nBye Homie. Hope to see you again soon!\n" + DIVIDER);
+    public String showGoodbye() {
+        return DIVIDER + "\nBye Homie. Hope to see you again soon!\n" + DIVIDER;
     }
 
-    public void showDivider() {
-        System.out.println(DIVIDER + "\n");
+    public String showDivider() {
+        return DIVIDER + "\n";
     }
 
-    public void showLoadingError() {
-        System.out.println(DIVIDER + "\nHomie, theres an error loading your tasks!\n" + DIVIDER);
+    public String showLoadingError() {
+        return DIVIDER + "\nHomie, theres an error loading your tasks!\n" + DIVIDER;
     }
 
-    public void showListMessage() {
-        System.out.println("Here are the tasks in your list:");
+    public String showListMessage() {
+        return "Here are the tasks in your list:\n";
     }
 
-    public void showDeleteMessage(Task task, TaskList tasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-
-
+    /**
+     * Show delete message after deleting a task
+     * @param task The task object to be deleted
+     * @param tasks The task lists that stores all the task objects
+     * @return String message to acknowledge the task has been deleted
+     */
+    public String showDeleteMessage(Task task, TaskList tasks) {
+        return DIVIDER + "\nNoted. I've removed this task:\n" + task.toString()
+                + "Now you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
     }
 
-    public void showToDoMessage(Task task, TaskList tasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+    /**
+     * Show message after adding a to-do task
+     * @param task The task object to be added
+     * @param tasks The task lists that stores all the task objects
+     * @return String message to acknowledge that the to-do task has been added
+     */
+    public String showToDoMessage(Task task, TaskList tasks) {
+        return DIVIDER + "\nGot it. I've added this task:\n" + task.toString()
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
     }
 
-    public void showDeadlineMessage(Task task, TaskList tasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+    /**
+     * Show message after adding a deadline task
+     * @param task The deadline task to be added
+     * @param tasks The task lists that stores all the task objects
+     * @return String message to acknowledge that the deadline task has been added
+     */
+    public String showDeadlineMessage(Task task, TaskList tasks) {
+        return DIVIDER + "\nGot it. I've added this task:\n" + task.toString()
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
     }
 
-    public void showEventMessage(Task task, TaskList tasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
+    /**
+     * Show message after added an event task
+     * @param task The event task to be added
+     * @param tasks The task lists that stores all the tasks object
+     * @return String message to acknowledge that the event task has been added
+     */
+    public String showEventMessage(Task task, TaskList tasks) {
+        return DIVIDER + "\nGot it. I've added this task:\n" + task.toString()
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
     }
 
-    public void showMarkMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+    public String showMarkMessage(Task task) {
+        return DIVIDER + "\nNice! I've marked this task as done:\n" + task.toString() + "\n" + DIVIDER;
     }
 
-    public void showUnmarkMessage(Task task) {
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(task);
+    public String showUnmarkMessage(Task task) {
+        return DIVIDER + "Ok, I've marked this task as not done yet:" + task.toString() + "\n" + DIVIDER;
     }
 
-    public void showWrongCommand() {
-        System.out.println("Wrong Command!");
+    public String showWrongCommand() {
+        return DIVIDER + "\nWrong Command!\n" + DIVIDER;
     }
 
-    public void showFindMessage() {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFindMessage() {
+        return "Here are the matching tasks in your list:";
     }
 }

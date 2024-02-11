@@ -17,6 +17,13 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     /**
+     * Constructor for Duke Application
+     */
+    public Duke() {
+        // ...
+    }
+
+    /**
      * Constructor for Duke class
      * @param filePath File path of storage text file
      */
@@ -28,7 +35,7 @@ public class Duke {
         tasks = new TaskList();
     }
     /**
-     * Run the chatbot application.
+     * Runs the chatbot application.
      */
     public void run() {
         this.ui.showWelcome();
@@ -170,5 +177,109 @@ public class Duke {
                 || command.contains("mark") || command.contains("find"))) {
             throw new DukeException("\n" + line + "\nOPPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
         }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        this.ui.showWelcome();
+        boolean isExit = false;
+
+        String[] tempArr;
+        Task currTask;
+
+        String outputResponse = "";
+        try {
+            Duke.checkCommand(input);
+        } catch (DukeException e) {
+            System.err.println(e.getMessage());
+            outputResponse = this.ui.showWrongCommand();
+        }
+
+        if (input.equals("bye")) {
+            outputResponse = this.ui.showGoodbye();
+            return outputResponse;
+        }
+
+        if (input.equals("list")) {
+            outputResponse = this.ui.showDivider() + this.ui.showListMessage()
+                    + this.tasks.showTasks() + this.ui.showDivider();
+            return outputResponse;
+        }
+
+        if (input.startsWith("delete")) {
+            tempArr = input.split(" ");
+            currTask = this.tasks.getTask(Integer.parseInt(tempArr[1]));
+            this.tasks.deleteTask(Integer.parseInt(tempArr[1]) - 1);
+            outputResponse = this.ui.showDivider() + this.ui.showDeleteMessage(currTask, tasks) + this.ui.showDivider();
+            this.storage.updateStorageFile(this.tasks);
+            return outputResponse;
+        }
+
+        if (input.startsWith("find")) {
+            tempArr = input.split(" ");
+            outputResponse = this.ui.showDivider() + this.ui.showFindMessage()
+                    + this.tasks.findTask(tempArr[1]) + this.ui.showDivider();
+            return outputResponse;
+        }
+
+        if (input.contains("todo") || input.contains("deadline") || input.contains("event")) {
+            tempArr = input.split(" ");
+            switch (tempArr[0]) {
+            case ("todo"):
+                try {
+                    Todo currTodo = new Todo(input.substring(5));
+                    this.tasks.addTask(currTodo);
+                    outputResponse = this.ui.showToDoMessage(currTodo, this.tasks);
+                    this.storage.updateStorageFile(this.tasks);
+                    return outputResponse;
+                } catch (TodoException e) {
+                    System.err.println(e.getMessage());
+                }
+                break;
+
+            case ("deadline"):
+                tempArr = (input.substring(9)).split("/");
+                Deadline currDeadline = new Deadline(tempArr[0], tempArr[1].substring(3));
+                this.tasks.addTask(currDeadline);
+                outputResponse = this.ui.showDeadlineMessage(currDeadline, this.tasks);
+                this.storage.updateStorageFile(this.tasks);
+                return outputResponse;
+
+            case ("event"):
+                tempArr = (input.substring(6)).split("/");
+                Event currEvent = new Event(tempArr[0], tempArr[1].substring(5), tempArr[2].substring(3));
+                this.tasks.addTask(currEvent);
+                outputResponse = this.ui.showEventMessage(currEvent, this.tasks);
+                this.storage.updateStorageFile(this.tasks);
+                return outputResponse;
+            default:
+                break;
+            }
+        }
+
+        if (input.contains("mark")) {
+            tempArr = input.split(" ");
+            currTask = this.tasks.getTask(Integer.parseInt(tempArr[1]) - 1);
+            switch (tempArr[0]) {
+            case ("mark"):
+                this.tasks.markTask(Integer.parseInt(tempArr[1]) - 1);
+                this.storage.updateStorageFile(this.tasks);
+                outputResponse = this.ui.showMarkMessage(currTask);
+                return outputResponse;
+
+            case ("unmark"):
+                this.tasks.unMarkTask(Integer.parseInt(tempArr[1]) - 1);
+                this.storage.updateStorageFile(this.tasks);
+                outputResponse = this.ui.showUnmarkMessage(currTask);
+                return outputResponse;
+
+            default:
+                this.ui.showWrongCommand();
+            }
+        }
+        return outputResponse;
     }
 }
