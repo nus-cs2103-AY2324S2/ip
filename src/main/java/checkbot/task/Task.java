@@ -45,17 +45,17 @@ public abstract class Task {
      * @return Formatted date, or the original string if parsing fails.
      */
     public static String tryParseDate(String dateString) {
-        final String[] formats = {
-                "dd-MM-yyyy",
-                "d-M-yyyy",
-                "d/M/yyyy",
-                "dd/MM/yyyy"
-        };
+        final String[] formats = {"dd-MM-yyyy",
+                                  "d-M-yyyy",
+                                  "d/M/yyyy",
+                                  "dd/MM/yyyy"};
         for (String format : formats) {
             try {
                 LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(format));
                 return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
             } catch (DateTimeParseException ignored) {
+                // We don't actually need anything in here because we are trying a bunch of formats
+                // to parse the dates in, and if none of them work, we return the original string.
             }
         }
         return dateString;
