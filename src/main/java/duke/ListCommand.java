@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * The ListCommand class represents a command to list all tasks.

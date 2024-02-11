@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * The ExitCommand class represents a command to exit the Duke application.
