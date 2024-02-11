@@ -1,20 +1,20 @@
-package duke;
+package junjie;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.commands.Command;
-import duke.commands.DeadlineCommand;
-import duke.commands.DefaultCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.EventCommand;
-import duke.commands.ExitCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkCommand;
-import duke.commands.TodoCommand;
-import duke.commands.UnmarkCommand;
+import junjie.commands.Command;
+import junjie.commands.DeadlineCommand;
+import junjie.commands.DefaultCommand;
+import junjie.commands.DeleteCommand;
+import junjie.commands.EventCommand;
+import junjie.commands.ExitCommand;
+import junjie.commands.FindCommand;
+import junjie.commands.ListCommand;
+import junjie.commands.MarkCommand;
+import junjie.commands.TodoCommand;
+import junjie.commands.UnmarkCommand;
 
 /**
  * Parser class is responsible for parsing user input and returning a Command object.

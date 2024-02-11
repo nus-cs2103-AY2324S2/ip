@@ -1,10 +1,10 @@
-package duke.tasks;
+package junjie.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.InvalidArgumentException;
+import junjie.exceptions.InvalidArgumentException;
 
 /**
  * Tests the TodoTask class.

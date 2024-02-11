@@ -1,6 +1,6 @@
-package duke.tasks;
+package junjie.tasks;
 
-import duke.exceptions.InvalidArgumentException;
+import junjie.exceptions.InvalidArgumentException;
 
 /**
  * Represents a task that has no specific date or time associated with it.

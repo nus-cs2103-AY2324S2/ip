@@ -1,8 +1,8 @@
-package duke.commands;
+package junjie.commands;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.tasks.Task;
+import junjie.TaskList;
+import junjie.Ui;
+import junjie.tasks.Task;
 
 /**
  * Represents a command to delete a task from the task list.

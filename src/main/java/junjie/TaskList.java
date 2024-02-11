@@ -1,13 +1,13 @@
-package duke;
+package junjie;
 
 import java.time.DateTimeException;
 import java.util.ArrayList;
 
-import duke.exceptions.InvalidArgumentException;
-import duke.tasks.DeadlineTask;
-import duke.tasks.EventTask;
-import duke.tasks.Task;
-import duke.tasks.TodoTask;
+import junjie.exceptions.InvalidArgumentException;
+import junjie.tasks.DeadlineTask;
+import junjie.tasks.EventTask;
+import junjie.tasks.Task;
+import junjie.tasks.TodoTask;
 
 
 /**

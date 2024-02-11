@@ -1,24 +1,20 @@
-package duke;
+package junjie;
 
 import java.util.Scanner;
 
-import duke.commands.Command;
+import junjie.commands.Command;
 
 /**
- * Duke is a chatbot that helps you keep track of your tasks.
- * It can store your tasks, mark them as done, and delete them.
- * It also supports different types of tasks, such as ToDos, Deadlines, and Events.
- * Duke stores your tasks in a file, so you can continue where you left off the next time you run it.
- * Duke has the characteristics of a typical Chinese Singaporean.
+ * Represents the main class of the application.
  */
-public class Duke {
+public class Junjie {
     static final String NAME = "jun jie";
     static final String INTRO_MSG = "hi bro, im " + NAME + "\nwhat you want me to do?";
 
     /**
-     * Constructs a Duke chatbot.
+     * Constructs a new Junjie instance.
      */
-    public Duke() {
+    public Junjie() {
         Scanner scanner = new Scanner(System.in);
 
         Storage.init();
@@ -44,6 +40,6 @@ public class Duke {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new Duke();
+        new Junjie();
     }
 }

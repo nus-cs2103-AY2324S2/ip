@@ -1,12 +1,12 @@
-package duke.commands;
+package junjie.commands;
 
 import java.time.DateTimeException;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.exceptions.InvalidArgumentException;
-import duke.tasks.EventTask;
-import duke.tasks.Task;
+import junjie.TaskList;
+import junjie.Ui;
+import junjie.exceptions.InvalidArgumentException;
+import junjie.tasks.EventTask;
+import junjie.tasks.Task;
 
 
 /**

@@ -1,4 +1,4 @@
-package duke;
+package junjie;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package duke.tasks;
+package junjie.tasks;
 
 /**
  * Represents a task that can be completed.

@@ -1,4 +1,4 @@
-package duke.tasks;
+package junjie.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -7,7 +7,7 @@ import java.time.DateTimeException;
 
 import org.junit.jupiter.api.Test;
 
-import duke.exceptions.InvalidArgumentException;
+import junjie.exceptions.InvalidArgumentException;
 
 public class DeadlineTaskTest {
     private static final String INVALID_DATE_FORMAT = "eh the date/time format is wrong la, must be yyyy-mm-dd";

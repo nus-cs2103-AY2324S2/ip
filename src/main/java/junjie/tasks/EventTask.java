@@ -1,10 +1,10 @@
-package duke.tasks;
+package junjie.tasks;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import duke.exceptions.InvalidArgumentException;
+import junjie.exceptions.InvalidArgumentException;
 
 /**
  * Represents a task that starts and ends at specific dates and times.

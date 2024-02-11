@@ -1,4 +1,4 @@
-package duke.exceptions;
+package junjie.exceptions;
 
 /**
  * Represents an exception that is thrown when an invalid argument is provided to a command.
