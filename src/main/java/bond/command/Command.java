@@ -53,7 +53,7 @@ public abstract class Command {
      * @param storage The storage.
      * @throws BondException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BondException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BondException;
 
     public String getCommandType() {
         return this.commandType;
