@@ -84,6 +84,12 @@ public class Duke {
             case FIND:
                 return this.tasklist.findTask(userInput[1]);
 
+            case DUPLICATE:
+                return this.tasklist.listDuplicates();
+
+            case UNIQUIFY:
+                return this.tasklist.uniquifyTasks();
+
             default:
                 throw new CinnamoException();
             }

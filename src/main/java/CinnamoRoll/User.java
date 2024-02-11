@@ -11,5 +11,7 @@ public enum User {
         TODO,
         DEADLINE,
         EVENT,
-        FIND
+        FIND,
+        DUPLICATE,
+        UNIQUIFY
 }

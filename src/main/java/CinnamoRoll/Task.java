@@ -55,6 +55,10 @@ abstract class Task {
         }
     }
 
+    protected String getTaskName() {
+        return this.taskname;
+    }
+
     public String toString() {
         return this.getStatusIcon() + " " + this.taskname;
     }

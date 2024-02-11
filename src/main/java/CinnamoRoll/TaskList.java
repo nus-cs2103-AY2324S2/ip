@@ -3,7 +3,8 @@ package CinnamoRoll;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Hashtable;
+import java.util.Set;
 class TaskList {
     private final ArrayList<Task> tasks;
     private final String path = "src/main/java/Cinnamo.txt";
@@ -72,11 +73,84 @@ class TaskList {
     }
 
     /**
+     * Recognizes duplicate tasks with more than one occurrence then return the list of
+     * duplicate tasks to the users from the list. As long as task names are exactly the same
+     * tasks will be regarded as duplicates even if task type is different
+     *
+     * @return A sublist that contains every duplicate tasks recorded in the list
+     */
+    public String listDuplicates() {
+        Hashtable<String, Integer> storeduplicate = new Hashtable<>();
+        boolean isDuplicate = false;
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            String taskname = this.tasks.get(i).getTaskName();
+            if (storeduplicate.containsKey(taskname)) {
+                int occurrence = storeduplicate.get(taskname) + 1;
+                storeduplicate.put(taskname, occurrence);
+                isDuplicate = true;
+            } else {
+                storeduplicate.put(taskname, 1);
+            }
+        }
+
+        if (!isDuplicate) {
+            return "No duplicate tasks are found :) Cinnamo is happy!";
+        }
+
+        String output = "Here are duplicate tasks in your list >.<:\n";
+        Set<String> tasklist = storeduplicate.keySet();
+        int counter = 1;
+
+        for (String taskdetail : tasklist) {
+            int repeats = storeduplicate.get(taskdetail);
+            if (repeats > 1) {
+                output += String.format("%d. %s (occurrence: %d times)%n", counter,
+                        taskdetail, repeats);
+            }
+            counter += 1;
+        }
+        return output;
+    }
+
+    /**
+     * Recognizes unique tasks with exactly one occurrence then uniquify the tasklist
+     * by removing duplicate tasks from the tasklist
+     *
+     * @return A sublist that contains every duplicate tasks recorded in the list
+     */
+    public String uniquifyTasks() {
+        ArrayList<String> uniquetasks = new ArrayList<>();
+        ArrayList<Integer> duplicateindex = new ArrayList<>();
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            String taskname = this.tasks.get(i).getTaskName();
+            if (uniquetasks.contains(taskname)) {
+                duplicateindex.add(i);
+            } else {
+                uniquetasks.add(taskname);
+            }
+        }
+
+        for (int j = duplicateindex.size() - 1; j >= 0; j--) {
+            int toremove = duplicateindex.get(j);
+            this.tasks.remove(toremove);
+        }
+        this.writeInto();
+
+        return "Cinnamo has uniquified the tasks for you >.<\n";
+    }
+
+    /**
      * Generates a formatted string listing all tasks in the current task list.
      *
      * @return A string representation of the tasks in the format "1. [Task1] \n 2. [Task2] \n ..."
      */
     public String listTask() {
+        if (this.tasks.isEmpty()){
+            return "There are no tasks in the list now! Let Cinnamo know which tasks"
+                    + " to store for you >.<";
+        }
         String output = "Here are the tasks in your list >.<:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
@@ -228,6 +302,14 @@ class TaskList {
 
             case FIND:
                 System.out.println(this.findTask(arr[1]));
+                break;
+
+            case DUPLICATE:
+                System.out.println(this.listDuplicates());
+                break;
+
+            case UNIQUIFY:
+                System.out.println(this.uniquifyTasks());
                 break;
 
             default:
