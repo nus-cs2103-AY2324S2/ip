@@ -40,6 +40,8 @@ class TaskList {
      * @throws FishStockException The exceptions while changing the mark.
      */
     protected Task changeMark(Command command, String input) throws FishStockException {
+        assert command == Command.MARK || command == Command.UNMARK : "Not a marking Command";
+
         Integer idx = Parser.getTaskFromIndex(input);
         try {
             Task task = list.get(idx);
@@ -81,6 +83,9 @@ class TaskList {
      * @throws FishStockException The exceptions while adding the Task.
      */
     protected Task addTask(Command command, String input) throws FishStockException {
+        assert command == Command.TODO || command == Command.DEADLINE
+                || command == Command.EVENT : "Attempted to add an invalid Task";
+
         Task task = null;
         switch (command) {
         case TODO:
@@ -93,7 +98,7 @@ class TaskList {
             task = Event.of(input);
             break;
         default:
-            throw new FishStockException("Attempted to add an invalid Task..");
+            // Not possible as assert statement checks for validity.
         }
         list.add(task);
         return task;

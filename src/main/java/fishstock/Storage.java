@@ -21,6 +21,8 @@ class Storage {
      * @param filePath The path to the save file.
      */
     protected Storage(String filePath) {
+        assert filePath.contains("/") : "File path is invalid";
+
         db = new File(filePath);
         this.filePath = filePath;
     }
