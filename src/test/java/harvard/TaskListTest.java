@@ -1,11 +1,12 @@
 package harvard;
 
-import harvard.exceptions.HarvardException;
-import harvard.tasks.Todo;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import harvard.exceptions.HarvardException;
+import harvard.tasks.Todo;
 
 public class TaskListTest {
     @Test

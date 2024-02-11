@@ -2,10 +2,10 @@ package harvard;
 
 import java.time.LocalDate;
 
-import harvard.tasks.Event;
-import harvard.tasks.Deadline;
-import harvard.tasks.Todo;
 import harvard.exceptions.HarvardException;
+import harvard.tasks.Deadline;
+import harvard.tasks.Event;
+import harvard.tasks.Todo;
 
 /**
  * The Parser class is responsible for interpreting user commands in the Harvard application.
@@ -39,9 +39,10 @@ public class Parser {
     public void parse(String commandLine) throws HarvardException {
         String command = commandLine.split(" ")[0];
 
-        if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
-                !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
-                !command.equals("delete") && !command.equals("find")) {
+        if (!command.equals("list") && !command.equals("todo")
+                && !command.equals("deadline") && !command.equals("event")
+                && !command.equals("mark") && !command.equals("unmark")
+                && !command.equals("delete") && !command.equals("find")) {
             throw new HarvardException("Bro... Idk what that is man.");
         }
 
@@ -80,7 +81,7 @@ public class Parser {
 
         if (command.equals("deadline")) {
             String[] commandItems = commandLine.split(" /by ");
-            String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
+            String desc = commandItems[0].substring(commandItems[0].indexOf(' ') + 1);
             LocalDate by = LocalDate.parse(commandItems[1]);
 
             Deadline deadlineTask = new Deadline(desc, by);
@@ -90,7 +91,7 @@ public class Parser {
 
         if (command.equals("event")) {
             String[] commandItems = commandLine.split(" /from ");
-            String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
+            String desc = commandItems[0].substring(commandItems[0].indexOf(' ') + 1);
             String[] commandItems2 = commandItems[1].split(" /to ");
             LocalDate from = LocalDate.parse(commandItems2[0]);
             LocalDate to = LocalDate.parse(commandItems2[1]);
@@ -108,7 +109,7 @@ public class Parser {
                 this.ui.printMark(this.tasks.getTask(index));
             } else {
                 this.tasks.unmark(index);
-                this.ui.printUnmark(this.tasks.getTask(index ));
+                this.ui.printUnmark(this.tasks.getTask(index));
             }
 
         }

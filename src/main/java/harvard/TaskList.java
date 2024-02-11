@@ -2,16 +2,15 @@ package harvard;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import harvard.tasks.Task;
-import harvard.tasks.Event;
-import harvard.tasks.Deadline;
-import harvard.tasks.Todo;
 import harvard.exceptions.HarvardException;
+import harvard.tasks.Deadline;
+import harvard.tasks.Event;
+import harvard.tasks.Task;
+import harvard.tasks.Todo;
 
 /**
  * The TaskList class represents a list of tasks in the Harvard application.
@@ -30,6 +29,7 @@ public class TaskList {
      * @param br The BufferedReader containing task information.
      */
     public TaskList(BufferedReader br) {
+
         populateTaskList(br);
     }
 
@@ -46,7 +46,7 @@ public class TaskList {
      * @return The string representation of the task.
      * @throws HarvardException If the index is out of bounds.
      */
-    public String printString(int index) throws HarvardException{
+    public String printString(int index) throws HarvardException {
         if (index > this.taskList.size() - 1) {
             throw new HarvardException("Sorry, this task could not be found.");
         }
@@ -109,7 +109,12 @@ public class TaskList {
     }
 
 
-
+    /**
+     * Finds tasks in the TaskList whose descriptions contain the specified search string.
+     *
+     * @param searchString the string to search for within task descriptions
+     * @return a TaskList containing tasks whose descriptions contain the search string
+     */
     public TaskList find(String searchString) {
         TaskList filteredList = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
@@ -119,7 +124,7 @@ public class TaskList {
         }
         return filteredList;
     }
-    
+
     /**
      * Populates the task list with tasks from a BufferedReader.
      *
@@ -128,19 +133,22 @@ public class TaskList {
     public void populateTaskList(BufferedReader buffReader) {
         try {
             String line;
-            while (( line = buffReader.readLine()) != null) {
+            while ((line = buffReader.readLine()) != null) {
                 String taskType = line.split(",")[0];
-                Boolean isDone =  line.split(",")[1].equals("0") ? false : true;
-                if (taskType.equals("T") ) {
+                Boolean isDone = line.split(",")[1].equals("0") ? false : true;
+                if (taskType.equals("T")) {
                     taskList.add(new Todo(line.split(",")[2], isDone));
                 } else if (taskType.equals("D")) {
                     taskList.add(new Deadline(line.split(",")[2], LocalDate.parse(line.split(",")[3]), isDone));
                 } else {
-                    taskList.add(new Event(line.split(",")[2], LocalDate.parse(line.split(",")[3]), LocalDate.parse(line.split(",")[4]), isDone));
+                    taskList.add(new Event(line.split(",")[2],
+                            LocalDate.parse(line.split(",")[3]),
+                            LocalDate.parse(line.split(",")[4]),
+                            isDone));
                 }
             }
         } catch (IOException e) {
-
+            System.out.println("Error");
         }
 
     }

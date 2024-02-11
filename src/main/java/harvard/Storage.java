@@ -1,12 +1,11 @@
 package harvard;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -19,12 +18,6 @@ public class Storage {
      */
     private String filePath;
 
-    /**
-     * Constructs a Storage instance with the specified file path.
-     *
-     * @param fP The file path for storing tasks.
-     */
-    private String filePath;
     public Storage(String fP) {
         this.filePath = fP;
     }
@@ -37,10 +30,11 @@ public class Storage {
      */
     public BufferedReader load() {
         try {
-            BufferedReader buffReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/harvard.txt"));
+            BufferedReader buffReader = new BufferedReader(
+                    new FileReader(System.getProperty("user.dir") + "/data/harvard.txt"));
             return buffReader;
         } catch (FileNotFoundException ex) {
-            CreateTextFile();
+            createTextFile();
         }
         return null;
     }
@@ -48,7 +42,7 @@ public class Storage {
     /**
      * Creates a new text file for storing tasks.
      */
-    public void CreateTextFile() {
+    public void createTextFile() {
         try {
             File file = new File(System.getProperty("user.dir") + "/data/harvard.txt");
             if (file.getParentFile().mkdir()) {
@@ -57,7 +51,7 @@ public class Storage {
                 throw new IOException("Failed to create directory " + file.getParent());
             }
         } catch (IOException e) {
-
+            System.out.println("Error");
         }
     }
 
@@ -72,11 +66,13 @@ public class Storage {
             textToSave += tasks.getTask(i).saveString() + "\n";
         }
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/data/harvard.txt"));
+            BufferedWriter writer = new BufferedWriter(
+                    new FileWriter(System.getProperty("user.dir")
+                            + "/data/harvard.txt"));
             writer.write(textToSave);
             writer.close();
         } catch (Exception e) {
-
+            System.out.println("Error");
         }
     }
 }

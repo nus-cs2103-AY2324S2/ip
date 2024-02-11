@@ -115,6 +115,13 @@ public class Ui {
         System.out.println("____________________________________________________________\n");
     }
 
+    /**
+     * Prints the tasks in the given TaskList that match the search criteria.
+     * This method prints each matching task along with its index in the list.
+     * If there are no matching tasks, it prints a message indicating so.
+     *
+     * @param tasks the TaskList containing tasks to be printed
+     */
     public void printFindTasks(TaskList tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
