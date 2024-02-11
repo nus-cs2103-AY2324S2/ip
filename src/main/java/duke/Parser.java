@@ -22,24 +22,29 @@ private TaskList tasklist;
     }
 
     /**
-     * Parses user's String input to commands that TaskList executes
-     * (i.e. mark, unmark, delete, find, todo, deadline, event)
+     * Parses user's String input to commands that TaskList executes.
+     * (i.e. mark, unmark, delete, find, clear list, list, todo, deadline, event)
      *
-     * @param command String input from user
-     * @throws StringIndexOutOfBoundsException When user does not specify the task to do after a command (e.g. todo)
-     * @throws NumberFormatException When user does not leave a space between command and number (e.g. mark1)
-     * @throws ArrayIndexOutOfBoundsException When user does not specify dates of deadline/event
-     * @throws FileNotFoundException When File f does not exist.
+     * @param command String input from user.
+     * @throws StringIndexOutOfBoundsException When user does not specify the task to do after a command (e.g. todo).
+     * @throws NumberFormatException When user does not leave a space between command and number (e.g. mark1).
+     * @throws ArrayIndexOutOfBoundsException When user does not specify dates of deadline/event.
+     * @return ChatBot's reply to user input.
      */
 
     public String parsing(String command) throws StringIndexOutOfBoundsException, NumberFormatException,
-            ArrayIndexOutOfBoundsException, FileNotFoundException, IOException {
+            ArrayIndexOutOfBoundsException, IOException {
         String res = "";
         if (command.equals("list")) {
             res = tasklist.list();
+        } else if (command.equals("hey") || command.equals("hi")) {
+            res = "Hi babyyy! It's your EUEU!! \n"
+                    + "What are you doing today??";
         } else if (command.equals("clear list")) {
+            res = "YAY BB! your list is cleared :)";
             FileWriter fw = new FileWriter("data/EUEU.txt", false);
             fw.close();
+            tasklist.clearCurrentTasks();
         } else if (command.equals("bye")) {
             res = "byeee love uu ttyl ok!";
             tasklist.write();

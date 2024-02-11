@@ -96,6 +96,11 @@ public class Duke extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        Label welcomeMessage = new Label ("Hi babyyy! It's your EUEU!! \n"
+                                                + "What are you doing today??");
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, new ImageView(eueu)));
+
+
         userInput.setPrefWidth(325.0);
 
         sendButton.setPrefWidth(55.0);
@@ -150,6 +155,13 @@ public class Duke extends Application {
         userInput.clear();
     }
 
+    /**
+     * Gets Chatbot response based on user input.
+     * 
+     * @param input String user input to be parsed.
+     * @return String response of Chatbot.
+     * @throws IOException When string input do not match any of the CLI of the Parser class.
+     */
     String getResponse(String input) throws IOException {
 
 //        File f = new File("data/EUEU.txt");

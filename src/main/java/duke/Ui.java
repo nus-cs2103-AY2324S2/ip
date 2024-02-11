@@ -46,8 +46,10 @@ public class Ui {
 
     /**
      * Reads command of user's next line and passes String command to Parser.
+     *
      * @throws FileNotFoundException When File f does not exist.
      * @throws IOException When File f cannot be found.
+     * @return Exit message
      */
     public String readCommand() throws FileNotFoundException, IOException {
         Parser parse = new Parser(tasklist);

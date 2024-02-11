@@ -42,6 +42,8 @@ public class TaskList {
     /**
      * Lists all tasks from previous iterations of Duke.run() which are stored in
      * Storage s as well as current tasks in current iterations of Duke.run().
+     *
+     * @return String representation of the list
      */
     public String list() throws FileNotFoundException {
         String str = "";
@@ -53,6 +55,11 @@ public class TaskList {
         return str;
     }
 
+    /**
+     * Lists the current list in current iteration of Duke.run().
+     *
+     * @return String representation of current tasklist
+     */
     public String getCurrentList() {
         String str = "";
         for (int i = 0; i < tasklist.size(); i++) {
@@ -66,7 +73,9 @@ public class TaskList {
 
     /**
      * Adds Todo task to tasklist.
+     *
      * @param task Todo task to be added to tasklist.
+     * @return String representation of adding todo task to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. todo).
      */
     public String addTask(Todo task) throws StringIndexOutOfBoundsException {
@@ -84,7 +93,9 @@ public class TaskList {
 
     /**
      * Adds Deadline task to tasklist.
+     *
      * @param task Deadline task to be added to tasklist.
+     * @return String representation of adding deadline task to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. deadline).
      */
     public String addTask(Deadline task) throws StringIndexOutOfBoundsException {
@@ -102,7 +113,9 @@ public class TaskList {
 
     /**
      * Adds Event task to tasklist.
+     *
      * @param task Event task to be added to tasklist.
+     * @return String representation of adding event task to tasklist.
      * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. event).
      */
 
@@ -120,7 +133,9 @@ public class TaskList {
 
     /**
      * Marks task in tasklist as done.
+     *
      * @param number Task number in current list to be marked.
+     * @return String representation of marking task in tasklist.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
     public String mark(int number) throws IndexOutOfBoundsException {
@@ -138,7 +153,9 @@ public class TaskList {
 
     /**
      * Unmarks task in tasklist.
+     *
      * @param number Task number in current list to be unmarked.
+     * @return String representation of unmarking task in tasklist.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
     public String unmark(int number) throws IndexOutOfBoundsException {
@@ -155,8 +172,10 @@ public class TaskList {
     }
 
     /**
-     * Deletes task in tasklist.
+     * Deletes task from tasklist.
+     *
      * @param number Task number in current list to be deleted.
+     * @return String representation of deleting task from tasklist.
      * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
      */
     public String delete(int number) throws IndexOutOfBoundsException {
@@ -171,6 +190,14 @@ public class TaskList {
         }
         return str;
     }
+
+    /**
+     * Finds a task from tasklist.
+     *
+     * @param str User input string to find.
+     * @return String representation of finding task in tasklist.
+     * @throws StringIndexOutOfBoundsException When user does not specify task what to find (e.g. find).
+     */
 
     public String find(String str) throws StringIndexOutOfBoundsException {
         String ret = "";
