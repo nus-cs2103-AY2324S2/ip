@@ -1,6 +1,7 @@
-package Duke;
+package duke;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,9 +23,13 @@ public class Duke extends Application {
     private Ui ui;
     private Storage storage;
 
+    @FXML
     private ScrollPane scrollPane;
+    @FXML
     private VBox dialogContainer;
+    @FXML
     private TextField userInput;
+    @FXML
     private Button sendButton;
     private Scene scene;
 
@@ -142,6 +147,7 @@ public class Duke extends Application {
     }
 
 
+    @FXML
     private void handleUserInput() {
         String userInputText = userInput.getText();
 
