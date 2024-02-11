@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class TaskList {
 
-    private Parser parser;
-    private ArrayList<Task> taskList = new ArrayList<>();
-    private Storage storage;
+    private final Parser parser;
+    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final Storage storage;
     private int currIndex = 0;
     public TaskList(Parser parser, Storage storage) {
         this.parser = parser;
@@ -30,7 +31,7 @@ public class TaskList {
     public void loadTasksFromFile() {
         File directory = new File("./data");
         if (!directory.exists()) {
-            directory.mkdirs(); // create directory if does not exist
+            directory.mkdirs();
         }
         File file = new File(directory, "duke.txt");
         try {
@@ -46,7 +47,7 @@ public class TaskList {
                 // lines++;
                 this.currIndex++;
             }
-        } catch(IOException e){
+        } catch(IOException ignored){
 
         }
     }
@@ -75,7 +76,7 @@ public class TaskList {
                 Task taskToMark = taskList.get(markIndex);
                 taskToMark.markDone();
                 storage.saveAllTasksToFile(this.taskList); // Save changes
-                response = "Marked as done: " + taskToMark.toString();
+                response = "Marked as done: " + taskToMark;
                 break;
             case UNMARK:
                 // Similar to MARK, but for unmarking
@@ -83,7 +84,7 @@ public class TaskList {
                 Task taskToUnmark = taskList.get(unmarkIndex);
                 taskToUnmark.markUndone();
                 storage.saveAllTasksToFile(this.taskList); // Save changes
-                response = "Marked as not done: " + taskToUnmark.toString();
+                response = "Marked as not done: " + taskToUnmark;
                 break;
             case TODO:
                 if (commandParts.length < 2) {
@@ -110,23 +111,14 @@ public class TaskList {
             // Implement other cases as needed
             case FIND:
                 try {
-                    switch (commandType) {
                     // Other cases remain unchanged...
-
-                    case FIND:
-                        if (commandParts.length < 2) {
-                            return "Error: Missing search keyword for FIND command.";
-                        }
-                        String keyword = commandParts[1];
-                        response = findTasksByKeyword(keyword);
-                        break;
+                    if (commandParts.length < 2) {
+                        return "Error: Missing search keyword for FIND command.";
+                    }
+                    String keyword = commandParts[1];
+                    response = findTasksByKeyword(keyword);
 
                     // The rest of your switch cases...
-
-                    default:
-                        response = "Unknown command.";
-                        break;
-                    }
                 } catch (Exception e) {
                     response = "Error processing command: " + e.getMessage();
                 }
@@ -189,7 +181,7 @@ public class TaskList {
             }
         }
         if (found) {
-            return "Here are the matching tasks in your list:\n" + foundTasksBuilder.toString();
+            return "Here are the matching tasks in your list:\n" + foundTasksBuilder;
         } else {
             return "No tasks found matching: " + keyword;
         }

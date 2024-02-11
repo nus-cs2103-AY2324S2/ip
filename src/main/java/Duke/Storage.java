@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    Parser parser;
+    final Parser parser;
 
     /**
      * Initializes a new Storage object.
@@ -64,7 +64,7 @@ public class Storage {
             String taskLine = formatTaskForFile(task);
             fileWriter.write(taskLine + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
 
         }
 
@@ -87,7 +87,7 @@ public class Storage {
                 fileWriter.write(taskLine + "\n");
             }
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
 
         }
     }

@@ -10,25 +10,19 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.PrintStream;
+import java.util.Objects;
 
 public class MainApp extends Application{
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private VBoxOutputStream customOut;
     private Duke duke;
     @Override
     public void init() throws Exception {
         duke = new Duke();
     }
 
-    public static void main(String[] args) {
-        // ...
-    }
     @Override
     public void start(Stage stage) {
         Label helloWorld = new Label("Hello World!");
@@ -42,7 +36,7 @@ public class MainApp extends Application{
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
         userInput = new TextField();
-        sendButton = new Button("Send");
+        Button sendButton = new Button("Send");
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
@@ -77,25 +71,15 @@ public class MainApp extends Application{
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //user input.
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
     }
 
-    private final Image user = new Image(this.getClass().getResourceAsStream("/images/lulu.jpg"));
-    private final Image min = new Image(this.getClass().getResourceAsStream("/images/Shirmin.jpg"));
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
+    private final Image user = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/lulu.jpg")));
+    private final Image min = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Shirmin.jpg")));
 
     /** Functions Status
      * 9/9 complete  hell yea        - retest whenever big changes are made
