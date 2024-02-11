@@ -89,6 +89,7 @@ public class Blu extends Application {
     public String getResponse(String userInput) {
         try {
             Command command = new InputParser().parseInput(userInput);
+            assert command != null : "Parsed command should not be null";
             if (command instanceof ByeCommand) {
                 isExit = true;
             }

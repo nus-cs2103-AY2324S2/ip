@@ -58,6 +58,7 @@ public class Storage implements AutoCloseable {
                 writer.write(task.toCsv());
                 writer.newLine();
             }
+            assert file.length() != 0 : "File should not be empty after write operation";
             writer.flush();
         } catch (IOException e) {
             throw new StorageException("Failed to save task to storage file");
