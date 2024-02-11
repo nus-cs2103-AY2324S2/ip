@@ -2,14 +2,18 @@ package duke;
 
 import java.io.*;
 
+/**
+ * TaskRepository class to handle the storage of tasks
+ */
 public class TaskRepository {
+    // Relative file path to store tasks
     private final String FILE_PATH = "./data/taskStorage.txt";
     private TaskList taskList;
 
     /**
-     * Constructor for the TaskRepository class.
-     * It checks if a file at FILE_PATH exists, and if not, creates it.
-     * It also initializes an empty TaskList.
+     * Constructor for the TaskRepository class
+     * It checks if a file at FILE_PATH exists, and if not, creates it
+     * It also initializes an empty TaskList
      */
     public TaskRepository() {
         try {
@@ -73,7 +77,7 @@ public class TaskRepository {
                         break;
                 }
             }
-            System.out.println("Your tasks have been loaded from storage.");
+            // System.out.println("Your tasks have been loaded from storage.");
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,16 +86,16 @@ public class TaskRepository {
     }
 
     /**
-     * This method saves the tasks from the provided TaskList to a text file.
-     * It writes each task as a new line in the file.
-     * The task number is removed before writing to the file as it is not needed.
+     * This method saves the tasks from the provided TaskList to a text file
+     * It writes each task as a new line in the file
+     * The task number is removed before writing to the file as it is not needed
      *
-     * @param taskList The TaskList containing the tasks to be saved to the file.
+     * @param taskList The TaskList containing the tasks to be saved to the file
      * 
      * @return void
      */
-    // TODO: Maybe try using buffered writer
     public void saveTasksToFile(TaskList taskList) {
+        // TODO: Maybe try using buffered writer
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (String task : taskList.listTasks()) {
