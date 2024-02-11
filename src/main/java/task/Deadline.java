@@ -39,4 +39,20 @@ public class Deadline extends Task {
         String isDone = this.isDone ? "1 | " : "0 | ";
         return "D | " + isDone + description + " | " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline other = (Deadline) obj;
+        return
+                this.description.equals(other.description) &&
+                        this.by.equals(other.by);
+    }
 }

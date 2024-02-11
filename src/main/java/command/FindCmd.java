@@ -13,6 +13,10 @@ public class FindCmd extends Command {
         ui.printTasks(result);
     }
 
+    public BarebonesTaskList getResult() {
+        return result;
+    }
+
     public FindCmd(String query) {
         this.query = query;
     }
