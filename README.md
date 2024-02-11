@@ -4,6 +4,10 @@ Jimmy is a chatbot named after my favourite host Jimmy Fallon.
 Jimmy is a desktop app for managing your notes and tasks via entering commands (case-sensitive).
 This user guide will teach about Jimmy's features and how to use Jimmy.
 
+```
+Credits for the markdown sample goes to: https://github.com/Cikguseven/ip
+```
+
 ## Features
 
 ### 📅 Add a Deadline
