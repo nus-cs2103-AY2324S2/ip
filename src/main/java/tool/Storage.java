@@ -63,7 +63,7 @@ public class Storage {
      * Converts a Task object to the saved format.
      *
      * @param currentTask Current task to be converted.
-     * @return String representation of converted task.
+     * @return String representation of the converted task.
      */
     public String convertTaskToSave(Task currentTask) {
         String taskCode = currentTask.getTaskCode();
