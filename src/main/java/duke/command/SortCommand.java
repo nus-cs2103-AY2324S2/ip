@@ -3,20 +3,20 @@ package duke.command;
 import duke.TaskList;
 
 /**
- * A command that represents a no-operation.
+ * A command that sorts all deadlines.
  */
-public class NothingCommand extends Command {
+public class SortCommand extends Command {
 
     /**
-     * Execute nothing.
+     * Sorts deadline tasks.
      *
      * @param tasks   The list of tasks.
-     * @return Nothing.
+     * @return Sorted list of deadlines..
      */
     @Override
     public String execute(TaskList tasks) {
-        assert tasks != null;
-        return "";
+        tasks.sort();
+        return new ListCommand().execute(tasks);
     }
 
     @Override

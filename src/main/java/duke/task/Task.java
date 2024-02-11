@@ -3,12 +3,13 @@ package duke.task;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
 /**
  * Base class for all tasks.
  * Represents common attributes shared between all of them.
  */
-public abstract class Task implements Serializable {
+public abstract class Task implements Serializable, Comparator<Task> {
     protected String event;
     protected boolean done;
 
@@ -53,5 +54,10 @@ public abstract class Task implements Serializable {
     public boolean contains(String keyword) {
         assert keyword != null;
         return this.event.contains(keyword);
+    }
+
+    @Override
+    public int compare(Task left, Task right) {
+        return 0;
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import duke.exceptions.ChatException;
+import duke.task.Deadline;
 import duke.task.Task;
 
 
@@ -106,6 +107,14 @@ public class TaskList implements Iterable<Task> {
             return false;
         }
         return this.tasks.equals(((TaskList) other).tasks);
+    }
+
+    /**
+     * Sorts deadline tasks in ascending order, and group them at the top.
+     * All other tasks are unsorted.
+     */
+    public void sort() {
+        this.tasks.sort((self, other) -> self.compare(self, other));
     }
 
 }

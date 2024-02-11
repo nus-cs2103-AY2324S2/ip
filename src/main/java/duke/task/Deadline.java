@@ -29,4 +29,18 @@ public class Deadline extends Task {
         return String.format("[D][%s] %s (by: %s)", isDone, this.event, this.dateFormat(this.dueBy));
     }
 
+    @Override
+    public int compare(Task left, Task right) {
+        if (left instanceof Deadline) {
+            if (right instanceof Deadline) {
+                return ((Deadline) left).dueBy.compareTo(((Deadline) right).dueBy);
+            }
+            return -1;
+        }
+        if (right instanceof Deadline) {
+            return 1;
+        }
+        return 0;
+    }
+
 }

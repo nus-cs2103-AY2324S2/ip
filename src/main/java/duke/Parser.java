@@ -4,17 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.NothingCommand;
-import duke.command.TodoCommand;
-import duke.command.UnMarkCommand;
+import duke.command.*;
 import duke.exceptions.ChatException;
 
 
@@ -89,6 +79,8 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "sort":
+            return new SortCommand();
         case "mark": {
             int idx = Parser.parseInt(line.split(" ")[1]);
             return new MarkCommand(idx - 1);

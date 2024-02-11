@@ -22,3 +22,26 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+   
+## Example commands
+
+```
+todo borrow book
+list
+deadline return book /by 20/12/2019 1800
+event project meeting /from 2/12/2019 1800 /to 2/12/2019 1800
+mark 2
+list
+unmark 2
+
+delete 2
+
+mark 6
+unmark 6
+todo
+blah
+
+todo book fair
+find book
+bye
+```
