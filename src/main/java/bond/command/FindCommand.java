@@ -35,8 +35,9 @@ public class FindCommand extends Command {
      * @throws BondException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         TaskList foundTasks = tasks.findTasks(this.keyword);
-        ui.showFoundTasks(foundTasks);
+        String response = ui.showFoundTasks(foundTasks);
+        return response;
     }
 }

@@ -36,14 +36,15 @@ public class UnmarkCommand extends Command {
      * @throws BondException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         if (this.index >= tasks.numberOfTasks()) {
             BondException.raiseException("delete", "INVALID_INDEX");
         }
         Task markedTask = tasks.getTask(index);
         markedTask.markAsIncomplete();
-        ui.taskUnmarked(markedTask, tasks);
+        String response = ui.taskUnmarked(markedTask, tasks);
         storage.overwritePreviousSave(tasks);
+        return response;
     }
 
 }

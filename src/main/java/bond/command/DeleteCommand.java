@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
      * @throws BondException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         if (tasks.noTasks()) {
             BondException.raiseException("delete", "EMPTY_LIST");
         } else if (this.index >= tasks.numberOfTasks()) {
@@ -44,8 +44,9 @@ public class DeleteCommand extends Command {
         }
         Task removedTask = tasks.getTask(index);
         tasks.deleteTask(index);
-        ui.taskDeleted(removedTask, tasks);
+        String response = ui.taskDeleted(removedTask, tasks);
         storage.overwritePreviousSave(tasks);
+        return response;
     }
 
 }

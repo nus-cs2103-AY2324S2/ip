@@ -25,12 +25,14 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    public void showLine() {
+    public String showLine() {
         System.out.println(Ui.LINE);
+        return Ui.LINE;
     }
 
-    public void newLine() {
+    public String newLine() {
         System.out.println();
+        return System.lineSeparator();
     }
 
     /**
@@ -45,11 +47,15 @@ public class Ui {
     /**
      * Shows the taskList is empty message.
      */
-    public void showTasklistEmpty() {
-        this.showLine();
-        System.out.println("\n    There are no tasks in the list.");
-        this.showLine();
-        this.newLine();
+    public String showTasklistEmpty() {
+        String message = "\n    There are no tasks in the list.";
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     /**
@@ -73,13 +79,17 @@ public class Ui {
      * @param newTask  The task that is added.
      * @param taskList The task list that the task is added to.
      */
-    public void taskAdded(Task newTask, TaskList taskList) {
-        this.showLine();
-        System.out.println(String.format(
+    public String taskAdded(Task newTask, TaskList taskList) {
+        String message = String.format(
                 "\n    Got it. I've added this task:\n      %s \n    Now you have %d tasks in the list.",
-                newTask.toString(), taskList.numberOfTasks()));
-        this.showLine();
-        this.newLine();
+                newTask.toString(), taskList.numberOfTasks());
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     /**
@@ -88,13 +98,17 @@ public class Ui {
      * @param deletedTask The task that is deleted.
      * @param taskList    The task list that the task is deleted from.
      */
-    public void taskDeleted(Task deletedTask, TaskList taskList) {
-        this.showLine();
-        System.out.println(String.format(
+    public String taskDeleted(Task deletedTask, TaskList taskList) {
+        String message = String.format(
                 "\n    Got it. I've removed this task:\n      %s \n    Now you have %d tasks in the list.",
-                deletedTask.toString(), taskList.numberOfTasks()));
-        this.showLine();
-        this.newLine();
+                deletedTask.toString(), taskList.numberOfTasks());
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     /**
@@ -103,14 +117,17 @@ public class Ui {
      * @param markedTask The task that is marked as done.
      * @param taskList   The task list that the task is marked as done in.
      */
-    public void taskMarked(Task markedTask, TaskList taskList) {
-        this.showLine();
-        System.out
-                .println(String.format(
-                        "\n    Nice! I've marked this task as done:\n      %s",
-                        markedTask.toString()));
-        this.showLine();
-        this.newLine();
+    public String taskMarked(Task markedTask, TaskList taskList) {
+        String message = String.format(
+                "\n    Nice! I've marked this task as done:\n      %s",
+                markedTask.toString());
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     /**
@@ -119,14 +136,17 @@ public class Ui {
      * @param unmarkedTask The task that is marked as not done.
      * @param taskList     The task list that the task is marked as not done in.
      */
-    public void taskUnmarked(Task unmarkedTask, TaskList taskList) {
-        this.showLine();
-        System.out
-                .println(String.format(
-                        "\n    OK, I've marked this task as not done yet:\n      %s",
-                        unmarkedTask.toString()));
-        this.showLine();
-        this.newLine();
+    public String taskUnmarked(Task unmarkedTask, TaskList taskList) {
+        String message = String.format(
+                "\n    OK, I've marked this task as not done yet:\n      %s",
+                unmarkedTask.toString());
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     /**
@@ -134,19 +154,26 @@ public class Ui {
      *
      * @param taskList The task list containing all tasks found.
      */
-    public void showFoundTasks(TaskList taskList) {
+    public String showFoundTasks(TaskList taskList) {
+        String message = String.format("\n    Here are the matching tasks in your list:");
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+
         ListIterator<Task> tasks = taskList.getTasks();
 
-        this.showLine();
-        System.out.println(String.format("\n    Here are the matching tasks in your list:"));
-
         while (tasks.hasNext()) {
-            System.out.println(String.format("    %d. %s",
-                    tasks.nextIndex() + 1, tasks.next().toString()));
+            String foundTask = String.format("    %d. %s",
+                    tasks.nextIndex() + 1, tasks.next().toString());
+            builder.append(foundTask);
+            System.out.println(foundTask);
         }
 
-        this.showLine();
-        this.newLine();
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+
+        return builder.toString();
     }
 
     /**
@@ -154,19 +181,26 @@ public class Ui {
      *
      * @param taskList The task list to read from.
      */
-    public void showList(TaskList taskList) {
+    public String showList(TaskList taskList) {
+        String message = "\n    Here are the tasks in your list:";
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+
         ListIterator<Task> tasks = taskList.getTasks();
 
-        this.showLine();
-        System.out.println(String.format("\n    Here are the tasks in your list:"));
-
         while (tasks.hasNext()) {
-            System.out.println(String.format("    %d. %s",
-                    tasks.nextIndex() + 1, tasks.next().toString()));
+            String task = String.format("    %d. %s",
+                    tasks.nextIndex() + 1, tasks.next().toString());
+            builder.append(task);
+            System.out.println(task);
         }
 
-        this.showLine();
-        this.newLine();
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+
+        return builder.toString();
     }
 
     /**
@@ -174,21 +208,29 @@ public class Ui {
      *
      * @param e The exception to be shown.
      */
-    public void showError(Exception e) {
-        this.showLine();
-        System.out.println(String.format("\n    %s", e.getMessage()));
-        this.showLine();
-        this.newLine();
+    public String showError(Exception e) {
+        String message = String.format("\n    %s", e.getMessage());
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     /**
      * Shows the goodbye message when the user exits the program.
      */
-    public void showGoodbye() {
-        this.showLine();
-        System.out.println("\n    Bye. Hope to see you again soon!");
-        this.showLine();
-        this.newLine();
+    public String showGoodbye() {
+        String message = "\n    Bye. Hope to see you again soon!";
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.showLine());
+        builder.append(message);
+        System.out.println(message);
+        builder.append(this.showLine());
+        builder.append(this.newLine());
+        return message;
     }
 
     public void closeScanner() {

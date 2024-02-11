@@ -30,8 +30,9 @@ public class ExitCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = ui.showGoodbye();
         ui.closeScanner();
+        return response;
     }
 }
