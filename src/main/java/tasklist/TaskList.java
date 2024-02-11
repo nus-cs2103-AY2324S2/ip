@@ -13,6 +13,7 @@ public class TaskList {
     }
 
     public int getSize() {
+        size = taskList.size();
         return size;
     }
     public ArrayList<Task> getTaskList() {
@@ -114,7 +115,7 @@ public class TaskList {
             throw new JuxException("SORRY I DO NOT KNOW WHAT THAT MEANS, PLEASE TRY AGAIN!");
         }
         String output = ui.printTaskAfterword(task);
-        output += "\n" + ui.printNumberOfTasks(getSize());
+        output += "\n" + ui.printNumberOfTasks(this.getSize());
         return output;
 
     }
