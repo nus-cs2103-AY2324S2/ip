@@ -102,7 +102,7 @@ public class Parser {
         String from = m.group(2);
         String to = m.group(3);
         Task t = taskList.addEvent(taskDesc, from, to);
-        storage.save(taskList);
+        storage.saveFile(taskList);
         return taskList.getAddTaskString(t);
     }
 
@@ -118,7 +118,7 @@ public class Parser {
         String by = m.group(2);
         try {
             Task t = taskList.addDeadline(taskDesc, by);
-            storage.save(taskList);
+            storage.saveFile(taskList);
             return taskList.getAddTaskString(t);
         } catch (DateTimeParseException e) {
             throw new InputFormatException("The date should be in the format: yyyy/MM/dd");
@@ -134,7 +134,7 @@ public class Parser {
         );
         String taskDesc = m.group(1);
         Task t = taskList.addToDo(taskDesc);
-        storage.save(taskList);
+        storage.saveFile(taskList);
         return taskList.getAddTaskString(t);
     }
 
@@ -147,7 +147,7 @@ public class Parser {
             );
             int taskNum = Integer.parseInt(m.group(1)) - 1;
             Task t = taskList.removeTask(taskNum);
-            storage.save(taskList);
+            storage.saveFile(taskList);
             return taskList.getDeleteTaskString(t);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException("Task does not exist");
@@ -163,7 +163,7 @@ public class Parser {
             );
             int taskNum = Integer.parseInt(m.group(1)) - 1;
             taskList.markAsUndone(taskNum);
-            storage.save(taskList);
+            storage.saveFile(taskList);
             return "OK, I've marked this task as not done yet:" + taskList.getTaskAtIndex(taskNum);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException("Task does not exist");
@@ -181,7 +181,7 @@ public class Parser {
             );
             int taskNum = Integer.parseInt(m.group(1)) - 1;
             taskList.markAsDone(taskNum);
-            storage.save(taskList);
+            storage.saveFile(taskList);
             return "Nice! I've marked this task as done:\n" + taskList.getTaskAtIndex(taskNum);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException("Task does not exist");

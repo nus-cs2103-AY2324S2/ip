@@ -31,7 +31,7 @@ public class Numerator {
         storage = new Storage(path);
 
         try {
-            taskList = storage.load();
+            taskList = storage.loadFile();
         } catch (LoadingException e) {
             Ui.printLoadingError(e);
             taskList = new TaskList();
@@ -75,7 +75,7 @@ public class Numerator {
                 input = sc.nextLine();
                 Ui.printLine();
                 String response = Parser.parseArguments(input, taskList, storage);
-                storage.save(taskList);
+                storage.saveFile(taskList);
 
                 if (response.equals(Parser.BYE_STRING)) {
                     Ui.printExit();

@@ -62,7 +62,7 @@ public class Storage {
      * @return a TaskList object containing the tasks loaded from the file
      * @throws LoadingException if there is an error loading the file
      */
-    public TaskList load() throws LoadingException {
+    public TaskList loadFile() throws LoadingException {
         TaskList taskList = new TaskList();
         try {
             // Solution below adapted from https://stackoverflow.com/a/41514348
@@ -95,7 +95,7 @@ public class Storage {
      * @param taskList the TaskList object containing the tasks to be saved
      * @throws SavingException if there is an error saving the file
      */
-    public void save(TaskList taskList) throws SavingException {
+    public void saveFile(TaskList taskList) throws SavingException {
         try (BufferedWriter bw = Files.newBufferedWriter(this.filepath)) {
             bw.write(taskList.getSavedTasksString());
         } catch (IOException e) {
