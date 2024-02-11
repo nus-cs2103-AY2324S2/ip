@@ -51,6 +51,8 @@ public class Storage {
      *                         type is unknown.
      */
     public static Task parseTaskFromFile(String data) throws SkylerException {
+
+        assert data != null : "The 'data' parameter should not be null.";
         String taskType = data.substring(1, 2); // Extracting task type (T, D, E)
         boolean isDone = data.charAt(4) == 'X'; // Assuming 'x' represents a completed task
         String details = data.substring(7).trim(); // Extracting task details

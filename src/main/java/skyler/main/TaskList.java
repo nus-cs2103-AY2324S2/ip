@@ -70,6 +70,27 @@ public class TaskList {
     }
 
     /**
+     * Undoes the last task operation (add, delete, mark, unmark) and returns a
+     * confirmation message.
+     *
+     * @return A confirmation message for the undone task operation.
+     * @throws SkylerException If there is an error undoing the task operation or if
+     *                         there are no operations to undo.
+     */
+    public static String undoTask() throws SkylerException {
+        if (tasks.isEmpty()) {
+            throw new SkylerException("Nothing to undo. Task list is empty.");
+        }
+
+        // Retrieve and remove the last task operation
+        Task lastTask = tasks.remove(tasks.size() - 1);
+        Storage.saveTasksToFile();
+
+        return "Skyler: Successfully undid the last task operation:\n  " + lastTask +
+                "\nSkyler: Now you have " + tasks.size() + " tasks in the list.\n";
+    }
+
+    /**
      * Marks a task as done in the task list based on the provided user input, saves
      * tasks to file, and returns a confirmation message.
      *
