@@ -1,5 +1,7 @@
 package jade.commands;
 
+import java.util.stream.IntStream;
+
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
@@ -24,14 +26,14 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
-        int count = 0; // track the number of matching tasks found
-        for (int i = 1; i <= taskList.size(); i++) {
-            if (taskList.get(i - 1).containsKeyword(keyword)) {
-                count++;
-                sb.append(String.format("\n\t%d. %s", count, taskList.get(i - 1)));
-            }
-        }
-        if (count == 0) {
+        int[] count = {0}; // track the number of matching tasks found
+        IntStream.range(0, taskList.size())
+                .filter(x -> taskList.get(x).containsKeyword(keyword))
+                .forEach(x -> {
+                    count[0]++;
+                    sb.append(String.format("\n\t%d. %s", x + 1, taskList.get(x)));
+                });
+        if (count[0] == 0) {
             return "There are no matching results!";
         } else {
             return String.format("Here are the matching tasks in your list:%s", sb);
