@@ -27,25 +27,6 @@ public class Tobias {
         }
     }
 
-    /**
-     * Runs the bot Tobias until isExit is true
-     * */
-    public void run() {
-        ui.helloPrinter();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parseCommands(fullCommand, tasks);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (TobiasException e) {
-                e.printMessage();
-            }
-        }
-    }
-
     public String getResponse(String input) throws TobiasException{
 
         String response = "";

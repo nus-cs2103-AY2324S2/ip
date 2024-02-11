@@ -62,8 +62,7 @@ public class Storage {
             Task newTask = new ToDo(description, isDone);
             tasks.addToList(newTask);
 
-        }
-        else if (data.startsWith("D")) {
+        } else if (data.startsWith("D")) {
             boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
             int desc = data.indexOf("|desc");
@@ -76,8 +75,7 @@ public class Storage {
 
             tasks.addToList(newTask);
 
-        }
-        else if (data.startsWith("E")) {
+        } else if (data.startsWith("E")) {
             boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
 
             int desc = data.indexOf("|desc");
@@ -92,8 +90,7 @@ public class Storage {
 
             Task newTask = new Event(description, isDone, f, t);
             tasks.addToList(newTask);
-        }
-        else {
+        } else {
             throw new TobiasException("OH NO, someone has ruined your save file :(");
         }
     }
