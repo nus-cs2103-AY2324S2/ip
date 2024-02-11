@@ -3,7 +3,6 @@ package shon;
 import java.time.format.DateTimeParseException;
 
 import shon.command.Command;
-
 import shon.exception.CommandException;
 import shon.exception.ParameterException;
 
