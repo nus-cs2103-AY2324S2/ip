@@ -44,13 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("drake.Drake")
+    mainClass.set("drake.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "drake"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'drake.jar'
 }
 
 run{
