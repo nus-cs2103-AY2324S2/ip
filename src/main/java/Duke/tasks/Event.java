@@ -4,45 +4,20 @@
  */
 package duke.tasks;
 
-import duke.exceptions.InvalidEventException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.exceptions.InvalidEventException;
+
+/**
+ * Class for Event Task
+ */
 public class Event extends Task {
 
     private String start;
     private String end;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
-    /**
-     * Checks if the given deadline string has a valid date format.
-     *
-     * @param deadline The deadline string to be checked.
-     * @return True if the deadline string has a valid format, otherwise false.
-     */
-    private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 12 || deadline.length() >= 16) {
-            return false;
-        }
-        String[] dateNumbers = deadline.split("[/ ]");
-        if (dateNumbers.length != 4) {
-            return false;
-        }
-        try {
-            for (String i : dateNumbers) {
-                Integer.parseInt(i);
-            }
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        if (Integer.parseInt(dateNumbers[3]) >= 2400) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Constructs an Event object with the given description, start, and end times.
      *
@@ -119,6 +94,32 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Checks if the given deadline string has a valid date format.
+     *
+     * @param deadline The deadline string to be checked.
+     * @return True if the deadline string has a valid format, otherwise false.
+     */
+    private static boolean isValidDateFormat(String deadline) {
+        if (deadline.length() <= 12 || deadline.length() >= 16) {
+            return false;
+        }
+        String[] dateNumbers = deadline.split("[/ ]");
+        if (dateNumbers.length != 4) {
+            return false;
+        }
+        try {
+            for (String i : dateNumbers) {
+                Integer.parseInt(i);
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        if (Integer.parseInt(dateNumbers[3]) >= 2400) {
+            return false;
+        }
+        return true;
+    }
     /**
      * Writes the Event object into a string format for storage.
      *

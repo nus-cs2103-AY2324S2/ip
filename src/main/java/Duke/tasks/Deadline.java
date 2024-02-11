@@ -7,39 +7,12 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for deadline
+ */
 public class Deadline extends Task {
-
     private LocalDateTime deadlineDate;
     private String deadline;
-
-    /**
-     * Checks if the given deadline string has a valid date format.
-     *
-     * @param deadline The deadline string to be checked.
-     * @return True if the deadline string has a valid format, otherwise false.
-     */
-    private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 12 || deadline.length() >= 16) {
-            return false;
-        }
-        String[] dateNumbers = deadline.split("[/ ]");
-        if (dateNumbers.length != 4) {
-            return false;
-        }
-        try {
-            for (String i : dateNumbers) {
-                Integer.parseInt(i);
-            }
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        int time = Integer.parseInt(dateNumbers[3]);
-        if (time >= 2400 || time < 0) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Constructs a Deadline object with the given description and deadline string.
      *
@@ -86,6 +59,33 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Checks if the given deadline string has a valid date format.
+     *
+     * @param deadline The deadline string to be checked.
+     * @return True if the deadline string has a valid format, otherwise false.
+     */
+    private static boolean isValidDateFormat(String deadline) {
+        if (deadline.length() <= 12 || deadline.length() >= 16) {
+            return false;
+        }
+        String[] dateNumbers = deadline.split("[/ ]");
+        if (dateNumbers.length != 4) {
+            return false;
+        }
+        try {
+            for (String i : dateNumbers) {
+                Integer.parseInt(i);
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        int time = Integer.parseInt(dateNumbers[3]);
+        if (time >= 2400 || time < 0) {
+            return false;
+        }
+        return true;
+    }
     /**
      * Writes the Deadline object into a string format for storage.
      *

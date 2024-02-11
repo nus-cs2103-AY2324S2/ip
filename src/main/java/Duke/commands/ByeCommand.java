@@ -1,8 +1,8 @@
 package duke.commands;
 
+import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.UI;
-import duke.util.Storage;
 
 /**
  * ByeCommand class to exit program when user types "bye"
@@ -14,7 +14,6 @@ public class ByeCommand extends Command {
     public ByeCommand() {
         super();
     }
-
     /**
      * Prints to user bye message
      * @param tasks TaskList containing all user inputted task

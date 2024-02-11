@@ -1,21 +1,24 @@
 package duke.commands;
 
-import duke.util.TaskList;
-import duke.util.UI;
-import duke.util.Storage;
 import duke.exceptions.DukeException;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.InvalidEventException;
-import duke.tasks.Task;
 import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.UI;
 
 /**
- * Constructs an EventCommand object with the given array of command words.
- *
- * @param words The array of strings containing the command and its arguments.
+ * Class for EventCommand
  */
 public class EventCommand extends Command {
     private String[] words;
+    /**
+     * Constructs an EventCommand object with the given array of command words.
+     *
+     * @param words The array of strings containing the command and its arguments.
+     */
     public EventCommand(String[] words) {
         super();
         this.words = words;
