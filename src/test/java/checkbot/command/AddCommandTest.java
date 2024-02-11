@@ -1,15 +1,15 @@
 package checkbot.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import checkbot.Storage;
 import checkbot.StorageStub;
 import checkbot.Ui;
 import checkbot.UiStub;
 import checkbot.task.Todo;
 import checkbot.task.TodoList;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class AddCommandTest {
     @Test
