@@ -1,7 +1,6 @@
 package podz.commands;
 
 import podz.exceptions.PodzException;
-import podz.ui.Ui;
 
 /**
  * Represents a command to unmark a task in the task manager.
@@ -25,11 +24,13 @@ public class UnmarkCommand extends Command {
      * @throws PodzException if the task index is invalid
      */
     @Override
-    public void execute(Ui ui) throws PodzException {
+    public String execute() throws PodzException {
         if (index < 0 || index >= super.taskList.getSize()) {
             throw new PodzException("Oh no!!! Invalid task index!");
         }
         super.taskList.unmarkTask(index);
-        ui.printUnmarked(super.taskList.getTask(index));
+        super.response = "OK, I've marked this task as not done yet: "
+                        + super.taskList.getTask(index);
+        return super.response;
     }
 }

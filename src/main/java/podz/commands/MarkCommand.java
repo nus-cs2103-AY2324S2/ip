@@ -1,7 +1,6 @@
 package podz.commands;
 
 import podz.exceptions.PodzException;
-import podz.ui.Ui;
 
 /**
  * Represents a command to mark a task as completed in the task manager.
@@ -25,11 +24,13 @@ public class MarkCommand extends Command {
      * @throws PodzException if the task index is invalid
      */
     @Override
-    public void execute(Ui ui) throws PodzException {
+    public String execute() throws PodzException {
         if (index < 0 || index >= super.taskList.getSize()) {
             throw new PodzException("Oh no!!! Invalid task index!");
         }
         super.taskList.markTask(index);
-        ui.printMarked(super.taskList.getTask(index));
+        super.response = "Nice! I've marked this task as done:\n"
+                        + super.taskList.getTask(index);
+        return super.response;
     }
 }

@@ -1,7 +1,6 @@
 package podz.commands;
 
 import podz.task.Event;
-import podz.ui.Ui;
 
 /**
  * Represents a command to add an event task in the task manager.
@@ -24,10 +23,11 @@ public class EventCommand extends Command {
      * @param ui the user interface that interacts with the user
      */
     @Override
-    public void execute(Ui ui) {
+    public String execute() {
         super.taskList.addTask(event);
-        ui.printToUser("\tGot it. I've added this task:",
-                        "\t" + this.event,
-                        super.taskList.getListCounter());
+        super.response = "Got it. I've added this task:\n"
+                        + this.event + "\n"
+                        + super.taskList.getListCounter();
+        return super.response;
     }
 }

@@ -83,7 +83,7 @@ public class TaskList {
      * @return a string indicating the number of tasks in the list
      */
     public String getListCounter() {
-        return "\tNow you have " + this.tasks.size() + " tasks in the list.";
+        return "Now you have " + this.tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -112,20 +112,20 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String taskStr = "\tHere are the tasks in your list:";
+        String taskStr = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
-            String nextTask = "\t" + num + ". " + tasks.get(i);
+            String nextTask = num + ". " + tasks.get(i);
             taskStr += "\n" + nextTask;
         }
         return taskStr;
     }
 
     private String toString(ArrayList<Task> tasks) {
-        String taskStr = "\tHere are the tasks in your list:";
+        String taskStr = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             int num = i + 1;
-            String nextTask = "\t" + num + ". " + tasks.get(i);
+            String nextTask = num + ". " + tasks.get(i);
             taskStr += "\n" + nextTask;
         }
         return taskStr;

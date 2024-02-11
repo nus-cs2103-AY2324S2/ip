@@ -1,18 +1,17 @@
 package podz.commands;
 
-import org.junit.jupiter.api.Test;
-
-import podz.exceptions.PodzException;
-import podz.stubs.TaskListStub;
-import podz.task.Task;
-import podz.ui.Ui;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import podz.exceptions.PodzException;
+import podz.stubs.TaskListStub;
+import podz.task.Task;
 
 public class DeleteCommandTest {
     
@@ -29,7 +28,7 @@ public class DeleteCommandTest {
         DeleteCommand cmd = new DeleteCommand(indexDeleted);
         cmd.setTasks(taskListStub);
         try {
-            cmd.execute(new Ui());
+            cmd.execute();
         } catch (PodzException e) {
             fail();     // should not throw error
         }
@@ -50,7 +49,7 @@ public class DeleteCommandTest {
 
         Exception tc1 = assertThrows(
             PodzException.class, 
-            () -> cmd.execute(new Ui())
+            () -> cmd.execute()
         );
         
         assertEquals("Oh no!!! Invalid task index!", tc1.getMessage());
@@ -60,7 +59,7 @@ public class DeleteCommandTest {
         cmd2.setTasks(taskListStub);
         Exception tc2 = assertThrows(
             PodzException.class, 
-            () -> cmd2.execute(new Ui())
+            () -> cmd2.execute()
         );
         
         assertEquals("Oh no!!! Invalid task index!", tc2.getMessage());

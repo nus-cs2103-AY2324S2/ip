@@ -1,7 +1,5 @@
 package podz.commands;
 
-import podz.ui.Ui;
-
 /**
  * Represents a command to handle incorrect commands in the task manager.
  */
@@ -23,7 +21,8 @@ public class IncorrectCommand extends Command {
      * @param ui the user interface that interacts with the user
      */
     @Override
-    public void execute(Ui ui) {
-        ui.printError(e);
+    public String execute() {
+        super.response = this.e.getMessage();
+        return super.response;
     }
 }

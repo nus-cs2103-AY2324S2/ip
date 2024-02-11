@@ -1,7 +1,5 @@
 package podz.commands;
 
-import podz.ui.Ui;
-
 /**
  * Represents a command to find tasks based on a keyword.
  */
@@ -23,9 +21,8 @@ public class FindCommand extends Command {
      * @param ui The user interface to interact with the user.
      */
     @Override
-    public void execute(Ui ui) {
-        ui.printToUser(
-                super.taskList
-                        .findTasks(this.keyword));
+    public String execute() {
+        super.response = super.taskList.findTasks(this.keyword);
+        return super.response;
     }
 }
