@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     public TaskList execute(TaskList tasks) throws DukeException {
         try {
             if (arguments.isEmpty()) {
-                throw new DukeException("Hey, you need to tell me which one to delete! Try 'delete <NUMBER>'. ~(>_<)\n");
+                throw new DukeException("Hey, you need to tell me which one to delete! Try 'delete <INDEX>'. ~(>_<)\n");
             }
 
             int index = Integer.parseInt(arguments.get(0)) - 1;
@@ -23,7 +23,8 @@ public class DeleteCommand extends Command {
                 tasks.deleteTask(index);
                 System.out.printf("\nDeleted task %d ~(^-^)\n ", index + 1);
             } else {
-                throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n", arguments.get(0)));
+                throw new DukeException(String.format("I can't do that.. Task index %s is out of range! ~(T_T)\n",
+                    arguments.get(0)));
             }
         } catch (DukeException e) {
             System.out.printf("%s", e.getMessage());
