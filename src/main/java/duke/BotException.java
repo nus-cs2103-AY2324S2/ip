@@ -7,7 +7,7 @@ package duke;
  */
 public class BotException extends Exception {
     /**
-     * Constructs a new BotException with a specified error message.
+     * Constructs a new BotException with a specified error message
      * The error message is wrapped with a separator line for better visibility in
      * the terminal
      *

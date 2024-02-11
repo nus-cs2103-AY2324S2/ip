@@ -137,7 +137,7 @@ public class TaskList {
     }
 
     /**
-     * Method to get the task list
+     * Method to get the list of tasks
      * 
      * @return The list of tasks
      */
