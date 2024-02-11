@@ -1,8 +1,9 @@
 package Jelly;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
 
     private String start;
     private String end;
@@ -12,12 +13,12 @@ public class Event extends Task{
     private boolean isParsed = false;
 
     /**
-     * @param name Name of event
-     * @param start start date/time of event
-     * @param end end date/time of event
+     * @param name   Name of event
+     * @param start  start date/time of event
+     * @param end    end date/time of event
      * @param isDone whether task is done
      */
-    public Event(String name, String start, String end, boolean isDone){
+    public Event(String name, String start, String end, boolean isDone) {
         super(name, isDone);
         this.start = start;
         this.end = end;
@@ -27,37 +28,37 @@ public class Event extends Task{
             this.endDate = LocalDate.parse(end);
             this.isParsed = true;
 
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
 
             System.out.println("Date cannot be parsed, stored as String instead.");
         }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
-        if(isParsed){
+        if (isParsed) {
 
-            return "[E]" + super.toString() +  "(from: " + startDate + " to: " + endDate + ")";
+            return "[E]" + super.toString() + "(from: " + startDate + " to: " + endDate + ")";
         }
-        return "[E]" + super.toString() +  "(from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + "(from: " + start + " to: " + end + ")";
     }
 
     @Override
-    public String header(){
+    public String header() {
 
-        int binary = super.isDone? 1: 0;
+        int binary = super.isDone ? 1 : 0;
         return this.type() + binary;
     }
 
     @Override
-    public String type(){
+    public String type() {
 
         return "E";
     }
 
     @Override
-    public String additionalInfo(){
+    public String additionalInfo() {
 
         return "/" + start + "/" + end;
     }

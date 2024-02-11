@@ -1,10 +1,10 @@
 package Jelly;
 public class Ui {
 
-    private static String line = "\n-------------------------------------------";
+    private static String LINE = "\n-------------------------------------------";
 
-    private static String welcome = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
-    private static String farewell = "(•︿•) Bye. Hope to see you again soon!";
+    private static String WELCOME = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
+    private static String FAREWELL = "(•︿•) Bye. Hope to see you again soon!";
 
     /**
      * Currently empty constructor
@@ -27,7 +27,7 @@ public class Ui {
      */
     public void printLine(){
 
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Ui {
      */
     public void printWelcomeMessage(){
 
-        System.out.println(welcome);
+        System.out.println(WELCOME);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Ui {
      */
     public void printFarewellMessage(){
 
-        System.out.println(farewell);
+        System.out.println(FAREWELL);
     }
 
     /**

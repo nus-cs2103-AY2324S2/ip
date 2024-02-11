@@ -1,30 +1,31 @@
 package Jelly;
-public class Todo extends Task{
+
+public class Todo extends Task {
 
     /**
-     * @param name name of todo
+     * @param name   name of todo
      * @param isDone whether task is done
      */
-    public Todo(String name, boolean isDone){
+    public Todo(String name, boolean isDone) {
 
         super(name, isDone);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
         return "[T]" + super.toString();
     }
 
     @Override
-    public String header(){
+    public String header() {
 
-        int binary = super.isDone? 1: 0;
+        int binary = super.isDone ? 1 : 0;
         return this.type() + binary;
     }
 
     @Override
-    public String type(){
+    public String type() {
 
         return "T";
     }

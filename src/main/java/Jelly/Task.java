@@ -1,13 +1,14 @@
 package Jelly;
+
 public class Task {
     private String name;
     protected Boolean isDone;
 
     /**
-     * @param name name of task
+     * @param name   name of task
      * @param isDone whether task is done
      */
-    public Task(String name, boolean isDone){
+    public Task(String name, boolean isDone) {
 
         this.name = name;
         this.isDone = isDone;
@@ -16,7 +17,7 @@ public class Task {
     /**
      * @return Storage header of task in the format: [type][isDone]
      */
-    public String header(){
+    public String header() {
 
         return "NULL";
     }
@@ -24,7 +25,7 @@ public class Task {
     /**
      * @return Type of task
      */
-    public String type(){
+    public String type() {
 
         return "N";
     }
@@ -32,7 +33,7 @@ public class Task {
     /**
      * @return Additional information for tasks that have deadlines, time periods, other info.
      */
-    public String additionalInfo(){
+    public String additionalInfo() {
 
         return "";
     }
@@ -40,30 +41,30 @@ public class Task {
     /**
      * Marks task as done
      */
-    public void mark(){
+    public void mark() {
         isDone = true;
     }
 
     /**
      * Marks task as not done
      */
-    public void unmark(){
+    public void unmark() {
         isDone = false;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
-        String checkbox = this.isDone? "[x]" : "[ ]";
+        String checkbox = this.isDone ? "[x]" : "[ ]";
 
         return checkbox + " " + name;
     }
 
-    public boolean isDone(){
+    public boolean isDone() {
 
         return this.isDone;
     }

@@ -13,7 +13,7 @@ public class Storage {
     /**
      * @param filePath Path of file to read from/write to
      */
-    public Storage(String filePath){
+    public Storage(String filePath) {
 
         this.path = filePath;
     }
@@ -29,24 +29,24 @@ public class Storage {
         File file;
         Scanner scanner;
 
-        try{
+        try {
 
             file = new File(path);
 
             file.createNewFile(); //if file exists, does nothing
             scanner = new Scanner(file);
 
-        } catch(IOException e) {
+        } catch (IOException e) {
 
             System.out.println("An exception was thrown!");
             throw new JellyException("An exception was thrown!");
         }
 
-        while(scanner.hasNextLine()){
+        while (scanner.hasNextLine()) {
 
             String line = scanner.nextLine();
 
-            if(line.length() < 3){
+            if (line.length() < 3) {
 
                 System.out.println("File format error! May have been corrupted");
                 throw new JellyException("File format error! May have been corrupted");
@@ -55,16 +55,15 @@ public class Storage {
             String taskName;
             boolean isDone;
 
-            if(line.charAt(1) == '1'){
+            if (line.charAt(1) == '1') {
 
                 isDone = true;
-            }
-            else{
+            } else {
 
                 isDone = false;
             }
 
-            switch(line.charAt(0)){
+            switch (line.charAt(0)) {
 
                 case 'T':
 
@@ -77,7 +76,7 @@ public class Storage {
 
                     int index = line.indexOf("/");
                     taskName = line.substring(2, index);
-                    String deadline = line.substring(index+1);
+                    String deadline = line.substring(index + 1);
 
                     tasks.addDeadline(taskName, deadline, isDone);
 
@@ -87,10 +86,10 @@ public class Storage {
 
                     int firstIndex = line.indexOf("/");
                     taskName = line.substring(2, firstIndex);
-                    String interval = line.substring(firstIndex+1);
+                    String interval = line.substring(firstIndex + 1);
                     int secondIndex = interval.indexOf("/");
                     String startTime = interval.substring(0, secondIndex);
-                    String endTime = interval.substring(secondIndex+1);
+                    String endTime = interval.substring(secondIndex + 1);
 
                     tasks.addEvent(taskName, startTime, endTime, isDone);
 
@@ -110,15 +109,15 @@ public class Storage {
     /**
      * @param taskList TaskList to write to storage file
      */
-    public void save(TaskList taskList){
+    public void save(TaskList taskList) {
 
-        try{
+        try {
 
             FileWriter writer = new FileWriter(path);
 
-            for(int i = 0; i < taskList.size(); ++i){
+            for (int i = 0; i < taskList.size(); ++i) {
 
-                writer.write(taskList.get(i).header()+taskList.get(i).getName());
+                writer.write(taskList.get(i).header() + taskList.get(i).getName());
 
                 writer.write(taskList.get(i).additionalInfo());
 
@@ -127,7 +126,7 @@ public class Storage {
 
             writer.close();
 
-        } catch (IOException e){
+        } catch (IOException e) {
 
             System.out.println("File format error! May have been corrupted");
             return;
