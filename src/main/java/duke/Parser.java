@@ -76,7 +76,7 @@ class Parser {
             index = Integer.parseInt(stringComponents[1]) - 1;
             command = new DeleteCommand(index);
         case "find":
-            if (stringSplit.length < 2) {
+            if (stringComponents.length < 2) {
                 throw new DukeException("Invalid input format!");
             }
             String keyword = line.split(commandWord + " ")[1];
