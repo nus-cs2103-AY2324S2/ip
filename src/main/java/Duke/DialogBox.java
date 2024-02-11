@@ -9,11 +9,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 public class DialogBox extends HBox {
 
+    final int imageWidth = 100;
+    final int imageHeight = 100;
     public DialogBox(Label l, ImageView iv) {
-
         l.setWrapText(true);
-        iv.setFitWidth(100.0);
-        iv.setFitHeight(100.0);
+        iv.setFitWidth(imageWidth);
+        iv.setFitHeight(imageHeight);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(l, iv);

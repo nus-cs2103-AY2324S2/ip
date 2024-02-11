@@ -20,6 +20,12 @@ public class MainApp extends Application{
     private Duke duke;
     final int imageSize = 50; // square image so only one field
     final int closeWaitTime = 1000;
+    final int stageMinHeight = 600;
+    final int stageMinWidth = 400;
+    final int panePrefWidth = 385;
+    final int panePrefHeight = 535;
+    final int userInputWidth = 325;
+    final int sendButtonWidth = 55;
     @Override
     public void init() throws Exception {
         duke = new Duke();
@@ -45,15 +51,14 @@ public class MainApp extends Application{
         stage.setScene(scene);
         stage.show();
 
-
         stage.setTitle("Shirmin");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinHeight(stageMinHeight);
+        stage.setMinWidth(stageMinWidth);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(stageMinWidth, stageMinWidth);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(panePrefWidth, panePrefHeight);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -62,8 +67,8 @@ public class MainApp extends Application{
 
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        userInput.setPrefWidth(325.0);
-        sendButton.setPrefWidth(55.0);
+        userInput.setPrefWidth(userInputWidth);
+        sendButton.setPrefWidth(sendButtonWidth);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(sendButton, 1.0);

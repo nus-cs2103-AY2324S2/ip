@@ -33,10 +33,7 @@ public class TaskList {
     }
     public void loadTasksFromFile() {
         File directory = new File("./data");
-
-
         assert directory.exists() || directory.mkdirs() : "Failed to create directory";
-
 
         File file = new File(directory, "duke.txt");
         try {
@@ -57,14 +54,12 @@ public class TaskList {
         }
     }
 
-
-// -------------------------------------- GUI LOGIC THIS POINT AND BELOW.---------------------------------------
-
-
     public String runCommand(String input) {
         String[] commandParts = input.split(" ", 2);
         CommandType commandType = CommandType.getCommandType(commandParts[0]);
         String response;
+        assert commandParts.length > 0 : "Invalid commandParts length";
+        assert commandType != null : "Invalid commandType";
 
         try {
             switch (commandType) {
@@ -138,6 +133,8 @@ public class TaskList {
     }
 
     private String handleAddTask(String details, TaskType type) {
+        assert details != null : "Task details should not be null";
+        assert type != null : "TaskType should not be null";
         Task newTask = null;
         switch (type) {
         case TODO:
@@ -170,6 +167,7 @@ public class TaskList {
         TODO, DEADLINE, EVENT
     }
     private String findTasksByKeyword(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         StringBuilder foundTasksBuilder = new StringBuilder();
         boolean found = false;
         for (int i = 0; i < taskList.size(); i++) {
