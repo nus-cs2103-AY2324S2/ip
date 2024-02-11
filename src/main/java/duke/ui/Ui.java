@@ -1,12 +1,11 @@
 package duke.ui;
 
+import duke.Duke;
 import duke.task.TaskList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
-import duke.Duke;
 
 /**
  * Represents ui component of Duke.
@@ -32,15 +31,13 @@ public class Ui {
     private static HorizontalLine horizontalLine = null;
     private UiState currentState = null;
     private static final DateTimeFormatter PRINT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm");
-    private Duke duke = null;
     private static Scanner scanner = null;
     private TaskList taskList = null;
 
     private Ui() {
-        // break the initialisation into the initialization function of different classes
+        // break the initialization into the initialization function of different classes
         horizontalLine = HorizontalLine.getInstance();
         currentState = UiState.ACTIVE_TALKING;
-        duke = Duke.getInstance();
         scanner = new Scanner(System.in);
     }
     public static Ui getInstance() {
@@ -124,11 +121,29 @@ public class Ui {
         ToggleConversationState();
         System.out.println("Hope you find my service helpful.");
         System.out.println("Till next time!");
+        Duke.getInstance().ToggleActiveState();
+    }
+    /*
+     public void EndSession() {
+        // should be called from ACTIVE_LISTENING STATE, exception handling?
+        ToggleConversationState();
+        System.out.println("Hope you find my service helpful.");
+        System.out.println("Till next time!");
         duke.ToggleActiveState();
     }
+     */
 
     public static void printHorizontalLine() {
         horizontalLine.printLine();
+    }
+
+    public String listTasksReturnString() {
+        taskList.unfilterTasks();
+        String result = "";
+        for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
+            result += (i + "." + taskList.getTask(i).toString()) + "\n";
+        }
+        return result;
     }
 
     /**
@@ -142,6 +157,14 @@ public class Ui {
             System.out.println(i + "." + taskList.getTask(i).toString());
         }
         ToggleConversationState();
+    }
+
+    public String listFilteredTasksReturnString() {
+        String result = "";
+        for (int i = 1; i <= taskList.getNumOfFilteredTasks(); i++) {
+            result += (i + "." + taskList.getTask(i).toString()) + "\n";
+        }
+        return result;
     }
 
     public void listFilteredTasks() {

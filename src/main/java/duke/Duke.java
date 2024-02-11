@@ -8,17 +8,10 @@ import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
-
 /**
  * Represents task tracking bot.
  */
-public class Duke extends Application {
+public class Duke {
     private Ui ui = null;
     private Parser parser = null;
     private TaskList taskList = null;
@@ -31,30 +24,43 @@ public class Duke extends Application {
     private static Duke instance = null;
     private LivState currentState = null;
 
-    public Duke() {
-        // break the initialisation into the initialization function of different classes
-        currentState = LivState.INACTIVE;
-
-        // additional line of code to accommodate the need to have a publicly available constructor
-        instance = this;
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            return parser.ProcessInputReturnString(input);
+        } catch (InputException e) {
+            return e.getMessage();
+        }
     }
 
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        helloWorld.setFont(Font.font("Arial", FontWeight.BOLD, 50));
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+    public void initDukeLogic() {
+        currentState = LivState.INACTIVE;
 
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
+        // initialize duke.ui.Ui
+        ui = Ui.getInstance();
+        ui.initUi();
 
-        Label notHelloWorld = new Label("not Hello World!"); // Creating a new Label control
-        notHelloWorld.setFont(Font.font("Arial", FontWeight.BOLD, 50));
-        Scene secondaryScene = new Scene(notHelloWorld); // Setting the scene to be our Label
+        // initialize parser
+        parser = Parser.getInstance();
+        parser.initParser();
 
-        Stage secondaryStage = new Stage();
-        secondaryStage.setScene(secondaryScene); // Setting the stage to show our screen
-        secondaryStage.show(); // Render the stage.
+        // initialize taskList
+        taskList = TaskList.getInstance();
+        taskList.initTaskList();
+
+        // initialize storage
+        storage = Storage.getInstance();
+        storage.initStorage();
+
+        try {
+            storage.loadFromMemory();
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous task file found");
+            storage.createDataFile();
+        }
     }
 
     /**
@@ -64,7 +70,8 @@ public class Duke extends Application {
      * Creates a Data directory to host the data file if local taskList not found.
      * Starts listening to user input.
      */
-    private void instanceStart() {
+    /*
+    private void Start() {
         // initialize duke.ui.Ui
         ui = Ui.getInstance();
         ui.initUi();
@@ -88,6 +95,7 @@ public class Duke extends Application {
             storage.createDataFile();
         }
 
+
         instance.ToggleActiveState();
 
         while (isActive()) {
@@ -100,13 +108,16 @@ public class Duke extends Application {
             }
         }
     }
-
+     */
     public boolean isActive() {
         return currentState == LivState.ACTIVE;
     }
+
+    /*
     public static void main(String[] args) {
         getInstance().instanceStart();
     }
+     */
 
     /**
      * Toggles active state of Duke.
@@ -127,6 +138,7 @@ public class Duke extends Application {
         if (instance == null) {
             instance = new Duke();
         }
+        instance.initDukeLogic();
         return instance;
     }
 }

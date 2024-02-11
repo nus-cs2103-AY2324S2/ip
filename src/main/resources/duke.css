@@ -1,0 +1,16 @@
+.root {
+    -fx-font-family: "/Users/xinrongwang/Documents/Academy/Y2S2/ip/src/main/resources/fonts/PressStart2P-Regular.ttf";
+}
+
+#dialog{
+    -fx-background-color: rgb(255, 252, 249, 0.7);
+    -fx-pref-width: 388px;
+    -fx-padding: 10 10 10 10; /* 10 pixels of padding at the top */
+}
+
+#dialogContainer{
+    -fx-padding: 10 10 10 10; /* 10 pixels of padding at the top */
+    -fx-background-image: url(images/dragonBackground.jpg);
+    -fx-background-size: contain;
+    -fx-background-repeat: repeat-y;
+}
