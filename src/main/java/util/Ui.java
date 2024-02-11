@@ -6,6 +6,7 @@ import action.Delete;
 import action.Find;
 import action.Goodbye;
 import action.HandleError;
+import action.Help;
 import action.List;
 import action.Mark;
 import action.Sort;
@@ -104,6 +105,8 @@ public class Ui {
         case "sort":
         case "s":
             return new Sort(taskList);
+        case "help":
+            return new Help();
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
         }

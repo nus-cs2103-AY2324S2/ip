@@ -62,7 +62,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getNarutoDialog(response, narutoImage)
         );
         userInput.clear();
-        if (input.trim().equalsIgnoreCase("bye")) {
+        if (input.trim().equals("bye") || input.trim().equals("bb")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1)); // Adjust the delay as needed
             pause.setOnFinished(event -> System.exit(0));
             pause.play();
