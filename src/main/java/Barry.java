@@ -117,6 +117,7 @@ public class Barry {
         System.out.println("\t   list                                           List all tasks in your list");
         System.out.println("\t   mark [x]                                       Mark task number x in your list");
         System.out.println("\t   unmark [x]                                     Unmark task number x in your list");
+        System.out.println("\t   delete [x]                                     Delete task number x in your list");
         System.out.println("\t   todo [task name]                               Add a ToDo to your list");
         System.out.println("\t   deadline [task name] /by [deadline]            Add a Deadline to your list");
         System.out.println("\t   event [task name] /from [start] /to [end]      Add an Event to your list");
@@ -227,8 +228,11 @@ public class Barry {
                     try {
                         String deletedTaskDetails = taskList.get(taskIndex).detailsAsString();
                         taskList.remove(taskIndex);
+                        int listSize = taskList.size();
+                        String plural = listSize > 1 ? "s" : "";
                         System.out.println("\t Alright, the following task has been deleted off your list:");
                         System.out.println("\t   DELETED:  << " + deletedTaskDetails + " >>");
+                        System.out.println("\t You've now got " + listSize + " task" + plural + " left in your list.");
                     } catch (IndexOutOfBoundsException e) {
                         // Task number is out of range
                         System.out.println("\t Oops, I can't find a task in your list with that number! :(");

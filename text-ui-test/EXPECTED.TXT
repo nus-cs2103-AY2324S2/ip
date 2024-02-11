@@ -10,6 +10,7 @@ ____________________________________________________________
    list                                           List all tasks in your list
    mark [x]                                       Mark task number x in your list
    unmark [x]                                     Unmark task number x in your list
+   delete [x]                                     Delete task number x in your list
    todo [task name]                               Add a ToDo to your list
    deadline [task name] /by [deadline]            Add a Deadline to your list
    event [task name] /from [start] /to [end]      Add an Event to your list
@@ -70,6 +71,7 @@ ____________________________________________________________
 ____________________________________________________________
  Alright, the following task has been deleted off your list:
    DELETED:  << [D][ ] Some correct Deadline (by: Some date and time) >>
+ You've now got 2 tasks left in your list.
 ____________________________________________________________
 ____________________________________________________________
  Let's take a look at the tasks in your list:
