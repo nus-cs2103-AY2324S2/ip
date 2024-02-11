@@ -32,7 +32,9 @@ public class TaskList {
      * @param task The task to add.
      */
     public void add(Task task) {
+        int before = tasks.size();
         tasks.add(task);
+        assert tasks.size() == before + 1: "task was not added";
     }
 
     /**
@@ -46,7 +48,9 @@ public class TaskList {
         if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
+        int before = tasks.size();
         Task t = tasks.remove(taskNumber - 1);
+        assert tasks.size() == before - 1: "task was not deleted";
         return t.toString();
     }
 
@@ -64,6 +68,7 @@ public class TaskList {
 
         Task t = tasks.get(taskNumber - 1);
         t.mark();
+        assert t.isDone : "task not marked as done";
         return t.toString();
     }
 
@@ -81,6 +86,7 @@ public class TaskList {
 
         Task t = tasks.get(taskNumber - 1);
         t.unmark();
+        assert !t.isDone : "task not marked as undone";
         return t.toString();
     }
 
