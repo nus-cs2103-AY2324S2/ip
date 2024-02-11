@@ -51,7 +51,7 @@ public class TaskManager {
      * @return An ArrayList of string of the values to output to the Ui.
      * @throws DukeException Invalid processing of the items.
      */
-    public ArrayList<String> addTask(Actions options, String instruction) throws DukeException {
+    public String[] addTask(Actions options, String instruction) throws DukeException {
         Task item;
         String description;
         String by;
@@ -124,11 +124,12 @@ public class TaskManager {
         }
         hasChanged = true;
         items.add(item);
-        ArrayList<String> returnString = new ArrayList<>();
-        returnString.add(RESPONSE_ADD);
-        returnString.add(item.toString());
-        returnString.add(numOfTask());
-        return returnString;
+        String[] ret = new String[3];
+        ret[0] = RESPONSE_ADD;
+        ret[1] = item.toString();
+        ret[2] = numOfTask();
+
+        return ret;
 
     }
 
@@ -149,7 +150,7 @@ public class TaskManager {
      * @return An ArrayList of String of the outputs to be return to the Ui.
      * @throws DukeException Invalid processing of the items.
      */
-    public ArrayList<String> manageTask(Manage act, String instruction) throws DukeException {
+    public String[] manageTask(Manage act, String instruction) throws DukeException {
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
@@ -180,17 +181,17 @@ public class TaskManager {
             break;
         }
         hasChanged = true;
-        ArrayList<String> ret = new ArrayList<>();
-        //StringBuilder ret = new StringBuilder();
 
         if (act.equals(Manage.MARK) || act.equals(Manage.UNMARK)) {
-            ret.add(response);
-            ret.add(item.toString());
+            String[] ret = new String[2];
+            ret[0] = response;
+            ret[1] = item.toString();
             return ret;
         } else {
-            ret.add(response);
-            ret.add(item.toString());
-            ret.add(numOfTask());
+            String[] ret = new String[3];
+            ret[0] = response;
+            ret[1] = item.toString();
+            ret[2] = numOfTask();
             return ret;
         }
     }
@@ -214,18 +215,14 @@ public class TaskManager {
      *
      * @return An ArrayList of String of the all the items.
      */
-    public ArrayList<String> listItems() {
-        int i = 1;
-        ArrayList<String> ret = new ArrayList<>();
-        //StringBuilder returnString = new StringBuilder();
+    public String[] listItems() {
         if (items.isEmpty()) {
-            ret.add("Your list is empty!!!!Add something! ");
-            return ret;
+            return new String[]{"Your list is empty!!!!Add something! "};
         }
-        ret.add(listingResponse);
-        for (Task item : items) {
-            ret.add(i + "." + item);
-            i++;
+        String[] ret = new String[items.size()];
+        ret[0] = listingResponse;
+        for (int i = 0; i < items.size(); i++) {
+            ret[i] = i + 1 + "." + items.get(i);
         }
         return ret;
     }
@@ -244,7 +241,7 @@ public class TaskManager {
      * @param search The keywords to search.
      * @return A list of items containing the search results.
      */
-    public ArrayList<String> findTask(String search) {
+    public String[] findTask(String search) {
         ArrayList<String> foundTask = new ArrayList<>();
         //StringBuilder foundTask = new StringBuilder();
         int count = 1;
@@ -258,9 +255,9 @@ public class TaskManager {
             }
         }
         if (foundTask.isEmpty()) {
-            foundTask.add("Sorry I couldn't find anything that fits that search :(");
+            return new String[]{"Sorry I couldn't find anything that fits that search :("};
         }
-        return foundTask;
+        return foundTask.toArray(new String[0]);
     }
 
 

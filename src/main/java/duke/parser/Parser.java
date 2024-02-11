@@ -1,7 +1,5 @@
 package duke.parser;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,13 +28,13 @@ public class Parser {
      * @throws DukeException Invalid state in the command.
      */
 
-    public static ArrayList<String> parse(String command, TaskManager manager) throws DukeException {
+    public static String[] parse(String command, TaskManager manager) throws DukeException {
         Matcher manageMatch = PATTERN_MANAGE.matcher(command);
         Matcher actionMatch = PATTERN_ACTIONS.matcher(command);
         Matcher queryMatch = PATTERN_QUERY.matcher(command);
         if (command.matches("((?i)bye)")) {
             isDead = true;
-            return new ArrayList<>(Collections.singletonList(Ui.sayBye()));
+            return new String[]{Ui.sayBye()};
         }
         if (command.matches("((?i)list)")) {
             return manager.listItems();

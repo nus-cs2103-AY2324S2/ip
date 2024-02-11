@@ -1,7 +1,5 @@
 package duke.ui;
 
-import java.util.ArrayList;
-
 
 /**
  * Commandline GUI class to handle all the printing in the application.
@@ -46,7 +44,7 @@ public class Ui {
      * @param items An ArrayList containing items to convert/
      * @return A String with each item added onto a new line
      */
-    public static String convertToString(ArrayList<String> items) {
+    public static String convertToString(String... items) {
         StringBuilder ret = new StringBuilder();
         for (String item : items) {
             ret.append(INDENT).append(item);
