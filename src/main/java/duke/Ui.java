@@ -2,8 +2,10 @@ package duke;
 
 import duke.Tasks.Task;
 import duke.Tasks.TaskList;
+
 import java.util.Scanner;
 import java.util.List;
+
 
 import java.io.InputStream;
 
@@ -62,7 +64,6 @@ public class Ui {
 
         System.out.println("   ____________________________________________________________");
     }
-
 
 
     /**
@@ -133,7 +134,7 @@ public class Ui {
     /**
      * Displays the tasks that match the given keyword in the task list.
      *
-     * @param matchingTasks   The task list containing tasks to search within.
+     * @param matchingTasks The task list containing tasks to search within.
      */
     public void showMatchingTasks(List<Task> matchingTasks) {
         System.out.println("   ____________________________________________________________");
@@ -144,27 +145,19 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
-
-
-    /**
-     * Displays an error message.
-     *
-     * @param message The error message to display.
-     */
-    public void showError(String message) {
-
-        System.out.println("   ____________________________________________________________");
-        System.out.println("   " + message);
-        System.out.println("   ____________________________________________________________");
-    }
-
     /**
      * Displays an error message when tasks fail to load from file.
      */
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }
+}
+
+    /*public String showLoadingError(DukeException e) {
+        String message = "Error loading tasks from file.";
+        return message;
+    }
 
 
 }
-
+*/

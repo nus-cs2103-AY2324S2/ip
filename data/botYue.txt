@@ -9,6 +9,3 @@ T | 0 | borrow book
 D | 0 | return book  | Dec 02 2019 18:00
 E | 1 | project meeting  | Dec 02 2019-Dec 02 2019
 E | 0 | project meeting  | Dec 02 2019 18:00-Dec 02 2019 18:30
-D | 0 | return book  | Dec 02 2019 18:00
-T | 0 | return book
-T | 0 | return book

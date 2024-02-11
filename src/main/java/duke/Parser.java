@@ -151,7 +151,9 @@ public class Parser {
         String by = null;
 
         if (parts.length < 2) {
-            throw new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
+            //throw new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
+            DukeException errorMessage = new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
+
         }
 
         String[] split = parts[1].split("/by", 2);
@@ -168,7 +170,6 @@ public class Parser {
         return new DeadlineCommand(task, by);
     }
 
-
     /**
      * Parses the user input to create an EventCommand.
      *
@@ -183,6 +184,7 @@ public class Parser {
 
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! The time of an event task cannot be empty.");
+
         }
 
         String[] split = parts[1].split("/from", 2);

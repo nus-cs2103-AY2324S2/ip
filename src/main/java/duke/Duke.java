@@ -11,13 +11,13 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
-
+/*
     /**
      * Constructs a Duke object with the specified file path.
      *
      * @param filePath The path to the file where tasks are stored.
      */
-    public Duke(String filePath) {
+   /* public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -27,6 +27,7 @@ public class Duke {
             tasks = new TaskList(new ArrayList<>());
         }
     }
+    */
 
     public Duke() {
         String filePath = "./data/botYue.txt";
@@ -34,8 +35,9 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.showError(String.valueOf(e));
             tasks = new TaskList(new ArrayList<>());
+            //return String.valueOf(e);
         }
     }
 
@@ -43,7 +45,7 @@ public class Duke {
     /**
      * Runs the chatbot, displaying welcome message and processing user commands.
      */
-    public void run() {
+    /*public void run() {
         ui.showWelcome();
 
         boolean isExit = false;
@@ -58,11 +60,11 @@ public class Duke {
 
             }
         }
-    }
-
+    }*/
+/*
     public static void main(String[] args) {
         new Duke("./data/botYue.txt").run();
-    }
+    }*/
 
 
     /**
@@ -70,11 +72,14 @@ public class Duke {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) throws DukeException {
-
-        Command com = this.parser.parse(input);
-        String res = com.execute(this.tasks, this.storage);
-
-        return res;
+        try {
+            Command com = this.parser.parse(input);
+            String res = com.execute(this.tasks, this.storage);
+            return res;
+        } catch (DukeException e) {
+            String response = e.getMessage();
+            return response;
+        }
     }
 
 }
