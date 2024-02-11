@@ -1,8 +1,8 @@
 package duke.task;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A TaskList class that encapsulates the information and actions of a task list.
@@ -30,6 +30,11 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    /**
+     * Deletes a task from the TaskList.
+     * @param  taskIndex Index of the task to be deleted.
+     * @return           The deleted task.
+     */
     public Task deleteTask(int taskIndex) {
         Task taskToDelete = tasks.get(taskIndex);
         this.tasks.remove(taskIndex);

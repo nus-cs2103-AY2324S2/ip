@@ -14,10 +14,24 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDo;
 
+
+/**
+ * A utility class for handling storage operations, such as loading and saving tasks to a file.
+ *
+ * <p>The {@code Storage} class provides methods for reading tasks from a file and writing tasks
+ * to a file. It handles the conversion between task objects and their string representations
+ * suitable for storage in a file. It also defines the file path where tasks are stored.</p>
+ */
 public class Storage {
     private static final String pathName = "data/tasks.txt";
     private static final File storageFile = new File(pathName);
 
+    /**
+     * Loads tasks from the storage file into a TaskList object.
+     *
+     * @return A {@link TaskList} containing tasks loaded from the storage file.
+     * @throws FileNotFoundException If the storage file is not found.
+     */
     public TaskList load() throws FileNotFoundException {
         TaskList list = new TaskList();
         if (!storageFile.exists()) {
@@ -70,6 +84,12 @@ public class Storage {
     }
 
 
+    /**
+     * Saves tasks from a TaskList object to the storage file.
+     *
+     * @param list The {@link TaskList} containing tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the storage file.
+     */
     public void save(TaskList list) throws IOException {
         StringBuilder record = new StringBuilder();
         for (int i = 0; i < list.getNoOfTasks(); i++) {

@@ -6,7 +6,13 @@ import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
-
+/**
+ * A command class representing the action of marking a task as done.
+ *
+ * <p>The {@code MarkCommand} class encapsulates the information and actions
+ * required to mark a task in the task list as done. It inherits from the {@code Command}
+ * class and implements the behavior specific to marking a task as done.</p>
+ */
 public class MarkCommand extends Command {
     public MarkCommand(List<String> arguments) {
         super("mark", arguments);
@@ -22,7 +28,8 @@ public class MarkCommand extends Command {
                     Task task = tasks.getTask(index);
                     if (!task.isDone()) {
                         task.markAsDone();
-                        System.out.printf("Marked task %d as done: %s\nGood job! ~(^-^)\n", index + 1, task.getDescription());
+                        System.out.printf("Marked task %d as done: %s\nGood job! ~(^-^)\n",
+                            index + 1, task.getDescription());
                     } else {
                         throw new DukeException(String.format("I can't do that.. Task %d is already done! ~(T_T)\n", index + 1));
                     }

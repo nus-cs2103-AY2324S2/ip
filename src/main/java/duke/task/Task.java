@@ -1,5 +1,12 @@
 package duke.task;
 
+/**
+ * Represents a generic task.
+ *
+ * <p>The {@code Task} class is an abstract class representing a generic task. It contains
+ * properties and methods common to all types of tasks, such as descriptions and status (done or
+ * undone).</p>
+ */
 public abstract class Task {
     private String description;
     private boolean isDone;

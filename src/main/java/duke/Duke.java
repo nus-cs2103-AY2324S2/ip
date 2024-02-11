@@ -2,18 +2,21 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Messages;
 
-
+/**
+ * The main class representing the Duke chatbot application.
+ *
+ * <p>The {@code Duke} class serves as the entry point for the Duke chatbot application.
+ * It handles user input, parsing, command execution, and storage operations.</p>
+ */
 public class Duke {
     private static final Storage storage = new Storage();
 

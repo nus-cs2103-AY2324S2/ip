@@ -3,12 +3,26 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with start and end timings.
+ *
+ * <p>The {@code Event} class extends the {@link Task} class and represents an event task with
+ * specific start and end timings. It contains methods to retrieve the start and end timings and
+ * convert the task to its string representation for storage.</p>
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Constructs an event task with the given description, start, and end timings.
+     *
+     * @param description The description of the event task.
+     * @param from        The start timing of the event.
+     * @param to          The end timing of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description, TaskType.E);
+        super(description, TaskType.Event);
         this.from = from;
         this.to = to;
     }
