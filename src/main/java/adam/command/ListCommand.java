@@ -26,13 +26,15 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
         ArrayList<Task> tasks = taskList.getTasks();
-        String[] taskStrings = new String[taskList.size() + 1];
-        taskStrings[0] = "Here are your tasks:";
-        for (int i = 1; i < taskStrings.length; i++) {
-            taskStrings[i] = i + ". " + tasks.get(i - 1).toString();
+        String[] results = new String[taskList.size() + 1];
+
+        results[0] = "Here are your tasks:";
+        // Copy the tasks into results
+        for (int i = 1; i < results.length; i++) {
+            results[i] = i + ". " + tasks.get(i - 1).toString();
         }
 
-        return ui.showResult(taskStrings);
+        return ui.showResult(results);
     }
 
     /**

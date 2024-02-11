@@ -38,7 +38,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws AdamException {
-        Task t = null;
+        Task t;
         switch (command) {
         case "todo":
             assert details.length == 0: "todo should not have any details";
@@ -55,6 +55,8 @@ public class AddCommand extends Command {
             t = new Event(desc, details[0], details[1]);
             taskList.add(t);
             break;
+        default:
+            throw new AdamException("Unknown task to add");
         }
         return ui.showResult(
                 "Got it. I've added this task:",

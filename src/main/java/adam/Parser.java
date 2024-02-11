@@ -30,10 +30,12 @@ public class Parser {
         String command = fullCommand.split(" ")[0];
         String[] splitCommandParts;
         String[] splitDescParts;
+
         switch (command) {
         case "list":
             return new ListCommand();
         case "todo":
+            // Splits the command from the description
             splitCommandParts = fullCommand.split(" ",2);
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Description of a todo cannot be empty.");
@@ -45,6 +47,8 @@ public class Parser {
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Description of a deadline cannot be empty.");
             }
+
+            // Splits the description from the date
             splitDescParts = splitCommandParts[1].split(" /by ", 2);
             if (splitDescParts.length == 1) {
                 throw new AdamException("Date/time of a deadline cannot be empty.");
@@ -57,11 +61,13 @@ public class Parser {
                 throw new AdamException("Description of a event cannot be empty.");
             }
 
+            // Splits the description from the start and end details
             splitDescParts = splitCommandParts[1].split(" /from ", 2);
             if (splitDescParts.length==1) {
                 throw new AdamException("Start date/time of a event cannot be empty.");
             }
 
+            // Splits the start from the end
             String[] splitFrom = splitDescParts[1].split(" /to ", 2);
             if (splitFrom.length==1) {
                 throw new AdamException("End date/time of a event cannot be empty.");
@@ -73,24 +79,28 @@ public class Parser {
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Task number of mark cannot be empty.");
             }
+
             return new MarkCommand(Integer.parseInt(splitCommandParts[1]));
         case "unmark":
             splitCommandParts = fullCommand.split(" ");
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Task number of unmark cannot be empty.");
             }
+
             return new UnmarkCommand(Integer.parseInt(splitCommandParts[1]));
         case "delete":
             splitCommandParts = fullCommand.split(" ");
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Task number of delete cannot be empty.");
             }
+
             return new DeleteCommand(Integer.parseInt(splitCommandParts[1]));
         case "find":
             splitCommandParts = fullCommand.split(" ");
             if (splitCommandParts.length == 1) {
                 throw new AdamException("Task number of delete cannot be empty.");
             }
+
             return new FindCommand(splitCommandParts[1]);
         case "bye":
             return new ExitCommand();
