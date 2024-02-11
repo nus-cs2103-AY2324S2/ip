@@ -51,6 +51,8 @@ public class Parser {
             result = TaskList.addTask(new Event(description, fromDate, toDate, false));
         } else if (userInput.startsWith("delete")) {
             result = TaskList.deleteTask(userInput);
+        } else if (userInput.startsWith("undo")) {
+            result = TaskList.undoTask();
         } else if (userInput.startsWith("mark")) {
             result = TaskList.markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
