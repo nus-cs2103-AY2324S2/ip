@@ -1,13 +1,12 @@
 package duke.commands;
 
-import duke.exceptions.DukeException;
-import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-public class unmarkTaskCommand extends Command{
+public class MarkTaskCommand extends Command{
     private int index;
-    public unmarkTaskCommand(int number) {
+
+    public MarkTaskCommand(int number) {
         this.index = number;
     }
 
@@ -17,10 +16,7 @@ public class unmarkTaskCommand extends Command{
             System.err.println("Please look carefully. This task is not inside the task list.");
             return false;
         }
-        tasks.get(index).unmark(ui);
+        tasks.get(index).markDone(ui);
         return true;
     }
 }
-
-
-

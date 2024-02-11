@@ -5,12 +5,10 @@ import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
-
-public class createTodoCommand extends Command{
+public class CreateTodoCommand extends Command{
     private String description;
 
-    public createTodoCommand(String description) {
+    public CreateTodoCommand(String description) {
         this.description = description;
     }
 

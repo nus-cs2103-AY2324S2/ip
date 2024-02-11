@@ -1,31 +1,29 @@
 package duke.commands;
 
-import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
-import duke.tasks.ToDo;
 import duke.ui.Ui;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static duke.constants.Constant.DATE_TIME_FORMATTER_FOR_PRINT;
 
-public class createDeadlineCommand extends Command{
+public class CreateEventCommand extends Command{
     private String description;
-    private LocalDateTime deadline;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
-
-
-    public createDeadlineCommand(String description, LocalDateTime deadline) {
+    public CreateEventCommand(String description, LocalDateTime start, LocalDateTime end) {
         this.description = description;
-        this.deadline = deadline;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public boolean execute(Ui ui, TaskList tasks) {
         Task newTask = null;
-        newTask = new Deadline(description, deadline, DATE_TIME_FORMATTER_FOR_PRINT);
+        newTask = new Event(description, start, end, DATE_TIME_FORMATTER_FOR_PRINT);
         tasks.addTask(newTask);
         ui.showLine();
         newTask.displayTask(tasks.size());

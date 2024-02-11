@@ -19,12 +19,12 @@ public class Parser {
         }
         switch (commandWord) {
         case "bye":
-            return new exitCommand();
+            return new ExitCommand();
         case "list":
-            return new listCommand();
+            return new ListCommand();
         case "mark":
             try {
-                return new markTaskCommand(prepareTask(commandArguments, "mark"));
+                return new MarkTaskCommand(prepareTask(commandArguments, "mark"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -34,7 +34,7 @@ public class Parser {
             return new Command();
         case "unmark":
             try {
-                return new unmarkTaskCommand(prepareTask(commandArguments, "unmark"));
+                return new UnmarkTaskCommand(prepareTask(commandArguments, "unmark"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -71,7 +71,7 @@ public class Parser {
             return new Command();
         case "delete":
             try {
-                return new deleteCommand(prepareTask(commandArguments, "delete"));
+                return new DeleteCommand(prepareTask(commandArguments, "delete"));
             } catch (DukeException e) {
                 System.err.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -80,10 +80,12 @@ public class Parser {
             }
             return new Command();
         case "save":
-            return new saveCommand();
+            return new SaveCommand();
+        case "find":
+            return new FindCommand(commandArguments);
         default:
             System.err.println("OOPS! This command doesn't exist. Retry!");
-            return new helpCommand();
+            return new HelpCommand();
         }
     }
 
@@ -102,7 +104,7 @@ public class Parser {
         if (arguments.isBlank()) {
             throw new DukeException("OOPS! The description of a todo cannot be empty.");
         }
-        return new createTodoCommand(arguments);
+        return new CreateTodoCommand(arguments);
     }
 
     public static Command prepareCreateDeadline(String arguments) throws DukeException {
@@ -127,7 +129,7 @@ public class Parser {
         // convert deadline from string to DateTime
         // Accepted date time format is yyyy-MM-dd HHmm
         LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DATE_TIME_FORMATTER);
-        return new createDeadlineCommand(description, deadline);
+        return new CreateDeadlineCommand(description, deadline);
     }
 
     public static Command prepareCreateEvent(String arguments) throws DukeException {
@@ -137,6 +139,7 @@ public class Parser {
         if (!arguments.contains("from") || !arguments.contains("to")) {
             throw new DukeException("OOPS! 'from' and/or 'to' keywords are missing. You are required to "
                     + "state the starting and ending time using these two keywords.");
+
         }
         String[] instruction = arguments.split(" from ", 2);
         if (instruction.length < 2) {
@@ -163,7 +166,7 @@ public class Parser {
         if (!startTime.isBefore(endTime)) {
             throw new DukeException("The start time of the event has to be before the end time.");
         }
-        return new createEventCommand(description, startTime, endTime);
+        return new CreateEventCommand(description, startTime, endTime);
     }
 }
 

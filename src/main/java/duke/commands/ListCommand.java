@@ -1,12 +1,11 @@
 package duke.commands;
 
-import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 
-public class listCommand extends Command{
-    public listCommand() {
+public class ListCommand extends Command{
+    public ListCommand() {
 
     }
 

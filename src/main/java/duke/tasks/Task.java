@@ -45,6 +45,9 @@ public class Task {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
+    public boolean search(String keyword) {
+        return this.description.contains(keyword);
+    }
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;

@@ -35,5 +35,15 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    public TaskList find(String keyword) {
+        List<Task> searchResults = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.search(keyword)) {
+                searchResults.add(task);
+            }
+        }
+        return new TaskList(searchResults);
+    }
+
 
 }

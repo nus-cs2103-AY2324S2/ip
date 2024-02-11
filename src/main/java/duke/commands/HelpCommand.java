@@ -3,8 +3,8 @@ package duke.commands;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-public class helpCommand extends Command{
-    public helpCommand() {
+public class HelpCommand extends Command{
+    public HelpCommand() {
 
     }
 
