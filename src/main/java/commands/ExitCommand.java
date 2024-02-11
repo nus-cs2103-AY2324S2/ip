@@ -1,5 +1,6 @@
 package commands;
 
+import javafx.application.Platform;
 import storage.TaskList;
 import ui.UserInterface;
 

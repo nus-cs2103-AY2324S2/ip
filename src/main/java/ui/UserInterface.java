@@ -1,27 +1,53 @@
 package ui;
 
+import exceptions.DukeException;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import parser.Parser;
+import storage.TaskList;
 import tasks.Task;
 
-import java.util.Scanner;
+import java.io.IOException;
+
 
 /**
- * Manages output to the command line
+ * Manages GUI
  */
 public class UserInterface {
     public static final String OPENING_MSG = "Hello! I'm Stille\n" + "What can I do for you?\n";
     public static final String CLOSING_MSG = "Bye. Hope to see you again soon!";
-    public static final String LINE_DIVIDER = "___________________________________";
     public static final String ERROR_MSG = "Error: ";
 
-    private Scanner sc;
-    public UserInterface() {
-        this.sc = new Scanner(System.in);
+    private MainWindow mainWindow;
+    private Scene scene;
+    private TaskList list;
+
+    public UserInterface(TaskList list) {
+        this.list = list;
+        this.mainWindow = new MainWindow(this);
+        this.scene = new Scene(this.mainWindow);
+    }
+
+    public Scene getScene() {
+        return this.scene;
+    }
+
+    public void runCommand(String input) {
+        boolean isExit;
+        try {
+             isExit = Parser.parseInput(input).execute(this.list, this);
+             if (isExit) {
+                 Platform.exit();
+             }
+        } catch (DukeException e) {
+            this.showError(e);
+        }
     }
 
     public void showMessage(String message) {
-        showDividerLine();
-        System.out.println(message);
-        showDividerLine();
+        this.mainWindow.displayText(message);
     }
     public void showOpeningMessage() {
         this.showMessage(OPENING_MSG);
@@ -29,10 +55,6 @@ public class UserInterface {
 
     public void showClosingMessage() {
         this.showMessage(CLOSING_MSG);
-    }
-
-    public void showDividerLine() {
-        System.out.println(LINE_DIVIDER);
     }
 
     public void showError(Exception e) {
@@ -67,7 +89,4 @@ public class UserInterface {
         this.showMessage("Here are the matching tasks in your list:\n" + list);
     }
 
-    public String readCommand() {
-        return sc.nextLine();
-    }
 }

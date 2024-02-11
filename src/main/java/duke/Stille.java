@@ -1,8 +1,9 @@
 package duke;
 
-import commands.Command;
 import exceptions.DukeException;
-import parser.Parser;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import storage.Storage;
 import storage.TaskList;
 import ui.UserInterface;
@@ -10,46 +11,43 @@ import ui.UserInterface;
 /**
  * Main driver class, initializes the required classes and starts the operation.
  */
-public class Stille {
+public class Stille extends Application {
     private final UserInterface ui;
     private final Storage storage;
     private final TaskList list;
 
     public Stille() {
-        this.ui = new UserInterface();
         this.storage = new Storage();
         this.list = new TaskList();
+        this.ui = new UserInterface(list);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        primaryStage.setScene(this.ui.getScene());
+        primaryStage.setTitle("Stille");
+        primaryStage.setResizable(false);
+        primaryStage.setMinHeight(600.0);
+        primaryStage.setMinWidth(400.0);
+        primaryStage.show();
+
 
         try {
             list.loadFromSaveFormat(storage.load());
         } catch (DukeException e) {
             ui.showError(e);
+            Platform.exit();
         }
-    }
 
-    /**
-     * Main logic of application, displays opening message and enters command loop.
-     */
-    public void run() {
         ui.showOpeningMessage();
-
-        boolean isExit = false;
-        while(!isExit) {
-            try {
-                String input = ui.readCommand();
-                Command c = Parser.parseInput(input);
-                isExit = c.execute(this.list, this.ui);
-            } catch (DukeException e) {
-                ui.showError(e);
-            }
-        }
-        this.exit();
     }
 
     /**
      * At the end of operation, save the current tasklist, output closing message.
      */
-    public void exit() {
+    @Override
+    public void stop() {
         try {
             this.storage.save(this.list.toSaveFormat());
         } catch (DukeException e) {
@@ -59,7 +57,4 @@ public class Stille {
         }
     }
 
-    public static void main(String[] args) {
-        new Stille().run();
-    }
 }
