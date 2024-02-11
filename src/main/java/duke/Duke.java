@@ -28,8 +28,8 @@ public class Duke {
             tasks = storage.load();
             System.out.println(tasks);
         } catch (FileNotFoundException e) {
-            System.out.printf("Warning: something went wrong when loading the TaskList\n" +
-                    e.getMessage());
+            System.out.printf("Warning: something went wrong when loading the TaskList\n"
+                + e.getMessage());
             tasks = new TaskList();
         }
 

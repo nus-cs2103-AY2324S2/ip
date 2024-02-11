@@ -79,6 +79,12 @@ public class TaskList {
         return tasksByDate;
     }
 
+
+    /**
+     * Finds tasks in the task list whose description contains a specified keyword.
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A TaskList containing tasks whose descriptions contain the specified keyword.
+     */
     public TaskList findTasksByKeyword(String keyword) {
         TaskList matchingTasks = new TaskList();
         String lowerCaseKeyword = keyword.toLowerCase(); // Convert keyword to lowercase for case insensitivity
