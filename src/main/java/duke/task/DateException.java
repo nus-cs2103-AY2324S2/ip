@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Custom DateException class which return error message when there is error in the date format

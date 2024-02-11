@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.*;
-import duke.command.Command;
+import duke.task.*;
 
 import java.util.ArrayList;
 

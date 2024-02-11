@@ -1,6 +1,6 @@
 package duke;
 
-import duke.Task;
+import duke.task.Task;
 
 import java.io.InputStream;
 import java.io.PrintStream;

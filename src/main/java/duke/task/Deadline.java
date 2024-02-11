@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * This class is implementation of Task which contains description and by.
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    public LocalDate by;
 
     /**
      * Return an instance of the class Deadline with description of the Task

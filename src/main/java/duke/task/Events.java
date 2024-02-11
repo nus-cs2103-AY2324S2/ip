@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * This class is implementation of Task which contains description, from and to.
  */
 public class Events extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    public LocalDateTime from;
+    public LocalDateTime to;
 
     /**
      * Create an instance of Events class which contains description of the task,

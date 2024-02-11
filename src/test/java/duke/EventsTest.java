@@ -1,9 +1,8 @@
 package duke;
 
-import duke.Events;
+import duke.task.Events;
 import org.junit.jupiter.api.Test;
 
-import static duke.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventsTest {

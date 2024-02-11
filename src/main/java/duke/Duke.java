@@ -1,6 +1,8 @@
 package duke;
 
 import duke.command.Command;
+import duke.task.TaskList;
+
 import java.io.IOException;
 
 
@@ -12,6 +14,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
 
     /**
      * Creates an instance of Duke which contains Storage, Tasklist and UI
@@ -27,6 +30,8 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+
 
     /**
      * Helps to run the Duke program

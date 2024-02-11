@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -126,7 +128,7 @@ public class Storage {
                         isDone = "1";
                     }
                     to_record += "T" +" | " + isDone
-                            + " | " + temp.description + "\n";
+                            + " | " + temp.describeTask() + "\n";
 
                 } else if (temp instanceof Events) {
                     System.out.println("OH");
@@ -136,7 +138,7 @@ public class Storage {
                         isDone = "1";
                     }
                     to_record += "E" + " | " + isDone
-                            + " | " + temp.description + "|"
+                            + " | " + temp.describeTask() + "|"
                             + t.from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
                             + "|" + t.to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
                             + "\n";
@@ -149,7 +151,7 @@ public class Storage {
                         isDone = "1";
                     }
                     to_record += "D" + " | " + isDone
-                            + " | " + temp.description + "|"
+                            + " | " + temp.describeTask() + "|"
                             + t.by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
                             + "\n";
                 }

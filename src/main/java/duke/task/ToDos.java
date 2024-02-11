@@ -1,6 +1,6 @@
-package duke;
+package duke.task;
 
-import duke.Task;
+import duke.task.Task;
 /**
  * This class is implementation of Task which contains description.
  */
