@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import earl.tasks.Task;
 
-
 /**
  * Class encapsulating the list of tasks.
  * <p>

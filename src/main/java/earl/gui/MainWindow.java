@@ -39,7 +39,8 @@ public class MainWindow extends AnchorPane {
         earl = e;
     }
 
-    public void init() {
+    /** Displays the initial message on startup. */
+    public void showGreeting() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(earl.getResponse(), dukeImage));
     }

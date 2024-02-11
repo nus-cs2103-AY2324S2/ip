@@ -5,6 +5,7 @@ package earl.tasks;
  */
 public class Todo extends Task {
 
+    /** Class constructor. */
     public Todo(String description) {
         super(description);
         taskType = TaskType.TODO;

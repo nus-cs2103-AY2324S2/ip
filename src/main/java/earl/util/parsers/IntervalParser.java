@@ -11,16 +11,24 @@ import earl.exceptions.EarlException;
  */
 public class IntervalParser implements Parser<Stream<Integer>> {
 
+    /**
+     * Returns a stream of unique indices in reverse sorted order.
+     *
+     * @param input           the user input ranges
+     * @return                a {@code Stream} of indices
+     * @throws EarlException  if the user input is incomprehensible
+     */
     public static Stream<Integer> parse(String input) throws EarlException {
         try {
             String[] args = input.split("\\s+");
             Stream<Integer> result = Stream.empty();
             for (String token : args) {
-                if (!token.contains("-")) {
+                if (!token.contains("-")) { // single index e.g. <operation> 1
                     int idx = Integer.parseInt(token) - 1;
                     result = Stream.concat(result, Stream.of(idx));
                     continue;
                 }
+                // range of indices e.g. <operation> 3-6
                 String[] range = token.split("-");
                 int start = Integer.parseInt(range[0]) - 1;
                 int end = Integer.parseInt(range[1]);

@@ -3,6 +3,7 @@ package earl.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
@@ -70,11 +71,14 @@ public class Storage {
      */
     public void save(Stream<String> dataStream) throws EarlException {
         try (FileWriter fw = new FileWriter(filePath)) {
-            String[] data = dataStream.map((str) -> str + "\n")
-                    .toArray(String[]::new);
-            for (String line : data) {
-                fw.write(line);
-            }
+            dataStream.map((str) -> str + "\n")
+                    .forEach((str) -> {
+                        try {
+                            fw.write(str);
+                        } catch (IOException e) {
+                            throw new UncheckedIOException(e);
+                        }
+                    });
         } catch (IOException e) {
             throw new EarlException("Fatal error while saving to storage.");
         }

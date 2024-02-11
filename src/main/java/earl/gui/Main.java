@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Class encapsulating the GUI application.
+ */
 public class Main extends Application {
 
     private final Earl earl = new Earl("./data/earl.txt");
@@ -26,7 +29,7 @@ public class Main extends Application {
             stage.setTitle("Earl");
             stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setEarl(earl);
-            fxmlLoader.<MainWindow>getController().init();
+            fxmlLoader.<MainWindow>getController().showGreeting();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

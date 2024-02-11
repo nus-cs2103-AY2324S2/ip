@@ -1,14 +1,8 @@
 package earl.logic;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
-
 import earl.exceptions.EarlException;
 import earl.util.TaskList;
 import earl.util.Ui;
-import earl.util.parsers.IntervalParser;
 
 /**
  * Class responsible for the delete command.

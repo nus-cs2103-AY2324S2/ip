@@ -6,6 +6,9 @@ import earl.exceptions.EarlException;
 import earl.tasks.Task;
 import earl.tasks.TaskType;
 
+/**
+ * Class responsible for parsing stored entries of tasks.
+ */
 public class TaskStorageParser extends StorageParser<Task> {
 
     @Override
