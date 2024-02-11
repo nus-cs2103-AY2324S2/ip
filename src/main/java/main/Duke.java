@@ -1,13 +1,9 @@
+package main;
+
 import commands.Command;
 import commands.Parser;
 
 import exceptions.DukeException;
-
-import javafx.scene.text.Font;
-import main.java.Ui;
-import main.java.Storage;
-
-import tasks.TaskList;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,6 +15,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import tasks.TaskList;
+
+import ui.Ui;
+
 /**
  * Duke is the main class for the task management application.
  * It initializes the application and starts the interaction loop with the user.
@@ -166,6 +167,5 @@ public class Duke extends Application {
 
         return textToAdd;
     }
-
 
 }

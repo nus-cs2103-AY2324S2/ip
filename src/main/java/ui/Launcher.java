@@ -1,4 +1,7 @@
+package ui;
+
 import javafx.application.Application;
+import main.Duke;
 
 /**
  * A launcher class to workaround classpath issues.

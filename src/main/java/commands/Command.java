@@ -1,7 +1,7 @@
 package commands;
 
-import main.java.Ui;
-import main.java.Storage;
+import ui.Ui;
+import main.Storage;
 
 import tasks.Task;
 import tasks.TaskList;
