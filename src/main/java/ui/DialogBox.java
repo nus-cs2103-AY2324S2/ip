@@ -7,7 +7,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 public class DialogBox extends HBox {
 
@@ -29,6 +33,8 @@ public class DialogBox extends HBox {
         this.setPadding(new Insets(10));
         this.setSpacing(10);
         this.getChildren().addAll(text, displayPicture);
+
+        this.setBackground(new Background(new BackgroundFill(Color.GREY, new CornerRadii(5), new Insets(7))));
     }
 
     /**
