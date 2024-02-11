@@ -9,8 +9,11 @@ import checkbot.task.Task;
 import checkbot.task.Todo;
 import checkbot.task.TodoList;
 
+/**
+ * Represents a command to add a Task to the task list.
+ */
 public class AddCommand extends Command {
-    Task task;
+    private final Task task;
 
     public AddCommand(String name) {
         task = new Todo(name);
@@ -25,7 +28,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws SaveFileException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws SaveFileException {
         todoList.addTask(task);
         storage.saveTasks(todoList);
         ui.showAddedTaskMessage(task, todoList.getLength());

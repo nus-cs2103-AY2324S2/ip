@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
         Task deletedTask = todoList.deleteTask(index);
         storage.saveTasks(todoList);
         ui.showDeletedTaskMessage(deletedTask, todoList.getLength());

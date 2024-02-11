@@ -11,7 +11,6 @@ import checkbot.UiStub;
 import checkbot.task.Todo;
 import checkbot.task.TodoList;
 
-
 public class AddCommandTest {
     @Test
     public void createTodo_success() throws Exception {
@@ -20,7 +19,7 @@ public class AddCommandTest {
         Ui ui = new UiStub();
 
         Command c = new AddCommand("test");
-        c.execute(todoList, storage, ui);
+        c.executeCommand(todoList, storage, ui);
 
         assertEquals(todoList.getTask(0), new Todo("test"));
     }
