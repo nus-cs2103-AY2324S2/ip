@@ -33,11 +33,11 @@ public class DialogBox extends HBox {
         return new DialogBox(l, iv);
     }
 
-// --Commented out by Inspection START (12/2/2024 1:27 am):
-//    public static DialogBox getDukeDialog(Label l, ImageView iv) {
-//        var db = new DialogBox(l, iv);
-//        db.flip();
-//        return db;
-//    }
-// --Commented out by Inspection STOP (12/2/2024 1:27 am)
+
+    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+        var db = new DialogBox(l, iv);
+        db.flip();
+        return db;
+    }
+
 }

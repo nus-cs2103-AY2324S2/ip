@@ -93,4 +93,31 @@ public class Parser {
             return null;
         }
     }
+    /**
+     * Formats a Task object into a string representation suitable for file storage.
+     * <p>
+     * The format includes the task type, its completion status, and its description.
+     * For Deadline and Event tasks, their respective dates are also included.
+     *
+     * @param task The Task object to be formatted.
+     * @return The formatted string representation of the task.
+     */
+    public String formatTaskForFile(Task task) {
+        String returnString = "";
+        String type =
+                task instanceof Todo ? "T" :
+                        task instanceof Deadline ? "D" :
+                                task instanceof Event ? "E" : "";
+        int status = task.isDone();
+        String details = task.getDescription();
+        returnString += type + " | " + status + " | " + details;
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            returnString += " | " + deadline.getBy();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            returnString += " | " + event.getFrom() + " | " + event.getTo();
+        }
+        return returnString;
+    }
 }

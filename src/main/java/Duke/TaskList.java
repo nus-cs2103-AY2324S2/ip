@@ -59,7 +59,7 @@ public class TaskList {
     public String runCommand(String input) {
         String[] commandParts = input.split(" ", 2);
         CommandType commandType = CommandType.getCommandType(commandParts[0]);
-        String response = "";
+        String response;
 
         try {
             switch (commandType) {
