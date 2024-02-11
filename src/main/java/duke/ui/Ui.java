@@ -11,7 +11,7 @@ public class Ui {
 
     // Default names and reserved commands
     private static String username;
-    private static final String CHAT_BOT_NAME = "Sophia";
+    private static final String CHAT_BOT_NAME = "Shiro";
     private static final List<String> reservedCommands = Arrays.asList("list", "mark", "unmark",
             "todo", "deadline", "event", "delete", "delete all");
 

@@ -1,6 +1,6 @@
 package duke;
 
-import duke.command.Parser;
+import duke.command.CommandParser;
 import duke.ui.Ui;
 
 import java.util.Scanner;
@@ -9,9 +9,10 @@ import java.util.Scanner;
  * The Duke class represents the main application that interacts with the user.
  * It initializes the User Interface (UI), runs the conversation loop, and handles user input.
  */
-public class Duke {
+public class Duke  {
 
     private final Ui ui;
+    CommandParser parser = new CommandParser("tester");
 
     /**
      * Constructs a Duke instance and initializes the UI.
@@ -29,14 +30,14 @@ public class Duke {
 
         ui.startConversation();
         String username = ui.getUsername();
-        Parser parser = new Parser(username);
+        CommandParser parser = new CommandParser(username);
 
         while (true) {
             String input = scanner.nextLine();
             String[] cmd = input.split(" ");
 
             if (!cmd[0].equalsIgnoreCase("bye")) {
-                parser.parse(input);
+                parser.parseInput(input);
             } else {
                 parser.saveAllTasks();
                 ui.defaultExit();
@@ -54,6 +55,14 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke().run();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        return parser.parseInput(input);
     }
 
 }

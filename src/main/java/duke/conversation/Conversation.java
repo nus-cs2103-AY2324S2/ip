@@ -71,19 +71,17 @@ public class Conversation {
      *
      * @param message The user's input used to retrieve corresponding dialogues.
      */
-    public void printDialogue(String message) {
-        System.out.println(Ui.LINE);
+    public String printDialogue(String message) {
+        StringBuilder dialogueMessage = new StringBuilder();
         List<String> dialoguesList = getCommands(message);
         if (dialoguesList != null && !dialoguesList.isEmpty()) {
             for (String dialogue : dialoguesList) {
-                System.out.println(Ui.INDENTATION + dialogue);
+                dialogueMessage.append(dialogue).append("\n");
             }
         } else {
-            System.out.println(Ui.INDENTATION + "Sorry, I don't understand " +
-                    "what you mean by " + message);
-            System.out.println(Ui.INDENTATION + "Maybe try checking the " +
-                    "spelling or ask me anything else!");
+            dialogueMessage.append("Sorry, I don't understand what you mean by ").append(message).append("\n")
+                    .append("Maybe try checking the spelling or ask me anything else!\n");
         }
-        System.out.println(Ui.LINE);
+        return dialogueMessage.toString();
     }
 }
