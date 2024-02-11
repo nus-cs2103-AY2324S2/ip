@@ -24,7 +24,6 @@ public class Duke {
 
     public static void main(String[] args) {
         initialSetup();
-        ui = new Ui();
         ui.printLogo();
         ui.printDivider();
         ui.printGreeting();
@@ -50,6 +49,7 @@ public class Duke {
 
     private static void initialSetup() {
         taskList = new TaskList();
+        ui = new Ui();
         validCommands = new HashSet<String>();
         validCommands.addAll(Arrays.asList("bye",
                 "list",
