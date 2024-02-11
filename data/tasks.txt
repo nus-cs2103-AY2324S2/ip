@@ -1,7 +1,14 @@
-[T][ ]fhewjaks
+[T][X]fhewjaks
 [T][X]read book
 [D][ ]write book (by: today)
-[E][X]throw book (from: ystd to: tmr)
-[T][X]hfiewa
+[E][ ]throw book (from: ystd to: tmr)
+[T][ ]hfiewa
 [T][X]hfeuw
-[T][X]fheiwa
+[T][ ]fheiwa
+[T][ ]hfuewaj
+[T][ ]hfuewaifhwaeuofhpweaifhewiu
+[T][ ]hfueawoaewf
+[T][ ]fhuwei
+[T][ ]hfuewihfe
+[T][X]fhuewifh
+[T][X]fhuweaof
