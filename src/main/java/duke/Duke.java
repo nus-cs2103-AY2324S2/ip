@@ -23,6 +23,7 @@ public class Duke {
         } catch (IOException ie) {
             tasks = new TaskList();
         }
+        assert tasks != null : "TaskList should not be null!";
     }
 
     /**
