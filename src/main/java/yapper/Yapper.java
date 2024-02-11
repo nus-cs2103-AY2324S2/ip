@@ -104,33 +104,39 @@ public class Yapper {
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     throw new YapperException("Please provide a valid task number to mark as not done.");
                 }
-            } else if (userInput.startsWith("todo")) {
-                if (userInput.length() <= 5) {
-                    throw new YapperException("The description of a todo cannot be empty!");
+            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+                String description = userInput.substring(userInput.indexOf(" ") + 1).trim();
+                if (isDuplicateTask(description)) {
+                    throw new YapperException("Task already exists: " + description);
                 }
-                Todo newTask = new Todo(userInput.substring(5), false);
-                this.tasks.add(newTask);
-                responseBuilder.append(this.ui.showAddedTaskMessage(newTask, this.tasks.size()));
-            } else if (userInput.startsWith("deadline")) {
-                try {
-                    String[] parts = userInput.substring(9).split("/by");
-                    Deadline newTask = new Deadline(parts[0].trim(), false,
-                            LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER));
+                if (userInput.startsWith("todo")) {
+                    if (userInput.length() <= 5) {
+                        throw new YapperException("The description of a todo cannot be empty!");
+                    }
+                    Todo newTask = new Todo(userInput.substring(5), false);
                     this.tasks.add(newTask);
                     responseBuilder.append(this.ui.showAddedTaskMessage(newTask, this.tasks.size()));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new YapperException("Please provide a valid deadline task format.");
-                }
-            } else if (userInput.startsWith("event")) {
-                try {
-                    String[] parts = userInput.substring(6).split("/from|/to");
-                    Event newTask = new Event(parts[0].trim(), false,
-                            LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER),
-                            LocalDateTime.parse(parts[2].trim(), DATE_TIME_FORMATTER));
-                    tasks.add(newTask);
-                    responseBuilder.append(this.ui.showAddedTaskMessage(newTask, this.tasks.size()));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new YapperException("Please provide a valid event task format.");
+                } else if (userInput.startsWith("deadline")) {
+                    try {
+                        String[] parts = userInput.substring(9).split("/by");
+                        Deadline newTask = new Deadline(parts[0].trim(), false,
+                                LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER));
+                        this.tasks.add(newTask);
+                        responseBuilder.append(this.ui.showAddedTaskMessage(newTask, this.tasks.size()));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new YapperException("Please provide a valid deadline task format.");
+                    }
+                } else if (userInput.startsWith("event")) {
+                    try {
+                        String[] parts = userInput.substring(6).split("/from|/to");
+                        Event newTask = new Event(parts[0].trim(), false,
+                                LocalDateTime.parse(parts[1].trim(), DATE_TIME_FORMATTER),
+                                LocalDateTime.parse(parts[2].trim(), DATE_TIME_FORMATTER));
+                        tasks.add(newTask);
+                        responseBuilder.append(this.ui.showAddedTaskMessage(newTask, this.tasks.size()));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new YapperException("Please provide a valid event task format.");
+                    }
                 }
             } else if (userInput.startsWith("delete")) {
                 try {
@@ -154,6 +160,11 @@ public class Yapper {
             responseBuilder.append(this.ui.showError(e.toString()));
         }
         return responseBuilder.toString();
+    }
+
+    private boolean isDuplicateTask(String description) {
+        // Check if the description matches any existing task descriptions
+        return tasks.stream().anyMatch(task -> task.getDescription().equalsIgnoreCase(description));
     }
     /**
      * Returns the list of tasks.
