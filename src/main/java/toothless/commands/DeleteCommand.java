@@ -30,11 +30,11 @@ public class DeleteCommand extends Command {
      * @param ui The user interface to interact with.
      * @param taskList The task list to be manipulated or queried.
      * @param storage The storage system for loading or saving tasks.
-     * @return false to indicate the application should continue running.
+     * @return String message to be displayed to the user.
      * @throws ToothlessException If the detail does not represent a valid index.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = getTaskIndex(detail);
         if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
             throw new ToothlessException("Human trying to delete nothing ^O^. Absurd");
@@ -43,10 +43,15 @@ public class DeleteCommand extends Command {
         Task t = taskList.getTask(taskIndex);
         taskList.removeTask(taskIndex);
 
-        System.out.println("Noted. I've removed this task:");
-        ui.showTask(t, taskIndex);
-        System.out.format("Now you have %d tasks in the list.\n", taskList.size());
+        return ui.showDeletedTask(t, taskList.size());
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }

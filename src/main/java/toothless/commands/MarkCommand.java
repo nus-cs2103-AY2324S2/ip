@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
      * @throws ToothlessException If the detail does not represent a valid index.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
         if (taskIndex >= taskList.size() || taskIndex < 0) {
             throw new ToothlessException("Human trying to mark nothing ^O^. Foolish");
@@ -44,9 +44,15 @@ public class MarkCommand extends Command {
         Task t = taskList.getTask(taskIndex);
         t.markAsDone();
 
-        System.out.println("Nice! I've marked this task as done:");
-        ui.showTask(t, taskIndex);
+        return ui.showMarkedTask(t);
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }

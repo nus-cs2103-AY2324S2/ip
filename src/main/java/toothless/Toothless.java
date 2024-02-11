@@ -11,43 +11,42 @@ public class Toothless {
     private Ui ui;
 
     /**
-     * Construct a chatbot with a file storage at the filepath
-     * @param filepath
+     * Construct a chatbot with a file storage at a predetermined file path.
      */
-    public Toothless(String filepath) {
+    public Toothless() {
         ui = new Ui();
-        storage = new Storage(filepath);
+        storage = new Storage("./data/toothless.txt");
+    }
+
+    public String greet() {
+        return ui.showWelcome();
+    }
+
+    public String load() {
         try {
             ui.showLoadingTasks();
             tasks = new TaskList(storage.load());
-            ui.showIncompleteTask(tasks);
+            return ui.showIncompleteTask(tasks);
         } catch (ToothlessException e) {
-            System.out.println(e.getMessage());
             tasks = new TaskList();
+            return e.getMessage();
         }
+    }
+
+    public String exit() {
+        return ui.showFarewell();
     }
 
     /**
      * Start the application and query the user to input commands.
      */
-    public void start() {
-        boolean isExit = false;
-        ui.showWelcome();
-        while(!isExit) {
-            try {
-                String input = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parseCommand(input);
-                isExit = command.handle(ui, tasks, storage);
-            } catch (ToothlessException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.handle(ui, tasks, storage);
+        } catch (ToothlessException e) {
+            return e.getMessage();
         }
     }
 
-    public static void main(String[] args) {
-        new Toothless("./data/toothless.txt").start();
-    }
 }

@@ -13,15 +13,20 @@ import toothless.ToothlessException;
 public abstract class Command {
 
     /**
-     * Executes the command with the specified UI, task list, and storage.
-     * This method is to be implemented by subclasses to define specific command behavior.
+     * Executes the command to perform a specific action, potentially manipulating the task list and storage system.
      * @param ui The user interface to interact with.
      * @param taskList The task list to be manipulated or queried.
      * @param storage The storage system for loading or saving tasks.
-     * @return true if the application should continue running, false otherwise.
+     * @return String message to be displayed to the user.
      * @throws ToothlessException If an error specific to the Toothless application occurs during command execution.
      */
-    public abstract boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException;
+    public abstract String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException;
+
+    /**
+     * Indicates whether the command is an exit command.
+     * @return True if the command is an exit command, false otherwise.
+     */
+    public abstract boolean isExit();
 
     /**
      * Converts a string detail into an integer index for task manipulation.

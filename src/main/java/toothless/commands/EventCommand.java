@@ -30,12 +30,12 @@ public class EventCommand extends Command{
      * @param ui The user interface to interact with.
      * @param taskList The task list where the new task will be added.
      * @param storage The storage system, not directly used by this command.
-     * @return false to indicate the application should continue running.
+     * @return String message to be displayed to the user.
      * @throws ToothlessException If the task detail is invalid,
      *  either missing a description, a start date, or an end date.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {
             throw new ToothlessException("Human task no name :(");
         }
@@ -58,10 +58,15 @@ public class EventCommand extends Command{
         Task t = new Event(description, startDate, endDate);
         taskList.addTask(t);
 
-        System.out.println("Got it. I've added this task:");
-        ui.showTask(t, taskList.size() - 1);
-        System.out.format("Now you have %d tasks in the list.\n", taskList.size());
+        return ui.showAddedTask(t, taskList.size());
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }

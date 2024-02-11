@@ -30,11 +30,11 @@ public class DeadlineCommand extends Command{
      * @param ui The user interface to interact with.
      * @param taskList The task list to be manipulated or queried.
      * @param storage The storage system for loading or saving tasks.
-     * @return false to indicate the application should continue running.
+     * @return String message to be displayed to the user.
      * @throws ToothlessException If the task detail is invalid, either missing a description or a deadline.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
+    public String handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {
             throw new ToothlessException("Human task no name :(");
         }
@@ -50,10 +50,15 @@ public class DeadlineCommand extends Command{
         Task t = new Deadline(description, date);
         taskList.addTask(t);
 
-        System.out.println("Got it. I've added this task:");
-        ui.showTask(t, taskList.size() - 1);
-        System.out.format("Now you have %d tasks in the list.\n", taskList.size());
+        return ui.showAddedTask(t, taskList.size());
+    }
 
+    /**
+     * Indicates whether the command is an exit command.
+     * @return False, as the command is not an exit command.
+     */
+    @Override
+    public boolean isExit() {
         return false;
     }
 }
