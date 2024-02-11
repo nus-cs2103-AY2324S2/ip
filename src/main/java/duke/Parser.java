@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Parser {
     private Scanner scanner;
     private TaskList taskList;
-    private TaskRepository taskRepo;
+    private TaskRepository taskRepository;
 
     /*
      * Constructor for the Parser class It initializes the scanner and taskList
@@ -19,8 +19,8 @@ public class Parser {
      */
     public Parser() throws IOException, BotException {
         this.scanner = new Scanner(System.in);
-        this.taskRepo = new TaskRepository();
-        this.taskList = taskRepo.loadTasks();
+        this.taskRepository = new TaskRepository();
+        this.taskList = taskRepository.loadTasks();
     }
 
     /**
@@ -34,9 +34,9 @@ public class Parser {
     public void startOperator() throws BotException, IOException {
         while (true) {
             System.out.print("> "); // print ">" before user input
-            String userInput = scanner.nextLine();
-            String[] userInputArr = userInput.split(" ");
-            String command = userInputArr[0];
+            String userInputLine = scanner.nextLine();
+            String[] userInputArray = userInputLine.split(" ");
+            String command = userInputArray[0];
 
             switch (command) {
                 case "bye":
@@ -50,49 +50,49 @@ public class Parser {
                     break;
                 case "mark":
                     try {
-                        markTaskHandler(userInputArr);
+                        markTaskHandler(userInputArray);
                         // save to file
-                        taskRepo.saveTasksToFile(taskList);
+                        taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "unmark":
                     try {
-                        unmarkTaskHandler(userInputArr);
-                        taskRepo.saveTasksToFile(taskList);
+                        unmarkTaskHandler(userInputArray);
+                        taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "todo":
                     try {
-                        handleTodoCommand(userInputArr);
-                        taskRepo.saveTasksToFile(taskList);
+                        handleTodoCommand(userInputArray);
+                        taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "deadline":
                     try {
-                        handleDeadlineCommand(userInputArr);
-                        taskRepo.saveTasksToFile(taskList);
+                        handleDeadlineCommand(userInputArray);
+                        taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "event":
                     try {
-                        handleEventCommand(userInputArr);
-                        taskRepo.saveTasksToFile(taskList);
+                        handleEventCommand(userInputArray);
+                        taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "delete":
                     try {
-                        handleDeleteCommand(userInputArr);
-                        taskRepo.saveTasksToFile(taskList);
+                        handleDeleteCommand(userInputArray);
+                        taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -130,13 +130,13 @@ public class Parser {
      * @throws BotException if the user input is invalid or the task number is out
      *                      of range
      */
-    private void handleDeleteCommand(String[] userInputArr) throws BotException {
-        if (userInputArr.length < 2) {
+    private void handleDeleteCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to delete.");
         }
         int i;
         try {
-            i = Integer.parseInt(userInputArr[1]);
+            i = Integer.parseInt(userInputArray[1]);
         } catch (NumberFormatException e) {
             throw new BotException("Task number should be numeric.");
         }
@@ -163,11 +163,11 @@ public class Parser {
      * @param userInputArr the array containing the user input
      * @throws BotException if the description of the todo is empty
      */
-    private void handleTodoCommand(String[] userInputArr) throws BotException {
-        if (userInputArr.length < 2) {
+    private void handleTodoCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
             throw new BotException("The description of a todo cannot be empty.");
         }
-        String todoTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length));
+        String todoTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1, userInputArray.length));
         this.taskList.addTodo(todoTask);
         addTaskMsg();
     }
@@ -178,17 +178,18 @@ public class Parser {
      * @param userInputArr the array containing the user input
      * @throws BotException if the user input is incomplete
      */
-    private void handleDeadlineCommand(String[] userInputArr) throws BotException {
-        if (userInputArr.length < 3) {
+    private void handleDeadlineCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 3) {
             throw new BotException("Please give some description and due date in deadline");
         }
-        String deadlineTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
+        String deadlineTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1, userInputArray.length))
                 .split("/by", 2)[0].trim();
-        String dueDate = String.join(" ", Arrays.copyOfRange(userInputArr,
-                Arrays.asList(userInputArr).indexOf("/by") + 1, userInputArr.length));
+        String dueDate = String.join(" ", Arrays.copyOfRange(userInputArray,
+                Arrays.asList(userInputArray).indexOf("/by") + 1, userInputArray.length));
         taskList.addDeadline(deadlineTask, dueDate);
         addTaskMsg();
     }
+
 
     /**
      * Handles the event command by extracting the event task, start time, and end
@@ -200,16 +201,16 @@ public class Parser {
      *                     arguments
      * @throws BotException if the description and time of an event are empty
      */
-    private void handleEventCommand(String[] userInputArr) throws BotException {
-        if (userInputArr.length < 3) {
+    private void handleEventCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 3) {
             throw new BotException("The description and time of an event cannot be empty.");
         }
-        String eventTask = String.join(" ", Arrays.copyOfRange(userInputArr, 1, userInputArr.length))
+        String eventTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1, userInputArray.length))
                 .split("/from", 2)[0].trim();
-        int fromIndex = Arrays.asList(userInputArr).indexOf("/from") + 1;
-        int toIndex = Arrays.asList(userInputArr).indexOf("/to");
-        String startTime = String.join(" ", Arrays.copyOfRange(userInputArr, fromIndex, toIndex));
-        String endTime = String.join(" ", Arrays.copyOfRange(userInputArr, toIndex + 1, userInputArr.length));
+        int fromIndex = Arrays.asList(userInputArray).indexOf("/from") + 1;
+        int toIndex = Arrays.asList(userInputArray).indexOf("/to");
+        String startTime = String.join(" ", Arrays.copyOfRange(userInputArray, fromIndex, toIndex));
+        String endTime = String.join(" ", Arrays.copyOfRange(userInputArray, toIndex + 1, userInputArray.length));
         taskList.addEvent(eventTask, startTime, endTime);
         addTaskMsg();
     }
@@ -233,13 +234,13 @@ public class Parser {
      * @throws BotException If the task number is missing, not numeric, or out of
      *                      range
      */
-    private void markTaskHandler(String[] inputs) throws BotException {
-        if (inputs.length < 2) {
+    private void markTaskHandler(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to mark.");
         }
         int i;
         try {
-            i = Integer.parseInt(inputs[1]);
+            i = Integer.parseInt(userInputArray[1]);
         } catch (NumberFormatException e) {
             throw new BotException("Task number should be numeric.");
         }
@@ -261,13 +262,13 @@ public class Parser {
      * @throws BotException If the task number is not provided, is not numeric, or
      *                      is out of range
      */
-    private void unmarkTaskHandler(String[] inputs) throws BotException {
-        if (inputs.length < 2) {
+    private void unmarkTaskHandler(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to unmark.");
         }
         int i;
         try {
-            i = Integer.parseInt(inputs[1]);
+            i = Integer.parseInt(userInputArray[1]);
         } catch (NumberFormatException e) {
             throw new BotException("Task number should be numeric.");
         }
