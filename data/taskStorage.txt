@@ -1,4 +1,4 @@
 T |   | Test task
 E |   | description | from: 1/1/2022 1200 to: 1/1/2022 1300
 E | X | description | from: 01/01/2022 1200 to: 01/01/2022 1300
-D |   | this | by: Jan 01 2022 13:00
+D | X | this | by: Jan 01 2022 13:00

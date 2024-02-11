@@ -24,3 +24,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 .vscode/
 
 deleteClasses.bat
+
+/jarFile
