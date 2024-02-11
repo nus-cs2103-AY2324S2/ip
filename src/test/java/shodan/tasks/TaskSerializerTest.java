@@ -1,14 +1,14 @@
 package shodan.tasks;
 
-import org.junit.jupiter.api.Test;
-import shodan.tasks.impl.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import shodan.tasks.impl.Todo;
 
 
 class TaskSerializerTest {
@@ -23,6 +23,7 @@ class TaskSerializerTest {
         /* Serializing with one task in the list */
         assertEquals("TODO;false;test;;\n", TaskSerializer.serialize(tasks));
     }
+
     @Test
     void serialize_delimiterInInput_exceptionThrown() {
         List<Task> tasks = new ArrayList<>();

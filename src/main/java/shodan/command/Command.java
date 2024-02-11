@@ -5,8 +5,6 @@ import shodan.TaskList;
 import shodan.storage.StorageManager;
 import shodan.ui.TermUi;
 
-import java.util.List;
-
 /**
  * Represents a command entered by a user.
  */

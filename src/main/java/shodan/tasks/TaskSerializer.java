@@ -1,9 +1,5 @@
 package shodan.tasks;
 
-import shodan.tasks.impl.Deadline;
-import shodan.tasks.impl.Event;
-import shodan.tasks.impl.Todo;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -11,12 +7,16 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import shodan.tasks.impl.Deadline;
+import shodan.tasks.impl.Event;
+import shodan.tasks.impl.Todo;
+
 /**
  * This class contains static methods that are responsible for serializing
  * Tasks into their string representation, and vice versa.
  */
 public class TaskSerializer {
-    private final static String DELIMITER = ";";
+    private static final String DELIMITER = ";";
 
     /**
      * Serialize a Task into its string format.
@@ -94,6 +94,8 @@ public class TaskSerializer {
                     Event event = new Event(fields[2], LocalDateTime.parse(fields[3]), LocalDateTime.parse(fields[4]));
                     event.setDone(isDone);
                     return event;
+                default:
+                    throw new IllegalArgumentException("Unexpected value: " + TaskType.valueOf(fields[0]));
                 }
             } catch (IllegalArgumentException e) {
                 return null;

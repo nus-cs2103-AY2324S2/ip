@@ -7,8 +7,6 @@ import shodan.storage.StorageManager;
 import shodan.tasks.Task;
 import shodan.ui.TermUi;
 
-import java.util.List;
-
 /**
  * Marks the specified task as done or not done.
  */
@@ -26,6 +24,10 @@ public class MarkCommand extends Command {
         this.index = index;
         this.toMark = toMark;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) throws ShodanException {
         try {
             Task task = tasks.mark(index, toMark);

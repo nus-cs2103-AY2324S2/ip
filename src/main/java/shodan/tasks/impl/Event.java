@@ -1,8 +1,8 @@
 package shodan.tasks.impl;
 
-import shodan.tasks.Task;
-
 import java.time.LocalDateTime;
+
+import shodan.tasks.Task;
 
 /**
  * Represents a task that runs from a start to an end date.
@@ -46,7 +46,7 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
                 super.toString(),
-                startDate.format(shodan.tasks.Task.dtf),
-                endDate.format(shodan.tasks.Task.dtf));
+                startDate.format(shodan.tasks.Task.DTF),
+                endDate.format(shodan.tasks.Task.DTF));
     }
 }

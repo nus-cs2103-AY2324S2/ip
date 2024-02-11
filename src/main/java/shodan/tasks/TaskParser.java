@@ -1,15 +1,15 @@
 package shodan.tasks;
 
-import shodan.ShodanException;
-import shodan.tasks.impl.Deadline;
-import shodan.tasks.impl.Event;
-import shodan.tasks.impl.Todo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.StringJoiner;
+
+import shodan.ShodanException;
+import shodan.tasks.impl.Deadline;
+import shodan.tasks.impl.Event;
+import shodan.tasks.impl.Todo;
 
 /**
  * This class contains static methods that are responsible for
@@ -50,6 +50,8 @@ public class TaskParser {
                 case 1:
                     endDate.add(token);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + state);
                 }
             }
             if (sectionNum < 2) {
@@ -86,11 +88,13 @@ public class TaskParser {
                 case 2:
                     startDate.add(token);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + state);
                 }
             }
             if (sectionNum < 3) {
-                throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. "
-                        + "For example:\n\tevent attend birthday party /from 1/1/2024 1200 /to 1/1/2024 1300");
+                throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to."
+                        + " For example:\n\tevent attend birthday party /from 1/1/2024 1200 /to 1/1/2024 1300");
             }
             if (startDate.toString().isBlank()) {
                 throw new ShodanException("The /from field cannot be empty. Please specify a end date/time.");
@@ -106,6 +110,8 @@ public class TaskParser {
                 throw new ShodanException("Failed to parse entered date. Please use the DD/MM/YYYY TTTT format.");
             }
             break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         if (newTask.getName().isBlank()) {
             throw new ShodanException("You need to specify a name for your task.");

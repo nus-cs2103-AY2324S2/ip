@@ -10,6 +10,9 @@ import shodan.ui.TermUi;
  * Prints an exit message, and signals to the main loop to exit.
  */
 public class ByeCommand extends Command {
+    /**
+     * {@inheritDoc}
+     */
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) {
         ui.showExitMsg();
         return true;

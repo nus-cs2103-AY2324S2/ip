@@ -1,9 +1,9 @@
 package shodan.ui;
 
+import java.util.List;
+
 import shodan.ShodanException;
 import shodan.tasks.Task;
-
-import java.util.List;
 
 /**
  * Handles text output to the CLI for Shodan

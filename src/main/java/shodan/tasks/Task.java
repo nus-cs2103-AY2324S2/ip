@@ -8,14 +8,13 @@ import java.time.format.DateTimeFormatter;
  * completion status.
  */
 public abstract class Task {
-    private String name;
-    private boolean isDone = false;
-
     /**
      * The DateTimeFormat used by subclasses to format their start and end dates, if they have any.
      */
-    protected static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("y-LLL-d HH:mm");
+    protected static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("y-LLL-d HH:mm");
 
+    private String name;
+    private boolean isDone = false;
     /**
      * Instantiates a new Task.
      *

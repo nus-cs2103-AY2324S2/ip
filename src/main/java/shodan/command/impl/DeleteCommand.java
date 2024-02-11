@@ -7,8 +7,6 @@ import shodan.storage.StorageManager;
 import shodan.tasks.Task;
 import shodan.ui.TermUi;
 
-import java.util.List;
-
 /**
  * Deletes the specified task from the current list.
  */
@@ -23,6 +21,10 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) throws ShodanException {
         try {
             Task task = tasks.delete(index);

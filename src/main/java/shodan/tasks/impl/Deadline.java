@@ -1,8 +1,8 @@
 package shodan.tasks.impl;
 
-import shodan.tasks.Task;
-
 import java.time.LocalDateTime;
+
+import shodan.tasks.Task;
 
 /**
  * Represents a task that needs to be completed by a deadline.
@@ -32,6 +32,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), endDate.format(Task.dtf));
+        return String.format("[D]%s (by: %s)", super.toString(), endDate.format(Task.DTF));
     }
 }

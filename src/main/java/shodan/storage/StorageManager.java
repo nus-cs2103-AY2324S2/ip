@@ -1,8 +1,5 @@
 package shodan.storage;
 
-import shodan.tasks.Task;
-import shodan.tasks.TaskSerializer;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +9,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import shodan.tasks.Task;
+import shodan.tasks.TaskSerializer;
 
 /**
  * This class is responsible for saving and loading

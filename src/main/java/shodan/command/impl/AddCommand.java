@@ -1,5 +1,7 @@
 package shodan.command.impl;
 
+import java.util.List;
+
 import shodan.ShodanException;
 import shodan.TaskList;
 import shodan.command.Command;
@@ -8,8 +10,6 @@ import shodan.tasks.Task;
 import shodan.tasks.TaskParser;
 import shodan.tasks.TaskType;
 import shodan.ui.TermUi;
-
-import java.util.List;
 
 /**
  * Adds a new task to the current list.
@@ -28,6 +28,10 @@ public class AddCommand extends Command {
         this.args = args;
         type = TaskType.valueOf(taskType);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean execute(TaskList tasks, StorageManager storageManager, TermUi ui) throws ShodanException {
         Task task = TaskParser.parse(args, type);
         int size = tasks.add(task);

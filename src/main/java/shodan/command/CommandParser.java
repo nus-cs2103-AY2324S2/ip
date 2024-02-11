@@ -1,5 +1,9 @@
 package shodan.command;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import shodan.ShodanException;
 import shodan.command.impl.AddCommand;
 import shodan.command.impl.ByeCommand;
@@ -7,11 +11,6 @@ import shodan.command.impl.DeleteCommand;
 import shodan.command.impl.FindCommand;
 import shodan.command.impl.ListCommand;
 import shodan.command.impl.MarkCommand;
-import shodan.tasks.Task;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This class is responsible for parsing commands entered by the user.
@@ -50,7 +49,7 @@ public class CommandParser {
                 }
                 try {
                     int taskNum = Integer.parseInt(tokens.get(0));
-                    return new MarkCommand(taskNum-1, true);
+                    return new MarkCommand(taskNum - 1, true);
                 } catch (NumberFormatException e) {
                     throw new ShodanException("Input argument not recognised, please enter the task number.");
                 }
@@ -64,7 +63,7 @@ public class CommandParser {
                 }
                 try {
                     int taskNum = Integer.parseInt(tokens.get(0));
-                    return new MarkCommand(taskNum-1, false);
+                    return new MarkCommand(taskNum - 1, false);
                 } catch (NumberFormatException e) {
                     throw new ShodanException("Input argument not recognised, please enter the task number.");
                 }
@@ -82,7 +81,7 @@ public class CommandParser {
                 }
                 try {
                     int taskNum = Integer.parseInt(tokens.get(0));
-                    return new DeleteCommand(taskNum-1);
+                    return new DeleteCommand(taskNum - 1);
                 } catch (NumberFormatException e) {
                     throw new ShodanException("Input argument not recognised, please enter the task number.");
                 }

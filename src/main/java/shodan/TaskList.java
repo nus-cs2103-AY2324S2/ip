@@ -1,9 +1,9 @@
 package shodan;
 
-import shodan.tasks.Task;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import shodan.tasks.Task;
 
 /**
  * Manages the list of {@link Task tasks}. Contains methods
@@ -58,6 +58,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Finds the tasks that contain the specified keywords.
+     *
+     * @param keywords the keywords to search for.
+     * @return the list of tasks that match the search.
+     */
     public List<Task> findTasks(List<String> keywords) {
         return tasks.stream()
                 .filter(task -> keywords.stream().anyMatch(keyword -> task.getName().contains(keyword)))

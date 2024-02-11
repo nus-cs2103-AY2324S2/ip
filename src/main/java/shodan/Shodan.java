@@ -1,39 +1,19 @@
 package shodan;
 
+import java.util.Scanner;
+
 import shodan.command.Command;
 import shodan.command.CommandParser;
 import shodan.storage.StorageManager;
-import shodan.tasks.Task;
-import shodan.tasks.impl.Deadline;
-import shodan.tasks.impl.Event;
-import shodan.tasks.impl.Todo;
 import shodan.ui.TermUi;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringJoiner;
 
 /**
  * Shodan is a chatbot that is able to manage tasks.
  */
 public class Shodan {
-    private TaskList tasks;
     private static StorageManager storageManager;
+    private TaskList tasks;
     private TermUi ui;
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        new Shodan().run();
-    }
 
     /**
      * Instantiates a new Shodan instance.
@@ -42,6 +22,15 @@ public class Shodan {
         storageManager = new StorageManager();
         tasks = new TaskList(storageManager.loadTasks());
         ui = new TermUi();
+    }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args) {
+        new Shodan().run();
     }
 
     /**
