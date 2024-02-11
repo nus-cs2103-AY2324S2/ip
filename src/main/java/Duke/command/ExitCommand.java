@@ -1,10 +1,25 @@
 package Duke.command;
 import Duke.*;
 import Duke.task.*;
+/**
+ * Represent the command of exiting the application
+ */
 public class ExitCommand extends Command {
+    /**
+     * Execute the command of exiting the program, display bye message to user
+     * @param tsks the task list potentially be worked on, not used in this program
+     * @param ui to manage the interaction with users
+     * @param storage to store the product of execution locally, not used in this program
+     */
     public void execute(TaskList tsks, Ui ui, Storage storage){
         Ui.print_message("Bye");
     }
+    /**
+     * Determine whether this command is an exit command
+     *
+     * @return ture, because this is an exit command
+     */
+    @Override
     public boolean isExit(){
         return true;
     }
