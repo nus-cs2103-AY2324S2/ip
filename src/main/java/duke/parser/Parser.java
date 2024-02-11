@@ -10,6 +10,7 @@ import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
@@ -81,57 +82,57 @@ public class Parser {
             }
 
             switch (command) {
-            case "help":
-                return new HelpCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return new MarkCommand(arguments);
-            case "bye":
-                return new ByeCommand();
-            case "exit":
-                return new ByeCommand();
-            case "unmark":
-                return new UnmarkCommand(arguments);
-            case "delete":
-                return new DeleteCommand(arguments);
-            case "remove":
-                return new DeleteCommand(arguments);
-            case "todo":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Error: Todo description cannot be empty.");
-                }
-                return new AddCommand(new ToDo(taskDescription));
-            case "deadline":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Error: Deadline description cannot be empty.");
-                }
-                if (deadlineDateTime == null) {
-                    throw new DukeException("Error: Deadline date/time cannot be empty.");
-                }
-                return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
-            case "event":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Error: Event description cannot be empty.");
-                }
-                if (startDateTime == null || endDateTime == null) {
-                    throw new DukeException("Error: Both start and end times are required for the event command. "
-                        + "Correct format: /from <start> /to <end>");
-                }
-                return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
-            case "viewbydate":
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException("Please specify a date for viewing tasks!");
-                }
-                try {
-                    LocalDate viewDate = LocalDate.parse(taskDescription);
-                    return new ViewByDateCommand(viewDate);
-                } catch (DateTimeParseException e) {
-                    throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
-                }
-            default:
-                throw new DukeException("Sorry.. I don't know what that means! "
-                    + "If you want to leave, just say 'bye'! :(\n");
+                case "find":
+                    return new FindCommand(String.join(" ", arguments));
+                case "help":
+                    return new HelpCommand();
+                case "list":
+                    return new ListCommand();
+                case "mark":
+                    return new MarkCommand(arguments);
+                case "bye":
+                    return new ByeCommand();
+                case "exit":
+                    return new ByeCommand();
+                case "unmark":
+                    return new UnmarkCommand(arguments);
+                case "delete":
+                    return new DeleteCommand(arguments);
+                case "remove":
+                    return new DeleteCommand(arguments);
+                case "todo":
+                    if (taskDescription.isEmpty()) {
+                        throw new DukeException("Error: Todo description cannot be empty.");
+                    }
+                    return new AddCommand(new ToDo(taskDescription));
+                case "deadline":
+                    if (taskDescription.isEmpty()) {
+                        throw new DukeException("Error: Deadline description cannot be empty.");
+                    }
+                    if (deadlineDateTime == null) {
+                        throw new DukeException("Error: Deadline date/time cannot be empty.");
+                    }
+                    return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
+                case "event":
+                    if (taskDescription.isEmpty()) {
+                        throw new DukeException("Error: Event description cannot be empty.");
+                    }
+                    if (startDateTime == null || endDateTime == null) {
+                        throw new DukeException("Error: Both start and end times are required for the event command. Correct format: /from <start> /to <end>");
+                    }
+                    return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
+                case "viewbydate":
+                    if (taskDescription.isEmpty()) {
+                        throw new DukeException("Please specify a date for viewing tasks!");
+                    }
+                    try {
+                        LocalDate viewDate = LocalDate.parse(taskDescription);
+                        return new ViewByDateCommand(viewDate);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Invalid date format! Please enter the date in YYYY-MM-DD format.");
+                    }
+                default:
+                    throw new DukeException("Sorry.. I don't know what that means! If you want to leave, just say 'bye'! :(\n");
             }
         } catch (DukeException e) {
             System.out.printf("\n%s", e.getMessage());

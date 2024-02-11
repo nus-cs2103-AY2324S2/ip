@@ -79,6 +79,18 @@ public class TaskList {
         return tasksByDate;
     }
 
+    public TaskList findTasksByKeyword(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        String lowerCaseKeyword = keyword.toLowerCase(); // Convert keyword to lowercase for case insensitivity
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(lowerCaseKeyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }
