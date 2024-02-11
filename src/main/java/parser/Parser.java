@@ -25,7 +25,7 @@ public class Parser {
      * @throws ArgumentException
      */
     public static Command parseInput(String input) throws CommandException, ArgumentException {
-        String[] inputArgs = input.split(" ", 2);
+        String[] inputArgs = input.trim().split(" ", 2);
         switch (inputArgs[0]) {
         case "todo":
         case "deadline":
