@@ -27,35 +27,36 @@ public class Parser {
     public static Command parse(TaskList tasks, String input) throws DukeException {
         String[] parts = input.split(" ", 3);
         String command = parts[0];
-
-        switch (command.toLowerCase()) {
-            case "bye":
+        CommandType commandType = CommandType.fromString(command);
+        switch (commandType) {
+            case BYE:
                 return new ExitCommand();
-            case "list":
+            case LIST:
                 return new ListCommand();
-            case "mark":
+            case MARK:
                 return parseMarkCommand(parts);
-            case "unmark":
+            case UNMARK:
                 return parseUnmarkCommand(parts);
-            case "delete":
+            case DELETE:
                 return parseDeleteCommand(parts);
-            case "todo":
+            case TODO:
                 return new AddCommand(new Todo(input.substring(5)));
-            case "deadline":
+            case DEADLINE:
                 return parseDeadlineCommand(input);
-            case "event":
+            case EVENT:
                 return parseEventCommand(input);
-            case "tasks":
+            case TASKS:
                 return parseTasksCommand(tasks, parts);
-            case "find":
+            case FIND:
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
                     throw new DukeException("The description of a find command cannot be empty.");
                 }
                 String[] keywords = input.substring(input.indexOf(" ") + 1).trim().split("\\s+");
                 return new FindCommand(keywords);
-
+            case UNKNOWN:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
             default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(" + "\n"
+                throw new DukeException("Unexpected Command Type" + "\n"
                         + "Please enter a valid command (bye, list, mark, unmark, delete, todo, event, deadline, tasks on)");
         }
     }
