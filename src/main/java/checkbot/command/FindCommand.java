@@ -13,7 +13,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws CheckbotException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws CheckbotException {
         ui.showSubList(todoList.find(substr));
     }
 }

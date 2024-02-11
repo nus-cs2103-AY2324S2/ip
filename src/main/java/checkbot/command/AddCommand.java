@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws SaveFileException {
+    public void executeCommand(TodoList todoList, Storage storage, Ui ui) throws SaveFileException {
         todoList.addTask(task);
         storage.saveTasks(todoList);
         ui.showAddedTaskMessage(task, todoList.getLength());
