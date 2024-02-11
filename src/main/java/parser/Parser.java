@@ -65,6 +65,7 @@ public class Parser {
     }
 
     private Command prepareDelete(String args) {
+        assert args != null : "Arguments should not be null for prepareDelete method.";
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
             return new DeleteCommand(targetIndex);
@@ -76,6 +77,7 @@ public class Parser {
     }
 
     private Command prepareMarkCompleted(String args) {
+        assert args != null : "Arguments should not be null for prepareMarkCompleted method.";
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
             return new MarkCompletedCommand(targetIndex);
@@ -86,6 +88,7 @@ public class Parser {
         }
     }
     private Command prepareMarkUncompleted(String args) {
+        assert args != null : "Arguments should not be null for prepareMarkUncompleted method.";
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args)-1;
             return new MarkUncompletedCommand(targetIndex);
@@ -97,6 +100,7 @@ public class Parser {
     }
 
     private Command prepareEvent(String args) {
+        assert args != null : "Arguments should not be null for prepareEvent method.";
         try {
             String regex = "(.*?)\\s*/from\\s+(.+)\\s*/to\\s+(.+)";
             Pattern pattern = Pattern.compile(regex);
@@ -113,6 +117,7 @@ public class Parser {
     }
 
     private Command prepareDeadline(String args) {
+        assert args != null : "Arguments should not be null for prepareDeadline method.";
         try {
             String regex = "\\s+(\\S+(?:\\s+\\S+)*)\\s*/by\\s+(.+)";
             Pattern pattern = Pattern.compile(regex);

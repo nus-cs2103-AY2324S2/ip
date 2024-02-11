@@ -29,6 +29,7 @@ public class AddTodoCommand extends Command{
      */
     @Override
     public String execute() throws IOException {
+        assert this.todo != null : "Todo object should not be null.";
         this.taskList.addTask(this.todo);
         return "I have added this task:\n" + this.todo + "\n" +
                 "Now you have " + this.taskList.size() + " tasks in your list.";

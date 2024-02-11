@@ -33,6 +33,7 @@ public class AddDeadlineCommand extends Command{
      */
     @Override
     public String execute() throws IOException {
+        assert this.deadline != null : "Deadline object should not be null.";
         this.taskList.addTask(this.deadline);
         return "I have added this task:\n" + this.deadline + "\n" +
                 "Now you have " + this.taskList.size() + " tasks in your list.";
