@@ -1,33 +1,23 @@
 package klee;
 
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import klee.command.Bye;
 import klee.command.Command;
 
-
+/**
+ * Main class for the program Klee
+ */
 public class Klee extends Application {
-
-    public Klee () {
-
-    }
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;

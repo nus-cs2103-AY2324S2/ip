@@ -78,7 +78,7 @@ public class Parser {
     /**
      * Function to handle the input case 'todo'
      *
-     * @param input, full input by user
+     * @param input full input by user
      * @return The Command ToDo if the input is valid
      * @throws KleeException
      */
@@ -94,7 +94,7 @@ public class Parser {
     /**
      * Function to handle the input case 'deadline'
      *
-     * @param input, full input by user
+     * @param input full input by user
      * @return The Command Deadline if the input is valid
      * @throws KleeException
      */
@@ -112,7 +112,7 @@ public class Parser {
     /**
      * Function to handle the input case 'event'
      *
-     * @param input, full input by user
+     * @param input full input by user
      * @return The Command Event if the input is valid
      * @throws KleeException
      */
@@ -132,7 +132,7 @@ public class Parser {
     /**
      * Function to handle the input case 'find'
      *
-     * @param input, full input by user
+     * @param input full input by user
      * @return The Command Find if the input is valid
      * @throws KleeException
      */
@@ -148,7 +148,7 @@ public class Parser {
     /**
      * Function to handle the input case 'delete'
      *
-     * @param inputComponents
+     * @param inputComponents the input split by blank space
      * @return The Command Delete if the input is valid
      * @throws KleeException
      */
