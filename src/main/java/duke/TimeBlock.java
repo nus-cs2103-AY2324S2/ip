@@ -24,9 +24,12 @@ public class TimeBlock extends Task {
      */
     public TimeBlock(String description, String fromTime, String toTime) throws BotException {
         super(description);
+        // The various formats that the time can be in
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("HHmm");
+
+        // Check if the time is in the correct format
         try {
             LocalDateTime.parse(fromTime, formatter1);
             this.fromTime = fromTime;

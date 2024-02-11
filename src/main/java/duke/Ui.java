@@ -13,7 +13,7 @@ public class Ui {
     /**
      * Prints a separator line to the terminal
      */
-    public static void printSepLine() {
+    public static void printSeparatorLine() {
         System.out.println(SEPARATOR_LINE);
     }
 

@@ -3,8 +3,14 @@ import duke.BotException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for TimeBlock
+ */
 class TimeBlockTest {
 
+    /**
+     * Test case for valid input to the TimeBlock constructor
+     */
     @Test
     void testValidInputConstructor() {
         assertDoesNotThrow(() -> {
@@ -12,6 +18,9 @@ class TimeBlockTest {
         });
     }
 
+    /**
+     * Test case for invalid from time input to the TimeBlock constructor
+     */
     @Test
     void testInvalidFromTime() {
         assertThrows(BotException.class, () -> {
@@ -19,6 +28,9 @@ class TimeBlockTest {
         });
     }
 
+    /**
+     * Test case for invalid to time input to the TimeBlock constructor
+     */
     @Test
     void testInvalidToTime() {
         assertThrows(BotException.class, () -> {
@@ -26,6 +38,9 @@ class TimeBlockTest {
         });
     }
 
+    /**
+     * Test case for the toString method of TimeBlock
+     */
     @Test
     void testToString() throws BotException {
         TimeBlock timeBlock = new TimeBlock("description", "1/1/2022 1200", "1/1/2022 1300");

@@ -15,8 +15,8 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline task with a specified description and due date
      *
-     * @param description The description of the task.
-     * @param dueDate     The due date of the task.
+     * @param description The description of the task
+     * @param dueDate     The due date of the task
      */
     public Deadline(String description, String dueDate) throws BotException {
         super(description);
@@ -35,9 +35,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task.
+     * Returns a string representation of the Deadline task
      * The string includes the task type (D for Deadline), the task description, and
-     * the due date.
+     * the due date
      *
      * @return A string representation of the task
      */
