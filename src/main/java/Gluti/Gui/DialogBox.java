@@ -62,6 +62,7 @@ public class DialogBox extends HBox {
     public static DialogBox getGlutiDialog(String text, Image img) {
         botMediaPlayer.stop();
         botMediaPlayer.play();
+        assert text != null : "Text should not be empty!";
         var db = new DialogBox(text, img);
         db.setStyle("-fx-background-color: " + "#a3d4c5" + "; "
                 + "-fx-background-radius: 10;");

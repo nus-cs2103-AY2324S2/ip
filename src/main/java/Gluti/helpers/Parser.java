@@ -29,6 +29,7 @@ public class Parser {
      */
     public String parse(String word) throws GlutiException {
         ArrayList<Task> storage = fstorage.readList();
+        assert word != null : "command should not be empty";
         String function = word.split(" ")[0].toLowerCase();
             String[] input = word.split(" ");
             function = input[0].toLowerCase();

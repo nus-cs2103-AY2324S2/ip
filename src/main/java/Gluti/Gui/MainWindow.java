@@ -44,6 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws GlutiException {
         String input = userInput.getText();
+        assert input != null : "Input should not be empty!";
         String response = gluti.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

@@ -45,6 +45,7 @@ public class FileStorage {
      */
 
     public Task read(String line) {
+        assert line != null : "Next line read should not be empty";
         char tasktype = line.charAt(1);
         char completion = line.charAt(4);
         Task nextTask = null;
