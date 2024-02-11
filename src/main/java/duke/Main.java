@@ -19,7 +19,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-
             Image image = new Image("/images/DaDuke.png");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
