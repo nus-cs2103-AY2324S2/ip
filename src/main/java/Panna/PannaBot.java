@@ -80,7 +80,7 @@ public class PannaBot {
 
 
             else if (PannaBot.command.equals("find")) {
-                this.ui.find(this.taskList);
+                ui.find(this.taskList);
             }
 
 
