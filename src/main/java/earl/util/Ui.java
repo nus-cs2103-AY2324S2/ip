@@ -9,6 +9,10 @@ public class Ui {
 
     private static final String PADDING = " ".repeat(4);
     private static final String DIVIDER = "_".repeat(60);
+    private static final String GREETING_MESSAGE = "Hello! I'm Earl\n"
+            + PADDING + "What can I do for you?";
+
+    private static final String GOODBYE_MESSAGE = "Goodbye! See you soon.";
 
     private final Scanner sc;
 
@@ -57,11 +61,11 @@ public class Ui {
     }
 
     public void showGreeting() {
-        makeResponse("Hello! I'm Earl", "What can I do for you?");
+        makeResponse(GREETING_MESSAGE);
     }
 
     public void showGoodbye() {
-        makeResponse("Goodbye! See you soon.");
+        makeResponse(GOODBYE_MESSAGE);
     }
 
     /**

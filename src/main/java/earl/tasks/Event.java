@@ -39,7 +39,7 @@ public class Event extends Task {
         return String.format("%s,%s,%s,%s,%s",
                 taskType.toString(),
                 super.getStatusIcon(),
-                description,
+                getDescription(),
                 DateTimeParser.dateTimeToString(from),
                 DateTimeParser.dateTimeToString(to));
     }

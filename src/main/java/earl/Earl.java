@@ -24,15 +24,19 @@ public class Earl {
     public Earl(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        TaskList temp;
-        try {
-            temp = new TaskList(storage.load());
-            ui.showGreeting();
-        } catch (EarlException e) {
-            ui.makeResponse(e.getMessage());
-            temp = new TaskList(); // empty list when fail to read
+        tasks = new TaskList(storage.load());
+        if (!storage.wasLoadSuccessful()) {
+            ui.makeResponse("Failed to read from storage.",
+                    "Starting with empty file...");
         }
-        tasks = temp;
+        ui.showGreeting();
+    }
+
+    /**
+     * Main function for TUI mode.
+     */
+    public static void main(String[] args) {
+        new Earl("data/earl.txt").run();
     }
 
     /**
@@ -71,23 +75,17 @@ public class Earl {
     /** Returns response to interaction with the GUI. */
     public String getResponse(String input) {
         try {
-            if (!input.equals("bye")) {
-                Handler handler = InputParser.parse(input);
-                handler.handle(tasks, ui);
-            } else {
+            if (input.equals("bye")) { // terminate execution
                 storage.save(tasks.getList());
                 ui.showGoodbye();
+                return ui.getResponse();
             }
+            Handler handler = InputParser.parse(input);
+            handler.handle(tasks, ui);
+            return ui.getResponse();
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
+            return ui.getResponse();
         }
-        return ui.getResponse();
-    }
-
-    /**
-     * Main function for TUI mode.
-     */
-    public static void main(String[] args) {
-        new Earl("data/earl.txt").run();
     }
 }

@@ -18,6 +18,7 @@ public class Storage {
 
     private final String filePath;
     private final List<Task> tasks = new ArrayList<>();
+    private boolean wasLoadSuccessful = false;
 
     /**
      * Class constructor.
@@ -33,34 +34,32 @@ public class Storage {
      * Starts with an empty file if no existing file is found.
      *
      * @return an {@code ArrayList} of {@code Task} read
-     * @throws EarlException if the file could not be created or read
      */
-    public List<Task> load() throws EarlException {
+    public List<Task> load() {
         try {
-            // check if file exists
             File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
             if (isFolderMade || isFileMade) {
-                // file is surely missing
-                throw new EarlException("Storage file missing... "
-                        + "creating new file.");
+                return tasks; // file is surely missing
             }
-            // read from file
+
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String entry = sc.nextLine();
                 Task task = StorageParser.parse(entry);
                 tasks.add(task);
             }
-        } catch (EarlException e) {
-            throw e;
+            wasLoadSuccessful = true;
+            return tasks;
         } catch (Exception e) {
-            throw new EarlException("Unknown exception occurred "
-                    + "when attempting to create or access "
-                    + "storage file: " + e.getMessage());
+            return new ArrayList<>();
         }
-        return tasks;
+    }
+
+    /** Returns if loading from storage occurred without error. */
+    public boolean wasLoadSuccessful() {
+        return wasLoadSuccessful;
     }
 
     /**

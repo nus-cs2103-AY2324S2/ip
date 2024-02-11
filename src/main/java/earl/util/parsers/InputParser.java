@@ -1,7 +1,5 @@
 package earl.util.parsers;
 
-import java.util.Arrays;
-
 import earl.exceptions.EarlException;
 import earl.logic.Handler;
 import earl.logic.HandlerType;
@@ -20,11 +18,11 @@ public class InputParser implements Parser {
      */
     public static Handler parse(String input) throws EarlException {
         try {
+            // all valid input is expected to be of the format
+            // <command> [<arg1>, <arg2>, ...]
             String[] data = input.split("\\s", 2);
             String command = data[0];
-            String[] args = data.length > 1
-                            ? data[1].split("\\s+/(from|to|by)\\s+")
-                            : new String[0];
+            String args = (data.length > 1) ? data[1] : "";
             HandlerType handlerType = HandlerType.valueOf(command);
             return handlerType.createHandler(args);
         } catch (Exception e) {

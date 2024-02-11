@@ -11,7 +11,7 @@ import earl.util.Ui;
 public class TodoHandler extends Handler {
 
     /** Class constructor. */
-    public TodoHandler(String... args) {
+    public TodoHandler(String args) {
         super(args);
     }
 

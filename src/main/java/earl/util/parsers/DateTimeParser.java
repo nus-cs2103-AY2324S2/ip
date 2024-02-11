@@ -21,6 +21,12 @@ public class DateTimeParser implements Parser {
         return LocalDateTime.parse(dateTime, DATETIME_FORMAT);
     }
 
+    /**
+     * Returns date and time information in printable format.
+     *
+     * @param dateTime  a {@code LocalDateTime} object to be printed
+     * @return          a string of date and time information
+     */
     public static String dateTimeToString(LocalDateTime dateTime) {
         return dateTime.format(DATETIME_FORMAT);
     }

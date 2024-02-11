@@ -26,17 +26,17 @@ class MarkHandlerTest {
 
     @Test
     void handle_normalCommand_success() throws Exception {
-        String[] command = {"mark", "1"};
-        Handler handler = new MarkHandler(command);
+        Handler handler = HandlerType.mark.createHandler("1");
         handler.handle(new TaskListStub(), new UiStub());
-        assertEquals("Item marked as done.\r\n", testingOut.toString());
+        assertEquals("Item marked as done.\r\n"
+                + "\t[ ] TaskStub\r\n",
+                testingOut.toString());
     }
 
     @Test
     void handle_nonIntegerInput_exceptionThrown() {
         try {
-            String[] command = {"a"};
-            Handler handler = new MarkHandler(command);
+            Handler handler = HandlerType.mark.createHandler("a");
             handler.handle(new TaskListStub(), new UiStub());
             fail();
         } catch (Exception e) {

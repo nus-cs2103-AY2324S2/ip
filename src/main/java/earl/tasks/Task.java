@@ -24,6 +24,11 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /** Returns the description as is. */
+    public String getDescription() {
+        return description;
+    }
+
     /** Marks as complete. Returns success. */
     public boolean markAsDone() {
         if (!this.isDone) {

@@ -10,14 +10,14 @@ import earl.util.Ui;
 public final class DeleteHandler extends Handler {
 
     /** Class constructor. */
-    public DeleteHandler(String... args) {
+    public DeleteHandler(String args) {
         super(args);
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            int idx = Integer.parseInt(args[0]) - 1;
+            int idx = Integer.parseInt(args) - 1;
             ui.makeResponse("Item deleted.", "\t" + tasks.delete(idx));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new EarlException(

@@ -11,7 +11,7 @@ import earl.util.Ui;
  */
 public final class ListHandler extends Handler {
 
-    public ListHandler(String... args) {
+    public ListHandler(String args) {
         super(args);
     }
 

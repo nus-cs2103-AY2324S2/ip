@@ -9,10 +9,10 @@ import earl.util.Ui;
  */
 public abstract class Handler {
 
-    protected final String[] args;
+    protected final String args;
 
     /** Class constructor. */
-    public Handler(String... args) {
+    public Handler(String args) {
         this.args = args;
     }
 
