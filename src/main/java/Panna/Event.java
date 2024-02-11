@@ -29,7 +29,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return super.toString() + " (from: " + this.getStart().format(df) +  " to " + this.getEnd().format(df) + ")";
+        return super.toString() + " (from: " + getStart().format(df) +  " to " + getEnd().format(df) + ")";
     }
 
 }

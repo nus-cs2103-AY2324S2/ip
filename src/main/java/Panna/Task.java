@@ -37,8 +37,8 @@ public class Task {
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.isDone = false;
-        this.taskType = 'T';
+        isDone = false;
+        taskType = 'T';
     }
 
     /**
@@ -49,8 +49,8 @@ public class Task {
     public Task(String taskName, LocalDate deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
-        this.isDone = false;
-        this.taskType = 'D';
+        isDone = false;
+        taskType = 'D';
     }
 
     /**
@@ -63,8 +63,8 @@ public class Task {
         this.taskName = taskName;
         this.start = start;
         this.end = end;
-        this.isDone = false;
-        this.taskType = 'E';
+        isDone = false;
+        taskType = 'E';
     }
 
     /**
@@ -72,7 +72,7 @@ public class Task {
      * @return corresponding icon
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
@@ -80,7 +80,7 @@ public class Task {
      * @return start timing
      */
     public LocalDate getStart() {
-        return this.start;
+        return tstart;
     }
 
     /**
@@ -88,7 +88,7 @@ public class Task {
      * @return end timing
      */
     public LocalDate getEnd() {
-        return this.end;
+        return end;
     }
 
     /**
@@ -96,7 +96,7 @@ public class Task {
      * @return deadline timing
      */
     public LocalDate getDeadline() {
-        return this.deadline;
+        return deadline;
     }
 
     /**
@@ -112,7 +112,7 @@ public class Task {
      * @return boolean representing doneness
      */
     public boolean getDone() {
-        return this.isDone;
+        return isDone;
     }
 
     /**
@@ -121,7 +121,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.taskType + "] [" + this.getStatusIcon() + "] " + this.taskName;
+        return "[" + taskType + "] [" + getStatusIcon() + "] " + taskName;
     }
 }
 

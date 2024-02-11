@@ -15,7 +15,7 @@ public class Parser {
      * @param format
      */
     Parser(String format) {
-        this.df = DateTimeFormatter.ofPattern(format);
+        df = DateTimeFormatter.ofPattern(format);
     }
 
     /**
@@ -24,6 +24,6 @@ public class Parser {
      * @return LocalDate object in format.
      */
     public LocalDate parse(String dt) {
-        return LocalDate.parse(dt, this.df);
+        return LocalDate.parse(dt, df);
     }
 }

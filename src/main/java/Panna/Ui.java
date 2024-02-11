@@ -13,7 +13,7 @@ public class Ui {
      * Constructor method which initializes scanner
      */
     public Ui() {
-        this.s = new Scanner(System.in);
+        s = new Scanner(System.in);
     }
 
 
