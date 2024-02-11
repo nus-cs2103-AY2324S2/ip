@@ -27,7 +27,7 @@ public class Riz extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/Syuk.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/Theo.png"));
     private Image riz = new Image(this.getClass().getResourceAsStream("/images/Riz.png"));
     private TaskList taskList;
     private Storage storage;
