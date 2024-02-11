@@ -39,10 +39,13 @@ public class Ui {
         assert restOfLine != null;
         switch (input) {
         case "bye":
+        case "bb":
             return new Goodbye();
         case "list":
+        case "ls":
             return new List(taskList);
         case "mark":
+        case "mk":
             try {
                 idx = Parser.parseIdx(restOfLine, taskList);
             } catch (NarutoException e) {
@@ -50,6 +53,7 @@ public class Ui {
             }
             return new Mark(taskList, idx);
         case "unmark":
+        case "um":
             try {
                 idx = Parser.parseIdx(restOfLine, taskList);
             } catch (NarutoException e) {
@@ -57,6 +61,7 @@ public class Ui {
             }
             return new Unmark(taskList, idx);
         case "todo":
+        case "td":
             try {
                 description = Parser.parseDescription(restOfLine);
             } catch (NarutoException e) {
@@ -64,6 +69,7 @@ public class Ui {
             }
             return new Add(new ToDo(description), taskList);
         case "deadline":
+        case "dl":
             try {
                 tokens = Parser.parseDeadline(restOfLine);
             } catch (NarutoException e) {
@@ -71,6 +77,7 @@ public class Ui {
             }
             return new Add(new Deadline(tokens[0], DateTimeUtil.format(tokens[1])), taskList);
         case "event":
+        case "e":
             try {
                 tokens = Parser.parseEvent(restOfLine);
             } catch (NarutoException e) {
@@ -79,6 +86,7 @@ public class Ui {
             return new Add(new Event(tokens[0], DateTimeUtil.format(tokens[1]),
                 DateTimeUtil.format(tokens[2])), taskList);
         case "delete":
+        case "d":
             try {
                 idx = Parser.parseIdx(restOfLine, taskList);
             } catch (NarutoException e) {
@@ -86,6 +94,7 @@ public class Ui {
             }
             return new Delete(taskList, idx);
         case "find":
+        case "f":
             try {
                 tokens = Parser.parseDescription(restOfLine).split(" ");
             } catch (NarutoException e) {
@@ -93,6 +102,7 @@ public class Ui {
             }
             return new Find(tokens);
         case "sort":
+        case "s":
             return new Sort(taskList);
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
