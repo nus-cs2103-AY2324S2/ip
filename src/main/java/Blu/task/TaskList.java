@@ -3,6 +3,7 @@ package blu.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import blu.exception.IllegalParameterException;
 
@@ -124,17 +125,8 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return "All tasks completed!";
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            String title = String.format("%d. %s", i + 1, task.toString());
-            // do not add new line when for last task in list
-            if (i == tasks.size() - 1) {
-                stringBuilder.append(title);
-            } else {
-                stringBuilder.append(title + "\n");
-            }
-        }
-        return stringBuilder.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> String.format("%d %s", i + 1, tasks.get(i)))
+                .collect(Collectors.joining("\n"));
     }
 }
