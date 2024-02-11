@@ -1,0 +1,17 @@
+list
+todo dropout
+list
+deadline have a breakdown /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+mark 3
+mark 4
+list
+unmark 3
+unmark 4
+list
+delete 3
+delete 4
+mark iwenf
+bye
