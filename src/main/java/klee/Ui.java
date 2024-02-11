@@ -17,6 +17,7 @@ public class Ui {
      * Constructor for Ui class.
      */
     public Ui(VBox dialogContainer) {
+        assert dialogContainer != null;
         this.dialogContainer = dialogContainer;
     }
 

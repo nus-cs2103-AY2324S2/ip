@@ -30,12 +30,12 @@ public class Storage {
      * @return LocalDateTime instance
      */
     public static LocalDateTime parseDateTimeTxt(String txt) {
-        String[] dateTime = txt.split(" ");
-        int year = Integer.parseInt(dateTime[0]);
-        int month = Integer.parseInt(dateTime[1]);
-        int day = Integer.parseInt(dateTime[2]);
-        int hour = Integer.parseInt(dateTime[3]);
-        int minute = Integer.parseInt(dateTime[4]);
+        String[] dateComponents = txt.split(" ");
+        int year = Integer.parseInt(dateComponents[0]);
+        int month = Integer.parseInt(dateComponents[1]);
+        int day = Integer.parseInt(dateComponents[2]);
+        int hour = Integer.parseInt(dateComponents[3]);
+        int minute = Integer.parseInt(dateComponents[4]);
         LocalDateTime returnVariable = LocalDateTime.of(year, month, day, hour, minute);
         return returnVariable;
     }
@@ -78,17 +78,18 @@ public class Storage {
                 Scanner readFile = new Scanner(data);
                 while (readFile.hasNext()) {
                     String read = readFile.nextLine();
-                    String[] line = read.split(" / ");
-                    switch (line[0]) {
+                    String[] components = read.split(" / ");
+                    assert components[0] == "T" || components[0] == "D" || components[0] == "E";
+                    switch (components[0]) {
                     case "T":
-                        tasks.add(ToDo.fromText(line[2], line[1]));
+                        tasks.add(ToDo.fromText(components[2], components[1]));
                         break;
                     case "D":
-                        tasks.add(Deadline.fromText(line[2], line[1], parseDateTimeTxt(line[3])));
+                        tasks.add(Deadline.fromText(components[2], components[1], parseDateTimeTxt(components[3])));
                         break;
                     case "E":
-                        tasks.add(Event.fromText(line[2], line[1], parseDateTimeTxt(line[3]),
-                                parseDateTimeTxt(line[4])));
+                        tasks.add(Event.fromText(components[2], components[1], parseDateTimeTxt(components[3]),
+                                parseDateTimeTxt(components[4])));
                         break;
                     default:
                         break;

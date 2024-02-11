@@ -70,7 +70,8 @@ public class Event extends Task {
     @Override
     public boolean equals(Object obj) {
         if (Task.class.isAssignableFrom(obj.getClass())) {
-            return super.equals(obj) && this.from == ((Event) obj).from && this.to == ((Event) obj).to;
+            boolean hasSameFields = this.from == ((Event) obj).from && this.to == ((Event) obj).to;
+            return super.equals(obj) && hasSameFields;
         } else {
             return false;
         }

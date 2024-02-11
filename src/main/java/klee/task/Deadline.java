@@ -64,7 +64,8 @@ public class Deadline extends Task {
     @Override
     public boolean equals(Object obj) {
         if (Task.class.isAssignableFrom(obj.getClass())) {
-            return super.equals(obj) && this.deadline == ((Deadline) obj).deadline;
+            boolean hasSameFields = this.deadline == ((Deadline) obj).deadline;
+            return super.equals(obj) && hasSameFields;
         } else {
             return false;
         }

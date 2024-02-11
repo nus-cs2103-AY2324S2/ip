@@ -84,6 +84,7 @@ public class Klee extends Application {
                 ui.echoUser(userInput.getText());
                 try {
                     Command command = parser.parseInput(userInput.getText());
+                    assert command != null;
                     command.runCommand(ui, storage, tasks);
                     if (command.getClass() == Bye.class) {
                         stage.close();

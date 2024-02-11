@@ -52,8 +52,9 @@ public class Deadline extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() == Deadline.class) {
-            return (this.description.equals(((Deadline) obj).description)
-                    && this.deadline.equals((((Deadline) obj).deadline)));
+            boolean hasSameFields = this.description.equals(((Deadline) obj).description)
+                    && this.deadline.equals((((Deadline) obj).deadline));
+            return (hasSameFields);
         } else {
             return false;
         }
