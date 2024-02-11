@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.HashMap;
 
 class Task {
     private String taskName;
@@ -36,12 +37,87 @@ class Task {
     }
 }
 
+class Todo extends Task {
+    /**
+     * Constructor
+     * 
+     * @param name task name
+     * @return new task instance
+     */
+    public Todo(String name) {
+        super(name);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    private String dueTime;
+
+    /**
+     * Constructor
+     * 
+     * @param name task name
+     * @param dueTime task due date/time as a String
+     * @return new task instance
+     */
+    public Deadline(String name, String dueTime) {
+        super(name);
+        this.dueTime = dueTime;
+    }
+
+    @Override
+    public String toString() {
+        String s = "[D]" + super.toString();
+        return s + " (due by " + this.dueTime + ")";
+    }
+}
+
+class Event extends Task {
+    private String startTime;
+    private String endTime;
+
+    /**
+     * Constructor
+     * 
+     * @param name task name
+     * @param startTime starting date/time of the task as a String
+     * @param endTime ending date/time of the task as a String
+     * @return new task instance
+     */
+    public Event(String name, String startTime, String endTime) {
+        super(name);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        String s = "[E]" + super.toString();
+        s = s + " (from " + this.startTime + " ";
+        return s + "until " + this.endTime + ")";
+    }
+}
+
 public class Dackel {
     /** Command aliases */
     private static final String QUIT = "bye";
     private static final String LIST = "list";
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+    private static final String EVENT = "event";
+
+    /** Command flags */
+    private static final String COMMAND = "command";
+    private static final String BODY = "body";
+    private static final String BY = "by";
+    private static final String FROM = "from";
+    private static final String UNTIL = "until";
 
     /** Other String constants */
     private static final String NAME = "DACKEL";
@@ -80,15 +156,48 @@ public class Dackel {
         return input;
     }
 
+    // TODO: perhaps collapse the three add task methods into a single method
+
     /**
-     * Adds a task to storedTasks
+     * Adds a Todo to storedTasks
      * 
      * @param taskName name of task to be added
      */
-    private static void addTask(String taskName) {
-        storedTasks[numberOfTasks] = new Task(taskName);
+    private static void addTodo(String taskName) {
+        Todo newTask = new Todo(taskName);
+        storedTasks[numberOfTasks] = newTask;
         numberOfTasks++;
-        speak("added task \"" + taskName + "\" to your list!");
+        speak("added the following task to your list!\n " + newTask.toString());
+        speak("your list now has " + String.valueOf(numberOfTasks) + " tasks.");
+    }
+
+    /**
+     * Adds a Deadline to storedTasks
+     * 
+     * @param taskName name of task to be added
+     * @param dueTime due date/time of task as a String
+     */
+    private static void addDeadline(String taskName, String dueTime) {
+        Deadline newTask = new Deadline(taskName, dueTime);
+        storedTasks[numberOfTasks] = newTask;
+        numberOfTasks++;
+        speak("added the following task to your list!\n " + newTask.toString());
+        speak("your list now has " + String.valueOf(numberOfTasks) + " tasks.");
+    }
+
+    /**
+     * Adds an Event to storedTasks
+     * 
+     * @param taskName name of task to be added
+     * @param startTime starting date/time of task as a String
+     * @param endTime ending date/time of task as a String
+     */
+    private static void addEvent(String taskName, String startTime, String endTime) {
+        Event newTask = new Event(taskName, startTime, endTime);
+        storedTasks[numberOfTasks] = newTask;
+        numberOfTasks++;
+        speak("added the following task to your list!\n " + newTask.toString());
+        speak("your list now has " + String.valueOf(numberOfTasks) + " tasks.");
     }
 
     /**
@@ -126,6 +235,36 @@ public class Dackel {
         speak("i've unmarked the following task. do it soon, please!\n " + storedTasks[index].toString());
     }
 
+    /**
+     * Parses the arguments of the user input and separates them into elements of a String array
+     * 
+     * @param input user input as a single String
+     * @return a String to String map parsedInput[]. 
+     *     parsedInput["command"] is the command, 
+     *     parsedInput["body"] is the unflagged part of the user input,
+     *     subsequent flagged elements are stored as parsedInput[flag name].
+     */
+    private static HashMap<String, String> parseInput(String input) {
+        HashMap<String, String> parsedInput = new HashMap<>();
+        String[] splittedInput = input.split(" ");
+        parsedInput.put(COMMAND, splittedInput[0]);
+        String currentFlag = BODY;
+        for (int i = 1; i < splittedInput.length; i++) {
+            String currentString = splittedInput[i];
+            if (currentString.charAt(0) == '/') {
+                currentFlag = currentString.substring(1);
+                continue;
+            }
+            if (parsedInput.containsKey(currentFlag)) {
+                parsedInput.put(currentFlag, parsedInput.get(currentFlag) + " " + currentString);
+            }
+            else {
+                parsedInput.put(currentFlag, currentString);
+            }
+        }
+        return parsedInput;
+    }
+
     public static void main(String[] args) {
         // title cards, etc.
         System.out.println(LINE);
@@ -143,9 +282,8 @@ public class Dackel {
         boolean isNotQuit = true;
         while (isNotQuit) {
             String input = receiveInput();
-            String[] splittedInput = input.split(" ");
-            String command = splittedInput[0];
-            switch (command) {
+            HashMap<String, String> parsedInput = parseInput(input);
+            switch (parsedInput.get(COMMAND)) {
             case QUIT:
                 isNotQuit = false;
                 break;
@@ -155,7 +293,7 @@ public class Dackel {
             case MARK:
                 // TODO: clean up error handling, maybe via an abstraction over try and catch?
                 try {
-                    int index = Integer.valueOf(splittedInput[1]) - 1;
+                    int index = Integer.valueOf(parsedInput.get(BODY)) - 1;
                     markTask(index);
                 }
                 catch (Exception e) {
@@ -165,15 +303,24 @@ public class Dackel {
             case UNMARK:
                 // TODO: clean up error handling, maybe via an abstraction over try and catch?
                 try {
-                    int index = Integer.valueOf(splittedInput[1]) - 1;
+                    int index = Integer.valueOf(parsedInput.get(BODY)) - 1;
                     unmarkTask(index);
                 }
                 catch (Exception e) {
                     speak("the arugment for " + UNMARK + " must be a number!");
                 }
                 break;
+            case TODO:
+                addTodo(parsedInput.get(BODY));
+                break;
+            case DEADLINE:
+                addDeadline(parsedInput.get(BODY), parsedInput.get(BY));
+                break;
+            case EVENT:
+                addEvent(parsedInput.get(BODY), parsedInput.get(FROM), parsedInput.get(UNTIL));
+                break;
             default:
-                addTask(input);
+                addTodo(input);
             }
         }
 
