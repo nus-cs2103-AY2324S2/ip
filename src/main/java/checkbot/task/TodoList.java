@@ -1,21 +1,23 @@
 package checkbot.task;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import checkbot.exception.InvalidIndexException;
 
 /**
  * Represents a list of tasks.
  */
 public class TodoList {
-    private final Task[] taskList;
-    private int length = 0;
+    private final ArrayList<Task> taskList;
 
     public TodoList() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<>();
     }
 
-    private TodoList(Task[] taskList, int length) {
+    private TodoList(ArrayList<Task> taskList) {
         this.taskList = taskList;
-        this.length = length;
     }
 
     /**
@@ -24,8 +26,7 @@ public class TodoList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        taskList[length] = task;
-        length++;
+        taskList.add(task);
     }
 
     /**
@@ -35,11 +36,11 @@ public class TodoList {
      * @throws InvalidIndexException If the index is invalid.
      */
     public Task markTask(int i) throws InvalidIndexException {
-        if (i < 0 || i >= length) {
-            throw new InvalidIndexException(i + 1, length);
+        if (i < 0 || i >= taskList.size()) {
+            throw new InvalidIndexException(i + 1, taskList.size());
         }
-        taskList[i].mark();
-        return taskList[i];
+        taskList.get(i).mark();
+        return taskList.get(i);
     }
 
     /**
@@ -49,11 +50,11 @@ public class TodoList {
      * @throws InvalidIndexException If the index is invalid.
      */
     public Task unmarkTask(int i) throws InvalidIndexException {
-        if (i < 0 || i >= length) {
-            throw new InvalidIndexException(i + 1, length);
+        if (i < 0 || i >= taskList.size()) {
+            throw new InvalidIndexException(i + 1, taskList.size());
         }
-        taskList[i].unmark();
-        return taskList[i];
+        taskList.get(i).unmark();
+        return taskList.get(i);
     }
 
     /**
@@ -64,36 +65,30 @@ public class TodoList {
      * @throws InvalidIndexException If the index is invalid.
      */
     public Task deleteTask(int i) throws InvalidIndexException {
-        if (i < 0 || i >= length) {
-            throw new InvalidIndexException(i + 1, length);
+        if (i < 0 || i >= taskList.size()) {
+            throw new InvalidIndexException(i + 1, taskList.size());
         }
-        Task deletedTask = taskList[i];
-        while (i < length - 1) {
-            taskList[i] = taskList[i + 1];
-            i++;
-        }
-        length--;
+        Task deletedTask = taskList.get(i);
+        taskList.remove(i);
         return deletedTask;
     }
 
     public Task getTask(int i) {
-        return taskList[i];
+        return taskList.get(i);
     }
 
     public int getLength() {
-        return length;
+        return taskList.size();
     }
 
     @Override
     public String toString() {
-        StringBuilder txt = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            txt.append(i + 1)
-                    .append(". ")
-                    .append(taskList[i])
-                    .append(i < length - 1 ? "\n" : "");
-        }
-        return txt.toString();
+        return IntStream.range(0, taskList.size())
+                .boxed()
+                .reduce("", (
+                        acc, index) -> String.format("%s\n%d. %s", acc, index + 1, taskList.get(index)), (
+                        x, y) -> x + y)
+                .strip();
     }
 
     /**
@@ -102,25 +97,27 @@ public class TodoList {
      * @return The formatted list of tasks.
      */
     public String formatForFile() {
-        StringBuilder txt = new StringBuilder();
-        for (int i = 0; i < this.length; i++) {
-            txt.append(taskList[i].formatForFile());
-            if (i < this.length - 1) {
-                txt.append("\n");
-            }
-        }
-        return txt.toString();
+        return taskList.stream()
+                .reduce("", (
+                        acc, task) -> String.format("%s\n%s",
+                        acc, task.formatForFile()), (
+                        x, y) -> x + y)
+                .strip();
     }
 
+    /**
+     * Returns an array of Tasks whose descriptions contain the provided substring.
+     *
+     * @param substr The substring to look for Tasks.
+     * @return An array containing filtered Tasks.
+     */
     public TodoList find(String substr) {
-        Task[] subList = new Task[100];
-        int newLength = 0;
-        for (int i = 0; i < length; i++) {
-            if (taskList[i].nameContains(substr)) {
-                subList[newLength] = taskList[i];
-                newLength++;
-            }
-        }
-        return new TodoList(subList, newLength);
+        return new TodoList(
+                new ArrayList<>(List.of(
+                        taskList
+                                .stream()
+                                .filter(task -> task.nameContains(substr))
+                                .toArray(Task[]::new)))
+        );
     }
 }
