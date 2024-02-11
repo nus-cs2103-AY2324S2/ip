@@ -1,9 +1,47 @@
 import java.util.Scanner;
 
+class Task {
+    private String taskName;
+    private boolean isDone;
+
+    /**
+     * Constructor
+     * 
+     * @param name task name
+     * @return new task instance
+     */
+    public Task(String name) {
+        this.taskName = name;
+        this.isDone = false;
+    }
+
+    /**
+     * Marks task as done
+     */
+    public void mark() {
+        this.isDone = true;
+    }
+
+    /**
+     * Marks task as not done
+     */
+    public void unmark() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        String s = isDone ? "[X] " : "[ ] ";
+        return s + this.taskName;
+    }
+}
+
 public class Dackel {
     /** Command aliases */
     private static final String QUIT = "bye";
     private static final String LIST = "list";
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
 
     /** Other String constants */
     private static final String NAME = "DACKEL";
@@ -18,7 +56,7 @@ public class Dackel {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     /** Memory for storing task data */
-    private static String[] storedTasks = new String[100];
+    private static Task[] storedTasks = new Task[100];
     private static int numberOfTasks = 0;
 
     /**
@@ -45,23 +83,47 @@ public class Dackel {
     /**
      * Adds a task to storedTasks
      * 
-     * @param task Task to be added
+     * @param taskName name of task to be added
      */
-    private static void addTask(String task) {
-        storedTasks[numberOfTasks] = task;
+    private static void addTask(String taskName) {
+        storedTasks[numberOfTasks] = new Task(taskName);
         numberOfTasks++;
-        speak("added task \"" + task + "\"");
+        speak("added task \"" + taskName + "\" to your list!");
     }
 
     /**
-     * Lists all tasks in storedTasks
+     * Lists all tasks in storedTasks. Displays a message if storedTasks is empty
      */
     private static void listTasks() {
+        if (numberOfTasks == 0) {
+            speak("you have no tasks on your list!");
+            return;
+        }
         String s = "";
         for (int i = 0; i < numberOfTasks; i++) {
-            s += "\n" + String.format(" %2d " + storedTasks[i], i + 1);
+            s += "\n" + String.format(" %2d " + storedTasks[i].toString(), i + 1);
         }
         speak(s);
+    }
+
+    /**
+     * Marks the specified task as done
+     * 
+     * @param index index of task in storedTasks
+     */
+    private static void markTask(int index) {
+        storedTasks[index].mark();
+        speak("i've marked the following task as done!\n " + storedTasks[index].toString());
+    }
+
+    /**
+     * Marks the specified task as not done
+     * 
+     * @param index index of task in storedTasks
+     */
+    private static void unmarkTask(int index) {
+        storedTasks[index].unmark();
+        speak("i've unmarked the following task. do it soon, please!\n " + storedTasks[index].toString());
     }
 
     public static void main(String[] args) {
@@ -81,12 +143,34 @@ public class Dackel {
         boolean isNotQuit = true;
         while (isNotQuit) {
             String input = receiveInput();
-            switch (input) {
+            String[] splittedInput = input.split(" ");
+            String command = splittedInput[0];
+            switch (command) {
             case QUIT:
                 isNotQuit = false;
                 break;
             case LIST:
                 listTasks();
+                break;
+            case MARK:
+                // TODO: clean up error handling, maybe via an abstraction over try and catch?
+                try {
+                    int index = Integer.valueOf(splittedInput[1]) - 1;
+                    markTask(index);
+                }
+                catch (Exception e) {
+                    speak("the arugment for " + MARK + " must be a number!");
+                }
+                break;
+            case UNMARK:
+                // TODO: clean up error handling, maybe via an abstraction over try and catch?
+                try {
+                    int index = Integer.valueOf(splittedInput[1]) - 1;
+                    unmarkTask(index);
+                }
+                catch (Exception e) {
+                    speak("the arugment for " + UNMARK + " must be a number!");
+                }
                 break;
             default:
                 addTask(input);
