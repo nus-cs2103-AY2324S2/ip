@@ -2,12 +2,15 @@
     -fx-background-color: white;
     -fx-border-color: #e1e1e1;
     -fx-border-radius: 5px;
-    -fx-alignment: center-left; /* Default alignment for all dialog boxes */
+    -fx-alignment: center-left;
+    -fx-max-width: 600px;
+    -fx-max-height: 400px;
 }
-
 
 .main-window {
     -fx-background-color: #ffffff;
+    -fx-max-width: 800px;
+    -fx-max-height: 600px;
 }
 
 .button {
@@ -36,14 +39,10 @@
     -fx-text-fill: black;
 }
 
-.dialog-box {
-    -fx-alignment: center-left; /* Aligns the contents of the dialog box to the left */
-}
-
 .dialog-box .label {
-    -fx-text-fill: black; /* Ensures the text is readable */
+    -fx-text-fill: black;
 }
 
 .dialog-box.bot {
-    -fx-alignment: center-right; /* Aligns the contents of the dialog box to the right */
+    -fx-alignment: center-right;
 }
