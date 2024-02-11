@@ -30,11 +30,6 @@ public class TaskList {
         return tasks.size();
     }
 
-    private void parse(){
-
-
-    }
-
     public void printListSize(){
 
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");

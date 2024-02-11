@@ -4,7 +4,7 @@ public class Ui {
     private static String line = "\n-------------------------------------------";
 
     private static String welcome = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
-    private static String farewell = "(•́︿•̀) Bye. Hope to see you again soon!";
+    private static String farewell = "(•︿•) Bye. Hope to see you again soon!";
 
     public Ui(){
 
