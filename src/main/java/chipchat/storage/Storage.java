@@ -1,7 +1,8 @@
 package chipchat.storage;
 
 import chipchat.parser.Parser;
-import chipchat.task.*;
+import chipchat.task.Task;
+import chipchat.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

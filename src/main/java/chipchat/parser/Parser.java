@@ -1,6 +1,13 @@
 package chipchat.parser;
 
-import chipchat.action.*;
+import chipchat.action.Action;
+import chipchat.action.AddTask;
+import chipchat.action.Bye;
+import chipchat.action.CommandType;
+import chipchat.action.Delete;
+import chipchat.action.ListTasks;
+import chipchat.action.Mark;
+import chipchat.action.Unmark;
 import chipchat.exception.ArgumentException;
 import chipchat.exception.InvalidArgumentException;
 import chipchat.exception.MissingArgumentException;
@@ -90,12 +97,12 @@ public class Parser {
 
         int index = parseIndex(tokens[1]);
         switch(command) {
-            case DELETE:
-                return new Delete(index);
-            case MARK:
-                return new Mark(index);
-            case UNMARK:
-                return new Unmark(index);
+        case DELETE:
+            return new Delete(index);
+        case MARK:
+            return new Mark(index);
+        case UNMARK:
+            return new Unmark(index);
         }
         return null;
     }
@@ -110,15 +117,15 @@ public class Parser {
         ArrayList<String> args = parseArguments(tokens);
         String description = args.get(0);
         switch(command) {
-            case TODO:
-                return AddTask.addTodo(description, false);
-            case DEADLINE:
-                LocalDate dueBy = parseDate(args.get(1));
-                return AddTask.addDeadline(description, false, dueBy);
-            case EVENT:
-                LocalDate dateFrom = parseDate(args.get(1));
-                LocalDate dateTo = parseDate(args.get(2));
-                return AddTask.addEvent(description, false, dateFrom, dateTo);
+        case TODO:
+            return AddTask.addTodo(description, false);
+        case DEADLINE:
+            LocalDate dueBy = parseDate(args.get(1));
+            return AddTask.addDeadline(description, false, dueBy);
+        case EVENT:
+            LocalDate dateFrom = parseDate(args.get(1));
+            LocalDate dateTo = parseDate(args.get(2));
+            return AddTask.addEvent(description, false, dateFrom, dateTo);
         }
         return null;
     }
