@@ -53,5 +53,25 @@ public class DeadlineCommand extends Command {
             ui.reply("Invalid date format. Please use YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format.\n");
         }
     }
+
+    /**
+     * Executes the deadline command.
+     * This method creates a Deadline object.
+     * If the date format is invalid, it will display an error message.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+            String description = this.deadline[0];
+            String by = this.deadline[1];
+            Deadline deadline = new Deadline(description, by);
+            taskList.addTask(deadline);
+            storageManager.save(taskList.getTasks());
+            return ui.getReply(deadline.replyString(taskList.getTasksSize()));
+    }
 }
 

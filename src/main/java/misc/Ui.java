@@ -28,4 +28,21 @@ public class Ui {
     public void reply (String reply) {
         System.out.println( linebreak + reply + linebreak);
     }
+
+    public String getEnd() {
+        String end = linebreak
+                + "Bye. Hope to see you again soon!\n"
+                + linebreak;
+        return end;
+    }
+
+    /**
+     * Returns an output message to the user base on the input reply.
+     *
+     * @param reply Input reply by the execution of a command.
+     */
+    public String getReply(String reply) {
+        return "Irwyn: \n"
+                + reply;
+    }
 }

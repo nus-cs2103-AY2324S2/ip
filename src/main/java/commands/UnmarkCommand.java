@@ -5,7 +5,7 @@ import misc.StorageManager;
 import misc.Ui;
 
 /**
- * This class encapsulates the class UnmarkCommand.
+ * This class encapsulates the class Unmark Command.
  * It unmarks the task on the list.
  *
  * @author Irwyn Liong
@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command {
     private final int unmark;
 
     /**
-     * Constructor for a UnmarkCommand object.
+     * Constructor for a Unmark Command object.
      * @param input The input by the user to parse into a command.
      */
     UnmarkCommand (String input) {
@@ -37,5 +37,22 @@ public class UnmarkCommand extends Command {
         storageManager.save(taskList.getTasks());
         String reply = "OK, I've marked this task as not done yet:\n" + taskList.getTask(unmark).toString() + "\n";
         ui.reply(reply);
+    }
+
+    /**
+     * Executes the unmark command.
+     * This method unmarks a Task from the list.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        taskList.unmark(unmark);
+        storageManager.save(taskList.getTasks());
+        String reply = "OK, I've marked this task as not done yet:\n" + taskList.getTask(unmark).toString() + "\n";
+        return ui.getReply(reply);
     }
 }

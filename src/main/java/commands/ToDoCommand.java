@@ -39,4 +39,21 @@ public class ToDoCommand extends Command {
         storageManager.save(taskList.getTasks());
         ui.reply(todo.replyString(taskList.getTasksSize()));
     }
+
+    /**
+     * Executes the todo command.
+     * This method creates a ToDo object.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        ToDo todo = new ToDo(todoDescription);
+        taskList.addTask(todo);
+        storageManager.save(taskList.getTasks());
+        return ui.getReply(todo.replyString(taskList.getTasksSize()));
+    }
 }

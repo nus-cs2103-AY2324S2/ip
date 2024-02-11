@@ -48,4 +48,27 @@ public class FindCommand extends Command {
         }
         ui.reply(reply);
     }
+
+    /**
+     * Executes the find command.
+     * Goes through the list and finds the tasks with description matching the user input.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        String reply = "Here are the tasks in your search list:\n";
+        ArrayList<Task> tasks = taskList.getTasks();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.toString().contains(this.filter)) {
+                String num = i + 1 + ". ";
+                reply += num + task + "\n";
+            }
+        }
+        return ui.getReply(reply);
+    }
 }

@@ -31,6 +31,16 @@ public abstract class Command {
     public abstract void execute(TaskList taskList, Ui ui, StorageManager storageManager);
 
     /**
+     * Executes the commands and returns a response.
+     *
+     * @param storageManager Storage manager handling storing & deletion of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    public abstract String execute(StorageManager storageManager, Ui ui, TaskList taskList);
+
+    /**
      * Returns the exit status of the command.
      *
      * @return Exit status of the command.
