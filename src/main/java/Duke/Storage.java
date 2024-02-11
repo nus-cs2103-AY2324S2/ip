@@ -11,17 +11,15 @@ import java.util.ArrayList;
  * It interacts with the Ui component for error reporting and the Parser component for parsing tasks.
  */
 public class Storage {
-    Ui ui;
+
     Parser parser;
 
     /**
      * Initializes a new Storage object.
      *
-     * @param ui The UI component used for displaying error messages.
      * @param parser The Parser component used for parsing tasks.
      */
-    public Storage (Ui ui, Parser parser) {
-        this.ui = ui;
+    public Storage (Parser parser) {
         this.parser = parser;
     }
 
@@ -67,7 +65,7 @@ public class Storage {
             fileWriter.write(taskLine + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            ui.saveError(e);
+
         }
 
     }
@@ -90,7 +88,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            ui.saveError(e);
+
         }
     }
 }

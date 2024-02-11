@@ -10,7 +10,6 @@ public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
-    private Ui ui;
 
     /**
      * Initializes a new Duke application.
@@ -18,21 +17,12 @@ public class Duke {
      * This constructor initializes the Ui, Parser, Storage, and TaskList components of the Duke application.
      */
     public Duke() {
-        this.ui = new Ui();
-        this.parser = new Parser(this.ui);
-        this.storage = new Storage(this.ui, this.parser);
-        this.taskList = new TaskList(this.ui, this.parser, this.storage);
+        this.parser = new Parser();
+        this.storage = new Storage(this.parser);
+        this.taskList = new TaskList(this.parser, this.storage);
     }
 
-    /**
-     * Starts the execution of the Duke application.
-     * <p>
-     * This method triggers the main functionality of the application,
-     * starting with the task list functionalities.
-     */
-    public void run() {
-        this.taskList.listFunction();
-    }
+
 
     /**
      * The entry point of the Duke application.
@@ -47,7 +37,6 @@ public class Duke {
         return taskList.runCommand(command);
     }
     public static void main(String[] args){
-        // new Duke().run(); // uncomment for CLI app
     }
 
 
