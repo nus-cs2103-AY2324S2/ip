@@ -1,10 +1,4 @@
-package essentials;
-
-import exceptions.JimmyException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+package jimmy.essentials;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +10,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import jimmy.exceptions.JimmyException;
+import jimmy.tasks.Deadline;
+import jimmy.tasks.Event;
+import jimmy.tasks.Task;
+import jimmy.tasks.Todo;
+
 /**
  * Represents a storage that stores the task list into a file.
  */
@@ -23,7 +23,7 @@ public class Storage {
     private final String storagePath;
 
     /**
-     * Constructor for essentials.Storage class.
+     * Constructor for jimmy.essentials.Storage class.
      *
      * @param filePath The file path of the storage file.
      */
@@ -64,7 +64,7 @@ public class Storage {
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
             if (isFolderMade || isFileMade) {
-                System.out.println("File not found, Jimmy is creating one for you now...");
+                System.out.println("File not found, jimmy.Jimmy is creating one for you now...");
             }
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));

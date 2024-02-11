@@ -1,18 +1,20 @@
-package essentials;
+package jimmy.essentials;
 
-import exceptions.JimmyException;
+import jimmy.exceptions.JimmyException;
 
 /**
  * Represents a parser that parses the user input and task details.
  */
 public class Parser {
+
     /**
      * Parses the user input into an array of strings.
      *
      * @param userInput The user input.
      * @return An array of strings containing the instruction and details.
      */
-    public String[] parseUserInput(String userInput) {
+    public String parseUserInput(String userInput, Ui ui, TaskList tasks)
+            throws IllegalArgumentException, JimmyException {
         String[] inputArray = userInput.split(" ", 2);
         String instruction;
         String details = "";
@@ -24,7 +26,22 @@ public class Parser {
             details = "";
         }
 
-        return new String[]{instruction, details};
+        switch (instruction) {
+        case "bye":
+            return ui.exit();
+        case "list":
+            return tasks.displayTasks();
+        case "mark":
+            return tasks.markTask(details);
+        case "unmark":
+            return tasks.unmarkTask(details);
+        case "delete":
+            return tasks.deleteTask(details);
+        case "find":
+            return tasks.findTask(details);
+        default:
+            return tasks.createNewTask(instruction, details);
+        }
     }
 
     /**

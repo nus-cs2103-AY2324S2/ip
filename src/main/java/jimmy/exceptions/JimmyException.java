@@ -1,12 +1,12 @@
-package exceptions;
+package jimmy.exceptions;
 
 /**
- * Represents the exceptions.JimmyException class.
+ * Represents the jimmy.exceptions.JimmyException class.
  */
 public class JimmyException extends Exception {
 
     /**
-     * Constructor for exceptions.JimmyException class.
+     * Constructor for jimmy.exceptions.JimmyException class.
      *
      * @param error Error message.
      */

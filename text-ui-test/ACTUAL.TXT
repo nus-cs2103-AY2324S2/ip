@@ -1,6 +1,9 @@
 Hello! I'm jimmy.Jimmy
 What can I do for you?
 
+Loading file contents...
+D | 0 | return book | Sunday
+null
 Got it. I've added this task:
 [T][ ] eat breakfast
 Now you have 1 task in the list.
@@ -49,3 +52,5 @@ Here are the jimmy.tasks in your list:
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 Bye. Hope to see you again soon!
+Writing to file...
+Done

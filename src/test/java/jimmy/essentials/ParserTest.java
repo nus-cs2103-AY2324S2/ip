@@ -1,12 +1,12 @@
-package essentials;
+package jimmy.essentials;
 
-import exceptions.JimmyException;
-
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import jimmy.exceptions.JimmyException;
 
 public class ParserTest {
-    private Parser parser = new Parser(); // Create a new Parser object.
+    private final Parser parser = new Parser(); // Create a new Parser object.
 
     @Test
     public void testParseEventDetails_incorrectFormat_exceptionThrown() {

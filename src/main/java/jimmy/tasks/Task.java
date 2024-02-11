@@ -1,4 +1,4 @@
-package tasks;
+package jimmy.tasks;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ public abstract class Task implements Serializable {
     private boolean isCompleted;
 
     /**
-     * Constructor for tasks.Task class.
+     * Constructor for jimmy.tasks.Task class.
      *
      * @param taskName Name of the task.
      */
@@ -26,8 +26,6 @@ public abstract class Task implements Serializable {
      */
     public void markAsComplete() {
         this.isCompleted = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString() + "\n");
     }
 
     /**
@@ -35,8 +33,6 @@ public abstract class Task implements Serializable {
      */
     public void markAsIncomplete() {
         this.isCompleted = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.toString() + "\n");
 
     }
 

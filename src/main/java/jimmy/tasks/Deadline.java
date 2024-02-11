@@ -1,4 +1,4 @@
-package tasks;
+package jimmy.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,10 +14,10 @@ public class Deadline extends Task {
     private final DateTimeFormatter formalDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     /**
-     * Constructor for tasks.Deadline class.
+     * Constructor for jimmy.tasks.Deadline class.
      *
      * @param taskName Name of the task.
-     * @param deadline tasks.Deadline of the task.
+     * @param deadline jimmy.tasks.Deadline of the task.
      */
     public Deadline(String taskName, String deadline, boolean isCompleted)
             throws DateTimeParseException, IllegalArgumentException {

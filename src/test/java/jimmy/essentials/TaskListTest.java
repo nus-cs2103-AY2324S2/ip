@@ -1,11 +1,12 @@
-package essentials;
+package jimmy.essentials;
 
-import exceptions.JimmyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jimmy.exceptions.JimmyException;
+
 public class TaskListTest {
-    private TaskList taskList = new TaskList();
+    private final TaskList taskList = new TaskList();
 
     @Test
     public void testCreateNewTask_invalidInstruction_exceptionThrown() {

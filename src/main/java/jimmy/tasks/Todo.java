@@ -1,4 +1,4 @@
-package tasks;
+package jimmy.tasks;
 
 import java.util.Objects;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Todo extends Task {
 
     /**
-     * Constructor for tasks.Todo class.
+     * Constructor for jimmy.tasks.Todo class.
      *
      * @param taskName Name of the task.
      */

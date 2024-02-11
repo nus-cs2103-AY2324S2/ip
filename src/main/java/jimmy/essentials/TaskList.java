@@ -1,16 +1,16 @@
-package essentials;
-
-import exceptions.JimmyException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+package jimmy.essentials;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import jimmy.exceptions.JimmyException;
+import jimmy.tasks.Deadline;
+import jimmy.tasks.Event;
+import jimmy.tasks.Task;
+import jimmy.tasks.Todo;
+
 /**
- * Represents a list of tasks.
+ * Represents a list of jimmy.tasks.
  */
 public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
@@ -18,7 +18,7 @@ public class TaskList {
     private Ui ui;
 
     /**
-     * Constructor for essentials.TaskList class.
+     * Constructor for jimmy.essentials.TaskList class.
      *
      * @param storage The storage object to load the task list from.
      * @param ui      The user interface object.
@@ -29,11 +29,8 @@ public class TaskList {
         storage.loadFileContents(taskList);
     }
 
-    /**
-     * Constructor for essentials.TaskList class. For testing purposes only.
-     */
     public TaskList() {
-
+        this.ui = new Ui();
     }
 
     /**
@@ -43,7 +40,7 @@ public class TaskList {
      * @param details     The details of the task to be created.
      * @throws JimmyException If the task type is invalid or the details are invalid.
      */
-    public void createNewTask(String instruction, String details) throws JimmyException {
+    public String createNewTask(String instruction, String details) throws JimmyException {
         Task newTask = null;
         try {
             switch (instruction) {
@@ -75,9 +72,7 @@ public class TaskList {
         }
 
         taskList.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
-        System.out.println(generateListCounter() + "\n");
+        return ui.showNewTask(newTask.toString(), getListSize());
     }
 
     /**
@@ -126,27 +121,22 @@ public class TaskList {
     }
 
     /**
-     * Generates the counter for the number of tasks in the task list.
+     * Gets the size of the task list.
      *
-     * @return The counter for the task list.
+     * @return The size of the task list.
      */
-    private String generateListCounter() {
-        if (taskList.size() == 0) {
-            return "You have no tasks, create some now!";
-        } else if (taskList.size() == 1) {
-            return "Now you have 1 task in the list.";
-        } else {
-            return "Now you have " + taskList.size() + " tasks in the list.";
-        }
+    private int getListSize() {
+        return taskList.size();
     }
 
     /**
      * Deletes a task from the task list.
      *
      * @param taskIndex The index of the task to be deleted.
+     * @return The task that was deleted with the number of tasks left in the list.
      * @throws JimmyException If the task index is invalid.
      */
-    public void deleteTask(String taskIndex) throws JimmyException {
+    public String deleteTask(String taskIndex) throws JimmyException {
         int taskToDelete;
         try {
             taskToDelete = Integer.parseInt(taskIndex) - 1;
@@ -154,32 +144,33 @@ public class TaskList {
             throw new JimmyException("Please only enter an integer.");
         }
         if (taskToDelete < 0) {
-            throw new JimmyException("Please only enter a positive integer.");
+            throw new JimmyException("Please only enter a positive integer to represent the task index.");
 
         } else if (taskToDelete >= getListSize()) {
-            throw new JimmyException("The task you are looking for does not exist.");
+            throw new JimmyException("The task you are looking for does not exist; "
+                    + "you might have entered an index that is larger than the number of tasks.");
         }
         Task deletedTask = taskList.remove(taskToDelete);
-        ui.showDeletedTask(deletedTask.toString(), getListSize());
+        return ui.showDeletedTask(deletedTask.toString(), getListSize());
     }
 
     /**
      * Displays the tasks in the task list.
+     *
+     * @return The tasks in the task list.
      */
-    public void displayTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + "." + taskList.get(i).toString());
-        }
+    public String displayTasks() {
+        return ui.showAllTasks(taskList);
     }
 
     /**
      * Marks a task as complete.
      *
      * @param taskIndex The index of the task to be marked as complete.
+     * @return The task that was marked.
      * @throws JimmyException If the task index is invalid.
      */
-    public void markTask(String taskIndex) throws JimmyException {
+    public String markTask(String taskIndex) throws JimmyException {
         int completeTask;
         try {
             completeTask = Integer.parseInt(taskIndex) - 1;
@@ -194,15 +185,17 @@ public class TaskList {
         }
         Task curr = taskList.get(completeTask);
         curr.markAsComplete();
+        return ui.showMarkedTask(curr.toString());
     }
 
     /**
      * Marks a task as incomplete.
      *
      * @param taskIndex The index of the task to be marked as incomplete.
+     * @return The task that was unmarked.
      * @throws JimmyException If the task index is invalid.
      */
-    public void unmarkTask(String taskIndex) throws JimmyException {
+    public String unmarkTask(String taskIndex) throws JimmyException {
         int taskToUnmark;
         try {
             taskToUnmark = Integer.parseInt(taskIndex) - 1;
@@ -217,15 +210,28 @@ public class TaskList {
         }
         Task curr = taskList.get(taskToUnmark);
         curr.markAsIncomplete();
+        return ui.showUnmarkedTask(curr.toString());
     }
 
     /**
-     * Gets the size of the task list.
+     * Finds a task in the task list.
      *
-     * @return The size of the task list.
+     * @param keyword The keyword to search for.
+     * @return The tasks that match the keyword.
+     * @throws JimmyException If the keyword is empty.
      */
-    private int getListSize() {
-        return taskList.size();
+    public String findTask(String keyword) throws JimmyException {
+        if (keyword.length() == 0) {
+            throw new JimmyException("Please enter a keyword to search for.");
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDesc().contains(keyword)) {
+                sb.append(i + 1).append(".").append(taskList.get(i).toString());
+                sb.append(System.getProperty("line.separator"));
+            }
+        }
+        return ui.showFoundTasks(sb.toString());
     }
 
     /**
@@ -235,23 +241,5 @@ public class TaskList {
      */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
-    }
-
-    /**
-     * Finds a task in the task list.
-     *
-     * @param keyword The keyword to search for.
-     * @throws JimmyException If the keyword is empty.
-     */
-    public void findTask(String keyword) throws JimmyException {
-        if (keyword.length() == 0) {
-            throw new JimmyException("Please enter a keyword to search for.");
-        }
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getDesc().contains(keyword)) {
-                System.out.println((i + 1) + "." + taskList.get(i).toString());
-            }
-        }
     }
 }
