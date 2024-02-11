@@ -1,3 +1,4 @@
+package Jelly;
 public class Ui {
 
     private static String line = "\n-------------------------------------------";
