@@ -26,7 +26,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         TaskList filteredTasks = new TaskList("");
 
         for (Task task : tasks) {
@@ -34,6 +34,6 @@ public class FindCommand extends Command {
                 filteredTasks.add(task);
             }
         }
-        ui.print(String.format(MESSAGE, filteredTasks.toString()));
+        return String.format(MESSAGE, filteredTasks);
     }
 }

@@ -10,7 +10,7 @@ public class DefaultCommand extends Command {
     private static final String MESSAGE = "what are u saying";
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.print(MESSAGE);
+    public String execute(TaskList tasks, Ui ui) {
+        return MESSAGE;
     }
 }

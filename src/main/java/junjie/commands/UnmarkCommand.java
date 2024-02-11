@@ -27,14 +27,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             int index = Integer.parseInt(this.index);
             Task task = tasks.get(index - 1);
             task.markDone(false);
-            ui.print(String.format(MESSAGE, tasks.get(index)));
+            return String.format(MESSAGE, tasks.get(index));
         } catch (NumberFormatException e) {
-            ui.print(ERROR_MESSAGE);
+            return ERROR_MESSAGE;
         }
     }
 }

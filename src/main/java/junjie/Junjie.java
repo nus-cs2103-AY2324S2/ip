@@ -8,38 +8,67 @@ import junjie.commands.Command;
  * Represents the main class of the application.
  */
 public class Junjie {
-    static final String NAME = "jun jie";
-    static final String INTRO_MSG = "hi bro, im " + NAME + "\nwhat you want me to do?";
+    private static final String NAME = "jun jie";
+    private static final String INTRO_MSG = "hi bro, im " + NAME + "\nwhat you want me to do?";
+
+    private final TaskList taskList;
+    private final Ui ui;
+    private boolean isExit = false;
 
     /**
-     * Constructs a new Junjie instance.
+     * Constructor for Junjie.
      */
     public Junjie() {
-        Scanner scanner = new Scanner(System.in);
-
         Storage.init();
         String fileContents = Storage.read();
-        TaskList taskList = new TaskList(fileContents);
-        Ui ui = new Ui();
-
-        ui.print(INTRO_MSG);
-        while (true) {
-            String input = scanner.nextLine();
-            Command command = Parser.handleInput(input, ui, taskList);
-            command.execute(taskList, ui);
-
-            if (command.isExit()) {
-                break;
-            }
-        }
+        taskList = new TaskList(fileContents);
+        ui = new Ui();
     }
 
     /**
-     * Entry point of the application.
+     * Runs the chatbot.
+     */
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+
+        ui.print(INTRO_MSG);
+        do {
+            String input = scanner.nextLine();
+            ui.print(getResponse(input));
+
+        } while (!isExit);
+    }
+
+    /**
+     * Gets the exit status of the chatbot.
+     *
+     * @return The exit status of the chatbot.
+     */
+    public boolean getExit() {
+        return isExit;
+    }
+
+    /**
+     * Gets the response from the chatbot.
+     *
+     * @param input The input from the user.
+     * @return The response from the chatbot.
+     */
+    public String getResponse(String input) {
+        Command command = Parser.handleInput(input, ui, taskList);
+        if (command.isExit()) {
+            isExit = true;
+        }
+        return command.execute(taskList, ui);
+    }
+
+    /**
+     * Starts Duke chatbot on command line.
+     * Entry point of application.
      *
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new Junjie();
+        new Junjie().run();
     }
 }

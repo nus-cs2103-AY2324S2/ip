@@ -27,15 +27,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             int index = Integer.parseInt(this.index);
 
             Task task = tasks.get(index - 1);
             tasks.remove(index - 1);
-            ui.print(String.format(MESSAGE, task));
+            return String.format(MESSAGE, task);
         } catch (NumberFormatException e) {
-            ui.print(ERROR_MESSAGE);
+            return ERROR_MESSAGE;
         }
     }
 }

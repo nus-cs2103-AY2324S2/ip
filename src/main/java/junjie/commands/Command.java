@@ -7,13 +7,15 @@ import junjie.Ui;
  * Represents a command.
  */
 public abstract class Command {
+
     /**
      * Executes the command.
      *
-     * @param tasks List of tasks.
-     * @param ui User interface.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @return The response from the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui);
+    public abstract String execute(TaskList tasks, Ui ui);
 
     /**
      * Returns true if the command is an exit command.
