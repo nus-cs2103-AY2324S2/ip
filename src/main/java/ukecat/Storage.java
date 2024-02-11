@@ -2,6 +2,8 @@ package ukecat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -106,25 +108,21 @@ public class Storage {
     public static String findTask() {
         try {
             String keyword = Parser.parseFindTask(words);
-            ArrayList<Task> matchingTasks = new ArrayList<>();
 
             if (taskCount == 0) {
                 return "No tasks in the list yet!";
             }
 
-            for (Task task : tasks) {
-                if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    matchingTasks.add(task);
-                }
-            }
+            List<Task> matchingTasks = tasks.stream()
+                    .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                    .collect(Collectors.toList());
 
             if (matchingTasks.isEmpty()) {
                 return "No tasks match the keyword.";
             } else {
                 StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    result.append(String.format("%d. %s%n", i + 1, matchingTasks.get(i).toString()));
-                }
+                matchingTasks.forEach(task ->
+                        result.append(String.format("%d. %s%n", matchingTasks.indexOf(task) + 1, task.toString())));
                 return result.toString();
             }
         } catch (UkeCatException e) {
