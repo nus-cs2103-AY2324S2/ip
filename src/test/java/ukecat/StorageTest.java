@@ -12,8 +12,8 @@ public class StorageTest {
         Storage.setInput("todo buy bread");
         Storage.setDesc("buy bread");
         Storage.setWords(new String[]{"todo", "buy bread"});
-        assertEquals("  Task added: [T][ ] buy bread" + System.lineSeparator() +
-                        "  You have 1 task in the list now.", Storage.addTask());
+        assertEquals("  Task added: [T][ ] buy bread" + System.lineSeparator()
+                + "  You have 1 task in the list now.", Storage.addTask());
     }
 
     @Test
