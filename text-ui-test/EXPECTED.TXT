@@ -30,26 +30,18 @@ ____________________________________________________________
  [Make sure the task number is correct and try again]
 ____________________________________________________________
 ____________________________________________________________
- I see you're trying to unmark a task, but it's in the wrong format...
- [Type 'help' if you're unsure of the correct format]
-____________________________________________________________
-____________________________________________________________
- Oops, I can't find a task in your list with that number! :(
- [Make sure the task number is correct and try again]
-____________________________________________________________
-____________________________________________________________
  Gotcha, i've added the ToDo:
    [T][ ] Some correct Todo
  You've now got 1 task in your list!
 ____________________________________________________________
 ____________________________________________________________
  Gotcha, i've added the Deadline:
-   [D][ ] Some correct Deadline
+   [D][ ] Some correct Deadline (by: Some date and time)
  You've now got 2 tasks in your list!
 ____________________________________________________________
 ____________________________________________________________
  Gotcha, i've added the Event:
-   [E][ ] Some correct Event
+   [E][ ] Some correct Event (from: Some date and time to: Another date and time)
  You've now got 3 tasks in your list!
 ____________________________________________________________
 ____________________________________________________________
@@ -60,7 +52,7 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Nice, I have marked this task as done:
-   [D][X] Some correct Deadline
+   [D][X] Some correct Deadline (by: Some date and time)
  Great job! :)
 ____________________________________________________________
 ____________________________________________________________
@@ -69,11 +61,20 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Alright, i have marked this task as not done yet:
-   [D][ ] Some correct Deadline
+   [D][ ] Some correct Deadline (by: Some date and time)
 ____________________________________________________________
 ____________________________________________________________
  Looks like this task was already unmarked...
  [In order to mark a task, use the 'mark' command instead]
+____________________________________________________________
+____________________________________________________________
+ Alright, the following task has been deleted off your list:
+   DELETED:  << [D][ ] Some correct Deadline (by: Some date and time) >>
+____________________________________________________________
+____________________________________________________________
+ Let's take a look at the tasks in your list:
+ 1.[T][ ] Some correct Todo
+ 2.[E][ ] Some correct Event (from: Some date and time to: Another date and time)
 ____________________________________________________________
 ____________________________________________________________
  Bye, see you next time! :)

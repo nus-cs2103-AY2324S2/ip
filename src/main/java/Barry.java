@@ -7,13 +7,11 @@ public class Barry {
 
     // A class for elements in the taskList, with a name and an indicator of whether the task is marked
     private abstract static class Task{
-        private final String taskType;
         private final String taskName;
         private boolean isDone;
 
         // Constructor for the Task class, initialised with the name of the task
-        public Task(String name, String type) {
-            this.taskType = type;
+        public Task(String name) {
             this.taskName = name;
             this.isDone = false;
         }
@@ -24,17 +22,14 @@ public class Barry {
         }
 
         // Returns the name of the task
-        public final String getName() {
+        protected final String getName() {
             return this.taskName;
         }
 
         // Returns the status of the task
-        public final boolean getStatus() {
+        protected final boolean getStatus() {
             return this.isDone;
         }
-
-        // Returns the type of the task
-        public final String getTaskType() { return this.taskType; }
 
         // Returns details about the relevant timings of the task, to be defined in the subclasses
         abstract public String detailsAsString();
@@ -45,7 +40,7 @@ public class Barry {
     private static class ToDo extends Task {
         // Constructor for ToDos, initialised with the name of the task
         public ToDo(String name) {
-            super(name, "T");
+            super(name);
         }
 
         // Method which returns details of the object as a String
@@ -62,7 +57,7 @@ public class Barry {
 
         // Constructor for Deadlines, initialised with the name of the task and the deadline
         public Deadline(String name, String deadline) {
-            super(name, "D");
+            super(name);
             this.deadlineDateTime = deadline;
         }
 
@@ -82,7 +77,7 @@ public class Barry {
 
         // Constructor for Events, initialised with the name of the task, as well as the start and end of the event
         public Event(String name, String start, String end) {
-            super(name, "E");
+            super(name);
             this.eventStartDateTime = start;
             this.eventEndDateTime = end;
         }
@@ -134,6 +129,7 @@ public class Barry {
         Scanner scanner = new Scanner(System.in);
         final Pattern markPattern = Pattern.compile("^mark\\s(\\d+)$");
         final Pattern unmarkPattern = Pattern.compile("^unmark\\s(\\d+)$");
+        final Pattern deletePattern = Pattern.compile("^delete\\s(\\d+)$");
         final Pattern todoPattern = Pattern.compile("^todo\\s(.+)$");
         final Pattern deadlinePattern = Pattern.compile("^deadline\\s(.+)\\s/by\\s(.+)$");
         final Pattern eventPattern = Pattern.compile("^event\\s(.+)\\s/from\\s(.+)\\s/to\\s(.+)$");
@@ -176,7 +172,7 @@ public class Barry {
                         if (!task.getStatus()) {
                             task.modifyStatus(true);
                             System.out.println("\t Nice, I have marked this task as done:");
-                            System.out.println("\t   [" + task.getTaskType() + "][X] " + task.getName());
+                            System.out.println("\t   " + task.detailsAsString());
                             System.out.println("\t Great job! :)");
                         } else {
                             System.out.println("\t Looks like this task was already marked...");
@@ -205,7 +201,7 @@ public class Barry {
                         if (task.getStatus()) {
                             task.modifyStatus(false);
                             System.out.println("\t Alright, i have marked this task as not done yet:");
-                            System.out.println("\t   [" + task.getTaskType() + "][ ] " + task.getName());
+                            System.out.println("\t   " + task.detailsAsString());
                         } else {
                             System.out.println("\t Looks like this task was already unmarked...");
                             System.out.println("\t [In order to mark a task, use the 'mark' command instead]");
@@ -221,6 +217,29 @@ public class Barry {
                     System.out.println("\t [Type 'help' if you're unsure of the correct format]");
                 }
                 System.out.println("\t____________________________________________________________\n");
+            } else if (inputText.startsWith("delete")) {
+                // Delete indicated task
+                Matcher deleteMatcher = deletePattern.matcher(inputText);
+                System.out.println("\t____________________________________________________________");
+                if (deleteMatcher.matches()) {
+                    // Valid format
+                    int taskIndex = Integer.parseInt(deleteMatcher.group(1)) - 1;
+                    try {
+                        String deletedTaskDetails = taskList.get(taskIndex).detailsAsString();
+                        taskList.remove(taskIndex);
+                        System.out.println("\t Alright, the following task has been deleted off your list:");
+                        System.out.println("\t   DELETED:  << " + deletedTaskDetails + " >>");
+                    } catch (IndexOutOfBoundsException e) {
+                        // Task number is out of range
+                        System.out.println("\t Oops, I can't find a task in your list with that number! :(");
+                        System.out.println("\t [Make sure the task number is correct and try again]");
+                    }
+                } else {
+                    // Invalid format
+                    System.out.println("\t I see you're trying to delete a task, but it's in the wrong format...");
+                    System.out.println("\t [Type 'help' if you're unsure of the correct format]");
+                }
+                System.out.println("\t____________________________________________________________\n");
             } else if (inputText.startsWith("todo")) {
                 // ToDos
                 Matcher todoMatcher = todoPattern.matcher(inputText);
@@ -232,7 +251,7 @@ public class Barry {
                     int listSize = taskList.size();
                     String plural = listSize > 1 ? "s" : "";
                     System.out.println("\t Gotcha, i've added the ToDo:");
-                    System.out.println("\t   [T][ ] " + todoName);
+                    System.out.println("\t   " + taskList.get(listSize - 1).detailsAsString());
                     System.out.println("\t You've now got " + listSize + " task" + plural + " in your list!");
                 } else {
                     // Invalid format
@@ -252,7 +271,7 @@ public class Barry {
                     int listSize = taskList.size();
                     String plural = listSize > 1 ? "s" : "";
                     System.out.println("\t Gotcha, i've added the Deadline:");
-                    System.out.println("\t   [D][ ] " + deadlineName);
+                    System.out.println("\t   " + taskList.get(listSize - 1).detailsAsString());
                     System.out.println("\t You've now got " + listSize + " task" + plural + " in your list!");
                 } else {
                     // Invalid format
@@ -273,7 +292,7 @@ public class Barry {
                     int listSize = taskList.size();
                     String plural = listSize > 1 ? "s" : "";
                     System.out.println("\t Gotcha, i've added the Event:");
-                    System.out.println("\t   [E][ ] " + eventName);
+                    System.out.println("\t   " + taskList.get(listSize - 1).detailsAsString());
                     System.out.println("\t You've now got " + listSize + " task" + plural + " in your list!");
                 } else {
                     // Invalid format
