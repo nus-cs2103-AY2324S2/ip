@@ -35,6 +35,7 @@ public class Parser {
             }
         }
         stringList.add(s);
+        assert stringList.size() > 0; // Ensure that this list contains a string
         return stringList;
     }
 }
