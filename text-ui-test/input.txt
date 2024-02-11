@@ -6,4 +6,9 @@ mark 1
 mark 2
 unmark 2
 unmark 2
+todo a
+todo b
+todo c
+delete 2 3
+list
 bye
