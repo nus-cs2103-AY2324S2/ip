@@ -29,11 +29,11 @@ public class DeleteCommand extends Command {
      * @throws ThamesException If error occurs while saving new task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
             Task deletedTask = tasks.remove(index);
-            ui.delete(deletedTask, tasks.size());
             storage.save(tasks);
+            return ui.delete(deletedTask, tasks.size());
         } catch (IOException e) {
             throw new ThamesException("There was an error saving the file. Please try again.");
         } catch (IndexOutOfBoundsException e) {

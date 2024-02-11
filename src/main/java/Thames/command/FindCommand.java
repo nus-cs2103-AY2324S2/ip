@@ -23,7 +23,7 @@ public class FindCommand extends Command {
      * @param storage Not required.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList tasksFound = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             String taskName = tasks.get(i).getName().toLowerCase();
@@ -31,11 +31,6 @@ public class FindCommand extends Command {
                 tasksFound.add(tasks.get(i));
             }
         }
-        ui.showList(tasksFound);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.showList(tasksFound);
     }
 }
