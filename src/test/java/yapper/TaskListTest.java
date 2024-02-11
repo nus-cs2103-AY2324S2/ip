@@ -1,10 +1,10 @@
 package yapper;
 
-import yapper.tasks.TaskList;
-import yapper.tasks.Todo;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import yapper.tasks.TaskList;
+import yapper.tasks.Todo;
 
 class TaskListTest {
 

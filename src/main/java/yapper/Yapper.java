@@ -14,7 +14,6 @@ import yapper.tasks.Task;
 import yapper.tasks.TaskList;
 import yapper.tasks.Todo;
 
-
 /**
  * The Yapper class is the main class that handles user input and manages tasks.
  * It includes methods for processing user input, displaying messages, and interacting with storage.
