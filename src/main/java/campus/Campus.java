@@ -15,11 +15,12 @@ public class Campus {
     /**
      * Creation of a Campus instance
      */
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public Campus() {
-        String filePath = "src/main/java/campus/dataTest.txt";
+        String FILE_PATH = "src/main/java/campus/dataTest.txt";
         this.ui = new Ui();
         TaskList taskList = new TaskList();
-        Storage storage = new Storage(filePath);
+        Storage storage = new Storage(FILE_PATH);
         this.parser = new Parser(this.ui, taskList, storage);
     }
 
@@ -27,15 +28,21 @@ public class Campus {
         new Campus();
     }
 
-    public String respond(String input) {
-        return this.parser.respond(input);
+    /**
+     * Hands off the string input to the parser class in which the parse message method is invoked to handle
+     * how to process the command
+     * @param input the user's message in a string format
+     * @return the appropriate response of type string
+     */
+    public String parseMessage(String input) {
+        return this.parser.parseMessage(input);
     }
 
-    public String greet() {
-        return this.ui.greet();
+    public String printGreeting() {
+        return this.ui.printGreeting();
     }
 
-    public String exit() {
-        return this.ui.exit();
+    public String printExiting() {
+        return this.ui.printExiting();
     }
 }

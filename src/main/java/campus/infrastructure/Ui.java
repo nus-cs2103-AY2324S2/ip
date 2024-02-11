@@ -10,7 +10,7 @@ public class Ui {
     /**
      * Produces a greeting message
      */
-    public String greet() {
+    public String printGreeting() {
 
         String message = "------------------------------\n"
                 + "Hello! I'm Campus\n"
@@ -24,7 +24,7 @@ public class Ui {
     /**
      * Produce a goodbye/exit message
      */
-    public String exit() {
+    public String printExiting() {
         String message = "------------------------------\n"
                 + "Bye. Hope to see you again soon!\n"
                 + "\n"
@@ -36,8 +36,8 @@ public class Ui {
      * Displays all the current items in the TaskList in a specified format with numbering
      * @param taskList the object containing all the tasks in a list
      */
-    public String display(TaskList taskList) {
-        int numOfTasks = taskList.size();
+    public String printTaskList(TaskList taskList) {
+        int numOfTasks = taskList.getListSize();
         StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < numOfTasks; i++) {
             int listNum = i + 1;
@@ -84,7 +84,7 @@ public class Ui {
      * @param task The task object instance
      */
     public String delete(TaskList taskList, Task task) {
-        int numOfTasks = taskList.size();
+        int numOfTasks = taskList.getListSize();
 
         String message = "------------------------------\n"
                 + "Noted. Task deleted successfully. I have removed the following task:\n"
@@ -101,7 +101,7 @@ public class Ui {
      * @param task The task object instance
      */
     public String add(TaskList taskList, Task task) {
-        int numOfTasks = taskList.size();
+        int numOfTasks = taskList.getListSize();
 
         String message = "------------------------------\n"
                 + "Got it. I've added this to our list of tasks:\n"

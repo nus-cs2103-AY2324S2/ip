@@ -83,7 +83,7 @@ public class TaskList {
 
         for (Task task : this.tasks) {
             if (task.taskName.contains(string)) {
-                temp.add(task);
+                temp.addTask(task);
             }
         }
         return temp;
@@ -99,10 +99,10 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
-    public int size() {
+    public int getListSize() {
         return tasks.size();
     }
-    public void delete(Task task) {
+    public void deleteTask(Task task) {
         this.tasks.remove(task);
     }
 
@@ -114,7 +114,7 @@ public class TaskList {
         task.markIncomplete();
     }
 
-    public void add(Task task) {
+    public void addTask(Task task) {
         this.tasks.add(task);
     }
 }

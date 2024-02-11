@@ -35,9 +35,9 @@ public class Parser {
     }
 
     /**
-     * Responds on user input
+     * Parses the user's message, works as the main logic tree to handle the user's commands
      */
-    public String respond(String userInput) {
+    public String parseMessage(String userInput) {
         try {
             return this.processCommand(userInput);
         } catch (CampusException e) {
@@ -68,7 +68,7 @@ public class Parser {
 
         switch(firstWord) {
         case "list":
-            msg = this.ui.display(this.taskList);
+            msg = this.ui.printTaskList(this.taskList);
             break;
         case "mark":
             // Fallthrough
@@ -87,7 +87,7 @@ public class Parser {
             msg = handleEventCommand(remaining);
             break;
         case "bye":
-            return ui.exit();
+            return ui.printExiting();
         case "":
             break;
         case "find":
@@ -107,7 +107,7 @@ public class Parser {
      */
     public String handleFindCommand(String remaining) {
         TaskList tempTaskList = this.taskList.getTaskListWhere(remaining);
-        return this.ui.display(tempTaskList);
+        return this.ui.printTaskList(tempTaskList);
     }
 
     /**
@@ -129,7 +129,7 @@ public class Parser {
             msg = this.ui.markUndone(task);
             break;
         case "delete":
-            this.taskList.delete(task);
+            this.taskList.deleteTask(task);
             msg = this.ui.delete(this.taskList, task);
             break;
         default:
@@ -149,7 +149,7 @@ public class Parser {
                     + "please follow the following syntax: todo <task name>\n");
         } else {
             ToDos todo = new ToDos(remaining);
-            this.taskList.add(todo);
+            this.taskList.addTask(todo);
             return this.ui.add(this.taskList, todo);
         }
     }
@@ -172,7 +172,7 @@ public class Parser {
 
         try {
             Deadline deadline = new Deadline(deadlineName, endDateTime);
-            this.taskList.add(deadline);
+            this.taskList.addTask(deadline);
             return this.ui.add(this.taskList, deadline);
         } catch (CampusException e) {
             return e.getMessage();
@@ -208,7 +208,7 @@ public class Parser {
 
         try {
             Event event = new Event(eventName, from, to);
-            this.taskList.add(event);
+            this.taskList.addTask(event);
             return this.ui.add(this.taskList, event);
         } catch (CampusException e) {
             return e.getMessage();
