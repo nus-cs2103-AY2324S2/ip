@@ -36,7 +36,7 @@ public class Storage {
      * @param endDate   the end date
      * @return true if the start date is before the end date, false otherwise
      */
-    private static boolean isValidDates(LocalDate startDate, LocalDate endDate) {
+    private static boolean checkValidDates(LocalDate startDate, LocalDate endDate) {
         return startDate.isBefore(endDate);
     }
 
@@ -143,10 +143,10 @@ public class Storage {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
                     LocalDate startTime = LocalDate.parse(startTimeString, formatter);
                     LocalDate endTime = LocalDate.parse(endTimeString, formatter);
-                    if (!isValidDates(startTime, endTime)) {
+                    if (!checkValidDates(startTime, endTime)) {
                         System.out.println("____________________________________________________________");
                         System.out.println("Error found: Start time should be earlier than end time.");
-                        System.out.println(line);
+                        System.out.println("--> " + line);
                         System.out.println("Removed from list");
                         System.out.println("____________________________________________________________");
                         continue;

@@ -1,7 +1,7 @@
 package duke;
 import duke.storage.Storage;
 import duke.task.*;
-import duke.ui.*;
+import duke.response.*;
 import duke.parser.*;
 
 import org.junit.jupiter.api.Test;

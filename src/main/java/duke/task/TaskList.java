@@ -1,16 +1,16 @@
-package duke.task;//package duke;
+package duke.task;
 
-import duke.ui.Ui;
+import duke.response.Ui;
 
 import java.util.ArrayList;
 
 public class TaskList {
     ArrayList<Task> tasks;
-    Ui ui;
+    Ui response;
 
     public TaskList(ArrayList<Task> tasks, Ui ui) {
         this.tasks = tasks;
-        this.ui = ui;
+        this.response = ui;
     }
 
     public ArrayList<Task> getTasks() {
@@ -21,13 +21,13 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    private boolean isValidTaskIndex(int taskIndex) {
+    private boolean checkValidTaskIndex(int taskIndex) {
         return taskIndex >= 1 && taskIndex <= this.tasks.size();
     }
 
     public String addTask(Task newTask){
         tasks.add(newTask);
-        return ui.addNewTask(newTask, getTaskListSize());
+        return response.addNewTask(newTask, getTaskListSize());
     }
 
     public void addTaskSilent(Task newTask){
@@ -35,47 +35,46 @@ public class TaskList {
     }
 
     public String deleteTask(int taskIndex) {
-        if (!isValidTaskIndex(taskIndex)) {
-            return ui.invalidTaskIndex();
+        if (!checkValidTaskIndex(taskIndex)) {
+            return response.invalidTaskIndex();
         }
         Task removedTask = this.tasks.remove(taskIndex - 1);
-        return ui.deleteTask(removedTask, getTaskListSize());
+        return response.deleteTask(removedTask, getTaskListSize());
     }
     public String markTaskAsDone(int taskIndex) {
-        if (!isValidTaskIndex(taskIndex)) {
-            return ui.invalidTaskIndex();
+        if (!checkValidTaskIndex(taskIndex)) {
+            return response.invalidTaskIndex();
         }
         Task doneTask = this.tasks.get(taskIndex - 1);
         doneTask.markAsDone();
-        return ui.markAsDone(doneTask);
+        return response.markAsDone(doneTask);
     }
 
     public String markTaskAsUndone(int taskIndex) {
-        if (!isValidTaskIndex(taskIndex)) {
-            return ui.invalidTaskIndex();
+        if (!checkValidTaskIndex(taskIndex)) {
+            return response.invalidTaskIndex();
         }
         Task undoneTask = this.tasks.get(taskIndex - 1);
         undoneTask.markAsUndone();
-        return ui.markAsUndone(undoneTask);
+        return response.markAsUndone(undoneTask);
     }
 
     public String searchTasks(String keyword) {
         // Search for tasks containing the specified keyword
         int currentIndex = 1;
-        boolean isFound = false;
         String tasksList = "";
         for (Task task : this.tasks) {
             String lowerCasedTasks = task.toString().toLowerCase();
             if (lowerCasedTasks.contains(keyword.toLowerCase())) {
-                tasksList = tasksList + currentIndex + ". " + task.toString() + "\n";
+                tasksList = tasksList
+                        + "\n " + currentIndex + ". " + task.toString();
                 currentIndex += 1;
-                isFound = true;
             }
         }
-        if (!isFound) {
-            return this.ui.noMatchingTasks(keyword);
+        if (currentIndex == 1) {
+            return response.noMatchingTasks(keyword);
         }
-        return tasksList;
+        return "Found " + currentIndex + " matching task(s) with '" + keyword + "'"
+                + tasksList;
     }
 }
-

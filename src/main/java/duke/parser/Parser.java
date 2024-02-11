@@ -1,8 +1,8 @@
-package duke.parser;//package duke;
+package duke.parser;
 
 import duke.storage.Storage;
 import duke.task.*;
-import duke.ui.Ui;
+import duke.response.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * The Parser class parses user input and executes corresponding commands.
  */
 public class Parser {
-    Ui ui;
+    Ui response;
     Storage storage;
     TaskList taskList;
 
@@ -24,7 +24,7 @@ public class Parser {
      * @param taskList  the task list
      */
     public Parser(Ui ui, Storage storage, TaskList taskList) {
-        this.ui = ui;
+        this.response = ui;
         this.storage = storage;
         this.taskList = taskList;
     }
@@ -35,7 +35,7 @@ public class Parser {
      * @param dateString the string representation of the date
      * @return true if the string is a valid date, false otherwise
      */
-    private static boolean isValidDate(String dateString) {
+    private static boolean checkValidDate(String dateString) {
         String parsedInPattern = "\\d{4}-\\d{2}-\\d{2}";
         return Pattern.matches(parsedInPattern, dateString);
     }
@@ -47,7 +47,7 @@ public class Parser {
      * @param endDate   the end date
      * @return true if the start date is before the end date, false otherwise
      */
-    private static boolean isValidDates(LocalDate startDate, LocalDate endDate) {
+    private static boolean checkValidDates(LocalDate startDate, LocalDate endDate) {
         return startDate.isBefore(endDate);
     }
 
@@ -62,77 +62,77 @@ public class Parser {
         String command = words[0].toLowerCase();
 
         switch (command) {
-            case "bye":
-                this.storage.saveTasksToFile(taskList.getTasks());
-                return this.ui.sendGoodbye();
-            case "list":
-                return this.ui.showTaskList(taskList.getTasks());
-            case "done":
-                if (words.length > 1) {
-                    int taskIndex = Integer.parseInt(words[1]);
-                    return this.taskList.markTaskAsDone(taskIndex);
-                } else {
-                    return this.ui.noIndexMarkAsDone();
+        case "bye":
+            storage.saveTasksToFile(taskList.getTasks());
+            return response.sendGoodbye();
+        case "list":
+            return response.showTaskList(taskList.getTasks());
+        case "done":
+            if (words.length > 1) {
+                int taskIndex = Integer.parseInt(words[1]);
+                return taskList.markTaskAsDone(taskIndex);
+            } else {
+                return response.noIndexMarkAsDone();
+            }
+        case "undone":
+            if (words.length > 1) {
+                int taskIndex = Integer.parseInt(words[1]);
+                return taskList.markTaskAsUndone(taskIndex);
+            } else {
+                return response.noIndexMarkAsUndone();
+            }
+        case "delete":
+            if (words.length > 1) {
+                int taskIndex = Integer.parseInt(words[1]);
+                return taskList.deleteTask(taskIndex);
+            } else {
+                return response.noIndexDeleteTask();
+            }
+        case "todo":
+            if (words.length > 1) {
+                String todoDescription = userInput.substring(command.length()).trim();
+                Task newTodo = new TodoTask(todoDescription);
+                return taskList.addTask(newTodo);
+            } else {
+                return response.insufficientTodoDescription();
+            }
+        case "deadline":
+            if (words.length > 1 && userInput.contains("/by")) {
+                String deadlineDescription = userInput.substring(command.length() + 1, userInput.indexOf("/by")).trim();
+                String byString = userInput.substring(userInput.indexOf("/by") + 3).trim();
+                if (!checkValidDate(byString)) {
+                    return response.invalidDateInput();
                 }
-            case "undone":
-                if (words.length > 1) {
-                    int taskIndex = Integer.parseInt(words[1]);
-                    return this.taskList.markTaskAsUndone(taskIndex);
-                } else {
-                    return this.ui.noIndexMarkAsUndone();
+                LocalDate by = LocalDate.parse(byString);
+                Task newDeadline = new DeadlineTask(deadlineDescription, by);
+                return taskList.addTask(newDeadline);
+            } else {
+                return response.insufficientDeadline();
+            }
+        case "event":
+            if (words.length > 1 && userInput.contains("/from") && userInput.contains("/to")) {
+                String eventDescription = userInput.substring(command.length() + 1, userInput.indexOf("/from")).trim();
+                String fromString = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).trim();
+                String toString = userInput.substring(userInput.indexOf("/to") + 3).trim();
+                LocalDate from = LocalDate.parse(fromString);
+                LocalDate to = LocalDate.parse(toString);
+                if (!checkValidDates(from, to)) {
+                    return response.invalidEventStartingTimeAndEndingTime();
                 }
-            case "delete":
-                if (words.length > 1) {
-                    int taskIndex = Integer.parseInt(words[1]);
-                    return this.taskList.deleteTask(taskIndex);
-                } else {
-                    return this.ui.noIndexDeleteTask();
-                }
-            case "todo":
-                if (words.length > 1) {
-                    String todoDescription = userInput.substring(command.length()).trim();
-                    Task newTodo = new TodoTask(todoDescription);
-                    return this.taskList.addTask(newTodo);
-                } else {
-                    return this.ui.insufficientTodoDescription();
-                }
-            case "deadline":
-                if (words.length > 1 && userInput.contains("/by")) {
-                    String deadlineDescription = userInput.substring(command.length() + 1, userInput.indexOf("/by")).trim();
-                    String byString = userInput.substring(userInput.indexOf("/by") + 3).trim();
-                    if (!isValidDate(byString)) {
-                        return this.ui.invalidDateInput();
-                    }
-                    LocalDate by = LocalDate.parse(byString);
-                    Task newDeadline = new DeadlineTask(deadlineDescription, by);
-                    return this.taskList.addTask(newDeadline);
-                } else {
-                    return this.ui.insufficientDeadline();
-                }
-            case "event":
-                if (words.length > 1 && userInput.contains("/from") && userInput.contains("/to")) {
-                    String eventDescription = userInput.substring(command.length() + 1, userInput.indexOf("/from")).trim();
-                    String fromString = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).trim();
-                    String toString = userInput.substring(userInput.indexOf("/to") + 3).trim();
-                    LocalDate from = LocalDate.parse(fromString);
-                    LocalDate to = LocalDate.parse(toString);
-                    if (!isValidDates(from, to)) {
-                        return this.ui.invalidEventStartingTimeAndEndingTime();
-                    }
-                    Task newEvent = new EventTask(eventDescription, from, to);
-                    return this.taskList.addTask(newEvent);
-                } else {
-                    return this.ui.insufficientEventStartTimeEndTime();
-                }
-            case "search":
-                if (words.length > 1) {
-                    String keyword = userInput.substring(command.length()).trim();
-                    return this.taskList.searchTasks(keyword);
-                } else {
-                    return this.ui.noKeywordsForSearching();
-                }
-            default:
-                return ui.badUserInput();
+                Task newEvent = new EventTask(eventDescription, from, to);
+                return taskList.addTask(newEvent);
+            } else {
+                return response.insufficientEventStartTimeEndTime();
+            }
+        case "search":
+            if (words.length > 1) {
+                String keyword = userInput.substring(command.length()).trim();
+                return taskList.searchTasks(keyword);
+            } else {
+                return response.noKeywordsForSearching();
+            }
+        default:
+            return response.badUserInput();
         }
     }
 }
