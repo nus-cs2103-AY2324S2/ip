@@ -18,34 +18,32 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Duke {
-    private static String gap = "____________________________________________________________\n";
     private static HashSet<String> validCommands;
     private static ArrayList<Task> tasks;
+    private static Ui ui;
 
     public static void main(String[] args) {
         initialSetup();
-        String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-        System.out.println(gap + "Greetings! I am Aegis.\n"
-                         + "How can I assist you?\n" + gap);
-        Scanner sc = new Scanner(System.in);
+        ui = new Ui();
+        ui.printLogo();
+        ui.printDivider();
+        ui.printGreeting();
+        ui.printDivider();
         while (true) {
             try {
-                String input = sc.nextLine();
+                String input = ui.getUserInput();
                 StringTokenizer st = new StringTokenizer(input);
                 String identifier = st.nextToken().toLowerCase();
                 if (validCommands.contains(identifier)) {
                     executeCommand(input);
                 } else {
                     throw new DukeException("I do not recognize that command.\n"
-                            + "Please enter a valid command.");
+                            + "Please enter a valid command.\n");
                 }
             } catch (DukeException e) {
-                System.out.println(gap + e.getMessage() + "\n" + gap);
+                ui.printDivider();
+                System.out.println(e.getMessage());
+                ui.printDivider();
             }
         }
     }
@@ -64,9 +62,9 @@ public class Duke {
         try {
             readTaskListData();
         } catch (FileNotFoundException e) {
-            System.out.println("FNFE occurred.");
+            ui.printFileNotFoundError();
         } catch (IOException e) {
-            System.out.println("IOE occurred.");
+            ui.printIoException();
         }
     }
 
@@ -112,13 +110,16 @@ public class Duke {
                 writeTaskListData();
             }
         } catch (IOException e) {
-            System.out.println("Error");
+            ui.printIoException();
         }
-        System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
+        System.out.println("Total task count: " + tasks.size() + ".\n");
+        ui.printDivider();
     }
 
     private static void exitProgram() {
-        System.out.println(gap + "Goodbye! Have a pleasant day!\n" + gap);
+        ui.printDivider();
+        ui.printFarewell();
+        ui.printDivider();
         System.exit(0);
     }
 
@@ -132,31 +133,38 @@ public class Duke {
             Task curr = tasks.get(i);
             taskList += ((i+1) + ". " + curr.toString() + "\n");
         }
-        System.out.println(gap + "Here are your tasks:\n" + taskList + gap);
+        ui.printDivider();
+        System.out.println("Here are your tasks:\n" + taskList);
+        ui.printDivider();
     }
 
     private static void markTask(String arguments) throws DukeException {
         int taskNum = Integer.parseInt(arguments) - 1;
         Task selectedTask = tasks.get(taskNum);
         selectedTask.markDone();
-        System.out.println(gap + "Well done, task marked as completed.\n"
-                + selectedTask.toString() + "\n" + gap);
+        ui.printDivider();
+        ui.printMarkTaskSuccess();
+        System.out.println(selectedTask.toString() + "\n");
+        ui.printDivider();
     }
 
     private static void unmarkTask(String arguments) throws DukeException {
         int taskNum = Integer.parseInt(arguments) - 1;
         Task selectedTask = tasks.get(taskNum);
         selectedTask.markNotDone();
-        System.out.println(gap + "Understood, task marked as uncompleted.\n"
-                + selectedTask.toString() + "\n" + gap);
+        ui.printDivider();
+        ui.printUnmarkTaskSuccess();
+        System.out.println(selectedTask.toString() + "\n");
+        ui.printDivider();
     }
 
     private static void createToDoTask(String arguments) throws DukeException {
         if (!arguments.isEmpty()) {
             ToDo newToDo = new ToDo(arguments);
             tasks.add(newToDo);
-            System.out.println(gap + "Confirmed. New task added:\n"
-                    + newToDo.toString() + "\n");
+            ui.printDivider();
+            ui.printCreateTaskSuccess();
+            System.out.println(newToDo.toString() + "\n");
         } else {
             throw new DukeException("todo command requires a description for the task."
                     + "\n\nPlease leave a space after 'todo' and enter"
@@ -182,8 +190,9 @@ public class Duke {
             by = by.trim();
             Deadline newDeadline = new Deadline(deadlineDesc, by);
             tasks.add(newDeadline);
-            System.out.println(gap + "Confirmed. New task added:\n"
-                    + newDeadline.toString() + "\n");
+            ui.printDivider();
+            ui.printCreateTaskSuccess();
+            System.out.println(newDeadline.toString() + "\n");
         } else {
             throw new DukeException("deadline command requires a description for the task"
                     + " and a deadline. \n\nPlease leave a space after 'deadline'"
@@ -217,8 +226,9 @@ public class Duke {
             end = end.trim();
             Event newEvent = new Event(eventDesc, from, end);
             tasks.add(newEvent);
-            System.out.println(gap + "Confirmed. New task added:\n"
-                    + newEvent.toString() + "\n");
+            ui.printDivider();
+            ui.printCreateTaskSuccess();
+            System.out.println(newEvent.toString() + "\n");
         } else {
             throw new DukeException("event command requires a description for the task,"
                     + " start time and end time. \n\nPlease leave a space after 'event'"
@@ -231,9 +241,11 @@ public class Duke {
     private static void deleteTask(String arguments) throws DukeException {
         int delIndex = Integer.parseInt(arguments) - 1;
         Task toDelete = tasks.remove(delIndex);
-        System.out.println(gap + "Acknowledged. The following task has been removed:\n"
-                + toDelete.toString());
-        System.out.println("\nTasks remaining: " + tasks.size() + ".\n" + gap);
+        ui.printDivider();
+        ui.printDeleteTaskSuccess();
+        System.out.println(toDelete.toString());
+        System.out.println("\nTasks remaining: " + tasks.size() + ".\n");
+        ui.printDivider();
     }
 
     private static void writeTaskListData() throws IOException {
@@ -273,9 +285,9 @@ public class Duke {
                 tasks.add(savedTask);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred locating the file.");
+            ui.printFileNotFoundError();
         } catch (IOException e) {
-            System.out.println("An error has occurred.");
+            ui.printIoException();
         }
     }
 
