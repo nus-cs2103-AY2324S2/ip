@@ -30,6 +30,11 @@ public class Storage {
      * @return A string message indicating the result of the addition.
      */
     public static String addTask() {
+
+        assert words != null : "Words array must not be null.";
+        assert words.length > 0 : "Words array must have at least one element.";
+        assert desc != null: "Every task must have a description.";
+
         Task t = null;
         try {
             switch (words[0]) {
