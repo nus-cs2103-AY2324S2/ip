@@ -24,3 +24,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Ignore Gradle build output directory
 build
+
+# Ignore local data storage files
+/data/
