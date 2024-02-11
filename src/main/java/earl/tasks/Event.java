@@ -35,8 +35,7 @@ public class Event extends Task {
      * @param from         the date and time of the start
      * @param to           the date and time of the end
      */
-    public Event(String status, String description,
-                 String from, String to) {
+    public Event(String status, String description, String from, String to) {
         super(status, description);
         this.from = LocalDateTime.parse(from, DATETIME_FORMAT);;
         this.to = LocalDateTime.parse(to, DATETIME_FORMAT);;

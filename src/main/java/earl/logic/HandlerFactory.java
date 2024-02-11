@@ -13,6 +13,8 @@ public class HandlerFactory {
      *                 the given command
      */
     public static Handler of(String[] command) {
+        assert command.length > 0 : "command must not be empty";
+        // break unnecessary as all cases return
         switch (command[0]) {
         case "list":
             return new ListHandler();

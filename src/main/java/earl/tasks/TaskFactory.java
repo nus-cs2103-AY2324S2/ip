@@ -15,6 +15,7 @@ public class TaskFactory {
      * @throws EarlException  if arguments are incomprehensible
      */
     public static Task of(String... args) throws EarlException {
+        assert args.length > 0 : "args must not be empty";
         // break unnecessary as all paths return or throw
         switch (args[0]) {
         case "T":

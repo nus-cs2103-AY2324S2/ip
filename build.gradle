@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("earl.Earl")
+    mainClass.set("earl.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "earl"
+    archiveBaseName = "launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
