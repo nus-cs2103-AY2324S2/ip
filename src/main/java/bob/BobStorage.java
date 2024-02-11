@@ -72,6 +72,9 @@ public class BobStorage {
 
             if (!this.SAVE_DATA.exists()) {
                 this.instantiateDirectory();
+
+                assert this.SAVE_DATA.exists(); // check if file is successfully created.
+
                 return new ArrayList<>();
             }
 
