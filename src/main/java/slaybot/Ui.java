@@ -51,6 +51,8 @@ public class Ui {
                 }
             }
 
+            assert command != null;
+
             switch (command) {
                 case BYE:
                     Storage.saveTasks(tasks);
