@@ -26,9 +26,7 @@ public class Ui {
      * Prints the farewell message of Tobias.
      * */
     public String goodbyePrinter() {
-        System.out.println(DIVIDER);
-        System.out.println("I say this with a heavy heart but Goodbye my lover :( Hope to see you soon!");
-        System.out.println(DIVIDER);
+        assert DIVIDER != null && BOTNAME != null: "Either divider missing or bot name is missing";
 
         String result = DIVIDER
                 + System.lineSeparator()
@@ -48,6 +46,7 @@ public class Ui {
      * @param size Total number of tasks in the list now.
      * */
     public String addedTaskPrinter(Task task, int size) {
+        assert task != null && size >= 0: "Either task is null or size is possibly negative";
         String result = DIVIDER
                 + System.lineSeparator()
                 + "Got it. I've added this task: "
@@ -65,6 +64,8 @@ public class Ui {
      * Prints a divider.
      * */
     public static String printDivider() {
+        assert DIVIDER != null;
+
         return DIVIDER;
     }
 
