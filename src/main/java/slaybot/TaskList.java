@@ -45,7 +45,6 @@ public class TaskList {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             output += i + 1 + ". " + tasks.get(i) + "\n";
-            //System.out.println(i + 1 + ". " + tasks.get(i));
         }
 
         return output;

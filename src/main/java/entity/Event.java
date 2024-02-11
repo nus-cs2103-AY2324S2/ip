@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * represented by LocalDateTime objects.
  */
 public class Event extends Task {
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
     /**
      * Constructor for Event class
@@ -30,7 +30,7 @@ public class Event extends Task {
      */
     @Override
     public String save() {
-        if (this.marked) {
+        if (this.getMarked()) {
             return "E | Done | " + this.title;
         } else {
             return "E | Not Done | " + this.title;
@@ -39,7 +39,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        if (this.marked) {
+        if (this.getMarked()) {
             return "[E][X] " + this.title + " (from: "
                     + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";

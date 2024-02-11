@@ -5,7 +5,7 @@ package entity;
  */
 public abstract class Task {
     protected String title;
-    protected boolean marked;
+    protected boolean isMarked;
 
     /**
      * Constructor for Task class that takes in a String as an argument
@@ -13,7 +13,7 @@ public abstract class Task {
      */
     Task(String title) {
         this.title = title;
-        this.marked = false;
+        this.isMarked = false;
     }
 
     public String getTitle() {
@@ -21,11 +21,11 @@ public abstract class Task {
     }
 
     public boolean getMarked() {
-        return this.marked;
+        return this.isMarked;
     }
 
-    public void setMarked(boolean bool) {
-        this.marked = bool;
+    public void setMarked(boolean markedStatus) {
+        this.isMarked = markedStatus;
     }
 
     public abstract String save();
