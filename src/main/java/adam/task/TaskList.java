@@ -23,7 +23,7 @@ public class TaskList {
      * Returns an empty list of tasks.
      */
     public TaskList() {
-        this(new ArrayList<Task>());
+        this(new ArrayList<>());
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList {
      * @throws AdamException If the index provided is greater than the list of tasks.
      */
     public String delete(int taskNumber) throws AdamException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
         Task t = tasks.remove(taskNumber - 1);
@@ -58,9 +58,10 @@ public class TaskList {
      * @throws AdamException If the index provided is greater than the list of tasks.
      */
     public String mark(int taskNumber) throws AdamException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
+
         Task t = tasks.get(taskNumber - 1);
         t.mark();
         return t.toString();
@@ -74,7 +75,7 @@ public class TaskList {
      * @throws AdamException If the index provided is greater than the list of tasks.
      */
     public String unmark(int taskNumber) throws AdamException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new AdamException("You do not have " + taskNumber + " tasks.");
         }
 
