@@ -72,7 +72,7 @@ public class Ui {
         if (taskString == "") {
             return "The task list is currently empty! Add tasks!\n";
         } else {
-            return "Here are the tasks in your list\n:" + taskString;
+            return "Here are the tasks in your list:\n" + taskString;
         }
     }
 
