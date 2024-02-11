@@ -22,6 +22,7 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
         TaskList tasksWithKeyword = new TaskList();
         for (Task task : tasks) {
             if (task.contains(this.keyword)) {

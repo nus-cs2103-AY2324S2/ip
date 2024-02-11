@@ -17,6 +17,7 @@ public class UnMarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
         Task task = tasks.get(idx);
         task.unmark();
         return "OK, I've marked this task as not done yet:\n" + task + "\n";

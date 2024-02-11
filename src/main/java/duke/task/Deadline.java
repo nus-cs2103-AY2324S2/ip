@@ -17,6 +17,8 @@ public class Deadline extends Task {
      */
     public Deadline(String event, LocalDateTime dueBy) {
         super();
+        assert event != null;
+        assert dueBy != null;
         this.event = event;
         this.dueBy = dueBy;
     }

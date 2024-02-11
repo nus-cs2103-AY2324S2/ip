@@ -11,6 +11,7 @@ public class ToDo extends Task {
      */
     public ToDo(String todo) {
         super();
+        assert todo != null;
         this.event = todo;
     }
 

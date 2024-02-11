@@ -29,6 +29,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
         Task task = tasks.get(idx);
         tasks.remove(idx);
         return "Noted. I've removed this task:\n" + task + "\n" + tasks.trailer() + "\n";

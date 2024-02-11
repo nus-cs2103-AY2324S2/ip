@@ -32,6 +32,7 @@ public class Parser {
      * @throws ChatException if the value is invalid.
      */
     private static int parseInt(String val) {
+        assert val != null;
         try {
             return Integer.parseInt(val);
         } catch (NumberFormatException e) {
@@ -48,6 +49,7 @@ public class Parser {
      * @return Processed string.
      */
     private static String getContents(String line, int startFrom) {
+        assert line != null;
         String msg = line.substring(startFrom);
         if (msg.equals(" ") || msg.isEmpty()) {
             throw new ChatException("The description of a todo cannot be empty.");
@@ -64,6 +66,7 @@ public class Parser {
      * @throws ChatException if the input is invalid
      */
     private static LocalDateTime dateParse(String date) {
+        assert date != null;
         try {
             return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
         } catch (DateTimeParseException e) {
@@ -79,6 +82,7 @@ public class Parser {
      * @throws ChatException if the command isn't valid.
      */
     public static Command parse(String line) {
+        assert line != null;
         String command = line.split(" ")[0];
         switch (command) {
         case "bye":

@@ -30,6 +30,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
         Task task = new ToDo(this.todo);
         tasks.add(task);
         return tasks.standardize(task);

@@ -19,8 +19,13 @@ public class TaskList implements Iterable<Task> {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> listOfMessages) {
-        this.tasks = listOfMessages;
+    /**
+     * Takes a list of tasks to construct the TaskList with.
+     * @param listofTasks The list of tasks.
+     */
+    public TaskList(ArrayList<Task> listofTasks) {
+        assert listofTasks != null : "TaskList cannot be initialized with null list of messages.";
+        this.tasks = listofTasks;
     }
 
     /**
@@ -56,6 +61,7 @@ public class TaskList implements Iterable<Task> {
      * @param task the task to add.
      */
     public void add(Task task) {
+        assert task != null : "Cannot add null to task list.";
         this.tasks.add(task);
     }
 

@@ -35,6 +35,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
         Task task = new duke.task.Deadline(this.event, this.dueBy);
         tasks.add(task);
         return tasks.standardize(task);

@@ -40,6 +40,7 @@ public abstract class Task implements Serializable {
      */
 
     protected String dateFormat(LocalDateTime date) {
+        assert date != null;
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
@@ -50,6 +51,7 @@ public abstract class Task implements Serializable {
      * @return true if contains, false if it does not.
      */
     public boolean contains(String keyword) {
+        assert keyword != null;
         return this.event.contains(keyword);
     }
 }
