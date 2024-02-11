@@ -52,37 +52,26 @@ public class Parser {
      */
     public String processCommand(String userInput) throws CampusException {
         String msg = null;
-        String[] arr = userInput.split(" ", 2);
-        String firstWord;
-        String remaining;
+        String[] arr = userInput.trim().split(" ", 2);
+        String firstWord = arr[0].trim();
+        String remaining = arr.length > 1 ? arr[1].trim() : "";
 
-        if (arr.length > 1) {
-            firstWord = arr[0].trim();
-            remaining = arr[1].trim();
-        } else {
-            firstWord = arr[0].trim();
-            remaining = "";
-        }
-
-        switch(firstWord) {
+        switch (firstWord) {
         case "list":
-            msg = this.ui.printTaskList(this.taskList);
-            break;
+            // fallthrough
         case "mark":
-            // Fallthrough
+            // fallthrough
         case "unmark":
-            // Fallthrough
+            // fallthrough
         case "delete":
             msg = handleUpdateCommands(firstWord, userInput);
             break;
         case "todo":
-            msg = handleTodoCommand(remaining);
-            break;
+            // fallthrough
         case "deadline":
-            msg = handleDeadlineCommand(remaining);
-            break;
+            // fallthrough
         case "event":
-            msg = handleEventCommand(remaining);
+            msg = handleTaskCommand(firstWord, remaining);
             break;
         case "bye":
             return ui.printExiting();
@@ -92,12 +81,25 @@ public class Parser {
             msg = handleFindCommand(remaining);
             break;
         default:
-            throw new CampusException("Sorry, I don't understand that command, "
-                    + "please check for potential spelling errors");
+            throw new CampusException("Sorry, I don't understand that command,"
+                    + " please check for potential spelling errors");
         }
         this.storage.updateFileFromList(this.taskList);
         assert (msg != null);
         return msg;
+    }
+
+    private String handleTaskCommand(String command, String details) throws CampusException {
+        switch (command) {
+        case "todo":
+            return handleTodoCommand(details);
+        case "deadline":
+            return handleDeadlineCommand(details);
+        case "event":
+            return handleEventCommand(details);
+        default:
+            throw new CampusException("Invalid task command");
+        }
     }
 
     /**
@@ -132,7 +134,7 @@ public class Parser {
             msg = this.ui.delete(this.taskList, task);
             break;
         default:
-            break;
+            assert(false);
         }
         assert(msg != null);
         return msg;

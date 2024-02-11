@@ -44,7 +44,7 @@ public class TaskList {
             return parseTaskFromString(string);
         } catch (CampusException e) {
             System.err.println("Error parsing task from string: " + e.getMessage());
-            return null; // or handle it differently
+            return null;
         }
     }
 
