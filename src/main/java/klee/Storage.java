@@ -79,7 +79,7 @@ public class Storage {
                 while (readFile.hasNext()) {
                     String read = readFile.nextLine();
                     String[] components = read.split(" / ");
-                    assert components[0] == "T" || components[0] == "D" || components[0] == "E";
+                    assert (components[0].equals("T") || components[0].equals("D") || components[0].equals("E"));
                     switch (components[0]) {
                     case "T":
                         tasks.add(ToDo.fromText(components[2], components[1]));

@@ -1,7 +1,10 @@
 package klee;
 
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import klee.task.Task;
@@ -10,7 +13,8 @@ import klee.task.Task;
  * Contains functions to output to the user.
  */
 public class Ui {
-    protected static String divider = "\n____________________________________________________________________________\n";
+    protected String divider = "____________________________________________________________________________"
+            + "______________________________________";
     protected VBox dialogContainer;
 
     /**
@@ -25,13 +29,34 @@ public class Ui {
      * Welcome the user with a greeting.
      */
     public void showWelcome() {
-        //Greet user
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("Hello! My name is Klee. "
-                + "\nAre you here to break Klee out of solitary confinement?"
-                + divider);
+        Label outputText = new Label();
+        outputText.setAlignment(Pos.BASELINE_LEFT);
+        outputText.setText("Hello! My name is Klee. "
+                + "\nAre you here to break Klee out of solitary confinement?");
+        outputText.setTranslateX(100);
+        outputText.setTranslateY(25);
+        Group output;
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_star_eyes.jpg_large"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Image paimonImage = new Image(getClass().getResourceAsStream("/images/Paimon_proud.png"));
+        ImageView paimonView = new ImageView(paimonImage);
+        paimonView.setX(485);
+        paimonView.setY(0);
+        paimonView.setPreserveRatio(true);
+        paimonView.setFitHeight(100);
+
+        output = new Group(kleeView, paimonView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -40,10 +65,24 @@ public class Ui {
      * @param errorMessage
      */
     public void showError(String errorMessage) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText(errorMessage + divider);
+        Label outputText = new Label();
+        outputText.setText(errorMessage);
+        outputText.setTranslateX(120);
+        outputText.setTranslateY(40);
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_thinking.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -53,22 +92,34 @@ public class Ui {
      */
 
     public void showTasks(TaskList tasks) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("These are all the things that we have to do today:");
-        output.autosize();
-        dialogContainer.getChildren().add(output);
+        Group outputText = new Group();
+        Label outputLine = new Label();
+        outputLine.setText("These are all the things that we have to do today:");
+        outputText.getChildren().add(outputLine);
+        outputText.setTranslateX(180);
+        outputText.setTranslateY(0);
+
         for (int i = 0; i < tasks.size(); i++) {
-            output = new Label();
-            output.setAlignment(Pos.BASELINE_LEFT);
-            output.setText((i + 1) + ". " + tasks.get(i).getStatus());
-            output.autosize();
-            dialogContainer.getChildren().add(output);
+            outputLine = new Label();
+            outputLine.setText((i + 1) + ". " + tasks.get(i).getStatus());
+            double offset = (1 + i) * 16;
+            outputLine.setTranslateY(offset);
+            outputText.getChildren().add(outputLine);
         }
-        output = new Label();
-        output.setText(divider);
-        output.autosize();
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -77,22 +128,34 @@ public class Ui {
      * @param tasks
      */
     public void showFilteredTasks(TaskList tasks) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("These are all the things that are similar to what you are looking for:");
-        output.autosize();
-        dialogContainer.getChildren().add(output);
+        Group outputText = new Group();
+        Label outputLine = new Label();
+        outputLine.setText("These are all the things that are similar to what you are looking for:");
+        outputText.getChildren().add(outputLine);
+        outputText.setTranslateX(180);
+        outputText.setTranslateY(0);
+
         for (int i = 0; i < tasks.size(); i++) {
-            output = new Label();
-            output.setAlignment(Pos.BASELINE_LEFT);
-            output.setText((i + 1) + ". " + tasks.get(i).getStatus());
-            output.autosize();
-            dialogContainer.getChildren().add(output);
+            outputLine = new Label();
+            outputLine.setText((i + 1) + ". " + tasks.get(i).getStatus());
+            double offset = (1 + i) * 16;
+            outputLine.setTranslateY(offset);
+            outputText.getChildren().add(outputLine);
         }
-        output = new Label();
-        output.setText(divider);
-        output.autosize();
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -102,13 +165,26 @@ public class Ui {
      * @param size
      */
     public void showCreation(Task task, int size) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("Klee will help you write that down! : "
+        Label outputText = new Label();
+        outputText.setText("Klee will help you write that down! : "
                 + "\n" + task.getStatus()
-                + "\n" + "Now you have " + size + " tasks in the list."
-                + divider);
+                + "\n" + "Now you have " + size + " tasks in the list.");
+        outputText.setTranslateX(180);
+        outputText.setTranslateY(25);
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -117,12 +193,25 @@ public class Ui {
      * @param task
      */
     public void showMarked(Task task) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("Great! Klee will put a big cross on this box:"
-                + "\n" + task.getStatus()
-                + divider);
+        Label outputText = new Label();
+        outputText.setText("Great! Klee will put a big cross on this box:"
+                + "\n" + task.getStatus());
+        outputText.setTranslateX(180);
+        outputText.setTranslateY(25);
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -131,12 +220,25 @@ public class Ui {
      * @param task
      */
     public void showUnMarked(Task task) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("Oh no! Klee will burn the cross away...:"
-                + "\n" + task.getStatus()
-                + divider);
+        Label outputText = new Label();
+        outputText.setText("Oh no! Klee will burn the cross away...:"
+                + "\n" + task.getStatus());
+        outputText.setTranslateX(180);
+        outputText.setTranslateY(25);
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -146,13 +248,26 @@ public class Ui {
      * @param size
      */
     public void showDeletion(Task task, int size) {
-        Label output = new Label();
-        output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("Okay, Klee will wipe this task away!"
+        Label outputText = new Label();
+        outputText.setText("Okay, Klee will wipe this task away!"
                 + "\n" + task.getStatus()
-                + "\nNow you have " + size + " tasks in the list."
-                + divider);
+                + "\nNow you have " + size + " tasks in the list.");
+        outputText.setTranslateX(180);
+        outputText.setTranslateY(25);
+
+        Image kleeImage = new Image(getClass().getResourceAsStream("/images/Klee_drawing.jpg"));
+        ImageView kleeView = new ImageView(kleeImage);
+        kleeView.setX(0);
+        kleeView.setY(0);
+        kleeView.setPreserveRatio(true);
+        kleeView.setFitHeight(100);
+
+        Group output = new Group(kleeView, outputText);
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -161,9 +276,12 @@ public class Ui {
     public void showBye() {
         Label output = new Label();
         output.setAlignment(Pos.BASELINE_LEFT);
-        output.setText("Goodbye. Klee will go back to solitary confinement now..."
-                + divider);
+        output.setText("Goodbye. Klee will go back to solitary confinement now...");
         dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 
     /**
@@ -171,9 +289,22 @@ public class Ui {
      */
     public void echoUser(String userInput) {
         Label input = new Label();
-        input.setAlignment(Pos.BASELINE_RIGHT);
-        input.setText(userInput + divider);
-        input.autosize();
-        dialogContainer.getChildren().add(input);
+        input.setText(userInput);
+        input.setTranslateY(25);
+        input.setTranslateX(25);
+
+        Image paimonImage = new Image(getClass().getResourceAsStream("/images/Paimon_user.jpg"));
+        ImageView paimonView = new ImageView(paimonImage);
+        paimonView.setX(435);
+        paimonView.setY(0);
+        paimonView.setPreserveRatio(true);
+        paimonView.setFitWidth(150);
+
+        Group output = new Group(paimonView, input);
+        dialogContainer.getChildren().add(output);
+
+        Label dividerBlock = new Label();
+        dividerBlock.setText(divider);
+        dialogContainer.getChildren().add(dividerBlock);
     }
 }
