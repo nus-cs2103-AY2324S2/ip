@@ -1,8 +1,11 @@
 package task;
 
+import java.util.ArrayList;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected ArrayList<String> tags;
 
     /**
      * Constructor for a Task.
@@ -12,6 +15,7 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new ArrayList<>();
     }
 
     /**
@@ -23,10 +27,11 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.tags = new ArrayList<>();
     }
 
     /**
-     * Constructor for a Task.
+     * Gets the status icon of a task.
      *
      * @return A checked string if the task is done else returns an empty [].
      * */
@@ -88,6 +93,31 @@ public abstract class Task {
         Task task = (Task) obj;
 
         return isDone == task.isDone && description.equals(task.description);
+    }
+
+    /**
+     * Adds a tag to the current instance of the Task
+     * */
+    public void addTag(String tag) {
+        if (!tag.isEmpty()) {
+            this.tags.add(tag);
+        }
+    }
+
+    public String printTags() {
+        String result = "( ";
+        for (String t : this.tags) {
+            result += "#" + t + ", ";
+        }
+
+        result += " )";
+        return result;
+    }
+
+    public void untag(int tagIndex) {
+        if (tagIndex < this.tags.size()) {
+            this.tags.remove(tagIndex);
+        }
     }
 
 }

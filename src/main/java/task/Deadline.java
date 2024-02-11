@@ -33,7 +33,18 @@ public class Deadline extends Task {
     @Override
     public String taskPrinter() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
-        String result = "    " + "[D][ ]" + " " + description + "(by: " + deadline.format(output) + ")";
+        String result = "    " + ".[D]" + getStatusIcon() + " " + description
+                + System.lineSeparator()
+                + "        " + "BY: " + deadline.format(output)
+                + System.lineSeparator()
+                + "        " + this.printTags();
+
+        if (this.tags.isEmpty()) {
+            result = "    " + ".[D]" + getStatusIcon() + " " + description
+                    + System.lineSeparator()
+                    + "        " + "BY: " + deadline.format(output);
+        }
+
         return result;
     }
 
@@ -43,7 +54,19 @@ public class Deadline extends Task {
     @Override
     public String taskPrinter(int index) {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd MMMM yyyy hhmm a");
-        String result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description  + "(by: " + deadline.format(output) + ")";
+
+        String result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description
+                + System.lineSeparator()
+                + "        " + "BY: " + deadline.format(output)
+                + System.lineSeparator()
+                + "        " + this.printTags();
+
+        if (this.tags.isEmpty()) {
+            result = "    " + (index+1) + ".[D]" + getStatusIcon() + " " + description
+                    + System.lineSeparator()
+                    + "        " + "BY: " + deadline.format(output);
+        }
+
         return result;
     }
 
@@ -53,7 +76,16 @@ public class Deadline extends Task {
     @Override
     public String storagePrinter() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        return "D" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|by" + deadline.format(output);
+        String tagString = "|tag";
+
+        if (this.tags.isEmpty()) {
+            return "D" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|by" + deadline.format(output);
+        }
+
+        for (String t : this.tags) {
+            tagString += "_" + t;
+        }
+        return "D" + "|isdone" + (isDone ? 1 : 0) + "|desc" + description + "|by" + deadline.format(output) + tagString;
     }
 
     /**
