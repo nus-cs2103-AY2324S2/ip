@@ -2,7 +2,7 @@ package fishstock;
 
 import java.util.ArrayList;
 
-import fishstock.FishStock.Command;
+import fishstock.Command.Keyword;
 
 /**
  * Encapsulates a TaskList object.
@@ -34,18 +34,18 @@ class TaskList {
 
     /**
      * Marks whether Task is done.
-     * @param command The command.
+     * @param keyword The keyword command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    protected Task changeMark(Command command, String input) throws FishStockException {
+    protected Task changeMark(Keyword keyword, String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
         try {
             Task task = list.get(idx);
-            if (command == Command.MARK) {
+            if (keyword == Keyword.MARK) {
                 task.markAsDone();
-            } else if (command == Command.UNMARK) {
+            } else if (keyword == Keyword.UNMARK) {
                 task.markAsUndone();
             }
             return task;
@@ -75,14 +75,14 @@ class TaskList {
 
     /**
      * Adds Task into array.
-     * @param command The command.
+     * @param keyword The command.
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
-    protected Task addTask(Command command, String input) throws FishStockException {
+    protected Task addTask(Keyword keyword, String input) throws FishStockException {
         Task task = null;
-        switch (command) {
+        switch (keyword) {
         case TODO:
             task = Todo.of(input);
             break;
