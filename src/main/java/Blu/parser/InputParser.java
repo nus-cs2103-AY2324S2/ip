@@ -23,7 +23,8 @@ import blu.exception.IllegalCommandException;
  * Parses user input into corresponding Command objects.
  */
 public class InputParser {
-    private static final DateTimeFormatter INPUT_DATETIMEFORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static final DateTimeFormatter INPUT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static final int BASE_TOKENS_INDEX = 0;
 
     /**
      * Parses the given user input into a specific Command object.
@@ -89,17 +90,32 @@ public class InputParser {
         return false;
     }
 
+    private LocalDateTime parseDateTime(String dateTimeString) throws IllegalCommandException {
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, INPUT_DATETIME_FORMAT);
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            throw new IllegalCommandException("Invalid DateTime format.\n"
+                    + "Please use dd-MM-yyyy format.");
+        }
+    }
+
+    private int parseInteger(String intString) throws IllegalCommandException {
+        try {
+            int result = Integer.parseInt(intString);
+            return result;
+        } catch (NumberFormatException e) {
+            throw new IllegalCommandException(intString + " is not a valid integer!");
+        }
+    }
+
     private Command prepareMarkCommand(String[] tokens) throws IllegalCommandException {
         if (!isNumberOfParamCorrect(tokens, 2)) {
-            throw new IllegalCommandException("Please specify a task number to mark\n" + "Usage: mark <task_number>");
+            throw new IllegalCommandException("Please specify a task number to mark\n"
+                    + "Usage: mark <task_number>");
         }
-        try {
-            int markTaskIdx = Integer.parseInt(tokens[1]);
-            return new MarkCommand(markTaskIdx);
-
-        } catch (NumberFormatException e) {
-            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n" + "Usage: mark <task_number>");
-        }
+        int markTaskIdx = parseInteger(tokens[1]);
+        return new MarkCommand(markTaskIdx);
     }
 
     private Command prepareUnmarkCommand(String[] tokens) throws IllegalCommandException {
@@ -107,54 +123,44 @@ public class InputParser {
             throw new IllegalCommandException("Please specify a task number to unmark\n"
                     + "Usage: unmark <task_number>");
         }
-        try {
-            int unmarkTaskIdx = Integer.parseInt(tokens[1]);
-            return new UnmarkCommand(unmarkTaskIdx);
-        } catch (NumberFormatException e) {
-            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n"
-                    + "Usage: unmark <task_number>");
-        }
+        int unmarkTaskIdx = parseInteger(tokens[1]);
+        return new UnmarkCommand(unmarkTaskIdx);
     }
 
     private Command prepareToDoCommand(String[] tokens) throws IllegalCommandException {
-        int baseIdx = 0;
         if (tokens.length < 2) {
             throw new IllegalCommandException("Description of a todo cannot be empty.\n"
                     + "Usage: todo <task_title>");
         }
-        String todoTitle = getParamValue(tokens, baseIdx, tokens.length);
+        String todoTitle = getParamValue(tokens, BASE_TOKENS_INDEX, tokens.length);
         return new ToDoCommand(todoTitle);
     }
 
     private Command prepareDeadlineCommand(String[] tokens) throws IllegalCommandException {
         String byParam = "/by";
-        int baseIdx = 0;
         int paramIdx = findParamIdx(tokens, byParam);
         if (paramIdx == -1) {
             throw new IllegalCommandException(byParam + " parameter not found!\n"
-                                                    + "Usage: deadline <task_title> /by <datetime>");
+                    + "Usage: deadline <task_title> /by <datetime>");
         }
-        if (isParamEmpty(baseIdx, paramIdx)) {
+
+        if (isParamEmpty(BASE_TOKENS_INDEX, paramIdx)) {
             throw new IllegalCommandException("Description of a deadline cannot be empty.\n"
-            + "Usage: deadline <task_title> /by <datetime>");
+                    + "Usage: deadline <task_title> /by <datetime>");
         }
-        String deadlineTitle = getParamValue(tokens, baseIdx, paramIdx);
+
+        String deadlineTitle = getParamValue(tokens, BASE_TOKENS_INDEX, paramIdx);
         if (isParamEmpty(paramIdx, tokens.length)) {
             throw new IllegalCommandException("Datetime of deadline cannot be empty.\n"
                     + "Usage: deadline <task_title> /by <datetime>");
         }
+
         String byStr = getParamValue(tokens, paramIdx, tokens.length);
-        try {
-            LocalDateTime byDateTime = LocalDateTime.parse(byStr, INPUT_DATETIMEFORMAT);
-            return new DeadlineCommand(deadlineTitle, byDateTime);
-        } catch (DateTimeParseException e) {
-            throw new IllegalCommandException("Invalid DateTime format.\n"
-                    + "Please use dd-MM-yyyy format.");
-        }
+        LocalDateTime byDateTime = parseDateTime(byStr);
+        return new DeadlineCommand(deadlineTitle, byDateTime);
     }
 
     private Command prepareEventCommand(String[] tokens) throws IllegalCommandException {
-        int baseIdx = 0;
         String fromParam = "/from";
         String toParam = "/to";
         int fromParamIdx = findParamIdx(tokens, fromParam);
@@ -164,7 +170,7 @@ public class InputParser {
                     + "Usage: event <task_title> /from <datetime> /to <datetime>");
         }
 
-        if (isParamEmpty(baseIdx, fromParamIdx)) {
+        if (isParamEmpty(BASE_TOKENS_INDEX, fromParamIdx)) {
             throw new IllegalCommandException("Description of event cannot be empty.\n"
                     + "Usage: event <task_title> /from <datetime> /to <datetime>");
         }
@@ -174,28 +180,23 @@ public class InputParser {
             throw new IllegalCommandException("Datetimes of event cannot be empty.\n"
                     + "Usage: event <task_title> /from <datetime> /to <datetime>");
         }
+
         String fromStr = getParamValue(tokens, fromParamIdx, toParamIdx);
-        try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(fromStr, INPUT_DATETIMEFORMAT);
-            String toStr = getParamValue(tokens, toParamIdx, tokens.length);
-            LocalDateTime toDateTime = LocalDateTime.parse(toStr, INPUT_DATETIMEFORMAT);
-            if (fromDateTime.isAfter(toDateTime)) {
-                throw new IllegalCommandException("From Datetime is later than To Datetime");
-            }
-            return new EventCommand(eventTitle, fromDateTime, toDateTime);
-        } catch (DateTimeParseException e) {
-            throw new IllegalCommandException("Invalid DateTime format.\n"
-                    + "Please use dd-MM-yyyy format.");
+        LocalDateTime fromDateTime = parseDateTime(fromStr);
+        String toStr = getParamValue(tokens, toParamIdx, tokens.length);
+        LocalDateTime toDateTime = parseDateTime(toStr);
+        if (fromDateTime.isAfter(toDateTime)) {
+            throw new IllegalCommandException("From Datetime is later than To Datetime");
         }
+        return new EventCommand(eventTitle, fromDateTime, toDateTime);
     }
 
     private Command prepareFindCommand(String[] tokens) throws IllegalCommandException {
-        int baseIdx = 0;
         if (tokens.length < 2) {
             throw new IllegalCommandException("Search string cannot be empty.\n"
-                                                    + "Usage: todo <search_string>");
+                    + "Usage: find <search_string>");
         }
-        String searchString = getParamValue(tokens, baseIdx, tokens.length);
+        String searchString = getParamValue(tokens, BASE_TOKENS_INDEX, tokens.length);
         return new FindCommand(searchString);
     }
 
@@ -204,12 +205,7 @@ public class InputParser {
             throw new IllegalCommandException("Please specify a task number to delete\n"
                     + "Usage: delete <task_number>");
         }
-        try {
-            int deleteTaskIdx = Integer.parseInt(tokens[1]);
-            return new DeleteCommand(deleteTaskIdx);
-        } catch (NumberFormatException e) {
-            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n"
-                    + "Usage: delete <task_number>");
-        }
+        int deleteTaskIdx = parseInteger(tokens[1]);
+        return new DeleteCommand(deleteTaskIdx);
     }
 }

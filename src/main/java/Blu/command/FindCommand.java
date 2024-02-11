@@ -36,7 +36,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage, UI ui) throws BluException {
-        List<Task> tasks = taskList.searhForTasksContaining(searchString);
+        List<Task> tasks = taskList.searchForTasksContaining(searchString);
         return ui.showTasksFound(tasks, searchString);
     }
 }
