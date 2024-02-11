@@ -38,7 +38,7 @@ public class Chronos {
      * @throws IOException If there is an exception when processing input/output.
      * @throws ChronosException If there are invalid commands provided.
      */
-    public void run() throws IOException, ChronosException {
+    public void runProgram() throws IOException, ChronosException {
         ui.greetUser();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
@@ -58,6 +58,6 @@ public class Chronos {
      * @throws ChronosException If there are invalid commands provided.
      */
     public static void main(String[] args) throws IOException, ChronosException {
-        new Chronos(FILE_PATH).run();
+        new Chronos(FILE_PATH).runProgram();
     }
 }
