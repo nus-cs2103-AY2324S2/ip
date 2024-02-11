@@ -60,7 +60,7 @@ public class Earl {
         }
         // save to file
         try {
-            storage.save(tasks.getList());
+            storage.save(tasks.getAsStream());
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
         }
@@ -76,7 +76,7 @@ public class Earl {
     public String getResponse(String input) {
         try {
             if (input.equals("bye")) { // terminate execution
-                storage.save(tasks.getList());
+                storage.save(tasks.getAsStream());
                 ui.showGoodbye();
                 return ui.getResponse();
             }

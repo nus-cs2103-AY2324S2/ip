@@ -20,6 +20,6 @@ public final class ListHandler extends Handler {
             ui.makeResponse("There is nothing to list.");
             return;
         }
-        ui.makeResponse(tasks.getAsIndexedList());
+        ui.makeResponse(tasks.getAsIndexedArray());
     }
 }

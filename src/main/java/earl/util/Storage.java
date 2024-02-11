@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import earl.exceptions.EarlException;
 import earl.tasks.Task;
@@ -68,10 +69,13 @@ public class Storage {
      * @param tasks a {@code List} of {@code Task} to be saved
      * @throws EarlException if the file could not be written to
      */
-    public void save(List<Task> tasks) throws EarlException {
+    public void save(Stream<Task> tasks) throws EarlException {
         try (FileWriter fw = new FileWriter(filePath)) {
-            for (Task task : tasks) {
-                fw.write(task.toStorageString() + "\n");
+            String[] data = tasks.map(Task::toStorageString)
+                    .map((str) -> str + "\n")
+                    .toArray(String[]::new);
+            for (String line : data) {
+                fw.write(line);
             }
         } catch (IOException e) {
             throw new EarlException("Fatal error while saving to storage.");
