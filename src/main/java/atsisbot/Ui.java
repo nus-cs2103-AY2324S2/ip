@@ -1,9 +1,9 @@
 package atsisbot;
 
+import java.util.Scanner;
+
 import atsisbot.task.Task;
 import atsisbot.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * The Ui class represents the user interface of the ATSISBot application.
@@ -21,9 +21,12 @@ public class Ui {
     private static final String addTaskMessage = "Got it. I've added this atsisbot.task:\n";
     private static final String deleteTaskMessage = "Noted. I've removed this atsisbot.task:\n";
     private static final String noDescriptionMessage = "The description of a %s cannot be empty.\n";
-    private static final String invalidDeadlineFormatMessage = "Invalid deadline format. Please use: deadline <description> /by <date>\n";
-    private static final String invalidEventFormatMessage = "Invalid event format. Please use: event <description> /from <date> /to <date>\n";
-    private static final String invalidTaskNumberMessage = "Invalid atsisbot.task number. Please enter a valid atsisbot.task number.\n";
+    private static final String invalidDeadlineFormatMessage = "Invalid deadline format. Please use:"
+        + " deadline <description> /by <date>\n";
+    private static final String invalidEventFormatMessage = "Invalid event format. Please use:"
+        + " event <description> /from <date> /to <date>\n";
+    private static final String invalidTaskNumberMessage = "Invalid atsisbot.task number."
+        + " Please enter a valid atsisbot.task number.\n";
     private static final String invalidInputFormatMessage = "Invalid input format. Please use the correct format.\n";
     private static final String unknownCommandMessage = "I'm sorry, but I don't understand that command.";
     private static final String invalidFindMessage = "No matching tasks found.\n";

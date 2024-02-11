@@ -1,9 +1,13 @@
 package atsisbot;
 
-import atsisbot.task.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import atsisbot.task.Deadline;
+import atsisbot.task.Event;
+import atsisbot.task.Task;
+import atsisbot.task.TaskList;
+import atsisbot.task.Todo;
 
 /**
  * The Command class represents various commands that can be executed on a
@@ -27,7 +31,6 @@ public class Command {
             taskList.removeTask(index);
         } catch (IndexOutOfBoundsException e) {
             Ui.printInvalidTaskNumberMessage();
-            return;
         }
     }
 
@@ -44,7 +47,6 @@ public class Command {
             Ui.printMarkMessage(taskList.getTask(index));
         } catch (IndexOutOfBoundsException e) {
             Ui.printInvalidTaskNumberMessage();
-            return;
         }
     }
 
@@ -61,7 +63,6 @@ public class Command {
             Ui.printUnmarkMessage(taskList.getTask(index));
         } catch (IndexOutOfBoundsException e) {
             Ui.printInvalidTaskNumberMessage();
-            return;
         }
     }
 
@@ -106,8 +107,8 @@ public class Command {
             return;
         }
         try {
-            LocalDateTime startDateTime = LocalDateTime.parse(fromTo[0], Task.formatter);
-            LocalDateTime endDateTime = LocalDateTime.parse(fromTo[1], Task.formatter);
+            LocalDateTime startDateTime = LocalDateTime.parse(fromTo[0], Task.getDateTimeFormatter());
+            LocalDateTime endDateTime = LocalDateTime.parse(fromTo[1], Task.getDateTimeFormatter());
             taskList.addTask(new Event(descriptionAndFromTo[0], startDateTime, endDateTime));
             Ui.printAddTaskMessage(taskList.getTask(taskList.size()), taskList);
         } catch (DateTimeParseException e) {
@@ -129,7 +130,7 @@ public class Command {
             return;
         }
         try {
-            LocalDateTime deadline = LocalDateTime.parse(descriptionAndBy[1], Task.formatter);
+            LocalDateTime deadline = LocalDateTime.parse(descriptionAndBy[1], Task.getDateTimeFormatter());
             taskList.addTask(new Deadline(descriptionAndBy[0], deadline));
             Ui.printAddTaskMessage(taskList.getTask(taskList.size()), taskList);
         } catch (DateTimeParseException e) {

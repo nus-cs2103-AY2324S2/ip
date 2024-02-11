@@ -3,10 +3,10 @@ package atsisbot.task;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a atsisbot.task with a description and status.
+ * Represents atsisbot.task.Task with a description and status.
  */
 public abstract class Task {
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     protected String description;
     protected TaskStatus status;
 
@@ -65,4 +65,8 @@ public abstract class Task {
      * Encodes a atsisbot.task.
      */
     public abstract String encode();
+
+    public static DateTimeFormatter getDateTimeFormatter() {
+        return dateTimeFormatter;
+    }
 }
