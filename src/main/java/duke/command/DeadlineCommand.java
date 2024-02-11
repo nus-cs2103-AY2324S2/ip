@@ -41,9 +41,10 @@ public class DeadlineCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof DeadlineCommand otherCommand)) {
+        if (!(other instanceof DeadlineCommand)) {
             return false;
         }
+        DeadlineCommand otherCommand = (DeadlineCommand) other;
         return this.event.equals(otherCommand.event)
                 && this.dueBy.equals(otherCommand.dueBy);
     }

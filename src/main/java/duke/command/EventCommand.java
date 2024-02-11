@@ -44,9 +44,10 @@ public class EventCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof EventCommand otherCommand)) {
+        if (!(other instanceof EventCommand)) {
             return false;
         }
+        EventCommand otherCommand = (EventCommand) other;
         return this.event.equals(otherCommand.event)
                 && this.fromDate.equals(otherCommand.fromDate)
                 && this.toDate.equals(otherCommand.toDate);

@@ -30,9 +30,10 @@ public class MarkCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof MarkCommand otherCommand)) {
+        if (!(other instanceof MarkCommand)) {
             return false;
         }
+        MarkCommand otherCommand = (MarkCommand) other;
         return this.idx == otherCommand.idx;
     }
 }

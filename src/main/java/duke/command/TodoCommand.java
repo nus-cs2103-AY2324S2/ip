@@ -36,9 +36,10 @@ public class TodoCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof TodoCommand otherCommand)) {
+        if (!(other instanceof TodoCommand)) {
             return false;
         }
+        TodoCommand otherCommand = (TodoCommand) other;
         return this.todo.equals(otherCommand.todo);
     }
 }

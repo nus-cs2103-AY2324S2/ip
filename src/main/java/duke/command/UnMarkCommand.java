@@ -24,9 +24,10 @@ public class UnMarkCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof UnMarkCommand otherCommand)) {
+        if (!(other instanceof UnMarkCommand)) {
             return false;
         }
+        UnMarkCommand otherCommand = (UnMarkCommand) other;
         return this.idx == otherCommand.idx;
     }
 }
