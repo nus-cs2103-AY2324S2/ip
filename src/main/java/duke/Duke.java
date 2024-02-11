@@ -20,14 +20,7 @@ public class Duke {
      * @param filePath Path to save file for tasks.
      */
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException | IOException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        load(filePath);
     }
 
     /**
@@ -36,6 +29,12 @@ public class Duke {
      */
     public Duke() {
         String filePath = "./tasks.txt";
+        load(filePath);
+    }
+    /**
+     * Method for loading required variables
+     */
+    public void load(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -54,6 +53,7 @@ public class Duke {
         String input;
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
+        String errorMessage;
 
         while (!isExit) {
             try {
@@ -70,35 +70,24 @@ public class Duke {
                 }
 
             } catch (DukeException de) {
-                String text = "\t____________________________________________________________\n"
-                        + "\t" + de + "\n"
-                        + "\t____________________________________________________________\n";
-                System.out.println(text);
+                errorMessage = ui.padding("\t" + de + "\n");
+                System.out.println(errorMessage);
             } catch (NumberFormatException nfe) {
-                String text = "\t____________________________________________________________\n"
-                        + "\tInvalid number, please enter a valid number.\n"
-                        + "\t____________________________________________________________\n";
-                System.out.println(text);
+                errorMessage = ui.padding("\tInvalid number, please enter a valid number.\n");
+                System.out.println(errorMessage);
             } catch (IndexOutOfBoundsException oobe) {
-                String text;
                 if (tasks.size() == 0) {
-                    text = "\t____________________________________________________________\n"
-                            + "\tNo tasks found. Please add a task first!\n"
-                            + "\t____________________________________________________________\n";
+                    errorMessage = ui.padding("\tNo tasks found. Please add a task first!\n");
                 } else {
-                    text = "\t____________________________________________________________\n"
-                            + "\tInvalid number, please enter a valid number between 1 and " + tasks.size() + ".\n"
-                            + "\t____________________________________________________________\n";
+                    errorMessage = ui.padding("\tInvalid number, please enter a valid number between 1 and "
+                            + tasks.size() + ".\n");
                 }
-                System.out.println(text);
+                System.out.println(errorMessage);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (DateTimeParseException dtpe) {
-                String text;
-                text = "\t____________________________________________________________\n"
-                        + "\tPlease enter a datetime format of yyyy-mm-dd.\n"
-                        + "\t____________________________________________________________\n";
-                System.out.println(text);
+                errorMessage = ui.padding("\tPlease enter a datetime format of yyyy-mm-dd.\n");
+                System.out.println(errorMessage);
             }
         }
     }
@@ -112,7 +101,6 @@ public class Duke {
         try {
             stringList = parser.parse(input);
             Options choice = optionType(stringList.get(0));
-
             return ui.nextCommand(choice, tasks, stringList, storage).replace("\t", "");
         } catch (DukeException de) {
             return de + "\n";
@@ -129,7 +117,6 @@ public class Duke {
         } catch (DateTimeParseException dtpe) {
             return "Please enter a datetime format of yyyy-mm-dd.\n";
         }
-        // return "Duke heard: " + input;
     }
 
     public static void main(String[] args) {
