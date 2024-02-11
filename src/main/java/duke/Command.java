@@ -8,7 +8,6 @@ import duke.exceptions.DukeException;
 public class Command {
     private String command;
     private String[] arguments;
-    private boolean isExit = false;
 
     /**
      * Constructs a valid <code>Command</code> for execution. It however, does not take into account
@@ -18,8 +17,8 @@ public class Command {
      * @param args Supplied arguments.
      */
     protected Command(String cmd, String... args) {
-        this.command = cmd;
-        this.arguments = args;
+        command = cmd;
+        arguments = args;
     }
 
     /**
@@ -43,9 +42,5 @@ public class Command {
         } else {
             return tl.addTask(st, command, arguments);
         }
-    }
-
-    public boolean isExit() {
-        return this.isExit;
     }
 }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidTaskException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -21,7 +22,7 @@ public class TaskList {
      * Constructs a <code>TaskList</code> with no tasks.
      */
     protected TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -42,32 +43,41 @@ public class TaskList {
      * @return Dialogue for Duke.
      * @throws InvalidTaskException If arguments for the task are not in a specific format.
      */
-    protected String addTask(Storage st, String task, String... args) throws InvalidTaskException {
+    protected String addTask(Storage st, String task, String... args) throws DukeException {
         Task t = null;
         if (task.equals("todo")) {
-            t = new Todo(args[0]);
+            t = createTodoTask(args[0]);
         } else if (task.equals("deadline")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-            try {
-                LocalDate d = LocalDate.parse(args[1], formatter);
-                t = new Deadline(args[0], d);
-            } catch (DateTimeParseException de) {
-                throw new InvalidTaskException("Date not in format: yyyy-MM-dd, please try again.");
-            }
+            t = createDeadlineTask(args[0], args[1]);
         } else if (task.equals("event")) {
-            t = new Event(args[0], args[1], args[2]);
+            t = createEventTask(args[0], args[1], args[2]);
         } else {
             throw new InvalidTaskException("Invalid task syntax for " + task + ".");
         }
 
-        if (t != null) {
-            tasks.add(t);
-            st.save(this.tasks);
-            return "Got it. I've added this task:\n  "
-                    + t + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list.";
+        tasks.add(t);
+        st.save(tasks);
+        return "Got it. I've added this task:\n  "
+                + t + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
+    }
+
+    private Task createTodoTask(String name) {
+        return new Todo(name);
+    }
+
+    private Task createDeadlineTask(String name, String deadline) throws InvalidTaskException {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        try {
+            LocalDate d = LocalDate.parse(deadline, formatter);
+            return new Deadline(name, d);
+        } catch (DateTimeParseException de) {
+            throw new InvalidTaskException("Date not in format: yyyy-MM-dd, please try again.");
         }
-        return "";
+    }
+
+    private Task createEventTask(String name, String from, String to) {
+        return new Event(name, from, to);
     }
 
     /**
@@ -77,10 +87,10 @@ public class TaskList {
      * @param args Contains index for specifying task.
      * @return Dialogue for Duke.
      */
-    protected String deleteTask(Storage st, String... args) {
+    protected String deleteTask(Storage st, String... args) throws DukeException {
         Task t = tasks.get(Integer.parseInt(args[0]) - 1);
         tasks.remove(t);
-        st.save(this.tasks);
+        st.save(tasks);
         return "Noted. I've removed this task:\n  "
                 + t + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
@@ -109,15 +119,15 @@ public class TaskList {
      * @return Dialogue for Duke.
      * @throws IndexOutOfBoundsException If <code>TaskList</code> index is out of bounds.
      */
-    protected String mark(Storage st, String... args) {
+    protected String mark(Storage st, String... args) throws DukeException {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markAsDone();
-            st.save(this.tasks);
+            st.save(tasks);
             return "Nice! I've marked this task as done:\n"
                     + t;
         } catch (IndexOutOfBoundsException ie) {
-            throw new IllegalArgumentException("Index number cannot be out of bounds.");
+            throw new DukeException("Index number cannot be out of bounds.");
         }
     }
 
@@ -129,15 +139,15 @@ public class TaskList {
      * @return Dialogue for Duke.
      * @throws IndexOutOfBoundsException If <code>TaskList</code> index is out of bounds.
      */
-    protected String unmark(Storage st, String... args) {
+    protected String unmark(Storage st, String... args) throws DukeException {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
             t.markUndone();
-            st.save(this.tasks);
+            st.save(tasks);
             return "OK, I've marked this task as not done yet:\n"
                     + t;
         } catch (IndexOutOfBoundsException ie) {
-            throw new IllegalArgumentException("Index number cannot be out of bounds.");
+            throw new DukeException("Index number cannot be out of bounds.");
         }
     }
 

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -23,10 +24,10 @@ public class Storage {
     /**
      * Constructs a new <code>Storage</code> that stores tasks from specified file.
      *
-     * @param filePath File to be written.
+     * @param specifiedFilePath File to be written.
      */
-    protected Storage(String filePath) {
-        this.filePath = filePath;
+    protected Storage(String specifiedFilePath) {
+        filePath = specifiedFilePath;
     }
 
     /**
@@ -37,7 +38,7 @@ public class Storage {
      */
     protected ArrayList<Task> load() throws IOException {
         ArrayList<Task> arr = new ArrayList<>();
-        File f = new File(this.filePath);
+        File f = new File(filePath);
         if (!f.exists()) {
             f.getParentFile().mkdirs();
             f.createNewFile();
@@ -61,41 +62,27 @@ public class Storage {
     /**
      * Saves current tasks in instance to specified file.
      *
-     * @param tl <code>ArrayList</code> of tasks to store.
+     * @param taskList <code>ArrayList</code> of tasks to store.
      */
-    protected void save(ArrayList<Task> tl) {
+    protected void save(ArrayList<Task> taskList) throws DukeException {
         try {
-            this.data = new FileWriter(this.filePath);
-            tl.forEach(t -> {
-                try {
-                    if (t instanceof Todo) {
-                        this.data.write(String.format("T|%s|%s\n", t.getTaskName(), t.isDone()));
-                    } else if (t instanceof Deadline) {
-                        this.data.write(String.format("D|%s|%s|%s\n",
-                                t.getTaskName(), t.isDone(), (
-                                        (Deadline) t).getBy().format(DateTimeFormatter.ISO_LOCAL_DATE)
-                                )
-                        );
-                    } else if (t instanceof Event) {
-                        this.data.write(String.format("E|%s|%s|%s|%s\n",
-                                t.getTaskName(), t.isDone(), ((Event) t).getFrom(), ((Event) t).getTo()));
-                    }
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
+            data = new FileWriter(filePath);
+            for (Task task : taskList) {
+                if (task instanceof Todo) {
+                    data.write(String.format("T|%s|%s\n", task.getTaskName(), task.isDone()));
+                } else if (task instanceof Deadline) {
+                    Deadline d = (Deadline) task;
+                    data.write(String.format("D|%s|%s|%s\n", d.getTaskName(), d.isDone(),
+                            d.getBy().format(DateTimeFormatter.ISO_LOCAL_DATE)));
+                } else if (task instanceof Event) {
+                    Event e = (Event) task;
+                    data.write(String.format("E|%s|%s|%s|%s\n",
+                            e.getTaskName(), e.isDone(), e.getFrom(), e.getTo()));
                 }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            close();
-        }
-    }
-
-    private void close() {
-        try {
-            this.data.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            }
+            data.close();
+        } catch (IOException ie) {
+            throw new DukeException("Unable to save! Reason: " + ie.getMessage());
         }
     }
 }

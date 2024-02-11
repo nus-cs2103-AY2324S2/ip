@@ -17,11 +17,11 @@ public class Duke {
      * @param filePath File path for persistent task storage.
      */
     public Duke(String filePath) {
-        this.storage = new Storage(filePath);
+        storage = new Storage(filePath);
         try {
-            this.tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.load());
         } catch (IOException ie) {
-            this.tasks = new TaskList();
+            tasks = new TaskList();
         }
     }
 
@@ -49,15 +49,11 @@ public class Duke {
      * @return Dialogue for Duke after command processing.
      */
     public String readCommand(String command) {
-        String reply = "";
         try {
             Command c = Parser.parse(command);
-            reply = c.execute(this.tasks, this.storage);
+            return c.execute(tasks, storage);
         } catch (DukeException de) {
             return de.getMessage();
-        } catch (Exception e) {
-            return e.getMessage();
         }
-        return reply;
     }
 }
