@@ -53,7 +53,7 @@ public class Ui {
 
     public static String lineB0 = "  +--------------------+   /\\_/\\";
     public static String lineB1 = "  |Meow~ See you again!|  =~.~=|";
-    public static String lineB2 = "  +--------------------+    c\\ c\\~~";
+    public static String lineB2 = "  +--------------------+   c\\ c\\~~";
 
     public static final String BYE = String.format("%s%n%s%n%s%n", lineB0, lineB1, lineB2);
 

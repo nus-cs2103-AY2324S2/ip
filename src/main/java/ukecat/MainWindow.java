@@ -9,8 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.util.Objects;
-
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -23,14 +21,16 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
 
     private UkeCat ukeCat;
-    private final Image USER_IMG = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/User.png")));
-    private final Image UKECAT_IMG = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-            "/images/UkeCat.png")));
+    private final Image USER_IMG = new Image("/images/User.png");
+    private final Image UKECAT_IMG = new Image("/images/UkeCat.png");
 
     private final int EXIT_WAIT_TIME = 1;
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane not initialized";
+        assert dialogContainer != null : "DialogContainer not initialized";
+        assert userInput != null : "UserInput not initialized";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.WELCOME_GUI, UKECAT_IMG)
@@ -49,6 +49,9 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "UserInput is null";
+        assert ukeCat != null : "UkeCat is null";
+
         String input = userInput.getText();
         Parser.parse(input);
         String reply = ukeCat.ui.getReply(Storage.words);
