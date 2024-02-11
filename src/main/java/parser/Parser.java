@@ -37,8 +37,7 @@ public class Parser {
     public static Command parseCommands(String command, TaskList tasks) throws TobiasException {
         if(command.equals("list")) {
             return new ListCommand();
-        }
-        else if (command.startsWith("todo")) {
+        } else if (command.startsWith("todo")) {
             if (command.equals("todo")) {
                 throw new TobiasException("Hey, please enter a description !");
             }
@@ -52,8 +51,7 @@ public class Parser {
             String description = command.substring(5);
 
             return new TodoCommand(description);
-        }
-        else if (command.startsWith("deadline")) {
+        } else if (command.startsWith("deadline")) {
             if (command.equals("deadline")) {
                 throw new TobiasException("Hey, please enter a description !");
             }
@@ -87,8 +85,7 @@ public class Parser {
             }
 
             return new DeadlineCommand(description, dd);
-        }
-        else if (command.startsWith("event")) {
+        } else if (command.startsWith("event")) {
             if (command.equals("event")) {
                 throw new TobiasException("Hey, please enter a description !");
             }
@@ -140,8 +137,7 @@ public class Parser {
             LocalDateTime t = dateFromString(to);
 
             return new EventCommand(description, f, t);
-        }
-        else if (command.startsWith("mark")) {
+        } else if (command.startsWith("mark")) {
             int size = tasks.taskNum();
 
             if (size == 0) {
@@ -165,8 +161,7 @@ public class Parser {
             } else {
                 throw new TobiasException("Invalid number provided! Please give a valid index from 1 to " + size +" !!");
             }
-        }
-        else if (command.startsWith("unmark")) {
+        } else if (command.startsWith("unmark")) {
             int size = tasks.taskNum();
 
             if (size == 0) {
@@ -190,8 +185,7 @@ public class Parser {
             } else {
                 throw new TobiasException("Invalid number provided! Please give a valid index from 1 to " + size +" !!");
             }
-        }
-        else if (command.startsWith("delete")) {
+        } else if (command.startsWith("delete")) {
             int size = tasks.taskNum();
 
             if (size == 0) {
@@ -215,8 +209,7 @@ public class Parser {
             } else {
                 throw new TobiasException("Invalid number provided! Please give a valid index from 1 to " + size +" !!");
             }
-        }
-        else if (command.startsWith("find")) {
+        } else if (command.startsWith("find")) {
             if (command.equals("find")) {
                 throw new TobiasException("Please enter what you are finding for after 'find' !!!");
             }
@@ -229,16 +222,13 @@ public class Parser {
 
             String keyWord = command.substring(5);
             return new FindCommand(keyWord);
-        }
-        else if (command.equals("bye")) {
+        } else if (command.equals("bye")) {
             return new ExitCommand();
-        }
-        else {
+        } else {
             throw new TobiasException(
                     "You can ask me  stuff like : 'bye', 'list', 'mark', 'unmark','delete'"
                             + System.lineSeparator()
                             + "You can ask me to create these  : 'todo', 'deadline', 'event'");
-
         }
     }
 }
