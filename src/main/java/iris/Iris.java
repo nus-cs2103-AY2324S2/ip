@@ -8,9 +8,9 @@ import java.io.*;
 
 public class Iris {
 
-    private Storage storage;
-    private TaskList taskList;
-    private Parser parser;
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Parser parser;
 
     public Iris() {
         this.storage = new Storage();
