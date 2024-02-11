@@ -63,6 +63,7 @@ public class Parser {
         if (input.startsWith("deadline")) {
             return parseDeadlineCommand(input, taskName);
         }
+        assert input.startsWith("event") : "Command should have started with 'event'";
         return parseEventCommand(input, taskName);
     }
 

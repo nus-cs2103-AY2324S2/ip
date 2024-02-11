@@ -55,6 +55,7 @@ public class Storage {
             String byWhen = deadlineMatcher.group(2);
             task = new Deadline(name, byWhen);
         } else {
+            assert type.equals((EVENT_CODE)) : "Task should start with an 'E'";
             Matcher eventMatcher = Pattern.compile("(.*) \\| (.*) \\| (.*)").matcher(taskDetails);
             if (!eventMatcher.find()) {
                 return null;
