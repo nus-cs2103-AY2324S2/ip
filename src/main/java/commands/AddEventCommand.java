@@ -34,6 +34,7 @@ public class AddEventCommand extends Command{
      */
     @Override
     public String execute() throws IOException {
+        assert this.event != null : "Event object should not be null.";
         this.taskList.addTask(this.event);
         return "I have added this task:\n" + this.event + "\n" +
                 "Now you have " + this.taskList.size() + " tasks in your list.";

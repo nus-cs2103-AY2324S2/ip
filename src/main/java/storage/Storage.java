@@ -27,6 +27,7 @@ public class Storage {
      */
     public TaskList loadCache(TaskList cachedTasks) throws IOException {
         File f = new File(this.filePath); // create a File for the given file path
+        assert f.exists() && !f.isDirectory() : "Cache file does not exist or is a directory.";
         if (f.exists() && !f.isDirectory()) {
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             Parser parser = new Parser();
