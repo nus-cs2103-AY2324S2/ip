@@ -2,6 +2,7 @@ T | 1 | read book
 T | 0 | join sports club
 D | 1 | cs2109 | 23/12/2023 23:33
 T | 1 | smth
-D | 1 | yuerf | 23/12/2023 02:23
-T | 1 | cs2106
-T | 0 | ip
+T | 0 | cs2106
+T | 0 | Add README.md
+D | 0 | finish ip | 23/12/2023 23:22
+E | 0 | branch workshop | 22/12/2023 09:34-12/12/2023 23:33
