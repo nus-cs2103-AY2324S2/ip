@@ -1,19 +1,5 @@
 package duke;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 /**
  * This class represents the main driver of the application.
  * It initializes the task list, storage, and user interface, and starts the user interface.
@@ -28,7 +14,7 @@ public class Bird {
     public Bird() {
         TaskList.create();
         Storage.init();
-        commandHandler = new CommandHandler(this);
+        commandHandler = new CommandHandler();
     }
 
     /**
@@ -49,7 +35,7 @@ public class Bird {
     }
 
     /**
-     * Generates a greeting message and displays it in the GUI.
+     * Generates a greeting message
      */
     public String greet() {
         String greeting = " /\\_/\\ \n" +
@@ -60,8 +46,5 @@ public class Bird {
 
         return greeting;
     }
-
-
-
 }
 
