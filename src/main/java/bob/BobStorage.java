@@ -45,10 +45,12 @@ public class BobStorage {
             if (!this.SAVE_DATA.exists()) {
                 this.instantiateDirectory();
             }
+
             FileWriter fileWriter = new FileWriter(this.SAVE_DATA, false);
             for (Task t : list) {
                 fileWriter.write(t.toSavableFormat() + this.NEW_LINE);
             }
+
             fileWriter.close();
 
         } catch (Exception e) {
@@ -68,84 +70,78 @@ public class BobStorage {
 
         ArrayList<Task> savedTasks = new ArrayList<>();
 
+        if (!this.SAVE_DATA.exists()) {
+            this.instantiateDirectory();
+            return new ArrayList<>();
+        }
+
         try {
+            BufferedReader br = new BufferedReader(new FileReader(this.SAVE_DATA));
 
-            if (!this.SAVE_DATA.exists()) {
-                this.instantiateDirectory();
-                return new ArrayList<Task>();
-            }
+            String line;
 
-            try (BufferedReader br = new BufferedReader(new FileReader(this.SAVE_DATA))) {
+            boolean isInvalidFile = false;
 
-                String line;
-                boolean invalidFile = false;
+            boolean isValidTaskType;
+            boolean isValidTaskStatus;
 
-                while ((line = br.readLine()) != null) {
+            boolean isInvalidTodoFormat;
+            boolean isInvalidEventFormat;
+            boolean isInvalidDeadlineFormat;
 
-                    String[] properties = line.split("\\|");
+            while ((line = br.readLine()) != null) {
 
-                    if (properties.length < 4) {
-                        invalidFile = true;
-                    }
+                String[] properties = line.split("\\|");
 
-                    String taskType = properties[1];
+                if (properties.length < 4) {
+                    isInvalidFile = true;
+                }
 
-                    if (!invalidFile
-                            && !(taskType.equals("T")
-                            || taskType.equals("E")
-                            || taskType.equals("D"))) {
-                        invalidFile = true;
-                    }
+                String taskType = properties[1];
 
-                    if (!invalidFile && !(properties[3].equals("false")
-                            || properties[3].equals("true"))) {
-                        invalidFile = true;
-                    }
+                isValidTaskType = !(taskType.equals("T") || taskType.equals("E") || taskType.equals("D"));
+                isValidTaskStatus = properties[3].equals("false") || properties[3].equals("true");
 
-                    if (invalidFile) {
-                        throw new BobException
-                                .CorruptedSaveData("Save file is corrupt. "
-                                + "The application will create a new save file.");
-                    }
+                isInvalidTodoFormat = taskType.equals("T") && properties.length < 4;
+                isInvalidEventFormat = taskType.equals("E") && properties.length < 6;
+                isInvalidDeadlineFormat = taskType.equals("D") && properties.length < 5;
 
-                    if (taskType.equals("T") && properties.length < 4
-                            || taskType.equals("E") && properties.length < 6
-                            || taskType.equals("D") && properties.length < 5) {
-                        throw new BobException
-                                .CorruptedSaveData("Tasks are corrupt. The application will create a new save file.");
-                    }
+                boolean isInvalidTaskFormat = isInvalidTodoFormat || isInvalidEventFormat || isInvalidDeadlineFormat;
 
-                    try {
+                if (!isValidTaskType || !isValidTaskStatus || isInvalidTaskFormat) {
+                    isInvalidFile = true;
+                }
 
-                        switch (taskType) {
-                        case "E":
-                            this.addItem(new Event(properties[2], properties[4], properties[5])
-                                    .setUuid(properties[0])
-                                    .updateStatus(properties[3].equals("true")), savedTasks);
-                            break;
-                        case "D":
-                            this.addItem(new Deadline(properties[2], properties[4])
-                                    .setUuid(properties[0])
-                                    .updateStatus(properties[3].equals("true")), savedTasks);
-                            break;
-                        default:
-                            this.addItem(new Task(properties[2])
-                                    .setUuid(properties[0])
-                                    .updateStatus(properties[3].equals("true")), savedTasks);
-                            break;
-                        }
+                if (isInvalidFile) {
+                    throw new BobException
+                            .CorruptedSaveData("Save file is corrupt. "
+                            + "The application will create a new save file.");
+                }
 
-                    } catch (BobException e) {
-                        this.ui.getErrorText(e);
-                    }
+                switch (taskType) {
+                case "E":
+                    this.addItem(new Event(properties[2], properties[4], properties[5])
+                            .setUuid(properties[0])
+                            .updateStatus(properties[3].equals("true")), savedTasks);
+                    break;
+                case "D":
+                    this.addItem(new Deadline(properties[2], properties[4])
+                            .setUuid(properties[0])
+                            .updateStatus(properties[3].equals("true")), savedTasks);
+                    break;
+                default:
+                    this.addItem(new Task(properties[2])
+                            .setUuid(properties[0])
+                            .updateStatus(properties[3].equals("true")), savedTasks);
+                    break;
                 }
             }
-        } catch (BobException.FileAccessError e) {
-            this.ui.getErrorText(e);
         } catch (IOException e) {
             throw new BobException
                     .FileAccessError("An error occurred when trying to access the save file. "
                     + "Please ensure that the application has permissions to write and read from your HOME directory.");
+        } catch (BobException e) {
+            this.ui.getErrorText(e);
         }
 
         return savedTasks;

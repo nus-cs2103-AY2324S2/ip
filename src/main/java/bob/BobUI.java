@@ -8,12 +8,6 @@ import java.util.Scanner;
  */
 public class BobUI {
 
-    private Scanner scanner;
-
-    public BobUI(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     /**
      * List items in list.
      *

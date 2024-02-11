@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
  */
 public class BobUtil {
 
-    public static LocalDateTime getLocalDateTime(String[] args, int hour, int minute)
+    public static LocalDateTime convertToLocalDateTime(String[] args, int hour, int minute)
             throws BobException.InvalidDateTimeFormat {
+
         String[] date = args[0].split("\\/");
         if (date.length != 3) {
             throw new BobException.InvalidDateTimeFormat(

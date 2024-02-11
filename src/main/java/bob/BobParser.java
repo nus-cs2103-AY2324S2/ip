@@ -15,14 +15,8 @@ public class BobParser {
     public static final String DELETE_COMMAND = "delete";
     public static final String FIND_COMMAND = "find";
 
-    private Bob self;
     private BobUI ui;
     private BobTaskList taskList;
-
-    public BobParser setSelf(Bob self) {
-        this.self = self;
-        return this;
-    }
 
     public BobParser setUi(BobUI ui) {
         this.ui = ui;

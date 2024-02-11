@@ -50,14 +50,14 @@ public class Bob {
      *
      * @returns the Bot class object.
      */
-    public static Bob init() {
-        BobUI ui = new BobUI(new Scanner(System.in));
+    public static Bob initializeBob() {
+        BobUI ui = new BobUI();
         BobStorage storage = new BobStorage(ui);
         BobParser parser = new BobParser();
         BobTaskList taskList = new BobTaskList(storage, ui);
 
         Bob bob = new Bob(ui, storage, parser, taskList);
-        parser.setSelf(bob).setUi(ui).setTaskList(taskList);
+        parser.setUi(ui).setTaskList(taskList);
 
         return bob;
     }

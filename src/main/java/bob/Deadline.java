@@ -55,7 +55,7 @@ public class Deadline extends Task {
             }
         }
 
-        this.dateTime = BobUtil.getLocalDateTime(args, hour, minute);
+        this.dateTime = BobUtil.convertToLocalDateTime(args, hour, minute);
     }
 
     @Override
