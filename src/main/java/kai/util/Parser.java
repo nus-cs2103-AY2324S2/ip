@@ -63,7 +63,6 @@ public class Parser {
             } else if (inputCommand.startsWith("delete")) {
                 String pos = inputCommand.substring(DELETE_COMMAND_INDEX);
                 int index = Integer.parseInt(String.valueOf(pos));
-                //assert index > ZERO_INDEX : "There should be no zero index";
                 result = tasklist.deleteTask(index);
             } else if (inputCommand.startsWith("find")) {
                 String keyword = inputCommand.substring(FIND_COMMAND_INDEX);
