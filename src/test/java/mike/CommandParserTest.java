@@ -1,17 +1,18 @@
 package mike;
 
-import mike.command.Command;
-import mike.command.ExitCommand;
-import mike.command.ListCommand;
-import mike.command.MarkCommand;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import mike.command.Command;
+import mike.command.ExitCommand;
+import mike.command.ListCommand;
+import mike.command.MarkCommand;
 
 public class CommandParserTest {
     // command tokens
@@ -213,8 +214,8 @@ public class CommandParserTest {
             new CommandParser(tokens).parse();
             fail();
         } catch (MikeException e) {
-            assertEquals("One, two, three, four, get the kid back through the door!\n" +
-                    "'random literal' is not an integer Sulley...", e.getMessage());
+            assertEquals("One, two, three, four, get the kid back through the door!\n"
+                    + "'random literal' is not an integer Sulley...", e.getMessage());
         }
 
         // option

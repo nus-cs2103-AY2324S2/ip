@@ -1,5 +1,7 @@
 package mike;
 
+import java.util.List;
+
 import mike.command.AddDeadlineCommand;
 import mike.command.AddEventCommand;
 import mike.command.AddTodoCommand;
@@ -10,8 +12,6 @@ import mike.command.FindCommand;
 import mike.command.ListCommand;
 import mike.command.MarkCommand;
 import mike.command.UnmarkCommand;
-
-import java.util.List;
 
 /**
  * CommandParser is the class responsible for parsing the command input and generating {@link Command} objects,
@@ -126,15 +126,15 @@ class CommandParser {
         try {
             int taskNumber = Integer.parseInt(argument);
             return new MarkCommand(taskNumber);
-        } catch(NumberFormatException e) {
-            String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
-                    "'" + argument + "' is not an integer Sulley...";
+        } catch (NumberFormatException e) {
+            String errorMessage = "One, two, three, four, get the kid back through the door!\n'"
+                    + argument + "' is not an integer Sulley...";
             throw error(errorMessage);
         }
     }
 
     private Command parseUnmark() throws MikeException {
-        String usage ="Usage: unmark [number]";
+        String usage = "Usage: unmark [number]";
 
         consume(TokenType.LITERAL, usage);
         String argument = previousToken().getText();
@@ -144,9 +144,9 @@ class CommandParser {
         try {
             int taskNumber = Integer.parseInt(argument);
             return new UnmarkCommand(taskNumber);
-        } catch(NumberFormatException e) {
-            String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
-                    "'" + argument + "' is not an integer Sulley...";
+        } catch (NumberFormatException e) {
+            String errorMessage = "One, two, three, four, get the kid back through the door!\n'"
+                    + argument + "' is not an integer Sulley...";
             throw error(errorMessage);
         }
     }
@@ -228,9 +228,9 @@ class CommandParser {
         try {
             int taskNumber = Integer.parseInt(argument);
             return new DeleteCommand(taskNumber);
-        } catch(NumberFormatException e) {
-            String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
-                    "'" + argument + "' is not an integer Sulley...";
+        } catch (NumberFormatException e) {
+            String errorMessage = "One, two, three, four, get the kid back through the door!\n'"
+                    + argument + "' is not an integer Sulley...";
             throw error(errorMessage);
         }
     }

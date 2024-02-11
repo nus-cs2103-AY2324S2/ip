@@ -2,8 +2,6 @@ package mike.command;
 
 import mike.MikeException;
 import mike.TaskList;
-import mike.Ui;
-import mike.command.Command;
 import mike.task.Task;
 
 /**
@@ -28,7 +26,8 @@ public class DeleteCommand extends Command {
         if (taskList.isEmpty()) {
             throw new MikeException("There are no tasks to remove.");
         } else if (taskIndex >= taskList.size() || taskIndex < 0) {
-            throw new MikeException("That task doesn't exist. Please enter a number in the range 1-" + taskList.size() + ".");
+            throw new MikeException("That task doesn't exist. Please enter a number in the range 1-"
+                    + taskList.size() + ".");
         }
 
         Task task = taskList.get(taskIndex);
@@ -38,8 +37,8 @@ public class DeleteCommand extends Command {
     }
 
     private String response(TaskList taskList, Task deletedTask) {
-        return "Noted! I've removed this task:\n  " +
-                deletedTask + "\n"
+        return "Noted! I've removed this task:\n  "
+                + deletedTask + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
     }
 

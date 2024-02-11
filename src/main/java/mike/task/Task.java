@@ -1,9 +1,9 @@
 package mike.task;
 
+import java.util.ArrayList;
+
 import mike.ListView;
 import mike.ListViewType;
-
-import java.util.ArrayList;
 
 /**
  * Base class for all tasks.
@@ -11,11 +11,10 @@ import java.util.ArrayList;
  * @author ningc
  */
 public abstract class Task {
-    private final String type;
-    private boolean isDone;
-
     protected final String description;
     protected final ArrayList<ListViewType> tags;
+    private final String type;
+    private boolean isDone;
 
     /**
      * Constructor.

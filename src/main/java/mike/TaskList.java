@@ -1,15 +1,19 @@
 package mike;
 
-import mike.task.Task;
-
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+
+import mike.task.Task;
 
 /**
  * TaskList is a wrapper class for an ArrayList of {@link Task} objects.
  * @author ningc
  */
-public class TaskList extends ArrayList<Task>  {
+public class TaskList extends ArrayList<Task> {
+    /**
+     * Filters the view of the task list to tasks permitted by ListView object.
+     * @param listView
+     * @return string representation of filtered task list.
+     */
     public String view(ListView listView) {
         return this
                 .stream()

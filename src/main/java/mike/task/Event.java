@@ -1,12 +1,12 @@
 package mike.task;
 
-import mike.ListView;
-import mike.ListViewType;
-import mike.MikeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import mike.ListView;
+import mike.ListViewType;
+import mike.MikeException;
 
 /**
  * An event, with a start date and end date.
@@ -56,6 +56,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + getStartDate() + " to:" +  getEndDate() + ")";
+        return "[E]" + super.toString() + " (from:" + getStartDate() + " to:" + getEndDate() + ")";
     }
 }

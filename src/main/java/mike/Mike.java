@@ -1,8 +1,8 @@
 package mike;
 
-import mike.command.Command;
-
 import java.util.List;
+
+import mike.command.Command;
 
 /**
  * Mike class.

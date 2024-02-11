@@ -1,14 +1,14 @@
 package mike;
 
-import mike.task.Deadline;
-import mike.task.Event;
-import mike.task.Task;
-import mike.task.Todo;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
+import mike.task.Deadline;
+import mike.task.Event;
+import mike.task.Task;
+import mike.task.Todo;
 
 /**
  * Storage is responsible for loading and saving {@link TaskList} instance data.

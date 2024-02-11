@@ -2,7 +2,6 @@ package mike.command;
 
 import mike.MikeException;
 import mike.TaskList;
-import mike.Ui;
 import mike.task.Task;
 
 /**

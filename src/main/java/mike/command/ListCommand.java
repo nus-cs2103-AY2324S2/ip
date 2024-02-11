@@ -3,8 +3,6 @@ package mike.command;
 import mike.ListView;
 import mike.MikeException;
 import mike.TaskList;
-import mike.Ui;
-import mike.task.Task;
 
 /**
  * Lists the tasks.
