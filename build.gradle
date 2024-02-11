@@ -48,11 +48,12 @@ test {
 application {
 //    mainClass.set("seedu.duke.Duke")
 //    mainClass.set("duke.Duke")
-    mainClass.set("andelu.Andelu")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Andrew"
+    archiveFileName = 'ip.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
