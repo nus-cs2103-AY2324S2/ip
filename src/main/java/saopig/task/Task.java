@@ -1,5 +1,7 @@
 package saopig.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a Task.
  */
@@ -66,5 +68,17 @@ public class Task {
      */
     public boolean getIsDoneState() {
         return this.isDone;
+    }
+    /**
+     * Changes the description of the Task to the new description.
+     *
+     * @param newDescription New description of the Task.
+     */
+    public void changeDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    public String getType() {
+        return null;
     }
 }

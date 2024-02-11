@@ -13,7 +13,15 @@ public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
-
+    /**
+     * Returns the type of the task.
+     *
+     * @return "D" representing the Deadline task.
+     */
+    @Override
+    public String getType() {
+        return "T";
+    }
     /**
      * Returns a string which displays the Todo task in FULL format.
      *
