@@ -1,10 +1,8 @@
 package duke.task;
 
-import duke.ui.Ui;
-
-import java.util.List;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The TaskManager class handles the management of tasks, including adding, deleting,
@@ -55,8 +53,8 @@ public class TaskManager {
                     task = new Deadline(taskDescription, false, defaultDeadline);
                     break;
                 default:
-                    throw new DukeException("Hey, I'm not quite sure what" +
-                            " that means. Mind giving me another shot at understanding?");
+                    throw new DukeException("Hey, I'm not quite sure what"
+                            + " that means. Mind giving me another shot at understanding?");
             }
 
             taskList.add(task);
@@ -66,6 +64,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Finds tasks containing the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A list of tasks containing the specified keyword in their descriptions.
+     */
     public List<Task> findTask(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
 
@@ -101,22 +105,16 @@ public class TaskManager {
      * Automatically saves the updated task list.
      */
     public void deleteAllTasks() {
-        System.out.println(Ui.LINE);
         try {
             if (taskList.isEmpty()) {
-                System.out.println(Ui.INDENTATION + " No tasks to delete. " +
-                        "Your task list is already empty.");
                 return;
             }
 
             taskList.clear();
-            System.out.println(Ui.INDENTATION + " okay, noted. I've removed " +
-                    "all tasks from the list.");
             autoSaveTask();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(Ui.LINE);
     }
 
     /**
@@ -156,7 +154,7 @@ public class TaskManager {
      *
      * @param input The user input command.
      */
-    public void displayTask(String input) {
-        taskDisplay.displayTasks(taskList, input);
+    public String displayTask(String input) {
+        return taskDisplay.displayTasks(taskList, input);
     }
 }
