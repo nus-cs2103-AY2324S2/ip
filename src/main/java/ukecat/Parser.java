@@ -16,8 +16,8 @@ public class Parser {
      * Leading and trailing whitespaces are also trimmed from the words array.
      */
     public static void parse(String input) {
-        Storage.input = input.trim();
-        Storage.words = Storage.input.split("\\s+");
+        Storage.setInput(input.trim());
+        Storage.setWords(Storage.getInput().split("\\s+"));
 
     }
 
@@ -34,7 +34,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            Storage.desc = matcher.group(1); // store first capturing group
+            Storage.setDesc(matcher.group(1)); // store first capturing group
         } else {
             throw new UkeCatException("Wrong format, use: todo <desc>");
         }
@@ -53,8 +53,8 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            Storage.desc = matcher.group(1);
-            Storage.by = LocalDate.parse(matcher.group(2));
+            Storage.setDesc(matcher.group(1));
+            Storage.setBy(LocalDate.parse(matcher.group(2)));
         } else {
             throw new UkeCatException("Wrong format1, use: deadline <desc> /by yyyy-mm-dd");
         }
@@ -73,9 +73,9 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.matches()) {
-            Storage.desc = matcher.group(1);
-            Storage.start = LocalDate.parse(matcher.group(2));
-            Storage.end = LocalDate.parse(matcher.group(3));
+            Storage.setDesc(matcher.group(1));
+            Storage.setStart(LocalDate.parse(matcher.group(2)));
+            Storage.setEnd(LocalDate.parse(matcher.group(3)));
         } else {
             throw new UkeCatException("Wrong format, use: event <desc> /from yyyy-mm-dd /to yyyy-mm-dd");
         }
@@ -173,23 +173,23 @@ public class Parser {
      */
     public static void parseCsv(String csv) {
         String[] words = csv.split(",");
-        Storage.words = words;
+        Storage.setWords(words);
         try {
             switch (words[0]) {
             case "T":
-                Storage.words[0] = "todo";
-                Storage.input = String.format("todo %s", words[2]);
-                parseToDo(Storage.input);
+                Storage.getWords()[0] = "todo";
+                Storage.setInput(String.format("todo %s", words[2]));
+                parseToDo(Storage.getInput());
                 break;
             case "D":
-                Storage.words[0] = "deadline";
-                Storage.input = String.format("deadline %s /by %s", words[2], words[3]);
-                parseDeadline(Storage.input);
+                Storage.getWords()[0] = "deadline";
+                Storage.setInput(String.format("deadline %s /by %s", words[2], words[3]));
+                parseDeadline(Storage.getInput());
                 break;
             case "E":
-                Storage.words[0] = "event";
-                Storage.input = String.format("event %s /from %s /to %s", words[2], words[3], words[4]);
-                parseEvent(Storage.input);
+                Storage.getWords()[0] = "event";
+                Storage.setInput(String.format("event %s /from %s /to %s", words[2], words[3], words[4]));
+                parseEvent(Storage.getInput());
                 break;
             default:
                 System.out.println("Can't read csv, file corrupted, abort!");

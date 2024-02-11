@@ -9,6 +9,13 @@ package ukecat;
 public class UkeCat {
     public final Ui ui;
 
+    /**
+     * Constructs a new UkeCat instance.
+     *
+     * <p>Initializes the user interface (Ui) and loads tasks from the file manager.</p>
+     *
+     * <p>This constructor is responsible for setting up the essential components of the UkeCat application.</p>
+     */
     public UkeCat() {
         ui = new Ui();
         FileManager.loadTasks();

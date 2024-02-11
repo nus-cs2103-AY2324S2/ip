@@ -13,18 +13,29 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final int EXIT_WAIT_TIME = 1;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-
     private UkeCat ukeCat;
-    private final Image USER_IMG = new Image("/images/User.png");
-    private final Image UKECAT_IMG = new Image("/images/UkeCat.png");
+    private final Image userImg = new Image("/images/User.png");
+    private final Image botImg = new Image("/images/UkeCat.png");
 
-    private final int EXIT_WAIT_TIME = 1;
+
+
+    /**
+     * Initializes the FXML components for the main window.
+     * Binds the vertical scroll value of the scroll pane to the height of the dialog container.
+     * Adds an initial Duke dialog to the dialog container.
+     *
+     * <p>This method is automatically called by JavaFX when loading the FXML file.</p>
+     *
+     * @throws AssertionError If any of the critical FXML components
+     *         (ScrollPane, DialogContainer, or UserInput) is not initialized.
+     */
     @FXML
     public void initialize() {
         assert scrollPane != null : "ScrollPane not initialized";
@@ -33,7 +44,7 @@ public class MainWindow extends AnchorPane {
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Ui.WELCOME_GUI, UKECAT_IMG)
+                DialogBox.getDukeDialog(Ui.WELCOME_GUI, botImg)
         );
     }
 
@@ -54,12 +65,12 @@ public class MainWindow extends AnchorPane {
 
         String input = userInput.getText();
         Parser.parse(input);
-        String reply = ukeCat.ui.getReply(Storage.words);
+        String reply = ukeCat.ui.getReply(Storage.getWords());
         String response = ukeCat.getResponse(reply);
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input + "  ", USER_IMG),
-                DialogBox.getDukeDialog(response, UKECAT_IMG)
+                DialogBox.getUserDialog(input + "  ", userImg),
+                DialogBox.getDukeDialog(response, botImg)
         );
         userInput.clear();
 

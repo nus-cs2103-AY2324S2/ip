@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
  * It includes methods for adding tasks and accessing the list of tasks.
  */
 public class Storage {
-    public static String input;
-    public static String[] words;
-    public static String desc;
-    public static LocalDate by;
-    public static LocalDate start;
-    public static LocalDate end;
+    private static String input;
+    private static String[] words;
+    private static String desc;
+    private static LocalDate by;
+    private static LocalDate start;
+    private static LocalDate end;
 
-    public static int taskCount = 0;
+    private static int taskCount = 0;
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static ArrayList<Task> getTasks() {
@@ -32,33 +32,33 @@ public class Storage {
      * @return A string message indicating the result of the addition.
      */
     public static String addTask() {
-        assert words != null : "Words array must not be null.";
-        assert words.length > 0 : "Words array must have at least one element.";
-        assert desc != null: "Every task must have a description.";
+        assert getWords() != null : "Words array must not be null.";
+        assert getWords().length > 0 : "Words array must have at least one element.";
+        assert getDesc() != null : "Every task must have a description.";
 
         Task t;
 
         try {
-            switch (words[0]) {
+            switch (getWords()[0]) {
             case "todo":
-                Parser.parseToDo(input);
-                t = new ToDo(desc);
+                Parser.parseToDo(getInput());
+                t = new ToDo(getDesc());
                 tasks.add(t);
                 break;
             case "deadline":
-                Parser.parseDeadline(input);
-                t = new Deadline(desc, by);
+                Parser.parseDeadline(getInput());
+                t = new Deadline(getDesc(), getBy());
                 tasks.add(t);
                 break;
             case "event":
-                Parser.parseEvent(input);
-                t = new Event(desc, start, end);
+                Parser.parseEvent(getInput());
+                t = new Event(getDesc(), getStart(), getEnd());
                 tasks.add(t);
                 break;
             default:
                 return "Invalid task type. Please provide a valid task type (todo, deadline, event).";
             }
-            taskCount++;
+            setTaskCount(getTaskCount() + 1);
             String message = String.format("  Task added: %s%n%s", t, generateReport());
             FileManager.updateTasks();
             return message;
@@ -75,7 +75,7 @@ public class Storage {
      */
     public static String deleteTask() {
         try {
-            int deleteIndex = Parser.parseDeleteTask(words);
+            int deleteIndex = Parser.parseDeleteTask(getWords());
 
             // Guard case: Check if the deleteIndex is within the valid range
             boolean isValidIndex = deleteIndex < 0 || deleteIndex >= tasks.size();
@@ -85,7 +85,7 @@ public class Storage {
             }
 
             Task deletedTask = tasks.remove(deleteIndex);
-            taskCount--;
+            setTaskCount(getTaskCount() - 1);
             FileManager.updateTasks();
             return String.format("  Task removed: %s%n%s", deletedTask, generateReport());
         } catch (UkeCatException e) {
@@ -102,7 +102,7 @@ public class Storage {
      */
     public static String markTask(MarkType markType) {
         try {
-            int taskIndex = Parser.parseMarkTask(words);
+            int taskIndex = Parser.parseMarkTask(getWords());
             return tasks.get(taskIndex).setDone(markType);
         } catch (UkeCatException e) {
             return e.getMessage();
@@ -118,9 +118,9 @@ public class Storage {
      */
     public static String findTask() {
         try {
-            String keyword = Parser.parseFindTask(words);
+            String keyword = Parser.parseFindTask(getWords());
 
-            if (taskCount == 0) {
+            if (getTaskCount() == 0) {
                 return "No tasks in the list yet!";
             }
 
@@ -141,11 +141,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a task to the task list based on CSV input.
+     * The CSV input is parsed to create a task using {@link #createTaskFromCsv()}.
+     * If the task creation is successful, it is added to the task list, and the task count is incremented.
+     */
     public static void addCsvTask() {
         Task t = createTaskFromCsv();
         if (t != null) {
             tasks.add(t);
-            taskCount++;
+            setTaskCount(getTaskCount() + 1);
         }
     }
 
@@ -157,26 +162,26 @@ public class Storage {
     private static Task createTaskFromCsv() {
         Task t = null;
         try {
-            TaskStatus status = TaskStatus.valueOf(words[1]);
+            TaskStatus status = TaskStatus.valueOf(getWords()[1]);
 
-            switch (words[0]) {
+            switch (getWords()[0]) {
             case "todo":
-                Parser.parseToDo(input);
-                t = new ToDo(status, desc);
+                Parser.parseToDo(getInput());
+                t = new ToDo(status, getDesc());
                 break;
 
             case "deadline":
-                Parser.parseDeadline(input);
-                t = new Deadline(status, desc, by);
+                Parser.parseDeadline(getInput());
+                t = new Deadline(status, getDesc(), getBy());
                 break;
 
             case "event":
-                Parser.parseEvent(input);
-                t = new Event(status, desc, start, end);
+                Parser.parseEvent(getInput());
+                t = new Event(status, getDesc(), getStart(), getEnd());
                 break;
 
             default:
-                System.out.println("Unknown task type: " + words[0]);
+                System.out.println("Unknown task type: " + getWords()[0]);
             }
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
@@ -201,11 +206,11 @@ public class Storage {
      * @return A string representation of the tasks.
      */
     public static String displayTasks() {
-        if (taskCount == 0) {
+        if (getTaskCount() == 0) {
             return "  No tasks in the list yet!";
         }
         StringBuilder listOfTasks = new StringBuilder();
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < getTaskCount(); i++) {
             listOfTasks.append(String.format("  %d. %s%n", i + 1, tasks.get(i).toString()));
         }
         return listOfTasks.toString();
@@ -217,6 +222,62 @@ public class Storage {
      * @return A string representation of the report.
      */
     public static String generateReport() {
-        return String.format("  You have %d task%s in the list now.", taskCount, taskCount == 1 ? "" : "s");
+        return String.format("  You have %d task%s in the list now.", getTaskCount(), getTaskCount() == 1 ? "" : "s");
+    }
+
+    public static LocalDate getEnd() {
+        return end;
+    }
+
+    public static void setEnd(LocalDate end) {
+        Storage.end = end;
+    }
+
+    public static LocalDate getStart() {
+        return start;
+    }
+
+    public static void setStart(LocalDate start) {
+        Storage.start = start;
+    }
+
+    public static LocalDate getBy() {
+        return by;
+    }
+
+    public static void setBy(LocalDate by) {
+        Storage.by = by;
+    }
+
+    public static String getDesc() {
+        return desc;
+    }
+
+    public static void setDesc(String desc) {
+        Storage.desc = desc;
+    }
+
+    public static String[] getWords() {
+        return words;
+    }
+
+    public static void setWords(String[] words) {
+        Storage.words = words;
+    }
+
+    public static String getInput() {
+        return input;
+    }
+
+    public static void setInput(String input) {
+        Storage.input = input;
+    }
+
+    public static int getTaskCount() {
+        return taskCount;
+    }
+
+    public static void setTaskCount(int taskCount) {
+        Storage.taskCount = taskCount;
     }
 }
