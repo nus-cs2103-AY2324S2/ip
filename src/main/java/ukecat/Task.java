@@ -35,7 +35,7 @@ public abstract class Task {
      * @param markType The type of marking (MARK for done, UNMARK for not done).
      */
     public String setDone(MarkType markType) {
-        String notif = "";
+        String notif;
         switch (markType) {
         case MARK:
             this.status = TaskStatus.COMPLETE;
@@ -45,6 +45,8 @@ public abstract class Task {
             this.status = TaskStatus.NOT_DONE;
             notif = "OK, I've marked this task as not done yet:\n";
             break;
+        default:
+            notif = "Unknown markType encountered\n";
         }
         FileManager.updateTasks();
         return String.format("  %s    %s", notif, this);
