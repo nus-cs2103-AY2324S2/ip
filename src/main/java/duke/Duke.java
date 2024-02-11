@@ -89,6 +89,9 @@ public class Duke extends Application {
             handleUserInput();
         });
 
+        Label intro = new Label(Ui.INTRO);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(intro, new ImageView(duke)));
+
     }
 
     /**
