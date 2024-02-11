@@ -33,13 +33,33 @@ class TaskList {
     }
 
     /**
+     * Marks the Task.
+     * @param input The input from user.
+     * @return The marked Task.
+     * @throws FishStockException The exceptions while changing the mark.
+     */
+    protected Task markTask(String input) throws FishStockException {
+        return changeMark(Keyword.MARK, input);
+    }
+
+    /**
+     * Unmarks the Task.
+     * @param input The input from user.
+     * @return The unmarked Task.
+     * @throws FishStockException The exceptions while changing the mark.
+     */
+    protected Task unmarkTask(String input) throws FishStockException {
+        return changeMark(Keyword.UNMARK, input);
+    }
+
+    /**
      * Marks whether Task is done.
      * @param keyword The keyword command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    protected Task changeMark(Keyword keyword, String input) throws FishStockException {
+    private Task changeMark(Keyword keyword, String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
         try {
             Task task = list.get(idx);

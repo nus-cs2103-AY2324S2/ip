@@ -43,9 +43,9 @@ class Command {
             case LIST:
                 return LIST_PREFIX + list.toString();
             case MARK:
-                return MARK_PREFIX + list.changeMark(keyword, input);
+                return MARK_PREFIX + list.markTask(input);
             case UNMARK:
-                return UNMARK_PREFIX + list.changeMark(keyword, input);
+                return UNMARK_PREFIX + list.unmarkTask(input);
             case DELETE:
                 return DELETE_PREFIX + list.deleteTask(input) + getTaskCount(list);
             case FIND:
