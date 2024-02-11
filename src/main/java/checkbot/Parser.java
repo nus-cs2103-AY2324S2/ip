@@ -70,50 +70,50 @@ public class Parser {
             throws MissingFromException, MissingToException {
         Pattern pattern = Pattern.compile("event (.*) /(from|to)(.*) /(from|to)(.*)");
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
-            String firstLabel = matcher.group(2);
-            String firstValue = matcher.group(3).strip();
-            String secondValue = matcher.group(5).strip();
-
-            String from;
-            String to;
-
-            if (firstLabel.equals("from")) {
-                from = firstValue;
-                to = secondValue;
-            } else {
-                from = secondValue;
-                to = firstValue;
-            }
-
-            if (from.isEmpty()) {
-                throw new MissingFromException();
-            }
-            if (to.isEmpty()) {
-                throw new MissingToException();
-            }
-
-            return new AddCommand(taskName, from, to);
-        } else {
+        if (!matcher.find()) {
             if (input.contains(" /from ")) {
                 throw new MissingToException();
             }
             throw new MissingFromException();
         }
+
+        String firstLabel = matcher.group(2);
+        String firstValue = matcher.group(3).strip();
+        String secondValue = matcher.group(5).strip();
+
+        String from;
+        String to;
+
+        if (firstLabel.equals("from")) {
+            from = firstValue;
+            to = secondValue;
+        } else {
+            from = secondValue;
+            to = firstValue;
+        }
+
+        if (from.isEmpty()) {
+            throw new MissingFromException();
+        }
+        if (to.isEmpty()) {
+            throw new MissingToException();
+        }
+
+        return new AddCommand(taskName, from, to);
     }
 
     private static AddCommand parseDeadlineCommand(String input, String taskName) throws MissingDeadlineException {
         Pattern pattern = Pattern.compile("deadline (.*) /by (.*)");
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
-            String byWhen = matcher.group(2).strip();
-            if (byWhen.isEmpty()) {
-                throw new MissingDeadlineException();
-            }
-            return new AddCommand(taskName, byWhen);
-        } else {
+        if (!matcher.find()) {
             throw new MissingDeadlineException();
         }
+
+        String byWhen = matcher.group(2).strip();
+        if (byWhen.isEmpty()) {
+            throw new MissingDeadlineException();
+        }
+        return new AddCommand(taskName, byWhen);
     }
 
     private static FindCommand parseFindCommand(String input) {
