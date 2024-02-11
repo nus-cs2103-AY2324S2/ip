@@ -14,7 +14,7 @@ public class EventTest {
     @Test
     public void eventToSaveString_success() {
         Event event = new Event("test", "1", "2");
-        assertEquals("E,0,test,1,2,", event.toSaveString());
+        assertEquals("E,0,0,test,1,2,", event.toSaveString());
     }
 
     @Test

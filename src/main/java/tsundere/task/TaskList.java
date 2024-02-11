@@ -15,6 +15,9 @@ import tsundere.exception.GeneralException;
 public class TaskList {
     public static ArrayList<Task> taskList = new ArrayList<>();
 
+    private static final String INVALID_TASK_NUMBER_INPUTTED_MSG = "Im pretty sure that's the wrong task number! " +
+            "Check again!";
+
     /**
      * Sets selected Task's status to undone.
      *
@@ -38,7 +41,7 @@ public class TaskList {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "unmark [task no.]");
         } catch (IndexOutOfBoundsException e ) {
-            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
+            throw new GeneralException(INVALID_TASK_NUMBER_INPUTTED_MSG);
         }
 
     }
@@ -66,7 +69,7 @@ public class TaskList {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "unmark [task no.]");
         } catch (IndexOutOfBoundsException e) {
-            throw new GeneralException("Im pretty sure that's the wrong task number! Check again!");
+            throw new GeneralException(INVALID_TASK_NUMBER_INPUTTED_MSG);
         }
 
     }
@@ -92,7 +95,7 @@ public class TaskList {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "unmark [task no.]");
         } catch (IndexOutOfBoundsException e) {
-            throw new GeneralException("I'm pretty sure that's the wrong task number! Check again!");
+            throw new GeneralException(INVALID_TASK_NUMBER_INPUTTED_MSG);
         }
 
     }
@@ -236,9 +239,11 @@ public class TaskList {
             Task t = TaskList.taskList.get(idx);
             t.tagTask(tag);
             return getListSize("tagged", t);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "tag [task no.] [tagname]");
+        } catch (IndexOutOfBoundsException e) {
+            throw new GeneralException(INVALID_TASK_NUMBER_INPUTTED_MSG);
         }
     }
 
@@ -259,9 +264,11 @@ public class TaskList {
             Task t = TaskList.taskList.get(idx);
             t.untagTask(tag);
             return getListSize("untagged", t);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "untag [task no.] [tagname]");
+        } catch (IndexOutOfBoundsException e) {
+            throw new GeneralException(INVALID_TASK_NUMBER_INPUTTED_MSG);
         }
     }
 

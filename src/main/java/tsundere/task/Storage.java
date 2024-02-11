@@ -106,29 +106,47 @@ public class Storage {
 
         switch (type) {
         case ("T"):
-            task = new ToDo(parsedData[2]);
-            if (parsedData[1].equals("1")) task.markTaskAsDone();
-
-            String[] x = parsedData[3].split(" ");
-            for (String tag : x) {
-                task.tagTask(tag);
+            task = new ToDo(parsedData[3]);
+            if (parsedData[2].equals("1")) {
+                task.markTaskAsDone();
             }
+
+            if (parsedData[1].equals("1")) {
+                String[] x = parsedData[4].split(" ");
+                for (String tag : x) {
+                    task.tagTask(tag);
+                }
+            }
+
             break;
         case ("E"):
-            task = new Event(parsedData[2], parsedData[3], parsedData[4]);
-            if (parsedData[1].equals("1")) task.markTaskAsDone();
-            String[] y = parsedData[5].split(" ");
-            for (String tag : y) {
-                task.tagTask(tag);
+
+            task = new Event(parsedData[3], parsedData[4], parsedData[5]);
+            if (parsedData[2].equals("1")) {
+                task.markTaskAsDone();
             }
+
+            if (parsedData[1].equals("1")) {
+                String[] y = parsedData[6].split(" ");
+                for (String tag : y) {
+                    task.tagTask(tag);
+                }
+            }
+
             break;
         case ("D"):
-            task = new Deadline(parsedData[2], parsedData[3]);
-            if (parsedData[1].equals("1")) task.markTaskAsDone();
-            String[] z = parsedData[4].split(" ");
-            for (String tag : z) {
-                task.tagTask(tag);
+
+            task = new Deadline(parsedData[3], parsedData[4]);
+            if (parsedData[2].equals("1")) {
+                task.markTaskAsDone();
             }
+            if (parsedData[1].equals("1")) {
+                String[] z = parsedData[5].split(" ");
+                for (String tag : z) {
+                    task.tagTask(tag);
+                }
+            }
+
             break;
         default:
             assert task == null : "task should not be null";

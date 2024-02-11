@@ -14,7 +14,7 @@ public class ToDoTest {
     @Test
     public void toDoToSaveString_success() {
         ToDo todo = new ToDo("test");
-        assertEquals("T,0,test,", todo.toSaveString());
+        assertEquals("T,0,0,test,", todo.toSaveString());
     }
 
     @Test

@@ -14,7 +14,7 @@ public class TaskTest {
     @Test
     public void taskToSaveString_success() {
         Task task = new Task("test");
-        assertEquals("0,test", task.toSaveString());
+        assertEquals("0,0,test", task.toSaveString());
     }
 
     @Test

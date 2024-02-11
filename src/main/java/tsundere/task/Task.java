@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected boolean hasTags;
     protected ArrayList<String> taglist;
 
     /**
@@ -21,6 +22,7 @@ public class Task {
         assert description != null : "description should not be null";
         this.description = description;
         this.isDone = false;
+        this.hasTags = false;
         this.taglist = new ArrayList<>();
     }
 
@@ -31,13 +33,14 @@ public class Task {
      * @throws GeneralException if tag is not unique or taglist is full.
      */
     public void tagTask(String tag) throws GeneralException {
-        if (taglist.size() > 2) {
+        if (this.taglist.size() > 2) {
             throw new GeneralException("Too many tags! Try untagging some first!");
         }
-        if (taglist.contains(tag)) {
+        if (this.taglist.contains(tag)) {
             throw new GeneralException("You already have this tag!");
         }
-        taglist.add(tag);
+        this.taglist.add(tag);
+        this.hasTags = true;
     }
 
     /**
@@ -47,13 +50,16 @@ public class Task {
      * @throws GeneralException if tag is not found or taglist is empty.
      */
     public void untagTask(String tag) throws GeneralException {
-        if (taglist.isEmpty()) {
+        if (!this.hasTags) {
             throw new GeneralException("No tags found! Try tagging some first!");
         }
-        if (!taglist.contains(tag)) {
+        if (!this.taglist.contains(tag)) {
             throw new GeneralException("Tag not found!");
         }
-        taglist.remove(tag);
+        this.taglist.remove(tag);
+        if (this.taglist.isEmpty()) {
+            this.hasTags = false;
+        }
     }
 
     /**
@@ -86,7 +92,8 @@ public class Task {
      */
     public String toSaveString() {
         int x = this.isDone ? 1 : 0;
-        return x + "," + this.description;
+        int y = this.hasTags ? 1 : 0;
+        return y + "," + x + "," + this.description;
     }
 
     /**
