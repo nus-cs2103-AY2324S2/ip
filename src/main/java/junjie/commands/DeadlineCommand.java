@@ -8,7 +8,6 @@ import junjie.exceptions.InvalidArgumentException;
 import junjie.tasks.DeadlineTask;
 import junjie.tasks.Task;
 
-
 /**
  * Represents a command to add a deadline task.
  */
@@ -34,13 +33,13 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             Task task = new DeadlineTask(name, deadline);
             tasks.add(task);
-            ui.print(String.format(MESSAGE, task));
+            return String.format(MESSAGE, task);
         } catch (InvalidArgumentException | DateTimeException e) {
-            ui.print(e.getMessage());
+            return String.format(e.getMessage());
         }
     }
 }

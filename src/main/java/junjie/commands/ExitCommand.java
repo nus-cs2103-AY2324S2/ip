@@ -14,8 +14,8 @@ public class ExitCommand extends Command {
     private static final String MESSAGE = "ok see you bro";
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.print(MESSAGE);
+    public String execute(TaskList tasks, Ui ui) {
+        return MESSAGE;
     }
 
     @Override

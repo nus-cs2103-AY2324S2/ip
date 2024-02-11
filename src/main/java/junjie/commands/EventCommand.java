@@ -8,7 +8,6 @@ import junjie.exceptions.InvalidArgumentException;
 import junjie.tasks.EventTask;
 import junjie.tasks.Task;
 
-
 /**
  * Represents a command to add an event task.
  */
@@ -37,13 +36,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             Task task = new EventTask(name, from, to);
             tasks.add(task);
-            ui.print(String.format(MESSAGE, task));
+            return String.format(MESSAGE, task);
         } catch (DateTimeException | InvalidArgumentException e) {
-            ui.print(e.getMessage());
+            return e.getMessage();
         }
     }
 }

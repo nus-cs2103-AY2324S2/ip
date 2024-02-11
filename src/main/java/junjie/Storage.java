@@ -22,7 +22,7 @@ public class Storage {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
     }
 
@@ -37,7 +37,7 @@ public class Storage {
             fileWriter.write(str);
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
     }
 
@@ -58,7 +58,7 @@ public class Storage {
             }
             return str.toString();
         } catch (FileNotFoundException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
             return "";
         }
     }

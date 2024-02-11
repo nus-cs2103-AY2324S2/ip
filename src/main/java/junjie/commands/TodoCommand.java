@@ -28,13 +28,13 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         try {
             Task task = new TodoTask(name);
             tasks.add(task);
-            ui.print(String.format(MESSAGE, task));
+            return String.format(MESSAGE, task);
         } catch (InvalidArgumentException e) {
-            ui.print(e.getMessage());
+            return e.getMessage();
         }
     }
 }

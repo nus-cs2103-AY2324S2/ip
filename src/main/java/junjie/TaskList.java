@@ -9,7 +9,6 @@ import junjie.tasks.EventTask;
 import junjie.tasks.Task;
 import junjie.tasks.TodoTask;
 
-
 /**
  * Represents a list of tasks.
  */
