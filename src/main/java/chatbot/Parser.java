@@ -74,6 +74,19 @@ public class Parser {
             .append("\n");
         }
         return listString.toString();
+      } else if (words[0].equals("upcoming")) {
+        StringBuilder listString = new StringBuilder();
+        for (int i = 0; i < myList.len(); i++) {
+          if (myList.get(i) instanceof Deadline) { // Check if it's an instance of Deadline
+            int show = i + 1;
+            listString
+              .append(show)
+              .append(".")
+              .append(myList.get(i)) // This will now only append if it's a Deadline
+              .append("\n");
+          }
+        }
+        return listString.toString();
       } else if (words[0].equals("mark")) {
         int c = Integer.parseInt(words[1]);
         myList.asDone(c);
