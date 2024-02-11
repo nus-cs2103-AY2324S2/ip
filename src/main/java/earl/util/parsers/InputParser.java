@@ -26,8 +26,7 @@ public class InputParser implements Parser {
             HandlerType handlerType = HandlerType.valueOf(command);
             return handlerType.createHandler(args);
         } catch (Exception e) {
-            throw new EarlException("Unable to parse input: " + input
-                    + e.getMessage());
+            throw new EarlException("Unable to parse input: " + input);
         }
     }
 }

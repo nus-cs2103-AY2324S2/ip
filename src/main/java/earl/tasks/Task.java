@@ -31,20 +31,20 @@ public abstract class Task {
 
     /** Marks as complete. Returns success. */
     public boolean markAsDone() {
-        if (!this.isDone) {
-            this.isDone = true;
-            return true;
+        if (isDone) {
+            return false;
         }
-        return false;
+        isDone = true;
+        return true;
     }
 
     /** Marks as incomplete. Returns success. */
     public boolean markUndone() {
-        if (this.isDone) {
-            this.isDone = false;
-            return true;
+        if (!isDone) {
+            return false;
         }
-        return false;
+        isDone = false;
+        return true;
     }
 
     @Override

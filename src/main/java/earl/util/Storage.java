@@ -40,10 +40,10 @@ public class Storage {
             File file = new File(filePath);
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
+            assert file.exists();
             if (isFolderMade || isFileMade) {
                 return tasks; // file is surely missing
             }
-
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String entry = sc.nextLine();
@@ -53,7 +53,7 @@ public class Storage {
             wasLoadSuccessful = true;
             return tasks;
         } catch (Exception e) {
-            return new ArrayList<>();
+            return new ArrayList<>(); // start with empty list
         }
     }
 
