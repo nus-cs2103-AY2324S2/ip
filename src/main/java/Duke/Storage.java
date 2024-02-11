@@ -61,8 +61,9 @@ public class Storage {
 
             fw = new FileWriter(filePath, true);
             for (int i = 1; i <= TaskList.listSize(); i++) {
-                String textToAppend = TaskList.getTask(i).toString();
-                fw.write(textToAppend + "\n");
+                Task task = TaskList.getTask(i);
+                String encodedTask = task.encode();
+                fw.write(encodedTask + "\n");
             }
         } catch (IOException e) {
             System.out.println("An error occurred while storing data: " + e.getMessage());
@@ -102,46 +103,30 @@ public class Storage {
      * @throws InvalidDateFormatException if the date format in the line is invalid
      */
     private static void decode(String line) throws InvalidDateFormatException {
-        DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
-        DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        String name;
-        String[] parts;
+        Task task;
+        String taskDetails = line.substring(7);
 
         char taskType = line.charAt(1);
-        boolean marked = line.charAt(4) == 'X' ? true : false;
-        Task task;
-
-        line = line.substring(7);
         switch (taskType) {
             case 'T':
-                task = new ToDo(line);
+                task = ToDo.decode(taskDetails);
                 break;
             case 'D':
-                parts = line.split("\\(by: ");
-                name = parts[0].trim();
-                String by = parts[1].substring(0, parts[1].length() - 1).trim();
-                String by2 = LocalDate.parse(by, originalFormat).format(newFormat).toString();
-                task = new Deadline(name, by2);
+                task = Deadline.decode(taskDetails);
                 break;
             case 'E':
-                parts = line.split("\\(from: ");
-                name = parts[0].trim();
-                String[] parts2 = parts[1].split("to: ");
-                String from = parts2[0].trim();
-                String from2 = LocalDate.parse(from, originalFormat).format(newFormat).toString();
-                String to = parts2[1].substring(0, parts2[1].length() - 1).trim();
-                String to2 = LocalDate.parse(to, originalFormat).format(newFormat).toString();
-                task = new Event(name, from2, to2);
+                task = Event.decode(taskDetails);
                 break;
             default:
                 assert false: "Should not fall into default case of switch block for decode method!";
                 task = new ToDo("ERROR");
                 System.out.println("Error: Decoding Error, task does not match any of the known types");           
-        } 
-        TaskList.addTaskSilent(task);
-        if (marked) {
-            TaskList.markTaskSilent(TaskList.listSize());
+        }
+        TaskList.addTaskSilently(task);
+
+        boolean isTaskDone = line.charAt(4) == 'X';
+        if (isTaskDone) {
+            TaskList.markTaskSilently(TaskList.listSize());
         }
     }
 }

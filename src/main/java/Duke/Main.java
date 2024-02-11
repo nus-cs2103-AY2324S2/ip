@@ -28,6 +28,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setBird(bird);
             fxmlLoader.<MainWindow>getController().setMain(this);
             fxmlLoader.<MainWindow>getController().displayInitialMessage();
+            stage.setWidth(450);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

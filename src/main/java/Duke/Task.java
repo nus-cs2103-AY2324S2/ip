@@ -1,13 +1,16 @@
 package duke;
 
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class represents a task.
  * Each task has a name and a status indicating whether it is done.
  */
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone;
+
 
     /**
      * Constructs a new Task with the specified name.
@@ -63,4 +66,11 @@ public class Task {
     public boolean isDone() {
         return isDone;
     }
+
+    /**
+     * Returns the encoded version of the Task
+     *
+     * @return Encoded String version of the Task. Currently, uses toString() to encode.
+     */
+    public abstract String encode();
 }

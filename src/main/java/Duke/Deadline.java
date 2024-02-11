@@ -11,6 +11,8 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private LocalDate date;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter NEW_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
     /**
      * Constructs a new Deadline task with the specified name and due date.
@@ -38,5 +40,30 @@ public class Deadline extends Task {
     public String toString() {
         String date = String.format(" (by: %s)", this.date.format(FORMATTER));
         return "[D]" + super.toString() + date;
+    }
+
+    /**
+     * Returns the encoded version of Deadline
+     *
+     * @return Encoded String version of the Deadline. Currently, uses toString() to encode.
+     */
+    public String encode() {
+        return toString();
+    }
+
+    /**
+     * Decodes the task details into a Deadline object.
+     *
+     * @param taskDetails the details of the task to decode
+     * @return a new Deadline object with the decoded details
+     * @throws InvalidDateFormatException if the date in the task details is not in the expected format
+     */
+    public static Deadline decode(String taskDetails) throws InvalidDateFormatException {
+        String[] detailParts = taskDetails.split("\\(by: ");
+        String name = detailParts[0].trim();
+
+        String date = detailParts[1].substring(0, detailParts[1].length() - 1).trim();
+        String dateFormatted = LocalDate.parse(date, FORMATTER).format(NEW_DATE_FORMAT);
+        return new Deadline(name, dateFormatted);
     }
 }

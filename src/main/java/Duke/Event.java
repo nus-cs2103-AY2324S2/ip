@@ -13,6 +13,7 @@ public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter NEW_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Constructs a new Event task with the specified name and date range.
@@ -32,7 +33,6 @@ public class Event extends Task {
         }
     }
 
-
     /**
      * Returns a string representation of the Event task.
      * The returned string includes the task type ([E]), the string representation of the superclass, and the date range.
@@ -43,5 +43,34 @@ public class Event extends Task {
     public String toString() {
         String date = String.format(" (from: %s to: %s)", this.from.format(FORMATTER), this.to.format(FORMATTER));
         return "[E]" + super.toString() + date;
+    }
+
+    /**
+     * Returns the encoded version of Event
+     *
+     * @return Encoded String version of the Event. Currently, uses toString() to encode.
+     */
+    public String encode() {
+        return toString();
+    }
+
+    /**
+     * Decodes the task details into an Event object.
+     *
+     * @param taskDetails the details of the task to decode
+     * @return a new Event object with the decoded details
+     * @throws InvalidDateFormatException if the date in the task details is not in the expected format
+     */
+    public static Event decode(String taskDetails) throws InvalidDateFormatException {
+        String[] detailParts = taskDetails.split("\\(from: ");
+        String name = detailParts[0].trim();
+
+        String[] dateDetails = detailParts[1].split("to: ");
+        String fromDate = dateDetails[0].trim();
+        String toDate = dateDetails[1].substring(0, dateDetails[1].length() - 1).trim();
+
+        String fromDateFormatted = LocalDate.parse(fromDate, FORMATTER).format(NEW_DATE_FORMAT);
+        String toDateFormatted = LocalDate.parse(toDate, FORMATTER).format(NEW_DATE_FORMAT);
+        return new Event(name, fromDateFormatted, toDateFormatted);
     }
 }
