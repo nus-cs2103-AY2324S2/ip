@@ -1,11 +1,11 @@
 package earl;
 
 import earl.exceptions.EarlException;
-import earl.logic.HandlerFactory;
-import earl.util.Parser;
+import earl.logic.Handler;
 import earl.util.Storage;
 import earl.util.TaskList;
 import earl.util.Ui;
+import earl.util.parsers.InputParser;
 
 /**
  * The main class of the Earl application.
@@ -24,19 +24,23 @@ public class Earl {
     public Earl(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        TaskList temp;
-        try {
-            temp = new TaskList(storage.load());
-            ui.showGreeting();
-        } catch (EarlException e) {
-            ui.makeResponse(e.getMessage());
-            temp = new TaskList(); // empty list when fail to read
+        tasks = new TaskList(storage.load());
+        if (!storage.wasLoadSuccessful()) {
+            ui.makeResponse("Failed to read from storage.",
+                    "Starting with empty file...");
         }
-        tasks = temp;
+        ui.showGreeting();
     }
 
     /**
-     * Main program execution of the Earl class.
+     * Main function for TUI mode.
+     */
+    public static void main(String[] args) {
+        new Earl("data/earl.txt").run();
+    }
+
+    /**
+     * Main program execution of the Earl class for TUI mode.
      * <p>
      * Contains main program loop and displaying of greeting
      * and goodbye messages. Attempts to save to storage on exit.
@@ -44,11 +48,10 @@ public class Earl {
     public void run() {
         // main loop
         String input = ui.getUserInput();
-        String[] command;
         while (!input.equals("bye")) {
             try {
-                command = Parser.parseUserInput(input);
-                HandlerFactory.of(command).handle(tasks, ui);
+                Handler handler = InputParser.parse(input);
+                handler.handle(tasks, ui);
             } catch (EarlException e) {
                 ui.makeResponse(e.getMessage());
             } finally {
@@ -72,23 +75,17 @@ public class Earl {
     /** Returns response to interaction with the GUI. */
     public String getResponse(String input) {
         try {
-            if (!input.equals("bye")) {
-                String[] command = Parser.parseUserInput(input);
-                HandlerFactory.of(command).handle(tasks, ui);
-            } else {
+            if (input.equals("bye")) { // terminate execution
                 storage.save(tasks.getList());
                 ui.showGoodbye();
+                return ui.getResponse();
             }
+            Handler handler = InputParser.parse(input);
+            handler.handle(tasks, ui);
+            return ui.getResponse();
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
+            return ui.getResponse();
         }
-        return ui.getResponse();
-    }
-
-    /**
-     * Entry point of the Earl class. File path is decided here.
-     */
-    public static void main(String[] args) {
-        new Earl("data/earl.txt").run();
     }
 }

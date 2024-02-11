@@ -1,7 +1,6 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
-import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
@@ -10,26 +9,23 @@ import earl.util.Ui;
  */
 public final class UnmarkHandler extends Handler {
 
-    private final String[] command;
-
-    /**
-     * Class constructor.
-     *
-     * @param command  the user input that invoked this handler
-     */
-    public UnmarkHandler(String[] command) {
-        this.command = command;
+    /** Class constructor. */
+    public UnmarkHandler(String args) {
+        super(args);
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            int idx = Parser.parseIndex(command[1]);
-            if (tasks.unmark(idx)) {
-                ui.makeResponse("Item marked as not done.");
-            } else {
-                ui.makeResponse("Item already marked as not done.");
+            int idx = Integer.parseInt(args) - 1;
+            boolean success = tasks.get(idx).markUndone();
+            if (!success) {
+                ui.makeResponse("Item already marked as not done.",
+                        "\t" + tasks.get(idx).toString());
+                return;
             }
+            ui.makeResponse("Item marked as not done.",
+                    "\t" + tasks.get(idx).toString());
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new EarlException(
                     "Error, not a valid item number within range.\n"

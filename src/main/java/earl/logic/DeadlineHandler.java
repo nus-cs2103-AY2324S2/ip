@@ -1,8 +1,7 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
-import earl.tasks.Deadline;
-import earl.util.Parser;
+import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;
 
@@ -11,22 +10,17 @@ import earl.util.Ui;
  */
 public class DeadlineHandler extends Handler {
 
-    private final String[] command;
 
-    /**
-     * Class constructor.
-     *
-     * @param command  the user input that invoked this handler
-     */
-    public DeadlineHandler(String[] command) {
-        this.command = command;
+    /** Class constructor. */
+    public DeadlineHandler(String args) {
+        super(args);
     }
 
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            String[] args = Parser.parseUserInput(command[1], "\\s/by\\s");
-            tasks.add(new Deadline(args[0], args[1]));
+            String[] data = args.split("\\s+/by\\s+");
+            tasks.add(TaskType.DEADLINE.createTask(data));
             ui.makeResponse("Added new deadline.",
                     "\t" + tasks.get(tasks.getSize() - 1),
                     "There are " + tasks.getSize() + " task(s) tracked.");

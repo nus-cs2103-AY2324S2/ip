@@ -9,6 +9,10 @@ public class Ui {
 
     private static final String PADDING = " ".repeat(4);
     private static final String DIVIDER = "_".repeat(60);
+    private static final String GREETING_MESSAGE = "Hello! I'm Earl\n"
+            + PADDING + "What can I do for you?";
+
+    private static final String GOODBYE_MESSAGE = "Goodbye! See you soon.";
 
     private final Scanner sc;
 
@@ -25,6 +29,13 @@ public class Ui {
         System.out.println(PADDING + DIVIDER);
     }
 
+    /** Prints each element of input on a new line. */
+    private static void printStrings(String... arr) {
+        for (String s : arr) {
+            System.out.println(PADDING + s);
+        }
+    }
+
     /**
      * Formats and prints the arguments for the user to read.
      * <p>
@@ -35,12 +46,14 @@ public class Ui {
      * @param arr  a vararg of strings to print
      */
     public void makeResponse(String... arr) {
+        setPrevResponse(arr);
+        printDivider();
+        printStrings(arr);
+        printDivider();
+    }
+
+    private void setPrevResponse(String... arr) {
         prevResponse = arr;
-        printDivider();
-        for (String s : arr) {
-            System.out.println(PADDING + s);
-        }
-        printDivider();
     }
 
     public String getUserInput() {
@@ -48,13 +61,19 @@ public class Ui {
     }
 
     public void showGreeting() {
-        makeResponse("Hello! I'm Earl", "What can I do for you?");
+        makeResponse(GREETING_MESSAGE);
     }
 
     public void showGoodbye() {
-        makeResponse("Goodbye! See you soon.");
+        makeResponse(GOODBYE_MESSAGE);
     }
 
+    /**
+     * Returns the previous response made for GUI interactions.
+     *
+     * @return  the previous response appearing as it would on a
+     *          text based UI
+     */
     public String getResponse() {
         StringBuilder res = new StringBuilder(PADDING + DIVIDER + "\n");
         for (String line: prevResponse) {

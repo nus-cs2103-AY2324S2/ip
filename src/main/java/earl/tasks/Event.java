@@ -1,15 +1,13 @@
 package earl.tasks;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import earl.util.parsers.DateTimeParser;
 
 /**
  * Class representing task of type event.
  */
 public class Event extends Task {
-
-    private static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter
-            .ofPattern("dd/MM/yyyy HHmm");
 
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -23,34 +21,26 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = LocalDateTime.parse(from, DATETIME_FORMAT);;
-        this.to = LocalDateTime.parse(to, DATETIME_FORMAT);;
-    }
-
-    /**
-     * Class constructor.
-     *
-     * @param status       the completion status
-     * @param description  the task description
-     * @param from         the date and time of the start
-     * @param to           the date and time of the end
-     */
-    public Event(String status, String description, String from, String to) {
-        super(status, description);
-        this.from = LocalDateTime.parse(from, DATETIME_FORMAT);;
-        this.to = LocalDateTime.parse(to, DATETIME_FORMAT);;
+        taskType = TaskType.EVENT;
+        this.from = DateTimeParser.parse(from);
+        this.to = DateTimeParser.parse(to);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                from.format(DATETIME_FORMAT), to.format(DATETIME_FORMAT));
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                DateTimeParser.dateTimeToString(from),
+                DateTimeParser.dateTimeToString(to));
     }
 
     @Override
     public String toStorageString() {
-        return String.format("E,%s,%s,%s,%s",
-                super.getStatusIcon(), description,
-                from.format(DATETIME_FORMAT), to.format(DATETIME_FORMAT));
+        return String.format("%s,%s,%s,%s,%s",
+                taskType.toString(),
+                super.getStatusIcon(),
+                getDescription(),
+                DateTimeParser.dateTimeToString(from),
+                DateTimeParser.dateTimeToString(to));
     }
 }
