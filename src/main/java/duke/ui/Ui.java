@@ -1,11 +1,6 @@
 package duke.ui;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import duke.DukeException;
 
 
 /**
@@ -19,14 +14,8 @@ public class Ui {
     private static final String FIRST = " Hello! I'm Pluiexo";
     private static final String SECOND = " What can I do for you?";
     private static final String[] GREET = new String[]{FIRST, SECOND};
-    private static final String[] BYE = new String[]{BAR, MESSAGE_BYE, BAR};
 
-    private static final BufferedReader INPUT_READER = new BufferedReader(new InputStreamReader(System.in));
-
-    /**
-     * Creates the GUI handler.
-     */
-    public Ui() {
+    private Ui() {
 
     }
 
@@ -51,6 +40,12 @@ public class Ui {
         return MESSAGE_BYE;
     }
 
+    /**
+     * Converts an Arraylist String to its output string.
+     *
+     * @param items An ArrayList containing items to convert/
+     * @return A String with each item added onto a new line
+     */
     public static String convertToString(ArrayList<String> items) {
         StringBuilder ret = new StringBuilder();
         for (String item : items) {
@@ -104,55 +99,4 @@ public class Ui {
         return errorResponse;
     }
 
-    /**
-     * Displays a break line bar of dashes with indentation.
-     */
-    public void showLine() {
-        System.out.println(INDENT + BAR);
-    }
-
-    /**
-     * Draws an empty line in output.
-     */
-    public void spacer() {
-        System.out.println();
-    }
-
-    /**
-     * Scans the next line for instructions to the chatbot.
-     *
-     * @return String value of the user input.
-     * @throws DukeException
-     */
-    public String readInstructions() throws DukeException {
-        String test = "";
-        try {
-            test = INPUT_READER.readLine();
-        } catch (IOException e) {
-            throw new DukeException("Gigaboom");
-        }
-        return test;
-    }
-
-    /**
-     * Prints to the output console of all the items in the list object.
-     *
-     * @param data An ArrayList of string to print everything to the output with indentation.
-     */
-    public void printOutput(ArrayList<String> data) {
-        for (String item : data) {
-            System.out.println(INDENT + item);
-        }
-    }
-
-    /**
-     * Prints to the output console of all the items in the array object.
-     *
-     * @param data A String array to print everything to the output with indentation.
-     */
-    public void printOutput(String[] data) {
-        for (String item : data) {
-            System.out.println(item);
-        }
-    }
 }

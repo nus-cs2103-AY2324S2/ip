@@ -47,15 +47,6 @@ public class Duke {
 
     }
 
-//    public static void main(String[] args) {
-//        launch(args);
-//
-//        new Duke("data/tasks.txt", 2000).run();
-//
-//    }
-
-    //
-
     public String getResponse(String input) {
         String response;
         try {
@@ -80,34 +71,5 @@ public class Duke {
         return isExit;
     }
 
-    /**
-     * Executes and start running the Duke chatbot.
-     */
-    /*
-    public void run() {
-        //ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String next = ui.readInstructions();
-                ui.showLine();
-                ui.printOutput(Parser.parse(next, manager));
-                ui.showLine();
-                isExit = Parser.isExit();
-
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } catch (NumberFormatException e) {
-                ui.showError(" OPPPS!!!!That is not a number!!!!!!!!!!");
-            } finally {
-                ui.spacer();
-                storage.saveFile(manager);
-            }
-        }
-
-        System.exit(0);
-
-    }
-    */
 
 }
