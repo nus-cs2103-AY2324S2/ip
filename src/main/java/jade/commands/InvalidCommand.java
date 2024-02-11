@@ -2,7 +2,6 @@ package jade.commands;
 
 import jade.data.TaskList;
 import jade.storage.Storage;
-
 /**
  * The <code>InvalidCommand</code> object represents an invalid command.
  */

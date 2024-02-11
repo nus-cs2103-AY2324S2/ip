@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final String FXML_FILE_PATH = "/view/DialogBox.fxml";
     @FXML
     private Label dialog;
     @FXML
@@ -28,22 +29,26 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(FXML_FILE_PATH));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
+        setImgStyle();
+    }
+    /**
+     * Styles the user image and jade image which will appear in dialog boxes.
+     */
+    private void setImgStyle() {
         Rectangle clip = new Rectangle(displayPicture.getFitWidth(), displayPicture.getFitHeight());
         clip.setArcWidth(40);
         clip.setArcHeight(40);
         displayPicture.setClip(clip);
     }
-
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -55,8 +60,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        return db;
+        return new DialogBox(text, img);
     }
 
     public static DialogBox getJadeDialog(String text, Image img) {

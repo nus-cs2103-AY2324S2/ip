@@ -17,12 +17,15 @@ import jade.data.Task;
 import jade.data.TaskList;
 import jade.data.Todo;
 import jade.exception.JadeException;
+import jade.parser.Parser;
 
 /**
  * The <code>Storage</code> object for loading user tasks from local file
- * and save changes to the same file after program exits.
+ * and saving changes to the same file after program exits.
  */
 public class Storage {
+    private static final String DIR_NOT_EXIT_MSG = "Dir does not exist";
+    private static final String FILE_NOT_EXIT_MSG = "File does not exist";
     private final String filePath; // the file path storing all user tasks
 
     /**
@@ -43,19 +46,42 @@ public class Storage {
         String[] dirs = filePath.split("/");
         String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays
                 .copyOfRange(dirs, 0, dirs.length - 1));
+        createJadeDir(jadeDirStr);
+        String jadeFileDirStr = System.getProperty("user.dir") + "/" + filePath;
+        File jadeFile = createJadeFile(jadeFileDirStr);
+        return readFromLocal(jadeFile);
+    }
+    /**
+     * Creates directory for saving the local file if not exists.
+     */
+    private void createJadeDir(String dirStr) throws JadeException {
+        File jadeDir = new File(dirStr);
+        if (!jadeDir.exists()) {
+            jadeDir.mkdir();
+            throw new JadeException(DIR_NOT_EXIT_MSG);
+        }
+    }
+    /**
+     * Creates the local file for saving user tasks if not exists.
+     */
+    private File createJadeFile(String fileDirStr) throws JadeException {
         try {
-            File jadeDir = new File(jadeDirStr);
-            if (!jadeDir.exists()) {
-                jadeDir.mkdir();
-                throw new JadeException("Dir does not exist");
-            }
-            String jadeFileDirStr = System.getProperty("user.dir") + "/" + filePath;
-            File jadeFile = new File(jadeFileDirStr);
+            File jadeFile = new File(fileDirStr);
             if (!jadeFile.exists()) {
                 jadeFile.createNewFile();
-                throw new JadeException("File does not exist");
+                throw new JadeException(FILE_NOT_EXIT_MSG);
             }
-            Scanner sc = new Scanner(jadeFile);
+            return jadeFile;
+        } catch (IOException e) {
+            throw new JadeException(e.getMessage());
+        }
+    }
+    /**
+     * Reads all strings and add tasks from local file which saves all user tasks.
+     */
+    private List<Task> readFromLocal(File file) throws JadeException {
+        try {
+            Scanner sc = new Scanner(file);
             ArrayList<Task> savedTaskList = new ArrayList<>();
             while (sc.hasNext()) {
                 String[] task = sc.nextLine().split(" \\| ");
@@ -79,14 +105,37 @@ public class Storage {
                     assert false : task[0];
                     break;
                 }
+                addTask(savedTaskList, sc.nextLine());
             }
             sc.close();
             return savedTaskList;
         } catch (IOException e) {
-            throw new JadeException("IO Exception");
+            throw new JadeException(e.getMessage());
         }
     }
-
+    /**
+     * Add all local saved task to the task list.
+     */
+    private void addTask(ArrayList<Task> taskList, String line) throws JadeException {
+        String[] task = line.split(" \\| ");
+        // local tasks indicate done status in binary
+        boolean isDone = task[1].equals("1");
+        switch (task[0]) {
+        case "T":
+            taskList.add(new Todo(task[2], isDone));
+            break;
+        case "D":
+            taskList.add(new Deadline(task[2], Parser.parseDateTime(task[3], "MMM d yyyy hmma"), isDone));
+            break;
+        case "E":
+            String[] dateTimes = task[3].split(" - ");
+            taskList.add(new Event(task[2], Parser.parseDateTime(dateTimes[0], "MMM d yyyy hmma"),
+                    Parser.parseDateTime(dateTimes[1], "MMM d yyyy hmma"), isDone));
+            break;
+        default:
+            break;
+        }
+    }
     /**
      * Modifies the local file to store updated user tasks.
      *

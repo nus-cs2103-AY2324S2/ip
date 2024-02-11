@@ -35,7 +35,7 @@ public class Jade {
         }
     }
     /**
-     * Generate a response from user input.
+     * Generates a response from user input.
      * @param input The user input.
      * @return The response message by executing user command.
      */

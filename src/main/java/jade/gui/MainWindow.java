@@ -17,6 +17,8 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String USER_IMG_PATH = "/images/user.png";
+    private static final String JADE_IMG_PATH = "/images/jade.png";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,9 +30,12 @@ public class MainWindow extends AnchorPane {
 
     private Jade jade;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image jadeImage = new Image(this.getClass().getResourceAsStream("/images/jade.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream(USER_IMG_PATH));
+    private final Image jadeImage = new Image(this.getClass().getResourceAsStream(JADE_IMG_PATH));
 
+    /**
+     * Initializes the scrollPane with the launch message for user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -53,6 +58,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJadeDialog(response, jadeImage)
         );
+        actOnExit();
+        userInput.clear();
+    }
+    /**
+     * Checks if user has required for exiting the program,
+     * and sets exit actions.
+     */
+    private void actOnExit() {
         if (jade.shouldExit()) {
             userInput.setEditable(false);
             sendButton.setDisable(true);
@@ -61,6 +74,5 @@ public class MainWindow extends AnchorPane {
                     Platform.exit());
             pause.play();
         }
-        userInput.clear();
     }
 }
