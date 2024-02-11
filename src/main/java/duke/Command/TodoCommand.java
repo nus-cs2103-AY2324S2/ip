@@ -35,6 +35,9 @@ public class TodoCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Task task = new TodoTask(description);
         tasks.addTask(task);
         int count = tasks.size();

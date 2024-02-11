@@ -31,6 +31,10 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+
+
         if (INDEX < 1 || INDEX > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }
