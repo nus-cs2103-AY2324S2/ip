@@ -143,4 +143,20 @@ public class Ui {
         }
 
     }
+
+
+    public void find(TaskList tasks) throws PannaException {
+        System.out.println("What shall I find for you! ");
+        String k = s.nextLine();
+
+        TaskList newList = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).taskName.contains(k)) {
+                newList.add(tasks.get(i));
+
+            }
+        }
+        System.out.println("The matches are: ");
+        newList.printList();
+    }
 }

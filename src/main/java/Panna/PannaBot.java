@@ -63,6 +63,10 @@ public class PannaBot {
                 this.ui.deleteMessage(this.taskList);
             }
 
+            else if (PannaBot.command.equals("find")) {
+                this.ui.find(this.taskList);
+            }
+
             this.storage.write(filePath, this.taskList);
 
 
