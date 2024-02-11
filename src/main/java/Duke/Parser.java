@@ -11,15 +11,13 @@ import java.time.format.DateTimeParseException;
  * like Todo, Deadline, and Event, and handles parsing of date strings as well.
  */
 public class Parser {
-    private Ui ui;
+
 
     /**
      * Initializes a new Parser instance.
      *
-     * @param ui The UI component of the application to display parsing errors.
      */
-    public Parser(Ui ui) {
-        this.ui = ui;
+    public Parser() {
     }
 
     /**
@@ -35,7 +33,6 @@ public class Parser {
     public Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
-            ui.taskFormatError(line);
             return null;
         }
         try {
@@ -52,7 +49,6 @@ public class Parser {
                 return todo;
             case "D":
                 if (parts.length < 4) {
-                    ui.deadlineMissingBy(line);
                     return null;
                 }
                 String by = parts[3].trim();
@@ -63,7 +59,6 @@ public class Parser {
                 return deadline;
             case "E":
                 if (parts.length < 5) { // missing from/to or both
-                    ui.eventMissingParam(line);
                     return null;
                 }
                 String from = parts[3].trim();
@@ -72,11 +67,9 @@ public class Parser {
                 if (isDone) event.markDone();
                 return event;
             default:
-                ui.unknownTaskType(type);
                 return null;
             }
         } catch (Exception e) {
-            ui.genericTaskError(e, line);
             return null;
         }
     }
@@ -97,8 +90,34 @@ public class Parser {
             LocalDateTime date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
-            ui.parseDateError(dateString);
             return null;
         }
+    }
+    /**
+     * Formats a Task object into a string representation suitable for file storage.
+     * <p>
+     * The format includes the task type, its completion status, and its description.
+     * For Deadline and Event tasks, their respective dates are also included.
+     *
+     * @param task The Task object to be formatted.
+     * @return The formatted string representation of the task.
+     */
+    public String formatTaskForFile(Task task) {
+        String returnString = "";
+        String type =
+                task instanceof Todo ? "T" :
+                        task instanceof Deadline ? "D" :
+                                task instanceof Event ? "E" : "";
+        int status = task.isDone();
+        String details = task.getDescription();
+        returnString += type + " | " + status + " | " + details;
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            returnString += " | " + deadline.getBy();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            returnString += " | " + event.getFrom() + " | " + event.getTo();
+        }
+        return returnString;
     }
 }
