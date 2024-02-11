@@ -8,7 +8,7 @@ import irwyn.tasks.Event;
 
 /**
  * This class encapsulates the class EventCommand.
- * It executes the creation of a Event object.
+ * It executes the creation of an Event object.
  *
  * @author Irwyn Liong
  * @version Week-3
@@ -31,7 +31,7 @@ public class EventCommand extends Command {
 
     /**
      * Executes the event command.
-     * This method creates a Event object.
+     * This method creates an Event object.
      *
      * @param taskList TaskList handles the tasks list.
      * @param ui Ui handles output.
@@ -47,5 +47,26 @@ public class EventCommand extends Command {
         taskList.addTask(event);
         storageManager.save(taskList.getTasks());
         ui.reply(event.replyString(taskList.getTasksSize()));
+    }
+
+    /**
+     * Executes the event command.
+     * This method creates an Event object.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        String description = event[0];
+        String[] fromTo = event[1].split(" /to ");
+        String from = fromTo[0];
+        String to = fromTo[1];
+        Event event = new Event(description, from, to);
+        taskList.addTask(event);
+        storageManager.save(taskList.getTasks());
+        return ui.getReply(event.replyString(taskList.getTasksSize()));
     }
 }

@@ -17,12 +17,11 @@ public class MarkCommandTest {
         String filePath = System.getProperty("user.dir") + "/storage/testTaskData.txt";
         s = new StorageManager(filePath);
         t = new TaskList(s.load());
-        Ui ui = new Ui();
         ToDo todo = new ToDo("test");
         t.addTask(todo);
-        MarkCommand markCommand = new MarkCommand("mark 1");
+        MarkCommand markCommand = new MarkCommand("mark 2");
         markCommand.execute(t, ui, s);
 
-        assertEquals("X", t.getTask(0).getStatusIcon());
+        assertEquals("X", t.getTask(1).getStatusIcon());
     }
 }

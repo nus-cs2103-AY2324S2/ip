@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
         super(false);
         delete = Integer.parseInt(input.split(" ")[1]) - 1;
     }
+
     /**
      * Executes the delete command.
      * This method deletes a Task from the list.
@@ -38,5 +39,24 @@ public class DeleteCommand extends Command {
                 t.toString() + "\n" +
                 "Now you have " + taskList.getTasksSize() + " tasks in the list.\n";
         ui.reply(reply);
+    }
+
+    /**
+     * Executes the delete command.
+     * This method deletes a Task from the list.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        Task t = taskList.delete(delete);
+        storageManager.save(taskList.getTasks());
+        String reply = "Noted. I've removed this task:\n" +
+                t.toString() + "\n" +
+                "Now you have " + taskList.getTasksSize() + " tasks in the list.\n";
+        return ui.getReply(reply);
     }
 }

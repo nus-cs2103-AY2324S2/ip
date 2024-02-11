@@ -31,4 +31,16 @@ public class EndCommand extends Command {
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
         ui.end();
     }
+
+    /**
+     * Executes the bye command.
+     *
+     * @param taskList TaskList handles the tasks list.
+     * @param ui Ui handles output.
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        return ui.getEnd();
+    }
 }

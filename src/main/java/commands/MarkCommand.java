@@ -39,4 +39,21 @@ public class MarkCommand extends Command {
         String reply = "Nice! I've marked this task as done:\n" + taskList.getTask(mark).toString() + "\n";
         ui.reply(reply);
     }
+
+    /**
+     * Executes the mark command.
+     * This method marks a Task from the list.
+     *
+     * @param storageManager Storage manager handles storing & deleting of tasks.
+     * @param ui Ui handles output.
+     * @param taskList TaskList handles the tasks list.
+     * @return Response String.
+     */
+    @Override
+    public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
+        taskList.mark(mark);
+        storageManager.save(taskList.getTasks());
+        String reply = "Nice! I've marked this task as done:\n" + taskList.getTask(mark).toString() + "\n";
+        return ui.getReply(reply);
+    }
 }
