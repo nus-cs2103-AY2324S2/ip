@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 
 /**
@@ -11,11 +10,10 @@ public class ListCommand extends Command {
      * List all tasks.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return The list of tasks (as a string).
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         assert tasks != null;
         return "Here are the tasks in your list:\n" + tasks + "\n";
     }

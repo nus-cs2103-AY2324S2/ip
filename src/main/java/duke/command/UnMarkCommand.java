@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 
@@ -16,7 +15,7 @@ public class UnMarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         assert tasks != null;
         Task task = tasks.get(idx);
         task.unmark();

@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 
@@ -24,11 +23,10 @@ public class DeleteCommand extends Command {
      * Deletes an event from the Task list.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return Information about the task removed.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         assert tasks != null;
         Task task = tasks.get(idx);
         tasks.remove(idx);

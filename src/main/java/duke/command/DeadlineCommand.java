@@ -2,7 +2,6 @@ package duke.command;
 
 import java.time.LocalDateTime;
 
-import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 
@@ -30,11 +29,10 @@ public class DeadlineCommand extends Command {
      * Adds a deadline event to the task list.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return Information about the deadline event.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         assert tasks != null;
         Task task = new duke.task.Deadline(this.event, this.dueBy);
         tasks.add(task);

@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.Storage;
 import duke.TaskList;
 import duke.task.Task;
 import duke.task.ToDo;
@@ -25,11 +24,10 @@ public class TodoCommand extends Command {
      * Execute this todo.
      *
      * @param tasks   The list of tasks.
-     * @param storage Storage interface for persistence.
      * @return Information about the todo.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks) {
         assert tasks != null;
         Task task = new ToDo(this.todo);
         tasks.add(task);

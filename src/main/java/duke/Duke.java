@@ -30,7 +30,7 @@ public class Duke {
         // https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
         try {
             Command command = Parser.parse(userInput);
-            return command.execute(this.taskList, null);
+            return command.execute(this.taskList);
         } catch (ChatException e) {
             return e.getMessage();
         } finally {
