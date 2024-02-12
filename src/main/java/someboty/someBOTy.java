@@ -1,5 +1,10 @@
 package someboty;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import someboty.Exceptions.TerminateException;
 import someboty.Managers.CommandManager;
 import someboty.Managers.FileManager;
@@ -7,7 +12,7 @@ import someboty.Managers.ResponseManager;
 import someboty.Managers.taskManager;
 
 // main class for the project
-public class someBOTy {
+public class someBOTy extends Application {
 
     public someBOTy(String filePath) {
         // Initialize
@@ -29,6 +34,15 @@ public class someBOTy {
                 return;
             }
         }
+    }
+
+    public someBOTy() {
+        
+    }
+
+    @Override
+    public void start(Stage stage) {
+
     }
 
     public static void main(String[] args) { 
