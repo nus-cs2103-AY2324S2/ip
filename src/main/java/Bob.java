@@ -1,7 +1,10 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bob {
+    private static final String FILE_PATH = "./data/bob.txt";
+
     public static void main(String[] args) {
         String greet = " Hello! I'm Bob.\n"
                 + " What can I do for you?\n";
@@ -11,13 +14,14 @@ public class Bob {
         System.out.println(greet);
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>(100);
+        ArrayList<Task> taskList = loadFile(FILE_PATH);
 
         while (true) {
             String input = scanner.nextLine();
 
             if (input.equals("bye")) {
                 System.out.println(exit);
+                saveFile(taskList, FILE_PATH);
                 break;
             }
 
@@ -29,6 +33,12 @@ public class Bob {
                 for (int count = 0; count < size; count++) {
                     System.out.println(" " + (count + 1) + "." + taskList.get(count));
                 }
+            }
+
+            else if (input.equals("clear")) {
+                taskList.clear();
+
+                System.out.println(" Your tasks have been cleared.");
             }
 
             else if (input.trim().matches("mark|unmark|deadline|todo|event|delete")) {
@@ -117,6 +127,142 @@ public class Bob {
 
         scanner.close();
     }
+
+    /*
+     * A method to load tasks from the specified file path.
+     *
+     * @parameter filePath A string of the file path.
+     * @return An ArrayList of tasks parsed from the save file.
+     */
+    private static ArrayList<Task> loadFile(String filePath) {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+
+                String taskType = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String taskDescription = parts[2].trim();
+
+                Task task;
+
+                if (taskType.equals("T")) {
+                    task = new ToDo(taskDescription);
+                }
+
+                else if (taskType.equals("D")) {
+                    String deadlineDate = parts[3].trim();
+                    task = new Deadline(taskDescription, deadlineDate);
+                }
+
+                else if (taskType.equals("E")) {
+                    String fromDate = parts[3].trim();
+                    String toDate = parts[4].trim();
+
+                    task = new Event(taskDescription, fromDate, toDate);
+                }
+
+                else {
+                    throw new IllegalStateException("Unexpected value: " + taskType);
+                }
+
+                if (isDone) {
+                    task.markAsDone();
+                }
+
+                taskList.add(task);
+            }
+        }
+
+        catch (FileNotFoundException e) {
+            File data = new File("data");
+            data.mkdir();
+            File bob = new File(data, "bob.txt");
+            try {
+                bob.createNewFile();
+            }
+            catch (IOException x) {
+                System.out.println(x.getMessage());
+            }
+        }
+
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("File loaded.");
+        return taskList;
+    }
+
+    /*
+     * A method to save the current tasks.
+     *
+     * @parameter taskList An ArrayList of the current tasks.
+     * @parameter filePath A string representing the file path we want to save to.
+     */
+    private static void saveFile(ArrayList<Task> taskList, String filePath) {
+        try {
+            File bob = new File(filePath);
+            File data = bob.getParentFile();
+
+            if (!data.exists()) {
+                boolean directoriesCreated = data.mkdirs();
+                if (!directoriesCreated) {
+                    System.out.println("Failed to create directories.");
+                    return;
+                }
+                System.out.println("Directories created: " + data.getAbsolutePath());
+            }
+
+            if (!bob.exists()) {
+                boolean fileCreated = bob.createNewFile();
+                if (!fileCreated) {
+                    System.out.println("Failed to create file.");
+                    return;
+                }
+                System.out.println("File created: " + bob.getAbsolutePath());
+            }
+
+            FileWriter writer = new FileWriter(bob);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            for (Task task : taskList) {
+                String taskType;
+                String line;
+                String isDone = task.getIsDone() ? "1" : "0";
+                String description = task.getDescription();
+
+                if (task instanceof Deadline) {
+                    taskType = "D";
+                    String deadline = ((Deadline) task).getBy();
+                    line = String.format("%s | %s | %s | %s", taskType, isDone, description, deadline);
+                }
+
+                else if (task instanceof Event) {
+                    taskType = "E";
+                    String from = ((Event) task).getFrom();
+                    String to = ((Event) task).getTo();
+                    line = String.format("%s | %s | %s | %s | %s", taskType, isDone, description, from, to);
+                }
+
+                else {
+                    taskType = "T";
+                    line = String.format("%s | %s | %s", taskType, isDone, description);
+                }
+
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            System.out.println("File saved.");
+        }
+
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
 /*
@@ -149,7 +295,26 @@ class Task {
     }
 
     /*
+     * A method that returns the isDone boolean.
+     *
+     * @return A boolean depending on whether the task is done.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    /*
+     * A method that returns the description.
+     *
+     * @return A string of the task description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /*
      * A method that returns the task status as a string.
+     *
      * @return A check-box followed by the description of the task.
      */
     @Override
@@ -170,7 +335,17 @@ class Deadline extends Task {
     }
 
     /*
+     * A method to get by.
+     *
+     * @return The deadline due.
+     */
+    public String getBy() {
+        return this.by;
+    }
+
+    /*
      * A method that returns the task status as a string.
+     *
      * @return A label [D] and a check-box followed by the description of the task.
      */
     @Override
@@ -189,6 +364,7 @@ class ToDo extends Task {
 
     /*
      * A method that returns the task description.
+     *
      * @return A label [T] and a check-box followed by the description of the task.
      */
     @Override
@@ -211,7 +387,26 @@ class Event extends Task {
     }
 
     /*
+     * A method to get from.
+     *
+     * @return The start date of the event.
+     */
+    public String getFrom() {
+        return this.from;
+    }
+
+    /*
+     * A method to get to.
+     *
+     * @return The end date of the event.
+     */
+    public String getTo() {
+        return this.to;
+    }
+
+    /*
      * A method that returns the status of the task.
+     *
      * @return A label [E] and a check-box followed by the description of the task.
      */
     @Override
