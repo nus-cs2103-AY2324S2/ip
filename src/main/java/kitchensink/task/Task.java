@@ -30,18 +30,18 @@ public class Task {
      * Marks itself.
      * @param ui The ui that confirms to the user about the action.
      */
-    public void mark(Ui ui) {
+    public String mark(Ui ui) {
         isDone = true;
-        ui.sayTaskMarked(this);
+        return ui.sayTaskMarked(this);
     }
 
     /**
      * Unmarks itself.
      * @param ui The ui that confirms to the user about the action.
      */
-    public void unmark(Ui ui) {
+    public String unmark(Ui ui) {
         isDone = false;
-        ui.sayTaskUnmarked(this);
+        return ui.sayTaskUnmarked(this);
     }
 
     public boolean hasKeywords(String keywords) {

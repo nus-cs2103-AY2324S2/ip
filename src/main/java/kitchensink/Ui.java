@@ -10,22 +10,22 @@ import kitchensink.task.Task;
 public class Ui {
     public static final String LINE = "__________________________________________________________\n";
 
-    /**
-     * Processes the user's input into a String.
-     * @return User's input in String type.
-     */
-    public String readInput() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        return input;
+//    /**
+//     * Processes the user's input into a String.
+//     * @return User's input in String type.
+//     */
+//    public String readInput() {
+//        Scanner sc = new Scanner(System.in);
+//        String input = sc.nextLine();
+//        return input;
+//    }
+
+    public String welcome() {
+        return (LINE + "Hello! I'm KitchenSink!\n" + "What can I do for you?\n" + LINE);
     }
 
-    public void welcome() {
-        System.out.println(LINE + "Hello! I'm KitchenSink!\n" + "What can I do for you?\n" + LINE);
-    }
-
-    public void sayGoodBye() {
-        System.out.println(LINE + "Bye. Hope to see you again soon!\n" + LINE);
+    public String sayGoodBye() {
+        return LINE + "Bye. Hope to see you again soon!\n" + LINE;
     }
 
     /**
@@ -34,25 +34,25 @@ public class Ui {
      * @param task The task that is being added.
      * @param taskListSize Number of tasks in taskList.
      */
-    public void sayTaskAdded(Task task, int taskListSize) {
+    public String sayTaskAdded(Task task, int taskListSize) {
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
-        System.out.println(Ui.LINE
+        return (Ui.LINE
                 + "Got it. I've added this task:\n"
                 + task.toString()
                 + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n"
                 + Ui.LINE);
     }
 
-    public void displayTasks(List taskList) {
-        System.out.println(Ui.LINE + "Here are the tasks in your list:\n" + taskList.toString() + "\n" + Ui.LINE);
+    public String displayTasks(List taskList) {
+        return Ui.LINE + "Here are the tasks in your list:\n" + taskList.toString() + "\n" + Ui.LINE;
     }
 
-    public void sayTaskMarked(Task task) {
-        System.out.println(Ui.LINE + "Nice! I've marked this task as done:\n" + task.toString() + "\n" + Ui.LINE);
+    public String sayTaskMarked(Task task) {
+        return (Ui.LINE + "Nice! I've marked this task as done:\n" + task.toString() + "\n" + Ui.LINE);
     }
 
-    public void sayTaskUnmarked(Task task) {
-        System.out.println(Ui.LINE + "OK, I've marked this task as not done yet:\n" + task.toString() + "\n" + Ui.LINE);
+    public String sayTaskUnmarked(Task task) {
+        return (Ui.LINE + "OK, I've marked this task as not done yet:\n" + task.toString() + "\n" + Ui.LINE);
     }
 
     /**
@@ -61,14 +61,14 @@ public class Ui {
      * @param task The task that is being deleted.
      * @param taskListSize Number of tasks in taskList.
      */
-    public void sayTaskDeleted(Task task, int taskListSize) {
+    public String sayTaskDeleted(Task task, int taskListSize) {
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
-        System.out.println(Ui.LINE + "Noted. I've removed this task:\n" + task.toString()
+        return (Ui.LINE + "Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n" + Ui.LINE);
     }
 
-    public void displayResults(List results) {
-        System.out.println(LINE + "Here are the matching tasks in your list:\n"
+    public String displayResults(List results) {
+        return (LINE + "Here are the matching tasks in your list:\n"
                 + results.toString() + "\n" + LINE);
     }
 }

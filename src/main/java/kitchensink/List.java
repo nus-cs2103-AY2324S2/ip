@@ -22,10 +22,10 @@ public class List {
      * @param ui The ui that confirms to the user about the action.
      * @throws IOException As the storage read/writes the save file.
      */
-    public void addTask(Task task, Storage storage, Ui ui) throws IOException {
+    public String addTask(Task task, Storage storage, Ui ui) throws IOException {
         tasks.add(task);
         storage.saveTasks(this);
-        ui.sayTaskAdded(task, tasks.size());
+        return ui.sayTaskAdded(task, tasks.size());
     }
 
     /**
@@ -35,11 +35,11 @@ public class List {
      * @param ui The ui that confirms to the user about the action.
      * @throws IOException As the storage read/writes the save file.
      */
-    public void deleteTask(int taskNum, Storage storage, Ui ui) throws IOException {
+    public String deleteTask(int taskNum, Storage storage, Ui ui) throws IOException {
         Task task = tasks.get(taskNum);
         tasks.remove(taskNum);
         storage.saveTasks(this);
-        ui.sayTaskDeleted(task, tasks.size());
+        return ui.sayTaskDeleted(task, tasks.size());
     }
 
     /**
@@ -53,14 +53,17 @@ public class List {
 
     /**
      * Marks a task in the taskList, saves the changes to the savefile and displays it to the user.
+     *
      * @param taskNum The number such that the task with that index is marked in the taskList.
      * @param storage The storage that saves the changed tasks to save file.
-     * @param ui The ui that confirms to the user about the action.
+     * @param ui      The ui that confirms to the user about the action.
+     * @return
      * @throws IOException As the storage read/writes the save file.
      */
-    public void markTask(int taskNum, Storage storage, Ui ui) throws IOException {
-        tasks.get(taskNum).mark(ui);
+    public String markTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        String result = tasks.get(taskNum).mark(ui);
         storage.saveTasks(this);
+        return result;
     }
 
     /**
@@ -70,9 +73,10 @@ public class List {
      * @param ui The ui that confirms to the user about the action.
      * @throws IOException As the storage read/writes the save file.
      */
-    public void unmarkTask(int taskNum, Storage storage, Ui ui) throws IOException {
-        tasks.get(taskNum).unmark(ui);
+    public String unmarkTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        String result = tasks.get(taskNum).unmark(ui);
         storage.saveTasks(this);
+        return result;
     }
 
     /**
@@ -80,14 +84,14 @@ public class List {
      * @param keywords The words that the tasks in the resulting list should contain.
      * @param ui The ui that displays the resulting list.
      */
-    public void findTasks(String keywords, Ui ui) {
+    public String findTasks(String keywords, Ui ui) {
         List results = new List(new ArrayList<>());
         for (Task task : tasks) {
             if (task.hasKeywords(keywords)) {
                 results.tasks.add(task);
             }
         }
-        ui.displayResults(results);
+        return ui.displayResults(results);
     }
 
     public int getListSize() {
