@@ -25,4 +25,12 @@ abstract public class VirtueTask {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String fileFormat() {
+        if (isDone) {
+            return "1 | " + description;
+        } else {
+            return "0 | " + description;
+        }
+    }
 }

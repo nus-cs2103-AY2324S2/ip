@@ -1,0 +1,3 @@
+T | 0 | Finish Assignment
+D | 0 | Prepare Gift  | Feb 22nd
+E | 1 | Spend time | Feb 12 | Feb 14

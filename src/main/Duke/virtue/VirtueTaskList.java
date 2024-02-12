@@ -5,7 +5,7 @@ import java.util.List;
 
 public class VirtueTaskList {
     // The task list.
-    List<VirtueTask> taskList;
+    private List<VirtueTask> taskList;
 
     public VirtueTaskList() {
         taskList = new ArrayList<>();
@@ -104,7 +104,7 @@ public class VirtueTaskList {
         Virtue.printHorizontalLine();
     }
 
-    public void handleCommand(Command command) {
+    public void executeCommand(Command command) {
         switch (command.type) {
             case LIST:
                 printOut();
@@ -127,5 +127,42 @@ public class VirtueTaskList {
             case EVENT:
                 addEvent(command.description, command.from, command.to);
         }
+    }
+
+    public void addFromFile(String str) {
+        String taskType = str.split(" \\| ")[0];
+        String description = str.split(" \\| ")[2];
+        int marked = Integer.parseInt(str.split(" \\| ")[1]);
+
+        switch (taskType) {
+            case "T":
+                taskList.add(new Todo(description));
+                break;
+            case "D":
+                taskList.add(new Deadline(description, str.split(" \\| ")[3]));
+                break;
+            case "E":
+                taskList.add(new Event(description, str.split(" \\| ")[3], str.split(" \\| ")[4]));
+        }
+
+        if (marked == 1) {
+            getTask(numTasks()).markAsDone();
+        }
+    }
+
+    public String fileFormat() {
+        String str = "";
+
+        if (numTasks() == 0) {
+            return str;
+        }
+
+        for (int i = 1; i <= numTasks() - 1; i++) {
+            str += getTask(i).fileFormat();
+            str += System.lineSeparator();
+        }
+
+        str += getTask(numTasks()).fileFormat();
+        return str;
     }
 }
