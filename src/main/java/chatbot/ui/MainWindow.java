@@ -95,11 +95,11 @@ public class MainWindow {
      */
     public void handleUserUpdate(ChatBot chatBot) {
         // handle user input
-        sendButton.setOnMouseClicked((event) -> handleUserInput(chatBot));
-        userInput.setOnAction((event) -> handleUserInput(chatBot));
+        sendButton.setOnMouseClicked(event -> handleUserInput(chatBot));
+        userInput.setOnAction(event -> handleUserInput(chatBot));
 
         // scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
     }
 
     /**
