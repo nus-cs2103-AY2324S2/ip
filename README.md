@@ -15,7 +15,7 @@ Ypxmm is your go-to, true-blue Singaporean task manager bot. It is:
 
 And you are done! 
 
-Features:
+## Features:
 - [x] Add 3 types of tasks, Todos, Deadlines and Events
 - [X] List, Mark & Unmark and Delete tasks
 - [ ] Assign priorities to tasks (Coming soon)
