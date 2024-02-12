@@ -9,6 +9,7 @@ import nollid.Storage;
 import nollid.TaskList;
 import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidArgumentException;
+import nollid.exceptions.MissingTagsException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
 
@@ -20,7 +21,8 @@ public class DeadlineCommand extends Command {
     /**
      * Constant string providing usage hint for the DeadlineCommand.
      */
-    public static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}";
+    public static final String USAGE_HINT =
+            "Usage: deadline task_description /by d/m/yyyy [hh:mm] [/tags tag1,tag2,...";
     /**
      * ArrayList containing command arguments.
      */
@@ -41,24 +43,37 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws NollidException {
-        checkDescriptionNotEmpty();
         checkDeadlineNotEmpty();
 
-        String taskDescription = getTaskDescription();
-        String deadlineString = getDeadlineString();
-
+        String taskDescription;
         try {
-            LocalDateTime deadline = Parser.getLocalDateTimeFromString(deadlineString);
-            Deadline task = new Deadline(taskDescription, deadline);
-            tasks.add(task);
+            taskDescription = Parser.getDescription(argsList);
+        } catch (EmptyDescriptionException e) {
+            throw new EmptyDescriptionException(e.getMessage() + "\n" + USAGE_HINT);
+        }
 
-            String returnMessage = tasks.getAddSuccessMessage(task);
-            storage.update(tasks);
+        ArrayList<String> tags;
+        try {
+            tags = Parser.getTags(argsList);
+        } catch (MissingTagsException e) {
+            throw new MissingTagsException(e.getMessage() + "\n" + USAGE_HINT);
+        }
 
-            return returnMessage;
+        String deadlineString = getDeadlineString();
+        LocalDateTime deadline;
+        try {
+            deadline = Parser.getLocalDateTimeFromString(deadlineString);
         } catch (DateTimeParseException e) {
             throw new InvalidArgumentException("Unrecognized deadline format\n" + USAGE_HINT);
         }
+
+        Deadline task = new Deadline(taskDescription, deadline, tags);
+        tasks.add(task);
+
+        String returnMessage = tasks.getAddSuccessMessage(task);
+        storage.update(tasks);
+
+        return returnMessage;
     }
 
     /**
@@ -86,25 +101,6 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Extracts the task description from the command-line arguments.
-     *
-     * @return The task description, consisting of the words before the "/by" argument.
-     */
-    private String getTaskDescription() {
-        int byIndex = this.argsList.indexOf("/by");
-        StringBuilder taskDescription = new StringBuilder();
-        for (int i = 1; i < byIndex; i++) {
-            if (i != byIndex - 1) {
-                taskDescription.append(this.argsList.get(i)).append(" ");
-            } else {
-                taskDescription.append(this.argsList.get(i));
-            }
-        }
-
-        return taskDescription.toString();
-    }
-
-    /**
      * Retrieves the deadline string from the input arguments.
      *
      * @return The deadline string.
@@ -114,10 +110,10 @@ public class DeadlineCommand extends Command {
 
         StringBuilder deadlineString = new StringBuilder();
         for (int i = byIndex + 1; i < this.argsList.size(); i++) {
-            if (i != this.argsList.size() - 1) {
-                deadlineString.append(this.argsList.get(i)).append(" ");
+            if (!argsList.get(i).matches("/\\w+")) {
+                deadlineString.append(argsList.get(i)).append(" ");
             } else {
-                deadlineString.append(this.argsList.get(i));
+                break;
             }
         }
 

@@ -1,6 +1,7 @@
 package nollid.tasks;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import nollid.Parser;
 
@@ -22,6 +23,18 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
+        this.deadline = deadline;
+    }
+
+    /**
+     * Constructs a Deadline object with a description and a deadline.
+     *
+     * @param description The description of the task.
+     * @param deadline    The deadline of the task represented as LocalDateTime.
+     * @param tags        The List of tags associated with the Task.
+     */
+    public Deadline(String description, LocalDateTime deadline, ArrayList<String> tags) {
+        super(description, tags);
         this.deadline = deadline;
     }
 
@@ -50,6 +63,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.getDeadlineString() + ")";
+        return "[D]" + super.toString() + " (by: " + this.getDeadlineString() + ")" + super.getTagsString();
     }
 }
