@@ -3,6 +3,7 @@ package duke;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -125,7 +126,6 @@ public class Duke {
             System.out.println("Invalid task index provided.\nPlease provide a valid task index.\n");
             ui.printDivider();
         }
-
     }
 
     private static void unmarkTask(String arguments) throws DukeException {
@@ -158,36 +158,42 @@ public class Duke {
     }
 
     private static void createDeadlineTask(String arguments) throws DukeException {
-        if (!arguments.isEmpty()) {
+        try {
             String[] deadlineArgs = parser.parseDeadlineArguments(arguments);
-            Deadline newDeadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
-            taskList.addTask(newDeadline);
+            if (deadlineArgs.length == 2) {
+                Deadline newDeadline = new Deadline(deadlineArgs[0], deadlineArgs[1]);
+                taskList.addTask(newDeadline);
+                ui.printDivider();
+                ui.printCreateTaskSuccess();
+                System.out.println(newDeadline.toString() + "\n");
+            }
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             ui.printDivider();
-            ui.printCreateTaskSuccess();
-            System.out.println(newDeadline.toString() + "\n");
-        } else {
-            throw new DukeException("deadline command requires a description for the task"
-                    + " and a deadline. \n\nPlease leave a space after 'deadline'"
-                    + " and enter the task description, \nfollowed by a space and a"
-                    + " forward slash then the deadline of the task.");
+            System.out.println("Invalid command given for creating Deadline task."
+                    + "\nPlease ensure the command uses the following format:"
+                    + "\ndeadline <Task Description> /by <Date in YYYY-MM-DD>\n");
+            ui.printDivider();
         }
     }
 
     private static void createEventTask(String arguments) throws DukeException {
-        if (!arguments.isEmpty()) {
+        try {
             String[] eventArgs = parser.parseEventArguments(arguments);
-            Event newEvent = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
-            taskList.addTask(newEvent);
+            if (!arguments.isEmpty()) {
+                Event newEvent = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
+                taskList.addTask(newEvent);
+                ui.printDivider();
+                ui.printCreateTaskSuccess();
+                System.out.println(newEvent.toString() + "\n");
+            }
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             ui.printDivider();
-            ui.printCreateTaskSuccess();
-            System.out.println(newEvent.toString() + "\n");
-        } else {
-            throw new DukeException("event command requires a description for the task,"
-                    + " start time and end time. \n\nPlease leave a space after 'event'"
-                    + " and enter the task description, \nfollowed by a space and forward slash"
-                    + " before the start time, \nfollowed by another space and forward slash"
-                    + " before the end time.");
+            System.out.println("Invalid command given for creating Event task."
+                    + "\nPlease ensure the command uses the following format:"
+                    + "\nevent <Task Description> /from <Date in YYYY-MM-DD> /to <Date in YYYY-MM-DD>\n");
+            ui.printDivider();
         }
+
     }
 
     private static void deleteTask(String arguments) throws DukeException {
