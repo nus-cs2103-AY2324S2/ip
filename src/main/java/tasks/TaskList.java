@@ -103,39 +103,13 @@ public class TaskList {
         Task task;
         switch (taskType) {
         case "todo":
-            try {
-                String[] inputs = message.split("todo ");
-                task = new ToDo(inputs[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Whats the task, yapper???");
-            }
+            task = initTodo(message);
             break;
         case "deadline":
-            try {
-                message = message.substring("deadline ".length());
-                String[] inputs = message.split("/by");
-                task = new Deadline(inputs[0].trim(), inputs[1].trim());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Deadlines need a deadline, yapper!");
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("Whats the task, yapper???");
-            } catch (DateTimeException e) {
-                throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
-            }
+            task = initDeadline(message);
             break;
         case "event":
-            try {
-                message = message.substring("event ".length());
-                String[] inputs = message.split("/from");
-                String[] innerInputs = inputs[1].split("/to");
-                task = new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("YAPYAP, What time is your from and to?");
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("Whats the task, yapper???");
-            } catch (DateTimeException e) {
-                throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
-            }
+            task = initEvent(message);
             break;
         default: {
             //should not reach here because of filter in main logic
@@ -145,6 +119,71 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Initializes a {@code ToDo} object based on the given input message.
+     * The method expects the message to start with "todo " followed by the task description.
+     *
+     * @param message The input message containing the task description.
+     * @return A new {@code ToDo} object with the specified description.
+     * @throws DukeException If the input message does not contain a valid task description.
+     */
+    private ToDo initTodo(String message) throws DukeException {
+        try {
+            String[] inputs = message.split("todo ");
+            return new ToDo(inputs[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Whats the task, yapper???");
+        }
+    }
+
+    /**
+     * Initializes a {@code Deadline} object based on the given input message.
+     * The method expects the message to start with "deadline " followed by the task description
+     * and a "/by" delimiter indicating the deadline date.
+     *
+     * @param message The input message containing the task description and deadline.
+     * @return A new {@code Deadline} object with the specified description and deadline date.
+     * @throws DukeException If the input message does not contain a valid task description or deadline date,
+     *                       or if the deadline date is not in the expected format.
+     */
+    private Deadline initDeadline(String message) throws DukeException {
+        try {
+            message = message.substring("deadline ".length());
+            String[] inputs = message.split("/by");
+            return new Deadline(inputs[0].trim(), inputs[1].trim());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Deadlines need a deadline, yapper!");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Whats the task, yapper???");
+        } catch (DateTimeException e) {
+            throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
+        }
+    }
+
+    /**
+     * Initializes an {@code Event} object based on the given input message.
+     * The method expects the message to start with "event " followed by the event description,
+     * a "/from" delimiter indicating the start time, and a "/to" delimiter indicating the end time.
+     *
+     * @param message The input message containing the event description, start time, and end time.
+     * @return A new {@code Event} object with the specified description, start time, and end time.
+     * @throws DukeException If the input message does not contain a valid event description, start time, or end time,
+     *                       or if the start and end times are not in the expected format.
+     */
+    public Event initEvent(String message) throws DukeException {
+        try {
+            message = message.substring("event ".length());
+            String[] inputs = message.split("/from");
+            String[] innerInputs = inputs[1].split("/to");
+            return new Event(inputs[0].trim(), innerInputs[0].trim(), innerInputs[1].trim());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("YAPYAP, What time is your from and to?");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Whats the task, yapper???");
+        } catch (DateTimeException e) {
+            throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
+        }
+    }
     /**
      * Filters the current list of tasks, returning a new TaskList that contains only tasks
      * whose descriptions contain the specified query string.
