@@ -10,10 +10,11 @@ import duke.task.Todo;
 import duke.TaskList;
 import duke.Ui;
 
-import java.lang.annotation.Inherited;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.TaskType;
 
 /**
  * The `AddCommand` class represents a command that adds task to the task list.
@@ -22,7 +23,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class AddCommand extends Command{
 
-    private final Parser.TaskType type;
+    private final TaskType type;
     private String task;
     private String[] splitedDateTime;
     private String deadline;
@@ -39,7 +40,7 @@ public class AddCommand extends Command{
      */
     public AddCommand(String task) {
         this.task = task;
-        this.type = Parser.TaskType.TODO;
+        this.type = TaskType.TODO;
     }
 
     /**
@@ -50,7 +51,7 @@ public class AddCommand extends Command{
      * @param content The description of task.
      */
     public AddCommand(String[] splitedDateTime, String deadline, String content) {
-        this.type = Parser.TaskType.DEADLINE;
+        this.type = TaskType.DEADLINE;
         this.splitedDateTime = splitedDateTime;
         this.deadline = deadline;
         this.content = content;
@@ -66,7 +67,7 @@ public class AddCommand extends Command{
      * @param content The description of task.
      */
     public AddCommand(String[] splitedFromDateTime, String[] splitedToDateTime, String from, String to, String content) {
-        this.type = Parser.TaskType.EVENT;
+        this.type = TaskType.EVENT;
         this.splitedFromDateTime = splitedFromDateTime;
         this.splitedToDateTime = splitedToDateTime;
         this.from = from;
