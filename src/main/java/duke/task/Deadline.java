@@ -1,13 +1,13 @@
 package duke.task;
 
-import duke.exception.DukeException;
-import duke.exception.TimeFormatException;
-import duke.exception.WrongUsageException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import duke.exception.DukeException;
+import duke.exception.TimeFormatException;
+import duke.exception.WrongUsageException;
 
 /**
  * Class for task start with deadline
@@ -25,6 +25,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Constructor
+     * @param descrip the dicription of the task.
+     * @param tags tags
+     * @param by by field
+     */
     public Deadline(String descrip, ArrayList<String> tags, LocalDate by) {
         super(descrip, tags);
         this.by = by;
@@ -78,9 +84,19 @@ public class Deadline extends Task {
         return current.compareTo(by) <= 0;
     }
 
+    /**
+     * Getter for by.
+     * @return by time
+     */
     public LocalDate getByTime() {
         return this.by;
     }
+
+    /**
+     * Compare the task
+     * @param obj a task
+     * @return whether to task are same
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Deadline) {
@@ -92,6 +108,11 @@ public class Deadline extends Task {
         return false;
     }
 
+    /**
+     * Compare the task
+     * @param otherTask the other task
+     * @return which task come first
+     */
     @Override
     public int compareTo(Task otherTask) {
         if (otherTask instanceof Todo) {
@@ -105,6 +126,12 @@ public class Deadline extends Task {
         return this.by.compareTo(temp.getByTime());
     }
 
+    /**
+     * Update a task
+     * @param updateField the field to update
+     * @param updateValue the value to update
+     * @throws WrongUsageException wrong format
+     */
     @Override
     public void updateTask(String updateField, String updateInfo) throws DukeException {
         if (updateField.equals("/des")) {
@@ -121,6 +148,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Time parser
+     * @param time time in sting
+     * @return time in string
+     */
     private String changeWordToDate(String time) {
         LocalDate currentTime = LocalDate.now();
         int todayDay = currentTime.getDayOfWeek().getValue();
@@ -155,6 +187,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Check time format
+     * @param time time in string
+     * @return whether it is in correct format
+     */
     private boolean checkTimeForm(String time) {
         try {
             LocalDate.parse(time);

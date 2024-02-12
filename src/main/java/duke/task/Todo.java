@@ -1,9 +1,10 @@
 package duke.task;
 
-import duke.exception.WrongUsageException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import duke.exception.WrongUsageException;
+
 
 /**
  * Class for task start with todo
@@ -18,6 +19,11 @@ public class Todo extends Task {
         super(descrip);
     }
 
+    /**
+     * Constructor
+     * @param descrip description
+     * @param tags tags
+     */
     public Todo(String descrip, ArrayList<String> tags) {
         super(descrip, tags);
     }
@@ -50,6 +56,11 @@ public class Todo extends Task {
         return !isDone;
     }
 
+    /**
+     * Compare the task
+     * @param obj a task
+     * @return whether to task are same
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Todo) {
@@ -59,6 +70,11 @@ public class Todo extends Task {
         return false;
     }
 
+    /**
+     * Compare the task
+     * @param otherTask the other task
+     * @return which task come first
+     */
     @Override
     public int compareTo(Task otherTask) {
         if (otherTask instanceof Todo) {
@@ -67,6 +83,12 @@ public class Todo extends Task {
         return 1;
     }
 
+    /**
+     * Update a task
+     * @param updateField the field to update
+     * @param updateValue the value to update
+     * @throws WrongUsageException wrong format
+     */
     @Override
     public void updateTask(String updateField, String updateValue) throws WrongUsageException {
         if (updateField.equals("/des")) {
