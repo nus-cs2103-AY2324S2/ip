@@ -28,16 +28,25 @@ public class MainWindow extends AnchorPane {
     private Image smurf = new Image(this.getClass().getResourceAsStream("/images/clumsy.jpeg"));
     private Image panda = new Image(this.getClass().getResourceAsStream("/images/pan.png"));
 
+    /**
+     * Initalises the scrollPane and dialogContainer to render the initial Dialog Box.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(PanDialogBox.getPandaDialog(this.pan.sayHi(), panda));
     }
 
+    /**
+     * Updates the Main Pan Instance.
+     */
     public void setPan(Pan p) {
         pan = p;
     }
 
+    /**
+     * Processes the user input by ensuring that dialogue is retained is being passed to the PanDialog.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
