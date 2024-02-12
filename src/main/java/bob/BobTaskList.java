@@ -31,8 +31,8 @@ public class BobTaskList {
     }
 
     private void deleteTask(int taskId) {
-        this.list.remove(taskId);
-        this.storage.updateTaskList(this.list);
+        list.remove(taskId);
+        storage.updateTaskList(list);
     }
 
     /**
@@ -41,8 +41,8 @@ public class BobTaskList {
      * @param item The ID of the item to be marked done.
      */
     private void markDone(int item) {
-        this.list.get(item).updateStatus(true);
-        this.storage.updateTaskList(this.list);
+        list.get(item).updateStatus(true);
+        storage.updateTaskList(list);
     }
 
     /**
@@ -51,8 +51,8 @@ public class BobTaskList {
      * @param item The ID of the item to be marked undone.
      */
     private void markUndone(int item) {
-        this.list.get(item).updateStatus(false);
-        this.storage.updateTaskList(this.list);
+        list.get(item).updateStatus(false);
+        storage.updateTaskList(list);
     }
 
     /**
@@ -62,31 +62,30 @@ public class BobTaskList {
      */
     public String handleTaskMarking(String input) throws BobException {
 
-        String response = "";
-
         String[] args = input.split("\\s+");
-        if (args.length < 2) {
-            throw new BobException("The command " + args[0] + " requires a task ID.");
-        }
-
         int taskId = Integer.parseInt(args[1]) - 1;
 
-        if (!(taskId < this.list.size()) || taskId < 0) {
-            throw new BobException("The command " + args[0] + " requires a valid ID.");
+        boolean isMissingTaskId = args.length < 2;
+        boolean isInvalidTaskId = !(taskId < list.size()) || taskId < 0;
+
+        if (isMissingTaskId || isInvalidTaskId) {
+            throw new BobException(
+                    BobErrorMessages.getValidTaskIdMessage(args[0]));
         }
 
+        String response = "";
         String userCommand = args[0];
 
         if (userCommand.equals(BobParser.MARK_COMMAND)) {
-            this.markDone(taskId);
-            response += this.ui.getTaskDoneText() + "\r\n";
-        } else {
-            this.markUndone(taskId);
-            response += this.ui.getTaskUndoneText() + "\r\n";
+            markDone(taskId);
+            response += ui.getTaskDoneText() + "\r\n";
+        } else if (userCommand.equals(BobParser.UNMARK_COMMAND)) {
+            markUndone(taskId);
+            response += ui.getTaskUndoneText() + "\r\n";
         }
 
-        Task task = this.list.get(taskId);
-        response += this.ui.getTaskMarkText(task);
+        Task task = list.get(taskId);
+        response += ui.getTaskMarkText(task);
 
         return response;
     }
@@ -98,73 +97,85 @@ public class BobTaskList {
      */
     public String handleTaskCreation(String input) throws BobException {
 
-        Task t = null;
+        Task createdTask = null;
 
         try {
             if (input.contains(BobParser.TODO_COMMAND)) {
-
-                if (input.length() == BobParser.TODO_COMMAND.length()) {
-                    throw new BobException("The command " + BobParser.TODO_COMMAND + " requires a task description.");
-                }
-
-                String description = input.substring(BobParser.TODO_COMMAND.length() + 1);
-
-                t = this.storage.addItem(new Task(description), this.list);
-            }
-
-            if (input.contains(BobParser.DEADLINE_COMMAND)) {
-
-                if (!input.contains("/by")) {
-                    throw new BobException("The command " + BobParser.DEADLINE_COMMAND
-                            + " requires both a task description and a deadline.");
-                }
-
-                if (input.length() == BobParser.DEADLINE_COMMAND.length()) {
-                    throw new BobException("The command " + BobParser.DEADLINE_COMMAND
-                            + " requires both a task description and a deadline.");
-                }
-
-                input = input.substring(BobParser.DEADLINE_COMMAND.length() + 1);
-
-                String[] split = input.split("/by");
-                if (split.length < 2) {
-                    throw new BobException("The command " + BobParser.DEADLINE_COMMAND
-                            + " requires both a task description and a deadline.");
-                }
-
-                t = this.storage.addItem(new Deadline(split[0].substring(0, split[0].length() - 1),
-                        split[1].substring(1)), this.list);
-            }
-
-            if (input.contains(BobParser.EVENT_COMMAND)) {
-
-                if (!input.contains("/from") && !input.contains("/to")) {
-                    throw new BobException("The command " + BobParser.EVENT_COMMAND
-                            + " requires a task description, a start date, and an end date.");
-                }
-
-                if (input.length() == BobParser.EVENT_COMMAND.length()) {
-                    throw new BobException("The command " + BobParser.EVENT_COMMAND
-                            + " requires a task description, a start date, and an end date.");
-                }
-
-                input = input.substring(BobParser.EVENT_COMMAND.length() + 1);
-
-                String[] split = input.split("/");
-
-                if (split.length < 3) {
-                    throw new BobException("The command " + BobParser.EVENT_COMMAND
-                            + " requires a task description, a start date, and an end date.");
-                }
-
-                t = this.storage.addItem(new Event(split[0].substring(0, split[0].length() - 1),
-                        split[1].substring(5), split[2].substring(3)), this.list);
+                createdTask = createTodoTask(input);
+            } else if (input.contains(BobParser.DEADLINE_COMMAND)) {
+                createdTask = createDeadlineTask(input);
+            } else if (input.contains(BobParser.EVENT_COMMAND)) {
+                createdTask = createEventTask(input);
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new BobException("Incorrect usage of command.");
+            throw new BobException(
+                    BobErrorMessages.INVALID_COMMAND_USAGE);
         }
 
-        return this.ui.getTaskAddText(t, this.list);
+        assert createdTask != null; // A new task should exist.
+        return ui.getTaskAddText(createdTask, list);
+    }
+
+    private Task createTodoTask(String input) throws BobException {
+
+        if (input.length() == BobParser.TODO_COMMAND.length()) {
+            throw new BobException(
+                    BobErrorMessages.getTodoExpectFormatMsg());
+        }
+
+        String description = input.substring(BobParser.TODO_COMMAND.length() + 1);
+
+        return storage.addItem(new Task(description), list);
+    }
+
+    private Task createDeadlineTask(String input) throws BobException {
+
+        boolean isInvalidFormat = !input.contains("/by");
+        boolean hasNoArgs = input.length() == BobParser.DEADLINE_COMMAND.length();
+
+        if (isInvalidFormat || hasNoArgs) {
+            throw new BobException(
+                    BobErrorMessages.getDeadlineExpectFormatMsg());
+        }
+
+        // Remove the command itself from the input.
+        input = input.substring(BobParser.DEADLINE_COMMAND.length() + 1);
+
+        String[] split = input.split("/by");
+        boolean hasInsufficientArgs = split.length < 2;
+
+        if (hasInsufficientArgs) {
+            throw new BobException(
+                    BobErrorMessages.getDeadlineExpectFormatMsg());
+        }
+
+        return storage.addItem(new Deadline(split[0].substring(0, split[0].length() - 1),
+                split[1].substring(1)), list);
+    }
+
+    private Task createEventTask(String input) throws BobException {
+
+        boolean isInvalidFormat = !input.contains("/from") && !input.contains("/to");
+        boolean hasNoArgs = input.length() == BobParser.EVENT_COMMAND.length();
+
+        if (isInvalidFormat || hasNoArgs) {
+            throw new BobException(
+                    BobErrorMessages.getEventExpectFormatMsg());
+        }
+
+        // Remove the command itself from the input.
+        input = input.substring(BobParser.EVENT_COMMAND.length() + 1);
+
+        String[] split = input.split("/");
+        boolean hasInsufficientArgs = split.length < 3;
+
+        if (hasInsufficientArgs) {
+            throw new BobException(
+                    BobErrorMessages.getEventExpectFormatMsg());
+        }
+
+        return storage.addItem(new Event(split[0].substring(0, split[0].length() - 1),
+                split[1].substring(5), split[2].substring(3)), list);
     }
 
     /**
@@ -173,21 +184,22 @@ public class BobTaskList {
      * @param input User input when calling the command.
      */
     public String handleTaskDeletion(String input) throws BobException {
-        String[] args = input.split("\\s+");
-        if (args.length < 2) {
-            throw new BobException("The command " + args[0] + " requires a task ID.");
-        }
 
+        String[] args = input.split("\\s+");
         int taskId = Integer.parseInt(args[1]) - 1;
 
-        if (!(taskId < this.list.size()) || taskId < 0) {
-            throw new BobException("The command " + args[0] + " requires a valid ID.");
+        boolean isMissingTaskId = args.length < 2;
+        boolean isInvalidTaskId = !(taskId < list.size()) || taskId < 0;
+
+        if (isMissingTaskId || isInvalidTaskId) {
+            throw new BobException(
+                    BobErrorMessages.getValidTaskIdMessage(args[0]));
         }
 
-        Task t = this.list.get(taskId);
+        Task t = list.get(taskId);
 
-        this.deleteTask(taskId);
-        return this.ui.getTaskDeletionText(t, this.list);
+        deleteTask(taskId);
+        return ui.getTaskDeletionText(t, list);
     }
 
     /**
@@ -199,14 +211,14 @@ public class BobTaskList {
 
         String response = "";
 
-        response += this.ui.getFindCommandText() + "\r\n";
+        response += ui.getFindCommandText() + "\r\n";
         input = input.substring(BobParser.FIND_COMMAND.length() + 1);
 
         int seq = 0;
 
-        for (int i = 0; i < this.list.size(); i++) {
-            if (this.list.get(i).description.contains(input)) {
-                Task task = this.list.get(i);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).description.contains(input)) {
+                Task task = list.get(i);
                 response += (seq + 1) + "." + task.getType()
                         + task.getStatus() + " " + task + "\r\n";
                 seq++;

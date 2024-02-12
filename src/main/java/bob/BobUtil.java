@@ -7,12 +7,13 @@ import java.time.LocalDateTime;
  */
 public class BobUtil {
 
-    public static LocalDateTime getLocalDateTime(String[] args, int hour, int minute)
+    public static LocalDateTime convertToLocalDateTime(String[] args, int hour, int minute)
             throws BobException.InvalidDateTimeFormat {
+
         String[] date = args[0].split("\\/");
         if (date.length != 3) {
             throw new BobException.InvalidDateTimeFormat(
-                    "Date specified is of the wrong format (expects dd/mm/yyyy i.e 01/01/1990).");
+                    BobErrorMessages.INVALID_DATE_FORMAT);
         }
 
         LocalDateTime dateTime;
@@ -30,7 +31,7 @@ public class BobUtil {
 
         } catch (Exception e) {
             throw new BobException.InvalidDateTimeFormat(
-                    "Date specified is of the wrong format (expects dd/mm/yyyy i.e 01/01/1990).");
+                    BobErrorMessages.INVALID_DATE_FORMAT);
         }
         return dateTime;
     }

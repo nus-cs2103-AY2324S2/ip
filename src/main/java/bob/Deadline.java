@@ -42,7 +42,7 @@ public class Deadline extends Task {
 
         if (hasTime && args[1].length() != 4) {
             throw new BobException.InvalidDateTimeFormat(
-                    "Time specified is of the wrong format (expects 4 digit 24-hour format i.e 1800).");
+                    BobErrorMessages.INVALID_TIME_FORMAT);
         }
 
         if (hasTime && args[1].length() == 4) {
@@ -51,17 +51,17 @@ public class Deadline extends Task {
                 minute = Integer.parseInt(args[1].substring(2, 4));
             } catch (NumberFormatException e) {
                 throw new BobException.InvalidDateTimeFormat(
-                        "Time specified is of the wrong format (expects 4 digit 24-hour format i.e 1800).");
+                        BobErrorMessages.INVALID_TIME_FORMAT);
             }
         }
 
-        this.dateTime = BobUtil.getLocalDateTime(args, hour, minute);
+        dateTime = BobUtil.convertToLocalDateTime(args, hour, minute);
     }
 
     @Override
     public String toString() {
 
-        String deadline = this.deadline;
+        String deadlineText = deadline;
         if (dateTime != null) {
 
             String format = "MMM dd yyyy HH:mm";
@@ -70,15 +70,15 @@ public class Deadline extends Task {
                 format = "MMM dd yyyy";
             }
 
-            deadline = dateTime.format(DateTimeFormatter.ofPattern(format));
+            deadlineText = dateTime.format(DateTimeFormatter.ofPattern(format));
         }
 
-        return super.toString() + " (by: " + deadline + ")";
+        return super.toString() + " (by: " + deadlineText + ")";
     }
 
     @Override
     public String toSavableFormat() {
-        return this.uuid + "|D|" + this.description + "|" + this.done + "|" + this.deadline;
+        return uuid + "|D|" + description + "|" + isDone + "|" + deadline;
     }
 
     @Override
@@ -91,6 +91,6 @@ public class Deadline extends Task {
     }
 
     public boolean hasTime() {
-        return this.hasTime;
+        return hasTime;
     }
 }

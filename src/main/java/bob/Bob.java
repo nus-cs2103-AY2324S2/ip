@@ -34,11 +34,11 @@ public class Bob {
     public Bob start() {
 
         try {
-            this.taskList.setList(this.storage.loadSavedTasks());
+            taskList.setList(storage.loadSavedTasks());
         } catch (BobException.FileAccessError e) {
-            this.ui.getErrorText(e);
+            ui.getErrorText(e);
         } catch (BobException.CorruptedSaveData e) {
-            this.ui.getErrorText(e);
+            ui.getErrorText(e);
         }
 
         return this;
@@ -50,14 +50,14 @@ public class Bob {
      *
      * @returns the Bot class object.
      */
-    public static Bob init() {
-        BobUI ui = new BobUI(new Scanner(System.in));
+    public static Bob initializeBob() {
+        BobUI ui = new BobUI();
         BobStorage storage = new BobStorage(ui);
         BobParser parser = new BobParser();
         BobTaskList taskList = new BobTaskList(storage, ui);
 
         Bob bob = new Bob(ui, storage, parser, taskList);
-        parser.setSelf(bob).setUi(ui).setTaskList(taskList);
+        parser.setUi(ui).setTaskList(taskList);
 
         return bob;
     }
@@ -69,6 +69,6 @@ public class Bob {
      * @return Chat bot response as String.
      */
     public String getResponse(String input) {
-        return this.parser.processInput(input);
+        return parser.processInput(input);
     }
 }
