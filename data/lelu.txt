@@ -1,1 +1,2 @@
-T | 0 | sleep 
+E | 0 | go there  | 2  | 3
+D | 0 | finish that | 2023-02-03 23:23

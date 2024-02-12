@@ -14,7 +14,7 @@ import ui.Ui;
 public abstract class Command {
 
     /**
-     * Command to be executed based on the user input.
+     * Executes command based on the user input.
      *
      * @param tasks Recorded list of tasks.
      * @param ui Format of output shown.

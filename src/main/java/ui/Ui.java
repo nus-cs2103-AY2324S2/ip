@@ -3,18 +3,18 @@ package ui;
 public class Ui {
 
     public String showInstructions() {
-        return "Please type in:\n" +
-                "------------------------\n" +
-                "[to record your task(s)/ events]\n" +
-                "- todo <task>\n" +
-                "- deadline <task> /by <date>\n" +
-                "- event <event> /from <date and time> /to <date and time>\n\n" +
-                "[to view your task(s)]\n" +
-                "- list\n\n" +
-                "[to mark or unmark your task as done]\n" +
-                "- mark <task number in list>\n" +
-                "- unmark <task number in list>\n" +
-                "-------------------------------------\n";
+        return "Please type in:\n"
+                + "------------------------\n"
+                + "[to record your task(s)/ events]\n"
+                + "- todo <task>\n"
+                + "- deadline <task> /by <date>\n"
+                + "- event <event> /from <date and time> /to <date and time>\n\n"
+                + "[to view your task(s)]\n"
+                + "- list\n\n"
+                + "[to mark or unmark your task as done]\n"
+                + "- mark <task number in list>\n"
+                + "- unmark <task number in list>\n"
+                + "-------------------------------------\n";
     }
 
     public void greet() {

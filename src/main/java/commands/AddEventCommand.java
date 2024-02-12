@@ -28,10 +28,17 @@ public class AddEventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, String message) throws LeluException {
-        if (message.replaceAll(" ", "").equals("todo")) {
-            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.TODO);
+        if (message.replaceAll(" ", "").equals("event")) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
         }
-        String s = message.replaceFirst("todo ", "");
-        tasks.addTask(new ToDo(s));
+        String[] t = message.replaceFirst("event ", "").split("/from ");
+        if (t.length < 2) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
+        }
+        String[] frTo = t[1].split("/to ");
+        if (frTo.length < 2) {
+            InvalidFormatException.callInvalidFormatException(LeluException.ErrorType.EVENT);
+        }
+        tasks.addTask(new Event(t[0], frTo[0], frTo[1]));
     }
 }

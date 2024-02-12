@@ -1,9 +1,5 @@
 package tasks;
 
-import exceptions.InvalidFormatException;
-import exceptions.InvalidInputException;
-import exceptions.LeluException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,6 +11,13 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDateTime deadline;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * Returns a Deadline object as the public constructor for this class.
+     *
+     * @param taskName Description of task.
+     * @param deadline Deadline of the task.
+     */
     public Deadline(String taskName, String deadline) throws DateTimeParseException {
         super(taskName);
         this.deadline = LocalDateTime.parse(deadline, formatter);

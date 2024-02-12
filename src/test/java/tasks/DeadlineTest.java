@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeadlineTest {
     @Test
-    public void testDeadline_DateTimeParseExceptionThrown() {
+    public void test_deadline_DateTimeParseException_thrown() {
         try {
             new Deadline("go home", "2023/09/02 1000");
             fail("Expected DateTimeParseException to be thrown");
@@ -35,7 +35,7 @@ public class DeadlineTest {
         assertEquals("[D][ ] sleep (by: 2 Oct 2023 11:00pm)", d.toString());
 
         Deadline d1 = new Deadline("wake up", "2024-09-08 14:38");
-        assertEquals("[D][ ] wake up (by: 8 Sept 2024 02:38pm)", d1.toString());
+        assertEquals("[D][ ] wake up (by: 8 Sep 2024 02:38pm)", d1.toString());
     }
 
 }

@@ -1,13 +1,16 @@
 package tasks;
 
-import exceptions.InvalidFormatException;
-import exceptions.LeluException;
-
 /**
  * This class represents a ToDo task by encapsulating information about a specific task,
  * including the description of the task.
  */
 public class ToDo extends Task {
+
+    /**
+     * Returns a Task object as the public constructor for this class.
+     *
+     * @param taskName Description of task.
+     */
     public ToDo(String taskName) {
         super(taskName);
     }

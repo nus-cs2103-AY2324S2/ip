@@ -1,7 +1,5 @@
 package tasks;
 
-import exceptions.InvalidFormatException;
-import exceptions.LeluException;
 
 /**
  * This class represents an Event task by encapsulating information about a specific event,
@@ -11,6 +9,13 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Returns an Event object as the public constructor for this class.
+     *
+     * @param taskName Description of event.
+     * @param from Start date or time of the event.
+     * @param to end date or time of the event.
+     */
     public Event(String taskName, String from, String to) {
         super(taskName);
         this.from = from;
@@ -28,7 +33,7 @@ public class Event extends Task {
         return String.format("E | %d | %s | %s | %s\n", check, this.taskName, this.from, this.to);
     }
     @Override
-    public String toString () {
+    public String toString() {
         return String.format("[E]%s (From: %s To: %s)", super.toString(), this.from, this.to);
     }
 }

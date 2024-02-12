@@ -5,7 +5,7 @@ package exceptions;
  */
 public class LeluException extends Exception {
     /**
-     * Types of error from different tasks.
+     * Represents types of error from different tasks.
      */
     public enum ErrorType {
         TODO,

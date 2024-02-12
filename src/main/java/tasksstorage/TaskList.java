@@ -12,8 +12,8 @@ public class TaskList {
 
     public void addTask(Task t) {
         this.tasks.add(t);
-        System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), this.tasks.size());
+        System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the "
+                + "list now.\n\n", t.toString(), this.tasks.size());
     }
 
     public void loadTask(Task t) {
@@ -23,20 +23,21 @@ public class TaskList {
     public void removeTask(int i) {
         Task t = this.tasks.get(i);
         this.tasks.remove(i);
-        System.out.printf("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), this.tasks.size());
+        System.out.printf(
+                "    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the "
+                + "list now.\n\n", t.toString(), this.tasks.size());
     }
 
     public void markTask(int i) {
         this.tasks.get(i).markTask();
-        System.out.printf("    Great job completing your task!\n      %s\n\n",
-                this.tasks.get(i).toString());
+        System.out.printf(
+                "    Great job completing your task!\n      %s\n\n", this.tasks.get(i).toString());
     }
 
     public void unmarkTask(int i) {
         this.tasks.get(i).unmarkTask();
-        System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n",
-                this.tasks.get(i).toString());
+        System.out.printf(
+                "    Don't forget to complete your task soon...\n      %s\n\n", this.tasks.get(i).toString());
     }
     public void writeToFile(File file) throws IOException {
         FileWriter fw = new FileWriter(file);

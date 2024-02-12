@@ -19,8 +19,8 @@ public class TaskListTest {
         t.addTask(d);
         System.setOut(System.out);
 
-        assertEquals(String.format("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the " +
-                "list now.\n\n", d.toString(), 1), outContent.toString());
+        assertEquals(String.format("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the "
+                + "list now.\n\n", d.toString(), 1), outContent.toString());
         assertEquals(String.format("    1.%s\n", d.toString()), t.toString());
     }
 
@@ -33,8 +33,8 @@ public class TaskListTest {
         System.setOut(new PrintStream(outContent));
         t.removeTask(0);
         System.setOut(System.out);
-        assertEquals(String.format("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
-                "list now.\n\n", d.toString(), 0), outContent.toString());
+        assertEquals(String.format("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the "
+                + "list now.\n\n", d.toString(), 0), outContent.toString());
         assertEquals("", t.toString());
     }
 }
