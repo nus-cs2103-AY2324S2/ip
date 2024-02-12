@@ -4,7 +4,7 @@ package exceptions;
  * Represents an exception specific to the Duke application.
  * This class is used for handling exceptional scenarios that are unique to the Duke application's workflow.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructs a new DukeException with the specified detail message.

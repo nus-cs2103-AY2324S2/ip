@@ -1,10 +1,13 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import ui.Ui;
+
+
 
 public class UiTest {
 
@@ -23,11 +26,11 @@ public class UiTest {
 
     @Test
     public void testGreet() {
-        assertEquals(2,2);
+        assertEquals(2, 2);
     }
 
     @Test
     public void testExit() {
-        assertEquals(5,5);
+        assertEquals(5, 5);
     }
 }

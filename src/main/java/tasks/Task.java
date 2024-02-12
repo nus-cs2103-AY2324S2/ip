@@ -70,7 +70,8 @@ public class Task {
             if (!start) {
                 return "Good job Yapper! I've marked this task as done:" + this.description;
             }
-        } return "";
+        }
+        return "";
     }
 
     /**

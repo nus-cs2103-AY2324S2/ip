@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.Scanner;
-
 import tasks.Task;
 
 /**
@@ -18,25 +16,6 @@ public class Ui {
      */
     public Ui() {}
 
-    /*
-     * Prints a greeting message to the user when the application starts.
-     */
-    public void greet() {
-        String logo = "▀█▀ ▄▀█ █▀ █▄▀ █▄█ ▄▀█ █▀█ █▀█ █▀▀ █▀█\n"
-                + "░█░ █▀█ ▄█ █░█ ░█░ █▀█ █▀▀ █▀▀ ██▄ █▀▄\n";
-
-        System.out.println("*YAP* Good morning YAPPER! *YAP*\nGreetings from\n" + logo);
-    }
-
-    /*
-     * Prints a message to the user when the application stops.
-     */
-    public String exit() {
-        String bye = "█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █\n"
-                + "█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄\n";
-
-        return "Stoppin' the YAP...\n" + bye;
-    }
 
     /**
      * Displays a message indicating a task has been added.

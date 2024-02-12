@@ -32,8 +32,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.getMonth() + " " + from.getDayOfMonth() + " " + from.getYear()
-                + " to " + to.getMonth() + " " + to.getDayOfMonth() + " " + to.getYear() + ")";
+        return "[E]" + super.toString() + " (from: " + from.getMonth() + " " + from.getDayOfMonth() + " "
+                + from.getYear() + " to " + to.getMonth() + " " + to.getDayOfMonth() + " " + to.getYear() + ")";
     }
 
     /**
