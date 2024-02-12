@@ -1,11 +1,10 @@
 package luke;//Returns a list of Strings neatly parsed as arguments.
 import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
+    //Some strings the parser should look out for
+    private final String QUIT_STRING = "QUIT";
     private File saveFile;
     private TaskList taskList;
     private Storage storage;
@@ -25,62 +24,25 @@ public class Parser {
     }
 
     /**
-     * Parses a command given a string input. Returns false if there is a next command, else true.
+     * Parses a command given a string input. The command is executed if possible.
+     * Idea to separate original code into different sections provided by ChatGPT with my modification and corrections.
+     * I gave it my original code. See https://chat.openai.com/share/e4d5e892-5d06-4f57-906c-7ca4e23ff272
      *
      * @param input String input as given by the user.
      * @return The output of the command, if any.
      */
     public String parseCommand(String input) throws ParseCommandException, TasklistException {
-        String returnMessage = "uninitialized";
-        String errorMessage;
+        String returnMessage;
         String trimmedLowercase = input.trim().toLowerCase();
-        //System.out.println(trimmedLowercase);
-        if (trimmedLowercase.equals("bye")) {
-            storage.saveHistory(saveFile, taskList.getTasks());
-                return "QUIT";
-        } else if (trimmedLowercase.equals("list")) {
-            return taskList.listTasks();
-        } else if (trimmedLowercase.split(" ")[0].trim().equals("delete")) {
-            try {
-                int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-                return taskList.deleteTask(index);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
-                        + "[Missing delete parameter(s)]\n";
-                throw new ParseCommandException(errorMessage);
-            } catch (NumberFormatException e) {
-                errorMessage = "Not a number";
-                throw new ParseCommandException(errorMessage);
-            }
-        } else if (trimmedLowercase.split(" ")[0].trim().equals("mark")) {
-            try {
-                int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-                return taskList.markTask(index);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
-                        + "[Missing mark parameter(s)]\n";
-                throw new ParseCommandException(errorMessage);
-            } catch (NumberFormatException e) {
-                errorMessage = "Not a number";
-                throw new ParseCommandException(errorMessage);
-            }
-        } else if (trimmedLowercase.split(" ")[0].trim().equals("find")) {
-            try {
-                String keyword = input.split(" ")[1].strip();
-                return taskList.findTask(keyword);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
-                        + "[Missing search phrase]\n";
-                throw new ParseCommandException(errorMessage);
-            } catch (NumberFormatException e) {
-                errorMessage = "Not a number";
-                throw new ParseCommandException(errorMessage);
+        for (Command command : Command.values()) {
+            if (command.toString().equals(trimmedLowercase.split(" ")[0].trim())) {
+                return handleCommand(command, input);
             }
         }
 
         //tasks
         try {
-            Task task = makeTask(input);
+            Task task = TaskMaker.makeTask(input);
             returnMessage = taskList.addTask(task);
         } catch (MakeTaskException e) {
             returnMessage = e.getMessage();
@@ -90,64 +52,97 @@ public class Parser {
     }
 
     /**
-     * Returns a Task given a string input by the user.
+     * Interprets an input using the given command.
+     * Returns the result of executing the command as a string.
      *
-     * @param input String input given by user
-     * @return The task if the input is valid, else null.
-     * @throws MakeTaskException
+     * @param command The type of command
+     * @param input String input as given by the user
+     * @return The result of executing the command.
+     * @throws ParseCommandException
+     * @throws TasklistException
      */
-    protected Task makeTask(String input) throws MakeTaskException {
-        Task task;
-        String trimmedLowercase = input.trim().toLowerCase();
-        String taskType = trimmedLowercase.split(" ")[0];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-        String todoString = TaskType.TODO.toString();
-        String deadlineString = TaskType.DEADLINE.toString();
-        String eventString = TaskType.EVENT.toString();
-        String errorMessage;
-
-        if (taskType.equals(todoString)) {
-            task = new Todo(trimmedLowercase.substring(todoString.length()).trim());
-            if (input.split(" ").length < 2) {
-                 errorMessage = "You have eyes for a reason, don't you?\n" +
-                        "[Missing todo description]\n";
-                throw new MakeTaskException(errorMessage);
-            }
-        } else if (taskType.equals(deadlineString)) {
-            try {
-                String taskName = input.split("/")[0].trim().substring(deadlineString.length()).trim();
-                LocalDate by = LocalDate.parse(input.split("/")[1].replace("by", "").trim(), formatter);
-                task = new Deadline(taskName, by);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                errorMessage = "Hey! You forgot something! Be glad I'm here to remind you.\n"
-                        + "[Missing deadline parameter(s)]\n";
-                throw new MakeTaskException(errorMessage);
-            } catch (DateTimeParseException e) {
-                errorMessage = "Hey! What are you even talking about?!\n"
-                        + "[Input date in format dd-mm-yyyy]\n";
-                throw new MakeTaskException(errorMessage);
-            }
-        } else if (taskType.equals(eventString)) {
-            try {
-                String taskName = input.split("/")[0].trim().substring(eventString.length()).trim();
-                LocalDate start = LocalDate.parse(input.split("/")[1].replace("from", "").trim(), formatter);
-                LocalDate end = LocalDate.parse(input.split("/")[2].replace("to", "").trim(), formatter);
-                task = new Event(taskName, start, end);
-            } catch (IndexOutOfBoundsException e) {
-                errorMessage = "/// I don't know when you are free... ///\n"
-                        + "[Missing event parameter(s)]\n";
-                throw new MakeTaskException(errorMessage);
-            } catch (DateTimeParseException e) {
-                errorMessage = "Hey! What are you even talking about?!\n"
-                        + "[Input date in format dd-mm-yyyy]\n";
-                throw new MakeTaskException(errorMessage);
-            }
-        } else {
-            errorMessage = "/// What on earth are you saying! ///\n"
-                    + "[Command not found]\n";
-            throw new MakeTaskException(errorMessage);
+    private String handleCommand(Command command, String input) throws ParseCommandException, TasklistException {
+        switch (command) {
+            case BYE:
+                storage.saveHistory(saveFile, taskList.getTasks());
+                return QUIT_STRING;
+            case LIST:
+                return taskList.listTasks();
+            case DELETE:
+                return handleDeleteCommand(input);
+            case MARK:
+                return handleMarkCommand(input);
+            case FIND:
+                return handleFindCommand(input);
+            default:
+                throw new ParseCommandException(UI.getCommandNotFoundMessage());
         }
-        return task;
     }
+
+    /**
+     * Helper function for handleCommand.
+     * In specific, handles a find command.
+     *
+     * @param input
+     * @return The result of executing the command.
+     * @throws TasklistException
+     * @throws ParseCommandException
+     */
+    private String handleFindCommand(String input) throws TasklistException, ParseCommandException {
+        try {
+            String keyword = input.split(" ")[1].strip();
+            return taskList.findTask(keyword);
+        } catch (NumberFormatException e) {
+            String nanMessage = UI.getNanMessage();
+            throw new ParseCommandException(nanMessage);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String missingParametersMessage = UI.getMissingParameterMessage(Command.DELETE.toString());
+            throw new ParseCommandException(missingParametersMessage);
+        }
+    }
+
+    /**
+     * Helper function for handleCommand.
+     * In specific, handles a mark command.
+     *
+     * @param input
+     * @return The result of executing the command.
+     * @throws TasklistException
+     * @throws ParseCommandException
+     */
+    private String handleMarkCommand(String input) throws TasklistException, ParseCommandException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
+            return taskList.markTask(index);
+        } catch (NumberFormatException e) {
+            String nanMessage = UI.getNanMessage();
+            throw new ParseCommandException(nanMessage);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String missingParametersMessage = UI.getMissingParameterMessage(Command.DELETE.toString());
+            throw new ParseCommandException(missingParametersMessage);
+        }
+    }
+
+    /**
+     * Helper function for handleCommand.
+     * In specific, handles a delete command.
+     *
+     * @param input
+     * @return The result of executing the command.
+     * @throws TasklistException
+     * @throws ParseCommandException
+     */
+    private String handleDeleteCommand(String input) throws TasklistException, ParseCommandException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
+            return taskList.deleteTask(index);
+        } catch (NumberFormatException e) {
+            String nanMessage = UI.getNanMessage();
+            throw new ParseCommandException(nanMessage);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String missingParametersMessage = UI.getMissingParameterMessage(Command.DELETE.toString());
+            throw new ParseCommandException(missingParametersMessage);
+        }
+    }
+
 }
