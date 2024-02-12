@@ -1,10 +1,12 @@
+package rick;
+
 public class Ui {
 
     public void showLoadingMessage () {
         reply("Loading local data...");
     }
     public static void hello() {
-        String hello = "Hello! I'm Rick\n"+
+        String hello = "Hello! I'm rick.Rick\n"+
                 "Tell me about your plan !";
         reply(hello);
     }

@@ -1,3 +1,11 @@
+package rick;
+
+import rick.RickException;
+import rick.tasks.Deadline;
+import rick.tasks.Event;
+import rick.tasks.Item;
+import rick.tasks.ToDo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
@@ -23,7 +31,7 @@ public class Storage {
             }
             //If file tasks.txt does not exist, create it
             if (!Files.exists(filePath)) {
-                Ui. reply("Thank you for using Rick assistant! 어서 와, 리크은 처음이지?\n" +
+                Ui. reply("Thank you for using rick.Rick assistant! 어서 와, 리크은 처음이지?\n" +
                         "We are setting up your device for the first time!");
                 Files.createFile(filePath);
             }
@@ -55,7 +63,7 @@ public class Storage {
         } catch (Exception e) {
             throw new RickException(e.getMessage());
             //TODO switch error message (for developer)
-            //throw new RickException("There's something wrong with your local data... You might want to [check the file], " +
+            //throw new rick.RickException("There's something wrong with your local data... You might want to [check the file], " +
             //"or [clear local data]");
         }
         return this.list;

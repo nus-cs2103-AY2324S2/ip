@@ -1,3 +1,7 @@
+package rick.tasks;
+
+import rick.RickException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +10,7 @@ public class Deadline implements Item {
     public String status;
     public LocalDateTime ddl;
 
-    public Deadline(String name, String status, String ddl) throws RickException{
+    public Deadline(String name, String status, String ddl) throws RickException {
         try {
             if (name.isBlank()) {
                 throw new RickException("Nothing is due!");

@@ -1,13 +1,16 @@
+package rick.tasks;
+import rick.RickException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event implements Item{
+public class Event implements Item {
     public String name;
     public String status;
     public LocalDateTime from;
     public LocalDateTime to;
 
-    public Event(String name, String status, String from, String to) throws RickException{
+    public Event(String name, String status, String from, String to) throws RickException {
         try {
             if (name.isBlank()) {
                 throw new RickException("Nothing scheduled?");

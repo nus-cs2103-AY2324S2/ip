@@ -1,3 +1,5 @@
+package rick.tasks;
+
 public interface Item {
     public String name = "";
     public String status = "[ ]";

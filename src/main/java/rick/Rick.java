@@ -1,8 +1,8 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+package rick;
+
+import rick.tasks.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 

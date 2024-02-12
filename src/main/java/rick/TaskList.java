@@ -1,3 +1,12 @@
+package rick;
+
+import rick.RickException;
+import rick.Storage;
+import rick.tasks.Deadline;
+import rick.tasks.Event;
+import rick.tasks.Item;
+import rick.tasks.ToDo;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -81,7 +90,7 @@ public class TaskList {
         }
         int i = arg.charAt(5) - 49;
         if (i >= this.items.size()) {
-            throw new RickException("Item not found QAQ");
+            throw new RickException("rick.tasks.Item not found QAQ");
         } else {
             Item item = this.items.get(i);
             item.mark();
@@ -98,7 +107,7 @@ public class TaskList {
         }
         int i = arg.charAt(7) - 49;
         if (i >= this.items.size()) {
-            throw new RickException("Item not found QAQ");
+            throw new RickException("rick.tasks.Item not found QAQ");
         } else {
             Item item = this.items.get(i);
             item.unmark();
