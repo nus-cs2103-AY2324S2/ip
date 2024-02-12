@@ -7,16 +7,14 @@ import snomtasklist.TaskList;
 
 class FindCommand extends Command {
 
-    @Override
-    public CmdType getType() {
-        return CmdType.FIND;
-    }
-
-
     private FindCommand(String desc) {
         super(desc);
     }
 
+    @Override
+    public CmdType getType() {
+        return CmdType.FIND;
+    }
     @Override
     public String execute(TaskList lst) throws InvalidCommandException {
         try {

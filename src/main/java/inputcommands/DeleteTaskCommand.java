@@ -11,7 +11,7 @@ import snomtasklist.TaskList;
  * a task in the tasklist.
  *
  */
-class DeleteTaskCommand extends Command{
+class DeleteTaskCommand extends Command {
 
     protected DeleteTaskCommand(String desc) {
         super(desc);

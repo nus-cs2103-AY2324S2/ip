@@ -1,5 +1,9 @@
 package snomtask;
 
+/**
+ * Task implments all the task that a user
+ * can enter.
+ */
 public abstract class Task {
 
     private String name;
@@ -54,7 +58,7 @@ public abstract class Task {
      * Checks whether the cmd matches the task descripion.
      * @param cmd is the command entered by the user.
      * @return a boolean value to see if the task description
-     * matches the user input.
+     *         matches the user input.
      */
     public boolean match(String cmd) {
         return this.name.contains(cmd);

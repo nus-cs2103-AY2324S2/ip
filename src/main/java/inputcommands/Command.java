@@ -30,7 +30,7 @@ public abstract class Command {
      * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a String representing the command
      */
-    public abstract String execute (TaskList lst) throws InvalidCommandException;
+    public abstract String execute(TaskList lst) throws InvalidCommandException;
 
     /**
      * Creates a new Command based on the command entered.
@@ -40,7 +40,7 @@ public abstract class Command {
      */
     public static Command makeCommand(String description) throws InvalidCommandException {
         String type = description.split(" ")[0].toLowerCase();
-        String[] cmd_lst = {"list", "bye", "mark", "unmark", "delete", "todo", "deadline", "event"};
+        String[] commandlst = {"list", "bye", "mark", "unmark", "delete", "todo", "deadline", "event"};
 
         Command cmd = null;
 

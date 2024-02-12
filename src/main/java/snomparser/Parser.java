@@ -9,9 +9,23 @@ import snomtask.Event;
 import snomtask.Todo;
 import snomtasklist.TaskList;
 
-
+/**
+ * Parser implements the task processor which
+ * the user inputs into SnomBot.
+ */
 public class Parser {
 
+    /**
+     * Processes the command, and returns a boolean value
+     *            depending on the user's command.
+     * @param command is the command the user enters.
+     * @param lst is the tasklist storing
+     *            the tasks enterd by the user.
+     * @param storage is the file management system
+     *                for tasks entered by the user.
+     * @return a boolean value for whether the SnomBot should
+     *                continue its execution.
+     */
     public boolean processCommand(Command command, TaskList lst, TaskStorage storage) {
         boolean status = true;
         try {
@@ -41,8 +55,12 @@ public class Parser {
                 break;
             case FIND:
                 this.findTask(lst, cmd);
+                break;
             case BYE:
                 status = false;
+                break;
+            default:
+                status = true;
 
             }
 
@@ -58,20 +76,20 @@ public class Parser {
     }
 
     private void addTodo(TaskList lst, TaskStorage storage, String cmd) {
-        lst.AddTask(new Todo(cmd));
+        lst.addTask(new Todo(cmd));
     }
 
     private void addDeadline(TaskList lst, TaskStorage storage, String cmd) {
         String name = cmd.split("/", 2)[0];
-        String due_date = cmd.split("/", 2)[1];
-        lst.AddTask(new Deadline(name, due_date));
+        String deadline = cmd.split("/", 2)[1];
+        lst.addTask(new Deadline(name, deadline));
     }
 
     private void addEvent(TaskList lst, TaskStorage storage, String cmd) {
         String name = cmd.split("/", 3)[0];
         String start = cmd.split("/", 3)[1];
         String end = cmd.split("/", 3)[2];
-        lst.AddTask(new Event(name, start, end));
+        lst.addTask(new Event(name, start, end));
     }
 
     private void doTask(TaskList lst, TaskStorage storage, int pos) {
