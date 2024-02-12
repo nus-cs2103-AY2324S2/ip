@@ -1,4 +1,5 @@
 package tyler.parser;
+
 import tyler.command.*;
 import tyler.exception.*;
 
@@ -11,29 +12,33 @@ public class Parser {
     public static Command parse(String line) throws TylerException {
         String[] input = line.split(" ");
         String command = input[0];
-        if (command.equals("bye")) {
+        switch (command) {
+        case "bye":
             return new ExitCommand();
-        } else if (command.equals("list")) {
+        case "list":
             return new ListCommand();
-        } else if (command.equals("mark")) {
+        case "mark": {
             if (input.length < 2) {
                 throw new InvalidTaskException();
             }
             int index = Integer.parseInt(input[1]);
             return new MarkCommand(index);
-        } else if (command.equals("unmark")) {
+        }
+        case "unmark": {
             if (input.length < 2) {
                 throw new InvalidTaskException();
             }
             int index = Integer.parseInt(input[1]);
             return new UnmarkCommand(index);
-        } else if (command.equals("todo")) {
+        }
+        case "todo": {
             if (input.length < 2) {
                 throw new EmptyNameException();
             }
             String name = line.split(" ", 2)[1];
             return new TodoCommand(name);
-        } else if (command.equals("deadline")) {
+        }
+        case "deadline": {
             if (input.length < 2) {
                 throw new EmptyNameException();
             }
@@ -41,7 +46,8 @@ public class Parser {
             String name = info[0];
             LocalDateTime end = LocalDateTime.parse(info[1], INPUT_DATE_FORMAT);
             return new DeadlineCommand(name, end);
-        } else if (command.equals("event")) {
+        }
+        case "event": {
             if (input.length < 2) {
                 throw new EmptyNameException();
             }
@@ -51,13 +57,15 @@ public class Parser {
             LocalDateTime start = LocalDateTime.parse(startToEnd[0], INPUT_DATE_FORMAT);
             LocalDateTime end = LocalDateTime.parse(startToEnd[1], INPUT_DATE_FORMAT);
             return new EventCommand(name, start, end);
-        } else if (command.equals("delete")) {
+        }
+        case "delete": {
             if (input.length < 2) {
                 throw new InvalidTaskException();
             }
             int index = Integer.parseInt(input[1]);
             return new DeleteCommand(index);
-        } else {
+        }
+        default:
             throw new UndefinedActionException();
         }
     }

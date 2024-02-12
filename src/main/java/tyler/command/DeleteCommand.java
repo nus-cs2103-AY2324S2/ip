@@ -1,8 +1,9 @@
 package tyler.command;
-import tyler.task.TaskList;
+
 import tyler.ui.Ui;
 import tyler.storage.Storage;
 import tyler.task.Task;
+import tyler.task.TaskList;
 
 public class DeleteCommand extends Command {
     protected int index;
