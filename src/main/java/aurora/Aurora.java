@@ -1,7 +1,7 @@
 package aurora;
 
 import aurora.command.Command;
-import aurora.objects.DukeException;
+import aurora.objects.AuroraException;
 import aurora.objects.Task;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Duke is the main class for the application that runs according to the commands given to it by the user.
  */
-public class Duke {
+public class Aurora {
     /**
      * Ui for the application.
      */
@@ -35,9 +35,9 @@ public class Duke {
     private Parser parser;
 
     /**
-     * Constructor for the Duke class
+     * Constructor for the Aurora class
      */
-    public Duke() {
+    public Aurora() {
         this.ui = new Ui();
         this.storage = new Storage("./data/duke.txt");
         try {
@@ -47,7 +47,7 @@ public class Duke {
             System.out.println("Error loading tasks from file: " + exception.getMessage());
             ArrayList<Task> emptyTaskList = new ArrayList<>();
             this.taskList = new TaskList(emptyTaskList);
-        } catch (DukeException exception) {
+        } catch (AuroraException exception) {
             String exceptionMessage = exception.getExceptionMessage();
             this.ui.printALine();
             System.out.println(exceptionMessage);
@@ -59,7 +59,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke aurora1 = new Duke();
+        Aurora aurora1 = new Aurora();
         aurora1.exeAurora();
     }
 
@@ -82,7 +82,7 @@ public class Duke {
                 Command commandObj = this.parser.parseCommand(command);
                 commandObj.handle();
                 isBye = commandObj.isBye();
-            } catch (DukeException exception) {
+            } catch (AuroraException exception) {
                 String exceptionMessage = exception.getExceptionMessage();
                 this.ui.printALine();
                 System.out.println(exceptionMessage);
@@ -102,7 +102,7 @@ public class Duke {
         try {
             Command outputCommand = this.parser.parseCommand(command);
             output = outputCommand.handleGui();
-        } catch (DukeException exception) {
+        } catch (AuroraException exception) {
             output = exception.getExceptionMessage();
         }
         return output;

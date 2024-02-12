@@ -3,7 +3,7 @@ package aurora.objects;
 /**
  * The DukeException class represents exceptions specific to this application.
  */
-public class DukeException extends Exception {
+public class AuroraException extends Exception {
 
     /** Message of the exception. */
     private String exceptionMessage;
@@ -13,7 +13,7 @@ public class DukeException extends Exception {
      *
      * @param exceptionMessage Message of the exception that describes it.
      */
-    public DukeException(String exceptionMessage) {
+    public AuroraException(String exceptionMessage) {
         super(exceptionMessage);
         this.exceptionMessage = exceptionMessage;
     }

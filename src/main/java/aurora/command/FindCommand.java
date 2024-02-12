@@ -1,6 +1,6 @@
 package aurora.command;
 
-import aurora.objects.DukeException;
+import aurora.objects.AuroraException;
 import aurora.objects.Task;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
@@ -44,9 +44,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void handle() throws DukeException {
+    public void handle() throws AuroraException {
         if (this.splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter find, then the keyword you wish to search for in the task list.");
         } else {
             String keyword = this.splitCommands[1].toLowerCase();
@@ -62,10 +62,10 @@ public class FindCommand extends Command {
         }
     }
     @Override
-    public String handleGui() throws DukeException {
+    public String handleGui() throws AuroraException {
         String message = "Command not executed.";
         if (this.splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter find, then the keyword you wish to search for in the task list.");
         } else {
             String keyword = this.splitCommands[1].toLowerCase();

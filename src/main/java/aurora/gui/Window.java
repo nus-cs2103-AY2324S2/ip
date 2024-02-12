@@ -1,6 +1,6 @@
 package aurora.gui;
 
-import aurora.Duke;
+import aurora.Aurora;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -48,7 +48,7 @@ public class Window extends AnchorPane {
     /**
      * Aurora API.
      */
-    private Duke aurora;
+    private Aurora aurora;
 
     /**
      * Initializing function for some fields in the object.
@@ -66,7 +66,7 @@ public class Window extends AnchorPane {
      *
      * @param a
      */
-    public void setAurora(Duke a) {
+    public void setAurora(Aurora a) {
         aurora = a;
     }
 

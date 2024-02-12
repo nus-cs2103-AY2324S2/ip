@@ -1,6 +1,6 @@
 package aurora.command;
 
-import aurora.objects.DukeException;
+import aurora.objects.AuroraException;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
@@ -43,17 +43,17 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void handle() throws DukeException {
+    public void handle() throws AuroraException {
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
                     "These two fields should be separated with /by.");
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
         if (splitVariables.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
                     "These two fields should be separated with /by.");
         } else {
@@ -64,7 +64,7 @@ public class DeadlineCommand extends Command {
                 this.taskList.addDeadline(description, dateLdt);
                 this.ui.echoAddTask(this.taskList);
             } catch (DateTimeParseException e) {
-                throw new DukeException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
+                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
             }
         }
         try {
@@ -75,18 +75,18 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String handleGui() throws DukeException {
+    public String handleGui() throws AuroraException {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
                     "These two fields should be separated with /by.");
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
         if (splitVariables.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
                     "These two fields should be separated with /by.");
         } else {
@@ -97,7 +97,7 @@ public class DeadlineCommand extends Command {
                 this.taskList.addDeadline(description, dateLdt);
                 //this.ui.echoAddTask(this.taskList);
             } catch (DateTimeParseException e) {
-                throw new DukeException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
+                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
             }
         }
         try {

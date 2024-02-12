@@ -1,6 +1,6 @@
 package aurora.command;
 
-import aurora.objects.DukeException;
+import aurora.objects.AuroraException;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
@@ -40,19 +40,19 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void handle() throws DukeException {
+    public void handle() throws AuroraException {
         if (this.splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter mark, then the number of the task you want to mark as done.");
             // Solution adapted from https://www.baeldung.com/java-check-string-number
         } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new DukeException("Please enter an integer as the second input.");
+            throw new AuroraException("Please enter an integer as the second input.");
         } else if (Integer.parseInt(this.splitCommands[1]) <= 0) {
-            throw new DukeException("Please enter an integer greater than 0 as the second input.");
+            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
         } else if (Integer.parseInt(this.splitCommands[1]) > this.taskList.getTaskList().size()) {
-            throw new DukeException("Please enter an integer representing a task within the list.");
+            throw new AuroraException("Please enter an integer representing a task within the list.");
         } else if (this.taskList.getTaskList().get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
-            throw new DukeException("Task already marked as done.");
+            throw new AuroraException("Task already marked as done.");
         } else {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             this.ui.printALine();
@@ -67,20 +67,20 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String handleGui() throws DukeException {
+    public String handleGui() throws AuroraException {
         String message = "Command not executed.";
         if (this.splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
+            throw new AuroraException("Invalid number of arguments!\n" +
                     "Make sure to enter mark, then the number of the task you want to mark as done.");
             // Solution adapted from https://www.baeldung.com/java-check-string-number
         } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new DukeException("Please enter an integer as the second input.");
+            throw new AuroraException("Please enter an integer as the second input.");
         } else if (Integer.parseInt(this.splitCommands[1]) <= 0) {
-            throw new DukeException("Please enter an integer greater than 0 as the second input.");
+            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
         } else if (Integer.parseInt(this.splitCommands[1]) > this.taskList.getTaskList().size()) {
-            throw new DukeException("Please enter an integer representing a task within the list.");
+            throw new AuroraException("Please enter an integer representing a task within the list.");
         } else if (this.taskList.getTaskList().get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
-            throw new DukeException("Task already marked as done.");
+            throw new AuroraException("Task already marked as done.");
         } else {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             message = this.taskList.markTaskGui(taskIndex - 1);

@@ -1,6 +1,6 @@
 package aurora.command;
 
-import aurora.objects.DukeException;
+import aurora.objects.AuroraException;
 
 /**
  * Class that handles an invalid command.
@@ -15,13 +15,13 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void handle() throws DukeException {
-        throw new DukeException("I am unable to understand this command, please kindly try again.");
+    public void handle() throws AuroraException {
+        throw new AuroraException("I am unable to understand this command, please kindly try again.");
     }
 
     @Override
-    public String handleGui() throws DukeException {
-        throw new DukeException("I am unable to understand this command, please kindly try again.");
+    public String handleGui() throws AuroraException {
+        throw new AuroraException("I am unable to understand this command, please kindly try again.");
     }
 
     @Override

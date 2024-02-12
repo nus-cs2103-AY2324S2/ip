@@ -1,7 +1,7 @@
 package aurora.storage;
 
 import aurora.objects.Deadline;
-import aurora.objects.DukeException;
+import aurora.objects.AuroraException;
 import aurora.objects.Event;
 import aurora.objects.Task;
 import aurora.objects.Todo;
@@ -38,9 +38,9 @@ public class Storage {
      *
      * @return ArrayList of tasks in the file.
      * @throws IOException If there is no file located at the path.
-     * @throws DukeException If the file is corrupted.
+     * @throws AuroraException If the file is corrupted.
      */
-    public ArrayList<Task> loadTasks() throws IOException, DukeException {
+    public ArrayList<Task> loadTasks() throws IOException, AuroraException {
         File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -52,8 +52,8 @@ public class Storage {
                     if (task != null) {
                         taskList.add(task);
                     }
-                } catch (DukeException e) {
-                    throw new DukeException("Corrupted line in data file: " + line);
+                } catch (AuroraException e) {
+                    throw new AuroraException("Corrupted line in data file: " + line);
                 }
             }
         }
@@ -66,7 +66,7 @@ public class Storage {
      * @param taskList TaskList to be written to file.
      * @throws IOException If there is a problem in saving the file to the specified directory.
      */
-    public void saveTasks(ArrayList<Task> taskList) throws IOException, DukeException {
+    public void saveTasks(ArrayList<Task> taskList) throws IOException, AuroraException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         FileWriter fileWriter = new FileWriter(file);
@@ -84,12 +84,12 @@ public class Storage {
      *
      * @param fileLine Line from file loaded to be parsed.
      * @return Task parsed from the file line.
-     * @throws DukeException If the particular line is corrupted.
+     * @throws AuroraException If the particular line is corrupted.
      */
-    private Task fileLinesToTask(String fileLine) throws DukeException {
+    private Task fileLinesToTask(String fileLine) throws AuroraException {
         String[] components = fileLine.split(" \\| ");
         if (components.length < 3) {
-            throw new DukeException("Invalid line");
+            throw new AuroraException("Invalid line");
         }
 
         String type = components[0];
@@ -106,7 +106,7 @@ public class Storage {
                 return todo;
             case "D":
                 if (components.length < 4) {
-                    throw new DukeException("Invalid format for a deadline.");
+                    throw new AuroraException("Invalid format for a deadline.");
                 }
                 LocalDateTime dateLdt = Parser.parseDateFromStorage(components[3].trim());
                 Deadline deadline = new Deadline(description, dateLdt);
@@ -116,7 +116,7 @@ public class Storage {
                 return deadline;
             case "E":
                 if (components.length < 5) {
-                    throw new DukeException("Invalid format for an event.");
+                    throw new AuroraException("Invalid format for an event.");
                 }
                 LocalDateTime startLdt = Parser.parseDateFromStorage(components[3].trim());
                 LocalDateTime endLdt = Parser.parseDateFromStorage(components[4].trim());
@@ -126,10 +126,10 @@ public class Storage {
                 }
                 return event;
             default:
-                throw new DukeException("Unknown task type.");
+                throw new AuroraException("Unknown task type.");
             }
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format in task: " + e.getMessage());
+            throw new AuroraException("Invalid date format in task: " + e.getMessage());
         }
     }
 

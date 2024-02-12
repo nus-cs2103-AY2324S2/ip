@@ -1,6 +1,6 @@
 package aurora.gui;
 
-import aurora.Duke;
+import aurora.Aurora;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public class Main extends Application {
     /**
      * Aurora API from within the application.
      */
-    private Duke aurora = new Duke();
+    private Aurora aurora = new Aurora();
 
     /**
      * JavaFX scene used to host all graphical outputs.
