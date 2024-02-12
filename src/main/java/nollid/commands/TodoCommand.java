@@ -14,7 +14,7 @@ import nollid.tasks.Todo;
  * TodoCommand class represents a command to add a new ToDo task.
  */
 public class TodoCommand extends Command {
-    private static final String USAGE_HINT = "Usage: todo task_description [/tags tag1,tag2,tag3,...]";
+    private static final String USAGE_HINT = "Usage: todo task_description [/tags tag1,tag2,...]";
     /**
      * ArrayList containing command arguments.
      */
