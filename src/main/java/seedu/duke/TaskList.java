@@ -29,16 +29,20 @@ public class TaskList {
      * @param isNew boolean that indicates whether the task is an existing one loaded from
      *              the file or a newly added one.
      */
-    public void addItem(Task task, boolean isNew) { //to append items to tasks
+    public String addItem(Task task, boolean isNew) { //to append items to tasks
         tasks.add(task);
         if (isNew) {
-            System.out.print("      _________________________________________________________________________\n");
-            System.out.print("      Got it. I've added this task:\n ");
-            task.printFullDesc();
-            System.out.printf("      Now you have %d %s in the tasks.\n", tasks.size(),
+            String result = "Got it. I've added this task:\n" + task.printFullDesc();
+            result += String.format("Now you have %d %s in the tasks.\n", tasks.size(),
                         (tasks.size() == 1 ? "task" : "tasks"));
-            System.out.print("      _________________________________________________________________________\n");
-            Storage.add(task);
+            try {
+                Storage.add(task);
+                return result;
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
+        } else {
+            return "";
         }
     }
 
@@ -48,21 +52,17 @@ public class TaskList {
      *
      * @param num index of task to be deleted from the task list
      */
-    public void delete(int num) throws DukeException{
+    public String delete(int num) throws DukeException{
         if (num - 1 >= tasks.size()) {
-            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.", true);
+            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
-        Task taskToDelete =
-                tasks.get(num - 1);
-        System.out.print("      _________________________________________________________________________\n");
-        System.out.print("      Got it. I've removed this task:\n ");
-        taskToDelete.printFullDesc();
-
+        Task taskToDelete = tasks.get(num - 1);
+        String result = "Got it. I've removed this task:\n" + taskToDelete.printFullDesc();
         tasks.remove(num - 1);
-        System.out.printf("      Now you have %d %s in the task list.\n", tasks.size(),
+        result += String.format("Now you have %d %s in the task list.\n", tasks.size(),
                     (tasks.size() == 1 ? "task" : "tasks"));
-        System.out.print("      _________________________________________________________________________\n");
         Storage.delete(num - 1);
+        return result;
     }
 
     /**
@@ -71,18 +71,15 @@ public class TaskList {
      *
      * @param num index of task to be marked done.
      */
-    public void mark(int num) throws DukeException{
+    public String mark(int num) throws DukeException, IOException {
         if (num - 1 >= tasks.size()) {
-            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.", true);
+            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
         Task toMark = tasks.get(num - 1);
-        toMark.markDone(true);
+        String result = toMark.markDone(true);
         String toReplace = toMark.toStore();
-        try {
-            Storage.changeMarking(num - 1, toReplace);
-        } catch (IOException e) {
-            System.out.println("Oops something went wrong.\n" + e.getMessage());
-        }
+        Storage.changeMarking(num - 1, toReplace);
+        return result;
     }
 
     /**
@@ -91,19 +88,16 @@ public class TaskList {
      *
      * @param num index of task to be marked undone.
      */
-    public void unmark(int num) throws DukeException{
+    public String unmark(int num) throws DukeException, IOException {
         if (num - 1 >= tasks.size()) {
-            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.", true);
+            throw new DukeException("Oops, there isn't that task number in your list. Run list to check again.");
         }
         Task toUnmark = tasks.get(num - 1);
         String toDelete = toUnmark.toStore();
-        toUnmark.unmark();
+        String result = toUnmark.unmark();
         String toReplace = toUnmark.toStore();
-        try {
-            Storage.changeMarking(num - 1, toReplace);
-        } catch (IOException e) {
-            System.out.println("Oops something went wrong.\n" + e.getMessage());
-        }
+        Storage.changeMarking(num - 1, toReplace);
+        return result;
     }
 
     /**
@@ -121,19 +115,19 @@ public class TaskList {
      * from the Task class or its subclasses Deadlines and Events to print individual task descriptions.
      * Prints out that there is 0 tasks in the task list if the arraylist of tasks is empty.
      */
-    public void printList() {
+    public String printList() {
         if (tasks.size() == 0) {
-            System.out.print("      _________________________________________________________________________\n");
-            System.out.print("      Currently you have 0 tasks in your task list!\n");
-            System.out.print("      _________________________________________________________________________\n");
+            return "Currently you have 0 tasks in your task list!\n";
         } else {
+            String result = "";
             for (int i = 0; i < tasks.size(); i++) {
                 if (i < tasks.size() - 1 && tasks.size() != 1) { //not last element
-                    tasks.get(i).printTaskDesc(i + 1, false);
+                    result += tasks.get(i).printTaskDesc(i + 1, false);
                 } else {
-                    tasks.get(i).printTaskDesc(i + 1, true);
+                    result += tasks.get(i).printTaskDesc(i + 1, true);
                 }
             }
+            return result;
         }
     }
 }

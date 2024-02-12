@@ -19,16 +19,17 @@ public class Task {
         isDone = false;
     }
 
-    public void markDone(boolean isNew) {
+    public String markDone(boolean isNew) {
         isDone = true;
         if (isNew) {
-            printMarking(this, getTag());
+            return printMarking(this, getTag());
         }
+        return "";
     }
 
-    public void unmark() {
+    public String unmark() {
         isDone = false;
-        printMarking(this, getTag());
+        return printMarking(this, getTag());
     }
 
     public String getStatusIcon() {
@@ -54,48 +55,49 @@ public class Task {
         return "T";
     }
 
-    public void printTaskDesc(int num, boolean isLast){
-        if (!isLast) {
-            if (num == 1) {
-                System.out.print("      _________________________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
-                        num, getTag(), getStatusIcon(), getDescription());
-            } else {
-                System.out.printf("      %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
-            }
+    public String printTaskDesc(int num, boolean isLast){
+        if (num == 1) {
+            return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s\n",
+                    num, getTag(), getStatusIcon(), getDescription());
         } else {
-            if (num == 1) {
-                System.out.print("      _________________________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
-                        num, getTag(), getStatusIcon(), getDescription());
-                System.out.print("      _________________________________________________________________________\n");
-            } else {
-                System.out.printf("      %d.[%s][%s] %s \n", num, getTag(), getStatusIcon(), getDescription());
-                System.out.print("      _________________________________________________________________________\n");
-            }
+            return String.format(" %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
         }
+//        if (!isLast) {
+//            if (num == 1) {
+//                System.out.print("      _________________________________________________________________________\n");
+//                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
+//                        num, getTag(), getStatusIcon(), getDescription());
+//            } else {
+//                System.out.printf("      %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
+//            }
+//        } else {
+//            if (num == 1) {
+//                System.out.print("      _________________________________________________________________________\n");
+//                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s\n",
+//                        num, getTag(), getStatusIcon(), getDescription());
+//                System.out.print("      _________________________________________________________________________\n");
+//            } else {
+//                System.out.printf("      %d.[%s][%s] %s \n", num, getTag(), getStatusIcon(), getDescription());
+//                System.out.print("      _________________________________________________________________________\n");
+//            }
+//        }
     }
 
-    public void printFullDesc() {
-        System.out.printf("         [%s][%s] %s\n", getTag(), getStatusIcon(), getDescription());
+    public String printFullDesc() {
+        return String.format(" [%s][%s] %s\n", getTag(), getStatusIcon(), getDescription());
     }
 
-    public void printMatchDesc(int num) {
-        System.out.printf("         %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
-
+    public String printMatchDesc(int num) {
+        return String.format(" %d.[%s][%s] %s\n", num, getTag(), getStatusIcon(), getDescription());
     }
 
-    public void printMarking(Task task, String tag) {
+    public String printMarking(Task task, String tag) {
         if (isDone) {
-            System.out.print("      _________________________________________________________________________\n"
-                    + "      Great job! I've marked this task as done:\n");
-            System.out.printf("      [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
-            System.out.print("      _________________________________________________________________________\n");
+            return "Great job! I've marked this task as done:\n" +
+                    String.format(" [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
         } else {
-            System.out.print("      _________________________________________________________________________\n"
-                    + "      Ok, I've marked this task as not done yet:\n");
-            System.out.printf("      [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
-            System.out.print("      _________________________________________________________________________\n");
+            return "Ok, I've marked this task as not done yet:\n" +
+                    String.format(" [%s][%s] %s\n", tag, task.getStatusIcon(), task.getDescription());
         }
     }
 }

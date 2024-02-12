@@ -39,40 +39,25 @@ public class Event extends Task{
     }
 
     @Override
-    public void printTaskDesc(int num, boolean isLast){
-        if (!isLast) {
-            if (num == 1) {
-                System.out.print("      _________________________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (from: %s to: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), from, to);
-            } else {
-                System.out.printf("      %d.[%s][%s] %s (from: %s to: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), from, to);
-            }
+    public String printTaskDesc(int num, boolean isLast){
+        if (num == 1) {
+            return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s (from: %s to: %s)\n",
+                    num, getTag(), getStatusIcon(), getDescription(), from, to);
         } else {
-            if (num == 1) {
-                System.out.print("      _________________________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (from: %s to: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), from, to);
-                System.out.print("      _________________________________________________________________________\n");
-
-            } else {
-                System.out.printf("      %d.[%s][%s] %s (from: %s to: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), from, to);
-                System.out.print("      _________________________________________________________________________\n");
-            }
+            return String.format(" %d.[%s][%s] %s (from: %s to: %s)\n",
+                    num, getTag(), getStatusIcon(), getDescription(), from, to);
         }
     }
 
     @Override
-    public void printMatchDesc(int num) {
-        System.out.printf("      %d.[%s][%s] %s (from: %s to: %s)\n",
+    public String printMatchDesc(int num) {
+        return String.format(" %d.[%s][%s] %s (from: %s to: %s)\n",
                 num, getTag(), getStatusIcon(), getDescription(), from, to);
     }
 
     @Override
-    public void printFullDesc() {
-        System.out.printf("         [%s][%s] %s (from: %s to: %s)\n",
+    public String printFullDesc() {
+        return String.format(" [%s][%s] %s (from: %s to: %s)\n",
                 getTag(), getStatusIcon(), getDescription(), from, to);
     }
 }

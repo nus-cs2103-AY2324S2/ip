@@ -10,9 +10,8 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 /**
  * <h1> Duke </h1>
@@ -31,7 +30,7 @@ public class Duke {
     private TaskList taskList;
 
     public Duke(String filePath) {
-        ui = new UI(store);
+        ui = new UI();
         taskList = new TaskList();
         store = new Storage(filePath, taskList);
         try {
@@ -41,47 +40,43 @@ public class Duke {
         }
     }
 
-    public void run() {
-        ui.intro();
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-
-        while(!userInput.equals("bye")) {
-            try {
-                if (userInput.startsWith("mark")) {
-                    taskList.mark(Parser.parseNum(userInput));
-                } else if (userInput.startsWith("unmark")) {
-                    taskList.unmark(Parser.parseNum(userInput));
-                } else if (userInput.startsWith("delete")){
-                    taskList.delete(Parser.parseNum(userInput));
-                } else if (userInput.startsWith("todo")) {
-                    taskList.addItem(new Task(Parser.parseTodo(userInput)), true);
-                } else if (userInput.startsWith("deadline")) {
-                    String[] parts = Parser.parseDeadline(userInput);
-                    String task = parts[0];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-                    LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
-                    taskList.addItem(new Deadline(task, deadline), true);
-                } else if (userInput.startsWith("event")) {
-                    String[] parts = Parser.parseEvent(userInput);
-                    taskList.addItem(new Event(parts[0], parts[1], parts[2]), true);
-                } else if (userInput.equals("list")) {
-                    taskList.printList();
-                } else if (userInput.startsWith("find")) {
-                    store.findFromFile(Parser.parseFind(userInput));
-                } else {
-                    throw new DukeException();
-                }
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+//        return "Duke heard: " + input;
+//        return ui.intro();
+        try {
+            if (input.startsWith("mark")) {
+                return taskList.mark(Parser.parseNum(input));
+            } else if (input.startsWith("unmark")) {
+                return taskList.unmark(Parser.parseNum(input));
+            } else if (input.startsWith("delete")){
+                return taskList.delete(Parser.parseNum(input));
+            } else if (input.startsWith("todo")) {
+                return taskList.addItem(new Task(Parser.parseTodo(input)), true);
+            } else if (input.startsWith("deadline")) {
+                String task = Parser.parseDeadlineTask(input);
+                LocalDateTime deadline = Parser.parseDeadline(input);
+                return taskList.addItem(new Deadline(task, deadline), true);
+            } else if (input.startsWith("event")) {
+                String[] parts = Parser.parseEvent(input);
+                return taskList.addItem(new Event(parts[0], parts[1], parts[2]), true);
+            } else if (input.equalsIgnoreCase("list")) {
+                return taskList.printList();
+            } else if (input.startsWith("find")) {
+                return store.findFromFile(Parser.parseFind(input));
+            } else if (input.equalsIgnoreCase("bye")){
+                return ui.bye();
+            } else {
+                throw new DukeException();
             }
-
-            userInput = scanner.nextLine();
+        } catch (DukeException | IOException e) {
+            return e.getMessage();
         }
-        ui.bye();
     }
+
     public static void main(String[] args) {
         String filePath = "./data/Duke.txt";
         File f = new File(filePath);
@@ -94,6 +89,5 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
-        new Duke(filePath).run();
     }
 }
