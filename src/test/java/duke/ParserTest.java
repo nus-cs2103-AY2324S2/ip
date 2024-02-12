@@ -23,7 +23,7 @@ public class ParserTest {
         TaskList tasks = new TaskList(new ArrayList<>());
         tasks.addTask(new Todo("todo task"));
         tasks.addTask(new Deadline("deadline task", LocalDate.parse("2024-11-21")));
-        Parser parser = new Parser(tasks,null);
+        Parser parser = new Parser(tasks, null);
         String textOne = "list";
         String textTwo = "current";
         String textThree = "mark 1";
