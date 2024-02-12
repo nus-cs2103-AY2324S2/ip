@@ -86,7 +86,7 @@ public class DialogBox extends HBox {
         pulse.setToY(1.05);
         pulse.setCycleCount(ScaleTransition.INDEFINITE);
         pulse.setAutoReverse(true);
-        pulse.play();
+        pulse.play();   
     }
 
     private void flip() {
