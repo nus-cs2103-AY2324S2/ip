@@ -1,22 +1,22 @@
 package alpaca.actions;
 
+import alpaca.exceptions.InvalidInput;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import alpaca.tasks.Task;
-import alpaca.exceptions.ValueNotFound;
-import alpaca.exceptions.InvalidInput;
-
 /**
- * Handles the processing of the Delete command
+ * Handles the processing of the Delete command.
  **/
 public abstract class Find extends Template {
     protected static String trigger = "find";
 
     /**
-     * Processes delete command
-     * 
+     * Processes delete command.
+     *
      * @param input The command inputted
      * @param list  The list to delete tasks from
      * @throws ArrayIndexOutOfBoundsException If an item with that index does not

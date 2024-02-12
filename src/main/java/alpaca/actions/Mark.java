@@ -1,13 +1,13 @@
 package alpaca.actions;
 
+import alpaca.exceptions.InvalidInput;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.tasks.Task;
+
 import java.util.ArrayList;
 
-import alpaca.tasks.Task;
-import alpaca.exceptions.ValueNotFound;
-import alpaca.exceptions.InvalidInput;
-
 /**
- * Handles the processing of the Mark command
+ * Handles the processing of the Mark command.
  **/
 public abstract class Mark extends Template {
     protected static String trigger = "mark";
@@ -18,8 +18,8 @@ public abstract class Mark extends Template {
     }
 
     /**
-     * Marks a task on the list
-     * 
+     * Marks a task on the list.
+     *
      * @param input The command inputted
      * @param list  The list of tasks to mark
      * @throws ArrayIndexOutOfBoundsException If an item with that index does not

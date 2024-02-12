@@ -1,14 +1,14 @@
 package alpaca;
 
 /**
- *  The master class where everything begins
+ * The master class where everything begins.
  **/
 public class Alpaca {
     private Ui ui;
 
-    /** 
-     * Creates an instance of Alpaca, containing an instance of Ui
-    **/
+    /**
+     * Creates an instance of Alpaca, containing an instance of Ui.
+     **/
     public Alpaca() {
         ui = new Ui();
     }
@@ -18,7 +18,7 @@ public class Alpaca {
     }
 
     /**
-     * Creates and runs an instance of alpaca
+     * Creates and runs an instance of alpaca.
      **/
     public static void main(String[] args) {
         new Alpaca().run();

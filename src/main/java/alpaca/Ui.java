@@ -1,8 +1,4 @@
 package alpaca;
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import alpaca.tasks.Task;
 
 import alpaca.actions.Deadline;
 import alpaca.actions.Delete;
@@ -11,15 +7,18 @@ import alpaca.actions.Find;
 import alpaca.actions.Mark;
 import alpaca.actions.ToDo;
 import alpaca.actions.Unmark;
-
 import alpaca.exceptions.InvalidInput;
 import alpaca.exceptions.ValueNotFound;
+import alpaca.tasks.Task;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
- * Handles the Ui elements
+ * Handles the Ui elements.
  **/
 public class Ui {
-    final static String NAME = "Alpaca";
+    static final String NAME = "Alpaca";
     Scanner scanner;
     ArrayList<Task> list = new ArrayList<Task>();
 
@@ -41,7 +40,7 @@ public class Ui {
     private void list() {
         if (list.size() == 0) {
             System.out.println("Sorry, you haven't created any tasks yet :(");
-            return; 
+            return;
         }
         System.out.println(" Here are the tasks in your list:");
         int counter = 1;
@@ -60,7 +59,7 @@ public class Ui {
         } else if (input.toLowerCase().equals("list")) {
             list();
         } else {
-            trying : try {
+            trying: try {
                 if (Deadline.run(input, list)) {
                     break trying;
                 }
@@ -90,9 +89,9 @@ public class Ui {
         divide();
         processInput();
     }
-    
+
     /**
-     * Handles the start and end of a run with all the necessary resource handling
+     * Handles the start and end of a run with all the necessary resource handling.
      **/
     public void run() {
         greet();

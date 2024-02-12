@@ -1,13 +1,13 @@
 package alpaca.actions;
 
+import alpaca.exceptions.InvalidInput;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.tasks.Task;
+
 import java.util.ArrayList;
 
-import alpaca.tasks.Task;
-import alpaca.exceptions.ValueNotFound;
-import alpaca.exceptions.InvalidInput;
-
 /**
- * Handles the creation of {@link alpaca.tasks.ToDo}
+ * Handles the creation of {@link alpaca.tasks.ToDo}.
  **/
 public abstract class ToDo extends Template {
     protected static String trigger = "todo";
@@ -17,8 +17,8 @@ public abstract class ToDo extends Template {
     }
 
     /**
-     * Creates a ToDo task and adds it to the list
-     * 
+     * Creates a ToDo task and adds it to the list.
+     *
      * @param input The command inputted
      * @param list  The list to put the newly created task in
      * @throws ArrayIndexOutOfBoundsException If an item with that index does not
@@ -30,10 +30,12 @@ public abstract class ToDo extends Template {
      **/
     public static boolean run(String input, ArrayList<Task> list)
             throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
-        if (isTrigger(input, trigger))
+        if (isTrigger(input, trigger)) {
             throw new ValueNotFound("You need to provide a value for todo");
-        if (!isTriggerPrefix(input, trigger))
+        }
+        if (!isTriggerPrefix(input, trigger)) {
             return false;
+        }
         Task task = new alpaca.tasks.ToDo(removePrefix(input, trigger));
         list.add(task);
         System.out.println("Got it. I've added this task:");

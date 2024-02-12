@@ -1,12 +1,12 @@
 package alpaca.actions;
 
+import alpaca.exceptions.InvalidInput;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import alpaca.tasks.Task;
-import alpaca.exceptions.ValueNotFound;
-import alpaca.exceptions.InvalidInput;
 
 public abstract class Template {
     protected static boolean isTrigger(String input, String trigger) {
@@ -22,8 +22,9 @@ public abstract class Template {
     protected static int getNumber(String input, String trigger) throws InvalidInput {
         String number = input.toLowerCase().replaceFirst("^" + trigger, "");
         number = number.replaceAll(" ", "");
-        if (number.equals(""))
+        if (number.equals("")) {
             throw new InvalidInput("Please provide an item index for me to work on :)");
+        }
         return Integer.parseInt(number);
     }
 
@@ -31,10 +32,13 @@ public abstract class Template {
         return input.replaceFirst("^(?i)" + prefix + " ", "");
     }
 
-    protected static boolean isValidIndex(int index, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException {
-        if (index > 0 && index <= list.size())
+    protected static boolean isValidIndex(int index, ArrayList<Task> list)
+            throws ArrayIndexOutOfBoundsException {
+        if (index > 0 && index <= list.size()) {
             return true;
-        throw new ArrayIndexOutOfBoundsException("That task is not available. Please try that on a valid index.");
+        }
+        throw new ArrayIndexOutOfBoundsException(
+                "That task is not available. Please try that on a valid index.");
     }
 
     protected static void numOfTasks(ArrayList<Task> list) {
@@ -42,7 +46,8 @@ public abstract class Template {
             System.out.println("Now you have no tasks in the list.");
             return;
         }
-        System.out.println("Now you have " + list.size() + " task" + (list.size() == 1 ? "" : "s") + " in the list.");
+        System.out.println("Now you have " + list.size() + " task" 
+                + (list.size() == 1 ? "" : "s") + " in the list.");
     }
 
     public static boolean run(String input, ArrayList<Task> list)
