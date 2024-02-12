@@ -32,6 +32,15 @@ public class TaskList {
     }
 
     /**
+     * Returns size of task list.
+     *
+     * @return Intger value of size of task list.
+     */
+    public int size() {
+        return this.tasks.size();
+    }
+
+    /**
      * Returns last done task.
      *
      * @return last done task in String format.
@@ -48,12 +57,23 @@ public class TaskList {
         lastDoneTask = listStr;
     }
 
-    private boolean mark(String[] parts, boolean isInit) throws LamballParseException {
-        // Checks if index is within range of list
-        int idx = Integer.valueOf(parts[1]) - 1;
-        if (idx >= tasks.size() || idx < 0) {
-            throw new LamballParseException("Taaask index out of range, baa.");
-        }
+    /**
+     * Default list printing operation.
+     *
+     * @return Boolean to continue keeping the bot running.
+     */
+    public boolean printList() {
+        printList(this.tasks);
+        return true;
+    }
+
+    /**
+     * Marks a given task from the list.
+     *
+     * @param idx Index number of task in list.
+     * @return Boolean to continue keeping the bot running.
+     */
+    public boolean mark(int idx, boolean isInit) {
         Task temp = tasks.get(idx);
         temp.mark();
         lastDoneTask = "I have maaarked the task as done:\n" + "    " + temp.toString();
@@ -63,12 +83,13 @@ public class TaskList {
         return true;
     }
 
-    private boolean unMark(String[] parts) throws LamballParseException {
-        // Checks if index is within range of list
-        int idx = Integer.valueOf(parts[1]) - 1;
-        if (idx >= tasks.size() || idx < 0) {
-            throw new LamballParseException("Taaask index out of range, baa.");
-        }
+    /**
+     * Unmarks a given task from the list.
+     *
+     * @param idx Index number of task in list.
+     * @return Boolean to continue keeping the bot running.
+     */
+    public boolean unMark(int idx) {
         Task temp = tasks.get(idx);
         temp.unMark();
         lastDoneTask = "I have maaarked the task as undone:\n" + "    " + temp.toString();
@@ -76,8 +97,15 @@ public class TaskList {
         return true;
     }
 
-    private boolean toDo(String[] parts, boolean isInit) throws LamballParseException {
-        Task temp = new ToDo(parts[1]);
+    /**
+     * Creates a deadline and adds it to the list of tasks.
+     *
+     * @param arg Arguments to create with.
+     * @param isInit Whether this is run during initialization
+     * @return Boolean to continue keeping the bot running.
+     */
+    public boolean toDo(String arg, boolean isInit) {
+        Task temp = new ToDo(arg);
         tasks.add(temp);
         lastDoneTask = "Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
                 + " tasks in the list.";
@@ -87,12 +115,14 @@ public class TaskList {
         return true;
     }
 
-    private boolean deadline(String[] parts, boolean isInit) throws LamballParseException {
-        String[] furtherSplit = parts[1].split(" /", 2);
-        if (furtherSplit.length < 2 || !furtherSplit[1].substring(0, 3).equals("by ")) {
-            throw new LamballParseException("Deadline is in the wrong formaaaaaaat, baa. :(\n    Correct fo"
-                    + "rmaaat is: deadline <name> /by <time>, baa.");
-        }
+    /**
+     * Creates a deadline and adds it to the list of tasks.
+     *
+     * @param furtherSplit Arguments to create with.
+     * @param isInit Whether this is run during initialization
+     * @return Boolean to continue keeping the bot running.
+     */
+    public boolean deadline(String[] furtherSplit, boolean isInit) {
         try {
             Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
             tasks.add(temp);
@@ -101,20 +131,22 @@ public class TaskList {
             if (!isInit) {
                 Storage.writeToFile("0 | " + temp.command());
             }
-            return true;
         } catch (DateTimeParseException e) {
-            throw new LamballParseException("Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: "
-                    + "yyyy-mm-dd (e.g 2001-01-20)");
+            this.lastDoneTask = "Date is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat is: "
+                    + "yyyy-mm-dd (e.g 2001-01-20)";
+            return true;
         }
+        return true;
     }
 
-    private boolean event(String[] parts, boolean isInit) throws LamballParseException {
-        String[] furtherSplit = parts[1].split(" /", 3);
-        if (furtherSplit.length < 3 || !furtherSplit[1].substring(0, 5).equals("from ")
-                || !furtherSplit[2].substring(0, 3).equals("to ")) {
-            throw new LamballParseException("Event is in the wrong formaaaaaaat, baa. :(\n    Correct "
-                    + "formaaat is: event <name> /from <time> /to <time>, baa.");
-        }
+    /**
+     * Creates an event and adds it to the list of tasks.
+     *
+     * @param furtherSplit Arguments to create with.
+     * @param isInit Whether this is run during initialization
+     * @return Boolean to continue keeping the bot running.
+     */
+    public boolean event(String[] furtherSplit, boolean isInit) {
         try {
             Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
                     furtherSplit[2].replaceFirst("to ", ""));
@@ -124,19 +156,21 @@ public class TaskList {
             if (!isInit) {
                 Storage.writeToFile("0 | " + temp.command());
             }
-            return true;
         } catch (DateTimeParseException e) {
-            throw new LamballParseException("Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo"
-                    + "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)");
+            this.lastDoneTask = "Dates are in the wrong formaaaaaaat, baa. :(\n    Correct fo"
+                    + "rmaaat is: yyyy-mm-dd (e.g 2001-01-20)";
+            return true;
         }
+        return true;
     }
 
-    private boolean deleteFromList(String[] parts) throws LamballParseException {
-        // Checks if index is within range of list
-        int idx = Integer.valueOf(parts[1]) - 1;
-        if (idx >= tasks.size() || idx < 0) {
-            throw new LamballParseException("Taaask index out of range, baa.");
-        }
+    /**
+     * Deletes a given task from the list.
+     *
+     * @param idx index to delete from.
+     * @return Boolean that keeps the bot running.
+     */
+    public boolean deleteFromList(int idx) {
         Task temp = tasks.remove(idx);
         Storage.deleteLine(idx);
         lastDoneTask = "I have removed this taaask:\n" + "        " + temp.toString() + "\n    Now you have "
@@ -144,10 +178,16 @@ public class TaskList {
         return true;
     }
 
-    private boolean find(String[] parts) throws LamballParseException {
+    /**
+     * Finds related tasks based on the prompt provided.
+     *
+     * @param toFind String prompt to search with
+     * @return Boolean that keeps the bot running.
+     */
+    public boolean find(String toFind) {
         ArrayList<Task> positives = new ArrayList<>();
         for (Task temp : tasks) {
-            if (temp.containing(parts[1])) {
+            if (temp.containing(toFind)) {
                 positives.add(temp);
             }
         }
@@ -155,53 +195,4 @@ public class TaskList {
         return true;
     }
 
-    /**
-     * Runs the command when provided with the parsed format.
-     *
-     * @param command 2 Element string array in the format command type, arguments
-     * @param isInit Whether this marking was during the initialization process.
-     * @return Boolean indicating whether to keep the chatbot active after the command.
-     * @throws LamballParseException if invalid arguments provided.
-     */
-    public boolean runComd(String[] command, boolean isInit) throws LamballParseException {
-        switch(command[0]) {
-        case "mark": {
-            mark(command, isInit);
-            return true;
-        }
-        case "unmark": {
-            unMark(command);
-            return true;
-        }
-        case "bye": {
-            return false;
-        }
-        case "list": {
-            printList(this.tasks);
-            return true;
-        }
-        case "todo": {
-            toDo(command, isInit);
-            return true;
-        }
-        case "deadline": {
-            deadline(command, isInit);
-            return true;
-        }
-        case "event": {
-            event(command, isInit);
-            return true;
-        }
-        case "delete": {
-            deleteFromList(command);
-            return true;
-        }
-        case "find": {
-            find(command);
-            return true;
-        }
-        default:
-            return false;
-        }
-    }
 }
