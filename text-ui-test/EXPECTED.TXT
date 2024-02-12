@@ -1,7 +1,72 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+I'm
+  _____             __
+ |_   _|           [  |  _
+   | |     __   _   | | / ] .---.
+   | |   _[  | | |  | '' < / /__\\
+  _| |__/ || \_/ |, | |`\ \| \__.,
+ |________|'.__.'_/[__|  \_]'.__.'
+
+Don't expect to get too chummy with me, you got that?
+
+You have eyes for a reason, don't you?
+[Missing todo description]
+
+Hey! You forgot something! Be glad I'm here to remind you.
+[Missing deadline parameter(s)]
+
+/// I don't know when you are free... ///
+[Missing event parameter(s)]
+
+Looks like you have way too much free time on your hands, huh.
+[No items in list]
+
+/// What on earth are you saying! ///
+[luke.Command not found]
+
+I helped you add task '[T][ ] borrow book'. But do it yourself next time! Hmmph!
+
+I helped you add task '[D][ ] return book (by: 2001-08-27)'. But do it yourself next time! Hmmph!
+
+I helped you add task '[E][ ] project meeting (from: 2001-08-27 to: 2001-08-28)'. But do it yourself next time! Hmmph!
+
+Hey! What are you even talking about?!
+[Input date in format dd-mm-yyyy]
+
+1.[T][ ] borrow book
+2.[D][ ] return book (by: 2001-08-27)
+3.[E][ ] project meeting (from: 2001-08-27 to: 2001-08-28)
+
+Good work, I guess.
+1.[T][X] borrow book
+
+Good work, I guess.
+2.[D][X] return book (by: 2001-08-27)
+
+Good work, I guess.
+3.[E][X] project meeting (from: 2001-08-27 to: 2001-08-28)
+
+1.[T][X] borrow book
+2.[D][X] return book (by: 2001-08-27)
+3.[E][X] project meeting (from: 2001-08-27 to: 2001-08-28)
+
+Jeez, you really ought to give me a number I can work with... got that?
+[Item index exceeds history count]
+
+Fine! If that's what you really want...
+[Removed [E][X] project meeting (from: 2001-08-27 to: 2001-08-28)]
+
+Fine! If that's what you really want...
+[Removed [D][X] return book (by: 2001-08-27)]
+
+Fine! If that's what you really want...
+[Removed [T][X] borrow book]
+
+Looks like you have way too much free time on your hands, huh.
+[No items in list]
+
+There's nothing there, dummy...
+[Tried to remove non-existent event]
+
+Don't be ridiculous!
+It's... it's not like I want to see you again or anything!
 
