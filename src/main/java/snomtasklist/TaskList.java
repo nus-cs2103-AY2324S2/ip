@@ -48,34 +48,45 @@ public class TaskList {
      * @param pos is the index of the task.
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the tasklist.
+     * @return a String representing whether the task is successfully added.
      */
-    public void markTask(int pos) throws InvalidCommandIndexException {
+    public String markTask(int pos) throws InvalidCommandIndexException {
+
 
         if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
+
             this.taskList.get(pos).doTask();
+            return "Succesfully marked task";
+
         }
 
     }
 
+
     /**
-     * Unarks the task at the specified index within the tasklist as undone.
+     * Unmarks the task at the specified index within the tasklist as undone.
      * If the index is invalid, an exception is thrown.
      * @param pos is the index of the task.
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the tasklist.
+     * @return a string representing if the task is successfully unmarked.
      */
-    public void unmarkTask(int pos) throws InvalidCommandIndexException {
+
+    public String unmarkTask(int pos) throws InvalidCommandIndexException {
+
 
         if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
         } else {
             pos -= 1;
             this.taskList.get(pos).undoTask();
+            return "Succesfully unmarked task";
         }
     }
+
 
 
 
@@ -85,8 +96,10 @@ public class TaskList {
      * @param pos is the index of the task.
      * @throws InvalidCommandIndexException if the index is out
      *         of range of the tasklist.
+     * @return a string representing if the task is successfully deleted.
      */
-    public void deleteTask(int pos) throws InvalidCommandIndexException {
+    public String deleteTask(int pos) throws InvalidCommandIndexException {
+
 
         if (counter < pos || pos <= 0) {
             throw new InvalidCommandIndexException();
@@ -94,16 +107,23 @@ public class TaskList {
             pos -= 1;
             this.counter -= 1;
             this.taskList.remove(pos);
+            return "Succesfully removed task";
+
         }
 
     }
 
+
     /**
      * Adds a new task to the tasklist.
+     * @return a string representing if the task is
+     *           successfully added to the tasklist.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         this.counter += 1;
         this.taskList.add(t);
+        return "Succesfully added task";
+
     }
 
     /**
@@ -115,14 +135,21 @@ public class TaskList {
         return this.counter;
     }
 
+
     /**
      * Prints out all the tasks in the tasklist.
+     * @return a string representing if the task is
+     *         successfully added to the tasklist.
      */
-    public void displayTaskList() {
-        for (int i = 0; i < counter; i++) {
-            System.out.println(this.taskList.get(i));
+    public String displayTaskList() {
+        StringBuilder lst = new StringBuilder();
+        for (int i = 0; i<counter; i++) {
+            lst.append(this.taskList.get(i) + "\n");
+
         }
+        return lst.toString();
     }
+
 
     /**
      * Prints out the tasks matching the description within
@@ -130,20 +157,22 @@ public class TaskList {
      * @param cmd is the command containing the word that
      *            the user wishes to search for in the tasklist.
      */
-    public void printMatchingTasks(String cmd) {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (int i = 0; i < counter; i++) {
+    public String printMatchingTasks(String cmd) {
+        ArrayList<Task> found_tasks = new ArrayList<>();
+        for (int i = 0; i<counter; i++) {
             if (this.taskList.get(i).match(cmd)) {
-                foundTasks.add(taskList.get(i));
+                found_tasks.add(taskList.get(i));
             }
         }
-        if (foundTasks.size() > 0) {
+        StringBuilder lst = new StringBuilder();
+        if (found_tasks.size() > 0) {
             System.out.println("Here are the tasks that match your description");
-            for (int j = 0; j < foundTasks.size(); j++) {
-                System.out.println(foundTasks.get(j));
+            for (int j = 0; j < found_tasks.size(); j++) {
+                lst.append(this.taskList.get(j) + "\n");
             }
+            return lst.toString();
         } else {
-            System.out.println("Sorry, we did not find any tasks that matched your description");
+            return "Sorry, we did not find any tasks that matched your description";
         }
     }
 }
