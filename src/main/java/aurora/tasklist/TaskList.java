@@ -77,7 +77,7 @@ public class TaskList {
      * @param description DoAfter description
      * @param taskNumber Integer representing the task after which this task should be performed
      */
-    public void addDoAfter(String description,int taskNumber) {
+    public void addDoAfter(String description,int taskNumber) throws AuroraException {
         Task previousTask = this.taskList.get(taskNumber);
         DoAfter newTask = new DoAfter(description, taskNumber);
         newTask.setTask(previousTask);
@@ -112,8 +112,21 @@ public class TaskList {
      * @param taskIndex Index of the task in the ArrayList.
      * @return A string confirming the task has been deleted.
      */
-    public String deleteTaskGui(int taskIndex) {
+    public String deleteTaskGui(int taskIndex) throws AuroraException {
         String taskString = this.taskList.get(taskIndex).toString();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            if (task instanceof DoAfter) {
+                DoAfter currDoAfter = (DoAfter) task;
+                if (currDoAfter.typeOfDoAfter() == 2 && currDoAfter.getTaskNumber() != -2) {
+                    if (currDoAfter.getTask().equals(this.taskList.get(taskIndex))) {
+                        currDoAfter.setTaskNumberAfterDelete("delete");
+                    } else if (taskIndex < currDoAfter.getTaskNumber()) {
+                        currDoAfter.setTaskNumberAfterDelete("affected");
+                    }
+                }
+            }
+        }
         this.taskList.remove(taskIndex);
         return DELETE_TASK + taskString +
                 NUMBER_OF_TASKS + this.taskList.size();

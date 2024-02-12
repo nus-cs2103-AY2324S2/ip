@@ -61,12 +61,26 @@ public class Storage {
             }
         }
 
-        for (Task task : taskList) {
+        return setTasksForDoAfters(taskList);
+    }
+
+    /**
+     * Helper function for populating to DoAfters with events
+     *
+     * @param taskList unpopulated tasklist
+     * @return populated taskList
+     */
+    public ArrayList<Task> setTasksForDoAfters(ArrayList<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
             if (task instanceof DoAfter) {
                 int prevTaskNumber = ((DoAfter) task).getTaskNumber();
-                if (prevTaskNumber != -1) {
+                if (prevTaskNumber != -1 && prevTaskNumber != -2) {
                     Task prevTask = taskList.get(prevTaskNumber);
                     ((DoAfter) task).setTask(prevTask);
+                } else {
+                    ((DoAfter) task).setTask(null);
+                    ((DoAfter) task).setAssociatedTask(true);
                 }
             }
         }
@@ -198,7 +212,8 @@ public class Storage {
      * @param isDone status of the doAfter
      * @return an doAfter object
      */
-    private DoAfter fileLineToDoAfter(String[] components, String description, boolean isDone) throws AuroraException {
+    private DoAfter fileLineToDoAfter(String[] components, String description, boolean isDone)
+            throws AuroraException {
         if (components.length < 5) {
             throw new AuroraException("Invalid format for a doAfter.");
         }

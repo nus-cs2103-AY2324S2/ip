@@ -20,12 +20,14 @@ public class DoAfter extends Task {
     private Task task;
 
     /**
-     * The index of the task that is associated with this doAfter. Default set to -1.
+     * The index of the task that is associated with this doAfter. Default set to -1. Deleted tasks from tasklist set
+     * to -2.
      */
     private int taskNumber = -1;
 
     private static final String TASK_TYPE_FOR_FILE = "DA";
     private static final String TASK_TYPE = "[DA]";
+    private boolean hasNoAssociatedTask;
 
     /**
      * Constructor for a DoAfter task, whereby the task needs to be done after
@@ -49,6 +51,7 @@ public class DoAfter extends Task {
     public DoAfter(String description, int taskNumber) {
         super(description);
         this.taskNumber = taskNumber;
+        this.hasNoAssociatedTask = false;
     }
 
     /**
@@ -101,6 +104,35 @@ public class DoAfter extends Task {
         return this.task;
     }
 
+    /**
+     * Set the task number to -2 when the associated task is deleted. Set the task number to 1 less if
+     * it is affected by the deletion.
+     *
+     * @param option delete for deletion of associated task, affected for affected tasks by deletion
+     */
+    public void setTaskNumberAfterDelete(String option) throws AuroraException {
+        switch (option) {
+        case "delete":
+            this.taskNumber = -2;
+            hasNoAssociatedTask = true;
+            break;
+        case "affected":
+            this.taskNumber = this.taskNumber - 1;
+            break;
+        default:
+            throw new AuroraException("Invalid option for setting taskNumber after deletion.");
+        }
+    }
+
+    /**
+     * Setter to determine if a DoAfter task has an associated task.
+     *
+     * @param hasNoAssociatedTask True if the DoAfter has an associated task, false otherwise.
+     */
+    public void setAssociatedTask(boolean hasNoAssociatedTask) {
+        this.hasNoAssociatedTask = hasNoAssociatedTask;
+    }
+
     @Override
     public String toFileString() {
         String isDone = this.getStatus() ? "1" : "0";
@@ -109,7 +141,11 @@ public class DoAfter extends Task {
         if (this.typeOfDoAfter() == 1) {
             afterString = dateToString();
         } else {
-            afterString = Integer.toString(this.taskNumber);
+            if (hasNoAssociatedTask) {
+                afterString = Integer.toString(this.taskNumber);
+            } else {
+                afterString = Integer.toString(this.taskNumber) + " | " + this.task.toFileString();
+            }
         }
         return TASK_TYPE_FOR_FILE + " | " + isDone + " | " + description +
                 " | " + this.typeOfDoAfter() + " | " + afterString;
@@ -121,7 +157,11 @@ public class DoAfter extends Task {
         if (this.typeOfDoAfter() == 1) {
             afterString = dateToString();
         } else {
-            afterString = this.task.toString();
+            if (hasNoAssociatedTask || this.task == null) {
+                afterString = "Task associated with this DoAfter has been deleted from the list!";
+            } else {
+                afterString = this.task.toString();
+            }
         }
         return TASK_TYPE + super.toString() + " (after: " + afterString + ")";
     }
