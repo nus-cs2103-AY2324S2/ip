@@ -139,65 +139,165 @@ public class Dackel {
      * Parses the arguments of the user input and separates them into elements of a String array
      * 
      * @param input user input as a single String
-     * @return a String to String map parsedInput[]. 
-     *     parsedInput["command"] is the command, 
-     *     parsedInput["body"] is the unflagged part of the user input,
-     *     subsequent flagged elements are stored as parsedInput[flag name].
+     * @return void, but sets commandArgs based on the input. 
+     *     commandArgs["command"] is the command, 
+     *     commandArgs["body"] is the unflagged part of the user input,
+     *     subsequent flagged elements are stored as commandArgs[flag name].
      */
-    private static HashMap<String, String> parseInput(String input) {
-        HashMap<String, String> parsedInput = new HashMap<>();
+    private static void parseInput(String input) {
+        commandArgs.clear();
         String[] splittedInput = input.split(" ");
-        parsedInput.put(COMMAND, splittedInput[0]);
+        commandArgs.put(COMMAND, splittedInput[0]);
         String currentFlag = BODY;
         for (int i = 1; i < splittedInput.length; i++) {
             String currentString = splittedInput[i];
             if (currentString.charAt(0) == '/') {
                 currentFlag = currentString.substring(1);
+                commandArgs.put(currentFlag, null);
                 continue;
             }
-            if (parsedInput.containsKey(currentFlag)) {
-                parsedInput.put(currentFlag, parsedInput.get(currentFlag) + " " + currentString);
+            if (commandArgs.get(currentFlag) == null) {
+                commandArgs.put(currentFlag, commandArgs.get(currentFlag) + " " + currentString);
             }
             else {
-                parsedInput.put(currentFlag, currentString);
+                commandArgs.put(currentFlag, currentString);
             }
         }
-        return parsedInput;
     }
 
     /**
-     * Executes a command based on the input String
+     * Executes a command based on the input String. Also does most error handling
      * 
      * @param input user input String
      * @return boolean representing if Dackel is to terminate after executeInput returns
      */
-    private static boolean executeInput(String input) {
-        commandArgs = parseInput(input);
-        switch (commandArgs.get(COMMAND)) {
+    // TODO: make error handling more specific: say which flags are there when they shouldn't, e.g.
+    private static boolean executeInput(String input) throws DackelException {
+        parseInput(input);
+        String command = commandArgs.get(COMMAND);
+        String body = commandArgs.get(BODY);
+        switch (command) {
         case QUIT:
+            if (commandArgs.size() > 1) {
+                throw new DackelException("too many arguments!");
+            }
             return false;
         case LIST:
+            if (commandArgs.size() > 1) {
+                throw new DackelException("too many arguments!");
+            }
             listTasks();
             break;
         case MARK:
-            int index = Integer.valueOf(commandArgs.get(BODY)) - 1;
-            markTask(index);
+            if (body == null) {
+                throw new DackelException("list index cannot be left blank!");
+            }
+            if (body.length() == 0) {
+                throw new DackelException("list index cannot be left blank!");
+            }
+            if (commandArgs.size() > 2) {
+                throw new DackelException("too many arguments!");
+            }
+            try {
+                int index = Integer.valueOf(body) - 1;
+                if (index >= numberOfTasks) {
+                    throw new DackelException("there is no task with that index in the list.");
+                }
+                if (index < 0) {
+                    throw new DackelException("list indices must be greater than 0!");
+                }
+                markTask(index);
+            }
+            catch (NumberFormatException e) {
+                throw new DackelException("\"" + body + "\" isn't a number!");
+            }
             break;
         case UNMARK:
-            int index = Integer.valueOf(commandArgs.get(BODY)) - 1;
-            unmarkTask(index);
+            if (body == null) {
+                throw new DackelException("list index cannot be left blank!");
+            }
+            if (body.length() == 0) {
+                throw new DackelException("list index cannot be left blank!");
+            }
+            if (commandArgs.size() > 2) {
+                throw new DackelException("too many arguments!");
+            }
+            try {
+                int index = Integer.valueOf(body) - 1;
+                if (index >= numberOfTasks) {
+                    throw new DackelException("there is no task with that index in the list.");
+                }
+                if (index < 0) {
+                    throw new DackelException("list indices must be greater than 0!");
+                }
+                unmarkTask(index);
+            }
+            catch (NumberFormatException e) {
+                throw new DackelException("\"" + body + "\" isn't a number!");
+            }
             break;
         case TODO:
-            addTodo(commandArgs.get(BODY));
+            if (body == null) {
+                throw new DackelException("task description can't be left empty!");
+            }
+            if (body.length() == 0) {
+                throw new DackelException("task description can't be left empty!");
+            }
+            if (commandArgs.size() > 2) {
+                throw new DackelException("too many arguments!");
+            }
+            addTodo(body);
             break;
         case DEADLINE:
-            addDeadline(commandArgs.get(BODY), commandArgs.get(BY));
+            String by = commandArgs.get(BY);
+            if (body == null) {
+                throw new DackelException("task description can't be left empty!");
+            }
+            if (body.length() == 0) {
+                throw new DackelException("task description can't be left empty!");
+            }
+            if (by == null) {
+                throw new DackelException("due date/time must be specified! use the /" + BY + " flag.");
+            }
+            if (by.length() == 0) {
+                throw new DackelException("task due date/time can't be left empty!");
+            }
+            if (commandArgs.size() > 3) {
+                throw new DackelException("too many arguments!");
+            }
+            addDeadline(body, by);
             break;
         case EVENT:
+            String from = commandArgs.get(FROM);
+            String until = commandArgs.get(UNTIL);
+            if (body == null) {
+                throw new DackelException("task description can't be left empty!");
+            }
+            if (body.length() == 0) {
+                throw new DackelException("task description can't be left empty!");
+            }
+            if (from == null) {
+                throw new DackelException("starting date/time must be specified! use the /" + FROM + " flag.");
+            }
+            if (from.length() == 0) {
+                throw new DackelException("task starting date/time can't be left empty!");
+            }
+            if (until == null) {
+                throw new DackelException("ending date/time must be specified! use the /" + UNTIL + " flag.");
+            }
+            if (until.length() == 0) {
+                throw new DackelException("task ending date/time can't be left empty!");
+            }
+            if (commandArgs.size() > 4) {
+                throw new DackelException("too many arguments!");
+            }
             addEvent(commandArgs.get(BODY), commandArgs.get(FROM), commandArgs.get(UNTIL));
             break;
         default:
-            break;
+            if (command.length() == 0) {
+                throw new DackelException("command can't be empty! type something!");
+            }
+            throw new DackelException("\"" + commandArgs.get(COMMAND) + "\" is not a recognized command.");
         }
         return true;
     }
@@ -218,8 +318,13 @@ public class Dackel {
         // TODO: make dackel read its lines from a file
         boolean isNotQuit = true;
         while (isNotQuit) {
-            String input = receiveInput();
-            isNotQuit = executeInput(input);
+            try {
+                String input = receiveInput();
+                isNotQuit = executeInput(input);
+            }
+            catch (DackelException e) {
+                speak(e.getMessage());
+            }
         }
 
         // goodbye message
