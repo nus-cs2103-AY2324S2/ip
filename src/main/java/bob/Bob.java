@@ -17,8 +17,7 @@ public class Bob {
         }
     }
 
-    public void run() {
-        ui.showGreet();
+    private void runCommandLoopUntilExitCommand() {
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -33,6 +32,11 @@ public class Bob {
                 ui.showLine();
             }
         }
+    }
+
+    private void run() {
+        ui.showWelcome();
+        runCommandLoopUntilExitCommand();
     }
 
     public static void main(String[] args) {

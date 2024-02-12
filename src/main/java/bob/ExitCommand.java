@@ -3,7 +3,7 @@ package bob;
 public class ExitCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList taskList) {
-        ui.showBye();
+        ui.showExit();
     }
 
     @Override

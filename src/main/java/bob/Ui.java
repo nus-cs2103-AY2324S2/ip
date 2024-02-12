@@ -63,7 +63,7 @@ public class Ui {
         show(new String[] { LOADING_ERROR, message });
     }
 
-    public void showGreet() {
+    public void showWelcome() {
         showLine();
         show(GREET);
         showLine();
@@ -95,7 +95,7 @@ public class Ui {
         show(lines);
     }
 
-    public void showBye() {
+    public void showExit() {
         show(EXIT);
     }
 }
