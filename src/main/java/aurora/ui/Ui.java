@@ -3,6 +3,7 @@ package aurora.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import aurora.objects.DoAfter;
 import aurora.objects.Task;
 import aurora.tasklist.TaskList;
 
@@ -91,10 +92,39 @@ public class Ui {
         StringBuilder message = new StringBuilder();
         message.append(TASK_LIST_STRING);
         for(int i = 0; i < taskList.size(); i++) {
-            message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
+            Task currTask = taskList.get(i);
+            if (currTask instanceof DoAfter) {
+                DoAfter currDoAfter = (DoAfter) currTask;
+                String representativeString = chooseStringForDoAfter(taskList, currDoAfter);
+                message.append(i + 1).append(". ").append(representativeString).append("\n");
+            } else {
+                message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
+            }
         }
         return message.toString();
     }
+
+    /**
+     * Chooses which string implementation to take for a DoAfter task.
+     *
+     * @param taskList TaskList to be checked.
+     * @param doAfter DoAfter to be looked at.
+     * @return String representation of the doAfter
+     */
+    public String chooseStringForDoAfter(ArrayList<Task> taskList, DoAfter doAfter) {
+        String representativeString = "";
+        if (doAfter.typeOfDoAfter() == 2) {
+            if (!taskList.contains(doAfter.getTask())) {
+                representativeString= doAfter.toString() + " (Task associated with DoAfter no longer in the list) ";
+            } else {
+                representativeString = doAfter.toString();
+            }
+        } else {
+            representativeString = doAfter.toString();
+        }
+        return representativeString;
+    }
+
 
 
     /**
