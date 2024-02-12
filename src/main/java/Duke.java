@@ -1,56 +1,57 @@
+import commands.Command;
 import exceptions.DukeException;
 import exceptions.StorageException;
+import fileUtils.FilePaths;
+import mainUtils.Storage;
+import mainUtils.Ui;
+import tasks.TaskList;
+import mainUtils.Parser;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) throws StorageException {
-        String logo =   "       **   *******       **         **     **      ** **      ** **      **   ******     *******   **********   **      \n" +
-                        "      **   /**////**     ****       ****   /**     /**/**     /**/**     /**  /*////**   **/////** /////**///   //**     \n" +
-                        "     **    /**   /**    **//**     **//**  /**     /**/**     /**/**     /**  /*   /**  **     //**    /**       //**    \n" +
-                        "    **     /*******    **  //**   **  //** /**********/**********/**********  /******  /**      /**    /**        //**   \n" +
-                        "   **      /**///**   ********** **********/**//////**/**//////**/**//////**  /*//// **/**      /**    /**         //**  \n" +
-                        "  **       /**  //** /**//////**/**//////**/**     /**/**     /**/**     /**  /*    /**//**     **     /**          //** \n" +
-                        " **        /**   //**/**     /**/**     /**/**     /**/**     /**/**     /**  /*******  //*******      /**           //**\n" +
-                        "//         //     // //      // //      // //      // //      // //      //   ///////    ///////       //             // ";
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Ui ui;
+    private final Scanner scanner;
 
-        System.out.println(logo);
-        System.out.println("_________________________________________\n");
-        System.out.println("Hello! I'm RahhBot. RAHHHH!!\n" + "Below contains the list of available CASE-SENSITIVE commands:\n");
-        System.out.println("  |  todo <task>                           |\n"
-                + "  |  deadline <task> /by <day/date>        |\n"
-                + "  |  event <task> /from <start> /to <end>  |\n"
-                + "  |  list                                  |\n"
-                + "  |  mark <index>                          |\n"
-                + "  |  unmark <index>                        |\n"
-                + "  |  bye                                   |\n");
-        System.out.println("What can I do for you today?\n");
-        System.out.println("_________________________________________\n");
+    public Duke() {
+        ui = new Ui();
+        taskList = new TaskList();
+        storage = new Storage(FilePaths.TASKS_SAVE_FILE_PATH, taskList);
+        scanner = new Scanner(System.in);
 
-        String relativePath = "./src/main/data/tasks.txt";
-        TaskList tasksList = TaskList.getInstance(relativePath);
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        boolean runBot = true;
-        while (runBot) {
-            String[] userInput = scanner.nextLine().trim().split("\\s+");
-
-            if (userInput[0].equalsIgnoreCase("BYE")) {
-                System.out.println("Sayonara! Do visit again. RAHHHHH 0.0");
-                runBot = false;
-            }
-
+    public void run() throws StorageException {
+        ui.displayStart();
+        boolean isExit = false;
+        storage.load();
+        while (!isExit) {
             try {
-                Parser.parseUserInput(userInput);
+                ui.storeCommand(scanner.nextLine());
+                String[] splitFullCommand = ui.getCommand();
+                ui.displayLine();
+                if (splitFullCommand[0].equalsIgnoreCase("bye")) {
+                    isExit = true;
+                }
+                Command c = Parser.parseUserInput(splitFullCommand);
+                c.execute(taskList, ui, storage);
             } catch (DukeException e) {
-                System.out.println("Error: " + e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Error: Index out of bounds! Kindly do not exceed the current total number of tasks shown when running 'list' -_-");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: Please only use integers for 'mark' or 'unmark' commands and ensure theres a space before giving the index!");
+                ui.displayErrorGraphic(e.getMessage());
+            } finally {
+                ui.displayLine();
             }
-
         }
-        tasksList.saveTasks();
+        storage.save();
+    }
+
+    public static void main(String[] args) {
+        try {
+            new Duke().run();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

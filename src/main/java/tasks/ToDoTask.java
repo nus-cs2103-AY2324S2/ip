@@ -1,6 +1,8 @@
-import java.util.Arrays;
-import exceptions.InvalidCommandException;
-public class ToDoTask extends Task{
+package tasks;
+
+import tasks.Task;
+
+public class ToDoTask extends Task {
     public ToDoTask(String description) {
         super(description);
     }
