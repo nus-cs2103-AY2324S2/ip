@@ -1,5 +1,7 @@
 package jerome.commands;
 
+import jerome.tasklist.Task;
+
 /**
  * Represents the command to add an event to the data storage.
  * @@author se-edu
@@ -28,10 +30,10 @@ public class FindCommand extends Command {
     /**
      * The target index stores the search term provided by the user.
      */
-    private String searchString;
+    private String targetIndex;
 
     public FindCommand(String searchTerm) {
-        this.searchString = searchTerm;
+        this.targetIndex = searchTerm;
     }
 
     /**
@@ -39,8 +41,28 @@ public class FindCommand extends Command {
      *
      * @return a CommandResult containing the formatted list of entries that contains required keywords.
      */
-    @Override
     public CommandResult execute() {
-        return new CommandResult(dataStorage.searchResultsInList(searchString));
+
+        StringBuilder listViewBuilder = new StringBuilder();
+
+        for (int i = 0; i < dataStorage.getTaskCount(); i++) {
+            Task currentTask = dataStorage.getTask(i);
+
+            // If the tasks contain the required string.
+            if (currentTask.getDescription().contains(this.targetIndex)) {
+                String entry = String.format(MESSAGE_INDIVIDUAL_LISTING_FORMAT, i + 1, currentTask.toString());
+                listViewBuilder.append(entry);
+
+                // Append blank line if it is not last line.
+                if (i < dataStorage.getTaskCount() - 1) {
+                    listViewBuilder.append(System.lineSeparator());
+                }
+
+            }
+
+
+        }
+
+        return new CommandResult(listViewBuilder.toString());
     }
 }

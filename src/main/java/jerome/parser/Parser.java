@@ -107,14 +107,14 @@ public class Parser {
     private Command prepareUnmarkCommand(String arguments) {
         if (arguments.trim().isEmpty()) {
             return new IncorrectCommand(UnmarkCommand.MESSAGE_INVALID_ID);
+        } else {
+            try {
+                int targetIndex = Integer.valueOf(arguments.trim()) - 1;
+                return new UnmarkCommand(targetIndex);
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(UnmarkCommand.MESSAGE_INVALID_ID);
+            }
         }
-        try {
-            int targetIndex = Integer.valueOf(arguments.trim()) - 1;
-            return new UnmarkCommand(targetIndex);
-        } catch (NumberFormatException nfe) {
-            return new IncorrectCommand(UnmarkCommand.MESSAGE_INVALID_ID);
-        }
-
     }
 
     private Command prepareDeleteCommand(String arguments) {
