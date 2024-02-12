@@ -28,6 +28,15 @@ public class TaskList {
     }
 
     /**
+     * Adds a task.
+     *
+     * @param task Task to be added into the task list.
+     */
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    /**
      * Adds and prints a todo task.
      *
      * @param description Description of the todo task.
@@ -124,5 +133,14 @@ public class TaskList {
      */
     public int size() {
         return tasks.size();
+    }
+
+    /**
+     * Checks if the list of tasks contains a specific task.
+     *
+     * @return True if list of tasks contains the specific task, else False.
+     */
+    public boolean contains(Task currentTask) {
+        return tasks.contains(currentTask);
     }
 }

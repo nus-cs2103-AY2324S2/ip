@@ -86,4 +86,24 @@ public abstract class ChronosException extends Exception {
                 + "        Invalid command. Please include a task description and due date following the example below:\n"
                 + "        e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00\n" + DIVIDER);
     }
+
+    /**
+     * Constructs a KeywordNotFoundException with the specified error message.
+     *
+     * @return KeywordNotFoundException.
+     */
+    public static ChronosException createKeywordNotFoundException() {
+        return new KeywordNotFoundException (DIVIDER + "\n"
+                + "        Keyword not found in any tasks. Please specify a valid keyword.\n" + DIVIDER);
+    }
+
+    /**
+     * Constructs a MissingKeywordException with the specified error message.
+     *
+     * @return MissingKeywordException.
+     */
+    public static ChronosException createMissingKeywordException() {
+        return new MissingKeywordException (DIVIDER + "\n"
+                + "        Missing keyword. Please specify at least 1 keyword.\n" + DIVIDER);
+    }
 }

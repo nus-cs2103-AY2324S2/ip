@@ -1,10 +1,13 @@
 package tool;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 import exception.ChronosException;
+import task.Task;
+import tool.TaskList;
 
 /**
  * Represents the tool to process user commands.
@@ -57,11 +60,11 @@ public class Parser {
                         throw ChronosException.createInvalidHelpException();
                     } else {
                         ui.printHelp();
-                        return 1;
                     }
-                } catch (exception.InvalidHelpException e){
+                } catch (exception.InvalidHelpException e) {
                     System.out.println(e.getMessage());
                 }
+                return 1;
                 // Fallthrough
             case "list":
                 try {
@@ -71,11 +74,11 @@ public class Parser {
                         ui.printNoOutstandingTasks();
                     } else {
                         ui.printTasks(tasks);
-                        return 1;
                     }
-                } catch (exception.InvalidListException e){
+                } catch (exception.InvalidListException e) {
                     System.out.println(e.getMessage());
                 }
+                return 1;
                 // Fallthrough
             case "mark":
                 try {
@@ -86,7 +89,6 @@ public class Parser {
                             int i = Integer.parseInt(token[1]);
                             tasks.markTask(i, ui);
                             storage.saveTasksToFile(tasks);
-                            return 1;
                         } catch (NumberFormatException e) {
                             ui.printNumberFormatException();
                         } catch (IndexOutOfBoundsException e) {
@@ -96,6 +98,7 @@ public class Parser {
                 } catch (exception.MissingTaskNumberException e) {
                     System.out.println(e.getMessage());
                 }
+                return 1;
                 // Fallthrough
             case "unmark":
                 try {
@@ -106,7 +109,6 @@ public class Parser {
                             int i = Integer.parseInt(token[1]);
                             tasks.unMarkTask(i, ui);
                             storage.saveTasksToFile(tasks);
-                            return 1;
                         } catch (NumberFormatException e) {
                             ui.printNumberFormatException();
                         } catch (IndexOutOfBoundsException e) {
@@ -116,6 +118,7 @@ public class Parser {
                 } catch (exception.MissingTaskNumberException e) {
                     System.out.println(e.getMessage());
                 }
+                return 1;
                 // Fallthrough
             case "todo":
                 try {
@@ -125,11 +128,11 @@ public class Parser {
                         String description = token[1];
                         tasks.addToDo(description, ui);
                         storage.saveTasksToFile(tasks);
-                        return 1;
                     }
                 } catch (exception.MissingDescriptionException e) {
                     System.out.println(e.getMessage());
                 }
+                return 1;
                 // Fallthrough
             case "deadline":
                 try {
@@ -141,7 +144,6 @@ public class Parser {
                     String dueDate = Parser.formatDateTime(descriptionAndBy[1].trim());
                     tasks.addDeadline(description, dueDate, ui);
                     storage.saveTasksToFile(tasks);
-                    return 1;
                 } catch (exception.InvalidDeadlineException e) {
                     System.out.println(e.getMessage());
                 } catch (Exception e) {
@@ -151,6 +153,7 @@ public class Parser {
                     System.out.println("        e.g. deadline return library book /by 2024-09-22 15:00");
                     ui.showDivider();
                 }
+                return 1;
                 // Fallthrough
             case "event":
                 try {
@@ -164,7 +167,6 @@ public class Parser {
                     String toDateAndTime = Parser.formatDateTime(fromAndTo[1].trim());
                     tasks.addEvent(description, fromDateAndTime, toDateAndTime, ui);
                     storage.saveTasksToFile(tasks);
-                    return 1;
                 } catch (exception.InvalidEventException e) {
                     System.out.println(e.getMessage());
                 } catch (Exception e) {
@@ -174,6 +176,7 @@ public class Parser {
                     System.out.println("        e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
                     ui.showDivider();
                 }
+                return 1;
                 // Fallthrough
             case "delete":
                 try {
@@ -184,7 +187,6 @@ public class Parser {
                             int i = Integer.parseInt(token[1]);
                             tasks.deleteTask(i, ui);
                             storage.saveTasksToFile(tasks);
-                            return 1;
                         } catch (NumberFormatException e) {
                             ui.printNumberFormatException();
                         } catch (IndexOutOfBoundsException e) {
@@ -194,6 +196,37 @@ public class Parser {
                 } catch (exception.MissingTaskNumberException e) {
                     System.out.println(e.getMessage());
                 }
+                return 1;
+                // Fallthrough
+            case "find":
+                TaskList filteredTasks = new TaskList();
+
+                try {
+                    if (token.length != 2 || token[1].trim().isEmpty()) {
+                        throw ChronosException.createMissingKeywordException();
+                    } else {
+                        String[] keywords = token[1].split(" ");
+
+                        for (String keyword : keywords) {
+                            for (int i = 1; i < tasks.size() + 1; i++) {
+                                Task currentTask = tasks.getTask(i - 1);
+
+                                if (currentTask.getDescription().contains(keyword) && !filteredTasks.contains(currentTask)) {
+                                    filteredTasks.addTask(currentTask);
+                                }
+                            }
+                        }
+
+                        if (filteredTasks.isEmpty()) {
+                            throw ChronosException.createKeywordNotFoundException();
+                        } else {
+                            ui.printFilteredTasks(filteredTasks);
+                        }
+                    }
+                } catch (exception.MissingKeywordException | exception.KeywordNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
+                return 1;
                 // Fallthrough
             default:
                 try {
@@ -202,7 +235,7 @@ public class Parser {
                     System.out.println(e.getMessage());
                 }
                 return 1;
-                // Fallthrough
+            // Fallthrough
             }
         }
     }
