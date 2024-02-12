@@ -49,7 +49,6 @@ public class FindCommand extends Command {
             throw new DukeException("Please provide a keyword to search for.");
         }
 
-        // Filtering the tasks that contain the keyword in their description
         List<Task> filteredTasks = tasks.getTasks().stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
