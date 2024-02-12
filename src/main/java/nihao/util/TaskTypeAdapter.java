@@ -13,6 +13,9 @@ import nihao.handler.DateTimeHandler;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a custom TypeAdapter for serializing/deserializing JSON with Gson.
+ */
 public class TaskTypeAdapter extends TypeAdapter<Task> {
     @Override
     public void write(JsonWriter jsonWriter, Task task) throws IOException {
