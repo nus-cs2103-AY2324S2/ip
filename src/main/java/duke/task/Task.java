@@ -6,6 +6,9 @@
 
 package duke.task;
 
+/**
+ * Represents a task in the Duke application.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

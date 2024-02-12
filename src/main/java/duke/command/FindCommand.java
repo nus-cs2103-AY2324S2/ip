@@ -17,6 +17,9 @@ import duke.task.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to find tasks in the Duke application.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

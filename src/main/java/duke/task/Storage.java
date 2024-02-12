@@ -16,6 +16,9 @@ import java.time.format.DateTimeFormatter;
 
 import duke.DukeException;
 
+/**
+ * Handles reading and writing tasks to a storage file in the Duke application.
+ */
 public class Storage {
     private final String filePath;
 
@@ -25,6 +28,7 @@ public class Storage {
      * @param filePath The path to the storage file where tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "FilePath cannot be null or empty";
         this.filePath = filePath;
     }
 
@@ -37,6 +41,7 @@ public class Storage {
     public TaskList loadTasks() throws IOException {
         TaskList tasks = new TaskList();
         File file = getFile();
+        assert file.exists() : "Storage file must exist after getFile() operation";
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -71,6 +76,7 @@ public class Storage {
         } catch (DukeException e) {
             throw new RuntimeException("Error parsing date-time: " + e.getMessage(), e);
         }
+        assert tasks != null : "TaskList should not be null after loading tasks";
         return tasks;
     }
 
@@ -97,6 +103,7 @@ public class Storage {
                 throw new IOException("Unable to create new file: " + file.getAbsolutePath());
             }
         }
+        assert file.exists() : "File must exist after creation attempt";
         return file;
     }
 
@@ -107,6 +114,10 @@ public class Storage {
      * @throws IOException If there is an issue writing to the file.
      */
     public void saveTasks(TaskList tasks) throws IOException {
+        assert tasks != null : "TaskList to save cannot be null";
+        File file = new File(filePath);
+        assert file.exists() : "Storage file must exist before saving tasks";
+
         try (PrintWriter pw = new PrintWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
                 String line = taskToFileString(task);

@@ -6,6 +6,9 @@
 
 package duke.task;
 
+/**
+ * Represents a todo task in the Duke application.
+ */
 public class Todo extends Task {
     /**
      * Creates a new Todo task with the specified description.

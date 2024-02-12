@@ -18,15 +18,23 @@ import duke.task.Storage;
 import duke.task.TaskList;
 import duke.task.Todo;
 
+/**
+ * Represents a command to add tasks to the Duke application.
+ */
 public class AddCommand extends Command {
     private final String fullCommand;
 
     public AddCommand(String fullCommand) {
+        assert fullCommand != null && !fullCommand.isEmpty() : "Full command cannot be null or empty";
         this.fullCommand = fullCommand;
     }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         String[] commandParts = fullCommand.split(" ", 2);
         String taskType = commandParts[0];
         String response;
@@ -87,6 +95,7 @@ public class AddCommand extends Command {
             throw new DukeException("Please enter a valid task type.");
         }
         storage.saveTasks(tasks);
+        assert response != null && !response.isEmpty() : "Response cannot be null or empty";
         return response;
     }
 
