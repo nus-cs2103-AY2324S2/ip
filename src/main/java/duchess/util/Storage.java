@@ -37,9 +37,10 @@ public class Storage {
         try {
             File myObj = new File(filePath);
             if (myObj.createNewFile()) {
-                System.out.println(myObj.getName() + " not found");
-                System.out.println("File created: " + myObj.getName() + "\n");
-                throw new DuchessException();
+                String response = "";
+                response += myObj.getName() + " not found";
+                response += "\nFile created: " + myObj.getName() + "\n";
+                throw new DuchessException(response);
             } else {
                 Scanner myReader = new Scanner(myObj);
                 while (myReader.hasNextLine()) {
@@ -87,7 +88,6 @@ public class Storage {
                 myReader.close();
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
             e.printStackTrace();
         }
         return list;
@@ -107,6 +107,5 @@ public class Storage {
             myWriter.write(t + "\n");
         }
         myWriter.close();
-        System.out.println("\t\tSuccessfully wrote changes to file: " + filePath);
     }
 }

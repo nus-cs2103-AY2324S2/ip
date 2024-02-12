@@ -1,3 +1,5 @@
+package duchess;
+
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -11,6 +13,27 @@ import duchess.util.Parser;
 import duchess.util.Storage;
 import duchess.util.TaskList;
 import duchess.util.Ui;
+
+import duchess.controllers.DialogBox;
+import duchess.controllers.MainWindow;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 
 public class Duchess {
     private Storage storage;
@@ -35,8 +58,33 @@ public class Duchess {
     }
 
     /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getWelcome() {
+        return ui.printMenu();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        try {
+            return parser.getAction(input, tasks, ui, storage);
+        } catch (DuchessException e) {
+            e.printStackTrace(System.err);
+            return e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+            return e.getMessage();
+        }
+    }
+
+    /**
      * Run Duchess program.
      */
+    /**
     public void run() {
         String lineBreak = "\t\t------------------------------------------";
 
@@ -141,20 +189,13 @@ public class Duchess {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
         ui.printExit();
     }
 
+
     public static void main(String[] args) {
 
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-         */
         new Duchess().run();
     }
+    **/
 }

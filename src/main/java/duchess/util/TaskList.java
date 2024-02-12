@@ -5,6 +5,7 @@ import duchess.tasks.Task;
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
+    private static final String LINE_BREAK = "\n------------------------------------------";
 
     /**
      * Create new empty TaskList object.
@@ -25,12 +26,16 @@ public class TaskList {
     /**
      * Print list of tasks.
      */
-    public void printTaskList() {
-        System.out.println("\t\tHere are the tasks in your list:");
+    public String printTaskList() {
+        String response = "";
+        response += LINE_BREAK;
+        response += "\nHere are the tasks in your list:";
         for (int i = 1; i <= taskList.size(); i++) {
             Task t = taskList.get(i - 1);
-            System.out.println("\t\t" + i + "." + t);
+            response += "\n" + i + "." + t;
         }
+        response += LINE_BREAK;
+        return response;
     }
 
     /**
@@ -47,14 +52,15 @@ public class TaskList {
      *
      * @param id id of task in list to be deleted.
      */
-    public void deleteTask(int id) throws IndexOutOfBoundsException{
-        String lineBreak = "\t\t------------------------------------------";
+    public String deleteTask(int id) throws IndexOutOfBoundsException {
+        String response = "";
         Task t = taskList.remove(id - 1);
-        System.out.println(lineBreak);
-        System.out.println("\t\tNoted. I've removed this task:");
-        System.out.println("\t\t  " + t);
-        System.out.println("\t\tNow you have " + taskList.size() + " tasks in the list.");
-        System.out.println(lineBreak);
+        response += LINE_BREAK;
+        response += "\nNoted. I've removed this task:";
+        response += "\n " + t;
+        response += "\nNow you have " + taskList.size() + " tasks in the list.";
+        response += LINE_BREAK;
+        return response;
     }
 
     /**
@@ -62,11 +68,14 @@ public class TaskList {
      *
      * @param task new Task object.
      */
-    public void createTask(Task task) {
+    public String createTask(Task task) {
         taskList.add(task);
-        System.out.println("\t\tGot it. I've added this task: \n\t\t  " + task);
-        System.out.println("\t\tNow you have " + taskList.size() + " tasks in the list.");
-        System.out.println("\t\t------------------------------------------");
+        String response = "";
+        response += LINE_BREAK;
+        response += "\nGot it. I've added this task: \n  " + task;
+        response += "\nNow you have " + taskList.size() + " tasks in the list.";
+        response += LINE_BREAK;
+        return response;
     }
 
     /**
@@ -74,13 +83,15 @@ public class TaskList {
      *
      * @param id id of task in list to be unmarked.
      */
-    public void unmarkTask(int id) {
+    public String unmarkTask(int id) {
         Task t = taskList.get(id - 1);
         t.markAsUndone();
-        System.out.println("\t\t------------------------------------------");
-        System.out.println("\t\tOK, I've marked this task as not done yet:");
-        System.out.println("\t\t  " + t);
-        System.out.println("\t\t------------------------------------------");
+        String response = "";
+        response += LINE_BREAK;
+        response += "\nOK, I've marked this task as not done yet:";
+        response += "\n " + t;
+        response += LINE_BREAK;
+        return response;
     }
 
     /**
@@ -88,13 +99,15 @@ public class TaskList {
      *
      * @param id id of task in list to be marked.
      */
-    public void markTask(int id) {
+    public String markTask(int id) {
         Task t = taskList.get(id - 1);
         t.markAsDone();
-        System.out.println("\t\t------------------------------------------");
-        System.out.println("\t\tNice! I've marked this task as done:");
-        System.out.println("\t\t  " + t);
-        System.out.println("\t\t------------------------------------------");
+        String response = "";
+        response += LINE_BREAK;
+        response += "\nNice! I've marked this task as done:";
+        response += "\n " + t;
+        response += LINE_BREAK;
+        return response;
     }
 
     /**
@@ -102,18 +115,20 @@ public class TaskList {
      *
      * @param keyword keyword to look for in Task objects
      */
-    public void findTasks(String keyword) {
-        System.out.println("\t\t------------------------------------------");
-        System.out.println("\t\tHere are the matching tasks in your list: ");
+    public String findTasks(String keyword) {
+        String response = "";
+        response += LINE_BREAK;
+        response += "\nHere are the matching tasks in your list: ";
         int counter = 1;
         for (int i = 0; i < this.taskList.size(); i++) {
             Task t = taskList.get(i);
             if (t.getDescription().toUpperCase().contains(keyword.toUpperCase())) {
-                System.out.println("\t\t" + counter + "." + t);
+                response += "\n" + counter + "." + t;
                 counter += 1;
             }
         }
-        System.out.println("\t\t------------------------------------------");
+        response += LINE_BREAK;
+        return response;
     }
 
     /**
