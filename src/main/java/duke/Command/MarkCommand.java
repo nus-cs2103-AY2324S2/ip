@@ -9,15 +9,15 @@ import duke.Tasks.TaskList;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private int INDEX;
+    private int index;
 
     /**
      * Constructs a MarkCommand object with the given task index.
      *
-     * @param TASK_INDEX The index of the task to mark as done.
+     * @param taskIndex The index of the task to mark as done.
      */
-    public MarkCommand(int TASK_INDEX) {
-        this.INDEX = TASK_INDEX;
+    public MarkCommand(int taskIndex) {
+        this.index = taskIndex;
     }
 
 
@@ -31,11 +31,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws DukeException {
-        if (INDEX < 1 || INDEX > tasks.size()) {
+        if (index < 1 || index > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }
 
-        Task task = tasks.get(INDEX - 1);
+        Task task = tasks.get(index - 1);
         task.markDone();
 
         String markedMessage = "    Nice! I've marked this task as done:\n" + "      " + task + "\n";
