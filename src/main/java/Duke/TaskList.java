@@ -1,25 +1,24 @@
 package Duke;
-
 import java.util.ArrayList;
-import Duke.command.*;
+
 import Duke.task.*;
 
 /**
  * A system to store a list of task with additional functionality
  * such as inserting, deleting, marking, unmarkinng, etc.
  */
-public class TaskList{
-    private ArrayList<task> strlist = new ArrayList<>();
-    private int number_task = 0;
+public class TaskList {
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private int taskCount = 0;
 
     /**
      * Construct TaskList using an ArrayList of tasks
      *
-     * @param tasklist ArrayList of tasks
+     * @param tasks ArrayList of tasks
      */
-    TaskList(ArrayList<task> tasklist){
-        this.strlist = tasklist;
-        number_task = this.strlist.size();
+    TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        taskCount = this.tasks.size();
     }
 
     /**
@@ -27,8 +26,8 @@ public class TaskList{
      *
      * @return the number of tasks stored in the TaskList
      */
-    public int accessNumberTask(){
-        return number_task;
+    public int accessNumberTask() {
+        return taskCount;
     }
 
     /**
@@ -36,18 +35,18 @@ public class TaskList{
      *
      * @return ArrayList of tasks
      */
-    public ArrayList<task> accessList(){
-        return strlist;
+    public ArrayList<Task> accessList() {
+        return tasks;
     }
 
     /**
      * Inserting a task into the TaskList
      *
-     * @param tsk the task to be added
+     * @param task the task to be added
      */
-    public void insert(task tsk){
-        strlist.add(tsk);
-        number_task++;
+    public void insert(Task task) {
+        tasks.add(task);
+        taskCount++;
     }
 
     /**
@@ -56,11 +55,11 @@ public class TaskList{
      * @param index the index of task to be deleted
      * @return the string representation of the deleted task
      */
-    public String delete(int index){
-        String temp = strlist.get(index-1).toString();
-        strlist.remove(index-1);
-        number_task--;
-        return temp;
+    public String delete(int index) {
+        String deletedTaskDescription = tasks.get(index - 1).toString();
+        tasks.remove(index - 1);
+        taskCount--;
+        return deletedTaskDescription;
     }
 
     /**
@@ -69,9 +68,9 @@ public class TaskList{
      * @param index the index of tasks to be marked as done
      * @return the string representation fo the marked task
      */
-    public String mark(int index){
-        strlist.get(index-1).mark();
-        return strlist.get(index-1).toString();
+    public String mark(int index) {
+        tasks.get(index - 1).mark();
+        return tasks.get(index - 1).toString();
     }
 
     /**
@@ -80,9 +79,9 @@ public class TaskList{
      * @param index  the index of task to be resumed as not done
      * @return the string representation of the unmarked task
      */
-    public String unmark(int index){
-        strlist.get(index-1).unmark();
-        return strlist.get(index-1).toString();
+    public String unmark(int index) {
+        tasks.get(index - 1).unmark();
+        return tasks.get(index - 1).toString();
     }
 
     /**
@@ -91,15 +90,15 @@ public class TaskList{
      * @return a string listing all the tasks with each prefixed with its index number
      */
     @Override
-    public String toString(){
-        String str = "";
-        for (int i=0; i<strlist.size();i++){
-            if (i == strlist.size()-1){
-                str = str + (i+1)+". "+ strlist.get(i);
+    public String toString() {
+        String taskListString = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            if (i == tasks.size() - 1) {
+                taskListString = taskListString + (i + 1) + ". " + tasks.get(i);
                 break;
             }
-            str = str + (i+1)+". "+ strlist.get(i)+ "\n ";
+            taskListString = taskListString + (i + 1) + ". " + tasks.get(i) + "\n ";
         }
-        return str;
+        return taskListString;
     }
 }

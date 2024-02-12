@@ -1,6 +1,5 @@
 package Duke.command;
 import Duke.*;
-import Duke.task.*;
 /**
  * Represent the command of deleting a task from the task list
  */
@@ -12,24 +11,26 @@ public class DeleteCommand extends Command {
      *
      * @param index the index of the task that will be deleted
      */
-    public DeleteCommand(int index){
+    public DeleteCommand(int index) {
         this.deleteIndex = index;
     }
 
     /**
      * Execute the command of deleting a task from the task list.
      *
-     * @param tsks the List of tasks the command may work on
+     * @param taskList the List of tasks the command may work on
      * @param ui to manage the interaction with users
      * @param storage to store the product of execution locally.
      */
     @Override
-    public void execute(TaskList tsks, Ui ui, Storage storage){
-        String temp = tsks.delete(deleteIndex);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        String deletedTaskInfo = taskList.delete(deleteIndex);
         Ui.print_message("Noted. I've removed this task:\n  "
-                +temp+"\n "+
-                "Now you have "+tsks.accessNumberTask()+" tasks in the list.");
-        storage.writeDisk(tsks.accessList());
+                + deletedTaskInfo + "\n "
+                + "Now you have "
+                + taskList.accessNumberTask()
+                + " tasks in the list.");
+        storage.writeDisk(taskList.accessList());
     }
 
     /**
@@ -37,7 +38,7 @@ public class DeleteCommand extends Command {
      *
      * @return false, because this is not an exit command
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }

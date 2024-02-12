@@ -2,35 +2,35 @@ package Duke.task;
 
 import java.io.Serializable;
 
-public class task implements Serializable {
-    private String message;
-    private boolean state = false;
-    public task(String msg){
-        this.message = msg;
-        if (msg.length()==0){
+public class Task implements Serializable {
+    private final String message;
+    private boolean isCompleted = false;
+
+    public Task(String message) {
+        this.message = message;
+        if (message.length() == 0) {
             throw new IllegalArgumentException("input can't be empty");
         }
     }
-    public void mark(){
-        state = true;
+    public void mark() {
+        isCompleted = true;
     }
 
-    public void unmark(){
-        state = false;
+    public void unmark() {
+        isCompleted = false;
     }
-    protected boolean access_state(){
-        return state;
+    protected boolean isCompleted() {
+        return isCompleted;
     }
-    public String access_message(){
+    public String getMessage() {
         return message;
     }
     @Override
-    public String toString(){
-        if (state == true){
-            return "[X] "+ message;
-        }
-        else{
-            return "[ ] "+ message;
+    public String toString() {
+        if (isCompleted == true) {
+            return "[X] " + message;
+        } else {
+            return "[ ] " + message;
         }
     }
 }
