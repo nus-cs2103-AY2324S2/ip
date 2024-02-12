@@ -55,7 +55,7 @@ public class TaskList {
             throw new IllegalArgumentException("Invalid task number");
         }
 
-        tasks[taskNumber].markAsDone( );
+        tasks[taskNumber - 1].markAsDone();
     }
 
     public Task[] searchKeyWord(String keyword) {

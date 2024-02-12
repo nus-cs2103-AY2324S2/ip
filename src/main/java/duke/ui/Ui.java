@@ -4,33 +4,24 @@ import duke.task.Task;
 
 import java.util.Scanner;
 
-
 /**
  * Contains functions that handle the user interface of the chatbot.
  */
 public class Ui {
-    private Scanner scanner;
-
-    /**
-     * Constructs a Ui object with a new Scanner instance.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
 
     /**
      * Displays the welcome message when the application starts.
      */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Cookie");
-        System.out.println("What can I do for you?");
+    public String showWelcomeMessage() {
+        return "Heyy! I'm cookie! :) \n"+ "What can I do for you?";
     }
 
     /**
      * Displays the goodbye message when the application is terminated by user.
      */
-    public void showByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showByeMessage() {
+        // System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -39,10 +30,9 @@ public class Ui {
      * @param t The task that was added.
      * @param counter The current count of tasks.
      */
-    public void showAddTaskMessage(Task t, int counter) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(t.toString());
-        System.out.println("Now you have " + (counter + 1) + " tasks in the list.");
+    // TODO CHANGE JAVADOCSSS
+    public String showAddTaskMessage(Task t, int counter) {
+        return "Got it. I've added this task: \n" + t.toString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list.";
     }
 
     /**
@@ -51,10 +41,8 @@ public class Ui {
      * @param t       The task that was removed.
      * @param counter The current count of tasks.
      */
-    public void showRemoveTaskMessage(Task t, int counter) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(t.toString());
-        System.out.println("Now you have " + (counter - 1) + " tasks in the list.");
+    public String showRemoveTaskMessage(Task t, int counter) {
+        return "Noted. I've removed this task: \n" + t.toString() + "\n Now you have " + (counter - 1) + " tasks in the list.";
     }
 
     /**
@@ -62,43 +50,34 @@ public class Ui {
      *
      * @param t The task that has been marked as done.
      */
-    public void showMarkTaskDoneMessage(Task t) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t.toString());
+    public String showMarkTaskDoneMessage(Task t) {
+        return "Nice! I've marked this task as done: \n" + t.toString();
     }
 
-    /**
-     * Displays a generic message.
-     *
-     * @param message The message to be displayed.
-     */
-    public void showMessage(String message) {
-        System.out.println(message);
-    }
 
-    /**
-     * Prints the list of tasks.
-     *
-     * @param tasks An array of tasks to be displayed.
-     * @param counter The current count of tasks.
-     */
-    public void showTaskList(Task[] tasks, int counter) {
+    // TODO CHANGE JAVADOCSSSSSSSSS
+    public String showTaskList(Task[] taskArr, int counter) {
+        String toPrint = "Here are your tasks: \n";
+
         for (int i = 1; i <= counter; i++) {
-            Task task = tasks[i - 1];
+            Task task = taskArr[i - 1];
             String taskDesc = task.toString();
-            System.out.println(i + "." + taskDesc);
+             toPrint = toPrint + i + "." + taskDesc + '\n';
         }
+
+        return toPrint;
     }
 
-    public void showTasksContainingKeyword(Task[] tasks) {
-        System.out.println("Here are the matching tasks in your list: ");
+    public String showTasksContainingKeyword(Task[] tasks) {
+        String toPrint = "Here are the matching tasks in your list: \n";
         int counter = 0;
         Task t = tasks[counter];
         while(t != null) {
             String taskDesc = t.toString();
-            System.out.println((counter + 1) + "." + taskDesc);
+            toPrint += (counter + 1) + "." + taskDesc + "\n";
             counter++;
             t = tasks[counter];
         }
+        return toPrint;
     }
 }

@@ -1,6 +1,8 @@
 package duke.command;
 
 import duke.DukeException;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 import java.time.LocalDate;
 
@@ -19,37 +21,46 @@ public class Parser {
      * @return An array of Objects corresponding to the parsed command.
      * @throws DukeException If the input command is invalid or cannot be parsed.
      */
-    public static Object[] parseCommand(String input) throws DukeException {
+    public static Command parseCommand(String input) throws DukeException {
         if (input.equals("bye")) {
-            return new Object[] { "bye" };
+            return new ByeCommand("bye");
+
         } else if (input.equals("list")) {
-            return new Object[] { "list" };
+            return new ListCommand("list");
+
         } else if (input.startsWith("todo")) {
             return parseTodoCommand(input);
+
         } else if (input.startsWith("deadline")) {
             return parseDeadlineCommand(input);
+
         } else if (input.startsWith("event")) {
             return parseEventCommand(input);
+
         } else if (input.startsWith("mark")) {
             return parseMarkCommand(input);
+
         } else if (input.startsWith("delete")) {
             return parseDeleteCommand(input);
-        } else if (input.startsWith("find")) {
+
+        } else if (input.startsWith("find")) { //todo
             return parseFindCommand(input);
+
         } else {
             throw new DukeException("UH OH! I don't understand what you mean.. sorry D:");
         }
     }
 
-    private static Object[] parseTodoCommand(String input) throws DukeException {
+    private static Command parseTodoCommand(String input) throws DukeException {
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
             throw new DukeException("UH OH! Description for todo cannot be empty!");
         }
-        return new Object[] { "todo", description };
+        String[] todo = { "todo", "description" };
+        return new TodoCommand("todo", description);
     }
 
-    private static Object[] parseDeadlineCommand(String input) throws DukeException {
+    private static Command parseDeadlineCommand(String input) throws DukeException {
         String toSplit = input.substring(9);
         String[] parts = toSplit.split("/by");
 
@@ -63,10 +74,10 @@ public class Parser {
 
         LocalDate by = LocalDate.parse(deadline);
 
-        return new Object[] { "deadline", taskDesc, by };
+        return new DeadlineCommand("deadline", taskDesc, by);
     }
 
-    private static Object[] parseEventCommand(String input) throws DukeException {
+    private static Command parseEventCommand(String input) throws DukeException {
         String toSplit = input.substring(6);
         String[] parts = toSplit.split("/from");
 
@@ -102,24 +113,25 @@ public class Parser {
             throw new DukeException("UH OH! The to date has to be later than the from date!!");
         }
 
-        return new Object[] { "event", taskDesc, fromDate, fromTime, toDate, toTime };
+        return new EventCommand("event", taskDesc, fromDate, fromTime, toDate, toTime);
+
     }
 
-    private static Object[] parseMarkCommand(String input) throws DukeException {
+    private static Command parseMarkCommand(String input) throws DukeException {
         String taskNum = input.substring(5);
         int taskNumber = Integer.parseInt(taskNum);
-        return new Object[] { "mark", taskNumber - 1};
+        return new MarkCommand("mark", taskNumber);
     }
 
-    private static Object[] parseDeleteCommand(String input) throws DukeException {
+    private static Command parseDeleteCommand(String input) throws DukeException {
         String taskNum = input.substring(7);
         int taskNumber = Integer.parseInt(taskNum);
-        return new Object[] { "delete", taskNumber };
+        return new DeleteCommand("delete", taskNumber);
     }
 
-    private static Object[] parseFindCommand(String input) throws DukeException {
+    private static Command parseFindCommand(String input) throws DukeException {
         String kw = input.substring(5);
         String keyword = kw.trim();
-        return new Object[] { "find", keyword };
+        return new FindCommand("find", keyword);
     }
 }
