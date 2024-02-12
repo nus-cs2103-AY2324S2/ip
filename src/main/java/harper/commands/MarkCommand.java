@@ -20,9 +20,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.markTask(this.taskIndex, this.isMarked);
         storage.save(tasks);
-        ui.printSuccessfulMark(task, this.isMarked);
+        return ui.printSuccessfulMark(task, this.isMarked);
     }
 }
