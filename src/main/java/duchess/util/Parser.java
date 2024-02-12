@@ -6,8 +6,6 @@ import duchess.tasks.Task;
 import duchess.tasks.ToDo;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 
 public class Parser {
     private static final String LINE_BREAK = "\n------------------------------------------";
@@ -22,11 +20,12 @@ public class Parser {
      * If no valid action identified, error is thrown.
      *
      * @param input input by user.
-     * @return int action id.
-     * @throws DuchessException  If no valid action identified.
+     * @return String response.
+     * @throws DuchessException If no valid action identified.
      */
     public String getAction(String input, TaskList tasks, Ui ui, Storage storage) throws DuchessException {
         String response = "";
+        assert storage.checkFileIsOpen();   // Assert that "bye" command has not been run and .txt file is still open
         try {
             if (input.substring(0, 3).toUpperCase().contains("BYE")) {
                 try {
@@ -173,6 +172,13 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Returns String.
+     * Retrieve keyword from user input.
+     *
+     * @param input input by user.
+     * @return String keyword.
+     */
     public String getKeyword(String input) {
         return input.split("find ")[1];
     }
