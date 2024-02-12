@@ -34,15 +34,6 @@ public class Task { // Adapted from partial solution provided on CS2103 website
     }
 
     /**
-     * Gets the status number for the task.
-     *
-     * @return The status number ("1" if done, "0" if not done).
-     */
-    public String getStatusNumber() {
-        return (this.isDone ? "1" : "0"); // mark done task with X
-    }
-
-    /**
      * Sets the completion status of the task.
      *
      * @param isDone The new completion status (true if done, false if not done).
