@@ -22,6 +22,14 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+
+        // Assert that description is not null or empty
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+
+        // Assert that from and to are not null or empty
+        assert from != null && !from.isEmpty() : "Start date/time should not be null or empty";
+        assert to != null && !to.isEmpty() : "End date/time should not be null or empty";
+
         if (isValidDateFormat(from) && isValidDateFormat(to)) {
             this.from = from;
             this.to = to;
@@ -44,6 +52,9 @@ public class Event extends Task {
      * @return True if the date is in a valid format, false otherwise.
      */
     private boolean isValidDateFormat(String by) {
+        // Assert that by is not null or empty
+        assert by != null && !by.isEmpty() : "Date should not be null or empty";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {
             LocalDate date = LocalDate.parse(by, formatter);
