@@ -1,13 +1,11 @@
 package tool;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import exception.ChronosException;
 import task.Task;
-import tool.TaskList;
 
 /**
  * Represents the tool to process user commands.
@@ -62,7 +60,9 @@ public class Parser {
                         ui.printHelp();
                     }
                 } catch (exception.InvalidHelpException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -76,7 +76,9 @@ public class Parser {
                         ui.printTasks(tasks);
                     }
                 } catch (exception.InvalidListException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -96,7 +98,9 @@ public class Parser {
                         }
                     }
                 } catch (exception.MissingTaskNumberException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -116,7 +120,9 @@ public class Parser {
                         }
                     }
                 } catch (exception.MissingTaskNumberException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -130,7 +136,9 @@ public class Parser {
                         storage.saveTasksToFile(tasks);
                     }
                 } catch (exception.MissingDescriptionException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -145,12 +153,14 @@ public class Parser {
                     tasks.addDeadline(description, dueDate, ui);
                     storage.saveTasksToFile(tasks);
                 } catch (exception.InvalidDeadlineException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 } catch (Exception e) {
                     ui.showDivider();
-                    System.out.println("        Invalid command. Please include a task name and a valid due date "
-                            + "following the syntax of the example below:");
-                    System.out.println("        e.g. deadline return library book /by 2024-09-22 15:00");
+                    System.out.println("\t\tInvalid command. Please include a task description and due date "
+                            + "following the example below:");
+                    System.out.println("\t\te.g. deadline return library book /by 2024-09-22 15:00");
                     ui.showDivider();
                 }
                 return 1;
@@ -168,12 +178,14 @@ public class Parser {
                     tasks.addEvent(description, fromDateAndTime, toDateAndTime, ui);
                     storage.saveTasksToFile(tasks);
                 } catch (exception.InvalidEventException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 } catch (Exception e) {
                     ui.showDivider();
-                    System.out.println("        Invalid command. Please include a task name and a valid due date "
+                    System.out.println("\t\tInvalid command. Please include a task name and a valid due date "
                             + "following the syntax of the example below:");
-                    System.out.println("        e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
+                    System.out.println("\t\te.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
                     ui.showDivider();
                 }
                 return 1;
@@ -194,7 +206,9 @@ public class Parser {
                         }
                     }
                 } catch (exception.MissingTaskNumberException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -211,7 +225,8 @@ public class Parser {
                             for (int i = 1; i < tasks.size() + 1; i++) {
                                 Task currentTask = tasks.getTask(i - 1);
 
-                                if (currentTask.getDescription().contains(keyword) && !filteredTasks.contains(currentTask)) {
+                                if (currentTask.getDescription().contains(keyword)
+                                        && !filteredTasks.contains(currentTask)) {
                                     filteredTasks.addTask(currentTask);
                                 }
                             }
@@ -224,7 +239,9 @@ public class Parser {
                         }
                     }
                 } catch (exception.MissingKeywordException | exception.KeywordNotFoundException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
                 // Fallthrough
@@ -232,10 +249,12 @@ public class Parser {
                 try {
                     throw ChronosException.createInvalidCommandException();
                 } catch (exception.InvalidCommandException e) {
-                    System.out.println(e.getMessage());
+                    ui.showDivider();
+                    System.out.println("\t\t" + e.getMessage());
+                    ui.showDivider();
                 }
                 return 1;
-            // Fallthrough
+                // Fallthrough
             }
         }
     }

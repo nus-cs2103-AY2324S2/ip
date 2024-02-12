@@ -12,7 +12,7 @@ public class Ui {
 
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n"
             + "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n"
-            + "        EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]" ;
+            + "        EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]";
 
     /**
      * Constructs a Ui object.

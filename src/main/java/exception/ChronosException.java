@@ -4,7 +4,7 @@ package exception;
  * Represents the custom exceptions thrown in Chronos Task Management System.
  */
 public abstract class ChronosException extends Exception {
-    private static final String DIVIDER = "        ------------------------------------------------------------";
+    private static final String DIVIDER = "------------------------------------------------------------";
 
     /**
      * Constructs a ChronosException with the specified error message.
@@ -21,8 +21,7 @@ public abstract class ChronosException extends Exception {
      * @return InvalidListException.
      */
     public static ChronosException createInvalidListException() {
-        return new InvalidListException(DIVIDER + "\n"
-                + "        Invalid command. To print the list of tasks, please key in list.\n" + DIVIDER);
+        return new InvalidListException("Invalid command. To print the list of tasks, please key in list.");
     }
 
     /**
@@ -31,8 +30,7 @@ public abstract class ChronosException extends Exception {
      * @return InvalidHelpException.
      */
     public static ChronosException createInvalidHelpException() {
-        return new InvalidHelpException(DIVIDER + "\n"
-                + "        Invalid command. To view the list of commands, please key in help.\n" + DIVIDER);
+        return new InvalidHelpException("Invalid command. To view the list of commands, please key in help.");
     }
 
     /**
@@ -41,8 +39,7 @@ public abstract class ChronosException extends Exception {
      * @return InvalidCommandException.
      */
     public static ChronosException createInvalidCommandException() {
-        return new InvalidCommandException(DIVIDER + "\n"
-                + "        Invalid command. Please try again.\n" + DIVIDER);
+        return new InvalidCommandException("Invalid command. Please try again.");
     }
 
     /**
@@ -51,8 +48,7 @@ public abstract class ChronosException extends Exception {
      * @return MissingTaskNumberException.
      */
     public static ChronosException createMissingTaskNumberException() {
-        return new MissingTaskNumberException(DIVIDER + "\n"
-                + "        Missing task number. Please specify the task number.\n" + DIVIDER);
+        return new MissingTaskNumberException("Missing task number. Please specify the task number.");
     }
 
     /**
@@ -61,8 +57,7 @@ public abstract class ChronosException extends Exception {
      * @return MissingDescriptionException.
      */
     public static ChronosException createMissingDescriptionException() {
-        return new MissingDescriptionException (DIVIDER + "\n"
-                + "        Missing description. Please specify the description of your task.\n" + DIVIDER);
+        return new MissingDescriptionException("Missing description. Please specify the description of your task.");
     }
 
     /**
@@ -71,9 +66,9 @@ public abstract class ChronosException extends Exception {
      * @return InvalidDeadlineException.
      */
     public static ChronosException createInvalidDeadlineException() {
-        return new InvalidDeadlineException (DIVIDER + "\n"
-                + "        Invalid command. Please include a task description and due date following the example below:\n"
-                + "        e.g. deadline return library book /by 2024-09-22 15:00\n" + DIVIDER);
+        return new InvalidDeadlineException("Invalid command. "
+                + "Please include a task description and due date following the example below:\n"
+                + "\t\te.g. deadline return library book /by 2024-09-22 15:00");
     }
 
     /**
@@ -82,9 +77,9 @@ public abstract class ChronosException extends Exception {
      * @return InvalidEventException.
      */
     public static ChronosException createInvalidEventException() {
-        return new InvalidEventException (DIVIDER + "\n"
-                + "        Invalid command. Please include a task description and due date following the example below:\n"
-                + "        e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00\n" + DIVIDER);
+        return new InvalidEventException("Invalid command. "
+                + "Please include a task description and due date following the example below:\n"
+                + "\t\te.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
     }
 
     /**
@@ -93,8 +88,7 @@ public abstract class ChronosException extends Exception {
      * @return KeywordNotFoundException.
      */
     public static ChronosException createKeywordNotFoundException() {
-        return new KeywordNotFoundException (DIVIDER + "\n"
-                + "        Keyword not found in any tasks. Please specify a valid keyword.\n" + DIVIDER);
+        return new KeywordNotFoundException("Keyword not found in any tasks. Please specify a valid keyword.");
     }
 
     /**
@@ -103,7 +97,6 @@ public abstract class ChronosException extends Exception {
      * @return MissingKeywordException.
      */
     public static ChronosException createMissingKeywordException() {
-        return new MissingKeywordException (DIVIDER + "\n"
-                + "        Missing keyword. Please specify at least 1 keyword.\n" + DIVIDER);
+        return new MissingKeywordException("Missing keyword. Please specify at least 1 keyword.");
     }
 }
