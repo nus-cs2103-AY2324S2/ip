@@ -1,10 +1,10 @@
 package duke.Tasks;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
-import java.time.LocalDate;
 
 
 /**
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class EventTask extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    int CHECK = 0;
+    int check = 0;
 
 
     /**
@@ -40,7 +40,7 @@ public class EventTask extends Task {
      * @throws DateTimeParseException If the time string cannot be parsed.
      */
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
-        assert time != null : "Time string cannot be null";
+        assert time != null : "Deadline string cannot be null";
         LocalDateTime dateTime = null;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -48,40 +48,31 @@ public class EventTask extends Task {
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
 
         try {
-            CHECK = 1;
+            check = 1;
             dateTime = LocalDateTime.parse(time, formatter1);
-
         } catch (DateTimeParseException e1) {
             try {
-                CHECK = 2;
+                check = 2;
                 dateTime = LocalDateTime.parse(time, formatter2);
-
             } catch (DateTimeParseException e2) {
                 try {
-                    CHECK = 3;
+                    check = 3;
                     LocalDate date = LocalDate.parse(time, formatter3);
                     dateTime = date.atStartOfDay();
-
                 } catch (DateTimeParseException e3) {
                     try {
-                        CHECK = 4;
+                        check = 4;
                         LocalDate date = LocalDate.parse(time, formatter4);
                         dateTime = date.atStartOfDay();
-
                     } catch (DateTimeParseException e4) {
-                        CHECK = 5;
                         throw new DateTimeParseException("Unable to parse date/time: " + time, time, 0, e2);
                     }
-
                 }
-
             }
         }
-
         assert dateTime != null : "Parsed LocalDateTime object cannot be null";
         return dateTime;
     }
-
 
     /**
      * Formats the date and time into a string.
@@ -92,14 +83,15 @@ public class EventTask extends Task {
     private String formatDateTime(LocalDateTime dateTime) {
         assert dateTime != null : "LocalDateTime object cannot be null";
         DateTimeFormatter formatter;
-        if (CHECK == 1 || CHECK == 2) {
+        if (check == 1 || check == 2) {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
         } else {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
         }
-
         return dateTime.format(formatter);
     }
+
+
 
     /**
      * Gets the formatted start time string.

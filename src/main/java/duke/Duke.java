@@ -40,7 +40,7 @@ public class Duke {
             String res = com.execute(this.tasks, this.storage);
             assert res != null : "Response string cannot be null";
             return res;
-        } catch (DukeException e) {
+        } catch (Exception e) {
             String response = e.getMessage();
             assert response != null : "Error message string cannot be null";
             return response;

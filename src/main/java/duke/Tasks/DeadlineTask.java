@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
  */
 public class DeadlineTask extends Task {
     private final LocalDateTime deadline;
-    int CHECK = 0;
+    private int dateFormatCheck = 0;
 
     /**
      * Constructs a DeadlineTask object with the given description and deadline string.
@@ -23,7 +23,6 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, String deadlineStr) {
         super(description);
         assert deadlineStr != null : "Deadline string cannot be null";
-
         this.deadline = parseDateTime(deadlineStr);
         assert deadline != null : "Deadline LocalDateTime object cannot be null";
     }
@@ -45,23 +44,23 @@ public class DeadlineTask extends Task {
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/M/yyyy");
 
         try {
-            CHECK = 1;
+            dateFormatCheck = 1;
             dateTime = LocalDateTime.parse(time, formatter1);
 
         } catch (DateTimeParseException e1) {
             try {
-                CHECK = 2;
+                dateFormatCheck = 2;
                 dateTime = LocalDateTime.parse(time, formatter2);
 
             } catch (DateTimeParseException e2) {
                 try {
-                    CHECK = 3;
+                    dateFormatCheck = 3;
                     LocalDate date = LocalDate.parse(time, formatter3);
                     dateTime = date.atStartOfDay();
 
                 } catch (DateTimeParseException e3) {
                     try {
-                        CHECK = 4;
+                        dateFormatCheck = 4;
                         LocalDate date = LocalDate.parse(time, formatter4);
                         dateTime = date.atStartOfDay();
 
@@ -87,7 +86,7 @@ public class DeadlineTask extends Task {
     String formatDateTime(LocalDateTime dateTime) {
         assert dateTime != null : "LocalDateTime object cannot be null";
         DateTimeFormatter formatter;
-        if (CHECK == 1 || CHECK == 2) {
+        if (dateFormatCheck == 1 || dateFormatCheck == 2) {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
         } else {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);

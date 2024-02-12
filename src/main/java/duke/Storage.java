@@ -33,23 +33,19 @@ public class Storage {
      */
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
-
         try {
             File file = new File(filePath);
-
             // Assert that the file exists before attempting to load tasks from it
             assert file.exists() : "File does not exist: " + filePath;
-
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
-
                 // Assert that each line has at least 3 parts (task type, status, description)
                 assert parts.length >= 3 : "Invalid task format: " + line;
-
                 Task task;
+
                 switch (parts[0]) {
                     case "T":
                         task = new TodoTask(parts[2]);
@@ -63,15 +59,12 @@ public class Storage {
                     default:
                         continue;
                         }
-
                         if (parts[1].equals("1")) {
                             task.markDone();
                         }
                         tasks.add(task);
                     }
-
                 scanner.close();
-
         } catch (IOException e) {
             throw new DukeException("Error loading tasks from file: " + e.getMessage());
         }
@@ -87,52 +80,31 @@ public class Storage {
      * @throws DukeException If there is an error saving tasks to the file.
      */
     public void save(List<Task> tasks) throws DukeException {
-        try {
-            File file = new File(filePath);
-
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-
-            FileWriter writer = new FileWriter(file);
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 String taskType;
-
                 if (task instanceof TodoTask) {
                     taskType = "T";
                 } else if (task instanceof DeadlineTask) {
                     taskType = "D";
-                } else if (task instanceof DeadlineTaskLoad) {
-                    taskType = "D";
                 } else if (task instanceof EventTask) {
-                    taskType = "E";
-                } else if (task instanceof EventTaskLoad) {
                     taskType = "E";
                 } else {
                     continue;
                 }
-                writer.write(taskType + " | " + (task.marked ? "1" : "0") + " | " + task.getTask());
+
+                writer.write(String.format("%s | %d | %s", taskType, task.marked ? 1 : 0, task.getTask()));
                 if (task instanceof DeadlineTask) {
                     writer.write(" | " + ((DeadlineTask) task).getDateTime());
-
                 } else if (task instanceof EventTask) {
                     writer.write(" | " + ((EventTask) task).getDateTime());
-
-                } else if (task instanceof EventTaskLoad) {
-                    writer.write(" | " + ((EventTaskLoad) task).getTime());
-
-                } else if (task instanceof DeadlineTaskLoad) {
-                    writer.write(" | " + ((DeadlineTaskLoad) task).getBy());
                 }
-
                 writer.write(System.lineSeparator());
             }
-            writer.close();
-
         } catch (IOException e) {
             throw new DukeException("Error saving tasks to file: " + e.getMessage());
         }
     }
 }
+
 

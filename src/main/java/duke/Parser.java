@@ -1,4 +1,5 @@
 package duke;
+
 import duke.Command.Command;
 import duke.Command.TodoCommand;
 import duke.Command.EventCommand;
@@ -10,9 +11,8 @@ import duke.Command.DeleteCommand;
 import duke.Command.DeadlineCommand;
 import duke.Command.FindCommand;
 
-
-
 import java.util.Arrays;
+
 public class Parser {
     /**
      * Parses the user input and returns the corresponding command.
@@ -22,12 +22,12 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed or an invalid command is entered.
      */
     public static Command parse(String input) throws DukeException {
-        assert input != null : "Input string cannot be null";
+        if (input == null || input.isBlank()) {
+            throw new DukeException("OOPS!!! Please enter a valid command.");
+        }
 
         String[] parts = input.split(" ", 2);
-
         assert parts.length >= 1 : "Input string must contain at least one part";
-
         String command = parts[0].toLowerCase();
 
         switch (command) {
@@ -110,7 +110,6 @@ public class Parser {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! Please specify the task index to delete.");
         }
-
         try {
             int index = Integer.parseInt(parts[1].trim());
             return new DeleteCommand(index);
@@ -145,27 +144,23 @@ public class Parser {
      * @throws DukeException If the input cannot be parsed or an invalid command is entered.
      */
     private static Command parseDeadlineCommand(String[] parts) throws DukeException {
-        String task = null;
-        String by = null;
-
         if (parts.length < 2) {
             DukeException errorMessage = new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
 
         }
 
-        String[] split = parts[1].split("/by", 2);
+        if (parts.length < 2) {
+            throw new DukeException("OOPS!!! The description of a deadline task cannot be empty.");
+        }
 
-        if (split.length < 2) {
+        String[] details = parts[1].split("/by", 2);
+        if (details.length < 2) {
             throw new DukeException("OOPS!!! The deadline of a deadline task cannot be empty.");
         }
 
-        if (split.length == 2) {
-            task = split[0];
-            by = split[1].trim();
-        }
-
-        return new DeadlineCommand(task, by);
+        return new DeadlineCommand(details[0], details[1].trim());
     }
+
 
     /**
      * Parses the user input to create an EventCommand.
@@ -181,18 +176,15 @@ public class Parser {
 
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! The time of an event task cannot be empty.");
-
         }
 
         String[] split = parts[1].split("/from", 2);
-
         if (split.length < 2) {
             throw new DukeException("OOPS!!! The time of an event task cannot be empty.");
         }
 
         if (split.length == 2) {
             task = split[0];
-
             String[] details = split[1].split("/to", 2);
             if (details.length == 2) {
                 from = details[0].trim();
@@ -203,5 +195,4 @@ public class Parser {
         }
         return new EventCommand(task, from, to);
     }
-
 }

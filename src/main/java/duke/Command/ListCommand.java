@@ -26,11 +26,10 @@ public class ListCommand extends Command {
             sb.append(list).append(System.lineSeparator());
         }
 
-
-        String taskList = "    Here are the tasks in your list:\n"
+        String list = "    Here are the tasks in your list:\n"
                 + sb.toString() + "\n";
 
-        return taskList;
+        return list;
     }
 
 

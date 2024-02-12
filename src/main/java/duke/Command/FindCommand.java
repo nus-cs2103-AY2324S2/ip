@@ -45,12 +45,8 @@ public class FindCommand extends Command {
                 sb.append(task.toString()).append(System.lineSeparator());
             }
         }
-
-
         String matchingTasksString = "    Here are the matching tasks in your list:\n"
                 + sb.toString() + "\n";
-
-
 
         return matchingTasksString;
     }
