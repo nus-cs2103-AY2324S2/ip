@@ -257,4 +257,52 @@ public class DataStorage {
         rebuildStorage();
     }
 
+
+    /**
+     * Searches for tasks whose description contains the given search term.
+     *
+     * @param searchTerm the keyword used to search for tasks. If no terms are specified,
+     *                   then everything is returned.
+     * @return a string representation of the tasks whose description contains the search term.
+     */
+    public String searchResultsInList(String searchTerm) {
+
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        this.tasksList.stream()
+                // Ignore the case during the search by converting searchTerm
+                // and item stored to lowercase.
+                .filter(task -> task.getDescription().toLowerCase().contains(searchTerm.toLowerCase()))
+                .forEach(task -> {
+                    // Gets the index of the particular item.
+                    int indexNumber = this.tasksList.indexOf(task) + 1;
+                    arrayList.add("\t " + indexNumber + ". " + task.toString());
+                }); // Append the description of each filtered task to the StringBuilder
+
+        return convertArrayListToLineSeparatedString(arrayList);
+    }
+
+    /**
+     * Converts an ArrayList of Strings into a single String
+     * with each item separated by a newline character,
+     * except for the last line.
+     *
+     * @param arrayList the ArrayList of Strings to be converted.
+     * @return a single String with each item separated by a newline character.
+     */
+    public String convertArrayListToLineSeparatedString(ArrayList<String> arrayList) {
+        StringBuilder sb = new StringBuilder();
+        int size = arrayList.size();
+
+        for (int i = 0; i < size; i++) { // Use a traditional for loop
+
+            sb.append(arrayList.get(i));
+
+            if (i < size - 1) { // Check if it's not the last item
+                sb.append("\n"); // Append new line except for the last item
+            }
+        }
+        return sb.toString();
+    }
+
 }
