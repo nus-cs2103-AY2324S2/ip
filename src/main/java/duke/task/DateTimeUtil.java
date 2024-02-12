@@ -9,6 +9,8 @@ package duke.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import duke.DukeException;
 
@@ -16,6 +18,8 @@ import duke.DukeException;
  * Provides utility methods for parsing date-time strings in various formats.
  */
 public class DateTimeUtil {
+    private static final Logger LOGGER = Logger.getLogger(DateTimeUtil.class.getName());
+
     /**
      * Parses a date-time string into a LocalDateTime object.
      *
@@ -37,14 +41,14 @@ public class DateTimeUtil {
         try {
             return LocalDateTime.parse(dateTimeString, isoFormatter);
         } catch (DateTimeParseException e) {
-            // Ignore and try other formats
+            LOGGER.log(Level.FINE, "DateTime string does not match ISO_LOCAL_DATE_TIME format", e);
         }
 
         for (String format : dateTimeFormats) {
             try {
                 return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(format));
             } catch (DateTimeParseException e) {
-                // Continue to try the next format
+                LOGGER.log(Level.FINEST, "Trying different date-time format", e);
             }
         }
 
