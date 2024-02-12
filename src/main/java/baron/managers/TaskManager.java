@@ -107,6 +107,7 @@ public class TaskManager {
 
     private String mark(String input, boolean isDone) {
         int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
+        assert (taskIndex >= 0 && taskIndex < this.tasks.size()) : "Accessing a task that doesn't exist";
         Task task = this.get(taskIndex);
         TaskType type = getTaskType(task.toString());
         task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
