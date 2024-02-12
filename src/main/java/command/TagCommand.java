@@ -13,6 +13,7 @@ public class TagCommand extends Command {
      * Constructor for Tag Command.
      *
      * @param taskIndex index of the task to be tagged.
+     * @param tag String tag that needs to be tagged.
      * */
     public TagCommand(int taskIndex, String tag) {
         this.taskIndex = taskIndex;
