@@ -1,0 +1,33 @@
+package drew.command;
+
+import drew.exceptions.InsufficientArgumentsException;
+import drew.storage.TaskList;
+import drew.task.Task;
+import drew.task.Todo;
+
+import java.util.ArrayList;
+
+public class TodoCommand extends Command {
+
+    public TodoCommand(String input) {
+        super(input);
+    }
+
+    @Override
+    public String execute(TaskList tasks) throws IllegalArgumentException {
+        String reply = "";
+        ArrayList<Task> ls = tasks.getList();
+        int listLength = ls.size();
+
+        String todoDescription = input.substring(5);
+        Todo newTask = new Todo(todoDescription);
+        ls.add(newTask);
+
+        reply = "Got it. I've added this task:\n";
+        reply = reply + newTask.toStatusString() + "\n";
+        listLength++;
+        reply = reply + String.format("Now you have %d task(s) in the list.", listLength);
+
+        return reply;
+    }
+}

@@ -1,5 +1,6 @@
 package drew;
 
+import drew.command.ByeCommand;
 import drew.command.Command;
 import drew.storage.TaskList;
 import drew.storage.Storage;
@@ -42,11 +43,16 @@ public class Drew {
         ui.greetUser();
         boolean isExit = false;
 
-        while (!isExit) {
+        while (true) {
             String userInput = ui.readInput();
-            Command command = parser.checkCommandIdentity(userInput);
-            isExit = command == Command.BYE;
-            String reply = parser.executeCommand(tasks, command, userInput);
+            Command command = parser.checkCommandId(userInput);
+
+            isExit = command == ByeCommand.getByeCommand();
+            if (isExit) {
+                break;
+            }
+
+            String reply = command.execute(tasks);
             ui.reply(reply);
         }
 

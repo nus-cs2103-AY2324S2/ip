@@ -37,7 +37,7 @@ public class Ui {
      */
     public void reply(String input) {
         System.out.println(DELIMITER);
-        System.out.print(input);
+        System.out.println(input);
         System.out.println(DELIMITER);
     }
 
