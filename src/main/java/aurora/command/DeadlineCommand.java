@@ -48,14 +48,17 @@ public class DeadlineCommand extends Command {
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
             throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
+                    "Make sure to enter deadline, " +
+                    "then specify the description of the task followed by the deadline.\n"
+                    +
                     "These two fields should be separated with /by.");
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
         if (splitVariables.length < 2) {
             throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
+                    "Make sure to enter deadline, " +
+                    "then specify the description of the task followed by the deadline.\n" +
                     "These two fields should be separated with /by.");
         } else {
             String description = splitVariables[0];
@@ -63,7 +66,6 @@ public class DeadlineCommand extends Command {
             try {
                 LocalDateTime dateLdt = Parser.parseDate(dateString.trim());
                 this.taskList.addDeadline(description, dateLdt);
-                //this.ui.echoAddTask(this.taskList);
             } catch (DateTimeParseException e) {
                 throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
             }

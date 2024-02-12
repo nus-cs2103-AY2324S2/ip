@@ -15,7 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 /**
- * The DialogBox class represents a dialog box which contains either a user input or a response from the bot, along with
+ * The DialogBox class represents a dialog box which contains either
+ * a user input or a response from the bot, along with
  * their corresponding profile pictures.
  * Code adapted and reused from: https://se-education.org/guides/tutorials/javaFxPart4.html
  */
@@ -66,7 +67,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     *
+     * Method to flip the orientation of the text box.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());

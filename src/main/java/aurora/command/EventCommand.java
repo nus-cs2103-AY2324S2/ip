@@ -48,26 +48,32 @@ public class EventCommand extends Command {
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
             throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
+                    "Make sure to enter event, " +
+                    "then specify the description of the task followed by the start and end " +
                     "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
+                    "The start date should be preceded with /from, " +
+                    "while the end date should be preceded with /to.");
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] descriptionSplit = Parser.splitAtFirstFrom(descriptionAndDate);
         if (descriptionSplit.length != 2) {
             throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
+                    "Make sure to enter event, " +
+                    "then specify the description of the task followed by the start and end " +
                     "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
+                    "The start date should be preceded with /from, " +
+                    "while the end date should be preceded with /to.");
         }
         String description = descriptionSplit[0];
         String startEnd = descriptionSplit[1];
         String[] startEndSplit = Parser.splitAtFirstTo(startEnd);
         if (startEndSplit.length != 2) {
             throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
+                    "Make sure to enter event, " +
+                    "then specify the description of the task followed by the start and end " +
                     "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
+                    "The start date should be preceded with /from, " +
+                    "while the end date should be preceded with /to.");
         } else {
             try {
                 LocalDateTime startLdt = Parser.parseDate(startEndSplit[0].trim());
