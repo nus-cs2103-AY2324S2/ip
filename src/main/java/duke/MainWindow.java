@@ -1,3 +1,4 @@
+
 package duke;
 
 import javafx.application.Platform;
@@ -48,13 +49,15 @@ public class MainWindow extends AnchorPane implements GuiObserver {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        duke.processUserInput(input);
         Ui ui = duke.getUi();
-        String lastMessage = ui.getLastMessage();
+
+        String input = userInput.getText();
 
         dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
-
+        duke.processUserInput(input); // This should trigger a response from Duke
+        // Assuming processUserInput updates `lastMessage` in Ui
+        String dukeResponse = duke.getUi().getLastMessage();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeResponse, dukeImage));
         userInput.clear();
     }
 }

@@ -22,7 +22,7 @@ public class Main extends Application {
 
             MainWindow mainWindow = fxmlLoader.getController();
             Duke duke = new Duke();
-            //mainWindow.setDuke(duke);
+            mainWindow.setDuke(duke);
 
             duke.setGuiObserver(mainWindow); // This line is crucial
 
