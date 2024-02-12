@@ -149,7 +149,7 @@ public class DataStorageTest {
             }
 
             tasks.add(task);
-            dataStorage.addTask(task);
+            dataStorage.addTaskToTextFile(task);
         }
     }
 
@@ -161,7 +161,7 @@ public class DataStorageTest {
         Todo sampleTask = new Todo("Sample Task", false);
         // Get line count before we add
         int currentLineCount = this.getLineCount();
-        dataStorage.addTask(sampleTask);
+        dataStorage.addTaskToTextFile(sampleTask);
         assertEquals(dataStorage.getTaskCount(), currentLineCount + 1);
     }
 
@@ -178,7 +178,7 @@ public class DataStorageTest {
         Todo sampleTask = new Todo(taskName, isDone);
 
         String databaseEntry = String.format(TODO_DATABASE_FORMAT, taskName, isDone);
-        dataStorage.addTask(sampleTask);
+        dataStorage.addTaskToTextFile(sampleTask);
         int currentLineCount = this.getLineCount();
         assertEquals(this.getLine(currentLineCount), databaseEntry);
     }
@@ -198,7 +198,7 @@ public class DataStorageTest {
         Deadline sampleTask = new Deadline(taskName, deadline, isDone);
 
         String databaseEntry = String.format(DEADLINE_DATABASE_FORMAT, taskName, isDone, deadline);
-        dataStorage.addTask(sampleTask);
+        dataStorage.addTaskToTextFile(sampleTask);
         int currentLineCount = this.getLineCount();
         assertEquals(this.getLine(currentLineCount), databaseEntry);
     }
@@ -249,7 +249,7 @@ public class DataStorageTest {
         Event sampleTask = new Event(taskName, startTime, endTime, isDone);
 
         String databaseEntry = String.format(EVENT_DATABASE_FORMAT, taskName, isDone, startTime, endTime);
-        dataStorage.addTask(sampleTask);
+        dataStorage.addTaskToTextFile(sampleTask);
         int currentLineCount = this.getLineCount();
         assertEquals(this.getLine(currentLineCount), databaseEntry);
     }
