@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a list to store tasks.
+ */
 public class TaskList {
-    /** The task list to store tasks */
-    private ArrayList<Task> tasks;
     /** Format of the date and time in the command received */
     private static final DateTimeFormatter FORMATTER_RECEIVE = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /** The task list to store tasks */
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a task list to store tasks.

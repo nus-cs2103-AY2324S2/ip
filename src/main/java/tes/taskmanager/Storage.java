@@ -1,8 +1,5 @@
 package tes.taskmanager;
 
-import tes.taskmanager.Deadline;
-import tes.taskmanager.Event;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -15,16 +12,16 @@ import java.util.Scanner;
  * Represents a list to store the tasks.
  */
 public class Storage {
-    private ArrayList<Task> storeList;
     private static final String FILE_PATH = "./data/Tes.txt"; // path of the file
     /** Format of the date and time in the command received */
     private static final DateTimeFormatter FORMATTER_RECEIVE = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     /** Format of the date and time in database */
     private static final DateTimeFormatter FORMATTER_STORE = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
+    private ArrayList<Task> storeList;
+
     /**
      * Constructs an empty list to load the tasks stored in local disk.
-     *
      */
     public Storage() {
         this.storeList = new ArrayList<>();
