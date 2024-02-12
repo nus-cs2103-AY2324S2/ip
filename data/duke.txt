@@ -1,4 +1,5 @@
 T | false | learn CS2103
 D | true | ip | 2024-02-05
-T | false | quiz 1
+T | true | quiz 1
 D | false | quiz 2 | 2024-02-06
+T | false | find quiz
