@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event implements Item {
-    public String name;
-    public String status;
-    public LocalDateTime from;
-    public LocalDateTime to;
+    private String name;
+    private String status;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String name, String status, String from, String to) throws RickException {
         try {

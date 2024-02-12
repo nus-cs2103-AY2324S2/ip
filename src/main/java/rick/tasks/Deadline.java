@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline implements Item {
-    public String name;
-    public String status;
-    public LocalDateTime ddl;
+    private String name;
+    private String status;
+    private LocalDateTime ddl;
 
     public Deadline(String name, String status, String ddl) throws RickException {
         try {

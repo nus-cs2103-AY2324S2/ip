@@ -2,8 +2,8 @@ package rick.tasks;
 import rick.RickException;
 
 public class ToDo implements Item {
-    public String name;
-    public String status;
+    private String name;
+    private String status;
 
     public ToDo(String name, String status) throws RickException {
         if (name.isBlank()) {
