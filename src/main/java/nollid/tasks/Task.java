@@ -90,6 +90,11 @@ public abstract class Task { // Adapted from partial solution provided on CS2103
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Retrieves a string representation of the tags associated with the task.
+     *
+     * @return A formatted string containing the task's tags, or an empty string if no tags are present.
+     */
     public String getTagsString() {
         if (tags.isEmpty()) {
             return "";
@@ -107,5 +112,12 @@ public abstract class Task { // Adapted from partial solution provided on CS2103
         }
 
         return output.toString();
+    }
+
+    /**
+     * Retrieves the list of tags associated with the task.
+     */
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 }
