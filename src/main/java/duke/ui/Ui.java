@@ -105,7 +105,7 @@ public class Ui {
      * @param task Task to be added.
      */
     public String showAddedTask(Task task) {
-        return ("Got it. I've added this task: \n" + task.toString());
+        return ("Got it. I've added this task: \n" + task.toString() + "\n");
     }
 
     /**
@@ -113,28 +113,31 @@ public class Ui {
      * @param taskList TaskList to be printed.
      */
     public String showTaskListStatus(TaskList taskList) {
-        return String.format("Now you have %d tasks in the list.%n", taskList.size());
+        return String.format("Now you have %d tasks in the list.\n", taskList.size());
     }
     /**
      * Print success status when marking a task as Done status in TaskList.
      * @param task Task to be marked as Done.
      */
     public String showMarkedTask(Task task) {
-        return ("Nice! I've marked this task as done: \n" + task.toString());
+        return ("Nice! I've marked this task as done: \n"
+                + task.toString() + "\n");
     }
     /**
      * Print success status when unmarking a task into Undone status in TaskList.
      * @param task Task to be marked as Undone.
      */
     public String showUnmarkedTask(Task task) {
-        return ("OK, I've marked this task as not done yet: \n" + task.toString());
+        return ("OK, I've marked this task as not done yet: \n"
+                + task.toString() + "\n");
     }
     /**
      * Print success status when deleting a task from TaskList.
      * @param task Task to be deleted.
      */
     public String showDeletedTask(Task task) {
-        return ("Noted. I've removed this task: \n" + task.toString());
+        return ("Noted. I've removed this task: \n"
+                + task.toString() + "\n");
     }
 
 
@@ -144,9 +147,9 @@ public class Ui {
      */
     public String showFindResult(List<Task> taskListSearchResult) {
         if (taskListSearchResult.isEmpty()) {
-            return ("There are no matching tasks in your list.");
+            return ("There are no matching tasks in your list.\n");
         }
-        String outputString = ("Here are the matching tasks in your list:");
+        String outputString = ("Here are the matching tasks in your list:\n");
         int count = 1;
         for (Task task : taskListSearchResult) {
             outputString += String.format("%d. %s\n", count, task);
@@ -159,6 +162,6 @@ public class Ui {
      * Show Date Loading Error.
      */
     public String showLoadingError() {
-        return ("Loading data from file error.");
+        return ("Loading data from file error.\n");
     }
 }

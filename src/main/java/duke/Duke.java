@@ -52,4 +52,16 @@ public class Duke {
     }
 
 
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.execute(storage, ui, tasks);
+        } catch (ChatBotParameterException | ChatBotCommandException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+    public String greet() {
+        return ui.showWelcome();
+    }
 }
