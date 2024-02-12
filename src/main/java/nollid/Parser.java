@@ -19,7 +19,9 @@ import nollid.commands.ListCommand;
 import nollid.commands.MarkCommand;
 import nollid.commands.TodoCommand;
 import nollid.commands.UnmarkCommand;
+import nollid.exceptions.EmptyDescriptionException;
 import nollid.exceptions.InvalidCommandException;
+import nollid.exceptions.MissingTagsException;
 
 /**
  * Parser class provides a static method to parse user input and return the corresponding Command object.
@@ -91,5 +93,51 @@ public class Parser {
             LocalTime deadlineTime = LocalTime.parse(deadlineList.get(1), Parser.TIME_FORMAT);
             return LocalDateTime.of(deadlineDate, deadlineTime);
         }
+    }
+
+    /**
+     * Retrieves tags from the input arguments.
+     *
+     * @return The list of tags, or an empty list if no tags are specified.
+     */
+    public static ArrayList<String> getTags(ArrayList<String> argsList) throws MissingTagsException {
+        int tagKeywordIndex = argsList.indexOf("/tags");
+        if (tagKeywordIndex == argsList.size() - 1) {
+            throw new MissingTagsException("No tags provided.");
+        }
+
+        // If user did not use "/tags" keyword, return empty list
+        if (tagKeywordIndex == -1) {
+            return new ArrayList<>();
+        }
+
+        int tagsIndex = tagKeywordIndex + 1;
+        ArrayList<String> tags = new ArrayList<>(Arrays.asList(argsList.get(tagsIndex).split(",")));
+        return tags;
+    }
+
+    /**
+     * Retrieves the task description from the input arguments.
+     *
+     * @return The task description.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
+    public static String getDescription(ArrayList<String> argsList) throws EmptyDescriptionException {
+        StringBuilder taskDescription = new StringBuilder();
+
+        // Get text from after command until the first option. (/tags, /deadline, etc.)
+        for (int i = 1; i < argsList.size(); i++) {
+            if (!argsList.get(i).matches("/\\w+")) {
+                taskDescription.append(argsList.get(i)).append(" ");
+            } else {
+                break;
+            }
+        }
+
+        if (taskDescription.length() == 0) {
+            throw new EmptyDescriptionException("Description of task is empty.");
+        }
+
+        return taskDescription.toString();
     }
 }
