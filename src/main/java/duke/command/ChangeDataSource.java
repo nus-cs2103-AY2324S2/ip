@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.Storage;
-import duke.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import duke.Storage;
+import duke.TaskList;
 
 /**
  * Class for change data source

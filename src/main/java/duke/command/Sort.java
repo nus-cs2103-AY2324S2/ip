@@ -3,13 +3,25 @@ package duke.command;
 import duke.TaskList;
 import duke.task.Task;
 
-public class Sort implements Command{
+/**
+ * Class for sorting
+ */
+public class Sort implements Command {
     private TaskList taskList;
+
+    /**
+     * Constructor
+     * @param taskList task list
+     */
     public Sort(TaskList taskList) {
         taskList.sortTaskList();
         this.taskList = taskList;
     }
 
+    /**
+     * Reply
+     * @return reply
+     */
     @Override
     public String reply() {
         String reply = "Your tasks has been sorted:\n";

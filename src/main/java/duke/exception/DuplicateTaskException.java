@@ -6,7 +6,7 @@ import duke.task.Task;
  * Duplicate Task Exception
  */
 public class DuplicateTaskException extends DukeException {
-    public Task task;
+    private Task task;
 
     /**
      * Constructor
