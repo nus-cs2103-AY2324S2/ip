@@ -72,6 +72,7 @@ public class Parser {
             }
             int ind = Integer.parseInt(s[1]);
             taskList.get(ind - 1).taskDone();
+            assert taskList.get(ind - 1).taskIsDone() == true;
             return "Nice! I've marked this task as done:\n      " + taskList.get(ind - 1);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "OOPS! You need to type \"mark <number>\" to change the status to done!";
@@ -96,6 +97,7 @@ public class Parser {
             }
             int ind = Integer.parseInt(s[1]);
             taskList.get(ind - 1).taskUndone();
+            assert taskList.get(ind - 1).taskIsDone() == false;
             return "OK, I've marked this task as not done yet:\n      " + taskList.get(ind - 1);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "OOPS! You need to type \"unmark <number>\" to change the status to not done!";
@@ -128,7 +130,7 @@ public class Parser {
                 } else {
                     taskList.add(new Todo(name));
                     return "Got it. I've added this task:\n      " + taskList.get(taskList.size() - 1)
-                            + "\n   Now you have " + taskList.size() + " task(s) in the list.";
+                            + "\nNow you have " + taskList.size() + " task(s) in the list.";
                 }
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -156,7 +158,7 @@ public class Parser {
                 name = st[0].substring(9);
                 taskList.add(new Deadline(name.trim(), st[1]));
                 return "Got it. I've added this task:\n" + "      " + taskList.get(taskList.size() - 1)
-                        + "\n   Now you have " + taskList.size() + " task(s) in the list.";
+                        + "\nNow you have " + taskList.size() + " task(s) in the list.";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" "
@@ -185,7 +187,7 @@ public class Parser {
                 name = from[0].substring(5);
                 taskList.add(new Event(name.trim(), fromTo[0].trim(), fromTo[1].trim()));
                 return "Got it. I've added this task:\n" + "      " + taskList.get(taskList.size() - 1)
-                        + "\n   Now you have " + taskList.size() + " task(s) in the list.";
+                        + "\nNow you have " + taskList.size() + " task(s) in the list.";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "OOPS! You need to type \"event <description> /from <start date> /to <end date>\" "
@@ -210,7 +212,7 @@ public class Parser {
             int ind = Integer.parseInt(s[1]);
             String output = "Noted. I've removed this task:"
                     + "\n      " + taskList.get(ind - 1).toString()
-                    + "\n   Now you have " + (taskList.size() - 1) + " task(s) in the list.";
+                    + "\nNow you have " + (taskList.size() - 1) + " task(s) in the list.";
             taskList.delete(ind - 1);
             return output;
         } catch (NumberFormatException e) {

@@ -69,7 +69,7 @@ public class TaskList {
         String output = "Here are the matching tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).descriptionSearch(keyword)) {
-                output += "\n     ";
+                output += "\n";
                 output += index + ". " + tasks.get(i);
                 index++;
             }
@@ -94,7 +94,7 @@ public class TaskList {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             output += (i + 1) + ". " + tasks.get(i);
-            output += "\n   ";
+            output += "\n";
         }
         return output;
     }

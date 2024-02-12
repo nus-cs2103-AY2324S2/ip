@@ -47,6 +47,13 @@ public class Task {
     }
 
     /**
+     * Returns the status of the task.
+     */
+    public boolean taskIsDone() {
+        return isDone;
+    }    
+
+    /**
      * Search the description of the task using the keyword.
      *
      * @param keyword Keyword to search for.

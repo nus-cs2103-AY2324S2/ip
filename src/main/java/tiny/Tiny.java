@@ -43,6 +43,7 @@ public class Tiny {
                 storage.save(tasks.toSave());
                 isExit = parser.isExit();
             } catch (TinyException e) {
+                assert isExit == false;
                 ui.showError(e.getMessage());
             }
         }
@@ -85,7 +86,7 @@ public class Tiny {
 
     private static void printContent(String input) {
         printLine();
-        tabPrint(input);
+        System.out.println(input);
         printLine();
     }
 

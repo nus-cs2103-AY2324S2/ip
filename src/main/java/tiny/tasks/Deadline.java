@@ -53,6 +53,7 @@ public class Deadline extends Task {
         // Date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
+            assert dateSplit.length == 2;
             year = Integer.parseInt(dateSplit[0]);
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
@@ -69,6 +70,7 @@ public class Deadline extends Task {
                     throw new TinyException("Please choose a time from 0000 to 2359!");
                 }
                 String[] hourMinuteSplit = dateTimeSplit[1].split("");
+                assert hourMinuteSplit.length == 4;
                 hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
                 minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
             } catch (Exception e) {

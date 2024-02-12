@@ -1,7 +1,5 @@
 package tiny.gui;
 
-import java.util.concurrent.TimeUnit;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import tiny.Tiny;
-
 
 public class Main extends Application {
     Tiny tiny = new Tiny();
@@ -79,6 +76,8 @@ public class Main extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         // Step 3. Add functionality to handle user input.
+        startUi();
+
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -87,14 +86,8 @@ public class Main extends Application {
             handleUserInput();
 
             if (tiny.isExit()) {
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    System.out.println("Unable to sleep!");
-                } finally {
-                    System.exit(0);
-                }
-            }   
+                System.exit(0);
+            }
         });
 
         // Scroll down to the end every time dialogContainer's height changes.
@@ -114,5 +107,13 @@ public class Main extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(userImage)),
                 DialogBox.getTinyDialog(tinyText, new ImageView(tinyImage)));
         userInput.clear();
+    }
+
+    private void startUi() {
+        String strartUpMessage = "\n   Hello! I'm Tiny!\n"
+                + "   What can I do for you?\n";
+        Label startUpText = new Label(strartUpMessage);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getTinyDialog(startUpText, new ImageView(tinyImage)));
     }
 }
