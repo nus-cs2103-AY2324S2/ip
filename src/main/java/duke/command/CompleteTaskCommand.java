@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.JamieException;
 import duke.TaskList;
 import duke.Storage;
 import duke.Ui;
@@ -27,10 +28,11 @@ public class CompleteTaskCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving the task list.
+     * @return
      * @throws IOException If there is an error while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
         tasks.completeTask(this.taskIndex - 1);
         storage.save(tasks);
         ui.showMarkAsDoneMessage(tasks.getTask(this.taskIndex - 1));

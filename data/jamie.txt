@@ -1,1 +1,1 @@
-T | 0 | Write JUnit tests
+T | 0 | read

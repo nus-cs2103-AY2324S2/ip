@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.JamieException;
 import duke.TaskList;
 import duke.task.Task;
 import duke.Storage;
@@ -30,9 +31,10 @@ public class DeleteTaskCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving the task list.
+     * @return
      * @throws IOException If there is an error while saving the task list.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException {
         assert this.taskNum > 0 : "Input task number cannot be less than 1";
         assert this.taskNum <= tasks.getTasksSize()
                 : "Input task number cannot be more than total number of tasks.";

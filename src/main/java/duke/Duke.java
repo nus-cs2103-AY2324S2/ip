@@ -1,7 +1,7 @@
 package duke;
 
 import java.io.IOException;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import duke.command.Command;
 import javafx.application.Application;
@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -33,12 +32,20 @@ public class Duke extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-
+    private String lastMessage;
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private GuiObserver guiObserver;
+    /**
+     * Constructs a new Duke object.
+     * Initializes the user interface, storage, and task list.
+     */
     public Duke() {
-    };
+        String filePath = "data/jamie.txt";
+        this.storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.tasks = new TaskList();
+    }
 
     /**
      * Constructs a new Duke object.
@@ -47,10 +54,10 @@ public class Duke extends Application {
      * @param filePath The file path to load and save tasks.
      */
     public Duke(String filePath) {
-        ui = new Ui();
+        this.ui = new Ui();
         try {
-            storage = new Storage(filePath);
-            tasks = new TaskList(storage.load());
+            this.storage = new Storage(filePath);
+            this.tasks = new TaskList(storage.load());
         } catch (IOException ie) {
             System.exit(0);
         } catch (JamieException e) {
@@ -58,39 +65,39 @@ public class Duke extends Application {
         }
     }
 
-    /**
-     * Runs the main loop of the application.
-     * Reads user input and executes commands until the user exits.
-     *
-     * @throws IOException If an I/O error occurs.
-     */
-    public void run() throws IOException {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = scanner.nextLine();
-            try {
-                Command command = Parser.parse(userInput);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (JamieException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-        ui.showExitMessage();
-        scanner.close();
-    }
+//    /**
+//     * Runs the main loop of the application.
+//     * Reads user input and executes commands until the user exits.
+//     */
+//
+//    public void run() {
+//        ui.showWelcome();
+//        Scanner scanner = new Scanner(System.in);
+//        boolean isExit = false;
+//        while (!isExit) {
+//            String userInput = scanner.nextLine();
+//            try {
+//                Command command = Parser.parse(userInput);
+//                command.execute(tasks, ui, storage);
+//                isExit = command.isExit();
+//            } catch (JamieException e) {
+//                ui.showError(e.getMessage());
+//            }
+//        }
+//        ui.showExitMessage();
+//        scanner.close();
+//    }
 
-    /**
-     * The entry point of the application.
-     *
-     * @param args The command-line arguments.
-     * @throws IOException If an I/O error occurs during the run.
-     */
-    public static void main(String[] args) throws IOException {
-        new Duke("data/Jamie.txt").run();
-    }
+//    /**
+//     * The entry point of the application.
+//     *
+//     * @param args The command-line arguments.
+//     */
+//    public static void main(String[] args) {
+////        new Duke("data/Jamie.txt").run();
+//        Application.launch(Duke.class, args);
+//
+//    }
 
     @Override
     public void start(Stage stage) {
@@ -108,12 +115,11 @@ public class Duke extends Application {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         scene = new Scene(mainLayout);
-
         stage.setScene(scene);
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Jamie");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -187,24 +193,39 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInput.getText(), user),
-                DialogBox.getDukeDialog(dukeText.getText(), duke)
+        String userMessage = userInput.getText(); // Retrieve user input text
+        Label userTextLabel = new Label(userMessage); // Create a Label with user input text
+        processUserInput(userMessage);
+        Label dukeTextLabel = new Label(this.lastMessage); // Create a Label with Duke's response
 
-        );
+        // Create DialogBox instances using the user input text and images
+        DialogBox userDialogBox = DialogBox.getUserDialog(userTextLabel.getText(), user);
+        DialogBox dukeDialogBox = DialogBox.getDukeDialog(dukeTextLabel.getText(), duke);
+
+        // Add the DialogBox instances to the dialogContainer
+        dialogContainer.getChildren().addAll(userDialogBox, dukeDialogBox);
+
+        // Clear the user input TextField
         userInput.clear();
     }
 
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public void processUserInput(String input) {
+        try {
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+            this.lastMessage = ui.getLastMessage();
+        } catch (JamieException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
+    public void setGuiObserver(GuiObserver observer) {
+        this.ui.setGuiObserver(observer);
+    }
+
+    public Ui getUi() {
+        return this.ui;
+    }
 
 }
+

@@ -1,8 +1,10 @@
 package duke.command;
 
-import java.io.IOException;
-import duke.TaskList;
+//import java.io.IOException;
+
+import duke.JamieException;
 import duke.Storage;
+import duke.TaskList;
 import duke.Ui;
 
 /**
@@ -17,9 +19,10 @@ public abstract class Command {
      * @param tasks   The task list.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving the task list.
-     * @throws IOException If there is an error while executing the command.
+     * @return
+     * @throws JamieException If there is an error while executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JamieException;
 
     /**
      * Marks the command as an exit command.
