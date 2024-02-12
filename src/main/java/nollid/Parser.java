@@ -112,8 +112,7 @@ public class Parser {
         }
 
         int tagsIndex = tagKeywordIndex + 1;
-        ArrayList<String> tags = new ArrayList<>(Arrays.asList(argsList.get(tagsIndex).split(",")));
-        return tags;
+        return new ArrayList<>(Arrays.asList(argsList.get(tagsIndex).split(",")));
     }
 
     /**
