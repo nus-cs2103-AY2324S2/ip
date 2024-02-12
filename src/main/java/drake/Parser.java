@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 
 /**
@@ -110,4 +111,19 @@ public class Parser {
         }
         return parts[1].trim();
     }
+
+    public static String[] parseContactAdd(String input) {
+        assert input != null && input.contains(" ") : "Invalid input format for parsing.";
+        String[] parts = input.split(" ", 3); // Split into at most 3 parts: command, name, and the rest as description
+
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Looks like you left the name of the contact empty. This isn't allowed!");
+        }
+
+        String name = parts[1].trim();
+        String description = parts.length > 2 ? parts[2].trim() : ""; // Use the rest as description if exists, else empty
+
+        return new String[]{name, description};
+    }
+
 }
