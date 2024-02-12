@@ -19,7 +19,7 @@ public class Ui {
         if (!dataFolder.exists()) {
             dataFolder.mkdir();
         }
-        File txtFile = new File(dataFolder,"Gops.gops.txt");
+        File txtFile = new File(dataFolder,"Gops.Gops.txt");
         if (!txtFile.exists()) {
             try {
                 txtFile.createNewFile();

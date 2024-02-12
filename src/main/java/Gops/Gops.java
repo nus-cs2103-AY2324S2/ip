@@ -1,12 +1,11 @@
 package Gops;
-
-public class gops {
+public class Gops {
     private Ui ui;
 
     /**
-     * Constructor for gops chatbot
+     * Constructor for Gops chatbot
      */
-    public gops() {
+    public Gops() {
         ui = new Ui();
     }
 
@@ -18,10 +17,10 @@ public class gops {
     }
 
     /**
-     * Start running gops chatbot
+     * Start running Gops chatbot
      * @param args args for main
      */
     public static void main(String[] args) {
-        new gops().run();
+        new Gops().run();
     }
 }
