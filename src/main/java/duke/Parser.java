@@ -11,6 +11,9 @@ public class Parser {
     private Storage storage;
     private TaskList taskList;
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATETIME_FORMAT = "d/M/yyyy HHmm";
+
     public Parser(Ui ui, Storage storage, TaskList taskList) {
         this.ui = ui;
         this.storage = storage;
@@ -77,8 +80,8 @@ public class Parser {
             String fromStr = userWord.substring(userWord.indexOf("/from") + 6, userWord.indexOf("/to")).trim();
             String toStr = userWord.substring(userWord.indexOf("/to") + 4).trim();
 
-            LocalDate startTime = LocalDate.parse(fromStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate endTime = LocalDate.parse(toStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate startTime = LocalDate.parse(fromStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
+            LocalDate endTime = LocalDate.parse(toStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
             Event event = new Event(description, startTime, endTime);
             taskList.addEventTask(event);
             return "Got it. I've added this event: " + event;
@@ -96,7 +99,7 @@ public class Parser {
         try {
             String[] parts = userWord.split("/by", 2);
             String description = parts[0].substring(9).trim();
-            LocalDateTime dateTime = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            LocalDateTime dateTime = LocalDateTime.parse(parts[1].trim(), DateTimeFormatter.ofPattern(DATETIME_FORMAT));
             Deadline deadline = new Deadline(description, dateTime);
             taskList.addDeadlineTask(deadline);
             return "Got it. I've added this deadline: " + deadline;

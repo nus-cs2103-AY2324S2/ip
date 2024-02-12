@@ -22,20 +22,9 @@ public class TaskList {
      * @throws IOException If an I/O error occurs.
      */
     public TaskList(Storage storage, Ui ui) throws IOException {
-        //this.tasks = new ArrayList<>();
         this.storage = storage;
         this.ui = ui;
         l = storage.readFromFile();
-    }
-
-    private static LocalDate parseDate(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            return LocalDate.parse(dateStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd, e.g., 2023-03-15");
-            return null;
-        }
     }
 
     /**
@@ -138,7 +127,7 @@ public class TaskList {
         StringBuilder response = new StringBuilder();
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : l) {
-            if (task.description.contains(user_keyword)) {
+            if (task.DESCRIPTION.contains(user_keyword)) {
                 matchingTasks.add(task);
             }
         }

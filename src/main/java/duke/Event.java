@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected LocalDate startTime;
-    protected LocalDate endTime;
+    protected LocalDate START_TIME;
+    protected LocalDate END_TIME;
 
     /**
      * Constructs an Event object.
@@ -16,8 +16,8 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.START_TIME = startTime;
+        this.END_TIME = endTime;
     }
 
     /**
@@ -29,8 +29,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        String formattedStartTime = startTime.format(formatter);
-        String formattedEndTime = endTime.format(formatter);
+        String formattedStartTime = START_TIME.format(formatter);
+        String formattedEndTime = END_TIME.format(formatter);
         return "E |" + super.toString().substring(1) + "| " + formattedStartTime + " to " + formattedEndTime;
     }
 
@@ -40,7 +40,7 @@ public class Event extends Task {
      * @return The start time of the event.
      */
     public LocalDate getStartTime() {
-        return startTime;
+        return START_TIME;
     }
 
     /**
@@ -49,6 +49,6 @@ public class Event extends Task {
      * @return The end time of the event.
      */
     public LocalDate getEndTime() {
-        return endTime;
+        return END_TIME;
     }
 }

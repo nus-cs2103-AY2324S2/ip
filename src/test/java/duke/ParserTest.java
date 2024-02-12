@@ -46,7 +46,7 @@ class ParserTest {
         Task addedTask = (Task) taskList.getTask(initialSize);
         assertTrue(addedTask instanceof Deadline);
         Deadline addedDeadline = (Deadline) addedTask;
-        assertEquals(description, addedDeadline.getDescription());
+        assertEquals(description, addedDeadline.getDESCRIPTION());
         assertEquals(endTime, addedDeadline.getEndTime());
     }
 
@@ -65,7 +65,7 @@ class ParserTest {
         Task addedTask = (Task) taskList.getTask(initialSize);
         assertTrue(addedTask instanceof Event);
         Event addedEvent = (Event) addedTask;
-        assertEquals(description, addedEvent.getDescription());
+        assertEquals(description, addedEvent.getDESCRIPTION());
         assertEquals(startDate, addedEvent.getStartTime());
         assertEquals(endDate, addedEvent.getEndTime());
     }
