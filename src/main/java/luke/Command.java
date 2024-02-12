@@ -5,7 +5,8 @@ public enum Command {
     LIST("list"),
     DELETE("delete"),
     MARK("mark"),
-    FIND("find");
+    FIND("find"),
+    REMIND("remind");
     private final String nameString;
     Command(String nameString) {
         this.nameString = nameString;
