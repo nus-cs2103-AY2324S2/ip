@@ -6,6 +6,9 @@ package duke.parser;
  */
 public class Parser {
 
+    /**
+     * Represent all possible commands made by user to Duke
+     */
     public enum Command {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN
     }

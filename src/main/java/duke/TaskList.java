@@ -3,6 +3,10 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
+
+/**
+ * TaskList Class to manage and perform actions to Tasks
+ */
 public class TaskList extends ArrayList<Task> {
 
     /**
@@ -24,7 +28,7 @@ public class TaskList extends ArrayList<Task> {
     void displayList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.size(); i++) {
-            System.out.println(i+1 + ":" + this.get(i));
+            System.out.println(i + 1 + ":" + this.get(i));
         }
     }
 
@@ -40,7 +44,7 @@ public class TaskList extends ArrayList<Task> {
         }
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.size(); i++) {
-            sb.append(i+1 + ":" + this.get(i) + "\n");
+            sb.append(i + 1 + ":" + this.get(i) + "\n");
         }
         return sb.toString();
     }
@@ -52,9 +56,9 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     String markComplete(int i) {
-        this.get(i-1).markComplete();
+        this.get(i - 1).markComplete();
         assert this.get(i-1).isDone();
-        return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i-1);
+        return "Nice! I've marked this duke.task as done:" + "\n" + this.get(i - 1);
     }
 
     /**
@@ -64,9 +68,9 @@ public class TaskList extends ArrayList<Task> {
      * @return String
      */
     String unmarkComplete(int i) {
-        this.get(i-1).unmarkComplete();
-        assert !this.get(i-1).isDone();
-        return "OK, I've marked this duke.task as not done yet:" + "\n" + this.get(i-1);
+        this.get(i - 1).unmarkComplete();
+        assert !this.get(i - 1).isDone();
+        return "OK, I've marked this duke.task as not done yet:" + "\n" + this.get(i - 1);
     }
 
     /**
@@ -77,7 +81,7 @@ public class TaskList extends ArrayList<Task> {
      */
     String deleteTask(int i) {
         int s0 = this.size();
-        Task t = this.remove(i-1);
+        Task t = this.remove(i - 1);
         int s1 = this.size();
         assert s1 == s0 - 1;
         return "Noted. I've removed this duke.task:" + "\n" + t + "\n" + countTasks();

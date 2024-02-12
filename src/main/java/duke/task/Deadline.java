@@ -11,7 +11,8 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
-    /** Public Constructor of Deadline object
+    /**
+     * Public Constructor of Deadline object
      * Required format: {@code name-of-event /by YYYY-MM-DD}
      * @param desc description of Deadline in required format
      */

@@ -40,10 +40,8 @@ public class TaskListTest {
     public void testAddToListWithTask() {
         TaskList list = new TaskList();
         Task newTask = new Task("new task");
-        list.addToList(newTask);
-
         String expectedOutput = "Got it. I've added this duke.task:\n" + newTask.toString() + "\n" +
-                "Now you have 1 tasks in the list.\n";
-        assertEquals(expectedOutput, outputStreamCaptor.toString().replace("\r\n", "\n"));
+                "Now you have 1 tasks in the list.";
+        assertEquals(expectedOutput, list.addToList(newTask));
     }
 }
