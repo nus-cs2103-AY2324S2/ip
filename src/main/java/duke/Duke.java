@@ -1,80 +1,90 @@
 package duke;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-/**
- * The Duke class represents a simple task management program.
- * Users can add, mark as done, unmark, list, delete and exit tasks.
- * Supports three types of tasks: Todo, Deadline, and Event.
- * Provides a command-line interface for user interaction.
- *
- * <p>
- * The program initializes a user interface, a task list, and a storage mechanism.
- * Users interact with the program through the command line, providing input to perform various tasks.
- * The program handles tasks such as adding, marking as done, unmarking, listing, deleting, and exiting tasks.
- * Task data is stored and loaded using the Storage class.
- * <p>
- *
- * <p>
- * The main method creates an instance of the Duke class, initializing it with the specified storage file path.
- * The program then enters a loop, continuously reading user input, parsing commands, and updating the task list.
- * The loop continues until the user chooses to exit the program.
- * <p>
- *
- * @author Kailin Teo
- */
-public class Duke {
+import java.util.ArrayList;
+
+public class Duke extends Application {
     private Storage storage;
-    private TaskList tasks;
+    private ArrayList<Task> tasks;
     private Ui ui;
 
-    /**
-     * Constructs a Duke instance with the specified storage file path.
-     *
-     * @param filePath The file path for storing and loading tasks.
-     */
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public Duke(Storage filePath) {
+    public Duke() {
+        // Initialize storage and other components
+        storage = new Storage("./data/duke.txt");
+        tasks = Storage.loadTasks();
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
         ui = new Ui();
-        ui.message();
-
-        // Create an ArrayList to store tasks
-        //ArrayList<Task> myList = new ArrayList<>();
-        ArrayList<Task> myList = Storage.loadTasks();
-
-        if (myList == null) {
-            myList = new ArrayList<>();
-        }
-
-        // Initialize Scanner for user input
-        Scanner sc = new Scanner(System.in);
-        ui.blank();
-        boolean result = true;
-
-        while (result) {
-            // Read user input
-            String userInput = sc.nextLine();
-
-            Parser parser = new Parser(userInput, myList);
-            result = parser.parseCommand();
-
-            Storage.saveTasks(myList);
-
-            if (!result) {
-                ui.finalMessage();
-            }
-        }
-        ui.blank();
     }
 
-    /**
-     * The main method to start the Duke program.
-     *
-     * @param args Command-line arguments
-     */
     public static void main(String[] args) {
-        Storage storage = new Storage("./data/duke.txt");
-        new Duke(storage);
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        AnchorPane mainLayout = new AnchorPane();
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+        scrollPane.setContent(dialogContainer);
+        scrollPane.setFitToWidth(true);
+
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        Scene scene = new Scene(mainLayout, 400, 600);
+
+        stage.setScene(scene);
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.show();
+
+        sendButton.setOnAction(event -> handleUserInput());
+        userInput.setOnAction(event -> handleUserInput());
+
+        displayWelcomeMessage();
+    }
+
+    private void displayWelcomeMessage() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.message(), dukeImage));
+    }
+
+    private void handleUserInput() {
+        String input = userInput.getText();
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        String response = String.valueOf(getResponse(input));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, dukeImage));
+        userInput.clear();
+    }
+
+    boolean getResponse(String input) {
+        Parser parser = new Parser(input, tasks);
+        boolean isSuccess = parser.parseCommand();
+        if (isSuccess) {
+            Storage.saveTasks(tasks);
+            ui.finalMessage();
+        } else {
+            ui.errorMessage();
+        }
+        return isSuccess;
     }
 }

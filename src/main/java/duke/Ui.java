@@ -9,12 +9,15 @@ public class Ui {
 
     /**
      * Displays the Duke logo and an initial message to the user.
+     *
+     * @return
      */
-    public void message() {
+    public String message() {
         // Displaying Duke logo and initial message
         String logo = " KASSIM ";
         System.out.println("YOO I AM " + logo);
         System.out.println("What can I do for you?");
+        return logo;
     }
 
     /**
