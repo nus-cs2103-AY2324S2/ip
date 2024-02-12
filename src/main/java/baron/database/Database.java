@@ -33,8 +33,9 @@ public class Database {
             if (!db.exists() && db.createNewFile()) {
                 System.out.println("Creating new file");
             }
+            assert Files.exists(db.toPath()) : (filePath + " failed to be created fucker");
             return db;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
@@ -49,6 +50,8 @@ public class Database {
      */
     public static long create(Path filePath, String line) {
         try {
+            assert Files.exists(filePath) : filePath + " doesn't exist";
+
             long count = Files.lines(filePath).count();
             long id = count;
             line = id + " | " + line;
