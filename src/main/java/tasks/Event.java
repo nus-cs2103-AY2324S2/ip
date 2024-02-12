@@ -26,6 +26,15 @@ public class Event extends Task {
     }
 
     /**
+     * Checks if the given input date falls within the duration of this event.
+     * @param date The input date to be checked
+     * @return A boolean representation of whether the date falls within this event.
+     */
+    public boolean isHappening(LocalDate date) {
+        return !date.isBefore(from) && !date.isAfter(to);
+    }
+
+    /**
      * Returns a string representation of the event task, including its type,
      * status, description, start date, and end date.
      *

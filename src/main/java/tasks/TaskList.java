@@ -1,6 +1,7 @@
 package tasks;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import exceptions.DukeException;
@@ -53,9 +54,13 @@ public class TaskList {
      *
      * @param index The index of the task in the list to be marked as done, starting from 1.
      */
-    public String markTaskAsDone(int index) {
-        Task task = taskList.get(index - 1);
-        return task.markDone(false);
+    public String markTaskAsDone(int index) throws DukeException {
+        try {
+            Task task = taskList.get(index - 1);
+            return task.markDone(false);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Quit yappin, that task does not exist");
+        }
     }
 
     /**
@@ -63,9 +68,13 @@ public class TaskList {
      *
      * @param index The index of the task in the list to be marked as done, starting from 1.
      */
-    public String unmarkTaskAsDone(int index) {
-        Task task = taskList.get(index - 1);
-        return task.unmarkDone();
+    public String unmarkTaskAsDone(int index) throws DukeException {
+        try {
+            Task task = taskList.get(index - 1);
+            return task.unmarkDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Quit yappin, that task does not exist");
+        }
     }
 
     /**
@@ -193,7 +202,7 @@ public class TaskList {
      * @return A new TaskList containing only the tasks that have the queryString in their
      *         description. If no tasks match the criteria, an empty TaskList is returned.
      */
-    public TaskList filter(String queryString) {
+    public TaskList filterByString(String queryString) {
         ArrayList<Task> newList = new ArrayList<>();
         for (Task task : this.taskList) {
             if (task.getDescription().contains(queryString)) {
@@ -202,5 +211,36 @@ public class TaskList {
         }
         return new TaskList(newList);
     }
+
+    /**
+     * Filters the list of tasks and returns a new {@code TaskList} containing
+     * only the tasks that are due on or are happening on the specified date.
+     * This method specifically checks for tasks of type {@code Deadline} and {@code Event}.
+     * For {@code Deadline} tasks, it checks if the deadline is due on the given date.
+     * For {@code Event} tasks, it checks if the event is happening on the given date.
+     *
+     * @param stringDate The date to filter the tasks by, in the format of "yyyy-mm-dd".
+     *                   It is used to identify tasks that are due on or are happening on this specific date.
+     * @return A new {@code TaskList} containing only the tasks due on or happening on the specified date.
+     * @throws DukeException If the provided date string does not conform to the expected format ("yyyy-mm-dd")
+     *                          a {@code DukeException} is thrown with a message prompting the correct format.
+     */
+    public TaskList filterByDate(String stringDate) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(stringDate);
+            ArrayList<Task> newList = new ArrayList<>();
+            for (Task task : this.taskList) {
+                if (task instanceof Deadline && ((Deadline) task).isDueToday(date)) {
+                    newList.add(task);
+                } else if (task instanceof Event && ((Event) task).isHappening(date)) {
+                    newList.add(task);
+                }
+            }
+            return new TaskList(newList);
+        } catch (DateTimeException e) {
+            throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
+        }
+    }
+
 
 }

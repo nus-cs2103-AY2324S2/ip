@@ -65,11 +65,11 @@ public class Task {
      */
     public String markDone(boolean start) {
         if (this.isDone) {
-            return "Stop yappin' bruh... tasks. Task is already marked as done" + this.description;
+            return "Stop yappin' bruh... tasks. Task is already marked as done" + this;
         } else {
             this.isDone = true;
             if (!start) {
-                return "Good job Yapper! I've marked this task as done:" + this.description;
+                return "Good job Yapper! I've marked this task as done:" + this;
             }
         }
         return "";

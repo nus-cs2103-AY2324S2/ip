@@ -34,6 +34,17 @@ public class Deadline extends Task {
                 + by.getMonth() + " " + by.getDayOfMonth() + " " + by.getYear() + ")";
     }
 
+
+    /**
+     * Checks if the given input date is equal to this Deadline task's due date.
+     *
+     * @param date The input data to check if task is due today.
+     * @return A boolean representing the result of the check.
+     */
+    public boolean isDueToday(LocalDate date) {
+        return date.equals(this.by);
+    }
+
     /**
      * Returns a string formatted for file storage, including the task type,
      * completion status, description, and deadline date.
