@@ -1,6 +1,5 @@
 package seedu.chatteroo.commands;
 
-import seedu.chatteroo.tasks.Task;
 import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 import seedu.chatteroo.storage.Storage;
@@ -21,12 +20,14 @@ public class FindCommand extends Command {
 
     /**
      * Executes the specified command by finding the tasks that contain the keyword.
-     * @param tasks The list of tasks.
-     * @param ui The user interface.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
      * @param storage The storage.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         int listCount = tasks.getTaskListSize();
         int count = 0;
         for (int i = 0; i < listCount; i++) {
@@ -41,5 +42,6 @@ public class FindCommand extends Command {
         if (count == 0) {
             System.out.println("There are no matching tasks in your list.");
         }
+        return null;
     }
 }

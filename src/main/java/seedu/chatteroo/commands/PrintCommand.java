@@ -17,12 +17,13 @@ public class PrintCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         int listCount = tasks.getTaskListSize();
         if (listCount == 0) {
             ui.showNoTaskText();
         } else {
             tasks.printTasks(listCount);
         }
+        return null;
     }
 }

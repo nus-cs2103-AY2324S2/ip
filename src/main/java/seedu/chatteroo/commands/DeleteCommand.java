@@ -3,6 +3,7 @@ package seedu.chatteroo.commands;
 import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 import seedu.chatteroo.storage.Storage;
+import seedu.chatteroo.tasks.Task;
 
 /**
  * Deletes the specified task from the list of tasks.
@@ -20,7 +21,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        Task deletedTask = tasks.getTask(taskNum);
         tasks.deleteTask(taskNum);
+        int listCount = tasks.getTaskListSize();
+        return ui.showDeleteTaskText(deletedTask, listCount);
     }
 }
