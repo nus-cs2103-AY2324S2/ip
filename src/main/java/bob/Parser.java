@@ -133,6 +133,7 @@ public class Parser {
     }
 
     public static Command parse(String command) throws BobException {
+        // TODO: Use regex
         String[] commandArgs = command.trim().split(" ", 2);
 
         command = commandArgs[0];
