@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
+    private static DataManager file = new DataManager("./data/duke.txt");
     public static String printIntro() {
         return " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -73,10 +74,6 @@ public class Duke {
                 "____________________________________________________________\n";
     }
 
-    public static ArrayList<Task> delete(ArrayList<Task> a, int count) {
-        a.remove(count);
-        return a;
-    }
 
     public static String replace(String message) {
         String newString = message.replaceAll("/(\\w+)", "$1:");
@@ -89,8 +86,8 @@ public class Duke {
         System.out.println("Enter Message");
 
         final int ArraySize = 100;
-        ArrayList<Task> tasks = new ArrayList<>(ArraySize);
-        int counter = 0;
+        ArrayList<Task> tasks = file.retrieveTasks();
+        int counter = tasks.size();
 
         while (true) {
             String message = input.nextLine();
@@ -111,12 +108,15 @@ public class Duke {
                     if (message.startsWith("mark")) {
                         current.markAsDone();
                         System.out.println(printMark(current));
+                        file.saveTasks(tasks);
                     } else if (message.startsWith("unmark")){
                         current.unmark();
                         System.out.println(printMark(current));
+                        file.saveTasks(tasks);
                     }else{
                         tasks.remove(num - 1);
                         System.out.println(deleteMessage(current, tasks.size()));
+                        file.saveTasks(tasks);
                     }
                 } else if (message.equals("todo") || message.equals("deadline") || message.equals("event")){
                     throw new DukeExceptions("Don't forget the description !");
@@ -126,24 +126,27 @@ public class Duke {
                         String[] parts = message.split(" ", 2);
                         String task = parts[1];
 //                        tasks[counter] = new Todo(task);
-                        tasks.add(new Todo(task));
+                        tasks.add(new Todo(task, false));
                         counter++;
                         System.out.println(added(tasks.get(counter - 1), counter));
+                        file.saveTasks(tasks);
                     } else if (message.startsWith("deadline")) {
                         String task = getTask(message);
                         String[] parts = time.split("by");
 //                        tasks[counter] = new Deadline(task, parts[1]);
-                        tasks.add(new Deadline(task, parts[1]) );
+                        tasks.add(new Deadline(task, false, parts[1]) );
                         counter++;
                         System.out.println(added(tasks.get(counter - 1), counter));
+                        file.saveTasks(tasks);
                     } else {
                         String task = getTask(message);
                         String[] parts = time.split("from");
                         String[] dateParts = parts[1].split("/to");
 //                        tasks[counter] = new Event(task, dateParts[0], dateParts[1]);
-                        tasks.add(new Event(task, dateParts[0], dateParts[1]));
+                        tasks.add(new Event(task, false, dateParts[0], dateParts[1]));
                         counter++;
                         System.out.println(added(tasks.get(counter - 1), counter));
+                        file.saveTasks(tasks);
                     }
 
                 } else {

@@ -1,0 +1,4 @@
+T | 0 | read book |  
+E | 0 | read |  mon  -  thurs
+D | 0 | homework |  tomorrow
+T | 0 | read book |  
