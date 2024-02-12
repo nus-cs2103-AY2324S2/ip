@@ -120,4 +120,21 @@ public class TaskList {
         return returnMessage;
     }
 
+    public String remind() {
+        String returnMessage = "Get to it!\n";
+        int num = 1;
+        for (Task s : tasks) {
+            System.out.println("Task: " + s.getFullStatus() +  s.isDone);
+            if (!s.isDone()) {
+                returnMessage += num + "." + s.getFullStatus() + "\n";
+                num += 1;
+            }
+        }
+        if (num == 1) { //no new tasks
+            returnMessage = "Looks like you have way too much free time on your hands, huh.\n"
+                    + "[Nothing left to do!]\n";
+        }
+        return returnMessage;
+    }
+
 }
