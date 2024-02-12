@@ -10,10 +10,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import snomexceptions.InvalidCommandException;
+
+
 import snomparser.Parser;
 import snomtasklist.TaskList;
 import snomui.Ui;
 
+
+/**
+ * Snom class implements the working body of SnomBot.
+ */
 public class Snom extends Application {
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/trainer.png"));

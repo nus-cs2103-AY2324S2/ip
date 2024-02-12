@@ -9,13 +9,31 @@ import snomtask.Event;
 import snomtask.Todo;
 import snomtasklist.TaskList;
 
-
+/**
+ * Parser implements the task processor which
+ * the user inputs into SnomBot.
+ */
 public class Parser {
 
+
+    /**
+     * Processes the command, and returns a String output
+     *            depending on the user's command.
+     * @param command is the command the user enters.
+     * @param lst is the tasklist storing
+     *            the tasks enterd by the user.
+     * @param storage is the file management system
+     *                for tasks entered by the user.
+     * @return a String value for the resulting output
+     *                of the command.
+     */
+
     public String processCommand(Command command, TaskList lst, TaskStorage storage) {
+
         boolean status = true;
         try {
             String cmd = command.execute(lst);
+            assert cmd != null : "Command cannot be null";
             String result = "";
             switch (command.getType()) {
             case DEADLINE:
@@ -41,12 +59,17 @@ public class Parser {
                 break;
             case FIND:
                 result = this.findTask(lst, cmd);
+                break;
             case BYE:
                 result = "bye";
                 break;
+            default:
+                result = "None";
+
 
 
             }
+            assert result.equals("None") : "Invalid task added";
 
             storage.saveTask(lst);
             return result;
@@ -58,21 +81,26 @@ public class Parser {
 
     }
 
+
     private String addTodo(TaskList lst, TaskStorage storage, String cmd) {
-        return lst.AddTask(new Todo(cmd));
+        return lst.addTask(new Todo(cmd));
+
     }
 
     private String addDeadline(TaskList lst, TaskStorage storage, String cmd) {
         String name = cmd.split("/", 2)[0];
+
         String due_date = cmd.split("/", 2)[1];
-        return lst.AddTask(new Deadline(name, due_date));
+        return lst.addTask(new Deadline(name, due_date));
+
     }
 
     private String addEvent(TaskList lst, TaskStorage storage, String cmd) {
         String name = cmd.split("/", 3)[0];
         String start = cmd.split("/", 3)[1];
         String end = cmd.split("/", 3)[2];
-        return lst.AddTask(new Event(name, start, end));
+
+        return lst.addTask(new Event(name, start, end));
     }
 
     private String doTask(TaskList lst, TaskStorage storage, int pos) {

@@ -1,5 +1,4 @@
 package inputcommands;
-
 import snomexceptions.InvalidCommandException;
 import snomexceptions.InvalidCommandTaskDescException;
 import snomtasklist.TaskList;
@@ -9,7 +8,7 @@ import snomtasklist.TaskList;
  * The AddTodoCommand implements the command of adding
  * a task of type Todo to the Tasklist.
  */
-class AddTodoCommand extends Command{
+class AddTodoCommand extends Command {
 
     protected AddTodoCommand(String desc) {
         super(desc);
@@ -35,7 +34,7 @@ class AddTodoCommand extends Command{
      * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a string representing a valid command.
      * @throws InvalidCommandException if the task description is invalid
-     * (such as being blank)
+     *     (such as being blank)
      */
     @Override
     public String execute(TaskList lst) throws InvalidCommandTaskDescException {
