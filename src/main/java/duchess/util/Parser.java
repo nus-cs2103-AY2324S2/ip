@@ -1,6 +1,17 @@
 package duchess.util;
 
+import duchess.tasks.Deadline;
+import duchess.tasks.Event;
+import duchess.tasks.Task;
+import duchess.tasks.ToDo;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+
 public class Parser {
+    private static final String LINE_BREAK = "\n------------------------------------------";
+
     /**
      * Creates new Parser object
      */
@@ -14,25 +25,94 @@ public class Parser {
      * @return int action id.
      * @throws DuchessException  If no valid action identified.
      */
-    public int getAction(String input) throws DuchessException {
+    public String getAction(String input, TaskList tasks, Ui ui, Storage storage) throws DuchessException {
+        String response = "";
         if (input.substring(0, 4).equalsIgnoreCase("list")) {
-            return 1;
+            return tasks.printTaskList();
         } else if (input.substring(0, 6).toUpperCase().contains("UNMARK")) {
-            return 2;
+            try {
+                int itemIndex = Character.getNumericValue(input.charAt(7));
+                return tasks.unmarkTask(itemIndex);
+            } catch (IndexOutOfBoundsException f) {
+                response += LINE_BREAK;
+                response += "\nOOPS!!! Please specify a valid task number.";
+                response += LINE_BREAK;
+                return response;
+            }
         } else if (input.substring(0, 4).toUpperCase().contains("MARK")) {
-            return 3;
+            try {
+                int itemIndex = Character.getNumericValue(input.charAt(5));
+                return tasks.markTask(itemIndex);
+            } catch (IndexOutOfBoundsException f) {
+                response += LINE_BREAK;
+                response += "\nOOPS!!! Please specify a valid task number.";
+                response += LINE_BREAK;
+                return response;
+            }
         } else if (input.substring(0, 6).toUpperCase().contains("DELETE")) {
-            return 4;
+            try {
+                int itemIndex = Character.getNumericValue(input.charAt(7));
+                return tasks.deleteTask(itemIndex);
+            } catch (IndexOutOfBoundsException f) {
+                response += LINE_BREAK;
+                response += "\nPlease specify a valid task number.";
+                response += LINE_BREAK;
+                return response;
+            }
         } else if (input.substring(0, 4).toUpperCase().contains("TODO")) {
-            return 5;
+            try {
+                String[] toDoDetails = getToDoDetails(input);
+                Task t = new ToDo(toDoDetails[1]);
+                return tasks.createTask(t);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                response += LINE_BREAK;
+                response += "\nIncorrect input.";
+                response += "\nTo create a 'To Do': \ntodo <description>";
+                response += LINE_BREAK;
+                return response;
+            }
         } else if (input.substring(0, 8).toUpperCase().contains("DEADLINE")) {
-            return 6;
+            try {
+                String[] deadlineDetails = getDeadlineDetails(input);
+                Task t = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                return tasks.createTask(t);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                response += LINE_BREAK;
+                response += "\nIncorrect input. ";
+                response += "\nTo create a 'Deadline': \ndeadline <description> /by <by>";
+                response += LINE_BREAK;
+                return response;
+            }
+
         } else if (input.substring(0, 5).toUpperCase().contains("EVENT")) {
-            return 7;
+            try {
+                String[] eventDetails = getEventDetails(input);
+                Task t = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
+                return tasks.createTask(t);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                response += LINE_BREAK;
+                response += "\nIncorrect input. ";
+                response += "\nTo create an 'Event': \nevent <description> /from <from> /to <to>";
+                response += LINE_BREAK;
+                return response;
+            }
         } else if (input.substring(0, 4).toUpperCase().contains("FIND")) {
-            return 8;
+            String keyword = getKeyword(input);
+            return tasks.findTasks(keyword);
+        } else if (input.substring(0, 3).toUpperCase().contains("BYE")) {
+            try {
+                storage.save(tasks.retrieveTaskList());
+                return ui.printExit();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "\nAn error occurred.";
+            }
         } else {
-            throw new DuchessException();
+            response += LINE_BREAK;
+            response += "\nOOPS!!! I'm sorry, but I don't know what that means :-(";
+            response += "\n" + ui.printMenu();
+            response += "\n" + LINE_BREAK;
+            throw new DuchessException(response);
         }
     }
 
@@ -82,4 +162,5 @@ public class Parser {
     public String getKeyword(String input) {
         return input.split("find ")[1];
     }
+
 }
