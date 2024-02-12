@@ -1,4 +1,2 @@
-[T][X] smurf
-[T][X] panda
-[E][ ] smurf and pan smell smell (from: Dec 01 2024 to: Dec 02 2024)
-[D][ ] smurf smurf (by: Dec 04 2024)
+[T][X] eat breakfast
+[D][ ] do homework (by: Feb 06 2024)

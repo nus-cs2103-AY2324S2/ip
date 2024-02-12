@@ -39,6 +39,8 @@ public class TaskList {
         tasks.add(instruction);
         System.out.println();
         this.storage.save(tasks);
+
+        assert tasks.size() >= 1;
         return "Got it. I've added this task:\n\t" + instruction.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
@@ -55,6 +57,8 @@ public class TaskList {
             Task task = tasks.get(index - 1);
             task.setIsDone(TaskStatus.COMPLETE);
             this.storage.save(tasks);
+
+            assert task.getIsDone() == TaskStatus.COMPLETE;
             return "Nice! I've marked this task as done:\n\t" + task.toString();
         }
     }
@@ -71,6 +75,8 @@ public class TaskList {
         } else {
             Task task = tasks.get(index - 1);
             task.setIsDone(TaskStatus.INCOMPLETE);
+
+            assert task.getIsDone() == TaskStatus.INCOMPLETE;
             this.storage.save(tasks);
             return "OK, I've marked this task as not done yet:\n\t" + task.toString();
         }
