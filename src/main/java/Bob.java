@@ -1,6 +1,9 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Bob {
     private static final String FILE_PATH = "./data/bob.txt";
@@ -76,15 +79,23 @@ public class Bob {
             }
 
             else if (input.startsWith("deadline ")) {
-                int byIndex = input.indexOf("/by ");
-                String taskDescription = input.substring(9, byIndex).trim();
-                String deadlineDate = input.substring(byIndex + 4).trim();
+                try {
+                    int byIndex = input.indexOf("/by ");
+                    String taskDescription = input.substring(9, byIndex).trim();
+                    String deadlineDate = input.substring(byIndex + 4).trim();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime dateTime = LocalDateTime.parse(deadlineDate, formatter);
 
-                Task newTask = new Deadline(taskDescription, deadlineDate);
-                taskList.add(newTask);
-                System.out.println(" Got it. I've added this task:\n"
-                        + "  " + newTask + "\n"
-                        + " Now you have " + taskList.size() + " tasks in the list.");
+                    Task newTask = new Deadline(taskDescription, dateTime);
+                    taskList.add(newTask);
+                    System.out.println(" Got it. I've added this task:\n"
+                            + "  " + newTask + "\n"
+                            + " Now you have " + taskList.size() + " tasks in the list.");
+                }
+
+                catch (DateTimeParseException e) {
+                    System.out.println("Your date/time input format should be yyyy-MM-dd HHmm");
+                }
             }
 
             else if (input.startsWith("todo ")) {
@@ -155,7 +166,9 @@ public class Bob {
 
                 else if (taskType.equals("D")) {
                     String deadlineDate = parts[3].trim();
-                    task = new Deadline(taskDescription, deadlineDate);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+                    LocalDateTime dateTime = LocalDateTime.parse(deadlineDate, formatter);
+                    task = new Deadline(taskDescription, dateTime);
                 }
 
                 else if (taskType.equals("E")) {
@@ -236,7 +249,8 @@ public class Bob {
 
                 if (task instanceof Deadline) {
                     taskType = "D";
-                    String deadline = ((Deadline) task).getBy();
+                    LocalDateTime deadlineDate = ((Deadline) task).getBy();
+                    String deadline = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
                     line = String.format("%s | %s | %s | %s", taskType, isDone, description, deadline);
                 }
 
@@ -324,12 +338,12 @@ class Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     /*
      * A constructor for creating a new task with a deadline.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -339,7 +353,7 @@ class Deadline extends Task {
      *
      * @return The deadline due.
      */
-    public String getBy() {
+    public LocalDateTime getBy() {
         return this.by;
     }
 
@@ -350,7 +364,7 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }
 
