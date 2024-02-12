@@ -1,23 +1,18 @@
 package scribbles.gui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
-import java.util.Collections;
 
 /**
  * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * This control represents a dialog box consisting of an ImageView to represent the Scribbles and a label
+ * containing text from the chatbot.
  */
 public class DialogBoxScribbles extends HBox {
     @FXML
@@ -25,6 +20,12 @@ public class DialogBoxScribbles extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a dialog box object for Scribbles.
+     *
+     * @param text Text from Scribbles.
+     * @param img Icon representing Scribbles.
+     */
     private DialogBoxScribbles(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBoxScribbles.fxml"));

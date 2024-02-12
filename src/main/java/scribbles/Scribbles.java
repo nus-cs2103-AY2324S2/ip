@@ -35,6 +35,11 @@ public class Scribbles {
         storage = new Storage(this.filePath, taskList);
     }
 
+    /**
+     * Greets the user.
+     *
+     * @return Greeting message to the user when Scribbles is launched.
+     */
     public String greet() {
         return ui.greet();
     }
@@ -43,7 +48,7 @@ public class Scribbles {
      * Takes the input of user as command and executes the list of actions that should follow the given command.
      *
      * @param input The command input by user.
-     * @return false if command is "bye", true otherwise.
+     * @return The response by Scribbles to the user input
      */
     public String getResponse(String input) {
         Parser parsedInput = new Parser(input);

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import scribbles.Scribbles;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Scribbles using FXML.
  */
 public class Main extends Application {
 

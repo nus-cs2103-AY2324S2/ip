@@ -15,7 +15,7 @@ public class Parser {
     private Ui ui;
 
     /**
-     * COnstructs a new instance of Parser with the specified input string.
+     * Constructs a new instance of Parser with the specified input string.
      *
      * @param input input string to be parsed.
      */

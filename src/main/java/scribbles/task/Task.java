@@ -22,6 +22,11 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Checks if the task has been completed.
+     *
+     * @return True if the task is completed.
+     */
     public boolean isCompleted() {
         return this.isCompleted;
     }

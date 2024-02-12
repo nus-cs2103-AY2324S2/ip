@@ -18,13 +18,19 @@ import scribbles.task.Todo;
 import scribbles.tasklist.TaskList;
 
 /**
- * This class deals with loading tasks from the file and saving task to the file.
+ * This class deals with creating file for storage, loading tasks from the file and saving task to the file.
  */
 public class Storage {
-
     private String filePath;
     private TaskList taskList;
 
+    /**
+     * Constructs a Storage object with the given file path to store information in the hard disk and task list
+     * to load information into chatbot for the user.
+     *
+     * @param filePath File path to file which stores tasks.
+     * @param taskList Task list to store tasks.
+     */
     public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
         this.taskList = taskList;
@@ -45,7 +51,6 @@ public class Storage {
         File f = new File(this.filePath);
 
         try {
-            // check if filePath directory exists
             File directory = f.getParentFile();
             if (!directory.exists()) {
                 boolean hasCreatedDirectory = directory.mkdir();
@@ -54,7 +59,6 @@ public class Storage {
                 }
             }
 
-            // Check if filePath file exists
             if (!f.exists()) {
                 boolean hasCreatedFile = f.createNewFile();
                 if (!hasCreatedFile) {

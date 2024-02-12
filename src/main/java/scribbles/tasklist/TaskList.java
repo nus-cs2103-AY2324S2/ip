@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import scribbles.task.Task;
 
 /**
- * This class represents the users task list.
+ * This class represents the user's task list.
  */
 public class TaskList {
 

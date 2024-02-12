@@ -18,11 +18,13 @@ public class Ui {
      */
     public String greet() {
         return ("Hello! I'm Scribbles :) What can I do for you?\n"
-                + "(input commands or type help for guide)");
+                + "(input commands or type 'help' for guide)");
     }
 
     /**
-     * Prints the error message if user inputs an invalid input into chatbot.
+     * Prints the message if user inputs an unidentified input into chatbot.
+     *
+     * @return A overview of the accepted commands by the chatbot.
      */
     public String printOtherInputMessage() {
         return ("Sorry, Scribbles was unable to understand your instructions :(\n"
@@ -43,7 +45,8 @@ public class Ui {
     /**
      * Prints list of tasks in task list.
      *
-     * @param taskList List which contains the tasks
+     * @param taskList List which contains the tasks.
+     * @return A user-friendly way of looking at the lists currently in the task list.
      */
     public String listTasks(TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -63,6 +66,7 @@ public class Ui {
      * Prints message if index input by user is out of bounds.
      *
      * @param taskList List containing the tasks
+     * @return Error message to inform user of the invalid index input.
      */
     public String printInvalidIndexMessage(TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -75,6 +79,7 @@ public class Ui {
      *
      * @param taskDeleted String of the task deleted from the list.
      * @param taskList task list that contains the tasks.
+     * @return Message to inform user of a task being deleted.
      */
     public String printTaskDeletionMessage(String taskDeleted, TaskList taskList) {
         return ("I've removed this task from your list:\n" + taskDeleted + "\n"
@@ -86,6 +91,7 @@ public class Ui {
      *
      * @param index Index of task to mark
      * @param taskList List containing the tasks
+     * @return Message to inform user that a task has been marked as completed.
      */
     public String printMarkCompletedMessage(int index, TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -104,6 +110,7 @@ public class Ui {
      *
      * @param index Index of task to unmark
      * @param taskList List containing the tasks
+     * @return Message to inform user that a task has been marked as incompleted.
      */
     public String printMarkIncompleteMessage(int index, TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -119,6 +126,8 @@ public class Ui {
 
     /**
      * Prints message if there is missing information from user input when adding tasks.
+     *
+     * @return Error message to inform user that there is missing information in their input.
      */
     public String printTaskMissingInformationMessage() {
         return ("Uh oh! Looks like there's missing information in your instructions!\n"
@@ -133,6 +142,8 @@ public class Ui {
 
     /**
      * Prints message if date/time String format is wrong.
+     *
+     * @return Error message to warn users of incorrect formatting of date/time.
      */
     public String printWrongDateTimeFormatMessage() {
         return ("Uh oh! Looks like your date/time format is wrong!:\n"
@@ -140,7 +151,9 @@ public class Ui {
     }
 
     /**
-     * Prints message if file is not found.
+     * Prints message if file is not found
+     *
+     * @return Error message if the file in the given file path is not found.
      */
     public String printFileNotFoundMessage() {
         return ("File not found to save task update. ");
@@ -150,6 +163,7 @@ public class Ui {
      * Prints message after task has been successfully added into task list.
      *
      * @param taskList List containing the tasks
+     * @return Message to confirm that a task has been added to the task list.
      */
     public String confirmTaskAddition(TaskList taskList) {
         return ("I've added this task to your list:\n" + taskList.get(taskList.size() - 1).toString() + "\n"
@@ -161,6 +175,7 @@ public class Ui {
      *
      * @param keyword Keyword that task should contain.
      * @param taskList Task list that contains tasks.
+     * @return List of tasks that contain the keyword specified by the user in the input.
      */
     public String printTasksWithKeyword(String keyword, TaskList taskList) {
         int numOfTasks = taskList.size();
@@ -181,6 +196,8 @@ public class Ui {
 
     /**
      * Prints error message if there is no keyword included in the find command.
+     *
+     * @return Error message to warn users that a keyword is missing in their input.
      */
     public String printMissingKeywordMessage() {
         return ("Please include a keyword so Scribbles can search for the tasks you are looking for!\n" +
