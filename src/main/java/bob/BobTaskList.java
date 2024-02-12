@@ -1,6 +1,7 @@
 package bob;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class that handles the task list of the chat bot.
@@ -99,12 +100,15 @@ public class BobTaskList {
 
         Task createdTask = null;
 
+        String[] args = input.split("\\s+");
+        String command = args[0];
+
         try {
-            if (input.contains(BobParser.TODO_COMMAND)) {
+            if (command.equals(BobParser.TODO_COMMAND)) {
                 createdTask = createTodoTask(input);
-            } else if (input.contains(BobParser.DEADLINE_COMMAND)) {
+            } else if (command.equals(BobParser.DEADLINE_COMMAND)) {
                 createdTask = createDeadlineTask(input);
-            } else if (input.contains(BobParser.EVENT_COMMAND)) {
+            } else if (command.equals(BobParser.EVENT_COMMAND)) {
                 createdTask = createEventTask(input);
             }
         } catch (StringIndexOutOfBoundsException e) {
@@ -142,6 +146,8 @@ public class BobTaskList {
 
         // Remove the command itself from the input.
         input = input.substring(BobParser.DEADLINE_COMMAND.length() + 1);
+
+        System.out.println(input);
 
         String[] split = input.split("/by");
         boolean hasInsufficientArgs = split.length < 2;
@@ -209,7 +215,7 @@ public class BobTaskList {
      *
      * @param input User input when calling the command.
      */
-    public String handleFindTask(String input) throws BobException {
+    public String handleFindTask(String input) {
 
         String response = "";
 
@@ -228,5 +234,39 @@ public class BobTaskList {
         }
 
         return response;
+    }
+
+    /**
+     * Handles the sorting of tasks by alphabetical order.
+     *
+     * @param input User input when calling the command.
+     * @return A feedback based for the sorting command.
+     * @throws BobException
+     */
+    public String handleSortTasks(String input) throws BobException {
+
+        String processedInput = input.toLowerCase();
+
+        boolean isInvalidFormat = !processedInput.contains("desc")
+                && !processedInput.contains("asc");
+        boolean hasNoArgs = input.trim().length() == BobParser.SORT_COMMAND.length();
+
+        if (isInvalidFormat || hasNoArgs) {
+            throw new BobException(
+                    BobErrorMessages.getSortExpectFormatMsg());
+        }
+
+        boolean isSortByAscending = processedInput.contains("asc");
+        boolean isSortByDescending = processedInput.contains("desc");
+
+        Comparator<Task> ascendingComparator = Comparator.comparing(a -> a.description);
+
+        if (isSortByAscending) {
+            list.sort(ascendingComparator);
+        } else if (isSortByDescending) {
+            list.sort(ascendingComparator.reversed());
+        }
+
+        return ui.getSortedMessage(isSortByAscending);
     }
 }

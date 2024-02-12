@@ -7,6 +7,15 @@ import java.time.LocalDateTime;
  */
 public class BobUtil {
 
+    /**
+     * Convert String to LocalDateTime if applicable.
+     *
+     * @param args Containing the String version of the date.
+     * @param hour Hour specified as Integer.
+     * @param minute Minute specified as Integer.
+     * @return LocalDateTime representation of the original String.
+     * @throws BobException.InvalidDateTimeFormat
+     */
     public static LocalDateTime convertToLocalDateTime(String[] args, int hour, int minute)
             throws BobException.InvalidDateTimeFormat {
 

@@ -12,8 +12,10 @@ public class BobParser {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
+
     public static final String DELETE_COMMAND = "delete";
     public static final String FIND_COMMAND = "find";
+    public static final String SORT_COMMAND = "sort";
 
     private BobUI ui;
     private BobTaskList taskList;
@@ -54,6 +56,9 @@ public class BobParser {
                 return taskList.handleTaskDeletion(input);
             case BobParser.FIND_COMMAND:
                 return taskList.handleFindTask(input);
+            case BobParser.SORT_COMMAND:
+                return taskList.handleSortTasks(input)
+                        + " " + ui.getTaskListText(false, taskList.getList());
             default:
                 throw new BobException.InvalidCommand(BobErrorMessages.UNKNOWN_COMMAND);
             }

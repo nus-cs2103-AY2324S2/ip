@@ -81,7 +81,7 @@ public class BobStorage {
 
             String line;
 
-            boolean isInvalidFile = false;
+            boolean isInvalidFile;
 
             boolean isValidTaskType;
             boolean isValidTaskStatus;
@@ -97,7 +97,7 @@ public class BobStorage {
 
                 isInvalidFile = properties.length < 4;
 
-                isValidTaskType = !(taskType.equals("T") || taskType.equals("E") || taskType.equals("D"));
+                isValidTaskType = taskType.equals("T") || taskType.equals("E") || taskType.equals("D");
                 isValidTaskStatus = properties[3].equals("false") || properties[3].equals("true");
 
                 isInvalidTodoFormat = taskType.equals("T") && properties.length < 4;
