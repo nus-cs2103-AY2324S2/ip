@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Dackel {
     /** Command aliases */
@@ -10,13 +11,14 @@ public class Dackel {
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
+    private static final String DELETE = "delete";
 
     /** Command flags */
     private static final String COMMAND = "command";
     private static final String BODY = "body";
     private static final String BY = "by";
     private static final String FROM = "from";
-    private static final String UNTIL = "until";
+    private static final String UNTIL = "to";
 
     /** Other String constants */
     private static final String NAME = "DACKEL";
@@ -31,7 +33,7 @@ public class Dackel {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     /** Memory for storing task and instruction data */
-    private static Task[] storedTasks = new Task[100];
+    private static ArrayList<Task> storedTasks = new ArrayList<>();
     private static int numberOfTasks = 0;
     private static HashMap<String, String> commandArgs = new HashMap<>();
 
@@ -54,7 +56,7 @@ public class Dackel {
      */
     private static void addTodo(String taskName) {
         Todo newTask = new Todo(taskName);
-        storedTasks[numberOfTasks] = newTask;
+        storedTasks.add(newTask);
         numberOfTasks++;
         speak("added the following task to your list!\n " + newTask.toString());
         speak("your list now has " + String.valueOf(numberOfTasks) + " tasks.");
@@ -68,7 +70,7 @@ public class Dackel {
      */
     private static void addDeadline(String taskName, String dueTime) {
         Deadline newTask = new Deadline(taskName, dueTime);
-        storedTasks[numberOfTasks] = newTask;
+        storedTasks.add(newTask);
         numberOfTasks++;
         speak("added the following task to your list!\n " + newTask.toString());
         speak("your list now has " + String.valueOf(numberOfTasks) + " tasks.");
@@ -83,10 +85,33 @@ public class Dackel {
      */
     private static void addEvent(String taskName, String startTime, String endTime) {
         Event newTask = new Event(taskName, startTime, endTime);
-        storedTasks[numberOfTasks] = newTask;
+        storedTasks.add(newTask);
         numberOfTasks++;
         speak("added the following task to your list!\n " + newTask.toString());
         speak("your list now has " + String.valueOf(numberOfTasks) + " tasks.");
+    }
+
+    /**
+     * Removes task with specified index from storedTasks
+     * 
+     * @param index index of the element to be removed
+     */
+    private static void deleteTask(int index) {
+        Task taskToBeRemoved = storedTasks.get(index);
+        String s = "the following task will be deleted from your list:\n ";
+        s += taskToBeRemoved.toString();
+        speak(s);
+        speak("are you sure you want to do this? [Y/n]: ");
+        String confirmation = receiveInput();
+        if (confirmation.equals("Y")) {
+            storedTasks.remove(index);
+            numberOfTasks--;
+            speak("task " + taskToBeRemoved.toString() + " successfully deleted.");
+            speak("you now have " + String.valueOf(numberOfTasks) + " tasks on your list.");
+        }
+        else {
+            speak("task was not deleted.");
+        }
     }
 
     /**
@@ -99,7 +124,7 @@ public class Dackel {
         }
         String s = "";
         for (int i = 0; i < numberOfTasks; i++) {
-            s += "\n" + String.format(" %2d " + storedTasks[i].toString(), i + 1);
+            s += "\n" + String.format(" %2d " + storedTasks.get(i).toString(), i + 1);
         }
         speak(s);
     }
@@ -110,8 +135,8 @@ public class Dackel {
      * @param index index of task in storedTasks
      */
     private static void markTask(int index) {
-        storedTasks[index].mark();
-        speak("i've marked the following task as done!\n " + storedTasks[index].toString());
+        storedTasks.get(index).mark();
+        speak("i've marked the following task as done!\n " + storedTasks.get(index).toString());
     }
 
     /**
@@ -120,8 +145,8 @@ public class Dackel {
      * @param index index of task in storedTasks
      */
     private static void unmarkTask(int index) {
-        storedTasks[index].unmark();
-        speak("i've unmarked the following task. do it soon, please!\n " + storedTasks[index].toString());
+        storedTasks.get(index).unmark();
+        speak("i've unmarked the following task. do it soon, please!\n " + storedTasks.get(index).toString());
     }
 
     /**
@@ -157,10 +182,10 @@ public class Dackel {
                 continue;
             }
             if (commandArgs.get(currentFlag) == null) {
-                commandArgs.put(currentFlag, commandArgs.get(currentFlag) + " " + currentString);
+                commandArgs.put(currentFlag, currentString);
             }
             else {
-                commandArgs.put(currentFlag, currentString);
+                commandArgs.put(currentFlag, commandArgs.get(currentFlag) + " " + currentString);
             }
         }
     }
@@ -292,6 +317,30 @@ public class Dackel {
                 throw new DackelException("too many arguments!");
             }
             addEvent(commandArgs.get(BODY), commandArgs.get(FROM), commandArgs.get(UNTIL));
+            break;
+        case DELETE:
+            if (body == null) {
+                throw new DackelException("list index cannot be left blank!");
+            }
+            if (body.length() == 0) {
+                throw new DackelException("list index cannot be left blank!");
+            }
+            if (commandArgs.size() > 2) {
+                throw new DackelException("too many arguments!");
+            }
+            try {
+                int index = Integer.valueOf(body) - 1;
+                if (index >= numberOfTasks) {
+                    throw new DackelException("there is no task with that index in the list.");
+                }
+                if (index < 0) {
+                    throw new DackelException("list indices must be greater than 0!");
+                }
+                deleteTask(index);
+            }
+            catch (NumberFormatException e) {
+                throw new DackelException("\"" + body + "\" isn't a number!");
+            }
             break;
         default:
             if (command.length() == 0) {
