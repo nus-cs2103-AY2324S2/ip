@@ -1,5 +1,7 @@
 package shodan;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import shodan.command.Command;
@@ -14,14 +16,19 @@ public class Shodan {
     private static StorageManager storageManager;
     private TaskList tasks;
     private TermUi ui;
+    private ByteArrayOutputStream textOutputHook = new ByteArrayOutputStream();
 
     /**
      * Instantiates a new Shodan instance.
      */
-    public Shodan() {
+    public Shodan(boolean useGui) {
         storageManager = new StorageManager();
         tasks = new TaskList(storageManager.loadTasks());
-        ui = new TermUi();
+        if (useGui) {
+            ui = new TermUi(new PrintStream(textOutputHook));
+        } else {
+            ui = new TermUi(System.out);
+        }
     }
 
     /**
@@ -30,7 +37,7 @@ public class Shodan {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        new Shodan().run();
+        new Shodan(false).run();
     }
 
     /**
@@ -48,10 +55,20 @@ public class Shodan {
                 shouldExit = command.execute(tasks, storageManager, ui);
             } catch (ShodanException e) {
                 ui.printError(e);
-
             } catch (IllegalArgumentException e) {
                 /* If no input was entered, re-prompt without showing any error */
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            textOutputHook.reset();
+            Command command = CommandParser.parse(input);
+            command.execute(tasks, storageManager, ui);
+            return textOutputHook.toString();
+        } catch (ShodanException e) {
+            return e.getMessage();
         }
     }
 }

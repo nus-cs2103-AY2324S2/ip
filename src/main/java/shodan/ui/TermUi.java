@@ -1,5 +1,6 @@
 package shodan.ui;
 
+import java.io.PrintStream;
 import java.util.List;
 
 import shodan.ShodanException;
@@ -9,6 +10,11 @@ import shodan.tasks.Task;
  * Handles text output to the CLI for Shodan
  */
 public class TermUi {
+    private PrintStream ps;
+
+    public TermUi(PrintStream ps) {
+        this.ps = ps;
+    }
     /**
      * Prints the greeting message to the user.
      */
@@ -18,16 +24,16 @@ public class TermUi {
                 + "  \\__ \\/ /_/ / / / / / / / /| | /  |/ / \n"
                 + " ___/ / __  / /_/ / /_/ / ___ |/ /|  /    \n"
                 + "/____/_/ /_/\\____/_____/_/  |_/_/ |_/    \n";
-        System.out.println(logo);
-        System.out.println("Greetings, human.");
-        System.out.println("What can I do for you?");
+        ps.println(logo);
+        ps.println("Greetings, human.");
+        ps.println("What can I do for you?");
     }
 
     /**
      * Shows the exit message to the user..
      */
     public void showExitMsg() {
-        System.out.println("Goodbye.");
+        ps.println("Goodbye.");
     }
 
     /**
@@ -35,7 +41,7 @@ public class TermUi {
      * that we need their input.
      */
     public void showPrompt() {
-        System.out.print("> ");
+        ps.print("> ");
     }
 
     /**
@@ -45,12 +51,12 @@ public class TermUi {
      */
     public void listTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("You currently have no tasks.");
+            ps.println("You currently have no tasks.");
         }
-        System.out.println("Here is your list of tasks:");
+        ps.println("Here is your list of tasks:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print(i + 1 + ". ");
-            System.out.println(tasks.get(i));
+            ps.print(i + 1 + ". ");
+            ps.println(tasks.get(i));
         }
     }
     /**
@@ -60,12 +66,12 @@ public class TermUi {
      */
     public void listSearchedTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks were found matching your search.");
+            ps.println("No tasks were found matching your search.");
         }
-        System.out.println("Here are the tasks that matched your search:");
+        ps.println("Here are the tasks that matched your search:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print(i + 1 + ". ");
-            System.out.println(tasks.get(i));
+            ps.print(i + 1 + ". ");
+            ps.println(tasks.get(i));
         }
     }
 
@@ -75,7 +81,7 @@ public class TermUi {
      * @param s the message to print.
      */
     public void printMsg(String s) {
-        System.out.println(s);
+        ps.println(s);
     }
 
     /**
@@ -84,6 +90,6 @@ public class TermUi {
      * @param e the exception to print.
      */
     public void printError(ShodanException e) {
-        System.out.println(e.getMessage());
+        ps.println(e.getMessage());
     }
 }

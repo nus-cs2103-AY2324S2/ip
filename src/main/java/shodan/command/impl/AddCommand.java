@@ -24,9 +24,9 @@ public class AddCommand extends Command {
      * @param args     the list of arguments passed in
      * @param taskType the type of the task to add.
      */
-    public AddCommand(List<String> args, String taskType) {
+    public AddCommand(List<String> args, TaskType taskType) {
         this.args = args;
-        type = TaskType.valueOf(taskType);
+        type = taskType;
     }
 
     /**

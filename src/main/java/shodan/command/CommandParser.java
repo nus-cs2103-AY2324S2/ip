@@ -11,6 +11,7 @@ import shodan.command.impl.DeleteCommand;
 import shodan.command.impl.FindCommand;
 import shodan.command.impl.ListCommand;
 import shodan.command.impl.MarkCommand;
+import shodan.tasks.TaskType;
 
 /**
  * This class is responsible for parsing commands entered by the user.
@@ -68,9 +69,11 @@ public class CommandParser {
                     throw new ShodanException("Input argument not recognised, please enter the task number.");
                 }
             case TODO:
+                return new AddCommand(tokens, TaskType.TODO);
             case DEADLINE:
+                return new AddCommand(tokens, TaskType.DEADLINE);
             case EVENT:
-                return new AddCommand(tokens, command);
+                return new AddCommand(tokens, TaskType.EVENT);
             case DELETE:
                 if (tokens.isEmpty()) {
                     throw new ShodanException("No arguments provided. "

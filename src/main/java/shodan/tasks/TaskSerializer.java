@@ -100,7 +100,6 @@ public class TaskSerializer {
             } catch (IllegalArgumentException e) {
                 return null;
             }
-            return null;
         }).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -16,6 +17,11 @@ dependencies {
 
 checkstyle {
     toolVersion = '10.2'
+}
+
+javafx {
+    version = '17.0.7'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 test {
@@ -33,7 +39,7 @@ test {
 }
 
 application {
-    mainClass.set("shodan.Shodan")
+    mainClass.set("shodan.Main")
 }
 
 shadowJar {
