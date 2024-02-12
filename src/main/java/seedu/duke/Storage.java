@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -127,26 +126,27 @@ public class Storage {
         fw.close();
     }
 
-    public static void findFromFile(String input) throws IOException{
+    public static String findFromFile(String input) throws FileNotFoundException, DukeException {
         Scanner s = new Scanner(f);
         String lowercaseInput = input.toLowerCase();
         int ptr = 1;
         int count = 0;
+        String result = "";
         while (s.hasNextLine()) {
             if (s.nextLine().toLowerCase().contains(lowercaseInput)) {
                 count++;
                 if (count == 1) {
-                    UI.printTop("      Here are the matching tasks in your list:\n");
+                    result += "Here are the matching tasks in your list:\n";
                 }
-                taskList.getTask(ptr - 1).printMatchDesc(count);
+                result += taskList.getTask(ptr - 1).printMatchDesc(count);
             }
             ptr++;
         }
         //if no matching tasks found
         if (count == 0) {
-            UI.printOut("      There was no matching tasks found in your list. Perhaps a typo?\n");
+            throw new DukeException("There was no matching tasks found in your list. Perhaps a typo?\n");
         } else {
-            UI.printLine();
+            return result;
         }
     }
 
@@ -155,11 +155,11 @@ public class Storage {
      *
      * @param task the Task object whose information is to be stored.
      */
-    public static void add(Task task) { //to append items to taskList
+    public static void add(Task task) throws DukeException{ //to append items to taskList
         try {
             writeToFile(task.toStore());
         } catch (IOException e) {
-            System.out.println("Oops something went wrong.\n" + e.getMessage());
+            throw new DukeException("Oops something went wrong.\n" + e.getMessage());
         }
     }
 
@@ -169,11 +169,11 @@ public class Storage {
      * @param num the index of the task to be deleted, which corresponds with the
      *            index of the line that contains the information to be deleted.
      */
-    public static void delete(int num) {
+    public static void delete(int num) throws DukeException{
         try {
             deleteFromFile(num);
         } catch (IOException e) {
-            System.out.println("Oops something went wrong.\n" + e.getMessage());
+            throw new DukeException("Oops something went wrong.\n" + e.getMessage());
         }
     }
 }

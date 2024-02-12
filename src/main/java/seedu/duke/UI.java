@@ -11,11 +11,8 @@ import java.util.Scanner;
  * @version 0.1
  */
 public class UI {
-    private Storage store;
-    private Scanner scanner;
-    public UI(Storage store) {
-        this.scanner = new Scanner(System.in);
-        this.store = store;
+
+    public UI() {
     }
     private static final String LINE =
                 "      _________________________________________________________________________\n";
@@ -30,8 +27,8 @@ public class UI {
     /**
      * Prints out the introduction of the program and the name of the chatbot, Bobby.
      */
-    public void intro() {
-        System.out.println("Hello! I'm\n" + this.logo + "\n\nWhat can I do for you today? :)\n");
+    public String intro() {
+        return "Hello, I'm Bobby!\n" + "What can I do for you today? :)\n";
     }
 
     /**
@@ -43,30 +40,20 @@ public class UI {
      */
     public static void emptyDesc(String tasktype) throws DukeException {
         if (tasktype.equals("todo")) {
-            throw new DukeException("todo task.");
+            throw new DukeException("Oops! Please state the description of your todo task.");
         } else if (tasktype.equals("deadline")) {
-            throw new DukeException("task and the deadline.");
+            throw new DukeException("Oops! Please state the description of your task and the deadline.");
         } else if (tasktype.equals("event")) {
-            throw new DukeException("event and provide the start and end timing.");
+            throw new DukeException("Oops! Please state the description of your event " +
+                    "and provide the start and end timing.");
         }
     }
 
     /**
      * Prints out a bye message when the user ends the program by running the command bye
      */
-    public void bye() {
-        System.out.print(LINE + "      Bye! Have a great day ahead :>\n" + LINE);
+    public String bye() {
+        return "Bye! Have a great day ahead :>\n";
     }
 
-    public static void printOut(String toPrint) {
-        System.out.print(LINE + toPrint + LINE);
-    }
-
-    public static void printTop(String toPrint) {
-        System.out.print(LINE + toPrint);
-    }
-
-    public static void printLine() {
-        System.out.print(LINE);
-    }
 }

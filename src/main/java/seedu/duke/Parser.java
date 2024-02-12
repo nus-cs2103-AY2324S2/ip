@@ -1,5 +1,9 @@
 package seedu.duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * <h1> Parser </h1>
  * This Parser class parses the user inputs of the Duke program and returns
@@ -23,7 +27,7 @@ public class Parser {
     public static int parseNum(String input) throws DukeException {
         String[] items = input.split(" ");
         if (items.length == 1) {
-            throw new DukeException("Oops! Please state the task number.", true);
+            throw new DukeException("Oops! Please state the task number.");
         } else {
             return Integer.parseInt(input.split(" ")[1]);
         }
@@ -46,6 +50,25 @@ public class Parser {
     }
 
     /**
+     * Returns a string of the task description, which is then used
+     * to initialise a Deadlines task and add it to the TaskList
+     *
+     * @param input the user input from system (command)
+     * @return String parsed from the user input, extracting only the description.
+     * @throws DukeException
+     */
+    public static String parseDeadlineTask(String input) throws DukeException{
+        String task = "";
+        String[] items = input.split(" ", 2);
+        if (items.length == 1) {
+            UI.emptyDesc("deadline");
+        }
+        String[] parts = input.split("/by ");
+        task = parts[0].replaceFirst("deadline ", "");
+        return task;
+    }
+
+    /**
      * Returns a string array of the description of the deadline and the deadline, which is then used
      * to initialise a Deadlines task and add it to the TaskList
      *
@@ -54,14 +77,19 @@ public class Parser {
      * only the required information, the description and deadline.
      * @throws DukeException
      */
-    public static String[] parseDeadline(String input) throws DukeException{
+    public static LocalDateTime parseDeadline(String input) throws DukeException{
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
             UI.emptyDesc("deadline");
         }
-        String[] parts = input.split("/by ");
-        parts[0] = parts[0].replaceFirst("deadline ", "");
-        return parts;
+        try {
+            String[] parts = input.split("/by ");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+            LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
+            return deadline;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Oops, please state your deadline in the format: dd-MM-yyyy HHmm");
+        }
     }
 
     /**
@@ -86,7 +114,7 @@ public class Parser {
             parts[2] = helper[1].split("/to ")[1]; //to
             return parts;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Please state the details like this: event event_name /from timing /to timing.", true);
+            throw new DukeException("Please state the details like this: event event_name /from timing /to timing.");
         }
 
     }
@@ -101,7 +129,7 @@ public class Parser {
     public static String parseFind(String input) throws DukeException{
         String[] items = input.split(" ", 2);
         if (items.length == 1) {
-            throw new DukeException("Oops, please state the description of the task you want to find.", true);
+            throw new DukeException("Oops, please state the description of the task you want to find.");
         }
         return items[1];
     }

@@ -10,23 +10,14 @@ package seedu.duke;
  * @version 0.1
  */
 public class DukeException extends Exception{
-    public DukeException(String tasktype) {
-        super("      _________________________________________________________________________n"
-                + "      Oops! Please state the description of your " + tasktype
-                + "\n      _________________________________________________________________________\n");
-    }
 
     public DukeException() {
-        super("      _________________________________________________________________________\n"
-                + "      Oops! I'm afraid I don't understand what that means.\n"
-                + "      Try adding a todo task like this: todo buy strawberry shortcake\n"
-                + "      _________________________________________________________________________\n");
+        super("Oops! I'm afraid I don't understand what that means.\n"
+                + "Try adding a todo task like this: todo buy strawberry shortcake\n");
     }
 
-    public DukeException(String error, boolean isDiff) {
-        super("      _________________________________________________________________________\n"
-                + "      "  + error
-                + "\n      _________________________________________________________________________\n");
+    public DukeException(String error) {
+        super(error);
     }
 
 }

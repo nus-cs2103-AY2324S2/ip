@@ -50,39 +50,25 @@ public class Deadline extends Task{
     }
 
     @Override
-    public void printTaskDesc(int num, boolean isLast){
-        if (!isLast) {
-            if (num == 1) {
-                System.out.print("      _________________________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (by: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
-            } else {
-                System.out.printf("      %d.[%s][%s] %s (by: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
-            }
+    public String printTaskDesc(int num, boolean isLast){
+        if (num == 1) {
+            return String.format("Here are the tasks in your list:\n %d.[%s][%s] %s (by: %s)\n",
+                    num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
         } else {
-            if (num == 1) {
-                System.out.print("      _________________________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (by: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
-                System.out.print("      _________________________________________________________________________\n");
-            } else {
-                System.out.printf("      %d.[%s][%s] %s (by: %s)\n",
-                        num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
-                System.out.print("      _________________________________________________________________________\n");
-            }
+            return String.format(" %d.[%s][%s] %s (by: %s)\n",
+                    num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
         }
     }
 
     @Override
-    public void printMatchDesc(int num) {
-        System.out.printf("      %d.[%s][%s] %s (by: %s)\n",
+    public String printMatchDesc(int num) {
+        return String.format(" %d.[%s][%s] %s (by: %s)\n",
                 num, getTag(), getStatusIcon(), getDescription(), parseDateTime());
     }
 
     @Override
-    public void printFullDesc() {
-        System.out.printf("         [%s][%s] %s (by: %s)\n",
+    public String printFullDesc() {
+        return String.format(" [%s][%s] %s (by: %s)\n",
                 getTag(), getStatusIcon(), getDescription(), parseDateTime());
     }
 }
