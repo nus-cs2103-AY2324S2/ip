@@ -13,12 +13,6 @@ public class Ui {
         return "\n No previous tasks.";
     }
 
-    /**
-     * Print message that there are no previous tasks recorded.
-     */
-    public String showInputError() {
-        return "\n No previous tasks.";
-    }
 
     /**
      * Print exit message.
