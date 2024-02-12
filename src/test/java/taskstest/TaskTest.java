@@ -1,4 +1,4 @@
-package tasksTest;
+package taskstest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

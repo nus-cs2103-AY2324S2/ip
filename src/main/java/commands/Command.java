@@ -1,5 +1,7 @@
 package commands;
 
+
+import exceptions.DukeException;
 import main.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -61,7 +63,7 @@ public enum Command {
      */
     ADD_TODO {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
             // Create a new tasks.ToDo task and add it to the task list
             Task task = tasks.initTask(message, "todo");
             tasks.addTasktoTaskList(task);
@@ -74,7 +76,7 @@ public enum Command {
      */
     ADD_DEADLINE {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
             // Create a new tasks.Deadline task and add it to the task list
             Task task = tasks.initTask(message, "deadline");
             tasks.addTasktoTaskList(task);
@@ -87,7 +89,7 @@ public enum Command {
      */
     ADD_EVENT {
         @Override
-        public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
+        public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
             // Create a new tasks.Event task and add it to the task list
             Task task = tasks.initTask(message, "event");
             tasks.addTasktoTaskList(task);
@@ -129,8 +131,8 @@ public enum Command {
      * @param storage The storage instance for saving and loading tasks.
      * @param message The additional message or data required for command execution.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage, String message) {
-        throw new UnsupportedOperationException("This command does not take any arguments.");
+    public String execute(TaskList tasks, Ui ui, Storage storage, String message) throws DukeException {
+        throw new DukeException("This command does not take any arguments.");
     }
 
 
