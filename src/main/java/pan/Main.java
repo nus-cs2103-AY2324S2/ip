@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import pan.controllers.MainWindow;
 
+/**
+ * Main - Represents the Main Class that stages the scene using FXML.
+ * @author Jerome Goh
+ */
 public class Main extends Application {
 
     private Pan pan = new Pan(new Ui(), new TaskList(new Storage()));

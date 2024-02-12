@@ -7,6 +7,10 @@ import java.util.List;
 import pan.enums.TaskStatus;
 import pan.exceptions.TaskIndexException;
 
+/**
+ * TaskList - Represents the TaskList Class that handles CRUD operations to the TaskList
+ * @author Jerome Goh
+ */
 public class TaskList {
     private List<Task> tasks;
     private Storage storage;
@@ -41,7 +45,8 @@ public class TaskList {
         this.storage.save(tasks);
 
         assert tasks.size() >= 1;
-        return "Got it. I've added this task:\n\t" + instruction.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n\t" + instruction.toString()
+            + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -95,7 +100,8 @@ public class TaskList {
             Task task = tasks.get(index - 1);
             tasks.remove(index - 1);
             this.storage.save(tasks);
-            return "Noted. I've removed this task:\n\t" + task.toString() + "Now you have " + tasks.size() + " tasks in the list.";
+            return "Noted. I've removed this task:\n\t" + task.toString()
+                + "Now you have " + tasks.size() + " tasks in the list.";
         }
     }
 
