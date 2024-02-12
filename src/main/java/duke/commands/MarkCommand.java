@@ -27,11 +27,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
             Task updateTask = tasks.markTask(updateIndex, isComplete);
-            ui.mark(updateTask, isComplete);
             storage.saveTasks(tasks);
+            return ui.mark(updateTask, isComplete);
+
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
