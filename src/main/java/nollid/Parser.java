@@ -137,6 +137,9 @@ public class Parser {
             throw new EmptyDescriptionException("Description of task is empty.");
         }
 
+        // Remove trailing whitespace
+        taskDescription.deleteCharAt(taskDescription.length() - 1);
+
         return taskDescription.toString();
     }
 }
