@@ -17,44 +17,45 @@ import chatbot.task.exception.InvalidTaskStringException;
  */
 public final class TaskParser {
     /** Stores the pattern to match a {@link TaskList} item. */
-    public static final Pattern TASK_ITEM_PATTERN = Pattern.compile("\\d+\\.(?<task>.*)");
+    private static final Pattern TASK_ITEM_PATTERN = Pattern.compile("\\d+\\.(?<task>.*)");
 
     /**
      * Parses a {@link TaskList} item from a human-readable string.
      *
-     * @param readableString the {@link TaskList} item as a human-readable string
-     * @return the parsed @link Task}
+     * @param readableString The {@link TaskList} item as a human-readable string.
+     * @return The parsed {@link Task}.
      * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public static Task parseTaskListItem(String readableString) throws InvalidTaskStringException {
         Matcher matcher = TASK_ITEM_PATTERN.matcher(readableString);
 
-        if (matcher.find()) {
-            String parsedString = matcher.group("task").trim();
-            return TaskParser.parseTask(parsedString);
-        } else {
+        if (!matcher.find()) {
             throw new InvalidTaskStringException();
         }
+
+        String parsedString = matcher.group("task").trim();
+        return TaskParser.parseTask(parsedString);
     }
 
     /**
      * Parses a {@link Task} from a human-readable string.
      *
-     * @param readableString the task as a human-readable string
-     * @return the parsed {@link Task}
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param readableString The task as a human-readable string.
+     * @return The parsed {@link Task}.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     private static Task parseTask(String readableString) throws InvalidTaskStringException {
         // note that the order of the tasks matters,
-        // and should be from most specific to least specific.
+        // and should be from most specific pattern to the least specific pattern.
         if (Event.isMatchingEvent(readableString)) {
             return Event.parseEvent(readableString);
         } else if (Deadline.isMatchingDeadline(readableString)) {
             return Deadline.parseDeadline(readableString);
         } else if (ToDo.isMatchingToDo(readableString)) {
             return ToDo.parseToDo(readableString);
+        } else {
+            // this should not happen unless the user modifies the save file with the wrong format.
+            throw new InvalidTaskStringException();
         }
-
-        throw new InvalidTaskStringException();
     }
 }

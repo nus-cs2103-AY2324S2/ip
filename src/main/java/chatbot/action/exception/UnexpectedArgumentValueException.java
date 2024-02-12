@@ -17,10 +17,10 @@ public final class UnexpectedArgumentValueException extends ActionException {
     private final Command command;
 
     /**
-     * Constructor for this {@link ActionException} for unrecognized {@link Argument} names.
+     * Constructor for this {@link ActionException} for an unexpected {@link Argument} value.
      *
-     * @param command the associated {@link Command}
-     * @param argument the {@link Argument}
+     * @param command The associated {@link Command} with that argument.
+     * @param argument The {@link Argument} with the unexpected value.
      */
     public UnexpectedArgumentValueException(Command command, Argument argument) {
         this.argument = argument;

@@ -9,24 +9,22 @@ import chatbot.exception.ChatBotException;
  */
 public final class InvalidValueTypeException extends ChatBotException {
     /** Stores the name of the expected type. */
-    private final String expectedType;
+    private final String expectedTypeName;
 
     /** Stores the value that is of the invalid type. */
     private final String invalidTypeValue;
 
     /**
-     * Constructor for this with an invalid value type.
-     *
-     * @param expectedType the name of the expected type
-     * @param invalidTypeValue the value of the invalid type as a {@link String}
+     * Constructor for an exception with a value type that doesn't match it's expected type,
+     * so is invalid.
      */
-    public InvalidValueTypeException(String expectedType, String invalidTypeValue) {
-        this.expectedType = expectedType;
+    public InvalidValueTypeException(String expectedTypeName, String invalidTypeValue) {
+        this.expectedTypeName = expectedTypeName;
         this.invalidTypeValue = invalidTypeValue;
     }
 
     @Override
     public String getMessage() {
-        return String.format("`%s` is not an %s.", invalidTypeValue, expectedType);
+        return String.format("`%s` is not an %s.", invalidTypeValue, expectedTypeName);
     }
 }

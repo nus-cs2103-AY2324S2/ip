@@ -28,8 +28,8 @@ public final class Deadline extends Task {
     /**
      * Constructor for this deadline.
      *
-     * @param name the name of this deadline
-     * @param deadline the deadline (possibly date/time) of this task
+     * @param name The name of this deadline.
+     * @param deadline The deadline (possibly date/time) of this task.
      */
     public Deadline(String name, DateStringValue deadline) {
         super(name);
@@ -39,8 +39,8 @@ public final class Deadline extends Task {
     /**
      * Constructor for this deadline.
      *
-     * @param matcher the matcher that has the relevant captured groups
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param matcher The matcher that has the relevant capture groups.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public Deadline(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
@@ -50,26 +50,25 @@ public final class Deadline extends Task {
     /**
      * Parses a deadline from a human-readable string.
      *
-     * @param readableString the deadline as a human-readable string
-     * @return the deadline
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
+     * @param readableString The deadline as a human-readable string.
+     * @return The deadline.
+     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public static Deadline parseDeadline(String readableString) throws InvalidTaskStringException {
         Matcher matcher = REGEX_PATTERN
                 .matcher(readableString);
 
-        if (matcher.find()) {
-            return new Deadline(matcher);
-        } else {
+        if (!matcher.find()) {
             throw new InvalidTaskStringException();
         }
+
+        return new Deadline(matcher);
     }
 
     /**
      * Checks if the format of a string matches with the pattern.
      *
-     * @param matchingString the string
-     * @return true if it matches, otherwise false.
+     * @return True if it matches, otherwise false.
      */
     public static boolean isMatchingDeadline(String matchingString) {
         return REGEX_PATTERN.matcher(matchingString).find();

@@ -17,7 +17,7 @@ public abstract class Task {
 
     /** The regex pattern that a {@link Task} takes. */
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "\\[(?<status>.)\\](?<name>.*)");
+            "\\[(?<status>.)](?<name>.*)");
 
     /** The text icon to indicate that a task is completed. */
     private static final String COMPLETED_ICON = "X";
@@ -31,7 +31,7 @@ public abstract class Task {
     /**
      * Constructor for this task.
      *
-     * @param name the name of this task
+     * @param name The name of this task.
      */
     public Task(String name) {
         this.name = name.trim();
@@ -40,24 +40,24 @@ public abstract class Task {
     /**
      * Constructor for this task.
      *
-     * @param matcher the matcher that has the relevant captured groups
+     * @param matcher The matcher that has the relevant captured groups.
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
     public Task(Matcher matcher) throws InvalidTaskStringException {
-        matcher = REGEX_PATTERN.matcher(matcher.group("task"));
+        Matcher taskPatternMatcher = REGEX_PATTERN.matcher(matcher.group("task"));
 
-        if (matcher.find()) {
-            this.isCompleted = isStatusIconCompleted(matcher.group("status"));
-            this.name = matcher.group("name").trim();
-        } else {
+        if (!taskPatternMatcher.find()) {
             throw new InvalidTaskStringException();
         }
+
+        this.isCompleted = isStatusIconCompleted(taskPatternMatcher.group("status"));
+        this.name = taskPatternMatcher.group("name").trim();
     }
 
     /**
      * Gets a human-readable description of this task.
      *
-     * @return this task in a human-readable string
+     * @return This task as a human-readable string.
      */
     @Override
     public String toString() {
@@ -81,17 +81,15 @@ public abstract class Task {
     /**
      * Checks if this task's name contains the pattern.
      *
-     * @param pattern the string to find in this task's name
+     * @param pattern The string to find in this task's name.
+     * @return True, if the name matches the pattern, otherwise false.
      */
     public boolean isContainingPattern(String pattern) {
-        Matcher matcher = Pattern.compile(pattern).matcher(name);
-        return matcher.find();
+        return Pattern.compile(pattern).matcher(name).find();
     }
 
     /**
      * Gets the {@link #COMPLETED_ICON} of the text that depends on the task completion status.
-     *
-     * @return the icon
      */
     private String getStatusIcon() {
         return (isCompleted) ? COMPLETED_ICON : " ";
@@ -100,7 +98,7 @@ public abstract class Task {
     /**
      * Checks if the status icon is completed.
      *
-     * @return true if the icon is {@value COMPLETED_ICON}, otherwise false
+     * @return True if the icon is {@value COMPLETED_ICON}, otherwise false.
      */
     private boolean isStatusIconCompleted(String statusIcon) {
         return COMPLETED_ICON.equals(statusIcon);

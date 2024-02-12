@@ -31,10 +31,10 @@ public final class ListAction extends Action {
     }
 
     /**
-     * Prints the user's list.
+     * Gets the user's list.
      *
-     * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
-     * @return the success message from performing the action
+     * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
+     * @return The success message from performing the action.
      */
     @Override
     public String execute(TaskList taskList) {
@@ -42,12 +42,12 @@ public final class ListAction extends Action {
             return PrintFormatter.formatMessages(
                     "Your list is empty."
             );
-        } else {
-            return PrintFormatter.formatMessages(
-                    "Here are the tasks in your list:",
-                    taskList.toString()
-            );
         }
+
+        return PrintFormatter.formatMessages(
+                "Here are the tasks in your list:",
+                taskList.toString()
+        );
     }
 
     public static String getName() {

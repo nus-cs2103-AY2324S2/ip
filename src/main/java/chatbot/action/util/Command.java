@@ -24,7 +24,7 @@ public final class Command {
      * <li>The first {@link Argument} has the name of the command.
      * <li>If the value is null, there is no value for that {@link Argument}. Otherwise, the value is required.
      *
-     * @param arguments the {@link Argument}(s) of this command
+     * @param arguments The {@link Argument}(s) of this command.
      */
     public Command(ExpectedArgument... arguments) {
         // Name of the argument is the first argument
@@ -39,8 +39,8 @@ public final class Command {
      * The usage hint is generated when the command is constructed,
      * and stored in this command.
      *
-     * @param arguments the {@link ExpectedArgument}(s) of this command
-     * @return the usage hint
+     * @param arguments The {@link ExpectedArgument}(s) of this command.
+     * @return The usage hint.
      */
     private String generateUsageHint(ExpectedArgument[] arguments) {
         StringBuilder usageString = new StringBuilder();
@@ -60,15 +60,14 @@ public final class Command {
                         .append("> ");
             }
         }
-        usageString.deleteCharAt(usageString.length() - 1);
-        return usageString.toString();
+        return usageString.toString().trim();
     }
 
     /**
      * Checks if the command expects an {@link Argument} name.
      *
-     * @param otherArgument the {@link Argument} with the name to find
-     * @return true if the command has that {@link Argument} name, otherwise false
+     * @param otherArgument The {@link Argument} with the name to find.
+     * @return True if the command has that {@link Argument} name, otherwise false.
      */
     public boolean hasArgumentName(Argument otherArgument) {
         for (Argument arg : arguments) {
@@ -90,7 +89,7 @@ public final class Command {
     /**
      * Validates the supplied {@link Argument} names and values.
      *
-     * @param suppliedArguments the {@link Argument} names
+     * @param suppliedArguments The {@link Argument} names.
      * @throws ActionException If an {@link Argument} is missing or invalid, or unrecognized.
      */
     public void validateSuppliedArguments(Argument[] suppliedArguments) throws ActionException {

@@ -15,7 +15,7 @@ public final class IntegerStringValue extends StringValue {
     /**
      * Takes in a string, but converts it to an {@link Integer}.
      *
-     * @param value the value as a {@link String}
+     * @param value The value as a {@link String}.
      * @throws InvalidValueTypeException If the value cannot be converted.
      */
     public IntegerStringValue(String value) throws InvalidValueTypeException {
@@ -35,7 +35,7 @@ public final class IntegerStringValue extends StringValue {
     /**
      * Factory method for taking in a {@link StringValue}, but tries to convert it to an {@link Integer}.
      *
-     * @param value the value as a {@link StringValue}
+     * @param value The value as a {@link StringValue}.
      * @throws InvalidValueTypeException If the value cannot be converted.
      */
     public IntegerStringValue(StringValue value) throws InvalidValueTypeException {
@@ -45,7 +45,7 @@ public final class IntegerStringValue extends StringValue {
     /**
      * Tries to get the int value.
      *
-     * @return the value as an int
+     * @return The value as an int.
      * @throws InvalidValueTypeException If the value cannot be converted.
      */
     public int tryGetIntegerValue() throws InvalidValueTypeException {

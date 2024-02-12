@@ -9,19 +9,17 @@ import chatbot.action.util.Command;
  */
 public final class UnrecognizedCommandException extends ActionException {
     /** Stores the name of the unrecognized {@link Command}. */
-    private final String commandName;
+    private final String unrecognizedCommandName;
 
     /**
      * Constructor for this {@link ActionException} for unrecognized commands.
-     *
-     * @param commandName the name of the {@link Command}
      */
-    public UnrecognizedCommandException(String commandName) {
-        this.commandName = commandName;
+    public UnrecognizedCommandException(String unrecognizedCommandName) {
+        this.unrecognizedCommandName = unrecognizedCommandName;
     }
 
     @Override
     public String getMessage() {
-        return "OOPS!!! I'm sorry, but I don't know what `" + commandName + "` means :-(";
+        return "OOPS!!! I'm sorry, but I don't know what `" + unrecognizedCommandName + "` means :-(";
     }
 }

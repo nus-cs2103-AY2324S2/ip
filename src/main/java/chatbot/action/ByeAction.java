@@ -22,7 +22,7 @@ public final class ByeAction extends Action {
     /**
      * Constructor for this bye action.
      *
-     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @param arguments The {@link Argument}(s) supplied with the {@link Command}.
      * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public ByeAction(Argument[] arguments) throws ActionException {
@@ -32,8 +32,8 @@ public final class ByeAction extends Action {
     /**
      * Greets the user when exiting the application.
      *
-     * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
-     * @return the success message from performing the action
+     * @param taskList The {@link TaskList} that is used with the {@link ChatBot}.
+     * @return The success message from performing the action.
      */
     @Override
     public String execute(TaskList taskList) {

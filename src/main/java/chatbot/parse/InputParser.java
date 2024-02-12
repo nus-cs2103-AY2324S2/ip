@@ -9,8 +9,6 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 
-
-
 /**
  * Parses the input of a {@link ChatBot} into {@link Argument} list.
  *
@@ -18,31 +16,29 @@ import chatbot.action.util.Command;
  */
 public final class InputParser {
     /**
-     * Parses the input string into it's {@link Command} and {@link Argument}(s).
+     * Parses the input line into it's {@link Command} and {@link Argument}(s).
      *
-     * @param input the input string
-     * @return an {@link Action} containing the {@link Command} and it's {@link Argument}(S)
+     * @return An {@link Action} containing the {@link Command} and it's {@link Argument}(s).
      * @throws ActionException If invalid input is provided that results in
      *     an invalid {@link Command} or {@link Argument}(s).
      */
-    public static Action getParsedInput(String input) throws ActionException {
+    public static Action getParsedInput(String commandLineInput) throws ActionException {
         // command is always the first word in the input
-        String command = input.trim().split(" ")[0];
+        String command = commandLineInput.trim().split(" ")[0];
 
-        return Action.of(command, parseArguments(input));
+        return Action.of(command, parseArguments(commandLineInput));
     }
 
     /**
-     * Parses the {@link Argument}(s) from an input string.
+     * Parses the {@link Argument}(s) from an input line.
      * <li>"/" is a special character, when at the start of a word, it denotes the start of an {@link Argument}.
      * <li>"/" not at the start of a word, will not be recognized as a special character.
      *
-     * @param input the console input
-     * @return the parsed {@link Argument} list
+     * @return The parsed {@link Argument} list.
      */
-    private static Argument[] parseArguments(String input) {
+    private static Argument[] parseArguments(String commandLineInput) {
         // split input by words (space-separated)
-        String[] tokens = input.split(" ");
+        String[] tokens = commandLineInput.split(" ");
 
         List<Argument> arguments = new ArrayList<>();
 
@@ -73,13 +69,13 @@ public final class InputParser {
     /**
      * Parses an {@link Argument} consisting of the argument name and value.
      *
-     * @param argumentName the string representing the {@link Argument} name
-     * @param argumentValue the string representing the {@link Argument} value
-     * @return the {@link Argument} that is formed
+     * @param argumentName The string representing the {@link Argument} name.
+     * @param argumentValue The string representing the {@link Argument} value.
+     * @return The {@link Argument} that is formed.
      */
     private static Argument parseArgument(String argumentName, String argumentValue) {
-        argumentValue = argumentValue.trim();
-        argumentValue = (argumentValue.equals("")) ? null : argumentValue;
-        return new Argument(argumentName, argumentValue);
+        String parsedArgumentValue = argumentValue.trim();
+        parsedArgumentValue = (parsedArgumentValue.equals("")) ? null : parsedArgumentValue;
+        return new Argument(argumentName, parsedArgumentValue);
     }
 }
