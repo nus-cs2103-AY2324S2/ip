@@ -12,4 +12,9 @@ public class Deadline extends VirtueTask {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    @Override
+    public String fileFormat() {
+        return "D | " + super.fileFormat() + " | " + by;
+    }
 }

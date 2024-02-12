@@ -5,7 +5,7 @@ import java.util.List;
 
 public class VirtueTaskList {
     // The task list.
-    List<VirtueTask> taskList;
+    private List<VirtueTask> taskList;
 
     public VirtueTaskList() {
         taskList = new ArrayList<>();
@@ -148,5 +148,21 @@ public class VirtueTaskList {
         if (marked == 1) {
             getTask(numTasks()).markAsDone();
         }
+    }
+
+    public String fileFormat() {
+        String str = "";
+
+        if (numTasks() == 0) {
+            return str;
+        }
+
+        for (int i = 1; i <= numTasks() - 1; i++) {
+            str += getTask(i).fileFormat();
+            str += System.lineSeparator();
+        }
+
+        str += getTask(numTasks()).fileFormat();
+        return str;
     }
 }

@@ -9,4 +9,9 @@ public class Todo extends VirtueTask {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String fileFormat() {
+        return "T | " + super.fileFormat();
+    }
 }

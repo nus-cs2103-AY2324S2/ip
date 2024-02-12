@@ -1,6 +1,5 @@
 package virtue;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -57,7 +56,12 @@ public class Virtue {
             if (currentCommand.isBye()) {
                 break;
             } else {
-                taskList.executeCommand(currentCommand);
+                try {
+                    taskList.executeCommand(currentCommand);
+                    VirtueFileWriter.writeToFile(taskList);
+                } catch (IOException e) {
+                    System.out.println("OOPS! An error occurred while taking the inputs: " + e.toString());
+                }
             }
         }
     }
