@@ -27,22 +27,6 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
     /**
-     * Greets the user with an introductory message.
-     *
-     * @return A formatted greeting message.
-     */
-    public String greetUser() {
-        return "Hello! I'm Zenify\n" + " What can I do for you?";
-    }
-    /**
-     * Formats and prints a reply to the console.
-     *
-     * @param raw The raw message to be formatted and displayed.
-     */
-    public void formatReply(String raw) {
-        System.out.print(HORIZONTAL_LINE + " " + raw + "\n" + HORIZONTAL_LINE + "\n");
-    }
-    /**
      * Formats and prints an error message to the console.
      *
      * @param raw The raw error message to be formatted and displayed.
@@ -153,19 +137,5 @@ public class Ui {
      */
     public String getInput() {
         return scanner.nextLine();
-    }
-    /**
-     * Checks if there is more input from the user.
-     *
-     * @return True if there is more input, false otherwise.
-     */
-    public boolean hasNext() {
-        return scanner.hasNextLine();
-    }
-    /**
-     * Closes the Scanner to release system resources.
-     */
-    public void closeScanner() {
-        scanner.close();
     }
 }

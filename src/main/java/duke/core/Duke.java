@@ -41,15 +41,6 @@ public class Duke {
             this.tasks = new TaskList();
         }
     }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
     /**
      * Enumeration representing valid commands for the Duke application.
      */
@@ -59,64 +50,62 @@ public class Duke {
     /**
      * Main loop for processing user commands and executing corresponding actions.
      */
-    public void echo() {
-        while (ui.hasNext()) {
-            String msg = ui.getInput();
-            Parser parser = new Parser(msg);
-            try {
-                if (msg.toUpperCase().startsWith(Command.BYE.name()) && parser.parseBye()) {
-                    ui.formatReply(ui.exit());
-                    break;
-                } else if (msg.toUpperCase().startsWith(Command.LIST.name()) && parser.parseList()) {
-                    ui.formatReply(ui.showAllTasks(tasks.getTasks()));
-                } else if (msg.toUpperCase().startsWith(Command.FIND.name())) {
-                    String description = parser.parseFind();
-                    ui.formatReply(ui.showFoundTasks(tasks.findTasks(description)));
-                } else if (msg.toUpperCase().startsWith(Command.MARK.name())) {
-                    int taskIndex = parser.parseMark();
-                    Task t = tasks.markTask(taskIndex);
-                    ui.formatReply(ui.showMarkTaskMessage(t));
-                    tasks.saveToStorage(storage);
-                } else if (msg.toUpperCase().startsWith(Command.UNMARK.name())) {
-                    int taskIndex = parser.parseUnmark();
-                    Task t = tasks.unmarkTask(taskIndex);
-                    ui.formatReply(ui.showUnmarkTaskMessage(t));
-                    tasks.saveToStorage(storage);
-                } else if (msg.toUpperCase().startsWith(Command.DELETE.name())) {
-                    int taskIndex = parser.parseDelete();
-                    Task t = tasks.deleteTask(taskIndex);
-                    ui.formatReply(ui.showDeleteTaskMessage(t, tasks.getTasks().size()));
-                    tasks.saveToStorage(storage);
-                } else if (msg.toUpperCase().startsWith(Duke.Command.TODO.name())) {
-                    Task t = parser.parseTodo();
-                    tasks.addTask(t);
-                    ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
-                    tasks.saveToStorage(storage);
-                } else if (msg.toUpperCase().startsWith(Command.DEADLINE.name())) {
-                    Task t = parser.parseDeadline();
-                    tasks.addTask(t);
-                    ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
-                    tasks.saveToStorage(storage);
-                } else if (msg.toUpperCase().startsWith(Command.EVENT.name())) {
-                    Task t = parser.parseEvent();
-                    tasks.addTask(t);
-                    ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
-                    tasks.saveToStorage(storage);
-                } else {
-                    ui.displayError("Unable to understand the command. Please enter a valid command.");
-                }
-            } catch (DukeException e) {
-                ui.displayError(e.getMessage());
+    public String getResponse(String msg) {
+        StringBuilder response = new StringBuilder();
+
+        Parser parser = new Parser(msg);
+        try {
+            if (msg.toUpperCase().startsWith(Command.BYE.name()) && parser.parseBye()) {
+                response.append(ui.exit());
+            } else if (msg.toUpperCase().startsWith(Command.LIST.name()) && parser.parseList()) {
+                response.append(ui.showAllTasks(tasks.getTasks()));
+            } else if (msg.toUpperCase().startsWith(Command.FIND.name())) {
+                String description = parser.parseFind();
+                response.append(ui.showFoundTasks(tasks.findTasks(description)));
+            } else if (msg.toUpperCase().startsWith(Command.MARK.name())) {
+                int taskIndex = parser.parseMark();
+                Task t = tasks.markTask(taskIndex);
+                response.append(ui.showMarkTaskMessage(t));
+                tasks.saveToStorage(storage);
+            } else if (msg.toUpperCase().startsWith(Command.UNMARK.name())) {
+                int taskIndex = parser.parseUnmark();
+                Task t = tasks.unmarkTask(taskIndex);
+                response.append(ui.showUnmarkTaskMessage(t));
+                tasks.saveToStorage(storage);
+            } else if (msg.toUpperCase().startsWith(Command.DELETE.name())) {
+                int taskIndex = parser.parseDelete();
+                Task t = tasks.deleteTask(taskIndex);
+                response.append(ui.showDeleteTaskMessage(t, tasks.getTasks().size()));
+                tasks.saveToStorage(storage);
+            } else if (msg.toUpperCase().startsWith(Duke.Command.TODO.name())) {
+                Task t = parser.parseTodo();
+                tasks.addTask(t);
+                response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
+                tasks.saveToStorage(storage);
+            } else if (msg.toUpperCase().startsWith(Command.DEADLINE.name())) {
+                Task t = parser.parseDeadline();
+                tasks.addTask(t);
+                response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
+                tasks.saveToStorage(storage);
+            } else if (msg.toUpperCase().startsWith(Command.EVENT.name())) {
+                Task t = parser.parseEvent();
+                tasks.addTask(t);
+                response.append(ui.showAddTaskMessage(t, tasks.getTasks().size()));
+                tasks.saveToStorage(storage);
+            } else {
+                response.append("Unable to understand the command. Please enter a valid command.");
             }
+        } catch (DukeException e) {
+            response.append(e.getMessage());
         }
-        ui.closeScanner();
+        return response.toString();
     }
     /**
      * Initializes the Duke application, greets the user, and starts command processing.
      */
     public void run() {
-        ui.formatReply(ui.greetUser());
-        this.echo();
+        String msg = ui.getInput();
+        this.getResponse(msg);
     }
     /**
      * Main method to launch the Duke application.

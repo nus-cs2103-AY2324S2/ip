@@ -1,6 +1,9 @@
 package duke.ui;
 
+import java.util.Objects;
+
 import duke.core.Duke;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -23,18 +27,26 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+            "/images/DaUser.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+            "/images/DaDuke.png")));
+    /**
+     * Initializes the main window.
+     * Binds the scroll pane to the height of the dialog container.
+     * Adds a welcome message from Duke to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String input = "Hello! I'm Denify\n" + "What can I do for you?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(input, dukeImage)
+        );
     }
-
     public void setDuke(Duke d) {
         duke = d;
     }
-
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -48,5 +60,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (input.equalsIgnoreCase("bye")) {
+            Platform.exit();
+        }
     }
 }
