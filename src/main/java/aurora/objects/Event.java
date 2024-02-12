@@ -7,11 +7,15 @@ import java.time.format.DateTimeFormatter;
  * The event class is a representation of an event task with a start and end date & time.
  */
 public class Event extends Task{
+
     /** Starting time and date of the event. */
     private LocalDateTime startDate;
 
     /** Ending time and date of the event. */
     private LocalDateTime endDate;
+
+    private static final String TASK_TYPE_FOR_FILE = "E";
+    private static final String TASK_TYPE = "[E]";
 
     /**
      * Constructor for the Event class.
@@ -56,20 +60,18 @@ public class Event extends Task{
 
     @Override
     public String toFileString() {
-        String taskType = "E";
         String isDone = this.getStatus() ? "1" : "0";
         String description = super.toFileString();
         String startDate = dateToString(this.startDate);
         String endDate = dateToString(this.endDate);
-        return taskType + " | " + isDone + " | " + description + " | " + startDate + " | " + endDate;
+        return TASK_TYPE_FOR_FILE + " | " + isDone + " | " + description + " | " + startDate + " | " + endDate;
     }
 
     @Override
     public String toString() {
-        String taskType = "[E]";
         String startDate = dateToString(this.startDate);
         String endDate = dateToString(this.endDate);
-        String eventString = taskType + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
+        String eventString = TASK_TYPE + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
         return eventString;
     }
 

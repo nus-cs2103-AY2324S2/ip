@@ -1,12 +1,12 @@
 package aurora.command;
 
+import java.io.IOException;
+
 import aurora.objects.AuroraException;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * The TodoCommand class handles the "todo" command.
@@ -41,29 +41,11 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void handle() throws AuroraException {
-        String[] descriptionSplit = Parser.splitAtFirstBlank(this.command);
-        if (descriptionSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter todo, then specify the task.");
-        } else {
-            this.taskList.addTodo(descriptionSplit[1]);
-            this.ui.echoAddTask(this.taskList);
-        }
-        try {
-            this.storage.saveTasks(this.taskList.getTaskList());
-        } catch (IOException exception) {
-            System.out.println("Unable to save todo to file: " + exception.getMessage());
-        }
-    }
-
-    @Override
-    public String handleGui() throws AuroraException {
+    public String handle() throws AuroraException {
         String message = "Command not executed.";
         String[] descriptionSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter todo, then specify the task.");
+            throw new AuroraException(AuroraException.INVALID_TODO_FORMAT);
         } else {
             this.taskList.addTodo(descriptionSplit[1]);
             message = this.ui.getEchoAddTaskString(this.taskList);
@@ -74,11 +56,6 @@ public class TodoCommand extends Command {
             message =  "Unable to save todo to file: " + exception.getMessage();
         }
         return message;
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
 }

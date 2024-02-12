@@ -1,14 +1,14 @@
 package aurora.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import aurora.objects.AuroraException;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The DeadlineCommand class handles the "deadline" command.
@@ -43,74 +43,34 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void handle() throws AuroraException {
-        String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
-        if (descriptionAndDateSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
-        }
-        String descriptionAndDate = descriptionAndDateSplit[1];
-        String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
-        if (splitVariables.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
-        } else {
-            String description = splitVariables[0];
-            String dateString = splitVariables[1];
-            try {
-                LocalDateTime dateLdt = Parser.parseDate(dateString.trim());
-                this.taskList.addDeadline(description, dateLdt);
-                this.ui.echoAddTask(this.taskList);
-            } catch (DateTimeParseException e) {
-                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
-            }
-        }
-        try {
-            this.storage.saveTasks(this.taskList.getTaskList());
-        } catch (IOException exception) {
-            System.out.println("Unable to save deadline to file: " + exception.getMessage());
-        }
-    }
-
-    @Override
-    public String handleGui() throws AuroraException {
+    public String handle() throws AuroraException {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
+            throw new AuroraException(AuroraException.INVALID_DEADLINE_FORMAT);
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] splitVariables = Parser.splitAtFirstBy(descriptionAndDate);
         if (splitVariables.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
+            throw new AuroraException(AuroraException.INVALID_DEADLINE_FORMAT);
         } else {
             String description = splitVariables[0];
             String dateString = splitVariables[1];
             try {
                 LocalDateTime dateLdt = Parser.parseDate(dateString.trim());
                 this.taskList.addDeadline(description, dateLdt);
-                //this.ui.echoAddTask(this.taskList);
+                message = this.ui.getEchoAddTaskString(this.taskList);
             } catch (DateTimeParseException e) {
-                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
+                throw new AuroraException(AuroraException.INVALID_DATE_FORMAT);
             }
         }
         try {
             this.storage.saveTasks(this.taskList.getTaskList());
         } catch (IOException exception) {
-            return "Unable to save deadline to file: " + exception.getMessage();
+            message = "Unable to save deadline to file: " + exception.getMessage();
+            return message;
         }
-        return this.ui.getEchoAddTaskString(this.taskList);
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+        return message;
     }
 
 }

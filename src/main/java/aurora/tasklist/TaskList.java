@@ -1,12 +1,12 @@
 package aurora.tasklist;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import aurora.objects.Deadline;
 import aurora.objects.Event;
 import aurora.objects.Task;
 import aurora.objects.Todo;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * The TaskList class is used to represent the list of tasks used in the application.
@@ -15,6 +15,11 @@ public class TaskList {
 
     /** TaskList of tasks */
     private ArrayList<Task> taskList;
+
+    private static final String MARK_DONE = "I've marked this task as done: \n";
+    private static final String UNMARK_DONE = "I've marked this task as not done yet: \n";
+    private static final String DELETE_TASK = "I've removed this task as you instructed: \n";
+    private static final String NUMBER_OF_TASKS = "\nNumber of tasks in the list: ";
 
     /**
      * Constructor for the TaskList class.
@@ -58,41 +63,6 @@ public class TaskList {
         this.taskList.add(newTask);
     }
 
-
-    /**
-     * Method to mark a task in the taskList as done.
-     *
-     * @param taskIndex Index of the task in the ArrayList
-     */
-    public void markTask(int taskIndex) {
-        this.taskList.get(taskIndex).setDone();
-        System.out.println("I've marked this task as done: \n" +
-                this.taskList.get(taskIndex).toString());
-    }
-
-    /**
-     * Method to unmark a task in the taskList.
-     *
-     * @param taskIndex Index of the task in the ArrayList
-     */
-    public void unmarkTask(int taskIndex) {
-        this.taskList.get(taskIndex).setNotDone();
-        System.out.println("I've marked this task as not done yet: \n" +
-                this.taskList.get(taskIndex).toString());
-    }
-
-    /**
-     * Method to delete a task in the taskList.
-     *
-     * @param taskIndex Index of the task in the ArrayList
-     */
-    public void deleteTask(int taskIndex) {
-        String taskString = this.taskList.get(taskIndex).toString();
-        this.taskList.remove(taskIndex);
-        System.out.println("I've removed this task as you instructed: \n" +
-                taskString + "\nNumber of tasks in the list: " + taskList.size());
-    }
-
     /**
      * Marks a task in the taskList as done and returns a confirmation message.
      *
@@ -101,7 +71,7 @@ public class TaskList {
      */
     public String markTaskGui(int taskIndex) {
         this.taskList.get(taskIndex).setDone();
-        return "I've marked this task as done: \n" + this.taskList.get(taskIndex).toString();
+        return MARK_DONE + this.taskList.get(taskIndex).toString();
     }
 
     /**
@@ -112,7 +82,7 @@ public class TaskList {
      */
     public String unmarkTaskGui(int taskIndex) {
         this.taskList.get(taskIndex).setNotDone();
-        return "I've marked this task as not done yet: \n" + this.taskList.get(taskIndex).toString();
+        return UNMARK_DONE + this.taskList.get(taskIndex).toString();
     }
 
     /**
@@ -124,8 +94,8 @@ public class TaskList {
     public String deleteTaskGui(int taskIndex) {
         String taskString = this.taskList.get(taskIndex).toString();
         this.taskList.remove(taskIndex);
-        return "I've removed this task as you instructed: \n" + taskString +
-                "\nNumber of tasks in the list: " + this.taskList.size();
+        return DELETE_TASK + taskString +
+                NUMBER_OF_TASKS + this.taskList.size();
     }
 
     /**

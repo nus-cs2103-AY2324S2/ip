@@ -15,18 +15,8 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void handle() throws AuroraException {
-        throw new AuroraException("I am unable to understand this command, please kindly try again.");
-    }
-
-    @Override
-    public String handleGui() throws AuroraException {
-        throw new AuroraException("I am unable to understand this command, please kindly try again.");
-    }
-
-    @Override
-    public boolean isBye() {
-        return false;
+    public String handle() throws AuroraException {
+        throw new AuroraException(AuroraException.INVALID_COMMAND);
     }
 
 }

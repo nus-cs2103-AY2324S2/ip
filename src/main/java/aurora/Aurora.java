@@ -1,5 +1,8 @@
 package aurora;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import aurora.command.Command;
 import aurora.objects.AuroraException;
 import aurora.objects.Task;
@@ -7,8 +10,6 @@ import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Duke is the main class for the application that runs according to the commands given to it by the user.
@@ -39,7 +40,7 @@ public class Aurora {
      */
     public Aurora() {
         this.ui = new Ui();
-        this.storage = new Storage("./data/duke.txt");
+        this.storage = new Storage("./data/aurora.txt");
         try {
             ArrayList<Task> taskList = storage.loadTasks();
             this.taskList = new TaskList(taskList);
@@ -80,8 +81,11 @@ public class Aurora {
             try {
                 String command = this.ui.nextCommand();
                 Command commandObj = this.parser.parseCommand(command);
-                commandObj.handle();
-                isBye = commandObj.isBye();
+                String resultString = commandObj.handle();
+                this.ui.printALine();
+                System.out.println(resultString);
+                this.ui.printALine();
+                isBye = commandObj.isByeCommand();
             } catch (AuroraException exception) {
                 String exceptionMessage = exception.getExceptionMessage();
                 this.ui.printALine();
@@ -101,7 +105,7 @@ public class Aurora {
         String output = "Failed to get output from Parser.";
         try {
             Command outputCommand = this.parser.parseCommand(command);
-            output = outputCommand.handleGui();
+            output = outputCommand.handle();
         } catch (AuroraException exception) {
             output = exception.getExceptionMessage();
         }

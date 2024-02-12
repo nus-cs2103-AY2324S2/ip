@@ -1,5 +1,8 @@
 package aurora.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import aurora.command.ByeCommand;
 import aurora.command.Command;
 import aurora.command.DeadlineCommand;
@@ -14,10 +17,6 @@ import aurora.command.UnmarkCommand;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 /**
  * Parser that helps to split the command string into chunks that can then be processed by the application.
@@ -57,38 +56,25 @@ public class Parser {
         String[] splitCommands = Parser.splitAtAllBlanks(command);
         String mainC = splitCommands[0];
         if (mainC.equalsIgnoreCase("bye")) {
-            ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
-            return byeCommand;
+            return new ByeCommand(this.ui);
         } else if (mainC.equalsIgnoreCase("list")) {
-            ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);
-            return listCommand;
+            return new ListCommand(this.taskList, this.ui);
         } else if (mainC.equalsIgnoreCase("mark")) {
-            MarkCommand markCommand = new MarkCommand(this.taskList, this.ui, this.storage, splitCommands);
-            return markCommand;
+            return new MarkCommand(this.taskList, this.storage, splitCommands);
         } else if (mainC.equalsIgnoreCase("unmark")) {
-            UnmarkCommand unmarkCommand = new UnmarkCommand(this.taskList, this.ui, this.storage,
-                    splitCommands);
-            return unmarkCommand;
+            return new UnmarkCommand(this.taskList, this.storage, splitCommands);
         } else if (mainC.equalsIgnoreCase("todo")) {
-            TodoCommand todoCommand = new TodoCommand(this.taskList, this.ui, this.storage, command);
-            return todoCommand;
+            return new TodoCommand(this.taskList, this.ui, this.storage, command);
         } else if (mainC.equalsIgnoreCase("deadline")) {
-            DeadlineCommand deadlineCommand = new DeadlineCommand(this.taskList, this.ui, this.storage,
-                    command);
-            return deadlineCommand;
+            return new DeadlineCommand(this.taskList, this.ui, this.storage, command);
         } else if (mainC.equalsIgnoreCase("event")) {
-            EventCommand eventCommand = new EventCommand(this.taskList, this.ui, this.storage, command);
-            return eventCommand;
+            return new EventCommand(this.taskList, this.ui, this.storage, command);
         } else if (mainC.equalsIgnoreCase("delete")) {
-            DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.ui, this.storage,
-                    splitCommands);
-            return deleteCommand;
+            return new DeleteCommand(this.taskList, this.storage, splitCommands);
         } else if (mainC.equalsIgnoreCase("find")) {
-            FindCommand findCommand = new FindCommand(this.taskList, this.ui, this.storage, splitCommands);
-            return findCommand;
+            return new FindCommand(this.taskList, this.ui, splitCommands);
         } else {
-            InvalidCommand invalidCommand = new InvalidCommand();
-            return invalidCommand;
+            return new InvalidCommand();
         }
     }
 

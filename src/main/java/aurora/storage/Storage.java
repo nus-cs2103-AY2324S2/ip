@@ -1,12 +1,5 @@
 package aurora.storage;
 
-import aurora.objects.Deadline;
-import aurora.objects.AuroraException;
-import aurora.objects.Event;
-import aurora.objects.Task;
-import aurora.objects.Todo;
-import aurora.parser.Parser;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,10 +10,18 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import aurora.objects.Deadline;
+import aurora.objects.AuroraException;
+import aurora.objects.Event;
+import aurora.objects.Task;
+import aurora.objects.Todo;
+import aurora.parser.Parser;
+
 /**
  * Storage is a class that handles file storage and retrieval.
  */
 public class Storage {
+
     /** The filepath to store or load data from. */
     private String filePath;
 
@@ -99,38 +100,81 @@ public class Storage {
         try {
             switch (type) {
             case "T":
-                Todo todo = new Todo(description);
-                if (isDone) {
-                    todo.setDone();
-                }
-                return todo;
+                return fileLineToTodo(components, description, isDone);
             case "D":
-                if (components.length < 4) {
-                    throw new AuroraException("Invalid format for a deadline.");
-                }
-                LocalDateTime dateLdt = Parser.parseDateFromStorage(components[3].trim());
-                Deadline deadline = new Deadline(description, dateLdt);
-                if (isDone) {
-                    deadline.setDone();
-                }
-                return deadline;
+                return fileLineToDeadline(components, description, isDone);
             case "E":
-                if (components.length < 5) {
-                    throw new AuroraException("Invalid format for an event.");
-                }
-                LocalDateTime startLdt = Parser.parseDateFromStorage(components[3].trim());
-                LocalDateTime endLdt = Parser.parseDateFromStorage(components[4].trim());
-                Event event = new Event(description, startLdt, endLdt);
-                if (isDone) {
-                    event.setDone();
-                }
-                return event;
+                return fileLineToEvent(components, description, isDone);
             default:
                 throw new AuroraException("Unknown task type.");
             }
         } catch (DateTimeParseException e) {
             throw new AuroraException("Invalid date format in task: " + e.getMessage());
         }
+    }
+
+    /**
+     * Convert a fileLine to a todo
+     *
+     * @param components Component array of the file line.
+     * @param description Description of the todo
+     * @param isDone status of the todo
+     * @return a todo object
+     */
+    private Todo fileLineToTodo(String[] components, String description, boolean isDone) throws AuroraException {
+        Todo todo = new Todo(description);
+
+        if (isDone) {
+            todo.setDone();
+        }
+        return todo;
+    }
+
+    /**
+     * Cnverts a fileLine to a deadline
+     *
+     * @param components Component array of the file line.
+     * @param description Description of the deadline
+     * @param isDone status of the deadline
+     * @return a deadline object
+     */
+    private Deadline fileLineToDeadline(String[] components, String description, boolean isDone)
+            throws AuroraException {
+        if (components.length < 4) {
+            throw new AuroraException("Invalid format for a deadline.");
+        }
+        LocalDateTime dateLdt = Parser.parseDateFromStorage(components[3].trim());
+
+        Deadline deadline = new Deadline(description, dateLdt);
+
+        if (isDone) {
+            deadline.setDone();
+        }
+        return deadline;
+    }
+
+
+    /**
+     * Converts a fileLine to an event
+     *
+     * @param components Component array of the file line.
+     * @param description Description of the event
+     * @param isDone status of the event
+     * @return an event object
+     */
+    private Event fileLineToEvent(String[] components, String description, boolean isDone) throws AuroraException {
+        if (components.length < 5) {
+            throw new AuroraException("Invalid format for an event.");
+        }
+        LocalDateTime startLdt = Parser.parseDateFromStorage(components[3].trim());
+        LocalDateTime endLdt = Parser.parseDateFromStorage(components[4].trim());
+
+        Event event = new Event(description, startLdt, endLdt);
+
+        if (isDone) {
+            event.setDone();
+        }
+        return event;
     }
 
     /**

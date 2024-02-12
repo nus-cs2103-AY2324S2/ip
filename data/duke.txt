@@ -1,3 +1,0 @@
-T | 0 | first task
-D | 0 | second task | Feb 08 2024, 23:59
-E | 0 | third task | Aug 02 2024, 23:59 | Aug 03 2024, 23:59

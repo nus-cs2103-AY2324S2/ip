@@ -1,10 +1,10 @@
 package aurora.ui;
 
-import aurora.objects.Task;
-import aurora.tasklist.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import aurora.objects.Task;
+import aurora.tasklist.TaskList;
 
 /**
  * The Ui class is used to represent the user interface, including the scanner of the application.
@@ -14,6 +14,17 @@ public class Ui {
 
     /** Scanner to be used for inputs. */
     private final Scanner scanner;
+
+    private static final String OPENING_MESSAGE = "How are you feeling? " +
+            "I'm Aurora, your personal schedule assistant. \n"
+            + "What can I do for you?";
+
+    private static final String EXIT_MESSAGE = "Thank you for consulting with me, have a good day. " +
+            "Exiting application in 3 seconds.";
+
+    private static final String TASK_LIST_STRING = "These are the tasks in your list:\n";
+
+    private static final String FIND_LIST_STRING = "Here are the matching tasks in your list:\n";
 
     /**
      * Constructor for the Ui class.
@@ -36,62 +47,7 @@ public class Ui {
      */
     public void printOpeningMessage() {
         printALine();
-        String openingMessage = "How are you feeling? I'm Aurora, your personal schedule assistant. \n"
-                + "What can I do for you?";
-        System.out.println(openingMessage);
-        printALine();
-    }
-
-    /**
-     * Method to print the exit message.
-     */
-    public void printExitMessage() {
-        printALine();
-        String exitMessage = "Thank you for consulting with me, have a good day.";
-        System.out.println(exitMessage);
-        printALine();
-    }
-
-    /**
-     * Method to print a task list.
-     *
-     * @param  taskList The taskList to be printed.
-     */
-    public void printTaskList(ArrayList<Task> taskList) {
-        printALine();
-        System.out.println("These are the tasks in your list:");
-        for(int i = 0; i < taskList.size(); i++) {
-            String taskString = (i+1) + ". " + taskList.get(i).toString();
-            System.out.println(taskString);
-        }
-        printALine();
-    }
-
-    /**
-     * Method to print a found task list.
-     *
-     * @param  taskList The taskList to be printed.
-     */
-    public void printFoundList(ArrayList<Task> taskList) {
-        printALine();
-        System.out.println("Here are the matching tasks in your list:");
-        for(int i = 0; i < taskList.size(); i++) {
-            String taskString = (i+1) + ". " + taskList.get(i).toString();
-            System.out.println(taskString);
-        }
-        printALine();
-    }
-
-    /**
-     * Method to echo an add command.
-     */
-    public void echoAddTask(TaskList taskList) {
-        ArrayList<Task> taskListArray = taskList.getTaskList();
-        int taskNumber = taskListArray.size();
-        printALine();
-        String echo =
-                "Added this task: \n" + taskListArray.get(taskNumber - 1) + "\nNumber of tasks in list: " + taskNumber;
-        System.out.println(echo);
+        System.out.println(OPENING_MESSAGE);
         printALine();
     }
 
@@ -110,11 +66,8 @@ public class Ui {
      *
      * @return A string containing the opening message.
      */
-    public String getOpeningMessage() {
-        StringBuilder message = new StringBuilder();
-        message.append("How are you feeling? I'm Aurora, your personal schedule assistant. \n")
-                .append("What can I do for you?");
-        return message.toString();
+    public static String getOpeningMessage() {
+        return OPENING_MESSAGE;
     }
 
 
@@ -123,8 +76,8 @@ public class Ui {
      *
      * @return A string containing the exit message.
      */
-    public String getExitMessage() {
-        return "Thank you for consulting with me, have a good day. Exiting application in 3 seconds.";
+    public static String getExitMessage() {
+        return EXIT_MESSAGE;
     }
 
 
@@ -136,7 +89,7 @@ public class Ui {
      */
     public String getTaskListString(ArrayList<Task> taskList) {
         StringBuilder message = new StringBuilder();
-        message.append("These are the tasks in your list:\n");
+        message.append(TASK_LIST_STRING);
         for(int i = 0; i < taskList.size(); i++) {
             message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
         }
@@ -152,7 +105,7 @@ public class Ui {
      */
     public String getFoundListString(ArrayList<Task> taskList) {
         StringBuilder message = new StringBuilder();
-        message.append("Here are the matching tasks in your list:\n");
+        message.append(FIND_LIST_STRING);
         for(int i = 0; i < taskList.size(); i++) {
             message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
         }
