@@ -44,6 +44,7 @@ public class Storage{
      *
      * @return An Arraylist containing the information of task stored by user previously
      */
+    @SuppressWarnings("unchecked")
     public ArrayList<task> load() {
         try {
             FileInputStream file = new FileInputStream(filePath);

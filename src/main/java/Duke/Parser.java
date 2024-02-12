@@ -52,7 +52,11 @@ public class Parser{
         } else if (msg.length() > 6 && msg.substring(0, 6).equals("delete")) {
             int number = Integer.parseInt(msg.substring(7));
             return new DeleteCommand(number);
-        } else {
+        }else if (msg.length() > 4 && msg.substring(0, 4).equals("find")) {
+            String stringToFind = msg.substring(5);
+            return new FindCommand(stringToFind);
+        }
+        else {
             return new DontknowCommand();
         }
     }
