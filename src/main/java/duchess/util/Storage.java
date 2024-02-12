@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+    private boolean fileIsOpen = false;
 
     /**
      * Create new Storage object.
@@ -40,7 +41,9 @@ public class Storage {
                 String response = "";
                 response += myObj.getName() + " not found";
                 response += "\nFile created: " + myObj.getName() + "\n";
-
+              
+                fileIsOpen = true;
+              
                 throw new DuchessException(response);
             } else {
                 Scanner myReader = new Scanner(myObj);
@@ -98,6 +101,8 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+      
+        fileIsOpen = true;
 
         return list;
     }
@@ -118,5 +123,15 @@ public class Storage {
         }
 
         myWriter.close();
+        fileIsOpen = false;
+    }
+
+    /**
+     * Check if user has exited and file has been closed.
+     *
+     * @return boolean for fileIsOpen
+     */
+    public boolean checkFileIsOpen() {
+        return fileIsOpen;
     }
 }
