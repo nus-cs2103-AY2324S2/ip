@@ -11,10 +11,8 @@ import atsisbot.task.TaskList;
  * displaying task lists.
  */
 public class Ui {
-    private static final String line = "____________________________________________________________\n";
-    private static final String welcomeMessage = line + "Hello! I'm atsisbot.AtsisBot\n" + "What can I do for you?\n"
-            + line;
-    private static final String endingMessage = line + "Bye. Hope to see you again soon!\n" + line;
+    private static final String welcomeMessage = "Hello! I'm atsisbot.AtsisBot\n" + "What can I do for you?\n";
+    private static final String endingMessage = "Bye. Hope to see you again soon!\n";
     private static final String listMessage = "Here are the tasks in your list:\n";
     private static final String markMessage = "Nice! I've marked this atsisbot.task as done:\n";
     private static final String unmarkMessage = "OK, I've marked this atsisbot.task as not done yet:\n";
@@ -169,9 +167,5 @@ public class Ui {
             return;
         }
         System.out.print(findMessage + message);
-    }
-
-    public static void printLine() {
-        System.out.println(line);
     }
 }
