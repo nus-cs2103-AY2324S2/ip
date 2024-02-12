@@ -1,6 +1,7 @@
-package Aaron.Task;
-import Aaron.Exception.DoubleMarkException;
-import Aaron.Exception.TaskNoNameException;
+package aaron.task;
+
+import aaron.exception.DoubleMarkException;
+import aaron.exception.TaskNoNameException;
 
 /**
  * class that represents a task instantiated in the tasklist of aaronbot
@@ -23,15 +24,15 @@ public abstract class Task {
         this.taskString = taskString;
     }
 
-    public void markDone() throws DoubleMarkException{
+    public void markDone() throws DoubleMarkException {
         if (isDone) {
             throw new DoubleMarkException("Task is already marked \n " + this.toString());
-        } else { 
+        } else {
             isDone = true;
         }
     }
 
-    public boolean unmarkDone() throws DoubleMarkException{
+    public boolean unmarkDone() throws DoubleMarkException {
         if (!isDone) {
             throw new DoubleMarkException("Task is already unmarked \n " + this.toString());
         } else {

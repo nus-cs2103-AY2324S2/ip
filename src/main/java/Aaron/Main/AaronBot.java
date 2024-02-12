@@ -1,20 +1,21 @@
-package Aaron.Main;
+package aaron.main;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import Aaron.Exception.ParsingException;
-import Aaron.Parser.Parser;
-import Aaron.Storage.Storage;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
-
+import aaron.exception.ParsingException;
+import aaron.parser.Parser;
+import aaron.storage.Storage;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 /**
- * Represents the main AaronBot class, executes the user-bot interaction task adding/deleting/marking
+ * Represents the main AaronBot class, executes the user-bot interaction task
+ * adding/deleting/marking
  */
 public class AaronBot {
     public static final String TASKLIST_FILEPATH = "data/TaskList.txt";
-    
+
     public static void execute() {
         TaskList taskList = new TaskList();
         boolean isBye = false;
@@ -27,7 +28,7 @@ public class AaronBot {
         }
 
         ui.greet();
-        
+
         while (!isBye) {
             String userCommand = ui.readCommand();
             try {

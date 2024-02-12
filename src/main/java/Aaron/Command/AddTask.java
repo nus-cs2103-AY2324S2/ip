@@ -1,15 +1,16 @@
-package Aaron.Command;
-import Aaron.Exception.AaronBotException;
-import Aaron.Exception.InvalidTaskTypeException;
-import Aaron.Exception.TaskErrorException;
-import Aaron.Exception.TaskNoNameException;
-import Aaron.Parser.TaskDetailParser;
-import Aaron.Task.TaskList;
-import Aaron.Task.TaskType;
-import Aaron.UI.UI;
+package aaron.command;
+
+import aaron.exception.AaronBotException;
+import aaron.exception.InvalidTaskTypeException;
+import aaron.exception.TaskErrorException;
+import aaron.exception.TaskNoNameException;
+import aaron.parser.TaskDetailParser;
+import aaron.task.TaskList;
+import aaron.task.TaskType;
+import aaron.ui.UI;
 
 public class AddTask extends Command {
-    public AddTask(String userInput, CommandType commandType) throws AaronBotException{
+    public AddTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
     }
 
@@ -19,14 +20,14 @@ public class AddTask extends Command {
         String taskDetails;
         try {
             taskPresenceCheck(commandDetails);
-        } catch(TaskNoNameException e) {
+        } catch (TaskNoNameException e) {
             ui.errorMessage(e);
             return;
         }
         try {
             taskType = TaskDetailParser.getTaskType(commandDetails);
             taskDetails = TaskDetailParser.getTaskDetails(commandDetails);
-        } catch(InvalidTaskTypeException e) {
+        } catch (InvalidTaskTypeException e) {
             ui.errorMessage(e);
             return;
         }
@@ -40,7 +41,7 @@ public class AddTask extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean returnIsBye() {
         return false;
     }
 

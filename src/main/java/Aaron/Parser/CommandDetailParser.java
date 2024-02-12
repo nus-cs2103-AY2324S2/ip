@@ -1,4 +1,5 @@
-package Aaron.Parser;
+package aaron.parser;
+
 public class CommandDetailParser {
 
     public static String getCommandDetails(String userInput) {
@@ -8,10 +9,6 @@ public class CommandDetailParser {
         } else {
             return tokenizedUserCommandWords[1];
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getCommandDetails("add todo swim"));
     }
 
 }

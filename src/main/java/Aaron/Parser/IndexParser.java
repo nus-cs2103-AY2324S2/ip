@@ -1,5 +1,6 @@
-package Aaron.Parser;
-import Aaron.Exception.IndexFormatException;
+package aaron.parser;
+
+import aaron.exception.IndexFormatException;
 
 public class IndexParser {
     public static int getIndex(String userInput) throws IndexFormatException {

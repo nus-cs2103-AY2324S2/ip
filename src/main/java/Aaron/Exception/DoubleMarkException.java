@@ -1,5 +1,6 @@
-package Aaron.Exception;
-public class DoubleMarkException extends AaronBotException{
+package aaron.exception;
+
+public class DoubleMarkException extends AaronBotException {
     public DoubleMarkException(String e) {
         super(e);
     }

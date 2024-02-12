@@ -1,5 +1,6 @@
-package Aaron.Command;
-import Aaron.Exception.NonsenseCommandException;
+package aaron.command;
+
+import aaron.exception.NonsenseCommandException;
 
 public enum CommandType {
     ADDTASK("add"),

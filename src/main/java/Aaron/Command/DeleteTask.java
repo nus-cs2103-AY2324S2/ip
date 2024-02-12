@@ -1,10 +1,11 @@
-package Aaron.Command;
-import Aaron.Exception.AaronBotException;
-import Aaron.Exception.IndexFormatException;
-import Aaron.Exception.TaskListOutOfBoundsException;
-import Aaron.Parser.IndexParser;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
+package aaron.command;
+
+import aaron.exception.AaronBotException;
+import aaron.exception.IndexFormatException;
+import aaron.exception.TaskListOutOfBoundsException;
+import aaron.parser.IndexParser;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 public class DeleteTask extends Command {
     public DeleteTask(String userInput, CommandType commandType) throws AaronBotException {
@@ -30,7 +31,7 @@ public class DeleteTask extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean returnIsBye() {
         return false;
     }
 }

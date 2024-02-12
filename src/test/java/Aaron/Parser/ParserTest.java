@@ -1,16 +1,18 @@
 package Aaron.Parser;
 
 import org.junit.jupiter.api.Test;
+
+import aaron.exception.AaronBotException;
+import aaron.exception.ParsingException;
+import aaron.exception.TaskErrorException;
+import aaron.parser.Parser;
+import aaron.task.TaskList;
+import aaron.task.TaskType;
+import aaron.ui.UI;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.beans.Transient;
-
-import Aaron.Exception.AaronBotException;
-import Aaron.Exception.ParsingException;
-import Aaron.Exception.TaskErrorException;
-import Aaron.Task.TaskList;
-import Aaron.Task.TaskType;
-import Aaron.UI.UI;
 
 public class ParserTest {
     @Test

@@ -1,10 +1,11 @@
-package Aaron.Command;
-import Aaron.Exception.AaronBotException;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
+package aaron.command;
+
+import aaron.exception.AaronBotException;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 public class ShowList extends Command {
-    public ShowList(String userInput, CommandType commandType) throws AaronBotException{
+    public ShowList(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
     }
 
@@ -14,8 +15,8 @@ public class ShowList extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean returnIsBye() {
         return false;
     }
-    
+
 }

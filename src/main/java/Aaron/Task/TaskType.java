@@ -1,5 +1,6 @@
-package Aaron.Task;
-import Aaron.Exception.InvalidTaskTypeException;
+package aaron.task;
+
+import aaron.exception.InvalidTaskTypeException;
 
 public enum TaskType {
     DEADLINE("deadline"),

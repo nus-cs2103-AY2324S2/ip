@@ -1,8 +1,10 @@
-package Aaron.UI;
+package aaron.ui;
+
 import java.util.Scanner;
 
-import Aaron.Exception.AaronBotException;
-import Aaron.Task.TaskList;
+import aaron.exception.AaronBotException;
+import aaron.task.TaskList;
+
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -63,5 +65,5 @@ public class UI {
     public void goodbyeMessage() {
         System.out.println("Goodbye student, HAND.");
     }
- 
+
 }

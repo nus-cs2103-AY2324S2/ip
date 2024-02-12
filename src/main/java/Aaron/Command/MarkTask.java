@@ -1,15 +1,16 @@
-package Aaron.Command;
-import Aaron.Exception.AaronBotException;
-import Aaron.Exception.IndexFormatException;
-import Aaron.Parser.IndexParser;
-import Aaron.Task.TaskList;
-import Aaron.UI.UI;
+package aaron.command;
+
+import aaron.exception.AaronBotException;
+import aaron.exception.IndexFormatException;
+import aaron.parser.IndexParser;
+import aaron.task.TaskList;
+import aaron.ui.UI;
 
 public class MarkTask extends Command {
-    public MarkTask(String userInput, CommandType commandType) throws AaronBotException{
+    public MarkTask(String userInput, CommandType commandType) throws AaronBotException {
         super(userInput, commandType);
     }
-    
+
     @Override
     public void run(TaskList taskList, UI ui) {
         int index;
@@ -29,7 +30,7 @@ public class MarkTask extends Command {
     }
 
     @Override
-    public boolean isBye() {
+    public boolean returnIsBye() {
         return false;
     }
 }
