@@ -1,6 +1,9 @@
 package luke;
 
 public class UI {
+    //This class is in charge of any messages to be seen by the user.
+
+
 
     //Logo created using https://patorjk.com/software/taag/#p=display&f=Varsity&t=Luke
     private static final String LOGO = "  _____             __             \n"
@@ -30,4 +33,26 @@ public class UI {
         System.out.println(GOODBYE_MESSAGE);
         return GOODBYE_MESSAGE;
     }
+
+    public static String getMissingParameterMessage(String param) {
+        return "Hey! You forgot something! Be glad I'm here to remind you.\n"
+                + "[Missing "
+                + param
+                + " parameter(s)]\n";
+    }
+
+    public static String getWrongDateFormatMessage() {
+        return "Hey! What are you even talking about?!\n"
+                + "[Input date in format dd-mm-yyyy]\n";
+    }
+    public static String getNanMessage() {
+        return "Not a number";
+    }
+
+    public static String getCommandNotFoundMessage() {
+        return "/// What on earth are you saying! ///\n"
+                + "[Command not found]\n";
+    }
+
+
 }
