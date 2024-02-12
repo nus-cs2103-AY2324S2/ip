@@ -3,10 +3,7 @@ package duke;
 
 import java.io.IOException;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+
 
 import parser.Parser;
 import processor.Processor;

@@ -40,6 +40,8 @@ public class Processor {
         String[] array = userInput.split(" ");
         String command = array[0];
 
+        
+
         try {
             int number = Integer.parseInt(array[1]);
 
@@ -71,6 +73,7 @@ public class Processor {
      */
     public void userInputAddTask(String userInput) throws IOException {
         String[] tokens = userInput.split(" ", 2);
+        int previousSize = taskList.size();
 
         if (tokens.length == 0) {
             System.out.println(chatbotUi.dividerWrapper("Can not type a blank input!"));
@@ -169,6 +172,8 @@ public class Processor {
                 taskList.addEventTask(substringAfterSpace, start, end.substring(3)); //substring(3) to remove "to "
             }
 
+            assert taskList.size() > previousSize : "Task list size should have increased";
+
             System.out.println(chatbotUi.dividerWrapper(
                     "Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
                     + "\nNow you have " + taskList.size() + " tasks in the list."));
@@ -195,6 +200,8 @@ public class Processor {
      */
     public void userInputListTasks() throws IOException {
         // if array empty
+        assert taskList != null : "Task list should not be null";
+
         if (taskList.size() == 0) {
             System.out.println(chatbotUi.dividerWrapper("Your list is empty"));
         }
@@ -211,12 +218,18 @@ public class Processor {
      * @throws IOException if an I/O error occurs while processing the command
      */
     public void userInputDeleteTask(String userInput) {
+
         String[] array = userInput.split(" ");
+        int previousSize = taskList.size();
+
         try {
 
             int number = Integer.parseInt(array[1]);
             Task temp = taskList.getTaskAtIndex(number - 1);
             taskList.deleteAtIndex(number - 1);
+
+            assert previousSize == taskList.size() + 1 : "Task list size should have decreased";
+            
             System.out.println(chatbotUi.dividerWrapper(
                     "Noted. I've removed this task:\n"
                             + temp + "\nNow you have "
