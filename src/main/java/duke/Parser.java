@@ -8,15 +8,21 @@ import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.FindCommand;
 
+import static duke.TaskType.BYE;
+import static duke.TaskType.LIST;
+import static duke.TaskType.MARK;
+import static duke.TaskType.UNMARK;
+import static duke.TaskType.TODO;
+import static duke.TaskType.DEADLINE;
+import static duke.TaskType.EVENT;
+import static duke.TaskType.DELETE;
+import static duke.TaskType.FIND;
+
 /**
  * The `Parser` class represents a tool to make sense of user input.
  * It provides methods to verify and understand user input, then create respective commands.
  */
 public class Parser {
-
-    public enum TaskType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN
-    }
 
     /**
      * Returns a command after parsing user input.
@@ -28,11 +34,11 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws DukeException {
         String[] splitedTask = fullCommand.split(" ");
-        Parser.TaskType taskType = Parser.TaskType.UNKNOWN;
+        TaskType taskType = TaskType.UNKNOWN;
 
         // Empty command handler
         try {
-            taskType = Parser.TaskType.valueOf(splitedTask[0].toUpperCase());
+            taskType = TaskType.valueOf(splitedTask[0].toUpperCase());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Sorry, we are not sync enough to communicate through empty command.");
         } catch (IllegalArgumentException e) {
