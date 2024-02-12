@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lamball.command.Command;
 import lamball.ui.DialogBox;
 
 /**
@@ -49,15 +50,14 @@ public class Lamball extends Application {
     }
 
     /**
-     * Constructor for Event task.
+     * Parse for initial list of commands
      *
      * @param msg Command to parse.
-     * @param isInit If the parse is during initialization phase
      * @throws LamballParseException if invalid command is provided.
      */
-    public void initParse(String msg, boolean isInit) throws LamballParseException {
-        String[] comd = Parser.parse(msg);
-        tasks.runComd(comd, isInit);
+    public void initParse(String msg) throws LamballParseException {
+        Command parsed = Parser.parse(msg, tasks, true);
+        parsed.run();
     }
 
     /**
@@ -76,8 +76,8 @@ public class Lamball extends Application {
 
             // Echo the user's command
             try {
-                String[] comd = Parser.parse(userInput);
-                isActive = tasks.runComd(comd, false);
+                Command comd = Parser.parse(userInput, tasks, false);
+                isActive = comd.run();
                 if (!isActive) {
                     ui.goodbyeMessage();
                 } else {
@@ -204,8 +204,8 @@ public class Lamball extends Application {
     private String getResponse(String input) {
         String response = "";
         try {
-            String[] comd = Parser.parse(input);
-            boolean isActive = tasks.runComd(comd, false);
+            Command comd = Parser.parse(input, tasks, false);
+            boolean isActive = comd.run();
             if (!isActive) {
                 response = ui.goodbyeMessage();
             } else {

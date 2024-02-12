@@ -76,11 +76,11 @@ public class Storage {
                 if (parts.length != 2 || !(Integer.valueOf(parts[0]) == 1 || Integer.valueOf(parts[0]) == 0)) {
                     throw new LamballParseException("Corrupt format, ignoring...");
                 }
-                lamb.initParse(parts[1], true);
+                lamb.initParse(parts[1]);
                 count++;
                 // Marks task if first character is 1. Else does not.
                 if (Integer.valueOf(parts[0]) == 1) {
-                    lamb.initParse("mark " + count, true);
+                    lamb.initParse("mark " + count);
                 }
                 // If code reaches here, means that the line is valid - write to temp file
                 Storage.writeToFile("src/main/java/data/tempfile.txt", currLine);
