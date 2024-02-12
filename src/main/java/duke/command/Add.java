@@ -44,7 +44,7 @@ public class Add implements Command {
         } else if (text.startsWith("deadline")) {
             this.task = handleDeadline(text);
         } else if (text.startsWith("event")) {
-            this.task = handleEvent(text) ;
+            this.task = handleEvent(text);
         } else {
             throw new CommandNotDefinedException();
         }
@@ -60,7 +60,7 @@ public class Add implements Command {
         return new Todo(descrip);
     }
 
-    private Deadline handleDeadline(String text) throws DukeException{
+    private Deadline handleDeadline(String text) throws DukeException {
         String[] token = text.split("/");
         if (token.length != DEADLINE_TOKEN_NUM) {
             throw new WrongUsageException("deadline xxx /by xxx");
