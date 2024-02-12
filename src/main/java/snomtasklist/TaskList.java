@@ -121,6 +121,7 @@ public class TaskList {
      */
     public String addTask(Task t) {
         this.counter += 1;
+        assert t != null : "Invald task added";
         this.taskList.add(t);
         return "Succesfully added task";
 
