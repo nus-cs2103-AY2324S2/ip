@@ -41,8 +41,9 @@ public class TaskList {
         return tasks.get(i);
     }
 
-    public void add(Task task) {
+    public Task add(Task task) {
         tasks.add(task);
+        return task;
     }
 
     public Task delete(int idx) {

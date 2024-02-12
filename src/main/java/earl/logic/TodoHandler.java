@@ -1,6 +1,7 @@
 package earl.logic;
 
 import earl.exceptions.EarlException;
+import earl.tasks.Task;
 import earl.tasks.TaskType;
 import earl.util.TaskList;
 import earl.util.Ui;
@@ -18,16 +19,20 @@ public class TodoHandler extends Handler {
     @Override
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
-            tasks.add(TaskType.TODO.createTask(args));
-            ui.makeResponse("Added new todo.",
-                    "\t" + tasks.get(tasks.getSize() - 1),
-                    "There are " + tasks.getSize() + " task(s) tracked.");
+            Task added = tasks.add(TaskType.TODO.createTask(args));
+            ui.buildResponse("Added new todo.");
+            ui.buildResponse(ui.leftPad(added.toString()));
+            ui.buildResponse("There are " + tasks.getSize()
+                    + " task(s) tracked.");
+            ui.completeResponse();
         } catch (IndexOutOfBoundsException e) {
-            throw new EarlException("Error, missing task name.\n"
-                    + "\tExample use:\n\ttodo <task_name>");
+            throw new EarlException(
+                    ui.appendNewline("Error, missing task name. Example use:")
+                            + ui.leftPad("todo <name>"));
         } catch (Exception e) {
-            throw new EarlException("Error, unknown use of todo.\n"
-                    + e.getMessage());
+            throw new EarlException(
+                    ui.appendNewline("Error, unknown use of todo.")
+                            + ui.leftPad(e.getMessage()));
         }
     }
 }

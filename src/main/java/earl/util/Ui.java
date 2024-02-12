@@ -1,5 +1,7 @@
 package earl.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -9,19 +11,23 @@ public class Ui {
 
     private static final String PADDING = " ".repeat(4);
     private static final String DIVIDER = "_".repeat(60);
-    private static final String GREETING_MESSAGE = "Hello! I'm Earl\n"
+    private static final String NEWLINE = System.lineSeparator();
+    private static final String GREETING_MESSAGE = "Hello! I'm Earl" + NEWLINE
             + PADDING + "What can I do for you?";
 
     private static final String GOODBYE_MESSAGE = "Goodbye! See you soon.";
 
     private final Scanner sc;
+    private final List<String> delayedResponse;
 
-    private String[] prevResponse;
+    private String[] response;
 
     /** Class constructor. */
     public Ui() {
         sc = new Scanner(System.in);
-        prevResponse = new String[0];
+        response = new String[1];
+        response[0] = GREETING_MESSAGE;
+        delayedResponse = new ArrayList<>();
     }
 
     /** Displays horizontal divider. */
@@ -34,6 +40,21 @@ public class Ui {
         for (String s : arr) {
             System.out.println(PADDING + s);
         }
+    }
+
+    private void setPrevResponse(String... arr) {
+        response = arr;
+    }
+
+    /** Adds strings to be displayed later. */
+    public void buildResponse(String... arr) {
+        delayedResponse.addAll(List.of(arr));
+    }
+
+    /** Formats and prints the built response for the user to read. */
+    public void completeResponse() {
+        makeResponse(delayedResponse.toArray(String[]::new));
+        delayedResponse.clear();
     }
 
     /**
@@ -52,12 +73,17 @@ public class Ui {
         printDivider();
     }
 
-    private void setPrevResponse(String... arr) {
-        prevResponse = arr;
-    }
-
     public String getUserInput() {
         return sc.nextLine();
+    }
+
+    /** Left pads the input string with the class's set padding. */
+    public String leftPad(String line) {
+        return PADDING + line;
+    }
+
+    public String appendNewline(String line) {
+        return line + NEWLINE;
     }
 
     public void showGreeting() {
@@ -75,11 +101,11 @@ public class Ui {
      *          text based UI
      */
     public String getResponse() {
-        StringBuilder res = new StringBuilder(PADDING + DIVIDER + "\n");
-        for (String line: prevResponse) {
-            res.append(PADDING).append(line).append("\n");
+        StringBuilder res = new StringBuilder(PADDING + DIVIDER + NEWLINE);
+        for (String line: response) {
+            res.append(PADDING).append(line).append(NEWLINE);
         }
-        res.append(PADDING).append(DIVIDER).append("\n");
+        res.append(PADDING).append(DIVIDER).append(NEWLINE);
         return res.toString();
     }
 }

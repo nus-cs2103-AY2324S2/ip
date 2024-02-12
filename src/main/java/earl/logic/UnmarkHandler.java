@@ -24,20 +24,20 @@ public final class UnmarkHandler extends Handler implements MassOperable {
             }
             for (int idx : indices) {
                 boolean success = tasks.get(idx).markUndone();
+                String feedback = idx + 1 + "." + tasks.get(idx);
                 if (!success) {
-                    addDisplayEntry(idx + 1 + "." + tasks.get(idx)
-                            + " already marked as not done.");
-                    continue;
+                    feedback = feedback + " already marked as not done.";
                 }
-                addDisplayEntry(idx + 1 + "." + tasks.get(idx));
+                addDisplayEntry(feedback);
             }
             addDisplayEntry("Item(s) marked as not done.");
             ui.makeResponse(getDisplay());
         } catch (EarlException e) {
             throw e;
         } catch (Exception e) {
-            throw new EarlException("Error, unknown use of mark.\n"
-                    + "\t" + e.getMessage());
+            throw new EarlException(
+                    ui.appendNewline("Error, unknown use of unmark.")
+                            + ui.leftPad(e.getMessage()));
         }
     }
 }
