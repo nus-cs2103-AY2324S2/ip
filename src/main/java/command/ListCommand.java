@@ -23,13 +23,13 @@ public class ListCommand extends Command {
      * @param ui      The user interface that outputs to the terminal.
      * @param storage The storage path to store persistent data.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println(ui.getBot() + "Here are your tasks:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String result = ("Here are your tasks: \n");
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task task = tasks.get(i - 1);
-            System.out.println("    " + i + ". " + task.toString());
+            result += (i + ". " + task.toString() + "\n");
         }
-
+        return result;
     }
 
 }

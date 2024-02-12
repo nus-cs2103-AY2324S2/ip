@@ -39,14 +39,14 @@ public class MarkCommand extends Command {
      * @param ui      The user interface that outputs to the terminal.
      * @param storage The storage path to store persistent data.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(this.index - 1);
         if (markDone) {
             task.markDone();
-            System.out.println(ui.getBot() + task.toString());
+            return (task.toString());
         } else {
             task.markUndone();
-            System.out.println(ui.getBot() + task.toString());
+            return (task.toString());
         }
     }
 }

@@ -25,7 +25,7 @@ public abstract class Command {
      * @param ui The user interface that outputs to the terminal
      * @param storage The storage path to store persistent data
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Checks if the program should exit.

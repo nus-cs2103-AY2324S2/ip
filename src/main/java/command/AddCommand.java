@@ -39,10 +39,10 @@ public class AddCommand extends Command {
      * @param ui      The user interface that outputs to the terminal.
      * @param storage The storage path to store persistent data.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(this.task);
         serializeArrayList(tasks.getList(), storage.getFilePath());
-        System.out.println(ui.getBot() + "I have added " + task.toString()
+        return ("I have added " + task.toString()
                 + " to your list of tasks. You have " + tasks.size() + " task(s) in list");
     }
 

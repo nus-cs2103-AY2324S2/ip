@@ -39,11 +39,11 @@ public class DeleteCommand extends Command {
      * @param ui The user interface that outputs to the terminal
      * @param storage The storage path to store persistent data
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
         serializeArrayList(tasks.getList(), storage.getFilePath());
-        System.out.println(ui.getBot() + "I have removed " + task.toString()
+        return ("I have removed " + task.toString()
                 + " from your list. You have " + tasks.size() + " task(s) in list");
     }
 
