@@ -8,7 +8,7 @@ import duke.ui.Ui;
  * The FindCommand class is a subclass of Command and represents a command to find tasks in the task list.
  * It takes in a keyword to search for in the task list.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private String keyword;
 

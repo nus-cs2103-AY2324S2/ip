@@ -1,8 +1,5 @@
 package duke;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.Storage;
@@ -39,18 +36,11 @@ public class DukeApp extends Application {
     /**
      * A function for dealing with user input.
      * @param input the input from a user.
-     * @return the result to show as a string.
      */
-    public String handler(String input) {
-
+    public void handler(String input) {
         assert tasks != null : "tasks should not be null";
         assert ui != null : "ui should not be null";
         assert storage != null : "storage should not be null";
-
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        PrintStream newOut = new PrintStream(outContent);
-        System.setOut(newOut);
 
         try {
             Command c = Parser.parse(input);
@@ -61,16 +51,11 @@ public class DukeApp extends Application {
             }
         } catch (DukeException e) {
             ui.showError(e.getMessage());
-        } finally {
-            System.setOut(originalOut);
         }
-        return outContent.toString();
     }
-
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
         ui.start(stage);
     }
 }

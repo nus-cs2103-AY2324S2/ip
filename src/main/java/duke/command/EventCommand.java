@@ -1,11 +1,11 @@
 package duke.command;
 
-import duke.task.Event;
+import java.time.LocalDate;
+
 import duke.storage.Storage;
+import duke.task.Event;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-
-import java.time.LocalDate;
 
 /**
  * Represents a command to add an event task.
@@ -34,7 +34,7 @@ public class EventCommand extends Command {
      * @param storage The storage to save the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(description, from, to);
         tasks.addTask(event);
         ui.showTaskAdded(event, tasks.getSize());

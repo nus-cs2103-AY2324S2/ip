@@ -1,12 +1,5 @@
 package duke.storage;
 
-import duke.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.tasklist.TaskList;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.tasklist.TaskList;
 
 /**
  * Represents a storage for saving and loading tasks to and from the hard disk.
@@ -88,19 +88,19 @@ public class Storage {
      * @return Decoded task.
      * @throws DukeException If an error occurs during the decoding of the task.
      */
-    public Task decodeTask(String encodedTaskString) throws DukeException{
+    public Task decodeTask(String encodedTaskString) throws DukeException {
         String[] taskDetails = encodedTaskString.split(" \\| ", 2);
         String taskType = taskDetails[0];
         String taskFileString = taskDetails[1];
         switch (taskType) {
-            case "T":
-                return Todo.todoFromFileString(taskFileString);
-            case "D":
-                return Deadline.deadlineFromFileString(taskFileString);
-            case "E":
-                return Event.eventFromFileString(taskFileString);
-            default:
-                throw new DukeException("Error reading from file");
+        case "T":
+            return Todo.todoFromFileString(taskFileString);
+        case "D":
+            return Deadline.deadlineFromFileString(taskFileString);
+        case "E":
+            return Event.eventFromFileString(taskFileString);
+        default:
+            throw new DukeException("Error reading from file");
         }
     }
 }
