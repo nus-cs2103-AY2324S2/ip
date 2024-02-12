@@ -84,6 +84,7 @@ public class TaskList {
      * @return The task that has been deleted.
      */
     public Task deleteTask(int taskIndex) {
+        assert taskList.size() > 0 : "List is already empty.";
         return this.taskList.remove(taskIndex);
     }
 

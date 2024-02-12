@@ -1,6 +1,3 @@
-package duke;
-
-import controllers.Main;
 import javafx.application.Application;
 
 /**

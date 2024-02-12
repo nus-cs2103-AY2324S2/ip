@@ -51,6 +51,7 @@ public class Parser {
             if (userInput.startsWith("todo")) {
                 try {
                     String description = userInput.split(" ", 2)[1];
+                    assert !description.equals("") : "Description should not be empty";
                     if (description.isEmpty()) {
                         throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     } else {
@@ -63,6 +64,7 @@ public class Parser {
             } else if (userInput.startsWith("deadline")) {
                 try {
                     String description = userInput.split(" /by ")[1];
+                    assert !description.equals("") : "Description should not be empty";
                     if (description.isEmpty()) {
                         throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
                     } else {
@@ -79,6 +81,7 @@ public class Parser {
             } else if (userInput.startsWith("event")) {
                 try {
                     String description = userInput.split(" /from ")[0].split(" ", 2)[1];
+                    assert !description.equals("") : "Description should not be empty";
                     if (description.isEmpty()) {
                         throw new DukeException("OOPS!!! The description of an event cannot be empty.");
                     } else {
