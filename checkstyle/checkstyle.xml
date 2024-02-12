@@ -151,8 +151,8 @@
     -->
 
     <!-- Checks that array type declarations follow Java Style
-      Java style: public static void main(String[] args) // Allowed
-      C style:    public static void main(String args[]) // Not allowed
+      Java style: public static void Main(String[] args) // Allowed
+      C style:    public static void Main(String args[]) // Not allowed
     -->
     <module name="ArrayTypeStyle"/>
 
@@ -424,7 +424,7 @@
     <module name="MissingJavadocMethodCheck">
       <property name="minLineCount" value="1"/>
       <property name="allowMissingPropertyJavadoc" value="true"/>
-      <property name="ignoreMethodNamesRegex" value="(set.*|get.*|main)"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*|Main)"/>
     </module>
 
     <!-- Checks that every public class, enumeration and interface has a header comment. -->

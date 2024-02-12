@@ -15,65 +15,68 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    public void printWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Duke \nWhat can I do for you?\n");
-        System.out.println("____________________________________________________________");
+    public String printWelcome() {
+        return "____________________________________________________________\n" +
+                "Hello! I'm Duke \nWhat can I do for you?\n" +
+                "____________________________________________________________";
     }
 
-    public void printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String printGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public void printError(String message) {
-        System.out.println(message);
+    public String printError(String message) {
+        return message;
     }
 
     public String[] readCommand() {
         return scanner.nextLine().split(" ", 2);
     }
 
-    public void printList(List<Task> tasks){
+    public String printList(List<Task> tasks){
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            stringBuilder.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        if(tasks.isEmpty()){
-            System.out.println("No tasks found!");
+        if (tasks.isEmpty()) {
+            stringBuilder.append("No tasks found!\n");
         }
+        return stringBuilder.toString();
     }
 
-    public void findTasks(String keyword, List<Task> tasks){
-        System.out.println("Here are the matching tasks in your list: ");
+    public String findTasks(String keyword, List<Task> tasks){
+        StringBuilder stringBuilder = new StringBuilder("Here are the matching tasks in your list: \n");
         for (int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i).getDescription().contains(keyword)){
-                System.out.println((i + 1) + ". " + tasks.get(i));
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                stringBuilder.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
         }
+        return stringBuilder.toString();
 
     }
 
-    public void printMark(Task task){
-        System.out.println("Nice! I've marked this task as done:\n  " + task);
+    public String printMark(Task task){
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 
-    public void printUnmark(Task task){
-        System.out.println("OK, I've marked this task as not done yet:\n  " + task);
+    public String printUnmark(Task task){
+        return "OK, I've marked this task as not done yet:\n  " + task;
     }
 
-    public void printTodo(Todo todo, List<Task> tasks){
-        System.out.println("Got it. I've added this task:\n  " + todo + "\nNow you have " + tasks.size() + " tasks in the list");
+    public String printTodo(Todo todo, List<Task> tasks){
+        return "Got it. I've added this task:\n  " + todo + "\nNow you have " + tasks.size() + " tasks in the list";
     }
 
-    public void printDeadline(Deadline deadline, List<Task> tasks){
-        System.out.println("Got it. I've added this task:\n  " + deadline + "\nNow you have " + tasks.size() + " tasks in the list");
+    public String printDeadline(Deadline deadline, List<Task> tasks){
+        return "Got it. I've added this task:\n  " + deadline + "\nNow you have " + tasks.size() + " tasks in the list";
     }
 
-    public void printEvent(Event event, List<Task> tasks){
-        System.out.println("Got it. I've added this task:\n  " + event + "\nNow you have " + tasks.size() + " tasks in the list");
+    public String printEvent(Event event, List<Task> tasks){
+        return "Got it. I've added this task:\n  " + event + "\nNow you have " + tasks.size() + " tasks in the list";
     }
 
-    public void printDelete(Task task, List<Task> tasks){
-        System.out.println("Noted. I've removed this task:\n " + task + "\nNow you have " + tasks.size() + " tasks in the list");
+    public String printDelete(Task task, List<Task> tasks){
+        return "Noted. I've removed this task:\n " + task + "\nNow you have " + tasks.size() + " tasks in the list";
     }
 
 
