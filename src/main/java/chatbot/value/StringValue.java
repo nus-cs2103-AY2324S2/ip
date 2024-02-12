@@ -15,6 +15,7 @@ public class StringValue {
      * @param value The value as a {@link String}, which is not null.
      */
     public StringValue(String value) {
+        assert value != null;
         this.stringValue = value.trim();
     }
 

@@ -22,6 +22,7 @@ public class Argument {
      * @param name The name of this argument, which should not be null.
      */
     public Argument(String name) {
+        assert name != null;
         this.name = name;
         // null represents the value that isn't there
         this.value = null;
@@ -34,6 +35,7 @@ public class Argument {
      * @param value The value of this argument, which can be null.
      */
     public Argument(String name, String value) {
+        assert name != null;
         this.name = name;
         this.value = (value == null) ? null : new StringValue(value);
     }
