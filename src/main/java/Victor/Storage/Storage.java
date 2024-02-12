@@ -1,17 +1,17 @@
 package victor.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import victor.tasktype.Deadline;
 import victor.tasktype.Event;
 import victor.tasktype.Task;
 import victor.tasktype.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The Storage class contains the method to load data from
@@ -24,11 +24,11 @@ public class Storage {
     /**
      * The dataFile variable is a File that is used to store the data file.
      */
-    File dataFile;
+    private File dataFile;
     /**
      * The filePath variable is a String that contains the path to the data file location.
      */
-    String filePath;
+    private String filePath;
 
     /**
      * The Storage Constructor will take in the filePath of the
@@ -67,14 +67,17 @@ public class Storage {
                     currentLists.add(newTodo);
                 }
                 case "D" -> {
-                    Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim());
+                    Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()),
+                            inputs[3].trim());
                     currentLists.add(newDeadline);
                 }
                 case "E" -> {
-                    Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim(), inputs[4].trim());
+                    Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()),
+                            inputs[3].trim(), inputs[4].trim());
                     currentLists.add(newEvent);
                 }
-
+                default -> {
+                }
                 }
             }
         } catch (FileNotFoundException e) {

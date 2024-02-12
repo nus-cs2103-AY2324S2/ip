@@ -28,7 +28,7 @@ public class Todo extends Task {
      * Todo.
      *
      * @return A string that contains the extra information the Todo class,
-     * along with the normal information displayed from the Task toString method.
+     *         along with the normal information displayed from the Task toString method.
      */
     @Override
     public String toString() {

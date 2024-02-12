@@ -1,20 +1,22 @@
 package victor.tasktype;
 
-import victor.tasklist.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import victor.tasklist.TaskList;
+
 
 public class TodoTest {
 
     @Test
-    public void ToDoTest() {
+    public void firstToDoTest() {
         TaskList tasks = new TaskList();
         Task todoTask = new Todo("Todo Test 1", false);
 
         tasks.addTask(todoTask);
 
-        assertEquals(tasks.getPosValue(0),todoTask);
-        assertEquals("[T][ ] Todo Test 1",todoTask.toString());
+        assertEquals(tasks.getPosValue(0), todoTask);
+        assertEquals("[T][ ] Todo Test 1", todoTask.toString());
     }
 }

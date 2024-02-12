@@ -91,7 +91,7 @@ public class Task {
      * @param wordSearch A string which would be used to check if
      *                   the description contains it.
      * @return A boolean would be return to indicate whether
-     * the wordSearch is found inside the description.
+     *         the wordSearch is found inside the description.
      */
     public boolean descriptionContains(String wordSearch) {
         return this.description.contains(wordSearch);

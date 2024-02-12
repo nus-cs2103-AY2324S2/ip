@@ -1,11 +1,11 @@
 package victor.tasklist;
 
+import java.util.ArrayList;
+
 import victor.tasktype.Task;
 import victor.ui.Ui;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
+
 
 /**
  * The TaskList class contains the methods to add new tasks to
@@ -18,11 +18,11 @@ public class TaskList {
     /**
      * The currentTaskList variable is used to hold the current data of the program
      */
-    ArrayList<Task> currentTaskLists;
+    private ArrayList<Task> currentTaskLists;
     /**
      * The ui variable is used to use any method from the Ui class
      */
-    Ui ui = new Ui();
+    private Ui ui = new Ui();
 
     /**
      * The TaskList Constructor will take in the ArrayList of the

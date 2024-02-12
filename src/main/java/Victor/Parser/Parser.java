@@ -1,5 +1,9 @@
 package victor.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import victor.tasklist.TaskList;
 import victor.tasktype.Deadline;
@@ -8,10 +12,6 @@ import victor.tasktype.Task;
 import victor.tasktype.Todo;
 import victor.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is the portion of the code that takes in the user command,
@@ -22,9 +22,9 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * The taskName enum is a class that holds all the names of the various tasks.
+     * The TaskName enum is a class that holds all the names of the various tasks.
      */
-    enum taskName {
+    enum TaskName {
         list,
         mark,
         unmark,
@@ -38,11 +38,11 @@ public class Parser {
     /**
      * Ui class that is used to display certain information for this class.
      */
-    Ui ui;
+    private final Ui ui;
     /**
      * The currentTasks variable is used to hold the current data from the Victor.txt data file.
      */
-    TaskList currentTasks;
+    private final TaskList currentTasks;
 
     /**
      * The Parser constructor takes in the ui and currentTasks
@@ -65,7 +65,8 @@ public class Parser {
      * @throws NumberFormatException     Used for when the commandLine action requires a number,
      *                                   but has something else instead
      * @throws DateTimeParseException    Used for deadline, when the input for the by variable is unable
-     *                                   to be converted from String to a LocalDate, indicating that it is in the wrong format.
+     *                                   to be converted from String to a LocalDate,
+     *                                   indicating that it is in the wrong format.
      */
     public void parse(String commandLine) {
         String[] inputList = commandLine.split(" ", 2);
@@ -124,7 +125,7 @@ public class Parser {
                 Todo userTask = new Todo(inputList[1], false);
                 currentTasks.addTask(userTask);
                 ui.displayBarrier();
-                System.out.println(userTask.toString());
+                System.out.println(userTask);
                 System.out.println("Now you have " + currentTasks.getSize() + " tasks in the list.");
                 ui.displayBarrier();
             } catch (IndexOutOfBoundsException e) {
@@ -132,7 +133,7 @@ public class Parser {
                 System.out.println("Sorry pal, but your description is empty.");
                 System.out.println("Please redo the command and remember to "
                         + "add a description of the action");
-                System.out.println("The format to schedule a todo task is: " + taskName.todo
+                System.out.println("The format to schedule a todo task is: " + TaskName.todo
                         + " (Description)");
                 ui.displayBarrier();
             }
@@ -154,7 +155,7 @@ public class Parser {
                         + "or maybe you forgot the description.");
                 System.out.println("Please redo the command and remember to "
                         + "add the necessary information.");
-                System.out.println("The format to schedule a deadline is: " + taskName.deadline
+                System.out.println("The format to schedule a deadline is: " + TaskName.deadline
                         + " (Description) /by (Deadline Date + time)");
                 ui.displayBarrier();
             } catch (DateTimeParseException e) {
@@ -187,7 +188,7 @@ public class Parser {
                 System.out.println("Sorry, but mind reading is not installed in me yet.");
                 System.out.println("Please redo the command and remember to "
                         + "add the necessary information.");
-                System.out.println("The format to schedule a event is: " + taskName.event
+                System.out.println("The format to schedule a event is: " + TaskName.event
                         + " (Description) /from (Start date + time) /to (End date + time)");
                 ui.displayBarrier();
             } catch (DateTimeParseException e) {
@@ -211,9 +212,9 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 ui.displayBarrier();
                 System.out.println("The number you gave exceeds how many items is in the list.");
-                System.out.println("Can't " + taskName.delete + " an item not in the list. "
+                System.out.println("Can't " + TaskName.delete + " an item not in the list. "
                         + "Please try again.");
-                System.out.println("The format to delete a task is: " + taskName.delete
+                System.out.println("The format to delete a task is: " + TaskName.delete
                         + " (task list number)");
                 ui.displayBarrier();
             } catch (NumberFormatException e) {
@@ -221,7 +222,7 @@ public class Parser {
                 System.out.println("Sorry, I'm only smart enough to find the task based on numbers.");
                 System.out.println("Please give a number. If you refuse, too bad, "
                         + "this is all I can do.");
-                System.out.println("The format to delete a task is: " + taskName.delete
+                System.out.println("The format to delete a task is: " + TaskName.delete
                         + " (task list number)");
                 ui.displayBarrier();
             }
@@ -239,6 +240,9 @@ public class Parser {
                         + "in the list. Thanks");
                 ui.displayBarrier();
             }
+        }
+        default -> {
+            System.out.println("Command not recognized. Please try again.");
         }
         }
     }

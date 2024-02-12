@@ -1,11 +1,12 @@
 package victor;
 
+import java.io.IOException;
+
 import victor.parser.Parser;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
 import victor.ui.Ui;
 
-import java.io.IOException;
 
 class DukeException extends Exception {
 //    public DukeException (String s)

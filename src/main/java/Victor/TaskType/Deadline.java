@@ -38,8 +38,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
-        DateTimeFormatter formatter
-                = DateTimeFormatter.ofPattern(
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern(
                 "MMM dd yyyy");
         tempBy = LocalDate.parse(by);
         this.by = tempBy.format(formatter);
@@ -51,7 +51,7 @@ public class Deadline extends Task {
      * Deadline.
      *
      * @return A string that contains the extra information of the Event class,
-     * along with the normal information displayed from the Task toString method.
+     *         along with the normal information displayed from the Task toString method.
      */
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package victor.ui;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -12,12 +11,6 @@ import java.util.Scanner;
  * @author Dominic Fu Ming Jun
  */
 public class Ui {
-    /** The logo is a String that is used to show the logo of this program. NEED TO CHANGE OR REMOVE */
-    protected String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
 
     /** The intro variable is used to hold the greeting this program says when it starts running. */
     protected String intro;
@@ -33,23 +26,21 @@ public class Ui {
      *
      */
     public Ui() {
-        this.intro = "____________________________________________________________\n" +
-                " Hello! I'm VICTOR\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
-        this.ending = "____________________________________________________________\n"+
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
+        this.intro = "____________________________________________________________\n"
+                + " Hello! I'm VICTOR\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________\n";
+        this.ending = "____________________________________________________________\n"
+                + " Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________";
     }
 
     /**
-     * The showIntro method is used to print out the logo and
-     * the intro greeting when called. It doesn't take in any inputs
-     * nor does it return anything.
+     * The showIntro method is used to print out the intro greeting when called.
+     * It doesn't take in any inputs nor does it return anything.
      *
      */
     public void showIntro() {
-        System.out.println("Hello from\n" + logo);
         System.out.println(this.intro);
     }
 

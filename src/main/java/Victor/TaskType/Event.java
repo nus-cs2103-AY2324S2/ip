@@ -48,13 +48,13 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
-        DateTimeFormatter formatter
-                = DateTimeFormatter.ofPattern(
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern(
                 "MMM dd yyyy HH:mm a");
         DateTimeFormatter tempFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.tempFrom = LocalDateTime.parse(from,tempFormatter);
+        this.tempFrom = LocalDateTime.parse(from, tempFormatter);
         this.from = tempFrom.format(formatter);
-        this.tempTo = LocalDateTime.parse(to,tempFormatter);
+        this.tempTo = LocalDateTime.parse(to, tempFormatter);
         this.to = tempTo.format(formatter);
     }
 
@@ -64,12 +64,12 @@ public class Event extends Task {
      * Event.
      *
      * @return A string that contains the extra information of the Event class,
-     * along with the normal information displayed from the Task toString method.
+     *         along with the normal information displayed from the Task toString method.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString()
+                + " (from: " + from + " to: " + to + ")";
     }
 
     /**
