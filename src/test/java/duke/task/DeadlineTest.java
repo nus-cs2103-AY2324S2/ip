@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
     @Test
-    public void getDeadlineForDisplayTest(){
+    public void getDeadlineForDisplay_validFormat_returnsFormattedDateTime(){
         String content = "Project";
         String deadline = "2022-12-31 12:31";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
