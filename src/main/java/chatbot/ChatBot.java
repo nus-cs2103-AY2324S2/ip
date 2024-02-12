@@ -114,12 +114,12 @@ public class ChatBot extends Application {
      */
     private void handleUserUpdate() {
         // add functionality to handle user input.
-        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        sendButton.setOnMouseClicked(event -> handleUserInput());
 
-        userInput.setOnAction((event) -> handleUserInput());
+        userInput.setOnAction(event -> handleUserInput());
 
         // scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.heightProperty().addListener(observable -> scrollPane.setVvalue(1.0));
     }
 
     /**

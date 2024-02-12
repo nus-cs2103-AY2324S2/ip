@@ -3,6 +3,7 @@ package chatbot.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 import chatbot.storage.LocalStorage;
 import chatbot.task.exception.OutOfBoundsException;
@@ -139,18 +140,11 @@ public final class TaskList {
      * @return the indexes in the task list that matches the pattern
      */
     public int[] findMatchingTasks(String pattern) {
-        List<Integer> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).isContainingPattern(pattern)) {
-                matchingTasks.add(i);
-            }
-        }
-
-        int[] intArr = new int[matchingTasks.size()];
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            intArr[i] = matchingTasks.get(i);
-        }
-        return intArr;
+        return IntStream
+                .range(0, tasks.size())
+                .filter(i -> tasks.get(i).isContainingPattern(pattern))
+                .sorted()
+                .toArray();
     }
 
     /**

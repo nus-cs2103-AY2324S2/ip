@@ -1,5 +1,9 @@
 package chatbot.action.util;
 
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.function.Function;
+
 import chatbot.action.exception.ActionException;
 import chatbot.action.exception.MissingArgumentException;
 import chatbot.action.exception.UnrecognizedArgumentException;
@@ -43,25 +47,20 @@ public final class Command {
      * @return the usage hint
      */
     private String generateUsageHint(ExpectedArgument[] arguments) {
-        StringBuilder usageString = new StringBuilder();
-        for (int i = 0; i < arguments.length; i++) {
-            if (i != 0) {
-                usageString.append("/");
-            }
-            usageString
-                    .append(arguments[i].getName())
-                    .append(" ");
+        // converts an expected argument to a usage hint for that argument
+        Function<ExpectedArgument, String> expectedArgumentMapper = arg ->
+                arg.getName() + " "
+                + Optional.ofNullable(arg.getValue())
+                        .map(val -> "<" + val + ">")
+                        .orElse("");
 
-            if (arguments[i].getValue() != null) {
-                // not null indicates that a value should be present.
-                usageString
-                        .append("<")
-                        .append(arguments[i].getValue())
-                        .append("> ");
-            }
-        }
-        usageString.deleteCharAt(usageString.length() - 1);
-        return usageString.toString();
+        return Arrays
+                .stream(arguments)
+                .map(expectedArgumentMapper)
+                .reduce("", (concatenated, element) -> concatenated + " /" + element)
+                .trim()
+                // remove redundant slash at the start
+                .substring(1);
     }
 
     /**
@@ -71,12 +70,9 @@ public final class Command {
      * @return true if the command has that {@link Argument} name, otherwise false
      */
     public boolean hasArgumentName(Argument otherArgument) {
-        for (Argument arg : arguments) {
-            if (arg.hasSameArgumentName(otherArgument)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays
+                .stream(arguments)
+                .anyMatch(arg -> arg.hasSameArgumentName(otherArgument));
     }
 
     public String getUsageHint() {
@@ -104,10 +100,13 @@ public final class Command {
      * @throws UnrecognizedArgumentException If an {@link Argument} is unrecognizable.
      */
     private void validateArgumentsRecognized(Argument[] suppliedArguments) throws UnrecognizedArgumentException {
-        for (Argument suppliedArg : suppliedArguments) {
-            if (!hasArgumentName(suppliedArg)) {
-                throw new UnrecognizedArgumentException(this, suppliedArg);
-            }
+        Optional<Argument> unrecognizedArgument = Arrays
+                .stream(suppliedArguments)
+                .filter(arg -> !hasArgumentName(arg))
+                .findAny();
+
+        if (unrecognizedArgument.isPresent()) {
+            throw new UnrecognizedArgumentException(this, unrecognizedArgument.get());
         }
     }
 
@@ -118,18 +117,16 @@ public final class Command {
      */
     private void validateArgumentsPresentAndValid(Argument[] suppliedArguments) throws ActionException {
         for (ExpectedArgument expectedArg : this.arguments) {
-            boolean isRecognized = false;
-            for (Argument suppliedArg : suppliedArguments) {
-                if (expectedArg.hasSameArgumentName(suppliedArg)) {
-                    expectedArg.validateArgument(this, suppliedArg);
-                    isRecognized = true;
-                    break;
-                }
-            }
+            Optional<Argument> matchingArgument = Arrays
+                    .stream(suppliedArguments)
+                    .filter(expectedArg::hasSameArgumentName)
+                    .findAny();
 
-            if (!isRecognized) {
+            if (matchingArgument.isEmpty()) {
                 throw new MissingArgumentException(this, expectedArg);
             }
+
+            expectedArg.validateArgument(this, matchingArgument.get());
         }
     }
 }
