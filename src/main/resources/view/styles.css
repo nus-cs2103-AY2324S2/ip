@@ -1,0 +1,17 @@
+/* styles.css */
+.dialog-container {
+    -fx-background-color: rgba(223,204,166);
+    -fx-padding: 10px;
+    -fx-background-radius: 15px;
+}
+
+.dialog-text {
+    -fx-font-size: 14px;
+    -fx-fill: black;
+
+}
+
+.dialog-image {
+    -fx-border-radius: 10px;
+     -fx-background-radius: 15px;
+}

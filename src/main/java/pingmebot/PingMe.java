@@ -42,88 +42,16 @@ public class PingMe {
         ui.showWelcome();
         while (true) {
             String userInput = ui.readCommand();
-            String[] words = userInput.split(" ");
-            parser = new Parser(userInput);
-
-            if (userInput.equals("bye")) {
-                try {
-                    Command c = new ExitCommand();
-                    c.execute(tasks, storage, ui);
-                    break;
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (userInput.equals("list")) {
-                try {
-                    Command c = new ListCommand();
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("mark")) {
-                try {
-                    Command c = parser.parseMarkCommand(tasks.getTaskSize());
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("unmark")) {
-                try {
-                    Command c = parser.parseUnmarkCommand(tasks.getTaskSize());
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("todo")) {
-                try {
-                    Command c = parser.parseToDoCommand();
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("deadline")) {
-                try {
-                    Command c = parser.parseDeadlineCommand();
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("event")) {
-                try {
-                    Command c = parser.parseEventsCommand();
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("delete")) {
-                try {
-                    Command c = parser.parseDeleteCommand(tasks.getTaskSize());
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else if (words[0].equals("find")) {
-                try {
-                    Command c = parser.parseFindCommand();
-                    c.execute(tasks, storage, ui);
-                } catch (PingMeException e) {
-                    ui.showError(e.getMessage());
-                }
-
-            } else {
-                ui.showError("OOPS! I'm sorry, but I don't know what that means :'(");
-            }
+            String response = getResponse(userInput);
         }
     }
 
+    /**
+     * Returns the response back to the user after keying in a certain command through the GUI.
+     *
+     * @param input User's commmand.
+     * @return The response to the user.
+     */
     public String getResponse(String input) {
         String[] splitInput = input.split(" ");
         parser = new Parser(input);
