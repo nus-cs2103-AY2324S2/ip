@@ -38,7 +38,7 @@ public class Luke extends Application {
 
     //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         Storage storage;
         UI ui = new UI();
 
@@ -141,6 +141,7 @@ public class Luke extends Application {
 
     //Used this https://se-education.org/guides/tutorials/javaFxPart2.html as the main template!
     private void handleUserInput(Parser parser, UI ui, Stage stage) {
+        String QUIT_STRING = "QUIT";
         String formattedInput = userInput.getText();
         String lukeReply;
         Label lukeText;
@@ -155,12 +156,13 @@ public class Luke extends Application {
         } catch (ParseCommandException e) {
             lukeReply = e.getMessage();
         }
-        if (lukeReply.equals("QUIT")) {
+        if (lukeReply.equals(QUIT_STRING)) {
             lukeText = new Label(ui.bye());
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, new ImageView(user)),
                     DialogBox.getLukeDialog(lukeText, new ImageView(luke))
             );
+            userInput.clear();
             parser.isLastCommand = true;
         } else {
             lukeText = new Label(lukeReply);
