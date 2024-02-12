@@ -1,6 +1,13 @@
 package bebot;
 import java.util.Scanner;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
+
 /**
  * Ui class handles the user interactions of the application
  */
@@ -8,6 +15,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/HuhCatDuke.jpg"));
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -23,10 +31,26 @@ public class Ui {
     }
 
     /**
+     * Displays a greeting message in the GUI
+     */
+    public void showGreeting(VBox dialogContainer) {
+        Label greetingLabel = new Label("Hello! I'm BEBOT. How can I assist you today?");
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greetingLabel, new ImageView(duke)));
+    }
+
+    /**
      * Prints the exit message
      */
     public void showGoodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Displays a goodbye message in the GUI
+     */
+    public void showGoodbye(VBox dialogContainer) {
+        Label goodbyeLabel = new Label("Bye. Hope to see you again soon!");
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(goodbyeLabel, new ImageView(duke)));
     }
 
     /**
@@ -37,6 +61,13 @@ public class Ui {
     public String getUserInput() {
         System.out.println("Enter a task below: ");
         return scanner.nextLine();
+    }
+
+    /**
+     * Handles user input events in the GUI
+     */
+    public String getUserInput(TextField userInput) {
+        return userInput.getText();
     }
 
     /**

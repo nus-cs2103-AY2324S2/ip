@@ -113,7 +113,7 @@ public class CowboyBebot extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
+        //You will need to import javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -150,6 +150,8 @@ public class CowboyBebot extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
+
+        ui.showGreeting(dialogContainer);
     }
 
     /**
@@ -175,8 +177,8 @@ public class CowboyBebot extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
     }
