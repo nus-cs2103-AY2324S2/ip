@@ -1,11 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +7,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 /**
  * The `Storage` class manages the loading and saving of tasks from/to a file in Duke.
@@ -28,7 +28,7 @@ public class Storage {
     /**
      * Indicates whether the warning about potential overwriting has been printed.
      */
-    private boolean warningPrinted = false;
+    private boolean isWarningPrinted = false;
 
     /**
      * Constructs a `Storage` with the given file path.
@@ -43,10 +43,10 @@ public class Storage {
      * Prints a warning about potential overwriting of tasks.
      */
     private void printWarning() {
-        if (!warningPrinted) {
-            System.err.println("Warning: Invalid input will be ignored and overwritten after new task is added.\n" +
-                    "To prevent overwriting, type 'bye' to quit.");
-            warningPrinted = true;
+        if (!isWarningPrinted) {
+            System.err.println("Warning: Invalid input will be ignored and overwritten after new task is added.\n"
+                    + "To prevent overwriting, type 'bye' to quit.");
+            isWarningPrinted = true;
         }
     }
 
@@ -136,26 +136,26 @@ public class Storage {
         String description = parts[2];
 
         switch (taskType) {
-            case "T":
-                Task tT = new Todo(description);
-                tT.setDone(isDone);
-                return tT;
-            case "D":
-                Task tD = new Deadline(description, parts[3]);
-                tD.setDone(isDone);
-                return tD;
-            case "E":
-                String[] time = parts[3].split(" - ");
-                if (!(time.length == 2)) {
-                    throw new DukeException("Invalid time format. " +
-                            "Please use <datetime> - <datetime>");
-                }
+        case "T":
+            Task tT = new Todo(description);
+            tT.setDone(isDone);
+            return tT;
+        case "D":
+            Task tD = new Deadline(description, parts[3]);
+            tD.setDone(isDone);
+            return tD;
+        case "E":
+            String[] time = parts[3].split(" - ");
+            if (!(time.length == 2)) {
+                throw new DukeException("Invalid time format. "
+                        + "Please use <datetime> - <datetime>");
+            }
 
-                Task tE = new Event(description, time[0], time[1]);
-                tE.setDone(isDone);
-                return tE;
-            default:
-                throw new DukeException("Invalid task type " + taskType);
+            Task tE = new Event(description, time[0], time[1]);
+            tE.setDone(isDone);
+            return tE;
+        default:
+            throw new DukeException("Invalid task type " + taskType);
         }
     }
 }
