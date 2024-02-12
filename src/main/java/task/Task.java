@@ -67,4 +67,11 @@ public class Task {
     public boolean contains(String keyword) {
         return this.description.contains(keyword);
     }
+    /**
+     * Gets the description of the task.
+     * @return The task description.
+     */
+    public String descriptionToString() {
+        return this.description;
+    }
 }

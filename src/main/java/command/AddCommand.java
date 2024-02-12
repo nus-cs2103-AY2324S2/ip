@@ -1,9 +1,10 @@
 package command;
 
+import exceptions.DukeException;
 import task.Task;
 import task.TaskList;
-import utilities.Storage;
 import ui.Ui;
+import utilities.Storage;
 
 /**
  * Controls what happens when a task is added.
@@ -31,7 +32,12 @@ public class AddCommand extends Command {
      * @return The response expected from the chatbot.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+        for (int i = 0; i < taskList.length(); i++) {
+            if (this.taskToAdd.descriptionToString().equals(taskList.getTask(i).descriptionToString())) {
+                throw new DukeException("Task already exists!");
+            }
+        }
         taskList.addTask(this.taskToAdd);
         storage.save(taskList);
         String s = String.format("Got it. I've added this task:\n%s\n%s",
