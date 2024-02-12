@@ -1,7 +1,2 @@
-T | 1 | read book
-T | 0 | add
-T | 1 | book me
-T | 0 | create todo
-D | 1 | create deadline | 12/12/2024 12:00
-E | 0 | create event | 01/01/2001 01:01 | 02/02/2002 01:02
-T | 0 | lol
+T | 0 | read book
+T | 0 | deadline

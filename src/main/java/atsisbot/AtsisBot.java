@@ -1,5 +1,8 @@
 package atsisbot;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import atsisbot.task.TaskList;
 
 /**
@@ -13,6 +16,11 @@ public class AtsisBot {
     private static TaskList taskList;
     private static Storage storage;
 
+    public AtsisBot() {
+        storage = new Storage("data/tasks.txt");
+        taskList = storage.loadData();
+    }
+
     /**
      * The main method is the entry point of the atsisbot.AtsisBot program. It
      * prompts the user for
@@ -22,16 +30,14 @@ public class AtsisBot {
      *
      * @param args The command line arguments.
      */
-    public static void main(String[] args) {
-        storage = new Storage("data/tasks.txt");
-        taskList = storage.loadData();
+    public static void main(String[] args) {      
         Ui.printWelcomeMessage();
         String input = Ui.readCommand();
 
         while (!input.equals("bye")) {
             CommandEnum command = Parser.parseCommand(input);
             String param = Parser.parseArgs(input);
-            response(command, param);
+            getResponse(command, param);
             storage.saveList(taskList);
             input = Ui.readCommand();
         }
@@ -47,7 +53,10 @@ public class AtsisBot {
      *                    execute
      * @param args        the arguments for the command
      */
-    private static void response(CommandEnum commandEnum, String args) {
+    public static String getResponse(CommandEnum commandEnum, String args) {
+        ByteArrayOutputStream outputs = new ByteArrayOutputStream();
+        PrintStream previous = System.out;
+        System.setOut(new PrintStream(outputs));
         try {
             switch (commandEnum) {
             case LIST:
@@ -79,8 +88,10 @@ public class AtsisBot {
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidTaskNumberMessage();
-        } finally {
-            Ui.printLine();
-        }
+        } 
+
+        System.out.flush();
+        System.setOut(previous);
+        return outputs.toString().trim();
     }
 }
