@@ -20,14 +20,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList listStore, Ui ui, Storage storage) {
+    public String execute(TaskList listStore, Ui ui, Storage storage) {
         listStore.add(newTask);
         int listCount = listStore.getTaskListSize();
-        System.out.println("Got it. I've added this task:\n" + newTask.toString());
-        if (listCount == 1) {
-        System.out.println("Now you have " + listCount + " task in the list.\n");
-        } else {
-            System.out.println("Now you have " + listCount + " tasks in the list.\n");
-        }
+        return ui.showAddTaskText(newTask, listCount);
     }
 }

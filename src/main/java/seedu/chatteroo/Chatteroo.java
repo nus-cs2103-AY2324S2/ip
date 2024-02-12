@@ -6,6 +6,19 @@ import seedu.chatteroo.storage.Storage;
 import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.Scanner;
 
 import java.io.IOException;
@@ -17,6 +30,15 @@ public class Chatteroo {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+
+
+//    private Image user = new Image(this.getClass().getResourceAsStream("/images/buffkangaroo.jpg"));
+//    private Image duke = new Image(this.getClass().getResourceAsStream("/images/cutekangaroo.jpg"));
 
     /**
      * Constructor for the Chatteroo class.
@@ -28,34 +50,24 @@ public class Chatteroo {
         tasks = new TaskList(storage.loadTasks());
     }
 
+
     /**
      * Runs the Chatteroo program and handles user input.
      * @throws IOException If an I/O error occurs.
      */
-    public void run() throws IOException {
-        ui.showWelcomeText();
-        Scanner sc = new Scanner(System.in);
-        boolean isExit = false;
+    public String run(String input) throws IOException {
+        String response = "";
+
         try {
-            while (!isExit) {
-                String input = sc.nextLine();
-                Command c = Parser.parseInput(input);
-                c.execute(tasks, ui, storage);
-                if (input.equals("bye")) {
-                    isExit = true;
-                }
-            }
+            Command c = Parser.parseInput(input);
+            response = c.execute(tasks, ui, storage);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            storage.saveTasks(tasks);
-            sc.close();
+                System.out.println(e.getMessage());
         }
+        storage.saveTasks(tasks);
+        return response;
     }
 
-    public static void main(String[] args) throws IOException {
-        new Chatteroo().run();
-    }
 }
 
 

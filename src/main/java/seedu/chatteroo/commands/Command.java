@@ -41,11 +41,14 @@ public class Command {
     }
     /**
      * Executes the specified command.
-     * @param tasks The list of tasks.
-     * @param ui The user interface.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
      * @param storage The storage.
+     * @return
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "";
     }
 
 
