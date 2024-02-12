@@ -75,12 +75,12 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void execute_expectedUsage_exceptionThrown() throws NollidException {
+    public void execute_expectedUsage_success() throws NollidException {
         Command c = Parser.parse("todo test /tags a,b,c");
 
         String actual = c.execute(tasks, storage);
         String expected = "Alright, added:\n"
-                + "\t[T][ ] test \n"
+                + "\t[T][ ] test\n"
                 + "Tags: a, b, c\n"
                 + "You now have 1 task in your list.";
 
