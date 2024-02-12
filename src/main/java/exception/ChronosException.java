@@ -18,7 +18,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a InvalidListException with the specified error message.
      *
-     * @return InvalidListException
+     * @return InvalidListException.
      */
     public static ChronosException createInvalidListException() {
         return new InvalidListException(DIVIDER + "\n"
@@ -28,7 +28,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a InvalidHelpException with the specified error message.
      *
-     * @return InvalidHelpException
+     * @return InvalidHelpException.
      */
     public static ChronosException createInvalidHelpException() {
         return new InvalidHelpException(DIVIDER + "\n"
@@ -38,7 +38,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a InvalidCommandException with the specified error message.
      *
-     * @return InvalidCommandException
+     * @return InvalidCommandException.
      */
     public static ChronosException createInvalidCommandException() {
         return new InvalidCommandException(DIVIDER + "\n"
@@ -48,7 +48,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a MissingTaskNumberException with the specified error message.
      *
-     * @return MissingTaskNumberException
+     * @return MissingTaskNumberException.
      */
     public static ChronosException createMissingTaskNumberException() {
         return new MissingTaskNumberException(DIVIDER + "\n"
@@ -58,7 +58,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a MissingDescriptionException with the specified error message.
      *
-     * @return MissingDescriptionException
+     * @return MissingDescriptionException.
      */
     public static ChronosException createMissingDescriptionException() {
         return new MissingDescriptionException (DIVIDER + "\n"
@@ -68,7 +68,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a InvalidDeadlineException with the specified error message.
      *
-     * @return InvalidDeadlineException
+     * @return InvalidDeadlineException.
      */
     public static ChronosException createInvalidDeadlineException() {
         return new InvalidDeadlineException (DIVIDER + "\n"
@@ -79,7 +79,7 @@ public abstract class ChronosException extends Exception {
     /**
      * Constructs a InvalidEventException with the specified error message.
      *
-     * @return InvalidEventException
+     * @return InvalidEventException.
      */
     public static ChronosException createInvalidEventException() {
         return new InvalidEventException (DIVIDER + "\n"
