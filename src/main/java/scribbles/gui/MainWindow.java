@@ -36,6 +36,13 @@ public class MainWindow extends AnchorPane {
         scribbles = s;
     }
 
+    @FXML
+    public void displayGreetingMessage(String greetingMessage) {
+        dialogContainer.getChildren().add(
+                DialogBoxScribbles.getScribblesDialog(greetingMessage, scribblesImage)
+        );
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -45,8 +52,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = scribbles.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, scribblesImage)
+                DialogBoxYou.getUserDialog(input, userImage),
+                DialogBoxScribbles.getScribblesDialog(response, scribblesImage)
         );
         userInput.clear();
     }

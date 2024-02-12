@@ -35,6 +35,10 @@ public class Scribbles {
         storage = new Storage(this.filePath, taskList);
     }
 
+    public String greet() {
+        return ui.greet();
+    }
+
     /**
      * Takes the input of user as command and executes the list of actions that should follow the given command.
      *
