@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Task {
 
     protected String description;
-    protected boolean done = false;
+    protected boolean isDone = false;
 
     protected String uuid;
 
@@ -22,7 +22,7 @@ public class Task {
         assert !description.trim().isEmpty(); // description should not be empty.
 
         this.description = description;
-        this.uuid = UUID.randomUUID().toString();
+        uuid = UUID.randomUUID().toString();
     }
 
     public Task setUuid(String uuid) {
@@ -37,21 +37,21 @@ public class Task {
      * @return a Task object that can be further manipulated.
      */
     public Task updateStatus(boolean state) {
-        this.done = state;
+        isDone = state;
         return this;
     }
 
     @Override
     public String toString() {
-        return this.description;
+        return description;
     }
 
     public String toSavableFormat() {
-        return this.uuid + "|T|" + this.description + "|" + this.done;
+        return uuid + "|T|" + description + "|" + isDone;
     }
 
     public String getStatus() {
-        return "[" + (done ? "X" : " ") + "]";
+        return "[" + (isDone ? "X" : " ") + "]";
     }
 
     public String getType() {

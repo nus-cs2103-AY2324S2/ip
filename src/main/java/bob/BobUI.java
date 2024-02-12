@@ -54,7 +54,7 @@ public class BobUI {
         String response = "";
         response += "Here is your newly added task:";
         response += t.getType() + t.getStatus() + " " + t + "\r\n";
-        response += this.getTaskListText(true, list);
+        response += getTaskListText(true, list);
 
         return response;
     }
@@ -70,7 +70,7 @@ public class BobUI {
         String response = "";
         response += "You have removed the current task:";
         response += t.getType() + t.getStatus() + " " + t + "\r\n";
-        response += this.getTaskListText(true, list);
+        response += getTaskListText(true, list);
 
         return response;
     }

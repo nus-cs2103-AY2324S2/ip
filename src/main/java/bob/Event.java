@@ -23,12 +23,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
     @Override
     public String toSavableFormat() {
-        return this.uuid + "|E|" + this.description + "|" + this.done + "|" + this.start + "|" + this.end;
+        return uuid + "|E|" + description + "|" + isDone + "|" + start + "|" + end;
     }
 
     @Override

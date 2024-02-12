@@ -42,23 +42,23 @@ public class BobParser {
         try {
             switch (command) {
             case BobParser.LIST_COMMAND:
-                return this.ui.getTaskListText(false, this.taskList.getList());
+                return ui.getTaskListText(false, taskList.getList());
             case BobParser.MARK_COMMAND:
             case BobParser.UNMARK_COMMAND:
-                return this.taskList.handleTaskMarking(input);
+                return taskList.handleTaskMarking(input);
             case BobParser.TODO_COMMAND:
             case BobParser.DEADLINE_COMMAND:
             case BobParser.EVENT_COMMAND:
-                return this.taskList.handleTaskCreation(input);
+                return taskList.handleTaskCreation(input);
             case BobParser.DELETE_COMMAND:
-                return this.taskList.handleTaskDeletion(input);
+                return taskList.handleTaskDeletion(input);
             case BobParser.FIND_COMMAND:
-                return this.taskList.handleFindTask(input);
+                return taskList.handleFindTask(input);
             default:
-                throw new BobException.InvalidCommand("Sorry, I'm not sure what command that is.");
+                throw new BobException.InvalidCommand(BobErrorMessages.UNKNOWN_COMMAND);
             }
         } catch (BobException e) {
-            return this.ui.getErrorText(e);
+            return ui.getErrorText(e);
         }
     }
 }
