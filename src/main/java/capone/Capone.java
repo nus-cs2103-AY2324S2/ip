@@ -59,6 +59,7 @@ public class Capone {
      */
     public void runGui() {
         try {
+            assert false : "test";
             this.storage.readTasksFromJsonFile(this.tasks);
         } catch (TaskListCorruptedException e) {
             System.out.println(e.getMessage());
