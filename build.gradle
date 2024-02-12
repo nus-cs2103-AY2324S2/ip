@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
@@ -55,7 +55,7 @@ shadowJar {
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     manifest {
-        attributes 'Main-Class': 'duke.Duke'
+        attributes 'Main-Class': 'duke.Launcher'
     }
 }
 

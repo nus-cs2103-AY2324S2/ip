@@ -20,12 +20,29 @@ public class Storage {
      * Checks that the file and folder exists, else creates them
      */
     public void check() {
+        folder = new File("data");
+        // Check if the directory exists, create it if it doesn't
         if (!folder.exists()) {
-            folder.mkdir();
-            file = new File(folder, "data.txt");
+            if (folder.mkdirs()) {
+                System.out.println("Directory created: " + folder);
+            } else {
+                System.err.println("Failed to create directory: " + folder);
+                return;
+            }
         }
-        if (!file.exists()) {
-            file = new File(folder, "data.txt");
+
+        // Create a File object for the file
+        file = new File(folder, "data.txt");
+
+        // Check if the file exists, create it if it doesn't
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file);
+            } else {
+                System.out.println("File already exists: " + file);
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating file: " + e.getMessage());
         }
     }
     /**
