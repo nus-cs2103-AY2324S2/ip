@@ -9,6 +9,10 @@ import utilities.Storage;
  * Duke class responsible for running the program.
  */
 public class Duke {
+    /** File name to where the data will be stored. */
+    private static final String FILE_NAME = "duke.txt";
+    /** Directory path to where the data will be stored. */
+    private static final String DIRECTORY_NAME = "./src/main/data";
     /**
      * Ui responsible for user interaction.
      */
@@ -27,7 +31,7 @@ public class Duke {
      */
     public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage("duke.txt", "./src/main/data");
+        this.storage = new Storage(FILE_NAME, DIRECTORY_NAME);
         this.taskList = new TaskList(storage.load());
     }
 
@@ -45,6 +49,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Displays the welcome message upon load up.
+     * @return The intended welcome message for the user.
+     */
     public String getWelcome() {
         ui.showWelcome();
         return ui.getOutput();
