@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
  * Extends the base Task class.
  */
 public class Deadline extends Task {
+    private static final DateTimeFormatter STANDARD_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter INPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     protected String by;
 
     /**
@@ -20,31 +24,16 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        if (isValidDateFormat(by)) {
-            this.by = by;
-        } else {
-            this.by = convertDate(by);
-        }
-    }
-    public String getBy() {
-        return by;
+        this.by = convertDate(by);
     }
 
     /**
-     * Checks if the provided deadline is in a valid format.
+     * Gets the deadline of the task.
      *
-     * @param by The deadline to be checked.
-     * @return True if the deadline is in a valid format, false otherwise.
+     * @return The deadline.
      */
-    private boolean isValidDateFormat(String by) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        try {
-            LocalDate date = LocalDate.parse(by, formatter);
-            String formattedDateTime = date.format(formatter);
-            return formattedDateTime.equals(by);
-        } catch (Exception e) {
-            return false;
-        }
+    public String getBy() {
+        return by;
     }
 
     /**
@@ -54,17 +43,15 @@ public class Deadline extends Task {
      * @return The deadline in a standard format.
      */
     private String convertDate(String by) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         try {
-            LocalDate date = LocalDate.parse(by, inputFormatter);
-            return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            LocalDate date = LocalDate.parse(by, INPUT_DATE_FORMATTER);
+            return date.format(STANDARD_DATE_FORMATTER);
         } catch (Exception e) {
             try {
-                LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                LocalDateTime dateTime = LocalDateTime.parse(by, INPUT_DATETIME_FORMATTER);
                 return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             } catch (Exception ex) {
-                return by;
+                return by; // If parsing fails, return the original string
             }
         }
     }
