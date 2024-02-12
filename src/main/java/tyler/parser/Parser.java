@@ -5,9 +5,19 @@ import tyler.exception.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This parser class is required to parse the line from System.in.
+ */
 public class Parser {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Parsing the line from System.in to a Command.
+     *
+     * @param line            The line needed to be parsed.
+     * @return                A specific command from command class.
+     * @throws TylerException May have name:null, invalid action, index:null
+     */
     public static Command parse(String line) throws TylerException {
         String[] input = line.split(" ");
         String command = input[0];

@@ -10,6 +10,9 @@ import java.nio.file.Paths;
 import java.io.IOException;
 
 
+/**
+ * The main class of Tyler that run Tyler.
+ */
 public class Tyler {
     
     private static final String FILE_PATH = Paths.get(".",  "data", "Tyler.txt").toString();
@@ -28,6 +31,9 @@ public class Tyler {
         }
     }
 
+    /**
+     * Run Tyler.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

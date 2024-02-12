@@ -3,6 +3,10 @@ package tyler.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task. Have two extra argument called start and end to indicate
+ * the started and ended date, time of this event.
+ */
 public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -20,6 +24,12 @@ public class Event extends Task {
         this.end = end;
         this.isDone = isDone;
     }
+
+    /**
+     * This method is used by storage when the storage need to save file to local.
+     *
+     * @return String representation of this task to be saved to the local.
+     */
 
     @Override
     public String saveToFileString() {

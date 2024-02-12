@@ -17,6 +17,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage handle the loadTask from local and saveTask to local.
+ */
 public class Storage {
     protected String filePath;
     private final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
@@ -24,6 +27,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the task from local given specific file path.
+     *
+     * @return             A Task ArrayList.
+     * @throws IOException The file or directory may not exist.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> loadTask = new ArrayList<>();
         try {
@@ -55,6 +64,11 @@ public class Storage {
         return loadTask;
     }
 
+    /**
+     * Save the taskList to local given the file path with a specific format.
+     *
+     * @param tasks taskList that needed to be saved to local.
+     */
     public void saveTask(TaskList tasks) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));

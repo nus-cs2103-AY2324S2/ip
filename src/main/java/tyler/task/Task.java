@@ -1,5 +1,8 @@
 package tyler.task;
 
+/**
+ * The task class which has a basic information which is name.
+ */
 public class Task {
     protected String name;
     protected boolean isDone;
@@ -9,24 +12,44 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * This method is used by execute method in all command class. Marked the task
+     * to be done and show the line that task is marked.
+     */
     public void mark() {
         this.isDone = true;
         System.out.println("    Nice! I've marked this task as done:");
         System.out.println("    " + this);
     }
 
+    /**
+     * This method is used by execute method in all command class. Unmarked the task
+     * to be not done and show the line that task is unmarked.
+     */
     public void unmark() {
         this.isDone = false;
         System.out.println("    OK, I've marked this task as not done yet:");
         System.out.println("    " + this);
     }
 
+    /**
+     * Used by String representation of the task. If marked then return a X, else
+     * return a space.
+     *
+     * @return X if marked, space if unmarked.
+     */
     public String getIcon() {
         if (isDone) {
             return "X";
         }
         return " ";
     }
+
+    /**
+     * This method is used by storage when the storage need to save file to local.
+     *
+     * @return String representation of this task to be saved to the local.
+     */
     public String saveToFileString() {
         int doned = this.isDone ? 1 : 0;
         return doned + " | " + this.name;

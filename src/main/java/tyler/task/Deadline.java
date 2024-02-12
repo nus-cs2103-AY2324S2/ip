@@ -3,6 +3,9 @@ package tyler.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task. Have an extra argument called end to store the deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime end;
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a");
@@ -18,6 +21,11 @@ public class Deadline extends Task {
         this.isDone = isDone;
     }
 
+    /**
+     * This method is used by storage when the storage need to save file to local.
+     *
+     * @return String representation of this task to be saved to the local.
+     */
     @Override
     public String saveToFileString() {
         return "D | " + super.saveToFileString() + " | " +  this.end.format(OUTPUT_DATE_FORMAT);
