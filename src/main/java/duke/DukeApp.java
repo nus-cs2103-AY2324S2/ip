@@ -38,6 +38,9 @@ public class DukeApp extends Application {
      * @param input the input from a user.
      */
     public void handler(String input) {
+        assert tasks != null : "tasks should not be null";
+        assert ui != null : "ui should not be null";
+        assert storage != null : "storage should not be null";
 
         try {
             Command c = Parser.parse(input);

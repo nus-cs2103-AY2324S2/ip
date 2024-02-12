@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.io.InputStream;
 import java.util.function.Consumer;
 
 import duke.DukeException;
@@ -23,21 +24,33 @@ import javafx.stage.Stage;
  */
 public class Ui extends Application {
 
+    private final String LOKI_FILE_PATH = "/images/Loki.png";
+    private final String THOR_FILE_PATH = "/images/Thor.png";
+
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image loki = new Image(this.getClass().getResourceAsStream("/images/Loki.png"));
-    private Image thor = new Image(this.getClass().getResourceAsStream("/images/Thor.png"));
-
+    private Image loki;
+    private Image thor;
     private Consumer<String> commandHandler;
 
     public Ui() {
+        this.loki = getImageFromPath(LOKI_FILE_PATH);
+        this.thor = getImageFromPath(THOR_FILE_PATH);
     }
 
     public Ui(Consumer<String> commandHandler) {
+        this();
         this.commandHandler = commandHandler;
+    }
+
+    public Image getImageFromPath(String path) {
+        InputStream resourceAsStream;
+        resourceAsStream = this.getClass().getResourceAsStream(path);
+        assert resourceAsStream != null;
+        return new Image(resourceAsStream);
     }
 
     @Override
@@ -201,10 +214,20 @@ public class Ui extends Application {
         fluffySpeak(sb.toString());
     }
 
+    /**
+     * Shows the task that was added to the task list.
+     * @param task The task that was added to the task list.
+     * @param newSize The new size of the task list.
+     */
     public void showTaskAdded(Task task, int newSize) {
         fluffySpeak("Got it. I've added this task:\n" + task + "\nNow you have " + newSize + " tasks in the list.");
     }
 
+    /**
+     * Shows a deleted task.
+     * @param task The task that was deleted.
+     * @param newSize The new size of the task list.
+     */
     public void showTaskDeleted(Task task, int newSize) {
         fluffySpeak("Noted. I've removed this task:\n" + task + "\nNow you have " + newSize + " tasks in the list.");
     }
