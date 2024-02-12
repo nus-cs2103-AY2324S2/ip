@@ -1,16 +1,16 @@
 package duke;
 
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.task.Deadline;
-import duke.task.Event;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 /**
  * Handles the storage of task data to and from a file.
@@ -19,8 +19,8 @@ import java.io.FileWriter;
  */
 public class Storage {
 
-    private final String file;
     private static final String FILE_PATH = "./data/jamie.txt";
+    private final String file;
 
     /**
      * Constructs a new Storage object.
@@ -87,11 +87,14 @@ public class Storage {
      * @param tasks The TaskList containing the tasks to be saved.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void save(TaskList tasks) throws IOException {
-        FileWriter writer = new FileWriter(FILE_PATH);
-        String textToAdd = convertToString((tasks.getTasks()));
-        writer.write(textToAdd);
-        writer.close();
+    public void save(TaskList tasks) {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            String textToAdd = convertToString((tasks.getTasks()));
+            writer.write(textToAdd);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error!");
+        }
     }
 
     /**

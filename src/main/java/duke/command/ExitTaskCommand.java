@@ -14,6 +14,7 @@ public class ExitTaskCommand extends Command {
      * @param taskList The task list (not used in this command).
      * @param ui       The user interface (not used in this command).
      * @param storage  The storage (not used in this command).
+     * @return
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         super.exit();
