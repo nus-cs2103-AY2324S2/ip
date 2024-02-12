@@ -226,6 +226,5 @@ public class Duke extends Application {
     public Ui getUi() {
         return this.ui;
     }
-
 }
 
