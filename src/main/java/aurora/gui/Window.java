@@ -67,7 +67,7 @@ public class Window extends AnchorPane {
      * @param a
      */
     public void setAurora(Aurora a) {
-        aurora = a;
+        this.aurora = a;
     }
 
     /**

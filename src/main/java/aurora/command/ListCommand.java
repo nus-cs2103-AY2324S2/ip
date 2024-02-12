@@ -35,13 +35,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void handle() {
-        ArrayList<Task> arrayFormList = this.taskList.getTaskList();
-        this.ui.printTaskList(arrayFormList);
-    }
-
-    @Override
-    public String handleGui() {
+    public String handle() {
         String message = "Command not executed.";
         ArrayList<Task> arrayFormList = this.taskList.getTaskList();
         message = this.ui.getTaskListString(arrayFormList);

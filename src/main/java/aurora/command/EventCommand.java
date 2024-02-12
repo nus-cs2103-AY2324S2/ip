@@ -43,49 +43,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void handle() throws AuroraException {
-        String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
-        if (descriptionAndDateSplit.length < 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
-        }
-        String descriptionAndDate = descriptionAndDateSplit[1];
-        String[] descriptionSplit = Parser.splitAtFirstFrom(descriptionAndDate);
-        if (descriptionSplit.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
-        }
-        String description = descriptionSplit[0];
-        String startEnd = descriptionSplit[1];
-        String[] startEndSplit = Parser.splitAtFirstTo(startEnd);
-        if (startEndSplit.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
-        } else {
-            try {
-                LocalDateTime startLdt = Parser.parseDate(startEndSplit[0].trim());
-                LocalDateTime endLdt = Parser.parseDate(startEndSplit[1].trim());
-                this.taskList.addEvent(description, startLdt, endLdt);
-                this.ui.echoAddTask(this.taskList);
-            } catch (DateTimeParseException e) {
-                throw new AuroraException("Invalid date format. Please use dd/MM/yyyy HHmm format for events.");
-            }
-        }
-        try {
-            storage.saveTasks(this.taskList.getTaskList());
-        } catch (IOException exception) {
-            System.out.println("Unable to save event to file: " + exception.getMessage());
-        }
-    }
-
-    @Override
-    public String handleGui() throws AuroraException {
+    public String handle() throws AuroraException {
         String message = "Command not executed.";
         String[] descriptionAndDateSplit = Parser.splitAtFirstBlank(this.command);
         if (descriptionAndDateSplit.length < 2) {

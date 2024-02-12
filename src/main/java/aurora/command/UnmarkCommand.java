@@ -40,34 +40,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void handle() throws AuroraException {
-        if (this.splitCommands.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter unmark, then the number of the task you want to unmark.");
-            // Solution adapted from https://www.baeldung.com/java-check-string-number
-        } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new AuroraException("Please enter an integer as the second input.");
-        } else if (Integer.parseInt(this.splitCommands[1]) <= 0) {
-            throw new AuroraException("Please enter an integer greater than 0 as the second input.");
-        } else if (Integer.parseInt(this.splitCommands[1]) > this.taskList.getTaskList().size()) {
-            throw new AuroraException("Please enter an integer representing a task within the list.");
-        } else if (!this.taskList.getTaskList().get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
-            throw new AuroraException("Task already unmarked.");
-        } else {
-            int taskIndex = Integer.parseInt(splitCommands[1]);
-            this.ui.printALine();
-            this.taskList.unmarkTask(taskIndex - 1);
-            this.ui.printALine();
-        }
-        try {
-            this.storage.saveTasks(this.taskList.getTaskList());
-        } catch (IOException exception) {
-            System.out.println("Unable to save edits: " + exception.getMessage());
-        }
-    }
-
-    @Override
-    public String handleGui() throws AuroraException {
+    public String handle() throws AuroraException {
         String message = "Command not executed.";
         if (this.splitCommands.length != 2) {
             throw new AuroraException("Invalid number of arguments!\n" +

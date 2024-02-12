@@ -80,7 +80,8 @@ public class Aurora {
             try {
                 String command = this.ui.nextCommand();
                 Command commandObj = this.parser.parseCommand(command);
-                commandObj.handle();
+                String resultString = commandObj.handle();
+                System.out.println(resultString);
                 isBye = commandObj.isBye();
             } catch (AuroraException exception) {
                 String exceptionMessage = exception.getExceptionMessage();
@@ -101,7 +102,7 @@ public class Aurora {
         String output = "Failed to get output from Parser.";
         try {
             Command outputCommand = this.parser.parseCommand(command);
-            output = outputCommand.handleGui();
+            output = outputCommand.handle();
         } catch (AuroraException exception) {
             output = exception.getExceptionMessage();
         }

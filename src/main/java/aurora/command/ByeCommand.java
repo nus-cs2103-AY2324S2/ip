@@ -32,12 +32,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void handle() {
-        this.ui.printExitMessage();
-    }
-
-    @Override
-    public String handleGui() {
+    public String handle() {
         return this.ui.getExitMessage();
     }
 

@@ -44,25 +44,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void handle() throws AuroraException {
-        if (this.splitCommands.length != 2) {
-            throw new AuroraException("Invalid number of arguments!\n" +
-                    "Make sure to enter find, then the keyword you wish to search for in the task list.");
-        } else {
-            String keyword = this.splitCommands[1].toLowerCase();
-            ArrayList<Task> tasks = this.taskList.getTaskList();
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                String description = task.getDescription().toLowerCase();
-                if (description.contains(keyword)) {
-                    this.foundList.add(task);
-                }
-            }
-            this.ui.printFoundList(this.foundList);
-        }
-    }
-    @Override
-    public String handleGui() throws AuroraException {
+    public String handle() throws AuroraException {
         String message = "Command not executed.";
         if (this.splitCommands.length != 2) {
             throw new AuroraException("Invalid number of arguments!\n" +

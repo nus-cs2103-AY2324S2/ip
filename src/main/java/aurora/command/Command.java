@@ -8,13 +8,6 @@ import aurora.objects.AuroraException;
 public class Command {
 
     /**
-     * Method to allow the program to handle a command.
-     */
-    public void handle() throws AuroraException {
-        System.out.println("This is a placeholder and should never be printed.");
-    };
-
-    /**
      * Method to indicate if a command is the 'bye' command.
      *
      * @return False if a command is not the 'bye' command, True if it is.
@@ -26,7 +19,7 @@ public class Command {
     /**
      * Method to allow the program to handle a command with GUI integration
      */
-    public String handleGui() throws AuroraException {
+    public String handle() throws AuroraException {
         return "This is a placeholder and should never be returned.";
     }
 }
