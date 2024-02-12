@@ -118,7 +118,9 @@ public class BobTaskList {
 
     private Task createTodoTask(String input) throws BobException {
 
-        if (input.length() == BobParser.TODO_COMMAND.length()) {
+        boolean hasNoArgs = input.trim().length() == BobParser.TODO_COMMAND.length();
+
+        if (hasNoArgs) {
             throw new BobException(
                     BobErrorMessages.getTodoExpectFormatMsg());
         }
@@ -131,7 +133,7 @@ public class BobTaskList {
     private Task createDeadlineTask(String input) throws BobException {
 
         boolean isInvalidFormat = !input.contains("/by");
-        boolean hasNoArgs = input.length() == BobParser.DEADLINE_COMMAND.length();
+        boolean hasNoArgs = input.trim().length() == BobParser.DEADLINE_COMMAND.length();
 
         if (isInvalidFormat || hasNoArgs) {
             throw new BobException(
@@ -156,7 +158,7 @@ public class BobTaskList {
     private Task createEventTask(String input) throws BobException {
 
         boolean isInvalidFormat = !input.contains("/from") && !input.contains("/to");
-        boolean hasNoArgs = input.length() == BobParser.EVENT_COMMAND.length();
+        boolean hasNoArgs = input.trim().length() == BobParser.EVENT_COMMAND.length();
 
         if (isInvalidFormat || hasNoArgs) {
             throw new BobException(
