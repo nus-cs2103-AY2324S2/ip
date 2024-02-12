@@ -91,7 +91,11 @@ public abstract class Task { // Adapted from partial solution provided on CS2103
     }
 
     public String getTagsString() {
-        StringBuilder output = new StringBuilder("Tags: ");
+        if (tags.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder output = new StringBuilder("\nTags: ");
 
         for (int i = 0; i < tags.size(); i++) {
             if (i == tags.size() - 1) {

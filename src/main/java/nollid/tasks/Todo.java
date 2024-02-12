@@ -32,7 +32,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + "\n"
-                + super.getTagsString();
+        return "[T]" + super.toString() + super.getTagsString();
     }
 }
