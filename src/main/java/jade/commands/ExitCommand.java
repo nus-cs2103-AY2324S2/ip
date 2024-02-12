@@ -8,7 +8,7 @@ import jade.storage.Storage;
  * The <code>ExitCommand</code> object represents the command to exit the program.
  */
 public class ExitCommand extends Command {
-    private static final String RESULT_MSG_FORMATTED = "Bye. Hope to see you again soon.";
+    private static final String RESULT_MSG_FORMATTED = "Thank you for using Jade, have a great day. :D";
     /**
      * @inheritDoc This implementation prints a farewell message after saving changes to the local file.
      */

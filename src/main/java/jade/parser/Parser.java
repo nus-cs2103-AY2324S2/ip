@@ -11,6 +11,7 @@ import jade.commands.Command;
 import jade.commands.DeleteCommand;
 import jade.commands.ExitCommand;
 import jade.commands.FindCommand;
+import jade.commands.HelpCommand;
 import jade.commands.InvalidCommand;
 import jade.commands.ListCommand;
 import jade.commands.MarkCommand;
@@ -54,11 +55,27 @@ public class Parser {
      * @param length   The expected length of the command array.
      * @throws JadeException If the command length is less than expected length.
      */
-    public static void checkEmptyDescription(int length, String... commands) throws JadeException {
+    private static void checkEmptyDescription(int length, String... commands) throws JadeException {
         if (commands.length < length) {
             throw new JadeException("Your task description cannot be empty!");
         }
     }
+
+    /**
+     * Checks when the first string in command is valid,
+     * but has invalid strings after the first one.
+     * E.g. bye lah will be considered invalid.
+     *
+     * @param commands Array of commands.
+     * @param length   The expected length of the command array.
+     * @throws JadeException If the command length is less than expected length.
+     */
+    private static void checkLongCommand(int length, String... commands) throws JadeException {
+        if (commands.length > length) {
+            throw new JadeException("Your command has an invalid end part!");
+        }
+    }
+
 
     /**
      * Returns a LocalDateTime object by parsing the dateTime string.
@@ -129,6 +146,8 @@ public class Parser {
                 return parseFind(commands);
             case "bye":
                 return parseBye(commands);
+            case "help":
+                return parseHelp(commands);
             default:
                 assert false : commands[0];
                 return parseInvalid();
@@ -205,8 +224,15 @@ public class Parser {
      * Returns an ExitCommand when the first parsed string is bye.
      */
     private static ExitCommand parseBye(String[] commands) throws JadeException {
-        checkEmptyDescription(1, commands);
+        checkLongCommand(1, commands);
         return new ExitCommand();
+    }
+    /**
+     * Returns an ExitCommand when the first parsed string is help.
+     */
+    private static HelpCommand parseHelp(String[] commands) throws JadeException {
+        checkLongCommand(1, commands);
+        return new HelpCommand();
     }
     /**
      * Returns an InvalidCommand when the input string is invalid.
