@@ -33,6 +33,7 @@ public class Parser {
         boolean status = true;
         try {
             String cmd = command.execute(lst);
+            assert cmd != null : "Command cannot be null";
             String result = "";
             switch (command.getType()) {
             case DEADLINE:
@@ -63,11 +64,12 @@ public class Parser {
                 result = "bye";
                 break;
             default:
-                status = true;
+                result = "None";
 
 
 
             }
+            assert result.equals("None") : "Invalid task added";
 
             storage.saveTask(lst);
             return result;
