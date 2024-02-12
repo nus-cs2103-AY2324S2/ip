@@ -79,6 +79,7 @@ public class Duke {
                         return lst.deleteTask(Integer.parseInt(taskDetail.trim()));
 
                     case FIND:
+                        assert lst != null;
                         Finder finder = new Finder(lst);
                         return finder.find(taskDetail);
 

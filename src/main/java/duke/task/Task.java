@@ -49,14 +49,18 @@ public class Task implements Serializable {
     /**
      * Marks the task as complete.
      */
-    public void markComplete() {
+     public void markComplete() {
         this.isDone = true;
-    }
+     }
 
     /**
      * Marks the task as incomplete.
      */
     public void unmarkComplete() {
         this.isDone = false;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 }
