@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
-    protected LocalDateTime endTime;
+    protected LocalDateTime END_TIME;
 
     /**
      * Constructs a new Deadline instance.
@@ -16,7 +16,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime endTime) {
         super(description);
-        this.endTime = endTime;
+        this.END_TIME = endTime;
     }
 
     /**
@@ -28,7 +28,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return "D |" + super.toString().substring(1) + "| " + endTime.format(formatter);
+        return "D |" + super.toString().substring(1) + "| " + END_TIME.format(formatter);
     }
 
     /**
@@ -54,6 +54,6 @@ public class Deadline extends Task {
      * @return The end time of the deadline task.
      */
     public LocalDateTime getEndTime() {
-        return endTime;
+        return END_TIME;
     }
 }
