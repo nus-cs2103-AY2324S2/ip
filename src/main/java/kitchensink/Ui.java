@@ -8,7 +8,7 @@ import kitchensink.task.Task;
  * In charge of printing statements, to confirm to the user that the action is completed.
  */
 public class Ui {
-    public static final String LINE = "__________________________________________________________\n";
+    public static final String LINE = "________________________________________________________\n";
 
 //    /**
 //     * Processes the user's input into a String.

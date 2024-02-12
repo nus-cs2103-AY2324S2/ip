@@ -1,5 +1,6 @@
 package kitchensink;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -46,13 +47,17 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws TaskNotFoundException, UnknownCommandException, InvalidSyntaxException, IOException, InvalidDateTimeException {
+    private void handleUserInput() throws TaskNotFoundException, UnknownCommandException, InvalidSyntaxException,
+            IOException, InvalidDateTimeException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        if (input.equalsIgnoreCase("bye")) {
+            Platform.exit();
+        }
         userInput.clear();
     }
 }

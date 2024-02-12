@@ -60,11 +60,12 @@ public class Parser {
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new InvalidSyntaxException("mark");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
             if (!taskList.isValidTaskNum(taskNum)) {
+//                return new TaskNotFoundException(taskList).toString();
                 throw new TaskNotFoundException(taskList);
             }
             return taskList.markTask(taskNum - 1, storage, ui);
@@ -75,7 +76,9 @@ public class Parser {
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+//                InvalidSyntaxException exception = new InvalidSyntaxException("unmark");
+//                return exception.toString();
                 throw new InvalidSyntaxException("unmark");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
@@ -126,7 +129,7 @@ public class Parser {
             }
             try {
                 Integer.parseInt(input.split(" ")[1]);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 throw new InvalidSyntaxException("delete");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
