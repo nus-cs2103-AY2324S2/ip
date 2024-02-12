@@ -1,13 +1,13 @@
 package alpaca.actions;
 
+import alpaca.exceptions.InvalidInput;
+import alpaca.exceptions.ValueNotFound;
+import alpaca.tasks.Task;
+
 import java.util.ArrayList;
 
-import alpaca.tasks.Task;
-import alpaca.exceptions.ValueNotFound;
-import alpaca.exceptions.InvalidInput;
-
 /**
- * Handles the creation of {@link alpaca.tasks.Event}
+ * Handles the creation of {@link alpaca.tasks.Event}.
  **/
 public abstract class Event extends Template {
     protected static String trigger = "event";
@@ -17,8 +17,8 @@ public abstract class Event extends Template {
     }
 
     /**
-     * Creates a Event task and adds it to the list
-     * 
+     * Creates a Event task and adds it to the list.
+     *
      * @param input The command inputted
      * @param list  The list to put the newly created task in
      * @throws ArrayIndexOutOfBoundsException If an item with that index does not

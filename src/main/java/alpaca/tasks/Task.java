@@ -1,11 +1,11 @@
 package alpaca.tasks;
 
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Task {
     private String name;
@@ -47,7 +47,8 @@ public abstract class Task {
     private void processDates() {
         this.dates = new ArrayList<>();
         Pattern pattern = Pattern.compile(
-                "\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}-\\d{4}|\\d{4}\\/\\d{1,2}\\/\\d{1,2}|\\d{1,2}\\/\\d{1,2}\\/\\d{4}");
+                "\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}-\\d{4}"
+                        + "|\\d{4}\\/\\d{1,2}\\/\\d{1,2}|\\d{1,2}\\/\\d{1,2}\\/\\d{4}");
         Matcher matcher = pattern.matcher(this.name);
         while (matcher.find()) {
             try {
@@ -69,12 +70,14 @@ public abstract class Task {
     private void processParams() {
         Pattern pattern = Pattern.compile("^[^\\/]+");
         Matcher matcher = pattern.matcher(this.name);
-        if (!matcher.find())
+        if (!matcher.find()) {
             return;
+        }
         String result = matcher.group();
         String tmp = this.name.replaceFirst("^[^/]+", "");
-        if (tmp.equals(""))
+        if (tmp.equals("")) {
             return;
+        }
         tmp = tmp.replaceAll("(/)([a-zA-Z]+)(\\s|$)", "$2:$3");
         this.name = result + "(" + tmp + ")";
     }
@@ -84,7 +87,8 @@ public abstract class Task {
         String mark = "[" + (this.isDone() ? "X" : " ") + "]";
         String content = this.name;
         for (LocalDate date : dates) {
-            content = content.replaceFirst("~", date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+            content = content.replaceFirst(
+                    "~", date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
         return type + mark + " " + content;
     }
