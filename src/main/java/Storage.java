@@ -1,13 +1,18 @@
 import java.io.*;
-import java.util.Arrays;
 
-public class SaveAndLoad {
+public class Storage {
+
+    String filePath;
 
     enum TaskType {
         ToDo, Deadline, Event
     }
 
-    public static void save(Task[] listOfTasks) {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void save(TaskList tasks) {
         StringBuilder textOutput = new StringBuilder();
         for (Task task : listOfTasks) {
             if (task == null) {
@@ -17,7 +22,7 @@ public class SaveAndLoad {
         }
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("balkanbot.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
             writer.write(textOutput.toString());
             writer.close();
 
@@ -40,10 +45,10 @@ public class SaveAndLoad {
         }
     }
 
-    public static void load(Task[] listOfTasks) {
+    public void load(TaskList tasks) {
         String[] textInput = new String[100];
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("balkanbot.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
             String line;
             int counter = 0;
             while ((line = reader.readLine()) != null) {

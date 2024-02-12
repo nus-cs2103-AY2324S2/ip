@@ -3,6 +3,20 @@ import java.util.Scanner;
 
 public class BalkanBot {
     private static final String line = "------------------------------------------";
+    private Storage storage;
+    private TaskList tasks;
+    //private Ui ui;
+
+    public BalkanBot(String filePath) {
+        //ui = new Ui();
+        storage = new Storage(filePath);
+        /*try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }*/
+    }
 
     public static void printComplexTask(Task[] arr, int current) {
         System.out.println(line);
@@ -20,10 +34,9 @@ public class BalkanBot {
         System.out.println(line);
     }
 
-    public static void main(String[] args) {
+    public void run() {
         String line = "------------------------------------------";
-        Task[] listOfTasks = new Task[100];
-        SaveAndLoad.load(listOfTasks);
+        storage.load(listOfTasks);
 
         int current = 0;
         String state = "Now you have " + current + 1 + " tasks in the list.";
@@ -43,7 +56,7 @@ public class BalkanBot {
                 System.out.println(line);
                 System.out.println("Јебаћу ти бабицу");
                 System.out.println(line);
-                SaveAndLoad.save(listOfTasks);
+                storage.save(listOfTasks);
                 break;
             } else if (command.equals("list")) {
                 StringBuilder listOutput = new StringBuilder();
@@ -201,5 +214,9 @@ public class BalkanBot {
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new BalkanBot("balkanbot.txt").run();
     }
 }
