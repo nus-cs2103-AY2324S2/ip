@@ -27,6 +27,8 @@ public class Duke {
             System.out.println(e.getMessage());
             this.tasks = new TaskList();
         }
+
+        assert this.tasks != null : "Task should not be null";
     }
 
     /**

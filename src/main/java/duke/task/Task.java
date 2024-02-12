@@ -40,13 +40,17 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-        isDone = true; }
+        isDone = true;
+        assert this.isDone : "Task should be marked as done";
+    }
 
     /**
      * Marks the task as not done.
      */
     public void markAsUndone() {
-        isDone = false; }
+        isDone = false;
+        assert !this.isDone : "Task should be marked as not done";
+    }
 
     /**
      * Abstract method to generate the formatted content of the task for writing to file.
