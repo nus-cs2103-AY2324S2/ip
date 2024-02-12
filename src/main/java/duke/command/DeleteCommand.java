@@ -11,7 +11,7 @@ import duke.task.Task;
 public class DeleteCommand extends Command {
 
     private int zeroItem;
-
+    
     /**
      * Constructs a DeleteCommand given the task number to be deleted.
      *
