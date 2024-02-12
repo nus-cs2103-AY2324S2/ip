@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,6 +109,9 @@ public class Storage {
     public void readTasksFromJsonFile(TaskList taskList) throws TaskListCorruptedException {
         try {
             this.initFileIfNotExist();
+
+            assert (new String(Files.readAllBytes(Paths.get(this.getFullPath()))).equals("[]")) :
+                    "New task file created is not initialised properly (i.e. does not contain '[]'`)";
 
             String jsonContent = new String(Files.readAllBytes(Paths.get(this.getFullPath())));
             JSONArray jsonArray = new JSONArray(jsonContent);

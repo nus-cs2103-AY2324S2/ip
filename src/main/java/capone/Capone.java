@@ -4,7 +4,6 @@ import capone.commands.Command;
 import capone.exceptions.CaponeException;
 import capone.exceptions.TaskListCorruptedException;
 import capone.ui.Ui;
-import capone.ui.cli.Cli;
 
 /**
  * The main class responsible for running the application and handling user commands.
@@ -27,7 +26,7 @@ public class Capone {
     public Capone(String taskListPath, String taskListName) {
         this.storage = new Storage(taskListPath, taskListName);
         this.tasks = new TaskList();
-        this.ui = new Cli();
+        this.ui = new Ui();
     }
 
     /**
@@ -36,7 +35,7 @@ public class Capone {
     public Capone() {
         this.storage = new Storage(Capone.STORAGE_PATH, Capone.STORAGE_FILE);
         this.tasks = new TaskList();
-        this.ui = new Cli();
+        this.ui = new Ui();
     }
 
     /**
@@ -59,7 +58,6 @@ public class Capone {
      */
     public void runGui() {
         try {
-            assert false : "test";
             this.storage.readTasksFromJsonFile(this.tasks);
         } catch (TaskListCorruptedException e) {
             System.out.println(e.getMessage());
