@@ -9,6 +9,7 @@ public class Deadline implements Item {
     private String name;
     private String status;
     private LocalDateTime ddl;
+    private boolean includeTime;
 
     public Deadline(String name, String status, String ddl) throws RickException {
         try {
@@ -19,6 +20,7 @@ public class Deadline implements Item {
                 throw new RickException("due when?");
             }
             this.name = name;
+            this.includeTime = !(ddl.length() == 10);
             this.ddl = ddl.length() == 10 ? LocalDateTime.parse(ddl + "T00:00:00")
                     : LocalDateTime.parse(ddl);
             this.status = status;
@@ -29,8 +31,14 @@ public class Deadline implements Item {
     }
     @Override
     public String toString(){
-        return "[D]" + this.status + " " + this.name + " (by: " +
-                this.ddl.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+        if (this.includeTime) {
+            return "[D]" + this.status + " " + this.name + " (by: " +
+                    this.ddl.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+        } else {
+            return "[D]" + this.status + " " + this.name + " (by: " +
+                    this.ddl.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        }
+
     }
     public void mark() {
         this.status = "[X]";

@@ -9,6 +9,7 @@ public class Event implements Item {
     private String status;
     private LocalDateTime from;
     private LocalDateTime to;
+    private boolean includeTime;
 
     public Event(String name, String status, String from, String to) throws RickException {
         try {
@@ -23,6 +24,7 @@ public class Event implements Item {
             }
             this.name = name;
             this.status = status;
+            this.includeTime = !(from.length() == 10 && to.length() == 10);
             this.from = from.length() == 10 ? LocalDateTime.parse(from + "T00:00:00")
                     : LocalDateTime.parse(from);
             this.to = to.length() == 10 ? LocalDateTime.parse(to + "T00:00:00")
@@ -34,9 +36,15 @@ public class Event implements Item {
     }
     @Override
     public String toString(){
-        return "[E]" + this.status + " " + this.name +
-                " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) +
-                " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+        if (this.includeTime) {
+            return "[E]" + this.status + " " + this.name +
+                    " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) +
+                    " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm:ss")) + ")";
+        } else {
+            return "[E]" + this.status + " " + this.name +
+                    " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
+                    " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        }
     }
     public void mark() {
         this.status = "[X]";
