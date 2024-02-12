@@ -5,6 +5,14 @@ package BotChat;
  */
 public class Parser {
 
+    private static final int TASK_TYPE_INDEX = 1;
+    private static final int IS_DONE_INDEX = 5;
+    private static final int DESCRIPTION_INDEX = 8;
+
+    private static final String TODO_IDENTIFIER = "T";
+    private static final String DEADLINE_IDENTIFIER = "D";
+    private static final String EVENT_IDENTIFIER = "E";
+
     /**
      * Parses a string representation of a command and returns the corresponding Command enum.
      *
@@ -26,53 +34,57 @@ public class Parser {
      * @return The Task object created based on the input string, or null if parsing fails.
      */
     public static Task convertTask(String line) {
-        String taskType = line.substring(1, 2);
-        boolean isDone = line.substring(5, 6).equals("X");
-        String description;
-
-        if (taskType.equals("T")) {
-            description = line.substring(8);
-        } else if (taskType.equals("D")) {
-            int byIndex = line.indexOf("(by: ");
-            int endIndex = line.indexOf(")");
-            description = line.substring(8, byIndex - 1) + line.substring(endIndex + 1);
-        } else if (taskType.equals("E")) {
-            int fromIndex = line.indexOf("(from: ");
-            int toIndex = line.indexOf(" to: ");
-            int endIndex = line.indexOf(")");
-            description = line.substring(8, fromIndex - 1) + line.substring(endIndex + 1);
-        } else {
-            return null;
-        }
-
-        Task task;
+        String taskType = line.substring(TASK_TYPE_INDEX, TASK_TYPE_INDEX + 1);
+        boolean isDone = line.substring(IS_DONE_INDEX, IS_DONE_INDEX + 1).equals("X");
+        String description = line.substring(DESCRIPTION_INDEX);
 
         switch (taskType) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            int byIndex = line.indexOf("(by: ");
-            int endIndex = line.indexOf(")");
-            String by = line.substring(byIndex + 5, endIndex);
-            task = new Deadline(description, by);
-            break;
-        case "E":
-            int fromIndex = line.indexOf("(from: ");
-            int toIndex = line.indexOf(" to: ");
-            int end = line.indexOf(")");
-            String from = line.substring(fromIndex + 7, toIndex);
-            String to = line.substring(toIndex + 5, end);
-            task = new Event(description, from, to);
-            break;
+        case TODO_IDENTIFIER:
+            return new Todo(description);
+        case DEADLINE_IDENTIFIER:
+            return createDeadlineTask(description, line);
+        case EVENT_IDENTIFIER:
+            return createEventTask(description, line);
         default:
             return null;
         }
+    }
 
-        if (isDone) {
-            task.mark();
+    /**
+     * Creates a Deadline task based on the provided description and line.
+     *
+     * @param description The description of the deadline task.
+     * @param line        The string representation of the task.
+     * @return The created Deadline task.
+     */
+    private static Task createDeadlineTask(String description, String line) {
+        int byIndex = line.indexOf("(by: ");
+        int endIndex = line.indexOf(")");
+        String by = line.substring(byIndex + 5, endIndex);
+        Deadline deadlineTask = new Deadline(description, by);
+        if (line.charAt(IS_DONE_INDEX) == 'X') {
+            deadlineTask.mark();
         }
+        return deadlineTask;
+    }
 
-        return task;
+    /**
+     * Creates an Event task based on the provided description and line.
+     *
+     * @param description The description of the event task.
+     * @param line        The string representation of the task.
+     * @return The created Event task.
+     */
+    private static Task createEventTask(String description, String line) {
+        int fromIndex = line.indexOf("(from: ");
+        int toIndex = line.indexOf(" to: ");
+        int endIndex = line.indexOf(")");
+        String from = line.substring(fromIndex + 7, toIndex);
+        String to = line.substring(toIndex + 5, endIndex);
+        Event eventTask = new Event(description, from, to);
+        if (line.charAt(IS_DONE_INDEX) == 'X') {
+            eventTask.mark();
+        }
+        return eventTask;
     }
 }

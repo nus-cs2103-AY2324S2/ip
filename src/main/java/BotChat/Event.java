@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
  * Extends the base Task class.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter STANDARD_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter INPUT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     protected String from;
     protected String to;
 
@@ -22,21 +26,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-
-        // Assert that description is not null or empty
-        assert description != null && !description.isEmpty() : "Description should not be null or empty";
-
-        // Assert that from and to are not null or empty
-        assert from != null && !from.isEmpty() : "Start date/time should not be null or empty";
-        assert to != null && !to.isEmpty() : "End date/time should not be null or empty";
-
-        if (isValidDateFormat(from) && isValidDateFormat(to)) {
-            this.from = from;
-            this.to = to;
-        } else {
-            this.from = convertDate(from);
-            this.to = convertDate(to);
-        }
+        this.from = convertDate(from);
+        this.to = convertDate(to);
     }
     public String getFrom() {
         return from;
@@ -46,42 +37,21 @@ public class Event extends Task {
     }
 
     /**
-     * Checks if the provided date is in a valid format.
-     *
-     * @param by The date to be checked.
-     * @return True if the date is in a valid format, false otherwise.
-     */
-    private boolean isValidDateFormat(String by) {
-        // Assert that by is not null or empty
-        assert by != null && !by.isEmpty() : "Date should not be null or empty";
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        try {
-            LocalDate date = LocalDate.parse(by, formatter);
-            String formattedDateTime = date.format(formatter);
-            return formattedDateTime.equals(by);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
      * Converts the date to a standard format.
      *
-     * @param by The date to be converted.
+     * @param date The date to be converted.
      * @return The date in a standard format.
      */
-    private String convertDate(String by) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private String convertDate(String date) {
         try {
-            LocalDate date = LocalDate.parse(by, inputFormatter);
-            return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            LocalDate parsedDate = LocalDate.parse(date, INPUT_DATE_FORMATTER);
+            return parsedDate.format(STANDARD_DATE_FORMATTER);
         } catch (Exception e) {
             try {
-                LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                LocalDateTime parsedDateTime = LocalDateTime.parse(date, INPUT_DATETIME_FORMATTER);
+                return parsedDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             } catch (Exception ex) {
-                return by;
+                return date; // Return the original date if parsing fails
             }
         }
     }
