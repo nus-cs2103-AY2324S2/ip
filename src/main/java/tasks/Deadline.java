@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
@@ -16,7 +17,7 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The deadline date in the format of a String that can be parsed as a LocalDate.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeException {
         super(description);
         this.by = LocalDate.parse(by);
     }

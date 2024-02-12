@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
@@ -18,7 +19,7 @@ public class Event extends Task {
      * @param from The start date of the event in the format of a String that can be parsed as a LocalDate.
      * @param to The end date of the event in the format of a String that can be parsed as a LocalDate.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeException {
         super(description);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);

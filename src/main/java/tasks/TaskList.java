@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 
 import exceptions.DukeException;
@@ -118,6 +119,8 @@ public class TaskList {
                 throw new DukeException("Deadlines need a deadline, yapper!");
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("Whats the task, yapper???");
+            } catch (DateTimeException e) {
+                throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
             }
             break;
         case "event":
@@ -130,11 +133,14 @@ public class TaskList {
                 throw new DukeException("YAPYAP, What time is your from and to?");
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("Whats the task, yapper???");
+            } catch (DateTimeException e) {
+                throw new DukeException("Please put dates in format \"yyyy-mm-dd\"");
             }
             break;
-        default:
+        default: {
             //should not reach here because of filter in main logic
             task = new Task(message);
+        }
         }
         return task;
     }
