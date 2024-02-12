@@ -1,24 +1,31 @@
 package duke;
 
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+
+/**
+ * The main class for the Duck chatbot application.
+ * Duke extends the JavaFX Application class and provides the graphical user interface for the chatbot.
+ */
 public class Duke extends Application {
+    private static final String FILE_PATH = "./data/duke.txt";
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/bot.png"));
-    private static final String FILE_PATH = "./data/duke.txt";
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
@@ -37,10 +44,22 @@ public class Duke extends Application {
 
     }
 
+    /**
+     * The main entry point for the application.
+     * Launches the JavaFX application.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Initializes and sets up the GUI for the Duck chatbot application.
+     * Overrides the start method of the Application class.
+     *
+     * @param primaryStage The primary stage for the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         ui = new Ui();
@@ -147,6 +166,12 @@ public class Duke extends Application {
     }
 
 
+    /**
+     * Handles user input submitted through the chat interface.
+     * Displays the user input and Duck's response in the conversation area.
+     * Executes commands based on user input and displays the result.
+     * Clears the input field after processing.
+     */
     @FXML
     private void handleUserInput() {
         String userInputText = userInput.getText();
@@ -199,8 +224,12 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-
-
+    /**
+     * Gets a response from Duck chatbot based on user input.
+     *
+     * @param input The user input.
+     * @return The response from Duck chatbot.
+     */
     private String getResponse(String input) {
         return "Duck heard: " + input;
     }
