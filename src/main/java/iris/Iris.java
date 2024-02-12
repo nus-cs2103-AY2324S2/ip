@@ -1,6 +1,8 @@
 package iris;
 
+import Exceptions.InvalidInputException;
 import commands.Command;
+import exceptions.LoadCacheException;
 import storage.Storage;
 import TaskList.TaskList;
 import parser.Parser;
@@ -13,22 +15,24 @@ public class Iris {
     private final Parser parser;
 
     public Iris() {
-        this.storage = new Storage();
         this.taskList = new TaskList();
         this.parser = new Parser();
         try {
+            this.storage = new Storage();
             storage.loadCache(this.taskList);
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException | LoadCacheException e) {
             throw new RuntimeException(e);
         }
     }
 
     private String executeCommand(Command command) {
         try {
-            command.setData(this.taskList);
+            command.setData(this.taskList, this.storage);
             String result = command.execute();
             this.storage.saveToCache(this.taskList);
             return result;
+        } catch (InvalidInputException | LoadCacheException e) {
+            return e.getMessage();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
