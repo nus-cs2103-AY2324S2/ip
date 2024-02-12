@@ -5,8 +5,13 @@ import nihao.handler.DataHandler;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the list action.
+ */
 public class ListAction implements Action{
-    public ListAction() {}
+    /**
+     * Prints the tasks list.
+     */
     @Override
     public void execute() {
         ArrayList<Task> data = DataHandler.getData();

@@ -1,5 +1,8 @@
 package nihao.enums;
 
+/**
+ * Represents a collection of saved Strings for printing.
+ */
 public enum SavedString {
     LOGO("::::    ::: ::::::::::: :::    :::     :::      ::::::::  \n"
             + ":+:+:   :+:     :+:     :+:    :+:   :+: :+:   :+:    :+: \n"
@@ -17,6 +20,9 @@ public enum SavedString {
         CONTENT = str;
     }
 
+    /**
+     * Returns the String represented by the specific enum item.
+     */
     public String getContent() {
         return CONTENT;
     }

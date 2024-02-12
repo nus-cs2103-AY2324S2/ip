@@ -16,8 +16,17 @@ import nihao.exception.UnknownCommandException;
 
 import java.time.LocalDateTime;
 
+/**
+ * Parses the input String and returns runnable Action objects.
+ */
 public class InputHandler {
     InputHandler() {}
+
+    /**
+     * @param input User input command.
+     * @return An executable action to run the specified command.
+     * @throws Exception When the command is not in an acceptable format.
+     */
     public static Action handleInput(String input) throws Exception {
         String[] parsedInput = input.split(" ");
         String commandName = parsedInput[0];

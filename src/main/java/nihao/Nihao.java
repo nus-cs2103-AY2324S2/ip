@@ -7,10 +7,16 @@ import nihao.handler.PrintHandler;
 
 import java.util.Scanner;
 
+/**
+ * Contains the main application logic for the Nihao app.
+ */
 public final class Nihao {
     public static final Nihao instance = new Nihao();
     private Nihao() {}
 
+    /**
+     * Reads use input and executes the main logic.
+     */
     public void run() {
         PrintHandler.printInit();
 

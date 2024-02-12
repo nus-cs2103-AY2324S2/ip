@@ -25,7 +25,7 @@ class DataHandlerTest {
     void handleData() {
         ArrayList<Task> copy = DataHandler.tasks;
         ArrayList<Task> before = DataHandler.tasks;
-        DataHandler.handleData(eventTask);
+        DataHandler.addTask(eventTask);
         before.add(eventTask);
         assertEquals(before, DataHandler.tasks);
         DataHandler.tasks = copy;
